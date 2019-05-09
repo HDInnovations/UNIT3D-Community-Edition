@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follow;
 use App\Notifications\NewFollow;
@@ -27,18 +28,18 @@ class FollowController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function follow(User $user)
+    public function follow(Request $request, User $user)
     {
-        if (auth()->user()->id == $user->id) {
+        if ($request->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->withErrors('Nice try, but sadly you can not follow yourself.');
-        } elseif (! auth()->user()->isFollowing($user->id)) {
+        } elseif (! $request->user()->isFollowing($user->id)) {
             $follow = new Follow();
-            $follow->user_id = auth()->user()->id;
+            $follow->user_id = $request->user()->id;
             $follow->target_id = $user->id;
             $follow->save();
-            if ($user->acceptsNotification(auth()->user(), $user, 'account', 'show_account_follow')) {
-                $user->notify(new NewFollow('user', auth()->user(), $user, $follow));
+            if ($user->acceptsNotification($request->user(), $user, 'account', 'show_account_follow')) {
+                $user->notify(new NewFollow('user', $request->user(), $user, $follow));
             }
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
@@ -56,13 +57,13 @@ class FollowController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unfollow(User $user)
+    public function unfollow(Request $request, User $user)
     {
-        if (auth()->user()->isFollowing($user->id)) {
-            $follow = auth()->user()->follows()->where('target_id', '=', $user->id)->first();
+        if ($request->user()->isFollowing($user->id)) {
+            $follow = $request->user()->follows()->where('target_id', '=', $user->id)->first();
             $follow->delete();
-            if ($user->acceptsNotification(auth()->user(), $user, 'account', 'show_account_unfollow')) {
-                $user->notify(new NewUnfollow('user', auth()->user(), $user, $follow));
+            if ($user->acceptsNotification($request->user(), $user, 'account', 'show_account_unfollow')) {
+                $user->notify(new NewUnfollow('user', $request->user(), $user, $follow));
             }
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])

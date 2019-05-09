@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Poll;
 use App\Models\Voter;
 use App\Models\Option;
@@ -55,10 +56,10 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
-        $user = auth()->user();
+        $user = $request->user();
         $user_has_voted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
@@ -78,7 +79,7 @@ class PollController extends Controller
      */
     public function vote(VoteOnPoll $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $poll = Option::findOrFail($request->input('option.0'))->poll;
 
         foreach ($request->input('option') as $option) {

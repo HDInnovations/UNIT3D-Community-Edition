@@ -27,7 +27,7 @@ class CheckForAdmin
      */
     public function handle($request, Closure $next)
     {
-        abort_unless(auth()->user()->group->is_admin, 403);
+        abort_unless($request->user()->group->is_admin, 403);
 
         return $next($request);
     }

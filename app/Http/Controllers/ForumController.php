@@ -68,7 +68,7 @@ class ForumController extends Controller
     {
         $categories = Forum::oldest('position')->get();
 
-        $user = auth()->user();
+        $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
         if (! is_array($pests)) {
@@ -203,7 +203,7 @@ class ForumController extends Controller
      */
     public function subscriptions(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
         if (! is_array($pests)) {
@@ -260,7 +260,7 @@ class ForumController extends Controller
      */
     public function latestTopics(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
         if (! is_array($pests)) {
@@ -294,7 +294,7 @@ class ForumController extends Controller
      */
     public function latestPosts(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
         if (! is_array($pests)) {
@@ -489,13 +489,13 @@ class ForumController extends Controller
      */
     public function reply(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! auth()->user()->group->is_modo)) {
+        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
             return redirect()->route('forum_index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
@@ -645,7 +645,7 @@ class ForumController extends Controller
      */
     public function newTopic(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
 
@@ -770,7 +770,7 @@ class ForumController extends Controller
      */
     public function editTopic(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $topic = Topic::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
@@ -818,7 +818,7 @@ class ForumController extends Controller
      */
     public function postEdit(Request $request, $postId)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
@@ -837,9 +837,9 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postDelete($postId)
+    public function postDelete(Request $request, $postId)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
@@ -857,9 +857,9 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function closeTopic($slug, $id)
+    public function closeTopic(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $topic = Topic::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
@@ -878,9 +878,9 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function openTopic($slug, $id)
+    public function openTopic(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $topic = Topic::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
@@ -899,9 +899,9 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteTopic($slug, $id)
+    public function deleteTopic(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $topic = Topic::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);

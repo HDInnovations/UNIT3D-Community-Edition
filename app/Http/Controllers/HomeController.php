@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Poll;
 use App\Models\Post;
@@ -32,10 +33,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(Request $request)
     {
         // Authorized User
-        $user = auth()->user();
+        $user = $request->user();
 
         // Latest Articles/News Block
         $articles = Article::latest()->take(1)->get();

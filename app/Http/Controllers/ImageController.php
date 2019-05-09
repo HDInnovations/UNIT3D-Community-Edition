@@ -43,7 +43,7 @@ class ImageController extends Controller
     public function add(Request $request)
     {
         $image = new Image();
-        $image->user_id = auth()->user()->id;
+        $image->user_id = $request->user()->id;
         $image->album_id = $request->input('album_id');
         $image->description = $request->input('description');
         $image->type = $request->input('type');
@@ -84,7 +84,7 @@ class ImageController extends Controller
      */
     public function move(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         abort_unless($user->group->is_modo, 403);
         $image = Image::findOrFail($request->input('photo'));
@@ -135,9 +135,9 @@ class ImageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $image = Image::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);

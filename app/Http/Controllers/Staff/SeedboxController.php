@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Http\Controllers\Controller;
 
@@ -37,9 +38,9 @@ class SeedboxController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $seedbox = Client::findOrFail($id);
 
         abort_unless($user->group->is_modo, 403);

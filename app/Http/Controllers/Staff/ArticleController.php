@@ -56,7 +56,7 @@ class ArticleController extends Controller
         $article->title = $request->input('title');
         $article->slug = Str::slug($article->title);
         $article->content = $request->input('content');
-        $article->user_id = auth()->user()->id;
+        $article->user_id = $request->user()->id;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');

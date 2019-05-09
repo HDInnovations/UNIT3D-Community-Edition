@@ -92,7 +92,7 @@ class AlbumController extends Controller
         }
 
         $album = new Album();
-        $album->user_id = auth()->user()->id;
+        $album->user_id = $request->user()->id;
         $album->name = $omdb['Title'].' ('.$omdb['Year'].')';
         $album->description = $request->input('description');
         $album->imdb = $request->input('imdb');
@@ -130,9 +130,9 @@ class AlbumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $album = Album::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay()), 403);

@@ -25,9 +25,9 @@ class BackupController extends Controller
     /**
      * Display All Backups.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         if (! count(config('backup.backup.destination.disks'))) {
@@ -67,9 +67,9 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         try {
@@ -92,9 +92,9 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      */
-    public function createFilesOnly()
+    public function createFilesOnly(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         try {
@@ -117,9 +117,9 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      */
-    public function createDatabaseOnly()
+    public function createDatabaseOnly(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         try {
@@ -147,7 +147,7 @@ class BackupController extends Controller
      */
     public function download(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         $disk = Storage::disk($request->input('disk'));
@@ -175,7 +175,7 @@ class BackupController extends Controller
      */
     public function delete(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         $disk = Storage::disk($request->input('disk'));

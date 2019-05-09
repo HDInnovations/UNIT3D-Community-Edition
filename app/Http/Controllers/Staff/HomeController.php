@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Http\Request;
 use App\Models\Peer;
 use App\Models\User;
 use App\Models\Group;
@@ -31,7 +32,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(Request $request)
     {
         // User Info
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
@@ -63,7 +64,7 @@ class HomeController extends Controller
 
         // SSL Info
         try {
-            $certificate = request()->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
+            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
         } catch (\Exception $e) {
             $certificate = '';
         }

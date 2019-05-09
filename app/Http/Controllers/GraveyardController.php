@@ -42,10 +42,10 @@ class GraveyardController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $current = Carbon::now();
-        $user = auth()->user();
+        $user = $request->user();
         $torrents = Torrent::with('category')->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->paginate(25);
         $repository = $this->faceted;
         $deadcount = Torrent::where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
@@ -69,7 +69,7 @@ class GraveyardController extends Controller
     public function faceted(Request $request, Torrent $torrent)
     {
         $current = Carbon::now();
-        $user = auth()->user();
+        $user = $request->user();
         $search = $request->input('search');
         $imdb_id = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
         $imdb = str_replace('tt', '', $imdb_id);
@@ -144,7 +144,7 @@ class GraveyardController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $torrent = Torrent::findOrFail($id);
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
@@ -187,9 +187,9 @@ class GraveyardController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);

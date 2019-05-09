@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Thank;
 use App\Models\Torrent;
 
@@ -26,9 +27,9 @@ class ThankController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function torrentThank($slug, $id)
+    public function torrentThank(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $torrent = Torrent::findOrFail($id);
 
         $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();

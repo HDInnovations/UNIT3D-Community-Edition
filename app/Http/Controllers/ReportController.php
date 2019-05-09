@@ -47,7 +47,7 @@ class ReportController extends Controller
     public function request(Request $request, int $id)
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
-        $reported_by = auth()->user();
+        $reported_by = $request->user();
         $reported_user = $torrentRequest->user;
 
         $v = validator($request->all(), [
@@ -89,7 +89,7 @@ class ReportController extends Controller
     public function torrent(Request $request, $slug, int $id)
     {
         $torrent = Torrent::findOrFail($id);
-        $reported_by = auth()->user();
+        $reported_by = $request->user();
         $reported_user = $torrent->user;
 
         $v = validator($request->all(), [
@@ -131,7 +131,7 @@ class ReportController extends Controller
     public function user(Request $request, $username, int $id)
     {
         $reported_user = User::findOrFail($id);
-        $reported_by = auth()->user();
+        $reported_by = $request->user();
 
         $v = validator($request->all(), [
             'message' => 'required',
