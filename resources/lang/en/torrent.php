@@ -121,6 +121,7 @@ return [
     'posters'                  => 'Posters',
     'prewarn'                  => 'Prewarned?',
     'progress'                 => 'Progress',
+    'publish-time'             => 'Publish Time',
     'quick-comment'            => 'Quick Comment',
     'quick-tip'                => 'Quick tip amounts',
     'rated'                    => 'Rated',
