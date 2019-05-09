@@ -83,7 +83,7 @@ return [
     'members'              => '会员',
     'message'              => '讯息',
     'minute'               => '分钟',
-    'moderated-by'         => '受审於',
+    'moderated-by'         => '审批自',
     'moderation'           => '审批',
     'moderation-approve'   => '批准',
     'moderation-postpone'  => '延迟',
