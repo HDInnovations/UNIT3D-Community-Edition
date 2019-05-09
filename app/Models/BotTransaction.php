@@ -22,7 +22,6 @@ class BotTransaction extends Model
      *
      * @var string
      */
-    protected $table = 'bot_transactions';
 
     /**
      * Indicates If The Model Should Be Timestamped.
