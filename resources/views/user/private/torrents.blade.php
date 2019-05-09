@@ -133,7 +133,7 @@
                     <thead>
                     <th>@lang('torrent.name')</th>
                     <th>@lang('torrent.agent')</th>
-                    <th>@lang('common.active')</th>
+                    <th>@lang('common.connected')</th>
                     <th>@lang('torrent.seeder')</th>
                     <th>@lang('torrent.uploaded')</th>
                     <th>@lang('torrent.downloaded')</th>
