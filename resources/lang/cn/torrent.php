@@ -136,7 +136,7 @@ return [
     'revoke'                   => '撤回',
     'rss'                      => 'RSS',
     'runtime'                  => '片长',
-    'satisfied_in'             => 'Satisfied in',
+    'satisfied_in'             => '达标於',
     'say-thanks'               => '别忘记说<b>谢谢</b> 及 <b>保种</b>',
     'sd-content'               => 'SD 内容',
     'search'                   => '搜寻',
