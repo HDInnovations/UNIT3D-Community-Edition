@@ -13,7 +13,6 @@ return [
     'audio'                    => 'Audio',
     'bon-tipped'               => 'BON Tipped',
     'bookmark'                 => 'Bookmark',
-    'bookmark'                 => 'Bookmark',
     'bookmarks'                => 'Bookmarks',
     'bump'                     => 'Bump',
     'cant-upload'              => 'Error: Your Upload Rights Are Disabled',
