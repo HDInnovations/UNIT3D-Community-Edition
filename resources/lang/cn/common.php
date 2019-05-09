@@ -38,7 +38,7 @@ return [
     'descending'           => '降幂',
     'direction'            => '序向',
     'disable'              => 'Disable',
-    'doubleup_activated'   => '全站双倍收益已启动',
+    'doubleup_activated'   => '全站双倍上传收益已启动',
     'download'             => '下载',
     'edit'                 => '编辑',
     'edit-your-comment'    => '编辑你的评论',
