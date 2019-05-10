@@ -56,7 +56,7 @@ return [
     'freeleech'                => '免费',
     'freeleech-token'          => '免费令',
     'general'                  => 'General',
-    'genre'                    => '体裁',
+    'genre'                    => '题材',
     'global-double-upload'     => '全站双倍上传收益',
     'global-freelech'          => '全站免费',
     'grant'                    => '授予',
