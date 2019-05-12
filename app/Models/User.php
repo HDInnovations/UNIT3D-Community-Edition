@@ -746,7 +746,7 @@ class User extends Authenticatable
     public function ratioAfterSizeString($size, $freeleech = false)
     {
         if ($freeleech) {
-            return $this->getRatioString().' (Freeleech)';
+            return $this->getRatioString().' ('.trans('torrent.freeleech').')';
         }
 
         $ratio = $this->ratioAfterSize($size);
