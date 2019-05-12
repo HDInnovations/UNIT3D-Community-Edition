@@ -204,7 +204,35 @@
                     <tr class="success">
                         <td><strong>@lang('torrent.discounts')</strong></td>
                         <td>
-                            @if ($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
+                            @php
+                                if( isset($torrent) ){
+                                    $typeDiscount = \App\DiscountRule::where('category','=',$torrent->type)->first();
+                                    $sizeDiscount = \App\DiscountRule::where('torrent_min_size','<',$torrent->size)->orWhere('torrent_max_size','>',$torrent->size)->first();
+                                    if($sizeDiscount || $typeDiscount){
+                                        if($sizeDiscount){
+                                            $discount = $sizeDiscount;
+                                        }else{
+                                            $discount = $typeDiscount;
+                                        }
+                                        if($discount->freeleech == 1){
+                                            if($discount->freeleech_time >= 86400){
+                                                $freeleech_time_unit = 'Days';
+                                                $freeleech_time_count = $discount->freeleech_time / 86400;
+                                            }else if($discount->freeleech_time >= 3600){
+                                                $freeleech_time_unit = 'Hours';
+                                                $freeleech_time_count = $discount->freeleech_time / 3600;
+                                            }else if($discount->freeleech_time >= 60){
+                                                $freeleech_time_unit = 'Minutes';
+                                                $freeleech_time_count = $discount->freeleech_time / 60;
+                                            }else{
+                                                $freeleech_time_unit = 'Seconds';
+                                                $freeleech_time_count = $discount->freeleech_time;
+                                            }
+                                        }
+                                    }
+                                }
+                            @endphp
+                            @if ($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token || $discount)
                                 @if ($freeleech_token)<span class="badge-extra text-bold"><i
                                             class="{{ config('other.font-awesome') }} fa-coins text-bold" data-toggle="tooltip"
                                             data-original-title="@lang('common.fl_token')"></i> @lang('common.fl_token')</span> @endif
@@ -226,6 +254,16 @@
                                 @if (config('other.doubleup') == true)<span class="badge-extra text-bold"><i
                                             class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
                                             data-original-title="@lang('common.global') {{ strtolower(trans('torrent.double-upload')) }}"></i> @lang('common.global') {{ strtolower(trans('torrent.double-upload')) }}</span> @endif
+                                @if($discount && $discount->freeleech == 1 && (strtotime($torrent->moderated_at) + $discount->freeleech_time) >= time() )
+                                    <span class="badge-extra text-bold"><i
+                                        class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
+                                        data-original-title="@lang('common.global') {{ strtolower("First {$freeleech_time_count} {$freeleech_time_unit} freeleech") }}"></i> @lang('common.global') {{ strtolower("First {$freeleech_time_count} {$freeleech_time_unit} freeleech") }}</span>
+                                @endif
+                                @if($discount && ($discount->freeleech == 0 ||( $discount->freeleech == 1 && (strtotime($torrent->moderated_at) + $discount->freeleech_time) < time() )))
+                                        <span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
+                                                    data-original-title="{{ (100 - $discount->discount)."% Discount" }}"></i> {{ ( 100 - $discount->discount)."% Discount" }}</span>
+                                @endif
                             @else
                                 <span class="text-bold text-danger"><i
                                             class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('torrent.no-discounts')</span>

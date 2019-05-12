@@ -634,6 +634,13 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/seedboxes', 'SeedboxController@index')->name('staff.seedbox.index');
         Route::delete('/seedboxes/{id}', 'SeedboxController@destroy')->name('staff.seedbox.destroy');
 
+        // Discount Rules
+        Route::get('/discount-rules','DiscountRulesController@settings')->name('Staff.discounts');
+        Route::post('/discount-rule/create','DiscountRulesController@create');
+        Route::get('/discount-rule/modify/{id}','DiscountRulesController@editPage');
+	    Route::post('/discount-rule/modify/{id}','DiscountRulesController@modify');
+	    Route::post('/discount-rule/delete/{id}','DiscountRulesController@delete');
+
         // Commands
         Route::get('/commands', 'CommandController@index')->name('staff.commands.index');
         Route::get('/command/maintance-enable', 'CommandController@maintanceEnable');

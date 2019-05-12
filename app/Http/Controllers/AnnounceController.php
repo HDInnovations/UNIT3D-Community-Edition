@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DiscountRule;
+use App\Http\Controllers\Staff\TypeController;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\User;
@@ -23,6 +25,7 @@ use App\Helpers\Bencode;
 use Illuminate\Http\Request;
 use App\Models\FreeleechToken;
 use App\Models\PersonalFreeleech;
+use App\Models\Type;
 
 class AnnounceController extends Controller
 {
@@ -183,7 +186,7 @@ class AnnounceController extends Controller
         }
 
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::select(['id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers'])
+        $torrent = Torrent::select(['id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers','size','type'])
             ->with('peers')
             ->withAnyStatus()
             ->where('info_hash', '=', $info_hash)
@@ -257,9 +260,18 @@ class AnnounceController extends Controller
         // Modification of upload and Download
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+		$category_discount = DiscountRule::where('category','=',Type::where('name','=',$torrent->type)->first()->id)->first();
 
-        if (config('other.freeleech') == 1 || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token) {
+		$size_discount = DiscountRule::where('torrent_min_size','<',$torrent->size)->orWhere('torrent_max_size','>',$torrent->size)->first();
+
+        if (config('other.freeleech') == 1 || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token
+	        || ($category_discount && $category_discount->freeleech == 0 && (strtotime($torrent->moderated_at) + $category_discount->freeleech_time) > time())
+	        || ($size_discount && $size_discount->freeleech == 0 && (strtotime($torrent->moderated_at) + $size_discount->freeleech_time) > time() )) {
             $mod_downloaded = 0;
+        }else if( $category_discount ) {
+	        $mod_downloaded = ($category_discount->discount / 100) * $downloaded;
+        }else if( $size_discount ){
+        	$mod_downloaded = ($size_discount->discount / 100) * $downloaded;
         } else {
             $mod_downloaded = $downloaded;
         }

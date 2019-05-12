@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
-
+	    Schema::defaultStringLength(191);
         // Share $pages across all views
         view()->composer('*', function (View $view) {
             $pages = cache()->remember('cached-pages', 3600, function () {

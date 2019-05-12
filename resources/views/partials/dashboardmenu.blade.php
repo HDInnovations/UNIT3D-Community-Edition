@@ -126,6 +126,11 @@
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-moderation')
                 </a>
             </li>
+            <li>
+                <a href="{{ route('Staff.discounts') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> Discount Rules
+                </a>
+            </li>
 
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.user-tools')
