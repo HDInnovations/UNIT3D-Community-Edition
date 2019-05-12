@@ -92,8 +92,8 @@
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
                             <select id="direction" name="direction" trigger="change" class="form-control userFilter">
-                                <option value="desc">Descending</option>
-                                <option value="asc">Ascending</option>
+                                <option value="desc">@lang('common.descending')</option>
+                                <option value="asc">@lang('common.ascending')</option>
                             </select>
                         </div>
                     </div>
@@ -106,12 +106,12 @@
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <th>@lang('torrent.name')</th>
-                        <th>@lang('torrent.agent')</th>
+                        <th>@lang('torrent.client')</th>
                         <th>@lang('torrent.size')</th>
                         <th>@lang('torrent.seeders')</th>
                         <th>@lang('torrent.leechers')</th>
-                        <th>@lang('torrent.uploaded')</th>
-                        <th>@lang('torrent.downloaded')</th>
+                        <th>@lang('common.upload')</th>
+                        <th>@lang('common.download')</th>
                         <th>@lang('torrent.remaining')</th>
                         <th>@lang('torrent.progress')</th>
                         </thead>
