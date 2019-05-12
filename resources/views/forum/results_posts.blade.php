@@ -206,8 +206,8 @@
                                     <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                                     <div class="col-sm-2">
                                         <select id="direction" name="direction" class="form-control">
-                                            <option value="desc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'desc' ? 'SELECTED' : '') }}>Descending</option>
-                                            <option value="asc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'asc' ? 'SELECTED' : '') }}>Ascending</option>
+                                            <option value="desc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'desc' ? 'SELECTED' : '') }}>@lang('common.descending')</option>
+                                            <option value="asc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'asc' ? 'SELECTED' : '') }}>@lang('common.ascending')</option>
                                         </select>
                                     </div>
                                 </div>
