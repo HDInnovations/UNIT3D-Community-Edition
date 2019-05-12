@@ -36,12 +36,12 @@
                     <thead>
                     <tr>
                         <th>@lang('common.user')</th>
-                        <th>@lang('common.active')</th>
+                        <th>@lang('common.connected')</th>
                         <th>@lang('torrent.completed')</th>
                         <th>@lang('common.upload')</th>
                         <th>@lang('common.download')</th>
                         <th>@lang('common.added')</th>
-                        <th>@lang('torrent.updated')</th>
+                        <th>@lang('torrent.last-update')</th>
                         <th>@lang('torrent.seedtime')</th>
                     </tr>
                     </thead>
