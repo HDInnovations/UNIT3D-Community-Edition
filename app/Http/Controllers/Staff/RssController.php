@@ -58,9 +58,9 @@ class RssController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
 
         return view('Staff.rss.create', [
@@ -79,7 +79,7 @@ class RssController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $v = validator($request->all(), [
             'name' => 'required|min:3|max:255',
@@ -130,9 +130,9 @@ class RssController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
@@ -154,7 +154,7 @@ class RssController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         $v = validator($request->all(), [

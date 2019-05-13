@@ -31,16 +31,16 @@
 
         <div class="topic-info">
             @lang('forum.author') <a
-                    href="{{ route('profile', ['username' => str_slug($topic->first_post_user_username), 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
+                    href="{{ route('profile', ['username' => Str::slug($topic->first_post_user_username), 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
-            @if (auth()->user()->isSubscribed('topic', $topic->id))
+            @auth()->user()->isSubscribed('topic', $topic->id))
                 <a href="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" class="label label-sm label-danger">
                     <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
             @else
                 <a href="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" class="label label-sm label-success">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
-            @endif
+            @endauth
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
         <br>
@@ -62,7 +62,7 @@
                                 @else
                                     <img src="{{ url('img/profile.png') }}" alt="{{ $p->user->username }}"
                                          class="img-thumbnail post-info-image">
-                                @endif
+                                @endauth
                 <p>
                 <span class="badge-user text-bold">
                    <a href="{{ route('profile', ['username' => $p->user->slug, 'id' => $p->user->id]) }}"
@@ -73,7 +73,7 @@
                     @else
                         <i class="{{ config('other.font-awesome') }} fa-circle text-red" data-toggle="tooltip"
                            data-original-title="Offline"></i>
-                    @endif
+                    @endauth
                     <a href="{{ route('create', ['receiver_id' => $p->user->id, 'username' => $p->user->username]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                     </a>
@@ -95,13 +95,13 @@
                    <a href="{{ route('user_topics', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
                                             </span>
-                                        @endif
+                                        @endauth
                                         @if($p->user->posts && $p->user->posts->count() > 0)
                                             <span class="badge-user text-bold">
                    <a href="{{ route('user_posts', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
                                             </span>
-                        @endif
+                        @endauth
                                     </p>
 
 
@@ -109,15 +109,15 @@
             @if ($topic->state == 'open')
                                         <button id="quote"
                                                 class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
-                                    @endif
+                                    @endauth
                                     @if (auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id))
                                         <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
-                                    @endif
+                                    @endauth
                                     @if (auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
                                         <a href="{{ route('forum_post_delete', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
-                                    @endif
+                                    @endauth
             </span>
                             </aside>
 
@@ -130,7 +130,7 @@
                                 <div id="forumTip{{ $p->id }}" class="text-center">
                                     @if($p->tips && $p->tips->sum('cost') > 0)
                                         <div class="some-padding">This Post Has Been Tipped A Total Of {{ $p->tips->sum('cost') }} BON</div>
-                                    @endif
+                                    @endauth
                                     <div class="some-padding"><a class="forumTip" href="#/" post="{{ $p->id }}" user="{{ $p->user->id }}">Tip This Poster</a></div>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                      style="margin-right: 16px;" data-original-title="@lang('forum.like-post')"><i
                               class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x"></i>
               <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
-              @endif
+              @endauth
               @if (auth()->user()->likes()->where('post_id', '=', $p->id)->where('dislike', '=', 1)->first())
                   <a href="{{ route('dislike', ['postId' => $p->id]) }}" class="text-red" data-toggle="tooltip"
                      data-original-title="@lang('forum.dislike-post')"><i
@@ -160,7 +160,7 @@
                      data-original-title="@lang('forum.dislike-post')"><i
                               class="icon-dislike {{ config('other.font-awesome') }} fa-thumbs-down fa-2x"></i>
               <span class="count" style="font-size: 20px;">{{ $dislikes }}</span></a>
-              @endif
+              @endauth
           </span>
                             </div>
 
@@ -169,7 +169,7 @@
                             <div class="post-signature col-md-12">
                                 @if ($p->user->signature != null)
                                     {!! $p->user->getSignature() !!}
-                                @endif
+                                @endauth
                             </div>
 
                             <div class="clearfix"></div>
@@ -193,12 +193,12 @@
                                 <div class="from-group">
                                     <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                                 </div>
-                                @if (auth()->check())
+                                @if (auth()
                                     <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                                 @else
                                     <button type="submit"
                                             class="btn btn-default disabled">@lang('forum.not-connected')</button>
-                                @endif
+                                @endauth
                             </form>
                         @elseif ($topic->state == "close")
                             <div class="col-md-12 alert alert-danger">@lang('forum.topic-closed')</div>
@@ -209,12 +209,12 @@
                                 <div class="from-group">
                                     <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                                 </div>
-                                @if (auth()->check())
+                                @auth
                                     <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                                 @else
                                     <button type="submit"
                                             class="btn btn-default disabled">@lang('forum.not-connected')</button>
-                                @endif
+                                @endauth
                             </form>
                         @endif
 

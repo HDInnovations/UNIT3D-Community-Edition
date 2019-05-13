@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
 use App\Console\ConsoleTools;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -226,7 +227,7 @@ class GitUpdater extends Command
         $this->header('Restoring Backups');
 
         foreach ($paths as $path) {
-            $to = str_replace_last('/.', '', base_path(dirname($path)));
+            $to = Str::replaceLast('/.', '', base_path(dirname($path)));
             $from = storage_path('gitupdate').'/'.$path;
 
             if (is_dir($from)) {

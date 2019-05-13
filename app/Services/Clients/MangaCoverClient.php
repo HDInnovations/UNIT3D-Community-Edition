@@ -18,6 +18,7 @@ use App\Services\Contracts\MangaInterface;
 class MangaCoverClient extends Client implements MangaInterface
 {
     protected $apiUrl = 'mcd.iosphe.re/api/v1/';
+
     protected $apiSecure = false;
 
     public function __construct()

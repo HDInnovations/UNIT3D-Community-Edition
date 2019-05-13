@@ -99,7 +99,7 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect('/')
+            return redirect()->to('/')
                 ->withSuccess(trans('auth.welcome-restore'));
         }
 
@@ -114,16 +114,16 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect('/')
+            return redirect()->to('/')
                 ->withSuccess(trans('auth.welcome-restore'));
         }
 
         if ($user->read_rules == 0) {
-            return redirect(config('other.rules_url'))
+            return redirect()->to(config('other.rules_url'))
                 ->withWarning(trans('auth.require-rules'));
         }
 
-        return redirect('/')
+        return redirect()->to('/')
             ->withSuccess(trans('auth.welcome'));
     }
 }

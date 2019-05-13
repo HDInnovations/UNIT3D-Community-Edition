@@ -29,7 +29,6 @@ class UserAudible extends Model
      *
      * @var string
      */
-    protected $table = 'user_audibles';
 
     /**
      * Belongs To A User.

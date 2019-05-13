@@ -1,6 +1,8 @@
 <?php
 
-/**
+use Illuminate\Support\Str;
+
+/*
  * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
@@ -49,7 +51,7 @@ if (! function_exists('hrefRequest')) {
     function hrefRequest($torrentRequest)
     {
         $appurl = appurl();
-        $slug = str_slug($torrentRequest->name);
+        $slug = Str::slug($torrentRequest->name);
 
         return "{$appurl}/request/{$torrentRequest->id}";
     }

@@ -21,6 +21,7 @@ use App\Models\Group;
 use App\Models\Topic;
 use App\Models\Article;
 use App\Models\Torrent;
+use Illuminate\Http\Request;
 use App\Models\FeaturedTorrent;
 use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
@@ -32,10 +33,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(Request $request)
     {
         // Authorized User
-        $user = auth()->user();
+        $user = $request->user();
 
         // Latest Articles/News Block
         $articles = Article::latest()->take(1)->get();

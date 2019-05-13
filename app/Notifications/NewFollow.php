@@ -24,8 +24,11 @@ class NewFollow extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $sender;
+
     public $follow;
+
     public $target;
 
     /**

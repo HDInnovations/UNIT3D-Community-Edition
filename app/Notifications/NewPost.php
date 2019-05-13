@@ -24,7 +24,9 @@ class NewPost extends Notification implements ShouldQueue
     use Queueable;
 
     public $post;
+
     public $type;
+
     public $poster;
 
     /**

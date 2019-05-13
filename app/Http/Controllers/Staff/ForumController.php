@@ -16,6 +16,7 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -60,7 +61,7 @@ class ForumController extends Controller
         $forum = new Forum();
         $forum->name = $request->input('title');
         $forum->position = $request->input('position');
-        $forum->slug = str_slug($request->input('title'));
+        $forum->slug = Str::slug($request->input('title'));
         $forum->description = $request->input('description');
         $forum->parent_id = $request->input('parent_id');
         $forum->save();
@@ -128,7 +129,7 @@ class ForumController extends Controller
 
         $forum->name = $request->input('title');
         $forum->position = $request->input('position');
-        $forum->slug = str_slug($request->input('title'));
+        $forum->slug = Str::slug($request->input('title'));
         $forum->description = $request->input('description');
         if ($request->input('forum_type') == 'category') {
             $forum->parent_id = 0;

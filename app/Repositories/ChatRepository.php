@@ -23,6 +23,7 @@ use App\Models\UserEcho;
 use App\Models\ChatStatus;
 use App\Events\MessageSent;
 use App\Models\UserAudible;
+use Illuminate\Support\Str;
 use App\Events\MessageDeleted;
 use App\Http\Resources\ChatMessageResource;
 
@@ -374,7 +375,7 @@ class ChatRepository
         }
 
         foreach (config('censor.replace') as $word => $rword) {
-            if (str_contains($message, $word)) {
+            if (Str::contains($message, $word)) {
                 $message = str_replace($word, $rword, $message);
             }
         }

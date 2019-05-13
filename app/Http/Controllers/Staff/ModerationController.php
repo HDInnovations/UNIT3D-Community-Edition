@@ -118,7 +118,7 @@ class ModerationController extends Controller
             return redirect()->route('moderation')
                 ->withErrors($v->errors());
         } else {
-            $user = auth()->user();
+            $user = $request->user();
             $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
             $torrent->markPostponed();
 
@@ -153,7 +153,7 @@ class ModerationController extends Controller
             return redirect()->route('moderation')
                 ->withErrors($v->errors());
         } else {
-            $user = auth()->user();
+            $user = $request->user();
             $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
             $torrent->markRejected();
 
@@ -176,9 +176,9 @@ class ModerationController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function resetRequest($id)
+    public function resetRequest(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_modo, 403);
 
         $torrentRequest = TorrentRequest::findOrFail($id);

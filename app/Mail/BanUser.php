@@ -22,6 +22,7 @@ class BanUser extends Mailable
     use Queueable, SerializesModels;
 
     public $email;
+
     public $ban;
 
     /**

@@ -104,7 +104,7 @@ class UserController extends Controller
     public function userEdit(Request $request, $username, $id)
     {
         $user = User::with('group')->findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $sendto = (int) $request->input('group_id');
 
@@ -166,7 +166,7 @@ class UserController extends Controller
     public function userPermissions(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $user->can_upload = $request->input('can_upload');
         $user->can_download = $request->input('can_download');
@@ -296,10 +296,10 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
 
         if ($user->delete()) {
-            return redirect('staff_dashboard')
+            return redirect()->to('staff_dashboard')
                 ->withSuccess('Account Has Been Removed');
         } else {
-            return redirect('staff_dashboard')
+            return redirect()->to('staff_dashboard')
                 ->withErrors('Something Went Wrong!');
         }
     }
@@ -326,7 +326,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect('staff_dashboard')
+        return redirect()->to('staff_dashboard')
             ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

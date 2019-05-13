@@ -41,7 +41,7 @@
                 </p>
 
                 <p style="margin-top: 20px;">
-                    @emojione(preg_replace('#\[[^\]]+\]#', '', str_limit($article->content), 150))...
+                    @emojione(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content), 150))...
                 </p>
 
                 <div class="text-center">

@@ -29,10 +29,10 @@ class CheckIfOnline
      */
     public function handle($request, Closure $next)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
 
-        if (auth()->check() && $user->group_id != $bannedGroup->id) {
+        if ($request->user() && $user->group_id != $bannedGroup->id) {
             $expiresAt = Carbon::now()->addMinutes(60);
             cache()->put('user-is-online-'.$user->id, true, $expiresAt);
         }

@@ -29,14 +29,14 @@ class CheckIfBanned
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
 
         if ($user && $user->group_id == $bannedGroup->id) {
             auth()->logout();
             $request->session()->flush();
 
-            return redirect('login')
+            return redirect()->to('login')
                 ->withErrors('This account is Banned!');
         }
 

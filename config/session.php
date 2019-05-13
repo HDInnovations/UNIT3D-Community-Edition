@@ -1,5 +1,8 @@
 <?php
-/**
+
+use Illuminate\Support\Str;
+
+/*
  * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
@@ -135,7 +138,7 @@
 
      'cookie' => env(
          'SESSION_COOKIE',
-         str_slug(env('APP_NAME', 'laravel'), '_').'_session'
+         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
      ),
 
      /*

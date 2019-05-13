@@ -14,6 +14,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\DomCrawler\Crawler;
@@ -119,7 +120,7 @@ class Http2ServerPush
         ];
 
         $type = collect($linkTypeMap)->first(function ($type, $extension) use ($url) {
-            return str_contains(strtoupper($url), $extension);
+            return Str::contains(strtoupper($url), $extension);
         });
 
         return is_null($type) ? null : "<{$url}>; rel=preload; as={$type}";

@@ -29,14 +29,14 @@ class CheckIfActive
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
 
         if ($user && $user->group_id == $validatingGroup->id || $user->active == 0) {
             auth()->logout();
             $request->session()->flush();
 
-            return redirect('login')
+            return redirect()->to('login')
                 ->withWarning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.');
         }
 

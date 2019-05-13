@@ -33,7 +33,7 @@ class TwoStepAuth
         $response = $next($request);
         $uri = $request->path();
         $nextUri = config('app.url').'/'.$uri;
-        $user = auth()->user();
+        $user = $request->user();
 
         switch ($uri) {
             case 'twostep/needed':
@@ -48,9 +48,10 @@ class TwoStepAuth
 
                 if (config('auth.TwoStepEnabled') && $user->twostep == 1) {
                     if ($this->twoStepVerification($request) !== true) {
-                        return redirect('twostep/needed');
+                        return redirect()->to('twostep/needed');
                     }
                 }
+
                 break;
         }
 

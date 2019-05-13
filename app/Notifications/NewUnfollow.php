@@ -23,7 +23,9 @@ class NewUnfollow extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $sender;
+
     public $target;
 
     /**

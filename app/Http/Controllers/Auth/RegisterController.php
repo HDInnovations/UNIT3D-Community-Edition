@@ -19,6 +19,7 @@ use App\Models\Group;
 use App\Models\Invite;
 use App\Rules\Captcha;
 use App\Models\UserPrivacy;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Models\UserActivation;
@@ -156,7 +157,7 @@ class RegisterController extends Controller
             }
 
             // Handle The Activation System
-            $token = hash_hmac('sha256', $user->username.$user->email.str_random(16), config('app.key'));
+            $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
             $activation = new UserActivation();
             $activation->user_id = $user->id;
             $activation->token = $token;

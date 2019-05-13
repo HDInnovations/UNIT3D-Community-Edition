@@ -23,9 +23,13 @@ class TwoStepController extends Controller
     use TwoStep;
 
     private $_authCount;
+
     private $_authStatus;
+
     private $_twoStepAuth;
+
     private $_remainingAttempts;
+
     private $_user;
 
     /**

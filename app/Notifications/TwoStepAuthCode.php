@@ -23,6 +23,7 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
     use Queueable;
 
     protected $code;
+
     protected $user;
 
     /**

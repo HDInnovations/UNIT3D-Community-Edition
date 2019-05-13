@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Page;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -52,7 +53,7 @@ class PageController extends Controller
     {
         $page = new Page();
         $page->name = $request->input('name');
-        $page->slug = str_slug($page->name);
+        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = validator($page->toArray(), [
@@ -100,7 +101,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
-        $page->slug = str_slug($page->name);
+        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = validator($page->toArray(), [

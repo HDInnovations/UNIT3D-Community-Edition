@@ -19,9 +19,11 @@ use App\Services\Contracts\MangaInterface;
 class MangaUpdatesClient extends Client implements MangaInterface
 {
     protected $apiUrl = 'www.mangaupdates.com/';
+
     protected $apiSecure = true;
 
     protected $apiSeriesUrl = 'series.html?id=';
+
     protected $apiAuthorUrl = 'authors.html?id=';
 
     public function __construct()

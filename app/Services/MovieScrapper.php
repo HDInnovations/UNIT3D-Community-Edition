@@ -22,7 +22,9 @@ use App\Services\Clients\TvdbClient;
 class MovieScrapper
 {
     private $tmdbClient;
+
     private $omdbClient;
+
     private $tvdbClient;
 
     public function __construct($tmdb_key = null, $tvdb_key = null, $omdb_key = null)
