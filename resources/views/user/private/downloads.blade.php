@@ -64,12 +64,12 @@
                         <div class="col-sm-10">
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="satisfied" value="1" class="userFilter" trigger="click"> Satisfied / Immune
+                        <input type="checkbox" id="satisfied" value="1" class="userFilter" trigger="click"> @lang('user.satisfied-immune')
                     </label>
                 </span>
                             <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="notsatisfied" value="1" class="userFilter" trigger="click"> Not Satisfied / Not Immune
+                        <input type="checkbox" id="notsatisfied" value="1" class="userFilter" trigger="click"> @lang('user.not-satisfied-not-immune')
                     </label>
                 </span>
                         </div>
@@ -94,8 +94,8 @@
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
                             <select id="direction" name="direction" trigger="change" class="form-control userFilter">
-                                <option value="desc">Descending</option>
-                                <option value="asc">Ascending</option>
+                                <option value="desc">@lang('common.descending')</option>
+                                <option value="asc">@lang('common.ascending')</option>
                             </select>
                         </div>
                     </div>
@@ -158,9 +158,9 @@
                                 @endif
                                 <td>
                                     @if ($download->seeder == 1)
-                                        <span class='label label-success'>SEEDING</span>
+                                        <span class='label label-success'>{{ strtoupper(trans('torrent.seeder')) }}</span>
                                     @else
-                                        <span class='label label-danger'>NOT SEEDING</span>
+                                        <span class='label label-danger'>{{ strtoupper(trans('torrent.not-seeding')) }}</span>
                                     @endif
                                 </td>
                             </tr>

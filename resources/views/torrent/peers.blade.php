@@ -37,8 +37,8 @@
                 <tr>
                     <th>@lang('common.user')</th>
                     <th>@lang('torrent.progress')</th>
-                    <th>@lang('torrent.uploaded')</th>
-                    <th>@lang('torrent.downloaded')</th>
+                    <th>@lang('common.upload')</th>
+                    <th>@lang('common.download')</th>
                     <th>@lang('torrent.left')</th>
                     <th>@lang('torrent.client')</th>
                     <th>@lang('common.ip')</th>

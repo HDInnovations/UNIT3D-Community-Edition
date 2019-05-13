@@ -1,11 +1,14 @@
 <?php
 
 return [
+    'all-time'                => '开站至今',
     'by-count'                => '个数',
     'by-data'                 => 'By Data',
     'by-volume'               => '流量',
     'group'                   => '组别',
     'groups'                  => '组别',
+    'last30days'              => '最近30天',
+    'place'                   => '名次',
     'nerd-stats'              => '数据帝结论',
     'nerd-stats-desc'         => '我们太热爱统计数据了。这里有一些我们认为重要的',
     'registration-date'       => '注册日期',

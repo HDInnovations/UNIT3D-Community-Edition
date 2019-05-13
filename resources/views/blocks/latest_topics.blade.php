@@ -32,7 +32,7 @@
                 </tbody>
                 <thead>
                 <tr>
-                    <th colspan="4" class="text-right"><a href="{{ route('forum_latest_topics') }}" class="text-info">Read All</a></th>
+                    <th colspan="4" class="text-right"><a href="{{ route('forum_latest_topics') }}" class="text-info">@lang('articles.read-more')</a></th>
                 </tr>
                 </thead>
             </table>
