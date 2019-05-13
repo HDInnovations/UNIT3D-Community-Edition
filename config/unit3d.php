@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D v1.9.2',
+    'powered-by' => 'Powered By UNIT3D v1.9.3',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,6 +44,6 @@ return [
     |
     */
 
-    'version' => 'v1.9.2',
+    'version' => 'v1.9.3',
 
 ];
