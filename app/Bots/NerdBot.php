@@ -30,13 +30,21 @@ use App\Http\Resources\UserAudibleResource;
 class NerdBot
 {
     private $bot;
+
     private $chat;
+
     private $target;
+
     private $type;
+
     private $message;
+
     private $targeted;
+
     private $log;
+
     private $expiresAt;
+
     private $current;
 
     /**
@@ -514,21 +522,21 @@ class NerdBot
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
 
-            return response('success', 200);
+            return response('success');
         } elseif ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
 
-            return response('success', 200);
+            return response('success');
         } elseif ($type == 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
-            return response('success', 200);
+            return response('success');
         }
 
         return true;

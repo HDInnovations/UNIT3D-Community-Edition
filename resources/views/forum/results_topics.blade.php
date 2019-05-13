@@ -257,14 +257,14 @@
                                     class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a
-                                    href="{{ route('profile', ['username' => str_slug($r->first_post_user_username), 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a>
+                                    href="{{ route('profile', ['username' => Str::slug($r->first_post_user_username), 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
                             {{ $r->num_post - 1 }} @lang('forum.replies')
                             \ {{ $r->views }} @lang('forum.views')
                         </td>
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profile', ['username' => str_slug($r->last_post_user_username), 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>,
+                            <a href="{{ route('profile', ['username' => Str::slug($r->last_post_user_username), 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>,
                             @if($r->last_reply_at && $r->last_reply_at != null)
                                 <time datetime="{{ date('d-m-Y h:m', strtotime($r->last_reply_at)) }}">
                                     {{ date('M d Y', strtotime($r->last_reply_at)) }}

@@ -30,10 +30,15 @@ class Chatter implements ShouldBroadcastNow
      * @var Message
      */
     public $echoes;
+
     public $target;
+
     public $type;
+
     public $message;
+
     public $ping;
+
     public $audibles;
 
     /**

@@ -25,37 +25,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Scheduled Commands
-        \App\Console\Commands\AutoNerdStat::class,
-        \App\Console\Commands\AutoBonAllocation::class,
-        \App\Console\Commands\AutoHighspeedTag::class,
-        \App\Console\Commands\AutoPreWarning::class,
-        \App\Console\Commands\AutoWarning::class,
-        \App\Console\Commands\AutoDeactivateWarning::class,
-        \App\Console\Commands\AutoRevokePermissions::class,
-        \App\Console\Commands\AutoBan::class,
-        \App\Console\Commands\AutoFlushPeers::class,
-        \App\Console\Commands\AutoGroup::class,
-        \App\Console\Commands\AutoRemovePersonalFreeleech::class,
-        \App\Console\Commands\AutoRemoveFeaturedTorrent::class,
-        \App\Console\Commands\AutoGraveyard::class,
-        \App\Console\Commands\IrcBroadcast::class,
-        \App\Console\Commands\IrcMessage::class,
-        \App\Console\Commands\AutoRecycleInvites::class,
-        \App\Console\Commands\AutoRecycleActivityLog::class,
-        \App\Console\Commands\AutoRecycleFailedLogins::class,
-        \App\Console\Commands\AutoDisableInactiveUsers::class,
-        \App\Console\Commands\AutoSoftDeleteDisabledUsers::class,
-        \App\Console\Commands\AutoRecycleClaimedTorrentRequests::class,
-        \App\Console\Commands\AutoCorrectHistory::class,
 
-        // Manually Run Commands
-        \App\Console\Commands\DemoSeed::class,
-        \App\Console\Commands\GitUpdater::class,
-        \App\Console\Commands\ClearCache::class,
-        \App\Console\Commands\SetCache::class,
-        \App\Console\Commands\TestMailSettings::class,
-        \App\Console\Commands\FetchGenres::class,
     ];
 
     /**

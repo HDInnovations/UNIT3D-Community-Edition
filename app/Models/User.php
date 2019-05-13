@@ -15,6 +15,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Helpers\Bbcode;
+use Illuminate\Support\Str;
 use App\Helpers\StringHelper;
 use Gstt\Achievements\Achiever;
 use Illuminate\Notifications\Notifiable;
@@ -525,7 +526,7 @@ class User extends Authenticatable
      */
     public function getSlugAttribute()
     {
-        return str_slug($this->username);
+        return Str::slug($this->username);
     }
 
     /**

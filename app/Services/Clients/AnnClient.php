@@ -19,6 +19,7 @@ use App\Services\Contracts\MangaInterface;
 class AnnClient extends Client implements MangaInterface
 {
     protected $apiUrl = 'cdn.animenewsnetwork.com/encyclopedia/api.xml';
+
     protected $apiSecure = false;
 
     public function __construct()

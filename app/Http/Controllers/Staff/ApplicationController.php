@@ -65,7 +65,7 @@ class ApplicationController extends Controller
 
         if ($application->status !== 1) {
             $current = new Carbon();
-            $user = auth()->user();
+            $user = $request->user();
 
             $code = Uuid::uuid4()->toString();
             $invite = new Invite();

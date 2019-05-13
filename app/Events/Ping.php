@@ -24,6 +24,7 @@ class Ping implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $room;
+
     public $ping;
 
     /**

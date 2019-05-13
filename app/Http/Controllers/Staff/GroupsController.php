@@ -16,6 +16,7 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -54,7 +55,7 @@ class GroupsController extends Controller
     {
         $group = new Group();
         $group->name = $request->input('name');
-        $group->slug = str_slug($request->input('name'));
+        $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
         $group->color = $request->input('color');
@@ -130,7 +131,7 @@ class GroupsController extends Controller
         $group = Group::findOrFail($id);
 
         $group->name = $request->input('name');
-        $group->slug = str_slug($request->input('name'));
+        $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
         $group->color = $request->input('color');

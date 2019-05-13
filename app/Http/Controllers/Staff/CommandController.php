@@ -23,9 +23,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         return view('Staff.commands.index');
@@ -40,7 +40,7 @@ class CommandController extends Controller
      */
     public function maintanceEnable(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('down --allow='.$request->ip());
@@ -54,9 +54,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function maintanceDisable()
+    public function maintanceDisable(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('up');
@@ -70,9 +70,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearCache()
+    public function clearCache(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('cache:clear');
@@ -86,9 +86,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearView()
+    public function clearView(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('view:clear');
@@ -102,9 +102,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearRoute()
+    public function clearRoute(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('route:clear');
@@ -118,9 +118,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearConfig()
+    public function clearConfig(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('config:clear');
@@ -134,9 +134,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearAllCache()
+    public function clearAllCache(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('clear:all_cache');
@@ -150,9 +150,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function setAllCache()
+    public function setAllCache(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('set:all_cache');
@@ -166,9 +166,9 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function testEmail()
+    public function testEmail(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('test:email');

@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use App\Models\Torrent;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use App\Services\Clients\OmdbClient;
 
@@ -78,12 +79,13 @@ class DemoSeed extends Command
                             'user_id'     => $uid,
                             'imdb'        => $id,
                             'name'        => $r['Title'],
-                            'slug'        => str_slug($r['Title']),
+                            'slug'        => Str::slug($r['Title']),
                             'description' => $r['Plot'],
                             'category_id' => 1,
                         ]);
                     } catch (\Exception $e) {
                         $abort = true;
+
                         break;
                     }
                 }

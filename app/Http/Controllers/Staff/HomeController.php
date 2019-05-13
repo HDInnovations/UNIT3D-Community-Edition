@@ -20,6 +20,7 @@ use App\Models\Client;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\Application;
+use Illuminate\Http\Request;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use Spatie\SslCertificate\SslCertificate;
@@ -31,7 +32,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(Request $request)
     {
         // User Info
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
@@ -63,7 +64,7 @@ class HomeController extends Controller
 
         // SSL Info
         try {
-            $certificate = request()->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
+            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
         } catch (\Exception $e) {
             $certificate = '';
         }

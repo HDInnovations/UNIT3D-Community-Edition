@@ -41,7 +41,7 @@ class GiftController extends Controller
      */
     public function gift(Request $request)
     {
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $username = $request->input('username');
         $seedbonus = $request->input('seedbonus');

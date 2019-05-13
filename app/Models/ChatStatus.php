@@ -22,7 +22,6 @@ class ChatStatus extends Model
      *
      * @var string
      */
-    protected $table = 'chat_statuses';
 
     /**
      * A Status Has Many Users.

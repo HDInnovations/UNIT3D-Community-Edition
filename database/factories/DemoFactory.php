@@ -1,5 +1,8 @@
 <?php
-/**
+
+use Illuminate\Support\Str;
+
+/*
  * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
@@ -28,7 +31,7 @@ $factory->define(App\Models\Torrent::class, function (Faker\Generator $faker) {
         'slug'         => $faker->slug,
         'description'  => $faker->sentence,
         'info_hash'    => $faker->md5,
-        'file_name'    => str_slug(strtolower($faker->name)),
+        'file_name'    => Str::slug(strtolower($faker->name)),
         'num_file'     => $faker->numberBetween(1, 50),
         'announce'     => config('app.url').'/announce',
         'size'         => $faker->randomFloat(1, 0.00, 4000.00),
@@ -48,7 +51,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'username'       => $faker->firstName,
         'email'          => $faker->safeEmail,
         'password'       => bcrypt('secret'),
-        'passkey'        => str_random(16),
+        'passkey'        => Str::random(16),
         'group_id'       => $faker->numberBetween(1, 18),
         'active'         => $faker->boolean(70),
         'uploaded'       => 53687091200,
@@ -57,6 +60,6 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'seedbonus'      => $faker->randomFloat(1, 0.00, 10.00),
         'invites'        => $faker->numberBetween(0, 10),
         'hitandruns'     => $faker->numberBetween(0, 5),
-        'remember_token' => str_random(10),
+        'remember_token' => Str::random(10),
     ];
 });

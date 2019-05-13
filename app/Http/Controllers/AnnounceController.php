@@ -41,7 +41,7 @@ class AnnounceController extends Controller
         if (! $request->isMethod('get')) {
             info('Announce Request Method Was Not GET');
 
-            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // Request Agent Information
@@ -60,50 +60,50 @@ class AnnounceController extends Controller
             $blockedClients = config('client-blacklist.clients');
             if (in_array($agent, $blockedClients)) {
                 //info('Blacklist Client Attempted To Connect To Announce');
-                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
+                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']))->withHeaders(['Content-Type' => 'text/plain']);
             }
         }
 
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey == null) {
             //info('Client Attempted To Connect To Announce Without A Passkey');
-            return response(Bencode::bencode(['failure reason' => 'Please Call Passkey']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Please Call Passkey']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Infohash Is Not Provided Return Error to Client
         if (! $request->has('info_hash')) {
             //info('Client Attempted To Connect To Announce Without A Infohash');
-            return response(Bencode::bencode(['failure reason' => 'Missing info_hash']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Missing info_hash']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Peerid Is Not Provided Return Error to Client
         if (! $request->has('peer_id')) {
             //info('Client Attempted To Connect To Announce Without A Peerid');
-            return response(Bencode::bencode(['failure reason' => 'Missing peer_id']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Missing peer_id']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Port Is Not Provided Return Error to Client
         if (! $request->has('port')) {
             //info('Client Attempted To Connect To Announce Without A Specified Port');
-            return response(Bencode::bencode(['failure reason' => 'Missing port']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Missing port']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Left" Is Not Provided Return Error to Client
         if (! $request->has('left')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Left" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing left']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Missing left']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Upload" Is Not Provided Return Error to Client
         if (! $request->has('uploaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Upload" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing upload']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Missing upload']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Download" Is Not Provided Return Error to Client
         if (! $request->has('downloaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Download" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing download']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Missing download']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // Check Passkey Against Users Table
@@ -112,7 +112,7 @@ class AnnounceController extends Controller
         // If Passkey Doesn't Exist Return Error to Client
         if (! $user) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
-            return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
@@ -122,25 +122,25 @@ class AnnounceController extends Controller
         // If User Is Banned Return Error to Client
         if ($user->group->id == $bannedGroup->id) {
             //info('A Banned User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Is Disabled Return Error to Client
         if ($user->group->id == $disabledGroup->id) {
             //info('A Disabled User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Account Is Unactivated Return Error to Client
         if ($user->active == 0) {
             //info('A Unactivated User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is not activated']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Your account is not activated']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Is Validating Return Error to Client
         if ($user->group->id == $validatingGroup->id) {
             //info('A Validating User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is still validating']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Your account is still validating']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // Standard Information Fields
@@ -167,19 +167,19 @@ class AnnounceController extends Controller
         // If User Download Rights Are Disabled Return Error to Client
         if ($user->can_download == 0 && $left != 0) {
             //info('A User With Revoked Download Privileges Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'You download privileges are Revoked']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'You download privileges are Revoked']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Client Is Sending Negative Values Return Error to Client
         if ($uploaded < 0 || $downloaded < 0 || $left < 0) {
             //info('Client Attempted To Send Data With A Negative Value');
-            return response(Bencode::bencode(['failure reason' => 'Data from client is a negative value']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Data from client is a negative value']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Client Does Not Support Compact Return Error to Client
         if (! $compact) {
             //info('Client Attempted To Connect To Announce But Doesn't Support Compact');
-            return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // Check Info Hash Against Torrents Table
@@ -192,19 +192,19 @@ class AnnounceController extends Controller
         // If Torrent Doesnt Exsist Return Error to Client
         if (! $torrent || $torrent->id < 0) {
             //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
-            return response(Bencode::bencode(['failure reason' => 'Torrent not found']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Torrent not found']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Torrent Is Pending Moderation Return Error to Client
         if ($torrent->status == 0) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Pending Moderation');
-            return response(Bencode::bencode(['failure reason' => 'Torrent is still pending moderation']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Torrent is still pending moderation']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Torrent Is Rejected Return Error to Client
         if ($torrent->status == 2) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Rejected');
-            return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         $peers = $torrent->peers->where('info_hash', '=', $info_hash)->take(100)->toArray();
@@ -215,7 +215,7 @@ class AnnounceController extends Controller
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
         if ($connections > config('announce.rate_limit')) {
             //info('Client Attempted To Connect To Announce But Has Hit Rate Limits');
-            return response(Bencode::bencode(['failure reason' => 'You have reached the rate limit']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'You have reached the rate limit']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // Get The Current Peer
@@ -226,7 +226,7 @@ class AnnounceController extends Controller
 
         // Creates a new client if not existing
         if (! $client && $event == 'completed') {
-            return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']), 200, ['Content-Type' => 'text/plain']);
+            return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
         } elseif (! $client) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
@@ -451,7 +451,7 @@ class AnnounceController extends Controller
         $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id);
         $res['peers6'] = $this->givePeers6($peers, $compact, $no_peer_id);
 
-        return response(Bencode::bencode($res), 200, ['Content-Type' => 'text/plain']);
+        return response(Bencode::bencode($res))->withHeaders(['Content-Type' => 'text/plain']);
     }
 
     private function givePeers($peers, $compact, $no_peer_id)

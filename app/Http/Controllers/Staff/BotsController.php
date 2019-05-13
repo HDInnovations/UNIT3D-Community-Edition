@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Bot;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -40,9 +41,9 @@ class BotsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bot = Bot::findOrFail($id);
 
         return view('Staff.bots.edit', [
@@ -60,7 +61,7 @@ class BotsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bot = Bot::findOrFail($id);
 
         if ($request->has('command') && $request->input('command') == $bot->command) {
@@ -95,7 +96,7 @@ class BotsController extends Controller
 
         if ($v->passes()) {
             $bot->name = $request->input('name');
-            $bot->slug = str_slug($request->input('name'));
+            $bot->slug = Str::slug($request->input('name'));
             $bot->position = $request->input('position');
             $bot->color = $request->input('color');
             $bot->icon = $request->input('icon');

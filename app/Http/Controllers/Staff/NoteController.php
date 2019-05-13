@@ -43,7 +43,7 @@ class NoteController extends Controller
      */
     public function postNote(Request $request, $username, $id)
     {
-        $staff = auth()->user();
+        $staff = $request->user();
         $user = User::findOrFail($id);
 
         $note = new Note();

@@ -71,7 +71,7 @@ class CommentController extends Controller
     public function article(Request $request, $slug, $id)
     {
         $article = Article::findOrFail($id);
-        $user = auth()->user();
+        $user = $request->user();
 
         if ($user->can_comment == 0) {
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
@@ -172,7 +172,7 @@ class CommentController extends Controller
     public function torrent(Request $request, $slug, $id)
     {
         $torrent = Torrent::findOrFail($id);
-        $user = auth()->user();
+        $user = $request->user();
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
@@ -277,7 +277,7 @@ class CommentController extends Controller
     public function request(Request $request, $id)
     {
         $tr = TorrentRequest::findOrFail($id);
-        $user = auth()->user();
+        $user = $request->user();
 
         if ($user->can_comment == 0) {
             return redirect()->route('request', ['id' => $tr->id])
@@ -377,10 +377,10 @@ class CommentController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function quickthanks($id)
+    public function quickthanks(Request $request, $id)
     {
         $torrent = Torrent::findOrFail($id);
-        $user = auth()->user();
+        $user = $request->user();
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
@@ -465,7 +465,7 @@ class CommentController extends Controller
      */
     public function editComment(Request $request, $comment_id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $comment = Comment::findOrFail($comment_id);
 
         abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
@@ -473,7 +473,7 @@ class CommentController extends Controller
         $comment->content = $content;
         $comment->save();
 
-        return back()->withSuccess('Comment Has Been Edited.');
+        return redirect()->back()->withSuccess('Comment Has Been Edited.');
     }
 
     /**
@@ -483,14 +483,14 @@ class CommentController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteComment($comment_id)
+    public function deleteComment(Request $request, $comment_id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $comment = Comment::findOrFail($comment_id);
 
         abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();
 
-        return back()->withSuccess('Comment Has Been Deleted.');
+        return redirect()->back()->withSuccess('Comment Has Been Deleted.');
     }
 }

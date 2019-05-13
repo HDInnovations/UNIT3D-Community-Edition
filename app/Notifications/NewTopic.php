@@ -24,7 +24,9 @@ class NewTopic extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $poster;
+
     public $topic;
 
     /**
