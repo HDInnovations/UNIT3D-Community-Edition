@@ -247,7 +247,7 @@ return [
         'CookieConsent'   => BrianFaust\CookieConsent\Facades\CookieConsent::class,
         'LaravelEmojiOne' => ChristofferOK\LaravelEmojiOne\LaravelEmojiOneFacade::class,
         'Image'           => Intervention\Image\Facades\Image::class,
-        
+
         'LogActivity' => App\Helpers\LogActivity::class,
         'Irc'         => App\Bots\IRCAnnounceBot::class,
     ],
