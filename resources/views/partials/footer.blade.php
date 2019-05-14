@@ -12,17 +12,15 @@
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">@lang('common.account')</h2>
             <ul>
-                @auth
-                    <li>
-                        <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">@lang('user.my-profile')</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                              style="display: none;">@csrf</form>
-                    </li>
-                @endauth
+                <li>
+                    <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">@lang('user.my-profile')</a>
+                </li>
+                <li>
+                    <a href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                          style="display: none;">@csrf</form>
+                </li>
             </ul>
         </div>
 
