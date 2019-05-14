@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\LoginLoginRequest;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,7 +50,7 @@ class LoginController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    protected function validateLogin(Request $request)
+    protected function validateLogin(LoginLoginRequest $request)
     {
         if (config('captcha.enabled') == true) {
             $this->validate($request, [
