@@ -24,14 +24,17 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Gstt\Achievements\Event\Unlocked' => [
-            \App\Listeners\AchievementUnlocked::class,
-        ],
-        'Illuminate\Auth\Events\Failed' => [
-            \App\Listeners\RecordFailedLoginAttempt::class,
+        'Illuminate\Auth\Events\Logout' => [
+            \App\Listeners\LogoutListener::class,
         ],
         'Illuminate\Auth\Events\Login' => [
-            \App\Listeners\UpdateLastLogin::class,
+            \App\Listeners\LoginListener::class,
+        ],
+        'Illuminate\Auth\Events\Failed' => [
+            \App\Listeners\FailedLoginListener::class,
+        ],
+        'Gstt\Achievements\Event\Unlocked' => [
+            \App\Listeners\AchievementUnlocked::class,
         ],
         'Spatie\Backup\Events\BackupZipWasCreated' => [
             \App\Listeners\PasswordProtectBackup::class,

@@ -14,12 +14,25 @@
 namespace App\Listeners;
 
 use Carbon\Carbon;
-use Illuminate\Auth\Events\Login;
 
-class UpdateLastLogin
+class LoginListener
 {
-    public function handle(Login $event)
+    /**
+     * Handle the event.
+     *
+     * @param  auth.login  $event
+     * @return void
+     */
+    public function handle($event)
     {
+        // Online Block
+        $current = Carbon::now();
+        $expiresAt = $current->addHours(2);
+        if ($event->user !== null) {
+            $event->user->setCache($expiresAt);
+        }
+
+        // Update Login Timestamp
         $event->user->last_login = Carbon::now();
         $event->user->save();
     }

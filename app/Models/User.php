@@ -18,6 +18,7 @@ use App\Helpers\Bbcode;
 use Illuminate\Support\Str;
 use App\Helpers\StringHelper;
 use Gstt\Achievements\Achiever;
+use App\Traits\UsersOnlineTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,6 +28,7 @@ class User extends Authenticatable
     use Notifiable;
     use Achiever;
     use SoftDeletes;
+    use UsersOnlineTrait;
 
     /**
      * The Attributes Excluded From The Model's JSON Form.
@@ -908,15 +910,5 @@ class User extends Authenticatable
         $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
 
         return Torrent::whereIn('id', $peers)->sum('size');
-    }
-
-    /**
-     * Is A User Online?
-     *
-     * @return string
-     */
-    public function isOnline()
-    {
-        return cache()->has('user-is-online-'.$this->id);
     }
 }

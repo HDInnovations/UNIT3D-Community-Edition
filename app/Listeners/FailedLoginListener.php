@@ -15,12 +15,17 @@ namespace App\Listeners;
 
 use App\Models\FailedLoginAttempt;
 use App\Notifications\FailedLogin;
-use Illuminate\Auth\Events\Failed;
 use Illuminate\Support\Facades\Request;
 
-class RecordFailedLoginAttempt
+class FailedLoginListener
 {
-    public function handle(Failed $event)
+    /**
+     * Handle the event.
+     *
+     * @param  auth.failed  $event
+     * @return void
+     */
+    public function handle($event)
     {
         FailedLoginAttempt::record(
             $event->user,

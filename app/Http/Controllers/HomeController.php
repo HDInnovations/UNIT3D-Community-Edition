@@ -35,6 +35,10 @@ class HomeController extends Controller
      */
     public function home(Request $request)
     {
+        // For Cache
+        $current = Carbon::now();
+        $expiresAt = $current->addHours(2);
+
         // Authorized User
         $user = $request->user();
 
@@ -84,16 +88,7 @@ class HomeController extends Controller
         $posts = Post::latest()->take(5)->get();
 
         // Online Block
-        $current = Carbon::now();
-        $expiresAt = $current->addMinutes(60);
-
-        $cached_users = cache()->remember('online-users', $expiresAt, function () {
-            return User::pluck('id');
-        });
-
-        $users = User::with(['privacy', 'group' => function ($query) {
-            $query->select(['id', 'name', 'color', 'effect', 'icon', 'position']);
-        }])->whereIn('id', $cached_users)->select(['id', 'username', 'hidden', 'group_id'])->oldest('username')->get();
+        $users = new User;
 
         $groups = cache()->remember('user-groups', $expiresAt, function () {
             return Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();
