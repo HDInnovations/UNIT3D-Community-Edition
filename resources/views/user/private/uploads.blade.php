@@ -94,12 +94,12 @@
                 </span>
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="reseed" value="1" class="userFilter" trigger="click"> Reseed
+                        <input type="checkbox" id="reseed" value="1" class="userFilter" trigger="click"> @lang('torrent.requires-reseed')
                     </label>
                 </span>
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="error" value="1" class="userFilter" trigger="click"> Error
+                        <input type="checkbox" id="error" value="1" class="userFilter" trigger="click"> @lang('common.error')
                     </label>
                 </span>
                         </div>
@@ -108,14 +108,14 @@
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
                             <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
-                                <option value="created_at">Created at</option>
-                                <option value="name">Name</option>
-                                <option value="size">Size</option>
-                                <option value="seeders">Seeders</option>
-                                <option value="leechers">Leechers</option>
-                                <option value="times_completed">Times Completed</option>
-                                <option value="tipped">BON Tipped</option>
-                                <option value="thanked">Thanked</option>
+                                <option value="created_at">@lang('torrent.created_at')</option>
+                                <option value="name">@lang('torrent.name')</option>
+                                <option value="size">@lang('torrent.size')</option>
+                                <option value="seeders">@lang('torrent.seeders')</option>
+                                <option value="leechers">@lang('torrent.leechers')</option>
+                                <option value="times_completed">@lang('torrent.completed-times')</option>
+                                <option value="tipped">@lang('torrent.bon-tipped')</option>
+                                <option value="thanked">@lang('torrent.thanked')</option>
                             </select>
                         </div>
                     </div>
@@ -201,9 +201,9 @@
                                     @elseif ($upload->seeders >= 1)
                                         <span class='label label-success'>@lang('torrent.alive')</span>
                                     @elseif ($upload->leechers >= 1 + $upload->seeders = 0)
-                                        <span class='label label-info'>RESEED</span>
+                                        <span class='label label-info'>@lang('torrent.requires-reseed')</span>
                                     @else
-                                        <span class='label label-warning'>ERROR</span>
+                                        <span class='label label-warning'>{{ strtoupper(trans('common.error')) }}</span>
                                     @endif
                                 </td>
                             </tr>
