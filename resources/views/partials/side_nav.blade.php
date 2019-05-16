@@ -22,13 +22,6 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('forum_index') }}">
-                <i class="{{ config('other.font-awesome') }} fa-comments" style=" font-size: 18px; color: rgb(255,255,255);"></i>
-                <span class="menu-text">@lang('forum.forums')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
             <a href="{{ route('upload') }}">
                 <i class="{{ config('other.font-awesome') }} fa-upload" style=" font-size: 18px; color: rgb(255,255,255);"></i>
                 <span class="menu-text">@lang('common.publish')</span>
@@ -74,6 +67,13 @@
             <a href="{{ route('bonus_store') }}">
                 <i class="{{ config('other.font-awesome') }} fa-shopping-cart" style=" font-size: 18px; color: rgb(255,255,255);"></i>
                 <span class="menu-text">@lang('bon.bon') @lang('bon.store')</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('forum_index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-comments" style=" font-size: 18px; color: rgb(255,255,255);"></i>
+                <span class="menu-text">@lang('forum.forums')</span>
                 <span class="selected"></span>
             </a>
         </li>
