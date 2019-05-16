@@ -76,7 +76,7 @@
                                 @if ($movie->imdbRating || $movie->tmdbRating)
                                     <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
                                         <span class="movie-rating-stars">
-                                            <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                                         </span>
                                         @if ($user->ratings == 1)
                                             {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} @lang('torrent.votes'))
@@ -96,13 +96,13 @@
                                 @endif
                                 @if ($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
                                     <span class="badge-user text-bold text-orange">
-                                        <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}"
+                                        <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}?language={{ config('app.locale') }}"
                                             title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
                                     </span>
                                 @elseif ($torrent->tmdb != 0 && $torrent->tmdb != null)
                                      <i class="tmdb-icon"></i>
                                      <span class="badge-user text-bold text-orange">
-                                        <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}"
+                                        <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}?language={{ config('app.locale') }}"
                                             title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
                                      </span>
                                 @endif
@@ -132,7 +132,7 @@
                                             @php $person = $client->person($actor->tmdb); @endphp
                                             <div class="col-xs-4 col-md-2 text-center">
                                                 <img class="img-people" src="{{ $person->photo }}">
-                                                <a href="https://www.themoviedb.org/person/{{ $actor->tmdb }}"
+                                                <a href="https://www.themoviedb.org/person/{{ $actor->tmdb }}?language={{ config('app.locale') }}"
                                                    title="TheMovieDatabase" target="_blank">
                                                     <span class="badge-user" style="white-space:normal;"><strong>{{ $actor->name }}</strong></span>
                                                 </a>
@@ -175,7 +175,7 @@
                         <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}"
                            role="button"
                            class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> @lang('torrent.similar')</a>
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-copy'></i></span> @lang('torrent.similar')</a>
                     @endif
                     @if ($torrent->nfo != null)
                         <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
@@ -183,9 +183,9 @@
                     @endif
                     <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button"
                        class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-heart'></i></span> @lang('torrent.quick-comment')</a>
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-comment'></i></span> @lang('torrent.quick-comment')</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> @lang('torrent.show-files')</a>
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-folder-open'></i></span> @lang('torrent.show-files')</a>
 
             <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
 
@@ -285,7 +285,7 @@
                     <td>
                         <a href="{{ route('moderation_approve', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                            role='button' class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
-                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
+                            <i class="{{ config('other.font-awesome') }} fa-check"></i> @lang('common.moderation-approve')
                         </a>
 
                         <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
@@ -295,7 +295,7 @@
 
                         <button data-target="#reject-{{ $torrent->id }}" data-toggle="modal"
                                 class="btn btn-labeled btn-danger btn-xs @if ($torrent->isRejected()) disabled @endif">
-                            <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> @lang('common.moderation-reject')
+                            <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.moderation-reject')
                         </button>
 
                         <span>
@@ -319,7 +319,7 @@
                             </a>
                         @else
                             <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-danger btn-xs" role="button">
-                                <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
+                                <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
                             </a>
                         @endif
                         @if ($torrent->doubleup == 0)
@@ -328,7 +328,7 @@
                             </a>
                         @else
                             <a href="{{ route('torrent_doubleup', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-danger btn-xs" role="button">
-                                <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.revoke') @lang('torrent.double-upload')
+                                <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('torrent.revoke') @lang('torrent.double-upload')
                             </a>
                         @endif
                         @if ($torrent->sticky == 0)
@@ -337,7 +337,7 @@
                             </a>
                         @else
                             <a href="{{ route('torrent_sticky', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-danger btn-xs" role="button">
-                                <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.unsticky')
+                                <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('torrent.revoke') @lang('torrent.sticky')
                             </a>
                         @endif
                             <a href="{{ route('bumpTorrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-primary btn-xs" role="button">
@@ -390,7 +390,7 @@
                            data-original-title="@lang('torrent.thank')">
                             <i class="{{ config('other.font-awesome') }} fa-heart"></i> @lang('torrent.thank')</a>
                         <span class="badge-extra text-pink"><i
-                                    class="{{ config('other.font-awesome') }} fa-heart"></i> {{ $torrent->thanks()->count() }} @lang('torrent.thanks')</span>
+                                    class="{{ config('other.font-awesome') }} fa-heart"></i> {{ $torrent->thanks()->count() }} </span>
                     </td>
                 </tr>
 
@@ -628,7 +628,7 @@
         <div class="torrent box container">
             <section class="recommendations">
                 <div class="text-center">
-                    <h2><u>Recommendations</u></h2>
+                    <h2><u>@lang('torrent.recommendations')</u></h2>
                 </div>
                 <div class="scroller">
                     @foreach($movie->recommendations['results'] as $recommendation)
@@ -655,7 +655,7 @@
                                     @endif
                                     <div class="meta">
                                         <span class="release_date">
-                                            <i class="fas fa-calendar"></i> Year:
+                                            <i class="fas fa-clock"></i> @lang('common.year'):
                                             @if(isset($recommendation['release_date']))
                                                 {{ substr($recommendation['release_date'], 0, 4) }}
                                             @elseif(isset($recommendation['first_air_date']))
@@ -665,7 +665,7 @@
                                             @endif
                                         </span>
                                         <span class="vote_average">
-                                            <i class="fas fa-star"></i> Rating: {{ $recommendation['vote_average'] }}
+                                            <i class="fas fa-thumbs-up"></i> @lang('torrent.rating'): {{ $recommendation['vote_average'] }}
                                         </span>
                                     </div>
                                 </a>
@@ -718,12 +718,12 @@
                                                             href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                <a title="@lang('common.delete-comment')"
+                                                <a title="@lang('common.delete-your-comment')"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
-                                                <a title="@lang('common.edit-comment')" data-toggle="modal"
+                                                            class="pull-right btn btn-danger btn-xs {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
+                                                <a title="@lang('common.edit-your-comment')" data-toggle="modal"
                                                    data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa-pencil"
+                                                            class="pull-right btn btn-warning btn-xs {{ config('other.font-awesome') }} fa-pencil"
                                                             aria-hidden="true"></i></a>
                                             @endif
                                             <div class="pt-5">
