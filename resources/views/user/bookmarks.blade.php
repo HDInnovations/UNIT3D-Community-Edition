@@ -34,7 +34,7 @@
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th class="col-md-1">Category/Type</th>
+                        <th class="col-md-1">@lang('torrent.category') / @lang('torrent.type')</th>
                         <th>@lang('common.name')</th>
                         <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                         <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
@@ -286,7 +286,7 @@
                 @if (count($bookmarks) <= 0)
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1 class="text-blue"><i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i> No Boomarks</h1>
+                            <h1 class="text-blue"><i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i> @lang('torrent.no-bookmarks')</h1>
                         </div>
                     </div>
                 @endif
