@@ -34,7 +34,7 @@
             </div>
         @else
             <div class="block">
-                @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+                @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
                     @include('user.buttons.profile')
                 @else
                     @include('user.buttons.public')
@@ -88,7 +88,7 @@
                                 <h4>@lang('user.registration-date') {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
         @if (auth()->user()->id != $user->id)
                                 <span style="float:right;">
-        @if (auth()->check() && auth()->user()->group->is_modo)
+        @if (auth()->user()->group->is_modo)
                                         <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                 data-target="#modal_user_note"><span
                                                     class="{{ config('other.font-awesome') }} fa-sticky-note"></span> @lang('user.note') </button>
@@ -402,7 +402,7 @@
           <span class="badge-user"><strong>@lang('user.hit-n-runs-count'):</strong>
             <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
           </span>
-                    @if (auth()->check() && auth()->user()->group->is_modo)
+                    @if (auth()->user()->group->is_modo)
                         <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span
                                     class="badge-user text-bold"><strong>@lang('user.warning-log')</strong></span></a>
                         <a href="{{ route('banlog', ['username' => $user->username, 'id' => $user->id]) }}"><span
@@ -502,7 +502,7 @@
                     </div>
                 </div>
             </div>
-    @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+    @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
         <div class="block">
             <h3><i class="{{ config('other.font-awesome') }} fa-lock"></i> @lang('user.private-info')</h3>
             <div class="table-responsive">

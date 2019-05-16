@@ -16,9 +16,9 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Peer;
 use App\Models\User;
 use App\Models\Group;
-use App\Models\Client;
 use App\Models\Report;
 use App\Models\Torrent;
+use App\Models\Seedbox;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Helpers\SystemInformation;
@@ -53,8 +53,8 @@ class HomeController extends Controller
         $leechers = Peer::where('seeder', '=', 0)->count();
 
         // Seedbox Info
-        $seedboxes = Client::count();
-        $highspeed_users = Client::count();
+        $seedboxes = Seedbox::count();
+        $highspeed_users = Seedbox::count();
         $highspeed_torrents = Torrent::where('highspeed', '=', 1)->count();
 
         // User Info

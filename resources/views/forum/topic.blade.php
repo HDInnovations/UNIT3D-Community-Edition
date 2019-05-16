@@ -34,13 +34,13 @@
                     href="{{ route('profile', ['username' => Str::slug($topic->first_post_user_username), 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
-            @auth()->user()->isSubscribed('topic', $topic->id))
+            @if(auth()->user()->isSubscribed('topic', $topic->id))
                 <a href="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" class="label label-sm label-danger">
                     <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
             @else
                 <a href="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" class="label label-sm label-success">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
-            @endauth
+            @endif
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
         <br>
@@ -110,11 +110,11 @@
                                         <button id="quote"
                                                 class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
                                     @endauth
-                                    @if (auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id))
+                                    @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id)
                                         <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
                                     @endauth
-                                    @if (auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
+                                    @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id && $topic->state == 'open')
                                         <a href="{{ route('forum_post_delete', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
                                     @endauth
@@ -193,12 +193,7 @@
                                 <div class="from-group">
                                     <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                                 </div>
-                                @if (auth()
-                                    <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
-                                @else
-                                    <button type="submit"
-                                            class="btn btn-default disabled">@lang('forum.not-connected')</button>
-                                @endauth
+                                <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                             </form>
                         @elseif ($topic->state == "close")
                             <div class="col-md-12 alert alert-danger">@lang('forum.topic-closed')</div>
@@ -209,17 +204,12 @@
                                 <div class="from-group">
                                     <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                                 </div>
-                                @auth
-                                    <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
-                                @else
-                                    <button type="submit"
-                                            class="btn btn-default disabled">@lang('forum.not-connected')</button>
-                                @endauth
+                                <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                             </form>
                         @endif
 
                         <div class="text-center">
-                            @if (auth()->check() && (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id))
+                            @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
                                 <h3>@lang('forum.moderation')</h3>
                                 @if ($topic->state == "close")
                                     <a href="{{ route('forum_open', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
@@ -229,13 +219,13 @@
                                        class="btn btn-info">@lang('forum.close-topic')</a>
                                 @endif
                             @endif
-                            @if (auth()->check() && auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
+                            @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
                                 <a href="{{ route('forum_edit_topic_form', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
                                    class="btn btn-warning">@lang('forum.edit-topic')</a>
                                 <a href="{{ route('forum_delete_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
                                    class="btn btn-danger">@lang('forum.delete-topic')</a>
                             @endif
-                            @if (auth()->check() && auth()->user()->group->is_modo)
+                            @if (auth()->user()->group->is_modo)
                                 @if ($topic->pinned == 0)
                                     <a href="{{ route('forum_pin_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
                                        class="btn btn-primary">@lang('forum.pin') {{ strtolower(trans('forum.topic')) }}</a>
@@ -247,7 +237,7 @@
 
                             <br>
 
-                            @if (auth()->check() && auth()->user()->group->is_modo)
+                            @if (auth()->user()->group->is_modo)
                                 <h3>@lang('forum.label-system')</h3>
                                 @if ($topic->approved == "0")
                                     <a href="{{ route('forum_approved', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"

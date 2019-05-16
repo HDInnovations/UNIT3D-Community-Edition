@@ -35,7 +35,7 @@
             </div>
         @else
             <div class="block">
-                @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+                @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
                     @include('user.buttons.forum')
                 @else
                     @include('user.buttons.public')

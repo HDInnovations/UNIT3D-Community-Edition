@@ -8,22 +8,23 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
+ * @author     HDVinnie
  */
 
-namespace App\Models;
+namespace App\Listeners;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ChatStatus extends Model
+class LogoutListener
 {
     /**
-     * A Status Has Many Users.
+     * Handle the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @param  auth.logout  $event
+     * @return void
      */
-    public function users()
+    public function handle($event)
     {
-        return $this->hasMany(User::class, 'chat_status_id', 'id');
+        if ($event->user !== null) {
+            $event->user->pullCache();
+        }
     }
 }

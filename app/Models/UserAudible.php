@@ -25,12 +25,6 @@ class UserAudible extends Model
     public $timestamps = true;
 
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

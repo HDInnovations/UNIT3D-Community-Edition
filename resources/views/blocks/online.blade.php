@@ -3,12 +3,11 @@
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
             <h4>@lang('blocks.users-online')
-                <small> (@lang('blocks.active-in-last') 15 min)</small>
+                <span class="label label-default">{{ $users->allOnline()->count() }}</span>
             </h4>
         </div>
         <div class="panel-body">
-            @foreach ($users as $user)
-                @if ($user->isOnline())
+            @foreach ($users->allOnline( ) as $user)
                     @if($user->hidden == 1 || !$user->isVisible($user,'other','show_online'))
                         <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
                             <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }}
@@ -34,7 +33,6 @@
                             </span>
                         </a>
                     @endif
-                @endif
             @endforeach
         </div>
         <div class="panel-footer">

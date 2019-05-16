@@ -18,12 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class BonTransactions extends Model
 {
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-
-    /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
