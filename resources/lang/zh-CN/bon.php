@@ -11,7 +11,7 @@ return [
     'earning-rate'     => '按率推算...',
     'earnings'         => '收入',
     'exchange'         => '交易',
-    'exchange-warning' => '交易是不可逆改的，请在执行之前仔细检查您的选择。',
+    'exchange-warning' => '注意，所涉及的魔力交易是不可退回的!',
     'extended-stats'   => '显示更多',
     'gift'             => '礼物',
     'gift-bonus'       => 'Gift Bonus Points',
