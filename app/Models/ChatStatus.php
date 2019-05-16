@@ -18,12 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class ChatStatus extends Model
 {
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-
-    /**
      * A Status Has Many Users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

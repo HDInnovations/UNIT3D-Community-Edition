@@ -25,12 +25,6 @@ class UserNotification extends Model
     public $timestamps = false;
 
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-
-    /**
      * The Attributes That Should Be Cast To Native Values.
      *
      * @var array
