@@ -229,7 +229,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Seeding Size</td>
+                <td>@lang('user.seeding-size')</td>
                 <td>
                     <span class="badge-user group-member">{{ App\Helpers\StringHelper::formatBytes($user->getTotalSeedSize() , 2) }}</span>
                 </td>
@@ -376,7 +376,7 @@
                             </tr>
                         @endif
             <tr>
-                <td colspan="2" class="text-bold">Warnings:</td>
+                <td colspan="2" class="text-bold">@lang('common.warnings'):</td>
             </tr>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_warning'))
                         <tr>
@@ -511,11 +511,25 @@
                 <tr>
                     <td colspan="2" class="text-bold">
                         <div class="button-holder">
-                            <div class="button-left-small">ID & Permissions:</div>
+                            <div class="button-left-small">@lang('user.id-permissions'):</div>
                             <div class="button-right-large">
 
                             </div>
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@lang('user.invited-by')</td>
+                    <td>
+                    @if ($invitedBy)
+                        <a href="{{ route('profile', ['username' => $invitedBy->sender->username, 'id' => $invitedBy->sender->id]) }}">
+                            <span class="text-bold" style="color:{{ $invitedBy->sender->group->color }}; ">
+                                <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
+                            </span>
+                        </a>
+                    @else
+                        <span class="text-bold">@lang('user.open-registration')</span>
+                    @endif
                     </td>
                 </tr>
                 <tr>
@@ -597,16 +611,6 @@
                     @endif
                 </tr>
                 <tr>
-                    <td colspan="2" class="text-bold">
-                        <div class="button-holder">
-                            <div class="button-left-small">@lang('user.invites'):</div>
-                            <div class="button-right-large">
-
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
                     <td> @lang('user.invites')</td>
                     @if ($user->invites > 0)
                         <td><span class="text-success text-bold"> {{ $user->invites }}</span>
@@ -615,20 +619,6 @@
                         <td><span class="text-danger text-bold"> {{ $user->invites }}</span>
                         </td>
                     @endif
-                </tr>
-                <tr>
-                    <td>Invited By</td>
-                    <td>
-                    @if ($invitedBy)
-                        <a href="{{ route('profile', ['username' => $invitedBy->sender->username, 'id' => $invitedBy->sender->id]) }}">
-                            <span class="text-bold" style="color:{{ $invitedBy->sender->group->color }}; ">
-                                <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
-                            </span>
-                        </a>
-                    @else
-                        <span class="text-bold"> Open Registration</span>
-                    @endif
-                    </td>
                 </tr>
                 </tbody>
             </table>
