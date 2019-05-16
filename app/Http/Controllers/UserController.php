@@ -22,7 +22,6 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Topic;
-use App\Models\Client;
 use App\Models\Follow;
 use App\Models\Invite;
 use App\Models\History;
@@ -1161,102 +1160,6 @@ class UserController extends Controller
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
         return view('user.notification', ['user' => $user, 'groups'=> $groups]);
-    }
-
-    /**
-     * Get A Users Seedboxes/Clients.
-     *
-     * @param $username
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function clients(Request $request, $username, $id)
-    {
-        $user = User::where('id', '=', $id)->firstOrFail();
-
-        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
-
-        $cli = Client::where('user_id', '=', $user->id)->get();
-
-        return view('user.clients', ['user' => $user, 'clients' => $cli, 'route' => 'client']);
-    }
-
-    /**
-     * Add A Seedbox/Client.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param $username
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    protected function authorizeClient(Request $request, $username, $id)
-    {
-        $v = validator($request->all(), [
-            'password'    => 'required',
-            'ip'          => 'required|ipv4|unique:clients,ip',
-            'client_name' => 'required|alpha_num',
-        ]);
-
-        $user = auth()->user();
-        if ($v->passes()) {
-            if (Hash::check($request->input('password'), $user->password)) {
-                if (Client::where('user_id', '=', $user->id)->get()->count() >= config('other.max_cli')) {
-                    return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])
-                        ->withErrors('Max Clients Reached!');
-                }
-                $cli = new Client();
-                $cli->user_id = $user->id;
-                $cli->name = $request->input('client_name');
-                $cli->ip = $request->input('ip');
-                $cli->save();
-
-                // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has added a new seedbox to there account.");
-
-                return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])
-                    ->withSuccess('Client Has Been Added!');
-            } else {
-                return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])
-                    ->withErrors('Password Invalid!');
-            }
-        } else {
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])
-                ->withErrors('All required values not received or IP is already registered by a member.');
-        }
-    }
-
-    /**
-     * Delete A Seedbox/Client.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param $username
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    protected function removeClient(Request $request, $username, $id)
-    {
-        $v = validator($request->all(), [
-            'cliid'  => 'required|exists:clients,id',
-            'userid' => 'required|exists:users,id',
-        ]);
-
-        $user = auth()->user();
-        if ($v->passes()) {
-            $cli = Client::where('id', '=', $request->input('cliid'));
-            $cli->delete();
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has removed a seedbox from there account.");
-
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])
-                ->withSuccess('Client Has Been Removed!');
-        } else {
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])
-                ->withErrors('Unable to remove this client.');
-        }
     }
 
     /**

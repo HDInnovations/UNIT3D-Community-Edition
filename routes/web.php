@@ -315,10 +315,10 @@ Route::group(['middleware' => 'language'], function () {
         // User Language
         Route::get('/{locale}/back', 'LanguageController@home')->name('back');
 
-        // User Clients
-        Route::get('/{username}.{id}/clients', 'UserController@clients')->name('user_clients');
-        Route::post('/{username}.{id}/addcli', 'UserController@authorizeClient')->name('addcli');
-        Route::post('/{username}.{id}/rmcli', 'UserController@removeClient')->name('rmcli');
+        // User Seedboxes
+        Route::get('/{username}/seedboxes', 'SeedboxController@index')->name('seedboxes.index');
+        Route::post('/{username}/seedboxes/store', 'SeedboxController@store')->name('seedboxes.store');
+        Route::delete('/{username}/seedboxes/destroy/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
 
         // Invite System
         Route::get('/invite', 'InviteController@invite')->name('invite');

@@ -16,9 +16,16 @@ namespace App\Models;
 use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Seedbox extends Model
 {
     use Encryptable;
+
+    /**
+     * The Database Table Used By The Model.
+     *
+     * @var string
+     */
+    protected $table = 'clients';
 
     /**
      * The Attributes That Are Encrypted.
