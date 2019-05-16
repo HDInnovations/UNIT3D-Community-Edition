@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">WarningLog</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.warning-log')</span>
         </a>
     </li>
 @endsection
@@ -20,25 +20,25 @@
                 <a href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">
                     {{ $user->username }}
                 </a>
-                Warnings Log
+                @lang('user.warning-log')
             </h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
                     <h2>
                         <span class="text-red">
-                            <strong>Warnings {{ $warningcount }} </strong>
+                            <strong>@lang('user.warnings') {{ $warningcount }} </strong>
                         </span>
                         <div class="pull-right">
                             <a href="{{ route('massDeactivateWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
                                 <button type="button" class="btn btn btn-success" data-toggle="tooltip"
-                                        data-original-title="Deactivate All"><i
-                                            class="{{ config('other.font-awesome') }} fa-check"></i> Deactivate All</button>
+                                        data-original-title="@lang('user.deactivate-all')"><i
+                                            class="{{ config('other.font-awesome') }} fa-check"></i> @lang('user.deactivate-all')
                             </a>
                             <a href="{{ route('massDeleteWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
                                 <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
-                                        data-original-title="Delete All"><i
-                                            class="{{ config('other.font-awesome') }} fa-times"></i> Delete All</button>
+                                        data-original-title="@lang('user.delete-all')"><i
+                                            class="{{ config('other.font-awesome') }} fa-times"></i> @lang('user.delete-all')</button>
                             </a>
                         </div>
                     </h2>
@@ -46,21 +46,21 @@
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>Warned By</th>
-                            <th>Torrent</th>
-                            <th>Reason</th>
-                            <th>Created On</th>
-                            <th>Expires On</th>
-                            <th>Active</th>
-                            <th>Deactivate</th>
-                            <th>Delete</th>
+                            <th>@lang('user.warned-by')</th>
+                            <th>@lang('torrent.torrent')</th>
+                            <th>@lang('common.reason')</th>
+                            <th>@lang('user.created-on')</th>
+                            <th>@lang('user.expires-on')</th>
+                            <th>@lang('user.active')</th>
+                            <th>@lang('user.deactivate')</th>
+                            <th>@lang('common.delete')</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if (count($warnings) == 0)
                             <tr>
                                 <td>
-                                    <p>The are no warnings in the database for this user!</p>
+                                    <p>@lang('user.no-warning')</p>
                                 </td>
                             </tr>
                         @else
@@ -125,7 +125,7 @@
         <div class="block">
             <h2>
                 <span class="text-bold text-orange">
-                    Soft Deleted Warnings {{ $softDeletedWarningCount }}
+                    @lang('user.soft-deleted-warnings') {{ $softDeletedWarningCount }}
                 </span>
             </h2>
             <hr>
@@ -135,20 +135,20 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Warned By</th>
-                                <th>Torrent</th>
-                                <th>Reason</th>
-                                <th>Created On</th>
-                                <th>Deleted On</th>
-                                <th>Deleted By</th>
-                                <th>Restore</th>
+                                <th>@lang('user.warned-by')</th>
+                                <th>@lang('torrent.torrent')</th>
+                                <th>@lang('common.reason')</th>
+                                <th>@lang('user.created-on')</th>
+                                <th>@lang('user.deleted-on')</th>
+                                <th>@lang('user.deleted-by')</th>
+                                <th>@lang('user.restore')</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if (count($softDeletedWarnings) == 0)
                                 <tr>
                                     <td>
-                                        <p>The are soft deleted warnings in the database for this user!</p>
+                                        <p>@lang('user.no-soft-warning')</p>
                                     </td>
                                 </tr>
                             @else
