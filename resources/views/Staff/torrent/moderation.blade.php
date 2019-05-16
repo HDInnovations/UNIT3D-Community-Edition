@@ -161,7 +161,7 @@
         </div>
         </div>
 
-    <div class="text-center"><h1>Postponed Torrents</h1></div>
+    <div class="text-center"><h1>@lang('torrent.postponed-torrents')</h1></div>
     <div class="container box">
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered">
@@ -270,7 +270,7 @@
         </div>
         </div>
 
-    <div class="text-center"><h1>Rejected Torrents</h1></div>
+    <div class="text-center"><h1>@lang('torrent.rejected')</h1></div>
     <div class="container box">
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered">
