@@ -7,11 +7,11 @@
         <th>@lang('torrent.seeders')</th>
         <th>@lang('torrent.leechers')</th>
         <th>@lang('torrent.completed')</th>
-        <th>Resurrect Date</th>
-        <th>Current Seedtime</th>
-        <th>Seedtime Goal</th>
-        <th>Rewarded</th>
-        <th>Cancel</th>
+        <th>@lang('graveyard.resurrect-date')</th>
+        <th>@lang('graveyard.current-seedtime')</th>
+        <th>@lang('graveyard.seedtime-goal')</th>
+        <th>@lang('graveyard.rewarded')</th>
+        <th>@lang('common.cancel')</th>
         </thead>
         <tbody>
         @foreach ($resurrections as $resurrection)
