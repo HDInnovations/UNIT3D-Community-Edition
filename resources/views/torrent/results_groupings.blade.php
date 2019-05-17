@@ -1,4 +1,11 @@
 <div style="width: 100% !important; display: table !important;">
+    <div class="align-center" style="width: 100% !important; display: table-cell !important;">
+        @if($links)
+            {{ $links->links() }}
+        @endif
+    </div>
+</div>
+<div style="width: 100% !important; display: table !important;">
     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
         @if($torrents && is_array($torrents))
             @foreach ($torrents as $k => $c)
@@ -17,7 +24,7 @@
                                 </span>&nbsp;
                             @endif
                                 <span class="badge-user text-bold" style="float: right;">
-                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
                                                 @if($t->movie && ($t->movie->imdbRating || $t->movie->tmdbVotes))
                                         @if ($user->ratings == 1)
                                             {{ $t->movie->imdbRating }}/10 ({{ $t->movie->imdbVotes }} @lang('torrent.votes'))

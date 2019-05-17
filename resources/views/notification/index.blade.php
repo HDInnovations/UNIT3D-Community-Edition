@@ -16,7 +16,7 @@
     <!-- Search -->
     <div class="container box">
         <div class="text-center">
-            <h3 class="filter-title">Filter By Notification Type</h3>
+            <h3 class="filter-title">@lang('notification.filter-by-type')</h3>
         </div>
         <form role="form" method="GET" action="NotificationController@index" class="form-condensed">
             @csrf
@@ -25,115 +25,115 @@
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="bon_gifts" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> Bon Gifts
+                            <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> @lang('notification.bon-gifts')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="comments" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-comments text-success"></i> Comments
+                            <i class="{{ config('other.font-awesome') }} fa-comments text-success"></i> @lang('common.comments')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="comment_tags" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i> Comment Tags
+                            <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i> @lang('notification.comment-tags')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="followers" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-smile-plus text-success"></i> Followers
+                            <i class="{{ config('other.font-awesome') }} fa-smile-plus text-success"></i> @lang('user.followers')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="posts" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-comment-dots text-success"></i> Posts
+                            <i class="{{ config('other.font-awesome') }} fa-comment-dots text-success"></i> @lang('common.posts')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="post_tags" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i> Post Tags
+                            <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i> @lang('notification.post-tags')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="post_tips" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> Post Tips
+                            <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> @lang('notification.post-tips')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="request_bounties" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-crosshairs text-success"></i> Request Bounties
+                            <i class="{{ config('other.font-awesome') }} fa-crosshairs text-success"></i> @lang('notification.request-bounties')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="request_claims" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i> Request Claims
+                            <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i> @lang('notification.request-claims')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="request_fills" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-check-square text-success"></i>Request Fills
+                            <i class="{{ config('other.font-awesome') }} fa-check-square text-success"></i> @lang('notification.request-fills')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="request_approvals" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-clipboard-check text-success"></i> Request Approvals
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-check text-success"></i> @lang('notification.request-approvals')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="request_rejections" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-success"></i> Request Rejections
+                            <i class="{{ config('other.font-awesome') }} fa-times text-success"></i> @lang('notification.request-rejections')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="request_unclaims" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-times-square text-success"></i> Request Unclaims
+                            <i class="{{ config('other.font-awesome') }} fa-times-square text-success"></i> @lang('notification.request-unclaims')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="reseed_requests" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-question text-success"></i> Reseed Requests
+                            <i class="{{ config('other.font-awesome') }} fa-question text-success"></i> @lang('notification.reseed-requests')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="thanks" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i> Thanks
+                            <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i> @lang('torrent.thanks')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="upload_tips" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> Tips
+                            <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> @lang('bon.tips')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="topics" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-comment-alt-check text-success"></i> Topics
+                            <i class="{{ config('other.font-awesome') }} fa-comment-alt-check text-success"></i> @lang('common.topics')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="unfollows" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-frown text-success"></i> Unfollows
+                            <i class="{{ config('other.font-awesome') }} fa-frown text-success"></i> @lang('notification.unfollows')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="uploads" value="1" class="filter-checkbox">
-                            <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i> Uploads
+                            <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i> @lang('user.uploads')
                         </label>
                     </span>
                 </div>

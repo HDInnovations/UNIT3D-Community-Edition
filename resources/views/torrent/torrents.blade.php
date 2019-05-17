@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">Genre</label>
+                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                         <div class="col-sm-10">
                             @foreach ($repository->tags() as $id => $genre)
                                 <span class="badge-user">

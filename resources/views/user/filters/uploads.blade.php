@@ -68,9 +68,9 @@
                         @elseif ($upload->seeders >= 1)
                             <span class='label label-success'>@lang('torrent.alive')</span>
                         @elseif ($upload->leechers >= 1 + $upload->seeders = 0)
-                            <span class='label label-info'>RESEED</span>
+                            <span class='label label-info'>@lang('torrent.requires-reseed')</span>
                         @else
-                            <span class='label label-warning'>ERROR</span>
+                            <span class='label label-warning'>{{ strtoupper(trans('common.error')) }}</span>
                         @endif
                     </td>
                 </tr>

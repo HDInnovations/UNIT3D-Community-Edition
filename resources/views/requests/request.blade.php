@@ -85,7 +85,7 @@
                                             @if ($movie->imdbRating || $movie->tmdbRating)
                                                 <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
                     <span class="movie-rating-stars">
-                      <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                      <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                     </span>
                                                     @if ($user->ratings == 1)
                                                         {{ $movie->imdbRating }}/10({{ $movie->imdbVotes }} @lang('torrent.votes')

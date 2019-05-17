@@ -157,10 +157,10 @@
 
                         @if ($torrent->category->meta == 1)
                             @if ($user->ratings == 1)
-                            <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
+                            <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}" target="_blank">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
-                                        <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
+                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                            data-original-title="@lang('torrent.view-more')"></i>
                                     </span>
                                     {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} @lang('torrent.votes'))
@@ -168,13 +168,13 @@
                             </a>
                             @else
                             @if ($torrent->category_id == 2)
-                                <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}">
+                                <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}?language={{ config('app.locale') }}" target="_blank">
                             @else
-                                <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}">
+                                <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}?language={{ config('app.locale') }}" target="_blank">
                             @endif
                             <span class="badge-extra text-bold">
                                 <span class="text-gold movie-rating-stars">
-                                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                         data-original-title="@lang('torrent.view-more')"></i>
                                 </span>
                                 {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} @lang('torrent.votes'))
@@ -307,7 +307,7 @@
                         @foreach($torrent_tags as $torrent_tag)
                             <span class="badge-extra text-bold">
                                 <i class='{{ config("other.font-awesome") }} fa-tag' data-toggle='tooltip' title=''
-                                   data-original-title='Genre'></i> {{ $torrent_tag->genre->name }}
+                                   data-original-title='@lang('torrent.genre')'></i> {{ $torrent_tag->genre->name }}
                             </span>
                         @endforeach
                         @endif

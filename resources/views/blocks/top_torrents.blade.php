@@ -211,7 +211,7 @@
 
                                     @if ($user->updated_at->getTimestamp() < $new->created_at->getTimestamp())
                                         <span class='badge-extra text-bold'>
-                                            <i class='{{ config("other.font-awesome") }} fa-magic text-black' data-toggle='tooltip' title=''
+                                            <i class='{{ config("other.font-awesome") }} fa-magic text-green' data-toggle='tooltip' title=''
                                                 data-original-title='@lang('common.new')'></i> @lang('common.new')
                                         </span>
                                     @endif
@@ -424,7 +424,7 @@
 
                                     @if ($user->updated_at->getTimestamp() < $seed->created_at->getTimestamp())
                                         <span class='badge-extra text-bold'>
-                                            <i class='{{ config("other.font-awesome") }} fa-magic text-black' data-toggle='tooltip' title=''
+                                            <i class='{{ config("other.font-awesome") }} fa-magic text-green' data-toggle='tooltip' title=''
                                                 data-original-title='@lang('common.new')'></i> @lang('common.new')
                                         </span>
                                     @endif
@@ -638,7 +638,7 @@
 
                                     @if ($user->updated_at->getTimestamp() < $leech->created_at->getTimestamp())
                                         <span class='badge-extra text-bold'>
-                                            <i class='{{ config("other.font-awesome") }} fa-magic text-black' data-toggle='tooltip' title=''
+                                            <i class='{{ config("other.font-awesome") }} fa-magic text-green' data-toggle='tooltip' title=''
                                                 data-original-title='@lang('common.new')'></i> @lang('common.new')
                                         </span>
                                     @endif
@@ -852,7 +852,7 @@
 
                                     @if ($user->updated_at->getTimestamp() < $d->created_at->getTimestamp())
                                         <span class='badge-extra text-bold'>
-                                            <i class='{{ config("other.font-awesome") }} fa-magic text-black' data-toggle='tooltip' title=''
+                                            <i class='{{ config("other.font-awesome") }} fa-magic text-green' data-toggle='tooltip' title=''
                                                 data-original-title='@lang('common.new')'></i> @lang('common.new')
                                         </span>
                                     @endif
@@ -1065,7 +1065,7 @@
 
                                     @if ($user->updated_at->getTimestamp() < $d->created_at->getTimestamp())
                                         <span class='badge-extra text-bold'>
-                                            <i class='{{ config("other.font-awesome") }} fa-magic text-black' data-toggle='tooltip' title=''
+                                            <i class='{{ config("other.font-awesome") }} fa-magic text-green' data-toggle='tooltip' title=''
                                                 data-original-title='@lang('common.new')'></i> @lang('common.new')
                                         </span>
                                     @endif

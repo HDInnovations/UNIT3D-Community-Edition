@@ -71,13 +71,13 @@
                 @else<span class="badge-extra text-green"><i
                             class="{{ config('other.font-awesome') }} fa-check"></i> {{ strtoupper(trans('torrent.passed')) }}</span>
                 @endif
-                <strong>Download Rights Active: </strong>
+                <strong>@lang('torrent.download-rights-active'): </strong>
                 @if ($user->can_download == 0 && $torrent->user_id != $user->id)<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i> {{ strtoupper(trans('torrent.failed')) }}</span>
                 @else<span class="badge-extra text-green"><i
                             class="{{ config('other.font-awesome') }} fa-check"></i> {{ strtoupper(trans('torrent.passed')) }}</span>
                 @endif
-                <strong>Torrent Status: </strong>
+                <strong>@lang('torrent.moderation'): </strong>
                 @if ($torrent->isRejected())<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i> {{ strtoupper(trans('torrent.rejected')) }}</span>
                 @elseif ($torrent->isPending())<span class="badge-extra text-orange"><i

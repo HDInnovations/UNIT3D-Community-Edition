@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'abbrev-days'          => 'D ',
+    'abbrev-hours'         => 'h ',
+    'abbrev-minutes'       => 'm ',
+    'abbrev-months'        => 'M ',
+    'abbrev-seconds'       => 's',
+    'abbrev-weeks'         => 'W ',
+    'abbrev-years'         => 'Y ',
     'about'                => 'About Us',
     'account'              => 'Account',
     'achievement-title'    => 'Awesome',

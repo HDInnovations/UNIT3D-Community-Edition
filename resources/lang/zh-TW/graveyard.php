@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'current-seedtime'   => '目前續種',
     'dead'               => '死種',
     'graveyard'          => '墳場',
     'guidelines'         => '指引',
@@ -10,6 +11,10 @@ return [
     'howto-desc2'        => '你會被獎勵',
     'howto-hits'         => '點擊',
     'pending'            => '等待中',
+    'not-rewarded'       => '沒獎',
     'resurrect'          => '救活',
+    'resurrect-date'     => '救活日期',
     'reward'             => '免費令',
+    'rewarded'           => '已獎',
+    'seedtime-goal'      => '續種期',
 ];

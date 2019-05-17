@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="genre">Genre</label>
+                        <label for="genre">@lang('torrent.genre')</label>
                         <div>
                             @foreach ($torrent_repository->tags() as $id => $genre)
                                 <span class="badge-user">

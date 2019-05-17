@@ -36,14 +36,14 @@
             <form role="form" method="GET" action="RequestController@requests" class="form-horizontal form-condensed form-torrent-search form-bordered">
             @csrf
             <div class="form-group">
-                <label for="name" class="col-sm-1 label label-default">Name</label>
+                <label for="name" class="col-sm-1 label label-default">@lang('torrent.name')</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="search" placeholder="Name / Title">
+                    <input type="text" class="form-control" id="search" placeholder="@lang('torrent.name')">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="imdb" class="col-sm-1 label label-default">Number</label>
+                <label for="imdb" class="col-sm-1 label label-default">ID</label>
                 <div class="col-sm-2">
                     <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
                 </div>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-group">
-                <label for="category" class="col-sm-1 label label-default">Category</label>
+                <label for="category" class="col-sm-1 label label-default">@lang('torrent.category')</label>
                 <div class="col-sm-10">
                     @foreach ($repository->categories() as $id => $category)
                         <span class="badge-user">
@@ -72,7 +72,7 @@
             </div>
 
             <div class="form-group">
-                <label for="type" class="col-sm-1 label label-default">Type</label>
+                <label for="type" class="col-sm-1 label label-default">@lang('torrent.type')</label>
                 <div class="col-sm-10">
                     @foreach ($repository->types() as $id => $type)
                         <span class="badge-user">
@@ -85,36 +85,36 @@
             </div>
 
             <div class="form-group">
-                <label for="type" class="col-sm-1 label label-default">Extra</label>
+                <label for="type" class="col-sm-1 label label-default">@lang('common.extra')</label>
                 <div class="col-sm-10">
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="myrequests" value="{{ $user->id }}">
-                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My Requests
+                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> @lang('request.my-requests')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="unfilled" value="1">
-                            <span class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span> Unfilled
+                            <span class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span> @lang('request.unfilled')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="claimed" value="1">
-                            <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> Claimed
+                            <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> @lang('request.claimed')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="pending" value="1">
-                            <span class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span> Pending
+                            <span class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span> @lang('request.pending')
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="filled" value="1">
-                            <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span> Filled
+                            <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span> @lang('request.filled')
                         </label>
                     </span>
                 </div>

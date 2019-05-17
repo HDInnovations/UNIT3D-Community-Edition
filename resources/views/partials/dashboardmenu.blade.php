@@ -113,7 +113,7 @@
             </li>
             <li>
                 <a href="{{ route('staff_tag_index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> Torrent Tags (Genres)
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('torrent.genre-tags')
                 </a>
             </li>
             <li>

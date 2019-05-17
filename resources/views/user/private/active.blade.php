@@ -63,12 +63,12 @@
                             <div class="col-sm-10">
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="seeding" value="1" class="userFilter" trigger="click"> Seeding
+                        <input type="checkbox" id="seeding" value="1" class="userFilter" trigger="click"> @lang('torrent.seeding')
                     </label>
                 </span>
                                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="leeching" value="1" class="userFilter" trigger="click"> Leeching
+                        <input type="checkbox" id="leeching" value="1" class="userFilter" trigger="click"> @lang('torrent.leeching')
                     </label>
                 </span>
                             </div>
@@ -77,14 +77,14 @@
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
                             <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
-                                <option value="created_at">Created at</option>
-                                <option value="name">Name</option>
-                                <option value="seeder">Seeding</option>
-                                <option value="size">Size</option>
-                                <option value="seeders">Seeders</option>
-                                <option value="leechers">Leechers</option>
-                                <option value="uploaded">Uploaded</option>
-                                <option value="downloaded">Downloaded</option>
+                                <option value="created_at">@lang('torrent.created_at')</option>
+                                <option value="name">@lang('torrent.name')</option>
+                                <option value="seeder">@lang('torrent.seeding')</option>
+                                <option value="size">@lang('torrent.size')</option>
+                                <option value="seeders">@lang('torrent.seeders')</option>
+                                <option value="leechers">@lang('torrent.leechers')</option>
+                                <option value="uploaded">@lang('common.upload')</option>
+                                <option value="downloaded">@lang('common.download')</option>
                             </select>
                         </div>
                     </div>
