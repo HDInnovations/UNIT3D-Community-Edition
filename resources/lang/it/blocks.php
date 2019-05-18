@@ -3,7 +3,7 @@
 return [
   'chatbox' => 'Casella di chat',
   'click' => 'Clic',
-  'to-enable-editor' => 'per abilitare l&#39;editor',
+  'to-enable-editor' => 'per abilitare l editor',
   'featured-by' => 'Caratterizzato da',
   'featured-torrents' => 'Torrents in primo piano',
   'featured-torrents-intro' => 'Prendili mentre puoi!',

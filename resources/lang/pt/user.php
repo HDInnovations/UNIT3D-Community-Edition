@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Você tem: count Convide Tokens',
   'invites-disabled' => 'Atenção: os convites estão desativados devido ao registro aberto!',
   'invites-disabled-desc' => 'Por favor, volte em breve!',
-  'invites-rules' => '<li class=\\"text-success\\"> Apenas convide pessoas que você conhece e confia. </li><li class=\\"text-danger\\"> Você será pessoalmente responsável por aqueles que convidar. </li><li class=\\"text-danger\\"> Não se convide, nós verificamos cada usuário convidado. </li><li class=\\"text-danger\\"> Não negocie ou venda convites. </li><li class=\\"text-danger\\"> Se uma pessoa que você convidou for pega batota, conta de negociação ou venda / troca de convites, você será avisado. </li>',
+  'invites-rules' => '<li class="text-success"> Apenas convide pessoas que você conhece e confia. </li><li class="text-danger"> Você será pessoalmente responsável por aqueles que convidar. </li><li class="text-danger"> Não se convide, nós verificamos cada usuário convidado. </li><li class="text-danger"> Não negocie ou venda convites. </li><li class="text-danger"> Se uma pessoa que você convidou for pega batota, conta de negociação ou venda / troca de convites, você será avisado. </li>',
   'invites-send' => 'Convites Enviar',
   'last-login' => 'Último login',
   'locked' => 'Bloqueado',

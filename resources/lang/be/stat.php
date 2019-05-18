@@ -3,7 +3,7 @@
 return [
   'by-count' => 'па графу',
   'by-data' => 'па дадзеных',
-  'by-volume' => 'па аб&#39;ёме',
+  'by-volume' => 'па ёме',
   'group' => 'група',
   'groups' => 'групы',
   'nerd-stats' => 'статыстыка Nerd',
@@ -33,7 +33,7 @@ return [
   'top-uploaders' => 'топ загрузнікамі',
   'total-download' => 'Усяго загрузак',
   'total-torrents' => 'Усяго Torrents',
-  'total-traffic' => 'Агульны аб&#39;ём трафіку',
+  'total-traffic' => 'Агульны ём трафіку',
   'total-upload' => 'Total Upload',
   'users-in-group' => 'Карыстальнікі У групе',
   'users-per-group' => 'Карыстальнікі ў групе',

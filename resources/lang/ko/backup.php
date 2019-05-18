@@ -27,6 +27,6 @@ return [
   'file_size' => '파일 크기',
   'location' => '위치',
   'manager' => '매니저',
-  'no_disks_configured' => 'config / backup.php에 백업 디스크가 구성되어 있지 않습니다.',
+  'no_disks_configured' => 'config/backup.php 에 백업 디스크가 구성되어 있지 않습니다.',
   'only_local_downloads_supported' => '로컬 파일 시스템에서만 다운로드가 지원됩니다.',
 ];

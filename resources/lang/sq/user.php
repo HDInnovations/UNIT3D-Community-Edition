@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Ju keni: count Invite Tokens',
   'invites-disabled' => 'Kujdes: Ftesat janë me aftësi të kufizuara për shkak të regjistrimit të hapur!',
   'invites-disabled-desc' => 'Ju lutemi kontrolloni shpejt!',
-  'invites-rules' => '<li class=\\"text-success\\"> Vetëm ftoj njerëz që njihni dhe besoni. </li><li class=\\"text-danger\\"> Ju do të mbaheni personalisht përgjegjës për ata që ju ftoni. </li><li class=\\"text-danger\\"> Mos e ftoni veten, ne kontrollojmë çdo përdorues të ftuar. </li><li class=\\"text-danger\\"> Mos tregtoni ose shisni Ftesat. </li><li class=\\"text-danger\\"> Nëse një person i ftuar është kapur mashtrim, llogari tregtare ose shitje / tregtare, ju do të paralajmëroni. </li>',
+  'invites-rules' => '<li class="text-success"> Vetëm ftoj njerëz që njihni dhe besoni. </li><li class="text-danger"> Ju do të mbaheni personalisht përgjegjës për ata që ju ftoni. </li><li class="text-danger"> Mos e ftoni veten, ne kontrollojmë çdo përdorues të ftuar. </li><li class="text-danger"> Mos tregtoni ose shisni Ftesat. </li><li class="text-danger"> Nëse një person i ftuar është kapur mashtrim, llogari tregtare ose shitje / tregtare, ju do të paralajmëroni. </li>',
   'invites-send' => 'Fton Dërgo',
   'last-login' => 'Hyrja e fundit',
   'locked' => 'I bllokuar',

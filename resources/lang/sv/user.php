@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Du har: räkna Bjud in Token',
   'invites-disabled' => 'OBS: Inbjudningar är funktionshindrade på grund av att du öppnar registreringen!',
   'invites-disabled-desc' => 'Vänligen kolla tillbaka snart!',
-  'invites-rules' => '<li class=\\"text-success\\"> Bjud bara in personer du känner och litar på. </li><li class=\\"text-danger\\"> Du kommer att hållas personligen ansvarig för dem du bjuder in. </li><li class=\\"text-danger\\"> Bjud inte in dig själv, vi kontrollerar varje inbjuden användare. </li><li class=\\"text-danger\\"> Dont handla eller sälja inbjudningar. </li><li class=\\"text-danger\\"> Om en person du inbjöd är fångad fusk, handelskonto eller försäljning / handel inbjuder, kommer du att varnas. </li>',
+  'invites-rules' => '<li class="text-success"> Bjud bara in personer du känner och litar på. </li><li class="text-danger"> Du kommer att hållas personligen ansvarig för dem du bjuder in. </li><li class="text-danger"> Bjud inte in dig själv, vi kontrollerar varje inbjuden användare. </li><li class="text-danger"> Dont handla eller sälja inbjudningar. </li><li class="text-danger"> Om en person du inbjöd är fångad fusk, handelskonto eller försäljning / handel inbjuder, kommer du att varnas. </li>',
   'invites-send' => 'Inbjudningar Skicka',
   'last-login' => 'Senaste inloggning',
   'locked' => 'låst',

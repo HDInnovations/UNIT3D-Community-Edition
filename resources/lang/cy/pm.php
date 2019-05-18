@@ -6,7 +6,7 @@ return [
   'enter-subject' => 'Rhowch y pwnc',
   'from' => 'O',
   'inbox' => 'Mewnflwch',
-  'mark-all-read' => 'Marciwch bob neges fel y&#39;i darllenwyd',
+  'mark-all-read' => 'Marciwch bob neges fel y i darllenwyd',
   'message' => 'Neges',
   'messages' => 'Negeseuon',
   'new' => 'Neges Newydd',

@@ -10,7 +10,7 @@ return [
   'message' => 'Message',
   'messages' => 'messages',
   'new' => 'Nouveau message',
-  'outbox' => 'Boîte d&#39;envoi',
+  'outbox' => 'Boîte d envoi',
   'private' => 'Privé',
   'read' => 'Lis',
   'received-at' => 'Reçu à',

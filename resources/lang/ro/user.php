@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Ați: numărați invitația de marcă',
   'invites-disabled' => 'Atenție: Invitațiile sunt dezactivate datorită deschiderii înregistrării!',
   'invites-disabled-desc' => 'Va rugam reveniti in curand!',
-  'invites-rules' => '<li class=\\"text-success\\"> Invitați numai persoane pe care le cunoașteți și care au încredere. </li><li class=\\"text-danger\\"> Veți fi tras la răspunderea personală pentru cei pe care îi invitați. </li><li class=\\"text-danger\\"> Nu te invita, verificăm fiecare utilizator invitat. </li><li class=\\"text-danger\\"> Nu vindeți sau vindeți invitații. </li><li class=\\"text-danger\\"> Dacă o persoană pe care ați invitat-o este prinsă înșelătoare, cont de tranzacționare sau invitații de vânzare / tranzacționare, veți fi avertizat. </li>',
+  'invites-rules' => '<li class="text-success"> Invitați numai persoane pe care le cunoașteți și care au încredere. </li><li class="text-danger"> Veți fi tras la răspunderea personală pentru cei pe care îi invitați. </li><li class="text-danger"> Nu te invita, verificăm fiecare utilizator invitat. </li><li class="text-danger"> Nu vindeți sau vindeți invitații. </li><li class="text-danger"> Dacă o persoană pe care ați invitat-o este prinsă înșelătoare, cont de tranzacționare sau invitații de vânzare / tranzacționare, veți fi avertizat. </li>',
   'invites-send' => 'Invită trimiterea',
   'last-login' => 'Ultima logare',
   'locked' => 'Blocat',

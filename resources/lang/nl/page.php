@@ -4,7 +4,7 @@ return [
   'aboutus-advantage' => 'Het voordeel',
   'aboutus-advantage1' => 'We hebben ervaren leden en medewerkers die goed thuis zijn in de wereld van HD video / audio en technische ondersteuning.',
   'aboutus-advantage2' => 'Samen met onze uitgebreide passie voor films en tv-shows, bieden we ook een van de beste selecties van iets dat de meeste niet - FANRES! <em>EEN GROTE DANK VOOR</em> onze contentaanbrengers.',
-  'aboutus-advantage3' => 'Hoewel we donaties accepteren om de site up-and-running te houden, zullen er geen pestende PM&#39;s of banners op de site zijn. Geen smeken van ons.',
+  'aboutus-advantage3' => 'Hoewel we donaties accepteren om de site up-and-running te houden, zullen er geen pestende PM s of banners op de site zijn. Geen smeken van ons.',
   'aboutus-advantage4' => 'Onze gemeenschap is ongeëvenaard voor zijn jonge leeftijd. Tussen onze medewerkers en gebruikersbasis waren altijd hier om te helpen. We zijn gepassioneerd om ervoor te zorgen dat uw ervaring met: de titel is ronduit geweldig.',
   'aboutus-advantage5' => 'Onze service wordt dagelijks door veel mensen over de hele wereld gebruikt. We hebben bewezen dat we om de functionaliteit en veiligheid van onze codebasis geven en deze kan vertrouwd en vertrouwd worden. Onze ontwikkelaars werken dagelijks om een echte nex-gen codebase te bieden.',
   'aboutus-header' => 'Hallo daar',

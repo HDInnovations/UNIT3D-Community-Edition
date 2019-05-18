@@ -11,7 +11,7 @@ return [
   'top-torrents' => 'Y Cenhedloedd Gorau',
   'latest-posts' => 'Swyddi Diweddaraf',
   'latest-topics' => 'Y Pynciau Diweddaraf',
-  'active-in-last' => 'Yn weithgar o&#39;r diwedd',
+  'active-in-last' => 'Yn weithgar o r diwedd',
   'users-online' => 'Defnyddwyr Ar-lein',
   'check-news' => 'Newyddion (gwiriwch bob dydd)',
   'new-news' => 'Newyddion Newydd',

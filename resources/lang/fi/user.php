@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Sinulla on: laskea kutsumerkit',
   'invites-disabled' => 'Huomio: kutsut on poistettu käytöstä avoimen rekisteröinnin vuoksi!',
   'invites-disabled-desc' => 'Tarkista takaisin pian!',
-  'invites-rules' => '<li class=\\"text-success\\"> Kutsu vain ihmisiä, joita tiedät ja luotat. </li><li class=\\"text-danger\\"> Sinua pidetään henkilökohtaisesti vastuussa kutsutuista. </li><li class=\\"text-danger\\"> Älä kutsu itseäsi, tarkistamme jokaisen kutsutun käyttäjän. </li><li class=\\"text-danger\\"> Älä myy tai myy kauppaa. </li><li class=\\"text-danger\\"> Jos kutsutut henkilöt joutuvat huijaukseen, kaupankäyntitiliin tai myyntiin / kaupankäyntiin, sinua varoitetaan. </li>',
+  'invites-rules' => '<li class="text-success"> Kutsu vain ihmisiä, joita tiedät ja luotat. </li><li class="text-danger"> Sinua pidetään henkilökohtaisesti vastuussa kutsutuista. </li><li class="text-danger"> Älä kutsu itseäsi, tarkistamme jokaisen kutsutun käyttäjän. </li><li class="text-danger"> Älä myy tai myy kauppaa. </li><li class="text-danger"> Jos kutsutut henkilöt joutuvat huijaukseen, kaupankäyntitiliin tai myyntiin / kaupankäyntiin, sinua varoitetaan. </li>',
   'invites-send' => 'Kutsu Lähetä',
   'last-login' => 'Viimeinen kirjautuminen',
   'locked' => 'kiinni',

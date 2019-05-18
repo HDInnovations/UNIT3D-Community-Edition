@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Mayroon kang: bilangin Mag-imbita ng Token',
   'invites-disabled' => 'Pansin: Ang mga paanyaya ay may kapansanan Dahil Upang Buksan ang Pagpaparehistro!',
   'invites-disabled-desc' => 'Mangyaring Suriin Bumalik Hindi magtatagal!',
-  'invites-rules' => '<li class=\\"text-success\\"> Mag-imbita lamang ng mga taong kilala mo at pinagkakatiwalaan. </li><li class=\\"text-danger\\"> Ikaw ay gaganapin personal na responsable para sa mga taong iyong imbitahan. </li><li class=\\"text-danger\\"> Huwag mag-imbita ng iyong sarili, tinitingnan namin ang bawat naanyayang gumagamit. </li><li class=\\"text-danger\\"> Dont trade or sell Invites. </li><li class=\\"text-danger\\"> Kung ang isang taong iyong inimbitahan ay nahuli sa pagdaraya, trading account o mga paanyaya sa pagbebenta / pangangalakal, ikaw ay babalaan. </li>',
+  'invites-rules' => '<li class="text-success"> Mag-imbita lamang ng mga taong kilala mo at pinagkakatiwalaan. </li><li class="text-danger"> Ikaw ay gaganapin personal na responsable para sa mga taong iyong imbitahan. </li><li class="text-danger"> Huwag mag-imbita ng iyong sarili, tinitingnan namin ang bawat naanyayang gumagamit. </li><li class="text-danger"> Dont trade or sell Invites. </li><li class="text-danger"> Kung ang isang taong iyong inimbitahan ay nahuli sa pagdaraya, trading account o mga paanyaya sa pagbebenta / pangangalakal, ikaw ay babalaan. </li>',
   'invites-send' => 'Nag-aanyaya sa Ipadala',
   'last-login' => 'Huling Pag-login',
   'locked' => 'Naka-lock',

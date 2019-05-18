@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Turite: suskaičiuoti pakvietimo žetonų skaičių',
   'invites-disabled' => 'Dėmesio: dėl atviros registracijos kvietimai yra neįgalūs!',
   'invites-disabled-desc' => 'Prašome patikrinti atgal!',
-  'invites-rules' => '<li class=\\"text-success\\"> Pakvieskite tik tuos žmones, kuriuos žinote ir pasitikite. </li><li class=\\"text-danger\\"> Jūs būsite asmeniškai atsakingi už tuos, kuriuos pakviesite. </li><li class=\\"text-danger\\"> Negalima pakviesti sau, mes tikriname kiekvieną pakviestą vartotoją. </li><li class=\\"text-danger\\"> Negalima prekiauti ar parduoti kvietimų. </li><li class=\\"text-danger\\"> Jei jūsų pakviestas asmuo yra sugautas apgaudinėjimas, prekybos sąskaita arba pardavimo / prekybos kviečiami, jūs būsite įspėti. </li>',
+  'invites-rules' => '<li class="text-success"> Pakvieskite tik tuos žmones, kuriuos žinote ir pasitikite. </li><li class="text-danger"> Jūs būsite asmeniškai atsakingi už tuos, kuriuos pakviesite. </li><li class="text-danger"> Negalima pakviesti sau, mes tikriname kiekvieną pakviestą vartotoją. </li><li class="text-danger"> Negalima prekiauti ar parduoti kvietimų. </li><li class="text-danger"> Jei jūsų pakviestas asmuo yra sugautas apgaudinėjimas, prekybos sąskaita arba pardavimo / prekybos kviečiami, jūs būsite įspėti. </li>',
   'invites-send' => 'Kvietimai Siųsti',
   'last-login' => 'Paskutinis prisijungimas',
   'locked' => 'Užrakinta',

@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Imate: count Invite Tokens',
   'invites-disabled' => 'Pažnja: Pozivi su onemogućeni zbog otvorene registracije!',
   'invites-disabled-desc' => 'Molimo provjerite uskoro!',
-  'invites-rules' => '<li class=\\"text-success\\"> Pozovite samo ljude koje poznajete i kojima vjerujete. </li><li class=\\"text-danger\\"> Vi ćete biti lično odgovorni za one koje pozovete. </li><li class=\\"text-danger\\"> Ne pozovite sebe, mi provjeravamo svakog pozvanog korisnika. </li><li class=\\"text-danger\\"> Nemojte trgovati ili prodavati Invites. </li><li class=\\"text-danger\\"> Ako je osoba koju pozovete uhvaćena u varanju, trgovanju ili prodaji / trgovanju, biti ćete upozoreni. </li>',
+  'invites-rules' => '<li class="text-success"> Pozovite samo ljude koje poznajete i kojima vjerujete. </li><li class="text-danger"> Vi ćete biti lično odgovorni za one koje pozovete. </li><li class="text-danger"> Ne pozovite sebe, mi provjeravamo svakog pozvanog korisnika. </li><li class="text-danger"> Nemojte trgovati ili prodavati Invites. </li><li class="text-danger"> Ako je osoba koju pozovete uhvaćena u varanju, trgovanju ili prodaji / trgovanju, biti ćete upozoreni. </li>',
   'invites-send' => 'Invites Send',
   'last-login' => 'Last Login',
   'locked' => 'Zaključano',

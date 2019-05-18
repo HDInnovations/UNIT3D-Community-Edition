@@ -4,7 +4,7 @@ return [
   'aboutus-advantage' => 'Fordelen',
   'aboutus-advantage1' => 'Vi har oplevet medlemmer og medarbejdere, der er velbevandrede i verden af HD video / audio og teknisk support.',
   'aboutus-advantage2' => 'Sammen med vores omfattende passion for film og tv-shows tilbyder vi også et af de bedste valg af noget, som de fleste ikke - FANRES! <em>En stor tak</em> til vores indholdsmedlemmer.',
-  'aboutus-advantage3' => 'Selvom vi accepterer donationer for at holde webstedet i gang, vil der ikke være pestering PM&#39;er eller bannere på stedet. Ingen tigger fra os.',
+  'aboutus-advantage3' => 'Selvom vi accepterer donationer for at holde webstedet i gang, vil der ikke være pestering PM er eller bannere på stedet. Ingen tigger fra os.',
   'aboutus-advantage4' => 'Vores samfund er noget andet for sin tidlige alder. Mellem vores medarbejdere og brugerbase var der altid her for at hjælpe. Var lidenskabelig om at sikre din oplevelse på: titel er intet mindre end fantastisk.',
   'aboutus-advantage5' => 'Vores service bruges dagligt af mange mennesker over hele kloden. Weve har bevist, at vi er interesserede i funktionaliteten og sikkerheden i vores codebase, og det kan stole på og påberåbe sig. Vores udviklere arbejder dagligt for at give en virkelig nex-gen-kodebase.',
   'aboutus-header' => 'Hej',

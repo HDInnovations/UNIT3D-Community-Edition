@@ -117,7 +117,7 @@ return [
   'invites-count' => '招待トークンを数える',
   'invites-disabled' => '注意：オープン登録のため招待状は無効になっています！',
   'invites-disabled-desc' => 'すぐに戻って確認してください！',
-  'invites-rules' => '<li class=\\"text-success\\">知っている人と信頼できる人だけを招待してください。 </li><li class=\\"text-danger\\">あなたはあなたが招待した人に対して個人的に責任があるとみなされます。 </li><li class=\\"text-danger\\">自分を招待しないでください。招待されたすべてのユーザーをチェックします。 </li><li class=\\"text-danger\\">招待状を売買しないでください。 </li><li class=\\"text-danger\\">あなたが招待した人が不正行為、取引口座、または売買/取引の招待を受けた場合は、警告が表示されます。 </li>',
+  'invites-rules' => '<li class="text-success">知っている人と信頼できる人だけを招待してください。 </li><li class="text-danger">あなたはあなたが招待した人に対して個人的に責任があるとみなされます。 </li><li class="text-danger">自分を招待しないでください。招待されたすべてのユーザーをチェックします。 </li><li class="text-danger">招待状を売買しないでください。 </li><li class="text-danger">あなたが招待した人が不正行為、取引口座、または売買/取引の招待を受けた場合は、警告が表示されます。 </li>',
   'invites-send' => '招待を送る',
   'last-login' => '前回のログイン',
   'locked' => 'ロック済み',

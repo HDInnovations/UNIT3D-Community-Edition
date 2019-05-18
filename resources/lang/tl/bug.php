@@ -3,7 +3,7 @@
 return [
   'bug-report' => 'Ulat ng bug',
   'bug-report-description' => 'Mag-ulat ng isang site bug',
-  'enter-description' => 'Ilarawan ang problema hangga&#39;t maaari',
+  'enter-description' => 'Ilarawan ang problema hangga t maaari',
   'enter-email' => 'Mangyaring ipasok ang iyong email',
   'enter-title' => 'Mangyaring pumili ng tamang pamagat',
   'enter-username' => 'Mangyaring ipasok ang iyong username',

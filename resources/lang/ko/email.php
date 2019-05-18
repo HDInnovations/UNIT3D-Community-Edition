@@ -15,7 +15,7 @@ return [
   'contact-name' => '이름',
   'fail-login-greeting' => '계정 로그인 실패!',
   'fail-login-line1' => '계정에 대한 로그인 실패가 감지되었습니다.',
-  'fail-login-line2' => '이 요청의 출처 : ip (: host) at : time',
+  'fail-login-line2' => '이 요청의 출처 :ip (:host) at :time',
   'fail-login-subject' => '실패한 로그인 알림',
   'footer-link' => ': actionText 버튼을 클릭하는 데 문제가 있으면 아래 URL을 복사하여 웹 브라우저에 붙여 넣으십시오.',
   'invite-header' => '초대장',

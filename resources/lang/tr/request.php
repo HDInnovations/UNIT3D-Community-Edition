@@ -22,7 +22,7 @@ return [
   'dont-have-bps' => 'Yeterli Bonusunuz yok',
   'edit-request' => 'İsteği düzenle',
   'enter-bp' => 'Bonus puanları girin (en az 100)',
-  'enter-hash' => 'Yüklenen Torrent&#39;in Bilgi Karmasını girin',
+  'enter-hash' => 'Yüklenen Torrent in Bilgi Karmasını girin',
   'fill' => 'doldurmak',
   'fill-request' => 'Bu isteği doldur',
   'filled' => 'dolu',

@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Jums ir: skaits Uzaicināt žetoni',
   'invites-disabled' => 'Uzmanību! Uzaicinājumi ir atspējoti atvērtas reģistrācijas dēļ!',
   'invites-disabled-desc' => 'Lūdzu, pārbaudiet drīz!',
-  'invites-rules' => '<li class=\\"text-success\\"> Uzaiciniet tikai tos cilvēkus, kurus zināt un uzticat. </li><li class=\\"text-danger\\"> Jūs esat personīgi atbildīgs par tiem, kurus jūs uzaicināt. </li><li class=\\"text-danger\\"> Dont uzaicināt sevi, mēs pārbaudām katru uzaicināto lietotāju. </li><li class=\\"text-danger\\"> Nepārdodiet vai nepārdodiet uzaicinājumus. </li><li class=\\"text-danger\\"> Ja persona, kurai jūs uzaicinājāt, tiek nozvejota krāpšana, tirdzniecības konts vai pārdošanas / tirdzniecības uzaicinājumi, jums tiks brīdināts. </li>',
+  'invites-rules' => '<li class="text-success"> Uzaiciniet tikai tos cilvēkus, kurus zināt un uzticat. </li><li class="text-danger"> Jūs esat personīgi atbildīgs par tiem, kurus jūs uzaicināt. </li><li class="text-danger"> Dont uzaicināt sevi, mēs pārbaudām katru uzaicināto lietotāju. </li><li class="text-danger"> Nepārdodiet vai nepārdodiet uzaicinājumus. </li><li class="text-danger"> Ja persona, kurai jūs uzaicinājāt, tiek nozvejota krāpšana, tirdzniecības konts vai pārdošanas / tirdzniecības uzaicinājumi, jums tiks brīdināts. </li>',
   'invites-send' => 'Uzaicina nosūtīt',
   'last-login' => 'Pēdējā pieteikšanās',
   'locked' => 'Slēgta',

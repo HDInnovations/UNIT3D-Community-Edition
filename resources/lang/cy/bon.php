@@ -1,8 +1,8 @@
 <?php
 
 return [
-  'activated' => 'Wedi&#39;i actifadu',
-  'active' => 'Wedi&#39;i actio!',
+  'activated' => 'Wedi i actifadu',
+  'active' => 'Wedi i actio!',
   'amount' => 'Swm',
   'bon' => 'BON',
   'bonus' => 'Bonws',
@@ -11,7 +11,7 @@ return [
   'earning-rate' => 'Ar y gyfradd hon o ennill byddwch yn ennill y canlynol fesul amserlen ..',
   'earnings' => 'Enillion',
   'exchange' => 'Cyfnewid',
-  'exchange-warning' => 'Mae cyfnewidiadau&#39;n derfynol, Gwiriwch eich dewisiadau ddwywaith cyn cyfnewid.',
+  'exchange-warning' => 'Mae cyfnewidiadau n derfynol, Gwiriwch eich dewisiadau ddwywaith cyn cyfnewid.',
   'extended-stats' => 'Ystadegau Estynedig',
   'gift' => 'Rhodd',
   'gift-bonus' => 'Pwyntiau Bonws Rhodd',
@@ -28,7 +28,7 @@ return [
   'per-year' => 'Pwyntiau fesul blwyddyn',
   'points' => 'Pwyntiau',
   'receiver' => 'Derbynnydd',
-  'review-seeds' => 'Adolygu&#39;r holl Rifau Seeded',
+  'review-seeds' => 'Adolygu r holl Rifau Seeded',
   'send-gift' => 'Danfon anrheg',
   'sender' => 'Anfonwr',
   'store' => 'Storfa',

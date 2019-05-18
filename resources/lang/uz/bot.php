@@ -10,6 +10,6 @@ return [
   'emoji-code' => 'Emoji kodi',
   'help' => 'Yordam bering',
   'icon' => 'Belgini',
-  'info' => 'Ma&#39;lumot',
+  'info' => 'Ma lumot',
   'name' => 'Ism',
 ];

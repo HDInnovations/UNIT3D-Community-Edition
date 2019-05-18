@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Registre d&#39;activitats',
+  'activity-log' => 'Registre d activitats',
   'articles' => 'Articles',
   'applications' => 'Aplicacions',
   'bans-log' => 'Bans Log',
@@ -36,9 +36,9 @@ return [
   'torrent-types' => 'Tipus de Torrent',
   'torrents' => 'Torrents',
   'user-gifting' => 'Regalització d’usuaris d’usuaris',
-  'user-notes' => 'Registre de notes de l&#39;usuari',
-  'user-search' => 'Cerca d&#39;usuaris',
-  'user-tools' => 'Eines d&#39;usuari',
+  'user-notes' => 'Registre de notes de l usuari',
+  'user-search' => 'Cerca d usuaris',
+  'user-tools' => 'Eines d usuari',
   'warnings-log' => 'Registre d’Advertències',
   'you-have' => 'Tu tens',
   'possible-leech-cheaters' => 'Possibles tramposos',

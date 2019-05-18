@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Þú hefur: telja bjóðið tákn',
   'invites-disabled' => 'Athygli: Bjóðir eru óvirkir vegna þess að opna skráningu!',
   'invites-disabled-desc' => 'Vinsamlegast athugaðu aftur fljótlega!',
-  'invites-rules' => '<li class=\\"text-success\\"> Bjóddu aðeins fólki sem þú þekkir og treystir. </li><li class=\\"text-danger\\"> Þú verður haldið persónulega ábyrgð á þeim sem þú býður. </li><li class=\\"text-danger\\"> Dont bjóða þér, við athuga alla boðið notanda. </li><li class=\\"text-danger\\"> Ekki versla eða selja boð. </li><li class=\\"text-danger\\"> Ef maður sem þú bauð er veiddur að svindla, viðskiptareikning eða selja / viðskipti býður, verður þú að vera varað. </li>',
+  'invites-rules' => '<li class="text-success"> Bjóddu aðeins fólki sem þú þekkir og treystir. </li><li class="text-danger"> Þú verður haldið persónulega ábyrgð á þeim sem þú býður. </li><li class="text-danger"> Dont bjóða þér, við athuga alla boðið notanda. </li><li class="text-danger"> Ekki versla eða selja boð. </li><li class="text-danger"> Ef maður sem þú bauð er veiddur að svindla, viðskiptareikning eða selja / viðskipti býður, verður þú að vera varað. </li>',
   'invites-send' => 'Bjóðir Senda',
   'last-login' => 'Síðasta innskráning',
   'locked' => 'Læst',

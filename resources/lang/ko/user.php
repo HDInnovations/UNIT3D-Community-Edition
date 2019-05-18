@@ -117,7 +117,7 @@ return [
   'invites-count' => 'You have : 초대장 갯수.',
   'invites-disabled' => '주의 : 초대장은 초대 등록으로 인해 장애가 있습니다!',
   'invites-disabled-desc' => '곧 다시 확인하시기 바랍니다!',
-  'invites-rules' => '<li class=\\"text-success\\"> 내가 알고 신뢰하는 사람 만 초대하십시오. </li><li class=\\"text-danger\\"> 귀하는 귀하가 초대 한 사람들에 대해 개인적으로 책임을지게됩니다. </li><li class=\\"text-danger\\"> 초대하지 마시고 모든 초대 된 사용자를 확인합니다. </li><li class=\\"text-danger\\"> Invite 거래 또는 판매 금지. </li><li class=\\"text-danger\\"> 초대 한 사람이 속임수, 거래 계좌 또는 판매 / 거래 초대장에 잡히면 경고를 받게됩니다. </li>',
+  'invites-rules' => '<li class="text-success"> 내가 알고 신뢰하는 사람 만 초대하십시오. </li><li class="text-danger"> 귀하는 귀하가 초대 한 사람들에 대해 개인적으로 책임을지게됩니다. </li><li class="text-danger"> 초대하지 마시고 모든 초대 된 사용자를 확인합니다. </li><li class="text-danger"> Invite 거래 또는 판매 금지. </li><li class="text-danger"> 초대 한 사람이 속임수, 거래 계좌 또는 판매 / 거래 초대장에 잡히면 경고를 받게됩니다. </li>',
   'invites-send' => '초대장 보내기',
   'last-login' => '마지막 로그인',
   'locked' => '잠김',

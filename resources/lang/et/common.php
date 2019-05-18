@@ -4,7 +4,7 @@ return [
   'about' => 'Meist',
   'account' => 'Konto',
   'achievement-title' => 'Vinge',
-  'achievement-unlocked' => 'Sa avasid &quot;: name&quot; saavutuse',
+  'achievement-unlocked' => 'Sa avasid :name saavutuse',
   'active' => 'Aktiivne',
   'active-warning' => 'Aktiivne hoiatus',
   'add' => 'Lisama',

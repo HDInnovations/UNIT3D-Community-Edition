@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Sie haben: Einzahlungsmarken zählen',
   'invites-disabled' => 'Achtung: Einladungen sind aufgrund der offenen Registrierung deaktiviert!',
   'invites-disabled-desc' => 'Bitte schaue bald wieder vorbei!',
-  'invites-rules' => '<li class=\\"text-success\\"> Laden Sie nur Personen ein, die Sie kennen und denen Sie vertrauen. </li><li class=\\"text-danger\\"> Sie werden persönlich für die von Ihnen eingeladenen Personen verantwortlich gemacht. </li><li class=\\"text-danger\\"> Laden Sie sich nicht selbst ein, wir prüfen jeden eingeladenen Benutzer. </li><li class=\\"text-danger\\"> Handeln oder verkaufen Sie keine Einladungen. </li><li class=\\"text-danger\\"> Wenn eine Person, die Sie eingeladen haben, beim Cheaten, beim Handelskonto oder beim Verkauf / beim Laden von Einladungen erwischt wird, werden Sie gewarnt. </li>',
+  'invites-rules' => '<li class="text-success"> Laden Sie nur Personen ein, die Sie kennen und denen Sie vertrauen. </li><li class="text-danger"> Sie werden persönlich für die von Ihnen eingeladenen Personen verantwortlich gemacht. </li><li class="text-danger"> Laden Sie sich nicht selbst ein, wir prüfen jeden eingeladenen Benutzer. </li><li class="text-danger"> Handeln oder verkaufen Sie keine Einladungen. </li><li class="text-danger"> Wenn eine Person, die Sie eingeladen haben, beim Cheaten, beim Handelskonto oder beim Verkauf / beim Laden von Einladungen erwischt wird, werden Sie gewarnt. </li>',
   'invites-send' => 'Sendet ein',
   'last-login' => 'Letzte Anmeldung',
   'locked' => 'Verschlossen',

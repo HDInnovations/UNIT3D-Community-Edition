@@ -1,8 +1,8 @@
 <?php
 
 return [
-  'bug-report' => 'Informe d&#39;error',
-  'bug-report-description' => 'Informa d&#39;un error del lloc',
+  'bug-report' => 'Informe d error',
+  'bug-report-description' => 'Informa d un error del lloc',
   'enter-description' => 'Descriu el problema el millor possible',
   'enter-email' => 'Introduïu el vostre correu electrònic',
   'enter-title' => 'Trieu un títol adequat',
