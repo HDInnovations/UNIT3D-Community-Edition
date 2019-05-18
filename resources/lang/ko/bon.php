@@ -37,7 +37,7 @@ return [
   'total-gifts' => '총 BON 선물',
   'total-tips' => '총 BON 팁',
   'you-have-received-gifts' => '선물을 받았습니다.',
-  'you-have-sent-gifts' => '선물을 보냈습니다.,
+  'you-have-sent-gifts' => '선물을 보냈습니다.',
   'you-have-received-tips' => '팁을 보냈습니다.',
   'you-have-sent-tips' => '팁을 보냈습니다.',
   'your-points' => '귀하의 포인트',

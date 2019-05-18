@@ -125,7 +125,7 @@ return [
   'rated' => '순위',
   'rating' => '평가',
   'ready' => '이 파일을 다운로드 할 준비가되었습니다.',
-  'rejected' => '거부 됨'
+  'rejected' => '거부 됨',
   'released' => '출시 됨',
   'remaining' => '남은',
   'request-reseed' => '요청 재 입력',
