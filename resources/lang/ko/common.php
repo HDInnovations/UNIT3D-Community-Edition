@@ -3,9 +3,9 @@
 return [
   'about' => '회사 소개',
   'account' => '계정',
-  'achievement-title' => '최고',
-  'achievement-unlocked' => '&quot;: 이름&quot;업적 잠금 해제했습니다.',
-  'active' => '유효한',
+  'achievement-title' => '타이틀',
+  'achievement-unlocked' => '업적 잠금 해제했습니다.',
+  'active' => '활성',
   'active-warning' => '활성 경고',
   'add' => '추가',
   'added' => '추가됨',
