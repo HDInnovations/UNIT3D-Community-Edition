@@ -7,7 +7,7 @@
             </h4>
         </div>
         <div class="panel-body">
-            @foreach ($users->allOnline( ) as $user)
+            @foreach ($users->mostRecentOnline() as $user)
                     @if($user->hidden == 1 || !$user->isVisible($user,'other','show_online'))
                         <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
                             <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }}
