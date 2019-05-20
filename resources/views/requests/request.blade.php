@@ -126,12 +126,12 @@
                                             @endif
                                                 @if ($torrentRequest->category_id == "2" && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}"
+                      <a href="https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}?language={{ config('app.locale') }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
                                                 @elseif ($torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}"
+                      <a href="https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}?language={{ config('app.locale') }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
                                             @endif
@@ -166,7 +166,7 @@
                                                         <div class="col-xs-4 col-md-2 text-center">
                                                             <img class="img-people" src="{{ $person->photo }}">
                                                             <a
-                                                               href="https://www.themoviedb.org/person/{{ $actor->tmdb }}"
+                                                               href="https://www.themoviedb.org/person/{{ $actor->tmdb }}?language={{ config('app.locale') }}"
                                                                title="TheMovieDatabase" target="_blank">
                                                                 <span class="badge-user"
                                                                       style="white-space:normal;"><strong>{{ $actor->name }}</strong></span>
