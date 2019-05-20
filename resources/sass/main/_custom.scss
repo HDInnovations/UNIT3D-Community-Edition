@@ -2714,6 +2714,7 @@ a.thumbnail:hover {
     -webkit-transition: width 0.6s ease;
     -o-transition: width 0.6s ease;
     transition: width 0.6s ease;
+    border-bottom: 4px solid #478fdd;
 }
 
 .progress-bar-striped,
@@ -3163,7 +3164,7 @@ button.list-group-item-danger.active:hover {
 }
 
 .panel-heading {
-    padding: 10px 15px;
+    padding: 5px 5px;
     border-bottom: 1px solid transparent;
 }
 
@@ -9007,6 +9008,10 @@ div.blocks div.collection.media_blocks {
     background-color: #383823;
 }
 
+div.blocks div.people.media_blocks {
+    background-color: #011F2B
+}
+
 div.blocks div.media_blocks h2 {
     width: 100%;
     margin: 0;
@@ -9687,11 +9692,13 @@ img.emojione {
   }
 }
 
+// Recomendations
+
 div.item.mini.backdrop div.image_content img {
     top: 0;
     left: 0;
-    width: 250px;
-    height: 141px;
+    width: auto;
+    height: 300px;
     border-radius: 4px
 }
 
@@ -9715,8 +9722,8 @@ div.item.backdrop div.image_content img {
 div.item.mini.backdrop div.image_content img {
     top: 0;
     left: 0;
-    width: 250px;
-    height: 141px;
+    width: auto;
+    height: 300px;
     border-radius: 4px;
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .42), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2)!important;
 }
@@ -9819,10 +9826,6 @@ section.recommendations div.scroller div.item a {
     padding-right: 10px
 }
 
-section.recommendations div.scroller div.item div.image_content a:hover {
-    color: #000
-}
-
 section.recommendations div.scroller div.item p {
     display: flex;
     justify-content: space-between;
@@ -9877,6 +9880,204 @@ pre {
 
 .page-content>pre>code {
     border: none;
+}
+
+// Collections
+div#collection_waypoint {
+    width: 100%;
+}
+
+div.header.collection {
+    height: 258px;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: rgba(34, 26, 15, 0.59);
+}
+
+section.collection {
+    z-index: 1;
+    position: relative;
+    top: 0;
+    left: 10px;
+    height: 258px;
+    border: none;
+    padding-bottom: 0;
+}
+
+div.header.collection h2 {
+    font-size: 1.9em;
+    font-weight: 600
+}
+
+div.header.collection p {
+    font-size: 1.1em;
+    color: #fff
+}
+
+div.header.collection p.new_button {
+    font-size: 1em;
+    margin: 0;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 50px;
+    left: 0
+}
+
+.collection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));
+}
+
+//Random Torrents
+h2.random-block {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+h2.random-block span {
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+}
+
+.random-img {
+     display: block;
+     height: 280px;
+     width: auto;
+ }
+
+.random-movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(42, 50, 58, 0.47), rgba(37, 41, 50, 0.4))
+}
+
+.random-movie-overlay:hover {
+    background-image: linear-gradient(rgba(0,0,0,.47),rgba(0,0,0,.4));
+}
+
+.random-tags {
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 15px;
+    font-weight: 700
+}
+
+//MediaHub
+section.header {
+    width: 100%;
+    height: 153px;
+    background-color: #081C24
+}
+
+section.header div.gradient {
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle 900px at 25% 50%, rgba(7, 64, 52, 0.9) 0%, #081c24 70%);
+    display: flex;
+    justify-content: center
+}
+
+section.header div.gradient.movie {
+    background-image: radial-gradient(circle 900px at 25% 50%, rgba(48, 23, 42, 0.9) 0%, #081c24 70%)
+}
+
+section.header div.gradient.tv {
+    background-image: radial-gradient(circle 900px at 25% 50%, rgba(32, 40, 74, 0.9) 0%, #081c24 70%)
+}
+
+section.header div.gradient.people {
+    background-image: radial-gradient(circle 900px at 25% 50%, rgba(7, 46, 70, 0.9) 0%, #081c24 70%)
+}
+
+section.header div.gradient.collection {
+    background-image: radial-gradient(circle 900px at 25% 50%, rgba(47, 51, 29, 0.9) 0%, #081c24 70%)
+}
+
+section.header div.inner_content {
+    width: 1000px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden
+}
+
+section.header div.inner_content > div {
+    width: 1414px;
+    height: 300px;
+    position: absolute;
+    top: -120px;
+    left: -140px;
+    z-index: 0
+}
+
+section.header div.inner_content > div svg path {
+    fill: #01D277
+}
+
+section.header div.movie div.inner_content > div svg path {
+    fill: #F82251
+}
+
+section.header div.tv div.inner_content > div svg path {
+    fill: #865BFD
+}
+
+section.header div.people div.inner_content > div svg path {
+    fill: #0084EA
+}
+
+section.header div.collection div.inner_content > div svg path {
+    fill: #F5A623
+}
+
+section.header div.inner_content h2 {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    z-index: 1;
+    position: relative
+}
+
+//MediaHub Home
+div.header.mediahub {
+    width: 100%;
+    background-image: radial-gradient(at 25% top, #1a2132, #0a1526 40%);
+    z-index: 0;
+}
+
+div.header div.mediahub_content div.content h1 {
+    height: 233px;
+    line-height: 233px;
+    font-family: 'Shrikhand', cursive;
+    font-size: 7em;
+    font-weight: 400;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 // No Image
