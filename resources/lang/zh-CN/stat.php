@@ -11,6 +11,7 @@ return [
     'place'                   => '名次',
     'nerd-stats'              => '数据帝结论',
     'nerd-stats-desc'         => '我们太热爱统计数据了。这里有一些我们认为重要的',
+    'languages'               => '语言',
     'registration-date'       => '注册日期',
     'request-fulfilled'       => '已达成',
     'request-not-fulfilled'   => '没达成',
