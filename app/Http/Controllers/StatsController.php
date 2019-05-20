@@ -20,6 +20,7 @@ use App\Models\Group;
 use App\Models\History;
 use App\Models\Torrent;
 use App\Models\Category;
+use App\Models\Language;
 use App\Models\TorrentRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -389,5 +390,19 @@ class StatsController extends Controller
         $users = User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100);
 
         return view('stats.groups.group', ['users' => $users, 'group' => $group]);
+    }
+
+    /**
+     * Show Extra-Stats Languages.
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function languages()
+    {
+        // Fetch All Languages
+        $languages = Language::allowed();
+
+        return view('stats.languages.languages', ['languages' => $languages]);
     }
 }
