@@ -30,14 +30,14 @@
         </li>
         <li>
             <a href="{{ route('requests') }}">
-                <i class="{{ config('other.font-awesome') }} fa-copy" style=" font-size: 18px; color: rgb(255,255,255);"></i>
+                <i class="{{ config('other.font-awesome') }} fa-hands-helping" style=" font-size: 18px; color: rgb(255,255,255);"></i>
                 <span class="menu-text">@lang('request.requests')</span>
                 <span class="selected"></span>
             </a>
         </li>
         <li>
             <a href="{{ route('graveyard.index') }}">
-                <i class="fab fa-snapchat-ghost" style=" font-size: 18px; color: rgb(255,255,255);"></i>
+                <i class="{{ config('other.font-awesome') }} fa-skull" style=" font-size: 18px; color: rgb(255,255,255);"></i>
                 <span class="menu-text">@lang('graveyard.graveyard')</span>
                 <span class="selected"></span>
             </a>

@@ -50,7 +50,7 @@
                     <ul class="list-inline">
                         <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>@lang('torrent.size')
                                 : </strong> {{ $torrent->getSize() }}</span>
-                        <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-calendar"></i> <strong>@lang('torrent.released')
+                        <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> <strong>@lang('torrent.released')
                                 : </strong> {{ $torrent->created_at->diffForHumans() }}</span>
                         <span class="badge-extra text-green"><li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> <strong>@lang('torrent.seeders')
                                     : </strong> {{ $torrent->seeders }}</li></span>
