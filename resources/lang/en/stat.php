@@ -10,6 +10,7 @@ return [
     'last30days'              => 'Last 30 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'We all love stats. Here are a few that we find important',
+    'languages'               => 'Languages',
     'place'                   => 'Place',
     'registration-date'       => 'Registration date',
     'request-fulfilled'       => 'Request fulfilled',
