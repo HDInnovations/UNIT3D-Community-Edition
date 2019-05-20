@@ -4,7 +4,7 @@ return [
   'create' => 'Yaratmoq',
   'create-private-feed' => 'Maxsus RSS Feed yaratish',
   'create-public-feed' => 'Ommaviy RSSlar yaratish',
-  'delete' => 'O&#39;chir',
+  'delete' => 'O chir',
   'edit' => 'Tahrirlash',
   'edit-private-feed' => 'Maxsus RSS Feedni tahrirlash',
   'edit-public-feed' => 'Jamoatchilik RSS-ni tahrirlash',

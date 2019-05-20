@@ -25,7 +25,7 @@ return [
   'comments' => 'Comments',
   'community' => 'Community',
   'contact' => 'kontakt',
-  'contact-desc' => 'Kjo kërkesë për kontakt do t&#39;i dërgohet pronarit dhe do t&#39;ju kthehet sa më shpejt që të jetë e mundur',
+  'contact-desc' => 'Kjo kërkesë për kontakt do t i dërgohet pronarit dhe do t ju kthehet sa më shpejt që të jetë e mundur',
   'contact-header' => 'Përshëndetje',
   'create' => 'krijoj',
   'created_at' => 'Krijuar në',

@@ -10,6 +10,6 @@ return [
   'high' => 'Uchel',
   'low' => 'Isel',
   'priority' => 'Blaenoriaeth',
-  'priority-description' => 'Dewiswch yn uchel iawn os yw&#39;r nam mewn gwirionedd yn broblem ar gyfer defnyddio&#39;r safle.',
+  'priority-description' => 'Dewiswch yn uchel iawn os yw r nam mewn gwirionedd yn broblem ar gyfer defnyddio r safle.',
   'very-high' => 'Uchel iawn',
 ];

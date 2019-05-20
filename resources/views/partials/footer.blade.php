@@ -67,7 +67,19 @@
                     class="btn btn-xs btn-primary">@lang('common.patron')</a></li>
                 <li><a href="https://github.com/UNIT3D/UNIT3D" target="_blank" 
                     class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
-            </ul
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="subfooter text-center"style="background-color: rgb(46,46,46);">
+    <div class="container">
+        <div class="subfooter-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <span>This page took {{ (microtime(true) - LARAVEL_START) }} seconds to render.</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Una: kuhesabu Kualika Ishara',
   'invites-disabled' => 'Tahadhari: Kualika Kuna Walemavu Kutokana na Kufungua Usajili!',
   'invites-disabled-desc' => 'Tafadhali Angalia Nyuma Hivi karibuni!',
-  'invites-rules' => '<li class=\\"text-success\\"> Waalike tu watu unaowajua na waamini. </li><li class=\\"text-danger\\"> Wewe utafanyika binafsi kuwajibika kwa wale unaowaalika. </li><li class=\\"text-danger\\"> Je, usijialike, tunaangalia kila mtumiaji aliyealikwa. </li><li class=\\"text-danger\\"> Je, si biashara au kuuza Mwaliko. </li><li class=\\"text-danger\\"> Ikiwa mtu aliyemalika anakupata kudanganya, akaunti ya biashara au ununuzi wa biashara / ununuzi, utaambiwa. </li>',
+  'invites-rules' => '<li class="text-success"> Waalike tu watu unaowajua na waamini. </li><li class="text-danger"> Wewe utafanyika binafsi kuwajibika kwa wale unaowaalika. </li><li class="text-danger"> Je, usijialike, tunaangalia kila mtumiaji aliyealikwa. </li><li class="text-danger"> Je, si biashara au kuuza Mwaliko. </li><li class="text-danger"> Ikiwa mtu aliyemalika anakupata kudanganya, akaunti ya biashara au ununuzi wa biashara / ununuzi, utaambiwa. </li>',
   'invites-send' => 'Inakaribisha Tuma',
   'last-login' => 'Mwisho Ingia',
   'locked' => 'Imefungwa',

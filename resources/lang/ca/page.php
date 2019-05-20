@@ -1,8 +1,8 @@
 <?php
 
 return [
-  'aboutus-advantage' => 'L&#39;avantatge',
-  'aboutus-advantage1' => 'Tenim membres experimentats i personal amb gran coneixement sobre el món del vídeo / àudio d&#39;alta definició i el suport tècnic.',
+  'aboutus-advantage' => 'L avantatge',
+  'aboutus-advantage1' => 'Tenim membres experimentats i personal amb gran coneixement sobre el món del vídeo / àudio d alta definició i el suport tècnic.',
   'aboutus-advantage2' => 'Juntament amb la nostra extensa passió per pel·lícules i programes de televisió, oferim també una de les millors seleccions d’una cosa que la majoria no - FANRES! <em>UN GRAN GRÀCIES</em> als nostres col·laboradors.',
   'aboutus-advantage3' => 'Tot i que acceptem donacions per mantenir el lloc en marxa, no hi haurà cap grup de missatgeria o banners al lloc. No us demanem.',
   'aboutus-advantage4' => 'La nostra comunitat és insuperable per a la seva edat primerenca. Entre el nostre personal i la nostra base de dades, sempre vam estar aquí per ajudar-vos. Vaig ser un apassionat per assegurar-vos que la vostra experiència en: title és una cosa increïble.',
@@ -13,7 +13,7 @@ return [
   'aboutus-rules2' => 'Per llegir les regles completament i respectar-les!',
   'aboutus-rules3' => 'Feu suggeriments. Ens esforcem per fer que el títol sigui millor cada dia. No estem dient que s’utilitzarà qualsevol suggeriment, però mai està de més veure noves idees.',
   'aboutus-welcome' => 'Parlem',
-  'aboutus-welcome-desc' => ': title és una base de dades de Movie / TV / FANR <em>construïda per la comunitat</em> . La nostra increïble comunitat ha afegit totes les dades des del 2017.: els títols estan <em>enfocats</em> a un contingut d&#39;alta definició, a una base de dades activa, a un codi de codi increïble i segur i a un equip de personal amable i servicial.',
+  'aboutus-welcome-desc' => ': title és una base de dades de Movie / TV / FANR <em>construïda per la comunitat</em> . La nostra increïble comunitat ha afegit totes les dades des del 2017.: els títols estan <em>enfocats</em> a un contingut d alta definició, a una base de dades activa, a un codi de codi increïble i segur i a un equip de personal amable i servicial.',
   'blacklist-browsers' => 'Navegadors',
   'blacklist-btclient' => 'Client BitTorrent',
   'blacklist-clients' => 'Clients',

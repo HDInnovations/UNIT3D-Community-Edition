@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Tienes: contar Invitar Tokens',
   'invites-disabled' => 'Atención: las invitaciones están deshabilitadas debido a la inscripción abierta!',
   'invites-disabled-desc' => '¡Por favor, revise luego!',
-  'invites-rules' => '<li class=\\"text-success\\"> Solo invite a personas que conozca y en las que confíe. </li><li class=\\"text-danger\\"> Serás personalmente responsable por aquellos a quienes invitas. </li><li class=\\"text-danger\\"> No te invites a ti mismo, verificamos a cada usuario invitado. </li><li class=\\"text-danger\\"> No intercambies ni vendas invitaciones. </li><li class=\\"text-danger\\"> Si una persona a la que invitó es atrapada haciendo trampa, intercambiando cuentas o vendiendo / intercambiando invitaciones, se le avisará. </li>',
+  'invites-rules' => '<li class="text-success"> Solo invite a personas que conozca y en las que confíe. </li><li class="text-danger"> Serás personalmente responsable por aquellos a quienes invitas. </li><li class="text-danger"> No te invites a ti mismo, verificamos a cada usuario invitado. </li><li class="text-danger"> No intercambies ni vendas invitaciones. </li><li class="text-danger"> Si una persona a la que invitó es atrapada haciendo trampa, intercambiando cuentas o vendiendo / intercambiando invitaciones, se le avisará. </li>',
   'invites-send' => 'Invita a enviar',
   'last-login' => 'Último acceso',
   'locked' => 'Bloqueado',

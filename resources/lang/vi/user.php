@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Bạn có: đếm mời Token',
   'invites-disabled' => 'Chú ý: Lời mời bị vô hiệu hóa do đăng ký mở!',
   'invites-disabled-desc' => 'Làm ơn hãy kiểm tra lại sớm!',
-  'invites-rules' => '<li class=\\"text-success\\"> Chỉ mời những người bạn biết và tin tưởng. </li><li class=\\"text-danger\\"> Bạn sẽ chịu trách nhiệm cá nhân cho những người bạn mời. </li><li class=\\"text-danger\\"> Đừng tự mời, chúng tôi kiểm tra mọi người dùng được mời. </li><li class=\\"text-danger\\"> Không giao dịch hoặc bán lời mời. </li><li class=\\"text-danger\\"> Nếu một người bạn mời bị bắt gặp gian lận, tài khoản giao dịch hoặc lời mời bán / giao dịch, bạn sẽ bị cảnh cáo. </li>',
+  'invites-rules' => '<li class="text-success"> Chỉ mời những người bạn biết và tin tưởng. </li><li class="text-danger"> Bạn sẽ chịu trách nhiệm cá nhân cho những người bạn mời. </li><li class="text-danger"> Đừng tự mời, chúng tôi kiểm tra mọi người dùng được mời. </li><li class="text-danger"> Không giao dịch hoặc bán lời mời. </li><li class="text-danger"> Nếu một người bạn mời bị bắt gặp gian lận, tài khoản giao dịch hoặc lời mời bán / giao dịch, bạn sẽ bị cảnh cáo. </li>',
   'invites-send' => 'Lời mời Gửi',
   'last-login' => 'Lân đăng nhập cuôi',
   'locked' => 'Đã khóa',

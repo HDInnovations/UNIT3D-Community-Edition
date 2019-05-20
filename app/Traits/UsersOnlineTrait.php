@@ -48,6 +48,7 @@ trait UsersOnlineTrait
         if (empty($cache = cache()->get($this->getCacheKey()))) {
             return 0;
         }
+
         return $cache['cachedAt'];
     }
 
@@ -62,10 +63,11 @@ trait UsersOnlineTrait
 
     public function getCacheContent()
     {
-        if (!empty($cache = cache()->get($this->getCacheKey()))) {
+        if (! empty($cache = cache()->get($this->getCacheKey()))) {
             return $cache;
         }
         $cachedAt = Carbon::now();
+
         return [
             'cachedAt' => $cachedAt,
             'user' => $this,
@@ -79,6 +81,6 @@ trait UsersOnlineTrait
 
     public function getCacheKey()
     {
-        return sprintf('%s-%s', "UserOnline", $this->id);
+        return sprintf('%s-%s', 'UserOnline', $this->id);
     }
 }

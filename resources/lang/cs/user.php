@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Máte: count Pozvěte žetony',
   'invites-disabled' => 'Pozor: Pozvánka je zakázána kvůli otevřené registraci!',
   'invites-disabled-desc' => 'Zkontrolujte, prosím, brzy!',
-  'invites-rules' => '<li class=\\"text-success\\"> Pozvěte jen lidi, které znáte a kterým důvěřujete. </li><li class=\\"text-danger\\"> Za ty, které pozveš, budeš osobně zodpovědný. </li><li class=\\"text-danger\\"> Nepozvat se, kontrolujeme každého pozvaného uživatele. </li><li class=\\"text-danger\\"> Dont obchodovat nebo prodávat pozvání. </li><li class=\\"text-danger\\"> Pokud je osoba, kterou jste pozvali, chycena podváděním, obchodním účtem nebo prodejem / obchodováním, budete upozorněni. </li>',
+  'invites-rules' => '<li class="text-success"> Pozvěte jen lidi, které znáte a kterým důvěřujete. </li><li class="text-danger"> Za ty, které pozveš, budeš osobně zodpovědný. </li><li class="text-danger"> Nepozvat se, kontrolujeme každého pozvaného uživatele. </li><li class="text-danger"> Dont obchodovat nebo prodávat pozvání. </li><li class="text-danger"> Pokud je osoba, kterou jste pozvali, chycena podváděním, obchodním účtem nebo prodejem / obchodováním, budete upozorněni. </li>',
   'invites-send' => 'Pozvání Poslat',
   'last-login' => 'Poslední přihlášení',
   'locked' => 'Zamčené',

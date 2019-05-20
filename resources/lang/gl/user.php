@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Ten: conta contas de invitación',
   'invites-disabled' => 'Atención: As invitacións están desactivadas debido ao rexistro aberto!',
   'invites-disabled-desc' => 'Comproba de novo en breve!',
-  'invites-rules' => '<li class=\\"text-success\\"> Invita só ás persoas que coñeces e confías. </li><li class=\\"text-danger\\"> Serás responsable persoalmente dos que invitas. </li><li class=\\"text-danger\\"> Non invítense a nós mesmos, revisamos cada usuario convidado. </li><li class=\\"text-danger\\"> Non comerciais nin vendes invitacións. </li><li class=\\"text-danger\\"> Se unha persoa convidada é capturada por trampas, negociación de conta ou venda / negociación de invitacións, será avisado. </li>',
+  'invites-rules' => '<li class="text-success"> Invita só ás persoas que coñeces e confías. </li><li class="text-danger"> Serás responsable persoalmente dos que invitas. </li><li class="text-danger"> Non invítense a nós mesmos, revisamos cada usuario convidado. </li><li class="text-danger"> Non comerciais nin vendes invitacións. </li><li class="text-danger"> Se unha persoa convidada é capturada por trampas, negociación de conta ou venda / negociación de invitacións, será avisado. </li>',
   'invites-send' => 'Enviar invitacións',
   'last-login' => 'Último inicio de sesión',
   'locked' => 'Bloqueado',

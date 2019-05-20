@@ -6,7 +6,7 @@ return [
   'guidelines' => 'নির্দেশিকা',
   'guidelines-content' => '1) আপনি নিজের আপলোড পুনরুত্থান করতে পারবেন না। <br> 2) আপনি কিছু করতে পারবেন না এমন কিছু পুনরুজ্জীবিত করবেন না।',
   'howto' => 'তিনি নিয়ম',
-  'howto-desc1' => 'আপনাকে অবশ্যই বীজ বানাতে হবে: সফল সফলতার জন্য <span class=\\"text-red text-bold\\">30 দিনের</span> <span class=\\"text-green\\"><em>নাম</em></span> । কোন ক্ষেত্রে আপনার বর্তমান বীজ সময়',
+  'howto-desc1' => 'আপনাকে অবশ্যই বীজ বানাতে হবে: সফল সফলতার জন্য <span class="text-red text-bold">30 দিনের</span> <span class=\\"text-green\\"><em>নাম</em></span> । কোন ক্ষেত্রে আপনার বর্তমান বীজ সময়',
   'howto-desc2' => 'আপনি পুরস্কৃত করা হবে',
   'howto-hits' => 'আঘাত',
   'pending' => 'মুলতুবী',

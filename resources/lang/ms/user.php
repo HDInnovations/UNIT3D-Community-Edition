@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Anda Memiliki: mengira Mengimbas Token',
   'invites-disabled' => 'Perhatian: Invites Adakah Disabled Due To Open Registration!',
   'invites-disabled-desc' => 'Sila semak semula segera!',
-  'invites-rules' => '<li class=\\"text-success\\"> Hanya menjemput orang yang anda kenali dan dipercayai. </li><li class=\\"text-danger\\"> Anda akan bertanggungjawab secara peribadi untuk orang yang anda jemput. </li><li class=\\"text-danger\\"> Jangan mengundang diri anda, kami periksa setiap pengguna yang dijemput. </li><li class=\\"text-danger\\"> Jangan berdagang atau jual Invites. </li><li class=\\"text-danger\\"> Jika seseorang yang anda jemput tertangkap menipu, akaun dagangan atau jemputan jualan / perdagangan, anda akan diberi amaran. </li>',
+  'invites-rules' => '<li class="text-success"> Hanya menjemput orang yang anda kenali dan dipercayai. </li><li class="text-danger"> Anda akan bertanggungjawab secara peribadi untuk orang yang anda jemput. </li><li class="text-danger"> Jangan mengundang diri anda, kami periksa setiap pengguna yang dijemput. </li><li class="text-danger"> Jangan berdagang atau jual Invites. </li><li class="text-danger"> Jika seseorang yang anda jemput tertangkap menipu, akaun dagangan atau jemputan jualan / perdagangan, anda akan diberi amaran. </li>',
   'invites-send' => 'Jemputan Hantar',
   'last-login' => 'Log masuk kali terakhir',
   'locked' => 'Terkunci',

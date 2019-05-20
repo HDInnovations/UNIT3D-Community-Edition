@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Van: Számlázza a Meghívó tokeneket',
   'invites-disabled' => 'Figyelem: A meghívók nyitva állnak a regisztráció miatt!',
   'invites-disabled-desc' => 'Kérjük nézzen vissza hamarosan!',
-  'invites-rules' => '<li class=\\"text-success\\"> Csak olyan embereket hívjon meg, akiket ismernek és bizalommal. </li><li class=\\"text-danger\\"> Ön személyesen felelős lesz a meghívott személyekért. </li><li class=\\"text-danger\\"> Ne hívd meg magad, ellenőrizzük minden meghívott felhasználót. </li><li class=\\"text-danger\\"> Ne kereskedjen vagy adjon el hívásokat. </li><li class=\\"text-danger\\"> Ha egy meghívott személyt csalásnak, kereskedési számlának vagy eladási / kereskedési felhívásnak hívják, figyelmeztetni fogják. </li>',
+  'invites-rules' => '<li class="text-success"> Csak olyan embereket hívjon meg, akiket ismernek és bizalommal. </li><li class="text-danger"> Ön személyesen felelős lesz a meghívott személyekért. </li><li class="text-danger"> Ne hívd meg magad, ellenőrizzük minden meghívott felhasználót. </li><li class="text-danger"> Ne kereskedjen vagy adjon el hívásokat. </li><li class="text-danger"> Ha egy meghívott személyt csalásnak, kereskedési számlának vagy eladási / kereskedési felhívásnak hívják, figyelmeztetni fogják. </li>',
   'invites-send' => 'Meghívások küldése',
   'last-login' => 'Utolsó bejelentkezés',
   'locked' => 'Zárt',

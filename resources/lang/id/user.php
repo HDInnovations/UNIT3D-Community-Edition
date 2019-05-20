@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Anda Memiliki: menghitung Token yang Diundang',
   'invites-disabled' => 'Perhatian: Undangan Dinonaktifkan Karena Membuka Pendaftaran!',
   'invites-disabled-desc' => 'Silakan Periksa Kembali Segera!',
-  'invites-rules' => '<li class=\\"text-success\\"> Hanya mengundang orang yang Anda kenal dan percayai. </li><li class=\\"text-danger\\"> Anda akan secara pribadi bertanggung jawab atas mereka yang Anda undang. </li><li class=\\"text-danger\\"> Jangan mengundang Anda sendiri, kami memeriksa setiap pengguna yang diundang. </li><li class=\\"text-danger\\"> Jangan berdagang atau menjual Undangan. </li><li class=\\"text-danger\\"> Jika seseorang yang Anda undang ketahuan selingkuh, akun perdagangan atau undangan penjualan / perdagangan, Anda akan diperingatkan. </li>',
+  'invites-rules' => '<li class="text-success"> Hanya mengundang orang yang Anda kenal dan percayai. </li><li class="text-danger"> Anda akan secara pribadi bertanggung jawab atas mereka yang Anda undang. </li><li class="text-danger"> Jangan mengundang Anda sendiri, kami memeriksa setiap pengguna yang diundang. </li><li class="text-danger"> Jangan berdagang atau menjual Undangan. </li><li class="text-danger"> Jika seseorang yang Anda undang ketahuan selingkuh, akun perdagangan atau undangan penjualan / perdagangan, Anda akan diperingatkan. </li>',
   'invites-send' => 'Undangan Kirim',
   'last-login' => 'Login terakhir',
   'locked' => 'Terkunci',

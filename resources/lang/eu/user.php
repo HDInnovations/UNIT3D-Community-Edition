@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Zuk: zenbatu gonbidatuak',
   'invites-disabled' => 'Arreta: Gonbidapenak Desgaituta daude izena ematearen ondorioz!',
   'invites-disabled-desc' => 'Mesedez, egiaztatu laster!',
-  'invites-rules' => '<li class=\\"text-success\\"> Ezagutzen dituzun eta konfiantzazko pertsonak bakarrik gonbidatu. </li><li class=\\"text-danger\\"> Gonbidatzen dituzunen arduradun izango zara. </li><li class=\\"text-danger\\"> Ez gonbidatu zeure burua, gonbidatutako erabiltzaile guztiei begiratzen diegu. </li><li class=\\"text-danger\\"> Ez merkataritza edo saltzea gonbidapenak. </li><li class=\\"text-danger\\"> Gonbidatu duzun pertsona batek iruzurra hartuz gero, merkataritza-kontua edo gonbidapenak saltzea / merkaturatzea, ohartarazi egingo zaizu. </li>',
+  'invites-rules' => '<li class="text-success"> Ezagutzen dituzun eta konfiantzazko pertsonak bakarrik gonbidatu. </li><li class="text-danger"> Gonbidatzen dituzunen arduradun izango zara. </li><li class="text-danger"> Ez gonbidatu zeure burua, gonbidatutako erabiltzaile guztiei begiratzen diegu. </li><li class="text-danger"> Ez merkataritza edo saltzea gonbidapenak. </li><li class="text-danger"> Gonbidatu duzun pertsona batek iruzurra hartuz gero, merkataritza-kontua edo gonbidapenak saltzea / merkaturatzea, ohartarazi egingo zaizu. </li>',
   'invites-send' => 'Gonbidapenak bidali',
   'last-login' => 'Azken saioa',
   'locked' => 'blokeatuta',

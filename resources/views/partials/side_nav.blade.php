@@ -16,7 +16,7 @@
             @else
                 <a href="{{ route('torrents') }}">
             @endif
-                <i class="{{ config('other.font-awesome') }} fa-magnet" style=" font-size: 18px; color: rgb(255,255,255);"></i>
+                <i class="{{ config('other.font-awesome') }} fa-tv-retro" style=" font-size: 18px; color: rgb(255,255,255);"></i>
                 <span class="menu-text">@lang('torrent.torrents')</span>
                 <span class="selected"></span>
             </a>

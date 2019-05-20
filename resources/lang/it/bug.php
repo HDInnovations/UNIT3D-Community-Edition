@@ -10,6 +10,6 @@ return [
   'high' => 'alto',
   'low' => 'Basso',
   'priority' => 'Priorità',
-  'priority-description' => 'Scegli solo molto alto se il bug è davvero un problema per l&#39;utilizzo del sito.',
+  'priority-description' => 'Scegli solo molto alto se il bug è davvero un problema per l utilizzo del sito.',
   'very-high' => 'Molto alto',
 ];

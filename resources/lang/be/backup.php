@@ -17,7 +17,7 @@ return [
   'delete' => 'выдаляць',
   'delete_cancel_message' => 'Файл рэзервовай копіі не быў выдалены.',
   'delete_cancel_title' => 'Добра',
-  'delete_confirm' => 'Ці з&#39;яўляецца ваш, што вы хочаце выдаліць гэты файл рэзервовай копіі?',
+  'delete_confirm' => 'Ці з яўляецца ваш, што вы хочаце выдаліць гэты файл рэзервовай копіі?',
   'delete_confirmation_message' => 'Файл рэзервовай копіі быў выдалены.',
   'delete_confirmation_title' => 'зроблена',
   'delete_error_message' => 'Файл рэзервовай копіі не быў выдалены.',

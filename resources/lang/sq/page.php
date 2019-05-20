@@ -21,7 +21,7 @@ return [
   'blacklist-webbrowser' => 'Shfletues uebi',
   'blacklist-emaildomain' => 'Domain i bllokuar',
   'email-blacklist-desc' => 'Fushat Email pas janë bllokuar nga përdorimi. Ju nuk mund të regjistroheni ose dërgoni një ftesë për të mëposhtmet.',
-  'email-whitelist-desc' => 'Fushat e mëposhtme të email-it janë vetëm domainët e emaileve të lejuara për t&#39;u përdorur. Ju mund vetëm të regjistroheni ose dërgoni një ftesë duke përdorur të mëposhtmet.',
+  'email-whitelist-desc' => 'Fushat e mëposhtme të email-it janë vetëm domainët e emaileve të lejuara për t u përdorur. Ju mund vetëm të regjistroheni ose dërgoni një ftesë duke përdorur të mëposhtmet.',
   'staff-group' => 'grup',
   'staff-title' => 'titull',
   'whitelist-emaildomain' => 'Domain i besuar',

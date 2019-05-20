@@ -9,7 +9,7 @@ return [
   'enter-username' => 'Iltimos, foydalanuvchi nomingizni kiriting',
   'high' => 'Oliy',
   'low' => 'Kam',
-  'priority' => 'Birinchi o&#39;ringa',
-  'priority-description' => 'Agar bug, albatta, saytni ishlatishda muammo bo&#39;lsa, faqat juda yuqori ni tanlang.',
+  'priority' => 'Birinchi o ringa',
+  'priority-description' => 'Agar bug, albatta, saytni ishlatishda muammo bo lsa, faqat juda yuqori ni tanlang.',
   'very-high' => 'Juda yuqori',
 ];

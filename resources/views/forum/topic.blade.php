@@ -121,7 +121,7 @@
             </span>
                             </aside>
 
-                            <article class="col-md-10 post-content">
+                            <article class="col-md-9 post-content">
                                 @emojione($p->getContentHtml())
 
                             </article>

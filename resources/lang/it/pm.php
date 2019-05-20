@@ -3,7 +3,7 @@
 return [
   'create' => 'Creare',
   'delete' => 'Elimina',
-  'enter-subject' => 'Inserisci l&#39;oggetto',
+  'enter-subject' => 'Inserisci l oggetto',
   'from' => 'A partire dal',
   'inbox' => 'Posta in arrivo',
   'mark-all-read' => 'Segna tutti i messaggi come letti',

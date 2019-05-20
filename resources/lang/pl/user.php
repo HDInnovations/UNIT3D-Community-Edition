@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Masz: policz Zaproś żetony',
   'invites-disabled' => 'Uwaga: zaproszenia są wyłączone z powodu otwartej rejestracji!',
   'invites-disabled-desc' => 'Sprawdź wkrótce!',
-  'invites-rules' => '<li class=\\"text-success\\"> Zapraszaj tylko osoby, które znasz i którym ufasz. </li><li class=\\"text-danger\\"> Będziesz osobiście odpowiedzialny za tych, których zaprosisz. </li><li class=\\"text-danger\\"> Nie zapraszaj siebie, sprawdzamy każdego zaproszonego użytkownika. </li><li class=\\"text-danger\\"> Nie handluj ani nie sprzedawaj zaproszeń. </li><li class=\\"text-danger\\"> Jeśli zaproszona osoba zostanie przyłapana na oszukiwaniu, handlu lub sprzedaży / handlu zaproszeniami, zostaniesz ostrzeżony. </li>',
+  'invites-rules' => '<li class="text-success"> Zapraszaj tylko osoby, które znasz i którym ufasz. </li><li class="text-danger"> Będziesz osobiście odpowiedzialny za tych, których zaprosisz. </li><li class="text-danger"> Nie zapraszaj siebie, sprawdzamy każdego zaproszonego użytkownika. </li><li class="text-danger"> Nie handluj ani nie sprzedawaj zaproszeń. </li><li class="text-danger"> Jeśli zaproszona osoba zostanie przyłapana na oszukiwaniu, handlu lub sprzedaży / handlu zaproszeniami, zostaniesz ostrzeżony. </li>',
   'invites-send' => 'Zaprasza do wysłania',
   'last-login' => 'Ostatnie logowanie',
   'locked' => 'Zablokowany',

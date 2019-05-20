@@ -5,7 +5,7 @@ return [
   'delete' => 'Suprimeix',
   'enter-subject' => 'Introduïu el tema',
   'from' => 'Des de',
-  'inbox' => 'Safata d&#39;entrada',
+  'inbox' => 'Safata d entrada',
   'mark-all-read' => 'Marca tots els missatges com a llegits',
   'message' => 'Missatge',
   'messages' => 'Missatges',

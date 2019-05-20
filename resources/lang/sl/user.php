@@ -117,7 +117,7 @@ return [
   'invites-count' => 'Imate: štetje žetonov',
   'invites-disabled' => 'Pozor: Vabila so onemogočena zaradi odprte prijave!',
   'invites-disabled-desc' => 'Prosim preverite nazaj!',
-  'invites-rules' => '<li class=\\"text-success\\"> Povabite le ljudi, ki jih poznate in jim zaupate. </li><li class=\\"text-danger\\"> Osebno boste odgovorni za tiste, ki jih povabite. </li><li class=\\"text-danger\\"> Ne povabite se, preverjamo vsakega povabljenega uporabnika. </li><li class=\\"text-danger\\"> Ne trgovati ali prodajati Invites. </li><li class=\\"text-danger\\"> Če je oseba, ki ste jo povabili, ujeta v goljufanje, trgovalni račun ali vabila za prodajo / trgovanje, vas bo opozoril. </li>',
+  'invites-rules' => '<li class="text-success"> Povabite le ljudi, ki jih poznate in jim zaupate. </li><li class="text-danger"> Osebno boste odgovorni za tiste, ki jih povabite. </li><li class="text-danger"> Ne povabite se, preverjamo vsakega povabljenega uporabnika. </li><li class="text-danger"> Ne trgovati ali prodajati Invites. </li><li class="text-danger"> Če je oseba, ki ste jo povabili, ujeta v goljufanje, trgovalni račun ali vabila za prodajo / trgovanje, vas bo opozoril. </li>',
   'invites-send' => 'Povabi »Pošlji«',
   'last-login' => 'Zadnja prijava',
   'locked' => 'Zaklenjeno',
