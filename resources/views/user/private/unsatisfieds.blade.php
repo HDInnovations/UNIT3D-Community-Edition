@@ -126,7 +126,7 @@
                                     </a>
                                     <div class="pull-right">
                                         <a href="{{ route('download', ['slug' => $download->torrent->slug, 'id' => $download->torrent->id]) }}">
-                                            <button class="btn btn-primary btn-circle" type="button"><i
+                                            <button class="btn btn-primary btn-tablet" type="button"><i
                                                         class="{{ config('other.font-awesome') }} fa-download"></i></button>
                                         </a>
                                     </div>
