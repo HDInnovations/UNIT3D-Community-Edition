@@ -105,7 +105,7 @@ class HomeController extends Controller
         });
 
         // Online Block
-        $users = new User;
+        $users = new User();
 
         $groups = cache()->remember('user-groups', $expiresAt, function () {
             return Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();
@@ -140,46 +140,6 @@ class HomeController extends Controller
                 ->get();
         });
 
-        // Random Torrents
-        $movies = DB::select("SELECT tmdb, imdb, category_id
-                    FROM torrents 
-                    AS r1 JOIN
-                    (SELECT CEIL(RAND() *
-                    (SELECT MAX(id)
-                    FROM torrents)) AS id)
-                    AS r2
-                    WHERE r1.id >= r2.id
-                    AND category_id =  1 
-                    AND tmdb !=  0
-                    ORDER BY r1.id ASC
-                    LIMIT 3");
-
-        $fanress = DB::select("SELECT tmdb, imdb, category_id
-                    FROM torrents 
-                    AS r1 JOIN
-                    (SELECT CEIL(RAND() *
-                    (SELECT MAX(id)
-                    FROM torrents)) AS id)
-                    AS r2
-                    WHERE r1.id >= r2.id
-                    AND category_id =  3 
-                    AND tmdb !=  0
-                    ORDER BY r1.id ASC
-                    LIMIT 3");
-
-        $tvs = DB::select("SELECT tmdb, imdb, category_id
-                    FROM torrents 
-                    AS r1 JOIN
-                    (SELECT CEIL(RAND() *
-                    (SELECT MAX(id)
-                    FROM torrents)) AS id)
-                    AS r2
-                    WHERE r1.id >= r2.id
-                    AND category_id =  2 
-                    AND tmdb !=  0
-                    ORDER BY r1.id ASC
-                    LIMIT 3");
-
         return view('home.home', [
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
@@ -197,9 +157,6 @@ class HomeController extends Controller
             'poll'               => $poll,
             'uploaders'          => $uploaders,
             'past_uploaders'     => $past_uploaders,
-            'movies'             => $movies,
-            'fanress'            => $fanress,
-            'tvs'                => $tvs,
         ]);
     }
 }
