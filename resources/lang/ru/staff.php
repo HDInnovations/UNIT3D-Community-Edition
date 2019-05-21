@@ -2,7 +2,7 @@
 
 return [
   'activity-log' => 'Журнал активности',
-  'articles' => 'статьи',
+  'articles' => 'Статьи',
   'applications' => 'Приложения',
   'bans-log' => 'Журнал банов',
   'blocks' => 'Блоки',
