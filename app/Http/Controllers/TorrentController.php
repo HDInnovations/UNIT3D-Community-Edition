@@ -188,6 +188,7 @@ class TorrentController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
+     * @throws \Throwable
      */
     public function groupingLayout(Request $request)
     {
@@ -310,12 +311,13 @@ class TorrentController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $torrent Torrent
      *
      * @return array
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
+     * @throws \Throwable
      */
     public function faceted(Request $request, Torrent $torrent)
     {

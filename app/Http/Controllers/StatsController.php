@@ -38,6 +38,7 @@ class StatsController extends Controller
      * Show Extra-Stats Index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function index()
     {

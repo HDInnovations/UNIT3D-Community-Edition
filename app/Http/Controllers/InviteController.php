@@ -54,6 +54,7 @@ class InviteController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function process(Request $request)
     {
