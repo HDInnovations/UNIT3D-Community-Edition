@@ -10,7 +10,7 @@
     <meta name="description" content="Error">
     <meta property="og:title" content="{{ config('other.title') }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="{{ url('/img/rlm.png') }}">
+    <meta property="og:image" content="{{ url('/img/og.png') }}">
     <meta property="og:url" content="{{ url('/') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
