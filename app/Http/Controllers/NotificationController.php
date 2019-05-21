@@ -38,9 +38,10 @@ class NotificationController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Notification  $notification
+     * @param Notification $notification
      *
      * @return array
+     * @throws \Throwable
      */
     public function faceted(Request $request, Notification $notification)
     {
@@ -171,6 +172,7 @@ class NotificationController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function updateAll(Request $request)
     {

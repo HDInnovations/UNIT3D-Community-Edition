@@ -29,10 +29,11 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $passkey
      *
      * @return Bencode response for the torrent client
+     * @throws \Exception
      */
     public function announce(Request $request, $passkey)
     {
@@ -454,6 +455,12 @@ class AnnounceController extends Controller
         return response(Bencode::bencode($res))->withHeaders(['Content-Type' => 'text/plain']);
     }
 
+    /**
+     * @param $peers
+     * @param $compact
+     * @param $no_peer_id
+     * @return string
+     */
     private function givePeers($peers, $compact, $no_peer_id)
     {
         if ($compact) {
@@ -481,6 +488,12 @@ class AnnounceController extends Controller
         return $peers;
     }
 
+    /**
+     * @param $peers
+     * @param $compact
+     * @param $no_peer_id
+     * @return string
+     */
     private function givePeers6($peers, $compact, $no_peer_id)
     {
         if ($compact) {

@@ -32,6 +32,7 @@ class HomeController extends Controller
      * Home Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function home(Request $request)
     {
