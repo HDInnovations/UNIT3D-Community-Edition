@@ -120,10 +120,10 @@ class UserController extends Controller
     /**
      * User Followers.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @param $slug
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function followers(Request $request, $slug, int $id)
@@ -1359,6 +1359,7 @@ class UserController extends Controller
      * @param $id
      *
      * @return array
+     * @throws \Throwable
      */
     public function myFilter(Request $request, $username, $id)
     {

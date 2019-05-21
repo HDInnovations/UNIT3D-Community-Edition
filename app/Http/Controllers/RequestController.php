@@ -95,9 +95,10 @@ class RequestController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param TorrentRequest           $torrentRequest
+     * @param TorrentRequest $torrentRequest
      *
      * @return array
+     * @throws \Throwable
      */
     public function faceted(Request $request, TorrentRequest $torrentRequest)
     {

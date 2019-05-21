@@ -67,14 +67,14 @@
                                 </a>
                                 @if (config('torrent.download_check_page') == 1)
                                     <a href="{{ route('download_check', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
-                                        <button class="btn btn-primary btn-tablet" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
                                     </a>
                                 @else
                                     <a href="{{ route('download', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
-                                        <button class="btn btn-primary btn-tablet" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
@@ -84,28 +84,28 @@
                                 @php $history = \App\Models\History::where('user_id', '=', $user->id)->where('info_hash', '=', $bookmark->info_hash)->first(); @endphp
                                 @if ($history)
                                     @if ($history->seeder == 1 && $history->active == 1)
-                                        <button class="btn btn-success btn-tablet" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-success btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Currently Seeding!">
                                             <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
                                         </button>
                                     @endif
 
                                     @if ($history->seeder == 0 && $history->active == 1)
-                                        <button class="btn btn-warning btn-tablet" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-warning btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Currently Leeching!">
                                             <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
                                         </button>
                                     @endif
 
                                     @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at == null)
-                                        <button class="btn btn-info btn-tablet" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-info btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Started Downloading But Never Completed!">
                                             <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
                                         </button>
                                     @endif
 
                                     @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at != null)
-                                        <button class="btn btn-danger btn-tablet" type="button" data-toggle="tooltip"
+                                        <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="You Completed This Download But Are No Longer Seeding It!">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
                                         </button>

@@ -62,9 +62,10 @@ class GraveyardController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  Torrent  $torrent
+     * @param Torrent $torrent
      *
      * @return array
+     * @throws \Throwable
      */
     public function faceted(Request $request, Torrent $torrent)
     {
