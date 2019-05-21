@@ -6,7 +6,7 @@ return [
   'to-enable-editor' => 'för att aktivera redigeraren',
   'featured-by' => 'Utvalda av',
   'featured-torrents' => 'Utvalda torrenter',
-  'featured-torrents-intro' => 'Få dem medan du kan!',
+  'featured-torrents-intro' => 'Plocka dem medan du kan!',
   'featured-until' => 'Detta presenteras torrent till',
   'top-torrents' => 'Top Torrents',
   'latest-posts' => 'Senaste inläggen',
@@ -14,6 +14,6 @@ return [
   'active-in-last' => 'Aktiv i sista',
   'users-online' => 'Användare Online',
   'check-news' => 'Nyheter (kontrollera dagligen)',
-  'new-news' => 'Nya nyheter',
-  'new-torrents' => 'Nya torrenter',
+  'new-news' => 'Senaste nyheterna',
+  'new-torrents' => 'Nya torrents',
 ];
