@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'actions' => 'действия',
+  'actions' => 'Действия',
   'backup' => 'Резервное копирование',
   'backup_doesnt_exist' => 'Файл резервной копии не существует.',
   'create_a_new_backup' => 'Создать полную резервную копию',
@@ -14,14 +14,14 @@ return [
   'create_warning_message' => 'Возможно, ваша резервная копия НЕ была создана. Пожалуйста, проверьте файлы журнала для деталей.',
   'create_warning_title' => 'Неизвестная ошибка',
   'date' => 'Дата',
-  'delete' => 'удалять',
+  'delete' => 'Удалить',
   'delete_cancel_message' => 'Файл резервной копии НЕ был удален.',
   'delete_cancel_title' => 'Все нормально',
   'delete_confirm' => 'Вы уверены, что хотите удалить этот файл резервной копии?',
   'delete_confirmation_message' => 'Файл резервной копии был удален.',
   'delete_confirmation_title' => 'Готово',
   'delete_error_message' => 'Файл резервной копии НЕ был удален.',
-  'delete_error_title' => 'ошибка',
+  'delete_error_title' => 'Ошибка',
   'download' => 'Скачать',
   'existing_backups' => 'Существующие резервные копии',
   'file_size' => 'Размер файла',
