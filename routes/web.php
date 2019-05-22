@@ -172,6 +172,8 @@ Route::group(['middleware' => 'language'], function () {
         //Groups
         Route::get('/stats/groups', 'StatsController@groups')->name('groups');
         Route::get('/stats/groups/group/{id}', 'StatsController@group')->name('group');
+        // Languages
+        Route::get('/stats/languages', 'StatsController@languages')->name('languages');
 
         // Private Messages System
         Route::post('/mail/searchPMInbox', 'PrivateMessageController@searchPMInbox')->name('searchPMInbox');
