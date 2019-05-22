@@ -15,6 +15,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Graveyard
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $torrent_id
+ * @property int $seedtime
+ * @property int $rewarded
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Torrent $torrent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereRewarded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereSeedtime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereTorrentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Graveyard extends Model
 {
     /**

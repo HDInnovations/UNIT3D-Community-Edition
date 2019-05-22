@@ -15,6 +15,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Wish
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $title
+ * @property string $imdb
+ * @property string $type
+ * @property string|null $source
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereImdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereSource($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Wish extends Model
 {
     /**

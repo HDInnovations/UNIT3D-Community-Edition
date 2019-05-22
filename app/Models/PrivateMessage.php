@@ -16,6 +16,34 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\PrivateMessage
+ *
+ * @property int $id
+ * @property int $sender_id
+ * @property int $receiver_id
+ * @property string $subject
+ * @property string $message
+ * @property int $read
+ * @property int|null $related_to
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $receiver
+ * @property-read \App\Models\User $sender
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereRead($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereReceiverId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereRelatedTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereSenderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereSubject($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class PrivateMessage extends Model
 {
     /**

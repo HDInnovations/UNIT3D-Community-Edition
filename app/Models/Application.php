@@ -15,6 +15,38 @@ namespace App\Models;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Application
+ *
+ * @property int $id
+ * @property string $type
+ * @property string $email
+ * @property string|null $referrer
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $moderated_at
+ * @property int|null $moderated_by
+ * @property int|null $accepted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ApplicationImageProof[] $imageProofs
+ * @property-read \App\Models\User|null $moderated
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ApplicationUrlProof[] $urlProofs
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereAcceptedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereModeratedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereModeratedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereReferrer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Application extends Model
 {
     use Moderatable;

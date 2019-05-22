@@ -16,6 +16,55 @@ namespace App\Models;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\History
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string|null $agent
+ * @property string $info_hash
+ * @property int|null $uploaded
+ * @property int|null $actual_uploaded
+ * @property int|null $client_uploaded
+ * @property int|null $downloaded
+ * @property int|null $actual_downloaded
+ * @property int|null $client_downloaded
+ * @property int $seeder
+ * @property int $active
+ * @property int $seedtime
+ * @property int $immune
+ * @property int $hitrun
+ * @property int $prewarn
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $completed_at
+ * @property-read \App\Models\Torrent $torrent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History sortable($defaultParameters = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereActualDownloaded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereActualUploaded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereAgent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereClientDownloaded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereClientUploaded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereCompletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereDownloaded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereHitrun($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereImmune($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereInfoHash($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History wherePrewarn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereSeeder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereSeedtime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereUploaded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereUserId($value)
+ * @mixin \Eloquent
+ */
 class History extends Model
 {
     use Sortable;

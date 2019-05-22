@@ -16,6 +16,45 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Rss
+ *
+ * @property int $id
+ * @property int $position
+ * @property string $name
+ * @property int $user_id
+ * @property int $staff_id
+ * @property int $is_private
+ * @property int $is_torrent
+ * @property array $json_torrent
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read array $expected_fields
+ * @property-read string $object_torrent
+ * @property-read \App\Models\User $staff
+ * @property-read \App\Models\User $user
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Rss onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereIsPrivate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereIsTorrent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereJsonTorrent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss wherePosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereStaffId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Rss withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Rss withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Rss extends Model
 {
     use SoftDeletes;

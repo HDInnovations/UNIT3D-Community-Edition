@@ -16,6 +16,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * App\Models\Follow
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $target_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \App\Models\User $target
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereTargetId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Follow extends Model
 {
     use Notifiable;
