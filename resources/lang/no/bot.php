@@ -1,15 +1,15 @@
 <?php
 
 return [
-  'about' => 'Handle om',
+  'about' => 'Om',
   'bot' => 'Bot',
-  'bots' => 'bots',
+  'bots' => 'Bots',
   'color' => 'Farge',
   'command' => 'Kommando',
   'edit-bot' => 'Rediger Bot',
   'emoji-code' => 'Emoji-kode',
   'help' => 'Hjelp',
   'icon' => 'Ikon',
-  'info' => 'info',
+  'info' => 'Informasjon',
   'name' => 'Navn',
 ];
