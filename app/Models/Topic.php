@@ -17,8 +17,6 @@ use App\Notifications\NewPost;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Topic
- *
  * @property int $id
  * @property string $name
  * @property string $slug

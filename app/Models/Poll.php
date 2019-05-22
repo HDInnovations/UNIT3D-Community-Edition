@@ -17,8 +17,6 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Poll
- *
  * @property int $id
  * @property int $user_id
  * @property string $title

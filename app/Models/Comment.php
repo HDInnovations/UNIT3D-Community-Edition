@@ -17,8 +17,6 @@ use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Comment
- *
  * @property int $id
  * @property string $content
  * @property int $anon

@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\PersonalFreeleech
- *
  * @property int $id
  * @property int $user_id
  * @property \Illuminate\Support\Carbon|null $created_at

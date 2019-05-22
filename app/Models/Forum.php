@@ -17,8 +17,6 @@ use App\Notifications\NewTopic;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Forum
- *
  * @property int $id
  * @property int|null $position
  * @property int|null $num_topic

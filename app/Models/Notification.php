@@ -17,8 +17,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Notification
- *
  * @property int $id
  * @property string $type
  * @property int $notifiable_id

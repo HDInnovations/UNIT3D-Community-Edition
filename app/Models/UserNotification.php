@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\UserNotification
- *
  * @property int $id
  * @property int $user_id
  * @property int $show_bon_gift

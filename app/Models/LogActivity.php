@@ -17,8 +17,6 @@ use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\LogActivity
- *
  * @property int $id
  * @property string $subject
  * @property string $url

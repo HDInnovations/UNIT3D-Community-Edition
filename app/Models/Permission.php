@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Permission
- *
  * @property int $id
  * @property int $forum_id
  * @property int $group_id

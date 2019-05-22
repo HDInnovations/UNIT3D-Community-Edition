@@ -17,8 +17,6 @@ use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Post
- *
  * @property int $id
  * @property string $content
  * @property \Illuminate\Support\Carbon|null $created_at

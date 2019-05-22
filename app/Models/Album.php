@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Album
- *
  * @property int $id
  * @property int $user_id
  * @property string $name

@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Subscription
- *
  * @property int $id
  * @property int $user_id
  * @property int|null $forum_id

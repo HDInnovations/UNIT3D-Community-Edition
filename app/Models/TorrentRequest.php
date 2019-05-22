@@ -18,8 +18,6 @@ use App\Notifications\NewComment;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TorrentRequest
- *
  * @property int $id
  * @property string $name
  * @property int $category_id

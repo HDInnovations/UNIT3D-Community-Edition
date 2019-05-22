@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TorrentRequestClaim
- *
  * @property int $id
  * @property int $request_id
  * @property string|null $username

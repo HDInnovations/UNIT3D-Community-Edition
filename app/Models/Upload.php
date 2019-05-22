@@ -16,14 +16,3 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Upload
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Upload newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Upload newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Upload query()
- * @mixin \Eloquent
- */
-class Upload extends Model
-{
-    //
-}

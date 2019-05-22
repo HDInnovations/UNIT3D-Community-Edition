@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Ban
- *
  * @property int $id
  * @property int $owned_by
  * @property int|null $created_by

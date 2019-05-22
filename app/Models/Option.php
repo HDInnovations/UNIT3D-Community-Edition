@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Option
- *
  * @property int $id
  * @property int $poll_id
  * @property string $name
@@ -38,8 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Option extends Model
 {
-    /**
-     * The Attributes That Are Mass Assignable.
+    /*** The Attributes That Are Mass Assignable.
      *
      * @var array
      */
@@ -47,8 +44,7 @@ class Option extends Model
         'name',
     ];
 
-    /**
-     * Belongs To A Poll.
+    /*** Belongs To A Poll.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

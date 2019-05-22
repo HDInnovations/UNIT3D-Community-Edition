@@ -17,9 +17,6 @@ use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Seedbox
- *
- * @method static count()
  * @property int $id
  * @property int $user_id
  * @property string $name

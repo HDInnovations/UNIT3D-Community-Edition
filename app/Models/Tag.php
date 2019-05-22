@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Tag
- *
  * @property int $id
  * @property string|null $name
  * @property string|null $slug

@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TwoStepAuth
- *
  * @property int $id
  * @property int $userId
  * @property string|null $authCode

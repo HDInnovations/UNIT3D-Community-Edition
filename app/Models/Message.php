@@ -17,8 +17,6 @@ use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Message
- *
  * @property int $id
  * @property int $user_id
  * @property int $chatroom_id

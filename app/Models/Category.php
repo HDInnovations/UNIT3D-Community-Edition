@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Category
- *
  * @property int $id
  * @property string $name
  * @property string $slug

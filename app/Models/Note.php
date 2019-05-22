@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Note
- *
  * @property int $id
  * @property int $user_id
  * @property int $staff_id

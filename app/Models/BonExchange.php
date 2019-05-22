@@ -16,8 +16,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\BonExchange
- *
  * @property int $id
  * @property string|null $description
  * @property int $value
