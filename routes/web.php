@@ -203,12 +203,16 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/request/{id}/claim', 'RequestController@claimRequest')->name('claimRequest');
         Route::get('/request/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
 
+        // Torrent CRUD
+        Route::get('/torrents', 'TorrentCRUDController@torrents')->name('torrents');
+        Route::get('/torrents/{slug}.{id}{hash?}', 'TorrentCRUDController@torrent')->name('torrent');
+        Route::post('/torrents/{slug}.{id}/edit', 'TorrentCRUDController@edit')->name('edit');
+        Route::post('/torrents/delete', 'TorrentCRUDController@delete')->name('delete');
+
         // Torrent
         Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
         Route::get('/filterTorrents', 'TorrentController@faceted');
         Route::get('/filterSettings', 'TorrentController@filtered');
-        Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
-        Route::get('/torrents/{slug}.{id}{hash?}', 'TorrentController@torrent')->name('torrent');
         Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
         Route::get('/torrents/{slug}.{id}/history', 'TorrentController@history')->name('history');
         Route::get('/upload/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
@@ -217,9 +221,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
         Route::get('/torrents/cards', 'TorrentController@cardLayout')->name('cards');
         Route::get('/torrents/groupings', 'TorrentController@groupingLayout')->name('groupings');
-        Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
         Route::get('/torrents/{slug}.{id}/edit', 'TorrentController@editForm')->name('edit_form');
-        Route::post('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
         Route::get('/torrents/{slug}.{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
         Route::get('/torrents/{slug}.{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
         Route::get('/torrents/{slug}.{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
