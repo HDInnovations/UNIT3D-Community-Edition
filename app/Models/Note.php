@@ -15,6 +15,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $staff_id
+ * @property string $message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $noteduser
+ * @property-read \App\Models\User $staffuser
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereStaffId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Note extends Model
 {
     /**

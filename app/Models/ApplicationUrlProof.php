@@ -14,6 +14,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $application_id
+ * @property string $url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Application $application
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof whereApplicationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof whereUrl($value)
+ * @mixin \Eloquent
+ */
 class ApplicationUrlProof extends Model
 {
     /**
