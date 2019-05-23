@@ -1,8 +1,8 @@
 <?php
 
 return [
-  'articles' => 'artikler',
+  'articles' => 'Artikler',
   'meta-articles' => 'Artikler og nyheter om tracker og samfunnet',
-  'published-at' => 'Publisert på',
+  'published-at' => 'Publisert den',
   'read-more' => 'Les mer',
 ];

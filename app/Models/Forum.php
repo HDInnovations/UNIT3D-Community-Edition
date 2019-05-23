@@ -16,6 +16,48 @@ namespace App\Models;
 use App\Notifications\NewTopic;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int|null $position
+ * @property int|null $num_topic
+ * @property int|null $num_post
+ * @property int|null $last_topic_id
+ * @property string|null $last_topic_name
+ * @property string|null $last_topic_slug
+ * @property int|null $last_post_user_id
+ * @property string|null $last_post_user_username
+ * @property string|null $name
+ * @property string|null $slug
+ * @property string|null $description
+ * @property int|null $parent_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Forum[] $forums
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $sub_topics
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $subscription_topics
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $subscriptions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $topics
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereLastPostUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereLastPostUserUsername($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereLastTopicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereLastTopicName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereLastTopicSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereNumPost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereNumTopic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum wherePosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Forum extends Model
 {
     /**

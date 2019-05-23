@@ -15,6 +15,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $torrent_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Torrent $torrent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark whereTorrentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Bookmark extends Model
 {
     /**

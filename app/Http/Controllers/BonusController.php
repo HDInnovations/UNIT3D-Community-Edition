@@ -155,28 +155,28 @@ class BonusController extends Controller
         $userbon = $user->getSeedbonus();
 
         //Dying Torrent
-        $dying = $this->getDyingCount();
+        $dying = $this->getDyingCount($request);
         //Legendary Torrents
-        $legendary = $this->getLegendaryCount();
+        $legendary = $this->getLegendaryCount($request);
         //Old Torrents
-        $old = $this->getOldCount();
+        $old = $this->getOldCount($request);
         //Large Torrents
-        $huge = $this->getHugeCount();
+        $huge = $this->getHugeCount($request);
         //Large Torrents
-        $large = $this->getLargeCount();
+        $large = $this->getLargeCount($request);
         //Everyday Torrents
-        $regular = $this->getRegularCount();
+        $regular = $this->getRegularCount($request);
 
         //Participant Seeder
-        $participant = $this->getParticipaintSeedCount();
+        $participant = $this->getParticipaintSeedCount($request);
         //TeamPlayer Seeder
-        $teamplayer = $this->getTeamPlayerSeedCount();
+        $teamplayer = $this->getTeamPlayerSeedCount($request);
         //Committed Seeder
-        $committed = $this->getCommitedSeedCount();
+        $committed = $this->getCommitedSeedCount($request);
         //MVP Seeder
-        $mvp = $this->getMVPSeedCount();
+        $mvp = $this->getMVPSeedCount($request);
         //Legend Seeder
-        $legend = $this->getLegendarySeedCount();
+        $legend = $this->getLegendarySeedCount($request);
 
         //Total points per hour
         $total =

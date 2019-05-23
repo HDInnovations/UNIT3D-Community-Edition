@@ -16,6 +16,25 @@ namespace App\Models;
 use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string $name
+ * @property string $ip
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereIp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Seedbox extends Model
 {
     use Encryptable;

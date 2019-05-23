@@ -5,7 +5,7 @@ return [
   'bug-report-description' => 'Rapporter en nettsidefeil',
   'enter-description' => 'Beskriv problemet så godt som mulig',
   'enter-email' => 'Vennligst skriv inn din e-post',
-  'enter-title' => 'Vennligst velg en riktig tittel',
+  'enter-title' => 'Vennligst velg en passende tittel',
   'enter-username' => 'Vennligst skriv inn brukernavnet ditt',
   'high' => 'Høy',
   'low' => 'Lav',
