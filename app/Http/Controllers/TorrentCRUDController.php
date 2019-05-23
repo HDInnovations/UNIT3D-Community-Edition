@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MovieScrapper;
+use Log;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\History;
@@ -29,13 +29,9 @@ use App\Models\PrivateMessage;
 use App\Models\TorrentRequest;
 use App\Models\BonTransactions;
 use App\Models\FeaturedTorrent;
+use App\Services\MovieScrapper;
 use App\Models\PersonalFreeleech;
-use Log;
 
-/**
- * Class TorrentCRUDController
- * @package App\Http\Controllers
- */
 class TorrentCRUDController extends Controller
 {
     /**
