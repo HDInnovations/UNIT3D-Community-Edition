@@ -110,7 +110,7 @@ return [
   'patron' => 'Bli en Patron',
   'pending-torrents' => 'Ventende torrenter',
   'personal' => 'Personlig',
-  
+
   //Norwegian has more than one plural suffix.
   'plural-suffix' => '',
   'port' => 'Port',
