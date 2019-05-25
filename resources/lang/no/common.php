@@ -4,7 +4,7 @@ return [
   'about' => 'Om oss',
   'account' => 'Konto',
   'achievement-title' => 'Rått',
-  'achievement-unlocked' => 'Du låst opp ":name" prestasjon',
+  'achievement-unlocked' => 'Du låst opp &quot; :name &quot; prestasjon',
   'active' => 'Aktiv',
   'active-warning' => 'Aktiv advarsel',
   'add' => 'Legg til',
