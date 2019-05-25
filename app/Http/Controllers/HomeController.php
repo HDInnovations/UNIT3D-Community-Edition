@@ -130,7 +130,7 @@ class HomeController extends Controller
                 ->take(10)
                 ->get();
         });
-        $past_uploaders = cache()->remember('month_uploaders', $expiresAt, function () use($current) {
+        $past_uploaders = cache()->remember('month_uploaders', $expiresAt, function () use ($current) {
             return Torrent::with('user')
                 ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
                 ->select(DB::raw('user_id, count(*) as value'))
