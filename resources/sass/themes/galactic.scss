@@ -972,3 +972,7 @@ pre {
 .page-content>pre>code {
     border: none;
 }
+
+.page-content > ul, .page-content > ul> li > ul > li, .page-content > ol > li > ul > li {
+    color: var(--text-color);
+}
