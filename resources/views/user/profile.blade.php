@@ -184,7 +184,7 @@
                         </tr>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_torrent_ratio'))
             <tr>
-                <td class="col-md-2">@lang('torrent.downloaded')</td>
+                <td class="col-md-2">@lang('common.download')</td>
                 <td>
                     <span class="badge-extra text-red" data-toggle="tooltip" title=""
                           data-original-title="@lang('user.download-recorded')">{{ $user->getDownloaded() }}</span>
@@ -195,7 +195,7 @@
                           data-original-title="@lang('user.download-true')">{{ App\Helpers\StringHelper::formatBytes($realdownload , 2) }}</span></td>
             </tr>
             <tr>
-                <td>@lang('torrent.uploaded')</td>
+                <td>@lang('common.upload')</td>
                 <td>
                     <span class="badge-extra text-green" data-toggle="tooltip" title=""
                           data-original-title="@lang('user.upload-recorded')">{{ $user->getUploaded() }}</span> -
