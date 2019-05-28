@@ -16,6 +16,34 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $content
+ * @property int $anon
+ * @property int|null $torrent_id
+ * @property int|null $article_id
+ * @property int|null $requests_id
+ * @property int|null $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Article|null $article
+ * @property-read \App\Models\TorrentRequest|null $request
+ * @property-read \App\Models\Torrent|null $torrent
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereAnon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereArticleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereRequestsId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereTorrentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Comment extends Model
 {
     /**

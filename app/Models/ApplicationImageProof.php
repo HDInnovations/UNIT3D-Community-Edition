@@ -14,6 +14,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $application_id
+ * @property string $image
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Application $application
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof whereApplicationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ApplicationImageProof extends Model
 {
     /**

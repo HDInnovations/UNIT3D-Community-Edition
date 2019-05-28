@@ -69,6 +69,7 @@ class TorrentController extends Controller
     /**
      * Displays Torrent List View.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function torrents(Request $request)
@@ -92,6 +93,7 @@ class TorrentController extends Controller
     /**
      * Torrent Similar Results.
      *
+     * @param Request $request
      * @param $category_id
      * @param $tmdb
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -122,6 +124,7 @@ class TorrentController extends Controller
     /**
      * Displays Torrent Cards View.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
@@ -185,6 +188,7 @@ class TorrentController extends Controller
     /**
      * Torrent Grouping.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
@@ -838,6 +842,7 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -1358,6 +1363,7 @@ class TorrentController extends Controller
     /**
      * Download Check.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -1374,6 +1380,7 @@ class TorrentController extends Controller
     /**
      * Download A Torrent.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      * @param $rsskey
@@ -1547,6 +1554,7 @@ class TorrentController extends Controller
     /**
      * 100% Freeleech A Torrent.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -1705,6 +1713,7 @@ class TorrentController extends Controller
     /**
      * Use Freeleech Token On A Torrent.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *

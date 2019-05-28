@@ -15,6 +15,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $torrent_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Torrent $torrent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank whereTorrentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Thank extends Model
 {
     /**

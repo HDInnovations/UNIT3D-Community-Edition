@@ -183,6 +183,7 @@ class UserController extends Controller
     /**
      * Edit Profile Form.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -254,6 +255,7 @@ class UserController extends Controller
     /**
      * User Account Settings.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -313,6 +315,7 @@ class UserController extends Controller
     /**
      * User Security Settings.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -1133,6 +1136,7 @@ class UserController extends Controller
     /**
      * User Privacy Settings.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -1149,6 +1153,7 @@ class UserController extends Controller
     /**
      * User Notification Settings.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -1165,6 +1170,7 @@ class UserController extends Controller
     /**
      * Get A Users Warnings.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -1193,6 +1199,7 @@ class UserController extends Controller
     /**
      * Deactivate A Warning.
      *
+     * @param Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -1224,6 +1231,7 @@ class UserController extends Controller
     /**
      * Deactivate All Warnings.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -1261,6 +1269,7 @@ class UserController extends Controller
     /**
      * Delete A Warning.
      *
+     * @param Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -1294,6 +1303,7 @@ class UserController extends Controller
     /**
      * Delete All Warnings.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -1332,6 +1342,7 @@ class UserController extends Controller
     /**
      * Restore A Soft Deleted Warning.
      *
+     * @param Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -1876,6 +1887,7 @@ class UserController extends Controller
     /**
      * Get A Users Wishlist.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1900,6 +1912,7 @@ class UserController extends Controller
     /**
      * Get A Users Torrent Bookmarks.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1924,6 +1937,7 @@ class UserController extends Controller
     /**
      * Get A Users Downloads (Fully Downloaded) Table.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -1995,6 +2009,7 @@ class UserController extends Controller
     /**
      * Get A Users Requested Table.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -2029,6 +2044,7 @@ class UserController extends Controller
     /**
      * Get A Users Unsatisfieds Table.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -2077,6 +2093,7 @@ class UserController extends Controller
     /**
      * Get A Users History Table.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -2110,6 +2127,7 @@ class UserController extends Controller
     /**
      * Get A Users Graveyard Resurrections.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -2131,6 +2149,7 @@ class UserController extends Controller
     /**
      * Get A User Uploads.
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      *
@@ -2173,6 +2192,7 @@ class UserController extends Controller
     /**
      * Get A Users Active Table.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -2209,6 +2229,7 @@ class UserController extends Controller
     /**
      * Get A Users Seeds Table.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -2244,6 +2265,7 @@ class UserController extends Controller
     /**
      * Get A Users Bans.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -2265,6 +2287,7 @@ class UserController extends Controller
     /**
      * Download All History Torrents.
      *
+     * @param Request $request
      * @param $username
      * @param $id
      *
@@ -2349,6 +2372,7 @@ class UserController extends Controller
     /**
      * Accept Site Rules.
      *
+     * @param Request $request
      * @return void
      */
     public function acceptRules(Request $request)
