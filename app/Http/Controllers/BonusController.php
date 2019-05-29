@@ -133,11 +133,9 @@ class BonusController extends Controller
     public function gift(Request $request)
     {
         $user = $request->user();
-        $users = User::oldest('username')->get();
         $userbon = $user->getSeedbonus();
 
         return view('bonus.gift', [
-            'users'             => $users,
             'userbon'           => $userbon,
         ]);
     }
@@ -151,7 +149,6 @@ class BonusController extends Controller
     public function bonus(Request $request, $username = '')
     {
         $user = $request->user();
-        $users = User::oldest('username')->get();
         $userbon = $user->getSeedbonus();
 
         //Dying Torrent
@@ -191,7 +188,6 @@ class BonusController extends Controller
         $second = $minute / 60;
 
         return view('bonus.index', [
-            'users'             => $users,
             'userbon'           => $userbon,
             'dying'             => $dying,
             'legendary'         => $legendary,
@@ -335,7 +331,7 @@ class BonusController extends Controller
         }
 
         if ($v->passes()) {
-            $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
+            $recipient = User::where('username', '=', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
                 return redirect()->to('/bonus/store')

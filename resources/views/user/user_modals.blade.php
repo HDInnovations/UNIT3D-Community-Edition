@@ -54,7 +54,7 @@
                     <form role="form" method="POST" action="{{ route('send-pm') }}">
                         @csrf
                         <input type="hidden" name="dest" value="profile" />
-                        <input type="hidden" name="receiver_id" value="{{ $user->id }}" />
+                        <input type="hidden" name="receiver_id" value="{{ $user->username }}" />
                         <div class="form-group">
                             <label for="">@lang('pm.subject')</label>
                         </div>

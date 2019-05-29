@@ -27,9 +27,7 @@ class GiftController extends Controller
      */
     public function index()
     {
-        $users = User::oldest('username')->get();
-
-        return view('Staff.gift.index', ['users' => $users]);
+        return view('Staff.gift.index');
     }
 
     /**
@@ -59,7 +57,7 @@ class GiftController extends Controller
             return redirect()->route('systemGift')
                 ->withErrors($v->errors());
         } else {
-            $recipient = User::where('username', 'LIKE', $username)->first();
+            $recipient = User::where('username', '=', $username)->first();
 
             if (! $recipient) {
                 return redirect()->route('systemGift')
