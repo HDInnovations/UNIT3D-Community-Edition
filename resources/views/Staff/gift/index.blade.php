@@ -50,12 +50,3 @@
         </form>
     </div>
 @endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $('.user-select-placeholder-single').select2({
-        placeholder: "Select A User",
-        allowClear: true
-      });
-    </script>
-@endsection
