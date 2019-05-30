@@ -54,7 +54,7 @@
                             <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="claimed" value="1" class="userFilter" trigger="click">
-                            <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> @lang('request.claimed')
+                            <span class="{{ config('other.font-awesome') }} fa-hand-paper text-blue"></span> @lang('request.claimed')
                         </label>
                     </span>
                             <span class="badge-user">
@@ -151,7 +151,7 @@
                                 <td>
                                     @if ($torrentRequest->claimed != null && $torrentRequest->filled_hash == null)
                                         <button class="btn btn-xs btn-primary">
-                                            <i class="{{ config('other.font-awesome') }} fa-suitcase"></i> @lang('request.claimed')
+                                            <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i> @lang('request.claimed')
                                         </button>
                                     @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                                         <button class="btn btn-xs btn-info">
