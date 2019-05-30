@@ -253,7 +253,7 @@
                     </button>
                     <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.not-completed')!'>
-                        <i class='{{ config("other.font-awesome") }} fa-hand-paper'></i>
+                        <i class='{{ config("other.font-awesome") }} fa-spinner'></i>
                     </button>
                     <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.completed-not-seeding')!'>
