@@ -28,7 +28,7 @@ return [
     'filled'              => '已達成',
     'filled-by'           => '達成於',
     'for'                 => '對於',
-    'fulfill'             => '履行',
+    'fulfill'             => '證明',
     'last-vote'           => '最後的投票',
     'my-requests'         => '我的懸賞',
     'no'                  => 'No,',
