@@ -102,7 +102,7 @@
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="claimed" value="1">
-                            <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> @lang('request.claimed')
+                            <span class="{{ config('other.font-awesome') }} fa-hand-paper text-blue"></span> @lang('request.claimed')
                         </label>
                     </span>
                     <span class="badge-user">
