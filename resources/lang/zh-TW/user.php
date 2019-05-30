@@ -258,8 +258,8 @@ return [
     'request-notification-fill' => '當懸賞達成時,發出一個通知',
     'request-notification-fill-approve' => '當懸賞獲批准時,發出一個通知',
     'request-notification-fill-reject' => '當懸賞被拒絕時,發出一個通知',
-    'request-notification-claim' => '當懸賞被索取時,發出一個通知',
-    'request-notification-unclaim' => '當索取懸賞被取消時,發出一個通知',
+    'request-notification-claim' => '當有人應微時,發出一個通知',
+    'request-notification-unclaim' => '當應微被取消時,發出一個通知',
     'request-notification-help' => '調整有關懸賞的通知設定.
     若不勾選任何觸發群組,或你已<strong>取消全局性</strong>通知,以下設定將會無效.',
     'request-privacy'           => '懸賞設定',
