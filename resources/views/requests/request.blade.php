@@ -270,11 +270,11 @@
                             <td>
                                 @if ($torrentRequest->claimed == null && $torrentRequest->filled_hash == null)
                                     <button class="btn btn-md btn-info btn-vote-request" data-toggle="modal"
-                                            data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-suitcase">
+                                            data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-hand-paper">
                                         </i> @lang('request.claim')
                                     </button>
                                     <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
-                                       class="btn btn-md btn-success"> @lang('common.upload') {{ $movie->title ?? '' }}
+                                       class="btn btn-md btn-success"><i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
                                     </a>
                                 @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                                     <button class="btn btn-xs btn-warning" disabled><i
