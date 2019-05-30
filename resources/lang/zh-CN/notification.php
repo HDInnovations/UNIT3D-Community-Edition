@@ -17,7 +17,7 @@ return [
     'read'             => '读取',
     'request-approvals' => '悬赏获准',
     'request-bounties' => '悬赏',
-    'request-claims'   => '悬赏索取',
+    'request-claims'   => '悬赏应微',
     'request-fills'    => '悬赏达成',
     'request-rejections' => '悬赏拒绝',
     'request-unclaims' => '悬赏取消',
