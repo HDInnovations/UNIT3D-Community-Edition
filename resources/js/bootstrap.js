@@ -63,7 +63,6 @@ window.Echo = new Echo({
 /**
  * UNIT3D
  */
-require('select2');
 window.Ladda = require('ladda');
 
 /*

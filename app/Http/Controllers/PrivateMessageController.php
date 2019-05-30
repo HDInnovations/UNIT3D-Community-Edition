@@ -115,10 +115,8 @@ class PrivateMessageController extends Controller
     public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
     {
         $user = $request->user();
-        $usernames = User::oldest('username')->get();
 
-        return view('pm.send', ['usernames' => $usernames, 'user' => $user, 'receiver_id' => $receiver_id,
-            'username'                      => $username, ]);
+        return view('pm.send', ['user' => $user, 'receiver_id' => $receiver_id, 'username' => $username]);
     }
 
     /**
@@ -137,9 +135,16 @@ class PrivateMessageController extends Controller
             $dest = 'profile';
         }
 
+        if ($request->has('receiver_id')) {
+            $recipient = User::where('username', '=', $request->input('receiver_id'))->firstOrFail();
+        } else {
+            return redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
+                ->withErrors($v->errors());
+        }
+
         $pm = new PrivateMessage();
         $pm->sender_id = $user->id;
-        $pm->receiver_id = $request->input('receiver_id');
+        $pm->receiver_id = $recipient->id;
         $pm->subject = $request->input('subject');
         $pm->message = $request->input('message');
         $pm->read = 0;
@@ -151,13 +156,6 @@ class PrivateMessageController extends Controller
             'message'     => 'required',
             'read'        => 'required',
         ]);
-
-        if ($request->has('receiver_id')) {
-            $recipient = User::where('id', '=', (int) $request->input('receiver_id'))->firstOrFail();
-        } else {
-            return redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
-                ->withErrors($v->errors());
-        }
 
         if ($v->fails()) {
             if ($dest == 'profile') {
