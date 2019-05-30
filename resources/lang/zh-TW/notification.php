@@ -17,7 +17,7 @@ return [
     'read'             => '讀取',
     'request-approvals' => '懸賞獲准',
     'request-bounties' => '懸賞',
-    'request-claims'   => '懸賞索取',
+    'request-claims'   => '懸賞應微',
     'request-fills'    => '懸賞達成',
     'request-rejections' => '懸賞拒絕',
     'request-unclaims' => '懸賞取消',
