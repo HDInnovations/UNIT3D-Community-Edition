@@ -206,7 +206,7 @@
                         <td>
                             @if ($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
                                 @if ($freeleech_token)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-coins text-bold" data-toggle="tooltip"
+                                            class="{{ config('other.font-awesome') }} fa-star text-bold" data-toggle="tooltip"
                                             data-original-title="@lang('common.fl_token')"></i> @lang('common.fl_token')</span> @endif
                                 @if ($user->group->is_freeleech == 1)<span class="badge-extra text-bold"><i
                                             class="{{ config('other.font-awesome') }} fa-trophy text-purple" data-toggle="tooltip"
