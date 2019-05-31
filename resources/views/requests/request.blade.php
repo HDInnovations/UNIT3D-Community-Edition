@@ -34,7 +34,7 @@
         @else
             <h1 class="title h2">
                 {{ $torrentRequest->name }}
-                <span class="text-green">@lang('request.for') <i class="{{ config('other.font-awesome') }} fa-star text-gold">
+                <span class="text-green">@lang('request.for') <i class="{{ config('other.font-awesome') }} fa-coins text-gold">
             </i> <strong>{{ $torrentRequest->bounty }}</strong> @lang('bon.bon')</span>
             </h1>
             <div class="block">
@@ -220,7 +220,7 @@
                                 <strong>@lang('bon.bon')</strong>
                             </td>
                             <td>
-                                <i class="{{ config('other.font-awesome') }} fa-star text-gold">
+                                <i class="{{ config('other.font-awesome') }} fa-coins text-gold">
                                 </i>
                                 <strong>{{ $torrentRequest->bounty }}</strong> @lang('bon.bon') {{ strtolower(trans('request.reward-from')) }}
                                 <strong>{{ $torrentRequest->requestBounty->count() }}</strong> {{ strtolower(trans('request.voters')) }}
