@@ -176,7 +176,7 @@
                                 @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $bookmark->id)->first(); @endphp
                                 @if ($freeleech_token)
                                     <span class='badge-extra text-bold'>
-                                        <i class='{{ config("other.font-awesome") }} fa-coins text-bold' data-toggle='tooltip' data-original-title='Freeleech Token'></i> Freeleech Token
+                                        <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' data-original-title='Freeleech Token'></i> Freeleech Token
                                     </span>
                                 @endif
 
