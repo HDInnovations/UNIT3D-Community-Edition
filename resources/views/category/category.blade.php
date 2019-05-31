@@ -175,7 +175,7 @@
                                         <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
-                                        <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
+                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                            data-original-title="View More"></i>
                                     </span>
                                     {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
@@ -189,7 +189,7 @@
                                                         @endif
                                                         <span class="badge-extra text-bold">
                                 <span class="text-gold movie-rating-stars">
-                                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                        data-original-title="View More"></i>
                                 </span>
                                                             {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
