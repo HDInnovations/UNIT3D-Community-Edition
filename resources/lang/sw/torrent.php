@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Hii ni Torrent Matukio Mpaka',
   'file' => 'Funga',
   'filters' => 'Filters',
-  'fl-tokens-left' => 'Unayo <strong><i class="fal fa-coins"></i> : ishara</strong> zimeondoka',
+  'fl-tokens-left' => 'Unayo <strong><i class="fal fa-star"></i> : ishara</strong> zimeondoka',
   'freeleech' => 'Weka bure',
   'freeleech-token' => 'Ishara ya bure',
   'general' => 'Mkuu',
