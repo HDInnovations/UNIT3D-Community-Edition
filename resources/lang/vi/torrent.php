@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Đây là một torrent nổi bật cho đến khi',
   'file' => 'Tập tin',
   'filters' => 'Bộ lọc',
-  'fl-tokens-left' => 'Bạn có <strong><i class="fal fa-coins"></i> : mã thông báo</strong> còn lại',
+  'fl-tokens-left' => 'Bạn có <strong><i class="fal fa-star"></i> : mã thông báo</strong> còn lại',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Mã thông báo Freeleech',
   'general' => 'Chung',
