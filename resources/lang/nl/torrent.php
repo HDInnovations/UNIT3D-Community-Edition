@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Dit is een aanbevolen Torrent tot',
   'file' => 'het dossier',
   'filters' => 'filters',
-  'fl-tokens-left' => 'Jij hebt <strong><i class="fal fa-coins"></i> : tokens</strong> verlaten',
+  'fl-tokens-left' => 'Jij hebt <strong><i class="fal fa-star"></i> : tokens</strong> verlaten',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech-token',
   'general' => 'Algemeen',
