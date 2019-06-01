@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ini Adakah Torrent Unggul Sehingga',
   'file' => 'Fail',
   'filters' => 'Penapis',
-  'fl-tokens-left' => 'Kamu ada <strong><i class="fal fa-coins"></i> : token</strong> dibiarkan',
+  'fl-tokens-left' => 'Kamu ada <strong><i class="fal fa-star"></i> : token</strong> dibiarkan',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Ketua',
