@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ова е извонреден преглед до',
   'file' => 'Датотека',
   'filters' => 'Филтри',
-  'fl-tokens-left' => 'Имаш <strong><i class="fal fa-coins"></i> :</strong> оставени <strong>лектори</strong>',
+  'fl-tokens-left' => 'Имаш <strong><i class="fal fa-star"></i> :</strong> оставени <strong>лектори</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Генерал',
