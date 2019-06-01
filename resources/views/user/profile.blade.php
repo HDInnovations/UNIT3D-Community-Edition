@@ -446,7 +446,7 @@
                             @if ($user->getSeedbonus() >= 50000)
                                 <span class="badge-user" style="background-color:rgb(148,0,211); color:#ffffff;" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-banker-desc')"><i
-                                            class="{{ config('other.font-awesome') }} fa-star"></i> @lang('user.certified-banker')!</span>
+                                            class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('user.certified-banker')!</span>
                             @endif
                         @endif
                     </div>

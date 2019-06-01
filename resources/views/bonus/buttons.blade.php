@@ -4,7 +4,7 @@
             @lang('user.profile')
         </a>
         <a href="{{ route('bonus') }}" class="btn btn-sm btn-primary">
-            <i class="{{ config('other.font-awesome') }} fa-star-exclamation"></i> @lang('bon.bon')
+            <i class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('bon.bon')
         </a>
         <a href="{{ route('bonus_store') }}" class="btn btn-sm btn-primary">
             <i class="{{ config('other.font-awesome') }} fa-shopping-cart"></i> @lang('bon.store')

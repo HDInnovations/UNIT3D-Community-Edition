@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-purple"><strong><i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('stat.top-bankers')</strong>
+                    <p class="text-purple"><strong><i class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('stat.top-bankers')</strong>
                         (@lang('bon.bon'))</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
