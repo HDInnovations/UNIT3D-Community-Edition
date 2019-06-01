@@ -52,7 +52,7 @@ return [
   'featured-until' => 'මේ දක්වාම මෙය ප්රකට ටොරන්ට් එකක්',
   'file' => 'ගොනුව',
   'filters' => 'පෙරහන්',
-  'fl-tokens-left' => 'ඔයාට තියෙනවා <strong><i class="fal fa-coins"></i> : ටෝකන්ස්</strong> වමට',
+  'fl-tokens-left' => 'ඔයාට තියෙනවා <strong><i class="fal fa-star"></i> : ටෝකන්ස්</strong> වමට',
   'freeleech' => 'ෆ්රීලෙක්',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'ජනරාල්',
