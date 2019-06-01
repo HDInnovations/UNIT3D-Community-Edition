@@ -52,7 +52,7 @@ return [
   'featured-until' => 'To je najlepšie Torrent Až do',
   'file' => 'súbor',
   'filters' => 'filtre',
-  'fl-tokens-left' => 'Máš <strong><i class="fal fa-coins"></i> : žetóny</strong> vľavo',
+  'fl-tokens-left' => 'Máš <strong><i class="fal fa-star"></i> : žetóny</strong> vľavo',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'všeobecný',
