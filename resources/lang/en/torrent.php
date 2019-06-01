@@ -55,7 +55,7 @@ return [
     'featured-until'           => 'This Is A Featured Torrent Until',
     'file'                     => 'File',
     'filters'                  => 'Filters',
-    'fl-tokens-left'           => 'You have <strong><i class="fal fa-coins"></i>:tokens</strong> left',
+    'fl-tokens-left'           => 'You have <strong><i class="fal fa-star"></i>:tokens</strong> left',
     'freeleech'                => 'Freeleech',
     'freeleech-token'          => 'Freeleech Token',
     'general'                  => 'General',
