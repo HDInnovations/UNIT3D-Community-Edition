@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ин аст, ки Torrent Featured Featured',
   'file' => 'Файл',
   'filters' => 'Филтрҳо',
-  'fl-tokens-left' => 'Доред <strong><i class="fal fa-coins"></i> : ангуштони</strong> чап',
+  'fl-tokens-left' => 'Доред <strong><i class="fal fa-star"></i> : ангуштони</strong> чап',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Генерал',
