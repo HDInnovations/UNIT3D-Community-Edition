@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Este é un Torrent destacado',
   'file' => 'Ficheiro',
   'filters' => 'Filtros',
-  'fl-tokens-left' => 'Tes <strong><i class="fal fa-coins"></i> :</strong> quedan <strong>fichas</strong>',
+  'fl-tokens-left' => 'Tes <strong><i class="fal fa-star"></i> :</strong> quedan <strong>fichas</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Tito Freeleech',
   'general' => 'Xeral',
