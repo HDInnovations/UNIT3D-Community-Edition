@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Este es un torrente destacado hasta',
   'file' => 'Expediente',
   'filters' => 'Filtros',
-  'fl-tokens-left' => 'Tienes <strong><i class="fal fa-coins"></i> : fichas</strong> dejadas',
+  'fl-tokens-left' => 'Tienes <strong><i class="fal fa-star"></i> : fichas</strong> dejadas',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'General',
