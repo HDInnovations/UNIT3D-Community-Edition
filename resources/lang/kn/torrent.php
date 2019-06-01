@@ -52,7 +52,7 @@ return [
   'featured-until' => 'ಇದುವರೆಗೂ ವೈಶಿಷ್ಟ್ಯಗೊಳಿಸಿದ ಟೊರೆಂಟ್ ಆಗಿದೆ',
   'file' => 'ಫೈಲ್',
   'filters' => 'ಶೋಧಕಗಳು',
-  'fl-tokens-left' => 'ನಿನ್ನ ಬಳಿ <strong><i class="fal fa-coins"></i> : ಟೋಕನ್ಗಳು</strong> ಉಳಿದಿವೆ',
+  'fl-tokens-left' => 'ನಿನ್ನ ಬಳಿ <strong><i class="fal fa-star"></i> : ಟೋಕನ್ಗಳು</strong> ಉಳಿದಿವೆ',
   'freeleech' => 'ಫ್ರೀಲೀಕ್',
   'freeleech-token' => 'ಫ್ರೀಲೀಕ್ ಟೋಕನ್',
   'general' => 'ಜನರಲ್',
