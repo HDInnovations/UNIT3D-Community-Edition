@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Тхис ис а Феатуред Торрент До',
   'file' => 'Филе',
   'filters' => 'Филтерс',
-  'fl-tokens-left' => 'Имаш <strong><i class="fal fa-coins"></i> :</strong> преостали <strong>токени</strong>',
+  'fl-tokens-left' => 'Имаш <strong><i class="fal fa-star"></i> :</strong> преостали <strong>токени</strong>',
   'freeleech' => 'Фреелеецх',
   'freeleech-token' => 'Фреелеецх Токен',
   'general' => 'Генерал',
