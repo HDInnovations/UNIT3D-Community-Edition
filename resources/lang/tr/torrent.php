@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Bu Özel Bir Torrent Kadar',
   'file' => 'Dosya',
   'filters' => 'Filtreler',
-  'fl-tokens-left' => 'Var <strong><i class="fal fa-coins"></i> :</strong> kalan <strong>belirteçler</strong>',
+  'fl-tokens-left' => 'Var <strong><i class="fal fa-star"></i> :</strong> kalan <strong>belirteçler</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Genel',
