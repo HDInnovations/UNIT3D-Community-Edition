@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ini Adalah Torrent Yang Ditampilkan Hingga',
   'file' => 'Mengajukan',
   'filters' => 'Filter',
-  'fl-tokens-left' => 'Kamu punya <strong><i class="fal fa-coins"></i> : token</strong> tersisa',
+  'fl-tokens-left' => 'Kamu punya <strong><i class="fal fa-star"></i> : token</strong> tersisa',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Token Freeleech',
   'general' => 'Umum',
