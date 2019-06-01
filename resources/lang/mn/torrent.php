@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Энэ нь хүртэл Токио хүртэл байна',
   'file' => 'Файл',
   'filters' => 'Шүүлтүүрүүд',
-  'fl-tokens-left' => 'Чамд байна <strong><i class="fal fa-coins"></i> : Токенс</strong> үлдсэн',
+  'fl-tokens-left' => 'Чамд байна <strong><i class="fal fa-star"></i> : Токенс</strong> үлдсэн',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Ерөнхий',
