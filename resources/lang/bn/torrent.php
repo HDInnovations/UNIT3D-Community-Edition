@@ -52,7 +52,7 @@ return [
   'featured-until' => 'এটি একটি বৈশিষ্ট্যযুক্ত টরেন্ট পর্যন্ত',
   'file' => 'ফাইল',
   'filters' => 'ফিল্টার',
-  'fl-tokens-left' => 'তোমার আছে <strong><i class="fal fa-coins"></i> : টোকেন</strong> বাকি',
+  'fl-tokens-left' => 'তোমার আছে <strong><i class="fal fa-star"></i> : টোকেন</strong> বাকি',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'ফ্রিলিচ টোকেন',
   'general' => 'সাধারণ',
