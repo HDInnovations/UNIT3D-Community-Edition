@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Este é um Torrent em destaque até',
   'file' => 'Arquivo',
   'filters' => 'Filtros',
-  'fl-tokens-left' => 'Você tem <strong><i class="fal fa-coins"></i> : fichas</strong> restantes',
+  'fl-tokens-left' => 'Você tem <strong><i class="fal fa-star"></i> : fichas</strong> restantes',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Ficha de Freeleech',
   'general' => 'Geral',
