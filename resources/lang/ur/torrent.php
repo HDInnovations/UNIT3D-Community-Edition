@@ -52,7 +52,7 @@ return [
   'featured-until' => 'یہ ایک خاص ٹرانسمیشن ہے جب تک',
   'file' => 'فائل',
   'filters' => 'فلٹرز',
-  'fl-tokens-left' => 'آپ کے پاس ہے <strong><i class="fal fa-coins"></i> ٹوکیاں</strong> بائیں',
+  'fl-tokens-left' => 'آپ کے پاس ہے <strong><i class="fal fa-star"></i> ٹوکیاں</strong> بائیں',
   'freeleech' => 'فریلیچ',
   'freeleech-token' => 'فریلیچ ٹوکن',
   'general' => 'جنرل',
