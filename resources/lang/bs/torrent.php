@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ovo je do sada predstavljen Torrent',
   'file' => 'File',
   'filters' => 'Filteri',
-  'fl-tokens-left' => 'Ti imaš <strong><i class="fal fa-coins"></i> :</strong> preostali <strong>tokeni</strong>',
+  'fl-tokens-left' => 'Ti imaš <strong><i class="fal fa-star"></i> :</strong> preostali <strong>tokeni</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'General',
