@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ceci est un torrent en vedette jusqu&#39;au',
   'file' => 'Fichier',
   'filters' => 'Les filtres',
-  'fl-tokens-left' => 'Tu as <strong><i class=\\"fal fa-coins\\"></i> : jetons</strong> restants',
+  'fl-tokens-left' => 'Tu as <strong><i class=\\"fal fa-star\\"></i> : jetons</strong> restants',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Jeton Freeleech',
   'general' => 'Général',
