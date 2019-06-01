@@ -52,7 +52,7 @@ return [
   'featured-until' => 'See on populaarne Torrent Kuni',
   'file' => 'Fail',
   'filters' => 'Filtrid',
-  'fl-tokens-left' => 'Sul on <strong><i class="fal fa-coins"></i> : märgid on</strong> jäänud',
+  'fl-tokens-left' => 'Sul on <strong><i class="fal fa-star"></i> : märgid on</strong> jäänud',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleechi token',
   'general' => 'Üldine',
