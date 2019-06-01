@@ -52,7 +52,7 @@ return [
   'featured-until' => 'هذا هو سيل مميزة حتى',
   'file' => 'ملف',
   'filters' => 'مرشحات',
-  'fl-tokens-left' => 'عندك <strong><i class="fal fa-coins"></i> : الرموز</strong> اليسار',
+  'fl-tokens-left' => 'عندك <strong><i class="fal fa-star"></i> : الرموز</strong> اليسار',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'رمزية حرة',
   'general' => 'جنرال لواء',
