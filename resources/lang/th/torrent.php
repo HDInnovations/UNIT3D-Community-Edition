@@ -52,7 +52,7 @@ return [
   'featured-until' => 'นี่คือ Torrent เด่นจนถึง',
   'file' => 'ไฟล์',
   'filters' => 'ฟิลเตอร์',
-  'fl-tokens-left' => 'คุณมี <strong><i class="fal fa-coins"></i> : โทเค็น</strong> ทางซ้าย',
+  'fl-tokens-left' => 'คุณมี <strong><i class="fal fa-star"></i> : โทเค็น</strong> ทางซ้าย',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'โทเค่นฟรีแลนด์',
   'general' => 'ทั่วไป',
