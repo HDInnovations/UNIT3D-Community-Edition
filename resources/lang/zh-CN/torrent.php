@@ -55,7 +55,7 @@ return [
     'featured-until'           => '精选资源有效至',
     'file'                     => '文件',
     'filters'                  => '过滤',
-    'fl-tokens-left'           => '你拥有 <strong><i class="fal fa-coins"></i>:tokens</strong> 免费令',
+    'fl-tokens-left'           => '你拥有 <strong><i class="fal fa-star"></i>:tokens</strong> 免费令',
     'freeleech'                => '免费',
     'freeleech-token'          => '免费令',
     'general'                  => 'General',
