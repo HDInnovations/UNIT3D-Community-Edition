@@ -52,7 +52,7 @@ return [
   'featured-until' => 'ეს არის Featured Torrent სანამ',
   'file' => 'ფაილი',
   'filters' => 'ფილტრები',
-  'fl-tokens-left' => 'Შენ გაქვს <strong><i class="fal fa-coins"></i> : ტოქნები</strong> დარჩა',
+  'fl-tokens-left' => 'Შენ გაქვს <strong><i class="fal fa-star"></i> : ტოქნები</strong> დარჩა',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'ზოგადი',
