@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Questo è un in primo piano Torrent Until',
   'file' => 'File',
   'filters' => 'filtri',
-  'fl-tokens-left' => 'Hai <strong><i class="fal fa-coins"></i> : token</strong> rimasti',
+  'fl-tokens-left' => 'Hai <strong><i class="fal fa-star"></i> : token</strong> rimasti',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Token di Freeleech',
   'general' => 'Generale',
