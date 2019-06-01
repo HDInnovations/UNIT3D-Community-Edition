@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Kjo është një Torrent Featured deri',
   'file' => 'skedar',
   'filters' => 'Filters',
-  'fl-tokens-left' => 'Ju keni <strong><i class="fal fa-coins"></i> : shenjat e</strong> mbetura',
+  'fl-tokens-left' => 'Ju keni <strong><i class="fal fa-star"></i> : shenjat e</strong> mbetura',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'i përgjithshëm',
