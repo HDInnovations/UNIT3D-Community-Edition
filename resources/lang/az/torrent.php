@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Bu qədər qədər bir Torrent var',
   'file' => 'Fayl',
   'filters' => 'Filtrlər',
-  'fl-tokens-left' => 'Siz var <strong><i class="fal fa-coins"></i> : ayələr</strong> sol',
+  'fl-tokens-left' => 'Siz var <strong><i class="fal fa-star"></i> : ayələr</strong> sol',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Ümumi',
