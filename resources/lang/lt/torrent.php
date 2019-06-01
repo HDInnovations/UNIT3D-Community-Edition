@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Tai yra populiarus Torrent Iki',
   'file' => 'Failas',
   'filters' => 'Filtrai',
-  'fl-tokens-left' => 'Tu turi <strong><i class="fal fa-coins"></i> :</strong> kairieji',
+  'fl-tokens-left' => 'Tu turi <strong><i class="fal fa-star"></i> :</strong> kairieji',
   'freeleech' => 'Freeleechas',
   'freeleech-token' => 'Freeleecho žetonas',
   'general' => 'Bendra',
