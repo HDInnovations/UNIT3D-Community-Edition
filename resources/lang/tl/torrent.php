@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ito Ay Isang Itinatampok na Torrent Hanggang',
   'file' => 'File',
   'filters' => 'Mga Filter',
-  'fl-tokens-left' => 'Mayroon ka <strong><i class="fal fa-coins"></i> : mga token na</strong> naiwan',
+  'fl-tokens-left' => 'Mayroon ka <strong><i class="fal fa-star"></i> : mga token na</strong> naiwan',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Pangkalahatan',
