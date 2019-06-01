@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Dette er en fremvist Torrent til',
   'file' => 'Fil',
   'filters' => 'filtre',
-  'fl-tokens-left' => 'Du har <strong><i class="fal fa-coins"></i> : tokens</strong> tilbage',
+  'fl-tokens-left' => 'Du har <strong><i class="fal fa-star"></i> : tokens</strong> tilbage',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Generel',
