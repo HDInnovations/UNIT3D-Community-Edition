@@ -52,7 +52,7 @@ return [
   'featured-until' => 'यह तब तक एक फीचर्ड टॉरेंट है',
   'file' => 'फ़ाइल',
   'filters' => 'फिल्टर',
-  'fl-tokens-left' => 'आपके पास <strong><i class="fal fa-coins"></i> : टोकन</strong> बचे',
+  'fl-tokens-left' => 'आपके पास <strong><i class="fal fa-star"></i> : टोकन</strong> बचे',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'फ्रीलेक टोकन',
   'general' => 'सामान्य',

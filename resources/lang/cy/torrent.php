@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Mae hwn yn Genllif Dan Sylw Tan',
   'file' => 'Ffeil',
   'filters' => 'Hidlau',
-  'fl-tokens-left' => 'Mae gennych chi <strong><i class="fal fa-coins"></i> : tocynnau ar</strong> ôl',
+  'fl-tokens-left' => 'Mae gennych chi <strong><i class="fal fa-star"></i> : tocynnau ar</strong> ôl',
   'freeleech' => 'Rhyddfrydol',
   'freeleech-token' => 'Tocyn Rhyddfrydol',
   'general' => 'Cyffredinol',

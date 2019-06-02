@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Гэта такое Рэкамендуемы Торэнт Да',
   'file' => 'файл',
   'filters' => 'фільтры',
-  'fl-tokens-left' => 'Ў вас ёсць <strong><i class="fal fa-coins"></i> : Лексемы</strong> засталося',
+  'fl-tokens-left' => 'Ў вас ёсць <strong><i class="fal fa-star"></i> : Лексемы</strong> засталося',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech токенаў',
   'general' => 'агульны',

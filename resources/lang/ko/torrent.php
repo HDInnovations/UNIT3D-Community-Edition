@@ -52,7 +52,7 @@ return [
   'featured-until' => '이것은 유명한 토렌트 니다',
   'file' => '파일',
   'filters' => '필터',
-  'fl-tokens-left' => '가지고있는 프리리치 토큰. <strong><i class="fal fa-coins"></i> :</strong> 남은 <strong>토큰</strong>',
+  'fl-tokens-left' => '가지고있는 프리리치 토큰. <strong><i class="fal fa-star"></i> :</strong> 남은 <strong>토큰</strong>',
   'freeleech' => '프리리치',
   'freeleech-token' => '프리리치 토큰',
   'general' => '일반',

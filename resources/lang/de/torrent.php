@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Dies ist ein vorgestellten Torrent bis',
   'file' => 'Datei',
   'filters' => 'Filter',
-  'fl-tokens-left' => 'Du hast <strong><i class="fal fa-coins"></i> : Marker</strong> übrig',
+  'fl-tokens-left' => 'Du hast <strong><i class="fal fa-star"></i> : Marker</strong> übrig',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Allgemeines',

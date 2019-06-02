@@ -52,7 +52,7 @@ return [
   'featured-until' => 'To je predstavljen Torrent Do',
   'file' => 'mapa',
   'filters' => 'Filtri',
-  'fl-tokens-left' => 'Imaš <strong><i class="fal fa-coins"></i> :</strong> preostali <strong>žetoni</strong>',
+  'fl-tokens-left' => 'Imaš <strong><i class="fal fa-star"></i> :</strong> preostali <strong>žetoni</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Samostojni žeton',
   'general' => 'Splošno',

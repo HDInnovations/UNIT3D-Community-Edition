@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ez egy kiemelt Torrent',
   'file' => 'fájl',
   'filters' => 'Szűrők',
-  'fl-tokens-left' => 'Neked van <strong><i class="fal fa-coins"></i> : a tokenek</strong> maradtak',
+  'fl-tokens-left' => 'Neked van <strong><i class="fal fa-star"></i> : a tokenek</strong> maradtak',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Tábornok',

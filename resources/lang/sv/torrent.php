@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Detta är en utvald Torrent till',
   'file' => 'Fil',
   'filters' => 'filter',
-  'fl-tokens-left' => 'Du har <strong><i class="fal fa-coins"></i> : tokens</strong> kvar',
+  'fl-tokens-left' => 'Du har <strong><i class="fal fa-star"></i> : tokens</strong> kvar',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Allmän',

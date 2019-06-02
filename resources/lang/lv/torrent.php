@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Tas ir populārs Torrent Līdz',
   'file' => 'Fails',
   'filters' => 'Filtri',
-  'fl-tokens-left' => 'Tev ir <strong><i class="fal fa-coins"></i> : žetoni</strong> palikuši',
+  'fl-tokens-left' => 'Tev ir <strong><i class="fal fa-star"></i> : žetoni</strong> palikuši',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Vispārīgi',

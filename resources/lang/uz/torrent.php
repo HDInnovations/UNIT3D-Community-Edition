@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Ushbugacha qadar maxsus torrent',
   'file' => 'Fayl',
   'filters' => 'Filtrlar',
-  'fl-tokens-left' => 'Senda bor <strong><i class="fal fa-coins"></i> : belgilar</strong> chap',
+  'fl-tokens-left' => 'Senda bor <strong><i class="fal fa-star"></i> : belgilar</strong> chap',
   'freeleech' => 'Freeleek',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Umumiy',

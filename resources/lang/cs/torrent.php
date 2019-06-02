@@ -52,7 +52,7 @@ return [
   'featured-until' => 'To je Doporučené Torrent Do',
   'file' => 'Soubor',
   'filters' => 'Filtry',
-  'fl-tokens-left' => 'Ty máš <strong><i class="fal fa-coins"></i> : tokeny</strong> vlevo',
+  'fl-tokens-left' => 'Ty máš <strong><i class="fal fa-star"></i> : tokeny</strong> vlevo',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Všeobecné',

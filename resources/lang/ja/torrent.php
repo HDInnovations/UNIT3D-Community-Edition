@@ -52,7 +52,7 @@ return [
   'featured-until' => 'これは注目されるまで急流',
   'file' => 'ファイル',
   'filters' => 'フィルター',
-  'fl-tokens-left' => 'あなたが持っている<strong><i class="fal fa-coins"></i> ：</strong>残りの<strong>トークン</strong>',
+  'fl-tokens-left' => 'あなたが持っている<strong><i class="fal fa-star"></i> ：</strong>残りの<strong>トークン</strong>',
   'freeleech' => 'フリーリーチ',
   'freeleech-token' => 'フリーリーチトークン',
   'general' => '全般',

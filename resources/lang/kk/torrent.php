@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Бұл әзірге дейін арнайы торрент',
   'file' => 'Файл',
   'filters' => 'Сүзгілер',
-  'fl-tokens-left' => 'Сенде бар <strong><i class="fal fa-coins"></i> : таңбалар</strong> солға',
+  'fl-tokens-left' => 'Сенде бар <strong><i class="fal fa-star"></i> : таңбалар</strong> солға',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Жалпы',

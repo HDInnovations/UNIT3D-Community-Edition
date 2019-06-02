@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Αυτό είναι ένα Προτεινόμενο Torrent Μέχρι',
   'file' => 'Αρχείο',
   'filters' => 'Φίλτρα',
-  'fl-tokens-left' => 'Εχεις <strong><i class="fal fa-coins"></i> : τα</strong> αριστερά',
+  'fl-tokens-left' => 'Εχεις <strong><i class="fal fa-star"></i> : τα</strong> αριστερά',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Γενικός',

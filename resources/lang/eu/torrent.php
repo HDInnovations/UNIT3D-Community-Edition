@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Hau Nabarmenena da Torrent arte',
   'file' => 'file',
   'filters' => 'iragazkiak',
-  'fl-tokens-left' => 'Baduzu <strong><i class="fal fa-coins"></i> : token</strong> utzi',
+  'fl-tokens-left' => 'Baduzu <strong><i class="fal fa-star"></i> : token</strong> utzi',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'General',

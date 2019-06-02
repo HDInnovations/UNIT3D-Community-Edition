@@ -52,7 +52,7 @@ return [
   'featured-until' => 'នេះគឺជា Torrent ពិសេសរហូតមកដល់ពេលនេះ',
   'file' => 'ឯកសារ',
   'filters' => 'តម្រង',
-  'fl-tokens-left' => 'អ្នក​មាន <strong><i class="fal fa-coins"></i> : ថូខឹនបាន</strong> ចាកចេញ',
+  'fl-tokens-left' => 'អ្នក​មាន <strong><i class="fal fa-star"></i> : ថូខឹនបាន</strong> ចាកចេញ',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'ទូទៅ',

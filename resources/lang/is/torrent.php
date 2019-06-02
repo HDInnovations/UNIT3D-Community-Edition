@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Þetta er valin Torrent þangað til',
   'file' => 'Skrá',
   'filters' => 'Síur',
-  'fl-tokens-left' => 'Þú hefur <strong><i class="fal fa-coins"></i> : tákn</strong> eftir',
+  'fl-tokens-left' => 'Þú hefur <strong><i class="fal fa-star"></i> : tákn</strong> eftir',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Almennt',

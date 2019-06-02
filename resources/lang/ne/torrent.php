@@ -52,7 +52,7 @@ return [
   'featured-until' => 'यो एक विशेष टोरेंट छ',
   'file' => 'फाइल',
   'filters' => 'फिल्टरहरू',
-  'fl-tokens-left' => 'तपाईँ सँग छ <strong><i class="fal fa-coins"></i> : टोकन</strong> बायाँ',
+  'fl-tokens-left' => 'तपाईँ सँग छ <strong><i class="fal fa-star"></i> : टोकन</strong> बायाँ',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'फ्रीलेच टोकन',
   'general' => 'सामान्य',

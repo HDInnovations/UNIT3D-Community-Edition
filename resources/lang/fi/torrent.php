@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Tämä on suosittu torrent, kunnes',
   'file' => 'tiedosto',
   'filters' => 'Suodattimet',
-  'fl-tokens-left' => 'Sinulla on <strong><i class="fal fa-coins"></i> :</strong> jäljellä olevat <strong>merkit</strong>',
+  'fl-tokens-left' => 'Sinulla on <strong><i class="fal fa-star"></i> :</strong> jäljellä olevat <strong>merkit</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleechin token',
   'general' => 'yleinen',

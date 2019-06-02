@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Acesta este un torrent recomandat până la',
   'file' => 'Fişier',
   'filters' => 'Filtre',
-  'fl-tokens-left' => 'Tu ai <strong><i class="fal fa-coins"></i> : jetoanele</strong> rămase',
+  'fl-tokens-left' => 'Tu ai <strong><i class="fal fa-star"></i> : jetoanele</strong> rămase',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'General',

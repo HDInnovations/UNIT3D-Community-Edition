@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Це популярний Torrent До',
   'file' => 'Файл',
   'filters' => 'Фільтри',
-  'fl-tokens-left' => 'Ти маєш <strong><i class="fal fa-coins"></i> :</strong> залишені <strong>маркери</strong>',
+  'fl-tokens-left' => 'Ти маєш <strong><i class="fal fa-star"></i> :</strong> залишені <strong>маркери</strong>',
   'freeleech' => 'Свобода',
   'freeleech-token' => 'Маркер фріліхера',
   'general' => 'Загальні',

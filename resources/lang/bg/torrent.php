@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Това е предимство на Torrent До',
   'file' => 'досие',
   'filters' => 'Филтри',
-  'fl-tokens-left' => 'Ти имаш <strong><i class="fal fa-coins"></i> :</strong> останалите <strong>символи</strong>',
+  'fl-tokens-left' => 'Ти имаш <strong><i class="fal fa-star"></i> :</strong> останалите <strong>символи</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Свободен знак',
   'general' => 'Общ',

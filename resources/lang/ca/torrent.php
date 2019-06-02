@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Aquest és un Torrent destacat fins a',
   'file' => 'Dossier',
   'filters' => 'Filtres',
-  'fl-tokens-left' => 'Tu tens <strong><i class="fal fa-coins"></i> : resten testimonis</strong>',
+  'fl-tokens-left' => 'Tu tens <strong><i class="fal fa-star"></i> : resten testimonis</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'General',

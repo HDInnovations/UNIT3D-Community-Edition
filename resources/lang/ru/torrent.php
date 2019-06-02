@@ -52,7 +52,7 @@ return [
   'featured-until' => 'Это рекомендуемый торрент до',
   'file' => 'файл',
   'filters' => 'фильтры',
-  'fl-tokens-left' => 'У тебя есть <strong><i class="fal fa-coins"></i> : жетоны</strong> слева',
+  'fl-tokens-left' => 'У тебя есть <strong><i class="fal fa-star"></i> : жетоны</strong> слева',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'генеральный',

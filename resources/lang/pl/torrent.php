@@ -52,7 +52,7 @@ return [
   'featured-until' => 'To jest wyróżniony torrent',
   'file' => 'Plik',
   'filters' => 'Filtry',
-  'fl-tokens-left' => 'Ty masz <strong><i class="fal fa-coins"></i> :</strong> pozostały <strong>żetony</strong>',
+  'fl-tokens-left' => 'Ty masz <strong><i class="fal fa-star"></i> :</strong> pozostały <strong>żetony</strong>',
   'freeleech' => 'Freeleech',
   'freeleech-token' => 'Freeleech Token',
   'general' => 'Generał',

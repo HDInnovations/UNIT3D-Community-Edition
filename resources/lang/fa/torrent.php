@@ -52,7 +52,7 @@ return [
   'featured-until' => 'این تا کنون یک تور ویژه است',
   'file' => 'فایل',
   'filters' => 'فیلترها',
-  'fl-tokens-left' => 'شما دارید <strong><i class="fal fa-coins"></i> : نشانه ها را</strong> ترک کرد',
+  'fl-tokens-left' => 'شما دارید <strong><i class="fal fa-star"></i> : نشانه ها را</strong> ترک کرد',
   'freeleech' => 'فری لایچ',
   'freeleech-token' => 'رمز عبور Freeleech',
   'general' => 'عمومی',
