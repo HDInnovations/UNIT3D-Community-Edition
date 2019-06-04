@@ -2,12 +2,12 @@
 
 return [
   'about' => 'Acerca de',
-  'bot' => 'Larva del moscardón',
-  'bots' => 'Bots',
+  'bot' => 'Robot',
+  'bots' => 'Robots',
   'color' => 'Color',
-  'command' => 'Mando',
-  'edit-bot' => 'Editar Bot',
-  'emoji-code' => 'Codigo emoji',
+  'command' => 'Orden',
+  'edit-bot' => 'Editar Robot',
+  'emoji-code' => 'Código emoji',
   'help' => 'Ayuda',
   'icon' => 'Icono',
   'info' => 'Información',

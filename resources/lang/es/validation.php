@@ -131,7 +131,7 @@ return [
             'min' => 'La :attribute debe contener más de :min caracteres',
         ],
         'email'    => [
-            'unique' => 'El :attribute ya ha sido registrado.',
+            'unique' => 'El :attribute ya existe en nuestra base de datos.',
         ],
     ],
 
