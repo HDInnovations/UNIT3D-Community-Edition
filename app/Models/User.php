@@ -938,7 +938,8 @@ class User extends Authenticatable
      */
     public function getSignature()
     {
-        return Bbcode::parse($this->signature);
+        $bbcode = new Bbcode();
+        return $bbcode->parse($this->signature, true);
     }
 
     /**
@@ -951,7 +952,8 @@ class User extends Authenticatable
         if (empty($this->about)) {
             return 'N/A';
         } else {
-            return Bbcode::parse($this->about);
+            $bbcode = new Bbcode();
+            return $bbcode->parse($this->about, true);
         }
     }
 

@@ -25,7 +25,6 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "mews/purifier": "^2.1",
-        "mjohnson/decoda": "6.*",
         "moinax/tvdb": "1.*",
         "nelexa/zip": "^3.1",
         "paragonie/constant_time_encoding": "^2.0",

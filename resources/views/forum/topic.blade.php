@@ -302,6 +302,7 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(document).ready(function () {
             let wbbOpt = {
+                onlyBBmode: true,
                 allButtons: {
                     quote: {
                         transform: {

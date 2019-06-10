@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "758a445ae7295aea6b080174e8dd7bd9",
+    "content-hash": "03f2f6fee6dbcddbd5b2e82a25b52435",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -1999,60 +1999,6 @@
                 "xss"
             ],
             "time": "2019-03-07T07:55:14+00:00"
-        },
-        {
-            "name": "mjohnson/decoda",
-            "version": "6.12.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/milesj/decoda.git",
-                "reference": "9817fd5abbd742384f59831d8a5953b01803b45d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/milesj/decoda/zipball/9817fd5abbd742384f59831d8a5953b01803b45d",
-                "reference": "9817fd5abbd742384f59831d8a5953b01803b45d",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.8|^7.5"
-            },
-            "suggest": {
-                "ext-memcached": "Cache data using Memcache",
-                "ext-redis": "Cache data using Redis"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Decoda": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Miles Johnson",
-                    "homepage": "http://milesj.me"
-                }
-            ],
-            "description": "A lightweight lexical string parser for BBCode styled markup.",
-            "homepage": "http://milesj.me/code/php/decoda",
-            "keywords": [
-                "HOOK",
-                "bbcode",
-                "decoda",
-                "filter",
-                "lexer",
-                "markup",
-                "parser"
-            ],
-            "time": "2019-01-16T04:52:14+00:00"
         },
         {
             "name": "moinax/tvdb",
