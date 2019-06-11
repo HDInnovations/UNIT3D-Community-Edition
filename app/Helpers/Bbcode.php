@@ -57,7 +57,7 @@ class Bbcode
 
         'bold' => [
             'pattern' => '/\[b\](.*?)\[\/b\]/s',
-            'replace' => '<strong>$1</strong>',
+            'replace' => '<span style="font-weight: bold;">$1</span>',
             'content' => '$1',
         ],
 
