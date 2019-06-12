@@ -44,6 +44,7 @@ class Page extends Model
     public function getContentHtml()
     {
         $bbcode = new Bbcode();
+
         return $bbcode->parse($this->content, true);
     }
 }

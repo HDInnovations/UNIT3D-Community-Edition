@@ -78,6 +78,7 @@ class PrivateMessage extends Model
     public function getMessageHtml()
     {
         $bbcode = new Bbcode();
+
         return $bbcode->parse($this->message, true);
     }
 }

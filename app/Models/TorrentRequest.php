@@ -192,6 +192,7 @@ class TorrentRequest extends Model
     public function getDescriptionHtml()
     {
         $bbcode = new Bbcode();
+
         return $bbcode->parse($this->description, true);
     }
 

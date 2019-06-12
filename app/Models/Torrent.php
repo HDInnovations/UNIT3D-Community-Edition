@@ -303,8 +303,8 @@ class Torrent extends Model
     public function getDescriptionHtml()
     {
         $bbcode = new Bbcode();
-        return $bbcode->parse($this->description, true);
 
+        return $bbcode->parse($this->description, true);
     }
 
     /**
