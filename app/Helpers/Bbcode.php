@@ -22,37 +22,37 @@ class Bbcode
         'h1' => [
             'pattern' => '/\[h1\](.*?)\[\/h1\]/s',
             'replace' => '<h1>$1</h1>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'h2' => [
             'pattern' => '/\[h2\](.*?)\[\/h2\]/s',
             'replace' => '<h2>$1</h2>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'h3' => [
             'pattern' => '/\[h3\](.*?)\[\/h3\]/s',
             'replace' => '<h3>$1</h3>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'h4' => [
             'pattern' => '/\[h4\](.*?)\[\/h4\]/s',
             'replace' => '<h4>$1</h4>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'h5' => [
             'pattern' => '/\[h5\](.*?)\[\/h5\]/s',
             'replace' => '<h5>$1</h5>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'h6' => [
             'pattern' => '/\[h6\](.*?)\[\/h6\]/s',
             'replace' => '<h6>$1</h6>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'bold' => [
@@ -215,19 +215,19 @@ class Bbcode
         'sub' => [
             'pattern' => '/\[sub\](.*?)\[\/sub\]/s',
             'replace' => '<sub>$1</sub>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'sup' => [
             'pattern' => '/\[sup\](.*?)\[\/sup\]/s',
             'replace' => '<sup>$1</sup>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'small' => [
             'pattern' => '/\[small\](.*?)\[\/small\]/s',
             'replace' => '<small>$1</small>',
-            'content' => '$1'
+            'content' => '$1',
         ],
 
         'table' => [
@@ -309,7 +309,7 @@ class Bbcode
     }
 
     /**
-     * Parses the BBCode string
+     * Parses the BBCode string.
      *
      * @param      $source
      * @param bool $caseInsensitive
@@ -318,7 +318,7 @@ class Bbcode
     public function parse($source, $caseInsensitive = false)
     {
         foreach ($this->enabledParsers as $name => $parser) {
-            $pattern = ($caseInsensitive) ? $parser['pattern'] . 'i' : $parser['pattern'];
+            $pattern = ($caseInsensitive) ? $parser['pattern'].'i' : $parser['pattern'];
 
             $source = $this->searchAndReplace($pattern, $parser['replace'], $source);
         }
@@ -327,7 +327,7 @@ class Bbcode
     }
 
     /**
-     * Remove all BBCode
+     * Remove all BBCode.
      *
      * @param  string $source
      * @return string Parsed text
@@ -335,14 +335,14 @@ class Bbcode
     public function stripBBCodeTags($source)
     {
         foreach ($this->parsers as $name => $parser) {
-            $source = $this->searchAndReplace($parser['pattern'] . 'i', $parser['content'], $source);
+            $source = $this->searchAndReplace($parser['pattern'].'i', $parser['content'], $source);
         }
 
         return $source;
     }
 
     /**
-     * Searches after a specified pattern and replaces it with provided structure
+     * Searches after a specified pattern and replaces it with provided structure.
      *
      * @param  string $pattern Search pattern
      * @param  string $replace Replacement structure
@@ -359,7 +359,7 @@ class Bbcode
     }
 
     /**
-     * Helper function to parse case sensitive
+     * Helper function to parse case sensitive.
      *
      * @param  string $source String containing the BBCode
      * @return string Parsed text
@@ -370,7 +370,7 @@ class Bbcode
     }
 
     /**
-     * Helper function to parse case insensitive
+     * Helper function to parse case insensitive.
      *
      * @param  string $source String containing the BBCode
      * @return string Parsed text
@@ -381,7 +381,7 @@ class Bbcode
     }
 
     /**
-     * List of chosen parsers
+     * List of chosen parsers.
      *
      * @return array array of parsers
      */

@@ -939,6 +939,7 @@ class User extends Authenticatable
     public function getSignature()
     {
         $bbcode = new Bbcode();
+
         return $bbcode->parse($this->signature, true);
     }
 
@@ -953,6 +954,7 @@ class User extends Authenticatable
             return 'N/A';
         } else {
             $bbcode = new Bbcode();
+
             return $bbcode->parse($this->about, true);
         }
     }
