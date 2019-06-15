@@ -248,7 +248,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has updated there profile.");
 
-        return redirect()->route('user_edit_profile_form', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_edit_profile_form', ['username' => $user->username, 'id' => $user->id])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
@@ -308,7 +308,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has changed their account settings.");
 
-        return redirect()->route('user_settings', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_settings', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
@@ -343,7 +343,7 @@ class UserController extends Controller
         $user->twostep = $request->input('twostep');
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_profile', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('You Changed Your TwoStep Auth Status!');
     }
 
@@ -372,11 +372,11 @@ class UserController extends Controller
 
                 return redirect()->to('/')->withSuccess('Your Password Has Been Reset');
             } else {
-                return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
+                return redirect()->route('user_security', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#password'])
                     ->withErrors('Your Password Was Incorrect!');
             }
         } else {
-            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
+            return redirect()->route('user_security', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#password'])
                 ->withErrors('Your New Password Is To Weak!');
         }
     }
@@ -409,7 +409,7 @@ class UserController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#email'])
+            return redirect()->route('user_security', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#email'])
                 ->withErrors($v->errors());
         } else {
             $user->email = $request->input('email');
@@ -418,7 +418,7 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has changed there email address on file.");
 
-            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#email'])
+            return redirect()->route('user_security', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#email'])
                 ->withSuccess('Your Email Was Updated Successfully!');
         }
     }
@@ -438,7 +438,7 @@ class UserController extends Controller
         $user->private_profile = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_profile', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('You Have Gone Private!');
     }
 
@@ -457,7 +457,7 @@ class UserController extends Controller
         $user->private_profile = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_profile', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('You Have Gone Public!');
     }
 
@@ -476,7 +476,7 @@ class UserController extends Controller
         $user->block_notifications = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_profile', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('You Have Disabled Notifications!');
     }
 
@@ -495,7 +495,7 @@ class UserController extends Controller
         $user->block_notifications = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_profile', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('You Have Enabled Notifications!');
     }
 
@@ -514,7 +514,7 @@ class UserController extends Controller
         $user->hidden = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_profile', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('You Have Disappeared Like A Ninja!');
     }
 
@@ -533,7 +533,7 @@ class UserController extends Controller
         $user->hidden = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_profile', ['slug' => $user->username, 'id' => $user->id])
             ->withSuccess('You Have Given Up Your Ninja Ways And Become Visible!');
     }
 
@@ -555,7 +555,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has changed their account PID.");
 
-        return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#pid'])
+        return redirect()->route('user_security', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');
     }
 
@@ -589,7 +589,7 @@ class UserController extends Controller
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#other'])
+        return redirect()->route('user_privacy', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#other'])
             ->withSuccess('Your Other Privacy Settings Have Been Saved!');
     }
 
@@ -623,7 +623,7 @@ class UserController extends Controller
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#request'])
+        return redirect()->route('user_privacy', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#request'])
             ->withSuccess('Your Request Privacy Settings Have Been Saved!');
     }
 
@@ -657,7 +657,7 @@ class UserController extends Controller
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#achievement'])
+        return redirect()->route('user_privacy', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#achievement'])
             ->withSuccess('Your Achievement Privacy Settings Have Been Saved!');
     }
 
@@ -692,7 +692,7 @@ class UserController extends Controller
         $privacy->show_post = ($request->input('show_post') && $request->input('show_post') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#forum'])
+        return redirect()->route('user_privacy', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#forum'])
             ->withSuccess('Your Forum History Privacy Settings Have Been Saved!');
     }
 
@@ -726,7 +726,7 @@ class UserController extends Controller
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#follower'])
+        return redirect()->route('user_privacy', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#follower'])
             ->withSuccess('Your Follower Privacy Settings Have Been Saved!');
     }
 
@@ -765,7 +765,7 @@ class UserController extends Controller
         $user->peer_hidden = 0;
         $user->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#torrent'])
+        return redirect()->route('user_privacy', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent History Privacy Settings Have Been Saved!');
     }
 
@@ -801,7 +801,7 @@ class UserController extends Controller
         $notification->show_account_unfollow = ($request->input('show_account_unfollow') && $request->input('show_account_unfollow') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#account'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#account'])
             ->withSuccess('Your Account Notification Settings Have Been Saved!');
     }
 
@@ -836,7 +836,7 @@ class UserController extends Controller
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#following'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#following'])
             ->withSuccess('Your Followed User Notification Settings Have Been Saved!');
     }
 
@@ -871,7 +871,7 @@ class UserController extends Controller
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#bon'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#bon'])
             ->withSuccess('Your BON Notification Settings Have Been Saved!');
     }
 
@@ -907,7 +907,7 @@ class UserController extends Controller
         $notification->show_subscription_topic = ($request->input('show_subscription_topic') && $request->input('show_subscription_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#subscription'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#subscription'])
             ->withSuccess('Your Subscription Notification Settings Have Been Saved!');
     }
 
@@ -948,7 +948,7 @@ class UserController extends Controller
         $notification->show_request_unclaim = ($request->input('show_request_unclaim') && $request->input('show_request_unclaim') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#request'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#request'])
             ->withSuccess('Your Request Notification Settings Have Been Saved!');
     }
 
@@ -985,7 +985,7 @@ class UserController extends Controller
         $notification->show_torrent_tip = ($request->input('show_torrent_tip') && $request->input('show_torrent_tip') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#torrent'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent Notification Settings Have Been Saved!');
     }
 
@@ -1024,7 +1024,7 @@ class UserController extends Controller
 
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#mention'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#mention'])
             ->withSuccess('Your @Mention Notification Settings Have Been Saved!');
     }
 
@@ -1059,7 +1059,7 @@ class UserController extends Controller
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#forum'])
+        return redirect()->route('user_notification', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#forum'])
             ->withSuccess('Your Forum Notification Settings Have Been Saved!');
     }
 
@@ -1107,7 +1107,7 @@ class UserController extends Controller
         $privacy->show_profile_warning = ($request->input('show_profile_warning') && $request->input('show_profile_warning') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#profile'])
+        return redirect()->route('user_privacy', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#profile'])
             ->withSuccess('Your Profile Privacy Settings Have Been Saved!');
     }
 
@@ -1129,7 +1129,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has changed their account RID.");
 
-        return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#rid'])
+        return redirect()->route('user_security', ['slug' => $user->username, 'id' => $user->id, 'hash' => '#rid'])
             ->withSuccess('Your RID Was Changed Successfully!');
     }
 
