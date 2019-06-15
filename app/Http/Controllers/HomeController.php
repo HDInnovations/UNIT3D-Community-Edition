@@ -143,7 +143,7 @@ class HomeController extends Controller
                 ->get();
         });
 
-        $freeleach_tokens = FreeleechToken::where('user_id', $user->id)->get();
+        $freeleech_tokens = FreeleechToken::where('user_id', $user->id)->get();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
         return view('home.home', [
@@ -163,7 +163,7 @@ class HomeController extends Controller
             'poll'               => $poll,
             'uploaders'          => $uploaders,
             'past_uploaders'     => $past_uploaders,
-            'freeleach_tokens'   => $freeleach_tokens,
+            'freeleech_tokens'   => $freeleech_tokens,
             'bookmarks'          => $bookmarks,
         ]);
     }

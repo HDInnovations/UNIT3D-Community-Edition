@@ -159,7 +159,7 @@
                                         </span>
                                     @endif
 
-                                    @if ($freeleach_tokens->where('torrent_id', $new->id)->count())
+                                    @if ($freeleech_tokens->where('torrent_id', $new->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -371,7 +371,7 @@
                                         </span>
                                     @endif
 
-                                    @if ($freeleach_tokens->where('torrent_id', $seed->id)->count())
+                                    @if ($freeleech_tokens->where('torrent_id', $seed->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -584,7 +584,7 @@
                                         </span>
                                     @endif
 
-                                    @if ($freeleach_tokens->where('torrent_id', $leech->id)->count())
+                                    @if ($freeleech_tokens->where('torrent_id', $leech->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -797,7 +797,7 @@
                                         </span>
                                     @endif
 
-                                    @if ($freeleach_tokens->where('torrent_id', $d->id)->count())
+                                    @if ($freeleech_tokens->where('torrent_id', $d->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -1009,7 +1009,7 @@
                                         </span>
                                     @endif
 
-                                    @if ($freeleach_tokens->where('torrent_id', $d->id)->count())
+                                    @if ($freeleech_tokens->where('torrent_id', $d->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
