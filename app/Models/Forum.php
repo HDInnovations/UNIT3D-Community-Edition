@@ -232,6 +232,6 @@ class Forum extends Model
             $group = Group::find(2);
         }
 
-        return Permission::whereRaw('forum_id = ? AND group_id = ?', [$this->id, $group->id])->first();
+        return $group->permissions->where('forum_id', $this->id)->first();
     }
 }
