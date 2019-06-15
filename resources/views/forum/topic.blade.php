@@ -31,7 +31,7 @@
 
         <div class="topic-info">
             @lang('forum.author') <a
-                    href="{{ route('profile', ['username' => Str::slug($topic->first_post_user_username), 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
+                    href="{{ route('profile', ['username' => $topic->first_post_user_username, 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed('topic', $topic->id))
@@ -92,13 +92,13 @@
                                     <p>
                                         @if($p->user->topics && $p->user->topics->count() > 0)
                                             <span class="badge-user text-bold">
-                   <a href="{{ route('user_topics', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('user_topics', ['slug' => $p->user->username, 'id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
                                             </span>
                                         @endauth
                                         @if($p->user->posts && $p->user->posts->count() > 0)
                                             <span class="badge-user text-bold">
-                   <a href="{{ route('user_posts', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('user_posts', ['slug' => $p->user->username, 'id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
                                             </span>
                         @endauth
@@ -134,7 +134,7 @@
                                     <div class="some-padding"><a class="forumTip" href="#/" post="{{ $p->id }}" user="{{ $p->user->id }}">Tip This Poster</a></div>
                                 </div>
                             </div>
-                            
+
                             @php $likes = DB::table('likes')->where('post_id', '=', $p->id)->where('like', '=', 1)->count(); @endphp
                             @php $dislikes = DB::table('likes')->where('post_id', '=', $p->id)->where('dislike', '=', 1)->count(); @endphp
                             <div class="likes">
