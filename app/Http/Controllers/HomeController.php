@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
+use App\Models\FreeleechToken;
 use Carbon\Carbon;
 use App\Models\Poll;
 use App\Models\Post;
@@ -96,12 +98,12 @@ class HomeController extends Controller
 
         // Latest Topics Block
         $topics = cache()->remember('latest_topics', $expiresAt, function () {
-            return Topic::latest()->take(5)->get();
+            return Topic::with('forum')->latest()->take(5)->get();
         });
 
         // Latest Posts Block
         $posts = cache()->remember('latest_posts', $expiresAt, function () {
-            return Post::latest()->take(5)->get();
+            return Post::with('topic', 'user')->latest()->take(5)->get();
         });
 
         // Online Block
@@ -130,6 +132,7 @@ class HomeController extends Controller
                 ->take(10)
                 ->get();
         });
+
         $past_uploaders = cache()->remember('month_uploaders', $expiresAt, function () use ($current) {
             return Torrent::with('user')
                 ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
@@ -139,6 +142,9 @@ class HomeController extends Controller
                 ->take(10)
                 ->get();
         });
+
+        $freeleach_tokens = FreeleechToken::where('user_id', $user->id)->get();
+        $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
         return view('home.home', [
             'user'               => $user,
@@ -157,6 +163,8 @@ class HomeController extends Controller
             'poll'               => $poll,
             'uploaders'          => $uploaders,
             'past_uploaders'     => $past_uploaders,
+            'freeleach_tokens'   => $freeleach_tokens,
+            'bookmarks'          => $bookmarks,
         ]);
     }
 }

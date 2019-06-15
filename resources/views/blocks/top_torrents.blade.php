@@ -92,7 +92,7 @@
                                         </a>
                                     @endif
 
-                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="newTorrentBookmark{{ $new->id }}" id="newTorrentBookmark{{ $new->id }}" torrent="{{ $new->id }}" state="{{ $new->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="newTorrentBookmark{{ $new->id }}" id="newTorrentBookmark{{ $new->id }}" torrent="{{ $new->id }}" state="{{ $bookmarks->where('torrent_id', $new->id)->count() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                     <br>
                                     @if ($new->anon == 1)
@@ -159,8 +159,7 @@
                                         </span>
                                     @endif
 
-                                    @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $new->id)->first(); @endphp
-                                    @if ($freeleech_token)
+                                    @if ($freeleach_tokens->where('torrent_id', $new->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -305,7 +304,7 @@
                                         </a>
                                     @endif
 
-                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="seededTorrentBookmark{{ $seed->id }}" id="seededTorrentBookmark{{ $seed->id }}" torrent="{{ $seed->id }}" state="{{ $seed->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="seededTorrentBookmark{{ $seed->id }}" id="seededTorrentBookmark{{ $seed->id }}" torrent="{{ $seed->id }}" state="{{ $bookmarks->where('torrent_id', $seed->id)->count() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                     <br>
                                     @if ($seed->anon == 1)
@@ -328,12 +327,12 @@
 
                                     <span class="badge-extra text-bold text-pink">
                                         <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip" data-original-title="Thanks Given"></i>
-                                        {{ $seed->thanks->count() }}
+                                        {{ $seed->thanks_count }}
                                     </span>
 
                                     <span class="badge-extra text-bold text-green">
                                         <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="Comments Left"></i>
-                                        {{ $seed->comments->count() }}
+                                        {{ $seed->comments_count }}
                                     </span>
 
                                     @if ($seed->internal == 1)
@@ -372,8 +371,7 @@
                                         </span>
                                     @endif
 
-                                    @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $seed->id)->first(); @endphp
-                                    @if ($freeleech_token)
+                                    @if ($freeleach_tokens->where('torrent_id', $seed->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -519,7 +517,7 @@
                                         </a>
                                     @endif
 
-                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="leechedTorrentBookmark{{ $leech->id }}" id="leechedTorrentBookmark{{ $leech->id }}" torrent="{{ $leech->id }}" state="{{ $leech->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="leechedTorrentBookmark{{ $leech->id }}" id="leechedTorrentBookmark{{ $leech->id }}" torrent="{{ $leech->id }}" state="{{ $bookmarks->where('torrent_id', $leech->id)->count() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                     <br>
                                     @if ($leech->anon == 1)
@@ -542,12 +540,12 @@
 
                                     <span class="badge-extra text-bold text-pink">
                                         <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip" data-original-title="Thanks Given"></i>
-                                        {{ $leech->thanks->count() }}
+                                        {{ $leech->thanks_count }}
                                     </span>
 
                                     <span class="badge-extra text-bold text-green">
                                         <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="Comments Left"></i>
-                                        {{ $leech->comments->count() }}
+                                        {{ $leech->comments_count }}
                                     </span>
 
                                     @if ($leech->internal == 1)
@@ -586,8 +584,7 @@
                                         </span>
                                     @endif
 
-                                    @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $leech->id)->first(); @endphp
-                                    @if ($freeleech_token)
+                                    @if ($freeleach_tokens->where('torrent_id', $leech->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -733,7 +730,7 @@
                                         </a>
                                     @endif
 
-                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="dyingTorrentBookmark{{ $d->id }}" id="dyingTorrentBookmark{{ $d->id }}" torrent="{{ $d->id }}" state="{{ $d->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="dyingTorrentBookmark{{ $d->id }}" id="dyingTorrentBookmark{{ $d->id }}" torrent="{{ $d->id }}" state="{{ $bookmarks->where('torrent_id', $d->id)->count() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                     <br>
                                     @if ($d->anon == 1)
@@ -756,12 +753,12 @@
 
                                     <span class="badge-extra text-bold text-pink">
                                         <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip" data-original-title="Thanks Given"></i>
-                                        {{ $d->thanks->count() }}
+                                        {{ $d->thanks_count }}
                                     </span>
 
                                     <span class="badge-extra text-bold text-green">
                                         <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="Comments Left"></i>
-                                        {{ $d->comments->count() }}
+                                        {{ $d->comments_count }}
                                     </span>
 
                                     @if ($d->internal == 1)
@@ -800,8 +797,7 @@
                                         </span>
                                     @endif
 
-                                    @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $d->id)->first(); @endphp
-                                    @if ($freeleech_token)
+                                    @if ($freeleach_tokens->where('torrent_id', $d->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token
@@ -946,7 +942,7 @@
                                         </a>
                                     @endif
 
-                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="deadTorrentBookmark{{ $d->id }}" id="deadTorrentBookmark{{ $d->id }}" torrent="{{ $d->id }}" state="{{ $d->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                    <span data-toggle="tooltip" data-original-title="@lang('torrent.bookmark')" custom="deadTorrentBookmark{{ $d->id }}" id="deadTorrentBookmark{{ $d->id }}" torrent="{{ $d->id }}" state="{{ $bookmarks->where('torrent_id', $d->id)->count() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                     <br>
                                     @if ($d->anon == 1)
@@ -969,12 +965,12 @@
 
                                     <span class="badge-extra text-bold text-pink">
                                         <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip" data-original-title="Thanks Given"></i>
-                                        {{ $d->thanks->count() }}
+                                        {{ $d->thanks_count }}
                                     </span>
 
                                     <span class="badge-extra text-bold text-green">
                                         <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="Comments Left"></i>
-                                        {{ $d->comments->count() }}
+                                        {{ $d->comments_count }}
                                     </span>
 
                                     @if ($d->internal == 1)
@@ -1013,8 +1009,7 @@
                                         </span>
                                     @endif
 
-                                    @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $d->id)->first(); @endphp
-                                    @if ($freeleech_token)
+                                    @if ($freeleach_tokens->where('torrent_id', $d->id)->count())
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                                 data-original-title='Freeleech Token'></i> Freeleech Token

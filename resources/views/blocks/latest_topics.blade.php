@@ -15,17 +15,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($topics as $t)
-                    @if ($t->viewable())
+                @foreach ($topics as $topic)
+                    @if ($topic->viewable())
                         <tr class="">
                             <td width="40%">
-                                <a href="{{ route('forum_display', ['slug' => $t->forum->slug, 'id' => $t->forum->id]) }}">{{ $t->forum->name }}</a>
+                                <a href="{{ route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id]) }}">
+                                    {{ $topic->forum->name }}
+                                </a>
                             </td>
+
                             <td width="20%">
-                                <a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
+                                <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}">
+                                    {{ $topic->name }}
+                                </a>
                             </td>
-                            <td width="20%">{{ $t->first_post_user_username }}</td>
-                            <td width="20%">{{ $t->created_at->diffForHumans() }}</td>
+
+                            <td width="20%">{{ $topic->first_post_user_username }}</td>
+                            <td width="20%">{{ $topic->created_at->diffForHumans() }}</td>
                         </tr>
                     @endif
                 @endforeach
