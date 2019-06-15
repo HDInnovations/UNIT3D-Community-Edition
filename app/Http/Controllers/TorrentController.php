@@ -1585,7 +1585,7 @@ class TorrentController extends Controller
         $torrent->save();
 
         // Activity Log
-        \LogActivity::addToLog('Staff Member '.$user->username." has granted freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+        \LogActivity::addToLog('Staff Member '.$user->username." has revoked freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');

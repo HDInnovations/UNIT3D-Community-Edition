@@ -294,7 +294,7 @@ a:hover {
 
 .btn-default,
 .btn-warning,
-.decoda-spoiler-button,
+.bbcode-spoiler-button,
 .label-default,
 .label-primary,
 .label-warning {
@@ -303,13 +303,13 @@ a:hover {
 }
 
 .btn-default,
-.decoda-spoiler-button {
+.bbcode-spoiler-button {
     background-color: var(--color-magenta);
     background-image: none;
 }
 
 .btn-default:hover,
-.decoda-spoiler-button:hover {
+.bbcode-spoiler-button:hover {
     background-color: var(--color-light-magenta);
     background-image: none;
 }
@@ -476,7 +476,7 @@ aside.post-info {
     color: var(--text-color);
 }
 
-.decoda-spoiler-content {
+.bbcode-spoiler-content {
     border: 0;
     background-color: #353535;
 }
@@ -630,13 +630,13 @@ i.torrent-icon {
     background-color: #252525;
 }
 
-.decoda-code,
-.decoda-quote {
+.bbcode-code,
+.bbcode-quote {
     background-color: #2b2b2b;
     color: var(--text-color);
 }
 
-.decoda-quote {
+.bbcode-quote {
     background-color: #353535;
 }
 

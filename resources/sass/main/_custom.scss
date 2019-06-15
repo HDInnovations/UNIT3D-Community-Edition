@@ -9452,8 +9452,8 @@ section.tall_categories div.category.movie span {
     color: #fff;
 }
 
-// Decoda Style
-.decoda-quote {
+// BBCode Style
+.bbcode-quote {
     background: #ebeaec;
     padding: 10px;
     margin: 0 0 15px 15px;
@@ -9462,34 +9462,34 @@ section.tall_categories div.category.movie span {
     font-family: inherit;
 }
 
-.decoda-quote-head {
+.bbcode-quote-head {
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.decoda-quote-date {
+.bbcode-quote-date {
     float: right;
 }
 
-.decoda-code {
+.bbcode-code {
     background: lightgray;
     padding: 10px;
     border-radius: 3px;
 }
 
-.decoda-alert {
+.bbcode-alert {
     background: rgba(255, 20, 28, 0.8);
     padding: 10px;
     border-radius: 3px;
 }
 
-.decoda-note {
+.bbcode-note {
     background: #7289da;
     padding: 10px;
     border-radius: 3px;
 }
 
-.decoda-spoiler-content {
+.spoiler-content {
     margin: 0;
     padding: 0 15px;
     border: 1px solid #ddd;
@@ -9497,7 +9497,7 @@ section.tall_categories div.category.movie span {
     background: #efefef;
 }
 
-.decoda-spoiler-button {
+.spoiler-button {
     background: #aa65c7;
     color: #fff;
     text-align: center;
@@ -9513,12 +9513,12 @@ section.tall_categories div.category.movie span {
     transition: background 0.1s ease-in-out;
 }
 
-.decoda-spoiler-button:before {
+.spoiler-button:before {
     color: #375a7f;
     content: '\25BA ';
 }
 
-.decoda-image {
+.image {
     height: auto;
     max-width: 100%;
 }
@@ -10301,9 +10301,11 @@ div.no_image_holder.w235_and_h235 {
 }
 
 div.no_image_holder.w300_and_h450 {
-    width: 300px;
-    height: 450px;
-    line-height: 450px;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 300px;
+    line-height: 300px;
     font-size: 150px
 }
 
@@ -10376,3 +10378,29 @@ div.no_image_holder.w500_and_h282 {
     line-height: 282px;
     font-size: 140px
 }
+
+// Spoiler
+.spoiler {
+    display: none;
+}
+
+.show {
+    display: none;
+}
+
+.hide:target + .show {
+    display: inline;
+}
+
+.hide:target {
+    display: none;
+}
+
+.hide:target ~ .spoiler {
+    display: inline;
+}
+
+// SS Compare
+.ss-compare img:last-child{display:none}
+.ss-compare:hover img:first-child{display:none}
+.ss-compare:hover img:last-child{display:inline-block;}

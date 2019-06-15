@@ -112,7 +112,7 @@ Video Tutorial Can Be Seen Here:
 https://www.youtube.com/watch?v=f2tiMWZ3KbA
 
 ### <a name="manual-install"></a> Manual Install
-If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
+If you rather setup UNIT3D manually you can follow the instructions here: http://docs.unit3d.org/manual_install.html
 
 ## <a name="updating"></a> :book: Documentation
 Repo - https://github.com/HDInnovations/UNIT3D-Docs
@@ -150,10 +150,6 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDVinnie/UNIT3D/blob/master/LICENSE).
 
 <b> As per license do not remove the license from sourcecode or from footer in `/resources/views/partials/footer.blade.php`</b>
-
-## <a name="homestead"></a> :computer: Homestead (for local developement)
-
-For instructions on how to use Homestead for running UNIT3D in a local development environment check here: https://github.com/HDInnovations/UNIT3D/wiki/Homestead
 
 ## <a name="demo"></a> :computer: Demo
 

@@ -554,7 +554,7 @@
                                     <span class="text-bold text-blue">@emojione(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
                                         :</span>
                                     <br>
-                                    <div class="decoda-code text-black">{{ $settings }}</div>
+                                    <div class="text-black"><pre><code>{{ $settings }}</code></pre></div>
                                 @endif
                                 <br>
                                 <br>
@@ -564,7 +564,7 @@
                                     </button>
                                 </div>
                                 <div class="slidingDiv">
-                                    <pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
+                                    <pre><code>{{ $torrent->mediainfo }}</code></pre>
                                 </div>
                             </div>
                         </td>

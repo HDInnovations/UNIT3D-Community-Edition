@@ -96,6 +96,8 @@ class Comment extends Model
      */
     public function getContentHtml()
     {
-        return Bbcode::parse($this->content);
+        $bbcode = new Bbcode();
+
+        return $bbcode->parse($this->content, true);
     }
 }

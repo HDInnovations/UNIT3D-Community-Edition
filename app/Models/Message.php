@@ -105,6 +105,8 @@ class Message extends Model
      */
     public static function getMessageHtml($message)
     {
-        return Bbcode::parse($message);
+        $bbcode = new Bbcode();
+
+        return $bbcode->parse($message, true);
     }
 }
