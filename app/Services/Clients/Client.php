@@ -13,14 +13,11 @@
 
 namespace App\Services\Clients;
 
-use Predis\Client as RedisClient;
 use GuzzleHttp\Client as GuzzleClient;
 
 abstract class Client
 {
     protected $guzzle;
-
-    protected $redis;
 
     protected $apiUrl;
 
@@ -30,7 +27,6 @@ abstract class Client
 
     public function __construct($apiUrl, $apiKey = null)
     {
-        $this->redis = new RedisClient();
         $this->apiUrl = ($this->apiSecure ? 'https://' : 'http://').$apiUrl;
         $this->apiKey = $apiKey;
         $this->guzzle = new GuzzleClient();
