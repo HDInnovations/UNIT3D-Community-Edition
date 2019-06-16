@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bookmark;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\Type;
@@ -22,6 +21,7 @@ use App\Models\History;
 use App\Models\Torrent;
 use App\Models\Warning;
 use App\Helpers\Bencode;
+use App\Models\Bookmark;
 use App\Models\Category;
 use App\Helpers\MediaInfo;
 use App\Models\TagTorrent;
