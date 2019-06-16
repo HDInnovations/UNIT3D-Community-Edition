@@ -133,7 +133,7 @@
                                                             </a>
                                                         @endif
 
-                                                        <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $current->id }}" torrent="{{ $current->id }}" state="{{ $current->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                                        <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $current->id }}" torrent="{{ $current->id }}" state="{{ $bookmarks->where('torrent_id', $current->id)->first() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                                         <br>
                                                         @if ($current->anon == 1)
