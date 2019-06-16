@@ -354,7 +354,7 @@
                                                                                     </a>
                                                                                 @endif
 
-                                                                                <span id="torrentBookmark{{ $current->id }}" torrent="{{ $current->id }}" state="{{ $current->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                                                                <span id="torrentBookmark{{ $current->id }}" torrent="{{ $current->id }}" state="{{ $bookmarks->where('torrent_id', $current->id)->first() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                                                                 <br>
                                                                                 @if ($current->anon == 1)
@@ -419,8 +419,7 @@
                             </span>
                                                                                 @endif
 
-                                                                                @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $current->id)->first(); @endphp
-                                                                                @if ($freeleech_token)
+                                                                                @if ($user->freeleechTokens->where('torrent_id', $current->id)->first())
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.freeleech-token')'></i> @lang('torrent.freeleech-token')

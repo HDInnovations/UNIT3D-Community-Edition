@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\Type;
@@ -75,13 +76,16 @@ class TorrentController extends Controller
     public function torrents(Request $request)
     {
         $user = $request->user();
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->orderBy('sticky', 'desc')->orderBy('created_at', 'desc')->paginate(25);
         $repository = $this->faceted;
+
+        $torrents = Torrent::with(['user', 'category', 'tags'])->withCount(['thanks', 'comments'])->orderBy('sticky', 'desc')->orderBy('created_at', 'desc')->paginate(50);
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
         return view('torrent.torrents', [
             'personal_freeleech' => $personal_freeleech,
             'repository'         => $repository,
+            'bookmarks'          => $bookmarks,
             'torrents'           => $torrents,
             'user'               => $user,
             'sorting'            => '',
@@ -299,6 +303,8 @@ class TorrentController extends Controller
             }
         }
 
+        $bookmarks = Bookmark::where('user_id', $user->id)->get();
+
         return view('torrent.groupings', [
             'torrents'           => $torrents,
             'user'               => $user,
@@ -309,6 +315,7 @@ class TorrentController extends Controller
             'personal_freeleech' => $personal_freeleech,
             'repository'         => $repository,
             'attributes'         => $attributes,
+            'bookmarks'          => $bookmarks,
         ])->render();
     }
 
@@ -798,6 +805,8 @@ class TorrentController extends Controller
             $logger = 'torrent.results';
         }
 
+        $bookmarks = Bookmark::where('user_id', $user->id)->get();
+
         return view($logger, [
             'torrents'           => $torrents,
             'user'               => $user,
@@ -808,6 +817,7 @@ class TorrentController extends Controller
             'totals'             => $totals,
             'repository'         => $repository,
             'attributes'         => $attributes,
+            'bookmarks'          => $bookmarks,
         ])->render();
     }
 

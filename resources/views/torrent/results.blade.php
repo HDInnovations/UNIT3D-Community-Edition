@@ -103,32 +103,31 @@
                             </a>
                         @endif
 
-                        <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $torrent->id }}" torrent="{{ $torrent->id }}" state="{{ $torrent->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                        <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $torrent->id }}" torrent="{{ $torrent->id }}" state="{{ $bookmarks->where('torrent_id', $torrent->id)->first() ? 1 : 0 }}" class="torrentBookmark"></span>
 
-                        @php $history = \App\Models\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first(); @endphp
-                        @if ($history)
-                            @if ($history->seeder == 1 && $history->active == 1)
+                        @if ($current = $user->history->where('info_hash', $torrent->info_hash)->first())
+                            @if ($current->seeder == 1 && $current->active == 1)
                                 <button class="btn btn-success btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('torrent.currently-seeding')!">
                                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
                                 </button>
                             @endif
 
-                            @if ($history->seeder == 0 && $history->active == 1)
+                            @if ($current->seeder == 0 && $current->active == 1)
                                 <button class="btn btn-warning btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('torrent.currently-leeching')!">
                                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
                                 </button>
                             @endif
 
-                            @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at == null)
+                            @if ($current->seeder == 0 && $current->active == 0 && $current->completed_at == null)
                                 <button class="btn btn-info btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('torrent.not-completed')!">
                                     <i class="{{ config('other.font-awesome') }} fa-spinner"></i>
                                 </button>
                             @endif
 
-                            @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at != null)
+                            @if ($current->seeder == 0 && $current->active == 0 && $current->completed_at != null)
                                 <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('torrent.completed-not-seeding')!">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
@@ -231,8 +230,7 @@
                             </span>
                         @endif
 
-                        @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first(); @endphp
-                        @if ($freeleech_token)
+                        @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                     data-original-title='@lang('torrent.freeleech-token')'></i> @lang('torrent.freeleech-token')
@@ -302,15 +300,12 @@
                             </span>
                         @endif
 
-                        @php $torrent_tags = App\Models\TagTorrent::where('torrent_id', '=', $torrent->id)->get(); @endphp
-                        @if ($torrent_tags)
-                        @foreach($torrent_tags as $torrent_tag)
+                        @foreach($torrent->tags as $tag)
                             <span class="badge-extra text-bold">
                                 <i class='{{ config("other.font-awesome") }} fa-tag' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.genre')'></i> {{ $torrent_tag->genre->name }}
+                                   data-original-title='@lang('torrent.genre')'></i> {{ $tag->name }}
                             </span>
                         @endforeach
-                        @endif
                     </td>
 
                     <td>

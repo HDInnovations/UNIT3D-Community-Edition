@@ -71,13 +71,13 @@ abstract class Client
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            $this->redis->setex($key, 604800, serialize($data));
-
-            return $data;
+            cache()->remember($key, 7 * 24 * 60, function () use ($data) {
+                return serialize($data);
+            });
         }
 
-        if ($cache = $this->redis->get($key)) {
-            return unserialize($cache);
+        if (cache()->has($key)) {
+            return unserialize(cache()->get($key));
         }
 
         return $data;

@@ -680,6 +680,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Has many free leech tokens.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function freeleechTokens()
+    {
+        return $this->hasMany(FreeleechToken::class);
+    }
+
+    /**
      * Get the Users username as slug.
      *
      * @return string
