@@ -208,6 +208,12 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
+        // If Torrent Is Postponed Return Error to Client
+        if ($torrent->status == 2) {
+            //info('Client Attempted To Connect To Announce But The Torrent Is Postponed');
+            return response(Bencode::bencode(['failure reason' => 'Torrent has been postponed']))->withHeaders(['Content-Type' => 'text/plain']);
+        }
+
         $peers = $torrent->peers->where('info_hash', '=', $info_hash)->take(100)->toArray();
 
         // Pull Count On Users Peers Per Torrent
