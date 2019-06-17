@@ -26,14 +26,20 @@ class ProcessMassPM implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $sender_id;
+
     protected $receiver_id;
+
     protected $subject;
+
     protected $message;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $sender_id
+     * @param $receiver_id
+     * @param $subject
+     * @param $message
      */
     public function __construct($sender_id, $receiver_id, $subject, $message)
     {

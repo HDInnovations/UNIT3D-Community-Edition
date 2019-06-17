@@ -26,9 +26,15 @@
 @section('content')
     <div class="container box">
         <div class="box-body">
-            <button id="create-new-backup-button" href="{{ url('staff_dashboard/backup/create') }}"
-                    class="btn btn-primary ladda-button" data-style="zoom-in"><span class="ladda-label"><i
-                            class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_backup')</span></button>
+            <button id="create-full-backup-button" href="{{ url('staff_dashboard/backup/create-full') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
+                <span class="ladda-label"><i class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_backup')</span>
+            </button>
+            <button id="create-files-backup-button" href="{{ url('staff_dashboard/backup/create-files') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
+                <span class="ladda-label"><i class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_files_backup')</span>
+            </button>
+            <button id="create-db-backup-button" href="{{ url('staff_dashboard/backup/create-db') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
+                <span class="ladda-label"><i class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_db_backup')</span>
+            </button>
             <br>
             <h3>@lang('backup.existing_backups'):</h3>
             <table class="table table-hover table-condensed">
@@ -70,12 +76,12 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         jQuery(document).ready(function ($) {
 
-            // capture the Create new backup button
-            $("#create-new-backup-button").click(function (e) {
+            // capture the Create full backup button
+            $("#create-full-backup-button").click(function (e) {
                 e.preventDefault();
                 var create_backup_url = $(this).attr('href');
                 // Create a new instance of ladda for the specified button
-                var l = Ladda.create(document.querySelector('#create-new-backup-button'));
+                var l = Ladda.create(document.querySelector('#create-full-backup-button'));
 
                 // Start loading
                 l.start();
@@ -96,10 +102,30 @@
                         l.setProgress(0.9);
                         // Show an alert with the result
                         if (result.indexOf('failed') >= 0) {
-                            toastr.warning("@lang('backup.create_warning_title')", "@lang('backup.create_warning_message')");
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'warning',
+                            title:'@lang('backup.create_warning_message')'
+                          })
                         }
                         else {
-                            toastr.success("@lang('backup.create_confirmation_title')", "@lang('backup.create_confirmation_message')");
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'success',
+                            title:'@lang('backup.create_confirmation_message')'
+                          })
                         }
 
                         // Stop loading
@@ -114,12 +140,184 @@
                     error: function (result) {
                         l.setProgress(0.9);
                         // Show an alert with the result
-                        toastr.warning("@lang('backup.create_error_title')", "@lang('backup.create_error_message')");
+                      const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                      });
+
+                      Toast.fire({
+                        type: 'warning',
+                        title:'@lang('backup.create_error_message')'
+                      })
                         // Stop loading
                         l.stop();
                     }
                 });
             });
+
+          // capture the Create files backup button
+          $("#create-files-backup-button").click(function (e) {
+            e.preventDefault();
+            var create_backup_url = $(this).attr('href');
+            // Create a new instance of ladda for the specified button
+            var l = Ladda.create(document.querySelector('#create-files-backup-button'));
+
+            // Start loading
+            l.start();
+
+            // Will display a progress bar for 10% of the button width
+            l.setProgress(0.3);
+
+            setTimeout(function () {
+              l.setProgress(0.6);
+            }, 2000);
+
+            // do the backup through ajax
+            $.ajax({
+              url: create_backup_url,
+              data: {_token: '{{csrf_token()}}'},
+              type: 'POST',
+              success: function (result) {
+                l.setProgress(0.9);
+                // Show an alert with the result
+                if (result.indexOf('failed') >= 0) {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'warning',
+                    title:'@lang('backup.create_warning_message')'
+                  })
+                }
+                else {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'success',
+                    title:'@lang('backup.create_confirmation_message')'
+                  })
+                }
+
+                // Stop loading
+                l.setProgress(1);
+                l.stop();
+
+                // refresh the page to show the new file
+                setTimeout(function () {
+                  location.reload();
+                }, 3000);
+              },
+              error: function (result) {
+                l.setProgress(0.9);
+                // Show an alert with the result
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+
+                Toast.fire({
+                  type: 'warning',
+                  title:'@lang('backup.create_error_message')'
+                })
+                // Stop loading
+                l.stop();
+              }
+            });
+          });
+
+          // capture the Create db backup button
+          $("#create-db-backup-button").click(function (e) {
+            e.preventDefault();
+            var create_backup_url = $(this).attr('href');
+            // Create a new instance of ladda for the specified button
+            var l = Ladda.create(document.querySelector('#create-db-backup-button'));
+
+            // Start loading
+            l.start();
+
+            // Will display a progress bar for 10% of the button width
+            l.setProgress(0.3);
+
+            setTimeout(function () {
+              l.setProgress(0.6);
+            }, 2000);
+
+            // do the backup through ajax
+            $.ajax({
+              url: create_backup_url,
+              data: {_token: '{{csrf_token()}}'},
+              type: 'POST',
+              success: function (result) {
+                l.setProgress(0.9);
+                // Show an alert with the result
+                if (result.indexOf('failed') >= 0) {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'warning',
+                    title:'@lang('backup.create_warning_message')'
+                  })
+                }
+                else {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'success',
+                    title:'@lang('backup.create_confirmation_message')'
+                  })
+                }
+
+                // Stop loading
+                l.setProgress(1);
+                l.stop();
+
+                // refresh the page to show the new file
+                setTimeout(function () {
+                  location.reload();
+                }, 3000);
+              },
+              error: function (result) {
+                l.setProgress(0.9);
+                // Show an alert with the result
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+
+                Toast.fire({
+                  type: 'warning',
+                  title:'@lang('backup.create_error_message')'
+                })
+                // Stop loading
+                l.stop();
+              }
+            });
+          });
 
             // capture the delete button
             $("[data-button-type=delete]").click(function (e) {
@@ -136,17 +334,47 @@
                         type: 'POST',
                         success: function (result) {
                             // Show an alert with the result
-                            toastr.success("@lang('backup.delete_confirmation_title')", "@lang('backup.delete_confirmation_message')");
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'success',
+                            title:'@lang('backup.delete_confirmation_message')'
+                          })
                             // delete the row from the table
                             delete_button.parentsUntil('tr').parent().remove();
                         },
                         error: function (result) {
-                            // Show an alert with the result
-                            toastr.warning("@lang('backup.delete_error_message')", "@lang('backup.delete_error_title')");
+                          // Show an alert with the result
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'warning',
+                            title:'@lang('backup.delete_error_title')'
+                          })
                         }
                     });
                 } else {
-                    toastr.info("@lang('backup.delete_cancel_title')", "@lang('backup.delete_cancel_message')");
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'info',
+                    title:'@lang('backup.delete_cancel_message')'
+                  })
                 }
             });
 

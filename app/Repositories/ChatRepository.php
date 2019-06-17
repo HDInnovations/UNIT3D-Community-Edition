@@ -23,6 +23,7 @@ use App\Models\UserEcho;
 use App\Models\ChatStatus;
 use App\Events\MessageSent;
 use App\Models\UserAudible;
+use Illuminate\Support\Str;
 use App\Events\MessageDeleted;
 use App\Http\Resources\ChatMessageResource;
 
@@ -224,9 +225,11 @@ class ChatRepository
     {
         $message = $this->message->find($id);
 
-        broadcast(new MessageDeleted($message));
+        if ($message) {
+            broadcast(new MessageDeleted($message));
 
-        return $message->delete();
+            return $message->delete();
+        }
     }
 
     public function messages($room_id)
@@ -372,7 +375,7 @@ class ChatRepository
         }
 
         foreach (config('censor.replace') as $word => $rword) {
-            if (str_contains($message, $word)) {
+            if (Str::contains($message, $word)) {
                 $message = str_replace($word, $rword, $message);
             }
         }

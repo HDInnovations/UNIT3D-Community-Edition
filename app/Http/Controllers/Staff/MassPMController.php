@@ -15,27 +15,11 @@ namespace App\Http\Controllers\Staff;
 
 use App\Models\User;
 use App\Jobs\ProcessMassPM;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class MassPMController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * MassPMController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Mass PM Form.
      *
@@ -55,7 +39,7 @@ class MassPMController extends Controller
      */
     public function sendMassPM(Request $request)
     {
-        $staff = auth()->user();
+        $staff = $request->user();
         $users = User::all();
 
         $sender_id = 1;
@@ -69,7 +53,7 @@ class MassPMController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('massPM')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             foreach ($users as $user) {
                 $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
@@ -79,7 +63,7 @@ class MassPMController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
 
             return redirect()->route('massPM')
-                ->with($this->toastr->success('MassPM Sent', 'Yay!', ['options']));
+                ->withSuccess('MassPM Sent');
         }
     }
 }

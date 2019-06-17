@@ -16,10 +16,11 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Peer;
 use App\Models\User;
 use App\Models\Group;
-use App\Models\Client;
 use App\Models\Report;
+use App\Models\Seedbox;
 use App\Models\Torrent;
 use App\Models\Application;
+use Illuminate\Http\Request;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use Spatie\SslCertificate\SslCertificate;
@@ -31,11 +32,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(Request $request)
     {
         // User Info
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
 
         $num_user = User::count();
         $banned = User::where('group_id', '=', $bannedGroup->id)->count();
@@ -52,8 +53,8 @@ class HomeController extends Controller
         $leechers = Peer::where('seeder', '=', 0)->count();
 
         // Seedbox Info
-        $seedboxes = Client::count();
-        $highspeed_users = Client::count();
+        $seedboxes = Seedbox::count();
+        $highspeed_users = Seedbox::count();
         $highspeed_torrents = Torrent::where('highspeed', '=', 1)->count();
 
         // User Info
@@ -63,7 +64,7 @@ class HomeController extends Controller
 
         // SSL Info
         try {
-            $certificate = request()->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
+            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
         } catch (\Exception $e) {
             $certificate = '';
         }

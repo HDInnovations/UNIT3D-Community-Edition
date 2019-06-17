@@ -57,12 +57,12 @@ class TorrentFacetedRepository
     public function sorting()
     {
         return [
-            'created_at'      => 'Date',
-            'name'            => 'Name',
-            'seeders'         => 'Seeders',
-            'leechers'        => 'Leechers',
-            'times_completed' => 'Times Completed',
-            'size'            => 'Size',
+            'created_at'      => trans('torrent.date'),
+            'name'            => trans('torrent.name'),
+            'seeders'         => trans('torrent.seeders'),
+            'leechers'        => trans('torrent.leechers'),
+            'times_completed' => trans('torrent.completed-times'),
+            'size'            => trans('torrent.size'),
         ];
     }
 
@@ -74,8 +74,8 @@ class TorrentFacetedRepository
     public function direction()
     {
         return [
-            'desc' => 'Descending',
-            'asc'  => 'Ascending',
+            'desc' => trans('common.descending'),
+            'asc'  => trans('common.ascending'),
         ];
     }
 }

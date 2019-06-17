@@ -20,6 +20,13 @@
                     @include('cookieConsent::index')
                     @include('partials.alerts')
                     <div id="app">
+                        @if ($errors->any())
+                            <div id="ERROR_COPY" style="display: none;">
+                                @foreach ($errors->all() as $error)
+                                    {{ $error }}<br>
+                                @endforeach
+                            </div>
+                        @endif
                         @yield('content')
                     </div>
                     @include('partials.footer')
@@ -34,7 +41,7 @@
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-                CountDownTimer('{{config('other.freeleech_until')}}', 'promotions');
+                CountDownTimer('{{ config('other.freeleech_until') }}', 'promotions');
 
                 function CountDownTimer(dt, id) {
                     var end = new Date(dt);
@@ -81,7 +88,7 @@
 
         @if (Session::has('achievement'))
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-                swal({
+                Swal.fire({
                     title: '@lang('common.achievement-title')!',
                     text: '@lang('common.unlocked-achievement', ['achievement' => Session::get('achievement')])',
                     type: 'success'
@@ -89,15 +96,37 @@
             </script>
         @endif
 
-        {!! Toastr::message() !!}
+        @foreach (['warning', 'success', 'info'] as $key)
+        @if (Session::has($key))
+            <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+              });
+
+              Toast.fire({
+                type: '{{ $key }}',
+                title: '{{ Session::get($key) }}'
+              })
+            </script>
+        @endif
+        @endforeach
+
+        @if (Session::has('errors'))
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+          Swal.fire({
+            title: '<strong>Validation Error</strong>',
+            type: 'error',
+            html: jQuery("#ERROR_COPY").html(),
+            showCloseButton: true,
+          })
+        </script>
+        @endif
+
         @yield('javascripts')
         @yield('scripts')
-
-        @if (config('app.debug') == false)
-            <!-- INSERT YOUR ANALYTICS CODE HERE -->
-        @else
-            <!-- INSERT DEBUG CODE HERE -->
-        @endif
         </body>
 
 </html>

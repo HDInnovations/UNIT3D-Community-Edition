@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Rss;
 use App\Models\Type;
 use App\Models\Category;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TorrentFacetedRepository;
@@ -29,20 +28,13 @@ class RssController extends Controller
     private $torrent_faceted;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * RssController Constructor.
      *
      * @param TorrentFacetedRepository $torrent_faceted
-     * @param Toastr $toastr
      */
-    public function __construct(TorrentFacetedRepository $torrent_faceted, Toastr $toastr)
+    public function __construct(TorrentFacetedRepository $torrent_faceted)
     {
         $this->torrent_faceted = $torrent_faceted;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -66,9 +58,9 @@ class RssController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
 
         return view('Staff.rss.create', [
@@ -87,7 +79,7 @@ class RssController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $v = validator($request->all(), [
             'name' => 'required|min:3|max:255',
@@ -125,11 +117,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('Staff.rss.create')
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->withErrors($error);
         }
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->withSuccess($success);
     }
 
     /**
@@ -138,9 +130,9 @@ class RssController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
@@ -162,7 +154,7 @@ class RssController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         $v = validator($request->all(), [
@@ -200,11 +192,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('Staff.rss.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->withErrors($error);
         }
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->withSuccess($success);
     }
 
     /**
@@ -219,6 +211,6 @@ class RssController extends Controller
         $rss->delete();
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
+            ->withSuccess('RSS Feed Deleted!');
     }
 }

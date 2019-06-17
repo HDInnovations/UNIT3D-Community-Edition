@@ -1,6 +1,3 @@
-/*! WysiBB v1.5.1 2014-03-26 
-    Author: Vadim Dobroskok
- */
 if (typeof WBBLANG == 'undefined') {
     WBBLANG = {};
 }
@@ -11,8 +8,6 @@ WBBLANG['en'] = CURLANG = {
     strike: 'Strike',
     link: 'Link',
     img: 'Insert image',
-    sup: 'Superscript',
-    sub: 'Subscript',
     justifyleft: 'Align left',
     justifycenter: 'Align center',
     justifyright: 'Align right',
@@ -66,17 +61,6 @@ WBBLANG['en'] = CURLANG = {
     auto: 'Auto',
     views: 'Views',
     downloads: 'Downloads',
-
-    //smiles
-    sm1: 'Smile',
-    sm2: 'Laughter',
-    sm3: 'Wink',
-    sm4: 'Thank you',
-    sm5: 'Scold',
-    sm6: 'Shock',
-    sm7: 'Angry',
-    sm8: 'Pain',
-    sm9: 'Sick',
 };
 wbbdebug = true;
 (function($) {
@@ -117,7 +101,7 @@ wbbdebug = true;
 
             //END img upload config
             buttons:
-                'bold,italic,underline,strike,sup,sub,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat',
+                'bold,italic,underline,strike,|,img,video,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,spoiler,note,alert,sscompare,table,removeFormat',
             allButtons: {
                 bold: {
                     title: CURLANG.bold,
@@ -155,22 +139,6 @@ wbbdebug = true;
                     transform: {
                         '<strike>{SELTEXT}</strike>': '[s]{SELTEXT}[/s]',
                         '<s>{SELTEXT}</s>': '[s]{SELTEXT}[/s]',
-                    },
-                },
-                sup: {
-                    title: CURLANG.sup,
-                    buttonHTML: '<span class="fonticon ve-tlb-sup1">\uE005</span>',
-                    excmd: 'superscript',
-                    transform: {
-                        '<sup>{SELTEXT}</sup>': '[sup]{SELTEXT}[/sup]',
-                    },
-                },
-                sub: {
-                    title: CURLANG.sub,
-                    buttonHTML: '<span class="fonticon ve-tlb-sub1">\uE004</span>',
-                    excmd: 'subscript',
-                    transform: {
-                        '<sub>{SELTEXT}</sub>': '[sub]{SELTEXT}[/sub]',
                     },
                 },
                 link: {
@@ -227,7 +195,7 @@ wbbdebug = true;
                     excmd: 'insertUnorderedList',
                     transform: {
                         '<ul>{SELTEXT}</ul>': '[list]{SELTEXT}[/list]',
-                        '<li>{SELTEXT}</li>': '[*]{SELTEXT}[/*]',
+                        '<li>{SELTEXT}</li>': '[*]{SELTEXT}',
                     },
                 },
                 numlist: {
@@ -236,7 +204,7 @@ wbbdebug = true;
                     excmd: 'insertOrderedList',
                     transform: {
                         '<ol>{SELTEXT}</ol>': '[list=1]{SELTEXT}[/list]',
-                        '<li>{SELTEXT}</li>': '[*]{SELTEXT}[/*]',
+                        '<li>{SELTEXT}</li>': '[*]{SELTEXT}',
                     },
                 },
                 quote: {
@@ -441,6 +409,63 @@ wbbdebug = true;
                     title: CURLANG.removeFormat,
                     buttonHTML: '<span class="fonticon ve-tlb-removeformat1">\uE00f</span>',
                     excmd: 'removeFormat',
+                },
+
+                spoiler: {
+                    title: 'Spoiler',
+                    buttonText: '[SPOILER]',
+                    modal: {
+                        title: 'Spoiler',
+                        width: '500px',
+                        tabs: [
+                            {
+                                input: [
+                                    { param: 'SPOILER_TITLE', title: 'Spoiler Title', type: 'div' },
+                                    { param: 'SPOILER_CONTENT', title: 'Spoiler Content' },
+                                ],
+                            },
+                        ],
+                    },
+                    transform: {
+                        '<details class="btn btn-md btn-warning"><summary>{SPOILER_TITLE}</summary><pre><code>{SPOILER_CONTENT}</code></pre></details>': '[spoiler={SPOILER_TITLE}]{SPOILER_CONTENT}[/spoiler]',
+                        '<details class="btn btn-md btn-warning"><summary>Spoiler</summary><pre><code>{SPOILER_CONTENT}</code></pre></details>': '[spoiler]{SPOILER_CONTENT}[/spoiler]',
+                    },
+                },
+
+                note: {
+                    title: 'Note',
+                    buttonText: '[NOTE]',
+                    transform: {
+                        '<div class="bbcode-note">{SELTEXT}</dive>': '[note]{SELTEXT}[/note]',
+                    },
+                },
+
+                alert: {
+                    title: 'Alert',
+                    buttonText: '[ALERT]',
+                    transform: {
+                        '<div class="bbcode-alert">{SELTEXT}</dive>': '[alert]{SELTEXT}[/alert]',
+                    },
+                },
+
+                sscompare: {
+                    title: 'SS Compare',
+                    buttonText: '[SS-COMPARE]',
+                    modal: {
+                        title: 'Screen Shot Compare',
+                        width: '500px',
+                        tabs: [
+                            {
+                                input: [
+                                    { param: 'URL-1', title: 'First Image', validation: '^http(s)?://.*?.(jpg|png|gif|jpeg|svg)$', },
+                                    { param: 'URL-2', title: 'Second Image', validation: '^http(s)?://.*?.(jpg|png|gif|jpeg|svg)$', },
+                                ],
+                            },
+                        ],
+                    },
+                    transform: {
+                        '<a class="ss-compare" href="#"><img src="{URL-1}" /><img src="{URL-2}" /></a>': '[ss-compare={URL-1}]{URL-2}[/ss-compare]',
+                    },
                 },
             },
             systr: {
@@ -889,7 +914,7 @@ wbbdebug = true;
                 let mheight = this.options.autoresize === true ? this.options.resize_maxheight : height;
                 this.$body = $(
                     this.strf(
-                        '<div class="wysibb-text-editor" style="max-height:{maxheight}px;min-height:{height}px"></div>',
+                        '<div class="wysibb-text-editor" style="max-height:{maxheight}px;min-height:{height}px;"></div>',
                         { maxheight: mheight, height: height }
                     )
                 ).insertAfter(this.$txtArea);

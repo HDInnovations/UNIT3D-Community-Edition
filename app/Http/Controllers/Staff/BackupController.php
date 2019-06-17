@@ -25,9 +25,9 @@ class BackupController extends Controller
     /**
      * Display All Backups.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         if (! count(config('backup.backup.destination.disks'))) {
@@ -67,9 +67,9 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         try {
@@ -90,13 +90,64 @@ class BackupController extends Controller
     }
 
     /**
+     * Create A Backup.
+     */
+    public function createFilesOnly(Request $request)
+    {
+        $user = $request->user();
+        abort_unless($user->group->is_owner, 403);
+
+        try {
+            ini_set('max_execution_time', 900);
+            // start the backup process
+            Artisan::call('backup:run --only-files');
+            $output = Artisan::output();
+
+            // log the results
+            info('A new backup was initiated from the staff dashboard '.$output);
+            // return the results as a response to the ajax call
+            echo $output;
+        } catch (Exception $e) {
+            response($e->getMessage(), 500);
+        }
+
+        return 'success';
+    }
+
+    /**
+     * Create A Backup.
+     */
+    public function createDatabaseOnly(Request $request)
+    {
+        $user = $request->user();
+        abort_unless($user->group->is_owner, 403);
+
+        try {
+            ini_set('max_execution_time', 900);
+            // start the backup process
+            Artisan::call('backup:run --only-db');
+            $output = Artisan::output();
+
+            // log the results
+            info('A new backup was initiated from the staff dashboard '.$output);
+            // return the results as a response to the ajax call
+            echo $output;
+        } catch (Exception $e) {
+            response($e->getMessage(), 500);
+        }
+
+        return 'success';
+    }
+
+    /**
      * Download A Backup.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     * @return
      */
     public function download(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         $disk = Storage::disk($request->input('disk'));
@@ -119,11 +170,12 @@ class BackupController extends Controller
     /**
      * Deletes A Backup.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
      */
     public function delete(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
         $disk = Storage::disk($request->input('disk'));

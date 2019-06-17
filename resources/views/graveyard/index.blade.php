@@ -16,19 +16,19 @@
     <!-- Search -->
     <div class="container box">
         <div class="text-center">
-            <h3 class="filter-title">Search Filters</h3>
+            <h3 class="filter-title">@lang('torrent.filters')</h3>
         </div>
         <form role="form" method="GET" action="GraveyardController@index" class="form-horizontal form-condensed form-torrent-search form-bordered">
         @csrf
         <div class="form-group">
-            <label for="name" class="col-sm-1 label label-default">Name</label>
+            <label for="name" class="col-sm-1 label label-default">@lang('torrent.name')</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="search" placeholder="Name / Title">
+                <input type="text" class="form-control" id="search" placeholder="@lang('torrent.name')">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="imdb" class="col-sm-1 label label-default">Number</label>
+            <label for="imdb" class="col-sm-1 label label-default">ID</label>
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
             </div>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <label for="category" class="col-sm-1 label label-default">Category</label>
+            <label for="category" class="col-sm-1 label label-default">@lang('torrent.category')</label>
             <div class="col-sm-10">
                 @foreach ($repository->categories() as $id => $category)
                     <span class="badge-user">
@@ -57,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">Type</label>
+            <label for="type" class="col-sm-1 label label-default">@lang('torrent.type')</label>
             <div class="col-sm-10">
                 @foreach ($repository->types() as $id => $type)
                     <span class="badge-user">
@@ -73,7 +73,7 @@
         <hr>
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="sorting">SortBy:</label>
+                <label class="control-label col-sm-2" for="sorting">@lang('common.sort')</label>
                 <div class="col-sm-2">
                     <select id="sorting" name="sorting" class="form-control">
                         @foreach ($repository->sorting() as $value => $sort)
@@ -88,7 +88,7 @@
                         @endforeach
                     </select>
                 </div>
-                <label class="control-label col-sm-2" for="qty">Quanity:</label>
+                <label class="control-label col-sm-2" for="qty">@lang('common.quantity')</label>
                 <div class="col-sm-2">
                     <select id="qty" name="qty" class="form-control">
                         <option value="25" selected>25</option>

@@ -14,27 +14,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Page;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * PageController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All Pages.
      *
@@ -68,7 +53,7 @@ class PageController extends Controller
     {
         $page = new Page();
         $page->name = $request->input('name');
-        $page->slug = str_slug($page->name);
+        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = validator($page->toArray(), [
@@ -79,12 +64,12 @@ class PageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $page->save();
 
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->success('Page has been created successfully', 'Yay!', ['options']));
+                ->withSuccess('Page has been created successfully');
         }
     }
 
@@ -116,7 +101,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
-        $page->slug = str_slug($page->name);
+        $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
         $v = validator($page->toArray(), [
@@ -127,12 +112,12 @@ class PageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $page->save();
 
             return redirect()->route('staff_page_index')
-                ->with($this->toastr->success('Page has been edited successfully', 'Yay!', ['options']));
+                ->withSuccess('Page has been edited successfully');
         }
     }
 
@@ -149,6 +134,6 @@ class PageController extends Controller
         Page::findOrFail($id)->delete();
 
         return redirect()->route('staff_page_index')
-            ->with($this->toastr->success('Page has been deleted successfully', 'Yay!', ['options']));
+            ->withSuccess('Page has been deleted successfully');
     }
 }

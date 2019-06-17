@@ -15,25 +15,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Post;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * LikeController Constructor.
-     *
-     * @param Toastr               $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Like A Post.
      *
@@ -41,21 +26,21 @@ class LikeController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store($postId)
+    public function store(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
-        $user = auth()->user();
+        $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return redirect($postUrl)
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
+            return redirect()->to($postUrl)
+                ->withErrors('You have already liked/disliked this post!');
         } elseif ($user->id == $post->user_id) {
-            return redirect($postUrl)
-                ->with($this->toastr->error('You cannot like your own post!', 'Umm', ['options']));
+            return redirect()->to($postUrl)
+                ->withErrors('You cannot like your own post!');
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -63,8 +48,8 @@ class LikeController extends Controller
             $new->like = 1;
             $new->save();
 
-            return redirect($postUrl)
-                ->with($this->toastr->success('Like Successfully Applied!', 'Yay', ['options']));
+            return redirect()->to($postUrl)
+                ->withSuccess('Like Successfully Applied!');
         }
     }
 
@@ -75,21 +60,21 @@ class LikeController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($postId)
+    public function destroy(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
-        $user = auth()->user();
+        $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return redirect($postUrl)
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
+            return redirect()->to($postUrl)
+                ->withErrors('You have already liked/disliked this post!');
         } elseif ($user->id == $post->user_id) {
-            return redirect($postUrl)
-                ->with($this->toastr->error('You cannot dislike your own post!', 'Umm', ['options']));
+            return redirect()->to($postUrl)
+                ->withErrors('You cannot dislike your own post!');
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -97,8 +82,8 @@ class LikeController extends Controller
             $new->dislike = 1;
             $new->save();
 
-            return redirect($postUrl)
-                ->with($this->toastr->success('Dislike Successfully Applied!', 'Yay', ['options']));
+            return redirect()->to($postUrl)
+                ->withSuccess('Dislike Successfully Applied!');
         }
     }
 }

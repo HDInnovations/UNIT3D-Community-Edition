@@ -35,7 +35,7 @@
             </div>
         @else
             <div class="block">
-                @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+                @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
                     @include('user.buttons.forum')
                 @else
                     @include('user.buttons.public')
@@ -60,6 +60,7 @@
                 </thead>
                 <tbody>
                 @foreach ($results as $r)
+                    @if ($r->viewable())
                     <tr>
                         <td class="f-display-topic-icon"><span
                                     class="badge-extra text-bold">{{ $r->forum->name }}</span></td>
@@ -94,6 +95,7 @@
                             </time>
                         </td>
                     </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>

@@ -12,17 +12,15 @@
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">@lang('common.account')</h2>
             <ul>
-                @if (auth()->check())
-                    <li>
-                        <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">@lang('user.my-profile')</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                              style="display: none;">@csrf</form>
-                    </li>
-                @endif
+                <li>
+                    <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">@lang('user.my-profile')</a>
+                </li>
+                <li>
+                    <a href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                          style="display: none;">@csrf</form>
+                </li>
             </ul>
         </div>
 
@@ -64,14 +62,31 @@
 
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">@lang('common.other')</h2>
-            <a href="https://www.patreon.com/UNIT3D"
-               class="btn btn-xs btn-primary">@lang('common.patron')</a>
-            <a href="https://github.com/UNIT3D/UNIT3D"
-               class="btn btn-xs btn-primary">@lang('common.powered-by')</a>
+            <ul>
+                <li><a href="https://www.patreon.com/UNIT3D" target="_blank" 
+                    class="btn btn-xs btn-primary">@lang('common.patron')</a></li>
+                <li><a href="https://github.com/UNIT3D/UNIT3D" target="_blank" 
+                    class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="subfooter text-center"style="background-color: rgb(46,46,46);">
+    <div class="container">
+        <div class="subfooter-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <span>This page took {{ (microtime(true) - LARAVEL_START) }} seconds to render.</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
     <i class="{{ config('other.font-awesome') }} fa-arrow-square-up"></i>
+</a>
+<a id="back-to-down" href="#" class="btn btn-primary btn-lg back-to-down" role="button">
+    <i class="{{ config('other.font-awesome') }} fa-arrow-square-down"></i>
 </a>

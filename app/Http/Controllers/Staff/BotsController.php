@@ -14,27 +14,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Bot;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class BotsController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * BotsController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Display a listing of the Bots resource.
      *
@@ -56,9 +41,9 @@ class BotsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bot = Bot::findOrFail($id);
 
         return view('Staff.bots.edit', [
@@ -76,7 +61,7 @@ class BotsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bot = Bot::findOrFail($id);
 
         if ($request->has('command') && $request->input('command') == $bot->command) {
@@ -111,7 +96,7 @@ class BotsController extends Controller
 
         if ($v->passes()) {
             $bot->name = $request->input('name');
-            $bot->slug = str_slug($request->input('name'));
+            $bot->slug = Str::slug($request->input('name'));
             $bot->position = $request->input('position');
             $bot->color = $request->input('color');
             $bot->icon = $request->input('icon');
@@ -130,11 +115,11 @@ class BotsController extends Controller
             }
 
             return redirect()->route('Staff.bots.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->withErrors($error);
         }
 
         return redirect()->route('Staff.bots.edit', ['id' => $id])
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->withSuccess($success);
     }
 
     /**
@@ -149,7 +134,7 @@ class BotsController extends Controller
         $bot->delete();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0', 'Yay!', ['options']));
+            ->withSuccess('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');
     }
 
     /**
@@ -165,7 +150,7 @@ class BotsController extends Controller
         $bot->save();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Bot Has Been Disabled', 'Yay!', ['options']));
+            ->withSuccess('The Bot Has Been Disabled');
     }
 
     /**
@@ -181,6 +166,6 @@ class BotsController extends Controller
         $bot->save();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Bot Has Been Enabled', 'Yay!', ['options']));
+            ->withSuccess('The Bot Has Been Enabled');
     }
 }

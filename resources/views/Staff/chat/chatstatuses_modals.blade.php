@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <div class="modal-header" style="text-align: center">
+            <div class="modal-header" style="text-align: center;">
                 <h3>Edit Chat Status ({{ $chatstatus->name }})</h3>
             </div>
 

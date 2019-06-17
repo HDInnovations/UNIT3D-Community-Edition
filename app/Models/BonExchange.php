@@ -15,6 +15,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string|null $description
+ * @property int $value
+ * @property int $cost
+ * @property bool $upload
+ * @property bool $download
+ * @property bool $personal_freeleech
+ * @property bool $invite
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereDownload($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereInvite($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange wherePersonalFreeleech($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereUpload($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereValue($value)
+ * @mixin \Eloquent
+ */
 class BonExchange extends Model
 {
     /**
@@ -98,6 +120,7 @@ class BonExchange extends Model
     /**
      * @method getItemCost
      *
+     * @param $id
      * @return int
      */
     public function getItemCost($id)

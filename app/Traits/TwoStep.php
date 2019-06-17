@@ -89,11 +89,12 @@ trait TwoStep
     /**
      * Generate Authorization Code.
      *
-     * @param int    $length
-     * @param string $prefix
-     * @param string $suffix
+     * @param  int  $length
+     * @param  string  $prefix
+     * @param  string  $suffix
      *
      * @return string
+     * @throws \Exception
      */
     private function generateCode(int $length = 4, string $prefix = '', string $suffix = '')
     {
@@ -216,10 +217,8 @@ trait TwoStep
     /**
      * Send verification code via notify.
      *
-     * @param array  $user
-     * @param string $deliveryMethod (nullable)
-     * @param string $code
-     *
+     * @param $twoStepAuth
+     * @param  string  $deliveryMethod  (nullable)
      * @return void
      */
     protected function sendVerificationCodeNotification($twoStepAuth, $deliveryMethod = null)

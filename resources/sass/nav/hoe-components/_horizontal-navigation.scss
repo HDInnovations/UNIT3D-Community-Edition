@@ -3,7 +3,7 @@ body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'
 }
 
 body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] .left-navbar li:first-child {
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] .theme-config a {
@@ -381,7 +381,7 @@ body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'
 }
 
 body[hoe-navigation-type='horizontal'] #hoeapp-wrapper[hoe-device-type='desktop'] #main-content .content-title {
-    border-top: 0px solid #e8e8e8;
+    border-top: 0 solid #e8e8e8;
 }
 
 body[hoe-navigation-type='horizontal'] #hoeapp-wrapper.compact-hmenu[hoe-device-type='desktop'] #hoe-left-panel {

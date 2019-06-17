@@ -12,7 +12,7 @@
     </li>
     <li>
         <a href="{{ route('uploaders') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.top-uploaders')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.top-uploaders-count')</span>
         </a>
     </li>
 @endsection
@@ -22,12 +22,12 @@
         @include('partials.statsusermenu')
 
         <div class="block">
-            <h2>@lang('stat.top-uploaders') ({{ strtoupper(trans('stat.by-count')) }})</h2>
+            <h2>@lang('user.top-uploaders-count')</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('stat.top-uploaders')
-                        </strong> ({{ strtoupper(trans('stat.by-count')) }})</p>
+                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('user.top-uploaders-count')
+                        </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>

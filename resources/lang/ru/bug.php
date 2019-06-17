@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'bug-report'             => 'Bug report',
-    'bug-report-description' => 'Report a site bug',
-    'enter-username'         => 'Please enter your username',
-    'enter-email'            => 'Please enter your e-mail',
-    'enter-title'            => 'Please choose a proper title',
-    'enter-description'      => 'Describe the problem as best as possible',
-    'priority'               => 'Priority',
-    'priority-description'   => 'Choose only very high if the bug really is a problem for using the site.',
-    'low'                    => 'Low',
-    'high'                   => 'High',
-    'very-high'              => 'Very high',
+  'bug-report' => 'Сообщение об ошибке',
+  'bug-report-description' => 'Сообщить об ошибке на сайте',
+  'enter-description' => 'Опишите проблему как можно лучше',
+  'enter-email' => 'Пожалуйста, введите свой адрес электронной почты',
+  'enter-title' => 'Пожалуйста, выберите правильное название',
+  'enter-username' => 'Пожалуйста, введите имя пользователя',
+  'high' => 'Высоко',
+  'low' => 'Низкий',
+  'priority' => 'приоритет',
+  'priority-description' => 'Выберите только очень высокий, если ошибка действительно является проблемой для использования сайта.',
+  'very-high' => 'Очень высоко',
 ];

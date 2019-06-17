@@ -24,7 +24,7 @@ export default {
                 .then(response => {
                     if (response.data.updated === false) {
                         this.loading = false;
-                        Swal({
+                        Swal.fire({
                             position: 'center',
                             type: 'warning',
                             title: 'There Is A Update Available!',
@@ -41,7 +41,7 @@ export default {
                         });
                     } else {
                         this.loading = false;
-                        Swal({
+                        Swal.fire({
                             position: 'center',
                             type: 'success',
                             title: 'You Are Running The Latest Version Of UNIT3D!',
@@ -51,7 +51,7 @@ export default {
                     }
                 })
                 .catch(error => {
-                    Swal('Oops...', error.response.data, 'error');
+                    Swal.fire('Oops...', error.response.data, 'error');
                 });
         },
     },

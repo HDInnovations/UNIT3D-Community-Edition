@@ -20,7 +20,7 @@
 }
 
 .inner-content {
-    padding: 0px;
+    padding: 0;
 }
 
 .theme-panel .panel-heading {
@@ -90,7 +90,7 @@
 
 #hoeapp-container[hoe-lpanel-effect='push'].hoe-minimized-lpanel #main-content {
     margin-left: 50px;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 #styleSelector {
@@ -164,10 +164,10 @@
 }
 
 #styleSelector ul li {
-    border-bottom: 0px solid #e9e9e9;
+    border-bottom: 0 solid #e9e9e9;
     display: block;
     margin: 0;
-    padding: 0px 5px 5px 5px;
+    padding: 0 5px 5px 5px;
     text-align: left;
     width: 100%;
 }
@@ -250,7 +250,7 @@
 }
 
 #theme-color {
-    padding: 0px 10px;
+    padding: 0 10px;
     width: 100%;
 }
 
@@ -260,8 +260,8 @@
     display: inline-block;
     height: 18px;
     width: 18px;
-    margin: 0px;
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 #theme-color a:hover,
@@ -400,7 +400,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #18720b;
-    border: 0px solid #18720b;
+    border: 0 solid #18720b;
 }
 
 #hoe-header[hoe-color-type='logo-bg2'] .hoe-left-header {
@@ -426,7 +426,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #00498c;
-    border: 0px solid #00498c;
+    border: 0 solid #00498c;
 }
 
 #hoe-header[hoe-color-type='logo-bg3'] .hoe-left-header {
@@ -452,7 +452,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #021577;
-    border: 0px solid #021577;
+    border: 0 solid #021577;
 }
 
 #hoe-header[hoe-color-type='logo-bg4'] .hoe-left-header {
@@ -478,7 +478,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #b02913;
-    border: 0px solid #b02913;
+    border: 0 solid #b02913;
 }
 
 #hoe-header[hoe-color-type='logo-bg5'] .hoe-left-header {
@@ -504,7 +504,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #ffffff;
-    border: 0px solid #ffffff;
+    border: 0 solid #ffffff;
 }
 
 #hoe-header[hoe-color-type='logo-bg6'] .hoe-left-header {
@@ -530,7 +530,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #382a5f;
-    border: 0px solid #382a5f;
+    border: 0 solid #382a5f;
 }
 
 #hoe-header[hoe-color-type='logo-bg7'] .hoe-left-header {
@@ -556,7 +556,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #3e3e3e;
-    border: 0px solid #3e3e3e;
+    border: 0 solid #3e3e3e;
 }
 
 #hoe-header[hoe-color-type='logo-bg8'] .hoe-left-header {
@@ -582,7 +582,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #fff;
-    border: 0px solid #fff;
+    border: 0 solid #fff;
 }
 
 #hoe-header[hoe-color-type='logo-bg9'] .hoe-left-header {
@@ -608,7 +608,7 @@
     .hoe-sidebar-toggle
     a:after {
     color: #185b96;
-    border: 0px solid #185b96;
+    border: 0 solid #185b96;
 }
 
 .hoe-right-header[hoe-color-type='header-bg1'] {
@@ -624,7 +624,7 @@
 }
 
 .hoe-right-header[hoe-color-type='header-bg1'] .hoe-sidebar-toggle a:after {
-    border: 0px solid #96cd69;
+    border: 0 solid #96cd69;
     color: #18720b;
 }
 
@@ -658,7 +658,7 @@
 }
 
 .hoe-right-header[hoe-color-type='header-bg2'] .hoe-sidebar-toggle a:after {
-    border: 0px solid #3ea2e5;
+    border: 0 solid #3ea2e5;
     color: #00498c;
 }
 
@@ -692,7 +692,7 @@
 }
 
 .hoe-right-header[hoe-color-type='header-bg3'] .hoe-sidebar-toggle a:after {
-    border: 0px solid #576acc;
+    border: 0 solid #576acc;
     color: #021577;
 }
 
@@ -727,7 +727,7 @@
 
 .hoe-right-header[hoe-color-type='header-bg4'] .hoe-sidebar-toggle a:after {
     background: transparent;
-    border: 0px solid #ed6853;
+    border: 0 solid #ed6853;
     color: #b02913;
 }
 
@@ -762,7 +762,7 @@
 
 .hoe-right-header[hoe-color-type='header-bg5'] .hoe-sidebar-toggle a:after {
     background: transparent;
-    border: 0px solid #1f1f2a;
+    border: 0 solid #1f1f2a;
     color: #8d8d94;
 }
 
@@ -796,7 +796,7 @@
 
 .hoe-right-header[hoe-color-type='header-bg6'] .hoe-sidebar-toggle a:after {
     background: transparent;
-    border: 0px solid #6b598e;
+    border: 0 solid #6b598e;
     color: #382a5f;
 }
 
@@ -830,7 +830,7 @@
 }
 
 .hoe-right-header[hoe-color-type='header-bg7'] .hoe-sidebar-toggle a:after {
-    border: 0px solid #efefef;
+    border: 0 solid #efefef;
     color: #7e7e7e;
 }
 
@@ -865,7 +865,7 @@
 
 .hoe-right-header[hoe-color-type='header-bg8'] .hoe-sidebar-toggle a:after {
     background: transparent;
-    border: 0px solid #455769;
+    border: 0 solid #455769;
     color: #cecece;
 }
 
@@ -900,7 +900,7 @@
 
 .hoe-right-header[hoe-color-type='header-bg9'] .hoe-sidebar-toggle a:after {
     background: transparent;
-    border: 0px solid #5d99cd;
+    border: 0 solid #5d99cd;
     color: #185b96;
 }
 

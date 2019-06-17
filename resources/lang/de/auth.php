@@ -1,47 +1,17 @@
 <?php
 
 return [
-    'attemptsRemaining'          => 'Verbleibender Versuch | Versuche bleiben erhalten',
-    'email'                      => 'Email',
-    'exceededTitle'              => 'Überprüfungsversuche überschritten',
-    'failed'                     => 'Diese Anmeldeinformationen stimmen nicht mit unseren Datensätzen überein.',
-    'inputAlt1'                  => 'Code Eingabe 1',
-    'inputAlt2'                  => 'Code Eingabe 2',
-    'inputAlt3'                  => 'Code Eingabe 3',
-    'inputAlt4'                  => 'Code Eingabe 4',
-    'lockedUntil'                => 'Konto gesperrt bis:',
-    'login'                      => 'Anmeldung',
-    'login-now-on'               => 'Melde dich jetzt an',
-    'logout'                     => 'Ausloggen',
-    'lost-password'              => 'Haben Sie Ihr Passwort vergessen?',
-    'lost-username'              => 'Nutzername vergessen?',
-    'missingCode'                => 'Haben Sie keinen Bestätigungscode erhalten?',
-    'need-invite'                => 'Open Registrierung ist deaktiviert und Sie brauchen eine Einladung, um Zugang zu erhalten!',
-    'no-a-member'                => 'Noch nicht Mitglied? Anmeldung in weniger als 30 Sekunden.',
-    'password'                   => 'Passwort',
-    'recover-my-password'        => 'Erhalte mein Passwort',
-    'remember-me'                => 'Erinnere dich an mich',
-    'returnButton'               => 'Nach Hause zurückkehren',
-    'signup'                     => 'Anmelden',
-    'subtitle'                   => 'Bestätigung notwendig',
-    'throttle'                   => 'Zu viele Anmeldeversuche Bitte versuchen Sie es erneut :seconds Sekunden.',
-    'title'                      => 'Bestätigung in zwei Schritten',
-    'titleFailed'                => 'Verifizierung fehlgeschlagen',
-    'titlePassed'                => 'Gute Neuigkeiten alle zusammen!',
-    'tryAgainIn'                 => 'Versuchen Sie es erneut',
-    'unlock'                     => 'Freischalten',
-    'user-icon'                  => 'Benutzersymbol',
-    'username'                   => 'Nutzername',
-    'verificationEmailButton'    => 'Jetzt Prüfen',
-    'verificationEmailGreeting'  => 'Hallo :username',
-    'verificationEmailMessage'   => 'Der Bestätigungscode für Ihr Konto in zwei Schritten lautet:',
-    'verificationEmailSentMsg'   => 'Bestätigungs-E-Mail gesendet!',
-    'verificationEmailSubject'   => 'Bestätigung notwendig',
-    'verificationEmailSuccess'   => 'Erfolg!',
-    'verificationLockedMessage'  => 'Konto gesperrt!',
-    'verificationLockedTitle'    => 'Do!',
-    'verificationModalConfBtn'   => 'OK',
-    'verificationWarningMessage' => 'Dies ist Ihr letzter Versuch, bevor Ihr Konto gesperrt wird :hours Std.',
-    'verificationWarningTitle'   => 'Warnung!',
-    'verifyButton'               => 'Überprüfen',
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used during authentication for various
+    | messages that we need to display to the user. You are free to modify
+    | these language lines according to your application's requirements.
+    |
+    */
+
+    'failed'   => 'Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.',
+    'throttle' => 'Zu viele Loginversuche. Versuchen Sie es bitte in :seconds Sekunden nochmal.',
 ];

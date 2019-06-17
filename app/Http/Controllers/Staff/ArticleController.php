@@ -15,27 +15,12 @@ namespace App\Http\Controllers\Staff;
 
 use Image;
 use App\Models\Article;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ArticleController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All Articles.
      *
@@ -69,9 +54,9 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $article->title = $request->input('title');
-        $article->slug = str_slug($article->title);
+        $article->slug = Str::slug($article->title);
         $article->content = $request->input('content');
-        $article->user_id = auth()->user()->id;
+        $article->user_id = $request->user()->id;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -80,7 +65,7 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
             $article->image = $filename;
         } else {
-            // Use Default /public/img/missing-image.jpg
+            // Use Default /public/img/missing-image.png
             $article->image = null;
         }
 
@@ -93,12 +78,12 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article has successfully published!', 'Yay!', ['options']));
+                ->withSuccess('Your article has successfully published!');
         }
     }
 
@@ -130,7 +115,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
-        $article->slug = str_slug($article->title);
+        $article->slug = Str::slug($article->title);
         $article->content = $request->input('content');
 
         if ($request->hasFile('image')) {
@@ -140,7 +125,7 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
             $article->image = $filename;
         } else {
-            // Use Default /public/img/missing-image.jpg
+            // Use Default /public/img/missing-image.png
             $article->image = null;
         }
 
@@ -152,12 +137,12 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article changes have successfully published!', 'Yay!', ['options']));
+                ->withSuccess('Your article changes have successfully published!');
         }
     }
 
@@ -175,6 +160,6 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('staff_article_index')
-            ->with($this->toastr->success('Article has successfully been deleted', 'Yay!', ['options']));
+            ->withSuccess('Article has successfully been deleted');
     }
 }

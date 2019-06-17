@@ -98,13 +98,13 @@ class TorrentHelper
             $appname = config('app.name');
             $bot = new IRCAnnounceBot();
             if ($anon == 0) {
-                $bot->message('#announce', '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
-                $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
-                $bot->message('#announce', "[Link: {$appurl}/torrents/".$slug.'.'.$id.']');
+                $bot->message(config('irc-bot.channels'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
+                $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
+                $bot->message(config('irc-bot.channels'), "[Link: {$appurl}/torrents/".$slug.'.'.$id.']');
             } else {
-                $bot->message('#announce', '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
-                $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size: '.$torrent->getSize().']');
-                $bot->message('#announce', "[Link: {$appurl}/torrents/".$slug.'.'.$id.']');
+                $bot->message(config('irc-bot.channels'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
+                $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size: '.$torrent->getSize().']');
+                $bot->message(config('irc-bot.channels'), "[Link: {$appurl}/torrents/".$slug.'.'.$id.']');
             }
         }
 

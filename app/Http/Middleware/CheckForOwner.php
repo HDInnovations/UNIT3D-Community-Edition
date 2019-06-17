@@ -27,9 +27,7 @@ class CheckForOwner
      */
     public function handle($request, Closure $next)
     {
-        if (! auth()->check() || ! auth()->user()->group->is_owner) {
-            return abort(403);
-        }
+        abort_unless($request->user()->group->is_owner, 403);
 
         return $next($request);
     }

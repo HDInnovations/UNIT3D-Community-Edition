@@ -23,15 +23,17 @@ class NewBon extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $sender;
+
     public $transaction;
 
     /**
      * Create a new notification instance.
      *
-     * @param BonTransactions $transaction
-     *
-     * @return void
+     * @param  string  $type
+     * @param  string  $sender
+     * @param  BonTransactions  $transaction
      */
     public function __construct(string $type, string $sender, BonTransactions $transaction)
     {

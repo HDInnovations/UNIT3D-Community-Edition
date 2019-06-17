@@ -24,13 +24,8 @@
                     <form role="form" method="POST" action="{{ route('send-pm') }}">
                         @csrf
                         <div class="form-group">
-                            <label for="users">@lang('pm.select')</label>
-                            <select class="js-example-basic-single form-control" name="receiver_id">
-                                    <option value="{{ $receiver_id }}">{{ $username }}</option>
-                                @foreach ($usernames as $username)
-                                    <option value="{{ $username->id }}">{{ $username->username }}</option>
-                                @endforeach
-                            </select>
+                            <label for="users">@lang('common.username')</label>
+                            <input name="receiver_id" class="form-control" placeholder="@lang('common.username')" required>
                         </div>
 
                         <div class="form-group">
@@ -55,12 +50,6 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('.js-example-basic-single').select2()
-      })
-    </script>
-
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#message').wysibb({});

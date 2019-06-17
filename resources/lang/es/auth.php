@@ -1,47 +1,17 @@
 <?php
 
 return [
-    'attemptsRemaining'          => 'Intento restante | Intentos restantes',
-    'email'                      => 'Email',
-    'exceededTitle'              => 'Intentos de verificación excedidos',
-    'failed'                     => 'Estas credenciales no coinciden con nuestros registros.',
-    'inputAlt1'                  => 'Entrada de código 1',
-    'inputAlt2'                  => 'Entrada de código 2',
-    'inputAlt3'                  => 'Entrada de código 3',
-    'inputAlt4'                  => 'Entrada de código 4',
-    'lockedUntil'                => 'Cuenta bloqueada hasta:',
-    'login'                      => 'Iniciar sesión',
-    'login-now-on'               => 'Iniciar sesión ahora en',
-    'logout'                     => 'Cerrar sesión',
-    'lost-password'              => '¿Olvidaste tu contraseña?',
-    'lost-username'              => '¿Olvidó su nombre de usuario?',
-    'missingCode'                => '¿No recibió el código de verificación?',
-    'need-invite'                => 'El registro abierto está desactivado y necesitará una invitación para obtener acceso.',
-    'no-a-member'                => '¿Aún no eres miembro? Regístrese en menos de 30 s.',
-    'password'                   => 'Contraseña',
-    'recover-my-password'        => 'Recuperar mi contraseña',
-    'remember-me'                => 'Recuérdame',
-    'returnButton'               => 'Volver a casa',
-    'signup'                     => 'Regístrate',
-    'subtitle'                   => 'Verificación requerida',
-    'throttle'                   => 'Demasiados intentos de inicio de sesión. Por favor intente nuevamente :seconds segundos.',
-    'title'                      => 'Verificación en 2 pasos',
-    'titleFailed'                => 'Fallo en la verificación',
-    'titlePassed'                => '¡Buenas noticias para todos!',
-    'tryAgainIn'                 => 'Inténtalo de nuevo',
-    'unlock'                     => 'desbloquear',
-    'user-icon'                  => 'Icono de usuario',
-    'username'                   => 'Nombre de usuario',
-    'verificationEmailButton'    => 'verifica ahora',
-    'verificationEmailGreeting'  => 'Hola :username',
-    'verificationEmailMessage'   => 'El código de verificación en dos pasos de su cuenta es:',
-    'verificationEmailSentMsg'   => '¡El mensaje de verificación ha sido enviado!',
-    'verificationEmailSubject'   => 'Verificación requerida',
-    'verificationEmailSuccess'   => '¡Éxito!',
-    'verificationLockedMessage'  => '¡Cuenta bloqueada!',
-    'verificationLockedTitle'    => 'Doh!',
-    'verificationModalConfBtn'   => 'De acuerdo',
-    'verificationWarningMessage' => 'Este es su último intento antes de que su cuenta se bloquee para :hours horas',
-    'verificationWarningTitle'   => '¡Advertencia!',
-    'verifyButton'               => 'Verificar',
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used during authentication for various
+    | messages that we need to display to the user. You are free to modify
+    | these language lines according to your application's requirements.
+    |
+    */
+
+    'failed'   => 'Estas credenciales no coinciden con nuestros registros.',
+    'throttle' => 'Demasiados intentos de acceso. Por favor, inténtelo de nuevo en :seconds segundos.',
 ];

@@ -105,7 +105,7 @@
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">Genre</label>
+                         <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                         <div class="col-sm-10">
                             @foreach ($repository->tags() as $id => $genre)
                                 <span class="badge-user">
@@ -158,7 +158,7 @@
                         </span>
                             <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
+                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
                             </label>
                         </span>
                         </div>
@@ -211,6 +211,9 @@
             
             <span id="facetedHeader"></span>
             <div id="facetedSearch" type="card" font-awesome="{{ config('other.font-awesome') }}">
+                <div style="width: 100% !important; display: table !important;">
+                    <div class="align-center" style="width: 100% !important; display: table-cell !important;">{{ $torrents->links() }}</div>
+                </div>
                 <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
                         @foreach ($torrents as $k => $t)
@@ -268,7 +271,7 @@
                                             @endif
                                         </div>
                                         <span class="badge-user text-bold" style="float: right;">
-                                            <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
                                             @if($t->movie && ($t->movie->imdbRating || $t->movie->tmdbVotes))
                                                 @if ($user->ratings == 1)
                                                     {{ $t->movie->imdbRating }}/10 ({{ $t->movie->imdbVotes }} @lang('torrent.votes'))

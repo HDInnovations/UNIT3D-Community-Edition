@@ -1,0 +1,28 @@
+<?php
+
+return [
+  'create' => 'Membuat',
+  'delete' => 'Menghapus',
+  'enter-subject' => 'Masukkan subjek',
+  'from' => 'Dari',
+  'inbox' => 'Kotak masuk',
+  'mark-all-read' => 'Tandai semua pesan sebagai sudah dibaca',
+  'message' => 'Pesan',
+  'messages' => 'Pesan',
+  'new' => 'Pesan baru',
+  'outbox' => 'Kotak keluar',
+  'private' => 'Pribadi',
+  'read' => 'Baca baca',
+  'received-at' => 'Diterima Di',
+  'refresh' => 'Menyegarkan',
+  'reply' => 'Balasan',
+  'search' => 'Cari Berdasarkan Subjek',
+  'select' => 'Pilih Pengguna',
+  'send' => 'Kirim PM',
+  'send-to' => 'Kirim PM Ke',
+  'sent' => 'Terkirim',
+  'sent-at' => 'Terkirim Di',
+  'subject' => 'Subyek',
+  'to' => 'Untuk',
+  'unread' => 'Belum dibaca',
+];

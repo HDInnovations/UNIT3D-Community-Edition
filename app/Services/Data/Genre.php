@@ -75,6 +75,7 @@ class Genre
         switch ($genre) {
             case 'Sci-Fi':
                 return 'Science Fiction';
+
                 break;
         }
 

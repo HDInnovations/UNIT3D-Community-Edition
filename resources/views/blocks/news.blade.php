@@ -5,7 +5,7 @@
             <div class="panel-heading">
                 <h4 class="text-center">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                       href="#collapse4" style="color:#fff">
+                       href="#collapse4" style="color:rgb(255,255,255);">
                         @emojione(':rotating_light:') @lang('blocks.new-news') @emojione(':rotating_light:')
                     </a>
                 </h4>
@@ -15,13 +15,13 @@
             <div class="panel-heading">
                 <h4 class="text-center">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                       href="#collapse4" style="color:#fff">
+                       href="#collapse4" style="color:rgb(255,255,255);">
                         @lang('blocks.check-news')
                     </a>
                 </h4>
             </div>
         @endif
-        <div id="collapse4" class="panel-collapse collapse" style="height: 0px;">
+        <div id="collapse4" class="panel-collapse collapse" style="height: 0;">
             <div class="panel-body no-padding">
                 <div class="news-blocks">
                     <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}"
@@ -29,7 +29,7 @@
                         @if ( ! is_null($article->image))
                             <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
                         @else
-                            <img src="{{ url('img/missing-image.jpg') }}" alt="{{ $article->title }}">
+                            <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
                         @endif
                     </a>
 
@@ -40,7 +40,7 @@
                     </p>
 
                     <p style="margin-top: 20px;">
-                        @emojione(preg_replace('#\[[^\]]+\]#', '', str_limit($article->content), 150))...
+                        @emojione(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content), 150))...
                     </p>
 
                     <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}" class="btn btn-success">

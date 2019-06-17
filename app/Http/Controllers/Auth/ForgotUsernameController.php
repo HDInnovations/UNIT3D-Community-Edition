@@ -14,28 +14,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\UsernameReminder;
 
 class ForgotUsernameController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ForgotUsernameController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Forgot Username Form.
      *
@@ -49,32 +33,40 @@ class ForgotUsernameController extends Controller
     /**
      * Send Username Reminder.
      *
+     * @param  Request  $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function sendUsernameReminder(Request $request)
     {
         $email = $request->get('email');
 
-        $v = validator($request->all(), [
-            'email' => 'required',
-        ]);
+        if (config('captcha.enabled') == false) {
+            $v = validator($request->all(), [
+                'email' => 'required',
+            ]);
+        } else {
+            $v = validator($request->all(), [
+                'email' => 'required',
+                'g-recaptcha-response' => 'required|recaptcha',
+            ]);
+        }
 
         if ($v->fails()) {
             return redirect()->route('username.request')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $user = User::where('email', '=', $email)->first();
 
             if (empty($user)) {
                 return redirect()->route('username.request')
-                    ->with($this->toastr->error('We could not find this email in our system!', 'Whoops!', ['options']));
+                    ->withErrors(trans('email.no-email-found'));
             }
 
             //send username reminder notification
             $user->notify(new UsernameReminder());
 
             return redirect()->route('login')
-                ->with($this->toastr->success('Your username has been sent to your email address!', 'Yay!', ['options']));
+                ->withSuccess(trans('email.username-sent'));
         }
     }
 }

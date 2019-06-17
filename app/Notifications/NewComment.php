@@ -22,12 +22,14 @@ class NewComment extends Notification
     use Queueable;
 
     public $type;
+
     public $comment;
 
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param  string  $type
+     * @param  Comment  $comment
      */
     public function __construct(string $type, Comment $comment)
     {

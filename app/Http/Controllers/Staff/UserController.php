@@ -26,7 +26,6 @@ use App\Models\Invite;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Torrent;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
@@ -34,21 +33,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * UserController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Users List.
      *
@@ -74,6 +58,7 @@ class UserController extends Controller
     /**
      * Search For A User.
      *
+     * @param  Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSearch(Request $request)
@@ -119,7 +104,7 @@ class UserController extends Controller
     public function userEdit(Request $request, $username, $id)
     {
         $user = User::with('group')->findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $sendto = (int) $request->input('group_id');
 
@@ -150,7 +135,7 @@ class UserController extends Controller
 
         if ($target >= $sender || ($sender == 0 && ($sendto == 6 || $sendto == 4 || $sendto == 10)) || ($sender == 1 && ($sendto == 4 || $sendto == 10))) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Whoops!', ['options']));
+                ->withErrors('You Are Not Authorized To Perform This Action!');
         }
 
         $user->username = $request->input('username');
@@ -166,7 +151,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
         return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
-            ->with($this->toastr->success('Account Was Updated Successfully!', 'Yay!', ['options']));
+            ->withSuccess('Account Was Updated Successfully!');
     }
 
     /**
@@ -181,7 +166,7 @@ class UserController extends Controller
     public function userPermissions(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $user->can_upload = $request->input('can_upload');
         $user->can_download = $request->input('can_download');
@@ -195,7 +180,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
         return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
-            ->with($this->toastr->success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+            ->withSuccess('Account Permissions Successfully Edited');
     }
 
     /**
@@ -220,7 +205,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
         return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
-            ->with($this->toastr->success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
+            ->withSuccess('Account Password Was Updated Successfully!');
     }
 
     /**
@@ -230,8 +215,6 @@ class UserController extends Controller
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
-     *
-     * Todo: Refactor Once New Migrations Are In Place And Soft Deletes Are Added
      */
     protected function userDelete($username, $id)
     {
@@ -313,11 +296,11 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
 
         if ($user->delete()) {
-            return redirect('staff_dashboard')
-                ->with($this->toastr->success('Account Has Been Removed', 'Yay!', ['options']));
+            return redirect()->to('staff_dashboard')
+                ->withSuccess('Account Has Been Removed');
         } else {
-            return redirect('staff_dashboard')
-                ->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
+            return redirect()->to('staff_dashboard')
+                ->withErrors('Something Went Wrong!');
         }
     }
 
@@ -328,8 +311,8 @@ class UserController extends Controller
      */
     public function massValidateUsers()
     {
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
-        $memberGroup = Group::where('slug', '=', 'user')->select('id')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
         $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup->id)->get();
 
         foreach ($users as $user) {
@@ -343,7 +326,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect('staff_dashboard')
-            ->with($this->toastr->success('Unvalidated Accounts Are Now Validated', 'Yay!', ['options']));
+        return redirect()->to('staff_dashboard')
+            ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

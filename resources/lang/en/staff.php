@@ -8,8 +8,6 @@ return [
     'blocks'                  => 'Blocks',
     'bot'                     => 'Bot',
     'bots'                    => 'Bots',
-    'catalog-groups'          => 'Catalog Groups',
-    'catalog-torrents'        => 'Catalog Torrents',
     'chat'                    => 'Chat',
     'config-manager'          => 'Config Manager',
     'dashboard'               => 'Dashboard',

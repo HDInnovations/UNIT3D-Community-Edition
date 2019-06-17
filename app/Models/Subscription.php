@@ -15,6 +15,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int|null $forum_id
+ * @property int|null $topic_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Forum|null $forum
+ * @property-read \App\Models\Topic|null $topic
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereForumId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereTopicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Subscription extends Model
 {
     /**

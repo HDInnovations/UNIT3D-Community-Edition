@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Ban Log</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.ban-log')</span>
         </a>
     </li>
 @endsection
@@ -19,33 +19,33 @@
                 <a href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">
                     {{ $user->username }}
                 </a>
-                Ban Log
+                @lang('user.ban-log')
             </h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
                     <h2>
                         <span class="text-red">
-                            <strong>Bans </strong>
+                            <strong>@lang('user.bans') </strong>
                         </span>
                     </h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>User</th>
-                                <th>Judge</th>
-                                <th>Ban Reason</th>
-                                <th>Unban Reason</th>
-                                <th>Created</th>
-                                <th>Removed</th>
+                                <th>@lang('common.user')</th>
+                                <th>@lang('user.judge')</th>
+                                <th>@lang('user.reason-ban')</th>
+                                <th>@lang('user.reason-unban')</th>
+                                <th>@lang('user.created')</th>
+                                <th>@lang('user.removed')</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if (count($bans) == 0)
                                 <tr>
                                     <td>
-                                        <p>The are no bans in the database for this user!</p>
+                                        <p>@lang('user.no-ban')</p>
                                     </td>
                                 </tr>
                             @else

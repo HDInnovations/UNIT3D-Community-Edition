@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="genre">Genre</label>
+                        <label for="genre">@lang('torrent.genre')</label>
                         <div>
                             @foreach ($torrent_repository->tags() as $id => $genre)
                                 <span class="badge-user">
@@ -133,7 +133,7 @@
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="internal" name="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
+                                    <input type="checkbox" id="internal" name="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
                                 </label>
                             </span>
                         </div>

@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'notifications'    => 'Notifications',
-    'mark-all-read'    => 'Mark all as read',
-    'mark-read'        => 'Mark as read',
-    'delete-all'       => 'Delete all notifications',
-    'title'            => 'Title',
-    'message'          => 'Message',
-    'date'             => 'Date',
-    'read'             => 'Read',
-    'delete'           => 'Delete',
-    'no-notifications' => 'There are no notifications found',
+  'date' => 'Дата',
+  'delete' => 'Удалить',
+  'delete-all' => 'Удалить все уведомления',
+  'mark-all-read' => 'Отметить все как прочитанное',
+  'mark-read' => 'Пометить, как прочитанное',
+  'message' => 'Сообщение',
+  'no-notifications' => 'Уведомления не найдены',
+  'notifications' => 'Уведомления',
+  'read' => 'Читать',
+  'title' => 'Заголовок',
 ];

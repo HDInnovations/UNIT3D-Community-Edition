@@ -1,0 +1,28 @@
+<?php
+
+return [
+  'create' => 'Sortu',
+  'delete' => 'ezabatu',
+  'enter-subject' => 'Sartu gaia',
+  'from' => 'aurrera',
+  'inbox' => 'Sarrerako ontzia',
+  'mark-all-read' => 'Markatu mezu guztiak irakurritako gisa',
+  'message' => 'Mezua',
+  'messages' => 'Mezuak',
+  'new' => 'Mezu berria',
+  'outbox' => 'Irteerako ontzia',
+  'private' => 'Pribatua',
+  'read' => 'irakurri',
+  'received-at' => 'Jasotakoan',
+  'refresh' => 'Freskatu',
+  'reply' => 'Erantzun',
+  'search' => 'Bilatu gaiaren arabera',
+  'select' => 'Hautatu Erabiltzaile bat',
+  'send' => 'Bidali PM',
+  'send-to' => 'Bidali PM To',
+  'sent' => 'bidalia',
+  'sent-at' => 'At bidalita',
+  'subject' => 'Gaia',
+  'to' => 'to',
+  'unread' => 'Irakurri gabeko',
+];

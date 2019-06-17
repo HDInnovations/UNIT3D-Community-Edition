@@ -23,7 +23,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
 
-                    <div class="modal-header" style="text-align: center">
+                    <div class="modal-header" style="text-align: center;">
                         <h3>Add Chat Status</h3>
                     </div>
 
@@ -99,7 +99,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
 
-                    <div class="modal-header" style="text-align: center">
+                    <div class="modal-header" style="text-align: center;">
                         <h3>Add Chatroom</h3>
                     </div>
 

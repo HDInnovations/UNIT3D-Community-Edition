@@ -14,26 +14,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\LogActivity;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ActivityLogController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ActivityLogController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Display All Activities.
      *
@@ -53,15 +38,15 @@ class ActivityLogController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $activity = LogActivity::findOrFail($id);
 
         abort_unless($user->group->is_modo, 403);
         $activity->delete();
 
         return redirect()->route('activity.index')
-            ->with($this->toastr->success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
+            ->withSuccess('Activity Record Has Successfully Been Deleted');
     }
 }

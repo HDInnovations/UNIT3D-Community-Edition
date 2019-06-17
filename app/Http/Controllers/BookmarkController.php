@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
+use Illuminate\Http\Request;
 use App\Models\PersonalFreeleech;
 
 class BookmarkController extends Controller
@@ -23,9 +24,9 @@ class BookmarkController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bookmarks()
+    public function bookmarks(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $bookmarks = $user->bookmarks()->paginate(25);
 

@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">Genre</label>
+                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                         <div class="col-sm-10">
                             @foreach ($repository->tags() as $id => $genre)
                                 <span class="badge-user">
@@ -160,7 +160,7 @@
                 </span>
                             <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="internal" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
+                        <input type="checkbox" id="internal" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
                     </label>
                 </span>
                         </div>
@@ -253,7 +253,7 @@
                     </button>
                     <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.not-completed')!'>
-                        <i class='{{ config("other.font-awesome") }} fa-hand-paper'></i>
+                        <i class='{{ config("other.font-awesome") }} fa-spinner'></i>
                     </button>
                     <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.completed-not-seeding')!'>

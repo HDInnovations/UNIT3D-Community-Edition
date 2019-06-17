@@ -50,7 +50,7 @@
                     <ul class="list-inline">
                         <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>@lang('torrent.size')
                                 : </strong> {{ $torrent->getSize() }}</span>
-                        <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-calendar"></i> <strong>@lang('torrent.released')
+                        <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> <strong>@lang('torrent.released')
                                 : </strong> {{ $torrent->created_at->diffForHumans() }}</span>
                         <span class="badge-extra text-green"><li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> <strong>@lang('torrent.seeders')
                                     : </strong> {{ $torrent->seeders }}</li></span>
@@ -71,13 +71,13 @@
                 @else<span class="badge-extra text-green"><i
                             class="{{ config('other.font-awesome') }} fa-check"></i> {{ strtoupper(trans('torrent.passed')) }}</span>
                 @endif
-                <strong>Download Rights Active: </strong>
+                <strong>@lang('torrent.download-rights-active'): </strong>
                 @if ($user->can_download == 0 && $torrent->user_id != $user->id)<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i> {{ strtoupper(trans('torrent.failed')) }}</span>
                 @else<span class="badge-extra text-green"><i
                             class="{{ config('other.font-awesome') }} fa-check"></i> {{ strtoupper(trans('torrent.passed')) }}</span>
                 @endif
-                <strong>Torrent Status: </strong>
+                <strong>@lang('torrent.moderation'): </strong>
                 @if ($torrent->isRejected())<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i> {{ strtoupper(trans('torrent.rejected')) }}</span>
                 @elseif ($torrent->isPending())<span class="badge-extra text-orange"><i

@@ -20,7 +20,6 @@ use App\Models\Group;
 use App\Models\Torrent;
 use App\Models\Category;
 use App\Models\TagTorrent;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\TorrentFacetedRepository;
 
@@ -32,20 +31,13 @@ class RssController extends Controller
     private $torrent_faceted;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * RssController Constructor.
      *
      * @param TorrentFacetedRepository $torrent_faceted
-     * @param Toastr $toastr
      */
-    public function __construct(TorrentFacetedRepository $torrent_faceted, Toastr $toastr)
+    public function __construct(TorrentFacetedRepository $torrent_faceted)
     {
         $this->torrent_faceted = $torrent_faceted;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -54,9 +46,9 @@ class RssController extends Controller
      * @param  string  $hash
      * @return \Illuminate\Http\Response
      */
-    public function index($hash = null)
+    public function index(Request $request, $hash = null)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
         $private_rss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
@@ -74,9 +66,9 @@ class RssController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
 
         return view('rss.create', [
@@ -95,7 +87,7 @@ class RssController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $v = validator($request->all(), [
             'name' => 'required|min:3|max:255',
@@ -131,11 +123,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('rss.create')
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->withErrors($error);
         }
 
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->withSuccess($success);
     }
 
     /**
@@ -150,8 +142,8 @@ class RssController extends Controller
         $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
         $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
 
         if ($user->group->id == $bannedGroup->id) {
             abort(404);
@@ -162,8 +154,6 @@ class RssController extends Controller
         if ($user->active == 0) {
             abort(404);
         }
-
-        $torrent = Torrent::with(['user', 'category']);
 
         $search = $rss->object_torrent->search;
         $description = $rss->object_torrent->description;
@@ -204,7 +194,7 @@ class RssController extends Controller
             $description .= '%'.$keyword.'%';
         }
 
-        $torrent = $torrent->with(['user', 'category'])->withCount(['thanks', 'comments']);
+        $torrent = Torrent::with(['user', 'category']);
 
         if ($rss->object_torrent->search) {
             $torrent->where(function ($query) use ($search) {
@@ -251,7 +241,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->genres && is_array($rss->object_torrent->genres)) {
-            $genreID = TagTorrent::distinct()->select('torrent_id')->whereIn('tag_name', $genres)->get();
+            $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
             $torrent->whereIn('id', $genreID)->cursor();
         }
 
@@ -295,12 +285,9 @@ class RssController extends Controller
             $torrent->where('seeders', '=', $dead);
         }
 
-        $torrents = $torrent->latest()->paginate(50);
+        $torrents = $torrent->latest()->take(50)->get();
 
-        return view('rss.show', [
-            'torrents'        => $torrents,
-            'rsskey'          => $user->rsskey,
-        ])->render();
+        return response()->view('rss.show', ['torrents' => $torrents, 'rsskey' => $user->rsskey])->header('Content-Type', 'text/xml');
     }
 
     /**
@@ -309,9 +296,9 @@ class RssController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
@@ -333,7 +320,7 @@ class RssController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
         $v = validator($request->all(), [
@@ -367,11 +354,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('rss.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->withErrors($error);
         }
 
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->withSuccess($success);
     }
 
     /**
@@ -386,6 +373,6 @@ class RssController extends Controller
         $rss->delete();
 
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
-            ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
+            ->withSuccess('RSS Feed Deleted!');
     }
 }

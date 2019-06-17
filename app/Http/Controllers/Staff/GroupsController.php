@@ -16,27 +16,12 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class GroupsController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * GroupsController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All Groups.
      *
@@ -70,7 +55,7 @@ class GroupsController extends Controller
     {
         $group = new Group();
         $group->name = $request->input('name');
-        $group->slug = str_slug($request->input('name'));
+        $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
         $group->color = $request->input('color');
@@ -97,7 +82,7 @@ class GroupsController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $group->save();
 
@@ -113,7 +98,7 @@ class GroupsController extends Controller
             }
 
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->success('Group Was Created Successfully!', 'Yay!', ['options']));
+                ->withSuccess('Group Was Created Successfully!');
         }
     }
 
@@ -146,7 +131,7 @@ class GroupsController extends Controller
         $group = Group::findOrFail($id);
 
         $group->name = $request->input('name');
-        $group->slug = str_slug($request->input('name'));
+        $group->slug = Str::slug($request->input('name'));
         $group->position = $request->input('position');
         $group->level = $request->input('level');
         $group->color = $request->input('color');
@@ -173,12 +158,12 @@ class GroupsController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $group->save();
 
             return redirect()->route('staff_groups_index')
-                ->with($this->toastr->success('Group Was Updated Successfully!', 'Yay!', ['options']));
+                ->withSuccess('Group Was Updated Successfully!');
         }
     }
 }

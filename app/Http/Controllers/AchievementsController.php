@@ -13,16 +13,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class AchievementsController extends Controller
 {
     /**
      * Show User Achievements.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $achievements = $user->unlockedAchievements();
         $locked = $user->lockedAchievements();
         $pending = $user->inProgressAchievements();

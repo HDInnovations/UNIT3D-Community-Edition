@@ -16,6 +16,32 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $chatroom_id
+ * @property int|null $receiver_id
+ * @property int|null $bot_id
+ * @property string $message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Bot|null $bot
+ * @property-read \App\Models\Chatroom $chatroom
+ * @property-read \App\Models\User|null $receiver
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereBotId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereChatroomId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereReceiverId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Message extends Model
 {
     /**
@@ -74,10 +100,13 @@ class Message extends Model
     /**
      * Parse Content And Return Valid HTML.
      *
+     * @param $message
      * @return string Parsed BBCODE To HTML
      */
     public static function getMessageHtml($message)
     {
-        return Bbcode::parse($message);
+        $bbcode = new Bbcode();
+
+        return $bbcode->parse($message, true);
     }
 }

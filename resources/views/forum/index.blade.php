@@ -23,7 +23,7 @@
         @include('forum.buttons')
         <form role="form" method="GET" action="{{ route('forum_search_form') }}">
             <input type="hidden" name="sorting" value="created_at">
-            <input type="hidden" name="direction" value="2">
+            <input type="hidden" name="direction" value="desc">
             <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.topic-quick-search')"
                    class="form-control">
         </form>
@@ -79,7 +79,7 @@
                                 <td>
                                     <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }} <i
                                                 class="{{ config('other.font-awesome') }} fa-user"></i> <a
-                                                href="{{ route('profile', ['username' => str_slug($categoryChild->last_post_user_username), 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
+                                                href="{{ route('profile', ['username' => Str::slug($categoryChild->last_post_user_username), 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
                                     <br>
                                     <span>@lang('forum.topic') <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i><a
                                                 href="{{ route('forum_topic', ['slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id]) }}"> {{ $categoryChild->last_topic_name }}</a></span>

@@ -1,0 +1,28 @@
+<?php
+
+return [
+  'create' => 'Tạo nên',
+  'delete' => 'Xóa bỏ',
+  'enter-subject' => 'Nhập chủ đề',
+  'from' => 'Từ',
+  'inbox' => 'Hộp thư đến',
+  'mark-all-read' => 'Đánh dấu tất cả các tin nhắn là đã đọc',
+  'message' => 'Thông điệp',
+  'messages' => 'Tin nhắn',
+  'new' => 'Tin nhắn mới',
+  'outbox' => 'Hộp thư đi',
+  'private' => 'Riêng tư',
+  'read' => 'Đọc',
+  'received-at' => 'Đã nhận tại',
+  'refresh' => 'Làm tươi',
+  'reply' => 'Đáp lại',
+  'search' => 'Tìm kiếm theo chủ đề',
+  'select' => 'Chọn một người dùng',
+  'send' => 'Gửi PM',
+  'send-to' => 'Gửi PM tới',
+  'sent' => 'Gởi',
+  'sent-at' => 'Gửi tại',
+  'subject' => 'Môn học',
+  'to' => 'Đến',
+  'unread' => 'Chưa đọc',
+];

@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'dead'               => 'tot',
-    'graveyard'          => 'Friedhof',
-    'guidelines'         => 'Richtlinien',
-    'guidelines-content' => '1) Du kannst deine eigenen Uploads nicht wiederbeleben. <br> 2) Lege nicht etwas zurück, was du nicht begehen kannst.',
-    'howto'              => 'Heres Die Regel',
-    'howto-desc1'        => 'Sie müssen <span class="text-green"> <em> verwenden:name</em> </span> für <span class="text-red text-bold"> 30 Tage </span> für eine erfolgreiche Wiederauferstehung. In diesem Fall, wenn Ihre aktuelle Seedzeit von',
-    'howto-desc2'        => 'Du wirst belohnt',
-    'howto-hits'         => 'Zugriffe',
-    'pending'            => 'steht aus',
-    'resurrect'          => 'Wiederbeleben',
-    'reward'             => 'Freeleech Token',
+  'dead' => 'tot',
+  'graveyard' => 'Friedhof',
+  'guidelines' => 'Richtlinien',
+  'guidelines-content' => '1) Sie können Ihre eigenen Uploads nicht wiederherstellen. <br> 2) Erwecke nicht etwas wieder, das du nicht begehen kannst.',
+  'howto' => 'Heres die Regel',
+  'howto-desc1' => 'Du musst Samen <span class=\\"text-green\\"><em>:</em></span> <span class="text-red text-bold">30 Tage lang</span> benennen, um eine erfolgreiche Wiederauferstehung zu erreichen. In welchem Fall wenn Ihre aktuelle Saatzeit von',
+  'howto-desc2' => 'Du wirst belohnt',
+  'howto-hits' => 'Hits',
+  'pending' => 'steht aus',
+  'resurrect' => 'Wiederbelebung',
+  'reward' => 'Freeleech-Token',
 ];

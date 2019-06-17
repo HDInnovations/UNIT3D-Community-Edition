@@ -6,7 +6,7 @@ export default {
       if (user.id === this.$parent.auth.id) {
         return false
       }
-      Swal({
+      Swal.fire({
         title: `Send Private Message to ${user.username}`,
         width: '800px',
         height: '600px',
@@ -51,7 +51,7 @@ export default {
         allowOutsideClick: false
       }).then(result => {
         if (result.value) {
-          Swal({
+          Swal.fire({
             title: `Sent Private Message to ${result.value.username}`,
             timer: 1500,
             onOpen: () => {

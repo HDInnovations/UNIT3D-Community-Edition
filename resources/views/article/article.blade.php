@@ -29,7 +29,7 @@
             @if ( ! is_null($article->image))
                 <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
             @else
-                <img src="{{ url('img/missing-image.jpg') }}" alt="{{ $article->title }}">
+                <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
             @endif
         </a>
 
@@ -60,17 +60,17 @@
                                 </div>
                             @else
                                 @foreach ($article->comments as $comment)
-                                    <li class="media" style="border-left: 5px solid #01BC8C">
+                                    <li class="media" style="border-left: 5px solid rgb(1,188,140);">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
-                                                <a href="#" class="pull-left" style="padding-right: 10px">
+                                                <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}"
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
                                                 <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
-                                                   class="pull-left" style="padding-right: 10px">
+                                                   class="pull-left" style="padding-right: 10px;">
                                                     @if ($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
@@ -79,15 +79,15 @@
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @endif
                                                 <strong><a
-                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                <a title="@lang('common.delete-comment')"
+                                                <a title="@lang('common.delete-your-comment')"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
-                                                <a title="@lang('common.edit-comment')" data-toggle="modal"
+                                                            class="pull-right btn btn-danger btn-xs {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
+                                                <a title="@lang('common.edit-your-comment')" data-toggle="modal"
                                                    data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa-pencil"
+                                                            class="pull-right btn btn-warning btn-xs {{ config('other.font-awesome') }} fa-pencil"
                                                             aria-hidden="true"></i></a>
                                             @endif
                                             <div class="pt-5">

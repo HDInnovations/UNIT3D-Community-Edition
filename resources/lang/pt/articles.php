@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'articles'      => 'Artigos',
-    'meta-articles' => 'Artigos e notícias do tracker e comunidade',
-    'published-at'  => 'Publicado em ',
-    'read-more'     => 'Leia Mais',
+  'articles' => 'Artigos',
+  'meta-articles' => 'Artigos e notícias sobre o rastreador e a comunidade',
+  'published-at' => 'Publicado em',
+  'read-more' => 'consulte Mais informação',
 ];

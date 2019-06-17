@@ -16,7 +16,7 @@ namespace App\Http\Controllers;
 use Image;
 use Carbon\Carbon;
 use App\Models\Album;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\Clients\OmdbClient;
 
@@ -28,20 +28,13 @@ class AlbumController extends Controller
     private $client;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * AlbumController Constructor.
      *
      * @param OmdbClient $client
-     * @param Toastr     $toastr
      */
-    public function __construct(OmdbClient $client, Toastr $toastr)
+    public function __construct(OmdbClient $client)
     {
         $this->client = $client;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -90,16 +83,16 @@ class AlbumController extends Controller
      */
     public function add(Request $request)
     {
-        $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
+        $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
         if ($omdb === null || $omdb === false) {
             return redirect()->route('create_album_form')
-                ->with($this->toastr->error('Bad IMDB Request!', 'Whoops!', ['options']));
+                ->withErrors('Bad IMDB Request!');
         }
 
         $album = new Album();
-        $album->user_id = auth()->user()->id;
+        $album->user_id = $request->user()->id;
         $album->name = $omdb['Title'].' ('.$omdb['Year'].')';
         $album->description = $request->input('description');
         $album->imdb = $request->input('imdb');
@@ -121,12 +114,12 @@ class AlbumController extends Controller
         if ($v->fails()) {
             return redirect()->route('create_album_form')
                 ->withInput()
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $album->save();
 
             return redirect()->route('show_album', ['id' => $album->id])
-                ->with($this->toastr->success('Your album has successfully published!', 'Yay!', ['options']));
+                ->withSuccess('Your album has successfully published!');
         }
     }
 
@@ -137,15 +130,15 @@ class AlbumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $album = Album::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay()), 403);
         $album->delete();
 
         return redirect()->route('home')
-            ->with($this->toastr->success('Album has successfully been deleted', 'Yay!', ['options']));
+            ->withSuccess('Album has successfully been deleted');
     }
 }

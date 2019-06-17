@@ -94,7 +94,7 @@
         <div class="first-step">
 			<button type="submit" id="confirm-new-key" class="btn btn-primary btn-block">@lang('configmanager.actions.confirm')</button>
         </div>
-        <div class="second-step" style="display:none">
+        <div class="second-step" style="display:none;">
         	<div class="alert alert-warning">
 				<i class="{{ config('other.font-awesome') }} fa-exclamation-triangle pr10"></i>
 				@lang('configmanager.sure')

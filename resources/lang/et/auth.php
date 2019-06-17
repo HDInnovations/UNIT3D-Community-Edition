@@ -1,18 +1,17 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Authentication Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
-    'failed'              => 'These credentials do not match our records.',
-    'throttle'            => 'Too many login attempts. Please try again in :seconds seconds.',
-    'login'               => 'Login',
-    'signup'              => 'Signup',
-    'logout'              => 'Logout',
-    'username'            => 'Username',
-    'password'            => 'Password',
-    'lost-password'       => 'Forgot Your Password?',
-    'recover-my-password' => 'Recover My Password',
-    'remember-me'         => 'Remember Me',
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used during authentication for various
+    | messages that we need to display to the user. You are free to modify
+    | these language lines according to your application's requirements.
+    |
+    */
+
+    'failed'   => 'Need andmed ei klapi meie kirjetega.',
+    'throttle' => 'Liiga palju sisselogimise katseid. Palun proovi uuesti :seconds sekundi pärast.',
 ];

@@ -15,106 +15,202 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Brian2694\Toastr\Toastr;
+use App\Models\Notification;
+use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * NotificationController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
-    /**
      * Show All Notifications.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function get()
+    public function index(Request $request)
     {
-        $notification = auth()->user()->notifications()->paginate(25);
+        $notifications = $request->user()->notifications()->paginate(25);
 
-        return view('notification.notifications', ['notification' => $notification]);
+        return view('notification.index', ['notifications' => $notifications]);
+    }
+
+    /**
+     * Uses Input's To Put Together A Search.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param Notification $notification
+     *
+     * @return array
+     * @throws \Throwable
+     */
+    public function faceted(Request $request, Notification $notification)
+    {
+        $user = $request->user();
+
+        $notification = $user->notifications();
+
+        if ($request->has('bon_gifts') && $request->input('bon_gifts') != null) {
+            $notification->where('type', '=', \App\Notifications\NewBon::class);
+        }
+
+        if ($request->has('comments') && $request->input('comments') != null) {
+            $notification->where('type', '=', \App\Notifications\NewComment::class);
+        }
+
+        if ($request->has('comment_tags') && $request->input('comment_tags') != null) {
+            $notification->where('type', '=', \App\Notifications\NewCommentTag::class);
+        }
+
+        if ($request->has('followers') && $request->input('followers') != null) {
+            $notification->where('type', '=', \App\Notifications\NewFollow::class);
+        }
+
+        if ($request->has('posts') && $request->input('posts') != null) {
+            $notification->where('type', '=', \App\Notifications\NewPost::class);
+        }
+
+        if ($request->has('post_tags') && $request->input('post_tags') != null) {
+            $notification->where('type', '=', \App\Notifications\NewPostTag::class);
+        }
+
+        if ($request->has('post_tips') && $request->input('post_tips') != null) {
+            $notification->where('type', '=', \App\Notifications\NewPostTip::class);
+        }
+
+        if ($request->has('request_bounties') && $request->input('request_bounties') != null) {
+            $notification->where('type', '=', 'App\Notifications\NewRequestCounty');
+        }
+
+        if ($request->has('request_claims') && $request->input('request_claims') != null) {
+            $notification->where('type', '=', \App\Notifications\NewRequestClaim::class);
+        }
+
+        if ($request->has('request_fills') && $request->input('request_fills') != null) {
+            $notification->where('type', '=', \App\Notifications\NewRequestFill::class);
+        }
+
+        if ($request->has('request_approvals') && $request->input('request_approvals') != null) {
+            $notification->where('type', '=', \App\Notifications\NewRequestFillApprove::class);
+        }
+
+        if ($request->has('request_rejections') && $request->input('request_rejections') != null) {
+            $notification->where('type', '=', \App\Notifications\NewRequestFillReject::class);
+        }
+
+        if ($request->has('request_unclaims') && $request->input('request_unclaims') != null) {
+            $notification->where('type', '=', \App\Notifications\NewRequestUnclaim::class);
+        }
+
+        if ($request->has('reseed_requests') && $request->input('reseed_requests') != null) {
+            $notification->where('type', '=', \App\Notifications\NewReseedRequest::class);
+        }
+
+        if ($request->has('thanks') && $request->input('thanks') != null) {
+            $notification->where('type', '=', \App\Notifications\NewThank::class);
+        }
+
+        if ($request->has('upload_tips') && $request->input('upload_tips') != null) {
+            $notification->where('type', '=', \App\Notifications\NewUploadTip::class);
+        }
+
+        if ($request->has('topics') && $request->input('topics') != null) {
+            $notification->where('type', '=', \App\Notifications\NewTopic::class);
+        }
+
+        if ($request->has('unfollows') && $request->input('unfollows') != null) {
+            $notification->where('type', '=', 'App\Notifications\NewUnfollowt');
+        }
+
+        if ($request->has('uploads') && $request->input('uploads') != null) {
+            $notification->where('type', '=', \App\Notifications\NewUpload::class);
+        }
+
+        $notifications = $notification->paginate(25);
+
+        return view('notification.results', [
+            'user'            => $user,
+            'notifications' => $notifications,
+        ])->render();
     }
 
     /**
      * Show A Notification And Mark As Read.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
 
-        return redirect($notification->data['url'])->with($this->toastr->success('Notification Marked As Read!', 'Yay!', ['options']));
+        return redirect()->to($notification->data['url'])
+            ->withSuccess('Notification Marked As Read!');
     }
 
     /**
      * Set A Notification To Read.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function read($id)
+    public function update(Request $request, $id)
     {
-        auth()->user()->unreadNotifications()->findOrFail($id)->markAsRead();
+        $request->user()->unreadNotifications()->findOrFail($id)->markAsRead();
 
-        return redirect()->route('get_notifications')
-            ->with($this->toastr->success('Notification Marked As Read!', 'Yay!', ['options']));
+        return redirect()->route('notifications.index')
+            ->withSuccess('Notification Marked As Read!');
     }
 
     /**
      * Mass Update All Notification's To Read.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function massRead()
+    public function updateAll(Request $request)
     {
         $current = new Carbon();
-        auth()->user()->unreadNotifications()->update(['read_at' => $current]);
+        $request->user()->unreadNotifications()->update(['read_at' => $current]);
 
-        return redirect()->route('get_notifications')
-            ->with($this->toastr->success('All Notifications Marked As Read!', 'Yay!', ['options']));
+        return redirect()->route('notifications.index')
+            ->withSuccess('All Notifications Marked As Read!');
     }
 
     /**
      * Delete A Notification.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function destroy(Request $request, $id)
     {
-        auth()->user()->notifications()->findOrFail($id)->delete();
+        $request->user()->notifications()->findOrFail($id)->delete();
 
-        return redirect()->route('get_notifications')
-            ->with($this->toastr->success('Notification Deleted!', 'Yay!', ['options']));
+        return redirect()->route('notifications.index')
+            ->withSuccess('Notification Deleted!');
     }
 
     /**
      * Mass Delete All Notification's.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteAll()
+    public function destroyAll(Request $request)
     {
-        auth()->user()->notifications()->delete();
+        $request->user()->notifications()->delete();
 
-        return redirect()->route('get_notifications')
-            ->with($this->toastr->success('All Notifications Deleted!', 'Yay!', ['options']));
+        return redirect()->route('notifications.index')
+            ->withSuccess('All Notifications Deleted!');
     }
 }

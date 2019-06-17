@@ -36,12 +36,12 @@
                     <thead>
                     <tr>
                         <th>@lang('common.user')</th>
-                        <th>@lang('common.active')</th>
+                        <th>@lang('common.connected')</th>
                         <th>@lang('torrent.completed')</th>
                         <th>@lang('common.upload')</th>
                         <th>@lang('common.download')</th>
                         <th>@lang('common.added')</th>
-                        <th>@lang('torrent.updated')</th>
+                        <th>@lang('torrent.last-update')</th>
                         <th>@lang('torrent.seedtime')</th>
                     </tr>
                     </thead>
@@ -55,7 +55,7 @@
                                     @if (auth()->user()->id == $hpeers->user->id || auth()->user()->group->is_modo)
                                         <a href="{{ route('profile', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span
                                                     class="badge-user text-bold"
-                                                    style="color:{{ $hpeers->user->group->color }}">{{ $hpeers->user->username }}</span></a>
+                                                    style="color:{{ $hpeers->user->group->color }};">{{ $hpeers->user->username }}</span></a>
                                     @endif
                                 </td>
                             @else

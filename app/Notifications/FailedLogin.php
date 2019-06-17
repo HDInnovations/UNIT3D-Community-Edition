@@ -65,9 +65,9 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * Get the database representation of the notification.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      *
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return array
      */
     public function toArray($notifiable)
     {
@@ -88,9 +88,9 @@ class FailedLogin extends Notification implements ShouldQueue
     {
         return (new MailMessage())
                 ->error()
-                ->subject('Failed Login Notification')
-                ->greeting('Account Login Failed!')
-                ->line('A failed login was detected for your account.')
-                ->line('This request originated from '.$this->ip.' ('.gethostbyaddr($this->ip).') at '.$this->time);
+                ->subject(trans('email.fail-login-subject'))
+                ->greeting(trans('email.fail-login-greeting'))
+                ->line(trans('email.fail-login-line1'))
+                ->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => $this->time]));
     }
 }

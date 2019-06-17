@@ -22,12 +22,14 @@ class NewThank extends Notification
     use Queueable;
 
     public $type;
+
     public $thank;
 
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param  string  $type
+     * @param  Thank  $thank
      */
     public function __construct(string $type, Thank $thank)
     {

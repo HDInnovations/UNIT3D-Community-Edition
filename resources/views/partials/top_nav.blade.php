@@ -2,12 +2,12 @@
     <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home') }}">
             <div class="banner">
-                <i class="{{ config('other.font-awesome') }} fa-rocket" style="display: inline;"></i>
+                <i class="fal fa-rocket" style="display: inline;"></i>
             </div>
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
     </div>
-    <div class="hoe-right-header" hoe-position-type="relative" hoe-color-type="header-bg5">
+    <div class="hoe-right-header" hoe-position-type="fixed" hoe-color-type="header-bg5">
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
@@ -22,7 +22,7 @@
             </li>
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                <a href="{{ route('get_notifications') }}" class="icon-circle">
+                <a href="{{ route('notifications.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
                     @if (auth()->user()->unreadNotifications->count() > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
@@ -53,7 +53,7 @@
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span>
-                <img src="{{ url('img/flags/'.strtolower(auth()->user()->locale).'.png') }}" class="img-circle {{ auth()->user()->locale }}"/>
+                <img src="{{ url('img/flags/'.auth()->user()->locale).'.png' }}" class="img-circle {{ auth()->user()->locale }}"/>
             </span>
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
@@ -61,7 +61,7 @@
                     @foreach (App\Models\Language::allowed() as $code => $name)
                         <li class="{{ config('language.flags.li_class') }}">
                             <a href="{{ route('back', ['local' => $code]) }}">
-                                <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}"
+                                <img src="{{ url('img/flags/'.$code.'.png') }}" alt="{{ $name }}"
                                      class="img-circle {{ $code }}"
                                      width="{{ config('language.flags.width') }}"/>
                                     {{ $name }}

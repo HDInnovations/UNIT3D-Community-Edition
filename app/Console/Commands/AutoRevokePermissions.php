@@ -42,11 +42,11 @@ class AutoRevokePermissions extends Command
      */
     public function handle()
     {
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
-        $leechGroup = Group::where('slug', '=', 'leech')->select('id')->first();
-        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
-        $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $leechGroup = Group::select(['id'])->where('slug', '=', 'leech')->first();
+        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
+        $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
 
         User::whereNotIn('group_id', [$bannedGroup->id, $validatingGroup->id, $leechGroup->id, $disabledGroup->id, $prunedGroup->id])->update(['can_download' => '1', 'can_request' => '1']);
         User::whereIn('group_id', [$bannedGroup->id, $validatingGroup->id, $leechGroup->id, $disabledGroup->id, $prunedGroup->id])->update(['can_download' => '0', 'can_request' => '0']);

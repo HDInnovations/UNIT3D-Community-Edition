@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'notifications'    => 'Notificaties',
-    'mark-all-read'    => 'Markeer alles als gelezen',
-    'mark-read'        => 'Markeer als gelezen',
-    'delete-all'       => 'Verwijder alle notificaties',
-    'title'            => 'Titel',
-    'message'          => 'Bericht',
-    'date'             => 'Datum',
-    'read'             => 'Gelezen',
-    'delete'           => 'Verwijder',
-    'no-notifications' => 'Er zijn geen nieuwe notificaties gevonden',
+  'date' => 'Datum',
+  'delete' => 'Verwijder',
+  'delete-all' => 'Verwijder alle meldingen',
+  'mark-all-read' => 'Markeer alles als gelezen',
+  'mark-read' => 'Markeer als gelezen',
+  'message' => 'Bericht',
+  'no-notifications' => 'Er zijn geen meldingen gevonden',
+  'notifications' => 'meldingen',
+  'read' => 'Lezen',
+  'title' => 'Titel',
 ];

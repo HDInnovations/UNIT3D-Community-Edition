@@ -26,6 +26,11 @@
                         <i class="{{ config('other.font-awesome') }} fa-copy"></i> @lang('staff.config-manager')
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('staff.commands.index') }}">
+                        <i class="fab fa-laravel"></i> Commands
+                    </a>
+                </li>
             @endif
 
             <li class="nav-header head">
@@ -108,17 +113,7 @@
             </li>
             <li>
                 <a href="{{ route('staff_tag_index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> Torrent Tags (Genres)
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('getCatalog') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-book"></i> @lang('staff.catalog-groups')
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('getCatalogTorrent') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-book"></i> @lang('staff.catalog-torrents')
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('torrent.genre-tags')
                 </a>
             </li>
             <li>

@@ -3,7 +3,7 @@
         <ul class="list-inline">
             <li>
                 <a href="{{ route('profile', ['username' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
-                    <span class="badge-user text-bold" style="color:{{ auth()->user()->group->color }}">
+                    <span class="badge-user text-bold" style="color:{{ auth()->user()->group->color }};">
                         <strong>{{ auth()->user()->username }}</strong>
                         @if (auth()->user()->getWarning() > 0)
                             <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip"
@@ -73,7 +73,7 @@
             </li>
             <li>
                 <span class="badge-user text-bold">
-                    <i class="{{ config('other.font-awesome') }} fa-shopping-cart text-purple"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-coins text-gold"></i>
                         <a href="{{ route('bonus') }}" title="@lang('user.my-bonus-points')">
                             <span class="text-blue"> @lang('bon.bon'):</span>
                         </a>
@@ -82,7 +82,7 @@
             </li>
             <li>
                 <span class="badge-user text-bold">
-                    <i class="{{ config('other.font-awesome') }} fa-coins text-gold"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                         <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                             title="@lang('user.my-fl-tokens')">
                             <span class="text-blue"> @lang('common.fl_tokens') :</span>

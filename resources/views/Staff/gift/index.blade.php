@@ -27,12 +27,8 @@
         <form action="{{ route('sendSystemGift') }}" method="post">
             @csrf
             <div class="form-group">
-                <label for="users">Select a User</label>
-                <select class="form-control user-select-placeholder-single" name="username">
-                    @foreach ($users as $user)
-                        <option value="{{ $user->username }}">{{ $user->username }}</option>
-                    @endforeach
-                </select>
+                <label for="users">@lang('common.username')</label>
+                <input name="username" class="form-control" placeholder="@lang('common.username')" required>
             </div>
 
             <div class="form-group">
@@ -53,13 +49,4 @@
             <button type="submit" class="btn btn-default">Send</button>
         </form>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $('.user-select-placeholder-single').select2({
-        placeholder: "Select A User",
-        allowClear: true
-      });
-    </script>
 @endsection

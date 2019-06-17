@@ -37,8 +37,8 @@
                 <tr>
                     <th>@lang('common.user')</th>
                     <th>@lang('torrent.progress')</th>
-                    <th>@lang('torrent.uploaded')</th>
-                    <th>@lang('torrent.downloaded')</th>
+                    <th>@lang('common.upload')</th>
+                    <th>@lang('common.download')</th>
                     <th>@lang('torrent.left')</th>
                     <th>@lang('torrent.client')</th>
                     <th>@lang('common.ip')</th>
@@ -57,7 +57,7 @@
                                                                                   aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
                                 @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
                                     <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
-                                                class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }}
+                                                class="badge-user text-bold" style="color:{{ $p->user->group->color }};">({{ $p->user->username }}
                                             )</span></a>@endif</td>
                         @else
                             <td>

@@ -22,7 +22,9 @@ use App\Services\Clients\TvdbClient;
 class MovieScrapper
 {
     private $tmdbClient;
+
     private $omdbClient;
+
     private $tvdbClient;
 
     public function __construct($tmdb_key = null, $tvdb_key = null, $omdb_key = null)
@@ -34,13 +36,13 @@ class MovieScrapper
 
     /**
      * @param $type
-     * @param null $imdb
-     * @param null $tmdb
-     * @param null $tvdb
-     *
-     * @throws \ErrorException
+     * @param  null  $imdb
+     * @param  null  $tmdb
+     * @param  null  $tvdb
      *
      * @return Movie|Tv
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {

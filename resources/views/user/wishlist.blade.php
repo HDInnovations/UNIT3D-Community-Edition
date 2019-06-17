@@ -55,10 +55,10 @@
                         <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th>Title</th>
+                            <th>@lang('torrent.title')</th>
                             <th>IMDB</th>
-                            <th>Status</th>
-                            <th>Delete</th>
+                            <th>@lang('common.status')</th>
+                            <th>@lang('common.delete')</th>
                         </tr>
                         </thead>
                         <tbody>

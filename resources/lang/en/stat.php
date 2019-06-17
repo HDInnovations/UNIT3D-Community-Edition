@@ -1,13 +1,17 @@
 <?php
 
 return [
+    'all-time'                => 'All Time',
     'by-count'                => 'By Count',
     'by-data'                 => 'By Data',
     'by-volume'               => 'By Volume',
     'group'                   => 'Group',
     'groups'                  => 'Groups',
+    'last30days'              => 'Last 30 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'We all love stats. Here are a few that we find important',
+    'languages'               => 'Languages',
+    'place'                   => 'Place',
     'registration-date'       => 'Registration date',
     'request-fulfilled'       => 'Request fulfilled',
     'request-not-fulfilled'   => 'Request not fulfilled',
