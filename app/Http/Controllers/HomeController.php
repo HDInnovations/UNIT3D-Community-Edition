@@ -22,12 +22,12 @@ use App\Models\Topic;
 use App\Models\Article;
 use App\Models\Torrent;
 use App\Models\Bookmark;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\FreeleechToken;
 use App\Models\FeaturedTorrent;
 use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class HomeController extends Controller
 {
@@ -112,7 +112,7 @@ class HomeController extends Controller
             ->withCount([
                 'warnings' => function (Builder $query) {
                     $query->whereNotNull('torrent')->where('active', '1');
-                }
+                },
             ])
             ->where('last_action', '>', now()->subMinutes(5))
             ->get();

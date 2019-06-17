@@ -22,7 +22,7 @@ trait UsersOnlineTrait
      */
     public function isOnline()
     {
-        if (!$this->last_action) {
+        if (! $this->last_action) {
             return false;
         }
 
