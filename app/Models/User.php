@@ -206,6 +206,7 @@ class User extends Authenticatable
      */
     protected $dates = [
         'last_login',
+        'last_action',
     ];
 
     /**
