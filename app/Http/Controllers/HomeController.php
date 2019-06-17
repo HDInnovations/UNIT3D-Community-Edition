@@ -22,6 +22,7 @@ use App\Models\Topic;
 use App\Models\Article;
 use App\Models\Torrent;
 use App\Models\Bookmark;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\FreeleechToken;
 use App\Models\FeaturedTorrent;
@@ -107,7 +108,14 @@ class HomeController extends Controller
         });
 
         // Online Block
-        $users = new User();
+        $users = User::with('group', 'privacy')
+            ->withCount([
+                'warnings' => function (Builder $query) {
+                    $query->whereNotNull('torrent')->where('active', '1');
+                }
+            ])
+            ->where('last_action', '>', now()->subMinutes(5))
+            ->get();
 
         $groups = cache()->remember('user-groups', $expiresAt, function () {
             return Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();

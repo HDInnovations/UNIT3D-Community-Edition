@@ -60,8 +60,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\UpdateLastAction::class,
         ],
-
         'api' => [
             'throttle:60,1',
             'bindings',

@@ -3,36 +3,37 @@
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
             <h4>@lang('blocks.users-online')
-                <span class="label label-default">{{ $users->allOnline()->count() }}</span>
+                <span class="label label-default">{{ $users->count() }}</span>
             </h4>
         </div>
+
         <div class="panel-body">
-            @foreach ($users->mostRecentOnline() as $user)
-                    @if($user->hidden == 1 || !$user->isVisible($user,'other','show_online'))
-                        <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
-                            <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }}
-                            @if (auth()->user()->group->is_modo)
-                                <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">
-                                    {{ $user->username }}
-                                    @if ($user->getWarning() > 0)
-                                        <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                           data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
-                                    @endif
-                                </a>
-                            @endif
-                        </span>
-                    @else
-                        <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">
-                            <span class="badge-user text-bold" style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }}; margin-bottom: 10px;">
-                                <i class="{{ $user->group->icon }}" data-toggle="tooltip" data-original-title="{{ $user->group->name }}"></i>
+            @foreach ($users as $user)
+                @if (!$user->isVisible($user, 'other', 'show_online'))
+                    <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
+                        <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }}
+                        @if (auth()->user()->group->is_modo)
+                            <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">
                                 {{ $user->username }}
-                                @if ($user->getWarning() > 0)
+                                @if ($user->warnings_count > 0)
                                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
                                        data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
                                 @endif
-                            </span>
-                        </a>
-                    @endif
+                            </a>
+                        @endif
+                    </span>
+                @else
+                    <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">
+                        <span class="badge-user text-bold" style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }}; margin-bottom: 10px;">
+                            <i class="{{ $user->group->icon }}" data-toggle="tooltip" data-original-title="{{ $user->group->name }}"></i>
+                            {{ $user->username }}
+                            @if ($user->warnings_count > 0)
+                                <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
+                                   data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
+                            @endif
+                        </span>
+                    </a>
+                @endif
             @endforeach
         </div>
         <div class="panel-footer">

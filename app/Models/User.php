@@ -690,6 +690,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Has many warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function warnings()
+    {
+        return $this->hasMany(Warning::class);
+    }
+
+    /**
      * Get the Users username as slug.
      *
      * @return string
