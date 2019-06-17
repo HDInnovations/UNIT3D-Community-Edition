@@ -2,7 +2,7 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>@lang('user.top-uploaders-count')</h4>
+            <h4><i class="{{ config("other.font-awesome") }} fa-trophy-alt"></i> @lang('user.top-uploaders-count')</h4>
         </div>
 
         <ul class="nav nav-tabs mb-12" role="tablist">

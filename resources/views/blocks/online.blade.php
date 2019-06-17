@@ -2,14 +2,14 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>@lang('blocks.users-online')
+            <h4><i class="{{ config("other.font-awesome") }} fa-users"></i> @lang('blocks.users-online')
                 <span class="label label-default">{{ $users->count() }}</span>
             </h4>
         </div>
 
         <div class="panel-body">
             @foreach ($users as $user)
-                @if (!$user->isVisible($user, 'other', 'show_online'))
+                @if ($user->hidden == 1 || !$user->isVisible($user, 'other', 'show_online'))
                     <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
                         <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }}
                         @if (auth()->user()->group->is_modo)

@@ -2,7 +2,7 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>@lang('blocks.top-torrents')</h4>
+            <h4><i class="{{ config("other.font-awesome") }} fa-trophy"></i> @lang('blocks.top-torrents')</h4>
         </div>
 
         <ul class="nav nav-tabs mb-5" role="tablist">

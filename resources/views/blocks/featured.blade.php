@@ -4,7 +4,7 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4>@lang('blocks.featured-torrents')</h4>
+                <h4><i class="{{ config("other.font-awesome") }} fa-star"></i> @lang('blocks.featured-torrents')</h4>
             </div>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
 

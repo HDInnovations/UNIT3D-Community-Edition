@@ -2,7 +2,7 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>@lang('blocks.latest-topics')</h4>
+            <h4><i class="{{ config("other.font-awesome") }} fa-list-alt"></i> @lang('blocks.latest-topics')</h4>
         </div>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered">
