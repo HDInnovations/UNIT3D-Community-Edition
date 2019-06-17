@@ -42,7 +42,7 @@ class TorrentSeeder extends Seeder
                 'category_id'  => 2,
                 'user_id'      => 1,
                 'info_hash'    => $this->faker->md5,
-                'file_name'    => 'my_really_nice_file.' . $this->faker->fileExtension,
+                'file_name'    => 'my_really_nice_file.'.$this->faker->fileExtension,
                 'num_file'     => $this->faker->numberBetween(1, 50),
                 'size'         => $this->faker->numberBetween(1, 99999999999),
                 'announce'     => $this->faker->url,
