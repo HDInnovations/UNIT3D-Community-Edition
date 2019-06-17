@@ -30,7 +30,7 @@
                     @if ( ! is_null($article->image))
                         <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
                     @else
-                        <img src="{{ url('img/missing-image.jpg') }}" alt="{{ $article->title }}">
+                        <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
                     @endif
                 </a>
 

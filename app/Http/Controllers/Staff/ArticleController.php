@@ -65,7 +65,7 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
             $article->image = $filename;
         } else {
-            // Use Default /public/img/missing-image.jpg
+            // Use Default /public/img/missing-image.png
             $article->image = null;
         }
 
@@ -125,7 +125,7 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
             $article->image = $filename;
         } else {
-            // Use Default /public/img/missing-image.jpg
+            // Use Default /public/img/missing-image.png
             $article->image = null;
         }
 
