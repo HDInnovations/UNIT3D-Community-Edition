@@ -206,6 +206,7 @@ class User extends Authenticatable
      */
     protected $dates = [
         'last_login',
+        'last_action',
     ];
 
     /**
@@ -687,6 +688,16 @@ class User extends Authenticatable
     public function freeleechTokens()
     {
         return $this->hasMany(FreeleechToken::class);
+    }
+
+    /**
+     * Has many warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function warnings()
+    {
+        return $this->hasMany(Warning::class);
     }
 
     /**

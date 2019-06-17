@@ -13,74 +13,19 @@
 
 namespace App\Traits;
 
-use Carbon\Carbon;
-
 trait UsersOnlineTrait
 {
-    public function allOnline()
-    {
-        return $this->all()->filter->isOnline();
-    }
-
+    /**
+     * Check if the current user is online.
+     *
+     * @return bool
+     */
     public function isOnline()
     {
-        return cache()->has($this->getCacheKey());
-    }
-
-    public function leastRecentOnline()
-    {
-        return $this->allOnline()
-            ->sortBy(function ($user) {
-                return $user->getCachedAt();
-            });
-    }
-
-    public function mostRecentOnline()
-    {
-        return $this->allOnline()
-            ->sortByDesc(function ($user) {
-                return $user->getCachedAt();
-            });
-    }
-
-    public function getCachedAt()
-    {
-        if (empty($cache = cache()->get($this->getCacheKey()))) {
-            return 0;
+        if (! $this->last_action) {
+            return false;
         }
 
-        return $cache['cachedAt'];
-    }
-
-    public function setCache($seconds = 300)
-    {
-        return cache()->put(
-            $this->getCacheKey(),
-            $this->getCacheContent(),
-            $seconds
-        );
-    }
-
-    public function getCacheContent()
-    {
-        if (! empty($cache = cache()->get($this->getCacheKey()))) {
-            return $cache;
-        }
-        $cachedAt = Carbon::now();
-
-        return [
-            'cachedAt' => $cachedAt,
-            'user' => $this,
-        ];
-    }
-
-    public function pullCache()
-    {
-        cache()->pull($this->getCacheKey());
-    }
-
-    public function getCacheKey()
-    {
-        return sprintf('%s-%s', 'UserOnline', $this->id);
+        return $this->last_action->gt(now()->subMinutes(5));
     }
 }
