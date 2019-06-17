@@ -167,7 +167,7 @@
                                     @endif
 
                                     @if ($new->featured == 1)
-                                        <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                                        <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                             <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                                 data-original-title='@lang('torrent.feature')'></i> @lang('torrent.feature')
                                         </span>
@@ -379,7 +379,7 @@
                                     @endif
 
                                     @if ($seed->featured == 1)
-                                        <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                                        <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                             <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                                data-original-title='@lang('torrent.feature')'></i> @lang('torrent.feature')
                                         </span>
@@ -592,7 +592,7 @@
                                     @endif
 
                                     @if ($leech->featured == 1)
-                                        <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                                        <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                             <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                                data-original-title='@lang('torrent.feature')'></i> @lang('torrent.feature')
                                         </span>
@@ -805,7 +805,7 @@
                                     @endif
 
                                     @if ($d->featured == 1)
-                                        <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                                        <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                             <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                                data-original-title='@lang('torrent.feature')'></i> @lang('torrent.feature')
                                         </span>
@@ -1017,7 +1017,7 @@
                                     @endif
 
                                     @if ($d->featured == 1)
-                                        <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                                        <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                             <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                                data-original-title='@lang('torrent.feature')'></i> @lang('torrent.feature')
                                         </span>

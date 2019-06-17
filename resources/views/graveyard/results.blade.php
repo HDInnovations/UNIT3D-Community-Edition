@@ -101,7 +101,7 @@
                                                         @endif
                                                     </span>
                                                         {{ strtolower(trans('graveyard.howto-desc2')) }}
-                                                    <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">
+                                                    <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
                                                         {{ config('graveyard.reward') }} @lang('torrent.freeleech') Token(s)!
                                                     </span>
                                                 </p>

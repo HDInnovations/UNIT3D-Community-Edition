@@ -13,7 +13,7 @@
                     <div class="item active">
                         <div id="movie-card-list">
                             <div class="movie-card"
-                                 style="background-image: url('https://image.tmdb.org/t/p/original/6G2fLCVm9fiLyHvBrccq6GSe2ih.jpg');">
+                                 style="background-image: url(/img/default_featured.jpg);">
                                 <div class="color-overlay">
                                     <div class="movie-content">
                                         <div class="movie-header">
@@ -24,9 +24,9 @@
                                                 <br>
                                                 <br>
                                                 <span class="badge-user text-bold text-pink"
-                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('torrent.freeleech')</span>
+                                                      style="background-image:url(/img/sparkels.gif);">@lang('torrent.freeleech')</span>
                                                 <span class="badge-user text-bold text-pink"
-                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('torrent.double-upload')</span>
+                                                      style="background-image:url(/img/sparkels.gif);">@lang('torrent.double-upload')</span>
                                             </h4>
                                         </div>
                                         <span class="movie-desc">
@@ -87,11 +87,11 @@
                             : </strong> {{ $feature->torrent->times_completed }}</li></span>
                 <br>
                 <span class="badge-user text-bold text-pink"
-                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('blocks.featured-until')
+                      style="background-image:url(/img/sparkels.gif);">@lang('blocks.featured-until')
                     : {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
                     ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)</span>
                 <span class="badge-user text-bold text-pink"
-                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('blocks.featured-by')
+                      style="background-image:url(/img/sparkels.gif);">@lang('blocks.featured-by')
                     : {{ $feature->user->username }}!</span>
                 </ul>
                 </span>

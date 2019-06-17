@@ -238,7 +238,7 @@
                         @endif
 
                         @if ($torrent->featured == 1)
-                            <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                            <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                 <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                     data-original-title='@lang('torrent.featured')'></i> @lang('torrent.featured')
                             </span>

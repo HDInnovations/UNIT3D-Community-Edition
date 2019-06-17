@@ -255,7 +255,7 @@
                         <td><strong>@lang('torrent.featured')</strong></td>
                         <td>
                             <span class="badge-user text-bold text-pink"
-                                  style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('torrent.featured-until') {{ $featured->created_at->addDay(7)->toFormattedDateString() }}
+                                  style="background-image:url(/img/sparkels.gif);">@lang('torrent.featured-until') {{ $featured->created_at->addDay(7)->toFormattedDateString() }}
                                 ({{ $featured->created_at->addDay(7)->diffForHumans() }}!)</span>
                             <span class="small"><em>{!! trans('torrent.featured-desc') !!}</em></span>
                         </td>
