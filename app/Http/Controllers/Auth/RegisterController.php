@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Invite;
-use App\Rules\Captcha;
 use App\Models\UserPrivacy;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;

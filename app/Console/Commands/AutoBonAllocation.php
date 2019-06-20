@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Peer;
 use App\Models\User;
 use App\Models\BonTransactions;
 use Illuminate\Console\Command;
