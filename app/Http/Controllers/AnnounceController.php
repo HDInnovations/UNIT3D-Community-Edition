@@ -282,6 +282,7 @@ class AnnounceController extends Controller
             $history->agent = $agent;
             $history->active = 1;
             $history->seeder = ($left == 0) ? true : false;
+            $history->immune = ($user->group->is_immune == 1) ? true : false;
             $history->uploaded += 0;
             $history->actual_uploaded += 0;
             $history->client_uploaded = $real_uploaded;
@@ -358,6 +359,7 @@ class AnnounceController extends Controller
             $history->agent = $agent;
             $history->active = 0;
             $history->seeder = ($left == 0) ? true : false;
+            $history->immune = ($user->group->is_immune == 1) ? true : false;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = 0;
