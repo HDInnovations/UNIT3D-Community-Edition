@@ -384,7 +384,7 @@
 
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                             style="width:.1%; border-bottom-color: rgb(140,4,8);">
+                             style="width:0%; border-bottom-color: rgb(140,4,8);">
                         </div>
                         @php $percent = 100 / config('hitrun.max_warnings'); @endphp
                         @foreach ($warnings as $warning)
