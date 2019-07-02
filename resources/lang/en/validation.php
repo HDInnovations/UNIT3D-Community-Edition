@@ -125,6 +125,9 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+    
+    'email_list' => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
+    'recaptcha' => 'Please Complete The ReCaptcha.',
 
     'custom' => [
         'attribute-name' => [
