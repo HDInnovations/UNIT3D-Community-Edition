@@ -6,8 +6,8 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 }
 
 body {
-    background-color: #7289da;
-    color: #99aab5;
+    background-color: rgb(114, 137, 218);
+    color: rgb(153, 170, 181);
     height: 100%;
     hyphens: auto;
     line-height: 1.4;
@@ -30,7 +30,7 @@ blockquote {
 }
 
 a {
-    color: #7289da;
+    color: rgb(114, 137, 218);
 }
 
 a img {
@@ -40,7 +40,7 @@ a img {
 /* Typography */
 
 h1 {
-    color: #7289da;
+    color: rgb(114, 137, 218);
     font-size: 19px;
     font-weight: bold;
     margin-top: 0;
@@ -48,7 +48,7 @@ h1 {
 }
 
 h2 {
-    color: #7289da;
+    color: rgb(114, 137, 218);
     font-size: 16px;
     font-weight: bold;
     margin-top: 0;
@@ -56,7 +56,7 @@ h2 {
 }
 
 h3 {
-    color: #7289da;
+    color: rgb(114, 137, 218);
     font-size: 14px;
     font-weight: bold;
     margin-top: 0;
@@ -64,7 +64,7 @@ h3 {
 }
 
 p {
-    color: #99aab5;
+    color: rgb(153, 170, 181);
     font-size: 16px;
     line-height: 1.5em;
     margin-top: 0;
@@ -82,7 +82,7 @@ img {
 /* Layout */
 
 .wrapper {
-    background-color: #7289da;
+    background-color: rgb(114, 137, 218);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -108,19 +108,19 @@ img {
 }
 
 .header a {
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
-    text-shadow: 0 1px 0 #6e6e6e;
+    text-shadow: 0 1px 0 rgb(110, 110, 110);
 }
 
 /* Body */
 
 .body {
-    background-color: #23272a;
-    border-bottom: 1px solid #7289da;
-    border-top: 1px solid #7289da;
+    background-color: rgb(35, 39, 42);
+    border-bottom: 1px solid rgb(114, 137, 218);
+    border-top: 1px solid rgb(114, 137, 218);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -130,7 +130,7 @@ img {
 }
 
 .inner-body {
-    background-color: #2c2f33;
+    background-color: rgb(44, 47, 51);
     margin: 0 auto;
     padding: 0;
     width: 570px;
@@ -142,7 +142,7 @@ img {
 /* Subcopy */
 
 .subcopy {
-    border-top: 1px solid #7289da;
+    border-top: 1px solid rgb(114, 137, 218);
     margin-top: 25px;
     padding-top: 25px;
 }
@@ -164,7 +164,7 @@ img {
 }
 
 .footer p {
-    color: #7289da;
+    color: rgb(114, 137, 218);
     font-size: 12px;
     text-align: center;
 }
@@ -180,13 +180,13 @@ img {
 }
 
 .table th {
-    color: #99aab5;
-    border-bottom: 1px solid #99aab5;
+    color: rgb(153, 170, 181);
+    border-bottom: 1px solid rgb(153, 170, 181);
     padding-bottom: 8px;
 }
 
 .table td {
-    color: #99aab5;
+    color: rgb(153, 170, 181);
     font-size: 15px;
     line-height: 18px;
     padding: 10px 0;
@@ -211,34 +211,34 @@ img {
 .button {
     border-radius: 3px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     display: inline-block;
     text-decoration: none;
     -webkit-text-size-adjust: none;
 }
 
 .button-blue {
-    background-color: #7289da;
-    border-top: 10px solid #7289da;
-    border-right: 18px solid #7289da;
-    border-bottom: 10px solid #7289da;
-    border-left: 18px solid #7289da;
+    background-color: rgb(114, 137, 218);
+    border-top: 10px solid rgb(114, 137, 218);
+    border-right: 18px solid rgb(114, 137, 218);
+    border-bottom: 10px solid rgb(114, 137, 218);
+    border-left: 18px solid rgb(114, 137, 218);
 }
 
 .button-green {
-    background-color: #2ab27b;
-    border-top: 10px solid #2ab27b;
-    border-right: 18px solid #2ab27b;
-    border-bottom: 10px solid #2ab27b;
-    border-left: 18px solid #2ab27b;
+    background-color: rgb(42, 178, 123);
+    border-top: 10px solid rgb(42, 178, 123);
+    border-right: 18px solid rgb(42, 178, 123);
+    border-bottom: 10px solid rgb(42, 178, 123);
+    border-left: 18px solid rgb(42, 178, 123);
 }
 
 .button-red {
-    background-color: #bf5329;
-    border-top: 10px solid #bf5329;
-    border-right: 18px solid #bf5329;
-    border-bottom: 10px solid #bf5329;
-    border-left: 18px solid #bf5329;
+    background-color: rgb(191, 83, 41);
+    border-top: 10px solid rgb(191, 83, 41);
+    border-right: 18px solid rgb(191, 83, 41);
+    border-bottom: 10px solid rgb(191, 83, 41);
+    border-left: 18px solid rgb(191, 83, 41);
 }
 
 /* Panels */
@@ -248,7 +248,7 @@ img {
 }
 
 .panel-content {
-    background-color: #23272a;
+    background-color: rgb(35, 39, 42);
     padding: 16px;
 }
 
@@ -264,11 +264,9 @@ img {
 /* Promotions */
 
 .promotion {
-    background-color: #FFFFFF;
-    border: 2px dashed #9BA2AB;
-    margin: 0;
-    margin-bottom: 25px;
-    margin-top: 25px;
+    background-color: rgb(255, 255, 255);
+    border: 2px dashed rgb(155, 162, 171);
+    margin: 25px 0;
     padding: 24px;
     width: 100%;
     -premailer-cellpadding: 0;

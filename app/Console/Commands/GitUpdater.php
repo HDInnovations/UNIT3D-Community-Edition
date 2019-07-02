@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
 use App\Console\ConsoleTools;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\ArgvInput;
@@ -148,16 +149,19 @@ class GitUpdater extends Command
                     $this->compile();
                 }
 
+                $this->clearCache();
+
                 if ($this->io->confirm('Install new packages (composer install)', true)) {
                     $this->composer();
                 }
 
                 $this->updateUNIT3DConfig();
 
-                $this->clearCache();
-
                 $this->setCache();
 
+                $this->permissions();
+
+                $this->header('Bringing Site Live');
                 $this->call('up');
             } else {
                 $this->alertDanger('Aborted Update');
@@ -223,7 +227,7 @@ class GitUpdater extends Command
         $this->header('Restoring Backups');
 
         foreach ($paths as $path) {
-            $to = str_replace_last('/.', '', base_path(dirname($path)));
+            $to = Str::replaceLast('/.', '', base_path(dirname($path)));
             $from = storage_path('gitupdate').'/'.$path;
 
             if (is_dir($from)) {
@@ -294,12 +298,19 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    private function permissions()
+    {
+        $this->header('Refreshing Permissions');
+        $this->process('chown -R www-data: storage bootstrap public config');
+        $this->done();
+    }
+
     private function validatePath($path)
     {
         if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
             $this->red("The path '$path' is invalid");
-            $this->call('up');
-            die();
+            //$this->call('up');
+            //die();
         }
     }
 
@@ -339,6 +350,8 @@ class GitUpdater extends Command
             '.env',
             'laravel-echo-server.json',
             'public/files',
+            'public/img/emojione',
+            'public/img/joypixels',
         ];
 
         return array_merge($paths, $additional);

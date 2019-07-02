@@ -56,12 +56,12 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\UpdateLastAction::class,
         ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
@@ -76,7 +76,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'active'        => \App\Http\Middleware\CheckIfActive::class,
         'admin'         => \App\Http\Middleware\CheckForAdmin::class,
         'auth'          => \App\Http\Middleware\Authenticate::class,
         'banned'        => \App\Http\Middleware\CheckIfBanned::class,
@@ -88,9 +87,7 @@ class Kernel extends HttpKernel
         'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'language'      => \App\Http\Middleware\SetLanguage::class,
         'modo'          => \App\Http\Middleware\CheckForModo::class,
-        'online'        => \App\Http\Middleware\CheckIfOnline::class,
         'owner'         => \App\Http\Middleware\CheckForOwner::class,
-        'private'       => \App\Http\Middleware\CheckForPrivate::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
     ];

@@ -63,7 +63,6 @@ window.Echo = new Echo({
 /**
  * UNIT3D
  */
-require('select2');
 window.Ladda = require('ladda');
 
 /*
@@ -83,5 +82,4 @@ require('./wysibb/jquery.wysibb');
 window.emoji = require('./unit3d/emoji');
 
 //alerts
-window.swal = require('sweetalert2');
-window.toastr = require('toastr');
+window.Swal = require('sweetalert2');

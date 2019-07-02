@@ -50,7 +50,8 @@ class LanguageController extends Controller
     {
         $this->setLocale($locale, $request);
 
-        return redirect(url('/'));
+        return redirect()->route('home')
+            ->withSuccess('Language Changed!');
     }
 
     /**
@@ -65,6 +66,7 @@ class LanguageController extends Controller
     {
         $this->setLocale($locale, $request);
 
-        return redirect()->back();
+        return redirect()->back()
+            ->withSuccess('Language Changed!');
     }
 }

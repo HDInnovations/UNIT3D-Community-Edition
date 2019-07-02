@@ -7,10 +7,13 @@
         <meta name="description"
             content="@lang('auth.login-now-on') {{ config('other.title') }} . @lang('auth.not-a-member')">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:title" content="{{ config('other.title') }}">
+        <meta property="og:title" content="@lang('auth.login')">
+        <meta property="og:site_name" content="{{ config('other.title') }}">
         <meta property="og:type" content="website">
-        <meta property="og:image" content="{{ url('/img/rlm.png') }}">
+        <meta property="og:image" content="{{ url('/img/og.png') }}">
+        <meta property="og:description" content="{{ config('unit3d.powered-by') }}">
         <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:locale" content="{{ config('app.locale') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
     @show
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
@@ -20,7 +23,7 @@
 
 <body>
 <div class="wrapper fadeInDown">
-    <svg viewBox="0 0 1320 100">
+    <svg viewBox="0 0 450 100" class="sitebanner">
         <symbol id="s-text">
             <text text-anchor="middle"
                   x="50%" y="50%" dy=".35em">
@@ -49,30 +52,18 @@
 
         <form role="form" method="POST" action="{{ route('login') }}">
             @csrf
-            <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+            <div>
                 <label for="username" class="col-md-4 control-label">@lang('auth.username')</label>
                 <div class="col-md-6">
                     <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}"
                            required autofocus>
-                    @if ($errors->has('username'))
-                        <br>
-                        <span class="help-block text-red">
-                            <strong>{{ $errors->first('username') }}</strong>
-                        </span>
-                    @endif
                 </div>
             </div>
 
-            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+            <div>
                 <label for="password" class="col-md-4 control-label">@lang('auth.password')</label>
                 <div class="col-md-6">
                     <input id="password" type="password" class="form-control" name="password" required>
-                    @if ($errors->has('password'))
-                        <br>
-                        <span class="help-block text-red">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
                 </div>
             </div>
 
@@ -118,7 +109,34 @@
 @if (config('captcha.enabled') == true)
 <script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
 @endif
-{!! Toastr::message() !!}
+@foreach (['warning', 'success', 'info'] as $key)
+    @if (Session::has($key))
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: '{{ $key }}',
+            title: '{{ Session::get($key) }}'
+          })
+        </script>
+    @endif
+@endforeach
+
+@if (Session::has('errors'))
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+      Swal.fire({
+        title: '<strong>Validation Error</strong>',
+        type: 'error',
+        html: '{{ Session::get('errors') }}',
+        showCloseButton: true,
+      })
+    </script>
+@endif
 
 </body>
 </html>

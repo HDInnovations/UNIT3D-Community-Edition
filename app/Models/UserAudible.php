@@ -15,6 +15,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int|null $room_id
+ * @property int|null $target_id
+ * @property int|null $bot_id
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Bot|null $bot
+ * @property-read \App\Models\Chatroom|null $room
+ * @property-read \App\Models\User|null $target
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereBotId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereRoomId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereTargetId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereUserId($value)
+ * @mixin \Eloquent
+ */
 class UserAudible extends Model
 {
     /**
@@ -23,13 +49,6 @@ class UserAudible extends Model
      * @var bool
      */
     public $timestamps = true;
-
-    /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-    protected $table = 'user_audibles';
 
     /**
      * Belongs To A User.

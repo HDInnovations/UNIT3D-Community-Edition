@@ -1,6 +1,5 @@
 .btn {
     display: inline-block;
-    margin-bottom: 5px;
     font-weight: 700;
     text-align: center;
     vertical-align: middle;
@@ -1415,13 +1414,13 @@ fieldset[disabled] .btn-turn-info:hover:hover {
 }
 
 .btn-circle {
-    border-radius: 15px !important;
-    font-size: 12px;
-    height: 30px;
-    line-height: 1.42857;
-    padding: 6px 0;
+    font-size: 9px;
+    padding: 0;
     text-align: center;
-    width: 30px;
+    width: 20px;
+    height: 20px;
+    line-height: 0;
+    margin-bottom: 4px;
 }
 
 .ladda-button {

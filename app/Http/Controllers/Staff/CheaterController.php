@@ -27,7 +27,7 @@ class CheaterController extends Controller
     public function leechCheaters()
     {
         $cheaters = History::with('user')
-            ->select('*')
+            ->select(['*'])
             ->join(
                 DB::raw('(SELECT MAX(id) AS id FROM history GROUP BY history.user_id) AS unique_history'),
                 function ($join) {
@@ -49,7 +49,7 @@ class CheaterController extends Controller
     /**
      * Possible Ratio Cheaters.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return void
      */
     public function ratioCheaters()
     {

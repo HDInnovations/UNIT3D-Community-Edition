@@ -14,27 +14,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Category;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * CategoryController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get The Categories.
      *
@@ -68,7 +53,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->name = $request->input('name');
-        $category->slug = str_slug($category->name);
+        $category->slug = Str::slug($category->name);
         $category->position = $request->input('position');
         $category->icon = $request->input('icon');
         $category->movie_meta = $request->input('movie_meta');
@@ -91,12 +76,12 @@ class CategoryController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $category->save();
 
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->success('Category Successfully Added', 'Yay!', ['options']));
+                ->withSuccess('Category Successfully Added');
         }
     }
 
@@ -128,7 +113,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
-        $category->slug = str_slug($category->name);
+        $category->slug = Str::slug($category->name);
         $category->position = $request->input('position');
         $category->icon = $request->input('icon');
         $category->movie_meta = $request->input('movie_meta');
@@ -151,12 +136,12 @@ class CategoryController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $category->save();
 
             return redirect()->route('staff_category_index')
-                ->with($this->toastr->success('Category Successfully Modified', 'Yay!', ['options']));
+                ->withSuccess('Category Successfully Modified');
         }
     }
 
@@ -174,6 +159,6 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('staff_category_index')
-            ->with($this->toastr->success('Category Successfully Deleted', 'Yay!', ['options']));
+            ->withSuccess('Category Successfully Deleted');
     }
 }

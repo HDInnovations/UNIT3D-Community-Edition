@@ -116,7 +116,9 @@
 
                 <div class="form-group">
                     <label for="mediainfo">@lang('torrent.media-info-parser')</label>
-                    <textarea rows="10" class="form-control" name="mediainfo" cols="30" placeholder="@lang('torrent.media-info-paste')"></textarea>
+                    <textarea id="upload-form-description" name="mediainfo" cols="30" rows="10" class="form-control" placeholder="@lang('torrent.media-info-paste')">
+                        {{ old('mediainfo') }}
+                    </textarea>
                 </div>
 
                 <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
@@ -164,8 +166,7 @@
                 @endif
 
                 <div class="text-center">
-                    <button id="add" type="button" class="btn btn-primary">@lang('common.add') @lang('torrent.media-info-parser')</button>
-                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">@lang('common.upload')</button>
+                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">@lang('common.submit')</button>
                 </div>
                 <br>
                 </form>

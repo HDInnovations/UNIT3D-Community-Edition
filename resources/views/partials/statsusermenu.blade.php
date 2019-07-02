@@ -11,7 +11,7 @@
         <a href="{{ route('uploaders') }}" class="btn btn-sm btn-primary"><i
                     class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.top-uploaders-count')</a>
         <a href="{{ route('bankers') }}" class="btn btn-sm btn-primary"><i
-                    class="{{ config('other.font-awesome') }} fa-star"></i> @lang('user.top-bankers')</a>
+                    class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('user.top-bankers')</a>
         {{--<a href="{{ route('seedtime') }}" class="btn btn-sm btn-primary"><i class="{{ config('other.font-awesome') }} fa-clock"></i> @lang('user.top-seedtime')</a>--}}
     </div>
 </div>

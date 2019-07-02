@@ -23,6 +23,7 @@ class NewUpload extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $torrent;
 
     /**

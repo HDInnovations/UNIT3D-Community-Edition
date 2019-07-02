@@ -30,19 +30,26 @@ use App\Http\Resources\UserAudibleResource;
 class NerdBot
 {
     private $bot;
+
     private $chat;
+
     private $target;
+
     private $type;
+
     private $message;
+
     private $targeted;
+
     private $log;
+
     private $expiresAt;
+
     private $current;
 
     /**
      * NerdBot Constructor.
-     *
-     * @param Toastr $toastr
+     * @param  ChatRepository  $chat
      */
     public function __construct(ChatRepository $chat)
     {
@@ -55,6 +62,8 @@ class NerdBot
 
     /**
      * Replace Vars.
+     * @param $output
+     * @return mixed
      */
     public function replaceVars($output)
     {
@@ -74,6 +83,8 @@ class NerdBot
 
     /**
      * Get Banker.
+     * @param  string  $duration
+     * @return string
      */
     public function getBanker($duration = 'default')
     {
@@ -88,6 +99,8 @@ class NerdBot
 
     /**
      * Get Snatched.
+     * @param  string  $duration
+     * @return string
      */
     public function getSnatched($duration = 'default')
     {
@@ -102,6 +115,8 @@ class NerdBot
 
     /**
      * Get Leeched.
+     * @param  string  $duration
+     * @return string
      */
     public function getLeeched($duration = 'default')
     {
@@ -116,6 +131,8 @@ class NerdBot
 
     /**
      * Get Seeded.
+     * @param  string  $duration
+     * @return string
      */
     public function getSeeded($duration = 'default')
     {
@@ -130,6 +147,8 @@ class NerdBot
 
     /**
      * Get FL.
+     * @param  string  $duration
+     * @return string
      */
     public function getFreeleech($duration = 'default')
     {
@@ -144,6 +163,8 @@ class NerdBot
 
     /**
      * Get DU.
+     * @param  string  $duration
+     * @return string
      */
     public function getDoubleUpload($duration = 'default')
     {
@@ -158,6 +179,8 @@ class NerdBot
 
     /**
      * Get Peers.
+     * @param  string  $duration
+     * @return string
      */
     public function getPeers($duration = 'default')
     {
@@ -172,6 +195,8 @@ class NerdBot
 
     /**
      * Get Bans.
+     * @param  string  $duration
+     * @return string
      */
     public function getBans($duration = 'default')
     {
@@ -186,6 +211,8 @@ class NerdBot
 
     /**
      * Get Warnings.
+     * @param  string  $duration
+     * @return string
      */
     public function getWarnings($duration = 'default')
     {
@@ -200,6 +227,8 @@ class NerdBot
 
     /**
      * Get Uploads.
+     * @param  string  $duration
+     * @return string
      */
     public function getUploads($duration = 'default')
     {
@@ -214,6 +243,8 @@ class NerdBot
 
     /**
      * Get Logins.
+     * @param  string  $duration
+     * @return string
      */
     public function getLogins($duration = 'default')
     {
@@ -228,6 +259,8 @@ class NerdBot
 
     /**
      * Get Registrations.
+     * @param  string  $duration
+     * @return string
      */
     public function getRegistrations($duration = 'default')
     {
@@ -242,6 +275,8 @@ class NerdBot
 
     /**
      * Get Bot Donations.
+     * @param  string  $duration
+     * @return string
      */
     public function getDonations($duration = 'default')
     {
@@ -278,6 +313,9 @@ class NerdBot
 
     /**
      * Send Bot Donation.
+     * @param  int  $amount
+     * @param  string  $note
+     * @return string
      */
     public function putDonate($amount = 0, $note = '')
     {
@@ -315,6 +353,11 @@ class NerdBot
 
     /**
      * Process Message.
+     * @param $type
+     * @param  User  $target
+     * @param  string  $message
+     * @param  int  $targeted
+     * @return bool
      */
     public function process($type, User $target, $message = '', $targeted = 0)
     {
@@ -479,21 +522,21 @@ class NerdBot
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
 
-            return response('success', 200);
+            return response('success');
         } elseif ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
 
-            return response('success', 200);
+            return response('success');
         } elseif ($type == 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
-            return response('success', 200);
+            return response('success');
         }
 
         return true;

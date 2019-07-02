@@ -31,7 +31,7 @@ body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .left-
 
 body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .left-navbar li:first-child,
 body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .left-navbar li:first-child {
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] #hoe-left-panel,
@@ -136,13 +136,13 @@ body[hoe-nav-placement='right']
     #hoeapp-wrapper[hoe-device-type='tablet']
     #hoe-header.hoe-minimized-lpanel
     > .hoe-right-header {
-    margin-left: 0px;
+    margin-left: 0;
     margin-right: 50px;
 }
 
 body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='desktop'] .hoe-minimized-lpanel #main-content,
 body[hoe-nav-placement='right'] #hoeapp-wrapper[hoe-device-type='tablet'] .hoe-minimized-lpanel #main-content {
-    margin-left: 0px;
+    margin-left: 0;
     margin-right: 50px;
 }
 
@@ -235,7 +235,7 @@ body[hoe-nav-placement='right']
     .panel-list
     > li:focus
     > a {
-    border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0 0 4px;
 }
 
 body[hoe-nav-placement='right']
@@ -409,7 +409,7 @@ body[hoe-nav-placement='right']
     > a
     span.menu-text {
     padding-left: auto;
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 body[hoe-nav-placement='right']
@@ -477,5 +477,5 @@ body[hoe-nav-placement='right']
     > a
     span.menu-text {
     padding-left: auto;
-    padding-right: 0px;
+    padding-right: 0;
 }

@@ -58,21 +58,21 @@
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">Filters</label>
+                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.filters')</label>
                         <div class="col-sm-10">
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="active" value="1" class="userFilter" trigger="click"> Active
+                        <input type="checkbox" id="active" value="1" class="userFilter" trigger="click"> @lang('common.connected')
                     </label>
                 </span>
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="seeding" value="1" class="userFilter" trigger="click"> Seeding
+                        <input type="checkbox" id="seeding" value="1" class="userFilter" trigger="click"> @lang('torrent.seeding')
                     </label>
                 </span>
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="prewarned" value="1" class="userFilter" trigger="click"> Prewarned
+                        <input type="checkbox" id="prewarned" value="1" class="userFilter" trigger="click"> @lang('torrent.prewarn')
                     </label>
                 </span>
                         <span class="badge-user">
@@ -82,42 +82,42 @@
                 </span>
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="immune" value="1" class="userFilter" trigger="click"> Immune
+                        <input type="checkbox" id="immune" value="1" class="userFilter" trigger="click"> @lang('torrent.immune')
                     </label>
                 </span>
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="completed" value="1" class="userFilter" trigger="click"> Completed
+                        <input type="checkbox" id="completed" value="1" class="userFilter" trigger="click"> @lang('torrent.completed')
                     </label>
                 </span>
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Sorting</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
                             <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
-                                <option value="created_at">Created at</option>
-                                <option value="name">Name</option>
-                                <option value="agent">Agent</option>
-                                <option value="active">Active</option>
-                                <option value="seeder">Seeder</option>
-                                <option value="uploaded">Uploaded</option>
-                                <option value="downloaded">Downloaded</option>
-                                <option value="seedtime">Seedtime</option>
-                                <option value="updated_at">Updated at</option>
-                                <option value="completed_at">Completed at</option>
-                                <option value="prewarn">Prewarned</option>
-                                <option value="hitrun">H&R</option>
-                                <option value="immune">Immune</option>
+                                <option value="created_at">@lang('torrent.created_at')</option>
+                                <option value="name">@lang('torrent.name')</option>
+                                <option value="agent">@lang('torrent.client')</option>
+                                <option value="active">@lang('common.connected')</option>
+                                <option value="seeder">@lang('torrent.seeder')</option>
+                                <option value="uploaded">@lang('common.upload')</option>
+                                <option value="downloaded">@lang('common.download')</option>
+                                <option value="seedtime">@lang('torrent.seedtime')</option>
+                                <option value="updated_at">@lang('torrent.updated_at')</option>
+                                <option value="completed_at">@lang('torrent.completed_at')</option>
+                                <option value="prewarn">@lang('torrent.prewarn')</option>
+                                <option value="hitrun">@lang('torrent.hitrun')</option>
+                                <option value="immune">@lang('torrent.immune')</option>
                             </select>
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Direction</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
                             <select id="direction" name="direction" trigger="change" class="form-control userFilter">
-                                <option value="desc">Descending</option>
-                                <option value="asc">Ascending</option>
+                                <option value="desc">@lang('common.descending')</option>
+                                <option value="asc">@lang('common.ascending')</option>
                             </select>
                         </div>
                     </div>
@@ -132,11 +132,11 @@
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                     <th>@lang('torrent.name')</th>
-                    <th>@lang('torrent.agent')</th>
-                    <th>@lang('common.active')</th>
+                    <th>@lang('torrent.client')</th>
+                    <th>@lang('common.connected')</th>
                     <th>@lang('torrent.seeder')</th>
-                    <th>@lang('torrent.uploaded')</th>
-                    <th>@lang('torrent.downloaded')</th>
+                    <th>@lang('common.upload')</th>
+                    <th>@lang('common.download')</th>
                     <th>@lang('torrent.seedtime')</th>
                     <th>@lang('torrent.created_at')</th>
                     <th>@lang('torrent.updated_at')</th>

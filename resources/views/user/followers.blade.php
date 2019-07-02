@@ -35,7 +35,7 @@
             </div>
         @else
             <div class="block">
-                @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+                @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
                     @include('user.buttons.follower')
                 @else
                     @include('user.buttons.public')
@@ -73,7 +73,7 @@
                             </a></td>
                     @endif
                         <td width="70%"><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
-                                <span class="badge-user text-bold" style="color:{{ $f->user->group->color }}">{{ $f->user->username }}</span>
+                                <span class="badge-user text-bold" style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
                             </a></td>
                         <td width="20%">{{ $f->created_at }}</td>
                     </tr>

@@ -52,7 +52,7 @@
                         {{ $torrent->times_completed }}
                     </td>
                     <td>
-                        @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->first(); @endphp
+                        @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->first(); @endphp
                         @if (!$resurrected)
                             <button data-toggle="modal" data-target="#resurrect-{{ $torrent->id }}" class="btn btn-sm btn-default">
                                 <span class="icon">
@@ -101,7 +101,7 @@
                                                         @endif
                                                     </span>
                                                         {{ strtolower(trans('graveyard.howto-desc2')) }}
-                                                    <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">
+                                                    <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
                                                         {{ config('graveyard.reward') }} @lang('torrent.freeleech') Token(s)!
                                                     </span>
                                                 </p>

@@ -30,7 +30,7 @@
                     @if ( ! is_null($article->image))
                         <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
                     @else
-                        <img src="{{ url('img/missing-image.jpg') }}" alt="{{ $article->title }}">
+                        <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
                     @endif
                 </a>
 
@@ -41,7 +41,7 @@
                 </p>
 
                 <p style="margin-top: 20px;">
-                    @emojione(preg_replace('#\[[^\]]+\]#', '', str_limit($article->content), 150))...
+                    @emojione(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content), 150))...
                 </p>
 
                 <div class="text-center">

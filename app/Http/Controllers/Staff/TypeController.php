@@ -14,27 +14,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Type;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TypeController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * TypeController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All Types.
      *
@@ -68,7 +53,7 @@ class TypeController extends Controller
     {
         $type = new Type();
         $type->name = $request->input('name');
-        $type->slug = str_slug($type->name);
+        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = validator($type->toArray(), [
@@ -78,13 +63,13 @@ class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+            return redirect()->route('staff_type_index')
+                ->withErrors($v->errors());
         } else {
             $type->save();
 
             return redirect()->route('staff_type_index')
-                ->with($this->toastr->success('Type Successfully Added', 'Yay!', ['options']));
+                ->withSuccess('Type Successfully Added');
         }
     }
 
@@ -116,7 +101,7 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
         $type->name = $request->input('name');
-        $type->slug = str_slug($type->name);
+        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = validator($type->toArray(), [
@@ -126,13 +111,13 @@ class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+            return redirect()->route('staff_type_index')
+                ->withErrors($v->errors());
         } else {
             $type->save();
 
             return redirect()->route('staff_type_index')
-                ->with($this->toastr->success('Type Successfully Modified', 'Yay!', ['options']));
+                ->withSuccess('Type Successfully Modified');
         }
     }
 
@@ -150,6 +135,6 @@ class TypeController extends Controller
         $type->delete();
 
         return redirect()->route('staff_type_index')
-            ->with($this->toastr->success('Type Successfully Deleted', 'Yay!', ['options']));
+            ->withSuccess('Type Successfully Deleted');
     }
 }

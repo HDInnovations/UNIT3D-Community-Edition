@@ -43,7 +43,7 @@ class AutoDisableInactiveUsers extends Command
     public function handle()
     {
         if (config('pruning.user_pruning') == true) {
-            $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+            $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
             $current = Carbon::now();
 
             $matches = User::whereIn('group_id', [config('pruning.group_ids')]);

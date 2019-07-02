@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'notifications'    => 'Notifications',
-    'mark-all-read'    => 'Mark all as read',
-    'mark-read'        => 'Mark as read',
-    'delete-all'       => 'Delete all notifications',
-    'title'            => 'Title',
-    'message'          => 'Message',
-    'date'             => 'Date',
-    'read'             => 'Read',
-    'delete'           => 'Delete',
-    'no-notifications' => 'There are no notifications found',
+  'date' => 'tarih',
+  'delete' => 'silmek',
+  'delete-all' => 'Tüm bildirimleri sil',
+  'mark-all-read' => 'Tümünü okundu olarak işaretle',
+  'mark-read' => 'Okundu olarak işaretle',
+  'message' => 'Mesaj',
+  'no-notifications' => 'Hiçbir bildirim bulunamadı',
+  'notifications' => 'Bildirimler',
+  'read' => 'okumak',
+  'title' => 'Başlık',
 ];

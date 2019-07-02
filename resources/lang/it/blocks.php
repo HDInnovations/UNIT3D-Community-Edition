@@ -1,25 +1,19 @@
 <?php
 
 return [
-    // Chat
-    'chatbox' => 'Chat Box',
-
-    // Featured Torrents
-    'featured-torrents' => 'Torrent in primo piano',
-
-    // Latest Torrents
-    'latest-torrents' => 'Ultimi Torrent',
-
-    // Latest Posts
-    'latest-posts' => 'Ultimi Post',
-
-    // Latest Topics
-    'latest-topics' => 'Ultimi Topics',
-
-    // Users Online
-    'users-online' => 'Utenti Online',
-
-    // News/Articles
-    'new-news'   => 'Nuove Notizie',
-    'check-news' => 'Notizie (Controlla ogni giorno)',
+  'chatbox' => 'Casella di chat',
+  'click' => 'Clic',
+  'to-enable-editor' => 'per abilitare l editor',
+  'featured-by' => 'Caratterizzato da',
+  'featured-torrents' => 'Torrents in primo piano',
+  'featured-torrents-intro' => 'Prendili mentre puoi!',
+  'featured-until' => 'Questo è in primo piano fino a',
+  'top-torrents' => 'Top Torrents',
+  'latest-posts' => 'ultimi post',
+  'latest-topics' => 'Ultimi argomenti',
+  'active-in-last' => 'Attivo in ultimo',
+  'users-online' => 'Utenti online',
+  'check-news' => 'Notizie (controllare quotidianamente)',
+  'new-news' => 'Nuove notizie',
+  'new-torrents' => 'Nuovi torrenti',
 ];

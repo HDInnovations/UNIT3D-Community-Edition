@@ -34,7 +34,7 @@
         @else
             <h1 class="title h2">
                 {{ $torrentRequest->name }}
-                <span class="text-green">@lang('request.for') <i class="{{ config('other.font-awesome') }} fa-star text-gold">
+                <span class="text-green">@lang('request.for') <i class="{{ config('other.font-awesome') }} fa-coins text-gold">
             </i> <strong>{{ $torrentRequest->bounty }}</strong> @lang('bon.bon')</span>
             </h1>
             <div class="block">
@@ -85,7 +85,7 @@
                                             @if ($meta->imdbRating || $meta->tmdbRating)
                                                 <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
                     <span class="movie-rating-stars">
-                      <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                      <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                     </span>
                                                     @if ($user->ratings == 1)
                                                         {{ $meta->imdbRating }}/10({{ $meta->imdbVotes }} @lang('torrent.votes')
@@ -126,12 +126,12 @@
                                             @endif
                                                 @if ($torrentRequest->category_id == "2" && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}"
+                      <a href="https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}?language={{ config('app.locale') }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
                                                 @elseif ($torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}"
+                      <a href="https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}?language={{ config('app.locale') }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
                                             @endif
@@ -166,7 +166,7 @@
                                                         <div class="col-xs-4 col-md-2 text-center">
                                                             <img class="img-people" src="{{ $person->photo }}">
                                                             <a
-                                                               href="https://www.themoviedb.org/person/{{ $actor->tmdb }}"
+                                                               href="https://www.themoviedb.org/person/{{ $actor->tmdb }}?language={{ config('app.locale') }}"
                                                                title="TheMovieDatabase" target="_blank">
                                                                 <span class="badge-user"
                                                                       style="white-space:normal;"><strong>{{ $actor->name }}</strong></span>
@@ -220,7 +220,7 @@
                                 <strong>@lang('bon.bon')</strong>
                             </td>
                             <td>
-                                <i class="{{ config('other.font-awesome') }} fa-star text-gold">
+                                <i class="{{ config('other.font-awesome') }} fa-coins text-gold">
                                 </i>
                                 <strong>{{ $torrentRequest->bounty }}</strong> @lang('bon.bon') {{ strtolower(trans('request.reward-from')) }}
                                 <strong>{{ $torrentRequest->requestBounty->count() }}</strong> {{ strtolower(trans('request.voters')) }}
@@ -270,11 +270,11 @@
                             <td>
                                 @if ($torrentRequest->claimed == null && $torrentRequest->filled_hash == null)
                                     <button class="btn btn-md btn-info btn-vote-request" data-toggle="modal"
-                                            data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-suitcase">
+                                            data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-hand-paper">
                                         </i> @lang('request.claim')
                                     </button>
                                     <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
-                                       class="btn btn-md btn-success"> @lang('common.upload') {{ $meta->title ?? '' }}
+                                       class="btn btn-md btn-success"><i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
                                     </a>
                                 @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                                     <button class="btn btn-xs btn-warning" disabled><i
@@ -484,18 +484,18 @@
                                                         class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')!
                                             </h4></div>
                                     @else @foreach ($comments as $comment)
-                                        <li class="media" style="border-left: 5px solid #01BC8C">
+                                        <li class="media" style="border-left: 5px solid rgb(1,188,140);">
                                             <div class="media-body">
                                                 @if ($comment->anon == 1)
-                                                    <a href="#" class="pull-left" style="padding-right: 10px">
+                                                    <a href="#" class="pull-left" style="padding-right: 10px;">
                                                         <img src="{{ url('img/profile.png') }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                         <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                        <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
+                                                        <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
                                                     @endif
                                                 @else
                                                     <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
-                                                       class="pull-left" style="padding-right: 10px">
+                                                       class="pull-left" style="padding-right: 10px;">
                                                         @if ($comment->user->image != null)
                                                             <img src="{{ url('files/img/' . $comment->user->image) }}"
                                                                  alt="{{ $comment->user->username }}"
@@ -505,7 +505,7 @@
                                                              alt="{{ $comment->user->username }}"
                                                              class="img-avatar-48"></a>
                                                     @endif
-                                                    <strong><a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
+                                                    <strong><a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                                 @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)

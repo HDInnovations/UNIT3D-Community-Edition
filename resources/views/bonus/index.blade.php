@@ -261,13 +261,4 @@
             </div>
         </div>
     </div>
-
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-        $(document).ready(function () {
-            $('.user-select-placeholder-single').select2()
-        })
-    </script>
 @endsection

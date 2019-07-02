@@ -15,6 +15,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property float $seedbonus
+ * @property int $requests_id
+ * @property int $anon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\TorrentRequest $request
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereAnon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereRequestsId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereSeedbonus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereUserId($value)
+ * @mixin \Eloquent
+ */
 class TorrentRequestBounty extends Model
 {
     /**

@@ -4,7 +4,7 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4>@lang('blocks.featured-torrents')</h4>
+                <h4><i class="{{ config("other.font-awesome") }} fa-star"></i> @lang('blocks.featured-torrents')</h4>
             </div>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -13,7 +13,7 @@
                     <div class="item active">
                         <div id="movie-card-list">
                             <div class="movie-card"
-                                 style="background-image: url('https://image.tmdb.org/t/p/original/6G2fLCVm9fiLyHvBrccq6GSe2ih.jpg');">
+                                 style="background-image: url(/img/default_featured.jpg);">
                                 <div class="color-overlay">
                                     <div class="movie-content">
                                         <div class="movie-header">
@@ -24,14 +24,14 @@
                                                 <br>
                                                 <br>
                                                 <span class="badge-user text-bold text-pink"
-                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('torrent.freeleech')</span>
+                                                      style="background-image:url(/img/sparkels.gif);">@lang('torrent.freeleech')</span>
                                                 <span class="badge-user text-bold text-pink"
-                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('torrent.double-upload')</span>
+                                                      style="background-image:url(/img/sparkels.gif);">@lang('torrent.double-upload')</span>
                                             </h4>
                                         </div>
                                         <span class="movie-desc">
 
-                </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -71,30 +71,34 @@
                                                 </h4>
                                             </div>
                                             <span class="movie-desc">
-                  {{ str_limit(strip_tags($meta->plot), 200) }}...
-                  <br>
-                  <br>
-                <ul class="list-inline">
-                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>@lang('torrent.size')
-                        : </strong> {{ $feature->torrent->getSize() }}</span>
-                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-calendar"></i> <strong>@lang('torrent.released')
-                        : </strong> {{ $feature->torrent->created_at->diffForHumans() }}</span>
-                <span class="badge-extra text-green"><li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> <strong>@lang('torrent.seeders')
-                            : </strong> {{ $feature->torrent->seeders }}</li></span>
-                <span class="badge-extra text-red"><li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> <strong>@lang('torrent.leechers')
-                            : </strong> {{ $feature->torrent->leechers }}</li></span>
-                <span class="badge-extra text-orange"><li><i class="{{ config('other.font-awesome') }} fa-check-square"></i> <strong>@lang('torrent.completed')
-                            : </strong> {{ $feature->torrent->times_completed }}</li></span>
-                <br>
-                <span class="badge-user text-bold text-pink"
-                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('blocks.featured-until')
-                    : {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
-                    ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)</span>
-                <span class="badge-user text-bold text-pink"
-                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('blocks.featured-by')
-                    : {{ $feature->user->username }}!</span>
-                </ul>
-                </span>
+                                                {{ Str::limit(strip_tags($movie->plot), 200) }}...
+                                            <br>
+                                            <br>
+                                                <ul class="list-inline">
+                                                    <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i>
+                                                        <strong>@lang('torrent.size'): </strong> {{ $feature->torrent->getSize() }}
+                                                    </span>
+                                                    <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i>
+                                                        <strong>@lang('torrent.released'): </strong> {{ $feature->torrent->created_at->diffForHumans() }}
+                                                    </span>
+                                                    <span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                                                            <strong>@lang('torrent.seeders'): </strong> {{ $feature->torrent->seeders }}
+                                                    </span>
+                                                    <span class="badge-extra text-red"><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                                                        <strong>@lang('torrent.leechers'): </strong> {{ $feature->torrent->leechers }}
+                                                    </span>
+                                                    <span class="badge-extra text-orange"><i class="{{ config('other.font-awesome') }} fa-check-square"></i>
+                                                        <strong>@lang('torrent.completed'): </strong> {{ $feature->torrent->times_completed }}
+                                                    </span>
+                                                    <br>
+                                                    <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
+                                                        @lang('blocks.featured-until'): {{ $feature->created_at->addDay(7)->toFormattedDateString() }}({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
+                                                    </span>
+                                                    <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
+                                                        @lang('blocks.featured-by'): {{ $feature->user->username }}!
+                                                    </span>
+                                                </ul>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

@@ -294,7 +294,7 @@ a:hover {
 
 .btn-default,
 .btn-warning,
-.decoda-spoiler-button,
+.bbcode-spoiler-button,
 .label-default,
 .label-primary,
 .label-warning {
@@ -303,13 +303,13 @@ a:hover {
 }
 
 .btn-default,
-.decoda-spoiler-button {
+.bbcode-spoiler-button {
     background-color: var(--color-magenta);
     background-image: none;
 }
 
 .btn-default:hover,
-.decoda-spoiler-button:hover {
+.bbcode-spoiler-button:hover {
     background-color: var(--color-light-magenta);
     background-image: none;
 }
@@ -476,7 +476,7 @@ aside.post-info {
     color: var(--text-color);
 }
 
-.decoda-spoiler-content {
+.bbcode-spoiler-content {
     border: 0;
     background-color: #353535;
 }
@@ -630,13 +630,13 @@ i.torrent-icon {
     background-color: #252525;
 }
 
-.decoda-code,
-.decoda-quote {
+.bbcode-code,
+.bbcode-quote {
     background-color: #2b2b2b;
     color: var(--text-color);
 }
 
-.decoda-quote {
+.bbcode-quote {
     background-color: #353535;
 }
 
@@ -675,10 +675,6 @@ ul.nav.nav-tabs.mb-5 {
 
 div.topic-new-post {
     background: unset !important;
-}
-
-.topic-new-post .btn-primary {
-    margin-top: 10px;
 }
 
 .members-table tbody tr td .name,
@@ -914,4 +910,69 @@ div.topic-new-post {
 
 .card.is-torrent .card_footer {
     background-color: #171717;
+}
+
+//Mobile by Peter
+@media only screen and (max-width: 613px) {
+  ul.nav.nav-tabs.mb-5 {
+        float: left;
+        display: inline-block;
+    }
+    .col-md-10:first-child {
+        padding-bottom: 4px;
+    }
+    .panel .nav-tabs {
+        padding-bottom: 6px;
+        padding-top: 6px;
+    } 
+}
+
+// Pages
+.page-content {
+    line-height: 1.5em;
+}
+
+.page-content h1 {
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+    font-size: 1.75em;
+}
+
+.page-content h2 {
+    font-size: 1.5em;
+}
+
+.page-content h3 {
+    font-size: 1.2em;
+}
+
+a>strong {
+    color: var(--color-blue);
+}
+
+a>strong:hover {
+    color: var(--color-light-blue);
+}
+
+.page-content>blockquote {
+    color: var(--text-color);
+    border-color: var(--color-light-purple);
+    border-left-width: 3px;
+    border-radius: 2px;
+}
+
+.page-content code,
+pre {
+    color: var(--text-color);
+    background-color: #232323;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 3px;
+}
+
+.page-content>pre>code {
+    border: none;
+}
+
+.page-content > ul, .page-content > ul> li > ul > li, .page-content > ol > li > ul > li {
+    color: var(--text-color);
 }

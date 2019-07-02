@@ -15,27 +15,11 @@ namespace App\Http\Controllers\Staff;
 
 use App\Models\Note;
 use App\Models\User;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class NoteController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * NoteController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All User Notes.
      *
@@ -59,7 +43,7 @@ class NoteController extends Controller
      */
     public function postNote(Request $request, $username, $id)
     {
-        $staff = auth()->user();
+        $staff = $request->user();
         $user = User::findOrFail($id);
 
         $note = new Note();
@@ -75,7 +59,7 @@ class NoteController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $note->save();
 
@@ -83,7 +67,7 @@ class NoteController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('Note Has Successfully Posted', 'Yay!', ['options']));
+                ->withSuccess('Note Has Successfully Posted');
         }
     }
 
@@ -97,9 +81,10 @@ class NoteController extends Controller
     public function deleteNote($id)
     {
         $note = Note::findOrFail($id);
+        $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return redirect()->back()
-            ->with($this->toastr->success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

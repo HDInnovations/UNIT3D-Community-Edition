@@ -17,6 +17,63 @@ use App\Helpers\Bbcode;
 use App\Notifications\NewComment;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property int $category_id
+ * @property \App\Models\Type $type
+ * @property string|null $imdb
+ * @property string|null $tvdb
+ * @property string|null $tmdb
+ * @property string|null $mal
+ * @property string $description
+ * @property int $user_id
+ * @property float $bounty
+ * @property int $votes
+ * @property int|null $claimed
+ * @property int $anon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $filled_by
+ * @property string|null $filled_hash
+ * @property \Illuminate\Support\Carbon|null $filled_when
+ * @property int $filled_anon
+ * @property int|null $approved_by
+ * @property \Illuminate\Support\Carbon|null $approved_when
+ * @property-read \App\Models\User|null $FillUser
+ * @property-read \App\Models\User|null $approveUser
+ * @property-read \App\Models\Category $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequestBounty[] $requestBounty
+ * @property-read \App\Models\Torrent|null $torrent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereAnon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereApprovedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereApprovedWhen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereBounty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereClaimed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereFilledAnon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereFilledBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereFilledHash($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereFilledWhen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereImdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereMal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereTmdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereTvdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereVotes($value)
+ * @mixin \Eloquent
+ */
 class TorrentRequest extends Model
 {
     /**
@@ -134,12 +191,16 @@ class TorrentRequest extends Model
      */
     public function getDescriptionHtml()
     {
-        return Bbcode::parse($this->description);
+        $bbcode = new Bbcode();
+
+        return $bbcode->parse($this->description, true);
     }
 
     /**
      * Notify Requester When A New Action Is Taken.
      *
+     * @param $type
+     * @param $payload
      * @return bool
      */
     public function notifyRequester($type, $payload)

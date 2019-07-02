@@ -36,6 +36,7 @@ class FetchGenres extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws \ErrorException
      */
     public function handle()
     {

@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'dead'               => 'Morto(s)',
-    'graveyard'          => 'Cemitério',
-    'guidelines'         => 'Regras',
-    'guidelines-content' => '1) Não pode ressuscitar os seus próprios uploads.<br>2) Não ressuscite algo que não se possa comprometer.',
-    'howto'              => 'Aqui estão as regras',
-    'howto-desc1'        => 'Deve semear <span class="text-green"><em>:name</em></span> por <span class="text-red text-bold">30 dias</span> para uma ressurreição bem sucedida. Neste caso o tempo semeado é de',
-    'howto-desc2'        => 'Será recompensado',
-    'howto-hits'         => 'Atingir',
-    'pending'            => 'Pendente',
-    'resurrect'          => 'Ressuscitar',
-    'reward'             => 'Freeleech tokens',
+  'dead' => 'Morto',
+  'graveyard' => 'Cemitério',
+  'guidelines' => 'Diretrizes',
+  'guidelines-content' => '1) Você não pode ressuscitar seus próprios uploads. <br> 2) Não ressuscite algo que você não pode cometer também.',
+  'howto' => 'Heres a regra',
+  'howto-desc1' => 'Você deve semear <span class=\\"text-green\\"><em>: nome</em></span> por <span class="text-red text-bold">30 dias</span> para uma ressurreição bem sucedida. Nesse caso, quando sua hora de semente atual',
+  'howto-desc2' => 'Você será recompensado',
+  'howto-hits' => 'Exitos',
+  'pending' => 'Pendente',
+  'resurrect' => 'Ressuscitar',
+  'reward' => 'Fichas Freeleech',
 ];

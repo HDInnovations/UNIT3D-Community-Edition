@@ -24,6 +24,95 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Torrent model.
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $description
+ * @property string|null $mediainfo
+ * @property string $info_hash
+ * @property string $file_name
+ * @property int $num_file
+ * @property float $size
+ * @property string|null $nfo
+ * @property int $leechers
+ * @property int $seeders
+ * @property int $times_completed
+ * @property int|null $category_id
+ * @property string $announce
+ * @property int $user_id
+ * @property string $imdb
+ * @property string $tvdb
+ * @property string $tmdb
+ * @property string $mal
+ * @property \App\Models\Type $type
+ * @property int $stream
+ * @property int $free
+ * @property int $doubleup
+ * @property int $highspeed
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\FeaturedTorrent[] $featured
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $moderated_at
+ * @property int|null $moderated_by
+ * @property int $anon
+ * @property int $sticky
+ * @property int $sd
+ * @property int $internal
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentFile[] $files
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\History[] $history
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Warning[] $hitrun
+ * @property-read \App\Models\User|null $moderated
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Peer[] $peers
+ * @property-read \App\Models\TorrentRequest $request
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Thank[] $thanks
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
+ * @property-read \App\Models\User $uploader
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent sortable($defaultParameters = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereAnnounce($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereAnon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereDoubleup($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereFeatured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereFree($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereHighspeed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereImdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereInfoHash($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereInternal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereLeechers($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereMal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereMediainfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereModeratedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereModeratedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereNfo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereNumFile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereSd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereSeeders($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereSticky($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereStream($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereTimesCompleted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereTmdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereTvdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUserId($value)
+ * @mixin \Eloquent
  */
 class Torrent extends Model
 {
@@ -107,23 +196,13 @@ class Torrent extends Model
     }
 
     /**
-     * One Title Belongs To Many Catalogs.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function catalogs()
-    {
-        return $this->belongsToMany(Catalog::class)->withTimestamps();
-    }
-
-    /**
      * Has Many Tags.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'tag_torrent', 'torrent_id', 'tag_name', 'id', 'name');
     }
 
     /**
@@ -223,7 +302,9 @@ class Torrent extends Model
      */
     public function getDescriptionHtml()
     {
-        return Bbcode::parse($this->description);
+        $bbcode = new Bbcode();
+
+        return $bbcode->parse($this->description, true);
     }
 
     /**
@@ -242,6 +323,8 @@ class Torrent extends Model
     /**
      * Returns The Size In Human Format.
      *
+     * @param  null  $bytes
+     * @param  int  $precision
      * @return string
      */
     public function getSize($bytes = null, $precision = 2)
@@ -264,6 +347,8 @@ class Torrent extends Model
     /**
      * Notify Uploader When An Action Is Taken.
      *
+     * @param $type
+     * @param $payload
      * @return bool
      */
     public function notifyUploader($type, $payload)
@@ -290,6 +375,8 @@ class Torrent extends Model
 
     /**
      * Torrent Is Freeleech.
+     * @param  null  $user
+     * @return bool
      */
     public function isFreeleech($user = null)
     {

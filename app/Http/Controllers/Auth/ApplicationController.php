@@ -13,7 +13,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Application;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Models\ApplicationUrlProof;
 use App\Http\Controllers\Controller;
@@ -21,21 +20,6 @@ use App\Models\ApplicationImageProof;
 
 class ApplicationController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ApplicationController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Application Add Form.
      *
@@ -60,40 +44,79 @@ class ApplicationController extends Controller
         $application->referrer = $request->input('referrer');
 
         if (config('email-white-blacklist.enabled') === 'allow') {
-            $v = validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
-                'referrer' => 'required',
-                'images.*' => 'filled',
-                'images'   => 'min:2',
-                'links.*' => 'filled',
-                'links'   => 'min:2',
-            ]);
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                ]);
+            } else {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                    'g-recaptcha-response' => 'required|recaptcha',
+                ]);
+            }
         } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
-                'referrer' => 'required',
-                'images.*' => 'filled',
-                'images'   => 'min:2',
-                'links.*' => 'filled',
-                'links'   => 'min:2',
-            ]);
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                ]);
+            } else {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                    'g-recaptcha-response' => 'required|recaptcha',
+                ]);
+            }
         } else {
-            $v = validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|email|unique:invites|unique:users|unique:applications',
-                'referrer' => 'required',
-                'images.*' => 'filled',
-                'images'   => 'min:2',
-                'links.*' => 'filled',
-                'links'   => 'min:2',
-            ]);
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                ]);
+            } else {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                    'g-recaptcha-response' => 'required|recaptcha',
+                ]);
+            }
         }
 
         if ($v->fails()) {
             return redirect()->route('application.create')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $application->save();
 
@@ -110,7 +133,7 @@ class ApplicationController extends Controller
             $application->urlProofs()->saveMany($urls);
 
             return redirect()->route('login')
-                ->with($this->toastr->success('Your Application Has Been Submitted. You will receive a email soon!', 'Yay!', ['options']));
+                ->withSuccess(trans('application-submitted'));
         }
     }
 }

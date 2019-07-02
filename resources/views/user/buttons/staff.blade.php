@@ -8,7 +8,7 @@
     <a href="{{ route('user_wishlist', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
         @lang('user.wishlist')
     </a>
-    <a href="{{ route('user_clients', ['username' => $user->slug, 'id' => $user->id]) }}">
+    <a href="{{ route('seedboxes.index', ['username' => $user->username]) }}">
         <button class="btn btn-sm btn-primary">
             @lang('user.seedboxes')</button>
     </a>

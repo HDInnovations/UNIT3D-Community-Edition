@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'date'             => 'Data',
-    'delete'           => 'Excluir',
-    'delete-all'       => 'Excluir todas as notificações',
-    'mark-all-read'    => 'Marcar todas como lidas',
-    'mark-read'        => 'Marcar como lida',
-    'message'          => 'Mensagem',
-    'no-notifications' => 'Não há notificações',
-    'notifications'    => 'Notificações',
-    'read'             => 'Ler',
-    'title'            => 'Título',
+  'date' => 'Encontro',
+  'delete' => 'Excluir',
+  'delete-all' => 'Excluir todas as notificações',
+  'mark-all-read' => 'marcar tudo como lido',
+  'mark-read' => 'marcar como Lido',
+  'message' => 'mensagem',
+  'no-notifications' => 'Não há notificações encontradas',
+  'notifications' => 'Notificações',
+  'read' => 'Ler',
+  'title' => 'Título',
 ];

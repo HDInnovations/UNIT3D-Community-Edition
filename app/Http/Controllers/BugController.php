@@ -15,27 +15,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\Bug;
 use App\Models\User;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class BugController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * BugController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Bug Report Form.
      *
@@ -62,6 +46,6 @@ class BugController extends Controller
         Mail::to($user->email, $user->username)->send(new Bug($input));
 
         return redirect()->route('home')
-        ->with($this->toastr->success('Your Bug Was Successfully Sent!', 'Yay!', ['options']));
+            ->withSuccess('Your Bug Was Successfully Sent!');
     }
 }

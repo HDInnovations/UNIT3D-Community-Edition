@@ -6,7 +6,7 @@
                 <div class="button-holder no-space">
                     <div class="button-left">
                         <h4>
-                            Chatbox v3.0 Beta
+                            <i class="fas fa-comment-dots"></i> Chatbox v3.0
                         </h4>
                     </div>
                     <div class="button-right">
@@ -105,7 +105,7 @@
     }
     .panel-footer {
         padding: 5px;
-        margin: 0px;
+        margin: 0;
     }
     .mr-10 {
         margin-right: 10px;

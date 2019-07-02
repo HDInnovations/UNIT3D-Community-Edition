@@ -1,25 +1,19 @@
 <?php
 
 return [
-    // Chat
-    'chatbox' => 'Chatbox',
-
-    // Featured Torrents
-    'featured-torrents' => 'Uitgelichte Torrents',
-
-    // Latest Torrents
-    'latest-torrents' => 'Nieuwste Torrents',
-
-    // Latest Posts
-    'latest-posts' => 'Nieuwste Posts',
-
-    // Latest Topics
-    'latest-topics' => 'Nieuwste Topics',
-
-    // Users Online
-    'users-online' => 'Gebruikers Online',
-
-    // News/Articles
-    'new-news'   => 'Nieuw Nieuwsartikelen',
-    'check-news' => 'Nieuws (Dagelijks Bekijken)',
+  'chatbox' => 'Chatbox',
+  'click' => 'Klik',
+  'to-enable-editor' => 'om editor in te schakelen',
+  'featured-by' => 'Gekenmerkt door',
+  'featured-torrents' => 'Aanbevolen Torrents',
+  'featured-torrents-intro' => 'Haal ze terwijl je kunt!',
+  'featured-until' => 'Dit wordt gekenmerkt door torrent tot',
+  'top-torrents' => 'Top Torrents',
+  'latest-posts' => 'Laatste berichten',
+  'latest-topics' => 'Laatste onderwerpen',
+  'active-in-last' => 'Actief in de laatste',
+  'users-online' => 'Gebruikers online',
+  'check-news' => 'Nieuws (dagelijks controleren)',
+  'new-news' => 'Nieuw nieuws',
+  'new-torrents' => 'Nieuwe torrents',
 ];

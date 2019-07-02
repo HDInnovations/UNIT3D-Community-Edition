@@ -44,9 +44,9 @@
                     <th>@lang('common.name')</th>
                     <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                     <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
-                    <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                     <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i></th>
                     <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i></th>
+                    <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                 </tr>
                 </thead>
 
@@ -175,7 +175,7 @@
                                         <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
-                                        <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
+                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                            data-original-title="View More"></i>
                                     </span>
                                     {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} votes)
@@ -189,7 +189,7 @@
                                                         @endif
                                                         <span class="badge-extra text-bold">
                                 <span class="text-gold movie-rating-stars">
-                                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                        data-original-title="View More"></i>
                                 </span>
                                                             {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} votes)
@@ -210,7 +210,7 @@
                                                     @if ($torrent->internal == 1)
                                                         <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='Internal Release' style="color: #BAAF92"></i> Internal
+                                   data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
                             </span>
                                                     @endif
 
@@ -246,13 +246,13 @@
                                                 @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first(); @endphp
                                                 @if ($freeleech_token)
                                                     <span class='badge-extra text-bold'>
-                                <i class='{{ config("other.font-awesome") }} fa-coins text-bold' data-toggle='tooltip' title=''
+                                <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                    data-original-title='Freeleech Token'></i> Freeleech Token
                             </span>
                                                 @endif
 
                                                 @if ($torrent->featured == 1)
-                                                    <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                                                    <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                 <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                    data-original-title='Featured Torrent'></i> Featured
                             </span>
@@ -322,13 +322,6 @@
                                 <span class='badge-extra text-blue text-bold'>{{ $torrent->getSize() }}</span>
                             </td>
                             <td>
-                                <a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
-                            <span class='badge-extra text-orange text-bold'>
-                                {{ $torrent->times_completed }} @lang('common.times')
-                            </span>
-                                </a>
-                            </td>
-                            <td>
                                 <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                             <span class='badge-extra text-green text-bold'>
                                 {{ $torrent->seeders }}
@@ -339,6 +332,13 @@
                                 <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                             <span class='badge-extra text-red text-bold'>
                                 {{ $torrent->leechers }}
+                            </span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                            <span class='badge-extra text-orange text-bold'>
+                                {{ $torrent->times_completed }} @lang('common.times')
                             </span>
                                 </a>
                             </td>

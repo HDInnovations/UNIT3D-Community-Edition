@@ -1,0 +1,28 @@
+<?php
+
+return [
+  'create' => 'vytvoriť',
+  'delete' => 'vymazať',
+  'enter-subject' => 'Zadajte predmet',
+  'from' => 'z',
+  'inbox' => 'Doručená pošta',
+  'mark-all-read' => 'Označte všetky správy ako prečítané',
+  'message' => 'správa',
+  'messages' => 'správy',
+  'new' => 'Nová správa',
+  'outbox' => 'Na odoslanie',
+  'private' => 'Súkromné',
+  'read' => 'prečítať',
+  'received-at' => 'Prijaté dňa',
+  'refresh' => 'Obnoviť',
+  'reply' => 'odpoveď',
+  'search' => 'Vyhľadávanie podľa predmetu',
+  'select' => 'Vyberte položku A User',
+  'send' => 'Odoslať PM',
+  'send-to' => 'Odoslať PM To',
+  'sent' => 'odoslané',
+  'sent-at' => 'Odoslané dňa',
+  'subject' => 'predmet',
+  'to' => 'na',
+  'unread' => 'neprečítaný',
+];

@@ -91,7 +91,7 @@ class SetLanguage
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check()) {
+        if ($request->user()) {
             $this->setUserLocale();
         } else {
             $this->setSystemLocale($request);

@@ -14,7 +14,6 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\User;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
@@ -22,30 +21,13 @@ use App\Http\Controllers\Controller;
 class GiftController extends Controller
 {
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * GiftController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
-    /**
      * Send Gift Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $users = User::oldest('username')->get();
-
-        return view('Staff.gift.index', ['users' => $users]);
+        return view('Staff.gift.index');
     }
 
     /**
@@ -57,7 +39,7 @@ class GiftController extends Controller
      */
     public function gift(Request $request)
     {
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $username = $request->input('username');
         $seedbonus = $request->input('seedbonus');
@@ -73,13 +55,13 @@ class GiftController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('systemGift')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
-            $recipient = User::where('username', 'LIKE', $username)->first();
+            $recipient = User::where('username', '=', $username)->first();
 
             if (! $recipient) {
                 return redirect()->route('systemGift')
-                    ->with($this->toastr->error('Unable To Find Specified User', 'Whoops!', ['options']));
+                    ->withErrors('Unable To Find Specified User');
             }
 
             $recipient->seedbonus += $seedbonus;
@@ -100,7 +82,7 @@ class GiftController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
 
             return redirect()->route('systemGift')
-                ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
+                ->withSuccess('Gift Sent');
         }
     }
 }

@@ -15,7 +15,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Models\Poll;
 use App\Models\Option;
-use Brian2694\Toastr\Toastr;
 use App\Http\Requests\StorePoll;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
@@ -28,20 +27,13 @@ class PollController extends Controller
     private $chat;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * PollController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr         $toastr
      */
-    public function __construct(ChatRepository $chat, Toastr $toastr)
+    public function __construct(ChatRepository $chat)
     {
         $this->chat = $chat;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -59,6 +51,7 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function poll($id)
@@ -87,9 +80,9 @@ class PollController extends Controller
      */
     public function store(StorePoll $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
-        if (auth()->check()) {
+        if ($request->user()) {
             $poll = $user->polls()->create($request->all());
         } else {
             $poll = Poll::create($request->all());
@@ -110,6 +103,6 @@ class PollController extends Controller
         );
 
         return redirect('poll/'.$poll->slug)
-            ->with($this->toastr->success('Your poll has been created.', 'Yay!', ['options']));
+            ->withSuccess('Your poll has been created.');
     }
 }

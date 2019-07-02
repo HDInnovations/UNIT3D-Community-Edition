@@ -13,14 +13,11 @@
 
 namespace App\Services\Clients;
 
-use Predis\Client as RedisClient;
 use GuzzleHttp\Client as GuzzleClient;
 
 abstract class Client
 {
     protected $guzzle;
-
-    protected $redis;
 
     protected $apiUrl;
 
@@ -30,7 +27,6 @@ abstract class Client
 
     public function __construct($apiUrl, $apiKey = null)
     {
-        $this->redis = new RedisClient();
         $this->apiUrl = ($this->apiSecure ? 'https://' : 'http://').$apiUrl;
         $this->apiKey = $apiKey;
         $this->guzzle = new GuzzleClient();
@@ -71,13 +67,13 @@ abstract class Client
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            $this->redis->setex($key, 604800, serialize($data));
-
-            return $data;
+            cache()->remember($key, 7 * 24 * 60, function () use ($data) {
+                return serialize($data);
+            });
         }
 
-        if ($cache = $this->redis->get($key)) {
-            return unserialize($cache);
+        if (cache()->has($key)) {
+            return unserialize(cache()->get($key));
         }
 
         return $data;

@@ -412,6 +412,8 @@ return [
         'script-src' => [
             'allow' => [
                 'https://www.google.com/recaptcha/api.js',
+                'https://www.google.com/recaptcha/',
+                'https://www.gstatic.com/recaptcha/api2/',
                 'https://www.gstatic.com/recaptcha/api2/v1550471573786/recaptcha__en.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment-with-locales.min.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js',
@@ -496,8 +498,8 @@ return [
 
         'connect-src' => [
             'allow' => [
-                'https://unit3d.org:8443/socket.io/',
-                'wss://unit3d.org:8443/socket.io/',
+                'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
+                'wss://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
             ],
             'self' => true,
         ],

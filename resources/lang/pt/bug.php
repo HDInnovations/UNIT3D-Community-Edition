@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'bug-report'             => 'Reportar problema',
-    'bug-report-description' => 'Reportar problema no site',
-    'enter-description'      => 'Descreva o problema da melhor forma possível',
-    'enter-email'            => 'Escreva o seu e-mail',
-    'enter-title'            => 'Escolha um assunto apropriado',
-    'enter-username'         => 'Escreva o seu nome de utilizador',
-    'high'                   => 'Alta',
-    'low'                    => 'Baixa',
-    'priority'               => 'Prioridade',
-    'priority-description'   => 'Escolha somente a opção muito alta se o problema impossibilitar a navegação dentro do site.',
-    'very-high'              => 'Muito Alta',
+  'bug-report' => 'Relatório de erro',
+  'bug-report-description' => 'Denunciar um bug do site',
+  'enter-description' => 'Descreva o problema da melhor forma possível',
+  'enter-email' => 'Por favor introduza o seu e-mail',
+  'enter-title' => 'Por favor escolha um título apropriado',
+  'enter-username' => 'Por favor insira seu nome de usuário',
+  'high' => 'Alto',
+  'low' => 'Baixo',
+  'priority' => 'Prioridade',
+  'priority-description' => 'Escolha apenas muito alto se o bug realmente for um problema para usar o site.',
+  'very-high' => 'Muito alto',
 ];

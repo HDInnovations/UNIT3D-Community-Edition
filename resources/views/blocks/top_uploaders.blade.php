@@ -2,18 +2,18 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>Top Uploaders</h4>
+            <h4><i class="{{ config("other.font-awesome") }} fa-trophy-alt"></i> @lang('user.top-uploaders-count')</h4>
         </div>
 
         <ul class="nav nav-tabs mb-12" role="tablist">
             <li class="col-md-6">
                 <a href="#alltime" role="tab" data-toggle="tab" aria-expanded="true">
-                    <i class="{{ config('other.font-awesome') }} fa-trophy-alt text-gold"></i> All Time
+                    <i class="{{ config('other.font-awesome') }} fa-trophy-alt text-gold"></i> @lang('stat.all-time')
                 </a>
             </li>
             <li class="active col-md-6">
                 <a href="#30days" role="tab" data-toggle="tab" aria-expanded="false">
-                    <i class="{{ config('other.font-awesome') }} fa-trophy text-success"></i> Last 30 Days
+                    <i class="{{ config('other.font-awesome') }} fa-trophy text-success"></i> @lang('stat.last30days')
                 </a>
             </li>
         </ul>
@@ -28,7 +28,7 @@
                             <th class="torrents-icon"></th>
                             <th>@lang('common.user')</th>
                             <th>@lang('user.total-uploads')</th>
-                            <th>Place</th>
+                            <th>@lang('stat.place')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,7 +66,7 @@
                                     <span class="text-green">{{ $uploader->user->getUploads() }}</span>
                                 </td>
                                 <td>
-                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} Place</span>
+                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} @lang('stat.place')</span>
                                 </td>
                             </tr>
                         @endforeach
@@ -83,7 +83,7 @@
                             <th class="torrents-icon"></th>
                             <th>@lang('common.user')</th>
                             <th>@lang('user.total-uploads')</th>
-                            <th>Place</th>
+                            <th>@lang('stat.place')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -121,7 +121,7 @@
                                     <span class="text-green">{{ $past_uploader->user->getLast30Uploads() }}</span>
                                 </td>
                                 <td>
-                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} Place</span>
+                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} @lang('stat.place')</span>
                                 </td>
                             </tr>
                         @endforeach

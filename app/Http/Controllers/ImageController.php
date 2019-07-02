@@ -15,26 +15,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Image;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ImageController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Image Add Form.
      *
@@ -59,7 +43,7 @@ class ImageController extends Controller
     public function add(Request $request)
     {
         $image = new Image();
-        $image->user_id = auth()->user()->id;
+        $image->user_id = $request->user()->id;
         $image->album_id = $request->input('album_id');
         $image->description = $request->input('description');
         $image->type = $request->input('type');
@@ -82,12 +66,12 @@ class ImageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('add_image', ['id' => $request->input('album_id')])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $image->save();
 
             return redirect()->route('show_album', ['id' => $request->input('album_id')])
-                ->with($this->toastr->success('Your image has successfully published!', 'Yay!', ['options']));
+                ->withSuccess('Your image has successfully published!');
         }
     }
 
@@ -100,7 +84,7 @@ class ImageController extends Controller
      */
     public function move(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         abort_unless($user->group->is_modo, 403);
         $image = Image::findOrFail($request->input('photo'));
@@ -113,7 +97,7 @@ class ImageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('gallery')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $image->save();
 
@@ -135,7 +119,7 @@ class ImageController extends Controller
 
         if (! file_exists(getcwd().'/files/img/'.$filename)) {
             return redirect()->route('show_album', ['id' => $image->album_id])
-                ->with($this->toastr->error('Image File Not Found! Please Report This To Staff!', 'Error!', ['options']));
+                ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
 
         $image->downloads++;
@@ -151,15 +135,15 @@ class ImageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $image = Image::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
         $image->delete();
 
         return redirect()->route('show_album', ['id' => $image->album_id])
-            ->with($this->toastr->success('Image has successfully been deleted', 'Yay!', ['options']));
+            ->withSuccess('Image has successfully been deleted');
     }
 }

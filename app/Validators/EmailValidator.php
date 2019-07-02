@@ -23,11 +23,13 @@ class EmailValidator
                 $domain_list = config('email-white-blacklist.block');
 
                 return ! in_array($domain, $domain_list);
+
                 break;
             case 'allow':
                 $domain_list = config('email-white-blacklist.allow');
 
                 return in_array($domain, $domain_list);
+
                 break;
             default:
                 // code...

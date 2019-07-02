@@ -17,9 +17,8 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Invite;
-use App\Rules\Captcha;
 use App\Models\UserPrivacy;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Models\UserActivation;
@@ -37,20 +36,13 @@ class RegisterController extends Controller
     private $chat;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * RegisterController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr         $toastr
      */
-    public function __construct(ChatRepository $chat, Toastr $toastr)
+    public function __construct(ChatRepository $chat)
     {
         $this->chat = $chat;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -62,10 +54,16 @@ class RegisterController extends Controller
      */
     public function registrationForm($code = null)
     {
-        // Make sure open reg is off and invite code is present
+        // Make sure open reg is off, invite code is not present and application signups enabled
+        if ($code === 'null' && config('other.invite-only') == 1 && config('other.application_signups') == true) {
+            return redirect()->route('application.create')
+                ->withInfo(trans('auth.allow-invite-appl'));
+        }
+
+        // Make sure open reg is off and invite code is not present
         if ($code === 'null' && config('other.invite-only') == 1) {
-            return view('auth.login')
-                ->with($this->toastr->error('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!', 'Whoops!', ['options']));
+            return redirect()->route('login')
+                ->withWarning(trans('auth.allow-invite'));
         }
 
         return view('auth.register', ['code' => $code]);
@@ -76,11 +74,11 @@ class RegisterController extends Controller
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
         if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
-            return view('auth.register', ['code' => $code])
-                ->with($this->toastr->error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
+            return redirect()->route('registrationForm', ['code' => $code])
+                ->withErrors(trans('auth.invalid-key'));
         }
 
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
@@ -98,7 +96,7 @@ class RegisterController extends Controller
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
                 'password'             => 'required|min:8',
-                'g-recaptcha-response' => new Captcha(),
+                'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
@@ -111,7 +109,7 @@ class RegisterController extends Controller
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:block', // Blacklist
                 'password'             => 'required|min:8',
-                'g-recaptcha-response' => new Captcha(),
+                'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($request->all(), [
@@ -124,7 +122,7 @@ class RegisterController extends Controller
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users',
                 'password'             => 'required|min:8',
-                'g-recaptcha-response' => new Captcha(),
+                'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } else {
             $v = validator($request->all(), [
@@ -135,8 +133,8 @@ class RegisterController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('register', ['code' => $code])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+            return redirect()->route('registrationForm', ['code' => $code])
+                ->withErrors($v->errors());
         } else {
             $user->save();
 
@@ -158,7 +156,7 @@ class RegisterController extends Controller
             }
 
             // Handle The Activation System
-            $token = hash_hmac('sha256', $user->username.$user->email.str_random(16), config('app.key'));
+            $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
             $activation = new UserActivation();
             $activation->user_id = $user->id;
             $activation->token = $token;
@@ -195,7 +193,7 @@ class RegisterController extends Controller
             \LogActivity::addToLog('Member '.$user->username.' has successfully registered to site.');
 
             return redirect()->route('login')
-                ->with($this->toastr->success('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
+                ->withSuccess(trans('auth.register-thanks'));
         }
     }
 }

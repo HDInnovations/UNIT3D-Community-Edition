@@ -26,7 +26,7 @@
         @include('forum.buttons')
         <form role="form" method="GET" action="{{ route('forum_search_form') }}">
             <input type="hidden" name="sorting" value="created_at">
-            <input type="hidden" name="direction" value="2">
+            <input type="hidden" name="direction" value="desc">
             <input type="text" name="body" value="{{ (isset($params) && is_array($params) && array_key_exists('body',$params) ? $params['body'] : '') }}" placeholder="@lang('forum.post-quick-search')"
                    class="form-control">
         </form>
@@ -75,14 +75,14 @@
                                         class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a
-                                        href="{{ route('profile', ['username' => str_slug($r->topic->first_post_user_username), 'id' => $r->topic->first_post_user_id]) }}">{{ $r->topic->first_post_user_username }}</a>
+                                        href="{{ route('profile', ['username' => Str::slug($r->topic->first_post_user_username), 'id' => $r->topic->first_post_user_id]) }}">{{ $r->topic->first_post_user_username }}</a>
                             </td>
                             <td class="f-display-topic-stats">
                                 {{ $r->topic->num_post - 1 }} @lang('forum.replies')
                                 \ {{ $r->topic->views }} @lang('forum.views')
                             </td>
                             <td class="f-display-topic-last-post">
-                                <a href="{{ route('profile', ['username' => str_slug($r->topic->last_post_user_username), 'id' => $r->topic->last_post_user_id]) }}">{{ $r->topic->last_post_user_username }}</a>,
+                                <a href="{{ route('profile', ['username' => Str::slug($r->topic->last_post_user_username), 'id' => $r->topic->last_post_user_id]) }}">{{ $r->topic->last_post_user_username }}</a>,
                                 <time datetime="{{ date('d-m-Y h:m', strtotime($r->topic->updated_at)) }}">
                                     {{ date('M d Y', strtotime($r->topic->updated_at)) }}
                                 </time>

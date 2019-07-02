@@ -206,8 +206,8 @@
                                     <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                                     <div class="col-sm-2">
                                         <select id="direction" name="direction" class="form-control">
-                                            <option value="2"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 2 ? 'SELECTED' : '') }}>Descending</option>
-                                            <option value="1"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 1 ? 'SELECTED' : '') }}>Ascending</option>
+                                            <option value="desc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'desc' ? 'SELECTED' : '') }}>@lang('common.descending')</option>
+                                            <option value="asc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'asc' ? 'SELECTED' : '') }}>@lang('common.ascending')</option>
                                         </select>
                                     </div>
                                 </div>
@@ -258,14 +258,14 @@
                                         class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a
-                                        href="{{ route('profile', ['username' => str_slug($r->topic->first_post_user_username), 'id' => $r->topic->first_post_user_id]) }}">{{ $r->topic->first_post_user_username }}</a>
+                                        href="{{ route('profile', ['username' => Str::slug($r->topic->first_post_user_username), 'id' => $r->topic->first_post_user_id]) }}">{{ $r->topic->first_post_user_username }}</a>
                             </td>
                             <td class="f-display-topic-stats">
                                 {{ $r->topic->num_post - 1 }} @lang('forum.replies')
                                 \ {{ $r->topic->views }} @lang('forum.views')
                             </td>
                             <td class="f-display-topic-last-post">
-                                <a href="{{ route('profile', ['username' => str_slug($r->topic->last_post_user_username), 'id' => $r->topic->last_post_user_id]) }}">{{ $r->topic->last_post_user_username }}</a>,
+                                <a href="{{ route('profile', ['username' => Str::slug($r->topic->last_post_user_username), 'id' => $r->topic->last_post_user_id]) }}">{{ $r->topic->last_post_user_username }}</a>,
                                 <time datetime="{{ date('d-m-Y h:m', strtotime($r->topic->updated_at)) }}">
                                     {{ date('M d Y', strtotime($r->topic->updated_at)) }}
                                 </time>

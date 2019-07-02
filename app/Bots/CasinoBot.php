@@ -26,19 +26,26 @@ use App\Http\Resources\UserAudibleResource;
 class CasinoBot
 {
     private $bot;
+
     private $chat;
+
     private $target;
+
     private $type;
+
     private $message;
+
     private $targeted;
+
     private $log;
+
     private $expiresAt;
+
     private $current;
 
     /**
      * NerdBot Constructor.
-     *
-     * @param Toastr $toastr
+     * @param  ChatRepository  $chat
      */
     public function __construct(ChatRepository $chat)
     {
@@ -51,6 +58,8 @@ class CasinoBot
 
     /**
      * Replace Vars.
+     * @param $output
+     * @return mixed
      */
     public function replaceVars($output)
     {
@@ -70,6 +79,9 @@ class CasinoBot
 
     /**
      * Send Bot Donation.
+     * @param  int  $amount
+     * @param  string  $note
+     * @return string
      */
     public function putDonate($amount = 0, $note = '')
     {
@@ -107,6 +119,8 @@ class CasinoBot
 
     /**
      * Get Bot Donations.
+     * @param  string  $duration
+     * @return string
      */
     public function getDonations($duration = 'default')
     {
@@ -135,6 +149,11 @@ class CasinoBot
 
     /**
      * Process Message.
+     * @param $type
+     * @param  User  $target
+     * @param  string  $message
+     * @param  int  $targeted
+     * @return bool
      */
     public function process($type, User $target, $message = '', $targeted = 0)
     {
@@ -257,21 +276,21 @@ class CasinoBot
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
 
-            return response('success', 200);
+            return response('success');
         } elseif ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
 
-            return response('success', 200);
+            return response('success');
         } elseif ($type == 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
-            return response('success', 200);
+            return response('success');
         }
 
         return true;

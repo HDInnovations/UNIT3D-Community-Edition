@@ -16,8 +16,11 @@ namespace App\Bots;
 class IRCAnnounceBot
 {
     protected $socket = null;
+
     private $channels = [];
+
     private $username = null;
+
     private $registered = false;
 
     public function __construct()

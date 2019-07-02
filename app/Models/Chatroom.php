@@ -16,6 +16,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Chatroom extends Model
 {
     use Notifiable;

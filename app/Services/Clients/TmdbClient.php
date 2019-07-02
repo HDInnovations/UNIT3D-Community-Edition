@@ -21,10 +21,13 @@ use App\Services\Contracts\MovieTvInterface;
 class TmdbClient extends Client implements MovieTvInterface
 {
     protected $apiUrl = 'api.themoviedb.org/3/';
+
     protected $apiSecure = true;
 
     private $imagePath = 'https://image.tmdb.org/t/p/w780';
+
     private $imageBackdropPath = 'https://image.tmdb.org/t/p/w1280';
+
     private $imageProfilePath = 'https://image.tmdb.org/t/p/h632';
 
     public function __construct($apiKey)
@@ -335,7 +338,7 @@ class TmdbClient extends Client implements MovieTvInterface
         if (! empty($trailers = $movie['videos']['results'])) {
             foreach ($trailers as $trailer) {
                 if ($trailer['type'] == 'Trailer' && $trailer['site'] == 'YouTube') {
-                    return 'https://www.youtube.com/watch?v='.$trailer['key'];
+                    return 'https://www.youtube-nocookie.com/embed/'.$trailer['key'];
                 }
             }
         }

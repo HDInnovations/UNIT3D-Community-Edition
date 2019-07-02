@@ -20,6 +20,7 @@
             </div>
         </div>
         <div class="stats">
+          <div class="table-responsive">
             <div class="content">
                 <div class="inner_content">
                     <h1>@lang('stat.nerd-stats')</h1>
@@ -132,47 +133,48 @@
                 </div>
                 <img src="{{ url('img/sheldon.png') }}" width="321" height="379">
             </div>
+          </div>
         </div>
         <br>
         <h3 class="text-center">@lang('stat.select-category')</h3>
         <div class="row">
             <div class="col-sm-4">
-                <div class="well well-sm mt-20">
+                <div class="well well-sm">
                     <a href="{{ route('uploaded') }}">
                         <p class="lead text-green text-center">@lang('common.users')</p>
                     </a>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="well well-sm mt-20">
+                <div class="well well-sm">
                     <a href="{{ route('seeded') }}">
                         <p class="lead text-blue text-center">@lang('torrent.torrents')</p>
                     </a>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="well well-sm mt-20">
+                <div class="well well-sm">
                     <a href="{{ route('bountied') }}">
                         <p class="lead text-orange text-center">@lang('request.requests')</p>
                     </a>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="well well-sm mt-20">
+                <div class="well well-sm">
                     <a href="{{ route('groups') }}">
                         <p class="lead text-red text-center">@lang('common.groups')</p>
                     </a>
                 </div>
             </div>
-            {{--<div class="col-sm-4">
-              <div class="well well-sm mt-20">
-                <a href="#">
-                  <p class="lead text-pink text-center">@lang('commmon.teams')</p>
-                </a>
-              </div>
-            </div>--}}
-            </br>
-            </br>
+            <div class="col-sm-4">
+                <div class="well well-sm">
+                    <a href="{{ route('languages') }}">
+                        <p class="lead text-purple text-center">@lang('common.languages')</p>
+                    </a>
+                </div>
+            </div>
+            <br>
+            <br>
         </div>
         <p class="text-purple text-center text-mono">@lang('stat.stats-format')</p>
     </div>

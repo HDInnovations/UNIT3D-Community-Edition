@@ -29,13 +29,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // ReCaptcha
+        validator()->extend('recaptcha', 'App\Validators\ReCaptcha@validate');
+
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
 
         // Share $pages across all views
         view()->composer('*', function (View $view) {
             $pages = cache()->remember('cached-pages', 3600, function () {
-                return Page::select('id', 'name', 'slug')->take(5)->get();
+                return Page::select(['id', 'name', 'slug'])->take(6)->get();
             });
 
             $view->with(compact('pages'));

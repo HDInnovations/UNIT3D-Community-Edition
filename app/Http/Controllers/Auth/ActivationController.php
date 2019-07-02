@@ -14,31 +14,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Group;
-use Brian2694\Toastr\Toastr;
 use App\Models\UserActivation;
 use App\Http\Controllers\Controller;
 
 class ActivationController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ActivationController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     public function activate($token)
     {
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $memberGroup = Group::where('slug', '=', 'user')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $bannedGroup->id) {
@@ -56,9 +40,11 @@ class ActivationController extends Controller
 
             $activation->delete();
 
-            return redirect()->route('login')->with($this->toastr->success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
+            return redirect()->route('login')
+                ->withSuccess(trans('auth.activation-success'));
         } else {
-            return redirect()->route('login')->with($this->toastr->error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+            return redirect()->route('login')
+                ->withErrors(trans('auth.activation-error'));
         }
     }
 }

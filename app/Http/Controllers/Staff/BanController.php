@@ -19,28 +19,12 @@ use App\Models\User;
 use App\Mail\BanUser;
 use App\Models\Group;
 use App\Mail\UnbanUser;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class BanController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * BanController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All Bans.
      *
@@ -65,10 +49,10 @@ class BanController extends Controller
     public function ban(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        $staff = auth()->user();
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $staff = $request->user();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
 
-        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->group_id = $bannedGroup->id;
         $user->can_upload = 0;
@@ -89,7 +73,7 @@ class BanController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $user->save();
             $ban->save();
@@ -101,7 +85,7 @@ class BanController extends Controller
             Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('User Is Now Banned!', 'Yay!', ['options']));
+                ->withSuccess('User Is Now Banned!');
         }
     }
 
@@ -117,9 +101,9 @@ class BanController extends Controller
     public function unban(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
-        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->group_id = $request->input('group_id');
         $user->can_upload = 1;
@@ -142,7 +126,7 @@ class BanController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $user->save();
             $ban->save();
@@ -154,7 +138,7 @@ class BanController extends Controller
             Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
+                ->withSuccess('User Is Now Relieved Of His Ban!');
         }
     }
 }

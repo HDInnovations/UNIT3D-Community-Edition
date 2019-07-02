@@ -7,11 +7,14 @@
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.8.3-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.8.16-f4645f.svg?style=flat-square" /></a> 
+<a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
 <a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
-<a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
-<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>
+<a href="https://discord.gg/ntnPxzG"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
+<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg?style=flat-square"></a>
+<a href="https://observatory.mozilla.org/analyze/unit3d.org"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
+<a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
 
 
@@ -38,7 +41,7 @@
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.8.3, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.8.16, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -109,10 +112,11 @@ Video Tutorial Can Be Seen Here:
 https://www.youtube.com/watch?v=f2tiMWZ3KbA
 
 ### <a name="manual-install"></a> Manual Install
-If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
+If you rather setup UNIT3D manually you can follow the instructions here: http://docs.unit3d.org/manual_install.html
 
 ## <a name="updating"></a> :book: Documentation
-WIP - https://github.com/HDInnovations/UNIT3D-Docs
+Repo - https://github.com/HDInnovations/UNIT3D-Docs
+Site - http://docs.unit3d.org
 
 ## <a name="docs"></a> :computer: Updating
 `php artisan git:update`
@@ -127,20 +131,11 @@ Here are some packages that are built for UNIT3D.
 - [An artisan package to import a U-232 database into UNIT3D](https://github.com/HDInnovations/u232-to-unit3d).
 
 ## <a name="versions"></a> 🚨 Version Support Information
- Version   | Status                   | PHP Version
-:----------|:-------------------------|:------------
- 1.9.1     |  Active support :rocket: | >= 7.1.3
- 1.9       |  Active support :rocket: | >= 7.1.3
- 1.8.9     |  End of life             | >= 7.1.3
- 1.8.8     |  End of life             | >= 7.1.3
- 1.8.7     |  End of life             | >= 7.1.3
- 1.8.6     |  End of life             | >= 7.1.3
- 1.8.5     |  End of life             | >= 7.1.3
- 1.8       |  End of life             | >= 7.1.3
- 1.7       |  End of life             | >= 7.1.3
- 1.6.x     |  End of life             | >= 7.0.13
- 1.5.x     |  End of life             | >= 7.0.13
- 1.0       |  End of life             | >= 7.0.13
+ Version     | Status                   | PHP Version Required
+:------------|:-------------------------|:------------
+ 1.9.3       |  Active Support :rocket: | >= 7.3
+ 1.9.2       |  Active Support :rocket: | >= 7.2
+ 1.0 to 1.9.1|  End Of Life :skull:     | >= 7.1.3
 
 ## <a name="security"></a> :lock: Security
 
@@ -155,10 +150,6 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDVinnie/UNIT3D/blob/master/LICENSE).
 
 <b> As per license do not remove the license from sourcecode or from footer in `/resources/views/partials/footer.blade.php`</b>
-
-## <a name="homestead"></a> :computer: Homestead (for local developement)
-
-For instructions on how to use Homestead for running UNIT3D in a local development environment check here: https://github.com/HDInnovations/UNIT3D/wiki/Homestead
 
 ## <a name="demo"></a> :computer: Demo
 
@@ -191,10 +182,11 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="100px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub>](https://github.com/HDVinnie)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie "Code") [🎨](#design-HDVinnie "Design") [📖](https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="100px;" alt="Everett (Mike) Wiley"/><br /><sub><b>Everett (Mike) Wiley</b></sub>](https://github.com/poppabear8883)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=poppabear8883 "Code") | [<img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="100px;" alt="singularity43"/><br /><sub><b>singularity43</b></sub>](https://github.com/singularity43)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=singularity43 "Code") | [<img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub>](https://github.com/VerioPL)<br />[🌍](https://github.com/HDInnovations/UNIT3D/commits?author=VerioPL "Translation") | [<img src="https://avatars0.githubusercontent.com/u/17199757?v=4" width="100px;" alt="artyuum"/><br /><sub><b>Artyuum</b></sub>](https://github.com/artyuum)<br />[🎨](https://github.com/HDInnovations/UNIT3D/commits?author=artyuum "Design") |
-| :---: | :---: | :---: | :---: | :---: |
+<table><tr><td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="100px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Documentation">📖</a></td><td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="100px;" alt="Everett (Mike) Wiley"/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=poppabear8883" title="Code">💻</a></td><td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="100px;" alt="singularity43"/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=singularity43" title="Code">💻</a></td><td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td><td align="center"><a href="https://github.com/artyuum"><img src="https://avatars0.githubusercontent.com/u/17199757?v=4" width="100px;" alt="Artyum"/><br /><sub><b>Artyuum</b></sub></a><br /><a href="#design-artyuum" title="Design">🎨</a></td><td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="100px;" alt="Morgan Wong"/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td></tr></table>
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## <a name="thanks"></a> :heart: Special Thanks
 
 <a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>
+<a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png"></a>

@@ -23,15 +23,17 @@ class NewPostTag extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $tagger;
+
     public $post;
 
     /**
      * Create a new notification instance.
      *
-     * @param Post $post
-     *
-     * @return void
+     * @param  string  $type
+     * @param  string  $tagger
+     * @param  Post  $post
      */
     public function __construct(string $type, string $tagger, Post $post)
     {

@@ -14,8 +14,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Group;
-use App\Rules\Captcha;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -28,25 +26,17 @@ class LoginController extends Controller
     protected $redirectTo = '/';
 
     // Max Attempts Until Lockout
-    public $maxAttempts = 5;
+    public $maxAttempts = 3;
 
     // Minutes Lockout
     public $decayMinutes = 60;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * LoginController Constructor.
-     *
-     * @param Toastr $toastr
      */
-    public function __construct(Toastr $toastr)
+    public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
-        $this->toastr = $toastr;
     }
 
     public function username()
@@ -65,29 +55,29 @@ class LoginController extends Controller
             $this->validate($request, [
                 $this->username()      => 'required|string',
                 'password'             => 'required|string',
-                'g-recaptcha-response' => new Captcha(),
+                'g-recaptcha-response' => 'required|recaptcha',
+            ]);
+        } else {
+            $this->validate($request, [
+                $this->username() => 'required|string',
+                'password' => 'required|string',
             ]);
         }
-
-        $this->validate($request, [
-            $this->username() => 'required|string',
-            'password'        => 'required|string',
-        ]);
     }
 
     protected function authenticated(Request $request, $user)
     {
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
-        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
-        $memberGroup = Group::where('slug', '=', 'user')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
+        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
 
         if ($user->active == 0 || $user->group_id == $validatingGroup->id) {
             $this->guard()->logout();
             $request->session()->invalidate();
 
             return redirect()->route('login')
-                ->with($this->toastr->error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
+                ->withErrors(trans('auth.not-activated'));
         }
 
         if ($user->group_id == $bannedGroup->id) {
@@ -95,7 +85,7 @@ class LoginController extends Controller
             $request->session()->invalidate();
 
             return redirect()->route('login')
-                ->with($this->toastr->error('This account is Banned!', 'Whoops!', ['options']));
+                ->withErrors(trans('auth.banned'));
         }
 
         if ($user->group_id == $disabledGroup->id) {
@@ -109,11 +99,11 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect('/')
-                ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
+            return redirect()->to('/')
+                ->withSuccess(trans('auth.welcome-restore'));
         }
 
-        if (auth()->viaRemember() && auth()->user()->group_id == $disabledGroup->id) {
+        if (auth()->viaRemember() && $user->group_id == $disabledGroup->id) {
             $user->group_id = $memberGroup->id;
             $user->can_upload = 1;
             $user->can_download = 1;
@@ -124,11 +114,16 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect('/')
-                ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
+            return redirect()->to('/')
+                ->withSuccess(trans('auth.welcome-restore'));
         }
 
-        return redirect('/')
-            ->with($this->toastr->info('Welcome Back!', $user->username, ['options']));
+        if ($user->read_rules == 0) {
+            return redirect()->to(config('other.rules_url'))
+                ->withWarning(trans('auth.require-rules'));
+        }
+
+        return redirect()->to('/')
+            ->withSuccess(trans('auth.welcome'));
     }
 }

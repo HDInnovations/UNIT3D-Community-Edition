@@ -4,4 +4,6 @@
 @component('mail::button', ['url' => route('register', $invite->code), 'color' => 'blue'])
 @lang('email.invite-signup')
 @endcomponent
+<p>@lang('email.register-footer')</p>
+<p style="word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">{{ route('register', $invite->code) }}</p>
 @endcomponent

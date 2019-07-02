@@ -203,12 +203,12 @@ select option {
     background-color: #616161;
 }
 
-.decoda-code,
-.decoda-quote {
+.bbcode-code,
+.bbcode-quote {
     border: 1px solid var(--color-light-blue);
 }
 
-.decoda-quote {
+.bbcode-quote {
     margin: 0 15px 15px 15px;
 }
 
@@ -228,7 +228,7 @@ select option {
 
 .badge-extra {
     border: 1px solid rgba(66, 70, 92, 0.61);
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .text-bright {
@@ -294,7 +294,7 @@ a.text-bright:hover {
 }
 
 .badge-user {
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 .container.box {

@@ -16,9 +16,13 @@ namespace App\Helpers;
 class StringHelper
 {
     const KIB = 1024;
+
     const MIB = 1024 * 1024;
+
     const GIB = 1024 * 1024 * 1024;
+
     const TIB = 1024 * 1024 * 1024 * 1024;
+
     const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
 
     public static function generateRandomString($length = 20)
@@ -60,7 +64,7 @@ class StringHelper
     /**
      * @method timeRemaining
      *
-     * @param $seconds time in bigInt
+     * @param  time  $seconds  in bigInt
      *
      * @return string
      */
@@ -102,13 +106,13 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.'Y ';
-        $months = ($months == 0) ? '' : $months.'M ';
-        $weeks = ($weeks == 0) ? '' : $weeks.'W ';
-        $days = ($days == 0) ? '' : $days.'D ';
-        $hours = ($hours == 0) ? '' : $hours.'h ';
-        $minutes = ($minutes == 0) ? '' : $minutes.'m ';
-        $seconds = ($seconds == 0) ? '' : $seconds.'s';
+        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
@@ -116,7 +120,7 @@ class StringHelper
     /**
      * @method timeElapsed
      *
-     * @param $seconds time in bigInt
+     * @param  time  $seconds  in bigInt
      *
      * @return string
      */
@@ -156,13 +160,13 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.'Y ';
-        $months = ($months == 0) ? '' : $months.'M ';
-        $weeks = ($weeks == 0) ? '' : $weeks.'W ';
-        $days = ($days == 0) ? '' : $days.'D ';
-        $hours = ($hours == 0) ? '' : $hours.'h ';
-        $minutes = ($minutes == 0) ? '' : $minutes.'m ';
-        $seconds = ($seconds == 0) ? '' : $seconds.'s';
+        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }

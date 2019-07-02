@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">Genre</label>
+                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                         <div class="col-sm-10">
                             @foreach ($repository->tags() as $id => $genre)
                                 <span class="badge-user">
@@ -166,7 +166,7 @@
                         </span>
                             <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
+                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
                             </label>
                         </span>
                         </div>
@@ -220,6 +220,13 @@
             <span id="facetedHeader"></span>
             <div id="facetedSearch" type="group" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
+                    <div class="align-center" style="width: 100% !important; display: table-cell !important;">
+                        @if($links)
+                            {{ $links->links() }}
+                        @endif
+                    </div>
+                </div>
+                <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
                         @if($torrents && is_array($torrents))
                             @foreach ($torrents as $k => $c)
@@ -238,7 +245,7 @@
                                 </span>&nbsp;
                                             @endif
                                                 <span class="badge-user text-bold" style="float: right;">
-                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
                                                 @if($t->movie && ($t->movie->imdbRating || $t->movie->tmdbVotes))
                                                         @if ($user->ratings == 1)
                                                             {{ $t->movie->imdbRating }}/10 ({{ $t->movie->imdbVotes }} @lang('torrent.votes'))
@@ -273,7 +280,7 @@
                                                         {{ $t->movie->plot }}
                                                     @endif
                                                 </p>
-                                                <div class="card_holder" style="width: 100%";>
+                                                <div class="card_holder" style="width: 100%;" ;>
                                                     <hr style="padding: 0 !important; margin: 5px 0 !important; width: 100%;">
                                                     <div style="padding: 10px 0; margin: auto;">
                                                         <div class="table-responsive">
@@ -284,9 +291,9 @@
                                                                     <th>@lang('torrent.name')</th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
-                                                                    <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i></th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i></th>
+                                                                    <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -347,7 +354,7 @@
                                                                                     </a>
                                                                                 @endif
 
-                                                                                <span id="torrentBookmark{{ $current->id }}" torrent="{{ $current->id }}" state="{{ $current->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                                                                                <span id="torrentBookmark{{ $current->id }}" torrent="{{ $current->id }}" state="{{ $bookmarks->where('torrent_id', $current->id)->first() ? 1 : 0}}" class="torrentBookmark"></span>
 
                                                                                 <br>
                                                                                 @if ($current->anon == 1)
@@ -380,7 +387,7 @@
                                                                                 @if ($current->internal == 1)
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.internal-release')' style="color: #BAAF92"></i> @lang('torrent.internal')
+                                   data-original-title='@lang('torrent.internal-release')' style="color: rgb(186,175,146);"></i> @lang('torrent.internal')
                             </span>
                                                                                 @endif
                                                                                 @if ($current->stream == 1)
@@ -412,16 +419,15 @@
                             </span>
                                                                                 @endif
 
-                                                                                @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $current->id)->first(); @endphp
-                                                                                @if ($freeleech_token)
+                                                                                @if ($user->freeleechTokens->where('torrent_id', $current->id)->first())
                                                                                     <span class='badge-extra text-bold'>
-                                <i class='{{ config("other.font-awesome") }} fa-coins text-bold' data-toggle='tooltip' title=''
+                                <i class='{{ config("other.font-awesome") }} fa-star text-bold' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.freeleech-token')'></i> @lang('torrent.freeleech-token')
                             </span>
                                                                                 @endif
 
                                                                                 @if ($current->featured == 1)
-                                                                                    <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
+                                                                                    <span class='badge-extra text-bold' style='background-image:url(/img/sparkels.gif);'>
                                 <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.featured')'></i> @lang('torrent.featured')
                             </span>
@@ -437,7 +443,7 @@
                                                                                 @if (config('other.freeleech') == 1)
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-globe text-blue' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.global-freelech')'></i> @lang('torrent.global-freelech')
+                                   data-original-title='@lang('torrent.global-freeleech')'></i> @lang('torrent.global-freeleech')
                             </span>
                                                                                 @endif
 
@@ -490,13 +496,6 @@
                                                                                 <span class='badge-extra text-blue text-bold'>{{ $current->getSize() }}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <a href="{{ route('history', ['slug' => $current->slug, 'id' => $current->id]) }}">
-                            <span class='badge-extra text-orange text-bold'>
-                                {{ $current->times_completed }} @lang('common.times')
-                            </span>
-                                                                                </a>
-                                                                            </td>
-                                                                            <td>
                                                                                 <a href="{{ route('peers', ['slug' => $current->slug, 'id' => $current->id]) }}">
                             <span class='badge-extra text-green text-bold'>
                                 {{ $current->seeders }}
@@ -507,6 +506,13 @@
                                                                                 <a href="{{ route('peers', ['slug' => $current->slug, 'id' => $current->id]) }}">
                             <span class='badge-extra text-red text-bold'>
                                 {{ $current->leechers }}
+                            </span>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="{{ route('history', ['slug' => $current->slug, 'id' => $current->id]) }}">
+                            <span class='badge-extra text-orange text-bold'>
+                                {{ $current->times_completed }} @lang('common.times')
                             </span>
                                                                                 </a>
                                                                             </td>

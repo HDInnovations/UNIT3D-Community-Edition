@@ -55,7 +55,7 @@
                     @if ($report->torrent)
                         <h3>@lang('torrent.torrent') Title:</h3>
                         <p class="well well-sm">
-                            <a href="{{ route('torrent', ['slug' => str_slug($report->title), 'id' => $report->torrent->id]) }}">
+                            <a href="{{ route('torrent', ['slug' => Str::slug($report->title), 'id' => $report->torrent->id]) }}">
                                 {{ $report->title }}
                             </a>
                         </p>

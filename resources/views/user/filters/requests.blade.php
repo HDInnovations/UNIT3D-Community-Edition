@@ -53,7 +53,7 @@
                 <td>
                     @if ($torrentRequest->claimed != null && $torrentRequest->filled_hash == null)
                         <button class="btn btn-xs btn-primary">
-                            <i class="{{ config('other.font-awesome') }} fa-suitcase"></i> @lang('request.claimed')
+                            <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i> @lang('request.claimed')
                         </button>
                     @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                         <button class="btn btn-xs btn-info">

@@ -124,25 +124,25 @@
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Sorting</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
                             <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
-                                <option value="hcreated_at">Created at</option>
-                                <option value="name">Name</option>
-                                <option value="size">Size</option>
-                                <option value="seeders">Seeders</option>
-                                <option value="leechers">Leechers</option>
-                                <option value="times_completed">Times Completed</option>
-                                <option value="seedtime">Seedtime</option>
+                                <option value="hcreated_at">@lang('torrent.created_at')</option>
+                                <option value="name">@lang('torrent.name')</option>
+                                <option value="size">@lang('torrent.size')</option>
+                                <option value="seeders">@lang('torrent.seeders')</option>
+                                <option value="leechers">@lang('torrent.leechers')</option>
+                                <option value="times_completed">@lang('torrent.completed-times')</option>
+                                <option value="seedtime">@lang('torrent.seedtime')</option>
                             </select>
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Direction</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
                             <select id="direction" name="direction" trigger="change" class="form-control userFilter">
-                                <option value="desc">Descending</option>
-                                <option value="asc">Ascending</option>
+                                <option value="desc">@lang('common.descending')</option>
+                                <option value="asc">@lang('common.ascending')</option>
                             </select>
                         </div>
                     </div>

@@ -15,25 +15,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Thank;
 use App\Models\Torrent;
-use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class ThankController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ThankController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Thank A Torrent Uploader.
      *
@@ -42,15 +27,15 @@ class ThankController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function torrentThank($slug, $id)
+    public function torrentThank(Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $torrent = Torrent::findOrFail($id);
 
         $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         if ($thank) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('You Have Already Thanked On This Torrent!', 'Whoops!', ['options']));
+                ->withErrors('You Have Already Thanked On This Torrent!');
         }
 
         $thank = new Thank();
@@ -64,6 +49,6 @@ class ThankController extends Controller
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with($this->toastr->success('Your Thank Was Successfully Applied!', 'Yay!', ['options']));
+            ->withSuccess('Your Thank Was Successfully Applied!');
     }
 }

@@ -46,10 +46,10 @@ class RequestFacetedRepository
     public function sorting()
     {
         return [
-            'created_at' => 'Date',
-            'name'       => 'Name',
-            'bounty'     => 'Bounty',
-            'votes'      => 'Votes',
+            'created_at' => trans('torrent.date'),
+            'name'       => trans('torrent.name'),
+            'bounty'     => trans('request.bounty'),
+            'votes'      => trans('request.votes'),
         ];
     }
 
@@ -61,8 +61,8 @@ class RequestFacetedRepository
     public function direction()
     {
         return [
-            'desc' => 'Descending',
-            'asc'  => 'Ascending',
+            'desc' => trans('common.descending'),
+            'asc'  => trans('common.ascending'),
         ];
     }
 }

@@ -20,6 +20,7 @@ use App\Services\Contracts\MovieTvInterface;
 class OmdbClient extends Client implements MovieTvInterface
 {
     protected $apiUrl = 'www.omdbapi.com';
+
     protected $apiSecure = true;
 
     public function __construct($apiKey = null)

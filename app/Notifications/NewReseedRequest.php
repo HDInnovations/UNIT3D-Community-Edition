@@ -15,7 +15,6 @@ namespace App\Notifications;
 
 use App\Models\Torrent;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -28,9 +27,7 @@ class NewReseedRequest extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param Post $post
-     *
-     * @return void
+     * @param  Torrent  $torrent
      */
     public function __construct(Torrent $torrent)
     {

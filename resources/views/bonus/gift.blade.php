@@ -36,11 +36,8 @@
                         <label for="to_username">@lang('bon.gift-to')</label>
                     </div>
                     <div class="form-group">
-                            <select class="form-control user-select-placeholder-single" name="to_username">
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->username }}">{{ $user->username }}</option>
-                                @endforeach
-                            </select>
+                        <label for="users">@lang('pm.select')</label>
+                        <input name="username" class="form-control" placeholder="@lang('common.username')" required>
                     </div>
 
                     <div class="form-group">
@@ -84,12 +81,4 @@
     </div>
     </div>
     </div>
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-        $(document).ready(function () {
-            $('.user-select-placeholder-single').select2()
-        })
-    </script>
 @endsection

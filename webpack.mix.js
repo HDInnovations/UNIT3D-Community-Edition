@@ -56,7 +56,7 @@ mix.version()
     /*
      * Copy emojione assets
      */
-    .copy('node_modules/emojione-assets/png/64', 'public/img/emojione');
+    .copy('node_modules/emojione-assets/png/64', 'public/img/joypixels');
 
 // Full API
 // mix.js(src, output);

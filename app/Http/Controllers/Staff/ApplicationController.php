@@ -17,7 +17,6 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Invite;
 use App\Mail\InviteUser;
 use App\Models\Application;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Mail\DenyApplication;
 use App\Http\Controllers\Controller;
@@ -25,21 +24,6 @@ use Illuminate\Support\Facades\Mail;
 
 class ApplicationController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ApplicationController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All Applications.
      *
@@ -81,7 +65,7 @@ class ApplicationController extends Controller
 
         if ($application->status !== 1) {
             $current = new Carbon();
-            $user = auth()->user();
+            $user = $request->user();
 
             $code = Uuid::uuid4()->toString();
             $invite = new Invite();
@@ -110,7 +94,7 @@ class ApplicationController extends Controller
 
             if ($v->fails()) {
                 return redirect()->route('staff.applications.index')
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->withErrors($v->errors());
             } else {
                 Mail::to($application->email)->send(new InviteUser($invite));
                 $invite->save();
@@ -120,11 +104,11 @@ class ApplicationController extends Controller
                 \LogActivity::addToLog("Staff member {$user->username} has approved {$application->email} application.");
 
                 return redirect()->route('staff.applications.index')
-                    ->with($this->toastr->success('Application Approved', 'Yay!', ['options']));
+                    ->withSuccess('Application Approved');
             }
         } else {
-            return redirect()->back()
-                ->with($this->toastr->error('Application Already Approved', 'Whoops!', ['options']));
+            return redirect()->route('staff.applications.index')
+                ->withErrors('Application Already Approved');
         }
     }
 
@@ -149,10 +133,10 @@ class ApplicationController extends Controller
             Mail::to($application->email)->send(new DenyApplication($denied_message));
 
             return redirect()->route('staff.applications.index')
-                ->with($this->toastr->info('Application Rejected', 'Info!', ['options']));
+                ->withSuccess('Application Rejected');
         } else {
-            return redirect()->back()
-                ->with($this->toastr->error('Application Already Rejected', 'Whoops!', ['options']));
+            return redirect()->route('staff.applications.index')
+                ->withErrors('Application Already Rejected');
         }
     }
 }
