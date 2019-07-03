@@ -15,7 +15,7 @@ namespace App\Helpers;
 
 class MediaInfo
 {
-    private $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
+    private $regex_section = '/^(?:(?:general|video|audio|text|menu)(?:\\s\\#\\d+?)*)$/i';
 
     public function parse($string)
     {

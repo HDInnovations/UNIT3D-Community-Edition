@@ -31,29 +31,29 @@ Route::group(['middleware' => 'language'], function () {
     */
     Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
         // Authentication Routes
-        Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-        Route::post('login', 'Auth\LoginController@login')->name('');
+        Route::get('login', 'Auth\\LoginController@showLoginForm')->name('login');
+        Route::post('login', 'Auth\\LoginController@login')->name('');
 
         // Password Reset Routes
-        Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-        Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-        Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('');
-        Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('password/email', 'Auth\\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('password/reset', 'Auth\\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('password/reset', 'Auth\\ResetPasswordController@reset')->name('');
+        Route::get('/password/reset/{token}', 'Auth\\ResetPasswordController@showResetForm')->name('password.reset');
 
         // Registration Routes
-        Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
-        Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
+        Route::get('/register/{code?}', 'Auth\\RegisterController@registrationForm')->name('registrationForm');
+        Route::post('/register/{code?}', 'Auth\\RegisterController@register')->name('register');
 
         // Application Routes
-        Route::get('/application', 'Auth\ApplicationController@create')->name('application.create');
-        Route::post('/application', 'Auth\ApplicationController@store')->name('application.store');
+        Route::get('/application', 'Auth\\ApplicationController@create')->name('application.create');
+        Route::post('/application', 'Auth\\ApplicationController@store')->name('application.store');
 
         // Activation Routes
-        Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
+        Route::get('/activate/{token}', 'Auth\\ActivationController@activate')->name('activate');
 
         // Forgot Username Routes
-        Route::get('username/reminder', 'Auth\ForgotUsernameController@showForgotUsernameForm')->name('username.request');
-        Route::post('username/reminder', 'Auth\ForgotUsernameController@sendUsernameReminder')->name('username.email');
+        Route::get('username/reminder', 'Auth\\ForgotUsernameController@showForgotUsernameForm')->name('username.request');
+        Route::post('username/reminder', 'Auth\\ForgotUsernameController@sendUsernameReminder')->name('username.email');
     });
 
     Route::group(['before' => 'auth'], function () {
@@ -81,13 +81,13 @@ Route::group(['middleware' => 'language'], function () {
         ]);
 
         // Two Step Auth
-        Route::get('/twostep/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
-        Route::post('/twostep/verify', 'Auth\TwoStepController@verify')->name('verify');
-        Route::post('/twostep/resend', 'Auth\TwoStepController@resend')->name('resend');
+        Route::get('/twostep/needed', 'Auth\\TwoStepController@showVerification')->name('verificationNeeded');
+        Route::post('/twostep/verify', 'Auth\\TwoStepController@verify')->name('verify');
+        Route::post('/twostep/resend', 'Auth\\TwoStepController@resend')->name('resend');
 
         // General
         Route::get('/', 'HomeController@home')->name('home');
-        Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+        Route::get('logout', 'Auth\\LoginController@logout')->name('logout');
 
         // Article
         Route::get('/articles', 'ArticleController@articles')->name('articles');

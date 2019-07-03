@@ -151,7 +151,7 @@ return [
      */
 
     'highlight' => [
-        '^#\d+',
+        '^#\\d+',
         '^Stack trace:',
     ],
 

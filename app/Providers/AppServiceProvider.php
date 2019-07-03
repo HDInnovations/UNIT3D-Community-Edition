@@ -30,10 +30,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // ReCaptcha
-        validator()->extend('recaptcha', 'App\Validators\ReCaptcha@validate');
+        validator()->extend('recaptcha', 'App\\Validators\\ReCaptcha@validate');
 
         // Custom validation for the email whitelist/blacklist
-        validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
+        validator()->extend('email_list', 'App\\Validators\\EmailValidator@validateEmailList');
 
         // Share $pages across all views
         view()->composer('*', function (View $view) {
