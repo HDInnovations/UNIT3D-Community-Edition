@@ -1584,16 +1584,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.27",
+            "version": "v5.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f1dccffb96f614895393e27e4667105a05407af5"
+                "reference": "341fb54bea9693cada2a5b8d398621a57f82862d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f1dccffb96f614895393e27e4667105a05407af5",
-                "reference": "f1dccffb96f614895393e27e4667105a05407af5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/341fb54bea9693cada2a5b8d398621a57f82862d",
+                "reference": "341fb54bea9693cada2a5b8d398621a57f82862d",
                 "shasum": ""
             },
             "require": {
@@ -1727,7 +1727,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-07-02T13:43:47+00:00"
+            "time": "2019-07-09T14:00:02+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -3058,16 +3058,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "6.2.1",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "e136adb7d87da68ec66c10474a65e8213e82b7fc"
+                "reference": "529d97c9d13a02d483b06840940a460e61519d37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/e136adb7d87da68ec66c10474a65e8213e82b7fc",
-                "reference": "e136adb7d87da68ec66c10474a65e8213e82b7fc",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/529d97c9d13a02d483b06840940a460e61519d37",
+                "reference": "529d97c9d13a02d483b06840940a460e61519d37",
                 "shasum": ""
             },
             "require": {
@@ -3128,7 +3128,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2019-07-01T21:38:43+00:00"
+            "time": "2019-07-08T06:28:03+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
@@ -3305,16 +3305,16 @@
         },
         {
             "name": "spatie/ssl-certificate",
-            "version": "1.13.1",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ssl-certificate.git",
-                "reference": "dbcad507473f9817dc94367bcbbf16fddfb59e13"
+                "reference": "0816ee94842e569684ea88173a4e920d4c675fc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ssl-certificate/zipball/dbcad507473f9817dc94367bcbbf16fddfb59e13",
-                "reference": "dbcad507473f9817dc94367bcbbf16fddfb59e13",
+                "url": "https://api.github.com/repos/spatie/ssl-certificate/zipball/0816ee94842e569684ea88173a4e920d4c675fc9",
+                "reference": "0816ee94842e569684ea88173a4e920d4c675fc9",
                 "shasum": ""
             },
             "require": {
@@ -3354,7 +3354,7 @@
                 "spatie",
                 "ssl-certificate"
             ],
-            "time": "2019-05-23T08:37:17+00:00"
+            "time": "2019-07-04T18:57:38+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -5375,16 +5375,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "1a1a1044ad00e285bd2825fac4c3a0443d90ad33"
+                "reference": "6fb502c23885701a991b0bba974b1a8eb6673577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/1a1a1044ad00e285bd2825fac4c3a0443d90ad33",
-                "reference": "1a1a1044ad00e285bd2825fac4c3a0443d90ad33",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/6fb502c23885701a991b0bba974b1a8eb6673577",
+                "reference": "6fb502c23885701a991b0bba974b1a8eb6673577",
                 "shasum": ""
             },
             "require": {
@@ -5432,7 +5432,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2019-06-23T09:00:00+00:00"
+            "time": "2019-07-04T09:00:00+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -6231,16 +6231,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18"
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c99e3be9d3e85f60646f152f9002d46ed7770d18",
-                "reference": "c99e3be9d3e85f60646f152f9002d46ed7770d18",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
                 "shasum": ""
             },
             "require": {
@@ -6276,7 +6276,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2018-10-30T05:52:18+00:00"
+            "time": "2019-07-08T05:24:54+00:00"
         },
         {
             "name": "phpunit/phpunit",
