@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use FilesystemIterator;
+use RecursiveIteratorIterator;
+use Illuminate\Console\Command;
+use RecursiveDirectoryIterator;
 
 class VendorCleanup extends Command
 {
@@ -56,7 +56,7 @@ class VendorCleanup extends Command
             '.keep',
         ];
     /**
-     * List of File and Folders Patters Going To Be Excluded
+     * List of File and Folders Patters Going To Be Excluded.
      *
      * @return void
      */
@@ -71,6 +71,7 @@ class VendorCleanup extends Command
             '*.json',
             '.gitignore',
         ];
+
     /**
      * Execute the console command.
      *
@@ -82,46 +83,37 @@ class VendorCleanup extends Command
 
         $directories = $this->expandDirectoryTree(base_path('vendor'));
 
-        $isDry = $this->option( 'check');
-
-
+        $isDry = $this->option('check');
 
         foreach ($directories as $directory) {
-
             foreach ($patterns as $pattern) {
-
                 $casePattern = preg_replace_callback('/([a-z])/i', [$this, 'prepareWord'], $pattern);
 
+                $files = glob($directory.'/'.$casePattern, GLOB_BRACE);
 
-                $files = glob($directory . '/' . $casePattern, GLOB_BRACE);
-
-                if (!$files) {
+                if (! $files) {
                     continue;
                 }
 
                 $files = array_diff($files, $this->excluded);
 
-
-
                 foreach ($this->excluded as $excluded) {
-
                     $key = $this->arrayFind($excluded, $files);
 
-
                     if ($key !== false) {
-                        $this->out('SKIPPED: ' . $files[$key]);
+                        $this->out('SKIPPED: '.$files[$key]);
                         unset($files[$key]);
                     }
                 }
                 foreach ($files as $file) {
                     if (is_dir($file)) {
-                        $this->out('DELETING DIR: ' . $file);
-                        if (!$isDry) {
+                        $this->out('DELETING DIR: '.$file);
+                        if (! $isDry) {
                             $this->delTree($file);
                         }
                     } else {
-                        $this->out('DELETING FILE: ' . $file);
-                        if (!$isDry) {
+                        $this->out('DELETING FILE: '.$file);
+                        if (! $isDry) {
                             @unlink($file);
                         }
                     }
@@ -130,8 +122,9 @@ class VendorCleanup extends Command
         }
         $this->out('Vendor Cleanup Done!');
     }
+
     /**
-     * Recursively traverses the directory tree
+     * Recursively traverses the directory tree.
      *
      * @param  string $dir
      * @return array
@@ -141,23 +134,25 @@ class VendorCleanup extends Command
         $directories = [];
         $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
-            $directory = $dir . '/' . $file;
+            $directory = $dir.'/'.$file;
             if (is_dir($directory)) {
                 $directories[] = $directory;
                 $directories = array_merge($directories, $this->expandDirectoryTree($directory));
             }
         }
+
         return $directories;
     }
+
     /**
-     * Recursively deletes the directory
+     * Recursively deletes the directory.
      *
      * @param  string $dir
      * @return bool
      */
     protected function delTree($dir)
     {
-        if (!file_exists($dir) || !is_dir($dir)) {
+        if (! file_exists($dir) || ! is_dir($dir)) {
             return false;
         }
         $iterator = new RecursiveIteratorIterator(
@@ -173,16 +168,18 @@ class VendorCleanup extends Command
         }
         @rmdir($dir);
     }
+
     /**
-     * Prepare word
+     * Prepare word.
      *
      * @param  string $matches
      * @return string
      */
     protected function prepareWord($matches)
     {
-        return '[' . strtolower($matches[1]) . strtoupper($matches[1]) . ']';
+        return '['.strtolower($matches[1]).strtoupper($matches[1]).']';
     }
+
     protected function arrayFind($needle, array $haystack)
     {
         foreach ($haystack as $key => $value) {
@@ -190,15 +187,16 @@ class VendorCleanup extends Command
                 return $key;
             }
         }
+
         return false;
     }
+
     protected function out($message)
     {
-        if ($this->option( 'check')) {
-            echo $message . PHP_EOL;
-        }else {
-            echo $message . PHP_EOL;
+        if ($this->option('check')) {
+            echo $message.PHP_EOL;
+        } else {
+            echo $message.PHP_EOL;
         }
     }
-
 }
