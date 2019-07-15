@@ -160,7 +160,19 @@ class NotificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->user()->unreadNotifications()->findOrFail($id)->markAsRead();
+        $notification = $request->user()->notifications()->where('id', '=', $id)->first();
+
+        if (! $notification) {
+            return redirect()->route('notifications.index')
+                ->withErrors('Notification Does Not Exist!');
+        }
+
+        if ($notification->read_at != null) {
+            return redirect()->route('notifications.index')
+                ->withErrors('Notification Already Marked As Read!');
+        }
+
+        $notification->markAsRead();
 
         return redirect()->route('notifications.index')
             ->withSuccess('Notification Marked As Read!');

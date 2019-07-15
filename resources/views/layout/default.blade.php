@@ -117,7 +117,7 @@
         @if (Session::has('errors'))
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
           Swal.fire({
-            title: '<strong>Validation Error</strong>',
+            title: '<strong style=" color: #111;">Error</strong>',
             type: 'error',
             html: jQuery("#ERROR_COPY").html(),
             showCloseButton: true,
