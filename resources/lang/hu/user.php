@@ -286,7 +286,7 @@ return [
   'unfollow' => 'unfollow',
   'unlocked' => 'kártyafüggetlen',
   'unlocked-achievements' => 'Kinyitott eredmények',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Feltöltés a BON Store-ból',
   'upload-recorded' => 'Felvett feltöltés',
   'upload-true' => 'Igaz feltöltés',

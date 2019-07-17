@@ -286,7 +286,7 @@ return [
   'unfollow' => 'অনুসরণ',
   'unlocked' => 'উদ্ঘাটিত',
   'unlocked-achievements' => 'আনলক কৃতিত্ব',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'আপলোড বন দোকান থেকে যোগ করা',
   'upload-recorded' => 'রেকর্ড আপলোড',
   'upload-true' => 'সত্য আপলোড',

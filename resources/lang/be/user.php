@@ -286,7 +286,7 @@ return [
   'unfollow' => 'адпісацца',
   'unlocked' => 'адмыкнутая',
   'unlocked-achievements' => 'разблакаваныя дасягненні',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Загрузіць Паведамленні З BON крамы',
   'upload-recorded' => 'запісаны Загрузіць',
   'upload-true' => 'Праўда Загрузіць',

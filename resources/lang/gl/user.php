@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Non seguir',
   'unlocked' => 'Desbloqueado',
   'unlocked-achievements' => 'Logros desbloqueados',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Cargado engadido desde a tenda BON',
   'upload-recorded' => 'Carga gravada',
   'upload-true' => 'Cargar verdadeiro',

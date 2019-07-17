@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Отписаться',
   'unlocked' => 'разблокирована',
   'unlocked-achievements' => 'Разблокированные достижения',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Загрузка добавлена из магазина BON',
   'upload-recorded' => 'Записано Загрузить',
   'upload-true' => 'True Upload',

@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Nu mai urmări',
   'unlocked' => 'descuiat',
   'unlocked-achievements' => 'Unlocked Realizations',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Încărcați adăugat din magazinul BON',
   'upload-recorded' => 'Înregistrări înregistrate',
   'upload-true' => 'Încărcare reală',

@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Älä',
   'unlocked' => 'auki',
   'unlocked-achievements' => 'Avaamattomat saavutukset',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Lataa BON Storesta',
   'upload-recorded' => 'Tallennettu lähetys',
   'upload-true' => 'Todellinen lataus',

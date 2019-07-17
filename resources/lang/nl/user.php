@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Volg niet',
   'unlocked' => 'Unlocked',
   'unlocked-achievements' => 'Ontgrendeld prestaties',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Upload toegevoegd vanuit BON Store',
   'upload-recorded' => 'Opgenomen upload',
   'upload-true' => 'True Upload',

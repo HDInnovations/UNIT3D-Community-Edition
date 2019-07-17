@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Unfollow',
   'unlocked' => 'Unlocked',
   'unlocked-achievements' => 'Unlocked Achievements',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Dodaj u BON Store',
   'upload-recorded' => 'Snimljeni prenos',
   'upload-true' => 'True Upload',

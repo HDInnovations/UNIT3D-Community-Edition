@@ -286,7 +286,7 @@ return [
   'unfollow' => 'İzləyin',
   'unlocked' => 'Kilidi aç',
   'unlocked-achievements' => 'Kilidlənmiş nailiyyətlər',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'BON Mağazasından əlavə edildi',
   'upload-recorded' => 'Səsli yüklə',
   'upload-true' => 'True Upload',
