@@ -21,20 +21,24 @@
 @section('content')
     <div class="container box">
         <h2>Add A Category</h2>
-        <form role="form" method="POST" action="{{ route('staff_category_add') }}">
-        @csrf
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" name="name">
-        </div>
-        <div class="form-group">
-            <label for="name">Position</label>
-            <input type="text" class="form-control" name="position">
-        </div>
-        <div class="form-group">
-            <label for="name">Icon (FontAwesome)</label>
-            <input type="text" class="form-control" name="icon" placeholder="Example: {{ config('other.font-awesome') }} fa-rocket">
-        </div>
+            <form role="form" method="POST" action="{{ route('staff_category_add') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="form-group">
+                <label for="name">Position</label>
+                <input type="text" class="form-control" name="position">
+            </div>
+            <div class="form-group">
+                <label for="name">Icon (FontAwesome)</label>
+                <input type="text" class="form-control" name="icon" placeholder="Example: {{ config('other.font-awesome') }} fa-rocket">
+            </div>
+            <div class="form-group">
+                <label for="image">Select an Image If Not Using A FontAwesome Icon</label>
+                <input type="file" name="image">
+            </div>
 
             <label for="movie_meta" class="control-label">Movie Meta Data?</label>
             <div class="radio-inline">

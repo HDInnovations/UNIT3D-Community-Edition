@@ -25,6 +25,7 @@
                 <th>Position</th>
                 <th>Name</th>
                 <th>Icon</th>
+                <th>Image</th>
                 <th>Movie Meta</th>
                 <th>TV Meta</th>
                 <th>Game Meta</th>
@@ -36,11 +37,18 @@
             <tbody>
             @foreach ($categories as $c)
                 <tr>
-                    <td>{{ $c->position }}</td>
+                    <td>
+                        {{ $c->position }}
+                    </td>
                     <td>
                         <a href="{{ route('staff_category_edit_form', ['slug' => $c->slug, 'id' => $c->id]) }}">{{ $c->name }}</a>
                     </td>
-                    <td><i class="{{ $c->icon }}" aria-hidden="true"></i></td>
+                    <td>
+                        <i class="{{ $c->icon }}" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <img alt="{{ $c->name }}" src="{{ url('files/img/' . $c->image) }}">
+                    </td>
                     <td>
                         @if ($c->movie_meta)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>

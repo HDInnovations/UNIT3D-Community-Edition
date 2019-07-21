@@ -15,6 +15,7 @@ class AlterCategoriesTable extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->dropColumn('meta');
+            $table->string('image')->nullable()->after('slug');
             $table->boolean('movie_meta')->default(0);
             $table->boolean('tv_meta')->default(0);
             $table->boolean('game_meta')->default(0);
