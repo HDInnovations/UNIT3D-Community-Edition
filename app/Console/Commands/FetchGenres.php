@@ -53,7 +53,8 @@ class FetchGenres extends Command
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
-            } elseif ($torrent->category->movie_meta) {
+            }
+            if ($torrent->category->movie_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
