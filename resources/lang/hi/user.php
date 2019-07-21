@@ -286,7 +286,7 @@ return [
   'unfollow' => 'करें',
   'unlocked' => 'खुला',
   'unlocked-achievements' => 'अनलॉक की गई उपलब्धियां',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'अपलोड करें BON स्टोर से',
   'upload-recorded' => 'रिकॉर्डेड अपलोड',
   'upload-true' => 'सच अपलोड',

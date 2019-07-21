@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Tushuntiring',
   'unlocked' => 'Qulfdan chiqarildi',
   'unlocked-achievements' => 'Qulfsiz yutuqlar',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'BON do konidan qo shilgan yuklash',
   'upload-recorded' => 'Saqlangan yuk',
   'upload-true' => 'Haqiqiy yuklash',

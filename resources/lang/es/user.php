@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Dejar de seguir',
   'unlocked' => 'Desbloqueado',
   'unlocked-achievements' => 'Logros desbloqueados',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'BON de la subida',
   'upload-recorded' => 'Subida guardada',
   'upload-true' => 'Subida certificada',

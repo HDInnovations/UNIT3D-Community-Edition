@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Fylgdu ekki',
   'unlocked' => 'Opið',
   'unlocked-achievements' => 'Opið afrek',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Hlaða inn bætt við frá BON Store',
   'upload-recorded' => 'Upptaka hlaðið upp',
   'upload-true' => 'True Upload',

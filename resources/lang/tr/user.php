@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Takip etmekten vazgeç',
   'unlocked' => 'kilitsiz',
   'unlocked-achievements' => 'Unlocked Başarılar',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'BON Mağazasından Eklendi',
   'upload-recorded' => 'Kaydedilen Yükleme',
   'upload-true' => 'Gerçek yükleme',

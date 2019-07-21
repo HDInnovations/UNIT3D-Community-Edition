@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Белгілеу',
   'unlocked' => 'Құлыпталған',
   'unlocked-achievements' => 'Ашылған жетістіктер',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'BON дүкенінен қотарылған жүктеу',
   'upload-recorded' => 'Жазылған жүктеу',
   'upload-true' => 'Шынайы жүктеу',

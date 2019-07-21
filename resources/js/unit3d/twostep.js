@@ -1,7 +1,7 @@
 // Auto
 $(function() {
     // Check for on keypress
-    $('input').on('keydown', function(event) {
+    $('input').on('keyup', function(event) {
         let self = $(this);
 
         // Keyboard Controls

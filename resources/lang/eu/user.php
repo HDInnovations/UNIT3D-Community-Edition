@@ -286,7 +286,7 @@ return [
   'unfollow' => 'utzi',
   'unlocked' => 'desblokeatu',
   'unlocked-achievements' => 'Desblokeatutako lorpenak',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Igoera gehitu da BON dendatik',
   'upload-recorded' => 'Grabatutako igoera',
   'upload-true' => 'Benetako kargatzea',

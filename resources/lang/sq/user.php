@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Unfollow',
   'unlocked' => 'Lexuara',
   'unlocked-achievements' => 'Arritjet e hapura',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Ngarkimi i shtuar nga dyqani BON',
   'upload-recorded' => 'Regjistruar Ngarkim',
   'upload-true' => 'Ngarkimi i vërtetë',

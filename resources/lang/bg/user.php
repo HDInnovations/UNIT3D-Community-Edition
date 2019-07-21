@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Не следвай',
   'unlocked' => 'отключена',
   'unlocked-achievements' => 'Отключени постижения',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Качването е добавено от BON Store',
   'upload-recorded' => 'Записано качване',
   'upload-true' => 'Истинско качване',

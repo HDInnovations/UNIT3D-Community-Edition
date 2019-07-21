@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Følg ikke længere',
   'unlocked' => 'Ulåst',
   'unlocked-achievements' => 'Unlocked Achievements',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Upload tilføjet fra BON Store',
   'upload-recorded' => 'Optaget upload',
   'upload-true' => 'True Upload',

@@ -286,7 +286,7 @@ return [
   'unfollow' => 'nesledovať',
   'unlocked' => 'odomknutý',
   'unlocked-achievements' => 'Odomknuté úspechy',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Upload bol pridaný z obchodu BON',
   'upload-recorded' => 'Nahrané nahranie',
   'upload-true' => 'Pravé odovzdanie',

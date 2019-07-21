@@ -286,7 +286,7 @@ return [
   'unfollow' => 'Nicht folgen',
   'unlocked' => 'Freigeschaltet',
   'unlocked-achievements' => 'Errungene Erfolge',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'Upload hinzugefügt vom BON Store',
   'upload-recorded' => 'Recorded Upload',
   'upload-true' => 'True Upload',

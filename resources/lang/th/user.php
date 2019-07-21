@@ -286,7 +286,7 @@ return [
   'unfollow' => 'เลิก',
   'unlocked' => 'ปลดล็อค',
   'unlocked-achievements' => 'ปลดล็อคความสำเร็จ',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'อัปโหลดเพิ่มจากร้าน BON',
   'upload-recorded' => 'บันทึกการอัพโหลด',
   'upload-true' => 'True Upload',

@@ -286,7 +286,7 @@ return [
   'unfollow' => 'الغاء المتابعة',
   'unlocked' => 'مفتوحة',
   'unlocked-achievements' => 'إنجازات غير مقفلة',
-  'unsatisfieds' => 'Unsastisfieds',
+  'unsatisfieds' => 'Unsatisfieds',
   'upload-bon' => 'تم اضافة التحميل من BON Store',
   'upload-recorded' => 'تحميل مسجلة',
   'upload-true' => 'تحميل صحيح',
