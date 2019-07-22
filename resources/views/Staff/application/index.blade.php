@@ -31,7 +31,7 @@
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>No</th>
+                        <th>@lang('common.no')</th>
                         <th>User</th>
                         <th>Email</th>
                         <th>Type</th>
