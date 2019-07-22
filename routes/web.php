@@ -522,12 +522,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/reports/{report_id}/solve', 'ReportController@solveReport')->name('solveReport');
 
         // Categories
-        Route::get('/categories', 'CategoryController@index')->name('staff_category_index');
-        Route::get('/categories/new', 'CategoryController@addForm')->name('staff_category_add_form');
-        Route::post('/categories/new', 'CategoryController@add')->name('staff_category_add');
-        Route::get('/categories/edit/{slug}.{id}', 'CategoryController@editForm')->name('staff_category_edit_form');
-        Route::post('/categories/edit/{slug}.{id}', 'CategoryController@edit')->name('staff_category_edit');
-        Route::get('/categories/delete/{slug}.{id}', 'CategoryController@delete')->name('staff_category_delete');
+        Route::get('/categories', 'CategoryController@index')->name('staff.categories.index');
+        Route::get('/categories/create', 'CategoryController@create')->name('staff.categories.create');
+        Route::post('/categories', 'CategoryController@store')->name('staff.categories.store');
+        Route::get('/categories/{slug}.{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
+        Route::patch('/categories/{slug}.{id}', 'CategoryController@update')->name('staff.categories.update');
+        Route::delete('/categories/{slug}.{id}', 'CategoryController@destroy')->name('staff.categories.destroy');
 
         // Types
         Route::get('/types', 'TypeController@index')->name('staff_type_index');

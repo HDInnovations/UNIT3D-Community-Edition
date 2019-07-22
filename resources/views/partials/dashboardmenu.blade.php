@@ -102,7 +102,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff_category_index') }}">
+                <a href="{{ route('staff.categories.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-categories')
                 </a>
             </li>

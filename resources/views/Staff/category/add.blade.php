@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_category_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Categories</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_category_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.categories.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Torrent Category</span>
         </a>
     </li>
@@ -21,7 +21,7 @@
 @section('content')
     <div class="container box">
         <h2>Add A Category</h2>
-            <form role="form" method="POST" action="{{ route('staff_category_add') }}" enctype="multipart/form-data">
+            <form role="form" method="POST" action="{{ route('staff.categories.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>

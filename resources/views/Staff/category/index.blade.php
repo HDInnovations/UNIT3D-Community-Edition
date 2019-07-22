@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_category_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Categories</span>
         </a>
     </li>
@@ -16,7 +16,7 @@
 @section('content')
     <div class="container box">
         <h2>Categories</h2>
-        <a href="{{ route('staff_category_add') }}" class="btn btn-primary">Add A Category</a>
+        <a href="{{ route('staff.categories.store') }}" class="btn btn-primary">Add A Category</a>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
@@ -41,7 +41,7 @@
                         {{ $c->position }}
                     </td>
                     <td>
-                        <a href="{{ route('staff_category_edit_form', ['slug' => $c->slug, 'id' => $c->id]) }}">{{ $c->name }}</a>
+                        <a href="{{ route('staff.categories.edit', ['slug' => $c->slug, 'id' => $c->id]) }}">{{ $c->name }}</a>
                     </td>
                     <td>
                         <i class="{{ $c->icon }}" aria-hidden="true"></i>
@@ -85,10 +85,12 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('staff_category_edit_form', ['slug' => $c->slug, 'id' => $c->id]) }}"
+                        <a href="{{ route('staff.categories.edit', ['slug' => $c->slug, 'id' => $c->id]) }}"
                            class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff_category_delete', ['slug' => $c->slug, 'id' => $c->id]) }}"
-                           class="btn btn-danger">Delete</a>
+                        <form action="{{ route('staff.categories.destroy', ['slug' => $c->slug, 'id' => $c->id]) }}" method="POST">
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

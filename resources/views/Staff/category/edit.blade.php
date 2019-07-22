@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_category_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Categories</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_category_edit_form', ['slug' => $category->slug, 'id' => $category->id]) }}"
+        <a href="{{ route('staff.categories.edit', ['slug' => $category->slug, 'id' => $category->id]) }}"
            itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Category</span>
         </a>
@@ -22,8 +22,9 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Category</h2>
-            <form role="form" method="POST" action="{{ route('staff_category_edit', ['slug' => $category->slug, 'id' => $category->id]) }}"
+            <form role="form" method="POST" action="{{ route('staff.categories.update', ['slug' => $category->slug, 'id' => $category->id]) }}"
                 enctype="multipart/form-data">
+            @method('PATCH')
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>

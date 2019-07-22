@@ -21,7 +21,7 @@ use App\Http\Controllers\Controller;
 class CategoryController extends Controller
 {
     /**
-     * Get The Categories.
+     * Display All Categories.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -33,23 +33,23 @@ class CategoryController extends Controller
     }
 
     /**
-     * Category Add Form.
+     * Show Form For Creating A New Category.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
         return view('Staff.category.add');
     }
 
     /**
-     * Add A Category.
+     * Store A Category.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $category = new Category();
         $category->name = $request->input('name');
@@ -93,7 +93,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function edit($slug, $id)
     {
         $category = Category::findOrFail($id);
 
@@ -101,7 +101,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Edit A Category.
+     * Update A Category.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
@@ -109,7 +109,7 @@ class CategoryController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function update(Request $request, $slug, $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
@@ -146,14 +146,14 @@ class CategoryController extends Controller
     }
 
     /**
-     * Delete A Category.
+     * Destroy A Category.
      *
      * @param $id
      * @param $slug
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($slug, $id)
+    public function destroy($slug, $id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
