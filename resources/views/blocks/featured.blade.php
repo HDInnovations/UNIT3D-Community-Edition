@@ -71,7 +71,7 @@
                                                 </h4>
                                             </div>
                                             <span class="movie-desc">
-                                                {{ Str::limit(strip_tags($movie->plot), 200) }}...
+                                                {{ Str::limit(strip_tags($meta->plot), 200) }}...
                                             <br>
                                             <br>
                                                 <ul class="list-inline">
