@@ -890,12 +890,12 @@ class TorrentController extends Controller
             }
         }
 
-        if ($movie->recommendations) {
-            $movie->recommendations['results'] = array_map(function ($recomentaion) {
+        if ($meta->recommendations) {
+            $meta->recommendations['results'] = array_map(function ($recomentaion) {
                 $recomentaion['exists'] = Torrent::where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
 
                 return $recomentaion;
-            }, $movie->recommendations['results']);
+            }, $meta->recommendations['results']);
         }
 
         if ($torrent->featured == 1) {
@@ -1034,20 +1034,20 @@ class TorrentController extends Controller
             // Torrent Tags System
             if ($torrent->category_id == 2) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
             } else {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 
-            if ($movie->genres) {
-                foreach ($movie->genres as $genre) {
+            if ($meta->genres) {
+                foreach ($meta->genres as $genre) {
                     $exist = TagTorrent::where('torrent_id', '=', $torrent->id)->where('tag_name', '=', $genre)->first();
                     if (! $exist) {
                         $tag = new TagTorrent();
