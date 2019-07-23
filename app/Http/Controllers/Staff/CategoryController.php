@@ -75,12 +75,12 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         } else {
             $category->save();
 
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->withSuccess('Category Successfully Added');
         }
     }
@@ -135,12 +135,12 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         } else {
             $category->save();
 
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->withSuccess('Category Successfully Modified');
         }
     }
@@ -158,7 +158,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('staff_category_index')
+        return redirect()->route('staff.categories.index')
             ->withSuccess('Category Successfully Deleted');
     }
 }
