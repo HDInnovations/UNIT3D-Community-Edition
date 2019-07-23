@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Image;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -61,6 +62,17 @@ class CategoryController extends Controller
         $category->game_meta = $request->input('game_meta');
         $category->music_meta = $request->input('music_meta');
         $category->no_meta = $request->input('no_meta');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = 'category-'.uniqid().'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
+            Image::make($image->getRealPath())->fit(40, 40)->encode('png', 100)->save($path);
+            $category->image = $filename;
+        } else {
+            // Use Default Image Instead
+            $category->image = null;
+        }
 
         $v = validator($category->toArray(), [
             'name'          => 'required',
@@ -121,6 +133,17 @@ class CategoryController extends Controller
         $category->game_meta = $request->input('game_meta');
         $category->music_meta = $request->input('music_meta');
         $category->no_meta = $request->input('no_meta');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = 'category-'.uniqid().'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
+            Image::make($image->getRealPath())->fit(40, 40)->encode('png', 100)->save($path);
+            $category->image = $filename;
+        } else {
+            // Use Default Image Instead
+            $category->image = null;
+        }
 
         $v = validator($category->toArray(), [
             'name'          => 'required',

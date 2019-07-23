@@ -61,13 +61,23 @@
                     </td>
 
                     <td>
-                        <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
-                            <div class="text-center">
-                                <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                   data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                   style="padding-bottom: 6px;"></i>
-                            </div>
-                        </a>
+                        @if ($torrent->category->image != null)
+                            <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                                <div class="text-center">
+                                    <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                       data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                       style="padding-bottom: 6px;">
+                                </div>
+                            </a>
+                        @else
+                            <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                                <div class="text-center">
+                                    <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
+                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                        style="padding-bottom: 6px;"></i>
+                                </div>
+                            </a>
+                        @endif
                         <div class="text-center">
                             <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
                                 {{ $torrent->type }}
