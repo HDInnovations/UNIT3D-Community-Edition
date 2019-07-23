@@ -54,7 +54,7 @@
                             <br>
 
                             <span class="movie-overview">
-                                {{ str_limit($meta->plot, $limit = 350, $end = '...') }}
+                                {{ Str::limit($meta->plot, $limit = 350, $end = '...') }}
                             </span>
 
                             <span class="movie-details">
