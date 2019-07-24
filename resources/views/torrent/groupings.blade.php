@@ -246,38 +246,38 @@
                                             @endif
                                                 <span class="badge-user text-bold" style="float: right;">
                                                 <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                                                @if($t->movie && ($t->movie->imdbRating || $t->movie->tmdbVotes))
+                                                @if($t->meta && ($t->meta->imdbRating || $t->meta->tmdbVotes))
                                                         @if ($user->ratings == 1)
-                                                            {{ $t->movie->imdbRating }}/10 ({{ $t->movie->imdbVotes }} @lang('torrent.votes'))
+                                                            {{ $t->meta->imdbRating }}/10 ({{ $t->meta->imdbVotes }} @lang('torrent.votes'))
                                                         @else
-                                                            {{ $t->movie->tmdbRating }}/10 ({{ $t->movie->tmdbVotes }} @lang('torrent.votes'))
+                                                            {{ $t->meta->tmdbRating }}/10 ({{ $t->meta->tmdbVotes }} @lang('torrent.votes'))
                                                         @endif
                                                     @endif
                                             </span>
                                         </div>
                                         <div class="card_alt">
                                             <div class="body_poster">
-                                                @if($t->movie && $t->movie->poster)
-                                                    <img src="{{ $t->movie->poster }}" class="show-poster" data-image='<img src="{{ $t->movie->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
+                                                @if($t->meta && $t->meta->poster)
+                                                    <img src="{{ $t->meta->poster }}" class="show-poster" data-image='<img src="{{ $t->meta->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
                                                 @else
                                                     <img src="https://via.placeholder.com/600x900" />
                                                 @endif
                                             </div>
                                             <div class="body_grouping" style="width: 100%;">
                                                 <h3 class="description_title">
-                                                    {{ ($t->movie->title ? $t->movie->title : $t->name) }}
-                                                    @if($t->movie && $t->movie->releaseYear)
-                                                        <span class="text-bold text-pink"> {{ $t->movie->releaseYear }}</span>
+                                                    {{ ($t->meta->title ? $t->meta->title : $t->name) }}
+                                                    @if($t->meta && $t->meta->releaseYear)
+                                                        <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
                                                     @endif
                                                 </h3>
-                                                @if ($t->movie && $t->movie->genres)
-                                                    @foreach ($t->movie->genres as $genre)
+                                                @if ($t->meta && $t->meta->genres)
+                                                    @foreach ($t->meta->genres as $genre)
                                                         <span class="genre-label">{{ $genre }}</span>
                                                     @endforeach
                                                 @endif
                                                 <p class="description_plot" style="width: 100%;">
-                                                    @if($t->movie && $t->movie->plot)
-                                                        {{ $t->movie->plot }}
+                                                    @if($t->meta && $t->meta->plot)
+                                                        {{ $t->meta->plot }}
                                                     @endif
                                                 </p>
                                                 <div class="card_holder" style="width: 100%;" ;>
