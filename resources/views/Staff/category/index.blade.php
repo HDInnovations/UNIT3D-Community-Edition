@@ -16,7 +16,7 @@
 @section('content')
     <div class="container box">
         <h2>Categories</h2>
-        <a href="{{ route('staff.categories.store') }}" class="btn btn-primary">Add A Category</a>
+        <a href="{{ route('staff.categories.create') }}" class="btn btn-primary">Add A Category</a>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
@@ -47,7 +47,11 @@
                         <i class="{{ $c->icon }}" aria-hidden="true"></i>
                     </td>
                     <td>
-                        <img alt="{{ $c->name }}" src="{{ url('files/img/' . $c->image) }}">
+                        @if ($c->image != null)
+                            <img alt="{{ $c->name }}" src="{{ url('files/img/' . $c->image) }}">
+                        @else
+                            <span>N/A</span>
+                        @endif
                     </td>
                     <td>
                         @if ($c->movie_meta)

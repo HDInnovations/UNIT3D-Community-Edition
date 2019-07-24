@@ -40,7 +40,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('Staff.category.add');
+        return view('Staff.category.create');
     }
 
     /**

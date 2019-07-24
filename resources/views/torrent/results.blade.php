@@ -29,6 +29,7 @@
 
         <tbody>
         @foreach ($torrents as $torrent)
+            @php $meta = null; @endphp
             @if ($torrent->category->tv_meta)
                 @if ($torrent->tmdb || $torrent->tmdb != 0)
                     @php $meta = $client->scrape('tv', null, $torrent->tmdb); @endphp
@@ -51,9 +52,15 @@
                     <td>
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
-                                <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900'}}"
+                                @if (isset($meta) && $meta->poster && $meta->title)
+                                <img src="{{ $meta->poster }}"
                                      data-name='<i style="color: #a5a5a5;">{{ $meta->title }}</i>' data-image='<img src="{{ $meta->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                @else
+                                <img src="https://via.placeholder.com/600x900"
+                                     data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                @endif
                             </div>
                         @else
                             <div class="torrent-poster pull-left"></div>
@@ -164,7 +171,7 @@
                             </span>
                         @endif
 
-                        @if (! $torrent->category->no_meta)
+                        @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                             @if ($user->ratings == 1)
                             <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}" target="_blank">
                                 <span class="badge-extra text-bold">

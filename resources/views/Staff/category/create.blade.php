@@ -45,7 +45,7 @@
                 <label><input type="radio" name="movie_meta" value="1">@lang('common.yes')</label>
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="movie_meta" value="0">@lang('common.no')</label>
+                <label><input type="radio" name="movie_meta" value="0" checked>@lang('common.no')</label>
             </div>
             <br>
             <br>
@@ -55,7 +55,7 @@
                 <label><input type="radio" name="tv_meta" value="1">@lang('common.yes')</label>
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="tv_meta" value="0">@lang('common.no')</label>
+                <label><input type="radio" name="tv_meta" value="0" checked>@lang('common.no')</label>
             </div>
             <br>
             <br>
@@ -65,7 +65,7 @@
                 <label><input type="radio" name="game_meta" value="1">@lang('common.yes')</label>
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="game_meta" value="0">@lang('common.no')</label>
+                <label><input type="radio" name="game_meta" value="0" checked>@lang('common.no')</label>
             </div>
             <br>
             <br>
@@ -75,7 +75,7 @@
                 <label><input type="radio" name="music_meta" value="1">@lang('common.yes')</label>
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="music_meta" value="0">@lang('common.no')</label>
+                <label><input type="radio" name="music_meta" value="0" checked>@lang('common.no')</label>
             </div>
             <br>
             <br>
@@ -85,7 +85,7 @@
                 <label><input type="radio" name="no_meta" value="1">@lang('common.yes')</label>
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="no_meta" value="0">@lang('common.no')</label>
+                <label><input type="radio" name="no_meta" value="0" checked>@lang('common.no')</label>
             </div>
             <br>
             <br>

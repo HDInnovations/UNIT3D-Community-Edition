@@ -28,8 +28,8 @@
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
 
-        {{-- Meta Data --}}
-        @if (! $torrent->category->no_meta)
+        {{-- Movie/TV Meta Data --}}
+        @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
             <div class="movie-wrapper">
                 <div class="movie-backdrop"
                      style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
@@ -163,7 +163,15 @@
                 </div>
             </div>
         @endif
-        {{-- /Meta Data --}}
+        {{-- /Movie/TV Meta Data --}}
+
+        {{-- Game Meta Data --}}
+            {{--To Be Added Via Partials --}}
+        {{-- /Game Meta Data --}}
+
+        {{-- Music Meta Data --}}
+            {{--To Be Added Via Partials --}}
+        {{-- /Music Meta Data --}}
 
         {{-- Button Bar --}}
         <div class="table-responsive">
@@ -769,7 +777,7 @@
     </div>
 
     {{-- TMDB Recommendations --}}
-    @if ($meta->recommendations)
+    @if (isset($meta) && $meta->recommendations)
         <div class="torrent box container">
             <section class="recommendations">
                 <div class="text-center">
@@ -944,6 +952,7 @@
       })
     </script>
 
+    @if (isset($meta) && $meta->videoTrailer && $meta->title)
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $('.show-trailer').each(function () {
         $(this).off('click');
@@ -961,5 +970,6 @@
         });
       });
     </script>
+    @endif
 
 @endsection

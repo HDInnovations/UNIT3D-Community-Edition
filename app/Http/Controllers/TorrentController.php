@@ -875,6 +875,7 @@ class TorrentController extends Controller
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $meta = null;
         if ($torrent->category->tv_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = $client->scrape('tv', null, $torrent->tmdb);
@@ -890,7 +891,7 @@ class TorrentController extends Controller
             }
         }
 
-        if ($meta->recommendations) {
+        if (isset($meta) && $meta->recommendations) {
             $meta->recommendations['results'] = array_map(function ($recomentaion) {
                 $recomentaion['exists'] = Torrent::where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
 
@@ -1318,6 +1319,8 @@ class TorrentController extends Controller
                 unset($f);
             }
 
+            $meta = null;
+
             // Torrent Tags System
             if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
@@ -1334,7 +1337,7 @@ class TorrentController extends Controller
                 }
             }
 
-            if ($meta->genres) {
+            if (isset($meta) && $meta->genres) {
                 foreach ($meta->genres as $genre) {
                     $tag = new TagTorrent();
                     $tag->torrent_id = $torrent->id;
