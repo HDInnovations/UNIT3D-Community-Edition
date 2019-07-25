@@ -44,9 +44,20 @@ class FetchReleaseYears extends Command
 
         $torrents = Torrent::withAnyStatus()
             ->with(['category'])
-            ->select(['id', 'category_id', 'imdb', 'tmdb', 'year'])
-            ->whereNull('year')
+            ->select(['id', 'name', 'category_id', 'imdb', 'tmdb', 'release_year'])
+            ->whereNull('release_year')
             ->get();
+
+        $withyear = Torrent::withAnyStatus()
+            ->whereNotNull('release_year')
+            ->count();
+
+        $withoutyear = Torrent::withAnyStatus()
+            ->whereNull('release_year')
+            ->count();
+
+        $this->alert("{$withyear} Torrents Already Have A Release Year Value");
+        $this->alert("{$withoutyear} Torrents Are Missing A Release Year Value");
 
         foreach ($torrents as $torrent) {
             $meta = null;
@@ -60,9 +71,9 @@ class FetchReleaseYears extends Command
                 if (isset($meta->releaseYear)) {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info("Release Year Fetched For Torrent {$torrent->name}");
+                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name}");
                 } else {
-                    $this->alert("No Release Year Found For Torrent {$torrent->name}");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}");
                 }
             }
 
@@ -75,9 +86,9 @@ class FetchReleaseYears extends Command
                 if (isset($meta->releaseYear)) {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info("Release Year Fetched For Torrent {$torrent->name}");
+                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name}");
                 } else {
-                    $this->alert("No Release Year Found For Torrent {$torrent->name}");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}");
                 }
             }
 
@@ -88,14 +99,18 @@ class FetchReleaseYears extends Command
                 if (isset($meta->first_release_date)) {
                     $torrent->release_year = date('Y', strtotime($meta->first_release_date));
                     $torrent->save();
-                    $this->info("Release Year Fetched For Torrent {$torrent->name}");
+                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name}");
                 } else {
-                    $this->alert("No Release Year Found For Torrent {$torrent->name}");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}");
                 }
             }
 
-            // sleep for 2 seconds
-            sleep(2);
+            if ($torrent->category->no_meta || $torrent->category->music_meta) {
+                    $this->warn("(SKIPPED) {$torrent->name} Is In A Category That Does Not Have Meta.");
+            }
+
+            // sleep for 1 second
+            sleep(1);
         }
     }
 }
