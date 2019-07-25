@@ -71,8 +71,8 @@ class FetchGenres extends Command
                 }
             }
 
-            // sleep for 2 seconds
-            sleep(2);
+            // sleep for 1 second
+            sleep(1);
         }
     }
 }
