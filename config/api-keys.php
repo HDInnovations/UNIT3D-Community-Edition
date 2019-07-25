@@ -34,5 +34,5 @@ return [
     */
 
     'omdb' => env('OMDB_API_KEY', ''),
-    
+
 ];
