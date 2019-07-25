@@ -384,6 +384,9 @@ class TorrentController extends Controller
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
+        $igdb = $request->input('igdb');
+        $start_year = $request->input('start_year');
+        $end_year = $request->input('end_year');
         $categories = $request->input('categories');
         $types = $request->input('types');
         $genres = $request->input('genres');
@@ -485,6 +488,14 @@ class TorrentController extends Controller
 
             if ($request->has('mal') && $request->input('mal') != null) {
                 $torrent->where('torrentsl.mal', '=', $mal);
+            }
+
+            if ($request->has('igdb') && $request->input('igdb') != null) {
+                $torrent->where('torrentsl.igdb', '=', $igdb);
+            }
+
+            if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
+                $torrent->whereBetween('torrentsl.release_year', [$start_year ,$end_year]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {
@@ -610,6 +621,14 @@ class TorrentController extends Controller
 
             if ($request->has('mal') && $request->input('mal') != null) {
                 $torrent->where('torrents.mal', '=', $mal);
+            }
+
+            if ($request->has('igdb') && $request->input('igdb') != null) {
+                $torrent->where('torrents.igdb', '=', $igdb);
+            }
+
+            if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
+                $torrent->whereBetween('torrents.release_year', [$start_year ,$end_year]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {

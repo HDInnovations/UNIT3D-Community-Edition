@@ -427,6 +427,9 @@ class facetedSearchBuilder {
         var tvdb = $("#tvdb").val();
         var tmdb = $("#tmdb").val();
         var mal = $("#mal").val();
+        var igdb = $("#igdb").val();
+        var start_year = $("#start_year").val();
+        var end_year = $("#end_year").val();
         var categories = [];
         var types = [];
         var genres = [];
@@ -591,6 +594,9 @@ class facetedSearchBuilder {
                 view: this.view,
                 tmdb: tmdb,
                 mal: mal,
+                igdb: igdb,
+                start_year: start_year,
+                end_year: end_year,
                 categories: categories,
                 types: types,
                 genres: genres,
