@@ -43,7 +43,9 @@ class FetchReleaseYears extends Command
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
         $torrents = Torrent::withAnyStatus()
-            ->select(['id', 'category_id', 'imdb', 'tmdb'])
+            ->with(['category'])
+            ->select(['id', 'category_id', 'imdb', 'tmdb', 'year'])
+            ->whereNull('year')
             ->get();
 
         foreach ($torrents as $torrent) {
@@ -55,6 +57,13 @@ class FetchReleaseYears extends Command
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
+                if (isset($meta->releaseYear)) {
+                    $torrent->release_year = $meta->releaseYear;
+                    $torrent->save();
+                    $this->info("Release Year Fetched For Torrent {$torrent->name}");
+                } else {
+                    $this->alert("No Release Year Found For Torrent {$torrent->name}");
+                }
             }
 
             if ($torrent->category->movie_meta) {
@@ -63,22 +72,26 @@ class FetchReleaseYears extends Command
                 } else {
                     $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
+                if (isset($meta->releaseYear)) {
+                    $torrent->release_year = $meta->releaseYear;
+                    $torrent->save();
+                    $this->info("Release Year Fetched For Torrent {$torrent->name}");
+                } else {
+                    $this->alert("No Release Year Found For Torrent {$torrent->name}");
+                }
             }
 
             if ($torrent->category->game_meta) {
                 if ($torrent->igdb && $torrent->igdb != 0) {
                     $meta = Game::find($torrent->igdb);
                 }
-            }
-
-            // Save Release Year If Exsist
-            if ($meta->releaseYear) {
-                $torrent->release_year = $meta->releaseYear;
-                $torrent->save();
-            }
-            if ($meta->first_release_date) {
-                $torrent->release_year = date('Y', strtotime( $meta->first_release_date));
-                $torrent->save();
+                if (isset($meta->first_release_date)) {
+                    $torrent->release_year = date('Y', strtotime($meta->first_release_date));
+                    $torrent->save();
+                    $this->info("Release Year Fetched For Torrent {$torrent->name}");
+                } else {
+                    $this->alert("No Release Year Found For Torrent {$torrent->name}");
+                }
             }
 
             // sleep for 2 seconds
