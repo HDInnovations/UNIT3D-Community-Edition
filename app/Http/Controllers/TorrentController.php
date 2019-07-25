@@ -40,6 +40,7 @@ use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;
+use MarcReichel\IGDBLaravel\Models\Game;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
@@ -864,7 +865,7 @@ class TorrentController extends Controller
      */
     public function torrent(Request $request, $slug, $id)
     {
-        $torrent = Torrent::withAnyStatus()->with('comments')->findOrFail($id);
+        $torrent = Torrent::withAnyStatus()->with(['comments', 'category'])->findOrFail($id);
         $uploader = $torrent->user;
         $user = $request->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
@@ -897,6 +898,12 @@ class TorrentController extends Controller
 
                 return $recomentaion;
             }, $meta->recommendations['results']);
+        }
+
+        $characters = null;
+        if ($torrent->category->game_meta) {
+            $meta =  Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'] ,'genres' => ['name']])->find($torrent->igdb);
+            $characters = Game::with(['characters'])->find($torrent->igdb);
         }
 
         if ($torrent->featured == 1) {
@@ -940,6 +947,7 @@ class TorrentController extends Controller
             'personal_freeleech' => $personal_freeleech,
             'freeleech_token'    => $freeleech_token,
             'meta'               => $meta,
+            'characters'         => $characters,
             'total_tips'         => $total_tips,
             'user_tips'          => $user_tips,
             'client'             => $client,
@@ -1004,6 +1012,7 @@ class TorrentController extends Controller
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
+        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->mediainfo = $request->input('mediainfo');
         $torrent->anon = $request->input('anonymous');
@@ -1020,6 +1029,7 @@ class TorrentController extends Controller
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
+            'igdb'         => 'required|numeric',
             'type'        => 'required',
             'anon'        => 'required',
             'stream'      => 'required',
@@ -1263,6 +1273,7 @@ class TorrentController extends Controller
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
+        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
@@ -1287,6 +1298,7 @@ class TorrentController extends Controller
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
+            'igdb'         => 'required|numeric',
             'type'        => 'required',
             'anon'        => 'required',
             'stream'      => 'required',
