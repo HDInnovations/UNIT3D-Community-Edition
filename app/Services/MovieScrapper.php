@@ -17,7 +17,6 @@ use App\Services\Data\Tv;
 use App\Services\Data\Movie;
 use App\Services\Clients\OmdbClient;
 use App\Services\Clients\TmdbClient;
-use App\Services\Clients\TvdbClient;
 
 class MovieScrapper
 {
@@ -25,13 +24,10 @@ class MovieScrapper
 
     private $omdbClient;
 
-    private $tvdbClient;
-
     public function __construct($tmdb_key = null, $tvdb_key = null, $omdb_key = null)
     {
         $this->tmdbClient = new TmdbClient($tmdb_key);
         $this->omdbClient = new OmdbClient($omdb_key);
-        $this->tvdbClient = new TvdbClient($tvdb_key);
     }
 
     /**
