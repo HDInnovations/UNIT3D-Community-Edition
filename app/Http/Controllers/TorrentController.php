@@ -157,6 +157,9 @@ class TorrentController extends Controller
                     $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
+            if ($torrent->category->game_meta) {
+                $meta =  Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb);
+            }
             if ($meta) {
                 $torrent->meta = $meta;
             }
@@ -291,12 +294,16 @@ class TorrentController extends Controller
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
                             $meta = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
                         }
-                    } elseif ($d['chunk']->category->movie_meta) {
+                    }
+                    if ($d['chunk']->category->movie_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
                             $meta = $client->scrape('movie', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
                             $meta = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
                         }
+                    }
+                    if ($d['chunk']->category->game_meta) {
+                        $meta =  Game::with(['cover' => ['url', 'image_id']])->find($d['chunk']->igdb);
                     }
                     if ($meta) {
                         $d['chunk']->meta = $meta;
@@ -765,12 +772,16 @@ class TorrentController extends Controller
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
                             $meta = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
                         }
-                    } elseif ($d['chunk']->category->movie_meta) {
+                    }
+                    if ($d['chunk']->category->movie_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
                             $meta = $client->scrape('movie', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
                             $meta = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
                         }
+                    }
+                    if ($d['chunk']->category->game_meta) {
+                        $meta =  Game::with(['cover' => ['url', 'image_id']])->find($d['chunk']->igdb);
                     }
                     if ($meta) {
                         $d['chunk']->meta = $meta;
@@ -798,6 +809,9 @@ class TorrentController extends Controller
                     } elseif ($torrent->imdb && $torrent->imdb != 0) {
                         $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                     }
+                }
+                if ($torrent->category->game_meta) {
+                    $meta =  Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb);
                 }
                 if ($meta) {
                     $torrent->meta = $meta;
@@ -1298,7 +1312,7 @@ class TorrentController extends Controller
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
-            'igdb'         => 'required|numeric',
+            'igdb'        => 'required|numeric',
             'type'        => 'required',
             'anon'        => 'required',
             'stream'      => 'required',
