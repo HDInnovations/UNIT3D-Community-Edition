@@ -18,25 +18,47 @@
                     </div>
                     <div class="card_body">
                         <div class="body_poster">
-                            @if($t->meta && $t->meta->poster)
-                                <img src="{{ $t->meta->poster }}" class="show-poster" data-image='<img src="{{ $t->meta->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
+                            @if ($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->poster && $t->meta->title)
+                                <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster"
+                                     data-name='<i style="color: #a5a5a5;">{{ $meta->title ?? 'N/A' }}</i>' data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                            @endif
+
+                            @if ($t->category->game_meta && isset($t->meta) && $t->meta->cover && $t->meta->name)
+                                <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->meta->cover->image_id }}.jpg" class="show-poster"
+                                     data-name='<i style="color: #a5a5a5;">{{ $t->meta->name ?? 'N/A' }}</i>' data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->meta->cover->image_id }}.jpg" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                            @endif
+
+                            @if ($t->category->no_meta || $t->category->music_meta)
+                                <img src="https://via.placeholder.com/600x900" class="show-poster"
+                                     data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                             @endif
                         </div>
                         <div class="body_description">
                             <h3 class="description_title">
                                 <a href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}
-                                    @if($t->meta && $t->meta->releaseYear)
+                                    @if($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->releaseYear)
                                         <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
+                                    @endif
+                                    @if($t->category->game_meta && isset($t->meta) && $t->meta->first_release_date)
+                                        <span class="text-bold text-pink"> {{ date('Y', strtotime( $t->meta->first_release_date)) }}</span>
                                     @endif
                                 </a>
                             </h3>
-                            @if ($t->meta && $t->meta->genres)
+                            @if ($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->genres)
                                 @foreach ($t->meta->genres as $genre)
                                     <span class="genre-label">{{ $genre }}</span>
                                 @endforeach
                             @endif
+                            @if ($t->category->game_meta && isset($t->meta) && $t->meta->genres)
+                                @foreach ($t->meta->genres as $genre)
+                                    <span class="genre-label">{{ $genre->name }}</span>
+                                @endforeach
+                            @endif
                             <p class="description_plot">
-                                @if($t->meta && $t->meta->plot)
+                                @if($t->category->movie_meta || $t->category->tv_meta && $t->meta && $t->meta->plot)
                                     {{ $t->meta->plot }}
                                 @endif
                             </p>
