@@ -23,10 +23,12 @@
 
 @section('content')
     @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
+    @php $meta = null; @endphp
     @if ($torrents->first()->category->tv_meta)
-        @php $meta = $client->scrape('tv', 'tt'.$imdb); @endphp
-    @else
-        @php $meta = $client->scrape('movie', 'tt'.$imdb); @endphp
+            @php $meta = $client->scrape('tv', null, $tmdb); @endphp
+    @endif
+    @if ($torrents->first()->category->movie_meta)
+            @php $meta = $client->scrape('movie', null, $tmdb); @endphp
     @endif
     <div class="container-fluid">
         <div class="block">
