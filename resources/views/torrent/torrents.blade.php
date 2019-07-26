@@ -78,6 +78,19 @@
                         <div class="col-sm-2">
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="mal" placeholder="MAL #">
                         </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="igdb" placeholder="IGDB #">
+                        </div>
+                    </div>
+
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="release_year" class="mt-5 col-sm-1 label label-default fatten-me">Year Range</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control facetedSearch" trigger="keyup"id="start_year" placeholder="Start Year">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="end_year" placeholder="End Year">
+                        </div>
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">

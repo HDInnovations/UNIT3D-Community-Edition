@@ -2300,18 +2300,8 @@ class UserController extends Controller
 
         // Authorized User
         $user = User::findOrFail($id);
-
-        // User's ratio is too low
-        if ($user->getRatio() < config('other.ratio')) {
-            return redirect()->back()->withErrors('Your Ratio Is To Low To Download!');
-        }
-
-        // User's download rights are revoked
-        if ($user->can_download == 0) {
-            return redirect()->back()->withErrors('Your Download Rights Have Been Revoked!');
-        }
-
         abort_unless($request->user()->id == $user->id, 403);
+
         // Define Dir Folder
         $path = getcwd().'/files/tmp_zip/';
 

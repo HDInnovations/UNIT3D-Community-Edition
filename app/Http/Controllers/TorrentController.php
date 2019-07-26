@@ -40,6 +40,8 @@ use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;
+use MarcReichel\IGDBLaravel\Models\Game;
+use MarcReichel\IGDBLaravel\Models\Character;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
@@ -141,22 +143,26 @@ class TorrentController extends Controller
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         foreach ($torrents as $torrent) {
-            $movie = null;
-            if ($torrent->category_id == 2) {
+            $meta = null;
+            if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
-                }
-            } else {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
-                } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
             }
-            if ($movie) {
-                $torrent->movie = $movie;
+            if ($torrent->category->movie_meta) {
+                if ($torrent->tmdb || $torrent->tmdb != 0) {
+                    $meta = $client->scrape('movie', null, $torrent->tmdb);
+                } elseif ($torrent->imdb && $torrent->imdb != 0) {
+                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+                }
+            }
+            if ($torrent->category->game_meta) {
+                $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
+            }
+            if ($meta) {
+                $torrent->meta = $meta;
             }
         }
 
@@ -282,22 +288,26 @@ class TorrentController extends Controller
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
-                    $movie = null;
-                    if ($d['chunk']->category_id == 2) {
+                    $meta = null;
+                    if ($d['chunk']->category->tv_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('tv', null, $d['chunk']->tmdb);
+                            $meta = $client->scrape('tv', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
-                        }
-                    } else {
-                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('movie', null, $d['chunk']->tmdb);
-                        } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
+                            $meta = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
                         }
                     }
-                    if ($movie) {
-                        $d['chunk']->movie = $movie;
+                    if ($d['chunk']->category->movie_meta) {
+                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
+                            $meta = $client->scrape('movie', null, $d['chunk']->tmdb);
+                        } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
+                            $meta = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
+                        }
+                    }
+                    if ($d['chunk']->category->game_meta) {
+                        $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($d['chunk']->igdb);
+                    }
+                    if ($meta) {
+                        $d['chunk']->meta = $meta;
                     }
                 }
             }
@@ -375,6 +385,9 @@ class TorrentController extends Controller
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
+        $igdb = $request->input('igdb');
+        $start_year = $request->input('start_year');
+        $end_year = $request->input('end_year');
         $categories = $request->input('categories');
         $types = $request->input('types');
         $genres = $request->input('genres');
@@ -476,6 +489,14 @@ class TorrentController extends Controller
 
             if ($request->has('mal') && $request->input('mal') != null) {
                 $torrent->where('torrentsl.mal', '=', $mal);
+            }
+
+            if ($request->has('igdb') && $request->input('igdb') != null) {
+                $torrent->where('torrentsl.igdb', '=', $igdb);
+            }
+
+            if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
+                $torrent->whereBetween('torrentsl.release_year', [$start_year, $end_year]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {
@@ -601,6 +622,14 @@ class TorrentController extends Controller
 
             if ($request->has('mal') && $request->input('mal') != null) {
                 $torrent->where('torrents.mal', '=', $mal);
+            }
+
+            if ($request->has('igdb') && $request->input('igdb') != null) {
+                $torrent->where('torrents.igdb', '=', $igdb);
+            }
+
+            if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
+                $torrent->whereBetween('torrents.release_year', [$start_year, $end_year]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {
@@ -756,22 +785,26 @@ class TorrentController extends Controller
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
-                    $movie = null;
-                    if ($d['chunk']->category_id == 2) {
+                    $meta = null;
+                    if ($d['chunk']->category->tv_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('tv', null, $d['chunk']->tmdb);
+                            $meta = $client->scrape('tv', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
-                        }
-                    } else {
-                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('movie', null, $d['chunk']->tmdb);
-                        } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
+                            $meta = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
                         }
                     }
-                    if ($movie) {
-                        $d['chunk']->movie = $movie;
+                    if ($d['chunk']->category->movie_meta) {
+                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
+                            $meta = $client->scrape('movie', null, $d['chunk']->tmdb);
+                        } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
+                            $meta = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
+                        }
+                    }
+                    if ($d['chunk']->category->game_meta) {
+                        $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($d['chunk']->igdb);
+                    }
+                    if ($meta) {
+                        $d['chunk']->meta = $meta;
                     }
                 }
             }
@@ -782,22 +815,26 @@ class TorrentController extends Controller
             }
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $torrent) {
-                $movie = null;
-                if ($torrent->category_id == 2) {
+                $meta = null;
+                if ($torrent->category->tv_meta) {
                     if ($torrent->tmdb || $torrent->tmdb != 0) {
-                        $movie = $client->scrape('tv', null, $torrent->tmdb);
+                        $meta = $client->scrape('tv', null, $torrent->tmdb);
                     } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                        $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
-                    }
-                } else {
-                    if ($torrent->tmdb || $torrent->tmdb != 0) {
-                        $movie = $client->scrape('movie', null, $torrent->tmdb);
-                    } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                        $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                        $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                     }
                 }
-                if ($movie) {
-                    $torrent->movie = $movie;
+                if ($torrent->category->movie_meta) {
+                    if ($torrent->tmdb || $torrent->tmdb != 0) {
+                        $meta = $client->scrape('movie', null, $torrent->tmdb);
+                    } elseif ($torrent->imdb && $torrent->imdb != 0) {
+                        $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    }
+                }
+                if ($torrent->category->game_meta) {
+                    $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
+                }
+                if ($meta) {
+                    $torrent->meta = $meta;
                 }
             }
         }
@@ -862,7 +899,7 @@ class TorrentController extends Controller
      */
     public function torrent(Request $request, $slug, $id)
     {
-        $torrent = Torrent::withAnyStatus()->with('comments')->findOrFail($id);
+        $torrent = Torrent::withAnyStatus()->with(['comments', 'category'])->findOrFail($id);
         $uploader = $torrent->user;
         $user = $request->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
@@ -873,26 +910,34 @@ class TorrentController extends Controller
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        if ($torrent->category_id == 2) {
+        $meta = null;
+        if ($torrent->category->tv_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $movie = $client->scrape('tv', null, $torrent->tmdb);
+                $meta = $client->scrape('tv', null, $torrent->tmdb);
             } else {
-                $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
             }
-        } else {
+        }
+        if ($torrent->category->movie_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $movie = $client->scrape('movie', null, $torrent->tmdb);
+                $meta = $client->scrape('movie', null, $torrent->tmdb);
             } else {
-                $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
             }
         }
 
-        if ($movie->recommendations) {
-            $movie->recommendations['results'] = array_map(function ($recomentaion) {
+        if (isset($meta) && $meta->recommendations) {
+            $meta->recommendations['results'] = array_map(function ($recomentaion) {
                 $recomentaion['exists'] = Torrent::where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
 
                 return $recomentaion;
-            }, $movie->recommendations['results']);
+            }, $meta->recommendations['results']);
+        }
+
+        $characters = null;
+        if ($torrent->category->game_meta) {
+            $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
+            $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
         }
 
         if ($torrent->featured == 1) {
@@ -935,7 +980,8 @@ class TorrentController extends Controller
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
             'freeleech_token'    => $freeleech_token,
-            'movie'              => $movie,
+            'meta'               => $meta,
+            'characters'         => $characters,
             'total_tips'         => $total_tips,
             'user_tips'          => $user_tips,
             'client'             => $client,
@@ -1000,6 +1046,7 @@ class TorrentController extends Controller
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
+        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->mediainfo = $request->input('mediainfo');
         $torrent->anon = $request->input('anonymous');
@@ -1016,6 +1063,7 @@ class TorrentController extends Controller
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
+            'igdb'         => 'required|numeric',
             'type'        => 'required',
             'anon'        => 'required',
             'stream'      => 'required',
@@ -1031,20 +1079,20 @@ class TorrentController extends Controller
             // Torrent Tags System
             if ($torrent->category_id == 2) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
             } else {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 
-            if ($movie->genres) {
-                foreach ($movie->genres as $genre) {
+            if ($meta->genres) {
+                foreach ($meta->genres as $genre) {
                     $exist = TagTorrent::where('torrent_id', '=', $torrent->id)->where('tag_name', '=', $genre)->first();
                     if (! $exist) {
                         $tag = new TagTorrent();
@@ -1259,6 +1307,7 @@ class TorrentController extends Controller
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
+        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
@@ -1283,6 +1332,7 @@ class TorrentController extends Controller
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
+            'igdb'        => 'required|numeric',
             'type'        => 'required',
             'anon'        => 'required',
             'stream'      => 'required',
@@ -1315,23 +1365,26 @@ class TorrentController extends Controller
                 unset($f);
             }
 
+            $meta = null;
+
             // Torrent Tags System
-            if ($torrent->category_id == 2) {
+            if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
-            } else {
+            }
+            if ($torrent->category->movie_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 
-            if ($movie->genres) {
-                foreach ($movie->genres as $genre) {
+            if (isset($meta) && $meta->genres) {
+                foreach ($meta->genres as $genre) {
                     $tag = new TagTorrent();
                     $tag->torrent_id = $torrent->id;
                     $tag->tag_name = $genre;

@@ -131,11 +131,11 @@
                                 <hr>
                                 <label for="twostep" class="control-label">Use Two Step Auth?</label>
                                 <div class="radio-inline">
-                                    <label><input type="radio" name="twostep" @if ($user->twostep == 1) checked @endif value="1">YES</label>
+                                    <label><input type="radio" name="twostep" @if ($user->twostep == 1) checked @endif value="1">@lang('common.yes')</label>
                                 </div>
                                 <div class="radio-inline">
                                     <label><input type="radio" name="twostep" @if ($user->twostep == 0) checked
-                                                  @endif value="0">NO</label>
+                                                  @endif value="0">@lang('common.no')</label>
                                 </div>
                                 <br>
                             </div>

@@ -64,9 +64,9 @@
                         </div>
                     </div>
                 </div>
-                @if ($torrentRequest->category->meta == 1)
+                @if (! $torrentRequest->category->no_meta)
                     <div class="movie-wrapper">
-                        <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
+                        <div class="movie-backdrop" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
                             <div class="tags">
                                 {{ $torrentRequest->category->name }}
                             </div>
@@ -76,22 +76,22 @@
                             <div class="row movie-row ">
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
                                     <h1 class="movie-heading">
-                                        @if ($movie->title)
-                                            <span class="text-bold">{{ $movie->title }}</span><span
-                                                    class="text-bold"><em> {{ $movie->releaseYear }}</em></span>
+                                        @if ($meta->title)
+                                            <span class="text-bold">{{ $meta->title }}</span><span
+                                                    class="text-bold"><em> {{ $meta->releaseYear }}</em></span>
                                         @else
                                             <span class="text-bold">Sorry Not Meta Found</span>
                                         @endif
-                                            @if ($movie->imdbRating || $movie->tmdbRating)
+                                            @if ($meta->imdbRating || $meta->tmdbRating)
                                                 <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
                     <span class="movie-rating-stars">
                       <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                     </span>
                                                     @if ($user->ratings == 1)
-                                                        {{ $movie->imdbRating }}/10({{ $movie->imdbVotes }} @lang('torrent.votes')
+                                                        {{ $meta->imdbRating }}/10({{ $meta->imdbVotes }} @lang('torrent.votes')
                                                         )
                                                     @else
-                                                        {{ $movie->tmdbRating }}/10({{ $movie->tmdbVotes }} @lang('torrent.votes')
+                                                        {{ $meta->tmdbRating }}/10({{ $meta->tmdbVotes }} @lang('torrent.votes')
                                                         )
                                                     @endif
                  </span>
@@ -99,22 +99,22 @@
                                     </h1>
                                     <br>
                                     <span class="movie-overview">
-                            {{ $movie->plot }}
+                            {{ $meta->plot }}
                         </span>
                                     <ul class="movie-details">
                                         <li>
-                                            @if ($movie->genres)
-                                                @foreach ($movie->genres as $genre)
+                                            @if ($meta->genres)
+                                                @foreach ($meta->genres as $genre)
                                                     <span class="badge-user text-bold text-green">{{ $genre }}</span>
                                                 @endforeach
                                             @endif
-                                                @if ($movie->rated )
+                                                @if ($meta->rated )
                                             <span class="badge-user text-bold text-orange">@lang('torrent.rated')
-                                                : {{ $movie->rated }} </span>
+                                                : {{ $meta->rated }} </span>
                                                 @endif
-                                                @if ($movie->runtime )
+                                                @if ($meta->runtime )
                                             <span class="badge-user text-bold text-orange">@lang('torrent.runtime')
-                                                : {{ $movie->runtime }} @lang('common.minute')@lang('common.plural-suffix')</span>
+                                                : {{ $meta->runtime }} @lang('common.minute')@lang('common.plural-suffix')</span>
                                                     @endif
                                         </li>
                                         <li>
@@ -148,7 +148,7 @@
                          title="TVDB" target="_blank">TVDB: {{ $torrentRequest->tvdb }}</a>
                     </span>
                                             @endif
-                                            @if ($movie->videoTrailer != '')
+                                            @if ($meta->videoTrailer != '')
                                                 <span onclick="showTrailer()" style="cursor: pointer;"
                                                       class="badge-user text-bold">
                             <a class="text-pink" title="View Trailer">@lang('torrent.view-trailer') <i
@@ -159,9 +159,9 @@
                                         <br>
                                         <li>
                                             <div class="row cast-list">
-                                                @if ($movie->actors)
+                                                @if ($meta->actors)
                                                     @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
-                                                    @foreach (array_slice($movie->actors, 0,6) as $actor)
+                                                    @foreach (array_slice($meta->actors, 0,6) as $actor)
                                                         @php $person = $client->person($actor->tmdb); @endphp
                                                         <div class="col-xs-4 col-md-2 text-center">
                                                             <img class="img-people" src="{{ $person->photo }}">
@@ -180,7 +180,7 @@
                                 </div>
 
                                 <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                                    <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
+                                    <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
                                 </div>
                             </div>
                         </div>
@@ -273,7 +273,7 @@
                                             data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-hand-paper">
                                         </i> @lang('request.claim')
                                     </button>
-                                    <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
+                                    <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
                                        class="btn btn-md btn-success"><i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
                                     </a>
                                 @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
@@ -310,8 +310,8 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.unclaim')
                                             </span>
                                         </a>
-                                        <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
-                                           class="btn btn-xs btn-success"> @lang('common.upload') {{ $movie->title ?? ''}}
+                                        <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
+                                           class="btn btn-xs btn-success"> @lang('common.upload') {{ $meta->title ?? ''}}
                                         </a>
                                     @endif
                                 @endif

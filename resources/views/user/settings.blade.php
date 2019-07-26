@@ -76,19 +76,19 @@
                             <label for="hidden" class="control-label">Language Censor Chat?</label>
                             <div class="radio-inline">
                                 <label><input type="radio" name="censor" @if ($user->censor == 1) checked
-                                              @endif value="1">YES</label>
+                                              @endif value="1">@lang('common.yes')</label>
                             </div>
                             <div class="radio-inline">
-                                <label><input type="radio" name="censor" @if ($user->censor == 0) checked @endif value="0">NO</label>
+                                <label><input type="radio" name="censor" @if ($user->censor == 0) checked @endif value="0">@lang('common.no')</label>
                             </div>
                             <br>
                             <br>
                             <label for="hidden" class="control-label">Hide Chat?</label>
                             <div class="radio-inline">
-                                <label><input type="radio" name="chat_hidden" @if ($user->chat_hidden == 1) checked @endif value="1">YES</label>
+                                <label><input type="radio" name="chat_hidden" @if ($user->chat_hidden == 1) checked @endif value="1">@lang('common.yes')</label>
                             </div>
                             <div class="radio-inline">
-                                <label><input type="radio" name="chat_hidden" @if ($user->chat_hidden == 0) checked @endif value="0">NO</label>
+                                <label><input type="radio" name="chat_hidden" @if ($user->chat_hidden == 0) checked @endif value="0">@lang('common.no')</label>
                             </div>
                             </div>
 
@@ -104,10 +104,10 @@
                             <br>
                             <label for="poster" class="control-label">Show Posters On Torrent List View?</label>
                             <div class="radio-inline">
-                                <label><input type="radio" name="show_poster" @if ($user->show_poster == 1) checked @endif value="1">YES</label>
+                                <label><input type="radio" name="show_poster" @if ($user->show_poster == 1) checked @endif value="1">@lang('common.yes')</label>
                             </div>
                             <div class="radio-inline">
-                                <label><input type="radio" name="show_poster" @if ($user->show_poster == 0) checked @endif value="0">NO</label>
+                                <label><input type="radio" name="show_poster" @if ($user->show_poster == 0) checked @endif value="0">@lang('common.no')</label>
                             </div>
                             <br>
                             <br>

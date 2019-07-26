@@ -52,17 +52,17 @@
 
                 <tbody>
                 @foreach ($torrents as $torrent)
-                    @if ($torrent->category_id == 2)
+                    @if ($torrent->category->tv_meta)
                         @if ($torrent->tmdb || $torrent->tmdb != 0)
-                            @php $movie = $client->scrape('tv', null, $torrent->tmdb); @endphp
+                            @php $meta = $client->scrape('tv', null, $torrent->tmdb); @endphp
                         @else
-                            @php $movie = $client->scrape('tv', 'tt'. $torrent->imdb); @endphp
+                            @php $meta = $client->scrape('tv', 'tt'. $torrent->imdb); @endphp
                         @endif
                     @else
                         @if ($torrent->tmdb || $torrent->tmdb != 0)
-                            @php $movie = $client->scrape('movie', null, $torrent->tmdb); @endphp
+                            @php $meta = $client->scrape('movie', null, $torrent->tmdb); @endphp
                         @else
-                            @php $movie = $client->scrape('movie', 'tt'. $torrent->imdb); @endphp
+                            @php $meta = $client->scrape('movie', 'tt'. $torrent->imdb); @endphp
                         @endif
                     @endif
 
@@ -74,8 +74,8 @@
                             <td>
                                 @if ($user->show_poster == 1)
                                     <div class="torrent-poster pull-left">
-                                        <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900'}}"
-                                             data-poster-mid="{{ $movie->poster ?? 'https://via.placeholder.com/600x900'}}"
+                                        <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900'}}"
+                                             data-poster-mid="{{ $meta->poster ?? 'https://via.placeholder.com/600x900'}}"
                                              class="img-tor-poster torrent-poster-img-small" alt="Poster">
                                     </div>
                                 @else
@@ -84,13 +84,23 @@
                             </td>
 
                             <td>
-                                <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
-                                    <div class="text-center">
-                                        <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                           data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                           style="padding-bottom: 6px;"></i>
-                                    </div>
-                                </a>
+                                @if ($torrent->category->image != null)
+                                    <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                                        <div class="text-center">
+                                            <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                                 data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                 style="padding-bottom: 6px;">
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                                        <div class="text-center">
+                                            <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
+                                               data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                               style="padding-bottom: 6px;"></i>
+                                        </div>
+                                    </a>
+                                @endif
                                 <div class="text-center">
                             <span class="label label-success" data-toggle="tooltip" data-original-title="Type">
                                 {{ $torrent->type }}
@@ -170,7 +180,7 @@
                             </span>
                                 @endif
 
-                                @if ($torrent->category->meta == 1)
+                                @if (! $torrent->category->no_meta)
                                     @if ($user->ratings == 1)
                                         <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
@@ -178,21 +188,21 @@
                                         <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                            data-original-title="View More"></i>
                                     </span>
-                                    {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
+                                    {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} votes)
                                 </span>
                                         </a>
                                     @else
-                                        @if ($torrent->category_id == 2)
-                                            <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}">
-                                                @else
-                                                    <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}">
+                                        @if ($torrent->category->tv_meta)
+                                            <a href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}">
+                                                @elseif ($torrent->category->movie_meta)
+                                                    <a href="https://www.themoviedb.org/movie/{{ $meta->tmdb }}">
                                                         @endif
                                                         <span class="badge-extra text-bold">
                                 <span class="text-gold movie-rating-stars">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                        data-original-title="View More"></i>
                                 </span>
-                                                            {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
+                                                            {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} votes)
                             </span>
                                                     </a>
                                                 @endif

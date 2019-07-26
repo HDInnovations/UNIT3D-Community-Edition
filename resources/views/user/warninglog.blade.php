@@ -87,7 +87,7 @@
                                     </td>
                                     <td>
                                         @if ($warning->active == 1)
-                                            <span class='label label-success'>Yes</span>
+                                            <span class='label label-success'>@lang('common.yes')</span>
                                         @else
                                             <span class='label label-danger'>Expired</span>
                                         @endif

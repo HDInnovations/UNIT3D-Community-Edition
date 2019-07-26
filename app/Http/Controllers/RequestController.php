@@ -207,17 +207,17 @@ class RequestController extends Controller
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        if ($torrentRequest->category_id == 2) {
+        if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $movie = $client->scrape('tv', null, $torrentRequest->tmdb);
+                $meta = $client->scrape('tv', null, $torrentRequest->tmdb);
             } else {
-                $movie = $client->scrape('tv', 'tt'.$torrentRequest->imdb);
+                $meta = $client->scrape('tv', 'tt'.$torrentRequest->imdb);
             }
-        } else {
+        } elseif ($torrentRequest->category->movie_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $movie = $client->scrape('movie', null, $torrentRequest->tmdb);
+                $meta = $client->scrape('movie', null, $torrentRequest->tmdb);
             } else {
-                $movie = $client->scrape('movie', 'tt'.$torrentRequest->imdb);
+                $meta = $client->scrape('movie', 'tt'.$torrentRequest->imdb);
             }
         }
 
@@ -226,7 +226,7 @@ class RequestController extends Controller
             'voters'              => $voters, 'user' => $user,
             'comments'            => $comments,
             'carbon'              => $carbon,
-            'movie'               => $movie,
+            'meta'                => $meta,
             'torrentRequestClaim' => $torrentRequestClaim,
         ]);
     }

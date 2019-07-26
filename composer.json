@@ -11,6 +11,7 @@
         "php": ">=7.2",
         "appstract/laravel-opcache": "^2.0",
         "arcanedev/log-viewer": "^4.3",
+        "bandwidth-throttle/token-bucket": "^2.0",
         "bepsvpt/secure-headers": "^5.3",
         "christofferok/laravel-emojione": "4.0",
         "elhebert/laravel-sri": "^1.5",
@@ -24,8 +25,8 @@
         "kyslik/column-sortable": "5.8.*",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "marcreichel/igdb-laravel": "^0.9.0",
         "mews/purifier": "^2.1",
-        "moinax/tvdb": "1.*",
         "nelexa/zip": "^3.1",
         "paragonie/constant_time_encoding": "^2.0",
         "predis/predis": "^1.1",
@@ -33,10 +34,8 @@
         "spatie/laravel-cookie-consent": "^2.4.1",
         "spatie/laravel-image-optimizer": "^1.1",
         "spatie/ssl-certificate": "^1.12",
-        "stripe/stripe-php": "^6.1",
         "symfony/dom-crawler": "^2.7|^3.0",
-        "theodorejb/polycast": "^1.0",
-        "bandwidth-throttle/token-bucket": "^2.0"
+        "theodorejb/polycast": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

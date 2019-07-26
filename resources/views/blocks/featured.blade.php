@@ -31,24 +31,24 @@
                                         </div>
                                         <span class="movie-desc">
 
-                </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @foreach ($featured as $key => $feature)
-                        @if ($feature->torrent->category_id == 2)
+                        @if ($feature->torrent->category->tv_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                                @php $movie = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
+                                @php $meta = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
                             @else
-                                @php $movie = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
-                        @else
+                        @elseif ($feature->torrent->category->movie_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                                @php $movie = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
+                                @php $meta = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
                             @else
-                                @php $movie = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
                         @endif
                         <div class="item">
@@ -56,45 +56,49 @@
                                 <div class="tags">
                                     {{ ++$key }}
                                 </div>
-                                <div class="movie-card" style="background-image: url({{ $movie->backdrop }});">
+                                <div class="movie-card" style="background-image: url({{ $meta->backdrop }});">
                                     <div class="color-overlay">
                                         <div class="movie-content">
                                             <div class="movie-header">
                                                 <a href="{{ route('torrent', ['slug' => $feature->torrent->slug, 'id' => $feature->torrent->id]) }}">
                                                     <h1 class="movie-title">{{ $feature->torrent->name }}</h1></a>
                                                 <h4 class="movie-info">
-                                                    @if ($movie->genres)
-                                                        @foreach ($movie->genres as $genre)
+                                                    @if ($meta->genres)
+                                                        @foreach ($meta->genres as $genre)
                                                             | {{ $genre }} |
                                                         @endforeach
                                                     @endif
                                                 </h4>
                                             </div>
                                             <span class="movie-desc">
-                  {{ Str::limit(strip_tags($movie->plot), 200) }}...
-                  <br>
-                  <br>
-                <ul class="list-inline">
-                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>@lang('torrent.size')
-                        : </strong> {{ $feature->torrent->getSize() }}</span>
-                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> <strong>@lang('torrent.released')
-                        : </strong> {{ $feature->torrent->created_at->diffForHumans() }}</span>
-                <span class="badge-extra text-green"><li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> <strong>@lang('torrent.seeders')
-                            : </strong> {{ $feature->torrent->seeders }}</li></span>
-                <span class="badge-extra text-red"><li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> <strong>@lang('torrent.leechers')
-                            : </strong> {{ $feature->torrent->leechers }}</li></span>
-                <span class="badge-extra text-orange"><li><i class="{{ config('other.font-awesome') }} fa-check-square"></i> <strong>@lang('torrent.completed')
-                            : </strong> {{ $feature->torrent->times_completed }}</li></span>
-                <br>
-                <span class="badge-user text-bold text-pink"
-                      style="background-image:url(/img/sparkels.gif);">@lang('blocks.featured-until')
-                    : {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
-                    ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)</span>
-                <span class="badge-user text-bold text-pink"
-                      style="background-image:url(/img/sparkels.gif);">@lang('blocks.featured-by')
-                    : {{ $feature->user->username }}!</span>
-                </ul>
-                </span>
+                                                {{ Str::limit(strip_tags($meta->plot), 200) }}...
+                                            <br>
+                                            <br>
+                                                <ul class="list-inline">
+                                                    <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i>
+                                                        <strong>@lang('torrent.size'): </strong> {{ $feature->torrent->getSize() }}
+                                                    </span>
+                                                    <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i>
+                                                        <strong>@lang('torrent.released'): </strong> {{ $feature->torrent->created_at->diffForHumans() }}
+                                                    </span>
+                                                    <span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                                                            <strong>@lang('torrent.seeders'): </strong> {{ $feature->torrent->seeders }}
+                                                    </span>
+                                                    <span class="badge-extra text-red"><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                                                        <strong>@lang('torrent.leechers'): </strong> {{ $feature->torrent->leechers }}
+                                                    </span>
+                                                    <span class="badge-extra text-orange"><i class="{{ config('other.font-awesome') }} fa-check-square"></i>
+                                                        <strong>@lang('torrent.completed'): </strong> {{ $feature->torrent->times_completed }}
+                                                    </span>
+                                                    <br>
+                                                    <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
+                                                        @lang('blocks.featured-until'): {{ $feature->created_at->addDay(7)->toFormattedDateString() }}({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
+                                                    </span>
+                                                    <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
+                                                        @lang('blocks.featured-by'): {{ $feature->user->username }}!
+                                                    </span>
+                                                </ul>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
