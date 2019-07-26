@@ -70,7 +70,6 @@ class CategoryController extends Controller
             Image::make($image->getRealPath())->fit(40, 40)->encode('png', 100)->save($path);
             $category->image = $filename;
         } else {
-            // Use Default Image Instead
             $category->image = null;
         }
 
@@ -140,9 +139,6 @@ class CategoryController extends Controller
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(40, 40)->encode('png', 100)->save($path);
             $category->image = $filename;
-        } else {
-            // Use Default Image Instead
-            $category->image = null;
         }
 
         $v = validator($category->toArray(), [
