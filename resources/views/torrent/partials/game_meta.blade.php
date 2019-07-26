@@ -61,7 +61,7 @@
 
                     <div class="row cast-list">
                         @if ($characters)
-                            @foreach($characters->take(6) as $character)
+                            @foreach($characters as $character)
                                 <div class="col-xs-4 col-md-2 text-center">
                                     <img class="img-people" src="{{ $character->img_url }}">
                                     <a href="https://www.themoviedb.org/person/{{ $character->id }}" title="TheMovieDatabase" target="_blank">

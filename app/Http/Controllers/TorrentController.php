@@ -41,6 +41,7 @@ use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;
 use MarcReichel\IGDBLaravel\Models\Game;
+use MarcReichel\IGDBLaravel\Models\Character;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
@@ -936,7 +937,7 @@ class TorrentController extends Controller
         $characters = null;
         if ($torrent->category->game_meta) {
             $meta =  Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'] ,'genres' => ['name']])->find($torrent->igdb);
-            $characters = Game::with(['characters'])->find($torrent->igdb);
+            $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
         }
 
         if ($torrent->featured == 1) {
