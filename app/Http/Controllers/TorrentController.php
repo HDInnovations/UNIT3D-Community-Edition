@@ -159,7 +159,7 @@ class TorrentController extends Controller
                 }
             }
             if ($torrent->category->game_meta) {
-                $meta =  Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'] ,'genres' => ['name']])->find($torrent->igdb);
+                $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
             }
             if ($meta) {
                 $torrent->meta = $meta;
@@ -304,7 +304,7 @@ class TorrentController extends Controller
                         }
                     }
                     if ($d['chunk']->category->game_meta) {
-                        $meta =  Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'] ,'genres' => ['name']])->find($d['chunk']->igdb);
+                        $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($d['chunk']->igdb);
                     }
                     if ($meta) {
                         $d['chunk']->meta = $meta;
@@ -496,7 +496,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
-                $torrent->whereBetween('torrentsl.release_year', [$start_year ,$end_year]);
+                $torrent->whereBetween('torrentsl.release_year', [$start_year, $end_year]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {
@@ -629,7 +629,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
-                $torrent->whereBetween('torrents.release_year', [$start_year ,$end_year]);
+                $torrent->whereBetween('torrents.release_year', [$start_year, $end_year]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {
@@ -801,7 +801,7 @@ class TorrentController extends Controller
                         }
                     }
                     if ($d['chunk']->category->game_meta) {
-                        $meta =  Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'] ,'genres' => ['name']])->find($d['chunk']->igdb);
+                        $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($d['chunk']->igdb);
                     }
                     if ($meta) {
                         $d['chunk']->meta = $meta;
@@ -831,7 +831,7 @@ class TorrentController extends Controller
                     }
                 }
                 if ($torrent->category->game_meta) {
-                    $meta =  Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'] ,'genres' => ['name']])->find($torrent->igdb);
+                    $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
                 }
                 if ($meta) {
                     $torrent->meta = $meta;
@@ -936,7 +936,7 @@ class TorrentController extends Controller
 
         $characters = null;
         if ($torrent->category->game_meta) {
-            $meta =  Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'] ,'genres' => ['name']])->find($torrent->igdb);
+            $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
             $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
         }
 

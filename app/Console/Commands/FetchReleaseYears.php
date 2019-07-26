@@ -106,7 +106,7 @@ class FetchReleaseYears extends Command
             }
 
             if ($torrent->category->no_meta || $torrent->category->music_meta) {
-                    $this->warn("(SKIPPED) {$torrent->name} Is In A Category That Does Not Have Meta.");
+                $this->warn("(SKIPPED) {$torrent->name} Is In A Category That Does Not Have Meta.");
             }
 
             // sleep for 1 second
