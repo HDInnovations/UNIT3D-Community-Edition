@@ -16,23 +16,36 @@
         <tbody>
             @foreach ($torrentRequests as $torrentRequest)
                 <tr>
-                <td>
-                    <div class="text-center">
-                        <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip"
-                           data-original-title="{{ $torrentRequest->category->name }} @lang('request.request')"></i>
-                    </div>
+                <td style="vertical-align: middle;">
+                    @if ($torrentRequest->category->image != null)
+                        <a href="{{ route('category', ['slug' => $torrentRequest->category->slug, 'id' => $torrentRequest->category->id]) }}">
+                            <div class="text-center">
+                                <img src="{{ url('files/img/' . $torrentRequest->category->image) }}" data-toggle="tooltip"
+                                     data-original-title="{{ $torrentRequest->category->name }} {{ strtolower(trans('request.request')) }}"
+                                     style="padding-bottom: 6px;">
+                            </div>
+                        </a>
+                    @else
+                        <a href="{{ route('category', ['slug' => $torrentRequest->category->slug, 'id' => $torrentRequest->category->id]) }}">
+                            <div class="text-center">
+                                <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip"
+                                   data-original-title="{{ $torrentRequest->category->name }} {{ strtolower(trans('request.request')) }}"
+                                   style="padding-bottom: 6px;"></i>
+                            </div>
+                        </a>
+                    @endif
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     <span class="label label-success">
                         {{ $torrentRequest->type }}
                     </span>
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     <a class="view-torrent" href="{{ route('request', ['id' => $torrentRequest->id]) }}">
                         {{ $torrentRequest->name }}
                     </a>
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @if ($torrentRequest->anon == 0)
                     <span class="badge-user">
                         <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
@@ -49,27 +62,27 @@
                     </span>
                     @endif
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     <span class="badge-user">
                         {{ $torrentRequest->votes }}
                     </span>
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     <span class="badge-user">
                         {{ $torrentRequest->comments->count() }}
                     </span>
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     <span class="badge-user">
                         {{ $torrentRequest->bounty }}
                     </span>
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     <span>
                         {{ $torrentRequest->created_at->diffForHumans() }}
                     </span>
                 </td>
-                <td>
+                <td style="vertical-align: middle;">
                     @if ($torrentRequest->claimed != null && $torrentRequest->filled_hash == null)
                         <button class="btn btn-xs btn-primary">
                             <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i> @lang('request.claimed')
