@@ -68,12 +68,12 @@ class FetchReleaseYears extends Command
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
-                if (isset($meta->releaseYear)) {
+                if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name}");
+                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name} \n");
                 }
             }
 
@@ -83,12 +83,12 @@ class FetchReleaseYears extends Command
                 } else {
                     $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
-                if (isset($meta->releaseYear)) {
+                if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name}");
+                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name} \n");
                 }
             }
 
@@ -96,17 +96,17 @@ class FetchReleaseYears extends Command
                 if ($torrent->igdb && $torrent->igdb != 0) {
                     $meta = Game::find($torrent->igdb);
                 }
-                if (isset($meta->first_release_date)) {
+                if (isset($meta->first_release_date) && $meta->first_release_date > '1900') {
                     $torrent->release_year = date('Y', strtotime($meta->first_release_date));
                     $torrent->save();
-                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name}");
+                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name} \n");
                 }
             }
 
             if ($torrent->category->no_meta || $torrent->category->music_meta) {
-                $this->warn("(SKIPPED) {$torrent->name} Is In A Category That Does Not Have Meta.");
+                $this->warn("(SKIPPED) {$torrent->name} Is In A Category That Does Not Have Meta. \n");
             }
 
             // sleep for 1 second

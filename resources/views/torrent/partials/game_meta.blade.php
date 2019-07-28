@@ -1,5 +1,10 @@
 <div class="movie-wrapper">
-    <div class="movie-backdrop" style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg';">
+    <div class="movie-backdrop"
+         @if (isset($meta) && $meta->artworks)
+            style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg')">
+         @else
+            style="background-image: url('https://via.placeholder.com/1400x800')">
+         @endif
         <div class="tags">
             {{ $torrent->category->name }}
         </div>
@@ -9,7 +14,7 @@
         <div class="row movie-row ">
             <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
                 <h1 class="movie-heading">
-                    @if ($meta->name)
+                    @if (isset($meta) && $meta->name)
                         <span class="text-bold">{{ $meta->name }}</span>
                         <span class="text-bold"><em> ({{ date('Y', strtotime( $meta->first_release_date)) }}) </em></span>
                     @else
@@ -20,11 +25,13 @@
                 <br>
 
                 <span class="movie-overview">
-                    {{ Str::limit($meta->summary, $limit = 350, $end = '...') }}
+                    @if (isset($meta) && $meta->summary)
+                        {{ Str::limit($meta->summary, $limit = 350, $end = '...') }}
+                    @endif
                 </span>
 
                 <span class="movie-details">
-                    @if ($meta->genres)
+                    @if (isset($meta) && $meta->genres)
                         @foreach ($meta->genres as $genre)
                             <span class="badge-user text-bold text-green">
                                 <i class="{{ config("other.font-awesome") }} fa-tag"></i> {{ $genre->name }}
@@ -34,7 +41,7 @@
                 </span>
 
                 <span class="movie-details">
-                    @if ($torrent->igdb != 0 && $torrent->igdb != null)
+                    @if (isset($meta) && $meta->url && $torrent->igdb != 0 && $torrent->igdb != null)
                         <span class="badge-user text-bold text-orange">
                             <a href="{{ $meta->url }}" title="IMDB" target="_blank">
                                 <i class="{{ config("other.font-awesome") }} fa-gamepad"></i> IGDB: {{ $torrent->igdb }}
@@ -42,7 +49,7 @@
                         </span>
                     @endif
 
-                    @if ($meta->videos)
+                    @if (isset($meta) && $meta->videos)
                         <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
                             <a class="text-pink" title="@lang('torrent.trailer')">
                                 <i class="{{ config('other.font-awesome') }} fa-external-link"></i> @lang('torrent.trailer')
@@ -50,7 +57,7 @@
                         </span>
                     @endif
 
-                    @if ($meta->rating || $meta->rating_count)
+                    @if (isset($meta) && $meta->rating && $meta->rating_count)
                         <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
                             <span class="movie-rating-stars">
                                 <i class="{{ config('other.font-awesome') }} fa-star"></i>
@@ -60,7 +67,7 @@
                     @endif
 
                     <div class="row cast-list">
-                        @if ($characters)
+                        @if (isset($characters))
                             @foreach($characters as $character)
                                 <div class="col-xs-4 col-md-2 text-center">
                                     <img class="img-people" src="{{ $character->img_url }}">
@@ -78,7 +85,11 @@
             </div>
 
             <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" class="movie-poster img-responsive hidden-xs">
+                @if (isset($meta) && $meta->cover)
+                    <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" class="movie-poster img-responsive hidden-xs">
+                @else
+                    <img src="https://via.placeholder.com/600x900" class="movie-poster img-responsive hidden-xs">
+                @endif
             </div>
         </div>
     </div>

@@ -45,7 +45,9 @@
                 @endif
             @endif
             @if ($torrent->category->game_meta)
-                @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb); @endphp
+                @if ($torrent->igdb || $torrent->igdb != 0)
+                    @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb); @endphp
+                @endif
             @endif
 
             @if ($torrent->sticky == 1)
@@ -62,13 +64,13 @@
                                         class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                 @endif
 
-                                @if ($torrent->category->game_meta)
+                                @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
                                     <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
                                         data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>' data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                         class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                 @endif
 
-                                @if ($torrent->category->no_meta || $torrent->category->music_meta)
+                                @if ($torrent->category->no_meta || $torrent->category->music_meta || ! $meta)
                                     <img src="https://via.placeholder.com/600x900"
                                          data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                          class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
@@ -214,7 +216,7 @@
                             @endif
                         @endif
 
-                        @if ($torrent->category->game_meta)
+                        @if ($torrent->category->game_meta && isset($meta))
                             <a href="{{ $meta->url }}" title="IMDB" target="_blank">
                                 <span class="badge-extra text-bold">@lang('torrent.rating'):
                                     <span class="text-gold movie-rating-stars">
