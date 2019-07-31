@@ -56,6 +56,9 @@
                 <div class="col-sm-2">
                     <input type="text" class="form-control" id="mal" placeholder="MAL #">
                 </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="igdb" placeholder="IGDB #">
+                </div>
             </div>
 
             <div class="form-group">
@@ -192,6 +195,7 @@
             var tvdb = $("#tvdb").val();
             var tmdb = $("#tmdb").val();
             var mal = $("#mal").val();
+            var igdb = $("#igdb").val();
             var categories = [];
             var types = [];
             var sorting = $("#sorting").val();
@@ -242,6 +246,7 @@
                     tvdb: tvdb,
                     tmdb: tmdb,
                     mal: mal,
+                    igdb: igdb,
                     categories: categories,
                     types: types,
                     myrequests: myrequests,
@@ -291,6 +296,11 @@
         $("#mal").keyup(function () {
             faceted();
         })
+    </script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+      $("#igdb").keyup(function () {
+        faceted();
+      })
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(".category,.type").on("click", function () {

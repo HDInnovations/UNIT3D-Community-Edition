@@ -28,6 +28,7 @@ use App\Notifications\NewRequestFill;
 use App\Notifications\NewRequestClaim;
 use App\Notifications\NewRequestBounty;
 use App\Notifications\NewRequestUnclaim;
+use MarcReichel\IGDBLaravel\Models\Game;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
@@ -109,6 +110,7 @@ class RequestController extends Controller
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
+        $igdb = $request->input('igdb');
         $categories = $request->input('categories');
         $types = $request->input('types');
         $myrequests = $request->input('myrequests');
@@ -139,6 +141,10 @@ class RequestController extends Controller
 
         if ($request->has('mal') && $request->input('mal') != null) {
             $torrentRequest->where('mal', '=', $mal);
+        }
+
+        if ($request->has('igdb') && $request->input('igdb') != null) {
+            $torrentRequest->where('igdb', '=', $igdb);
         }
 
         if ($request->has('categories') && $request->input('categories') != null) {
@@ -206,19 +212,25 @@ class RequestController extends Controller
         $voters = $torrentRequest->requestBounty()->get();
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
+
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $meta = null;
         if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
                 $meta = $client->scrape('tv', null, $torrentRequest->tmdb);
             } else {
                 $meta = $client->scrape('tv', 'tt'.$torrentRequest->imdb);
             }
-        } elseif ($torrentRequest->category->movie_meta) {
+        }
+        if ($torrentRequest->category->movie_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
                 $meta = $client->scrape('movie', null, $torrentRequest->tmdb);
             } else {
                 $meta = $client->scrape('movie', 'tt'.$torrentRequest->imdb);
             }
+        }
+        if ($torrentRequest->category->game_meta) {
+            $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrentRequest->igdb);
         }
 
         return view('requests.request', [
@@ -274,6 +286,7 @@ class RequestController extends Controller
         $tr->tvdb = $request->input('tvdb');
         $tr->tmdb = $request->input('tmdb');
         $tr->mal = $request->input('mal');
+        $tr->igdb = $request->input('igdb');
         $tr->type = $request->input('type');
         $tr->bounty = $request->input('bounty');
         $tr->votes = 1;
@@ -285,6 +298,7 @@ class RequestController extends Controller
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
+            'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'type'        => 'required',
             'description' => 'required|string',
@@ -378,6 +392,7 @@ class RequestController extends Controller
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
+        $igdb = $request->input('igdb');
         $category = $request->input('category_id');
         $type = $request->input('type');
         $description = $request->input('description');
@@ -399,6 +414,7 @@ class RequestController extends Controller
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
+            'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'type'        => 'required',
             'description' => 'required|string',

@@ -37,6 +37,7 @@
                             </div>
                         </div>
                     </div>
+                    @php $meta = null; @endphp
                     @foreach ($featured as $key => $feature)
                         @if ($feature->torrent->category->tv_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
@@ -44,34 +45,53 @@
                             @else
                                 @php $meta = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
-                        @elseif ($feature->torrent->category->movie_meta)
+                        @endif
+                        @if ($feature->torrent->category->movie_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
                                 @php $meta = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
                             @else
                                 @php $meta = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
                         @endif
+                        @if ($feature->torrent->category->game_meta)
+                            @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($feature->torrent->igdb); @endphp
+                        @endif
                         <div class="item">
                             <div id="movie-card-list">
                                 <div class="tags">
                                     {{ ++$key }}
                                 </div>
-                                <div class="movie-card" style="background-image: url({{ $meta->backdrop }});">
+                                @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
+                                    <div class="movie-card" style="background-image: url({{ $meta->backdrop }});">
+                                @endif
+                                @if ($feature->torrent->category->game_meta)
+                                    <div class="movie-card" style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg');">
+                                @endif
                                     <div class="color-overlay">
                                         <div class="movie-content">
                                             <div class="movie-header">
                                                 <a href="{{ route('torrent', ['slug' => $feature->torrent->slug, 'id' => $feature->torrent->id]) }}">
                                                     <h1 class="movie-title">{{ $feature->torrent->name }}</h1></a>
                                                 <h4 class="movie-info">
-                                                    @if ($meta->genres)
+                                                    @if (isset($meta) && $meta->genres)
                                                         @foreach ($meta->genres as $genre)
-                                                            | {{ $genre }} |
+                                                            @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
+                                                                | {{ $genre }} |
+                                                            @endif
+                                                            @if ($feature->torrent->category->game_meta)
+                                                                | {{ $genre->name }} |
+                                                            @endif
                                                         @endforeach
                                                     @endif
                                                 </h4>
                                             </div>
                                             <span class="movie-desc">
-                                                {{ Str::limit(strip_tags($meta->plot), 200) }}...
+                                                @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
+                                                    {{ Str::limit(strip_tags($meta->plot), 200) }}...
+                                                @endif
+                                                @if ($feature->torrent->category->game_meta)
+                                                    {{ Str::limit(strip_tags($meta->summary), 200) }}...
+                                                @endif
                                             <br>
                                             <br>
                                                 <ul class="list-inline">

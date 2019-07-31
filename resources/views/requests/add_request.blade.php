@@ -68,6 +68,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
+                            <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="category_id">@lang('request.category')</label>
                             <select name="category_id" class="form-control">
                                 @foreach ($categories as $category)

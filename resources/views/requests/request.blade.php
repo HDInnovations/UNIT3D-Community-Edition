@@ -64,128 +64,23 @@
                         </div>
                     </div>
                 </div>
-                @if (! $torrentRequest->category->no_meta)
-                    <div class="movie-wrapper">
-                        <div class="movie-backdrop" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
-                            <div class="tags">
-                                {{ $torrentRequest->category->name }}
-                            </div>
-                        </div>
-                        <div class="movie-overlay"></div>
-                        <div class="container movie-container">
-                            <div class="row movie-row ">
-                                <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
-                                    <h1 class="movie-heading">
-                                        @if ($meta->title)
-                                            <span class="text-bold">{{ $meta->title }}</span><span
-                                                    class="text-bold"><em> {{ $meta->releaseYear }}</em></span>
-                                        @else
-                                            <span class="text-bold">Sorry Not Meta Found</span>
-                                        @endif
-                                            @if ($meta->imdbRating || $meta->tmdbRating)
-                                                <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
-                    <span class="movie-rating-stars">
-                      <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
-                    </span>
-                                                    @if ($user->ratings == 1)
-                                                        {{ $meta->imdbRating }}/10({{ $meta->imdbVotes }} @lang('torrent.votes')
-                                                        )
-                                                    @else
-                                                        {{ $meta->tmdbRating }}/10({{ $meta->tmdbVotes }} @lang('torrent.votes')
-                                                        )
-                                                    @endif
-                 </span>
-                                            @endif
-                                    </h1>
-                                    <br>
-                                    <span class="movie-overview">
-                            {{ $meta->plot }}
-                        </span>
-                                    <ul class="movie-details">
-                                        <li>
-                                            @if ($meta->genres)
-                                                @foreach ($meta->genres as $genre)
-                                                    <span class="badge-user text-bold text-green">{{ $genre }}</span>
-                                                @endforeach
-                                            @endif
-                                                @if ($meta->rated )
-                                            <span class="badge-user text-bold text-orange">@lang('torrent.rated')
-                                                : {{ $meta->rated }} </span>
-                                                @endif
-                                                @if ($meta->runtime )
-                                            <span class="badge-user text-bold text-orange">@lang('torrent.runtime')
-                                                : {{ $meta->runtime }} @lang('common.minute')@lang('common.plural-suffix')</span>
-                                                    @endif
-                                        </li>
-                                        <li>
-                                            @if ($torrentRequest->imdb != 0 && $torrentRequest->imdb != null)
-                  <span class="badge-user text-bold text-orange">
-                    <a href="https://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB"
-                       target="_blank">IMDB: {{ $torrentRequest->imdb }}</a>
-                  </span>
-                                            @endif
-                                                @if ($torrentRequest->category_id == "2" && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
-                                                <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}?language={{ config('app.locale') }}"
-                         title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
-                    </span>
-                                                @elseif ($torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
-                                                <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}?language={{ config('app.locale') }}"
-                         title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
-                    </span>
-                                            @endif
-                                            @if ($torrentRequest->mal != 0 && $torrentRequest->mal != null)
-                                                <span class="badge-user text-bold text-pink">
-                      <a href="https://myanimelist.net/anime/{{ $torrentRequest->mal }}"
-                         title="MAL" target="_blank">MAL: {{ $torrentRequest->mal }}</a>
-                    </span>
-                                            @endif
-                                            @if ($torrentRequest->category_id == "2" && $torrentRequest->tvdb != 0 && $torrentRequest->tvdb != null)
-                                                <span class="badge-user text-bold text-pink">
-                      <a
-                         href="https://www.thetvdb.com/?tab=series&id={{ $torrentRequest->tvdb }}"
-                         title="TVDB" target="_blank">TVDB: {{ $torrentRequest->tvdb }}</a>
-                    </span>
-                                            @endif
-                                            @if ($meta->videoTrailer != '')
-                                                <span onclick="showTrailer()" style="cursor: pointer;"
-                                                      class="badge-user text-bold">
-                            <a class="text-pink" title="View Trailer">@lang('torrent.view-trailer') <i
-                                        class="{{ config('other.font-awesome') }} fa-external-link"></i></a>
-                        </span>
-                                            @endif
-                                        </li>
-                                        <br>
-                                        <li>
-                                            <div class="row cast-list">
-                                                @if ($meta->actors)
-                                                    @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
-                                                    @foreach (array_slice($meta->actors, 0,6) as $actor)
-                                                        @php $person = $client->person($actor->tmdb); @endphp
-                                                        <div class="col-xs-4 col-md-2 text-center">
-                                                            <img class="img-people" src="{{ $person->photo }}">
-                                                            <a
-                                                               href="https://www.themoviedb.org/person/{{ $actor->tmdb }}?language={{ config('app.locale') }}"
-                                                               title="TheMovieDatabase" target="_blank">
-                                                                <span class="badge-user"
-                                                                      style="white-space:normal;"><strong>{{ $actor->name }}</strong></span>
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
 
-                                <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                                    <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {{-- Movie/TV Meta Data --}}
+                @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
+                    @include('requests.partials.movie_tv_meta')
                 @endif
+                {{-- /Movie/TV Meta Data --}}
+
+                {{-- Game Meta Data --}}
+                @if ($torrentRequest->category->game_meta)
+                    @include('requests.partials.game_meta')
+                @endif
+                {{-- /Game Meta Data --}}
+
+                {{-- Music Meta Data --}}
+                {{--To Be Added Via Partials --}}
+                {{-- /Music Meta Data --}}
+
                 <div class="table-responsive">
                     <table class="table table-condensed table-bordered table-striped">
                         <tbody>
@@ -273,9 +168,11 @@
                                             data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-hand-paper">
                                         </i> @lang('request.claim')
                                     </button>
-                                    <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
-                                       class="btn btn-md btn-success"><i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
-                                    </a>
+                                    @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
+                                        <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
+                                           class="btn btn-md btn-success"><i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
+                                        </a>
+                                    @endif
                                 @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                                     <button class="btn btn-xs btn-warning" disabled><i
                                                 class="{{ config('other.font-awesome') }} fa-question-circle"></i>@lang('request.pending')
