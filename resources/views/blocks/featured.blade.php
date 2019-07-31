@@ -64,7 +64,7 @@
                                     <div class="movie-card"
                                          @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
                                             style="background-image: url({{ $meta->backdrop }});">
-                                         @elseif ($feature->torrent->category->game_meta)
+                                         @elseif ($feature->torrent->category->game_meta && isset($meta) && $meta->artworks)
                                             style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg');">
                                          @else
                                             style="background-image: url('https://via.placeholder.com/1400x800');">
@@ -91,7 +91,7 @@
                                                 @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
                                                     {{ Str::limit(strip_tags($meta->plot), 200) }}...
                                                 @endif
-                                                @if ($feature->torrent->category->game_meta)
+                                                @if ($feature->torrent->category->game_meta && isset($meta) && $meta->summary)
                                                     {{ Str::limit(strip_tags($meta->summary), 200) }}...
                                                 @endif
                                             <br>
