@@ -61,12 +61,14 @@
                                 <div class="tags">
                                     {{ ++$key }}
                                 </div>
-                                @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
-                                    <div class="movie-card" style="background-image: url({{ $meta->backdrop }});">
-                                @endif
-                                @if ($feature->torrent->category->game_meta)
-                                    <div class="movie-card" style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg');">
-                                @endif
+                                    <div class="movie-card"
+                                         @if ($feature->torrent->category->tv_meta || $feature->torrent->category->movie_meta)
+                                            style="background-image: url({{ $meta->backdrop }});">
+                                         @elseif ($feature->torrent->category->game_meta)
+                                            style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg');">
+                                         @else
+                                            style="background-image: url('https://via.placeholder.com/1400x800');">
+                                         @endif
                                     <div class="color-overlay">
                                         <div class="movie-content">
                                             <div class="movie-header">
