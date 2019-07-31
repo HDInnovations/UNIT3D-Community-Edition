@@ -403,6 +403,7 @@ class RequestController extends Controller
         $torrentRequest->tvdb = $tvdb;
         $torrentRequest->tmdb = $tmdb;
         $torrentRequest->mal = $mal;
+        $torrentRequest->igdb = $igdb;
         $torrentRequest->category_id = $category;
         $torrentRequest->type = $type;
         $torrentRequest->description = $description;
