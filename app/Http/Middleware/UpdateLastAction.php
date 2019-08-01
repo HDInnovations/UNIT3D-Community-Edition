@@ -15,6 +15,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Group;
 
 class UpdateLastAction
 {
@@ -28,7 +29,10 @@ class UpdateLastAction
      */
     public function handle($request, Closure $next)
     {
-        if (! $user = $request->user()) {
+        $user = $request->user();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+
+        if ($user->group_id == $bannedGroup->id) {
             return $next($request);
         }
 
