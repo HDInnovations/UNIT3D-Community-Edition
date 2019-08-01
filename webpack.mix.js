@@ -43,7 +43,6 @@ mix.version()
      */
     .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
     .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
-    .babel('resources/js/unit3d/twostep.js', 'public/js/twostep.js')
     .generateIntegrityHash()
 
     /*
@@ -51,7 +50,7 @@ mix.version()
      *
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
-    .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/blutopia.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
+    .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/custom.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
 
     /*
      * Copy emojione assets
