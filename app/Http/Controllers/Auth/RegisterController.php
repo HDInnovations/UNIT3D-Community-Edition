@@ -20,6 +20,7 @@ use App\Models\Invite;
 use App\Models\UserPrivacy;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Traits\NISTPassword;
 use App\Models\PrivateMessage;
 use App\Models\UserActivation;
 use App\Jobs\SendActivationMail;
@@ -92,43 +93,43 @@ class RegisterController extends Controller
         $user->group_id = $validatingGroup->id;
 
         if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
-            $v = validator($request->all(), [
+            $v = validator($user->toArray(), [
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
-                'password'             => 'required|min:8',
+                'password'             => NISTPassword::register($request->input('password')),
                 'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'allow') {
-            $v = validator($request->all(), [
+            $v = validator($user->toArray(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'    => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
-                'password' => 'required|min:8',
+                'password' => NISTPassword::register($request->input('password')),
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block' && config('captcha.enabled') == true) {
-            $v = validator($request->all(), [
+            $v = validator($user->toArray(), [
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:block', // Blacklist
-                'password'             => 'required|min:8',
+                'password'             => NISTPassword::register($request->input('password')),
                 'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($request->all(), [
+            $v = validator($user->toArray(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'    => 'required|email|max:255|unique:users|email_list:block', // Blacklist
-                'password' => 'required|min:8',
+                'password' => NISTPassword::register($request->input('password')),
             ]);
         } elseif (config('captcha.enabled') == true) {
-            $v = validator($request->all(), [
+            $v = validator($request->toArray(), [
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users',
-                'password'             => 'required|min:8',
+                'password'             => NISTPassword::register($request->input('password')),
                 'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } else {
-            $v = validator($request->all(), [
+            $v = validator($request->toArray(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users', //Default
                 'email'    => 'required|email|max:255|unique:users',
-                'password' => 'required|min:8',
+                'password' => NISTPassword::register($request->input('password')),
             ]);
         }
 

@@ -18,6 +18,7 @@ use App\Models\Group;
 use Illuminate\Support\Str;
 use App\Models\UserActivation;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
@@ -35,7 +36,7 @@ class ResetPasswordController extends Controller
     {
         $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
         $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
-        $user->password = bcrypt($password);
+        $user->password = Hash::make($password);
         $user->remember_token = Str::random(60);
 
         if ($user->group_id === $validatingGroup->id) {

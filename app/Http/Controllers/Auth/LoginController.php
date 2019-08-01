@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Group;
 use Illuminate\Http\Request;
+use App\Traits\NISTPassword;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -54,7 +55,7 @@ class LoginController extends Controller
         if (config('captcha.enabled') == true) {
             $this->validate($request, [
                 $this->username()      => 'required|string',
-                'password'             => 'required|string',
+                'password'             => NISTPassword::login(),
                 'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } else {

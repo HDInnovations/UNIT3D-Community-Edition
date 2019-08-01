@@ -31,6 +31,7 @@ use App\Helpers\Bencode;
 use App\Models\Graveyard;
 use App\Models\UserPrivacy;
 use Illuminate\Http\Request;
+use App\Traits\NISTPassword;
 use App\Models\PrivateMessage;
 use App\Models\TorrentRequest;
 use App\Models\BonTransactions;
@@ -357,11 +358,12 @@ class UserController extends Controller
     protected function changePassword(Request $request)
     {
         $user = auth()->user();
+
         $v = validator($request->all(), [
-            'current_password'          => 'required',
-            'new_password'              => 'required|min:6|confirmed',
-            'new_password_confirmation' => 'required|min:6',
+            'old_password' => 'required',
+            'new_password' => NISTPassword::changePassword($request->new_password, $request->old_password),
         ]);
+
         if ($v->passes()) {
             if (Hash::check($request->input('current_password'), $user->password)) {
                 $user->password = Hash::make($request->input('new_password'));
@@ -370,6 +372,8 @@ class UserController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has changed there account password.");
 
+                auth()->logout();
+
                 return redirect()->to('/')->withSuccess('Your Password Has Been Reset');
             } else {
                 return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
@@ -377,7 +381,7 @@ class UserController extends Controller
             }
         } else {
             return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
-                ->withErrors('Your New Password Is To Weak!');
+                ->withErrors($v->errors());
         }
     }
 

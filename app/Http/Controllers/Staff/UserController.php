@@ -26,6 +26,7 @@ use App\Models\Invite;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Torrent;
+use App\Traits\NISTPassword;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
@@ -197,15 +198,23 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $staff = auth()->user();
 
-        $new_password = $request->input('new_password');
-        $user->password = Hash::make($new_password);
-        $user->save();
+        $v = validator($request->all(), [
+            'new_password' => NISTPassword::changePassword($request->new_password),
+        ]);
 
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
+        if ($v->passes()) {
+            $user->password = Hash::make($request->input('new_password'), $user->username);
+            $user->save();
 
-        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
-            ->withSuccess('Account Password Was Updated Successfully!');
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
+
+            return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
+                ->withSuccess('Account Password Was Updated Successfully!');
+        } else {
+            return redirect()->back()
+                ->withErrors($v->errors());
+        }
     }
 
     /**
