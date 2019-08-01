@@ -13,9 +13,9 @@
 
 namespace App\Rules;
 
-use DivineOmega\LaravelPasswordExposedValidationRule\PasswordExposed;
-use DivineOmega\PasswordExposed\PasswordExposedChecker;
 use Illuminate\Contracts\Validation\Rule;
+use DivineOmega\PasswordExposed\PasswordExposedChecker;
+use DivineOmega\LaravelPasswordExposedValidationRule\PasswordExposed;
 
 /**
  * Class BreachedPassword.

@@ -33,7 +33,7 @@ class RepetitiveCharacter implements Rule
      */
     public function passes($attribute, $value)
     {
-        return !preg_match('/(.)\1{2,}/', $value);
+        return ! preg_match('/(.)\1{2,}/', $value);
     }
 
     /**
