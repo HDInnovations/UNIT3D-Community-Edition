@@ -14,8 +14,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Group;
-use Illuminate\Http\Request;
 use App\Traits\NISTPassword;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 

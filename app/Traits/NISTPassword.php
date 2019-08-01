@@ -13,12 +13,12 @@
 
 namespace App\Traits;
 
+use App\Rules\DictionaryWord;
 use App\Rules\BreachedPassword;
 use App\Rules\ContextSpecificWord;
-use App\Rules\DerivativesOfContextSpecificWord;
-use App\Rules\DictionaryWord;
 use App\Rules\RepetitiveCharacter;
 use App\Rules\SequentialCharacter;
+use App\Rules\DerivativesOfContextSpecificWord;
 
 abstract class NISTPassword
 {
