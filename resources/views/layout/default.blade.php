@@ -125,6 +125,17 @@
         </script>
         @endif
 
+        @if (Session::has('NIST'))
+            <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+              Swal.fire({
+                title: '<strong style=" color: #111;">Please Reset Your Password. It is Weak!</strong>',
+                type: 'warning',
+                html: '{{ Session::get('NIST') }}',
+                showCloseButton: true,
+              })
+            </script>
+        @endif
+
         @yield('javascripts')
         @yield('scripts')
         </body>

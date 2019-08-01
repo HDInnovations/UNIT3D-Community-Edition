@@ -31,8 +31,8 @@ abstract class NISTPassword
             new SequentialCharacter(),
             new RepetitiveCharacter(),
             new DictionaryWord(),
-            new ContextSpecificWord($username),
-            new DerivativesOfContextSpecificWord($username),
+            //new ContextSpecificWord($username),
+            //new DerivativesOfContextSpecificWord($username),
             new BreachedPassword(),
         ];
     }

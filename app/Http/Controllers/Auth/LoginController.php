@@ -53,16 +53,20 @@ class LoginController extends Controller
     protected function validateLogin(Request $request)
     {
         if (config('captcha.enabled') == true) {
-            $this->validate($request, [
+            $v = validator($request->toArray(), [
                 $this->username()      => 'required|string',
-                'password'             => NISTPassword::login(),
+                'password'             => NISTPassword::register($request->input('password')),
                 'g-recaptcha-response' => 'required|recaptcha',
             ]);
         } else {
-            $this->validate($request, [
+            $v = validator($request->toArray(), [
                 $this->username() => 'required|string',
-                'password' => 'required|string',
+                'password' => NISTPassword::register($request->input('password')),
             ]);
+        }
+        if ($v->fails()) {
+            return redirect()->route('home')
+                ->with('NIST', $v->errors());
         }
     }
 
