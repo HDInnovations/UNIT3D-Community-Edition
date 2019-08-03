@@ -14,10 +14,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\SendResetLinkEmailForgotPasswordRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use App\Http\Requests\SendResetLinkEmailForgotPasswordRequest;
 
 class ForgotPasswordController extends Controller
 {
