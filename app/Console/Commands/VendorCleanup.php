@@ -55,6 +55,7 @@ class VendorCleanup extends Command
             'Makefile',
             '.keep',
         ];
+
     /**
      * List of File and Folders Patters Going To Be Excluded.
      *
