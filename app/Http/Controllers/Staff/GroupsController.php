@@ -29,6 +29,9 @@ class GroupsController extends Controller
      */
     public function index()
     {
+        $user = $request->user();
+        abort_unless($user->group->is_admin, 403);
+
         $groups = Group::all()->sortBy('position');
 
         return view('Staff.groups.index', ['groups' => $groups]);
@@ -41,6 +44,9 @@ class GroupsController extends Controller
      */
     public function addForm()
     {
+        $user = $request->user();
+        abort_unless($user->group->is_admin, 403);
+
         return view('Staff.groups.add');
     }
 
@@ -53,6 +59,9 @@ class GroupsController extends Controller
      */
     public function add(Request $request)
     {
+        $user = $request->user();
+        abort_unless($user->group->is_admin, 403);
+
         $group = new Group();
         $group->name = $request->input('name');
         $group->slug = Str::slug($request->input('name'));
@@ -79,6 +88,11 @@ class GroupsController extends Controller
             'color'    => 'required',
             'icon'     => 'required',
         ]);
+
+        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
+            return redirect()->route('staff_groups_index')
+                ->withErrors('You are not permitted to create a group with owner permissions!');
+        }
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
@@ -112,6 +126,9 @@ class GroupsController extends Controller
      */
     public function editForm($group, $id)
     {
+        $user = $request->user();
+        abort_unless($user->group->is_admin, 403);
+
         $group = Group::findOrFail($id);
 
         return view('Staff.groups.edit', ['group' => $group]);
@@ -128,6 +145,9 @@ class GroupsController extends Controller
      */
     public function edit(Request $request, $group, $id)
     {
+        $user = $request->user();
+        abort_unless($user->group->is_admin, 403);
+        
         $group = Group::findOrFail($id);
 
         $group->name = $request->input('name');
@@ -155,6 +175,11 @@ class GroupsController extends Controller
             'color'    => 'required',
             'icon'     => 'required',
         ]);
+
+        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
+            return redirect()->route('staff_groups_index')
+                ->withErrors('You are not permitted to give a group owner permissions!');
+        }
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
