@@ -25,9 +25,11 @@ class GroupsController extends Controller
     /**
      * Get All Groups.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -40,9 +42,11 @@ class GroupsController extends Controller
     /**
      * Group Add Form.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function addForm(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -119,12 +123,13 @@ class GroupsController extends Controller
     /**
      * Group Edit Form.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $group
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($group, $id)
+    public function editForm(Request $request, $group, $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -147,7 +152,7 @@ class GroupsController extends Controller
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
-        
+
         $group = Group::findOrFail($id);
 
         $group->name = $request->input('name');
