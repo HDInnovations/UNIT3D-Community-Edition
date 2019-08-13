@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // X-Powered-By Attack
-        header_remove("X-Powered-By");
+        header_remove('X-Powered-By');
     }
 
     /**
