@@ -12,7 +12,7 @@
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
 <a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
 <a href="https://discord.gg/ntnPxzG"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
-<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg?style=flat-square"></a>
+<a href="https://www.patreon.com/HDInnovations"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg?style=flat-square"></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.org"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
@@ -147,7 +147,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 ## <a name="license"></a> 📝 License
 
-UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDVinnie/UNIT3D/blob/master/LICENSE).
+UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE).
 
 <b> As per license do not remove the license from sourcecode or from footer in `/resources/views/partials/footer.blade.php`</b>
 
@@ -166,7 +166,7 @@ Demo is reset every 48 hours!
 You can support my work if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. Some folks have asked me if it's possible to do a one-time donation, or if I accept cryptocurrency. Yes, and yes!
 
 	
-Patreon:<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>
+Patreon:<a href="https://www.patreon.com/HDInnovations"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
 
