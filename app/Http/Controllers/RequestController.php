@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Torrent;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -543,6 +544,12 @@ class RequestController extends Controller
             'info_hash'   => 'required|exists:torrents,info_hash',
             'filled_anon' => 'required',
         ]);
+        
+        $torrent = Torrent::where('info_hash', '=', $torrentRequest->filled_hash)->first();
+        if (! $torrent->isApproved()) {
+            return redirect()->route('request', ['id' => $request->input('request_id')])
+                ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.);
+        }
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
