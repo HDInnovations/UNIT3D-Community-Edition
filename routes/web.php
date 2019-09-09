@@ -318,7 +318,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{locale}/back', 'LanguageController@home')->name('back');
 
         // User Seedboxes
-        Route::get('/{username}/seedboxes', 'SeedboxController@index')->name('seedboxes.index');
+        Route::get('/{username}/seedboxes/records', 'SeedboxController@index')->name('seedboxes.index');
         Route::post('/{username}/seedboxes/store', 'SeedboxController@store')->name('seedboxes.store');
         Route::delete('/{username}/seedboxes/destroy/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
 
