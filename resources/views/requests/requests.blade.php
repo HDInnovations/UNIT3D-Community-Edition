@@ -92,12 +92,6 @@
                 <div class="col-sm-10">
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="myrequests" value="{{ $user->id }}">
-                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> @lang('request.my-requests')
-                        </label>
-                    </span>
-                    <span class="badge-user">
-                        <label class="inline">
                             <input type="checkbox" id="unfilled" value="1">
                             <span class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span> @lang('request.unfilled')
                         </label>
@@ -118,6 +112,33 @@
                         <label class="inline">
                             <input type="checkbox" id="filled" value="1">
                             <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span> @lang('request.filled')
+                        </label>
+                    </span>
+                </div>
+
+                <div class="col-sm-10">
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="myrequests" value="{{ $user->id }}">
+                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> @lang('request.my-requests')
+                        </label>
+                    </span>
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="myclaims" value="1">
+                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My claims
+                        </label>
+                    </span>
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="myvoted" value="1">
+                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My voted
+                        </label>
+                    </span>
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="myfiled" value="1">
+                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My filled
                         </label>
                     </span>
                 </div>
@@ -201,11 +222,6 @@
             var sorting = $("#sorting").val();
             var direction = $("#direction").val();
             var qty = $("#qty").val();
-            var myrequests = (function () {
-                if ($("#myrequests").is(":checked")) {
-                    return $("#myrequests").val();
-                }
-            })();
             var unfilled = (function () {
                 if ($("#unfilled").is(":checked")) {
                     return $("#unfilled").val();
@@ -224,6 +240,26 @@
             var filled = (function () {
                 if ($("#filled").is(":checked")) {
                     return $("#filled").val();
+                }
+            })();
+            var myrequests = (function () {
+                if ($("#myrequests").is(":checked")) {
+                    return $("#myrequests").val();
+                }
+            })();
+            var myclaims = (function () {
+                if ($("#myclaims").is(":checked")) {
+                    return $("#myclaims").val();
+                }
+            })();
+            var myvoted = (function () {
+                if ($("#myvoted").is(":checked")) {
+                    return $("#myvoted").val();
+                }
+            })();
+            var myfiled = (function () {
+                if ($("#myfiled").is(":checked")) {
+                    return $("#myfiled").val();
                 }
             })();
             $(".category:checked").each(function () {
@@ -250,6 +286,9 @@
                     categories: categories,
                     types: types,
                     myrequests: myrequests,
+                    myclaims: myclaims,
+                    myvoted: myvoted,
+                    myfiled: myfiled,
                     unfilled: unfilled,
                     claimed: claimed,
                     pending: pending,
@@ -308,7 +347,7 @@
         });
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-        $("#myrequests,#unfilled,#claimed,#pending,#filled").on("click", function () {
+        $("#myrequests,#myclaims,#myvoted,#myfiled,#unfilled,#claimed,#pending,#filled").on("click", function () {
             faceted();
         });
     </script>

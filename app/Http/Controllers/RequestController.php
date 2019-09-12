@@ -156,10 +156,6 @@ class RequestController extends Controller
             $torrentRequest->whereIn('type', $types);
         }
 
-        if ($request->has('myrequests') && $request->input('myrequests') != null) {
-            $torrentRequest->where('user_id', '=', $myrequests);
-        }
-
         if ($request->has('unfilled') && $request->input('unfilled') != null) {
             $torrentRequest->where('filled_hash', '=', null);
         }
@@ -174,6 +170,24 @@ class RequestController extends Controller
 
         if ($request->has('filled') && $request->input('filled') != null) {
             $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
+        }
+
+        if ($request->has('myrequests') && $request->input('myrequests') != null) {
+            $torrentRequest->where('user_id', '=', $myrequests);
+        }
+
+        if ($request->has('myclaims') && $request->input('myclaims') != null) {
+            $requestCliams = TorrentRequestClaim::where('username', '=', $user->username)->pluck('request_id');
+            $torrentRequest->whereIn('id', $requestCliams);
+        }
+
+        if ($request->has('myvoted') && $request->input('myvoted') != null) {
+            $requestVotes = TorrentRequestBounty::where('user_id', '=', $user->id)->pluck('requests_id');
+            $torrentRequest->whereIn('id', $requestVotes);
+        }
+
+        if ($request->has('myfiled') && $request->input('myfiled') != null) {
+            $torrentRequest->where('filled_by', '=', $user->id);
         }
 
         if ($request->has('sorting')) {
