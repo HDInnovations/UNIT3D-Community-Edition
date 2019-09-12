@@ -544,9 +544,9 @@ class RequestController extends Controller
             'info_hash'   => 'required|exists:torrents,info_hash',
             'filled_anon' => 'required',
         ]);
-        
+
         $torrent = Torrent::where('info_hash', '=', $torrentRequest->filled_hash)->first();
-        if ($torrent && !$torrent->isApproved()) {
+        if ($torrent && ! $torrent->isApproved()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
         }
