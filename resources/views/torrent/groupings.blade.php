@@ -334,13 +334,23 @@
                                                                         <tr class="{{ $class }}" style="{{ $hidden }}" torrent="{{ $attr }}">
                                                                             @endif
                                                                             <td>
-                                                                                <a href="{{ route('category', ['slug' => $current->category->slug, 'id' => $current->category->id]) }}">
-                                                                                    <div class="text-center">
-                                                                                        <i class="{{ $current->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                                                           data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                                                           style="padding-bottom: 6px;"></i>
-                                                                                    </div>
-                                                                                </a>
+                                                                                @if ($current->category->image != null)
+                                                                                    <a href="{{ route('category', ['slug' => $current->category->slug, 'id' => $current->category->id]) }}">
+                                                                                        <div class="text-center">
+                                                                                            <img src="{{ url('files/img/' . $current->category->image) }}" data-toggle="tooltip"
+                                                                                                 data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                                                                 style="padding-bottom: 6px;">
+                                                                                        </div>
+                                                                                    </a>
+                                                                                @else
+                                                                                    <a href="{{ route('category', ['slug' => $current->category->slug, 'id' => $current->category->id]) }}">
+                                                                                        <div class="text-center">
+                                                                                            <i class="{{ $current->category->icon }} torrent-icon" data-toggle="tooltip"
+                                                                                               data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                                                               style="padding-bottom: 6px;"></i>
+                                                                                        </div>
+                                                                                    </a>
+                                                                                @endif
                                                                                 <div class="text-center">
                                                             <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
                                                                 {{ $current->type }}
