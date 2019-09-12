@@ -43,9 +43,6 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with(compact('pages'));
         });
-
-        // X-Powered-By Attack
-        header_remove('X-Powered-By');
     }
 
     /**
