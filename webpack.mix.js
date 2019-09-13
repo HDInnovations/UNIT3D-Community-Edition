@@ -11,6 +11,7 @@ require('laravel-mix-sri');
  */
 
 mix.version()
+
     /*
      * Sourced asset dependencies via node_modules and JS bootstrapping
      */
@@ -55,7 +56,10 @@ mix.version()
     /*
      * Copy emojione assets
      */
-    .copy('node_modules/emojione-assets/png/64', 'public/img/joypixels');
+    .copy('node_modules/emojione-assets/png/64', 'public/img/joypixels')
+    .copy('resources/sass/vendor/webfonts/wysibb', 'public/fonts/wysibb')
+    .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
+    .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap');
 
 // Full API
 // mix.js(src, output);
