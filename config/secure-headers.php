@@ -503,7 +503,7 @@ return [
             ],
 
             'schemes' => [
-                // 'https:',
+                'https:',
             ],
 
             'self' => true,
@@ -560,17 +560,11 @@ return [
         ],
 
         'default-src' => [
-            'schemes' => [
-                'https:',
-            ],
-            'self' => true,
+            //
         ],
 
         'base-uri' => [
-            'schemes' => [
-                'https:',
-            ],
-            'self' => true,
+            //
         ],
 
         'connect-src' => [
@@ -590,51 +584,30 @@ return [
         ],
 
         'form-action' => [
-            'schemes' => [
-                'https:',
-            ],
             'self' => true,
         ],
 
         'frame-ancestors' => [
-            'schemes' => [
-                'https:',
-            ],
             'self' => true,
         ],
 
         'frame-src' => [
-            'schemes' => [
-                'https:',
-            ],
             'self' => true,
         ],
 
         'manifest-src' => [
-            'schemes' => [
-                'https:',
-            ],
             'self' => true,
         ],
 
         'media-src' => [
-            'schemes' => [
-                'https:',
-            ],
             'self' => true,
         ],
 
         'object-src' => [
-            'schemes' => [
-                'https:',
-            ],
             'self' => true,
         ],
 
         'worker-src' => [
-            'schemes' => [
-                'https:',
-            ],
             'self' => true,
         ],
 
