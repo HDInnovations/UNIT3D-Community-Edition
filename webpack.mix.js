@@ -10,7 +10,10 @@ require('laravel-mix-sri');
  |
  */
 
-mix.version()
+mix.version();
+mix.options({
+  processCssUrls: false
+})
 
     /*
      * Sourced asset dependencies via node_modules and JS bootstrapping
