@@ -6,7 +6,7 @@
             <h2 class="l-footer-section-title"><span class="text-bold">{{ config('other.title') }}</span></h2>
             <footer>{{ config('other.meta_description') }}</footer>
             <br>
-            <i class="{{ config('other.font-awesome') }} fa-tv-retro disk-good" style="font-size: 90px;"></i>
+            <i class="{{ config('other.font-awesome') }} fa-tv-retro footer-icon" style="font-size: 90px;"></i>
         </div>
 
         <div class="col-md-2 l-footer-section">
