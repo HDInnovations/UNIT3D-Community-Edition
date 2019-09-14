@@ -13,27 +13,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Article;
-use App\Models\Comment;
-use App\Models\Torrent;
-use Illuminate\Http\Request;
-use App\Models\TorrentRequest;
-use App\Notifications\NewComment;
-use App\Repositories\ChatRepository;
-use App\Achievements\UserMadeComment;
-use App\Achievements\UserMade50Comments;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
 use App\Achievements\UserMade400Comments;
 use App\Achievements\UserMade500Comments;
+use App\Achievements\UserMade50Comments;
 use App\Achievements\UserMade600Comments;
 use App\Achievements\UserMade700Comments;
 use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
+use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
+use App\Models\User;
+use App\Notifications\NewComment;
+use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {

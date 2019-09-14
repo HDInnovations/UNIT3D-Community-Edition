@@ -13,11 +13,11 @@
 
 namespace App\Notifications;
 
-use App\Models\User;
 use App\Models\Follow;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewFollow extends Notification implements ShouldQueue
 {

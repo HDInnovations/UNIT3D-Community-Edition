@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Rss;
 use App\Models\Type;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Repositories\TorrentFacetedRepository;
+use Illuminate\Http\Request;
 
 class RssController extends Controller
 {

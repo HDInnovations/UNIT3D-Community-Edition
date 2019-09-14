@@ -13,12 +13,12 @@
 
 namespace App\Providers;
 
-use App\Models\Page;
-use Illuminate\View\View;
 use App\Interfaces\WishInterface;
+use App\Models\Page;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {

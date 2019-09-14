@@ -14,8 +14,8 @@
 namespace App\Http\Resources;
 
 use App\Helpers\Bbcode;
-use Illuminate\Http\Resources\Json\JsonResource;
 use ChristofferOK\LaravelEmojiOne\LaravelEmojiOne;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class ChatMessageResource extends JsonResource
 {

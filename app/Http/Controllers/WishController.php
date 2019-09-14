@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Interfaces\WishInterface;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class WishController extends Controller
 {

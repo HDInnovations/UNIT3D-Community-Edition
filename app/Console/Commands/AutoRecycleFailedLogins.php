@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\FailedLoginAttempt;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use App\Models\FailedLoginAttempt;
 
 class AutoRecycleFailedLogins extends Command
 {

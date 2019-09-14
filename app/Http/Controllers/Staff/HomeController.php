@@ -13,16 +13,16 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Peer;
-use App\Models\User;
+use App\Helpers\SystemInformation;
+use App\Http\Controllers\Controller;
+use App\Models\Application;
 use App\Models\Group;
+use App\Models\Peer;
 use App\Models\Report;
 use App\Models\Seedbox;
 use App\Models\Torrent;
-use App\Models\Application;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Helpers\SystemInformation;
-use App\Http\Controllers\Controller;
 use Spatie\SslCertificate\SslCertificate;
 
 class HomeController extends Controller

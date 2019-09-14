@@ -13,21 +13,21 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Models\Article;
+use App\Models\Bookmark;
+use App\Models\FeaturedTorrent;
+use App\Models\FreeleechToken;
+use App\Models\Group;
+use App\Models\PersonalFreeleech;
 use App\Models\Poll;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\Group;
 use App\Models\Topic;
-use App\Models\Article;
 use App\Models\Torrent;
-use App\Models\Bookmark;
-use Illuminate\Http\Request;
-use App\Models\FreeleechToken;
-use App\Models\FeaturedTorrent;
-use App\Models\PersonalFreeleech;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {

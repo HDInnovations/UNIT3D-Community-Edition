@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\User;
-use Ramsey\Uuid\Uuid;
-use App\Models\Invite;
 use App\Mail\InviteUser;
+use App\Models\Invite;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
 {
