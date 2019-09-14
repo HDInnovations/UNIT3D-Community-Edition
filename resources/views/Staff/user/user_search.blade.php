@@ -26,6 +26,13 @@
         <div class="row">
             <div class="col-sm-12 col-lg-12">
                 <div class="block">
+                    <form action="{{route('user_results')}}" method="GET" class="form-inline pull-right">
+                        <input type="text" name="username" id="username" size="25" placeholder="@lang('user.search')"
+                               class="form-control">
+                        <button type="submit" class="btn btn-success">
+                            <i class="{{ config('other.font-awesome') }} fa-search"></i> Search
+                        </button>
+                    </form>
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#all" data-toggle="tab">All Members</a></li>
                         <li><a href="#uploaders" data-toggle="tab">Uploaders</a></li>
@@ -33,10 +40,6 @@
                         <li><a href="#admins" data-toggle="tab">Administrators</a></li>
                         <li><a href="#coders" data-toggle="tab">Coders</a></li>
                     </ul>
-                    <form action="{{route('user_results')}}" method="any">
-                        <input type="text" name="username" id="username" size="25"
-                               placeholder="Quick Search by Username" class="form-control" style="float:right;">
-                    </form>
                     <div class="tab-content">
                         <div class="tab-pane active" id="all">
                             <table class="table table-hover members-table middle-align">

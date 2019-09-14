@@ -19,16 +19,19 @@
 
 @section('content')
     <div class="box container">
+        <form action="{{route('userSearch')}}" method="GET" class="form-inline pull-right">
+            <input type="text" name="username" id="username" size="25" placeholder="@lang('user.search')"
+                   class="form-control">
+            <button type="submit" class="btn btn-success">
+                <i class="{{ config('other.font-awesome') }} fa-search"></i> Search
+            </button>
+        </form>
         <div class="profil">
             <div class="header gradient silver">
                 <div class="inner_content">
                     <div class="page-title"><h1>@lang('common.members')</h1></div>
                 </div>
             </div>
-            <form action="{{route('userSearch')}}" method="GET">
-                <input type="text" name="username" id="username" size="25" placeholder="@lang('user.search')"
-                       class="form-control" style="float:right;">
-            </form>
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
