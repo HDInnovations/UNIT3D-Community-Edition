@@ -138,34 +138,6 @@ a.button.white:hover {
     color: #fff;
 }
 
-div.padit_young_kenobi {
-    padding: 64px 0;
-}
-
-div.customers {
-    width: 100%;
-    background-color: #fff;
-}
-
-div.pager {
-    margin: 0 auto;
-    height: 360px;
-    width: 1100px;
-    box-sizing: border-box;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: wrap;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    -ms-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    justify-content: center;
-}
-
 div.arrow {
     color: #ccc;
     font-size: 2.2em;
@@ -188,13 +160,6 @@ div.arrow:hover {
     cursor: pointer;
 }
 
-div.pager_selector {
-    padding-top: 20px;
-    text-align: center;
-    color: #ccc;
-    width: 1000px;
-}
-
 div.pager_selector div.circle {
     background-color: #ccc;
     display: inline-block;
@@ -212,21 +177,6 @@ div.pager_selector div.circle:hover {
 
 div.pager_selector div.circle:hover {
     cursor: pointer;
-}
-
-div.customers div.customer {
-    width: 1100px;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    -ms-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    justify-content: space-between;
 }
 
 div.customers div.customer > img {
@@ -254,10 +204,6 @@ div.customers div.customer div.text p.name {
     padding-top: 10px;
     font-size: 1.3em;
     font-weight: 300;
-}
-
-div.apps {
-    background-color: #eeeeee;
 }
 
 div.apps h3 {
@@ -331,20 +277,6 @@ div.apps div.content div.card div.info {
     align-items: flex-end;
 }
 
-div.apps div.content div.card div.info div.initials {
-    width: 90px;
-    height: 90px;
-    box-sizing: border-box;
-    border: 1px solid #fff;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
-    color: #fff;
-    font-size: 2.8em;
-    line-height: 86px;
-    text-transform: uppercase;
-    text-align: center;
-}
-
 div.apps div.content div.card div.title div.text {
     box-sizing: border-box;
     padding-left: 16px;
@@ -416,10 +348,6 @@ div.apps div.content div.cards.small div.text h2 a {
 
 div.apps div.content div.cards.small div.text p {
     font-weight: 300;
-}
-
-div.centered {
-    text-align: center;
 }
 
 div.stats {

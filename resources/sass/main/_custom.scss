@@ -1235,20 +1235,6 @@ output {
     color: #999;
 }
 
-.has-success .checkbox,
-.has-success .checkbox-inline,
-.has-success .control-label,
-.has-success .form-control-feedback,
-.has-success .help-block,
-.has-success .radio,
-.has-success .radio-inline,
-.has-success.checkbox label,
-.has-success.checkbox-inline label,
-.has-success.radio label,
-.has-success.radio-inline label {
-    color: #00bc63;
-}
-
 .form-control::-ms-expand {
     border: 0;
     background-color: transparent;
@@ -1529,45 +1515,10 @@ textarea.input-lg {
     padding-right: 52.5px;
 }
 
-.form-control-feedback {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    display: block;
-    width: 42px;
-    height: 42px;
-    line-height: 42px;
-    text-align: center;
-    pointer-events: none;
-}
-
 .collapsing,
 .dropdown,
 .dropup {
     position: relative;
-}
-
-.form-group-lg .form-control + .form-control-feedback,
-.input-group-lg + .form-control-feedback,
-.input-group-lg > .form-control + .form-control-feedback,
-.input-group-lg > .input-group-addon + .form-control-feedback,
-.input-group-lg > .input-group-btn > .btn + .form-control-feedback,
-.input-lg + .form-control-feedback {
-    width: 64px;
-    height: 64px;
-    line-height: 64px;
-}
-
-.form-group-sm .form-control + .form-control-feedback,
-.input-group-sm + .form-control-feedback,
-.input-group-sm > .form-control + .form-control-feedback,
-.input-group-sm > .input-group-addon + .form-control-feedback,
-.input-group-sm > .input-group-btn > .btn + .form-control-feedback,
-.input-sm + .form-control-feedback {
-    width: 39px;
-    height: 39px;
-    line-height: 39px;
 }
 
 .has-success .form-control {
@@ -1586,20 +1537,6 @@ textarea.input-lg {
     background-color: #dff0d8;
 }
 
-.has-warning .checkbox,
-.has-warning .checkbox-inline,
-.has-warning .control-label,
-.has-warning .form-control-feedback,
-.has-warning .help-block,
-.has-warning .radio,
-.has-warning .radio-inline,
-.has-warning.checkbox label,
-.has-warning.checkbox-inline label,
-.has-warning.radio label,
-.has-warning.radio-inline label {
-    color: #f39c12;
-}
-
 .has-warning .form-control {
     border-color: #f39c12;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -1616,20 +1553,6 @@ textarea.input-lg {
     background-color: #fcf8e3;
 }
 
-.has-error .checkbox,
-.has-error .checkbox-inline,
-.has-error .control-label,
-.has-error .form-control-feedback,
-.has-error .help-block,
-.has-error .radio,
-.has-error .radio-inline,
-.has-error.checkbox label,
-.has-error.checkbox-inline label,
-.has-error.radio label,
-.has-error.radio-inline label {
-    color: #e74c3c;
-}
-
 .has-error .form-control {
     border-color: #e74c3c;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -1644,14 +1567,6 @@ textarea.input-lg {
     color: #e74c3c;
     border-color: #e74c3c;
     background-color: #f2dede;
-}
-
-.has-feedback label ~ .form-control-feedback {
-    top: 29px;
-}
-
-.has-feedback label.sr-only ~ .form-control-feedback {
-    top: 0;
 }
 
 .help-block {
@@ -1703,9 +1618,6 @@ textarea.input-lg {
         position: relative;
         margin-left: 0;
     }
-    .form-inline .has-feedback .form-control-feedback {
-        top: 0;
-    }
     .form-horizontal .control-label {
         text-align: right;
         margin-bottom: 0;
@@ -1736,10 +1648,6 @@ textarea.input-lg {
 .form-horizontal .form-group:before {
     content: ' ';
     display: table;
-}
-
-.form-horizontal .has-feedback .form-control-feedback {
-    right: 15px;
 }
 
 @media (min-width: 768px) {
@@ -6810,25 +6718,6 @@ body.tvshow .movie-poster {
     flex-wrap: wrap;
 }
 
-.movie-actions .button-collect,
-.movie-actions .button-list,
-.movie-actions .button-rate,
-.movie-actions .button-watch,
-.movie-actions .button-watchlist {
-    outline: 0;
-    border: 0;
-    border-right: 1px solid #1c1f24;
-    float: left;
-    display: block;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    line-height: 40px;
-    transition: background 0.3s, color 0.3s;
-    background: #292e35;
-    height: 40px;
-}
-
 .movie-actions .button-collect .icon,
 .movie-actions .button-list .icon,
 .movie-actions .button-rate .icon,
@@ -6858,48 +6747,6 @@ body.tvshow .movie-poster {
     padding-right: 15px;
 }
 
-.movie-actions .button-collect.has,
-.movie-actions .button-list.has,
-.movie-actions .button-rate.has,
-.movie-actions .button-watch.has,
-.movie-actions .button-watchlist.has {
-    color: #fff;
-}
-
-.movie-actions .button-collect:hover,
-.movie-actions .button-list:hover,
-.movie-actions .button-rate:hover,
-.movie-actions .button-watch:hover,
-.movie-actions .button-watchlist:hover {
-    background: #30353e;
-}
-
-.movie-actions .button-collect.disabled,
-.movie-actions .button-collect.loading,
-.movie-actions .button-list.disabled,
-.movie-actions .button-list.loading,
-.movie-actions .button-rate.disabled,
-.movie-actions .button-rate.loading,
-.movie-actions .button-watch.disabled,
-.movie-actions .button-watch.loading,
-.movie-actions .button-watchlist.disabled,
-.movie-actions .button-watchlist.loading {
-    cursor: default;
-}
-
-.movie-actions .button-watch {
-    margin: 0 0 1px;
-    border: 0;
-    color: #16a085;
-    position: relative;
-    width: 100%;
-}
-
-.movie-actions .button-watch.has {
-    background-color: #16a085;
-    padding-right: 42px;
-}
-
 .movie-actions .button-watch.has .more {
     display: block;
 }
@@ -6927,25 +6774,6 @@ body.tvshow .movie-poster {
     background-color: rgba(0, 0, 0, 0.25);
 }
 
-.movie-actions .button-collect {
-    width: 33.3%;
-    color: #9b59b6;
-}
-
-.movie-actions .button-collect.has {
-    background-color: #9b59b6;
-}
-
-.movie-actions .button-watchlist {
-    width: 33.3%;
-    border: 0;
-    color: #3498db;
-}
-
-.movie-actions .button-watchlist.has {
-    background-color: #3498db;
-}
-
 .movie-actions .button-list {
     width: 33.3%;
     color: #3498db;
@@ -6955,52 +6783,11 @@ body.tvshow .movie-poster {
     background-color: #3498db;
 }
 
-.movie-actions .button-rate {
-    width: 33.3%;
-    color: #f39c12;
-}
-
-.movie-actions .button-rate.has {
-    background-color: #f39c12;
-    color: #15181b;
-}
-
 .episode-actions,
 .movie-actions-additional,
 .season-actions {
     overflow: hidden;
     margin-top: 20px;
-}
-
-.episode-actions .button-collect,
-.episode-actions .button-list,
-.episode-actions .button-rate,
-.episode-actions .button-trailer,
-.episode-actions .button-watch,
-.episode-actions .button-watchlist,
-.movie-actions-additional .button-collect,
-.movie-actions-additional .button-list,
-.movie-actions-additional .button-rate,
-.movie-actions-additional .button-trailer,
-.movie-actions-additional .button-watch,
-.movie-actions-additional .button-watchlist,
-.season-actions .button-collect,
-.season-actions .button-list,
-.season-actions .button-rate,
-.season-actions .button-trailer,
-.season-actions .button-watch,
-.season-actions .button-watchlist {
-    border: 0;
-    float: left;
-    display: block;
-    cursor: pointer;
-    padding: 0;
-    margin: 10px 15px 0 0;
-    line-height: 40px;
-    transition: background 0.3s, color 0.3s;
-    background: #292e35;
-    border-radius: 2px;
-    height: 40px;
 }
 
 .episode-actions .button-collect .icon,
@@ -7071,124 +6858,7 @@ body.tvshow .movie-poster {
     padding-right: 15px;
 }
 
-.episode-actions .button-collect.has,
-.episode-actions .button-list.has,
-.episode-actions .button-rate.has,
-.episode-actions .button-trailer.has,
-.episode-actions .button-watch.has,
-.episode-actions .button-watchlist.has,
-.movie-actions-additional .button-collect.has,
-.movie-actions-additional .button-list.has,
-.movie-actions-additional .button-rate.has,
-.movie-actions-additional .button-trailer.has,
-.movie-actions-additional .button-watch.has,
-.movie-actions-additional .button-watchlist.has,
-.season-actions .button-collect.has,
-.season-actions .button-list.has,
-.season-actions .button-rate.has,
-.season-actions .button-trailer.has,
-.season-actions .button-watch.has,
-.season-actions .button-watchlist.has {
-    color: #fff;
-}
-
-.episode-actions .button-collect:hover,
-.episode-actions .button-list:hover,
-.episode-actions .button-rate:hover,
-.episode-actions .button-trailer:hover,
-.episode-actions .button-watch:hover,
-.episode-actions .button-watchlist:hover,
-.movie-actions-additional .button-collect:hover,
-.movie-actions-additional .button-list:hover,
-.movie-actions-additional .button-rate:hover,
-.movie-actions-additional .button-trailer:hover,
-.movie-actions-additional .button-watch:hover,
-.movie-actions-additional .button-watchlist:hover,
-.season-actions .button-collect:hover,
-.season-actions .button-list:hover,
-.season-actions .button-rate:hover,
-.season-actions .button-trailer:hover,
-.season-actions .button-watch:hover,
-.season-actions .button-watchlist:hover {
-    background: #30353e;
-}
-
-.episode-actions .button-collect.disabled,
-.episode-actions .button-collect.loading,
-.episode-actions .button-list.disabled,
-.episode-actions .button-list.loading,
-.episode-actions .button-rate.disabled,
-.episode-actions .button-rate.loading,
-.episode-actions .button-trailer.disabled,
-.episode-actions .button-trailer.loading,
-.episode-actions .button-watch.disabled,
-.episode-actions .button-watch.loading,
-.episode-actions .button-watchlist.disabled,
-.episode-actions .button-watchlist.loading,
-.movie-actions-additional .button-collect.disabled,
-.movie-actions-additional .button-collect.loading,
-.movie-actions-additional .button-list.disabled,
-.movie-actions-additional .button-list.loading,
-.movie-actions-additional .button-rate.disabled,
-.movie-actions-additional .button-rate.loading,
-.movie-actions-additional .button-trailer.disabled,
-.movie-actions-additional .button-trailer.loading,
-.movie-actions-additional .button-watch.disabled,
-.movie-actions-additional .button-watch.loading,
-.movie-actions-additional .button-watchlist.disabled,
-.movie-actions-additional .button-watchlist.loading,
-.season-actions .button-collect.disabled,
-.season-actions .button-collect.loading,
-.season-actions .button-list.disabled,
-.season-actions .button-list.loading,
-.season-actions .button-rate.disabled,
-.season-actions .button-rate.loading,
-.season-actions .button-trailer.disabled,
-.season-actions .button-trailer.loading,
-.season-actions .button-watch.disabled,
-.season-actions .button-watch.loading,
-.season-actions .button-watchlist.disabled,
-.season-actions .button-watchlist.loading {
-    cursor: default;
-}
-
 @media only screen and (max-width: 767px) {
-    .episode-actions .button-collect,
-    .episode-actions .button-list,
-    .episode-actions .button-rate,
-    .episode-actions .button-trailer,
-    .episode-actions .button-watch,
-    .episode-actions .button-watchlist,
-    .movie-actions-additional .button-collect,
-    .movie-actions-additional .button-list,
-    .movie-actions-additional .button-rate,
-    .movie-actions-additional .button-trailer,
-    .movie-actions-additional .button-watch,
-    .movie-actions-additional .button-watchlist,
-    .season-actions .button-collect,
-    .season-actions .button-list,
-    .season-actions .button-rate,
-    .season-actions .button-trailer,
-    .season-actions .button-watch,
-    .season-actions .button-watchlist {
-        float: none;
-        margin-right: 0;
-        margin-top: 15px;
-    }
-}
-
-.episode-actions .button-watch,
-.movie-actions-additional .button-watch,
-.season-actions .button-watch {
-    color: #16a085;
-    position: relative;
-}
-
-.episode-actions .button-watch.has,
-.movie-actions-additional .button-watch.has,
-.season-actions .button-watch.has {
-    background-color: #16a085;
-    padding-right: 42px;
 }
 
 .episode-actions .button-watch.has .more,
@@ -7222,30 +6892,6 @@ body.tvshow .movie-poster {
     background-color: rgba(0, 0, 0, 0.25);
 }
 
-.episode-actions .button-collect,
-.movie-actions-additional .button-collect,
-.season-actions .button-collect {
-    color: #9b59b6;
-}
-
-.episode-actions .button-collect.has,
-.movie-actions-additional .button-collect.has,
-.season-actions .button-collect.has {
-    background-color: #9b59b6;
-}
-
-.episode-actions .button-watchlist,
-.movie-actions-additional .button-watchlist,
-.season-actions .button-watchlist {
-    color: #3498db;
-}
-
-.episode-actions .button-watchlist.has,
-.movie-actions-additional .button-watchlist.has,
-.season-actions .button-watchlist.has {
-    background-color: #3498db;
-}
-
 .episode-actions .button-list,
 .movie-actions-additional .button-list,
 .season-actions .button-list {
@@ -7256,32 +6902,6 @@ body.tvshow .movie-poster {
 .movie-actions-additional .button-list.has,
 .season-actions .button-list.has {
     background-color: #3498db;
-}
-
-.episode-actions .button-rate,
-.movie-actions-additional .button-rate,
-.season-actions .button-rate {
-    color: #f39c12;
-}
-
-.episode-actions .button-rate.has,
-.movie-actions-additional .button-rate.has,
-.season-actions .button-rate.has {
-    background-color: #f39c12;
-    color: #15181b;
-}
-
-.episode-actions .button-trailer,
-.movie-actions-additional .button-trailer,
-.season-actions .button-trailer {
-    color: #e74c3c;
-}
-
-.episode-actions .button-trailer.has,
-.movie-actions-additional .button-trailer.has,
-.season-actions .button-trailer.has {
-    background-color: #e74c3c;
-    color: #15181b;
 }
 
 .movie-actions-additional {
@@ -7655,7 +7275,7 @@ time {
 
 .profil {
     background: #e9e9e9;
-    padding: 1.25em 1em;
+    padding: 1em 0em;
 }
 
 .profil .profil-image {
@@ -7734,22 +7354,6 @@ select.icon-right i {
     text-decoration: none;
 }
 
-.item.item-poster {
-    display: inline-block;
-    width: 200px;
-    min-height: 362px;
-    position: relative;
-    vertical-align: top;
-    margin: 10px 7px;
-    border-radius: 3px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
-    overflow: hidden;
-    white-space: nowrap;
-    background-color: #fff;
-    -webkit-transition: 0.1s;
-    cursor: pointer;
-}
-
 .item.item-poster .background {
     position: relative;
     display: block;
@@ -7778,23 +7382,6 @@ select.icon-right i {
     -webkit-transition: 0.3s;
 }
 
-.item.item-poster:after {
-    content: '?';
-    display: block;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #303f9f;
-    color: #fff;
-    font-size: 120px;
-    padding: 60px 10px 0;
-    text-align: center;
-    z-index: 0;
-    box-sizing: border-box;
-}
-
 .item.item-poster .info {
     display: block;
     position: absolute;
@@ -7815,17 +7402,8 @@ select.icon-right i {
     color: #5677fc;
 }
 
-.item.item-poster:hover {
-    box-shadow: 0 4px 16px 1px rgba(0, 0, 0, 0.25);
-}
-
 .item.item-poster:hover .media_type {
     opacity: 1;
-}
-
-.item.item-poster.item-poster-small {
-    width: 150px;
-    min-height: 230px;
 }
 
 .item.item-poster.item-poster-small .background {
@@ -8318,37 +7896,8 @@ h3 {
 }
 
 // Footer Icon Style
-.disk-good {
+.footer-icon {
     color: rgba(102, 204, 153, 1);
-    -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
-    -moz-animation: neon1 1.5s ease-in-out infinite alternate;
-    animation: neon1 1.5s ease-in-out infinite alternate;
-}
-
-@-webkit-keyframes neon1 {
-    from {
-        text-shadow: 0 0 0 rgba(102, 204, 153, 0.2), 0 0 10px rgba(102, 204, 153, 0.2),
-            0 0 15px rgba(102, 204, 153, 0.2), 0 0 20px rgba(102, 204, 153, 0.2), 0 0 35px rgba(102, 204, 153, 0.2),
-            0 0 40px rgba(102, 204, 153, 0.2), 0 0 50px rgba(102, 204, 153, 0.2), 0 0 75px rgba(102, 204, 153, 0.2);
-    }
-    to {
-        text-shadow: 0 0 0 rgba(102, 204, 153, 0.2), 0 0 5px rgba(102, 204, 153, 0.2), 0 0 7px rgba(102, 204, 153, 0.2),
-            0 0 10px rgba(102, 204, 153, 0.2), 0 0 17px rgba(102, 204, 153, 0.2), 0 0 20px rgba(102, 204, 153, 0.2),
-            0 0 25px rgba(102, 204, 153, 0.2), 0 0 37px rgba(102, 204, 153, 0.2);
-    }
-}
-
-@-moz-keyframes neon1 {
-    from {
-        text-shadow: 0 0 0 rgba(102, 204, 153, 0.2), 0 0 10px rgba(102, 204, 153, 0.2),
-            0 0 15px rgba(102, 204, 153, 0.2), 0 0 20px rgba(102, 204, 153, 0.2), 0 0 35px rgba(102, 204, 153, 0.2),
-            0 0 40px rgba(102, 204, 153, 0.2), 0 0 50px rgba(102, 204, 153, 0.2), 0 0 75px rgba(102, 204, 153, 0.2);
-    }
-    to {
-        text-shadow: 0 0 0 rgba(102, 204, 153, 0.2), 0 0 5px rgba(102, 204, 153, 0.2), 0 0 7px rgba(102, 204, 153, 0.2),
-            0 0 10px rgba(102, 204, 153, 0.2), 0 0 17px rgba(102, 204, 153, 0.2), 0 0 20px rgba(102, 204, 153, 0.2),
-            0 0 25px rgba(102, 204, 153, 0.2), 0 0 37px rgba(102, 204, 153, 0.2);
-    }
 }
 
 // Staff Dashboard Stat Card Colors
