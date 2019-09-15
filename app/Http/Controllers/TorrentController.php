@@ -1532,7 +1532,7 @@ class TorrentController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            "Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
+            "Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to the top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
         );
 
         // Announce To IRC
@@ -1545,7 +1545,7 @@ class TorrentController extends Controller
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->withSuccess('Torrent Has Been Bumped To Top Successfully!');
+            ->withSuccess('Torrent Has Been Bumped To The Top Successfully!');
     }
 
     /**
