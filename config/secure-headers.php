@@ -127,7 +127,7 @@ return [
 
         'include-sub-domains' => false,
 
-        'preload' => true,
+        'preload' => false,
     ],
 
     /*
@@ -503,7 +503,7 @@ return [
             ],
 
             'schemes' => [
-                'https:',
+                // 'https:',
             ],
 
             'self' => true,
@@ -517,7 +517,7 @@ return [
             'unsafe-hashed-attributes' => false,
 
             // https://www.chromestatus.com/feature/5792234276388864
-            'report-sample' => true,
+            // 'report-sample' => true,
 
             'add-generated-nonce' => true,
         ],
@@ -539,14 +539,15 @@ return [
             ],
 
             'schemes' => [
-                'https:',
+                // 'https:',
             ],
 
             'self' => true,
 
             'unsafe-inline' => true,
 
-            'report-sample' => true,
+            // https://www.chromestatus.com/feature/5792234276388864
+            // 'report-sample' => true,
 
             'add-generated-nonce' => false,
         ],
@@ -557,10 +558,11 @@ return [
                 'https:',
             ],
             'self' => true,
+            'data' => true,
         ],
 
         'default-src' => [
-            //
+            'none',
         ],
 
         'base-uri' => [
@@ -581,6 +583,7 @@ return [
                 'https:',
             ],
             'self' => true,
+            'data' => true,
         ],
 
         'form-action' => [
@@ -588,14 +591,13 @@ return [
         ],
 
         'frame-ancestors' => [
-            'self' => true,
+            //
         ],
 
         'frame-src' => [
-            'self' => true,
-        ],
-
-        'manifest-src' => [
+            'schemes' => [
+                'https:',
+            ],
             'self' => true,
         ],
 
@@ -604,11 +606,11 @@ return [
         ],
 
         'object-src' => [
-            'self' => true,
+            //
         ],
 
         'worker-src' => [
-            'self' => true,
+            //
         ],
 
         'plugin-types' => [
