@@ -1,15 +1,5 @@
 <?php
-/**
- * NOTICE OF LICENSE.
- *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D
- *
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
- */
+
 use Illuminate\Support\Str;
 
 return [
@@ -90,8 +80,9 @@ return [
             'driver' => 'dynamodb',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_REGION', 'us-east-1'),
+            'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
             'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
+            'endpoint' => env('DYNAMODB_ENDPOINT'),
         ],
 
     ],
