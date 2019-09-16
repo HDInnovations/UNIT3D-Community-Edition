@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PersonalFreeleech;
 use Illuminate\Http\Request;
+use App\Models\PersonalFreeleech;
 
 class BookmarkController extends Controller
 {

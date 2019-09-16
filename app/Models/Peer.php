@@ -13,8 +13,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id

@@ -13,30 +13,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Achievements\UserFilled100Requests;
+use Carbon\Carbon;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\Torrent;
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\TorrentRequest;
+use App\Models\BonTransactions;
+use App\Models\TorrentRequestClaim;
+use App\Models\TorrentRequestBounty;
+use App\Repositories\ChatRepository;
+use App\Notifications\NewRequestFill;
+use App\Notifications\NewRequestClaim;
+use App\Notifications\NewRequestBounty;
+use App\Notifications\NewRequestUnclaim;
+use MarcReichel\IGDBLaravel\Models\Game;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
-use App\Models\BonTransactions;
-use App\Models\Category;
-use App\Models\Torrent;
-use App\Models\TorrentRequest;
-use App\Models\TorrentRequestBounty;
-use App\Models\TorrentRequestClaim;
-use App\Models\Type;
-use App\Models\User;
-use App\Notifications\NewRequestBounty;
-use App\Notifications\NewRequestClaim;
-use App\Notifications\NewRequestFill;
-use App\Notifications\NewRequestFillApprove;
+use App\Achievements\UserFilled100Requests;
 use App\Notifications\NewRequestFillReject;
-use App\Notifications\NewRequestUnclaim;
-use App\Repositories\ChatRepository;
+use App\Notifications\NewRequestFillApprove;
 use App\Repositories\RequestFacetedRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use MarcReichel\IGDBLaravel\Models\Game;
 
 class RequestController extends Controller
 {

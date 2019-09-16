@@ -14,11 +14,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\Group;
-use App\Models\UserActivation;
-use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
+use App\Models\UserActivation;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {

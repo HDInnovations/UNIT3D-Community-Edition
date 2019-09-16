@@ -13,8 +13,8 @@
 
 namespace App\Http\Middleware;
 
-use Bepsvpt\SecureHeaders\SecureHeaders;
 use Closure;
+use Bepsvpt\SecureHeaders\SecureHeaders;
 
 class HtmlEncrypt
 {

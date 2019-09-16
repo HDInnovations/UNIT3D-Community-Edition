@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
 use App\Models\Page;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {

@@ -12,20 +12,20 @@
 
 namespace App\Bots;
 
-use App\Events\Chatter;
-use App\Http\Resources\UserAudibleResource;
-use App\Http\Resources\UserEchoResource;
+use Carbon\Carbon;
 use App\Models\Ban;
 use App\Models\Bot;
-use App\Models\BotTransaction;
 use App\Models\Peer;
-use App\Models\Torrent;
 use App\Models\User;
-use App\Models\UserAudible;
-use App\Models\UserEcho;
+use App\Events\Chatter;
+use App\Models\Torrent;
 use App\Models\Warning;
+use App\Models\UserEcho;
+use App\Models\UserAudible;
+use App\Models\BotTransaction;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+use App\Http\Resources\UserEchoResource;
+use App\Http\Resources\UserAudibleResource;
 
 class NerdBot
 {

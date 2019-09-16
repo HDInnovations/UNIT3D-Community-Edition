@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Traits\TwoStep;
 use Carbon\Carbon;
+use App\Traits\TwoStep;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TwoStepController extends Controller
 {

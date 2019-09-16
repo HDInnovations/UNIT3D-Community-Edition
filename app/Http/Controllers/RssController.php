@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Group;
 use App\Models\Rss;
-use App\Models\TagTorrent;
-use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
-use App\Repositories\TorrentFacetedRepository;
+use App\Models\Group;
+use App\Models\Torrent;
+use App\Models\Category;
+use App\Models\TagTorrent;
 use Illuminate\Http\Request;
+use App\Repositories\TorrentFacetedRepository;
 
 class RssController extends Controller
 {

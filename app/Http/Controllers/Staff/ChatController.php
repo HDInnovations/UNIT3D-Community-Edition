@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Events\MessageDeleted;
-use App\Http\Controllers\Controller;
+use App\Models\Message;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
-use App\Models\Message;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
+use App\Events\MessageDeleted;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
 
 class ChatController extends Controller
 {

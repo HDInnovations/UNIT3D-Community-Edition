@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePoll;
-use App\Models\Option;
 use App\Models\Poll;
+use App\Models\Option;
+use App\Http\Requests\StorePoll;
+use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 
 class PollController extends Controller

@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Graveyard;
-use App\Models\Torrent;
-use App\Repositories\TorrentFacetedRepository;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\Torrent;
+use App\Models\Graveyard;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Repositories\TorrentFacetedRepository;
 
 class GraveyardController extends Controller
 {

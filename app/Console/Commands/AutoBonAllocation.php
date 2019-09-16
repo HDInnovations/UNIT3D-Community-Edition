@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\BonTransactions;
 use App\Models\User;
+use App\Models\BonTransactions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

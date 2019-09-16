@@ -13,15 +13,15 @@
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\StringHelper;
-use App\Traits\UsersOnlineTrait;
 use Carbon\Carbon;
+use App\Helpers\Bbcode;
+use Illuminate\Support\Str;
+use App\Helpers\StringHelper;
 use Gstt\Achievements\Achiever;
+use App\Traits\UsersOnlineTrait;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 
 /**
  * @property int $id

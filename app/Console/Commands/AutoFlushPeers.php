@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\History;
-use App\Models\Peer;
 use Carbon\Carbon;
+use App\Models\Peer;
+use App\Models\History;
 use Illuminate\Console\Command;
 
 class AutoFlushPeers extends Command

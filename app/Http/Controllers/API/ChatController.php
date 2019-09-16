@@ -13,24 +13,24 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Bots\CasinoBot;
-use App\Bots\NerdBot;
-use App\Bots\SystemBot;
-use App\Events\Chatter;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\BotResource;
-use App\Http\Resources\ChatMessageResource;
-use App\Http\Resources\ChatRoomResource;
-use App\Http\Resources\UserAudibleResource;
-use App\Http\Resources\UserEchoResource;
+use Carbon\Carbon;
 use App\Models\Bot;
 use App\Models\User;
-use App\Models\UserAudible;
+use App\Bots\NerdBot;
+use App\Bots\CasinoBot;
+use App\Bots\SystemBot;
+use App\Events\Chatter;
 use App\Models\UserEcho;
-use App\Repositories\ChatRepository;
-use Carbon\Carbon;
-use Illuminate\Auth\AuthManager;
+use App\Models\UserAudible;
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthManager;
+use App\Http\Resources\BotResource;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
+use App\Http\Resources\ChatRoomResource;
+use App\Http\Resources\UserEchoResource;
+use App\Http\Resources\ChatMessageResource;
+use App\Http\Resources\UserAudibleResource;
 
 class ChatController extends Controller
 {
