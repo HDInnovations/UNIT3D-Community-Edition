@@ -34,7 +34,7 @@
                         <tr>
                             <td>{{ $bot->name }}</td>
                             <td>{{ $bot->position }}</td>
-                            <td><img src="/img/joypixles/{{ $bot->emoji }}.png" style="max-width: 24px;" /></td>
+                            <td><img src="/img/joypixels/{{ $bot->emoji }}.png" style="max-width: 24px;" /></td>
                             <td>{{ $bot->command }}</td>
                             <td>@if ($bot->active)<i class="{{ config('other.font-awesome') }} fa-check text-green"></i>@else<i
                                         class="{{ config('other.font-awesome') }} fa-times text-red"></i>@endif</td>
