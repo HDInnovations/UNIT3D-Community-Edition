@@ -13,11 +13,11 @@
 
 namespace App\Notifications;
 
-use App\Models\Topic;
 use App\Models\User;
+use App\Models\Topic;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NewTopic extends Notification implements ShouldQueue
 {

@@ -13,8 +13,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Group;
 use Closure;
+use App\Models\Group;
 
 class CheckIfBanned
 {

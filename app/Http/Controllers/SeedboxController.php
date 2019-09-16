@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Seedbox;
 use App\Models\User;
+use App\Models\Seedbox;
 use Illuminate\Http\Request;
 
 class SeedboxController extends Controller

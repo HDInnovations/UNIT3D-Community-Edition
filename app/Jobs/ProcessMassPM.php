@@ -14,12 +14,12 @@
 
 namespace App\Jobs;
 
-use App\Models\PrivateMessage;
 use Illuminate\Bus\Queueable;
+use App\Models\PrivateMessage;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class ProcessMassPM implements ShouldQueue
 {

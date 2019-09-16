@@ -13,8 +13,8 @@
 
 namespace App\Services\Clients;
 
-use App\Services\Contracts\MangaInterface;
 use SimpleXMLElement;
+use App\Services\Contracts\MangaInterface;
 
 class AnnClient extends Client implements MangaInterface
 {

@@ -13,9 +13,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Language;
-use Carbon\Carbon;
 use Closure;
+use Carbon\Carbon;
+use App\Models\Language;
 use Illuminate\Support\Facades\App;
 
 class SetLanguage

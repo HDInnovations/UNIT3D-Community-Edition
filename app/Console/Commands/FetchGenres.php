@@ -12,8 +12,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\TagTorrent;
 use App\Models\Torrent;
+use App\Models\TagTorrent;
 use Illuminate\Console\Command;
 
 class FetchGenres extends Command

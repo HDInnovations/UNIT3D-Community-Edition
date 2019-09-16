@@ -12,15 +12,15 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use App\Mail\DenyApplication;
+use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
+use App\Models\Invite;
 use App\Mail\InviteUser;
 use App\Models\Application;
-use App\Models\Invite;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Mail\DenyApplication;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use Ramsey\Uuid\Uuid;
 
 class ApplicationController extends Controller
 {

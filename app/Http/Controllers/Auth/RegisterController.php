@@ -13,20 +13,20 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Jobs\SendActivationMail;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Group;
 use App\Models\Invite;
-use App\Models\PrivateMessage;
-use App\Models\User;
-use App\Models\UserActivation;
-use App\Models\UserNotification;
 use App\Models\UserPrivacy;
-use App\Repositories\ChatRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
+use App\Models\UserActivation;
+use App\Jobs\SendActivationMail;
+use App\Models\UserNotification;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {

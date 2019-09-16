@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Follow;
 use App\Models\User;
+use App\Models\Follow;
+use Illuminate\Http\Request;
 use App\Notifications\NewFollow;
 use App\Notifications\NewUnfollow;
-use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {

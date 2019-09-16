@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
 use App\Models\Invite;
+use App\Http\Controllers\Controller;
 
 class InviteController extends Controller
 {

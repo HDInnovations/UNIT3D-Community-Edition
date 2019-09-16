@@ -16,11 +16,11 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
-use App\Notifications\NewComment;
 use App\Notifications\NewThank;
+use App\Notifications\NewComment;
 use Hootlex\Moderation\Moderatable;
-use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Torrent model.

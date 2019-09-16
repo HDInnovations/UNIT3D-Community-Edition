@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use App\Models\Article;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Image;
+use App\Models\Article;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller
 {

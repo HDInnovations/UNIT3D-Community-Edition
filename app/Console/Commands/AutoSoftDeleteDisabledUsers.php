@@ -13,11 +13,11 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SendDeleteUserMail;
-use App\Models\Group;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Group;
 use Illuminate\Console\Command;
+use App\Jobs\SendDeleteUserMail;
 
 class AutoSoftDeleteDisabledUsers extends Command
 {

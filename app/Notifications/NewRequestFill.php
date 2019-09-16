@@ -13,10 +13,10 @@
 
 namespace App\Notifications;
 
-use App\Models\TorrentRequest;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\TorrentRequest;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NewRequestFill extends Notification implements ShouldQueue
 {

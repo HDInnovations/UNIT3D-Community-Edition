@@ -13,9 +13,9 @@
 
 namespace App\Services\Clients;
 
-use App\Services\Contracts\MovieTvInterface;
-use App\Services\Data\Movie;
 use App\Services\Data\Tv;
+use App\Services\Data\Movie;
+use App\Services\Contracts\MovieTvInterface;
 
 class OmdbClient extends Client implements MovieTvInterface
 {

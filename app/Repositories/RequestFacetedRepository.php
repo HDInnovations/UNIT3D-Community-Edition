@@ -13,8 +13,8 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
 use App\Models\Type;
+use App\Models\Category;
 
 class RequestFacetedRepository
 {

@@ -13,10 +13,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\PersonalFreeleech;
-use App\Models\PrivateMessage;
 use Carbon\Carbon;
+use App\Models\PrivateMessage;
 use Illuminate\Console\Command;
+use App\Models\PersonalFreeleech;
 
 class AutoRemovePersonalFreeleech extends Command
 {

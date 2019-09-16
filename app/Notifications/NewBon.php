@@ -13,10 +13,10 @@
 
 namespace App\Notifications;
 
-use App\Models\BonTransactions;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\BonTransactions;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NewBon extends Notification implements ShouldQueue
 {
