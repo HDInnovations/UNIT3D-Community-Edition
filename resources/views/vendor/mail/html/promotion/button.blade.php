@@ -1,7 +1,7 @@
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<table>
     <tr>
-        <td align="center">
-            <table border="0" cellpadding="0" cellspacing="0">
+        <td class="text-center">
+            <table>
                 <tr>
                     <td>
                         <a href="{{ $url }}" class="button button-green" target="_blank">{{ $slot }}</a>

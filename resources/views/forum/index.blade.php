@@ -24,8 +24,8 @@
         <form role="form" method="GET" action="{{ route('forum_search_form') }}">
             <input type="hidden" name="sorting" value="created_at">
             <input type="hidden" name="direction" value="desc">
-            <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.topic-quick-search')"
-                   class="form-control">
+            <label for="name"></label><input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.topic-quick-search')"
+                                             class="form-control">
         </form>
         <div class="forum-categories">
             <table class="table table-bordered table-hover">
@@ -68,7 +68,7 @@
                         @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
                             @if ($categoryChild->getPermission() != null && $categoryChild->getPermission()->show_forum == true)
                             <tr>
-                                <td><img src="{{ url('img/forum.png') }}"></td>
+                                <td><img src="{{ url('img/forum.png') }}" alt="forum"></td>
                                 <td>
                                     <span><h4><a href="{{ route('forum_display', ['slug' => $categoryChild->slug, 'id' => $categoryChild->id]) }}"><span
                                                         class="text-bold">{{ $categoryChild->name }}</span></a><h4></span>

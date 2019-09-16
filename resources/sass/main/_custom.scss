@@ -1151,7 +1151,6 @@ legend {
 }
 
 label {
-    display: inline-block;
     margin-bottom: 0;
 }
 
@@ -9953,3 +9952,8 @@ div.no_image_holder.w500_and_h282 {
 .ss-compare img:last-child{display:none}
 .ss-compare:hover img:first-child{display:none}
 .ss-compare:hover img:last-child{display:inline-block;}
+
+// Label
+label {
+    display: inline !important;
+}

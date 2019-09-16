@@ -87,7 +87,7 @@
                                 <div class="text-center">
                                     <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                       style="padding-bottom: 6px;">
+                                       style="padding-bottom: 6px;" alt="{{  $torrent->category->name }}">
                                 </div>
                             </a>
                         @else
@@ -242,7 +242,7 @@
                         @if ($torrent->internal == 1)
                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.internal-release')' style="color: rgb(186,175,146);"></i> @lang('torrent.internal')
+                                   data-original-title='@lang('torrent.internal-release')' style="color: #baaf92;"></i> @lang('torrent.internal')
                             </span>
                         @endif
 

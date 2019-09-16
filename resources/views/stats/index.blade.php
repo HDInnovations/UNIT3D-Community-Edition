@@ -131,7 +131,7 @@
 
                     </div>
                 </div>
-                <img src="{{ url('img/sheldon.png') }}" width="321" height="379">
+                <img src="{{ url('img/sheldon.png') }}" alt="sheldon" width="321" height="379">
             </div>
           </div>
         </div>

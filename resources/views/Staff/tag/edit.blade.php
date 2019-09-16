@@ -27,7 +27,9 @@
 
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name" value="{{ $tag->name }}">
+            <label>
+                <input type="text" class="form-control" name="name" value="{{ $tag->name }}">
+            </label>
         </div>
 
         <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>

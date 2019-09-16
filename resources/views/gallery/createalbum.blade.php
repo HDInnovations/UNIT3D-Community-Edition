@@ -34,13 +34,17 @@
                 </h4>
                 <div class="form-group">
                     <label for="name">IMDB</label>
-                    <input name="imdb" type="text" class="form-control" placeholder="IMDB #"
-                           value="{{ old('imdb') }}">
+                    <label>
+                        <input name="imdb" type="text" class="form-control" placeholder="IMDB #"
+                               value="{{ old('imdb') }}">
+                    </label>
                 </div>
                 <div class="form-group">
                     <label for="description">Album Description</label>
-                    <textarea name="description" type="text" class="form-control"
-                              placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
+                    <label>
+<textarea name="description" type="text" class="form-control"
+          placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
+                    </label>
                 </div>
                 <div class="form-group">
                     <label for="cover_image">Select A Cover Image</label>

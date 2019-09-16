@@ -44,61 +44,79 @@
                     <div class="upload col-md-12">
                         <div class="form-group">
                             <label for="name">@lang('request.title')</label>
-                            <input type="text" name="name" class="form-control" value="{{ old('name') ?? $title }}" required>
+                            <label>
+                                <input type="text" name="name" class="form-control" value="{{ old('name') ?? $title }}" required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">IMDB ID <b>(@lang('request.required'))</b></label>
-                            <input type="number" name="imdb" value="0" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
+                            <label>
+                                <input type="number" name="imdb" value="0" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
-                            <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
+                            <label>
+                                <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">TVDB ID (Optional)</label>
-                            <input type="number" name="tvdb" value="0" class="form-control" required>
+                            <label>
+                                <input type="number" name="tvdb" value="0" class="form-control" required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">MAL ID (Optional)</label>
-                            <input type="number" name="mal" value="0" class="form-control" required>
+                            <label>
+                                <input type="number" name="mal" value="0" class="form-control" required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
-                            <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
+                            <label>
+                                <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="category_id">@lang('request.category')</label>
-                            <select name="category_id" class="form-control">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                            <label>
+                                <select name="category_id" class="form-control">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="type">@lang('request.type')</label>
-                            <select name="type" class="form-control">
-                                @foreach ($types as $type)
-                                    <option value="{{ $type->name }}">{{ $type->name }}</option>
-                                @endforeach
-                            </select>
+                            <label>
+                                <select name="type" class="form-control">
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->name }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="description">@lang('request.description')</label>
-                            <textarea id="request-form-description" name="description" cols="30" rows="10"
-                                      class="form-control"></textarea>
+                            <label for="request-form-description"></label><textarea id="request-form-description" name="description" cols="30" rows="10"
+                                                                                    class="form-control"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="bonus_point">@lang('request.reward') <small><em>(@lang('request.reward-desc'))</em></small></label>
-                            <input class="form-control" name="bounty" type="number" min='100' value="100" required>
+                            <label>
+                                <input class="form-control" name="bounty" type="number" min='100' value="100" required>
+                            </label>
                         </div>
 
                         <label for="anon" class="control-label">@lang('common.anonymous')?</label>

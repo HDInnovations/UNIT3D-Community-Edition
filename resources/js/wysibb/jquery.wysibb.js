@@ -1299,7 +1299,7 @@ wbbdebug = true;
                     let rc = t.split(',');
                     let code = this.options.bbmode
                         ? '[table]'
-                        : '<table class="wbb-table" cellspacing="5" cellpadding="0">';
+                        : '<table class="wbb-table">';
                     for (let i = 1; i <= rc[0]; i++) {
                         code += this.options.bbmode ? ' [tr]\n' : '<tr>';
                         for (let j = 1; j <= rc[1]; j++) {

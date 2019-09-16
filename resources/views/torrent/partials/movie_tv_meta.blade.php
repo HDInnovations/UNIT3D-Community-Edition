@@ -116,7 +116,7 @@
                             @foreach (array_slice($meta->actors, 0,6) as $actor)
                                 @php $person = $client->person($actor->tmdb); @endphp
                                 <div class="col-xs-4 col-md-2 text-center">
-                                    <img class="img-people" src="{{ $person->photo }}">
+                                    <img class="img-people" src="{{ $person->photo }}" alt="{{ $actor->name }}">
                                     <a href="https://www.themoviedb.org/person/{{ $actor->tmdb }}" title="TheMovieDatabase" target="_blank">
                                         <span class="badge-user" style="white-space:normal;">
                                             <strong>{{ $actor->name }}</strong>
@@ -130,7 +130,8 @@
             </div>
 
             <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
+                <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="{{ $meta->title }}"
+                     class="movie-poster img-responsive hidden-xs">
             </div>
 
         </div>

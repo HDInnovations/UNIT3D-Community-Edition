@@ -13,17 +13,23 @@
 
     <div class="form-group">
         <label for="stitle">@lang('poll.title'):</label>
-        <input type="text" name="title" class="form-control" value="" required>
+        <label>
+            <input type="text" name="title" class="form-control" value="" required>
+        </label>
     </div>
 
     <div class="form-group">
         <label for="option1">@lang('poll.option') 1:</label>
-        <input type="text" name="options[]" class="form-control" value="">
+        <label>
+            <input type="text" name="options[]" class="form-control" value="">
+        </label>
     </div>
 
     <div class="form-group">
         <label for="option2">@lang('poll.option') 2:</label>
-        <input type="text" name="options[]" class="form-control" value="">
+        <label>
+            <input type="text" name="options[]" class="form-control" value="">
+        </label>
     </div>
 
     <div class="more-options"></div>
@@ -58,7 +64,7 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         var options = 2;
 
-        $('#add').on('click', function (e) {
+        $('rgb(170,221,221)').on('click', function (e) {
             e.preventDefault();
             options = options + 1;
             var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">@lang('poll.option') ' + options + ':</label><input type="text" name="options[]" class="form-control" value="" required></div>';

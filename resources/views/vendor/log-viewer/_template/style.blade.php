@@ -18,26 +18,26 @@
 
     .sub-header {
         padding-bottom: 10px;
-        border-bottom: 1px solid rgb(238, 238, 238);
+        border-bottom: 1px solid #eeeeee;
     }
 
     .navbar-inverse {
-        background-color: rgb(26, 35, 126);
-        border-color: rgb(26, 35, 126);
+        background-color: #1a237e;
+        border-color: #1a237e;
     }
 
     .navbar-inverse .navbar-nav>.active>a,
     .navbar-inverse .navbar-nav>.active>a:focus,
     .navbar-inverse .navbar-nav>.active>a:hover {
-        background-color: rgb(57, 73, 171);
+        background-color: #3949ab;
     }
 
     .navbar-inverse .navbar-brand {
-        color: rgb(197, 202, 233);
+        color: #c5cae9;
     }
 
     .navbar-inverse .navbar-nav>li>a {
-        color: rgb(197, 202, 233);
+        color: #c5cae9;
     }
 
     .navbar-fixed-top {
@@ -57,7 +57,7 @@
         padding: 10px 0;
         bottom: 0;
         width: 100%;
-        background-color: rgb(232, 234, 246);
+        background-color: #e8eaf6;
         font-weight: 600;
     }
 
@@ -66,7 +66,7 @@
     }
 
     footer.main-footer i.fa.fa-heart {
-        color: rgb(198, 40, 40);
+        color: #c62828;
     }
 
     .pagination {
@@ -87,9 +87,9 @@
 
     .stack-content {
         padding: 8px;
-        background-color: rgb(246, 246, 246);
-        border-top: 1px solid rgb(209, 209, 209);
-        color: rgb(174, 14, 14);
+        background-color: #f6f6f6;
+        border-top: 1px solid #d1d1d1;
+        color: #ae0e0e;
         font-family: consolas,sans-serif;
         font-size: 12px;
     }
@@ -99,7 +99,7 @@
         padding: 0;
         margin-bottom: 15px;
         min-height: 70px;
-        background: rgb(255, 255, 255);
+        background: #ffffff;
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1);
         border-radius: 2px;
@@ -148,14 +148,12 @@
     }
 
     .info-box.level .progress .progress-bar {
-        background: rgb(255, 255, 255);
+        background: #ffffff;
     }
 
     .info-box.level-empty {
         opacity: .6;
         -webkit-filter: grayscale(1);
-           -moz-filter: grayscale(1);
-            -ms-filter: grayscale(1);
                 filter: grayscale(1);
         -webkit-transition: all 0.2s ease-in-out;
            -moz-transition: all 0.2s ease-in-out;
@@ -170,8 +168,6 @@
     .info-box.level-empty:hover {
         opacity: 1;
         -webkit-filter: grayscale(0);
-           -moz-filter: grayscale(0);
-            -ms-filter: grayscale(0);
                 filter: grayscale(0);
     }
 
@@ -202,7 +198,7 @@
     .info-box.level-notice,
     .info-box.level-info,
     .info-box.level-debug {
-        color: rgb(255, 255, 255);
+        color: #ffffff;
     }
 
     .label-env {
@@ -250,6 +246,6 @@
     }
 
     .badge.label-env, .label.label-env {
-        background-color: rgb(106, 27, 154);
+        background-color: #6a1b9a;
     }
 </style>

@@ -55,9 +55,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_account_follow == 1))
-                                                <input type="checkbox" name="show_account_follow" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_account_follow" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_account_follow" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_account_follow" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -68,9 +72,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_account_unfollow == 1))
-                                                <input type="checkbox" name="show_account_unfollow" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_account_unfollow" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_account_unfollow" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_account_unfollow" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -88,9 +96,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_account_groups || $group->isAllowed($user->notification->json_account_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -119,9 +131,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_following_upload == 1))
-                                                <input type="checkbox" name="show_following_upload" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_following_upload" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_following_upload" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_following_upload" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -139,9 +155,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_following_groups || $group->isAllowed($user->notification->json_following_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -170,9 +190,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_subscription_topic == 1))
-                                                <input type="checkbox" name="show_subscription_topic" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_subscription_topic" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_subscription_topic" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_subscription_topic" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -183,9 +207,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_subscription_forum == 1))
-                                                <input type="checkbox" name="show_subscription_forum" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_subscription_forum" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_subscription_forum" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_subscription_forum" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -203,9 +231,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_subscription_groups || $group->isAllowed($user->notification->json_subscription_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -234,9 +266,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_forum_topic == 1))
-                                                <input type="checkbox" name="show_forum_topic" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_forum_topic" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_forum_topic" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_forum_topic" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -254,9 +290,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_forum_groups || $group->isAllowed($user->notification->json_forum_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -285,9 +325,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_request_fill == 1))
-                                                <input type="checkbox" name="show_request_fill" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_fill" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_request_fill" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_fill" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -298,9 +342,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_request_fill_approve == 1))
-                                                <input type="checkbox" name="show_request_fill_approve" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_fill_approve" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_request_fill_approve" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_fill_approve" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -311,9 +359,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_request_fill_reject == 1))
-                                                <input type="checkbox" name="show_request_fill_reject" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_fill_reject" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_request_fill_reject" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_fill_reject" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -324,9 +376,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_request_claim == 1))
-                                                <input type="checkbox" name="show_request_claim" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_claim" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_request_claim" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_claim" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -337,9 +393,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_request_unclaim == 1))
-                                                <input type="checkbox" name="show_request_unclaim" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_unclaim" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_request_unclaim" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_unclaim" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -350,9 +410,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_request_comment == 1))
-                                                <input type="checkbox" name="show_request_comment" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_comment" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_request_comment" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_comment" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -363,9 +427,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_request_bounty == 1))
-                                                <input type="checkbox" name="show_request_bounty" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_bounty" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_request_bounty" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_request_bounty" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -383,9 +451,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_request_groups || $group->isAllowed($user->notification->json_request_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -414,9 +486,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_torrent_comment == 1))
-                                                <input type="checkbox" name="show_torrent_comment" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_torrent_comment" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_torrent_comment" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_torrent_comment" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -427,9 +503,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_torrent_thank == 1))
-                                                <input type="checkbox" name="show_torrent_thank" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_torrent_thank" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_torrent_thank" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_torrent_thank" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -440,9 +520,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_torrent_tip == 1))
-                                                <input type="checkbox" name="show_torrent_tip" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_torrent_tip" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_torrent_tip" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_torrent_tip" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -460,9 +544,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_torrent_groups || $group->isAllowed($user->notification->json_torrent_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -491,9 +579,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_bon_gift == 1))
-                                                <input type="checkbox" name="show_bon_gift" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_bon_gift" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_bon_gift" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_bon_gift" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -511,9 +603,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_bon_groups || $group->isAllowed($user->notification->json_bon_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -542,9 +638,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_mention_article_comment == 1))
-                                                <input type="checkbox" name="show_mention_article_comment" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_article_comment" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_mention_article_comment" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_article_comment" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -555,9 +655,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_mention_request_comment == 1))
-                                                <input type="checkbox" name="show_mention_request_comment" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_request_comment" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_mention_request_comment" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_request_comment" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -568,9 +672,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_mention_torrent_comment == 1))
-                                                <input type="checkbox" name="show_mention_torrent_comment" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_torrent_comment" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_mention_torrent_comment" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_torrent_comment" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -581,9 +689,13 @@
                                         </div>
                                         <div class="button-right">
                                             @if(!$user->notification || ($user->notification && $user->notification->show_mention_forum_post == 1))
-                                                <input type="checkbox" name="show_mention_forum_post" value="1" CHECKED />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_forum_post" value="1" CHECKED />
+                                                </label>
                                             @else
-                                                <input type="checkbox" name="show_mention_forum_post" value="1" />
+                                                <label>
+                                                    <input type="checkbox" name="show_mention_forum_post" value="1" />
+                                                </label>
                                             @endif
                                         </div>
                                     </div>
@@ -601,9 +713,13 @@
                                                     </div>
                                                     <div class="button-right">
                                                         @if(!$user->notification || !$user->notification->json_mention_groups || $group->isAllowed($user->notification->json_mention_groups,$group->id))
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                            </label>
                                                         @else
-                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            <label>
+                                                                <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                            </label>
                                                         @endif
                                                     </div>
                                                 </div>

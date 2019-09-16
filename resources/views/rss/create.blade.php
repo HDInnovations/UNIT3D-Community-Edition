@@ -44,9 +44,9 @@
                     <div class="form-group">
                         <label for="imdb">ID</label>
                         <input type="text" class="form-control" id="imdb" name="imdb" placeholder="IMDB #">
-                        <input type="text" class="form-control" id="tvdb" name="tvdb" placeholder="TVDB #">
-                        <input type="text" class="form-control" id="tmdb" name="tmdb" placeholder="TMDB #">
-                        <input type="text" class="form-control" id="mal" name="mal" placeholder="MAL #">
+                        <label for="tvdb"></label><input type="text" class="form-control" id="tvdb" name="tvdb" placeholder="TVDB #">
+                        <label for="tmdb"></label><input type="text" class="form-control" id="tmdb" name="tmdb" placeholder="TMDB #">
+                        <label for="mal"></label><input type="text" class="form-control" id="mal" name="mal" placeholder="MAL #">
                     </div>
 
                     <div class="form-group">
@@ -126,7 +126,7 @@
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="internal" name="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
+                                    <input type="checkbox" id="internal" name="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span> @lang('torrent.internal')
                                 </label>
                             </span>
                         </div>

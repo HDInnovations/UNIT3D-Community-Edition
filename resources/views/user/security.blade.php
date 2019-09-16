@@ -49,12 +49,18 @@
                         <hr>
                             <div class="form-group">
                                 <label for="current_password">Current Password</label>
-                                <input type="password" name="current_password" class="form-control" placeholder="Current Password">
+                                <label>
+                                    <input type="password" name="current_password" class="form-control" placeholder="Current Password">
+                                </label>
                                 <label for="new_password">New Password</label>
-                                <input type="password" name="new_password" class="form-control" placeholder="New Password">
+                                <label>
+                                    <input type="password" name="new_password" class="form-control" placeholder="New Password">
+                                </label>
                                 <label for="new_password">Repeat Password</label>
-                                <input type="password" name="new_password_confirmation" class="form-control"
-                                       placeholder="New Password, again">
+                                <label>
+                                    <input type="password" name="new_password_confirmation" class="form-control"
+                                           placeholder="New Password, again">
+                                </label>
                             </div>
                         </div>
                             <div class="well text-center">
@@ -73,7 +79,9 @@
                             <label for="current_email">Current Email</label>
                             <p class="text-primary">{{ $user->email }}</p>
                             <label for="email">New Email</label>
-                            <input class="form-control" placeholder="New Email" name="email" type="email">
+                            <label>
+                                <input class="form-control" placeholder="New Email" name="email" type="email">
+                            </label>
                         </div>
                             <div class="well text-center">
                                 <button type="submit" class="btn btn-primary">Change Email</button>

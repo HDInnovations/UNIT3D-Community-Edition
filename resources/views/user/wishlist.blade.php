@@ -38,7 +38,7 @@
                         @csrf
 
                         <div class="form-group mt-5">
-                            <input type="text" class="form-control" name="imdb" id="imdb" placeholder="IMDB ID">
+                            <label for="imdb"></label><input type="text" class="form-control" name="imdb" id="imdb" placeholder="IMDB ID">
                         </div>
 
                         <button type="submit" class="btn btn-success mt-10">

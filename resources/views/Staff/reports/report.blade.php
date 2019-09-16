@@ -95,7 +95,9 @@
                         @if ($report->solved == 0)
                             <div class="form-group">
                                 <label for="message">Verdict</label>
-                                <textarea name="verdict" class="form-control"></textarea>
+                                <label>
+                                    <textarea name="verdict" class="form-control"></textarea>
+                                </label>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         @else

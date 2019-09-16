@@ -13,7 +13,9 @@
                     <p>@lang('request.enter-bp')</p>
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
-                        <input type="number" tabindex="3" name='bonus_value' min='100' value="100">
+                        <label>
+                            <input type="number" tabindex="3" name='bonus_value' min='100' value="100">
+                        </label>
                         <p>Anonymous Bounty?</p>
                         <div class="radio-inline">
                             <label><input type="radio" name="anon" value="1">@lang('common.yes')</label>
@@ -48,7 +50,9 @@
                     <p>@lang('request.enter-hash').</p>
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
-                        <input type="text" tabindex="3" name='info_hash' placeholder="@lang('request.torrent-hash')">
+                        <label>
+                            <input type="text" tabindex="3" name='info_hash' placeholder="@lang('request.torrent-hash')">
+                        </label>
                         <p>Anonymous Fill?</p>
                         <div class="radio-inline">
                             <label><input type="radio" name="filled_anon" value="1">@lang('common.yes')</label>
@@ -184,7 +188,7 @@
                     <div class="form-group">
                         <label for="report_reason" class="col-sm-2 control-label">@lang('request.reason')</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                            <label for="message"></label><textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                         </div>
                     </div>
                     <div class="form-group">

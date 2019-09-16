@@ -87,7 +87,7 @@
                                 @if ($torrent->category->image != null)
                                     <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
                                         <div class="text-center">
-                                            <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                            <img src="{{ url('files/img/' . $torrent->category->image) }}" alt="{{ $torrent->category->name }}" data-toggle="tooltip"
                                                  data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                  style="padding-bottom: 6px;">
                                         </div>
@@ -220,7 +220,7 @@
                                                     @if ($torrent->internal == 1)
                                                         <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
+                                   data-original-title='Internal Release' style="color: #baaf92;"></i> Internal
                             </span>
                                                     @endif
 

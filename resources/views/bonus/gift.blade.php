@@ -37,7 +37,9 @@
                     </div>
                     <div class="form-group">
                         <label for="users">@lang('pm.select')</label>
-                        <input name="to_username" class="form-control" placeholder="@lang('common.username')" required>
+                        <label>
+                            <input name="to_username" class="form-control" placeholder="@lang('common.username')" required>
+                        </label>
                     </div>
 
                     <div class="form-group">

@@ -70,7 +70,7 @@
                         @if (isset($characters))
                             @foreach($characters as $character)
                                 <div class="col-xs-4 col-md-2 text-center">
-                                    <img class="img-people" src="{{ $character->img_url }}">
+                                    <img class="img-people" src="{{ $character->img_url }}" alt="{{ $character->name }}">
                                     <a href="https://www.themoviedb.org/person/{{ $character->id }}" title="TheMovieDatabase" target="_blank">
                                         <span class="badge-user" style="white-space:normal;">
                                             <strong>{{ $character->name }}</strong>
@@ -86,9 +86,11 @@
 
             <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
                 @if (isset($meta) && $meta->cover)
-                    <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" class="movie-poster img-responsive hidden-xs">
+                    <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
+                         alt="{{ $meta->name }}" class="movie-poster img-responsive hidden-xs">
                 @else
-                    <img src="https://via.placeholder.com/600x900" class="movie-poster img-responsive hidden-xs">
+                    <img src="https://via.placeholder.com/600x900" alt="{{ $meta->name }}"
+                         class="movie-poster img-responsive hidden-xs">
                 @endif
             </div>
         </div>

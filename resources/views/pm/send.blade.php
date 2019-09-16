@@ -25,18 +25,22 @@
                         @csrf
                         <div class="form-group">
                             <label for="users">@lang('common.username')</label>
-                            <input name="receiver_id" class="form-control" placeholder="@lang('common.username')" required>
+                            <label>
+                                <input name="receiver_id" class="form-control" placeholder="@lang('common.username')" required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="">@lang('pm.subject')</label>
-                            <input name="subject" class="form-control" placeholder="@lang('pm.enter-subject')"
-                                   required>
+                            <label>
+                                <input name="subject" class="form-control" placeholder="@lang('pm.enter-subject')"
+                                       required>
+                            </label>
                         </div>
 
                         <div class="form-group">
                             <label for="">@lang('pm.message')</label>
-                            <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
+                            <label for="message"></label><textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
                         </div>
 
                         <button class="btn btn-primary">

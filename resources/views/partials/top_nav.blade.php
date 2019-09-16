@@ -53,11 +53,11 @@
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span>
-                <img src="{{ url('img/flags/'.auth()->user()->locale).'.png' }}" class="img-circle {{ auth()->user()->locale }}"/>
+                <img src="{{ url('img/flags/'.auth()->user()->locale).'.png' }}" alt="flag" class="img-circle {{ auth()->user()->locale }}"/>
             </span>
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
-                <ul class="dropdown-menu ">
+                <ul class="dropdown-menu">
                     @foreach (App\Models\Language::allowed() as $code => $name)
                         <li class="{{ config('language.flags.li_class') }}">
                             <a href="{{ route('back', ['local' => $code]) }}">

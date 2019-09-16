@@ -31,9 +31,9 @@
                         @csrf
                         <div class="modal-body"  style="text-align: center;">
                             <h4>Please fill in all fields for the chat status you would like to create.</h4>
-                            <label for="chatstatus_name"> Name:</label> <input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter Name Here..." required>
-                            <label for="chatstatus_color"> Color:</label> <input style="margin:0 auto; width:300px;" type="text" class="form-control" name="color" id="color" placeholder="Enter Hex Color Code Here..." required>
-                            <label for="chatstatus_icon"> Icon:</label> <input style="margin:0 auto; width:300px;" type="text" class="form-control" name="icon" id="icon" placeholder="Enter Font Awesome Code Here..." required>
+                            <label for="chatstatus_name"> Name:</label> <label for="name"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter Name Here..." required>
+                            <label for="chatstatus_color"> Color:</label> <label for="color"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="color" id="color" placeholder="Enter Hex Color Code Here..." required>
+                            <label for="chatstatus_icon"> Icon:</label> <label for="icon"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="icon" id="icon" placeholder="Enter Font Awesome Code Here..." required>
                         </div>
 
                         <div class="modal-footer">
@@ -107,7 +107,7 @@
                     @csrf
                     <div class="modal-body"  style="text-align: center;">
                         <h4>Please enter the name of the chatroom you would like to create.</h4>
-                        <label for="chatroom_name"> Name:</label> <input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter Name Here..." required>
+                        <label for="chatroom_name"> Name:</label> <label for="name"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter Name Here..." required>
                     </div>
 
                     <div class="modal-footer">

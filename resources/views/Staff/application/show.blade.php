@@ -69,7 +69,7 @@
                                         <div class="modal-content"  >
                                             <div class="modal-body">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <img src="{{ $img_proof->image }}" class="img-responsive" style="width: 100%;">
+                                                <img src="{{ $img_proof->image }}" alt="image proof" class="img-responsive" style="width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +93,9 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <textarea name="referrer" cols="30" rows="10" class="form-control" disabled="">{{ $application->referrer }}</textarea>
+                                <label>
+                                    <textarea name="referrer" cols="30" rows="10" class="form-control" disabled="">{{ $application->referrer }}</textarea>
+                                </label>
                             </div>
                         </td>
                     </tr>
@@ -141,7 +143,7 @@
                                                 <label for="message">@lang('common.message')</label>
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="5" cols="50" name="approve" id="approve"></textarea>
+                                                <label for="approve"></label><textarea class="form-control" rows="5" cols="50" name="approve" id="approve"></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -171,7 +173,7 @@
                                                 <label for="message">@lang('common.message')</label>
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="5" cols="50" name="deny" id="deny"></textarea>
+                                                <label for="deny"></label><textarea class="form-control" rows="5" cols="50" name="deny" id="deny"></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

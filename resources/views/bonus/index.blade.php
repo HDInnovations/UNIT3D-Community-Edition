@@ -28,7 +28,7 @@
                             </div>
                             <div class="button-right">
                                 <span class="small">@lang('bon.extended-stats') :</span>
-                                <input type="checkbox" value="1" name="extended" id="extended">
+                                <label for="extended"></label><input type="checkbox" value="1" name="extended" id="extended">
                             </div>
                         </div>
                     <table class="table table-condensed table-striped">

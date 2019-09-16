@@ -29,38 +29,48 @@
             @csrf
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" name="title" class="form-control" value="{{ $forum->name }}">
+            <label>
+                <input type="text" name="title" class="form-control" value="{{ $forum->name }}">
+            </label>
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea name="description" class="form-control" cols="30" rows="10">{{ $forum->description }}</textarea>
+            <label>
+                <textarea name="description" class="form-control" cols="30" rows="10">{{ $forum->description }}</textarea>
+            </label>
         </div>
 
         <div class="form-group">
             <label for="forum_type">Forum Type</label>
-            <select name="forum_type" class="form-control">
-                <option value="category">Category</option>
-                <option value="forum">Forum</option>
-            </select>
+            <label>
+                <select name="forum_type" class="form-control">
+                    <option value="category">Category</option>
+                    <option value="forum">Forum</option>
+                </select>
+            </label>
         </div>
 
         <div class="form-group">
             <label for="parent_id">Parent forum</label>
-            <select name="parent_id" class="form-control">
-                @if ($forum->getCategory() != null)
-                    <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }}(Current)</option>
-                @endif
-                @foreach ($categories as $c)
-                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                @endforeach
-            </select>
+            <label>
+                <select name="parent_id" class="form-control">
+                    @if ($forum->getCategory() != null)
+                        <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }}(Current)</option>
+                    @endif
+                    @foreach ($categories as $c)
+                        <option value="{{ $c->id }}">{{ $c->name }}</option>
+                    @endforeach
+                </select>
+            </label>
         </div>
 
         <div class="form-group">
             <label for="position">Position</label>
-            <input type="text" name="position" class="form-control" placeholder="The position number"
-                   value="{{ $forum->position }}">
+            <label>
+                <input type="text" name="position" class="form-control" placeholder="The position number"
+                       value="{{ $forum->position }}">
+            </label>
         </div>
 
         <h3>Permissions</h3>
@@ -80,30 +90,46 @@
                     <td>{{ $g->name }}</td>
                     <td>
                         @if ($g->getPermissionsByForum($forum)->show_forum == true)
-                            <input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]" value="1">
+                            <label>
+                                <input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]" value="1">
+                            </label>
                         @else
-                            <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1">
+                            <label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1">
+                            </label>
                         @endif
                     </td>
                     <td>
                         @if ($g->getPermissionsByForum($forum)->read_topic == true)
-                            <input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]" value="1">
+                            <label>
+                                <input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]" value="1">
+                            </label>
                         @else
-                            <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1">
+                            <label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1">
+                            </label>
                         @endif
                     </td>
                     <td>
                         @if ($g->getPermissionsByForum($forum)->start_topic == true)
-                            <input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]" value="1">
+                            <label>
+                                <input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]" value="1">
+                            </label>
                         @else
-                            <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1">
+                            <label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1">
+                            </label>
                         @endif
                     </td>
                     <td>
                         @if ($g->getPermissionsByForum($forum)->reply_topic == true)
-                            <input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]" value="1">
+                            <label>
+                                <input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]" value="1">
+                            </label>
                         @else
-                            <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">
+                            <label>
+                                <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">
+                            </label>
                         @endif
                     </td>
                 </tr>

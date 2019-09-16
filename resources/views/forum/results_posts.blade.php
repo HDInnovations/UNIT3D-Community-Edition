@@ -47,20 +47,24 @@
                                 <div class="mx-0 mt-5 form-group fatten-me">
                                     <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('forum.topic')</label>
                                     <div class="col-sm-9 fatten-me">
-                                        <input type="text" name="name" placeholder="@lang('forum.topic')" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" class="form-control">
+                                        <label>
+                                            <input type="text" name="name" placeholder="@lang('forum.topic')" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" class="form-control">
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="mx-0 mt-5 form-group fatten-me">
                                     <label for="body" class="mt-5 col-sm-1 label label-default fatten-me">@lang('forum.post')</label>
                                     <div class="col-sm-9 fatten-me">
-                                        <input type="text" name="body" placeholder="@lang('forum.post')" value="{{ (isset($params) && is_array($params) && array_key_exists('body',$params) ? $params['body'] : '') }}" class="form-control">
+                                        <label>
+                                            <input type="text" name="body" placeholder="@lang('forum.post')" value="{{ (isset($params) && is_array($params) && array_key_exists('body',$params) ? $params['body'] : '') }}" class="form-control">
+                                        </label>
                                     </div>
                                 </div>
 
                                 <div class="mx-0 mt-5 form-group fatten-me">
                                     <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.forum')</label>
                                     <div class="col-sm-9 fatten-me">
-                                        <select id="category" name="category" class="form-control">
+                                        <label for="category"></label><select id="category" name="category" class="form-control">
                                             <option value="">All Categories/Forums</option>
                                             @foreach ($categories as $category)
                                                 @if ($category->getPermission() != null && $category->getPermission()->show_forum == true && $category->getForumsInCategory()->count() > 0)
@@ -196,7 +200,7 @@
                                 <div class="mx-0 mt-5 form-group fatten-me">
                                     <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                                     <div class="col-sm-2">
-                                        <select id="sorting" name="sorting" class="form-control">
+                                        <label for="sorting"></label><select id="sorting" name="sorting" class="form-control">
                                             <option value="updated_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'updated_at' ? 'SELECTED' : '') }}>Updated At</option>
                                             <option value="created_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '') }}>Created At</option>
                                         </select>
@@ -205,7 +209,7 @@
                                 <div class="mx-0 mt-5 form-group fatten-me">
                                     <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                                     <div class="col-sm-2">
-                                        <select id="direction" name="direction" class="form-control">
+                                        <label for="direction"></label><select id="direction" name="direction" class="form-control">
                                             <option value="desc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'desc' ? 'SELECTED' : '') }}>@lang('common.descending')</option>
                                             <option value="asc"{{ (isset($params) && is_array($params) && array_key_exists('direction',$params) && $params['direction'] == 'asc' ? 'SELECTED' : '') }}>@lang('common.ascending')</option>
                                         </select>

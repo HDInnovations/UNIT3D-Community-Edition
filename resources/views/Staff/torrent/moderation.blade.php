@@ -80,8 +80,8 @@
                                                     <label for="postpone_reason"
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
-                                            <textarea title="Postpone message" class="form-control" rows="5" name="message" cols="50"
-                                                      id="message"></textarea>
+                                                        <label for="message"></label><textarea title="Postpone message" class="form-control" rows="5" name="message" cols="50"
+                                                                                               id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -134,8 +134,8 @@
                                                     <label for="report_reason"
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
-                                            <textarea title="Rejection Message" class="form-control" rows="5" name="message" cols="50"
-                                                      id="message"></textarea>
+                                                        <label for="message"></label><textarea title="Rejection Message" class="form-control" rows="5" name="message" cols="50"
+                                                                                               id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -243,8 +243,8 @@
                                                     <label for="report_reason"
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
-                                            <textarea title="Deletion message" class="form-control" rows="5" name="message" cols="50"
-                                                      id="message"></textarea>
+                                                        <label for="message"></label><textarea title="Deletion message" class="form-control" rows="5" name="message" cols="50"
+                                                                                               id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -341,8 +341,8 @@
                                                     <label for="postpone_reason"
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
-                                            <textarea title="Postpone message" class="form-control" rows="5" name="message" cols="50"
-                                                      id="message"></textarea>
+                                                        <label for="message"></label><textarea title="Postpone message" class="form-control" rows="5" name="message" cols="50"
+                                                                                               id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -401,8 +401,8 @@
                                                     <label for="report_reason"
                                                            class="col-sm-2 control-label">@lang('common.reason')</label>
                                                     <div class="col-sm-10">
-                                            <textarea title="Deletion message" class="form-control" rows="5" name="message" cols="50"
-                                                      id="message"></textarea>
+                                                        <label for="message"></label><textarea title="Deletion message" class="form-control" rows="5" name="message" cols="50"
+                                                                                               id="message"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">

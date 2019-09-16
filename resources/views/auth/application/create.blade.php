@@ -73,12 +73,16 @@
 
                             <div class="form-group">
                                 <label for="image1">@lang('auth.proof-image') 1: @lang('auth.proof-min')</label>
-                                <input type="text" name="images[]" class="form-control" value="">
+                                <label>
+                                    <input type="text" name="images[]" class="form-control" value="">
+                                </label>
                             </div>
 
                             <div class="form-group">
                                 <label for="image2">@lang('auth.proof-image') 2:</label>
-                                <input type="text" name="images[]" class="form-control" value="">
+                                <label>
+                                    <input type="text" name="images[]" class="form-control" value="">
+                                </label>
                             </div>
 
                             <div class="more-images"></div>
@@ -92,12 +96,16 @@
 
                             <div class="form-group">
                                 <label for="link1">@lang('auth.proof-profile') 1: @lang('auth.proof-min')</label>
-                                <input type="text" name="links[]" class="form-control" value="">
+                                <label>
+                                    <input type="text" name="links[]" class="form-control" value="">
+                                </label>
                             </div>
 
                             <div class="form-group">
                                 <label for="link2">@lang('auth.proof-profile') 2:</label>
-                                <input type="text" name="links[]" class="form-control" value="">
+                                <label>
+                                    <input type="text" name="links[]" class="form-control" value="">
+                                </label>
                             </div>
 
                             <div class="more-links"></div>
@@ -111,7 +119,9 @@
 
                             <div class="form-group">
                                 <label for="referrer">@lang('auth.appl-reason',['sitename' => config('other.title')])<span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
-                                <textarea name="referrer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
+                                <label>
+                                    <textarea name="referrer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
+                                </label>
                             </div>
 
                             @if (config('captcha.enabled') == true)

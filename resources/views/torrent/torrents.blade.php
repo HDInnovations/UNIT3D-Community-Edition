@@ -32,7 +32,7 @@
                     <div class="container mt-5">
                         <div class="mx-0 mt-5 form-group fatten-me">
                             <div>
-                                <input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
+                                <label for="query"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
                             </div>
                         </div>
                     </div>
@@ -48,13 +48,13 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
                         <div class="col-sm-9 fatten-me">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                            <label for="search"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.description')</label>
                         <div class="col-sm-9 fatten-me">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="description" placeholder="@lang('torrent.description')">
+                            <label for="description"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="description" placeholder="@lang('torrent.description')">
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
@@ -70,26 +70,26 @@
                             <input type="text" class="form-control facetedSearch" trigger="keyup"id="imdb" placeholder="IMDB #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="tvdb" placeholder="TVDB #">
+                            <label for="tvdb"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="tvdb" placeholder="TVDB #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup"id="tmdb" placeholder="TMDB #">
+                            <label for="tmdb"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="tmdb" placeholder="TMDB #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="mal" placeholder="MAL #">
+                            <label for="mal"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="mal" placeholder="MAL #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="igdb" placeholder="IGDB #">
+                            <label for="igdb"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="igdb" placeholder="IGDB #">
                         </div>
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="release_year" class="mt-5 col-sm-1 label label-default fatten-me">Year Range</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup"id="start_year" placeholder="Start Year">
+                            <label for="start_year"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="start_year" placeholder="Start Year">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="end_year" placeholder="End Year">
+                            <label for="end_year"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="end_year" placeholder="End Year">
                         </div>
                     </div>
 
@@ -173,7 +173,7 @@
                 </span>
                             <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="internal" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
+                        <input type="checkbox" id="internal" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span> @lang('torrent.internal')
                     </label>
                 </span>
                         </div>

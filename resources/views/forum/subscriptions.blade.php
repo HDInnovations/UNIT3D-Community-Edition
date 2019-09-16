@@ -28,8 +28,8 @@
             <input type="hidden" name="sorting" value="created_at">
             <input type="hidden" name="direction" value="desc">
             <input type="hidden" name="subscribed" value="1">
-            <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.subscription-quick-search')"
-                   class="form-control">
+            <label for="name"></label><input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.subscription-quick-search')"
+                                             class="form-control">
         </form>
         <div class="forum-categories">
             <table class="table table-bordered table-hover">

@@ -23,18 +23,24 @@
                 <form role="form" method="POST" action="{{ route('sendContact') }}">
                     @csrf
                     <div class="form-group">
-                        <input type="text" name="contact-name" placeholder="@lang('common.name')"
-                               value="{{ auth()->user()->username }}" class="form-control" required>
+                        <label>
+                            <input type="text" name="contact-name" placeholder="@lang('common.name')"
+                                   value="{{ auth()->user()->username }}" class="form-control" required>
+                        </label>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="@lang('common.email')"
-                               value="{{ auth()->user()->email }}" class="form-control" required>
+                        <label>
+                            <input type="email" name="email" placeholder="@lang('common.email')"
+                                   value="{{ auth()->user()->email }}" class="form-control" required>
+                        </label>
                     </div>
 
                     <div class="form-group">
-                        <textarea name="message" placeholder="@lang('common.message')" class="form-control"
-                                  cols="30" rows="10"></textarea>
+                        <label>
+<textarea name="message" placeholder="@lang('common.message')" class="form-control"
+          cols="30" rows="10"></textarea>
+                        </label>
                     </div>
 
                     <button type="submit" class="btn btn-lg btn-primary btn-block">@lang('common.submit')</button>

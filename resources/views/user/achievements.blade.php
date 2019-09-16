@@ -68,6 +68,7 @@
                                         @foreach ($achievements as $item)
                                             <tr>
                                                 <td><img src="/img/badges/{{ $item->details->name }}.png"
+                                                         alt="{{ $item->details->name }}"
                                                          data-toggle="tooltip"
                                                          data-original-title="{{ $item->details->name }}"></td>
                                                 <td>{{ $item->details->description }}</td>

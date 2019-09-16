@@ -51,8 +51,8 @@
                   action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}">
                 @csrf
                 <div class="form-group">
-                    <textarea id="content" name="content" cols="30" rows="10"
-                              class="form-control">{{ $post->content }}</textarea>
+                    <label for="content"></label><textarea id="content" name="content" cols="30" rows="10"
+                                                           class="form-control">{{ $post->content }}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
             </form>

@@ -43,21 +43,25 @@
 
                 <div class="form-group">
                     <label for="title">@lang('user.custom-title')</label>
-                    <input type="text" name="title" class="form-control" value="{{ $user->title }}">
+                    <label>
+                        <input type="text" name="title" class="form-control" value="{{ $user->title }}">
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="about">@lang('user.about-me') <span
                                 class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
-                    <textarea name="about" cols="30" rows="10" maxlength="500"
-                              class="form-control">{{ $user->about }}</textarea>
+                    <label>
+<textarea name="about" cols="30" rows="10" maxlength="500"
+          class="form-control">{{ $user->about }}</textarea>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="signature">@lang('user.forum-signature') <span
                                 class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
-                    <textarea name="signature" id="" cols="30" rows="10"
-                              class="form-control">{{ $user->signature }}</textarea>
+                    <label for=""></label><textarea name="signature" id="" cols="30" rows="10"
+                                                    class="form-control">{{ $user->signature }}</textarea>
                 </div>
 
                 @if ( !is_null($user->signature))

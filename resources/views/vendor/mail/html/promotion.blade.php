@@ -1,6 +1,6 @@
-<table class="promotion" align="center" width="100%" cellpadding="0" cellspacing="0">
+<table class="promotion" class="text-center">
     <tr>
-        <td align="center">
+        <td class="text-center">
             {{ Illuminate\Mail\Markdown::parse($slot) }}
         </td>
     </tr>

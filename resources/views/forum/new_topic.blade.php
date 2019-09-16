@@ -36,13 +36,13 @@
                   action="{{ route('forum_new_topic',['slug' => $forum->slug, 'id' => $forum->id]) }}">
                 @csrf
                 <div class="form-group">
-                    <input id="input-thread-title" type="text" name="title" maxlength="75" class="form-control"
-                           placeholder="@lang('forum.topic-title')">
+                    <label for="input-thread-title"></label><input id="input-thread-title" type="text" name="title" maxlength="75" class="form-control"
+                                                                   placeholder="@lang('forum.topic-title')">
                 </div>
 
                 <div class="form-group">
-                    <textarea id="new-thread-content" name="content" cols="30" rows="10"
-                              class="form-control"></textarea>
+                    <label for="new-thread-content"></label><textarea id="new-thread-content" name="content" cols="30" rows="10"
+                                                                      class="form-control"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">@lang('forum.send-new-topic')</button>

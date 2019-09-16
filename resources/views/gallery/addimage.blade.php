@@ -32,15 +32,19 @@
                     <h2>Add an Image to {{$album->name}}</h2>
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <select name="type" class="form-control">
-                            <option value="Cover">Cover</option>
-                            <option value="Disc">Disc</option>
-                        </select>
+                        <label>
+                            <select name="type" class="form-control">
+                                <option value="Cover">Cover</option>
+                                <option value="Disc">Disc</option>
+                            </select>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="description">Image Description</label>
-                        <textarea name="description" type="text" class="form-control"
-                                  placeholder="Hi-Res Sleeve / Disc Art"></textarea>
+                        <label>
+<textarea name="description" type="text" class="form-control"
+          placeholder="Hi-Res Sleeve / Disc Art"></textarea>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="image">Select an Image</label>

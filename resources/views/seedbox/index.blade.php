@@ -89,13 +89,17 @@
                         <p>Enter Seedbox Details</p>
                         <fieldset>
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control"
-                                       placeholder="Seedbox Name" required>
+                                <label>
+                                    <input type="text" name="name" class="form-control"
+                                           placeholder="Seedbox Name" required>
+                                </label>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="ip" class="form-control" minlength="7" maxlength="15" size="15"
-                                       pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
-                                       placeholder="@lang('user.client-ip-address')" required>
+                                <label>
+                                    <input type="text" name="ip" class="form-control" minlength="7" maxlength="15" size="15"
+                                           pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                                           placeholder="@lang('user.client-ip-address')" required>
+                                </label>
                             </div>
                         </fieldset>
                         <br>

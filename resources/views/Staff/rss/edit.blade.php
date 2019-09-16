@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">@lang('rss.feed') @lang('common.position')</label>
-                        <input type="number" id="position" name="position" value="{{ $rss->position }}" class="form-control">
+                        <label for="position"></label><input type="number" id="position" name="position" value="{{ $rss->position }}" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="search">@lang('torrent.torrent') @lang('torrent.name')</label>
@@ -53,9 +53,9 @@
                     <div class="form-group">
                         <label for="imdb">ID</label>
                         <input type="text" class="form-control" id="imdb" name="imdb" value="{{ $rss->object_torrent->imdb }}">
-                        <input type="text" class="form-control" id="tvdb" name="tvdb" value="{{ $rss->object_torrent->tvdb }}">
-                        <input type="text" class="form-control" id="tmdb" name="tmdb" value="{{ $rss->object_torrent->tmdb }}">
-                        <input type="text" class="form-control" id="mal" name="mal" value="{{ $rss->object_torrent->mal }}">
+                        <label for="tvdb"></label><input type="text" class="form-control" id="tvdb" name="tvdb" value="{{ $rss->object_torrent->tvdb }}">
+                        <label for="tmdb"></label><input type="text" class="form-control" id="tmdb" name="tmdb" value="{{ $rss->object_torrent->tmdb }}">
+                        <label for="mal"></label><input type="text" class="form-control" id="mal" name="mal" value="{{ $rss->object_torrent->mal }}">
                     </div>
 
                     <div class="form-group">
@@ -169,9 +169,9 @@
                             <span class="badge-user">
                                 <label class="inline">
                                     @if($rss->object_torrent->internal)
-                                        <input type="checkbox" id="internal" name="internal" value="1" CHECKED><span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
+                                        <input type="checkbox" id="internal" name="internal" value="1" CHECKED><span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span> @lang('torrent.internal')
                                     @else
-                                        <input type="checkbox" id="internal" name="internal" value="1"><span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
+                                        <input type="checkbox" id="internal" name="internal" value="1"><span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span> @lang('torrent.internal')
                                     @endif
                                 </label>
                             </span>

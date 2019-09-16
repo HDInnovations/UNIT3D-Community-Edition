@@ -21,7 +21,7 @@
     <div class="container box">
         <h2>Torrents</h2>
         <form action="{{route('torrent-search')}}" method="any">
-            <input type="text" name="name" id="name" size="25" placeholder="Quick Search by Title" class="form-control" style="float:right;">
+            <label for="name"></label><input type="text" name="name" id="name" size="25" placeholder="Quick Search by Title" class="form-control" style="float:right;">
         </form>
 
         <table class="table table-condensed table-striped table-bordered table-hover">
@@ -74,8 +74,8 @@
                                             <label for="report_reason" class="col-sm-2 control-label">Reason (Sent To
                                                 Uploader Via PM)</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" rows="5" name="message" cols="50"
-                                                          id="message"></textarea>
+                                                <label for="message"></label><textarea class="form-control" rows="5" name="message" cols="50"
+                                                                                       id="message"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">

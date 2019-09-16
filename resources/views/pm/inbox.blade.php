@@ -42,8 +42,8 @@
                             <div class="input-group pull-right">
                                 <form role="form" method="POST" action="{{ route('searchPMInbox') }}">
                                     @csrf
-                                    <input type="text" name="subject" id="subject" class="form-control"
-                                           placeholder="@lang('pm.search')">
+                                    <label for="subject"></label><input type="text" name="subject" id="subject" class="form-control"
+                                                                        placeholder="@lang('pm.search')">
                                 </form>
                             </div>
                         </div>

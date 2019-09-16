@@ -25,11 +25,15 @@
         @csrf
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name">
+            <label>
+                <input type="text" class="form-control" name="name">
+            </label>
         </div>
         <div class="form-group">
             <label for="name">Position</label>
-            <input type="text" class="form-control" name="position">
+            <label>
+                <input type="text" class="form-control" name="position">
+            </label>
         </div>
 
         <button type="submit" class="btn btn-default">@lang('common.add')</button>

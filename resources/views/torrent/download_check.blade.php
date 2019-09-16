@@ -29,7 +29,7 @@
         <div class="block">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div align="center">
+                    <div class="text-center">
                         <h2>{{ $user->username }}</h2>
                         @if ($user->getRatio() < config('other.ratio') || $user->can_download == 0)
                             <h4>@lang('torrent.no-privileges')</h4>

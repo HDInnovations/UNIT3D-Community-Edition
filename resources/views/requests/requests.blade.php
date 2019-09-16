@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label for="name" class="col-sm-1 label label-default">@lang('torrent.name')</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="search" placeholder="@lang('torrent.name')">
+                    <label for="search"></label><input type="text" class="form-control" id="search" placeholder="@lang('torrent.name')">
                 </div>
             </div>
 
@@ -48,16 +48,16 @@
                     <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" id="tvdb" placeholder="TVDB #">
+                    <label for="tvdb"></label><input type="text" class="form-control" id="tvdb" placeholder="TVDB #">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" id="tmdb" placeholder="TMDB #">
+                    <label for="tmdb"></label><input type="text" class="form-control" id="tmdb" placeholder="TMDB #">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" id="mal" placeholder="MAL #">
+                    <label for="mal"></label><input type="text" class="form-control" id="mal" placeholder="MAL #">
                 </div>
                 <div class="col-sm-2">
-                    <input type="text" class="form-control" id="igdb" placeholder="IGDB #">
+                    <label for="igdb"></label><input type="text" class="form-control" id="igdb" placeholder="IGDB #">
                 </div>
             </div>
 
@@ -159,7 +159,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <select id="direction" name="direction" class="form-control">
+                        <label for="direction"></label><select id="direction" name="direction" class="form-control">
                             @foreach ($repository->direction() as $value => $dir)
                                 <option value="{{ $value }}">{{ $dir }}</option>
                             @endforeach

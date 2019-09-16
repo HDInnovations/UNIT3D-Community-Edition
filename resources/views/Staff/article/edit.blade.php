@@ -31,7 +31,9 @@
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>
+                <label>
+                    <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>
+                </label>
             </div>
 
             <div class="form-group">

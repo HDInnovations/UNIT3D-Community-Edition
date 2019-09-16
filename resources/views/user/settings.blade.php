@@ -56,8 +56,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="custom_css" class="control-label">External CSS Stylesheet</label>
-                                    <input type="text" name="custom_css" class="form-control"
-                                           value="@if ($user->custom_css) {{ $user->custom_css }}@endif" placeholder="CSS URL">
+                                    <label>
+                                        <input type="text" name="custom_css" class="form-control"
+                                               value="@if ($user->custom_css) {{ $user->custom_css }}@endif" placeholder="CSS URL">
+                                    </label>
                                 </div>
                                 <label for="sidenav" class="control-label">Side Navigation</label>
                                 <div class="radio-inline">

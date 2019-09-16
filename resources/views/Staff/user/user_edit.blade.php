@@ -46,47 +46,63 @@
                 @csrf
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input name="username" type="text" value="{{ $user->username }}" class="form-control">
+                    <label>
+                        <input name="username" type="text" value="{{ $user->username }}" class="form-control">
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input name="email" type="email" value="{{ $user->email }}" class="form-control">
+                    <label>
+                        <input name="email" type="email" value="{{ $user->email }}" class="form-control">
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="uploaded">Uploaded (In Bytes!)</label>
-                    <input name="uploaded" type="number" value="{{ $user->uploaded }}" class="form-control">
+                    <label>
+                        <input name="uploaded" type="number" value="{{ $user->uploaded }}" class="form-control">
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="downloaded">Downloaded (In Bytes!)</label>
-                    <input name="downloaded" type="number" value="{{ $user->downloaded }}" class="form-control">
+                    <label>
+                        <input name="downloaded" type="number" value="{{ $user->downloaded }}" class="form-control">
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="join-date">Join date</label>
-                    <input name="join-date" type="join-date" value="{{ date('d/m/Y', strtotime($user->created_at)) }}"
-                           class="form-control">
+                    <label>
+                        <input name="join-date" type="join-date" value="{{ date('d/m/Y', strtotime($user->created_at)) }}"
+                               class="form-control">
+                    </label>
                 </div>
 
                     <div class="form-group">
                         <label for="downloaded">Title</label>
-                        <input name="title" type="text" value="{{ $user->title }}" class="form-control">
+                        <label>
+                            <input name="title" type="text" value="{{ $user->title }}" class="form-control">
+                        </label>
                     </div>
 
                 <div class="form-group">
                     <label for="about">About</label>
-                    <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
+                    <label>
+                        <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
+                    </label>
                 </div>
 
                 <div class="form-group">
-                    <select name="group_id" class="form-control">
-                        <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
-                        @foreach ($groups as $g)
-                            <option value="{{ $g->id }}">{{ $g->name }}</option>
-                        @endforeach
-                    </select>
+                    <label>
+                        <select name="group_id" class="form-control">
+                            <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
+                            @foreach ($groups as $g)
+                                <option value="{{ $g->id }}">{{ $g->name }}</option>
+                            @endforeach
+                        </select>
+                    </label>
                 </div>
 
                 <button type="submit" class="btn btn-default">Save</button>
@@ -168,7 +184,9 @@
                     @csrf
                 <div class="form-group">
                     <label for="message">Note</label>
-                    <textarea name="message" class="form-control"></textarea>
+                    <label>
+                        <textarea name="message" class="form-control"></textarea>
+                    </label>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Save</button>
@@ -224,7 +242,9 @@
                     @csrf
                 <div class="form-group">
                     <label for="new_password">New Password</label>
-                    <input type="password" name="new_password" class="form-control" placeholder="New Password">
+                    <label>
+                        <input type="password" name="new_password" class="form-control" placeholder="New Password">
+                    </label>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Make The Switch!</button>

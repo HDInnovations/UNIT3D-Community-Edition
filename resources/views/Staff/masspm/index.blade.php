@@ -28,7 +28,9 @@
             @csrf
             <div class="form-group">
                 <label for="subject">Subject</label>
-                <input type="text" class="form-control" name="subject">
+                <label>
+                    <input type="text" class="form-control" name="subject">
+                </label>
             </div>
 
             <div class="form-group">

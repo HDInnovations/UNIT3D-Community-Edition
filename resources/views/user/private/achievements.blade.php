@@ -52,6 +52,7 @@
                                 @foreach ($achievements as $item)
                                     <tr>
                                         <td><img src="/img/badges/{{ $item->details->name }}.png"
+                                                 alt="{{ $item->details->name }}"
                                                  data-toggle="tooltip"
                                                  data-original-title="{{ $item->details->name }}"></td>
                                         <td>{{ $item->details->description }}</td>
@@ -102,6 +103,7 @@
                                 @foreach ($pending as $p)
                                     <tr>
                                         <td><img src="/img/badges/{{ $p->details->name }}.png"
+                                                 alt="{{ $p->details->name }}"
                                                  data-toggle="tooltip"
                                                  data-original-title="{{ $p->details->name }}"></td>
                                         <td>{{ $p->details->description }}</td>
@@ -133,6 +135,7 @@
                                 @foreach ($locked as $l)
                                     <tr>
                                         <td><img src="/img/badges/{{ $l->details->name }}.png"
+                                                 alt="{{ $l->details->name }}"
                                                  data-toggle="tooltip"
                                                  data-original-title="{{ $l->details->name }}"></td>
                                         <td>{{ $l->details->description }}</td>

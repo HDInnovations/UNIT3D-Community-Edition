@@ -55,16 +55,16 @@
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="row">
                 <div class="form-group">
-                    <input type="email" id="email" class="fadeIn third" name="email"
-                           placeholder="@lang('common.email')" required autofocus>
+                    <label for="email"></label><input type="email" id="email" class="fadeIn third" name="email"
+                                                      placeholder="@lang('common.email')" required autofocus>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" name="password" class="form-control"
-                           placeholder="@lang('common.password')" required>
+                    <label for="password"></label><input type="password" id="password" name="password" class="form-control"
+                                                         placeholder="@lang('common.password')" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password-confirm" name="password_confirmation" class="form-control"
-                           placeholder="@lang('common.password') confirmation" required>
+                    <label for="password-confirm"></label><input type="password" id="password-confirm" name="password_confirmation" class="form-control"
+                                                                 placeholder="@lang('common.password') confirmation" required>
                 </div>
                 <div class="col s6">
                     <button type="submit"

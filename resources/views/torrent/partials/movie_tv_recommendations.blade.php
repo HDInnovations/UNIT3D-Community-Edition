@@ -23,7 +23,8 @@
                             @endif
                                 <div>
                                     @if(isset($recommendation['poster_path']))
-                                        <img class="backdrop" src="https://image.tmdb.org/t/p/w440_and_h660_face{{ $recommendation['poster_path'] }}">
+                                        <img class="backdrop" src="https://image.tmdb.org/t/p/w440_and_h660_face{{ $recommendation['poster_path'] }}"
+                                        alt="poster">
                                     @else
                                         <div class="no_image_holder w300_and_h450 backdrop"></div>
                                     @endif

@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="torrent box container">
-        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0px 0px 6px #B22929;margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:white">
+        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,rgb(209,58,58),rgb(209,58,58) 10px,rgb(223,75,75) 10px,rgb(223,75,75) 20px);border:solid 1px rgb(178,41,41);-webkit-box-shadow: 0px 0px 6px rgb(178,41,41);margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:#ffffff">
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
 
@@ -48,7 +48,7 @@
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
-                    <span class="badge-user" style=" margin: 0; width: 100%; margin-bottom: 25px; background-color: rgba(0, 0, 0, 0.19);">
+                    <span class="badge-user" style=" width: 100%; background-color: rgba(0, 0, 0, 0.19);">
                         @if (config('torrent.download_check_page') == 1)
                             <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-success">
                                 <span class='btn-label'>
@@ -607,8 +607,10 @@
                                     @csrf
                                     <div class="form-group">
                                         <span class="text-green text-bold">Define A Tip Amount</span>
-                                        <input type="number" name="tip" value="0" placeholder="0" class="form-control"
-                                               style="width: 80%">
+                                        <label>
+                                            <input type="number" name="tip" value="0" placeholder="0" class="form-control"
+                                                   style="width: 80%">
+                                        </label>
                                         <button type="submit"
                                                 class="btn btn-primary">@lang('torrent.leave-tip')</button>
                                     </div>
@@ -616,19 +618,19 @@
                                     <span class="text-green text-bold">@lang('torrent.quick-tip')</span>
                                     <br>
                                     <button type="submit" value="10" name="tip" class="btn"><img
-                                                src="/img/coins/10coin.png"/></button>
+                                                src="/img/coins/10coin.png" alt="coin"/></button>
                                     <button type="submit" value="20" name="tip" class="btn"><img
-                                                src="/img/coins/20coin.png"/></button>
+                                                src="/img/coins/20coin.png" alt="coin"/></button>
                                     <button type="submit" value="50" name="tip" class="btn"><img
-                                                src="/img/coins/50coin.png"/></button>
+                                                src="/img/coins/50coin.png" alt="coin"/></button>
                                     <button type="submit" value="100" name="tip" class="btn"><img
-                                                src="/img/coins/100coin.png"/></button>
+                                                src="/img/coins/100coin.png" alt="coin"/></button>
                                     <button type="submit" value="200" name="tip" class="btn"><img
-                                                src="/img/coins/200coin.png"/></button>
+                                                src="/img/coins/200coin.png" alt="coin"/></button>
                                     <button type="submit" value="500" name="tip" class="btn"><img
-                                                src="/img/coins/500coin.png"/></button>
+                                                src="/img/coins/500coin.png" alt="coin"/></button>
                                     <button type="submit" value="1000" name="tip" class="btn"><img
-                                                src="/img/coins/1000coin.png"/></button>
+                                                src="/img/coins/1000coin.png" alt="coin"/></button>
                                 </form>
                             </div>
                             <div class="col-md-5">
@@ -677,7 +679,7 @@
                                 </div>
                             @else
                                 @foreach ($comments as $comment)
-                                    <li class="media" style="border-left: 5px solid #01BC8C">
+                                    <li class="media" style="border-left: 5px solid rgb(1,188,140)">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px">
@@ -745,8 +747,12 @@
                     <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
                     <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
                             :</strong></label>
-                    <input type="radio" value="1" name="anonymous"> @lang('common.yes')
-                    <input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
+                    <label>
+                        <input type="radio" value="1" name="anonymous">
+                    </label> @lang('common.yes')
+                    <label>
+                        <input type="radio" value="0" checked="checked" name="anonymous">
+                    </label> @lang('common.no')
                 </form>
             </div>
             {{-- Comments --}}
@@ -786,7 +792,7 @@
           Swal.fire({
             showConfirmButton: false,
             showCloseButton: true,
-            background: '#232323',
+            background: 'rgb(35,35,35)',
             width: 970,
             html: '<iframe width="930" height="523" src="{{ $meta->videoTrailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             title: '<i style="color: #a5a5a5;">{{ $meta->title }}</i>',
@@ -806,7 +812,7 @@
               Swal.fire({
                 showConfirmButton: false,
                 showCloseButton: true,
-                background: '#232323',
+                background: 'rgb(35,35,35)',
                 width: 970,
                 html: '<iframe width="930" height="523" src="{{ $meta->videos[0] }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
                 title: '<i style="color: #a5a5a5;">{{ $meta->name }}</i>',

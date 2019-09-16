@@ -60,7 +60,7 @@
                                 </div>
                             @else
                                 @foreach ($article->comments as $comment)
-                                    <li class="media" style="border-left: 5px solid rgb(1,188,140);">
+                                    <li class="media" style="border-left: 5px solid #01bc8c;">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
@@ -117,8 +117,12 @@
                     <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
                     <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
                             :</strong></label>
-                    <input type="radio" value="1" name="anonymous"> @lang('common.yes')
-                    <input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
+                    <label>
+                        <input type="radio" value="1" name="anonymous">
+                    </label> @lang('common.yes')
+                    <label>
+                        <input type="radio" value="0" checked="checked" name="anonymous">
+                    </label> @lang('common.no')
                 </form>
             </div>
         </div>

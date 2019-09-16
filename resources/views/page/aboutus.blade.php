@@ -23,7 +23,7 @@
                 <div class="aboutus_content">
                     <div class="content">
                         <h2>@lang('page.aboutus-header')</h2>
-                        <img src="{{ url('img/deadpool.png') }}" width="902" height="298">
+                        <img src="{{ url('img/deadpool.png') }}" alt="deadpool" width="902" height="298">
 
                         <h3>@lang('page.aboutus-welcome') {{ config('other.title') }}</h3>
                         <p>{!! trans('page.aboutus-welcome-desc', ['title' => config('other.title')]) !!}</p>

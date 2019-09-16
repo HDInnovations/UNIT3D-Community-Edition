@@ -27,7 +27,9 @@
             @csrf
             <div class="form-group">
                 <label for="name">Page Name</label>
-                <input type="text" name="name" class="form-control" value="{{ $page->name }}">
+                <label>
+                    <input type="text" name="name" class="form-control" value="{{ $page->name }}">
+                </label>
             </div>
 
             <div class="form-group">

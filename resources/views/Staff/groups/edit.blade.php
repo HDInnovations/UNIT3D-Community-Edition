@@ -51,106 +51,158 @@
 
                     <tbody>
                     <tr>
-                        <td><input type="text" name="name" value="{{ $group->name }}" class="form-control"/></td>
-                        <td><input type="text" name="position" value="{{ $group->position }}"
-                                   class="form-control"/>
+                        <td><label>
+                                <input type="text" name="name" value="{{ $group->name }}" class="form-control"/>
+                            </label></td>
+                        <td><label>
+                                <input type="text" name="position" value="{{ $group->position }}"
+                                           class="form-control"/>
+                            </label>
                         </td>
-                        <td><input type="text" name="level" value="{{ $group->level }}"
-                                   class="form-control"/>
+                        <td><label>
+                                <input type="text" name="level" value="{{ $group->level }}"
+                                           class="form-control"/>
+                            </label>
                         </td>
-                        <td><input type="text" name="color" value="{{ $group->color }}" class="form-control"/>
+                        <td><label>
+                                <input type="text" name="color" value="{{ $group->color }}" class="form-control"/>
+                            </label>
                         </td>
-                        <td><input type="text" name="icon" value="{{ $group->icon }}" class="form-control"/></td>
-                        <td><input type="text" name="effect" value="{{ $group->effect }}" class="form-control"/>
+                        <td><label>
+                                <input type="text" name="icon" value="{{ $group->icon }}" class="form-control"/>
+                            </label></td>
+                        <td><label>
+                                <input type="text" name="effect" value="{{ $group->effect }}" class="form-control"/>
+                            </label>
                         </td>
                         <td>
                             @if ($group->is_internal == 1)
                                 <input type="hidden" name="is_internal" value="0">
-                                <input type="checkbox" name="is_internal" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_internal" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_internal" value="0">
-                                <input type="checkbox" name="is_internal" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_internal" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->is_modo == 1)
                                 <input type="hidden" name="is_modo" value="0">
-                                <input type="checkbox" name="is_modo" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_modo" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_modo" value="0">
-                                <input type="checkbox" name="is_modo" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_modo" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->is_admin == 1)
                                 <input type="hidden" name="is_admin" value="0">
-                                <input type="checkbox" name="is_admin" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_admin" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_admin" value="0">
-                                <input type="checkbox" name="is_admin" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_admin" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->is_owner == 1)
                                 <input type="hidden" name="is_owner" value="0">
-                                <input type="checkbox" name="is_owner" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_owner" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_owner" value="0">
-                                <input type="checkbox" name="is_owner" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_owner" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->is_trusted == 1)
                                 <input type="hidden" name="is_trusted" value="0">
-                                <input type="checkbox" name="is_trusted" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_trusted" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_trusted" value="0">
-                                <input type="checkbox" name="is_trusted" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_trusted" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->is_immune == 1)
                                 <input type="hidden" name="is_immune" value="0">
-                                <input type="checkbox" name="is_immune" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_immune" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_immune" value="0">
-                                <input type="checkbox" name="is_immune" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_immune" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->is_freeleech == 1)
                                 <input type="hidden" name="is_freeleech" value="0">
-                                <input type="checkbox" name="is_freeleech" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_freeleech" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_freeleech" value="0">
-                                <input type="checkbox" name="is_freeleech" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_freeleech" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->is_incognito == 1)
                                 <input type="hidden" name="is_incognito" value="0">
-                                <input type="checkbox" name="is_incognito" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="is_incognito" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="is_incognito" value="0">
-                                <input type="checkbox" name="is_incognito" value="1">
+                                <label>
+                                    <input type="checkbox" name="is_incognito" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->can_upload == 1)
                                 <input type="hidden" name="can_upload" value="0">
-                                <input type="checkbox" name="can_upload" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="can_upload" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="can_upload" value="0">
-                                <input type="checkbox" name="can_upload" value="1">
+                                <label>
+                                    <input type="checkbox" name="can_upload" value="1">
+                                </label>
                             @endif
                         </td>
                         <td>
                             @if ($group->autogroup == 1)
                                 <input type="hidden" name="autogroup" value="0">
-                                <input type="checkbox" name="autogroup" value="1" checked>
+                                <label>
+                                    <input type="checkbox" name="autogroup" value="1" checked>
+                                </label>
                             @else
                                 <input type="hidden" name="autogroup" value="0">
-                                <input type="checkbox" name="autogroup" value="1">
+                                <label>
+                                    <input type="checkbox" name="autogroup" value="1">
+                                </label>
                             @endif
                         </td>
                     </tr>

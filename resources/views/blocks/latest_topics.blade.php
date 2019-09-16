@@ -8,30 +8,30 @@
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th width="40%" class="torrents-filename">@lang('forum.forum')</th>
-                    <th width="20%" class="torrents-filename">@lang('forum.topic')</th>
-                    <th width="20%">@lang('forum.author')</th>
-                    <th width="20%">@lang('forum.created')</th>
+                    <th class="torrents-filename">@lang('forum.forum')</th>
+                    <th class="torrents-filename">@lang('forum.topic')</th>
+                    <th>@lang('forum.author')</th>
+                    <th>@lang('forum.created')</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($topics as $topic)
                     @if ($topic->viewable())
-                        <tr class="">
-                            <td width="40%">
+                        <tr>
+                            <td>
                                 <a href="{{ route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id]) }}">
                                     {{ $topic->forum->name }}
                                 </a>
                             </td>
 
-                            <td width="20%">
+                            <td>
                                 <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}">
                                     {{ $topic->name }}
                                 </a>
                             </td>
 
-                            <td width="20%">{{ $topic->first_post_user_username }}</td>
-                            <td width="20%">{{ $topic->created_at->diffForHumans() }}</td>
+                            <td>{{ $topic->first_post_user_username }}</td>
+                            <td>{{ $topic->created_at->diffForHumans() }}</td>
                         </tr>
                     @endif
                 @endforeach

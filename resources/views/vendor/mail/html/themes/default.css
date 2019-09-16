@@ -6,8 +6,8 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 }
 
 body {
-    background-color: rgb(242, 244, 246);
-    color: rgb(116, 120, 126);
+    background-color: #f2f4f6;
+    color: #74787e;
     height: 100%;
     line-height: 1.4;
     margin: 0;
@@ -24,7 +24,7 @@ blockquote {
 }
 
 a {
-    color: rgb(56, 105, 212);
+    color: #3869d4;
 }
 
 a img {
@@ -34,7 +34,7 @@ a img {
 /* Typography */
 
 h1 {
-    color: rgb(47, 49, 51);
+    color: #2f3133;
     font-size: 19px;
     font-weight: bold;
     margin-top: 0;
@@ -42,7 +42,7 @@ h1 {
 }
 
 h2 {
-    color: rgb(47, 49, 51);
+    color: #2f3133;
     font-size: 16px;
     font-weight: bold;
     margin-top: 0;
@@ -50,7 +50,7 @@ h2 {
 }
 
 h3 {
-    color: rgb(47, 49, 51);
+    color: #2f3133;
     font-size: 14px;
     font-weight: bold;
     margin-top: 0;
@@ -58,7 +58,7 @@ h3 {
 }
 
 p {
-    color: rgb(116, 120, 126);
+    color: #74787e;
     font-size: 16px;
     line-height: 1.5em;
     margin-top: 0;
@@ -76,7 +76,7 @@ img {
 /* Layout */
 
 .wrapper {
-    background-color: rgb(245, 248, 250);
+    background-color: #f5f8fa;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -102,19 +102,19 @@ img {
 }
 
 .header a {
-    color: rgb(187, 191, 195);
+    color: #bbbfc3;
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
-    text-shadow: 0 1px 0 #ffffff;
+    text-shadow: 0 1px 0 rgb(255, 255, 255);
 }
 
 /* Body */
 
 .body {
-    background-color: rgb(255, 255, 255);
-    border-bottom: 1px solid rgb(237, 239, 242);
-    border-top: 1px solid rgb(237, 239, 242);
+    background-color: #ffffff;
+    border-bottom: 1px solid #edeff2;
+    border-top: 1px solid #edeff2;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -124,7 +124,7 @@ img {
 }
 
 .inner-body {
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
     margin: 0 auto;
     padding: 0;
     width: 570px;
@@ -136,7 +136,7 @@ img {
 /* Subcopy */
 
 .subcopy {
-    border-top: 1px solid rgb(237, 239, 242);
+    border-top: 1px solid #edeff2;
     margin-top: 25px;
     padding-top: 25px;
 }
@@ -158,7 +158,7 @@ img {
 }
 
 .footer p {
-    color: rgb(174, 174, 174);
+    color: #aeaeae;
     font-size: 12px;
     text-align: center;
 }
@@ -174,12 +174,12 @@ img {
 }
 
 .table th {
-    border-bottom: 1px solid rgb(237, 239, 242);
+    border-bottom: 1px solid #edeff2;
     padding-bottom: 8px;
 }
 
 .table td {
-    color: rgb(116, 120, 126);
+    color: #74787e;
     font-size: 15px;
     line-height: 18px;
     padding: 10px 0;
@@ -204,34 +204,34 @@ img {
 .button {
     border-radius: 3px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     display: inline-block;
     text-decoration: none;
     -webkit-text-size-adjust: none;
 }
 
 .button-blue {
-    background-color: rgb(48, 151, 209);
-    border-top: 10px solid rgb(48, 151, 209);
-    border-right: 18px solid rgb(48, 151, 209);
-    border-bottom: 10px solid rgb(48, 151, 209);
-    border-left: 18px solid rgb(48, 151, 209);
+    background-color: #3097d1;
+    border-top: 10px solid #3097d1;
+    border-right: 18px solid #3097d1;
+    border-bottom: 10px solid #3097d1;
+    border-left: 18px solid #3097d1;
 }
 
 .button-green {
-    background-color: rgb(42, 178, 123);
-    border-top: 10px solid rgb(42, 178, 123);
-    border-right: 18px solid rgb(42, 178, 123);
-    border-bottom: 10px solid rgb(42, 178, 123);
-    border-left: 18px solid rgb(42, 178, 123);
+    background-color: #2ab27b;
+    border-top: 10px solid #2ab27b;
+    border-right: 18px solid #2ab27b;
+    border-bottom: 10px solid #2ab27b;
+    border-left: 18px solid #2ab27b;
 }
 
 .button-red {
-    background-color: rgb(191, 83, 41);
-    border-top: 10px solid rgb(191, 83, 41);
-    border-right: 18px solid rgb(191, 83, 41);
-    border-bottom: 10px solid rgb(191, 83, 41);
-    border-left: 18px solid rgb(191, 83, 41);
+    background-color: #bf5329;
+    border-top: 10px solid #bf5329;
+    border-right: 18px solid #bf5329;
+    border-bottom: 10px solid #bf5329;
+    border-left: 18px solid #bf5329;
 }
 
 /* Panels */
@@ -241,7 +241,7 @@ img {
 }
 
 .panel-content {
-    background-color: rgb(237, 239, 242);
+    background-color: #edeff2;
     padding: 16px;
 }
 
@@ -257,8 +257,8 @@ img {
 /* Promotions */
 
 .promotion {
-    background-color: rgb(255, 255, 255);
-    border: 2px dashed rgb(155, 162, 171);
+    background-color: #ffffff;
+    border: 2px dashed #9ba2ab;
     margin: 25px 0;
     padding: 24px;
     width: 100%;

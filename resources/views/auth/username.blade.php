@@ -61,8 +61,8 @@
         <!-- SignUp Form -->
         <form class="form-horizontal" role="form" method="POST" action="{{ route('username.email') }}">
             @csrf
-            <input type="email" id="email" class="fadeIn third" name="email" placeholder="@lang('auth.email')"
-                   required autofocus>
+            <label for="email"></label><input type="email" id="email" class="fadeIn third" name="email" placeholder="@lang('auth.email')"
+                                              required autofocus>
             @if (config('captcha.enabled') == true)
                 <div class="text-center">
                     <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div>

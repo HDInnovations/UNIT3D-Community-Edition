@@ -57,12 +57,12 @@
 
         <form role="form" method="POST" action="{{ route('register', ['code' => $code]) }}">
             @csrf
-            <input type="text" id="username" class="fadeIn second" name="username"
-                   placeholder="@lang('auth.username')" required autofocus>
-            <input type="email" id="email" class="fadeIn third" name="email" placeholder="@lang('auth.email')"
-                   required>
-            <input type="password" id="password" class="fadeIn third" name="password"
-                   placeholder="@lang('auth.password')" required>
+            <label for="username"></label><input type="text" id="username" class="fadeIn second" name="username"
+                                                 placeholder="@lang('auth.username')" required autofocus>
+            <label for="email"></label><input type="email" id="email" class="fadeIn third" name="email" placeholder="@lang('auth.email')"
+                                              required>
+            <label for="password"></label><input type="password" id="password" class="fadeIn third" name="password"
+                                                 placeholder="@lang('auth.password')" required>
             @if (config('captcha.enabled') == true)
                 <div class="text-center">
                     <div class="form-group row">

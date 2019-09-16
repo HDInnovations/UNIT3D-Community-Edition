@@ -20,8 +20,8 @@
 @section('content')
     <div class="box container">
         <form action="{{route('userSearch')}}" method="GET" class="form-inline pull-right">
-            <input type="text" name="username" id="username" size="25" placeholder="@lang('user.search')"
-                   class="form-control">
+            <label for="username"></label><input type="text" name="username" id="username" size="25" placeholder="@lang('user.search')"
+                                                 class="form-control">
             <button type="submit" class="btn btn-success">
                 <i class="{{ config('other.font-awesome') }} fa-search"></i> Search
             </button>

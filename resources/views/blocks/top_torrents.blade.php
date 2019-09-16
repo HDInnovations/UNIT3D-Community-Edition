@@ -62,7 +62,7 @@
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $new->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     style="padding-bottom: 6px;">
+                                                     style="padding-bottom: 6px;" alt="{{ $new->category->name }}">
                                             </div>
                                         </a>
                                     @else
@@ -135,7 +135,7 @@
                                     @if ($new->internal == 1)
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                                data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
+                                                data-original-title='Internal Release' style="color: #baaf92;"></i> Internal
                                         </span>
                                     @endif
 
@@ -283,7 +283,7 @@
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $seed->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     style="padding-bottom: 6px;">
+                                                     style="padding-bottom: 6px;" alt="{{ $seed->category->name }}">
                                             </div>
                                         </a>
                                     @else
@@ -356,7 +356,7 @@
                                     @if ($seed->internal == 1)
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                                data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
+                                                data-original-title='Internal Release' style="color: #baaf92;"></i> Internal
                                         </span>
                                     @endif
 
@@ -505,7 +505,7 @@
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $leech->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     style="padding-bottom: 6px;">
+                                                     style="padding-bottom: 6px;" alt="{{ $leech->category->name }}">
                                             </div>
                                         </a>
                                     @else
@@ -578,7 +578,7 @@
                                     @if ($leech->internal == 1)
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                                data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
+                                                data-original-title='Internal Release' style="color: #baaf92;"></i> Internal
                                         </span>
                                     @endif
 
@@ -727,7 +727,7 @@
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $d->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     style="padding-bottom: 6px;">
+                                                     style="padding-bottom: 6px;" alt="{{ $d->category->name }}">
                                             </div>
                                         </a>
                                     @else
@@ -800,7 +800,7 @@
                                     @if ($d->internal == 1)
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                                data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
+                                                data-original-title='Internal Release' style="color: #baaf92;"></i> Internal
                                         </span>
                                     @endif
 
@@ -948,7 +948,7 @@
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $d->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                     style="padding-bottom: 6px;">
+                                                     style="padding-bottom: 6px;" alt="{{ $d->category->name }}">
                                             </div>
                                         </a>
                                     @else
@@ -1021,7 +1021,7 @@
                                     @if ($d->internal == 1)
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                                data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
+                                                data-original-title='Internal Release' style="color: #baaf92;"></i> Internal
                                         </span>
                                     @endif
 

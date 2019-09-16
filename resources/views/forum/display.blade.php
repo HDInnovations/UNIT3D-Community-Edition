@@ -29,8 +29,8 @@
             <input type="hidden" name="sorting" value="created_at">
             <input type="hidden" name="direction" value="desc">
             <input type="hidden" name="category" value="{{ $forum->id }}">
-            <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.category-quick-search')"
-                   class="form-control">
+            <label for="name"></label><input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.category-quick-search')"
+                                             class="form-control">
         </form>
         <div class="forum-categories">
             <table class="table table-bordered table-hover">
@@ -83,7 +83,7 @@
                     @foreach ($topics as $t)
                         <tr>
                             @if ($t->pinned == 0)
-                                <td class="f-display-topic-icon"><img src="{{ url('img/f_icon_read.png') }}"></td>
+                                <td class="f-display-topic-icon"><img src="{{ url('img/f_icon_read.png') }}" alt="read"></td>
                             @else
                                 <td class="f-display-topic-icon"><span class="text-green"><i
                                                 class="{{ config('other.font-awesome') }} fa-thumbtack fa-2x"></i></span></td>

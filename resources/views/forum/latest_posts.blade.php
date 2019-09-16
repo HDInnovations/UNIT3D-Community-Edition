@@ -27,8 +27,10 @@
         <form role="form" method="GET" action="{{ route('forum_search_form') }}">
             <input type="hidden" name="sorting" value="created_at">
             <input type="hidden" name="direction" value="desc">
-            <input type="text" name="body" value="{{ (isset($params) && is_array($params) && array_key_exists('body',$params) ? $params['body'] : '') }}" placeholder="@lang('forum.post-quick-search')"
-                   class="form-control">
+            <label>
+                <input type="text" name="body" value="{{ (isset($params) && is_array($params) && array_key_exists('body',$params) ? $params['body'] : '') }}" placeholder="@lang('forum.post-quick-search')"
+                       class="form-control">
+            </label>
         </form>
         <div class="forum-categories">
             <table class="table table-bordered table-hover">

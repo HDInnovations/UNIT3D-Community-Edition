@@ -60,22 +60,24 @@
                 @foreach ($results as $f)
                     <tr>
                     @if ($f->user->image != null)
-                        <td width="10%"><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
-                                <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
+                        <td><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                                <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar"
+                                     data-toggle="tooltip"
                                      title="{{ $f->user->username }}" height="50px"
                                      data-original-title="{{ $f->user->username }}">
                             </a></td>
                     @else
-                        <td width="10%"><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
-                            <img src="{{ url('img/profile.png') }}" data-toggle="tooltip"
+                        <td><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                            <img src="{{ url('img/profile.png') }}" alt="avatar"
+                                 data-toggle="tooltip"
                                  title="{{ $f->user->username }}" height="50px"
                                  data-original-title="{{ $f->user->username }}">
                             </a></td>
                     @endif
-                        <td width="70%"><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                        <td><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
                                 <span class="badge-user text-bold" style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
                             </a></td>
-                        <td width="20%">{{ $f->created_at }}</td>
+                        <td>{{ $f->created_at }}</td>
                     </tr>
                 @endforeach
                 </tbody>

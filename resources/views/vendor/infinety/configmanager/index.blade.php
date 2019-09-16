@@ -28,26 +28,28 @@
 	        @php
         		$optgroup = false;
         	@endphp
-	        <select class="file-select">
-	        	<option value="">Select a config file</option>
-	        	@foreach ($configFiles as $file)
-	        	@if ($file->parent != null) {
-		        	@php
-		        		$optgroup = true;
-		        	@endphp
-					<optgroup label="{{ $file->parent }}">
-				@else
-					@if ($optgroup == true)
-						</optgroup>
-					@endif
-					@php
-		        		$optgroup = true;
-		        	@endphp
-	        	@endif
-				<option value="{{ ($file->parent) ? $file->parent.'/'.$file->name : $file->name }}" {{ (isset($fileData) && $fileData->path == $file->path) ? 'selected' : '' }}>{{ $file->name }}</option>
-	        	@endforeach
-	        </select>
-	    </div>
+            <label>
+                <select class="file-select">
+                    <option value="">Select a config file</option>
+                    @foreach ($configFiles as $file)
+                    @if ($file->parent != null) {
+                        @php
+                            $optgroup = true;
+                        @endphp
+                        <optgroup label="{{ $file->parent }}">
+                    @else
+                        @if ($optgroup == true)
+                            </optgroup>
+                        @endif
+                        @php
+                            $optgroup = true;
+                        @endphp
+                    @endif
+                    <option value="{{ ($file->parent) ? $file->parent.'/'.$file->name : $file->name }}" {{ (isset($fileData) && $fileData->path == $file->path) ? 'selected' : '' }}>{{ $file->name }}</option>
+                    @endforeach
+                </select>
+            </label>
+        </div>
 	</div>
 
 	@if (isset($fileData))
@@ -89,7 +91,9 @@
 	</div>
 	<div id="content-edit" class="hide">
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="New value…">
+            <label>
+                <input type="text" class="form-control" placeholder="New value…">
+            </label>
         </div>
         <div class="first-step">
 			<button type="submit" id="confirm-new-key" class="btn btn-primary btn-block">@lang('configmanager.actions.confirm')</button>

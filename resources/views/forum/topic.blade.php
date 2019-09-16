@@ -191,7 +191,7 @@
                                     being {{auth()->user()->group->name}}.
                                 </div>
                                 <div class="from-group">
-                                    <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
+                                    <label for="topic-response"></label><textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                             </form>
@@ -202,7 +202,7 @@
                                   action="{{ route('forum_reply',['slug' => $topic->slug, 'id' => $topic->id]) }}">
                                 @csrf
                                 <div class="from-group">
-                                    <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
+                                    <label for="topic-response"></label><textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                             </form>

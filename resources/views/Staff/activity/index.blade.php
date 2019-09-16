@@ -36,7 +36,7 @@
                         <th>URL</th>
                         <th>Method</th>
                         <th>IP</th>
-                        <th width="300px">User Agent</th>
+                        <th>User Agent</th>
                         <th>Username</th>
                         <th>Created On</th>
                         <th>Action</th>

@@ -22,7 +22,7 @@
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center oper-item" style="background-color: {{ $s->color }};">
                             <a href="{{ route('profile', ['username' => $s->username, 'id' => $s->id]) }}"
-                               style="color:rgb(255,255,255);"><h1>{{ $s->username }}</h1></a>
+                               style="color:#ffffff;"><h1>{{ $s->username }}</h1></a>
                             <span class="badge-user">@lang('page.staff-group'): {{ $s->name }}</span>
                             <br>
                             <span class="badge-user">@lang('page.staff-title'): {{ $s->title }}</span>

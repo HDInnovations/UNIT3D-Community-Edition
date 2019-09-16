@@ -110,11 +110,11 @@
                                                           action="{{ route('graveyard.store', ['torrent_id' => $torrent->id]) }}">
                                                         @csrf
                                                         @if (!$history)
-                                                            <input hidden="seedtime" name="seedtime" id="seedtime"
-                                                                   value="{{ config('graveyard.time') }}">
+                                                            <label for="seedtime"></label><input hidden="seedtime" name="seedtime" id="seedtime"
+                                                                                                 value="{{ config('graveyard.time') }}">
                                                         @else
-                                                            <input hidden="seedtime" name="seedtime" id="seedtime"
-                                                                   value="{{ $history->seedtime + config('graveyard.time') }}">
+                                                            <label for="seedtime"></label><input hidden="seedtime" name="seedtime" id="seedtime"
+                                                                                                 value="{{ $history->seedtime + config('graveyard.time') }}">
                                                         @endif
                                                         <button type="submit" class="btn btn-success">
                                                             @lang('graveyard.resurrect') !

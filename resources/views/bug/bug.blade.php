@@ -21,46 +21,56 @@
                         <td class="rowhead">@lang('common.reporter'):</td>
                         <td>@lang('bug.enter-username')
                             <br>
-                            <input type="text" class="form-control" name="username"
-                                   value="{{ auth()->user()->username }}" size="60" required>
+                            <label>
+                                <input type="text" class="form-control" name="username"
+                                       value="{{ auth()->user()->username }}" size="60" required>
+                            </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="rowhead">@lang('common.email'):</td>
                         <td>@lang('bug.enter-email')
                             <br>
-                            <input type="email" class="form-control" name="email" value="{{ auth()->user()->email }}"
-                                   size="60" required>
+                            <label>
+                                <input type="email" class="form-control" name="email" value="{{ auth()->user()->email }}"
+                                       size="60" required>
+                            </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="rowhead">@lang('common.title'):</td>
                         <td>@lang('bug.enter-title')
                             <br>
-                            <input type="text" class="form-control" name="title" size="60" required>
+                            <label>
+                                <input type="text" class="form-control" name="title" size="60" required>
+                            </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="rowhead">@lang('common.description'):</td>
                         <td>@lang('bug.enter-description')
                             <br>
-                            <textarea cols="60" rows="10" class="form-control" name="problem"></textarea>
+                            <label>
+                                <textarea cols="60" rows="10" class="form-control" name="problem"></textarea>
+                            </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="rowhead">@lang('bug.priority'):</td>
                         <td>@lang('bug.priority-description')
                             <br>
-                            <select class="form-control" name="priority">
-                                <option value="0">@lang('common.select')</option>
-                                <option value="low">@lang('bug.low')</option>
-                                <option value="high">@lang('bug.high')</option>
-                                <option value="veryhigh">@lang('bug.very-high')</option>
-                            </select>
+                            <label>
+                                <select class="form-control" name="priority">
+                                    <option value="0">@lang('common.select')</option>
+                                    <option value="low">@lang('bug.low')</option>
+                                    <option value="high">@lang('bug.high')</option>
+                                    <option value="veryhigh">@lang('bug.very-high')</option>
+                                </select>
+                            </label>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center">
+                        <td colspan="2">
                             <button class="btn btn-labeled btn-danger" type="submit"><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-bug"></i></span>@lang('common.submit')</button>
                         </td>

@@ -28,22 +28,30 @@
             @csrf
             <div class="form-group">
                 <label for="users">@lang('common.username')</label>
-                <input name="username" class="form-control" placeholder="@lang('common.username')" required>
+                <label>
+                    <input name="username" class="form-control" placeholder="@lang('common.username')" required>
+                </label>
             </div>
 
             <div class="form-group">
                 <label for="name">BON</label>
-                <input type="number" class="form-control" name="seedbonus" value="0">
+                <label>
+                    <input type="number" class="form-control" name="seedbonus" value="0">
+                </label>
             </div>
 
             <div class="form-group">
                 <label for="name">Invites</label>
-                <input type="number" class="form-control" name="invites" value="0">
+                <label>
+                    <input type="number" class="form-control" name="invites" value="0">
+                </label>
             </div>
 
             <div class="form-group">
                 <label for="name">FL Tokens</label>
-                <input type="number" class="form-control" name="fl_tokens" value="0">
+                <label>
+                    <input type="number" class="form-control" name="fl_tokens" value="0">
+                </label>
             </div>
 
             <button type="submit" class="btn btn-default">Send</button>

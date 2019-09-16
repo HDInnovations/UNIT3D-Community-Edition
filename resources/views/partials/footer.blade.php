@@ -72,7 +72,7 @@
     </div>
 </div>
 
-<div class="subfooter text-center"style="background-color: rgb(46,46,46);">
+<div class="subfooter text-center"style="background-color: #2e2e2e;">
     <div class="container">
         <div class="subfooter-inner">
             <div class="row">

@@ -54,7 +54,7 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
                         <div class="col-sm-9 fatten-me">
-                            <input type="text" class="form-control userFilter" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                            <label for="search"></label><input type="text" class="form-control userFilter" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
@@ -95,7 +95,7 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
-                            <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
+                            <label for="sorting"></label><select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
                                 <option value="created_at">@lang('torrent.created_at')</option>
                                 <option value="name">@lang('torrent.name')</option>
                                 <option value="agent">@lang('torrent.client')</option>
@@ -115,7 +115,7 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
-                            <select id="direction" name="direction" trigger="change" class="form-control userFilter">
+                            <label for="direction"></label><select id="direction" name="direction" trigger="change" class="form-control userFilter">
                                 <option value="desc">@lang('common.descending')</option>
                                 <option value="asc">@lang('common.ascending')</option>
                             </select>

@@ -37,20 +37,22 @@
                 @csrf
                 <div class="form-group">
                     <label for="forum_name">@lang('forum.topic-name')</label>
-                    <input id="name" type="text" name="name" maxlength="75" class="form-control"
-                           placeholder="@lang('forum.topic-title')" value="{{ $topic->name }}" required>
+                    <label for="name"></label><input id="name" type="text" name="name" maxlength="75" class="form-control"
+                                                     placeholder="@lang('forum.topic-title')" value="{{ $topic->name }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="forum_id">@lang('forum.forum')</label>
-                    <select name="forum_id" class="form-control">
-                        <option value="{{ $topic->forum_id }}" selected>{{ $topic->forum->name  }}
-                            (@lang('forum.current'))
-                        </option>
-                        @foreach ($categories as $c)
-                            <option value="{{ $c->id }}">{{ $c->name }}</option>
-                        @endforeach
-                    </select>
+                    <label>
+                        <select name="forum_id" class="form-control">
+                            <option value="{{ $topic->forum_id }}" selected>{{ $topic->forum->name  }}
+                                (@lang('forum.current'))
+                            </option>
+                            @foreach ($categories as $c)
+                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                            @endforeach
+                        </select>
+                    </label>
                 </div>
 
                 <button type="submit" name="post" value="true" id="post"

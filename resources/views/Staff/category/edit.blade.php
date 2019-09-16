@@ -28,15 +28,21 @@
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" value="{{ $category->name }}">
+                <label>
+                    <input type="text" class="form-control" name="name" value="{{ $category->name }}">
+                </label>
             </div>
             <div class="form-group">
                 <label for="name">Position</label>
-                <input type="text" class="form-control" name="position" value="{{ $category->position }}">
+                <label>
+                    <input type="text" class="form-control" name="position" value="{{ $category->position }}">
+                </label>
             </div>
             <div class="form-group">
                 <label for="name">Icon (FontAwesome)</label>
-                <input type="text" class="form-control" name="icon" value="{{ $category->icon }}">
+                <label>
+                    <input type="text" class="form-control" name="icon" value="{{ $category->icon }}">
+                </label>
             </div>
             <div class="form-group">
                 <label for="image">Select an Image If Not Using A FontAwesome Icon</label>

@@ -37,9 +37,10 @@
                         <div class="card_alt">
                             <div class="body_poster">
                                 @if($t->meta && $t->meta->poster)
-                                    <img src="{{ $t->meta->poster }}" class="show-poster" data-image='<img src="{{ $t->meta->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
+                                    <img src="{{ $t->meta->poster }}" class="show-poster" alt="@lang('torrent.poster')"
+                                         data-image='<img src="{{ $t->meta->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
                                 @else
-                                    <img src="https://via.placeholder.com/600x900" />
+                                    <img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" />
                                 @endif
                             </div>
                             <div class="body_grouping" style="width: 100%;">
@@ -105,7 +106,7 @@
                                                                 <div class="text-center">
                                                                     <img src="{{ url('files/img/' . $current->category->image) }}" data-toggle="tooltip"
                                                                          data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                                         style="padding-bottom: 6px;">
+                                                                         style="padding-bottom: 6px;" alt="{{ $current->category->name }}">
                                                                 </div>
                                                             </a>
                                                         @else
@@ -176,7 +177,7 @@
                                                                         @if ($current->internal == 1)
                                                                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.internal-release')' style="color: rgb(186,175,146);"></i> @lang('torrent.internal')
+                                   data-original-title='@lang('torrent.internal-release')' style="color: #baaf92;"></i> @lang('torrent.internal')
                             </span>
                                                                         @endif
                                                                         @if ($current->stream == 1)

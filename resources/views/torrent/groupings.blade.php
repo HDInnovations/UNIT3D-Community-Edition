@@ -37,7 +37,7 @@
                     <div class="container mt-5">
                         <div class="mx-0 mt-5 form-group fatten-me">
                             <div>
-                                <input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
+                                <label for="query"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
                             </div>
                         </div>
                     </div>
@@ -52,14 +52,14 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                            <label for="search"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
                         </div>
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.description')</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="description" placeholder="@lang('torrent.description')">
+                            <label for="description"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="description" placeholder="@lang('torrent.description')">
                         </div>
                     </div>
 
@@ -76,26 +76,26 @@
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="imdb" placeholder="IMDB #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="tvdb" placeholder="TVDB #">
+                            <label for="tvdb"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="tvdb" placeholder="TVDB #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="tmdb" placeholder="TMDB #">
+                            <label for="tmdb"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="tmdb" placeholder="TMDB #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="mal" placeholder="MAL #">
+                            <label for="mal"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="mal" placeholder="MAL #">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="igdb" placeholder="IGDB #">
+                            <label for="igdb"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="igdb" placeholder="IGDB #">
                         </div>
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="release_year" class="mt-5 col-sm-1 label label-default fatten-me">Year Range</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup"id="start_year" placeholder="Start Year">
+                            <label for="start_year"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="start_year" placeholder="Start Year">
                         </div>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="end_year" placeholder="End Year">
+                            <label for="end_year"></label><input type="text" class="form-control facetedSearch" trigger="keyup" id="end_year" placeholder="End Year">
                         </div>
                     </div>
 
@@ -179,7 +179,7 @@
                         </span>
                             <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
+                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span> @lang('torrent.internal')
                             </label>
                         </span>
                         </div>
@@ -208,7 +208,7 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
-                            <select id="sorting" trigger="change" name="sorting" class="form-control facetedSearch">
+                            <label for="sorting"></label><select id="sorting" trigger="change" name="sorting" class="form-control facetedSearch">
                                 @foreach ($repository->sorting() as $value => $sort)
                                     <option value="{{ $value }}">{{ $sort }}</option>
                                 @endforeach
@@ -218,7 +218,7 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
-                            <select id="direction" trigger="change" name="direction" class="form-control facetedSearch">
+                            <label for="direction"></label><select id="direction" trigger="change" name="direction" class="form-control facetedSearch">
                                 @foreach ($repository->direction() as $value => $dir)
                                     <option value="{{ $value }}">{{ $dir }}</option>
                                 @endforeach
@@ -271,9 +271,11 @@
                                         <div class="card_alt">
                                             <div class="body_poster">
                                                 @if($t->meta && $t->meta->poster)
-                                                    <img src="{{ $t->meta->poster }}" class="show-poster" data-image='<img src="{{ $t->meta->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
+                                                    <img src="{{ $t->meta->poster }}" class="show-poster" alt="@lang('torrent.poster')"
+                                                         data-image='<img src="{{ $t->meta->poster }}" alt="@lang('torrent.poster')"
+                                                         style="height: 1000px;">'>
                                                 @else
-                                                    <img src="https://via.placeholder.com/600x900" />
+                                                    <img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" />
                                                 @endif
                                             </div>
                                             <div class="body_grouping" style="width: 100%;">
@@ -337,7 +339,8 @@
                                                                                 @if ($current->category->image != null)
                                                                                     <a href="{{ route('category', ['slug' => $current->category->slug, 'id' => $current->category->id]) }}">
                                                                                         <div class="text-center">
-                                                                                            <img src="{{ url('files/img/' . $current->category->image) }}" data-toggle="tooltip"
+                                                                                            <img src="{{ url('files/img/' . $current->category->image) }}" alt="{{ $current->category->name }}"
+                                                                                                 data-toggle="tooltip"
                                                                                                  data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                                                                  style="padding-bottom: 6px;">
                                                                                         </div>
@@ -410,7 +413,7 @@
                                                                                 @if ($current->internal == 1)
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.internal-release')' style="color: rgb(186,175,146);"></i> @lang('torrent.internal')
+                                   data-original-title='@lang('torrent.internal-release')' style="color: #baaf92;"></i> @lang('torrent.internal')
                             </span>
                                                                                 @endif
                                                                                 @if ($current->stream == 1)

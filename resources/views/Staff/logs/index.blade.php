@@ -16,8 +16,8 @@
 
         a.llv-active {
             z-index: 2;
-            background-color: rgb(245, 245, 245);
-            border-color: rgb(119, 119, 119);
+            background-color: #f5f5f5;
+            border-color: #777777;
         }
 
         .log_file {
@@ -27,8 +27,8 @@
             display: block;
             padding: 10px 15px;
             margin-bottom: -1px;
-            background-color: rgb(255, 255, 255);
-            border: 1px solid rgb(221, 221, 221);
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
         }
     </style>
 

@@ -25,7 +25,7 @@
                     <div class="general media_blocks">
                         <h2>
                             @if ($category->image != null)
-                                <img src="{{ url('files/img/' . $category->image) }}">
+                                <img src="{{ url('files/img/' . $category->image) }}" alt="{{ $category->name }}">
                             @else
                                 <i class="{{ $category->icon }}"></i>
                             @endif

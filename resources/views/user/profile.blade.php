@@ -384,12 +384,12 @@
 
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                             style="width:0%; border-bottom-color: rgb(140,4,8);">
+                             style="width:0%; border-bottom-color: #8c0408;">
                         </div>
                         @php $percent = 100 / config('hitrun.max_warnings'); @endphp
                         @foreach ($warnings as $warning)
                             <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                                 style="width: {{ $percent }}%; border-bottom-color: rgb(140,4,8);">
+                                 style="width: {{ $percent }}%; border-bottom-color: #8c0408;">
                                 {{ strtoupper(trans('user.warning')) }}
                             </div>
                         @endforeach
@@ -434,17 +434,17 @@
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_badge'))
                             @if ($user->getSeeding() >= 150)
-                                <span class="badge-user" style="background-color:rgb(63,182,24); color:#ffffff;" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:#3fb618; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-seeder-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.certified-seeder')!</span>
                             @endif
                             @if ($history->where('actual_downloaded', '>', 0)->count() >= 100)
-                                <span class="badge-user" style="background-color:rgb(255,0,57); color:#ffffff;" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:#ff0039; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-downloader-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> @lang('user.certified-downloader')!</span>
                             @endif
                             @if ($user->getSeedbonus() >= 50000)
-                                <span class="badge-user" style="background-color:rgb(148,0,211); color:#ffffff;" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:#9400d3; color:rgb(255,255,255);" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-banker-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-coins"></i> @lang('user.certified-banker')!</span>
                             @endif
@@ -467,7 +467,7 @@
                                     if($x > 25) { continue; }
                                 @endphp
                                 <img src="/img/badges/{{ $a->details->name }}.png" data-toggle="tooltip" title=""
-                                     height="50px" data-original-title="{{ $a->details->name }}">
+                                     height="50px" data-original-title="{{ $a->details->name }}" alt="{{ $a->details->name }}">
                                 @php
                                     $x++;
                                 @endphp
@@ -488,13 +488,15 @@
                                     <a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
                                         <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
                                              title="{{ $f->user->username }}" height="50px"
-                                             data-original-title="{{ $f->user->username }}">
+                                             data-original-title="{{ $f->user->username }}"
+                                             alt="{{ $f->user->username }}">
                                     </a>
                                 @else
                                     <a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
                                         <img src="{{ url('img/profile.png') }}" data-toggle="tooltip"
                                              title="{{ $f->user->username }}" height="50px"
-                                             data-original-title="{{ $f->user->username }}">
+                                             data-original-title="{{ $f->user->username }}"
+                                             alt="{{ $f->user->username }}">
                                     </a>
                                 @endif
                             @endforeach

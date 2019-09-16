@@ -61,62 +61,76 @@
 
                 <div class="form-group">
                     <label for="name">@lang('torrent.title')</label>
-                    <input type="text" name="name" id="title" class="form-control" value="{{ old('name') ?? $title }}" required>
+                    <label for="title"></label><input type="text" name="name" id="title" class="form-control" value="{{ old('name') ?? $title }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="category_id">@lang('torrent.category')</label>
-                    <select name="category_id" class="form-control">
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" @if (old('category_id') == $category->id) selected="selected" @endif>{{ $category->name }}</option>
-                        @endforeach
-                    </select>
+                    <label>
+                        <select name="category_id" class="form-control">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" @if (old('category_id') == $category->id) selected="selected" @endif>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="type">@lang('torrent.type')</label>
-                    <select name="type" class="form-control">
-                        @foreach ($types as $type)
-                            <option value="{{ $type->name }}" @if (old('type') == $type->name) selected="selected" @endif>{{ $type->name }}</option>
-                        @endforeach
-                    </select>
+                    <label>
+                        <select name="type" class="form-control">
+                            @foreach ($types as $type)
+                                <option value="{{ $type->name }}" @if (old('type') == $type->name) selected="selected" @endif>{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="name">IMDB ID <b>(@lang('request.required'))</b></label>
-                    <input type="number" name="imdb" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
+                    <label>
+                        <input type="number" name="imdb" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
-                    <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
+                    <label>
+                        <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="name">TVDB ID (@lang('torrent.optional'))</label>
-                    <input type="number" name="tvdb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
+                    <label>
+                        <input type="number" name="tvdb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="name">MAL ID (@lang('torrent.optional'))</label>
-                    <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
+                    <label>
+                        <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
-                    <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
+                    <label>
+                        <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
+                    </label>
                 </div>
 
                 <div class="form-group">
                     <label for="description">@lang('torrent.description')</label>
-                    <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control">
+                    <label for="upload-form-description"></label><textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control">
                         {{ old('description') }}
                     </textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="mediainfo">@lang('torrent.media-info-parser')</label>
-                    <textarea id="upload-form-description" name="mediainfo" cols="30" rows="10" class="form-control" placeholder="@lang('torrent.media-info-paste')">
+                    <label for="upload-form-description"></label><textarea id="upload-form-description" name="mediainfo" cols="30" rows="10" class="form-control" placeholder="@lang('torrent.media-info-paste')">
                         {{ old('mediainfo') }}
                     </textarea>
                 </div>
