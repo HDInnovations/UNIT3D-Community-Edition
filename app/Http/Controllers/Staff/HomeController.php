@@ -52,15 +52,8 @@ class HomeController extends Controller
         $seeders = Peer::where('seeder', '=', 1)->count();
         $leechers = Peer::where('seeder', '=', 0)->count();
 
-        // Seedbox Info
-        $seedboxes = Seedbox::count();
-        $highspeed_users = Seedbox::count();
-        $highspeed_torrents = Torrent::where('highspeed', '=', 1)->count();
-
-        // User Info
-        $reports = Report::count();
-        $unsolved = Report::where('solved', '=', 0)->count();
-        $solved = Report::where('solved', '=', 1)->count();
+        // Reports Info
+        $reports_count = Report::where('solved', '=', 0)->count();
 
         // SSL Info
         try {
@@ -90,12 +83,7 @@ class HomeController extends Controller
             'peers'              => $peers,
             'seeders'            => $seeders,
             'leechers'           => $leechers,
-            'seedboxes'          => $seedboxes,
-            'highspeed_users'    => $highspeed_users,
-            'highspeed_torrents' => $highspeed_torrents,
-            'reports'            => $reports,
-            'unsolved'           => $unsolved,
-            'solved'             => $solved,
+            'reports_count'      => $reports_count,
             'certificate'        => $certificate,
             'uptime'             => $uptime,
             'ram'                => $ram,

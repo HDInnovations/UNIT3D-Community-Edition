@@ -199,6 +199,7 @@
             <li>
                 <a href="{{ route('getReports') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.reports-log')
+                    <span class="badge badge-danger"> {{ $reports_count }} </span>
                 </a>
             </li>
             <li>

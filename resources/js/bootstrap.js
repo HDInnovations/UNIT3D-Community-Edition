@@ -72,9 +72,6 @@ window.Ladda = require('ladda');
  */
 require('jquery-textcomplete');
 
-// countUp JS from npm
-window.CountUp = require('countup.js');
-
 // wysibb editor
 require('./wysibb/jquery.wysibb');
 
