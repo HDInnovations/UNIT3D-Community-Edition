@@ -36,11 +36,11 @@ class Http2ServerPush
      *
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords=null)
+    public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null)
     {
         $response = $next($request);
 
-        if ($response->isRedirection() || !$response instanceof Response || $request->isJson()) {
+        if ($response->isRedirection() || ! $response instanceof Response || $request->isJson()) {
             return $response;
         }
 
@@ -49,10 +49,12 @@ class Http2ServerPush
         return $response;
     }
 
-    public function getConfig($key, $default=false) {
-        if(!function_exists('config')) { // for tests..
+    public function getConfig($key, $default = false)
+    {
+        if (! function_exists('config')) { // for tests..
             return $default;
         }
+
         return config('http2serverpush.'.$key, $default);
     }
 
@@ -61,7 +63,7 @@ class Http2ServerPush
      *
      * @return $this
      */
-    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords=null)
+    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)
     {
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
@@ -70,26 +72,29 @@ class Http2ServerPush
                 return $this->buildLinkHeaderString($url);
             })
             ->unique()
-            ->filter(function($value, $key) use ($excludeKeywords){
-                if(!$value) return false;
+            ->filter(function ($value, $key) use ($excludeKeywords) {
+                if (! $value) {
+                    return false;
+                }
                 $exclude_keywords = collect($excludeKeywords)->map(function ($keyword) {
                     return preg_quote($keyword);
                 });
-                if($exclude_keywords->count() <= 0) {
+                if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
-                return !preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
+
+                return ! preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
             })
             ->take($limit);
 
-        $sizeLimit = $sizeLimit ?? max(1, intval($this->getConfig('size_limit', 32*1024)));
+        $sizeLimit = $sizeLimit ?? max(1, intval($this->getConfig('size_limit', 32 * 1024)));
         $headersText = trim($headers->implode(','));
-        while(strlen($headersText) > $sizeLimit) {
+        while (strlen($headersText) > $sizeLimit) {
             $headers->pop();
             $headersText = trim($headers->implode(','));
         }
 
-        if (!empty($headersText)) {
+        if (! empty($headersText)) {
             $this->addLinkHeader($response, $headersText);
         }
 
@@ -144,17 +149,16 @@ class Http2ServerPush
             return Str::contains(strtoupper($url), $extension);
         });
 
-
-        if(!preg_match('%^https?://%i', $url)) {
+        if (! preg_match('%^https?://%i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
-            $url = $basePath . ltrim($url, $basePath);
+            $url = $basePath.ltrim($url, $basePath);
         }
 
         return is_null($type) ? null : "<{$url}>; rel=preload; as={$type}";
     }
 
     /**
-     * Add Link Header
+     * Add Link Header.
      *
      * @param \Illuminate\Http\Response $response
      *
@@ -163,7 +167,7 @@ class Http2ServerPush
     private function addLinkHeader(Response $response, $link)
     {
         if ($response->headers->get('Link')) {
-            $link = $response->headers->get('Link') . ',' . $link;
+            $link = $response->headers->get('Link').','.$link;
         }
 
         $response->header('Link', $link);

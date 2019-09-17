@@ -28,7 +28,7 @@ class UserMade700Uploads extends Achievement
     public $description = 'You have made 700 torrent uploads!';
 
     /*
-    * The amount of "points" this user need to obtain in order to complete this achievement
-    */
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     */
     public $points = 700;
 }

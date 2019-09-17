@@ -28,7 +28,7 @@ class UserMade900Posts extends Achievement
     public $description = 'Wow! You have already made 900 posts!';
 
     /*
-    * The amount of "points" this user need to obtain in order to complete this achievement
-    */
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     */
     public $points = 900;
 }

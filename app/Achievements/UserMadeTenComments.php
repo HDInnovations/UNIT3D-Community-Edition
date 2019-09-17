@@ -28,20 +28,20 @@ class UserMadeTenComments extends Achievement
     public $description = 'Wow! You have already made 10 comments!';
 
     /*
-    * The amount of "points" this user need to obtain in order to complete this achievement
-    */
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     */
     public $points = 10;
 
     /*
      * Triggers whenever an Achiever makes progress on this achievement
-    */
+     */
     public function whenProgress($progress)
     {
     }
 
     /*
      * Triggers whenever an Achiever unlocks this achievement
-    */
+     */
     public function whenUnlocked($progress)
     {
     }

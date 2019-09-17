@@ -28,7 +28,7 @@ class UserFilled50Requests extends Achievement
     public $description = 'Wow! You have already filled 50 requests!';
 
     /*
-    * The amount of "points" this user need to obtain in order to complete this achievement
-    */
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     */
     public $points = 50;
 }
