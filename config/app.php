@@ -179,7 +179,6 @@ return [
         Hootlex\Moderation\ModerationServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Gstt\Achievements\AchievementsServiceProvider::class,
-        Infinety\ConfigManager\ConfigManagerServiceProvider::class,
         ChristofferOK\LaravelEmojiOne\LaravelEmojiOneServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,

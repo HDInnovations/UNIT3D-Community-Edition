@@ -22,11 +22,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="staff_dashboard/config_settings">
-                        <i class="{{ config('other.font-awesome') }} fa-copy"></i> @lang('staff.config-manager')
-                    </a>
-                </li>
-                <li>
                     <a href="{{ route('staff.commands.index') }}">
                         <i class="fab fa-laravel"></i> Commands
                     </a>
