@@ -162,7 +162,7 @@ class Language
      **/
     public static function back($code)
     {
-        return route('language::back', ['locale' => $code]);
+        return route('back', ['locale' => $code]);
     }
 
     /**
@@ -174,7 +174,7 @@ class Language
      **/
     public static function home($code)
     {
-        return route('language::home', ['locale' => $code]);
+        return route('home', ['locale' => $code]);
     }
 
     /**
