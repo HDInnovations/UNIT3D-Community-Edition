@@ -2213,7 +2213,7 @@ class UserController extends Controller
             $query->withAnyStatus();
         }])->sortable(['created_at' => 'desc'])
             ->where('user_id', '=', $user->id)
-            ->distinct('hash')
+            ->distinct('info_hash')
             ->paginate(50);
 
         return view('user.private.active', ['user' => $user,
