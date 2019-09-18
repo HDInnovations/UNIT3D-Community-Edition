@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Bbcode;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\Type;
@@ -1262,6 +1263,19 @@ class TorrentController extends Controller
     public function upload(Request $request)
     {
         $user = $request->user();
+
+        // Preview The Upload
+        $previewContent = null;
+        if ($request->get('preview') == true) {
+            $bbcode = new Bbcode();
+            $previewContent = $bbcode->parse($request->input('description'), true);
+
+            return redirect()->route('upload_form')
+                ->withInput()
+                ->with(['previewContent' => $previewContent])
+                ->withWarning('Torrent Description Preview Loaded!');
+        }
+
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $requestFile = $request->file('torrent');
 

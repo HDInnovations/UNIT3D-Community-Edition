@@ -31,6 +31,12 @@
             </div>
         </div>
     @else
+        @if (Session::has('previewContent'))
+            <div class="torrent box container">
+                <h2 class="text-center">Upload Description Preview</h2>
+                <div class="preview col-md-12"> @emojione(Session::get('previewContent')) </div><hr>
+            </div>
+        @endif
         <div class="torrent box container">
             <div class="alert alert-info text-center">
                 <h2 class="mt-10"><strong>@lang('torrent.announce-url'):</strong> {{ route('announce', ['passkey' => $user->passkey]) }}
@@ -180,6 +186,7 @@
                 @endif
 
                 <div class="text-center">
+                    <button type="submit" name="preview" value="true" id="preview" class="btn btn-info">@lang('common.preview')</button>
                     <button type="submit" name="post" value="true" id="post" class="btn btn-success">@lang('common.submit')</button>
                 </div>
                 <br>
