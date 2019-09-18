@@ -13,7 +13,7 @@
     "ajv": "^6.10.2",
     "axios": "^0.19",
     "bootstrap-sass": "^3.4.1",
-    "cross-env": "^5.2",
+    "cross-env": "^6.0",
     "emojione-assets": "^4.5.0",
     "jquery": "^3.4.1",
     "jquery-textcomplete": "^1.8.5",
@@ -28,7 +28,7 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "spin.js": "^4.0.0",
-    "sweetalert2": "^8.17.3",
+    "sweetalert2": "^8.17.4",
     "v-tooltip": "^2.0.2",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"

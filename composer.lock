@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "359162525ec18fd182aee730f05a58f2",
+    "content-hash": "ae5634f9af6ef6b0155b12f332e62431",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -1839,6 +1839,60 @@
                 "semaphore"
             ],
             "time": "2016-08-05T11:03:36+00:00"
+        },
+        {
+            "name": "marcreichel/igdb-laravel",
+            "version": "v0.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcreichel/igdb-laravel.git",
+                "reference": "e37d12c6093342738e698f84a7b07dc531eaad99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcreichel/igdb-laravel/zipball/e37d12c6093342738e698f84a7b07dc531eaad99",
+                "reference": "e37d12c6093342738e698f84a7b07dc531eaad99",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "~6.0",
+                "laravel/framework": "5.8.*|^6.0",
+                "php": "^7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MarcReichel\\IGDBLaravel\\IGDBLaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MarcReichel\\IGDBLaravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Reichel",
+                    "email": "mail@marcreichel.de"
+                }
+            ],
+            "description": "A Laravel Wrapper for the IGDB API v3",
+            "keywords": [
+                "api-wrapper",
+                "apicalypse",
+                "igdb",
+                "igdb-api",
+                "laravel",
+                "wrapper"
+            ],
+            "time": "2019-09-06T16:16:51+00:00"
         },
         {
             "name": "mews/purifier",

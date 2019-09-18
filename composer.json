@@ -24,6 +24,7 @@
         "kyslik/column-sortable": "^6.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
+        "marcreichel/igdb-laravel": "^0.10.0",
         "mews/purifier": "^3.0",
         "nelexa/zip": "^3.1",
         "paragonie/constant_time_encoding": "^2.0",
