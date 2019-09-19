@@ -14,6 +14,7 @@
         "bandwidth-throttle/token-bucket": "^2.0",
         "bepsvpt/secure-headers": "^5.3",
         "christofferok/laravel-emojione": "^4.0",
+        "doctrine/dbal": "^2.9",
         "elhebert/laravel-sri": "^2.0",
         "emojione/assets": "^4.5",
         "fideloper/proxy": "^4.0",
