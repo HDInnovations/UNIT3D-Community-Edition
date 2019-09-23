@@ -22,8 +22,9 @@ class ThankController extends Controller
     /**
      * Thank A Torrent Uploader.
      *
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  $slug
+     * @param  $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -31,6 +32,11 @@ class ThankController extends Controller
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);
+
+        if ($user->id === $torrent->user_id) {
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->withErrors('You Cannot Thank Your Own Torrent!');
+        }
 
         $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         if ($thank) {
