@@ -65,3 +65,12 @@ if (! function_exists('hrefPoll')) {
         return "{$appurl}/poll/{$poll->slug}";
     }
 }
+
+if (! function_exists('hrefPlaylist')) {
+    function hrefPlaylist($playlist)
+    {
+        $appurl = appurl();
+
+        return "{$appurl}/playlists/{$playlist->id}";
+    }
+}
