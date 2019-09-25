@@ -36,6 +36,13 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('playlists.index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-list-ol" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">Playlists</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('graveyard.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-skull" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('graveyard.graveyard')</span>
