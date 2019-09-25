@@ -147,6 +147,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
         Route::get('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
         Route::post('/comment/request/{id}', 'CommentController@request')->name('comment_request');
+        Route::post('/comment/playlist/{id}', 'CommentController@playlist')->name('comment_playlist');
         Route::post('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
         Route::get('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
 
@@ -358,6 +359,18 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/addimage', 'ImageController@add')->name('add_image_to_album');
         Route::get('/deleteimage/{id}', 'ImageController@destroy')->name('delete_image');
         Route::get('/image/download/{id}', 'ImageController@download')->name('image_download');
+
+        // Playlist System
+        Route::get('/playlists', 'PlaylistController@index')->name('playlists.index');
+        Route::get('/playlists/create', 'PlaylistController@create')->name('playlists.create');
+        Route::post('/playlists', 'PlaylistController@store')->name('playlists.store');
+        Route::get('/playlists/{id}', 'PlaylistController@show')->name('playlists.show');
+        Route::get('/playlists/{id}/edit', 'PlaylistController@edit')->name('playlists.edit');
+        Route::patch('/playlists/{id}', 'PlaylistController@update')->name('playlists.update');
+        Route::delete('/playlists/{id}', 'PlaylistController@destroy')->name('playlists.destroy');
+
+        Route::post('/playlists/attach', 'PlaylistTorrentController@store')->name('playlists.attach');
+        Route::delete('/playlists/{id}/detach', 'PlaylistTorrentController@destroy')->name('playlists.detach');
     });
 
     /*
