@@ -77,6 +77,16 @@ class Comment extends Model
     }
 
     /**
+     * Belongs To A Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function playlist()
+    {
+        return $this->belongsTo(Playlist::class);
+    }
+
+    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
