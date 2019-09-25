@@ -15,6 +15,7 @@ class CreatePlaylistTorrentsTable extends Migration
     {
         Schema::create('playlist_torrents', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('position')->nullable();
             $table->integer('playlist_id')->default(0)->index();
             $table->integer('torrent_id')->default(0)->index();
             $table->integer('tmdb_id')->default(0)->index();
