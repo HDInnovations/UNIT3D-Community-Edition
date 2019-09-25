@@ -66,7 +66,7 @@ class ForumController extends Controller
      */
     public function search(Request $request)
     {
-        $categories = Forum::oldest('position')->get();
+        $categories = Forum::all()->sortBy('position');
 
         $user = $request->user();
 
@@ -326,7 +326,7 @@ class ForumController extends Controller
      */
     public function index()
     {
-        $categories = Forum::oldest('position')->get();
+        $categories = Forum::all()->sortBy('position');
 
         // Total Forums Count
         $num_forums = Forum::count();

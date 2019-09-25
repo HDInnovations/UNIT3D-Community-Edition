@@ -29,7 +29,7 @@ class ForumController extends Controller
      */
     public function index()
     {
-        $categories = Forum::where('parent_id', '=', 0)->get();
+        $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
         return view('Staff.forum.index', ['categories' => $categories]);
     }
