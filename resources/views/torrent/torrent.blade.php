@@ -93,6 +93,14 @@
 
                         <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
 
+                        @if ($playlists->count() > 0)
+                        <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
+                            <span class="btn-label">
+                                <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> Add To Playlist
+                            </span>
+                        </button>
+                        @endif
+
                         @if ($torrent->seeders <= 2)
                         <a href="{{ route('reseed', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-warning">
                             <span class='btn-label'>

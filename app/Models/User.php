@@ -391,6 +391,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function playlists()
+    {
+        return $this->hasMany(Playlist::class);
+    }
+
+    /**
      * Has Many Sent PM's.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
