@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Bbcode;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\Type;
 use App\Models\User;
+use App\Helpers\Bbcode;
 use App\Models\History;
 use App\Models\Torrent;
 use App\Models\Warning;
@@ -37,6 +37,7 @@ use App\Models\PrivateMessage;
 use App\Models\TorrentRequest;
 use App\Models\BonTransactions;
 use App\Models\FeaturedTorrent;
+use App\Models\PlaylistTorrent;
 use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
@@ -975,6 +976,8 @@ class TorrentController extends Controller
             $text_crumbs = $view_crumbs['text'];
         }
 
+        $playlists = $user->playlists;
+
         return view('torrent.torrent', [
             'torrent'            => $torrent,
             'comments'           => $comments,
@@ -998,6 +1001,7 @@ class TorrentController extends Controller
             'settings'           => $settings,
             'uploader'           => $uploader,
             'last_seed_activity' => $last_seed_activity,
+            'playlists'          => $playlists,
         ]);
     }
 
@@ -1176,6 +1180,7 @@ class TorrentController extends Controller
                 History::where('info_hash', '=', $torrent->info_hash)->delete();
                 Warning::where('id', '=', $id)->delete();
                 TorrentFile::where('torrent_id', '=', $id)->delete();
+                PlaylistTorrent::where('torrent_id', '=', $id)->delete();
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
