@@ -128,16 +128,16 @@
         },
         {
             "name": "arcanedev/log-viewer",
-            "version": "5.0.2",
+            "version": "5.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/LogViewer.git",
-                "reference": "39d56464238a4ab41b73c8290875b7f2cbfc054b"
+                "reference": "fc65898036e606d241236817484e16b8db1ba8fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/39d56464238a4ab41b73c8290875b7f2cbfc054b",
-                "reference": "39d56464238a4ab41b73c8290875b7f2cbfc054b",
+                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/fc65898036e606d241236817484e16b8db1ba8fe",
+                "reference": "fc65898036e606d241236817484e16b8db1ba8fe",
                 "shasum": ""
             },
             "require": {
@@ -192,7 +192,7 @@
                 "log-viewer",
                 "logviewer"
             ],
-            "time": "2019-09-14T08:13:15+00:00"
+            "time": "2019-09-25T11:07:09+00:00"
         },
         {
             "name": "arcanedev/support",
@@ -941,16 +941,16 @@
         },
         {
             "name": "elhebert/laravel-sri",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Elhebert/laravel-sri.git",
-                "reference": "eca73840aecd650123ec544f3a1e3f5d30935da4"
+                "reference": "6a31fab5fb3b62dfb96a08190ca0b0adf883deda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Elhebert/laravel-sri/zipball/eca73840aecd650123ec544f3a1e3f5d30935da4",
-                "reference": "eca73840aecd650123ec544f3a1e3f5d30935da4",
+                "url": "https://api.github.com/repos/Elhebert/laravel-sri/zipball/6a31fab5fb3b62dfb96a08190ca0b0adf883deda",
+                "reference": "6a31fab5fb3b62dfb96a08190ca0b0adf883deda",
                 "shasum": ""
             },
             "require": {
@@ -993,7 +993,7 @@
                 "sri",
                 "subresource integrity"
             ],
-            "time": "2019-09-06T04:56:46+00:00"
+            "time": "2019-09-20T06:17:01+00:00"
         },
         {
             "name": "emojione/assets",
@@ -1722,16 +1722,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.0.3",
+            "version": "v6.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "56789e9dec750e0fbe8e9e6ae90a01a4e6887902"
+                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/56789e9dec750e0fbe8e9e6ae90a01a4e6887902",
-                "reference": "56789e9dec750e0fbe8e9e6ae90a01a4e6887902",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
+                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
                 "shasum": ""
             },
             "require": {
@@ -1863,7 +1863,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-09-10T18:46:24+00:00"
+            "time": "2019-09-24T13:40:36+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -3221,16 +3221,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "6.4.0",
+            "version": "6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "933c90957932dabf43b33bf91661bf3c8db8bc6a"
+                "reference": "b5e712c8d49001b071ec20155d4c9a72e90bb872"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/933c90957932dabf43b33bf91661bf3c8db8bc6a",
-                "reference": "933c90957932dabf43b33bf91661bf3c8db8bc6a",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/b5e712c8d49001b071ec20155d4c9a72e90bb872",
+                "reference": "b5e712c8d49001b071ec20155d4c9a72e90bb872",
                 "shasum": ""
             },
             "require": {
@@ -3292,7 +3292,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2019-09-04T06:42:31+00:00"
+            "time": "2019-09-25T06:51:46+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
@@ -5425,16 +5425,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "1.6.6",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "8fe0ab9850e92aa5e4492c44145b28bc5b83051a"
+                "reference": "4ff9397a24da58b35382802e2d22325b640123ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/8fe0ab9850e92aa5e4492c44145b28bc5b83051a",
-                "reference": "8fe0ab9850e92aa5e4492c44145b28bc5b83051a",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/4ff9397a24da58b35382802e2d22325b640123ea",
+                "reference": "4ff9397a24da58b35382802e2d22325b640123ea",
                 "shasum": ""
             },
             "require": {
@@ -5489,7 +5489,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2019-09-16T19:55:14+00:00"
+            "time": "2019-09-20T09:37:06+00:00"
         },
         {
             "name": "facade/ignition-contracts",
