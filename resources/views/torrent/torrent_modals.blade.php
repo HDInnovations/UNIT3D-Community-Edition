@@ -232,3 +232,41 @@
         </div>
     </form>
 </div>
+
+{{-- Add Torrent To Playlist Modal --}}
+<div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="container-fluid">
+                <form role="form" method="POST" action="{{ route('playlists.attach') }}">
+                    @csrf
+                    <input id="torrent_id" name="torrent_id" type="hidden" value="{{ $torrent->id }}">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Add Torrent To Playlist</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="playlist_id">Your Playlists</label>
+                            <label>
+                                <select name="playlist_id" class="form-control">
+                                    @foreach ($playlists as $playlist)
+                                        <option value="{{ $playlist->id }}">{{ $playlist->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-primary" type="submit" value="Save">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
