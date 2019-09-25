@@ -25,12 +25,22 @@ class PlaylistTorrent extends Model
     public $timestamps = false;
 
     /**
-     * Has Many Torrents.
+     * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function torrents()
+    public function torrent()
     {
-        return $this->hasMany(Torrent::class);
+        return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs To A Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function playlist()
+    {
+        return $this->belongsTo(Playlist::class);
     }
 }
