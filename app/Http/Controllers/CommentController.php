@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Torrent;
+use App\Models\Playlist;
 use Illuminate\Http\Request;
 use App\Models\TorrentRequest;
 use App\Notifications\NewComment;
@@ -156,6 +157,106 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
+                ->withSuccess('Your Comment Has Been Added!');
+        }
+    }
+
+    /**
+     * Add A Comment To A Playlist.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function playlist(Request $request, $id)
+    {
+        $playlist = Playlist::findOrFail($id);
+        $user = auth()->user();
+
+        if ($user->can_comment == 0) {
+            return redirect()->route('playlists.show', ['id' => $playlist->id])
+                ->withErros('Your Comment Rights Have Been Revoked!');
+        }
+
+        $comment = new Comment();
+        $comment->content = $request->input('content');
+        $comment->anon = $request->input('anonymous');
+        $comment->user_id = $user->id;
+        $comment->playlist_id = $playlist->id;
+
+        $v = validator($comment->toArray(), [
+            'content'     => 'required',
+            'user_id'     => 'required',
+            'playlist_id' => 'required',
+            'anon'        => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('playlists.show', ['id' => $playlist->id])
+                ->withErrors($v->errors());
+        } else {
+            $comment->save();
+
+            $playlist_url = hrefPlaylist($playlist);
+            $profile_url = hrefProfile($user);
+
+            // Auto Shout
+            if ($comment->anon == 0) {
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$user->username}[/url] has left a comment on playlist [url={$playlist_url}]{$playlist->name}[/url]"
+                );
+            } else {
+                $this->chat->systemMessage(
+                    "An anonymous user has left a comment on playlist [url={$playlist_url}]{$playlist->name}[/url]"
+                );
+            }
+
+            if ($this->tag->hasTags($request->input('content'))) {
+                if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+                    $users = collect([]);
+
+                    $playlist->comments()->get()->each(function ($c, $v) use ($users) {
+                        $users->push($c->user);
+                    });
+                    $this->tag->messageCommentUsers(
+                        'playlist',
+                        $users,
+                        $user,
+                        'Staff',
+                        $comment
+                    );
+                } else {
+                    if ($comment->anon) {
+                        $sender = 'Anonymous';
+                    } else {
+                        $sender = $user->username;
+                    }
+                    $this->tag->messageTaggedCommentUsers(
+                        'playlist',
+                        $request->input('content'),
+                        $user,
+                        $sender,
+                        $comment
+                    );
+                }
+            }
+
+            // Achievements
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+
+            return redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
