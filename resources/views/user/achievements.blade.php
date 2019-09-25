@@ -73,7 +73,8 @@
                                                          data-original-title="{{ $item->details->name }}"></td>
                                                 <td>{{ $item->details->description }}</td>
                                                 @if ($item->isUnlocked())
-                                                    <td><span class="label label-success">@lang('user.unlocked')</span></td> @else
+                                                    <td><span class="label label-success">@lang('user.unlocked')</span></td>
+                                                @else
                                                     <td><span class="label label-warning">@lang('common.progress'):
                                                     {{$item->points}}/{{$item->details->points}}</span></td>
                                                 @endif

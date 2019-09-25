@@ -27,14 +27,12 @@ class AchievementsController extends Controller
     {
         $user = $request->user();
         $achievements = $user->unlockedAchievements();
-        $locked = $user->lockedAchievements();
         $pending = $user->inProgressAchievements();
 
         return view('user.private.achievements', [
             'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,
-            'locked'       => $locked,
             'pending'      => $pending,
         ]);
     }
