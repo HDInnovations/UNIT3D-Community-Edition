@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
+    <img src="https://i.imgur.com/PKv7tSA.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 <p align="center">
     💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and Patrons</b>💛
