@@ -22,6 +22,7 @@
 </head>
 
 <body>
+<div class="Jackett" style="display:none;">{{ config('unit3d.powered-by') }}</div>
 <div class="wrapper fadeInDown">
     <svg viewBox="0 0 450 100" class="sitebanner">
         <symbol id="s-text">
