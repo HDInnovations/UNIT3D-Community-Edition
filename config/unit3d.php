@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D v1.9.4',
+    'powered-by' => 'Powered By UNIT3D Community Edition v1.9.4',
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Nex-Gen Torrent Tracker',
+    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker)',
 
     /*
     |--------------------------------------------------------------------------
