@@ -149,7 +149,28 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE).
 
-<b> As per license do not remove the license from sourcecode or from footer in `/resources/views/partials/footer.blade.php`</b>
+<b> As per license do not remove the license from sourcecode files
+```
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie
+ */
+```
+
+ Or the credits from footer in `/resources/views/partials/footer.blade.php`
+```
+<li>
+<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition" target="_blank" class="btn btn-xs btn-primary">@lang('common.powered-by')</a>
+</li>
+```
+</b>
 
 ## <a name="demo"></a> :computer: Demo
 
