@@ -478,7 +478,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('imdb') && $request->input('imdb') != null) {
-                $torrent->where('torrentsl.imdb', '=', $imdb);
+                $torrent->where('torrentsl.imdb', '=', str_replace('tt', '', $imdb));
             }
 
             if ($request->has('tvdb') && $request->input('tvdb') != null) {
@@ -611,7 +611,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('imdb') && $request->input('imdb') != null) {
-                $torrent->where('torrents.imdb', '=', $imdb);
+                $torrent->where('torrents.imdb', '=', str_replace('tt', '', $imdb));
             }
 
             if ($request->has('tvdb') && $request->input('tvdb') != null) {

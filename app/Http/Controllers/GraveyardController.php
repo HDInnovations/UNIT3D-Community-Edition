@@ -93,7 +93,7 @@ class GraveyardController extends Controller
         }
 
         if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrent->where('imdb', '=', $imdb);
+            $torrent->where('imdb', '=', str_replace('tt', '', $imdb));
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {

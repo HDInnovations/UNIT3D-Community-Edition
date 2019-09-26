@@ -129,7 +129,7 @@ class RequestController extends Controller
         }
 
         if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrentRequest->where('imdb', '=', $imdb);
+            $torrentRequest->where('imdb', '=', str_replace('tt', '', $imdb));
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
