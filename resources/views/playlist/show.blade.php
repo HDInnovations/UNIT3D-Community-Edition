@@ -23,14 +23,14 @@
 
 						<ul class="list_menu_bar">
 							<li class="account">
-								<a href="#!">
+								<a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">
 									@if ($playlist->user->image != null)
 										<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
 									@else
 										<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
 									@endif
 								</a>
-								<p>A list by<br><a href="#!">{{ $playlist->user->username }}</a></p>
+								<p>A list by<br><a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">{{ $playlist->user->username }}</a></p>
 							</li>
 						</ul>
 
@@ -64,37 +64,37 @@
 				@php $meta = null; @endphp
 				@php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
 				@foreach($torrents as $t)
-					@if ($t->category->tv_meta)
-						@if ($t->tmdb || $t->tmdb != 0)
-							@php $meta = $client->scrape('tv', null, $t->tmdb); @endphp
+					@if ($t->torrent->category->tv_meta)
+						@if ($t->torrent->tmdb || $t->torrent->tmdb != 0)
+							@php $meta = $client->scrape('tv', null, $t->torrent->tmdb); @endphp
 						@else
-							@php $meta = $client->scrape('tv', 'tt'. $t->imdb); @endphp
+							@php $meta = $client->scrape('tv', 'tt'. $t->torrent->imdb); @endphp
 						@endif
 					@endif
-					@if ($t->category->movie_meta)
-						@if ($t->tmdb || $t->tmdb != 0)
-							@php $meta = $client->scrape('movie', null, $t->tmdb); @endphp
+					@if ($t->torrent->category->movie_meta)
+						@if ($t->torrent->tmdb || $t->torrent->tmdb != 0)
+							@php $meta = $client->scrape('movie', null, $t->torrent->tmdb); @endphp
 						@else
-							@php $meta = $client->scrape('movie', 'tt'. $t->imdb); @endphp
+							@php $meta = $client->scrape('movie', 'tt'. $t->torrent->imdb); @endphp
 						@endif
 					@endif
 					<div class="col-md-6">
 						<div class="card is-torrent">
 							<div class="card_head">
-								@if ($t->tmdb != 0)
-									<a href="{{ route('torrents.similar', ['category_id' => $t->category_id, 'tmdb' => $t->tmdb]) }}" role="button"
+								@if ($t->torrent->tmdb != 0)
+									<a href="{{ route('torrents.similar', ['category_id' => $t->torrent->category_id, 'tmdb' => $t->torrent->tmdb]) }}" role="button"
 									   data-toggle="tooltip" data-placement="top" data-original-title="@lang('torrent.similar')" class="btn btn-xs btn-primary" style="float: left; margin-right: 10px;">
 										<i class='{{ config("other.font-awesome") }} fa-copy'></i>
 									</a>
 								@endif
 								&nbsp;
 								@if (config('torrent.download_check_page') == 1)
-									<a href="{{ route('download_check', ['slug' => $t->slug, 'id' => $t->id]) }}" role="button"
+									<a href="{{ route('download_check', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
 									   data-toggle="tooltip" data-placement="top" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left; margin-right: 10px;">
 										<i class='{{ config("other.font-awesome") }} fa-download'></i>
 									</a>
 								@else
-									<a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}" role="button"
+									<a href="{{ route('download', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
 									   data-toggle="tooltip" data-placement="top" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left; margin-right: 10px;">
 										<i class='{{ config("other.font-awesome") }} fa-download'></i>
 									</a>
@@ -112,29 +112,29 @@
 								@endif
 
 								<span class="badge-user text-bold" style="float:right;">
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up text-green"></i> {{ $t->seeders }} /
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down text-red"></i> {{ $t->leechers }} /
-                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->times_completed }}
+                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up text-green"></i> {{ $t->torrent->seeders }} /
+                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down text-red"></i> {{ $t->torrent->leechers }} /
+                                    <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->torrent->times_completed }}
                                 </span>&nbsp;
-								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->getSize() }}</span>&nbsp;
-								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->type }}</span>&nbsp;
-								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->category->name }}</span>&nbsp;
+								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->torrent->getSize() }}</span>&nbsp;
+								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->torrent->type }}</span>&nbsp;
+								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->torrent->category->name }}</span>&nbsp;
 							</div>
 							<div class="card_body">
 								<div class="body_poster">
-									@if ($t->category->movie_meta || $t->category->tv_meta && isset($meta) && $meta->poster && $meta->title)
+									@if ($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && isset($meta) && $meta->poster && $meta->title)
 										<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster"
-										     data-name='<i style="color: #a5a5a5;">{{ $t->meta->title ?? 'N/A' }}</i>' data-image='<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
+										     data-name='<i style="color: #a5a5a5;">{{ $t->torrent->meta->title ?? 'N/A' }}</i>' data-image='<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
 										     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
 									@endif
 
-									@if ($t->category->game_meta && isset($t->meta) && $meta->cover->image_id && $meta->name)
-										<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->meta->cover->image_id }}.jpg" class="show-poster"
+									@if ($t->torrent->category->game_meta && isset($t->torrent->meta) && $meta->cover->image_id && $meta->name)
+										<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->torrent->meta->cover->image_id }}.jpg" class="show-poster"
 										     data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>' data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" alt="@lang('torrent.poster')" style="height: 1000px;">'
 										     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
 									@endif
 
-									@if ($t->category->no_meta || $t->category->music_meta || ! $meta)
+									@if ($t->torrent->category->no_meta || $t->torrent->category->music_meta || ! $meta)
 										<img src="https://via.placeholder.com/600x900" class="show-poster"
 										     data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" style="height: 1000px;">'
 										     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
@@ -142,32 +142,32 @@
 								</div>
 								<div class="body_description">
 									<h3 class="description_title">
-										<a href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}
-											@if($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $meta->releaseYear)
+										<a href="{{ route('torrent', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
+											@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && isset($t->torrent->meta) && $meta->releaseYear)
 												<span class="text-bold text-pink"> {{ $meta->releaseYear }}</span>
 											@endif
-											@if($t->category->game_meta && isset($meta) && $meta->first_release_date)
+											@if($t->torrent->category->game_meta && isset($meta) && $meta->first_release_date)
 												<span class="text-bold text-pink"> {{ date('Y', strtotime( $meta->first_release_date)) }}</span>
 											@endif
 										</a>
 									</h3>
-									@if ($t->category->movie_meta && isset($meta) && $meta->genres)
+									@if ($t->torrent->category->movie_meta && isset($meta) && $meta->genres)
 										@foreach ($meta->genres as $genre)
 											<span class="genre-label">{{ $genre }}</span>
 										@endforeach
 									@endif
-									@if ($t->category->tv_meta && isset($meta) && $meta->genres)
+									@if ($t->torrent->category->tv_meta && isset($meta) && $meta->genres)
 										@foreach ($meta->genres as $genre)
 											<span class="genre-label">{{ $genre }}</span>
 										@endforeach
 									@endif
-									@if ($t->category->game_meta && isset($meta) && $meta->genres)
+									@if ($t->torrent->category->game_meta && isset($meta) && $meta->genres)
 										@foreach ($meta->genres as $genre)
 											<span class="genre-label">{{ $genre->name }}</span>
 										@endforeach
 									@endif
 									<p class="description_plot">
-										@if($t->category->movie_meta || $t->category->tv_meta && $meta && $meta->plot)
+										@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && $meta && $meta->plot)
 											{{ $meta->plot }}
 										@endif
 									</p>
@@ -175,19 +175,19 @@
 							</div>
 							<div class="card_footer">
 								<div style="float: left;">
-									@if ($t->anon == 1)
+									@if ($t->torrent->anon == 1)
 										<span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-											@if (auth()->user()->id == $t->user->id || auth()->user()->group->is_modo)
-												<a href="{{ route('profile', ['username' => $t->user->username, 'id' => $t->user->id]) }}">
-                                                            ({{ $t->user->username }})
+											@if (auth()->user()->id == $t->torrent->user->id || auth()->user()->group->is_modo)
+												<a href="{{ route('profile', ['username' => $t->torrent->user->username, 'id' => $t->torrent->user->id]) }}">
+                                                            ({{ $t->torrent->user->username }})
                                                         </a>
 											@endif
                                                 </span>
 									@else
-										<a href="{{ route('profile', ['username' => $t->user->username, 'id' => $t->user->id]) }}">
-                                            <span class="badge-user text-bold" style="color:{{ $t->user->group->color }}; background-image:{{ $t->user->group->effect }};">
-                                                <i class="{{ $t->user->group->icon }}" data-toggle="tooltip" title=""
-                                                   data-original-title="{{ $t->user->group->name }}"></i> {{ $t->user->username }}
+										<a href="{{ route('profile', ['username' => $t->torrent->user->username, 'id' => $t->torrent->user->id]) }}">
+                                            <span class="badge-user text-bold" style="color:{{ $t->torrent->user->group->color }}; background-image:{{ $t->torrent->user->group->effect }};">
+                                                <i class="{{ $t->torrent->user->group->icon }}" data-toggle="tooltip" title=""
+                                                   data-original-title="{{ $t->torrent->user->group->name }}"></i> {{ $t->torrent->user->username }}
                                             </span>
 										</a>
 									@endif
@@ -216,27 +216,27 @@
 							<div class="overlay-container">
 								<img class='details-poster' src="{{ $meta->poster }}">
 								<div class="overlay-top">
-									@if ($t->tmdb != 0)
-										<a href="{{ route('torrents.similar', ['category_id' => $t->category_id, 'tmdb' => $t->tmdb]) }}" role="button"
+									@if ($t->torrent->tmdb != 0)
+										<a href="{{ route('torrents.similar', ['category_id' => $t->torrent->category_id, 'tmdb' => $t->torrent->tmdb]) }}" role="button"
 										   data-toggle="tooltip" data-placement="right" data-original-title="@lang('torrent.similar')" class="btn btn-xs btn-primary" style="float: left;">
 											<i class='{{ config("other.font-awesome") }} fa-copy'></i>
 										</a>
 									@endif
 
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $t->slug, 'id' => $t->id]) }}" role="button"
+                                        <a href="{{ route('download_check', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
                                            data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
                                             <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}" role="button"
+                                        <a href="{{ route('download', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
                                            data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
                                             <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                         </a>
                                     @endif
 
 									@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
-										<form action="{{ route('playlists.detach', ['id' => $t->id]) }}" method="POST" style="float: right;"
+										<form action="{{ route('playlists.detach', ['id' => $t->torrent->id]) }}" method="POST" style="float: right;"
 										      data-toggle="tooltip" data-placement="left" data-original-title="@lang('common.delete')">
 											@csrf
 											@method('DELETE')
@@ -247,19 +247,19 @@
 									@endif
 									<div class="text">
 										<h3 style="font-size: 25px;">
-											<a data-id="{{ $t->id }}" data-slug="{{ $t->slug }}" href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
+											<a data-id="{{ $t->torrent->id }}" data-slug="{{ $t->torrent->slug }}" href="{{ route('torrent', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}">{{ $t->torrent->name }}</a>
 										</h3>
 									</div>
 								</div>
 								<div class="overlay-bottom">
 									<div class="links">
-										<span class='label label-success'>{{ $t->type }}</span>
+										<span class='label label-success'>{{ $t->torrent->type }}</span>
 										<div class="separator mt-10"></div>
 										<ul class="list-unstyled margin-clear">
-											<li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ trans('torrent.seeders') }}: {{ $t->seeders }}</li>
-											<li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> {{ trans('torrent.leechers') }}: {{ $t->leechers }}</li>
-											<li><i class="{{ config('other.font-awesome') }} fa-check"></i> {{ trans('torrent.completed') }}: {{ $t->times_completed }}</li>
-											<li><i class="{{ config('other.font-awesome') }} fa-server"></i> {{ trans('torrent.size') }}: {{ $t->getSize() }}</li>
+											<li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ trans('torrent.seeders') }}: {{ $t->torrent->seeders }}</li>
+											<li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> {{ trans('torrent.leechers') }}: {{ $t->torrent->leechers }}</li>
+											<li><i class="{{ config('other.font-awesome') }} fa-check"></i> {{ trans('torrent.completed') }}: {{ $t->torrent->times_completed }}</li>
+											<li><i class="{{ config('other.font-awesome') }} fa-server"></i> {{ trans('torrent.size') }}: {{ $t->torrent->getSize() }}</li>
 										</ul>
 									</div>
 								</div>

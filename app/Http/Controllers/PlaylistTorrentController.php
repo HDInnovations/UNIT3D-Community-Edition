@@ -68,7 +68,7 @@ class PlaylistTorrentController extends Controller
         abort_unless($user->group->is_modo || $user->id === $playlist_torrent->playlist->user_id, 403);
         $playlist_torrent->delete();
 
-        return redirect()->back()
+        return redirect()->route('playlists.show', ['id' => $playlist_torrent->playlist->id])
             ->withSuccess('Torrent Has Successfully Been Detached From Your Playlist.');
     }
 }

@@ -36,13 +36,19 @@
 								@endif
 							</a>
 							<div class="item-playlist-text-playlist">
-								@if ($playlist->user->image != null)
-									<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}">
-								@else
-									<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}">
-								@endif
+								<a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">
+									@if ($playlist->user->image != null)
+										<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}">
+									@else
+										<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}">
+									@endif
+								</a>
 								<h3 class="text-bold" style=" margin: 0">{{ $playlist->name }}</h3>
-								<h5><a href="#!">By: {{ $playlist->user->username }}</a></h5>
+								<h5>
+									<a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">
+										By: {{ $playlist->user->username }}
+									</a>
+								</h5>
 								<h6>{{ $playlist->torrents_count }} Titles</h6>
 							</div>
 						</div>

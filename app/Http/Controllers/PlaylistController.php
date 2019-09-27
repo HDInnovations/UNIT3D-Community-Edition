@@ -150,9 +150,7 @@ class PlaylistController extends Controller
             }
         }
 
-        $playlist_torrents = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->pluck('torrent_id');
-
-        $torrents = Torrent::whereIn('id', $playlist_torrents)->get()->sortBy('name');
+        $torrents = PlaylistTorrent::with(['torrent'])->where('playlist_id', '=', $playlist->id)->get()->sortBy('name');
 
         return view('playlist.show', ['playlist' => $playlist, 'meta' => $meta, 'torrents' => $torrents]);
     }
