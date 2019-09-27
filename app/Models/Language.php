@@ -31,7 +31,7 @@ class Language
         $name = self::getName($code);
         $code = self::country($code);
 
-        return view('vendor.language.flag', compact('code', 'name'));
+        return view('vendor.language.flag', ['code' => $code, 'name' => $name]);
     }
 
     /**

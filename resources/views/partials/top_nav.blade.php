@@ -60,7 +60,7 @@
                 <ul class="dropdown-menu">
                     @foreach (App\Models\Language::allowed() as $code => $name)
                         <li class="{{ config('language.flags.li_class') }}">
-                            <a href="{{ route('back', ['local' => $code]) }}">
+                            <a href="{{ route('back', [$code]) }}">
                                 <img src="{{ url('img/flags/'.$code.'.png') }}" alt="{{ $name }}"
                                      class="img-circle {{ $code }}"
                                      width="{{ config('language.flags.width') }}"/>

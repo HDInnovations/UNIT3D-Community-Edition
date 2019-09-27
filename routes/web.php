@@ -316,7 +316,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
 
         // User Language
-        Route::get('/{locale}/back', 'LanguageController@home')->name('back');
+        Route::get('/{locale}/back', 'LanguageController@back')->name('back');
 
         // User Seedboxes
         Route::get('/{username}/seedboxes/records', 'SeedboxController@index')->name('seedboxes.index');
