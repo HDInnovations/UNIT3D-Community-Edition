@@ -47,7 +47,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:revoke_permissions')->hourly();
         $schedule->command('auto:ban')->hourly();
         $schedule->command('auto:flush_peers')->hourly();
-        //$schedule->command('auto:correct_history')->hourly();
         $schedule->command('auto:bon_allocation')->hourly();
         $schedule->command('auto:remove_personal_freeleech')->hourly();
         $schedule->command('auto:remove_featured_torrent')->hourly();
@@ -57,6 +56,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:disable_inactive_users')->daily();
         $schedule->command('auto:softdelete_disabled_users')->daily();
         $schedule->command('auto:recycle_claimed_torrent_requests')->daily();
+        $schedule->command('auto:correct_history')->daily();
+        $schedule->command('auto:sync_peers')->daily();
     }
 
     /**
