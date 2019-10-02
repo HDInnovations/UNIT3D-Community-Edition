@@ -41,7 +41,7 @@ class HomeController extends Controller
     {
         // For Cache
         $current = Carbon::now();
-        $expiresAt = $current->addMinutes(10);
+        $expiresAt = $current->addMinutes(1);
 
         // Authorized User
         $user = $request->user();
