@@ -51,11 +51,12 @@
                             <i class=" {{ config('other.font-awesome') }} fa-lock"></i> SSL Cert
                         </h2>
                         <h3 class="text-bold text-center">
-                            {{ config('app.url') }} -- <span class="text-muted">@if ($certificate->isValid() == true) VALID @else INVALID @endif</span>
+                            {{ config('app.url') }}
                         </h3>
-                        <div style="padding-top: 15px;">
-                            <span class="text-red text-left">Issued By: {{ $certificate->getIssuer() }}</span>
-                            <span class="text-red" style="float: right;">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
+                        <div class="text-center" style="padding-top: 15px;">
+                            <span class="text-red">Issued By: {{ $certificate->getIssuer() }}</span>
+                            <br>
+                            <span class="text-red">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
                         </div>
                     @else
                         <h2 class="text-bold text-center text-red">
