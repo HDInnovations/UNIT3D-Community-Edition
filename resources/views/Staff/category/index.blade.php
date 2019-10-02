@@ -92,6 +92,7 @@
                         <a href="{{ route('staff.categories.edit', ['slug' => $c->slug, 'id' => $c->id]) }}"
                            class="btn btn-warning">Edit</a>
                         <form action="{{ route('staff.categories.destroy', ['slug' => $c->slug, 'id' => $c->id]) }}" method="POST">
+                            @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
