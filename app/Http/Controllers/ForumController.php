@@ -910,7 +910,7 @@ class ForumController extends Controller
         $topic->delete();
 
         return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
-            ->withErrors('This Topic Is Now Deleted!');
+            ->withSuccess('This Topic Is Now Deleted!');
     }
 
     /**
