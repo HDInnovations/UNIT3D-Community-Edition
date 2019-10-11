@@ -71,6 +71,18 @@ class PrivateMessage extends Model
     }
 
     /**
+     * Set The PM Message After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setMessageAttribute($value)
+    {
+        $this->attributes['message'] = clean($value);
+    }
+
+    /**
      * Parse Content And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML

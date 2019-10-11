@@ -296,6 +296,18 @@ class Torrent extends Model
     }
 
     /**
+     * Set The Torrents Description After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = clean($value);
+    }
+
+    /**
      * Parse Description And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML
@@ -305,6 +317,18 @@ class Torrent extends Model
         $bbcode = new Bbcode();
 
         return $bbcode->parse($this->description, true);
+    }
+
+    /**
+     * Set The Torrents MediaInfo After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setMediaInfoAttribute($value)
+    {
+        $this->attributes['mediainfo'] = clean($value);
     }
 
     /**

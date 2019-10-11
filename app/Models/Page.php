@@ -37,6 +37,18 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     /**
+     * Set The Pages Content After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setContentAttribute($value)
+    {
+        $this->attributes['content'] = clean($value);
+    }
+
+    /**
      * Parse Content And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML
@@ -45,6 +57,6 @@ class Page extends Model
     {
         $bbcode = new Bbcode();
 
-        return $bbcode->parse($this->content, true);
+        return $bbcode->parse(clean($this->content), true);
     }
 }

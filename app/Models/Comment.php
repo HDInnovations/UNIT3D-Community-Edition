@@ -100,6 +100,18 @@ class Comment extends Model
     }
 
     /**
+     * Set The Comments Content After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setContentAttribute($value)
+    {
+        $this->attributes['content'] = clean($value);
+    }
+
+    /**
      * Parse Content And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML

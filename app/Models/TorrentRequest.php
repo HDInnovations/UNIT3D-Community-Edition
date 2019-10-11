@@ -185,6 +185,18 @@ class TorrentRequest extends Model
     }
 
     /**
+     * Set The Requests Description After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = clean($value);
+    }
+
+    /**
      * Parse Description And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML

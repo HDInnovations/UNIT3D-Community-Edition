@@ -963,6 +963,18 @@ class User extends Authenticatable
     }
 
     /**
+     * Set The Users Signature After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setSignatureAttribute($value)
+    {
+        $this->attributes['signature'] = clean($value);
+    }
+
+    /**
      * Returns the HTML of the user's signature.
      *
      * @return string html
@@ -972,6 +984,18 @@ class User extends Authenticatable
         $bbcode = new Bbcode();
 
         return $bbcode->parse($this->signature, true);
+    }
+
+    /**
+     * Set The Users About Me After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setAboutAttribute($value)
+    {
+        $this->attributes['about'] = clean($value);
     }
 
     /**

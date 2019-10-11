@@ -98,6 +98,18 @@ class Message extends Model
     }
 
     /**
+     * Set The Chat Message After Its Been Purified.
+     *
+     * @param  string  $value
+     *
+     * @return void
+     */
+    public function setMessageAttribute($value)
+    {
+        $this->attributes['message'] = clean($value);
+    }
+
+    /**
      * Parse Content And Return Valid HTML.
      *
      * @param $message

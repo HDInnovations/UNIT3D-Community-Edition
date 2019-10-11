@@ -33,12 +33,12 @@ class ChatMessageResource extends JsonResource
         $logger = null;
         if ($this->user_id && $this->user_id == 1) {
             $bbcode = new Bbcode();
-            $logger = $bbcode->parse('<div class="align-left"><div class="chatTriggers">'.clean($this->message).'</div></div>');
+            $logger = $bbcode->parse('<div class="align-left"><div class="chatTriggers">'.$this->message.'</div></div>');
             $logger = $emojiOne->toImage($logger);
             $logger = str_replace('a href="/#', 'a trigger="bot" class="chatTrigger" href="/#', $logger);
         } else {
             $bbcode = new Bbcode();
-            $logger = $bbcode->parse('<div class="align-left">'.clean($this->message).'</div>');
+            $logger = $bbcode->parse('<div class="align-left">'.$this->message.'</div>');
             $logger = $emojiOne->toImage($logger);
         }
 
