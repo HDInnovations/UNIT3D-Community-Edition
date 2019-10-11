@@ -50,7 +50,7 @@ class LanguageController extends Controller
     {
         $this->setLocale($locale, $request);
 
-        $url = config('language.url') ? url('/' . $locale) : url('/');
+        $url = config('language.url') ? url('/'.$locale) : url('/');
 
         return redirect($url)
             ->withSuccess('Language Changed!');
@@ -76,7 +76,7 @@ class LanguageController extends Controller
             } else {
                 $previous_url = substr($previous_url, strrpos($previous_url, '/') + 1);
             }
-            $url = rtrim(env('APP_URL'), '/') . '/' . $locale . '/' . ltrim($previous_url, '/');
+            $url = rtrim(env('APP_URL'), '/').'/'.$locale.'/'.ltrim($previous_url, '/');
             $session->setPreviousUrl($url);
         }
 
