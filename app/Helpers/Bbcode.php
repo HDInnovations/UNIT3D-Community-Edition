@@ -271,7 +271,7 @@ class Bbcode
 
         'linebreak' => [
             'pattern' => '/\r\n/',
-            'replace' => '<br />',
+            'replace' => '<br>',
             'content' => '',
         ],
 
