@@ -45,7 +45,7 @@ class Page extends Model
      */
     public function setContentAttribute($value)
     {
-        $this->attributes['content'] = clean($value);
+        $this->attributes['content'] = htmlspecialchars($value);
     }
 
     /**
@@ -57,6 +57,6 @@ class Page extends Model
     {
         $bbcode = new Bbcode();
 
-        return $bbcode->parse(clean($this->content), true);
+        return $bbcode->parse($this->content, true);
     }
 }

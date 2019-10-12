@@ -304,7 +304,7 @@ class Torrent extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = clean($value);
+        $this->attributes['description'] = htmlspecialchars($value);
     }
 
     /**
@@ -328,7 +328,7 @@ class Torrent extends Model
      */
     public function setMediaInfoAttribute($value)
     {
-        $this->attributes['mediainfo'] = clean($value);
+        $this->attributes['mediainfo'] = htmlspecialchars($value);
     }
 
     /**

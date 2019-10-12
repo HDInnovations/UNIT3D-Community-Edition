@@ -193,7 +193,7 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = clean($value);
+        $this->attributes['description'] = htmlspecialchars($value);
     }
 
     /**
