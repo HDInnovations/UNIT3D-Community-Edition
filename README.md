@@ -2,7 +2,7 @@
     <img src="https://i.imgur.com/PKv7tSA.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 <p align="center">
-    💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and Patrons</b>💛
+    💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Sponsors</a></b>💛
 </p>
 <hr>
 
@@ -12,7 +12,6 @@
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>	
 <a class="badge-align" href="https://www.codacy.com/manual/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HDInnovations/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
 <a href="https://discord.gg/ntnPxzG"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
-<a href="https://www.patreon.com/HDInnovations"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg?style=flat-square"></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.org"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
@@ -32,11 +31,11 @@
 8. [Security](#security)
 9. [Contributing](#contributing)
 10. [License](#license)
-11. [Homestead (For local developement)](#homestead)
-12. [Demo](#demo)
-13. [Donate](#donate)
-14. [Contributors](#contributors)
-15. [Special Thanks](#thanks)
+11. [Demo](#demo)
+12. [Sponsoring](#sponsor)
+13. [Contributors](#contributors)
+14. [Special Thanks](#thanks)
+15. [Sponsors](#sponsors)
 
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
@@ -126,6 +125,8 @@ https://www.youtube.com/watch?v=tlNUjS1dYMs
  
 ## <a name="packages"></a> 📦 Packages
 Here are some packages that are built for UNIT3D.
+- [An artisan package to import a TemplateShares database into UNIT3D](https://github.com/HDInnovations/templateshares-to-unit3d).
+- [An artisan package to import a Luminance database into UNIT3D](https://github.com/HDInnovations/luminance-to-unit3d).
 - [An artisan package to import a XBTIT database into UNIT3D](https://github.com/HDInnovations/xbtit-to-unit3d).
 - [An artisan package to import a Gazelle database into UNIT3D](https://github.com/HDInnovations/gazelle-to-unit3d).
 - [An artisan package to import a U-232 database into UNIT3D](https://github.com/HDInnovations/u232-to-unit3d).
@@ -182,12 +183,11 @@ Password: UNIT3D
 
 Demo is reset every 48 hours!
 
-## <a name="donate"></a> :star: Support UNIT3D
+## <a name="sponsor"></a> :star: Sponsor UNIT3D (HDInnovations / HDVinnie)
 
-You can support my work if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. Some folks have asked me if it's possible to do a one-time donation, or if I accept cryptocurrency. Yes, and yes!
+https://github.com/sponsors/HDVinnie
 
-	
-Patreon:<a href="https://www.patreon.com/HDInnovations"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>
+You can support my work if you are enjoying UNIT3D and my other projects under HDInnovations, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. Some folks have asked me if it's possible to do a one-time donation via cryptocurrency. Yes!
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
 
@@ -211,3 +211,9 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 
 <a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>
 <a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png"></a>
+<a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png"></a>
+
+
+## <a name="sponsors"></a> 💖 Sponsors (Much Love!)
+
+Coming Soon!
