@@ -128,16 +128,16 @@
         },
         {
             "name": "arcanedev/log-viewer",
-            "version": "5.1.4",
+            "version": "5.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/LogViewer.git",
-                "reference": "560d395293b1d5797443b836b9fa18da872204cc"
+                "reference": "b6658e6bc7b61489c1accb8bfecd3ea2d3bab741"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/560d395293b1d5797443b836b9fa18da872204cc",
-                "reference": "560d395293b1d5797443b836b9fa18da872204cc",
+                "url": "https://api.github.com/repos/ARCANEDEV/LogViewer/zipball/b6658e6bc7b61489c1accb8bfecd3ea2d3bab741",
+                "reference": "b6658e6bc7b61489c1accb8bfecd3ea2d3bab741",
                 "shasum": ""
             },
             "require": {
@@ -182,7 +182,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Provides a Log Viewer for Laravel 5",
+            "description": "Provides a Log Viewer for Laravel 5/6",
             "homepage": "https://github.com/ARCANEDEV/LogViewer",
             "keywords": [
                 "arcanedev",
@@ -193,7 +193,7 @@
                 "log-viewer",
                 "logviewer"
             ],
-            "time": "2019-10-03T13:08:24+00:00"
+            "time": "2019-10-19T17:04:00+00:00"
         },
         {
             "name": "arcanedev/support",
@@ -1666,26 +1666,26 @@
         },
         {
             "name": "kyslik/column-sortable",
-            "version": "6.1.0",
+            "version": "6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kyslik/column-sortable.git",
-                "reference": "07dcd7f2a6f3f765a1f36bbbb32bc7a94287fbb9"
+                "reference": "4b628bffdb1724284dd0ae091262d24790225768"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kyslik/column-sortable/zipball/07dcd7f2a6f3f765a1f36bbbb32bc7a94287fbb9",
-                "reference": "07dcd7f2a6f3f765a1f36bbbb32bc7a94287fbb9",
+                "url": "https://api.github.com/repos/Kyslik/column-sortable/zipball/4b628bffdb1724284dd0ae091262d24790225768",
+                "reference": "4b628bffdb1724284dd0ae091262d24790225768",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "5.8.*|6.0.*|6.1.*",
-                "illuminate/support": "5.8.*|6.0.*|6.1.*",
+                "illuminate/database": "5.8.*|^6.0",
+                "illuminate/support": "5.8.*|^6.0",
                 "php": ">=7.2"
             },
             "require-dev": {
-                "orchestra/testbench": "3.8.*|4.*",
-                "phpunit/phpunit": "^7.0|^8.0"
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "package",
             "extra": {
@@ -1719,20 +1719,20 @@
                 "sortable",
                 "sorting"
             ],
-            "time": "2019-10-06T18:22:15+00:00"
+            "time": "2019-10-14T19:39:29+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v6.1.0",
+            "version": "v6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a365bea7ff0dea9a50f5904be9e41656def9af4b"
+                "reference": "80914c430fb5e49f492812d704ba6aeec03d80a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a365bea7ff0dea9a50f5904be9e41656def9af4b",
-                "reference": "a365bea7ff0dea9a50f5904be9e41656def9af4b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/80914c430fb5e49f492812d704ba6aeec03d80a2",
+                "reference": "80914c430fb5e49f492812d704ba6aeec03d80a2",
                 "shasum": ""
             },
             "require": {
@@ -1828,6 +1828,7 @@
                 "league/flysystem-sftp": "Required to use the Flysystem SFTP driver (^1.0).",
                 "moontoast/math": "Required to use ordered UUIDs (^1.1).",
                 "pda/pheanstalk": "Required to use the beanstalk queue driver (^4.0).",
+                "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0)",
                 "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^4.0).",
                 "symfony/cache": "Required to PSR-6 cache bridge (^4.3.4).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^1.2).",
@@ -1864,7 +1865,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-10-01T13:55:56+00:00"
+            "time": "2019-10-15T13:38:24+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1931,16 +1932,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.56",
+            "version": "1.0.57",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "90e3f83cb10ef6b058d70f95267030e7a6236518"
+                "reference": "0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/90e3f83cb10ef6b058d70f95267030e7a6236518",
-                "reference": "90e3f83cb10ef6b058d70f95267030e7a6236518",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a",
+                "reference": "0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a",
                 "shasum": ""
             },
             "require": {
@@ -2011,7 +2012,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-10-12T13:05:59+00:00"
+            "time": "2019-10-16T21:01:05+00:00"
         },
         {
             "name": "malkusch/lock",
@@ -2346,16 +2347,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.25.1",
+            "version": "2.25.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1"
+                "reference": "d07636581795383e2fea2d711212d30f941f2039"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1",
-                "reference": "d59c6cea9c4a3547bb6c0dfec451319abdaa4fb1",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d07636581795383e2fea2d711212d30f941f2039",
+                "reference": "d07636581795383e2fea2d711212d30f941f2039",
                 "shasum": ""
             },
             "require": {
@@ -2409,7 +2410,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-10-05T15:52:23+00:00"
+            "time": "2019-10-20T11:05:44+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2464,16 +2465,16 @@
         },
         {
             "name": "opis/closure",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "60a97fff133b1669a5b1776aa8ab06db3f3962b7"
+                "reference": "e79f851749c3caa836d7ccc01ede5828feb762c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/60a97fff133b1669a5b1776aa8ab06db3f3962b7",
-                "reference": "60a97fff133b1669a5b1776aa8ab06db3f3962b7",
+                "url": "https://api.github.com/repos/opis/closure/zipball/e79f851749c3caa836d7ccc01ede5828feb762c7",
+                "reference": "e79f851749c3caa836d7ccc01ede5828feb762c7",
                 "shasum": ""
             },
             "require": {
@@ -2521,7 +2522,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2019-09-02T21:07:33+00:00"
+            "time": "2019-10-19T18:38:51+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -3222,25 +3223,25 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "6.6.1",
+            "version": "6.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "1a41b1320733a5f4b960613d2349b09ae77e061d"
+                "reference": "f5b7078a3bfe983900c393fb51eeed4fc0b6b6d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/1a41b1320733a5f4b960613d2349b09ae77e061d",
-                "reference": "1a41b1320733a5f4b960613d2349b09ae77e061d",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/f5b7078a3bfe983900c393fb51eeed4fc0b6b6d1",
+                "reference": "f5b7078a3bfe983900c393fb51eeed4fc0b6b6d1",
                 "shasum": ""
             },
             "require": {
-                "illuminate/console": "~5.8.0|^6.0",
-                "illuminate/contracts": "~5.8.0|^6.0",
-                "illuminate/events": "~5.8.0|^6.0",
-                "illuminate/filesystem": "~5.8.0|^6.0",
-                "illuminate/notifications": "~5.8.0|^6.0",
-                "illuminate/support": "~5.8.0|^6.0",
+                "illuminate/console": "^5.8.15|^6.0",
+                "illuminate/contracts": "^5.8.15|^6.0",
+                "illuminate/events": "^5.8.15|^6.0",
+                "illuminate/filesystem": "^5.8.15|^6.0",
+                "illuminate/notifications": "^5.8.15|^6.0",
+                "illuminate/support": "^5.8.15|^6.0",
                 "league/flysystem": "^1.0.49",
                 "php": "^7.2",
                 "spatie/db-dumper": "^2.12",
@@ -3251,7 +3252,7 @@
                 "laravel/slack-notification-channel": "^1.0",
                 "league/flysystem-aws-s3-v3": "^1.0",
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "~3.8.0|^4.0",
+                "orchestra/testbench": "3.8.*|4.*",
                 "phpunit/phpunit": "^8.0"
             },
             "suggest": {
@@ -3293,7 +3294,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2019-10-09T16:16:55+00:00"
+            "time": "2019-10-16T14:55:55+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
