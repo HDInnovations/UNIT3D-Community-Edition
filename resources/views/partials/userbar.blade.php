@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <ul class="list-inline">
             <li>
-                <a href="{{ route('profile', ['username' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
                     <span class="badge-user text-bold" style="color:{{ auth()->user()->group->color }};">
                         <strong>{{ auth()->user()->username }}</strong>
                         @if (auth()->user()->getWarning() > 0)
@@ -45,7 +45,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-upload text-green"></i>
-                        <a href="{{ route('user_active', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}"
+                        <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}"
                             title="@lang('torrent.my-active-torrents')">
                             <span class="text-blue"> @lang('torrent.seeding'):</span>
                         </a>
@@ -55,7 +55,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-download text-red"></i>
-                        <a href="{{ route('user_active', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}"
+                        <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}"
                             title="@lang('torrent.my-active-torrents')">
                             <span class="text-blue"> @lang('torrent.leeching'):</span>
                         </a>
@@ -83,7 +83,7 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                        <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
+                        <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}"
                             title="@lang('user.my-fl-tokens')">
                             <span class="text-blue"> @lang('common.fl_tokens') :</span>
                         </a>

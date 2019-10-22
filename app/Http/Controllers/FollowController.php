@@ -24,28 +24,33 @@ class FollowController extends Controller
     /**
      * Follow A User.
      *
-     * @param User $user
+     * @param  \Illuminate\Http\Request  $request
+     * @param  User                      $user
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function follow(Request $request, User $user)
+    public function store(Request $request, $username)
     {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
         if ($request->user()->id == $user->id) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('Nice try, but sadly you can not follow yourself.');
-        } elseif (! $request->user()->isFollowing($user->id)) {
+        }
+
+        if (! $request->user()->isFollowing($user->id)) {
             $follow = new Follow();
             $follow->user_id = $request->user()->id;
             $follow->target_id = $user->id;
             $follow->save();
-            if ($user->acceptsNotification($request->user(), $user, 'account', 'show_account_follow')) {
-                $user->notify(new NewFollow('user', $request->user(), $user, $follow));
+            if ($user->acceptsNotification($request->user(), $user->id, 'account', 'show_account_follow')) {
+                $user->notify(new NewFollow('user', $request->user(), $user->id, $follow));
             }
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are now following '.$user->username);
         } else {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You are already following this user');
         }
     }
@@ -53,12 +58,15 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      *
-     * @param User $user
+     * @param  \Illuminate\Http\Request  $request
+     * @param  User                      $user
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unfollow(Request $request, User $user)
+    public function destroy(Request $request, $username)
     {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
         if ($request->user()->isFollowing($user->id)) {
             $follow = $request->user()->follows()->where('target_id', '=', $user->id)->first();
             $follow->delete();
@@ -66,10 +74,10 @@ class FollowController extends Controller
                 $user->notify(new NewUnfollow('user', $request->user(), $user, $follow));
             }
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are no longer following '.$user->username);
         } else {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You are not following this user to begin with');
         }
     }

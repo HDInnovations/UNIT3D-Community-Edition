@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_privacy', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_privacy', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.privacy') @lang('user.settings')</span>
         </a>
@@ -43,7 +43,7 @@
 
 
                     <div role="tabpanel" class="tab-pane" id="other">
-                        <form role="form" method="POST" action="{{ route('privacy_other', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('privacy_other', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.other-privacy'):</h3>
@@ -103,7 +103,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="request">
-                        <form role="form" method="POST" action="{{ route('privacy_request', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('privacy_request', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.request-privacy'):</h3>
@@ -163,7 +163,7 @@
                         </form>
                     </div>
                 <div role="tabpanel" class="tab-pane" id="torrent">
-                    <form role="form" method="POST" action="{{ route('privacy_torrent', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                    <form role="form" method="POST" action="{{ route('privacy_torrent', ['username' => $user->username]) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="well">
                             <h3>@lang('user.torrent-privacy'):</h3>
@@ -257,7 +257,7 @@
                     </form>
                 </div>
                     <div role="tabpanel" class="tab-pane active" id="profile">
-                        <form role="form" method="POST" action="{{ route('privacy_profile', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('privacy_profile', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.profile-privacy'):</h3>
@@ -537,7 +537,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="forum">
-                        <form role="form" method="POST" action="{{ route('privacy_forum', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('privacy_forum', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.forum-privacy'):</h3>
@@ -613,7 +613,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="follower">
-                        <form role="form" method="POST" action="{{ route('privacy_follower', ['slug' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('privacy_follower', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.follower-privacy'):</h3>
@@ -672,7 +672,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="achievement">
-                        <form role="form" method="POST" action="{{ route('privacy_achievement', ['slug' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('privacy_achievement', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.achievement-privacy'):</h3>

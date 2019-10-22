@@ -949,6 +949,11 @@ class torrentBookmarkBuilder {
         this.destroy(id,custom);
     }
     create(id,custom) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         if(torrentBookmarkXHR != null) {
             torrentBookmarkXHR.abort();
@@ -957,11 +962,11 @@ class torrentBookmarkBuilder {
         torrentBookmarkXHR = new XMLHttpRequest();
 
         torrentBookmarkXHR = $.ajax({
-            url: '/torrents/bookmark/' + id,
+            url: '/bookmarks/' + id,
             data: {
                 _token: this.csrf,
             },
-            type: 'get'
+            type: 'POST'
         }).done(function (e) {
             Swal.fire({
                 position: 'center',
@@ -983,6 +988,11 @@ class torrentBookmarkBuilder {
         });
     }
     destroy(id,custom) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         if(torrentBookmarkXHR != null) {
             return;
@@ -991,11 +1001,12 @@ class torrentBookmarkBuilder {
         torrentBookmarkXHR = new XMLHttpRequest();
 
         torrentBookmarkXHR = $.ajax({
-            url: '/torrents/unbookmark/' + id,
+            url: '/bookmarks/' + id,
             data: {
                 _token: this.csrf,
+                _method: 'DELETE',
             },
-            type: 'get'
+            type: 'POST'
         }).done(function (e) {
             Swal.fire({
                 position: 'center',

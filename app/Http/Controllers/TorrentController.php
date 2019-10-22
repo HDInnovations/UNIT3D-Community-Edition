@@ -1568,44 +1568,6 @@ class TorrentController extends Controller
     }
 
     /**
-     * Bookmark A Torrent.
-     *
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function bookmark(Request $request, $id)
-    {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-
-        if ($request->user()->isBookmarked($torrent->id)) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->withErrors('Torrent has already been bookmarked.');
-        } else {
-            $request->user()->bookmarks()->attach($torrent->id);
-
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->withSuccess('Torrent Has Been Bookmarked Successfully!');
-        }
-    }
-
-    /**
-     * Unbookmark A Torrent.
-     *
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function unBookmark(Request $request, $id)
-    {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $request->user()->bookmarks()->detach($torrent->id);
-
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->withSuccess('Torrent Has Been Unbookmarked Successfully!');
-    }
-
-    /**
      * Sticky A Torrent.
      *
      * @param $slug

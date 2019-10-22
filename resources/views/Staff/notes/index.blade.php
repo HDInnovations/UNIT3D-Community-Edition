@@ -49,11 +49,11 @@
                                     <tr>
                                         <td>
                                             <a class="name"
-                                               href="{{ route('profile', ['username' => $n->noteduser->username, 'id' => $n->user_id ]) }}">{{ $n->noteduser->username }}</a>
+                                               href="{{ route('users.show', ['username' => $n->noteduser->username]) }}">{{ $n->noteduser->username }}</a>
                                         </td>
                                         <td>
                                             <a class="name"
-                                               href="{{ route('profile', ['username' => $n->staffuser->username, 'id' => $n->staff_id ]) }}">{{ $n->staffuser->username }}</a>
+                                               href="{{ route('users.show', ['username' => $n->staffuser->username]) }}">{{ $n->staffuser->username }}</a>
                                         </td>
                                         <td>
                                             {{ $n->message }}

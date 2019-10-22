@@ -11,12 +11,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.rss')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.rss.edit', ['id' => $rss->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.rss.edit', ['id' => $rss->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.edit')</span>
         </a>
     </li>
@@ -26,7 +26,7 @@
 @section('content')
     <div class="container box">
         <h2>@lang('rss.edit-public-feed')</h2>
-        <form role="form" method="POST" action="{{ route('Staff.rss.update', ['id' => $rss->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.rss.update', ['id' => $rss->id]) }}">
             @csrf
             @method('PUT')
                     <div class="form-group">

@@ -46,7 +46,7 @@
                                data-original-title="{{ $p->category->name }} Torrent"></i></td>
                         <td>{{ $p->type }}</td>
                         <td>{{ $p->getSize() }}</td>
-                        <td><a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
+                        <td><a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $p->user->username }}
                                     ({{ $p->user->group->name }})</span></a></td>
@@ -192,12 +192,12 @@
                         <td>{{ $post->type }}</td>
                         <td>{{ $post->getSize() }}</td>
                         <td>
-                            <a href="{{ route('profile', ['username' => $post->user->username, 'id' => $post->user->id]) }}"
+                            <a href="{{ route('users.show', ['username' => $post->user->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->user->username }}
                                     ({{ $post->user->group->name }})</span></a></td>
                         <td>
-                            <a href="{{ route('profile', ['username' => $post->moderated->username, 'id' => $post->moderated->id]) }}"
+                            <a href="{{ route('users.show', ['username' => $post->moderated->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->moderated->username }}
                                     ({{ $post->moderated->group->name }})</span></a></td>
@@ -302,12 +302,12 @@
                         <td>{{ $reject->type }}</td>
                         <td>{{ $reject->getSize() }}</td>
                         <td>@if ($reject->user) <a
-                                    href="{{ route('profile', ['username' => $reject->user->username, 'id' => $reject->user->id]) }}"
+                                    href="{{ route('users.show', ['username' => $reject->user->username]) }}"
                                     itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                         class="l-breadcrumb-item-link-title">{{ $reject->user->username }}
                                     ({{ $reject->user->group->name }})</span></a> @else System @endif </td>
                         <td>
-                            <a href="{{ route('profile', ['username' => $reject->moderated->username, 'id' => $reject->moderated->id]) }}"
+                            <a href="{{ route('users.show', ['username' => $reject->moderated->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }}
                                     ({{ $reject->moderated->group->name }})</span></a></td>

@@ -50,7 +50,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('gallery') }}">
+            <a href="{{ route('albums.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-images" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">Gallery</span>
                 <span class="selected"></span>
@@ -85,16 +85,9 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
+            <a href="{{ route('inbox', ['username' => auth()->user()->username]) }}">
                 <i class="{{ config('other.font-awesome') }} fa-envelope" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('pm.inbox')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('bug') }}">
-                <i class="{{ config('other.font-awesome') }} fa-bug" style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">@lang('common.bug')</span>
                 <span class="selected"></span>
             </a>
         </li>

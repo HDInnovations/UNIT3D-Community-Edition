@@ -88,7 +88,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="container-fluid">
-                <form role="form" method="POST" action="{{ route('postNote', ['username' => $user->username, 'id' => $user->id]) }}">
+                <form role="form" method="POST" action="{{ route('postNote', ['username' => $user->username]) }}">
                     @csrf
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,7 +123,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="container-fluid">
-            <form role="form" method="POST" action="{{ route('ban', ['username' => $user->username, 'id' => $user->id]) }}">
+            <form role="form" method="POST" action="{{ route('ban', ['username' => $user->username]) }}">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -156,7 +156,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="container-fluid">
-            <form role="form" method="POST" action="{{ route('unban', ['username' => $user->username, 'id' => $user->id]) }}">
+            <form role="form" method="POST" action="{{ route('unban', ['username' => $user->username]) }}">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -208,7 +208,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_user', ['username' => $user->username, 'id' => $user->id]) }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_user', ['username' => $user->username]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="report_reason">Reason</label>
@@ -241,7 +241,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                 <div class="form-group">
-                        <a href="{{ route('user_delete', ['username' => $user->username, 'id' => $user->id]) }}"><input
+                        <a href="{{ route('user_delete', ['username' => $user->username]) }}"><input
                                     class="btn btn-danger" type="submit" value="Yes, Delete"></a>
                 </div>
                 </div>

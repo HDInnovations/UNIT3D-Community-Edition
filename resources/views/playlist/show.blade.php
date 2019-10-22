@@ -23,14 +23,14 @@
 
 						<ul class="list_menu_bar">
 							<li class="account">
-								<a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">
+								<a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
 									@if ($playlist->user->image != null)
 										<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
 									@else
 										<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
 									@endif
 								</a>
-								<p>A list by<br><a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">{{ $playlist->user->username }}</a></p>
+								<p>A list by<br><a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">{{ $playlist->user->username }}</a></p>
 							</li>
 						</ul>
 
@@ -178,13 +178,13 @@
 									@if ($t->torrent->anon == 1)
 										<span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
 											@if (auth()->user()->id == $t->torrent->user->id || auth()->user()->group->is_modo)
-												<a href="{{ route('profile', ['username' => $t->torrent->user->username, 'id' => $t->torrent->user->id]) }}">
+												<a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
                                                             ({{ $t->torrent->user->username }})
                                                         </a>
 											@endif
                                                 </span>
 									@else
-										<a href="{{ route('profile', ['username' => $t->torrent->user->username, 'id' => $t->torrent->user->id]) }}">
+										<a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
                                             <span class="badge-user text-bold" style="color:{{ $t->torrent->user->group->color }}; background-image:{{ $t->torrent->user->group->effect }};">
                                                 <i class="{{ $t->torrent->user->group->icon }}" data-toggle="tooltip" title=""
                                                    data-original-title="{{ $t->torrent->user->group->name }}"></i> {{ $t->torrent->user->username }}
@@ -294,9 +294,9 @@
 														<img src="{{ url('img/profile.png') }}"
 														     alt="{{ $comment->user->username }}" class="img-avatar-48">
 														<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-														<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+														<a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
 												@else
-													<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+													<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
 													   class="pull-left" style="padding-right: 10px">
 														@if ($comment->user->image != null)
 															<img src="{{ url('files/img/' . $comment->user->image) }}"
@@ -306,7 +306,7 @@
 														     alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
 													@endif
 													<strong><a
-																href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+																href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
 												<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
 												@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
 													<a title="@lang('common.delete-comment')"

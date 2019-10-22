@@ -138,7 +138,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('profile', ['username' => $username, 'id' => $id])
+            return redirect()->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
@@ -155,7 +155,7 @@ class ReportController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$reported_by->username} has made a new User report.");
 
-            return redirect()->route('profile', ['username' => $username, 'id' => $id])
+            return redirect()->route('users.show', ['username' => $username])
                 ->withSuccess('Your report has been successfully sent');
         }
     }

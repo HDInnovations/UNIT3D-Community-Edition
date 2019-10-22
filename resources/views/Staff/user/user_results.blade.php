@@ -59,7 +59,7 @@
                                              class="img-circle"> @endif
                                 </td>
                                 <td class="user-name"><a
-                                            href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}"
+                                            href="{{ route('users.show', ['username' => $user->username]) }}"
                                             class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span>
                                 </td>
                                 @if (auth()->user()->group->is_modo)
@@ -68,7 +68,7 @@
                                         {{ $user->id }}
                                     </td>
                                     <td class="action-links">
-                                        <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
+                                        <a href="{{ route('user_setting', ['username' => $user->username]) }}"
                                            class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                         </a>
                                     </td>

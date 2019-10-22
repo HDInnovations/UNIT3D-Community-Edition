@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('gallery') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Gallery</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('add_image', ['id' => $album->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('images.create', ['id' => $album->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Image</span>
         </a>
     </li>
@@ -25,7 +25,7 @@
     <div class="container">
         <div class="block">
             <div class="text-center">
-                <form name="addimagetoalbum" method="POST" action="{{ route('add_image_to_album') }}"
+                <form name="addimagetoalbum" method="POST" action="{{ route('images.store') }}"
                       enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="album_id" value="{{$album->id}}"/>

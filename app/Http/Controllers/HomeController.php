@@ -32,12 +32,12 @@ use Illuminate\Database\Eloquent\Builder;
 class HomeController extends Controller
 {
     /**
-     * Home Page.
+     * Display Home Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function home(Request $request)
+    public function index(Request $request)
     {
         // For Cache
         $current = Carbon::now();

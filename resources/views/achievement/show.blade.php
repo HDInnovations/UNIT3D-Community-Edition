@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_achievements', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('achievements.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.achievements')</span>
         </a>

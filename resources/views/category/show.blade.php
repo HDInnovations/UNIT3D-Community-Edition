@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('categories') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.categories')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('category', ['slug' => $category->slug, 'id' => $category->id]) }}" itemprop="url"
+        <a href="{{ route('categories.show', ['id' => $category->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }}</span>
         </a>
@@ -85,7 +85,7 @@
 
                             <td>
                                 @if ($torrent->category->image != null)
-                                    <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                         <div class="text-center">
                                             <img src="{{ url('files/img/' . $torrent->category->image) }}" alt="{{ $torrent->category->name }}" data-toggle="tooltip"
                                                  data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -93,7 +93,7 @@
                                         </div>
                                     </a>
                                 @else
-                                    <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                         <div class="text-center">
                                             <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
                                                data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -166,7 +166,7 @@
                                     <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By ANONYMOUS USER
                                         @if ($user->id == $torrent->user->id || $user->group->is_modo)
-                                            <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         ({{ $torrent->user->username }})
                                     </a>
                                         @endif
@@ -174,7 +174,7 @@
                                 @else
                                     <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
                             </span>

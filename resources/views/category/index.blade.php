@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('categories') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.categories')</span>
         </a>
     </li>
@@ -21,7 +21,7 @@
         </div>
         <div class="blocks">
             @foreach ($categories as $category)
-                <a href="{{ route('category', ['slug' => $category->slug, 'id' => $category->id]) }}">
+                <a href="{{ route('categories.show', ['id' => $category->id]) }}">
                     <div class="general media_blocks">
                         <h2>
                             @if ($category->image != null)

@@ -55,6 +55,7 @@ class AutoCorrectHistory extends Command
 
         foreach ($history as $h) {
             $h->active = false;
+            $h->seeder = false;
             $h->save();
         }
     }

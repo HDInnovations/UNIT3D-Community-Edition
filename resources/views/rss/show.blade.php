@@ -7,7 +7,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'
         <atom:link href="!#" rel="self" type="application/rss+xml" />
         <title>{{ config('other.title') }} @lang('rss.rss-feed')</title>
         <link>{{ config('app.url') }}</link>
-        <description>Powered By {{ config('other.codebase') }}</description>
+        <description>{{ config('unit3d.powered-by') }}</description>
         @if($torrents)
             @foreach($torrents as $data)
                 <item>
@@ -19,7 +19,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'
                     @else
                         <author>@lang('common.anonymous') @lang('torrent.uploader')</author>
                     @endif
-                    <pubDate>{{ $data->created_at->toDayDateTimeString() }}</pubDate>
+                    <pubDate>{{ $data->created_at->toRssString() }}</pubDate>
                     <comments>{{ route('torrent', ['slug' => $data->slug, 'id' => $data->id ]) }}</comments>
                 </item>
             @endforeach

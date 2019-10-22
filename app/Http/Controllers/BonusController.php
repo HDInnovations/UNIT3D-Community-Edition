@@ -369,7 +369,7 @@ class BonusController extends Controller
             );
 
             if ($dest == 'profile') {
-                return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                return redirect()->route('users.show', ['username' => $recipient->username])
                     ->withSuccess('Gift Sent');
             }
 
@@ -389,7 +389,7 @@ class BonusController extends Controller
                 }
 
                 if ($dest == 'profile') {
-                    return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                    return redirect()->route('users.show', ['username' => $recipient->username])
                         ->withErrors('You Must Enter An Amount And Message!');
                 }
 

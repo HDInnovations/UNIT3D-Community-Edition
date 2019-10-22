@@ -13,7 +13,7 @@
             <h2 class="l-footer-section-title">@lang('common.account')</h2>
             <ul>
                 <li>
-                    <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">@lang('user.my-profile')</a>
+                    <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">@lang('user.my-profile')</a>
                 </li>
                 <li>
                     <a href="{{ route('logout') }}"
@@ -28,8 +28,7 @@
             <h2 class="l-footer-section-title">@lang('common.community')</h2>
             <ul>
                 <li><a href="{{ route('forum_index') }}">@lang('forum.forums')</a></li>
-                <li><a href="{{ route('members') }}">@lang('common.members')</a></li>
-                <li><a href="{{ route('articles') }}">@lang('common.news')</a></li>
+                <li><a href="{{ route('articles.index') }}">@lang('common.news')</a></li>
             </ul>
         </div>
 

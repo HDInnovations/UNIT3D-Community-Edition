@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('contact') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('contact.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.contact')</span>
         </a>
     </li>
@@ -20,7 +20,7 @@
     <div class="container box">
         <div class="row">
             <div class="col-md-4 box centered-form">
-                <form role="form" method="POST" action="{{ route('sendContact') }}">
+                <form role="form" method="POST" action="{{ route('contact.store') }}">
                     @csrf
                     <div class="form-group">
                         <label>

@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('user_profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_profile', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_downloads', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_downloads', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.downloads')</span>
         </a>
@@ -132,7 +132,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('category', ['slug' => $download->torrent->category->slug, 'id' => $download->torrent->category->id]) }}">{{ $download->torrent->category->name }}</a>
+                                    <a href="{{ route('categories.show', ['id' => $download->torrent->category->id]) }}">{{ $download->torrent->category->name }}</a>
                                 </td>
                                 <td>
                                     <span class="badge-extra text-blue text-bold"> {{ $download->torrent->getSize() }}</span>

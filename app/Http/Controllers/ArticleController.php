@@ -18,28 +18,28 @@ use App\Models\Article;
 class ArticleController extends Controller
 {
     /**
-     * Show All Articles.
+     * Display All Articles.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function articles()
+    public function index()
     {
         $articles = Article::latest()->paginate(6);
 
-        return view('article.articles', ['articles' => $articles]);
+        return view('article.index', ['articles' => $articles]);
     }
 
     /**
      * Show A Article.
      *
-     * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function post($slug, $id)
+    public function show($id)
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 
-        return view('article.article', ['article' => $article]);
+        return view('article.show', ['article' => $article]);
     }
 }

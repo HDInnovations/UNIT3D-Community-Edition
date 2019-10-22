@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('user_profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_profile', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_uploads', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_uploads', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.uploads')</span>
         </a>
@@ -163,7 +163,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('category', ['slug' => $upload->category->slug, 'id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
+                                    <a href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
                                 </td>
                                 <td>
                                     <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>

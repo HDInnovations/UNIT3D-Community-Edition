@@ -58,7 +58,7 @@ class NoteController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $note->save();
@@ -66,7 +66,7 @@ class NoteController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('Note Has Successfully Posted');
         }
     }
@@ -84,7 +84,7 @@ class NoteController extends Controller
         $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

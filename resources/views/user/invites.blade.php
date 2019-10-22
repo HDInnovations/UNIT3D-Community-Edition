@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['username' => $owner->slug, 'id' => $owner->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $owner->slug]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $owner->username }}</span>
         </a>
@@ -53,7 +53,7 @@
                             @foreach ($invites as $invite)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('profile', ['username' => $invite->sender->username, 'id' => $invite->sender->id]) }}">
+                                        <a href="{{ route('users.show', ['username' => $invite->sender->username]) }}">
                                             <span class="text-bold" style="color:{{ $invite->sender->group->color }}; ">
                                                 <i class="{{ $invite->sender->group->icon }}"></i> {{ $invite->sender->username }}
                                             </span>
@@ -73,7 +73,7 @@
                                     </td>
                                     <td>
                                         @if ($invite->accepted_by != null && $invite->accepted_by != 1)
-                                            <a href="{{ route('profile', ['username' => $invite->receiver->username, 'id' => $invite->receiver->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $invite->receiver->username]) }}">
                                                 <span class="text-bold" style="color:{{ $invite->receiver->group->color }}; ">
                                                     <i class="{{ $invite->receiver->group->icon }}"></i> {{ $invite->receiver->username }}
                                                 </span>

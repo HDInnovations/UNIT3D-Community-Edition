@@ -32,8 +32,12 @@
                 @if ($report->solved == 0)
                     <span class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-times"></i> UNSOLVED </strong></span>
                 @else
-                    <span class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-check"></i> SOLVED BY <a class="name"
-                                                                                              href="{{ route('profile', ['username' => $report->staff->username, 'id' => $report->staff_id ]) }}">{{ $report->staff->username }}</a></strong></span>
+                    <span class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-check"></i> SOLVED BY
+                            <a class="name" href="{{ route('users.show', ['username' => $report->staff->username]) }}">
+                                {{ $report->staff->username }}
+                            </a>
+                        </strong>
+                    </span>
                 @endif
             </h2>
             <hr>
@@ -41,13 +45,13 @@
                 <div class="col-sm-12">
                     <h3>Reported User:</h3>
                     <p class="well well-sm">
-                        <a href="{{ route('profile', ['username' => $report->reported->username, 'id' => $report->reported->id]) }}">
+                        <a href="{{ route('users.show', ['username' => $report->reported->username]) }}">
                             {{ $report->reported->username }}
                         </a>
                     </p>
                     <h3>Reported By:</h3>
                     <p class="well well-sm">
-                        <a href="{{ route('profile', ['username' => $report->reporter->username, 'id' => $report->reporter->id]) }}">
+                        <a href="{{ route('users.show', ['username' => $report->reporter->username]) }}">
                             {{ $report->reporter->username }}
                         </a>
                     </p>

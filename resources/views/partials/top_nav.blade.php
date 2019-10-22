@@ -12,7 +12,7 @@
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
-                <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
+                <a href="{{ route('inbox', ['username' => auth()->user()->username]) }}"
                    class="dropdown-toggle icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-blue"></i>
                     @if ($pm > 0)
@@ -31,7 +31,7 @@
             </li>
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                <a href="{{ route('achievements') }}" class="icon-circle">
+                <a href="{{ route('achievements.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i>
                 </a>
             </li>
@@ -87,37 +87,37 @@
                 </a>
                 <ul class="dropdown-menu ">
                     <li>
-                        <a href="{{ route('profile', ['username' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                        <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.my-profile')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_settings', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                        <a href="{{ route('user_settings', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.my-settings')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_privacy', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                        <a href="{{ route('user_privacy', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('user.my-privacy')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_security', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                        <a href="{{ route('user_security', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i> @lang('user.my-security')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_bookmarks',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
+                        <a href="{{ route('bookmarks.index',['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_requested',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
+                        <a href="{{ route('user_requested',['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('user.my-requested')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                        <a href="{{ route('user_wishlist', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
                         </a>
                     </li>

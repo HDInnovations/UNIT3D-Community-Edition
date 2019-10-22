@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('articles') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
         </a>
     </li>
@@ -25,7 +25,7 @@
         </div>
         @foreach ($articles as $article)
             <div class="well">
-                <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}"
+                <a href="{{ route('articles.show', ['id' => $article->id]) }}"
                    style=" float: right; margin-right: 10px;">
                     @if ( ! is_null($article->image))
                         <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
@@ -45,7 +45,7 @@
                 </p>
 
                 <div class="text-center">
-                    <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}" class="btn btn-success">
+                    <a href="{{ route('articles.show', ['id' => $article->id]) }}" class="btn btn-success">
                         @lang('articles.read-more')
                     </a>
                 </div>

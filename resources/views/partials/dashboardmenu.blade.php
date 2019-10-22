@@ -42,7 +42,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('Staff.bots.index') }}">
+                <a href="{{ route('staff.bots.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
                 </a>
             </li>
@@ -84,7 +84,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('Staff.rss.index') }}">
+                <a href="{{ route('staff.rss.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('staff.rss')
                 </a>
             </li>

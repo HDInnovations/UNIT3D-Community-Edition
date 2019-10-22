@@ -75,7 +75,7 @@ class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
+            return redirect()->route('articles.show', ['id' => $article->id])
                 ->withErros('Your Comment Rights Have Benn Revoked!');
         }
 
@@ -93,7 +93,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
+            return redirect()->route('articles.show', ['id' => $article->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -156,7 +156,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
+            return redirect()->route('articles.show', ['id' => $article->id])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }

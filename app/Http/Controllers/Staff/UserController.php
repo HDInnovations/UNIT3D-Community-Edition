@@ -134,7 +134,7 @@ class UserController extends Controller
         // Hard coded until group change.
 
         if ($target >= $sender || ($sender == 0 && ($sendto == 6 || $sendto == 4 || $sendto == 10)) || ($sender == 1 && ($sendto == 4 || $sendto == 10))) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
 
@@ -150,7 +150,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
-        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -179,7 +179,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
-        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -204,7 +204,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
-        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
     }
 

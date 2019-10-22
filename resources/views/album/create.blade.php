@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('gallery') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Gallery</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('create_album_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('albums.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Create Album</span>
         </a>
     </li>
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <form name="createnewalbum" method="POST" action="{{ route('create_album') }}"
+            <form name="createnewalbum" method="POST" action="{{ route('albums.store') }}"
                   enctype="multipart/form-data">
                 @csrf
                 <h2 class="text-center">Create An Album</h2>

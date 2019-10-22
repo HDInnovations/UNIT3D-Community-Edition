@@ -7,7 +7,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.rss')</span>
         </a>
     </li>
@@ -17,7 +17,7 @@
     <div class="container box">
         <div class="block">
             <h2>Public RSS Feeds</h2>
-            <a href="{{ route('Staff.rss.create') }}" class="btn btn-primary">Create RSS Feed</a>
+            <a href="{{ route('staff.rss.create') }}" class="btn btn-primary">Create RSS Feed</a>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
@@ -60,10 +60,10 @@
                                 <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
                             @endif
                             <td>
-                                <form action="{{ route('Staff.rss.destroy', ['id' => $rss->id]) }}" method="POST">
+                                <form action="{{ route('staff.rss.destroy', ['id' => $rss->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('Staff.rss.edit', ['id' => $rss->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
+                                    <a href="{{ route('staff.rss.edit', ['id' => $rss->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
                                     <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
                                 </form>
                             </td>

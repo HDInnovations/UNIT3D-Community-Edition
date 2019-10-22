@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_security', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_security', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.security') @lang('user.settings')</span>
         </a>
@@ -41,7 +41,7 @@
                 <div class="tab-content">
                     <br>
                     <div role="tabpanel" class="tab-pane active" id="password">
-                        <form role="form" method="POST" action="{{ route('change_password', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('change_password', ['username' => $user->username]) }}" enctype="multipart/form-data">
                         @csrf
                         <div class="well">
                             <h3>@lang('user.change-password').</h3>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="email">
-                        <form role="form" method="POST" action="{{ route('change_email', ['username' => $user->slug, 'id' => $user->id]) }}">
+                        <form role="form" method="POST" action="{{ route('change_email', ['username' => $user->username]) }}">
                             @csrf
                         <div class="well">
                             <h3>@lang('user.change-email').</h3>
@@ -90,7 +90,7 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="pid">
-                        <form role="form" method="POST" action="{{ route('change_pid', ['username' => $user->slug, 'id' => $user->id]) }}">
+                        <form role="form" method="POST" action="{{ route('change_pid', ['username' => $user->username]) }}">
                             @csrf
                         <div class="well">
                             <h3>@lang('user.reset-passkey').</h3>
@@ -110,7 +110,7 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="rid">
-                        <form role="form" method="POST" action="{{ route('change_rid', ['username' => $user->slug, 'id' => $user->id]) }}">
+                        <form role="form" method="POST" action="{{ route('change_rid', ['username' => $user->username]) }}">
                             @csrf
                         <div class="well">
                             <h3>@lang('user.reset-rss').</h3>
@@ -132,7 +132,7 @@
 
                     @if (config('auth.TwoStepEnabled') == true)
                         <div role="tabpanel" class="tab-pane" id="twostep">
-                            <form role="form" method="POST" action="{{ route('change_twostep', ['username' => $user->slug, 'id' => $user->id]) }}">
+                            <form role="form" method="POST" action="{{ route('change_twostep', ['username' => $user->username]) }}">
                                 @csrf
                             <div class="well">
                             <h2 class="text-bold">Two Step Authentication</h2>

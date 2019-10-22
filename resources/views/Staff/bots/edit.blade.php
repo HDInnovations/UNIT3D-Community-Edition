@@ -11,12 +11,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.bots.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.bots.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('bot.bots')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.bots.edit', ['id' => $bot->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('bot.edit-bot')</span>
         </a>
     </li>
@@ -26,7 +26,7 @@
 @section('content')
     <div class="container box">
         <h2>@lang('bot.edit-bot')</h2>
-        <form role="form" method="POST" action="{{ route('Staff.bots.update', ['id' => $bot->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.bots.update', ['id' => $bot->id]) }}">
             @csrf
             @method('PUT')
                     <div class="form-group">

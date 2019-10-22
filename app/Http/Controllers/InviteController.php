@@ -153,17 +153,16 @@ class InviteController extends Controller
      * Invite Tree.
      *
      * @param $username
-     * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function invites(Request $request, $username, $id)
+    public function invites(Request $request, $username)
     {
         $user = $request->user();
-        $owner = User::findOrFail($id);
+        $owner = User::where('username', '=', $username)->firstOrFail();
         abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
 
-        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $id)->latest()->paginate(25);
+        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
 
         return view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }

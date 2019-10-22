@@ -30,7 +30,7 @@
                         </div>
                     </td>
                     <td>
-                        <a href="{{ route('category', ['slug' => $upload->category->slug, 'id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
+                        <a href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
                     </td>
                     <td>
                         <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>

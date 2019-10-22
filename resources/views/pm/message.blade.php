@@ -30,11 +30,11 @@
                                     <div class="row message-headers">
                                         <div class="col-sm-4">
                                             <div><strong>@lang('pm.from'):</strong> <a
-                                                        href="{{ route('profile', ['username' => $pm->sender->username, 'id' => $pm->sender->id]) }}"
+                                                        href="{{ route('users.show', ['username' => $pm->sender->username]) }}"
                                                        >{{ $pm->sender->username }}</a>
                                             </div>
                                             <div><strong>@lang('pm.to'):</strong> <a
-                                                        href="{{ route('profile', ['username' => $pm->receiver->username, 'id' => $pm->receiver->id]) }}"
+                                                        href="{{ route('users.show', ['username' => $pm->receiver->username]) }}"
                                                        >{{ $pm->receiver->username }}</a>
                                             </div>
                                         </div>

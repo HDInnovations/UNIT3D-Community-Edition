@@ -38,7 +38,7 @@
                         <a href="{{ route('staff_article_edit_form', ['slug' => $article->slug, 'id' => $article->id]) }}">{{ $article->title }}</a>
                     </td>
                     <td>
-                        <a href="{{ route('profile', ['username' => $article->user->username, 'id' => $article->user->id]) }}">{{ $article->user->username }}</a>
+                        <a href="{{ route('users.show', ['username' => $article->user->username]) }}">{{ $article->user->username }}</a>
                     </td>
                     <td>{{ $article->created_at->toDayDateTimeString() }}</td>
                     <td>

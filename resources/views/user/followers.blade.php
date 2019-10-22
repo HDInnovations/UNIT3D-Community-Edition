@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_followers', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_followers', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.followers')</span>
         </a>
@@ -60,21 +60,21 @@
                 @foreach ($results as $f)
                     <tr>
                     @if ($f->user->image != null)
-                        <td><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                        <td><a href="{{ route('users.show', ['username' => $f->user->slug]) }}">
                                 <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar"
                                      data-toggle="tooltip"
                                      title="{{ $f->user->username }}" height="50px"
                                      data-original-title="{{ $f->user->username }}">
                             </a></td>
                     @else
-                        <td><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                        <td><a href="{{ route('v', ['username' => $f->user->slug]) }}">
                             <img src="{{ url('img/profile.png') }}" alt="avatar"
                                  data-toggle="tooltip"
                                  title="{{ $f->user->username }}" height="50px"
                                  data-original-title="{{ $f->user->username }}">
                             </a></td>
                     @endif
-                        <td><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                        <td><a href="{{ route('users.show', ['username' => $f->user->slug]) }}">
                                 <span class="badge-user text-bold" style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
                             </a></td>
                         <td>{{ $f->created_at }}</td>

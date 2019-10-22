@@ -31,7 +31,7 @@
 
         <div class="topic-info">
             @lang('forum.author') <a
-                    href="{{ route('profile', ['username' => Str::slug($topic->first_post_user_username), 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
+                    href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed('topic', $topic->id))
@@ -65,7 +65,7 @@
                                 @endauth
                 <p>
                 <span class="badge-user text-bold">
-                   <a href="{{ route('profile', ['username' => $p->user->slug, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                       class="post-info-username" style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
                     @if ($p->user->isOnline())
                         <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip"

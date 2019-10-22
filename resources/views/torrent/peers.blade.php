@@ -56,7 +56,7 @@
                                 <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                                                   aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
                                 @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
-                                    <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
+                                    <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                 class="badge-user text-bold" style="color:{{ $p->user->group->color }};">({{ $p->user->username }}
                                             )</span></a>@endif</td>
                         @else
@@ -65,7 +65,7 @@
                                     <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                                                       aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
                                 @endif
-                                <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
+                                <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                             class="badge-user text-bold"
                                             style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
                                                 class="{{ $p->user->group->icon }}" data-toggle="tooltip"

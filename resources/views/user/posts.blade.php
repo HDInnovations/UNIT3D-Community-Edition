@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_posts', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_posts', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.posts')</span>
         </a>
@@ -83,14 +83,14 @@
                                     class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a
-                                    href="{{ route('profile', ['username' => $r->topic->first_post_user_username, 'id' => $r->topic->first_post_user_id]) }}">{{ $r->topic->first_post_user_username }}</a>
+                                    href="{{ route('users.show', ['username' => $r->topic->first_post_user_username]) }}">{{ $r->topic->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
                             {{ $r->topic->num_post - 1 }} @lang('forum.replies')
                             \ {{ $r->topic->views }} @lang('forum.views')
                         </td>
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profile', ['username' => $r->topic->last_post_user_username, 'id' => $r->topic->last_post_user_id]) }}">{{ $r->topic->last_post_user_username }}</a>,
+                            <a href="{{ route('users.show', ['username' => $r->topic->last_post_user_username]) }}">{{ $r->topic->last_post_user_username }}</a>,
                             <time datetime="{{ date('d-m-Y h:m', strtotime($r->topic->updated_at)) }}">
                                 {{ date('M d Y', strtotime($r->topic->updated_at)) }}
                             </time>
@@ -102,7 +102,7 @@
                                 <div class="post" id="post-{{$r->id}}">
                                     <div class="button-holder">
                                         <div class="button-left">
-                                            <a href="{{ route('profile', ['username' => $r->user->username, 'id' => $r->user->id]) }}"
+                                            <a href="{{ route('users.show', ['username' => $r->user->username]) }}"
                                                class="post-info-username" style="color:{{ $r->user->group->color }}; display:inline;">{{ $r->user->username }}</a> @ {{ date('M d Y h:i:s', $r->created_at->getTimestamp()) }}
                                         </div>
                                         <div class="button-right">

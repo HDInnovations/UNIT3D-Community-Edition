@@ -1,6 +1,6 @@
 <div class="button-holder">
     <div class="button-left">
-        <a href="{{ route('categories') }}" class="btn btn-sm btn-primary">
+        <a href="{{ route('categories.index') }}" class="btn btn-sm btn-primary">
             <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
         </a>
         <a href="{{ route('cards') }}" class="btn btn-sm btn-primary">

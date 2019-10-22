@@ -111,7 +111,7 @@
                             <tr>
                                 @endif
                                 <td>
-                                    <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                         <div class="text-center">
                                             <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
                                                data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -183,7 +183,7 @@
                                         <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
                                             @if ($user->id == $torrent->user->id || $user->group->is_modo)
-                                                <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                                <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         ({{ $torrent->user->username }})
                                     </a>
                                             @endif
@@ -191,7 +191,7 @@
                                     @else
                                         <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i>
-                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
                             </span>

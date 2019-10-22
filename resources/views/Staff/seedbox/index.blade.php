@@ -43,7 +43,7 @@
                         @foreach ($seedboxes as $key => $seedbox)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td><a href="{{ route('profile', ['username' => $seedbox->user->username, 'id' => $seedbox->user->id ]) }}">
+                                <td><a href="{{ route('users.show', ['username' => $seedbox->user->username]) }}">
                                         {{ $seedbox->user->username }}
                                     </a>
                                 </td>

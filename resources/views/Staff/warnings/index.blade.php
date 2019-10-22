@@ -53,12 +53,12 @@
                             @foreach ($warnings as $warning)
                                 <tr>
                                     <td>
-                                        <a class="text-bold" href="{{ route('profile', ['username' =>  $warning->warneduser->username, 'id' => $warning->warneduser->id]) }}">
+                                        <a class="text-bold" href="{{ route('users.show', ['username' =>  $warning->warneduser->username]) }}">
                                             {{ $warning->warneduser->username }}
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="text-bold" href="{{ route('profile', ['username' => $warning->staffuser->username, 'id' => $warning->staffuser->id]) }}">
+                                        <a class="text-bold" href="{{ route('users.show', ['username' => $warning->staffuser->username]) }}">
                                             {{ $warning->staffuser->username }}
                                         </a>
                                     </td>

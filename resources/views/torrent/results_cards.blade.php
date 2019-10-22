@@ -73,10 +73,10 @@
                         <div style="float: left;">
                             @if ($t->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if (auth()->user()->id == $t->user->id || auth()->user()->group->is_modo)
-                                        <a href="{{ route('profile', ['username' => $t->user->username, 'id' => $t->user->id]) }}">({{ $t->user->username }}
+                                        <a href="{{ route('users.show', ['username' => $t->user->username]) }}">({{ $t->user->username }}
                                                     )</a>@endif</span>
                             @else
-                                <a href="{{ route('profile', ['username' => $t->user->username, 'id' => $t->user->id]) }}">
+                                <a href="{{ route('users.show', ['username' => $t->user->username]) }}">
                                 <span class="badge-user text-bold" style="color:{{ $t->user->group->color }}; background-image:{{ $t->user->group->effect }};">
                                     <i class="{{ $t->user->group->icon }}" data-toggle="tooltip" title=""
                                        data-original-title="{{ $t->user->group->name }}"></i> {{ $t->user->username }}

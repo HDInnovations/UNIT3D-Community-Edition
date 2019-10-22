@@ -43,7 +43,7 @@
                                 @foreach ($cheaters as $cheater)
                                     <tr>
                                         <td>
-                                            <a class="text-bold" href="{{ route('profile', ['username' => $cheater->user->username, 'id' => $cheater->user->id ]) }}">{{ $cheater->user->username }}</a>
+                                            <a class="text-bold" href="{{ route('users.show', ['username' => $cheater->user->username]) }}">{{ $cheater->user->username }}</a>
                                         </td>
                                         <td>
                                             <span class="badge-user text-bold" style="color:{{ $cheater->user->group->color }}; background-image:{{ $cheater->user->group->effect }};">

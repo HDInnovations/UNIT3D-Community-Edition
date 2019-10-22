@@ -34,9 +34,10 @@ class ContactController extends Controller
      * Send A Contact Email To Owner/First User.
      *
      * @param  Request  $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function contact(Request $request)
+    public function store(Request $request)
     {
         // Fetch owner account
         $user = User::where('id', '=', 3)->first();

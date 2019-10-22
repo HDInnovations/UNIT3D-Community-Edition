@@ -60,13 +60,13 @@
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
-                                           href="{{ route('profile', ['username' => $r->reported->username, 'id' => $r->reported_user ]) }}">
+                                           href="{{ route('users.show', ['username' => $r->reported->username]) }}">
                                             {{ $r->reported->username }}
                                         </a>
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
-                                           href="{{ route('profile', ['username' => $r->reporter->username, 'id' => $r->reporter_id ]) }}">
+                                           href="{{ route('users.show', ['username' => $r->reporter->username]) }}">
                                             {{ $r->reporter->username }}
                                         </a>
                                     </td>
@@ -75,7 +75,7 @@
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
-                                           href="{{ $r->staff_id ? route('profile', ['username' => $r->staff->username, 'id' => $r->staff_id ]) : route('home')}}">
+                                           href="{{ $r->staff->username ? route('profile', ['username' => $r->staff->username]) : route('home')}}">
                                             {{ $r->staff_id ? $r->staff->username : "" }}
                                         </a>
                                     </td>

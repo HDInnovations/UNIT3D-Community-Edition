@@ -7,7 +7,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.bots.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.bots.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.bots')</span>
         </a>
     </li>
@@ -39,10 +39,10 @@
                             <td>@if ($bot->active)<i class="{{ config('other.font-awesome') }} fa-check text-green"></i>@else<i
                                         class="{{ config('other.font-awesome') }} fa-times text-red"></i>@endif</td>
                             <td>
-                                <form action="{{ route('Staff.bots.destroy', ['id' => $bot->id]) }}" method="POST">
+                                <form action="{{ route('staff.bots.destroy', ['id' => $bot->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('Staff.bots.edit', ['id' => $bot->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
+                                    <a href="{{ route('staff.bots.edit', ['id' => $bot->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
                                     @if($bot->is_protected)
 
                                     @else
@@ -52,9 +52,9 @@
 
                                     @else
                                         @if($bot->active)
-                                            <a href="{{ route('Staff.bots.disable', ['id' => $bot->id]) }}" class="btn btn-danger">@lang('common.disable')</a>
+                                            <a href="{{ route('staff.bots.disable', ['id' => $bot->id]) }}" class="btn btn-danger">@lang('common.disable')</a>
                                         @else
-                                            <a href="{{ route('Staff.bots.enable', ['id' => $bot->id]) }}" class="btn btn-success">@lang('common.enable')</a>
+                                            <a href="{{ route('staff.bots.enable', ['id' => $bot->id]) }}" class="btn btn-success">@lang('common.enable')</a>
                                         @endif
                                     @endif
                                 </form>

@@ -16,7 +16,7 @@
     <div class="container">
         <div class="block">
             <h2>
-                <a href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">
+                <a href="{{ route('users.show', ['username' =>  $user->username]) }}">
                     {{ $user->username }}
                 </a>
                 @lang('user.ban-log')
@@ -53,11 +53,11 @@
                                     <tr>
                                         <td class="user-name">
                                             <a class="name"
-                                               href="{{ route('profile', ['username' => $ban->banneduser->username, 'id' => $ban->owned_by ]) }}">{{ $ban->banneduser->username }}</a>
+                                               href="{{ route('users.show', ['username' => $ban->banneduser->username]) }}">{{ $ban->banneduser->username }}</a>
                                         </td>
                                         <td class="user-name">
                                             <a class="name"
-                                               href="{{ route('profile', ['username' => $ban->staffuser->username, 'id' => $ban->created_by ]) }}">{{ $ban->staffuser->username }}</a>
+                                               href="{{ route('users.show', ['username' => $ban->staffuser->username]) }}">{{ $ban->staffuser->username }}</a>
                                         </td>
                                         <td>
                                             {{ $ban->ban_reason }}

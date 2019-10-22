@@ -86,12 +86,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/twostep/resend', 'Auth\TwoStepController@resend')->name('resend');
 
         // General
-        Route::get('/', 'HomeController@home')->name('home');
+        Route::get('/', 'HomeController@index')->name('home');
         Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-        // Article
-        Route::get('/articles', 'ArticleController@articles')->name('articles');
-        Route::get('/articles/{slug}.{id}', 'ArticleController@post')->name('article');
+        // Articles
+        Route::get('/articles', 'ArticleController@index')->name('articles.index');
+        Route::get('/articles/{id}', 'ArticleController@show')->name('articles.show');
 
         // Bonus System
         Route::get('/bonus', 'BonusController@bonus')->name('bonus');
@@ -103,26 +103,21 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/bonus/gift', 'BonusController@sendGift')->name('bonus_send_gift');
 
         // Bookmarks
-        Route::get('/{slug}.{id}/bookmarks', 'UserController@bookmarks')->name('user_bookmarks');
-        Route::get('/torrents/bookmark/{id}', 'TorrentController@bookmark')->name('bookmark');
-        Route::get('/torrents/unbookmark/{id}', 'TorrentController@unBookmark')->name('unbookmark');
+        Route::post('/bookmarks/{id}', 'BookmarkController@store')->name('bookmarks.store');
+        Route::delete('/unbookmark/{id}', 'BookmarkController@destroy')->name('bookmarks.destroy');
 
-        // User Reports
+        // Reports
         Route::post('/report/torrent/{slug}.{id}', 'ReportController@torrent')->name('report_torrent');
         Route::post('/report/request/{id}', 'ReportController@request')->name('report_request');
-        Route::post('/report/user/{username}.{id}', 'ReportController@user')->name('report_user');
+        Route::post('/report/user/{id}', 'ReportController@user')->name('report_user');
 
-        // Bug Report
-        Route::get('/bug', 'BugController@bugForm')->name('bug');
-        Route::post('/bug', 'BugController@bug')->name('postBug');
-
-        // Category
-        Route::get('/categories', 'CategoryController@categories')->name('categories');
-        Route::get('/categories/{slug}.{id}', 'CategoryController@category')->name('category');
+        // Categories
+        Route::get('/categories', 'CategoryController@index')->name('categories.index');
+        Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
 
         // Contact Us
-        Route::get('/contact', 'ContactController@index')->name('contact');
-        Route::post('/contact', 'ContactController@contact')->name('sendContact');
+        Route::get('/contact', 'ContactController@index')->name('contact.index');
+        Route::post('/contact', 'ContactController@sotore')->name('contact.store');
 
         // Page
         Route::get('/page/{slug}.{id}', 'PageController@page')->name('page');
@@ -143,13 +138,13 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/emaillist', 'PageController@emailList')->name('emaillist');
 
         // Comments
-        Route::post('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
-        Route::post('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
-        Route::get('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
-        Route::post('/comment/request/{id}', 'CommentController@request')->name('comment_request');
-        Route::post('/comment/playlist/{id}', 'CommentController@playlist')->name('comment_playlist');
-        Route::post('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
-        Route::get('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
+        Route::post('/comments/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
+        Route::post('/comments/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
+        Route::get('/comments/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
+        Route::post('/comments/request/{id}', 'CommentController@request')->name('comment_request');
+        Route::post('/comments/playlist/{id}', 'CommentController@playlist')->name('comment_playlist');
+        Route::post('/comments/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
+        Route::get('/comments/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
 
         //Extra-Stats
         Route::get('/stats', 'StatsController@index')->name('stats');
@@ -232,96 +227,102 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrents/similar/{category_id}.{tmdb}', 'TorrentController@similar')->name('torrents.similar');
 
         // Achievements
-        Route::get('/achievements', 'AchievementsController@index')->name('achievements');
+        Route::get('/achievements', 'AchievementsController@index')->name('achievements.index');
+        Route::get('/{username}/achievements', 'AchievementsController@show')->name('achievements.show');
+
+        // Warnings
+        Route::group(['prefix' => 'warnings'], function () {
+            Route::get('/{username}', 'WarningController@show')->name('warnings.show');
+            Route::get('/{id}/deactivate', 'WarningController@deactivate')->name('deactivateWarning');
+            Route::get('/{username}/mass-deactivate', 'WarningController@deactivateAllWarnings')->name('massDeactivateWarnings');
+            Route::delete('/{id}', 'WarningController@deleteWarning')->name('deleteWarning');
+            Route::get('/{username}/mass-delete', 'WarningController@deleteAllWarnings')->name('massDeleteWarnings');
+            Route::get('/{id}/restore', 'WarningController@restoreWarning')->name('restoreWarning');
+        });
 
         // User
-        Route::get('/members', 'UserController@members')->name('members');
-        Route::get('/members/results', 'UserController@userSearch')->name('userSearch');
-        Route::get('/{username}.{id}', 'UserController@profile')->name('profile');
-        Route::get('/{username}.{id}/edit', 'UserController@editProfileForm')->name('user_edit_profile_form');
-        Route::post('/{username}.{id}/edit', 'UserController@editProfile')->name('user_edit_profile');
-        Route::post('/{username}.{id}/photo', 'UserController@changePhoto')->name('user_change_photo');
-        Route::get('/{username}.{id}/activate/{token}', 'UserController@activate')->name('user_activate');
-        Route::post('/{username}.{id}/about', 'UserController@changeAbout')->name('user_change_about');
-        Route::post('/{username}.{id}/photo', 'UserController@changeTitle')->name('user_change_title');
-        Route::get('/{username}.{id}/warninglog', 'UserController@getWarnings')->name('warninglog');
-        Route::get('/deactivateWarning/{id}', 'UserController@deactivateWarning')->name('deactivateWarning');
-        Route::get('/deleteWarning/{id}', 'UserController@deleteWarning')->name('deleteWarning');
-        Route::get('/{username}.{id}/massDeactivateWarnings', 'UserController@deactivateAllWarnings')->name('massDeactivateWarnings');
-        Route::get('/{username}.{id}/massDeleteWarnings', 'UserController@deleteAllWarnings')->name('massDeleteWarnings');
-        Route::get('/{username}.{id}/banlog', 'UserController@getBans')->name('banlog');
-        Route::get('/restoreWarning/{id}', 'UserController@restoreWarning')->name('restoreWarning');
-        Route::post('/{username}.{id}/userFilters', 'UserController@myFilter')->name('myfilter');
-        Route::get('/{username}.{id}/downloadHistoryTorrents', 'UserController@downloadHistoryTorrents')->name('download_history_torrents');
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/{username}', 'UserController@show')->name('users.show');
+            Route::get('/{username}/edit', 'UserController@editProfileForm')->name('user_edit_profile_form');
+            Route::post('/{username}/edit', 'UserController@editProfile')->name('user_edit_profile');
+            Route::post('/{username}/photo', 'UserController@changePhoto')->name('user_change_photo');
+            Route::get('/{username}/activate/{token}', 'UserController@activate')->name('user_activate');
+            Route::post('/{username}/about', 'UserController@changeAbout')->name('user_change_about');
+            Route::post('/{username}/photo', 'UserController@changeTitle')->name('user_change_title');
+            Route::get('/{username}/banlog', 'UserController@getBans')->name('banlog');
+            Route::post('/{username}/userFilters', 'UserController@myFilter')->name('myfilter');
+            Route::get('/{username}/downloadHistoryTorrents', 'UserController@downloadHistoryTorrents')->name('download_history_torrents');
+            Route::get('/{username}/seeds', 'UserController@seeds')->name('user_seeds');
+            Route::get('/{username}/resurrections', 'UserController@resurrections')->name('user_resurrections');
+            Route::get('/{username}/requested', 'UserController@requested')->name('user_requested');
+            Route::get('/{username}/active', 'UserController@active')->name('user_active');
+            Route::get('/{username}/torrents', 'UserController@torrents')->name('user_torrents');
+            Route::get('/{username}/uploads', 'UserController@uploads')->name('user_uploads');
+            Route::get('/{username}/downloads', 'UserController@downloads')->name('user_downloads');
+            Route::get('/{username}/unsatisfieds', 'UserController@unsatisfieds')->name('user_unsatisfieds');
+            Route::get('/{username}/topics', 'UserController@topics')->name('user_topics');
+            Route::get('/{username}/posts', 'UserController@posts')->name('user_posts');
+            Route::get('/{username}/followers', 'UserController@followers')->name('user_followers');
+            Route::get('/{username}/bookmarks', 'BookmarkController@index')->name('bookmarks.index');
 
-        Route::get('/{slug}.{id}/seeds', 'UserController@seeds')->name('user_seeds');
-        Route::get('/{slug}.{id}/resurrections', 'UserController@resurrections')->name('user_resurrections');
-        Route::get('/{slug}.{id}/requested', 'UserController@requested')->name('user_requested');
-        Route::get('/{slug}.{id}/active', 'UserController@active')->name('user_active');
-        Route::get('/{slug}.{id}/torrents', 'UserController@torrents')->name('user_torrents');
-        Route::get('/{slug}.{id}/uploads', 'UserController@uploads')->name('user_uploads');
-        Route::get('/{slug}.{id}/downloads', 'UserController@downloads')->name('user_downloads');
-        Route::get('/{slug}.{id}/unsatisfieds', 'UserController@unsatisfieds')->name('user_unsatisfieds');
-        Route::get('/{slug}.{id}/topics', 'UserController@topics')->name('user_topics');
-        Route::get('/{slug}.{id}/posts', 'UserController@posts')->name('user_posts');
-        Route::get('/{slug}.{id}/followers', 'UserController@followers')->name('user_followers');
-        Route::get('/{slug}.{id}/achievements', 'UserController@achievements')->name('user_achievements');
+            // User Settings
+            Route::get('/{username}/settings', 'UserController@settings')->name('user_settings');
+            Route::get('/{username}/settings/privacy{hash?}', 'UserController@privacy')->name('user_privacy');
+            Route::get('/{username}/settings/profile', 'UserController@profile')->name('user_profile');
+            Route::get('/{username}/settings/security{hash?}', 'UserController@security')->name('user_security');
+            Route::get('/{username}/settings/notification{hash?}', 'UserController@notification')->name('user_notification');
+            Route::post('/{username}/settings/change_settings', 'UserController@changeSettings')->name('change_settings');
+            Route::post('/{username}/settings/change_password', 'UserController@changePassword')->name('change_password');
+            Route::post('/{username}/settings/change_email', 'UserController@changeEmail')->name('change_email');
+            Route::post('/{username}/settings/change_pid', 'UserController@changePID')->name('change_pid');
+            Route::post('/{username}/settings/change_rid', 'UserController@changeRID')->name('change_rid');
+            Route::get('/{username}/settings/notification/disable', 'UserController@disableNotifications')->name('notification_disable');
+            Route::get('/{username}/settings/notification/enable', 'UserController@enableNotifications')->name('notification_enable');
+            Route::post('/{username}/settings/notification/account', 'UserController@changeAccountNotification')->name('notification_account');
+            Route::post('/{username}/settings/notification/following', 'UserController@changeFollowingNotification')->name('notification_following');
+            Route::post('/{username}/settings/notification/forum', 'UserController@changeForumNotification')->name('notification_forum');
+            Route::post('/{username}/settings/notification/subscription', 'UserController@changeSubscriptionNotification')->name('notification_subscription');
+            Route::post('/{username}/settings/notification/mention', 'UserController@changeMentionNotification')->name('notification_mention');
+            Route::post('/{username}/settings/notification/torrent', 'UserController@changeTorrentNotification')->name('notification_torrent');
+            Route::post('/{username}/settings/notification/bon', 'UserController@changeBonNotification')->name('notification_bon');
+            Route::post('/{username}/settings/notification/request', 'UserController@changeRequestNotification')->name('notification_request');
+            Route::post('/{username}/settings/privacy/profile', 'UserController@changeProfile')->name('privacy_profile');
+            Route::post('/{username}/settings/privacy/forum', 'UserController@changeForum')->name('privacy_forum');
+            Route::post('/{username}/settings/privacy/torrent', 'UserController@changeTorrent')->name('privacy_torrent');
+            Route::post('/{username}/settings/privacy/follower', 'UserController@changeFollower')->name('privacy_follower');
+            Route::post('/{username}/settings/privacy/achievement', 'UserController@changeAchievement')->name('privacy_achievement');
+            Route::post('/{username}/settings/privacy/request', 'UserController@changeRequest')->name('privacy_request');
+            Route::post('/{username}/settings/privacy/other', 'UserController@changeOther')->name('privacy_other');
+            Route::post('/{username}/settings/change_twostep', 'UserController@changeTwoStep')->name('change_twostep');
+            Route::get('/{username}/settings/hidden', 'UserController@makeHidden')->name('user_hidden');
+            Route::get('/{username}/settings/visible', 'UserController@makeVisible')->name('user_visible');
+            Route::get('/{username}/settings/private', 'UserController@makePrivate')->name('user_private');
+            Route::get('/{username}/settings/public', 'UserController@makePublic')->name('user_public');
+            Route::get('/{username}/invites', 'InviteController@invites')->name('user_invites');
+            Route::post('/accept-rules', 'UserController@acceptRules')->name('accept.rules');
 
-        // User Settings
-        Route::get('/{slug}.{id}/settings', 'UserController@settings')->name('user_settings');
-        Route::get('/{slug}.{id}/settings/privacy{hash?}', 'UserController@privacy')->name('user_privacy');
-        Route::get('/{slug}.{id}/settings/profile', 'UserController@profile')->name('user_profile');
-        Route::get('/{slug}.{id}/settings/security{hash?}', 'UserController@security')->name('user_security');
-        Route::get('/{slug}.{id}/settings/notification{hash?}', 'UserController@notification')->name('user_notification');
-        Route::post('/{slug}.{id}/settings/change_settings', 'UserController@changeSettings')->name('change_settings');
-        Route::post('/{slug}.{id}/settings/change_password', 'UserController@changePassword')->name('change_password');
-        Route::post('/{slug}.{id}/settings/change_email', 'UserController@changeEmail')->name('change_email');
-        Route::post('/{slug}.{id}/settings/change_pid', 'UserController@changePID')->name('change_pid');
-        Route::post('/{slug}.{id}/settings/change_rid', 'UserController@changeRID')->name('change_rid');
-        Route::get('/{slug}.{id}/settings/notification/disable', 'UserController@disableNotifications')->name('notification_disable');
-        Route::get('/{slug}.{id}/settings/notification/enable', 'UserController@enableNotifications')->name('notification_enable');
-        Route::post('/{slug}.{id}/settings/notification/account', 'UserController@changeAccountNotification')->name('notification_account');
-        Route::post('/{slug}.{id}/settings/notification/following', 'UserController@changeFollowingNotification')->name('notification_following');
-        Route::post('/{slug}.{id}/settings/notification/forum', 'UserController@changeForumNotification')->name('notification_forum');
-        Route::post('/{slug}.{id}/settings/notification/subscription', 'UserController@changeSubscriptionNotification')->name('notification_subscription');
-        Route::post('/{slug}.{id}/settings/notification/mention', 'UserController@changeMentionNotification')->name('notification_mention');
-        Route::post('/{slug}.{id}/settings/notification/torrent', 'UserController@changeTorrentNotification')->name('notification_torrent');
-        Route::post('/{slug}.{id}/settings/notification/bon', 'UserController@changeBonNotification')->name('notification_bon');
-        Route::post('/{slug}.{id}/settings/notification/request', 'UserController@changeRequestNotification')->name('notification_request');
-        Route::post('/{slug}.{id}/settings/privacy/profile', 'UserController@changeProfile')->name('privacy_profile');
-        Route::post('/{slug}.{id}/settings/privacy/forum', 'UserController@changeForum')->name('privacy_forum');
-        Route::post('/{slug}.{id}/settings/privacy/torrent', 'UserController@changeTorrent')->name('privacy_torrent');
-        Route::post('/{slug}.{id}/settings/privacy/follower', 'UserController@changeFollower')->name('privacy_follower');
-        Route::post('/{slug}.{id}/settings/privacy/achievement', 'UserController@changeAchievement')->name('privacy_achievement');
-        Route::post('/{slug}.{id}/settings/privacy/request', 'UserController@changeRequest')->name('privacy_request');
-        Route::post('/{slug}.{id}/settings/privacy/other', 'UserController@changeOther')->name('privacy_other');
-        Route::post('/{slug}.{id}/settings/change_twostep', 'UserController@changeTwoStep')->name('change_twostep');
-        Route::get('/{slug}.{id}/settings/hidden', 'UserController@makeHidden')->name('user_hidden');
-        Route::get('/{slug}.{id}/settings/visible', 'UserController@makeVisible')->name('user_visible');
-        Route::get('/{slug}.{id}/settings/private', 'UserController@makePrivate')->name('user_private');
-        Route::get('/{slug}.{id}/settings/public', 'UserController@makePublic')->name('user_public');
-        Route::get('/{slug}.{id}/invites', 'InviteController@invites')->name('user_invites');
-        Route::post('/accept-rules', 'UserController@acceptRules')->name('accept.rules');
+            // User Seedboxes
+            Route::get('/{username}/seedboxes', 'SeedboxController@index')->name('seedboxes.index');
+            Route::post('/{username}/seedboxes', 'SeedboxController@store')->name('seedboxes.store');
+            Route::delete('/{username}/seedboxes/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
 
-        // User Wishlist
-        Route::get('/{slug}.{id}/wishlist', 'UserController@wishes')->name('user_wishlist');
+            // User Wishlist
+            Route::get('/{username}/wishlist', 'UserController@wishes')->name('user_wishlist');
+        });
+
+        // Wishlist System
         Route::post('/wish/{uid}', 'WishController@store')->name('wish-store');
         Route::get('/wish/{uid}/delete/{id}', 'WishController@destroy')->name('wish-delete');
 
         // Follow System
-        Route::get('/follow/{user}', 'FollowController@follow')->name('follow');
-        Route::get('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');
+        Route::post('/follow/{username}', 'FollowController@store')->name('follow.store');
+        Route::delete('/follow/{username}', 'FollowController@destroy')->name('follow.destroy');
 
         //Thank System
         Route::get('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
 
         // User Language
         Route::get('/{locale}/back', 'LanguageController@back')->name('back');
-
-        // User Seedboxes
-        Route::get('/{username}/seedboxes/records', 'SeedboxController@index')->name('seedboxes.index');
-        Route::post('/{username}/seedboxes/store', 'SeedboxController@store')->name('seedboxes.store');
-        Route::delete('/{username}/seedboxes/destroy/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
 
         // Invite System
         Route::get('/invite', 'InviteController@invite')->name('invite');
@@ -349,16 +350,17 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/notification/destroy/{id}', 'NotificationController@destroy')->name('notifications.destroy');
         Route::get('/notification/destroyall', 'NotificationController@destroyAll')->name('notifications.destroyall');
 
-        // Gallery System
-        Route::get('/gallery', 'AlbumController@index')->name('gallery');
-        Route::get('/createalbum', 'AlbumController@addForm')->name('create_album_form');
-        Route::post('/createalbum', 'AlbumController@add')->name('create_album');
-        Route::get('/deletealbum/{id}', 'AlbumController@destroy')->name('delete_album');
-        Route::get('/album/{id}', 'AlbumController@getAlbum')->name('show_album');
-        Route::get('/addimage/{id}', 'ImageController@addForm')->name('add_image');
-        Route::post('/addimage', 'ImageController@add')->name('add_image_to_album');
-        Route::get('/deleteimage/{id}', 'ImageController@destroy')->name('delete_image');
-        Route::get('/image/download/{id}', 'ImageController@download')->name('image_download');
+        // Image Albums System
+        Route::get('/albums', 'AlbumController@index')->name('albums.index');
+        Route::get('/albums/create', 'AlbumController@create')->name('albums.create');
+        Route::post('/albums', 'AlbumController@store')->name('albums.store');
+        Route::get('/albums/{id}', 'AlbumController@show')->name('albums.show');
+        Route::delete('/albums/{id}', 'AlbumController@destroy')->name('albums.destroy');
+
+        Route::get('/images/create/{id}', 'ImageController@create')->name('images.create');
+        Route::post('/images', 'ImageController@store')->name('images.store');
+        Route::get('/image/download/{id}', 'ImageController@download')->name('images.download');
+        Route::delete('/images/{id}', 'ImageController@destroy')->name('images.destroy');
 
         // Playlist System
         Route::get('/playlists', 'PlaylistController@index')->name('playlists.index');
@@ -375,7 +377,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |------------------------------------------
-    | ChatBox Routes Group (when authorized)
+    | ChatBox Routes Group (When Authorized)
     |------------------------------------------
     */
     Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'API'], function () {
@@ -388,7 +390,7 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |------------------------------------------
-    | Community Routes Group (when authorized)
+    | Community Routes Group (When Authorized)
     |------------------------------------------
     */
     Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
@@ -457,38 +459,26 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |-----------------------------------------------------------------
-    | Staff Dashboard Routes Group (when authorized and a staff group)
+    | Staff Dashboard Routes Group (When Authorized And A Staff Group)
     |-----------------------------------------------------------------
     */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned'], 'namespace' => 'Staff'], function () {
 
-        // BOT Hooks
+        // RSS System
+        Route::get('/rss', 'RssController@index')->name('staff.rss.index');
+        Route::get('/rss/create', 'RssController@create')->name('staff.rss.create');
+        Route::post('/rss', 'RssController@store')->name('staff.rss.store');
+        Route::get('/rss/{id}/edit', 'RssController@edit')->name('staff.rss.edit');
+        Route::patch('/rss/{id}', 'RssController@update')->name('staff.rss.update');
+        Route::delete('/rss/{id}', 'RssController@destroy')->name('staff.rss.destroy');
+
+        // Chat Bots
+        Route::get('/bots', 'BotsController@index')->name('staff.bots.index');
+        Route::get('/bots/{id}/edit', 'BotsController@edit')->name('staff.bots.edit');
+        Route::patch('/bots/{id}', 'BotsController@update')->name('staff.bots.update');
+        Route::delete('/bots/{id}', 'BotsController@destroy')->name('staff.bots.destroy');
         Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');
         Route::get('/bots/{id}/enable', 'BotsController@enable')->name('Staff.bots.enable');
-
-        // RSS CRUD
-        Route::resource('rss', 'RssController')->except([
-            'show',
-        ])->names([
-            'create' => 'Staff.rss.create',
-            'index' => 'Staff.rss.index',
-            'edit' => 'Staff.rss.edit',
-            'update' => 'Staff.rss.update',
-            'store' => 'Staff.rss.store',
-            'destroy' => 'Staff.rss.destroy',
-        ]);
-
-        // Bots CRUD
-        Route::resource('bots', 'BotsController')->except([
-            'show',
-            'create',
-            'store',
-        ])->names([
-            'index' => 'Staff.bots.index',
-            'edit' => 'Staff.bots.edit',
-            'update' => 'Staff.bots.update',
-            'destroy' => 'Staff.bots.destroy',
-        ]);
 
         // Staff Dashboard
         Route::get('/', 'HomeController@home')->name('staff_dashboard');
@@ -498,8 +488,8 @@ Route::group(['middleware' => 'language'], function () {
 
         // Ban
         Route::get('/bans', 'BanController@getBans')->name('getBans');
-        Route::post('/ban/{username}.{id}', 'BanController@ban')->name('ban');
-        Route::post('/unban/{username}.{id}', 'BanController@unban')->name('unban');
+        Route::post('/ban/{id}', 'BanController@ban')->name('ban');
+        Route::post('/unban/{id}', 'BanController@unban')->name('unban');
 
         // Flush Ghost Peers
         Route::get('/flush', 'FlushController@deleteOldPeers')->name('flush');
@@ -507,11 +497,11 @@ Route::group(['middleware' => 'language'], function () {
         // User Tools
         Route::get('/user_search', 'UserController@members')->name('user_search');
         Route::get('/user_results', 'UserController@userSearch')->name('user_results');
-        Route::get('/user_edit/{username}.{id}', 'UserController@userSettings')->name('user_setting');
-        Route::post('/user_edit/{username}.{id}/edit', 'UserController@userEdit')->name('user_edit');
-        Route::post('/user_edit/{username}.{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
-        Route::get('/user_delete/{username}.{id}', 'UserController@userDelete')->name('user_delete');
-        Route::post('/user_edit/{username}.{id}/password', 'UserController@userPassword')->name('user_password');
+        Route::get('/user_edit/{username}', 'UserController@userSettings')->name('user_setting');
+        Route::post('/user_edit/{username}/edit', 'UserController@userEdit')->name('user_edit');
+        Route::post('/user_edit/{username}/permissions', 'UserController@userPermissions')->name('user_permissions');
+        Route::get('/user_delete/{id}', 'UserController@userDelete')->name('user_delete');
+        Route::post('/user_edit/{username}/password', 'UserController@userPassword')->name('user_password');
 
         // Moderation
         Route::get('/torrents', 'TorrentController@index')->name('staff_torrent_index');
@@ -526,7 +516,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // User Staff Notes
         Route::get('/notes', 'NoteController@getNotes')->name('getNotes');
-        Route::post('/note/{username}.{id}', 'NoteController@postNote')->name('postNote');
+        Route::post('/note/{id}', 'NoteController@postNote')->name('postNote');
         Route::get('/note/{id}', 'NoteController@deleteNote')->name('deleteNote');
 
         // Reports

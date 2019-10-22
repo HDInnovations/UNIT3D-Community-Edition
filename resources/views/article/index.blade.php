@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('articles') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}" itemprop="url"
+        <a href="{{ route('articles.show', ['id' => $article->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $article->title }}</span>
         </a>
@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="box container">
-        <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}"
+        <a href="{{ route('articles.show', ['id' => $article->id]) }}"
            style=" float: right; margin-right: 10px;">
             @if ( ! is_null($article->image))
                 <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
@@ -67,9 +67,9 @@
                                                     <img src="{{ url('img/profile.png') }}"
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
-                                                <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                    class="pull-left" style="padding-right: 10px;">
                                                     @if ($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
@@ -79,7 +79,7 @@
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @endif
                                                 <strong><a
-                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="@lang('common.delete-your-comment')"

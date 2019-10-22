@@ -260,7 +260,7 @@
 
                                 <span>
                                     &nbsp;[ @lang('common.moderated-by')
-                                    <a href="{{ route('profile', ['username' => $torrent->moderated->username, 'id' => $torrent->moderated->id]) }}"
+                                    <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
                                        style="color:{{ $torrent->moderated->group->color }};">
                                         <i class="{{ $torrent->moderated->group->icon }}" data-toggle="tooltip"
                                            data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
@@ -338,13 +338,13 @@
                             @if ($torrent->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
                                     @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
-                                        <a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}">
+                                        <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
                                             ({{ $uploader->username }}
                                         )</a>
                                     @endif
                                 </span>
                             @else
-                                <a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}">
+                                <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
                                     <span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};">
                                         <i class="{{ $uploader->group->icon }}" data-toggle="tooltip" data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}
                                     </span>
@@ -353,13 +353,13 @@
 
                             @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
                                 @if (auth()->user()->isFollowing($uploader->id))
-                                    <a href="{{ route('unfollow', ['user' => $uploader->id]) }}"
+                                    <a href="{{ route('follow.destroy', ['id' => $uploader->id]) }}"
                                        id="delete-follow-{{ $uploader->target_id }}" class="btn btn-xs btn-info"
                                        title="@lang('user.unfollow')">
                                         <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.unfollow')
                                     </a>
                                 @else
-                                    <a href="{{ route('follow', ['user' => $uploader->id]) }}"
+                                    <a href="{{ route('follow.store', ['id' => $uploader->id]) }}"
                                        id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
                                        title="@lang('user.follow')">
                                         <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.follow')
@@ -694,11 +694,11 @@
                                                     <img src="{{ url('img/profile.png') }}"
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                        style="color:{{ $comment->user->group->color }}">(<span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
-                                                <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                    class="pull-left" style="padding-right: 10px">
                                                     @if ($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
@@ -708,7 +708,7 @@
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @endif
                                                 <strong><a
-                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+                                                            href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                             style="color:{{ $comment->user->group->color }}"><span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>

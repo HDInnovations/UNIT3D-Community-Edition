@@ -28,7 +28,7 @@ export default {
     methods: {
         bookmark(id) {
             axios
-                .get('/torrents/bookmark/' + id)
+                .post('/bookmarks/' + id)
                 .then(response => {
                     this.bookmarked = true;
 
@@ -47,7 +47,7 @@ export default {
 
         unBookmark(id) {
             axios
-                .get('/torrents/unbookmark/' + id)
+                .delete('/bookmarks/' + id)
                 .then(response => {
                     this.bookmarked = false;
 

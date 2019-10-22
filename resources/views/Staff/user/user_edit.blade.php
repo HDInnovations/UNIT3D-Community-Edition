@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', [ 'username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
@@ -25,7 +25,7 @@
 @section('content')
     <div class="container">
         <h1 class="title"><i class="{{ config('other.font-awesome') }} fa-gear"></i> Edit User <a
-                    href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
+                    href="{{ route('users.show', [ 'username' => $user->username]) }}">{{ $user->username }}</a>
         </h1>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#account" aria-controls="account" role="tab"
@@ -42,7 +42,7 @@
             <div role="tabpanel" class="tab-pane active" id="account">
                 <h3>Account</h3>
                 <hr>
-                <form role="form" method="POST" action="{{ route('user_edit', ['username' => $user->username, 'id' => $user->id]) }}">
+                <form role="form" method="POST" action="{{ route('user_edit', ['username' => $user->username]) }}">
                 @csrf
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -112,7 +112,7 @@
             <div role="tabpanel" class="tab-pane" id="permissions">
                 <h3>Permissions</h3>
                 <hr>
-                <form role="form" method="POST" action="{{ route('user_permissions', ['username' => $user->username, 'id' => $user->id]) }}">
+                <form role="form" method="POST" action="{{ route('user_permissions', ['username' => $user->username]) }}">
                 @csrf
                 <label for="hidden" class="control-label">Can Upload?</label>
                 <div class="radio-inline">
@@ -180,7 +180,7 @@
             <div role="tabpanel" class="tab-pane" id="notes">
                 <h3>Add Staff Note</h3>
                 <hr>
-                <form role="form" method="POST" action="{{ route('postNote', ['username' => $user->username, 'id' => $user->id]) }}">
+                <form role="form" method="POST" action="{{ route('postNote', ['username' => $user->username]) }}">
                     @csrf
                 <div class="form-group">
                     <label for="message">Note</label>
@@ -238,7 +238,7 @@
             <div role="tabpanel" class="tab-pane" id="password">
                 <h3>Force Update Password</h3>
                 <hr>
-                <form role="form" method="POST" action="{{ route('user_password', ['username' => $user->username, 'id' => $user->id]) }}">
+                <form role="form" method="POST" action="{{ route('user_password', ['username' => $user->username]) }}">
                     @csrf
                 <div class="form-group">
                     <label for="new_password">New Password</label>

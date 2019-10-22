@@ -56,7 +56,7 @@
                                         @if ($attempt->user_id == null)
                                             {{ $attempt->username }}
                                         @else
-                                            <a class="text-bold" href="{{ route('profile', ['username' =>  $attempt->username, 'id' => $attempt->user_id]) }}">
+                                            <a class="text-bold" href="{{ route('users.show', ['username' =>  $attempt->username]) }}">
                                                 {{ $attempt->username }}
                                             </a>
                                         @endif

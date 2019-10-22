@@ -13,7 +13,7 @@
                     <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
                         <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }}
                         @if (auth()->user()->group->is_modo)
-                            <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">
+                            <a href="{{ route('users.show', ['username' => $user->username]) }}">
                                 {{ $user->username }}
                                 @if ($user->warnings_count > 0)
                                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
@@ -23,7 +23,7 @@
                         @endif
                     </span>
                 @else
-                    <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">
+                    <a href="{{ route('users.show', ['username' => $user->username]) }}">
                         <span class="badge-user text-bold" style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }}; margin-bottom: 10px;">
                             <i class="{{ $user->group->icon }}" data-toggle="tooltip" data-original-title="{{ $user->group->name }}"></i>
                             {{ $user->username }}
