@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('pages.show', ['slug' => $page->slug, 'id' => $page->id]) }}" itemprop="url"
+        <a href="{{ route('pages.show', ['id' => $page->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $page->name }}</span>
         </a>

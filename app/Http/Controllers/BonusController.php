@@ -425,15 +425,15 @@ class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your To Broke To Tip The Uploader!');
         }
         if ($user->id == $torrent->user_id) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $uploader->seedbonus += $tip_amount;
@@ -456,7 +456,7 @@ class BonusController extends Controller
             $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
         }
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 
@@ -481,15 +481,15 @@ class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+            return redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Are To Broke To Tip The Poster!');
         }
         if ($user->id == $poster->id) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+            return redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+            return redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $poster->seedbonus += $tip_amount;
@@ -510,7 +510,7 @@ class BonusController extends Controller
 
         $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 
-        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+        return redirect()->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 

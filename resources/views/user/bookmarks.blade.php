@@ -62,18 +62,18 @@
                                 </div>
                             </td>
                             <td>
-                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a class="view-torrent" href="{{ route('torrent', ['id' => $bookmark->id]) }}">
                                     {{ $bookmark->name }}
                                 </a>
                                 @if (config('torrent.download_check_page') == 1)
-                                    <a href="{{ route('download_check', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                    <a href="{{ route('download_check', ['id' => $bookmark->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
                                     </a>
                                 @else
-                                    <a href="{{ route('download', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                    <a href="{{ route('download', ['id' => $bookmark->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -246,21 +246,21 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a href="{{ route('peers', ['id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-green text-bold'>
                                         {{ $bookmark->seeders }}
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a href="{{ route('peers', ['id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-red text-bold'>
                                         {{ $bookmark->leechers }}
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('history', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a href="{{ route('history', ['id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-orange text-bold'>
                                         {{ $bookmark->times_completed }} @lang('common.times')
                                     </span>

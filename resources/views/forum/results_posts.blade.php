@@ -245,7 +245,7 @@
                             <td class="f-display-topic-icon"><span
                                         class="badge-extra text-bold">{{ $r->topic->forum->name }}</span></td>
                             <td class="f-display-topic-title">
-                                <strong><a href="{{ route('forum_topic', ['slug' => $r->topic->slug, 'id' => $r->topic->id]) }}">{{ $r->topic->name }}</a></strong>
+                                <strong><a href="{{ route('forum_topic', ['id' => $r->topic->id]) }}">{{ $r->topic->name }}</a></strong>
                                 @if ($r->topic->state == "close") <span
                                         class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
                                 @if ($r->topic->approved == "1") <span
@@ -287,7 +287,7 @@
                                                 </div>
                                                 <div class="button-right">
                                                     <a class="text-bold"
-                                                       href="{{ route('forum_topic', ['slug' => $r->topic->slug, 'id' => $r->topic->id]) }}?page={{$r->getPageNumber()}}#post-{{$r->id}}">#{{$r->id}}</a>
+                                                       href="{{ route('forum_topic', ['id' => $r->topic->id]) }}?page={{$r->getPageNumber()}}#post-{{$r->id}}">#{{$r->id}}</a>
                                                 </div>
                                             </div>
                                             <hr class="some-margin">

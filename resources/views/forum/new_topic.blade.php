@@ -15,13 +15,13 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
+        <a href="{{ route('forum_display', ['id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_new_topic_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
+        <a href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.create-new-topic')</span>
         </a>
@@ -33,7 +33,7 @@
         <div class="col-md-12">
             <h2><span>@lang('forum.create-new-topic')</span><span id="thread-title">{{ $title }}</span></h2>
             <form role="form" method="POST"
-                  action="{{ route('forum_new_topic',['slug' => $forum->slug, 'id' => $forum->id]) }}">
+                  action="{{ route('forum_new_topic',['id' => $forum->id]) }}">
                 @csrf
                 <div class="form-group">
                     <label for="input-thread-title"></label><input id="input-thread-title" type="text" name="title" maxlength="75" class="form-control"

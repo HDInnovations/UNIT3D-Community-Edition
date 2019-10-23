@@ -20,26 +20,29 @@
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($tags as $tag)
-                <tr>
-                    <td>
-                        <a href="{{ route('staff_tag_edit_form', ['slug' => $tag->slug, 'id' => $tag->id]) }}">{{ $tag->name }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ route('staff_tag_edit_form', ['slug' => $tag->slug, 'id' => $tag->id]) }}"
-                           class="btn btn-warning">Edit</a>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($tags as $tag)
+                        <tr>
+                            <td>
+                                <a href="{{ route('staff_tag_edit_form', ['id' => $tag->id]) }}">
+                                    {{ $tag->name }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('staff_tag_edit_form', ['id' => $tag->id]) }}" class="btn btn-warning">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

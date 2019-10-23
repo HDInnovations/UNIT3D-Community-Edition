@@ -30,7 +30,7 @@ class LikeController extends Controller
     public function store(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = "forums/topic/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
@@ -65,7 +65,7 @@ class LikeController extends Controller
     public function destroy(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = "forums/topic/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();

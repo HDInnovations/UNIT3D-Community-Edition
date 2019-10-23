@@ -37,7 +37,7 @@ class SubscriptionController extends Controller
         }
         if (! isset($logger)) {
             $logger = 'forum_topic';
-            $params = ['slug' => $topic->slug, 'id' => $topic->id];
+            $params = ['id' => $topic->id];
         }
 
         if (! $request->user()->isSubscribed('topic', $topic->id)) {
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
         }
         if (! isset($logger)) {
             $logger = 'forum_topic';
-            $params = ['slug' => $topic->slug, 'id' => $topic->id];
+            $params = ['id' => $topic->id];
         }
 
         if ($request->user()->isSubscribed('topic', $topic->id)) {
@@ -103,7 +103,7 @@ class SubscriptionController extends Controller
         }
         if (! isset($logger)) {
             $logger = 'forum_display';
-            $params = ['slug' => $forum->slug, 'id' => $forum->id];
+            $params = ['id' => $forum->id];
         }
 
         if (! $request->user()->isSubscribed('forum', $forum->id)) {
@@ -137,7 +137,7 @@ class SubscriptionController extends Controller
         }
         if (! isset($logger)) {
             $logger = 'forum_display';
-            $params = ['slug' => $forum->slug, 'id' => $forum->id];
+            $params = ['id' => $forum->id];
         }
 
         if ($request->user()->isSubscribed('forum', $forum->id)) {

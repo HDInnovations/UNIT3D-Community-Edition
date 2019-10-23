@@ -12,7 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_tag_edit_form', ['slug' => $tag->slug, 'id' => $tag->id]) }}" itemprop="url"
+        <a href="{{ route('staff_tag_edit_form', ['id' => $tag->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Tag</span>
         </a>
@@ -22,17 +22,19 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Torrent Tag (Genre)</h2>
-        <form role="form" method="POST" action="{{ route('staff.types.update', ['slug' => $tag->slug, 'id' => $tag->id]) }}">
-        @csrf
+        <form role="form" method="POST" action="{{ route('staff.types.update', ['id' => $tag->id]) }}">
+            @csrf
 
-        <div class="form-group">
-            <label for="name">Name</label>
-            <label>
-                <input type="text" class="form-control" name="name" value="{{ $tag->name }}">
-            </label>
-        </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <label>
+                    <input type="text" class="form-control" name="name" value="{{ $tag->name }}">
+                </label>
+            </div>
 
-        <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
+            <button type="submit" class="btn btn-default">
+                {{ trans('common.submit') }}
+            </button>
         </form>
     </div>
 @endsection

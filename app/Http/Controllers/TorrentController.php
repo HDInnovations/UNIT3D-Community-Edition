@@ -1074,7 +1074,7 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $torrent->save();
@@ -1114,7 +1114,7 @@ class TorrentController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
             }
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Successfully Edited!');
         }
     }
@@ -1423,18 +1423,18 @@ class TorrentController extends Controller
                     );
                 } else {
                     $this->chat->systemMessage(
-                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 }
 
-                TorrentHelper::approveHelper($torrent->slug, $torrent->id);
+                TorrentHelper::approveHelper($torrent->id);
 
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
             } else {
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");
             }
 
-            return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('download_check', ['id' => $torrent->id])
                 ->withSuccess('Your torrent file is ready to be downloaded and seeded!');
         }
     }
@@ -1475,19 +1475,19 @@ class TorrentController extends Controller
 
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio')) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Ratio Is To Low To Download!');
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0 && $torrent->user_id != $user->id) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
 
         // Torrent Status Is Rejected
         if ($torrent->isRejected()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('This Torrent Has Been Rejected By Staff');
         }
 
@@ -1496,7 +1496,7 @@ class TorrentController extends Controller
 
         // The torrent file exist ?
         if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         } else {
             // Delete the last torrent tmp file
@@ -1558,7 +1558,7 @@ class TorrentController extends Controller
             $bot->message('#announce', "[Link: $torrent_url]");
         }
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Bumped To The Top Successfully!');
     }
 
@@ -1586,7 +1586,7 @@ class TorrentController extends Controller
         // Activity Log
         \LogActivity::addToLog('Staff Member '.$request->user()->username." has stickied torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
     }
 
@@ -1625,7 +1625,7 @@ class TorrentController extends Controller
         // Activity Log
         \LogActivity::addToLog('Staff Member '.$user->username." has revoked freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
     }
 
@@ -1664,10 +1664,10 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog('Staff Member '.$request->user()->username." has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
         } else {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent Is Already Featured!');
         }
     }
@@ -1705,7 +1705,7 @@ class TorrentController extends Controller
         // Activity Log
         \LogActivity::addToLog('Staff Member '.$user->username." has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
     }
 
@@ -1740,10 +1740,10 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has requested a reseed request on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         } else {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('This torrent doesnt meet the rules for a reseed request.');
         }
     }
@@ -1774,10 +1774,10 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has used a freeleech token on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
         } else {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
         }
     }

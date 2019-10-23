@@ -28,17 +28,25 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($types as $t)
+            @foreach ($types as $type)
                 <tr>
-                    <td>{{ $t->position }}</td>
                     <td>
-                        <a href="{{ route('staff.types.edit', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
+                        {{ $type->position }}
                     </td>
                     <td>
-                        <a href="{{ route('staff.types.edit', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                           class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff.types.destroy', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                           class="btn btn-danger">Delete</a>
+                        <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}">
+                            {{ $type->name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" class="btn btn-warning">
+                            Edit
+                        </a>
+                        <form action="{{ route('staff.types.destroy', ['id' => $type->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

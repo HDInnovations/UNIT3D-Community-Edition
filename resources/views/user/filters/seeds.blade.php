@@ -14,7 +14,7 @@
         @foreach ($seeds as $p)
             <tr>
                 <td>
-                    <a class="view-torrent" href="{{ route('torrent', ['slug' => $p->torrent->slug, 'id' => $p->torrent_id]) }}"
+                    <a class="view-torrent" href="{{ route('torrent', ['id' => $p->torrent_id]) }}"
                        data-toggle="tooltip" title="{{ $p->torrent->name }}">
                         {{ $p->torrent->name }}
                     </a>

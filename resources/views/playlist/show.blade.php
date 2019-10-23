@@ -89,12 +89,12 @@
 								@endif
 								&nbsp;
 								@if (config('torrent.download_check_page') == 1)
-									<a href="{{ route('download_check', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+									<a href="{{ route('download_check', ['id' => $t->torrent->id]) }}" role="button"
 									   data-toggle="tooltip" data-placement="top" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left; margin-right: 10px;">
 										<i class='{{ config("other.font-awesome") }} fa-download'></i>
 									</a>
 								@else
-									<a href="{{ route('download', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+									<a href="{{ route('download', ['id' => $t->torrent->id]) }}" role="button"
 									   data-toggle="tooltip" data-placement="top" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left; margin-right: 10px;">
 										<i class='{{ config("other.font-awesome") }} fa-download'></i>
 									</a>
@@ -142,7 +142,7 @@
 								</div>
 								<div class="body_description">
 									<h3 class="description_title">
-										<a href="{{ route('torrent', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
+										<a href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
 											@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && isset($t->torrent->meta) && $meta->releaseYear)
 												<span class="text-bold text-pink"> {{ $meta->releaseYear }}</span>
 											@endif
@@ -224,12 +224,12 @@
 									@endif
 
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+                                        <a href="{{ route('download_check', ['id' => $t->torrent->id]) }}" role="button"
                                            data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
                                             <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+                                        <a href="{{ route('download', ['id' => $t->torrent->id]) }}" role="button"
                                            data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
                                             <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                         </a>
@@ -247,7 +247,7 @@
 									@endif
 									<div class="text">
 										<h3 style="font-size: 25px;">
-											<a data-id="{{ $t->torrent->id }}" data-slug="{{ $t->torrent->slug }}" href="{{ route('torrent', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}">{{ $t->torrent->name }}</a>
+											<a data-id="{{ $t->torrent->id }}" href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}</a>
 										</h3>
 									</div>
 								</div>

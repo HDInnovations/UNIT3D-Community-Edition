@@ -15,13 +15,13 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
+        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_edit_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
+        <a href="{{ route('forum_edit_topic', ['id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.edit-topic')</span>
         </a>
@@ -33,7 +33,7 @@
         <div class="col-md-12">
             <h2><span>@lang('forum.edit-topic')</span></h2>
             <form role="form" method="POST"
-                  action="{{ route('forum_edit_topic',['slug' => $topic->slug, 'id' => $topic->id]) }}">
+                  action="{{ route('forum_edit_topic',['id' => $topic->id]) }}">
                 @csrf
                 <div class="form-group">
                     <label for="forum_name">@lang('forum.topic-name')</label>

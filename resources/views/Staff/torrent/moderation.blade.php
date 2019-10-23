@@ -38,7 +38,7 @@
                 @foreach ($pending as $p)
                     <tr>
                         <td><span class="text-red text-bold">{{ $p->created_at->diffForHumans() }}</span></td>
-                        <td><a href="{{ route('torrent', ['slug' => $p->slug, 'id' => $p->id]) }}" itemprop="url"
+                        <td><a href="{{ route('torrent', ['id' => $p->id]) }}" itemprop="url"
                                class="l-breadcrumb-item-link"><span itemprop="title"
                                                                     class="l-breadcrumb-item-link-title">{{ $p->name }}</span></a>
                         </td>
@@ -50,7 +50,7 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $p->user->username }}
                                     ({{ $p->user->group->name }})</span></a></td>
-                        <td><a href="{{ route('moderation_approve', ['slug' => $p->slug, 'id' => $p->id]) }}"
+                        <td><a href="{{ route('moderation_approve', ['id' => $p->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
@@ -183,7 +183,7 @@
                 @foreach ($postponed as $post)
                     <tr>
                         <td><span class="text-red text-bold">{{ $post->moderated_at->diffForHumans() }}</span></td>
-                        <td><a href="{{ route('torrent', ['slug' => $post->slug, 'id' => $post->id]) }}" itemprop="url"
+                        <td><a href="{{ route('torrent', ['id' => $post->id]) }}" itemprop="url"
                                class="l-breadcrumb-item-link"><span itemprop="title"
                                                                     class="l-breadcrumb-item-link-title">{{ $post->name }}</span></a>
                         </td>
@@ -201,10 +201,10 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->moderated->username }}
                                     ({{ $post->moderated->group->name }})</span></a></td>
-                        <td><a href="{{ route('moderation_approve', ['slug' => $post->slug, 'id' => $post->id]) }}"
+                        <td><a href="{{ route('moderation_approve', ['id' => $post->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
-                        <td><a href="{{ route('edit', ['slug' => $post->slug, 'id' => $post->id]) }}" role='button'
+                        <td><a href="{{ route('edit', ['id' => $post->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-pencil"></i></span>Edit</a></td>
                         <td>
@@ -293,7 +293,7 @@
                 @foreach ($rejected as $reject)
                     <tr>
                         <td><span class="text-red text-red">{{ $reject->created_at->diffForHumans() }}</span></td>
-                        <td><a href="{{ route('torrent', ['slug' => $reject->slug, 'id' => $reject->id]) }}"
+                        <td><a href="{{ route('torrent', ['id' => $reject->id]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->name }}</span></a>
                         </td>
@@ -311,7 +311,7 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }}
                                     ({{ $reject->moderated->group->name }})</span></a></td>
-                        <td><a href="{{ route('moderation_approve', ['slug' => $reject->slug, 'id' => $reject->id]) }}"
+                        <td><a href="{{ route('moderation_approve', ['id' => $reject->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
@@ -361,7 +361,7 @@
                             </div>
                             <!-- End Torrent Postpone Modal -->
                         </td>
-                        <td><a href="{{ route('edit', ['slug' => $reject->slug, 'id' => $reject->id]) }}" role='button'
+                        <td><a href="{{ route('edit', ['id' => $reject->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-pencil"></i></span>Edit</a></td>
                         <td>

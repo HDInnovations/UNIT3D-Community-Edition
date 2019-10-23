@@ -59,14 +59,14 @@ class WishController extends Controller
 
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()
-                ->route('user_wishlist', ['slug' => $request->user()->slug, 'id' => $uid])
+                ->route('user_wishlist', ['id' => $uid])
                 ->withErrors('Wish already exists!');
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
         if ($omdb === null || $omdb === false) {
             return redirect()
-                ->route('user_wishlist', ['slug' => $request->user()->slug, 'id' => $uid])
+                ->route('user_wishlist', ['id' => $uid])
                 ->withErrors('IMDB Bad Request!');
         }
 
@@ -81,7 +81,7 @@ class WishController extends Controller
         ]);
 
         return redirect()
-            ->route('user_wishlist', ['slug' => $request->user()->slug, 'id' => $uid])
+            ->route('user_wishlist', ['id' => $uid])
             ->withSuccess('Wish Successfully Added!');
     }
 
@@ -99,7 +99,7 @@ class WishController extends Controller
         $this->wish->delete($id);
 
         return redirect()
-            ->route('user_wishlist', ['slug' => $request->user()->slug, 'id' => $uid])
+            ->route('user_wishlist', ['id' => $uid])
             ->withSuccess('Wish Successfully Removed!');
     }
 }

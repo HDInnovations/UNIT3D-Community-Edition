@@ -553,12 +553,14 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/reports/{report_id}/solve', 'ReportController@solveReport')->name('solveReport');
 
         // Categories
-        Route::get('/categories', 'CategoryController@index')->name('staff.categories.index');
-        Route::get('/categories/create', 'CategoryController@create')->name('staff.categories.create');
-        Route::post('/categories', 'CategoryController@store')->name('staff.categories.store');
-        Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
-        Route::patch('/categories/{id}', 'CategoryController@update')->name('staff.categories.update');
-        Route::delete('/categories/{id}', 'CategoryController@destroy')->name('staff.categories.destroy');
+        Route::group(['prefix' => 'types'], function () {
+            Route::get('/', 'CategoryController@index')->name('staff.categories.index');
+            Route::get('/create', 'CategoryController@create')->name('staff.categories.create');
+            Route::post('/store', 'CategoryController@store')->name('staff.categories.store');
+            Route::get('/{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
+            Route::patch('/{id}/update', 'CategoryController@update')->name('staff.categories.update');
+            Route::delete('/{id}/destroy', 'CategoryController@destroy')->name('staff.categories.destroy');
+        });
 
         // Types
         Route::group(['prefix' => 'types'], function () {
@@ -566,8 +568,8 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/create', 'TypeController@create')->name('staff.types.create');
             Route::post('/store', 'TypeController@store')->name('staff.types.store');
             Route::get('//{id}/edit', 'TypeController@edit')->name('staff.types.edit');
-            Route::post('/{id}/update', 'TypeController@update')->name('staff.types.update');
-            Route::get('/{id}/destroy', 'TypeController@destroy')->name('staff.types.destroy');
+            Route::patch('/{id}/update', 'TypeController@update')->name('staff.types.update');
+            Route::delete('/{id}/destroy', 'TypeController@destroy')->name('staff.types.destroy');
         });
 
         // Forum

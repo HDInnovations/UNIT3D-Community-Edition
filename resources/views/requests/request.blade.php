@@ -256,7 +256,7 @@
                                     <strong>@lang('torrent.torrent')</strong>
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrent', ['slug' => $torrentRequest->torrent->slug, 'id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
+                                    <a href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
                                 </td>
                             </tr>
                         @endif
@@ -300,7 +300,7 @@
                                     <strong>@lang('torrent.torrent')</strong>
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrent', ['slug' => $torrentRequest->torrent->slug, 'id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
+                                    <a href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
                                 </td>
                             </tr>
                         @endif

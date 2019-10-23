@@ -274,7 +274,7 @@ class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErros('Your Comment Rights Have Benn Revoked!');
         }
 
@@ -292,7 +292,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -360,7 +360,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments'])
+            return redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
@@ -483,7 +483,7 @@ class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErros('Your Comment Rights Have Benn Revoked!');
         }
 
@@ -518,7 +518,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -550,7 +550,7 @@ class CommentController extends Controller
                 "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
             );
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }

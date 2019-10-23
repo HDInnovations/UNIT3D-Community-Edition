@@ -139,7 +139,7 @@ class InviteController extends Controller
         abort_unless($invite->user_id === $user->id, 403);
 
         if ($invite->accepted_by !== null) {
-            return redirect()->route('user_invites', ['slug' => $user->slug, 'id' => $user->id])
+            return redirect()->route('user_invites', ['id' => $user->id])
                 ->withErrors('The invite you are trying to resend has already been used.');
         }
 
@@ -148,7 +148,7 @@ class InviteController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has resent invite to {$invite->email} .");
 
-        return redirect()->route('user_invites', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_invites', ['id' => $user->id])
             ->withSuccess('Invite was resent successfully!');
     }
 

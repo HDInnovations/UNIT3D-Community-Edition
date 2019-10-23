@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
         </a>
@@ -50,13 +50,13 @@
                 <div class="text-center">
                     <span class="badge-user" style=" width: 100%; background-color: rgba(0, 0, 0, 0.19);">
                         @if (config('torrent.download_check_page') == 1)
-                            <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-success">
+                            <a href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-success">
                                 <span class='btn-label'>
                                     <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
                                 </span>
                             </a>
                         @else
-                            <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-success">
+                            <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-success">
                                 <span class='btn-label'>
                                     <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
                                 </span>
@@ -102,7 +102,7 @@
                         @endif
 
                         @if ($torrent->seeders <= 2)
-                        <a href="{{ route('reseed', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-warning">
+                        <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-warning">
                             <span class='btn-label'>
                                 <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
                             </span>
@@ -189,7 +189,7 @@
                             <tr>
                                 <td><strong>@lang('common.fl_token')</strong></td>
                                 <td>
-                                    <a href="{{ route('freeleech_token', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
                                        class="btn btn-default btn-xs"
                                        role="button">@lang('torrent.use-fl-token')
                                     </a>
@@ -225,7 +225,7 @@
                         </td>
                         <td>{{ $torrent->name }} &nbsp; &nbsp;
                             @if (auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
-                                <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button">
+                                <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['id' => $torrent->id]) }}" role="button">
                                     <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> @lang('common.edit')
                                 </a>
                             @endif
@@ -243,7 +243,7 @@
                                 <strong>@lang('common.moderation')</strong>
                             </td>
                             <td>
-                                <a href="{{ route('moderation_approve', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role='button'
+                                <a href="{{ route('moderation_approve', ['id' => $torrent->id]) }}" role='button'
                                    class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
                                 </a>
@@ -276,53 +276,53 @@
                             <td class="col-sm-2"><strong>Staff Tools</strong></td>
                             <td>
                                 @if ($torrent->free == 0)
-                                    <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
                                        class="btn btn-success btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.grant') @lang('torrent.freeleech')
                                     </a>
                                 @else
-                                    <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
                                        class="btn btn-danger btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('torrent.revoke') @lang('torrent.freeleech')
                                     </a>
                                 @endif
 
                                 @if ($torrent->doubleup == 0)
-                                    <a href="{{ route('torrent_doubleup', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
                                        class="btn btn-success btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.grant') @lang('torrent.double-upload')
                                     </a>
                                 @else
-                                    <a href="{{ route('torrent_doubleup', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
                                        class="btn btn-danger btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.revoke') @lang('torrent.double-upload')
                                     </a>
                                 @endif
 
                                 @if ($torrent->sticky == 0)
-                                    <a href="{{ route('torrent_sticky', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
                                        class="btn btn-success btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.sticky')
                                     </a>
                                 @else
-                                    <a href="{{ route('torrent_sticky', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
                                        class="btn btn-danger btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> @lang('torrent.unsticky')
                                     </a>
                                 @endif
 
-                                <a href="{{ route('bumpTorrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}"
                                    class="btn btn-primary btn-xs" role="button">
                                     <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i> @lang('torrent.bump')
                                 </a>
 
                                 @if ($torrent->featured == 0)
-                                    <a href="{{ route('torrent_feature', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
                                        class="btn btn-default btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.feature')
                                     </a>
                                 @else
-                                    <a href="{{ route('torrent_feature', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                    <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
                                        class="btn btn-default btn-xs disabled" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-certificate"></i> @lang('torrent.featured')
                                     </a>
@@ -367,7 +367,7 @@
                                 @endif
                             @endif
 
-                            <a href="{{ route('thanks.store', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                            <a href="{{ route('thanks.store', ['id' => $torrent->id]) }}"
                                class="btn btn-xs btn-success" data-toggle="tooltip"
                                data-original-title="@lang('torrent.thank')">
                                 <i class="{{ config('other.font-awesome') }} fa-heart"></i> @lang('torrent.thank')
@@ -432,12 +432,12 @@
                                 <i class="{{ config('other.font-awesome') }} fa-fw fa-check"></i>{{ $torrent->times_completed }} {{ strtolower(trans('common.times')) }}
                             </span>
                             <span class="badge-extra">
-                                <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                <a href="{{ route('peers', ['id' => $torrent->id]) }}"
                                    title="@lang('common.view') @lang('torrent.peers')">@lang('common.view') @lang('torrent.peers')
                                 </a>
                             </span>
                             <span class="badge-extra">
-                                <a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                <a href="{{ route('history', ['id' => $torrent->id]) }}"
                                    title="@lang('common.view') @lang('torrent.history')">@lang('common.view') @lang('torrent.history')
                                 </a>
                             </span>
@@ -610,7 +610,7 @@
                         <td>
                             <div class="col-md-7">
                                 <form role="form" method="POST"
-                                      action="{{ route('tip_uploader', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                                      action="{{ route('tip_uploader', ['id' => $torrent->id]) }}"
                                       class="form-inline">
                                     @csrf
                                     <div class="form-group">
@@ -744,7 +744,7 @@
 
             <div class="col-md-12">
                 <form role="form" method="POST"
-                      action="{{ route('comment_torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                      action="{{ route('comment_torrent', ['id' => $torrent->id]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')

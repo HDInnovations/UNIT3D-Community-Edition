@@ -60,21 +60,21 @@
                 @foreach ($results as $f)
                     <tr>
                     @if ($f->user->image != null)
-                        <td><a href="{{ route('users.show', ['username' => $f->user->slug]) }}">
+                        <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                 <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar"
                                      data-toggle="tooltip"
                                      title="{{ $f->user->username }}" height="50px"
                                      data-original-title="{{ $f->user->username }}">
                             </a></td>
                     @else
-                        <td><a href="{{ route('v', ['username' => $f->user->slug]) }}">
+                        <td><a href="{{ route('v', ['username' => $f->user->username]) }}">
                             <img src="{{ url('img/profile.png') }}" alt="avatar"
                                  data-toggle="tooltip"
                                  title="{{ $f->user->username }}" height="50px"
                                  data-original-title="{{ $f->user->username }}">
                             </a></td>
                     @endif
-                        <td><a href="{{ route('users.show', ['username' => $f->user->slug]) }}">
+                        <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                 <span class="badge-user text-bold" style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
                             </a></td>
                         <td>{{ $f->created_at }}</td>

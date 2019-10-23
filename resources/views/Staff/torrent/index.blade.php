@@ -38,8 +38,8 @@
                 <tr>
                     <td>{{ $t->id }}
                     </td>
-                    <td><a href="{{ route('edit', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></td>
-                    <td><a href="{{ route('edit', ['slug' => $t->slug, 'id' => $t->id]) }}"
+                    <td><a href="{{ route('edit', ['id' => $t->id]) }}">{{ $t->name }}</a></td>
+                    <td><a href="{{ route('edit', ['id' => $t->id]) }}"
                            class="btn btn-warning">Edit</a>
                         <button data-target="#staffdelete-{{ $t->id }}" data-toggle="modal" class="btn btn-danger">
                             Delete

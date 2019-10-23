@@ -63,7 +63,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a class="text-bold" href="{{ route('torrent', ['slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id]) }}">
+                                        <a class="text-bold" href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                             {{ $warning->torrenttitle->name }}
                                         </a>
                                     </td>

@@ -485,14 +485,14 @@
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_follower'))
                             @foreach ($followers as $f)
                                 @if ($f->user->image != null)
-                                    <a href="{{ route('users.show', ['username' => $f->user->slug]) }}">
+                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                         <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
                                              title="{{ $f->user->username }}" height="50px"
                                              data-original-title="{{ $f->user->username }}"
                                              alt="{{ $f->user->username }}">
                                     </a>
                                 @else
-                                    <a href="{{ route('users.show', ['username' => $f->user->slug]) }}">
+                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                         <img src="{{ url('img/profile.png') }}" data-toggle="tooltip"
                                              title="{{ $f->user->username }}" height="50px"
                                              data-original-title="{{ $f->user->username }}"
@@ -662,7 +662,7 @@
                             @foreach ($hitrun as $hr)
                                 <tr>
                                     <td>
-                                        <a class="text-bold" href="{{ route('torrent', ['slug' => $hr->torrenttitle->slug, 'id' => $hr->torrenttitle->id]) }}">
+                                        <a class="text-bold" href="{{ route('torrent', ['id' => $hr->torrenttitle->id]) }}">
                                             {{ $hr->torrenttitle->name }}
                                         </a>
                                     </td>

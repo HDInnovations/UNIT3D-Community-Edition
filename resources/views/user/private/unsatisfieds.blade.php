@@ -121,11 +121,11 @@
                         @foreach ($downloads as $download)
                             <tr class="userFiltered" active="{{ ($download->active ? '1' : '0') }}" seeding="{{ ($download->seeder == 1 ? '1' : '0') }}" prewarned="{{ ($download->prewarn ? '1' : '0') }}" hr="{{ ($download->hitrun ? '1' : '0') }}" immune="{{ ($download->immune ? '1' : '0') }}">
                                 <td>
-                                    <a class="view-torrent" href="{{ route('torrent', ['slug' => $download->torrent->slug, 'id' => $download->torrent->id]) }}">
+                                    <a class="view-torrent" href="{{ route('torrent', ['id' => $download->torrent->id]) }}">
                                         {{ $download->torrent->name }}
                                     </a>
                                     <div class="pull-right">
-                                        <a href="{{ route('download', ['slug' => $download->torrent->slug, 'id' => $download->torrent->id]) }}">
+                                        <a href="{{ route('download', ['id' => $download->torrent->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button"><i
                                                         class="{{ config('other.font-awesome') }} fa-download"></i></button>
                                         </a>

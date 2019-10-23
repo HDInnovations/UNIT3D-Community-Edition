@@ -264,7 +264,7 @@
                                         </div>
                                         <div class="body_description">
                                             <h3 class="description_title">
-                                                <a href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}
+                                                <a href="{{ route('torrent', ['id' => $t->id]) }}">{{ $t->name }}
                                                     @if($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->releaseYear)
                                                         <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
                                                     @endif

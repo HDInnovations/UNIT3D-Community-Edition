@@ -35,16 +35,16 @@
             @foreach ($articles as $article)
                 <tr>
                     <td>
-                        <a href="{{ route('staff_article_edit_form', ['slug' => $article->slug, 'id' => $article->id]) }}">{{ $article->title }}</a>
+                        <a href="{{ route('staff_article_edit_form', ['id' => $article->id]) }}">{{ $article->title }}</a>
                     </td>
                     <td>
                         <a href="{{ route('users.show', ['username' => $article->user->username]) }}">{{ $article->user->username }}</a>
                     </td>
                     <td>{{ $article->created_at->toDayDateTimeString() }}</td>
                     <td>
-                        <a href="{{ route('staff_article_edit_form', ['slug' => $article->slug, 'id' => $article->id]) }}"
+                        <a href="{{ route('staff_article_edit_form', ['id' => $article->id]) }}"
                            class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff_article_delete', ['slug' => $article->slug, 'id' => $article->id]) }}"
+                        <a href="{{ route('staff_article_delete', ['id' => $article->id]) }}"
                            class="btn btn-danger">Delete</a>
                     </td>
                 </tr>

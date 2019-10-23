@@ -12,7 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.types.edit', ['slug' => $type->slug, 'id' => $type->id]) }}" itemprop="url"
+        <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Type</span>
         </a>
@@ -22,23 +22,24 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Torrent Type</h2>
-        <form role="form" method="POST" action="{{ route('staff.types.update', ['slug' => $type->slug, 'id' => $type->id]) }}">
-        @csrf
-        <div class="form-group">
-            <label for="name">Name</label>
-            <label>
-                <input type="text" class="form-control" name="name" value="{{ $type->name }}">
-            </label>
-        </div>
+        <form role="form" method="POST" action="{{ route('staff.types.update', ['id' => $type->id]) }}">
+            @method('PATCH')
+            @csrf
+            <div class="form-group">
+                <label for="name">Name</label>
+                <label>
+                    <input type="text" class="form-control" name="name" value="{{ $type->name }}">
+                </label>
+            </div>
 
-        <div class="form-group">
-            <label for="name">Position</label>
-            <label>
-                <input type="text" class="form-control" name="position" value="{{ $type->position }}">
-            </label>
-        </div>
+            <div class="form-group">
+                <label for="name">Position</label>
+                <label>
+                    <input type="text" class="form-control" name="position" value="{{ $type->position }}">
+                </label>
+            </div>
 
-        <button type="submit" class="btn btn-default">@lang('common.submit')</button>
+            <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>
 @endsection

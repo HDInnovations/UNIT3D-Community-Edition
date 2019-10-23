@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_article_edit', ['slug' => $article->slug, 'id' => $article->id]) }}" itemprop="url"
+        <a href="{{ route('staff_article_edit', ['id' => $article->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Article Edit</span>
         </a>
@@ -27,7 +27,7 @@
     <div class="container box">
         <h2>Add a post</h2>
         <form role="form" method="POST" enctype="multipart/form-data"
-              action="{{ route('staff_article_edit',['slug' => $article->slug, 'id' => $article->id]) }}">
+              action="{{ route('staff_article_edit',['id' => $article->id]) }}">
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>

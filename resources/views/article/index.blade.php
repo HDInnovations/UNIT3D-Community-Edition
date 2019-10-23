@@ -106,7 +106,7 @@
             <br>
 
             <div class="col-md-12">
-                <form role="form" method="POST" action="{{ route('comment_article', ['slug' => $article->slug, 'id' => $article->id]) }}">
+                <form role="form" method="POST" action="{{ route('comment_article', ['id' => $article->id]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')

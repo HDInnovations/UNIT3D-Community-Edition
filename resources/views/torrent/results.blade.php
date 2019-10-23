@@ -107,7 +107,7 @@
                     </td>
 
                     <td>
-                        <a class="view-torrent" href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
                             {{ $torrent->name }}
                         </a>
 
@@ -119,14 +119,14 @@
                         @endif--}}
 
                         @if (config('torrent.download_check_page') == 1)
-                            <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                            <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                 <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('common.download')">
                                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                 </button>
                             </a>
                         @else
-                            <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                            <a href="{{ route('download', ['id' => $torrent->id]) }}">
                                 <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('common.download')">
                                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -232,7 +232,7 @@
                             {{ $torrent->thanks_count }}
                         </span>
 
-                        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments']) }}">
+                        <a href="{{ route('torrent', ['id' => $torrent->id, 'hash' => '#comments']) }}">
                             <span class="badge-extra text-bold text-green">
                                 <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
                                 {{ $torrent->comments_count }}
@@ -360,21 +360,21 @@
                         <span class='badge-extra text-blue text-bold'>{{ $torrent->getSize() }}</span>
                     </td>
                     <td>
-                        <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
                             <span class='badge-extra text-green text-bold'>
                                 {{ $torrent->seeders }}
                             </span>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
                             <span class='badge-extra text-red text-bold'>
                                 {{ $torrent->leechers }}
                             </span>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a href="{{ route('history', ['id' => $torrent->id]) }}">
                             <span class='badge-extra text-orange text-bold'>
                                 {{ $torrent->times_completed }} @lang('common.times')
                             </span>

@@ -143,7 +143,7 @@ class WishRepository implements WishInterface
                 ->where('status', '=', 1)
                 ->first();
 
-            return route('torrent', ['slug' => Str::slug($source->name), 'id' => $source->id]);
+            return route('torrent', ['id' => $source->id]);
         }
 
         return $this->findById($id)->source ?? null;

@@ -72,7 +72,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('torrent', ['slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id]) }}">
+                                        <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                             {{ $warning->torrenttitle->name }}
                                         </a>
                                     </td>
@@ -160,7 +160,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('torrent', ['slug' =>$softDeletedWarning->torrenttitle->slug, 'id' => $softDeletedWarning->torrenttitle->id]) }}">
+                                            <a href="{{ route('torrent', ['id' => $softDeletedWarning->torrenttitle->id]) }}">
                                                 {{ $softDeletedWarning->torrenttitle->name }}
                                             </a>
                                         </td>

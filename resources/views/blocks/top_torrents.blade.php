@@ -82,18 +82,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $new->slug, 'id' => $new->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $new->id]) }}">
                                         {{ $new->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $new->slug, 'id' => $new->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $new->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $new->slug, 'id' => $new->id]) }}">
+                                        <a href="{{ route('download', ['id' => $new->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -303,18 +303,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $seed->slug, 'id' => $seed->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $seed->id]) }}">
                                         {{ $seed->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $seed->slug, 'id' => $seed->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $seed->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $seed->slug, 'id' => $seed->id]) }}">
+                                        <a href="{{ route('download', ['id' => $seed->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -525,18 +525,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $leech->slug, 'id' => $leech->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $leech->id]) }}">
                                         {{ $leech->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $leech->slug, 'id' => $leech->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $leech->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $leech->slug, 'id' => $leech->id]) }}">
+                                        <a href="{{ route('download', ['id' => $leech->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -747,18 +747,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $d->id]) }}">
                                         {{ $d->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -968,18 +968,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $d->id]) }}">
                                         {{ $d->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>

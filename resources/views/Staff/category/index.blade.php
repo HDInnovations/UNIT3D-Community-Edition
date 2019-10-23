@@ -35,63 +35,64 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($categories as $c)
+            @foreach ($categories as $category)
                 <tr>
                     <td>
-                        {{ $c->position }}
+                        {{ $category->position }}
                     </td>
                     <td>
-                        <a href="{{ route('staff.categories.edit', ['slug' => $c->slug, 'id' => $c->id]) }}">{{ $c->name }}</a>
+                        <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
                     </td>
                     <td>
-                        <i class="{{ $c->icon }}" aria-hidden="true"></i>
+                        <i class="{{ $category->icon }}" aria-hidden="true"></i>
                     </td>
                     <td>
-                        @if ($c->image != null)
-                            <img alt="{{ $c->name }}" src="{{ url('files/img/' . $c->image) }}">
+                        @if ($category->image != null)
+                            <img alt="{{ $category->name }}" src="{{ url('files/img/' . $category->image) }}">
                         @else
                             <span>N/A</span>
                         @endif
                     </td>
                     <td>
-                        @if ($c->movie_meta)
+                        @if ($category->movie_meta)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                         @endif
                     </td>
                     <td>
-                        @if ($c->tv_meta)
+                        @if ($category->tv_meta)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                         @endif
                     </td>
                     <td>
-                        @if ($c->game_meta)
+                        @if ($category->game_meta)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                         @endif
                     </td>
                     <td>
-                        @if ($c->music_meta)
+                        @if ($category->music_meta)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                         @endif
                     </td>
                     <td>
-                        @if ($c->no_meta)
+                        @if ($category->no_meta)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('staff.categories.edit', ['slug' => $c->slug, 'id' => $c->id]) }}"
-                           class="btn btn-warning">Edit</a>
-                        <form action="{{ route('staff.categories.destroy', ['slug' => $c->slug, 'id' => $c->id]) }}" method="POST">
+                        <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}" class="btn btn-warning">
+                            Edit
+                        </a>
+                        <form action="{{ route('staff.categories.destroy', ['id' => $category->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>

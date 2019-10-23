@@ -43,7 +43,7 @@ class CategoryController extends Controller
     public function show(Request $request, $id)
     {
         $user = $request->user();
-        $category = Category::select(['id', 'name', 'slug'])->findOrFail($id);
+        $category = Category::select(['id', 'name'])->findOrFail($id);
         $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->where('category_id', '=', $id)->orderBy('sticky', 'desc')->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 

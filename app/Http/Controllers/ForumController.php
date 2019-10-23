@@ -364,7 +364,7 @@ class ForumController extends Controller
 
         // Check if this is a category or forum
         if ($forum->parent_id != 0) {
-            return redirect()->route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]);
+            return redirect()->route('forum_display', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
@@ -408,7 +408,7 @@ class ForumController extends Controller
 
         // Check if this is a category or forum
         if ($forum->parent_id == 0) {
-            return redirect()->route('forum_category', ['slug' => $forum->slug, 'id' => $forum->id]);
+            return redirect()->route('forum_category', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
@@ -508,7 +508,7 @@ class ForumController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            return redirect()->route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
         } else {
             $post->save();
@@ -729,7 +729,7 @@ class ForumController extends Controller
                 $user->addProgress(new UserMade800Posts(), 1);
                 $user->addProgress(new UserMade900Posts(), 1);
 
-                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+                return redirect()->route('forum_topic', ['id' => $topic->id])
                     ->withSuccess('Topic Created Successfully!');
             }
         }
@@ -770,7 +770,7 @@ class ForumController extends Controller
         $topic->forum_id = $forum_id;
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('Topic Successfully Edited');
     }
 
@@ -835,7 +835,7 @@ class ForumController extends Controller
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->delete();
 
-        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+        return redirect()->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('This Post Is Now Deleted!');
     }
 
@@ -856,7 +856,7 @@ class ForumController extends Controller
         $topic->state = 'close';
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Closed!');
     }
 
@@ -877,7 +877,7 @@ class ForumController extends Controller
         $topic->state = 'open';
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Open!');
     }
 
@@ -899,7 +899,7 @@ class ForumController extends Controller
         $posts->delete();
         $topic->delete();
 
-        return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
+        return redirect()->route('forum_display', ['id' => $topic->forum->id])
             ->withSuccess('This Topic Is Now Deleted!');
     }
 
@@ -916,7 +916,7 @@ class ForumController extends Controller
         $topic->pinned = 1;
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Pinned!');
     }
 
@@ -933,7 +933,7 @@ class ForumController extends Controller
         $topic->pinned = 0;
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Unpinned!');
     }
 
@@ -954,7 +954,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -968,7 +968,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -982,7 +982,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -996,7 +996,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -1010,7 +1010,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -1024,7 +1024,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -1038,7 +1038,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 }

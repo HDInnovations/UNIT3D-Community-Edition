@@ -10,13 +10,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrent')</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.peers')</span>
         </a>
     </li>
@@ -28,7 +28,7 @@
         <div class="block">
             <div class="">
                 <p class="lead">@lang('torrent.peers') {{ strtolower(trans('common.for')) }}
-                    <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+                    <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                 </p>
             </div>
             <div class="table-responsive">
