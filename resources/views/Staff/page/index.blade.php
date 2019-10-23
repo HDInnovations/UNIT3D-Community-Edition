@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_page_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Pages</span>
         </a>
     </li>
@@ -16,7 +16,7 @@
 @section('content')
     <div class="container box">
         <h2>Pages</h2>
-        <a href="{{ route('staff_page_add') }}" class="btn btn-primary">Add a new page</a>
+        <a href="{{ route('staff.pages.create') }}" class="btn btn-primary">Add a new page</a>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
@@ -31,7 +31,7 @@
                     @foreach ($pages as $page)
                         <tr>
                             <td>
-                                <a href="{{ route('staff_page_edit_form', ['id' => $page->id]) }}">
+                                <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}">
                                     {{ $page->name }}
                                 </a>
                             </td>
@@ -39,10 +39,10 @@
                                 {{ date('d M Y', $page->created_at->getTimestamp()) }}
                             </td>
                             <td>
-                                <a href="{{ route('staff_page_edit_form', ['id' => $page->id]) }}" class="btn btn-warning">
+                                <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" class="btn btn-warning">
                                     Edit
                                 </a>
-                                <a href="{{ route('staff_page_delete', ['id' => $page->id]) }}" class="btn btn-danger">
+                                <a href="{{ route('staff.pages.destroy', ['id' => $page->id]) }}" class="btn btn-danger">
                                     Delete
                                 </a>
                             </td>

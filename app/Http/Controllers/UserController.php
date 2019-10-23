@@ -340,7 +340,7 @@ class UserController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has changed there account password.");
 
-                return redirect()->to('/')->withSuccess('Your Password Has Been Reset');
+                return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
             } else {
                 return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                     ->withErrors('Your Password Was Incorrect!');

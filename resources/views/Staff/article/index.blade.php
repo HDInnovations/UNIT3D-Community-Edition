@@ -11,7 +11,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_article_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Articles</span>
         </a>
     </li>
@@ -20,7 +20,7 @@
 @section('content')
     <div class="container box">
         <h2>Articles</h2>
-        <a href="{{ route('staff_article_add_form') }}" class="btn btn-primary">Add A Article</a>
+        <a href="{{ route('staff.articles.create') }}" class="btn btn-primary">Add A Article</a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
@@ -35,16 +35,16 @@
             @foreach ($articles as $article)
                 <tr>
                     <td>
-                        <a href="{{ route('staff_article_edit_form', ['id' => $article->id]) }}">{{ $article->title }}</a>
+                        <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}">{{ $article->title }}</a>
                     </td>
                     <td>
                         <a href="{{ route('users.show', ['username' => $article->user->username]) }}">{{ $article->user->username }}</a>
                     </td>
                     <td>{{ $article->created_at->toDayDateTimeString() }}</td>
                     <td>
-                        <a href="{{ route('staff_article_edit_form', ['id' => $article->id]) }}"
+                        <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}"
                            class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff_article_delete', ['id' => $article->id]) }}"
+                        <a href="{{ route('staff.articles.destroy', ['id' => $article->id]) }}"
                            class="btn btn-danger">Delete</a>
                     </td>
                 </tr>

@@ -7,7 +7,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_page_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Pages</span>
         </a>
     </li>
@@ -21,7 +21,7 @@
 @section('content')
     <div class="container box">
         <h2>Add a new page</h2>
-        <form role="form" method="POST" action="{{ route('staff_page_add') }}">
+        <form role="form" method="POST" action="{{ route('staff.pages.store') }}">
             @csrf
             <div class="form-group">
                 <label for="name">Page Name</label>

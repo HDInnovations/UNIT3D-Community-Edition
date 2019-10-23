@@ -30,7 +30,7 @@ class BotsController extends Controller
     {
         $bots = Bot::orderBy('position', 'ASC')->get();
 
-        return view('staff.bots.index', [
+        return view('Staff.bot.index', [
             'bots' => $bots,
         ]);
     }
@@ -48,7 +48,7 @@ class BotsController extends Controller
         $user = $request->user();
         $bot = Bot::findOrFail($id);
 
-        return view('staff.bots.edit', [
+        return view('Staff.bot.edit', [
             'user'           => $user,
             'bot'            => $bot,
         ]);

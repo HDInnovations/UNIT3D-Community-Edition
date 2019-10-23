@@ -21,15 +21,15 @@ use App\Http\Controllers\Controller;
 class PageController extends Controller
 {
     /**
-     * Get All Pages.
+     * Display All Pages.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $page = Page::all();
+        $pages = Page::all();
 
-        return view('Staff.page.index', ['page' => $page]);
+        return view('Staff.page.index', ['pages' => $pages]);
     }
 
     /**
@@ -37,19 +37,19 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
-        return view('Staff.page.add');
+        return view('Staff.page.create');
     }
 
     /**
-     * Add A Page.
+     * Store A New Page.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $page = new Page();
         $page->name = $request->input('name');
@@ -63,12 +63,12 @@ class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         } else {
             $page->save();
 
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->withSuccess('Page has been created successfully');
         }
     }
@@ -80,7 +80,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($id)
+    public function edit($id)
     {
         $page = Page::findOrFail($id);
 
@@ -95,7 +95,7 @@ class PageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
@@ -109,12 +109,12 @@ class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         } else {
             $page->save();
 
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->withSuccess('Page has been edited successfully');
         }
     }
@@ -126,11 +126,11 @@ class PageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function destroy($id)
     {
         Page::findOrFail($id)->delete();
 
-        return redirect()->route('staff_page_index')
+        return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');
     }
 }

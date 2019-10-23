@@ -51,7 +51,7 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.general-tools')
             </li>
             <li>
-                <a href="{{ route('staff_article_index') }}">
+                <a href="{{ route('staff.articles.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-newspaper"></i> @lang('staff.articles')
                 </a>
             </li>
@@ -68,13 +68,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('staff_groups_index') }}">
+                    <a href="{{ route('staff.groups.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('staff.groups')
                     </a>
                 </li>
             @endif
             <li>
-                <a href="{{ route('staff_page_index') }}">
+                <a href="{{ route('staff.pages.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.pages')
                 </a>
             </li>
@@ -107,7 +107,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff_tag_index') }}">
+                <a href="{{ route('staff.tags.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('torrent.genre-tags')
                 </a>
             </li>
@@ -131,7 +131,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('systemGift') }}">
+                <a href="{{ route('staff.gifts.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-gift"></i> @lang('staff.user-gifting')
                 </a>
             </li>
@@ -151,7 +151,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff.seedbox.index') }}">
+                <a href="{{ route('staff.seedboxes.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-server"></i> @lang('staff.seedboxes')
                 </a>
             </li>
@@ -160,7 +160,7 @@
                 <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.logs')
             </li>
             <li>
-                <a href="{{ route('activity.index') }}">
+                <a href="{{ route('staff.audits.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.activity-log')
                 </a>
             </li>
@@ -170,12 +170,12 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('getFailedAttemps') }}">
+                <a href="{{ route('staff.authentications.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.failed-login-log')
                 </a>
             </li>
             <li>
-                <a href="{{ route('getInvites') }}">
+                <a href="{{ route('staff.invites.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.invites-log')
                 </a>
             </li>
@@ -198,7 +198,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('getWarnings') }}">
+                <a href="{{ route('staff.warnings.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.warnings-log')
                 </a>
             </li>

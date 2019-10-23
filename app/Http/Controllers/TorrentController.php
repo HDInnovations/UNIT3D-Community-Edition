@@ -1184,7 +1184,7 @@ class TorrentController extends Controller
                 }
                 Torrent::withAnyStatus()->where('id', '=', $id)->delete();
 
-                return redirect()->to('/torrents')
+                return redirect()->route('torrents')
                     ->withSuccess('Torrent Has Been Deleted!');
             }
         } else {
@@ -1512,7 +1512,7 @@ class TorrentController extends Controller
             // Remove Other announce url
             unset($dict['announce-list']);
         } else {
-            return redirect()->to('/login');
+            return redirect()->route('login');
         }
 
         $fileToDownload = Bencode::bencode($dict);

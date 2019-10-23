@@ -47,7 +47,7 @@ class RssController extends Controller
     {
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
-        return view('staff.rss.index', [
+        return view('Staff.rss.index', [
             'hash' => $hash,
             'public_rss' => $public_rss,
         ]);
@@ -65,7 +65,7 @@ class RssController extends Controller
         $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
 
-        return view('staff.rss.create', [
+        return view('Staff.rss.create', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -139,7 +139,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
-        return view('staff.rss.edit', [
+        return view('Staff.rss.edit', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),

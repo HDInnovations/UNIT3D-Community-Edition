@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.seedbox.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.seedboxes.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.seedboxes')</span>
         </a>
     </li>
@@ -53,7 +53,7 @@
                                     ({{ $seedbox->created_at->diffForHumans() }})
                                 </td>
                                 <td>
-                                    <form action="{{ route('staff.seedbox.destroy', ['id' => $seedbox->id]) }}" method="POST">
+                                    <form action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-xs btn-danger"><i class="{{ config('other.font-awesome') }} fa-trash"></i></button>

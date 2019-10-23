@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('getWarnings') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.warnings.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Warnings Log</span>
         </a>
     </li>

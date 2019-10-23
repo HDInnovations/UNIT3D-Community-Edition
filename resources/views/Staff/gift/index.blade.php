@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('systemGift') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.gifts.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Gifting</span>
         </a>
     </li>
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Gifts</h2>
-        <form action="{{ route('sendSystemGift') }}" method="post">
+        <form action="{{ route('staff.gifts.store') }}" method="post">
             @csrf
             <div class="form-group">
                 <label for="users">@lang('common.username')</label>

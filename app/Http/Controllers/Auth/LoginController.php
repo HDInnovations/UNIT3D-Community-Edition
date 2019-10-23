@@ -99,7 +99,7 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect()->to('/')
+            return redirect()->route('home.index')
                 ->withSuccess(trans('auth.welcome-restore'));
         }
 
@@ -114,7 +114,7 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect()->to('/')
+            return redirect()->route('home.index')
                 ->withSuccess(trans('auth.welcome-restore'));
         }
 
@@ -123,7 +123,7 @@ class LoginController extends Controller
                 ->withWarning(trans('auth.require-rules'));
         }
 
-        return redirect()->to('/')
+        return redirect()->route('home.index')
             ->withSuccess(trans('auth.welcome'));
     }
 }

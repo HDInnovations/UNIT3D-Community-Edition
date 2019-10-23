@@ -39,7 +39,7 @@ class FlushController extends Controller
             $peer->delete();
         }
 
-        return redirect()->to('staff.dashboard.index')
+        return redirect()->route('staff.dashboard.index')
             ->withSuccess('Ghost Peers Have Been Flushed');
     }
 }

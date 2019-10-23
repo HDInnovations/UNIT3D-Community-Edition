@@ -30,7 +30,7 @@ class CommandController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        return view('Staff.commands.index');
+        return view('Staff.command.index');
     }
 
     /**

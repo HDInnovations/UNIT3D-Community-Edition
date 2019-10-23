@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Forums</h2>
-        <a href="{{ route('staff.forums.store') }}" class="btn btn-primary">Add New Category/Forum</a>
+        <a href="{{ route('staff.forums.create') }}" class="btn btn-primary">Add New Category/Forum</a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
@@ -39,7 +39,7 @@
             @foreach ($categories as $c)
                 <tr class="success">
                     <td>
-                        <a href="{{ route('staff.forums.update', ['id' => $c->id]) }}">{{ $c->name }}</a>
+                        <a href="{{ route('staff.forums.edit', ['id' => $c->id]) }}">{{ $c->name }}</a>
                     </td>
                     <td>Category</td>
                     <td>{{ $c->position }}</td>
@@ -49,7 +49,7 @@
                 @foreach ($c->getForumsInCategory()->sortBy('position') as $f)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.forums.update', ['id' => $f->id]) }}">---- {{ $f->name }}</a>
+                            <a href="{{ route('staff.forums.edit', ['id' => $f->id]) }}">---- {{ $f->name }}</a>
                         </td>
                         <td>Forum</td>
                         <td>{{ $f->position }}</td>

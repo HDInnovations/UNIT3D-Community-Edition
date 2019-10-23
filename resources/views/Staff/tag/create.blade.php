@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_tag_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.tags.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Tags</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_tag_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.tags.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Torrent Tag</span>
         </a>
     </li>
@@ -21,7 +21,7 @@
 @section('content')
     <div class="container box">
         <h2>Add A Torrent Tag (Genre)</h2>
-        <form role="form" method="POST" action="{{ route('staff_tag_add') }}">
+        <form role="form" method="POST" action="{{ route('staff.tags.store') }}">
         @csrf
 
         <div class="form-group">

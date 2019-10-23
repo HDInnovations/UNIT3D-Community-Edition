@@ -17,10 +17,10 @@ use App\Models\LogActivity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ActivityLogController extends Controller
+class AuditController extends Controller
 {
     /**
-     * Display All Activities.
+     * Display All Audits.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -28,11 +28,11 @@ class ActivityLogController extends Controller
     {
         $activities = LogActivity::with('user')->latest()->paginate(50);
 
-        return view('Staff.activity.index', ['activities' => $activities]);
+        return view('Staff.audit.index', ['activities' => $activities]);
     }
 
     /**
-     * Delete Record From Activity Log.
+     * Delete A Audit.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
@@ -47,7 +47,7 @@ class ActivityLogController extends Controller
         abort_unless($user->group->is_modo, 403);
         $activity->delete();
 
-        return redirect()->route('activity.index')
+        return redirect()->route('staff.audits.index')
             ->withSuccess('Activity Record Has Successfully Been Deleted');
     }
 }

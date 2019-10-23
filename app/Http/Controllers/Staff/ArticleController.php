@@ -22,7 +22,7 @@ use App\Http\Controllers\Controller;
 class ArticleController extends Controller
 {
     /**
-     * Get All Articles.
+     * Display All Articles.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -38,19 +38,19 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
-        return view('Staff.article.add');
+        return view('Staff.article.create');
     }
 
     /**
-     * Add A Article.
+     * Store A New Article.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $article = new Article();
         $article->title = $request->input('title');
@@ -77,12 +77,12 @@ class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_article_index')
+            return redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
         } else {
             $article->save();
 
-            return redirect()->route('staff_article_index')
+            return redirect()->route('staff.articles.index')
                 ->withSuccess('Your article has successfully published!');
         }
     }
@@ -94,7 +94,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($id)
+    public function edit($id)
     {
         $article = Article::findOrFail($id);
 
@@ -109,7 +109,7 @@ class ArticleController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
@@ -134,12 +134,12 @@ class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_article_index')
+            return redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
         } else {
             $article->save();
 
-            return redirect()->route('staff_article_index')
+            return redirect()->route('staff.articles.index')
                 ->withSuccess('Your article changes have successfully published!');
         }
     }
@@ -151,12 +151,12 @@ class ArticleController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function destroy($id)
     {
         $article = Article::findOrFail($id);
         $article->delete();
 
-        return redirect()->route('staff_article_index')
+        return redirect()->route('staff.articles.index')
             ->withSuccess('Article has successfully been deleted');
     }
 }

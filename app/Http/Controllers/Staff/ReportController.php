@@ -29,7 +29,7 @@ class ReportController extends Controller
     {
         $reports = Report::latest()->paginate(25);
 
-        return view('Staff.reports.index', ['reports' => $reports]);
+        return view('Staff.report.index', ['reports' => $reports]);
     }
 
     /**
@@ -45,7 +45,7 @@ class ReportController extends Controller
 
         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
 
-        return view('Staff.reports.report', ['report' => $report, 'urls' => $match[0]]);
+        return view('Staff.report.report', ['report' => $report, 'urls' => $match[0]]);
     }
 
     /**

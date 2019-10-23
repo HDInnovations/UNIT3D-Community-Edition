@@ -20,10 +20,10 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class GroupsController extends Controller
+class GroupController extends Controller
 {
     /**
-     * Get All Groups.
+     * Display All Groups.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -36,7 +36,7 @@ class GroupsController extends Controller
 
         $groups = Group::all()->sortBy('position');
 
-        return view('Staff.groups.index', ['groups' => $groups]);
+        return view('Staff.group.index', ['groups' => $groups]);
     }
 
     /**
@@ -46,22 +46,22 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm(Request $request)
+    public function create(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
 
-        return view('Staff.groups.add');
+        return view('Staff.group.create');
     }
 
     /**
-     * Add A Group.
+     * Store A New Group.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -94,12 +94,12 @@ class GroupsController extends Controller
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to create a group with owner permissions!');
         }
 
         if ($v->fails()) {
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
         } else {
             $group->save();
@@ -115,7 +115,7 @@ class GroupsController extends Controller
                 $permission->save();
             }
 
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->withSuccess('Group Was Created Successfully!');
         }
     }
@@ -128,14 +128,14 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm(Request $request, $id)
+    public function edit(Request $request, $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
 
         $group = Group::findOrFail($id);
 
-        return view('Staff.groups.edit', ['group' => $group]);
+        return view('Staff.group.edit', ['group' => $group]);
     }
 
     /**
@@ -146,7 +146,7 @@ class GroupsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -180,17 +180,17 @@ class GroupsController extends Controller
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to give a group owner permissions!');
         }
 
         if ($v->fails()) {
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
         } else {
             $group->save();
 
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->withSuccess('Group Was Updated Successfully!');
         }
     }

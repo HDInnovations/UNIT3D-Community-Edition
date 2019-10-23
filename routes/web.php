@@ -25,14 +25,25 @@
 Route::group(['middleware' => 'language'], function () {
 
     /*
-    |------------------------------------------
-    | Website (Not Authorized)
-    |------------------------------------------
+    |---------------------------------------------------------------------------------
+    | Website (Not Authorized) (Alpha Ordered)
+    |---------------------------------------------------------------------------------
     */
     Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
+        // Activation
+        Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
+
+        // Application Signup
+        Route::get('/application', 'Auth\ApplicationController@create')->name('application.create');
+        Route::post('/application', 'Auth\ApplicationController@store')->name('application.store');
+
         // Authentication
         Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
         Route::post('login', 'Auth\LoginController@login')->name('');
+
+        // Forgot Username
+        Route::get('username/reminder', 'Auth\ForgotUsernameController@showForgotUsernameForm')->name('username.request');
+        Route::post('username/reminder', 'Auth\ForgotUsernameController@sendUsernameReminder')->name('username.email');
 
         // Password Reset
         Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -43,19 +54,13 @@ Route::group(['middleware' => 'language'], function () {
         // Registration
         Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
         Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
-
-        // Application Signup
-        Route::get('/application', 'Auth\ApplicationController@create')->name('application.create');
-        Route::post('/application', 'Auth\ApplicationController@store')->name('application.store');
-
-        // Activation
-        Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
-
-        // Forgot Username
-        Route::get('username/reminder', 'Auth\ForgotUsernameController@showForgotUsernameForm')->name('username.request');
-        Route::post('username/reminder', 'Auth\ForgotUsernameController@sendUsernameReminder')->name('username.email');
     });
 
+    /*
+    |---------------------------------------------------------------------------------
+    | Website (Authorized By Key) (Alpha Ordered)
+    |---------------------------------------------------------------------------------
+    */
     Route::group(['before' => 'auth'], function () {
         // Announce (Pass Key Auth)
         Route::get('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
@@ -66,9 +71,9 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*
-    |------------------------------------------
-    | Website (When Authorized)
-    |------------------------------------------
+    |---------------------------------------------------------------------------------
+    | Website (When Authorized) (Alpha Ordered)
+    |---------------------------------------------------------------------------------
     */
     Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
 
@@ -76,6 +81,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
         Route::get('/', 'HomeController@index')->name('home.index');
 
+        // TODO (Alpha Order From This Point Down
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
             Route::get('/{hash?}', 'RssController@index')->name('rss.index');
@@ -397,9 +403,9 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*
-    |------------------------------------------
-    | ChatBox Routes Group (When Authorized)
-    |------------------------------------------
+    |---------------------------------------------------------------------------------
+    | ChatBox Routes Group (When Authorized) (Alpha Ordered)
+    |---------------------------------------------------------------------------------
     */
     Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'API'], function () {
         Route::get('/', 'ChatController@index');
@@ -410,15 +416,16 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*
-    |------------------------------------------
-    | Community Routes Group (When Authorized)
-    |------------------------------------------
+    |---------------------------------------------------------------------------------
+    | Community Routes Group (When Authorized) (Alpha Ordered)
+    |---------------------------------------------------------------------------------
     */
     Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
 
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
 
+        // TODO (Alpha Order From This Point Down
         // Search Forums
         Route::get('/subscriptions', 'ForumController@subscriptions')->name('forum_subscriptions');
         Route::get('/latest/topics', 'ForumController@latestTopics')->name('forum_latest_topics');
@@ -480,15 +487,16 @@ Route::group(['middleware' => 'language'], function () {
     });
 
     /*
-    |-----------------------------------------------------------------
-    | Staff Dashboard Routes Group (When Authorized And A Staff Group)
-    |-----------------------------------------------------------------
+    |---------------------------------------------------------------------------------
+    | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
+    |---------------------------------------------------------------------------------
     */
     Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::get('/', 'HomeController@index')->name('staff.dashboard.index');
 
+        // TODO (Alpha Order From This Point Down
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
             Route::get('/', 'RssController@index')->name('staff.rss.index');
@@ -510,7 +518,9 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Codebase Version Check
-        Route::get('/check-update', 'VersionController@checkVersion');
+        Route::group(['prefix' => 'UNIT3D'], function () {
+            Route::get('/', 'VersionController@checkVersion');
+        });
 
         // Ban System
         Route::group(['prefix' => 'bans'], function () {
@@ -553,7 +563,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/reports/{report_id}/solve', 'ReportController@solveReport')->name('solveReport');
 
         // Categories
-        Route::group(['prefix' => 'types'], function () {
+        Route::group(['prefix' => 'categories'], function () {
             Route::get('/', 'CategoryController@index')->name('staff.categories.index');
             Route::get('/create', 'CategoryController@create')->name('staff.categories.create');
             Route::post('/store', 'CategoryController@store')->name('staff.categories.store');
@@ -579,40 +589,52 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/store', 'ForumController@store')->name('staff.forums.store');
             Route::get('/{id}/edit', 'ForumController@edit')->name('staff.forums.edit');
             Route::post('/{id}/update', 'ForumController@update')->name('staff.forums.update');
-            Route::get('/{id}/destroy', 'ForumController@destory')->name('staff.forums.destroy');
+            Route::get('/{id}/destroy', 'ForumController@destroy')->name('staff.forums.destroy');
         });
 
         //Pages
-        Route::get('/pages', 'PageController@index')->name('staff_page_index');
-        Route::get('/pages/new', 'PageController@addForm')->name('staff_page_add_form');
-        Route::post('/pages/new', 'PageController@add')->name('staff_page_add');
-        Route::get('/pages/edit/{id}', 'PageController@editForm')->name('staff_page_edit_form');
-        Route::post('/pages/edit/{id}', 'PageController@edit')->name('staff_page_edit');
-        Route::get('/pages/delete/{id}', 'PageController@delete')->name('staff_page_delete');
+        Route::group(['prefix' => 'pages'], function () {
+            Route::get('/', 'PageController@index')->name('staff.pages.index');
+            Route::get('/create', 'PageController@create')->name('staff.pages.create');
+            Route::post('/store', 'PageController@store')->name('staff.pages.store');
+            Route::get('/{id}/edit', 'PageController@edit')->name('staff.pages.edit');
+            Route::post('/{id}/update', 'PageController@update')->name('staff.pages.update');
+            Route::get('/{id}/destroy', 'PageController@destroy')->name('staff.pages.destroy');
+        });
 
         // Articles
-        Route::get('/articles', 'ArticleController@index')->name('staff_article_index');
-        Route::get('/articles/new', 'ArticleController@addForm')->name('staff_article_add_form');
-        Route::post('/articles/new', 'ArticleController@add')->name('staff_article_add');
-        Route::get('/articles/edit/{id}', 'ArticleController@editForm')->name('staff_article_edit_form');
-        Route::post('/articles/edit/{id}', 'ArticleController@edit')->name('staff_article_edit');
-        Route::get('/articles/delete/{id}', 'ArticleController@delete')->name('staff_article_delete');
+        Route::group(['prefix' => 'articles'], function () {
+            Route::get('/', 'ArticleController@index')->name('staff.articles.index');
+            Route::get('/create', 'ArticleController@create')->name('staff.articles.create');
+            Route::post('/store', 'ArticleController@store')->name('staff.articles.store');
+            Route::get('/{id}/edit', 'ArticleController@edit')->name('staff.articles.edit');
+            Route::post('/{id}/update', 'ArticleController@update')->name('staff.articles.update');
+            Route::get('/{id}/destroy', 'ArticleController@destroy')->name('staff.articles.destroy');
+        });
 
         // Groups
-        Route::get('/groups', 'GroupsController@index')->name('staff_groups_index');
-        Route::get('/groups/add', 'GroupsController@addForm')->name('staff_groups_add_form');
-        Route::post('/groups/add', 'GroupsController@add')->name('staff_groups_add');
-        Route::get('/groups/edit/{group}.{id}', 'GroupsController@editForm')->name('staff_groups_edit_form');
-        Route::post('/groups/edit/{group}.{id}', 'GroupsController@edit')->name('staff_groups_edit');
+        Route::group(['prefix' => 'groups'], function () {
+            Route::get('/', 'GroupController@index')->name('staff.groups.index');
+            Route::get('/create', 'GroupController@create')->name('staff.groups.create');
+            Route::post('/store', 'GroupController@store')->name('staff.groups.store');
+            Route::get('/{id}/edit', 'GroupController@edit')->name('staff.groups.edit');
+            Route::post('/{id}/update', 'GroupController@update')->name('staff.groups.update');
+        });
 
-        // Warnings
-        Route::get('/warnings', 'WarningController@getWarnings')->name('getWarnings');
+        // Warnings Log
+        Route::group(['prefix' => 'warnings'], function () {
+            Route::get('/', 'WarningController@index')->name('staff.warnings.index');
+        });
 
-        // Invites
-        Route::get('/invites', 'InviteController@getInvites')->name('getInvites');
+        // Invites Log
+        Route::group(['prefix' => 'invites'], function () {
+            Route::get('/', 'InviteController@index')->name('staff.invites.index');
+        });
 
-        // Failed Logins
-        Route::get('/failedlogin', 'FailedLoginController@getFailedAttemps')->name('getFailedAttemps');
+        // Authentications Log
+        Route::group(['prefix' => 'authentications'], function () {
+            Route::get('/', 'AuthenticationController@index')->name('staff.authentications.index');
+        });
 
         // Polls
         Route::get('/polls', 'PollController@polls')->name('getPolls');
@@ -620,13 +642,17 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/polls/create', 'PollController@create')->name('getCreatePoll');
         Route::post('/polls/create', 'PollController@store')->name('postCreatePoll');
 
-        // Activity Log
-        Route::get('/activity', 'ActivityLogController@index')->name('activity.index');
-        Route::get('/activity/{id}/delete', 'ActivityLogController@destroy')->name('activity.destroy');
+        // Audit Log
+        Route::group(['prefix' => 'audits'], function () {
+            Route::get('/', 'AuditController@index')->name('staff.audits.index');
+            Route::get('/{id}/destroy', 'AuditController@destroy')->name('staff.audits.destroy');
+        });
 
-        // System Gifting
-        Route::get('/systemgift', 'GiftController@index')->name('systemGift');
-        Route::post('/systemgift/send', 'GiftController@gift')->name('sendSystemGift');
+        // User Gifting (From System)
+        Route::group(['prefix' => 'gifts'], function () {
+            Route::get('/', 'GiftController@index')->name('staff.gifts.index');
+            Route::post('/store', 'GiftController@store')->name('staff.gifts.store');
+        });
 
         // MassPM
         Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
@@ -657,33 +683,41 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/cheaters', 'CheaterController@leechCheaters')->name('leechCheaters');
 
         // Tag (Genres)
-        Route::get('/tags', 'TagController@index')->name('staff_tag_index');
-        Route::get('/tag/new', 'TagController@addForm')->name('staff_tag_add_form');
-        Route::post('/tag/new', 'TagController@add')->name('staff_tag_add');
-        Route::get('/tag/edit/{id}', 'TagController@editForm')->name('staff_tag_edit_form');
-        Route::post('/tag/edit/{id}', 'TagController@edit')->name('staff_tag_edit');
+        Route::group(['prefix' => 'tags'], function () {
+            Route::get('/', 'TagController@index')->name('staff.tags.index');
+            Route::get('/create', 'TagController@create')->name('staff.tags.create');
+            Route::post('/store', 'TagController@store')->name('staff.tags.store');
+            Route::get('/{id}/edit', 'TagController@edit')->name('staff.tags.edit');
+            Route::post('/{id}/update', 'TagController@update')->name('staff.tags.update');
+        });
 
         // Applications System
-        Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
-        Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
-        Route::post('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
-        Route::post('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
+        Route::group(['prefix' => 'applications'], function () {
+            Route::get('/', 'ApplicationController@index')->name('staff.applications.index');
+            Route::get('/{id}', 'ApplicationController@show')->name('staff.applications.show');
+            Route::post('/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
+            Route::post('/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
+        });
 
         // Registered Seedboxes
-        Route::get('/seedboxes', 'SeedboxController@index')->name('staff.seedbox.index');
-        Route::delete('/seedboxes/{id}', 'SeedboxController@destroy')->name('staff.seedbox.destroy');
+        Route::group(['prefix' => 'seedboxes'], function () {
+            Route::get('/', 'SeedboxController@index')->name('staff.seedboxes.index');
+            Route::delete('/{id}/destroy', 'SeedboxController@destroy')->name('staff.seedboxes.destroy');
+        });
 
         // Commands
-        Route::get('/commands', 'CommandController@index')->name('staff.commands.index');
-        Route::get('/command/maintance-enable', 'CommandController@maintanceEnable');
-        Route::get('/command/maintance-disable', 'CommandController@maintanceDisable');
-        Route::get('/command/clear-cache', 'CommandController@clearCache');
-        Route::get('/command/clear-view-cache', 'CommandController@clearView');
-        Route::get('/command/clear-route-cache', 'CommandController@clearRoute');
-        Route::get('/command/clear-config-cache', 'CommandController@clearConfig');
-        Route::get('/command/clear-all-cache', 'CommandController@clearAllCache');
-        Route::get('/command/set-all-cache', 'CommandController@setAllCache');
-        Route::get('/command/clear-compiled', 'CommandController@clearCompiled');
-        Route::get('/command/test-email', 'CommandController@testEmail');
+        Route::group(['prefix' => 'commands'], function () {
+            Route::get('/', 'CommandController@index')->name('staff.commands.index');
+            Route::get('/maintance-enable', 'CommandController@maintanceEnable');
+            Route::get('/maintance-disable', 'CommandController@maintanceDisable');
+            Route::get('/clear-cache', 'CommandController@clearCache');
+            Route::get('/clear-view-cache', 'CommandController@clearView');
+            Route::get('/clear-route-cache', 'CommandController@clearRoute');
+            Route::get('/clear-config-cache', 'CommandController@clearConfig');
+            Route::get('/clear-all-cache', 'CommandController@clearAllCache');
+            Route::get('/set-all-cache', 'CommandController@setAllCache');
+            Route::get('/clear-compiled', 'CommandController@clearCompiled');
+            Route::get('/test-email', 'CommandController@testEmail');
+        });
     });
 });

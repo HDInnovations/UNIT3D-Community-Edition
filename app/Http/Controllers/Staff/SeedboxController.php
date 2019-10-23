@@ -28,7 +28,7 @@ class SeedboxController extends Controller
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
-        return view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
+        return view('Staff.seedboxe.index', ['seedboxes' => $seedboxes]);
     }
 
     /**
@@ -47,7 +47,7 @@ class SeedboxController extends Controller
         abort_unless($user->group->is_modo, 403);
         $seedbox->delete();
 
-        return redirect()->route('staff.seedbox.index')
+        return redirect()->route('staff.seedboxes.index')
             ->withSuccess('Seedbox Record Has Successfully Been Deleted');
     }
 }

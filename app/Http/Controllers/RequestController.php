@@ -367,7 +367,7 @@ class RequestController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
-            return redirect()->to('/requests')
+            return redirect()->route('requests')
                 ->withSuccess('Request Added.');
         }
     }

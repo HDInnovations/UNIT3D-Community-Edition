@@ -37,7 +37,7 @@ class GiftController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function gift(Request $request)
+    public function store(Request $request)
     {
         $staff = $request->user();
 
@@ -54,13 +54,13 @@ class GiftController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('systemGift')
+            return redirect()->route('staff.gifts.index')
                 ->withErrors($v->errors());
         } else {
             $recipient = User::where('username', '=', $username)->first();
 
             if (! $recipient) {
-                return redirect()->route('systemGift')
+                return redirect()->route('staff.gifts.index')
                     ->withErrors('Unable To Find Specified User');
             }
 
@@ -81,7 +81,7 @@ class GiftController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
 
-            return redirect()->route('systemGift')
+            return redirect()->route('staff.gifts.index')
                 ->withSuccess('Gift Sent');
         }
     }

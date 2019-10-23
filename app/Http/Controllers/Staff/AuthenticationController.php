@@ -16,17 +16,17 @@ namespace App\Http\Controllers\Staff;
 use App\Models\FailedLoginAttempt;
 use App\Http\Controllers\Controller;
 
-class FailedLoginController extends Controller
+class AuthenticationController extends Controller
 {
     /**
-     * Failed Login Attempt Log.
+     * Authentications Log.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getFailedAttemps()
+    public function index()
     {
         $attempts = FailedLoginAttempt::latest()->paginate(25);
 
-        return view('Staff.failedlogin.index', ['attempts' => $attempts]);
+        return view('Staff.authentication.index', ['attempts' => $attempts]);
     }
 }

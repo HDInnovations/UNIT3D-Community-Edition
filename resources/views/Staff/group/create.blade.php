@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_groups_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">User Groups</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_groups_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.groups.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add User Group</span>
         </a>
     </li>
@@ -22,7 +22,7 @@
     <div class="container box">
         <h2>Add New Group</h2>
         <div class="table-responsive">
-            <form role="form" method="POST" action="{{ route('staff_groups_add') }}">
+            <form role="form" method="POST" action="{{ route('staff.groups.store') }}">
                 @csrf
                 <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">

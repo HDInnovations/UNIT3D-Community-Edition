@@ -20,7 +20,7 @@ use App\Http\Controllers\Controller;
 class TagController extends Controller
 {
     /**
-     * Get All Tags.
+     * Display All Tags.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -36,18 +36,19 @@ class TagController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
-        return view('Staff.tag.add');
+        return view('Staff.tag.create');
     }
 
     /**
-     * Add A Tag.
+     * Store A New Tag.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $tag = new Tag();
         $tag->name = $request->input('name');
@@ -59,12 +60,12 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
         } else {
             $tag->save();
 
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withSuccess('Tag Successfully Added');
         }
     }
@@ -76,7 +77,7 @@ class TagController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($id)
+    public function edit($id)
     {
         $tag = Tag::findOrFail($id);
 
@@ -91,7 +92,7 @@ class TagController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $tag = Tag::findOrFail($id);
         $tag->name = $request->input('name');
@@ -103,12 +104,12 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
         } else {
             $tag->save();
 
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withSuccess('Tag Successfully Modified');
         }
     }

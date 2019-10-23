@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_tag_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.tags.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_tag_edit_form', ['id' => $tag->id]) }}" itemprop="url"
+        <a href="{{ route('staff.tags.edit', ['id' => $tag->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Tag</span>
         </a>

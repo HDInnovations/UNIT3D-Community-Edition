@@ -11,12 +11,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_article_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Articles</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_article_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.articles.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Article</span>
         </a>
     </li>
@@ -25,7 +25,7 @@
 @section('content')
     <div class="container box">
         <h2>Add A Article</h2>
-        <form role="form" method="POST" action="{{ route('staff_article_add') }}" enctype="multipart/form-data">
+        <form role="form" method="POST" action="{{ route('staff.articles.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>

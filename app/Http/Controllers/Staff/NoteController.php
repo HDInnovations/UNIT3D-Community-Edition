@@ -29,7 +29,7 @@ class NoteController extends Controller
     {
         $notes = Note::latest()->paginate(25);
 
-        return view('Staff.notes.index', ['notes' => $notes]);
+        return view('Staff.note.index', ['notes' => $notes]);
     }
 
     /**

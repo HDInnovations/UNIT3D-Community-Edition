@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('activity.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.audits.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Activity Log</span>
         </a>
     </li>
@@ -58,7 +58,7 @@
                                     ({{ $activity->created_at->diffForHumans() }})
                                 </td>
                                 <td>
-                                    <a href="{{ route('activity.destroy', ['id' => $activity->id]) }}"
+                                    <a href="{{ route('staff.audits.destroy', ['id' => $activity->id]) }}"
                                        class="btn btn-xs btn-danger">
                                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                     </a>
