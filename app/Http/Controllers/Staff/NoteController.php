@@ -21,11 +21,11 @@ use App\Http\Controllers\Controller;
 class NoteController extends Controller
 {
     /**
-     * Get All User Notes.
+     * Display All User Notes.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getNotes()
+    public function index()
     {
         $notes = Note::latest()->paginate(25);
 
@@ -33,14 +33,14 @@ class NoteController extends Controller
     }
 
     /**
-     * Post A User Note.
+     * Store A New User Note.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postNote(Request $request, $id)
+    public function store(Request $request, $id)
     {
         $staff = $request->user();
         $user = User::findOrFail($id);
@@ -77,7 +77,7 @@ class NoteController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteNote($id)
+    public function destroy($id)
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);

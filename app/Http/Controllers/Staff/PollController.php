@@ -37,28 +37,29 @@ class PollController extends Controller
     }
 
     /**
-     * Show All Polls.
+     * Display All Polls.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function polls()
+    public function index()
     {
         $polls = Poll::latest()->paginate(25);
 
-        return view('Staff.poll.polls', ['polls' => $polls]);
+        return view('Staff.poll.index', ['polls' => $polls]);
     }
 
     /**
      * Show A Poll.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function poll($id)
+    public function show($id)
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
-        return view('Staff.poll.poll', ['poll' => $poll]);
+        return view('Staff.poll.show', ['poll' => $poll]);
     }
 
     /**
@@ -102,7 +103,7 @@ class PollController extends Controller
             "A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
         );
 
-        return redirect('poll/'.$poll->slug)
+        return redirect()->route('staff.polls.index')
             ->withSuccess('Your poll has been created.');
     }
 }

@@ -496,113 +496,7 @@ Route::group(['middleware' => 'language'], function () {
         // Staff Dashboard
         Route::get('/', 'HomeController@index')->name('staff.dashboard.index');
 
-        // TODO (Alpha Order From This Point Down
-        // RSS System
-        Route::group(['prefix' => 'rss'], function () {
-            Route::get('/', 'RssController@index')->name('staff.rss.index');
-            Route::get('/create', 'RssController@create')->name('staff.rss.create');
-            Route::post('/store', 'RssController@store')->name('staff.rss.store');
-            Route::get('/{id}/edit', 'RssController@edit')->name('staff.rss.edit');
-            Route::patch('/{id}/update', 'RssController@update')->name('staff.rss.update');
-            Route::delete('/{id}/destroy', 'RssController@destroy')->name('staff.rss.destroy');
-        });
-
-        // Chat Bots
-        Route::group(['prefix' => 'bots'], function () {
-            Route::get('/', 'BotsController@index')->name('staff.bots.index');
-            Route::get('/{id}/edit', 'BotsController@edit')->name('staff.bots.edit');
-            Route::patch('/{id}/update', 'BotsController@update')->name('staff.bots.update');
-            Route::delete('/{id}/destroy', 'BotsController@destroy')->name('staff.bots.destroy');
-            Route::get('/{id}/disable', 'BotsController@disable')->name('staff.bots.disable');
-            Route::get('/{id}/enable', 'BotsController@enable')->name('staff.bots.enable');
-        });
-
-        // Codebase Version Check
-        Route::group(['prefix' => 'UNIT3D'], function () {
-            Route::get('/', 'VersionController@checkVersion');
-        });
-
-        // Ban System
-        Route::group(['prefix' => 'bans'], function () {
-            Route::get('/', 'BanController@getBans')->name('getBans');
-            Route::post('/ban/{id}', 'BanController@ban')->name('ban');
-            Route::post('/unban/{id}', 'BanController@unban')->name('unban');
-        });
-
-        // Flush Ghost Peers
-        Route::get('/flush', 'FlushController@deleteOldPeers')->name('flush');
-
-        // User Tools
-        Route::get('/user_search', 'UserController@members')->name('user_search');
-        Route::get('/user_results', 'UserController@userSearch')->name('user_results');
-        Route::get('/user_edit/{username}', 'UserController@userSettings')->name('user_setting');
-        Route::post('/user_edit/{username}/edit', 'UserController@userEdit')->name('user_edit');
-        Route::post('/user_edit/{username}/permissions', 'UserController@userPermissions')->name('user_permissions');
-        Route::get('/user_delete/{id}', 'UserController@userDelete')->name('user_delete');
-        Route::post('/user_edit/{username}/password', 'UserController@userPassword')->name('user_password');
-
-        // Moderation
-        Route::get('/torrents', 'TorrentController@index')->name('staff_torrent_index');
-        Route::get('/moderation', 'ModerationController@moderation')->name('moderation');
-        Route::get('/moderation/{id}/approve', 'ModerationController@approve')->name('moderation_approve');
-        Route::post('/moderation/reject', 'ModerationController@reject')->name('moderation_reject');
-        Route::post('/moderation/postpone', 'ModerationController@postpone')->name('moderation_postpone');
-        Route::get('/torrent_search', 'TorrentController@search')->name('torrent-search');
-
-        // Request section
-        Route::get('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
-
-        // User Staff Notes
-        Route::get('/notes', 'NoteController@getNotes')->name('getNotes');
-        Route::post('/note/{id}', 'NoteController@postNote')->name('postNote');
-        Route::get('/note/{id}', 'NoteController@deleteNote')->name('deleteNote');
-
-        // Reports
-        Route::get('/reports', 'ReportController@getReports')->name('getReports');
-        Route::get('/reports/{report_id}', 'ReportController@getReport')->name('getReport');
-        Route::post('/reports/{report_id}/solve', 'ReportController@solveReport')->name('solveReport');
-
-        // Categories
-        Route::group(['prefix' => 'categories'], function () {
-            Route::get('/', 'CategoryController@index')->name('staff.categories.index');
-            Route::get('/create', 'CategoryController@create')->name('staff.categories.create');
-            Route::post('/store', 'CategoryController@store')->name('staff.categories.store');
-            Route::get('/{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
-            Route::patch('/{id}/update', 'CategoryController@update')->name('staff.categories.update');
-            Route::delete('/{id}/destroy', 'CategoryController@destroy')->name('staff.categories.destroy');
-        });
-
-        // Types
-        Route::group(['prefix' => 'types'], function () {
-            Route::get('/', 'TypeController@index')->name('staff.types.index');
-            Route::get('/create', 'TypeController@create')->name('staff.types.create');
-            Route::post('/store', 'TypeController@store')->name('staff.types.store');
-            Route::get('//{id}/edit', 'TypeController@edit')->name('staff.types.edit');
-            Route::patch('/{id}/update', 'TypeController@update')->name('staff.types.update');
-            Route::delete('/{id}/destroy', 'TypeController@destroy')->name('staff.types.destroy');
-        });
-
-        // Forum
-        Route::group(['prefix' => 'forums'], function () {
-            Route::get('/', 'ForumController@index')->name('staff.forums.index');
-            Route::get('/create', 'ForumController@create')->name('staff.forums.create');
-            Route::post('/store', 'ForumController@store')->name('staff.forums.store');
-            Route::get('/{id}/edit', 'ForumController@edit')->name('staff.forums.edit');
-            Route::post('/{id}/update', 'ForumController@update')->name('staff.forums.update');
-            Route::get('/{id}/destroy', 'ForumController@destroy')->name('staff.forums.destroy');
-        });
-
-        //Pages
-        Route::group(['prefix' => 'pages'], function () {
-            Route::get('/', 'PageController@index')->name('staff.pages.index');
-            Route::get('/create', 'PageController@create')->name('staff.pages.create');
-            Route::post('/store', 'PageController@store')->name('staff.pages.store');
-            Route::get('/{id}/edit', 'PageController@edit')->name('staff.pages.edit');
-            Route::post('/{id}/update', 'PageController@update')->name('staff.pages.update');
-            Route::get('/{id}/destroy', 'PageController@destroy')->name('staff.pages.destroy');
-        });
-
-        // Articles
+        // Articles System
         Route::group(['prefix' => 'articles'], function () {
             Route::get('/', 'ArticleController@index')->name('staff.articles.index');
             Route::get('/create', 'ArticleController@create')->name('staff.articles.create');
@@ -610,85 +504,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/edit', 'ArticleController@edit')->name('staff.articles.edit');
             Route::post('/{id}/update', 'ArticleController@update')->name('staff.articles.update');
             Route::get('/{id}/destroy', 'ArticleController@destroy')->name('staff.articles.destroy');
-        });
-
-        // Groups
-        Route::group(['prefix' => 'groups'], function () {
-            Route::get('/', 'GroupController@index')->name('staff.groups.index');
-            Route::get('/create', 'GroupController@create')->name('staff.groups.create');
-            Route::post('/store', 'GroupController@store')->name('staff.groups.store');
-            Route::get('/{id}/edit', 'GroupController@edit')->name('staff.groups.edit');
-            Route::post('/{id}/update', 'GroupController@update')->name('staff.groups.update');
-        });
-
-        // Warnings Log
-        Route::group(['prefix' => 'warnings'], function () {
-            Route::get('/', 'WarningController@index')->name('staff.warnings.index');
-        });
-
-        // Invites Log
-        Route::group(['prefix' => 'invites'], function () {
-            Route::get('/', 'InviteController@index')->name('staff.invites.index');
-        });
-
-        // Authentications Log
-        Route::group(['prefix' => 'authentications'], function () {
-            Route::get('/', 'AuthenticationController@index')->name('staff.authentications.index');
-        });
-
-        // Polls
-        Route::get('/polls', 'PollController@polls')->name('getPolls');
-        Route::get('/poll/{id}', 'PollController@poll')->name('getPoll');
-        Route::get('/polls/create', 'PollController@create')->name('getCreatePoll');
-        Route::post('/polls/create', 'PollController@store')->name('postCreatePoll');
-
-        // Audit Log
-        Route::group(['prefix' => 'audits'], function () {
-            Route::get('/', 'AuditController@index')->name('staff.audits.index');
-            Route::get('/{id}/destroy', 'AuditController@destroy')->name('staff.audits.destroy');
-        });
-
-        // User Gifting (From System)
-        Route::group(['prefix' => 'gifts'], function () {
-            Route::get('/', 'GiftController@index')->name('staff.gifts.index');
-            Route::post('/store', 'GiftController@store')->name('staff.gifts.store');
-        });
-
-        // MassPM
-        Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
-        Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
-
-        // Backup Manager
-        Route::get('/backup', 'BackupController@index')->name('backupManager');
-        Route::post('/backup/create-full', 'BackupController@create');
-        Route::post('/backup/create-files', 'BackupController@createFilesOnly');
-        Route::post('/backup/create-db', 'BackupController@createDatabaseOnly');
-        Route::get('/backup/download/{file_name?}', 'BackupController@download');
-        Route::post('/backup/delete', 'BackupController@delete');
-
-        // Mass Validate Users
-        Route::get('/massValidateUsers', 'UserController@massValidateUsers')->name('massValidateUsers');
-
-        // Chat Management
-        Route::get('/chatManager', 'ChatController@index')->name('chatManager');
-        Route::post('/chatroom/add', 'ChatController@addChatroom')->name('addChatroom');
-        Route::post('/chatroom/edit/{id}', 'ChatController@editChatroom')->name('editChatroom');
-        Route::post('/chatroom/delete/{id}', 'ChatController@deleteChatroom')->name('deleteChatroom');
-        Route::post('/chatstatus/add', 'ChatController@addChatStatus')->name('addChatStatus');
-        Route::post('/chatstatus/edit/{id}', 'ChatController@editChatStatus')->name('editChatStatus');
-        Route::post('/chatstatus/delete/{id}', 'ChatController@deleteChatStatus')->name('deleteChatStatus');
-        Route::get('/flushchat', 'ChatController@flushChat')->name('flush_chat');
-
-        // Possible Cheaters
-        Route::get('/cheaters', 'CheaterController@leechCheaters')->name('leechCheaters');
-
-        // Tag (Genres)
-        Route::group(['prefix' => 'tags'], function () {
-            Route::get('/', 'TagController@index')->name('staff.tags.index');
-            Route::get('/create', 'TagController@create')->name('staff.tags.create');
-            Route::post('/store', 'TagController@store')->name('staff.tags.store');
-            Route::get('/{id}/edit', 'TagController@edit')->name('staff.tags.edit');
-            Route::post('/{id}/update', 'TagController@update')->name('staff.tags.update');
         });
 
         // Applications System
@@ -699,10 +514,78 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
         });
 
-        // Registered Seedboxes
-        Route::group(['prefix' => 'seedboxes'], function () {
-            Route::get('/', 'SeedboxController@index')->name('staff.seedboxes.index');
-            Route::delete('/{id}/destroy', 'SeedboxController@destroy')->name('staff.seedboxes.destroy');
+        // Audit Log
+        Route::group(['prefix' => 'audits'], function () {
+            Route::get('/', 'AuditController@index')->name('staff.audits.index');
+            Route::get('/{id}/destroy', 'AuditController@destroy')->name('staff.audits.destroy');
+        });
+
+        // Authentications Log
+        Route::group(['prefix' => 'authentications'], function () {
+            Route::get('/', 'AuthenticationController@index')->name('staff.authentications.index');
+        });
+
+        // Backup System
+        oute::group(['prefix' => 'backups'], function () {
+            Route::get('/', 'BackupController@index')->name('backupManager');
+            Route::post('/create-full', 'BackupController@create');
+            Route::post('/create-files', 'BackupController@createFilesOnly');
+            Route::post('/create-db', 'BackupController@createDatabaseOnly');
+            Route::get('/download/{file_name?}', 'BackupController@download');
+            Route::post('/delete', 'BackupController@delete');
+        });
+
+        // Ban System
+        Route::group(['prefix' => 'bans'], function () {
+            Route::get('/', 'BanController@index')->name('staff.bans.index');
+            Route::post('/{id}/store', 'BanController@store')->name('staff.bans.store');
+            Route::post('/{id}/update', 'BanController@update')->name('staff.bans.update');
+        });
+
+        // Categories System
+        Route::group(['prefix' => 'categories'], function () {
+            Route::get('/', 'CategoryController@index')->name('staff.categories.index');
+            Route::get('/create', 'CategoryController@create')->name('staff.categories.create');
+            Route::post('/store', 'CategoryController@store')->name('staff.categories.store');
+            Route::get('/{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
+            Route::patch('/{id}/update', 'CategoryController@update')->name('staff.categories.update');
+            Route::delete('/{id}/destroy', 'CategoryController@destroy')->name('staff.categories.destroy');
+        });
+
+        // RSS System
+        Route::group(['prefix' => 'rss'], function () {
+            Route::get('/', 'RssController@index')->name('staff.rss.index');
+            Route::get('/create', 'RssController@create')->name('staff.rss.create');
+            Route::post('/store', 'RssController@store')->name('staff.rss.store');
+            Route::get('/{id}/edit', 'RssController@edit')->name('staff.rss.edit');
+            Route::patch('/{id}/update', 'RssController@update')->name('staff.rss.update');
+            Route::delete('/{id}/destroy', 'RssController@destroy')->name('staff.rss.destroy');
+        });
+
+        // Chat Bots System
+        Route::group(['prefix' => 'bots'], function () {
+            Route::get('/', 'BotsController@index')->name('staff.bots.index');
+            Route::get('/{id}/edit', 'BotsController@edit')->name('staff.bots.edit');
+            Route::patch('/{id}/update', 'BotsController@update')->name('staff.bots.update');
+            Route::delete('/{id}/destroy', 'BotsController@destroy')->name('staff.bots.destroy');
+            Route::get('/{id}/disable', 'BotsController@disable')->name('staff.bots.disable');
+            Route::get('/{id}/enable', 'BotsController@enable')->name('staff.bots.enable');
+        });
+
+        // Chat Management System
+        Route::group(['prefix' => 'chat'], function () {
+            Route::get('/', 'ChatController@index')->name('chatManager');
+            Route::post('/room/add', 'ChatController@addChatroom')->name('addChatroom');
+            Route::post('/room/edit/{id}', 'ChatController@editChatroom')->name('editChatroom');
+            Route::post('/room/delete/{id}', 'ChatController@deleteChatroom')->name('deleteChatroom');
+            Route::post('/status/add', 'ChatController@addChatStatus')->name('addChatStatus');
+            Route::post('/status/edit/{id}', 'ChatController@editChatStatus')->name('editChatStatus');
+            Route::post('/status/delete/{id}', 'ChatController@deleteChatStatus')->name('deleteChatStatus');
+        });
+
+        // Codebase Version Check
+        Route::group(['prefix' => 'UNIT3D'], function () {
+            Route::get('/', 'VersionController@checkVersion');
         });
 
         // Commands
@@ -718,6 +601,138 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/set-all-cache', 'CommandController@setAllCache');
             Route::get('/clear-compiled', 'CommandController@clearCompiled');
             Route::get('/test-email', 'CommandController@testEmail');
+        });
+
+        // Flush System
+        Route::group(['prefix' => 'flush'], function () {
+            Route::get('/peers', 'FlushController@peers')->name('staff.flush.peers');
+            Route::get('/chat', 'FlushController@chat')->name('staff.flush.chat');
+        });
+
+        // Forums System
+        Route::group(['prefix' => 'forums'], function () {
+            Route::get('/', 'ForumController@index')->name('staff.forums.index');
+            Route::get('/create', 'ForumController@create')->name('staff.forums.create');
+            Route::post('/store', 'ForumController@store')->name('staff.forums.store');
+            Route::get('/{id}/edit', 'ForumController@edit')->name('staff.forums.edit');
+            Route::post('/{id}/update', 'ForumController@update')->name('staff.forums.update');
+            Route::get('/{id}/destroy', 'ForumController@destroy')->name('staff.forums.destroy');
+        });
+
+        // Groups System
+        Route::group(['prefix' => 'groups'], function () {
+            Route::get('/', 'GroupController@index')->name('staff.groups.index');
+            Route::get('/create', 'GroupController@create')->name('staff.groups.create');
+            Route::post('/store', 'GroupController@store')->name('staff.groups.store');
+            Route::get('/{id}/edit', 'GroupController@edit')->name('staff.groups.edit');
+            Route::post('/{id}/update', 'GroupController@update')->name('staff.groups.update');
+        });
+
+        // Invites Log
+        Route::group(['prefix' => 'invites'], function () {
+            Route::get('/', 'InviteController@index')->name('staff.invites.index');
+        });
+
+        // MassPM
+        Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
+        Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
+
+        // Mass Validate Users
+        Route::group(['prefix' => 'mass-actions'], function () {
+            Route::get('/validate', 'MassActionController@validate')->name('staff.mass-actions.validate');
+        });
+
+        // Moderation System
+        Route::group(['prefix' => 'moderation'], function () {
+            Route::get('/', 'ModerationController@index')->name('staff.moderation.index');
+            Route::get('/{id}/approve', 'ModerationController@approve')->name('staff.moderation.approve');
+            Route::post('/reject', 'ModerationController@reject')->name('staff.moderation.reject');
+            Route::post('/postpone', 'ModerationController@postpone')->name('staff.moderation.postpone');
+        });
+
+        //Pages System
+        Route::group(['prefix' => 'pages'], function () {
+            Route::get('/', 'PageController@index')->name('staff.pages.index');
+            Route::get('/create', 'PageController@create')->name('staff.pages.create');
+            Route::post('/store', 'PageController@store')->name('staff.pages.store');
+            Route::get('/{id}/edit', 'PageController@edit')->name('staff.pages.edit');
+            Route::post('/{id}/update', 'PageController@update')->name('staff.pages.update');
+            Route::get('/{id}/destroy', 'PageController@destroy')->name('staff.pages.destroy');
+        });
+
+        // Polls System
+        Route::group(['prefix' => 'polls'], function () {
+            Route::get('/', 'PollController@index')->name('staff.polls.index');
+            Route::get('/{id}', 'PollController@show')->name('staff.polls.show');
+            Route::get('/create', 'PollController@create')->name('staff.polls.create');
+            Route::post('/store', 'PollController@store')->name('staff.polls.store');
+        });
+
+        // Possible Cheaters
+        Route::get('/cheaters', 'CheaterController@leechCheaters')->name('leechCheaters');
+
+        // Registered Seedboxes
+        Route::group(['prefix' => 'seedboxes'], function () {
+            Route::get('/', 'SeedboxController@index')->name('staff.seedboxes.index');
+            Route::delete('/{id}/destroy', 'SeedboxController@destroy')->name('staff.seedboxes.destroy');
+        });
+
+        // Reports
+        Route::group(['prefix' => 'reports'], function () {
+            Route::get('/', 'ReportController@index')->name('staff.reports.index');
+            Route::get('/{id}', 'ReportController@show')->name('staff.reports.show');
+            Route::post('/{id}/solve', 'ReportController@update')->name('staff.reports.update');
+        });
+
+        // Request section
+        Route::get('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
+
+        // Tag (Genres)
+        Route::group(['prefix' => 'tags'], function () {
+            Route::get('/', 'TagController@index')->name('staff.tags.index');
+            Route::get('/create', 'TagController@create')->name('staff.tags.create');
+            Route::post('/store', 'TagController@store')->name('staff.tags.store');
+            Route::get('/{id}/edit', 'TagController@edit')->name('staff.tags.edit');
+            Route::post('/{id}/update', 'TagController@update')->name('staff.tags.update');
+        });
+
+        // Types
+        Route::group(['prefix' => 'types'], function () {
+            Route::get('/', 'TypeController@index')->name('staff.types.index');
+            Route::get('/create', 'TypeController@create')->name('staff.types.create');
+            Route::post('/store', 'TypeController@store')->name('staff.types.store');
+            Route::get('//{id}/edit', 'TypeController@edit')->name('staff.types.edit');
+            Route::patch('/{id}/update', 'TypeController@update')->name('staff.types.update');
+            Route::delete('/{id}/destroy', 'TypeController@destroy')->name('staff.types.destroy');
+        });
+
+        // User Gifting (From System)
+        Route::group(['prefix' => 'gifts'], function () {
+            Route::get('/', 'GiftController@index')->name('staff.gifts.index');
+            Route::post('/store', 'GiftController@store')->name('staff.gifts.store');
+        });
+
+        // User Staff Notes
+        Route::group(['prefix' => 'notes'], function () {
+            Route::get('/', 'NoteController@index')->name('staff.notes.index');
+            Route::post('/{id}/store', 'NoteController@store')->name('staff.notes.store');
+            Route::get('/{id}/destroy', 'NoteController@destroy')->name('staff.notes.destroy');
+        });
+
+        // User Tools
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/', 'UserController@index')->name('user_search');
+            Route::get('/search', 'UserController@search')->name('user_results');
+            Route::post('/{username}/edit', 'UserController@edit')->name('user_edit');
+            Route::get('/{username}/settings', 'UserController@settings')->name('user_setting');
+            Route::post('/{username}/permissions', 'UserController@permissions')->name('user_permissions');
+            Route::post('/{username}/password', 'UserController@password')->name('user_password');
+            Route::get('/{username}/destroy', 'UserController@destroy')->name('user_delete');
+        });
+
+        // Warnings Log
+        Route::group(['prefix' => 'warnings'], function () {
+            Route::get('/', 'WarningController@index')->name('staff.warnings.index');
         });
     });
 });

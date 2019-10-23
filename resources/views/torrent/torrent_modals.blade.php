@@ -151,7 +151,7 @@
 {{-- Torrent Postpone Modal --}}
 <div class="modal fade" id="postpone-{{ $torrent->id }}" tabindex="-1" role="dialog"
      aria-hidden="true">
-    <form method="POST" action="{{ route('moderation_postpone') }}">
+    <form method="POST" action="{{ route('staff.moderation.postpone') }}">
         @csrf
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -190,7 +190,7 @@
 
 {{-- Torrent Reject Modal --}}
 <div class="modal fade" id="reject-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-    <form method="POST" action="{{ route("moderation_reject") }}">
+    <form method="POST" action="{{ route("staff.moderation.reject") }}">
         @csrf
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

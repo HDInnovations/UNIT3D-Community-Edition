@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('postCreatePoll') }}">
+<form method="POST" action="{{ route('staff.polls.store') }}">
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>

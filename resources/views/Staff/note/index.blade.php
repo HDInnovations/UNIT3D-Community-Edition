@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('getNotes') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.notes.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">User Notes</span>
         </a>
     </li>
@@ -63,7 +63,7 @@
                                             ({{ $n->created_at->diffForHumans() }})
                                         </td>
                                         <td>
-                                            <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
+                                            <a href="{{ route('staff.notes.destroy', ['id' => $n->id]) }}"
                                                class="btn btn-xs btn-danger">
                                                 <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                             </a>

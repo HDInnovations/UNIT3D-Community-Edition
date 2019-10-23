@@ -243,7 +243,7 @@
                                 <strong>@lang('common.moderation')</strong>
                             </td>
                             <td>
-                                <a href="{{ route('moderation_approve', ['id' => $torrent->id]) }}" role='button'
+                                <a href="{{ route('staff.moderation.approve', ['id' => $torrent->id]) }}" role='button'
                                    class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('common.moderation-approve')
                                 </a>

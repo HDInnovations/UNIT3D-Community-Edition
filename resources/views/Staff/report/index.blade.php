@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('getReports') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.reports.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Reports</span>
         </a>
     </li>
@@ -47,40 +47,40 @@
                         @if (count($reports) == 0)
                             <p>The are no reports in database</p>
                         @else
-                            @foreach ($reports as $r)
+                            @foreach ($reports as $report)
                                 <tr>
                                     <td>
-                                        {{ $r->id }}
+                                        {{ $report->id }}
                                     </td>
                                     <td>
-                                        {{ $r->type }}
+                                        {{ $report->type }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('getReport',['report_id'=>$r->id]) }}">{{ $r->title }}</a>
+                                        <a href="{{ route('staff.reports.show',['id' => $reportr->id]) }}">{{ $report->title }}</a>
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
-                                           href="{{ route('users.show', ['username' => $r->reported->username]) }}">
+                                           href="{{ route('users.show', ['username' => $report->reported->username]) }}">
                                             {{ $r->reported->username }}
                                         </a>
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
-                                           href="{{ route('users.show', ['username' => $r->reporter->username]) }}">
-                                            {{ $r->reporter->username }}
+                                           href="{{ route('users.show', ['username' => $report->reporter->username]) }}">
+                                            {{ $report->reporter->username }}
                                         </a>
                                     </td>
                                     <td>
-                                        {{ $r->created_at->toDayDateTimeString() }}
+                                        {{ $report->created_at->toDayDateTimeString() }}
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
-                                           href="{{ $r->staff->username ? route('profile', ['username' => $r->staff->username]) : route('home')}}">
-                                            {{ $r->staff_id ? $r->staff->username : "" }}
+                                           href="{{ $report->staff->username ? route('profile', ['username' => $report->staff->username]) : route('home')}}">
+                                            {{ $report->staff_id ? $report->staff->username : "" }}
                                         </a>
                                     </td>
                                     <td>
-                                        @if ($r->solved == 0)
+                                        @if ($report->solved == 0)
                                             <span class="text-red">
                                                 <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> NO</strong>
                                             </span>

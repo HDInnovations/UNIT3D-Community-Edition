@@ -13,11 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Message;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use Illuminate\Http\Request;
-use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 
@@ -202,25 +200,5 @@ class ChatController extends Controller
 
         return redirect()->route('chatManager')
             ->withSuccess('Chat Status Successfully Deleted');
-    }
-
-    /**
-     * Flush Chat Messages.
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function flushChat()
-    {
-        foreach (Message::all() as $message) {
-            broadcast(new MessageDeleted($message));
-            $message->delete();
-        }
-
-        $this->chat->systemMessage(
-            'Chatbox Has Been Flushed! :broom:'
-        );
-
-        return redirect()->route('staff.dashboard.index')
-            ->withSuccess('Chatbox Has Been Flushed');
     }
 }

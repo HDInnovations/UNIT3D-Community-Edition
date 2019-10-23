@@ -28,7 +28,7 @@ class SeedboxController extends Controller
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
-        return view('Staff.seedboxe.index', ['seedboxes' => $seedboxes]);
+        return view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
     }
 
     /**

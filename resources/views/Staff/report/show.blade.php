@@ -14,12 +14,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('getReports') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.reports.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Reports</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('getReport',['report_id'=>$report->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.reports.show',['id' => $report->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Report</span>
         </a>
     </li>
@@ -94,7 +94,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <form role="form" method="POST" action="{{ route('solveReport',['report_id'=>$report->id]) }}">
+                    <form role="form" method="POST" action="{{ route('staff.reports.update',['id' => $report->id]) }}">
                         @csrf
                         @if ($report->solved == 0)
                             <div class="form-group">

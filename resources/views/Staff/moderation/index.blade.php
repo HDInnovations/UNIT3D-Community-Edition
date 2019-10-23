@@ -11,7 +11,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('moderation') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.moderation.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Moderation</span>
         </a>
     </li>
@@ -50,7 +50,7 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $p->user->username }}
                                     ({{ $p->user->group->name }})</span></a></td>
-                        <td><a href="{{ route('moderation_approve', ['id' => $p->id]) }}"
+                        <td><a href="{{ route('staff.moderation.approve', ['id' => $p->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
@@ -61,7 +61,7 @@
                             {{-- Torrent Postpone Modal --}}
                             <div class="modal fade" id="pendpostpone-{{ $p->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
-                                <form method="post" action="{{ route('moderation_postpone') }}">
+                                <form method="post" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -108,7 +108,7 @@
                             <!-- Torrent Reject Modal -->
                             {{-- Torrent Reject Modal --}}
                             <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-                                <form method="post" action="{{ route("moderation_reject") }}">
+                                <form method="post" action="{{ route("staff.moderation.reject") }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -201,7 +201,7 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->moderated->username }}
                                     ({{ $post->moderated->group->name }})</span></a></td>
-                        <td><a href="{{ route('moderation_approve', ['id' => $post->id]) }}"
+                        <td><a href="{{ route('staff.moderation.approve', ['id' => $post->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td><a href="{{ route('edit', ['id' => $post->id]) }}" role='button'
@@ -311,7 +311,7 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }}
                                     ({{ $reject->moderated->group->name }})</span></a></td>
-                        <td><a href="{{ route('moderation_approve', ['id' => $reject->id]) }}"
+                        <td><a href="{{ route('staff.moderation.approve', ['id' => $reject->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
@@ -322,7 +322,7 @@
                             {{-- Torrent Postpone Modal --}}
                             <div class="modal fade" id="rejectpost-{{ $reject->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
-                                <form method="post" action="{{ route('moderation_postpone') }}">
+                                <form method="post" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">

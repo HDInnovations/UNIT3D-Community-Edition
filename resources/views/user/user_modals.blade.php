@@ -88,7 +88,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="container-fluid">
-                <form role="form" method="POST" action="{{ route('postNote', ['username' => $user->username]) }}">
+                <form role="form" method="POST" action="{{ route('staff.notes.store', ['username' => $user->username]) }}">
                     @csrf
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,7 +123,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="container-fluid">
-            <form role="form" method="POST" action="{{ route('ban', ['username' => $user->username]) }}">
+            <form role="form" method="POST" action="{{ route('staff.bans.store', ['username' => $user->username]) }}">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -156,7 +156,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="container-fluid">
-            <form role="form" method="POST" action="{{ route('unban', ['username' => $user->username]) }}">
+            <form role="form" method="POST" action="{{ route('staff.bans.update', ['username' => $user->username]) }}">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span

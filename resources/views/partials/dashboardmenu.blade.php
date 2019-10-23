@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('flush_chat') }}">
+                <a href="{{ route('staff.flush.chat') }}">
                     <i class="{{ config('other.font-awesome') }} fa-broom"></i> @lang('staff.flush-chat')
                 </a>
             </li>
@@ -79,7 +79,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('getPolls') }}">
+                <a href="{{ route('staff.polls.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> @lang('staff.polls')
                 </a>
             </li>
@@ -92,8 +92,8 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.torrent-tools')
             </li>
             <li>
-                <a href="{{ route('staff_torrent_index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-file-video"></i> @lang('staff.torrents')
+                <a href="{{ route('sstaff.moderation.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-moderation')
                 </a>
             </li>
             <li>
@@ -112,13 +112,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('flush') }}">
+                <a href="{{ route('staff.flush.peers') }}">
                     <i class="fab fa-snapchat-ghost"></i> @lang('staff.flush-ghost-peers')
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('moderation') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-moderation')
                 </a>
             </li>
 
@@ -141,7 +136,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('massValidateUsers') }}">
+                <a href="{{ route('staff.mass-actions.validate') }}">
                     <i class="{{ config('other.font-awesome') }} fa-history"></i> @lang('staff.mass-validate-users')
                 </a>
             </li>
@@ -165,7 +160,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('getBans') }}">
+                <a href="{{ route('staff.bans.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.bans-log')
                 </a>
             </li>
@@ -180,7 +175,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('getNotes') }}">
+                <a href="{{ route('staff.notes.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.user-notes')
                 </a>
             </li>
@@ -192,7 +187,7 @@
                 </li>
             @endif
             <li>
-                <a href="{{ route('getReports') }}">
+                <a href="{{ route('staff.reports.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.reports-log')
                     <span class="badge badge-danger"> {{ $reports_count }} </span>
                 </a>

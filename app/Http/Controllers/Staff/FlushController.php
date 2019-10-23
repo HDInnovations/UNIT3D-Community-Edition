@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Events\MessageDeleted;
+use App\Models\Message;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\History;
@@ -21,11 +23,11 @@ use App\Http\Controllers\Controller;
 class FlushController extends Controller
 {
     /**
-     * Delete All Old Peers From Database.
+     * Flsuh All Old Peers From Database.
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteOldPeers()
+    public function peers()
     {
         $current = new Carbon();
         $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
@@ -41,5 +43,25 @@ class FlushController extends Controller
 
         return redirect()->route('staff.dashboard.index')
             ->withSuccess('Ghost Peers Have Been Flushed');
+    }
+
+    /**
+     * Flush All Chat Messages.
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function flush()
+    {
+        foreach (Message::all() as $message) {
+            broadcast(new MessageDeleted($message));
+            $message->delete();
+        }
+
+        $this->chat->systemMessage(
+            'Chatbox Has Been Flushed! :broom:'
+        );
+
+        return redirect()->route('staff.dashboard.index')
+            ->withSuccess('Chatbox Has Been Flushed');
     }
 }

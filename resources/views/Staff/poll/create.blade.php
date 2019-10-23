@@ -6,12 +6,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('getPolls') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.polls.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Polls</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('getCreatePoll') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.polls.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Create Poll</span>
         </a>
     </li>

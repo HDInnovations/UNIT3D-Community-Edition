@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('getPolls') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.polls.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Polls</span>
         </a>
     </li>
@@ -15,7 +15,7 @@
 @section('content')
     <div class="container box">
         <h2>Manage Polls</h2>
-        <a href="{{ route('getCreatePoll') }}" class="btn btn-primary">Add New Poll</a>
+        <a href="{{ route('staff.polls.create') }}" class="btn btn-primary">Add New Poll</a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>

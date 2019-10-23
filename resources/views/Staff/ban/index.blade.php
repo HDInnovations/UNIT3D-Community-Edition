@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('getBans') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.bans.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Bans</span>
         </a>
     </li>

@@ -44,14 +44,14 @@ class ModerationController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function moderation()
+    public function index()
     {
         $current = Carbon::now();
         $pending = Torrent::with(['user', 'category'])->pending()->get();
         $postponed = Torrent::with(['user', 'category'])->postponed()->get();
         $rejected = Torrent::with(['user', 'category'])->rejected()->get();
 
-        return view('Staff.torrent.moderation', [
+        return view('Staff.moderation.index', [
             'current'   => $current,
             'pending'   => $pending,
             'postponed' => $postponed,
@@ -90,10 +90,10 @@ class ModerationController extends Controller
 
             TorrentHelper::approveHelper($torrent->id);
 
-            return redirect()->route('moderation')
+            return redirect()->route('staff.moderation.index')
                 ->withSuccess('Torrent Approved');
         } else {
-            return redirect()->route('moderation')
+            return redirect()->route('staff.moderation.index')
                 ->withErrors('Torrent Already Approved');
         }
     }
@@ -114,7 +114,7 @@ class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('moderation')
+            return redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         } else {
             $user = $request->user();
@@ -128,7 +128,7 @@ class ModerationController extends Controller
             $pm->message = "Greetings, \n\n Your upload, {$torrent->name} ,has been postponed. Please see below the message from the staff member. \n\n{$request->input('message')}";
             $pm->save();
 
-            return redirect()->route('moderation')
+            return redirect()->route('staff.moderation.index')
                 ->withSuccess('Torrent Postponed');
         }
     }
@@ -149,7 +149,7 @@ class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('moderation')
+            return redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
         } else {
             $user = $request->user();
@@ -163,7 +163,7 @@ class ModerationController extends Controller
             $pm->message = "Greetings, \n\n Your upload {$torrent->name} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}";
             $pm->save();
 
-            return redirect()->route('moderation')
+            return redirect()->route('staff.moderation.index')
                 ->withSuccess('Torrent Rejected');
         }
     }

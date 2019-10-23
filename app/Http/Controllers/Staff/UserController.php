@@ -38,7 +38,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function members()
+    public function index()
     {
         $users = User::with('group')->latest()->paginate(25);
         $uploaders = User::with('group')->where('group_id', '=', 7)->latest()->paginate(25);
@@ -61,7 +61,7 @@ class UserController extends Controller
      * @param  Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function userSearch(Request $request)
+    public function search(Request $request)
     {
         $users = User::where([
             ['username', 'like', '%'.$request->input('username').'%'],
@@ -79,7 +79,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function userSettings($username, $id)
+    public function settings($username, $id)
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
@@ -101,7 +101,7 @@ class UserController extends Controller
      *
      * @@return Illuminate\Http\RedirectResponse
      */
-    public function userEdit(Request $request, $username, $id)
+    public function edit(Request $request, $username, $id)
     {
         $user = User::with('group')->findOrFail($id);
         $staff = $request->user();
@@ -163,7 +163,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function userPermissions(Request $request, $username, $id)
+    public function permissions(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = $request->user();
@@ -192,7 +192,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function userPassword(Request $request, $username, $id)
+    protected function password(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
@@ -216,7 +216,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function userDelete($username, $id)
+    protected function destroy($username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
@@ -302,31 +302,5 @@ class UserController extends Controller
             return redirect()->route('staff.dashboard.index')
                 ->withErrors('Something Went Wrong!');
         }
-    }
-
-    /**
-     * Mass Validate Unvalidated Users.
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function massValidateUsers()
-    {
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
-        $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup->id)->get();
-
-        foreach ($users as $user) {
-            $user->group_id = $memberGroup->id;
-            $user->active = 1;
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_request = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->save();
-        }
-
-        return redirect()->route('staff.dashboard.index')
-            ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

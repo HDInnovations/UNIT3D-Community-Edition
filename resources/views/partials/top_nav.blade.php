@@ -38,7 +38,7 @@
 
             @if (auth()->user()->group->is_modo)
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
-                    <a href="{{ route('moderation') }}" class="icon-circle">
+                    <a href="{{ staff.moderation.index }}" class="icon-circle">
                         <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>
                         @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
                         @if ($modder > 0)

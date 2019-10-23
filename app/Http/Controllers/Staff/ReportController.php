@@ -21,11 +21,11 @@ use App\Http\Controllers\Controller;
 class ReportController extends Controller
 {
     /**
-     * Get All Reports.
+     * Display All Reports.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getReports()
+    public function index()
     {
         $reports = Report::latest()->paginate(25);
 
@@ -33,30 +33,30 @@ class ReportController extends Controller
     }
 
     /**
-     * Get A Report.
+     * Show A Report.
      *
-     * @param $report_id
+     * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getReport($report_id)
+    public function show($id)
     {
-        $report = Report::findOrFail($report_id);
+        $report = Report::findOrFail($id);
 
         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
 
-        return view('Staff.report.report', ['report' => $report, 'urls' => $match[0]]);
+        return view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
     }
 
     /**
-     * Solve A Report.
+     * Update A Report.
      *
      * @param  Request  $request
-     * @param $report_id
+     * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function solveReport(Request $request, $report_id)
+    public function update(Request $request, $id)
     {
         $user = auth()->user();
 
@@ -65,10 +65,10 @@ class ReportController extends Controller
             'staff_id' => 'required',
         ]);
 
-        $report = Report::findOrFail($report_id);
+        $report = Report::findOrFail($id);
 
         if ($report->solved == 1) {
-            return redirect()->route('getReports')
+            return redirect()->route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
         }
 
@@ -89,7 +89,7 @@ class ReportController extends Controller
                         [b]VERDICT:[/b] {$report->verdict}";
         $pm->save();
 
-        return redirect()->route('getReports')
+        return redirect()->route('staff.reports.index')
             ->withSuccess('Report has been successfully resolved');
     }
 }
