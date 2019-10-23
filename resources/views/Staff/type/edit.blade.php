@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_type_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.types.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_type_edit_form', ['slug' => $type->slug, 'id' => $type->id]) }}" itemprop="url"
+        <a href="{{ route('staff.types.edit', ['slug' => $type->slug, 'id' => $type->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Type</span>
         </a>
@@ -22,7 +22,7 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Torrent Type</h2>
-        <form role="form" method="POST" action="{{ route('staff_type_edit', ['slug' => $type->slug, 'id' => $type->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.types.update', ['slug' => $type->slug, 'id' => $type->id]) }}">
         @csrf
         <div class="form-group">
             <label for="name">Name</label>

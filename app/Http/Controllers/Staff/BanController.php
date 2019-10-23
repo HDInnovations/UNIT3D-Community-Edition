@@ -40,13 +40,12 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned).
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function ban(Request $request, $username, $id)
+    public function ban(Request $request, $id)
     {
         $user = User::findOrFail($id);
         $staff = $request->user();
@@ -92,13 +91,12 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unban(Request $request, $username, $id)
+    public function unban(Request $request, $id)
     {
         $user = User::findOrFail($id);
         $staff = $request->user();

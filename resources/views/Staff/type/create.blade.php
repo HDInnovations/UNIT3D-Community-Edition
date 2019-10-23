@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_type_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.types.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_type_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.types.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Torrent Type</span>
         </a>
     </li>
@@ -21,7 +21,7 @@
 @section('content')
     <div class="container box">
         <h2>Add A Torrent Type</h2>
-        <form role="form" method="POST" action="{{ route('staff_type_add') }}">
+        <form role="form" method="POST" action="{{ route('staff.types.store') }}">
         @csrf
         <div class="form-group">
             <label for="name">Name</label>

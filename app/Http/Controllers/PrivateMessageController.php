@@ -56,6 +56,8 @@ class PrivateMessageController extends Controller
     /**
      * View Inbox.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getPrivateMessages(Request $request)
@@ -69,6 +71,7 @@ class PrivateMessageController extends Controller
     /**
      * View Outbox.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getPrivateMessagesSent(Request $request)
@@ -82,7 +85,8 @@ class PrivateMessageController extends Controller
     /**
      * View A Message.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -107,9 +111,10 @@ class PrivateMessageController extends Controller
     /**
      * Create Message Form.
      *
-     * @param  string  $receiver_id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string                    $receiver_id
      *
-     * @param  string  $username
+     * @param  string                    $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
@@ -222,7 +227,8 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -245,6 +251,7 @@ class PrivateMessageController extends Controller
     /**
      * Mark All Messages As Read.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function markAllAsRead(Request $request)

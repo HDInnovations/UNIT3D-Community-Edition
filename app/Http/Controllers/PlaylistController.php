@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MovieScrapper;
 use Image;
 use App\Models\Torrent;
 use App\Models\Playlist;
@@ -134,7 +135,7 @@ class PlaylistController extends Controller
             $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
         }
         if (isset($random) && isset($torrent)) {
-            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             if ($torrent->category_id == 2) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
                     $meta = $client->scrape('tv', null, $torrent->tmdb);

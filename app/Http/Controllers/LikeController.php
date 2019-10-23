@@ -22,7 +22,8 @@ class LikeController extends Controller
     /**
      * Like A Post.
      *
-     * @param $postId
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -56,7 +57,8 @@ class LikeController extends Controller
     /**
      * Dislike A Post.
      *
-     * @param $postId
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */

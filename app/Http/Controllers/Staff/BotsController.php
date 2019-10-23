@@ -38,7 +38,9 @@ class BotsController extends Controller
     /**
      * Show the form for editing the specified Bot resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)

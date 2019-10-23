@@ -40,6 +40,8 @@ class GraveyardController extends Controller
     /**
      * Show The Graveyard.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -184,7 +186,8 @@ class GraveyardController extends Controller
     /**
      * Cancel A Ressurection.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int                       $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

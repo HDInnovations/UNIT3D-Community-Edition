@@ -123,13 +123,12 @@ class GroupsController extends Controller
     /**
      * Group Edit Form.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $group
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm(Request $request, $group, $id)
+    public function editForm(Request $request, $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -142,13 +141,12 @@ class GroupsController extends Controller
     /**
      * Edit A Group.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $group
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $group, $id)
+    public function edit(Request $request, $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);

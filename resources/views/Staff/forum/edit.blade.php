@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_forum_edit_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.forums.edit', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Forums</span>
         </a>
     </li>
@@ -25,7 +25,7 @@
     <div class="container box">
         <h2>Edit: {{ $forum->name }}</h2>
 
-        <form role="form" method="POST" action="{{ route('staff_forum_edit', ['slug' => $forum->slug, 'id' => $forum->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.forums.update', ['slug' => $forum->slug, 'id' => $forum->id]) }}">
             @csrf
         <div class="form-group">
             <label for="title">Title</label>

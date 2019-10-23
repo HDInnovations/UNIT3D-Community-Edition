@@ -523,14 +523,14 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function updateUserTarget(Request $request, $id)
+    public function updateUserTarget($id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
         return response($user);
     }
 
-    public function updateBotTarget(Request $request, $id)
+    public function updateBotTarget($id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 

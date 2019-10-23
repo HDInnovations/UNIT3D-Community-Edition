@@ -83,9 +83,8 @@ class WarningController extends Controller
     /**
      * Deactivate All Warnings.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -155,10 +154,8 @@ class WarningController extends Controller
     /**
      * Delete All Warnings.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
-     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteAllWarnings(Request $request, $username)

@@ -63,7 +63,7 @@
             </li>
             @if (auth()->user()->group->is_admin)
                 <li>
-                    <a href="{{ route('staff_forum_index') }}">
+                    <a href="{{ route('staff.forums.index') }}">
                         <i class="fab fa-wpforms"></i> @lang('staff.forums')
                     </a>
                 </li>
@@ -102,7 +102,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff_type_index') }}">
+                <a href="{{ route('staff.types.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-types')
                 </a>
             </li>

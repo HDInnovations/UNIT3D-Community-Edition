@@ -21,6 +21,8 @@ class CommandController extends Controller
     /**
      * Display All Commands.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -34,7 +36,7 @@ class CommandController extends Controller
     /**
      * Bring Site Into Maintenance Mode.
      *
-     * @param Request\ $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -52,6 +54,7 @@ class CommandController extends Controller
     /**
      * Bring Site Out Of Maintenance Mode.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function maintanceDisable(Request $request)
@@ -68,6 +71,7 @@ class CommandController extends Controller
     /**
      * Clear Site Cache.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function clearCache(Request $request)
@@ -84,6 +88,7 @@ class CommandController extends Controller
     /**
      * Clear Site View Cache.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function clearView(Request $request)
@@ -100,6 +105,7 @@ class CommandController extends Controller
     /**
      * Clear Site Routes Cache.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function clearRoute(Request $request)
@@ -116,6 +122,7 @@ class CommandController extends Controller
     /**
      * Clear Site Config Cache.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function clearConfig(Request $request)
@@ -132,6 +139,7 @@ class CommandController extends Controller
     /**
      * Clear All Site Cache At Once.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function clearAllCache(Request $request)
@@ -148,6 +156,7 @@ class CommandController extends Controller
     /**
      * Set All Site Cache At Once.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function setAllCache(Request $request)
@@ -164,6 +173,7 @@ class CommandController extends Controller
     /**
      * Send Test Email To Test Email Configuration.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function testEmail(Request $request)

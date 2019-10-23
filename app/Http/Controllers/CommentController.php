@@ -63,13 +63,12 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Article.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, $slug, $id)
+    public function article(Request $request, $id)
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
@@ -116,7 +115,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $article->comments()->get()->each(function ($c, $v) use ($users) {
+                    $article->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -216,7 +215,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $playlist->comments()->get()->each(function ($c, $v) use ($users) {
+                    $playlist->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -264,13 +263,12 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $slug, $id)
+    public function torrent(Request $request, $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -322,7 +320,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $torrent->comments()->get()->each(function ($c, $v) use ($users) {
+                    $torrent->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -427,7 +425,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $tr->comments()->get()->each(function ($c, $v) use ($users) {
+                    $tr->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -474,6 +472,7 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Torrent Via Quick Thanks.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -580,6 +579,7 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $comment_id
      *
      * @return Illuminate\Http\RedirectResponse

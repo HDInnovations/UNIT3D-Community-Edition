@@ -65,6 +65,8 @@ class RequestController extends Controller
     /**
      * Displays Torrent List View.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function requests(Request $request)
@@ -212,6 +214,7 @@ class RequestController extends Controller
     /**
      * Display The Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -261,6 +264,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Add Form.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  string  $title
      * @param  int  $imdb
      * @param  int  $tmdb
@@ -371,6 +375,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Edit Form.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -596,6 +601,7 @@ class RequestController extends Controller
     /**
      * Approve A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -675,6 +681,7 @@ class RequestController extends Controller
     /**
      * Reject A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -715,6 +722,7 @@ class RequestController extends Controller
     /**
      * Delete A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -787,6 +795,7 @@ class RequestController extends Controller
     /**
      * Uncliam A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse

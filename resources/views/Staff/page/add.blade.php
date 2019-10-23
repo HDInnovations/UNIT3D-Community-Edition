@@ -12,7 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_type_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.types.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add New Page</span>
         </a>
     </li>

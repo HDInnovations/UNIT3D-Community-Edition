@@ -34,7 +34,8 @@ class SeedboxController extends Controller
     /**
      * Delete A Registered Seedbox.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

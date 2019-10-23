@@ -76,12 +76,11 @@ class PageController extends Controller
     /**
      * Page Edit Form.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function editForm($id)
     {
         $page = Page::findOrFail($id);
 
@@ -91,13 +90,12 @@ class PageController extends Controller
     /**
      * Edit A Page.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
@@ -124,12 +122,11 @@ class PageController extends Controller
     /**
      * Delete A Page.
      *
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($slug, $id)
+    public function delete($id)
     {
         Page::findOrFail($id)->delete();
 

@@ -24,6 +24,10 @@ class BackupController extends Controller
 {
     /**
      * Display All Backups.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return
      */
     public function index(Request $request)
     {
@@ -66,7 +70,9 @@ class BackupController extends Controller
 
     /**
      * Create A Backup.
-     */
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
+*/
     public function create(Request $request)
     {
         $user = $request->user();
@@ -91,7 +97,9 @@ class BackupController extends Controller
 
     /**
      * Create A Backup.
-     */
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
+*/
     public function createFilesOnly(Request $request)
     {
         $user = $request->user();
@@ -116,7 +124,9 @@ class BackupController extends Controller
 
     /**
      * Create A Backup.
-     */
+     * @param  \Illuminate\Http\Request  $request
+     * @return string
+*/
     public function createDatabaseOnly(Request $request)
     {
         $user = $request->user();
@@ -143,6 +153,7 @@ class BackupController extends Controller
      * Download A Backup.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return
      */
     public function download(Request $request)

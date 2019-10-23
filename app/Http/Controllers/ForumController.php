@@ -346,12 +346,11 @@ class ForumController extends Controller
     /**
      * Show The Forum Category.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category($slug, $id)
+    public function category($id)
     {
         // Find the topic
         $forum = Forum::findOrFail($id);
@@ -391,12 +390,11 @@ class ForumController extends Controller
     /**
      * Show Forums And Topics Inside.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function display($slug, $id)
+    public function display($id)
     {
         // Find the topic
         $forum = Forum::findOrFail($id);
@@ -436,12 +434,11 @@ class ForumController extends Controller
     /**
      * Show The Topic.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function topic($slug, $id)
+    public function topic($id)
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -481,13 +478,12 @@ class ForumController extends Controller
     /**
      * Add A Post To A Topic.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reply(Request $request, $slug, $id)
+    public function reply(Request $request, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -522,12 +518,10 @@ class ForumController extends Controller
             $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
 
             if ($this->tag->hasTags($request->input('content'))) {
-                //$this->tag->setDebug(true);
-
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $topic->posts()->get()->each(function ($p, $v) use ($users) {
+                    $topic->posts()->get()->each(function ($p) use ($users) {
                         $users->push($p->user);
                     });
 
@@ -610,13 +604,12 @@ class ForumController extends Controller
     /**
      * Topic Add Form.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm(Request $request, $slug, $id)
+    public function addForm(Request $request, $id)
     {
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
@@ -637,13 +630,12 @@ class ForumController extends Controller
     /**
      * Create A New Topic In The Forum.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function newTopic(Request $request, $slug, $id)
+    public function newTopic(Request $request, $id)
     {
         $user = $request->user();
         $forum = Forum::findOrFail($id);
@@ -746,12 +738,11 @@ class ForumController extends Controller
     /**
      * Topic Edit Form.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function editForm($id)
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
@@ -762,13 +753,12 @@ class ForumController extends Controller
     /**
      * Edit Topic In The Forum.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function editTopic(Request $request, $slug, $id)
+    public function editTopic(Request $request, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -787,13 +777,12 @@ class ForumController extends Controller
     /**
      * Edit Post Form.
      *
-     * @param $slug
      * @param $id
      * @param $postId
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function postEditForm($slug, $id, $postId)
+    public function postEditForm($id, $postId)
     {
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
@@ -833,7 +822,8 @@ class ForumController extends Controller
     /**
      * Delete A Post.
      *
-     * @param $postId
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -852,12 +842,12 @@ class ForumController extends Controller
     /**
      * Close The Topic.
      *
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function closeTopic(Request $request, $slug, $id)
+    public function closeTopic(Request $request, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -873,12 +863,12 @@ class ForumController extends Controller
     /**
      * Open The Topic.
      *
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function openTopic(Request $request, $slug, $id)
+    public function openTopic(Request $request, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -894,12 +884,12 @@ class ForumController extends Controller
     /**
      * Delete The Topic and The Posts.
      *
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteTopic(Request $request, $slug, $id)
+    public function deleteTopic(Request $request, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -916,12 +906,11 @@ class ForumController extends Controller
     /**
      * Pin The Topic.
      *
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function pinTopic($slug, $id)
+    public function pinTopic($id)
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
@@ -934,12 +923,11 @@ class ForumController extends Controller
     /**
      * Unpin The Topic.
      *
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unpinTopic($slug, $id)
+    public function unpinTopic($id)
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;
@@ -952,12 +940,11 @@ class ForumController extends Controller
     /**
      * Forum Tag System.
      *
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function approvedTopic($slug, $id)
+    public function approvedTopic($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->approved == 0) {
@@ -971,7 +958,7 @@ class ForumController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function deniedTopic($slug, $id)
+    public function deniedTopic($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->denied == 0) {
@@ -985,7 +972,7 @@ class ForumController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function solvedTopic($slug, $id)
+    public function solvedTopic($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->solved == 0) {
@@ -999,7 +986,7 @@ class ForumController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function invalidTopic($slug, $id)
+    public function invalidTopic($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->invalid == 0) {
@@ -1013,7 +1000,7 @@ class ForumController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function bugTopic($slug, $id)
+    public function bugTopic($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->bug == 0) {
@@ -1027,7 +1014,7 @@ class ForumController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function suggestionTopic($slug, $id)
+    public function suggestionTopic($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->suggestion == 0) {
@@ -1041,7 +1028,7 @@ class ForumController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function implementedTopic($slug, $id)
+    public function implementedTopic($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->implemented == 0) {

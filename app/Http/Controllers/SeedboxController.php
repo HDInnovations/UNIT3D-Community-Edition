@@ -22,6 +22,7 @@ class SeedboxController extends Controller
     /**
      * Get A Users Registered Seedboxes.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -41,11 +42,10 @@ class SeedboxController extends Controller
      * Store A Seedbox.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function store(Request $request, $username)
+    protected function store(Request $request)
     {
         $user = $request->user();
 
@@ -77,12 +77,11 @@ class SeedboxController extends Controller
      * Delete A Seedbox.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param $username
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function destroy(Request $request, $username, $id)
+    protected function destroy(Request $request, $id)
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);

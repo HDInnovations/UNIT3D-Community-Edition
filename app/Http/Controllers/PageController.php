@@ -21,12 +21,11 @@ class PageController extends Controller
     /**
      * Show A Page.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($slug, $id)
+    public function show($id)
     {
         $page = Page::findOrFail($id);
 

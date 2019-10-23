@@ -90,12 +90,11 @@ class ArticleController extends Controller
     /**
      * Article Edit Form.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function editForm($id)
     {
         $article = Article::findOrFail($id);
 
@@ -105,13 +104,12 @@ class ArticleController extends Controller
     /**
      * Edit A Article.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
@@ -149,12 +147,11 @@ class ArticleController extends Controller
     /**
      * Delete A Article.
      *
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($slug, $id)
+    public function delete($id)
     {
         $article = Article::findOrFail($id);
         $article->delete();

@@ -13,6 +13,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Torrent;
+use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -40,7 +41,7 @@ class FetchReleaseYears extends Command
      */
     public function handle()
     {
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
         $torrents = Torrent::withAnyStatus()
             ->with(['category'])

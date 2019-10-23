@@ -31,8 +31,12 @@ class Http2ServerPush
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     *
+     * @param  null  $limit
+     * @param  null  $sizeLimit
+     * @param  null  $excludeKeywords
      *
      * @return mixed
      */
@@ -59,8 +63,11 @@ class Http2ServerPush
     }
 
     /**
-     * @param \Illuminate\Http\Response $response
+     * @param  \Illuminate\Http\Response  $response
      *
+     * @param  null  $limit
+     * @param  null  $sizeLimit
+     * @param  null  $excludeKeywords
      * @return $this
      */
     protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)

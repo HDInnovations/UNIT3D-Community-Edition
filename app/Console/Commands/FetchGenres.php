@@ -14,6 +14,7 @@ namespace App\Console\Commands;
 
 use App\Models\Torrent;
 use App\Models\TagTorrent;
+use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 
 class FetchGenres extends Command
@@ -40,7 +41,7 @@ class FetchGenres extends Command
      */
     public function handle()
     {
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
         $torrents = Torrent::withAnyStatus()
             ->select(['id', 'category_id', 'imdb', 'tmdb'])

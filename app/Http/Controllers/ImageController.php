@@ -101,7 +101,8 @@ class ImageController extends Controller
     /**
      * Delete A Image.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

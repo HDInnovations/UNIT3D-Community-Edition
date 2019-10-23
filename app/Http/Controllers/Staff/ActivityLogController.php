@@ -34,7 +34,8 @@ class ActivityLogController extends Controller
     /**
      * Delete Record From Activity Log.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

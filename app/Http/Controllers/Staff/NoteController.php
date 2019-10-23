@@ -35,13 +35,12 @@ class NoteController extends Controller
     /**
      * Post A User Note.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postNote(Request $request, $username, $id)
+    public function postNote(Request $request, $id)
     {
         $staff = $request->user();
         $user = User::findOrFail($id);

@@ -38,12 +38,12 @@ class NotificationController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Notification $notification
      *
      * @return array
+     *
      * @throws \Throwable
      */
-    public function faceted(Request $request, Notification $notification)
+    public function faceted(Request $request)
     {
         $user = $request->user();
 

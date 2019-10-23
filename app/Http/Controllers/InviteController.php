@@ -26,6 +26,8 @@ class InviteController extends Controller
     /**
      * Invite Form.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function invite(Request $request)
@@ -124,6 +126,7 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -152,6 +155,7 @@ class InviteController extends Controller
     /**
      * Invite Tree.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

@@ -23,7 +23,7 @@ use App\Http\Controllers\Controller;
 class ForumController extends Controller
 {
     /**
-     * Show Forums.
+     * Display All Forums.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -35,26 +35,26 @@ class ForumController extends Controller
     }
 
     /**
-     * Forum Add Form.
+     * Show Forum Create Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
+        return view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
     }
 
     /**
-     * Add A Forum.
+     * Store A New Forum.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $groups = Group::all();
 
@@ -88,19 +88,18 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff_forum_index')
+        return redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been created successfully');
     }
 
     /**
      * Forum Edit Form.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function edit($id)
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
@@ -116,13 +115,12 @@ class ForumController extends Controller
     /**
      * Edit A Forum.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function update(Request $request, $id)
     {
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
@@ -160,19 +158,18 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff_forum_index')
+        return redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
     }
 
     /**
      * Delete A Forum.
      *
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($slug, $id)
+    public function destroy($id)
     {
         // Forum to delete
         $forum = Forum::findOrFail($id);
@@ -220,7 +217,7 @@ class ForumController extends Controller
             $forum->delete();
         }
 
-        return redirect()->route('staff_forum_index')
+        return redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been deleted successfully');
     }
 }

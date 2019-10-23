@@ -22,7 +22,7 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Torrent Tag (Genre)</h2>
-        <form role="form" method="POST" action="{{ route('staff_type_edit', ['slug' => $tag->slug, 'id' => $tag->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.types.update', ['slug' => $tag->slug, 'id' => $tag->id]) }}">
         @csrf
 
         <div class="form-group">

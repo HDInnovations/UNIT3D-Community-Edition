@@ -367,7 +367,7 @@
                                 @endif
                             @endif
 
-                            <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                            <a href="{{ route('thanks.store', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                                class="btn btn-xs btn-success" data-toggle="tooltip"
                                data-original-title="@lang('torrent.thank')">
                                 <i class="{{ config('other.font-awesome') }} fa-heart"></i> @lang('torrent.thank')

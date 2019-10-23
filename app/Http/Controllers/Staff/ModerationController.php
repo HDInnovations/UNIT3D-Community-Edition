@@ -172,7 +172,8 @@ class ModerationController extends Controller
     /**
      * Resets the filled and approved attributes on a given request.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

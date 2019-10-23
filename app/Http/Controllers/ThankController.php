@@ -20,15 +20,14 @@ use Illuminate\Http\Request;
 class ThankController extends Controller
 {
     /**
-     * Thank A Torrent Uploader.
+     * Store A New Thank.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  $slug
-     * @param  $id
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function torrentThank(Request $request, $slug, $id)
+    public function store(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);

@@ -94,6 +94,7 @@ class TwoStepController extends Controller
      * Show the twostep verification form.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function showVerification()
     {

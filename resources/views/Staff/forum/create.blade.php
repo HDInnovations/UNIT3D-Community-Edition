@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_forum_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.forums.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Forums</span>
         </a>
     </li>
@@ -25,7 +25,7 @@
     <div class="container box">
         <h2>Add a new Forum</h2>
 
-        <form role="form" method="POST" action="{{ route('staff_forum_add') }}">
+        <form role="form" method="POST" action="{{ route('staff.forums.store') }}">
             @csrf
         <div class="form-group">
             <label for="forum_type">Forum Type</label>

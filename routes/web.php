@@ -62,7 +62,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // RSS (RSS Key Auth)
         Route::get('/rss/{id}.{rsskey}', 'RssController@show')->name('rss.show.rsskey');
-        Route::get('/torrent/download/{slug}.{id}.{rsskey}', 'TorrentController@download')->name('torrent.download.rsskey');
+        Route::get('/torrent/download/{id}.{rsskey}', 'TorrentController@download')->name('torrent.download.rsskey');
     });
 
     /*
@@ -118,7 +118,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Reports System
         Route::group(['prefix' => 'reports'], function () {
-            Route::post('/torrent/{slug}.{id}', 'ReportController@torrent')->name('report_torrent');
+            Route::post('/torrent/{id}', 'ReportController@torrent')->name('report_torrent');
             Route::post('/request/{id}', 'ReportController@request')->name('report_request');
             Route::post('/user/{id}', 'ReportController@user')->name('report_user');
         });
@@ -137,7 +137,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Pages System
         Route::group(['prefix' => 'pages'], function () {
-            Route::get('/{slug}.{id}', 'PageController@show')->name('pages.show');
+            Route::get('/{id}', 'PageController@show')->name('pages.show');
             Route::get('/staff', 'PageController@staff')->name('staff');
             Route::get('/internal', 'PageController@internal')->name('internal');
             Route::get('/blacklist', 'PageController@blacklist')->name('blacklist');
@@ -147,8 +147,8 @@ Route::group(['middleware' => 'language'], function () {
 
         // Comments
         Route::group(['prefix' => 'comments'], function () {
-            Route::post('/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
-            Route::post('/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
+            Route::post('/article/{id}', 'CommentController@article')->name('comment_article');
+            Route::post('/torrent/{id}', 'CommentController@torrent')->name('comment_torrent');
             Route::get('/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
             Route::post('/request/{id}', 'CommentController@request')->name('comment_request');
             Route::post('/playlist/{id}', 'CommentController@playlist')->name('comment_playlist');
@@ -216,26 +216,26 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/filterTorrents', 'TorrentController@faceted');
             Route::get('/filterSettings', 'TorrentController@filtered');
             Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
-            Route::get('/torrents/{slug}.{id}{hash?}', 'TorrentController@torrent')->name('torrent');
-            Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
-            Route::get('/torrents/{slug}.{id}/history', 'TorrentController@history')->name('history');
+            Route::get('/torrents/{id}{hash?}', 'TorrentController@torrent')->name('torrent');
+            Route::get('/torrents/{id}/peers', 'TorrentController@peers')->name('peers');
+            Route::get('/torrents/{id}/history', 'TorrentController@history')->name('history');
             Route::get('/upload/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
             Route::post('/upload', 'TorrentController@upload')->name('upload');
-            Route::get('/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
-            Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
+            Route::get('/download_check/{id}', 'TorrentController@downloadCheck')->name('download_check');
+            Route::get('/download/{id}', 'TorrentController@download')->name('download');
             Route::get('/torrents/cards', 'TorrentController@cardLayout')->name('cards');
             Route::get('/torrents/groupings', 'TorrentController@groupingLayout')->name('groupings');
             Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
-            Route::get('/torrents/{slug}.{id}/edit', 'TorrentController@editForm')->name('edit_form');
-            Route::post('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
-            Route::get('/torrents/{slug}.{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
-            Route::get('/torrents/{slug}.{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
-            Route::get('/torrents/{slug}.{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
-            Route::get('/torrents/{slug}.{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
-            Route::get('/torrents/{slug}.{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
-            Route::get('/torrents/{slug}.{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
-            Route::post('/torrents/{slug}.{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
-            Route::get('/torrents/{slug}.{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
+            Route::get('/torrents/{id}/edit', 'TorrentController@editForm')->name('edit_form');
+            Route::post('/torrents/{id}/edit', 'TorrentController@edit')->name('edit');
+            Route::get('/torrents/{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
+            Route::get('/torrents/{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
+            Route::get('/torrents/{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
+            Route::get('/torrents/{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
+            Route::get('/torrents/{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
+            Route::get('/torrents/{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
+            Route::post('/torrents/{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
+            Route::get('/torrents/{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
             Route::get('/torrents/similar/{category_id}.{tmdb}', 'TorrentController@similar')->name('torrents.similar');
         });
 
@@ -328,7 +328,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::delete('/follow/{username}', 'FollowController@destroy')->name('follow.destroy');
 
         //Thank System
-        Route::get('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
+        Route::get('/thanks/{id}', 'ThankController@store')->name('thanks.store');
 
         // User Language
         Route::get('/{locale}/back', 'LanguageController@back')->name('back');
@@ -428,36 +428,36 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/search', 'ForumController@search')->name('forum_search_form');
 
         // Display Forum Categories
-        Route::get('/category/{slug}.{id}', 'ForumController@category')->name('forum_category');
+        Route::get('/category/{id}', 'ForumController@category')->name('forum_category');
         // Display Topics
-        Route::get('/forum/{slug}.{id}', 'ForumController@display')->name('forum_display');
+        Route::get('/forum/{id}', 'ForumController@display')->name('forum_display');
         // Create New Topic
-        Route::get('/forum/{slug}.{id}/new-topic', 'ForumController@addForm')->name('forum_new_topic_form');
-        Route::post('/forum/{slug}.{id}/new-topic', 'ForumController@newTopic')->name('forum_new_topic');
+        Route::get('/forum/{id}/new-topic', 'ForumController@addForm')->name('forum_new_topic_form');
+        Route::post('/forum/{id}/new-topic', 'ForumController@newTopic')->name('forum_new_topic');
         // View Topic
-        Route::get('/topic/{slug}.{id}', 'ForumController@topic')->name('forum_topic');
+        Route::get('/topic/{id}', 'ForumController@topic')->name('forum_topic');
         // Close Topic
-        Route::get('/topic/{slug}.{id}/close', 'ForumController@closeTopic')->name('forum_close');
+        Route::get('/topic/{id}/close', 'ForumController@closeTopic')->name('forum_close');
         // Open Topic
-        Route::get('/topic/{slug}.{id}/open', 'ForumController@openTopic')->name('forum_open');
+        Route::get('/topic/{id}/open', 'ForumController@openTopic')->name('forum_open');
         //
-        Route::post('/posts/{slug}.{id}/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
+        Route::post('/posts/{id}/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
         // Edit Post
-        Route::get('/posts/{slug}.{id}/post-{postId}/edit', 'ForumController@postEditForm')->name('forum_post_edit_form');
+        Route::get('/posts/{id}/post-{postId}/edit', 'ForumController@postEditForm')->name('forum_post_edit_form');
         Route::post('/posts/{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
         // Delete Post
         Route::get('/posts/{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
         // Reply To Topic
-        Route::post('/topic/{slug}.{id}/reply', 'ForumController@reply')->name('forum_reply');
+        Route::post('/topic/{id}/reply', 'ForumController@reply')->name('forum_reply');
         // Edit Topic
-        Route::get('/topic/{slug}.{id}/edit', 'ForumController@editForm')->name('forum_edit_topic_form');
-        Route::post('/topic/{slug}.{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
+        Route::get('/topic/{id}/edit', 'ForumController@editForm')->name('forum_edit_topic_form');
+        Route::post('/topic/{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
         // Delete Topic
-        Route::get('/topic/{slug}.{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
+        Route::get('/topic/{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
         // Pin Topic
-        Route::get('/topic/{slug}.{id}/pin', 'ForumController@pinTopic')->name('forum_pin_topic');
+        Route::get('/topic/{id}/pin', 'ForumController@pinTopic')->name('forum_pin_topic');
         // Unpin Topic
-        Route::get('/topic/{slug}.{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
+        Route::get('/topic/{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
 
         // Like - Dislike System
         Route::any('/like/post/{postId}', 'LikeController@store')->name('like');
@@ -470,13 +470,13 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/unsubscribe/forum/{route}.{forum}', 'SubscriptionController@unsubscribeForum')->name('unsubscribe_forum');
 
         // Topic Label System
-        Route::get('/topic/{slug}.{id}/approved', 'ForumController@approvedTopic')->name('forum_approved')->middleware('modo');
-        Route::get('/topic/{slug}.{id}/denied', 'ForumController@deniedTopic')->name('forum_denied')->middleware('modo');
-        Route::get('/topic/{slug}.{id}/solved', 'ForumController@solvedTopic')->name('forum_solved')->middleware('modo');
-        Route::get('/topic/{slug}.{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid')->middleware('modo');
-        Route::get('/topic/{slug}.{id}/bug', 'ForumController@bugTopic')->name('forum_bug')->middleware('modo');
-        Route::get('/topic/{slug}.{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion')->middleware('modo');
-        Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented')->middleware('modo');
+        Route::get('/topic/{id}/approved', 'ForumController@approvedTopic')->name('forum_approved')->middleware('modo');
+        Route::get('/topic/{id}/denied', 'ForumController@deniedTopic')->name('forum_denied')->middleware('modo');
+        Route::get('/topic/{id}/solved', 'ForumController@solvedTopic')->name('forum_solved')->middleware('modo');
+        Route::get('/topic/{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid')->middleware('modo');
+        Route::get('/topic/{id}/bug', 'ForumController@bugTopic')->name('forum_bug')->middleware('modo');
+        Route::get('/topic/{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion')->middleware('modo');
+        Route::get('/topic/{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented')->middleware('modo');
     });
 
     /*
@@ -534,7 +534,7 @@ Route::group(['middleware' => 'language'], function () {
         // Moderation
         Route::get('/torrents', 'TorrentController@index')->name('staff_torrent_index');
         Route::get('/moderation', 'ModerationController@moderation')->name('moderation');
-        Route::get('/moderation/{slug}.{id}/approve', 'ModerationController@approve')->name('moderation_approve');
+        Route::get('/moderation/{id}/approve', 'ModerationController@approve')->name('moderation_approve');
         Route::post('/moderation/reject', 'ModerationController@reject')->name('moderation_reject');
         Route::post('/moderation/postpone', 'ModerationController@postpone')->name('moderation_postpone');
         Route::get('/torrent_search', 'TorrentController@search')->name('torrent-search');
@@ -556,41 +556,45 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/categories', 'CategoryController@index')->name('staff.categories.index');
         Route::get('/categories/create', 'CategoryController@create')->name('staff.categories.create');
         Route::post('/categories', 'CategoryController@store')->name('staff.categories.store');
-        Route::get('/categories/{slug}.{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
-        Route::patch('/categories/{slug}.{id}', 'CategoryController@update')->name('staff.categories.update');
-        Route::delete('/categories/{slug}.{id}', 'CategoryController@destroy')->name('staff.categories.destroy');
+        Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
+        Route::patch('/categories/{id}', 'CategoryController@update')->name('staff.categories.update');
+        Route::delete('/categories/{id}', 'CategoryController@destroy')->name('staff.categories.destroy');
 
         // Types
-        Route::get('/types', 'TypeController@index')->name('staff_type_index');
-        Route::get('/types/new', 'TypeController@addForm')->name('staff_type_add_form');
-        Route::post('/types/new', 'TypeController@add')->name('staff_type_add');
-        Route::get('/types/edit/{slug}.{id}', 'TypeController@editForm')->name('staff_type_edit_form');
-        Route::post('/types/edit/{slug}.{id}', 'TypeController@edit')->name('staff_type_edit');
-        Route::get('/types/delete/{slug}.{id}', 'TypeController@delete')->name('staff_type_delete');
+        Route::group(['prefix' => 'types'], function () {
+            Route::get('/', 'TypeController@index')->name('staff.types.index');
+            Route::get('/create', 'TypeController@create')->name('staff.types.create');
+            Route::post('/store', 'TypeController@store')->name('staff.types.store');
+            Route::get('//{id}/edit', 'TypeController@edit')->name('staff.types.edit');
+            Route::post('/{id}/update', 'TypeController@update')->name('staff.types.update');
+            Route::get('/{id}/destroy', 'TypeController@destroy')->name('staff.types.destroy');
+        });
 
         // Forum
-        Route::get('/forums', 'ForumController@index')->name('staff_forum_index');
-        Route::get('/forums/new', 'ForumController@addForm')->name('staff_forum_add_form');
-        Route::post('/forums/new', 'ForumController@add')->name('staff_forum_add');
-        Route::get('/forums/edit/{slug}.{id}', 'ForumController@editForm')->name('staff_forum_edit_form');
-        Route::post('/forums/edit/{slug}.{id}', 'ForumController@edit')->name('staff_forum_edit');
-        Route::get('/forums/delete/{slug}.{id}', 'ForumController@delete')->name('staff_forum_delete');
+        Route::group(['prefix' => 'forums'], function () {
+            Route::get('/', 'ForumController@index')->name('staff.forums.index');
+            Route::get('/create', 'ForumController@create')->name('staff.forums.create');
+            Route::post('/store', 'ForumController@store')->name('staff.forums.store');
+            Route::get('/{id}/edit', 'ForumController@edit')->name('staff.forums.edit');
+            Route::post('/{id}/update', 'ForumController@update')->name('staff.forums.update');
+            Route::get('/{id}/destroy', 'ForumController@destory')->name('staff.forums.destroy');
+        });
 
         //Pages
         Route::get('/pages', 'PageController@index')->name('staff_page_index');
         Route::get('/pages/new', 'PageController@addForm')->name('staff_page_add_form');
         Route::post('/pages/new', 'PageController@add')->name('staff_page_add');
-        Route::get('/pages/edit/{slug}.{id}', 'PageController@editForm')->name('staff_page_edit_form');
-        Route::post('/pages/edit/{slug}.{id}', 'PageController@edit')->name('staff_page_edit');
-        Route::get('/pages/delete/{slug}.{id}', 'PageController@delete')->name('staff_page_delete');
+        Route::get('/pages/edit/{id}', 'PageController@editForm')->name('staff_page_edit_form');
+        Route::post('/pages/edit/{id}', 'PageController@edit')->name('staff_page_edit');
+        Route::get('/pages/delete/{id}', 'PageController@delete')->name('staff_page_delete');
 
         // Articles
         Route::get('/articles', 'ArticleController@index')->name('staff_article_index');
         Route::get('/articles/new', 'ArticleController@addForm')->name('staff_article_add_form');
         Route::post('/articles/new', 'ArticleController@add')->name('staff_article_add');
-        Route::get('/articles/edit/{slug}.{id}', 'ArticleController@editForm')->name('staff_article_edit_form');
-        Route::post('/articles/edit/{slug}.{id}', 'ArticleController@edit')->name('staff_article_edit');
-        Route::get('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
+        Route::get('/articles/edit/{id}', 'ArticleController@editForm')->name('staff_article_edit_form');
+        Route::post('/articles/edit/{id}', 'ArticleController@edit')->name('staff_article_edit');
+        Route::get('/articles/delete/{id}', 'ArticleController@delete')->name('staff_article_delete');
 
         // Groups
         Route::get('/groups', 'GroupsController@index')->name('staff_groups_index');
@@ -654,8 +658,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/tags', 'TagController@index')->name('staff_tag_index');
         Route::get('/tag/new', 'TagController@addForm')->name('staff_tag_add_form');
         Route::post('/tag/new', 'TagController@add')->name('staff_tag_add');
-        Route::get('/tag/edit/{slug}.{id}', 'TagController@editForm')->name('staff_tag_edit_form');
-        Route::post('/tag/edit/{slug}.{id}', 'TagController@edit')->name('staff_tag_edit');
+        Route::get('/tag/edit/{id}', 'TagController@editForm')->name('staff_tag_edit_form');
+        Route::post('/tag/edit/{id}', 'TagController@edit')->name('staff_tag_edit');
 
         // Applications System
         Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');

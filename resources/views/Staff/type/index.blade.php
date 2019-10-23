@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_type_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.types.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
         </a>
     </li>
@@ -16,7 +16,7 @@
 @section('content')
     <div class="container box">
         <h2>Types</h2>
-        <a href="{{ route('staff_type_add') }}" class="btn btn-primary">Add A Torrent Type</a>
+        <a href="{{ route('staff.types.store') }}" class="btn btn-primary">Add A Torrent Type</a>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
@@ -32,12 +32,12 @@
                 <tr>
                     <td>{{ $t->position }}</td>
                     <td>
-                        <a href="{{ route('staff_type_edit_form', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
+                        <a href="{{ route('staff.types.edit', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
                     </td>
                     <td>
-                        <a href="{{ route('staff_type_edit_form', ['slug' => $t->slug, 'id' => $t->id]) }}"
+                        <a href="{{ route('staff.types.edit', ['slug' => $t->slug, 'id' => $t->id]) }}"
                            class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff_type_delete', ['slug' => $t->slug, 'id' => $t->id]) }}"
+                        <a href="{{ route('staff.types.destroy', ['slug' => $t->slug, 'id' => $t->id]) }}"
                            class="btn btn-danger">Delete</a>
                     </td>
                 </tr>

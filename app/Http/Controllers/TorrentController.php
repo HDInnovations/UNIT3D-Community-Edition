@@ -335,7 +335,7 @@ class TorrentController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $torrent Torrent
+     * @param  Torrent  $torrent
      *
      * @return array
      * @throws \ErrorException
@@ -891,15 +891,14 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
      */
-    public function torrent(Request $request, $slug, $id)
+    public function torrent(Request $request, $id)
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -1008,12 +1007,12 @@ class TorrentController extends Controller
     /**
      * Torrent Edit Form.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm(Request $request, $slug, $id)
+    public function editForm(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1030,13 +1029,12 @@ class TorrentController extends Controller
     /**
      * Edit A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1204,12 +1202,11 @@ class TorrentController extends Controller
     /**
      * Display Peers Of A Torrent.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function peers($slug, $id)
+    public function peers($id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -1220,12 +1217,11 @@ class TorrentController extends Controller
     /**
      * Display History Of A Torrent.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function history($slug, $id)
+    public function history($id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
@@ -1236,9 +1232,10 @@ class TorrentController extends Controller
     /**
      * Torrent Upload Form.
      *
-     * @param $title
-     * @param $imdb
-     * @param $tmdb
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $title
+     * @param  int  $imdb
+     * @param  int  $tmdb
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -1445,13 +1442,12 @@ class TorrentController extends Controller
     /**
      * Download Check.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function downloadCheck(Request $request, $slug, $id)
+    public function downloadCheck(Request $request, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();
@@ -1462,14 +1458,13 @@ class TorrentController extends Controller
     /**
      * Download A Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      * @param $rsskey
      *
      * @return TorrentFile
      */
-    public function download(Request $request, $slug, $id, $rsskey = null)
+    public function download(Request $request, $id, $rsskey = null)
     {
         $user = $request->user();
         if (! $user && $rsskey) {
@@ -1529,12 +1524,12 @@ class TorrentController extends Controller
     /**
      * Bump A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function bumpTorrent(Request $request, $slug, $id)
+    public function bumpTorrent(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1570,12 +1565,12 @@ class TorrentController extends Controller
     /**
      * Sticky A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function sticky(Request $request, $slug, $id)
+    public function sticky(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1598,13 +1593,12 @@ class TorrentController extends Controller
     /**
      * 100% Freeleech A Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function grantFL(Request $request, $slug, $id)
+    public function grantFL(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1638,12 +1632,12 @@ class TorrentController extends Controller
     /**
      * Feature A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function grantFeatured(Request $request, $slug, $id)
+    public function grantFeatured(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1681,12 +1675,12 @@ class TorrentController extends Controller
     /**
      * Double Upload A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function grantDoubleUp(Request $request, $slug, $id)
+    public function grantDoubleUp(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1718,12 +1712,12 @@ class TorrentController extends Controller
     /**
      * Reseed Request A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reseedTorrent(Request $request, $slug, $id)
+    public function reseedTorrent(Request $request, $id)
     {
         $appurl = config('app.url');
         $user = $request->user();
@@ -1757,13 +1751,12 @@ class TorrentController extends Controller
     /**
      * Use Freeleech Token On A Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function freeleechToken(Request $request, $slug, $id)
+    public function freeleechToken(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);

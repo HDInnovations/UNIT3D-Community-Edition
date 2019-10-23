@@ -56,6 +56,8 @@ class RssController extends Controller
     /**
      * Show the form for creating a new RSS resource.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -127,7 +129,8 @@ class RssController extends Controller
     /**
      * Show the form for editing the specified RSS resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int                       $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
@@ -154,7 +157,6 @@ class RssController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         $v = validator($request->all(), [

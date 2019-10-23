@@ -88,8 +88,9 @@ class WishController extends Controller
     /**
      * Delete A Wish.
      *
-     * @param $uid
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $uid
+     * @param                            $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

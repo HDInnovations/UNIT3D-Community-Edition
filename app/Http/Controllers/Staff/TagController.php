@@ -72,11 +72,11 @@ class TagController extends Controller
     /**
      * Tag Edit Form.
      *
-     * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function editForm($id)
     {
         $tag = Tag::findOrFail($id);
 
@@ -86,12 +86,12 @@ class TagController extends Controller
     /**
      * Edit A Tag.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $tag = Tag::findOrFail($id);
         $tag->name = $request->input('name');
