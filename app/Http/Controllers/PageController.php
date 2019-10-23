@@ -26,7 +26,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function page($slug, $id)
+    public function show($slug, $id)
     {
         $page = Page::findOrFail($id);
 

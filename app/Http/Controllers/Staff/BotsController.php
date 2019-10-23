@@ -30,7 +30,7 @@ class BotsController extends Controller
     {
         $bots = Bot::orderBy('position', 'ASC')->get();
 
-        return view('Staff.bots.index', [
+        return view('staff.bots.index', [
             'bots' => $bots,
         ]);
     }
@@ -46,7 +46,7 @@ class BotsController extends Controller
         $user = $request->user();
         $bot = Bot::findOrFail($id);
 
-        return view('Staff.bots.edit', [
+        return view('staff.bots.edit', [
             'user'           => $user,
             'bot'            => $bot,
         ]);
@@ -114,11 +114,11 @@ class BotsController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('Staff.bots.edit', ['id' => $id])
+            return redirect()->route('staff.bots.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('Staff.bots.edit', ['id' => $id])
+        return redirect()->route('staff.bots.edit', ['id' => $id])
             ->withSuccess($success);
     }
 
@@ -133,7 +133,7 @@ class BotsController extends Controller
         $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
         $bot->delete();
 
-        return redirect()->route('Staff.bots.index')
+        return redirect()->route('staff.bots.index')
             ->withSuccess('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');
     }
 
@@ -149,7 +149,7 @@ class BotsController extends Controller
         $bot->active = 0;
         $bot->save();
 
-        return redirect()->route('Staff.bots.index')
+        return redirect()->route('staff.bots.index')
             ->withSuccess('The Bot Has Been Disabled');
     }
 
@@ -165,7 +165,7 @@ class BotsController extends Controller
         $bot->active = 1;
         $bot->save();
 
-        return redirect()->route('Staff.bots.index')
+        return redirect()->route('staff.bots.index')
             ->withSuccess('The Bot Has Been Enabled');
     }
 }

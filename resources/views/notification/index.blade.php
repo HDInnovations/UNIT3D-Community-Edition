@@ -286,7 +286,7 @@
           xhr.abort();
         }
         xhr = $.ajax({
-          url: 'filterNotifications',
+          url: '/notifications/filter',
           data: {
             _token: csrf,
             bon_gifts: bon_gifts,

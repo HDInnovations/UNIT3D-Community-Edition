@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
         </a>
     </li>
@@ -28,7 +28,7 @@
         <h2>@lang('bot.edit-bot')</h2>
         <form role="form" method="POST" action="{{ route('staff.bots.update', ['id' => $bot->id]) }}">
             @csrf
-            @method('PUT')
+            @method('PATCH')
                     <div class="form-group">
                         <label for="name">@lang('bot.name')</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ $bot->name }}">

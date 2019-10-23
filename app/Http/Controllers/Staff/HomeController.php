@@ -27,16 +27,17 @@ use Spatie\SslCertificate\SslCertificate;
 class HomeController extends Controller
 {
     /**
-     * Staff Dashboard Index.
+     * Display Staff Dashboard.
+     *
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home(Request $request)
+    public function index(Request $request)
     {
         // User Info
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
         $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-
         $num_user = User::count();
         $banned = User::where('group_id', '=', $bannedGroup->id)->count();
         $validating = User::where('group_id', '=', $validatingGroup->id)->count();
@@ -72,7 +73,7 @@ class HomeController extends Controller
         // Pending Applications Count
         $app_count = Application::pending()->count();
 
-        return view('Staff.home.index', [
+        return view('Staff.dashboard.index', [
             'num_user'           => $num_user,
             'banned'             => $banned,
             'validating'         => $validating,

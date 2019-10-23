@@ -47,7 +47,7 @@ class RssController extends Controller
     {
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
-        return view('Staff.rss.index', [
+        return view('staff.rss.index', [
             'hash' => $hash,
             'public_rss' => $public_rss,
         ]);
@@ -63,7 +63,7 @@ class RssController extends Controller
         $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
 
-        return view('Staff.rss.create', [
+        return view('staff.rss.create', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -116,11 +116,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('Staff.rss.create')
+            return redirect()->route('staff.rss.create')
                 ->withErrors($error);
         }
 
-        return redirect()->route('Staff.rss.index')
+        return redirect()->route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -136,7 +136,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
-        return view('Staff.rss.edit', [
+        return view('staff.rss.edit', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -191,11 +191,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('Staff.rss.edit', ['id' => $id])
+            return redirect()->route('staff.rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('Staff.rss.index')
+        return redirect()->route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -210,7 +210,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
 
-        return redirect()->route('Staff.rss.index')
+        return redirect()->route('staff.rss.index')
             ->withSuccess('RSS Feed Deleted!');
     }
 }

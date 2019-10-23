@@ -6,12 +6,12 @@
                 <i class="{{ config('other.font-awesome') }} fa-link"></i> @lang('staff.links')
             </li>
             <li>
-                <a href="{{ route('home') }}">
+                <a href="{{ route('home.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.frontend')
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff_dashboard') }}">
+                <a href="{{ route('staff.dashboard.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.staff-dashboard')
                 </a>
             </li>

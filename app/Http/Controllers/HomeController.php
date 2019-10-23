@@ -154,7 +154,7 @@ class HomeController extends Controller
         $freeleech_tokens = FreeleechToken::where('user_id', $user->id)->get();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
-        return view('home.home', [
+        return view('home.index', [
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
             'users'              => $users,

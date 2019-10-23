@@ -145,7 +145,7 @@
             xhr.abort();
           }
           xhr = $.ajax({
-            url: 'filterGraveyard',
+            url: '/graveyard/filter',
             data: {
               _token: csrf,
               search: search,

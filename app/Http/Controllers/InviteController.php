@@ -33,15 +33,15 @@ class InviteController extends Controller
         $user = $request->user();
 
         if (config('other.invite-only') == false) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
             ->withErrors('Invitations Are Disabled Due To Open Registration!');
         }
         if ($user->can_invite == 0) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
             ->withErrors('Your Invite Rights Have Been Revoked!');
         }
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 
@@ -62,7 +62,7 @@ class InviteController extends Controller
         $user = $request->user();
 
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 

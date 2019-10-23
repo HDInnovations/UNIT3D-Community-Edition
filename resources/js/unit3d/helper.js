@@ -740,7 +740,7 @@ class facetedSearchBuilder {
             this.view = 'card';
         }
         else if (this.type == 'request') {
-            this.api = '/filterRequests';
+            this.api = '/requests/filter';
             this.view = 'request';
         }
         else if (this.type == 'group') {

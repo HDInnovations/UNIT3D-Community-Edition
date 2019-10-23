@@ -1196,7 +1196,7 @@ class TorrentController extends Controller
             }
             \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
 
-            return redirect()->route('home')
+            return redirect()->route('home.index')
                 ->withErrors('Unable to delete Torrent');
         }
     }

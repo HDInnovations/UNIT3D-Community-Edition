@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
         </a>
     </li>
@@ -39,7 +39,7 @@
                                     <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Enable Maintenance Mode
                                 </h3>
                                 <h4 class="text-muted">This commands enables maintenance mode while whitelisting only you IP Address.</h4>
-                                <a href="{{ url('/staff_dashboard/command/maintance-enable') }}" class="btn btn-sm btn-primary">Run Command</a>
+                                <a href="{{ url('/dashboard/command/maintance-enable') }}" class="btn btn-sm btn-primary">Run Command</a>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                                     <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Disable Maintenance Mode
                                 </h3>
                                 <h4 class="text-muted">This commands disables maintenance mode. Bringing the site backup for all to access.</h4>
-                                <a href="{{ url('/staff_dashboard/command/maintance-disable') }}" class="btn btn-sm btn-primary">Run Command</a>
+                                <a href="{{ url('/dashboard/command/maintance-disable') }}" class="btn btn-sm btn-primary">Run Command</a>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                     <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Send Test Email
                                 </h3>
                                 <h4 class="text-muted">This commands tests your email configuration.</h4>
-                                <a href="{{ url('/staff_dashboard/command/test-email') }}" class="btn btn-sm btn-primary">Run Command</a>
+                                <a href="{{ url('/dashboard/command/test-email') }}" class="btn btn-sm btn-primary">Run Command</a>
                             </div>
                         </div>
                     </div>
