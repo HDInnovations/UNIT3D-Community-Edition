@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('backupManager') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.backups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
                   class="l-breadcrumb-item-link-title">@lang('backup.backup') @lang('backup.manager')</span>
         </a>
@@ -26,13 +26,13 @@
 @section('content')
     <div class="container box">
         <div class="box-body">
-            <button id="create-full-backup-button" href="{{ url('/dashboard/backup/create-full') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
+            <button id="create-full-backup-button" href="{{ route('staff.backups.full') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
                 <span class="ladda-label"><i class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_backup')</span>
             </button>
-            <button id="create-files-backup-button" href="{{ url('/dashboard/backup/create-files') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
+            <button id="create-files-backup-button" href="{{ route('staff.backups.files') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
                 <span class="ladda-label"><i class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_files_backup')</span>
             </button>
-            <button id="create-db-backup-button" href="{{ url('/dashboard/backup/create-db') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
+            <button id="create-db-backup-button" href="{{ route('staff.backups.database') }}" class="btn btn-primary ladda-button" data-style="zoom-in">
                 <span class="ladda-label"><i class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_db_backup')</span>
             </button>
             <br>
@@ -57,11 +57,11 @@
                         <td class="text-right">
                             @if ($b['download'])
                                 <a class="btn btn-xs btn-default"
-                                   href="{{ url('/dashboard/backup/download/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i
+                                   href="{{ route('staff.backups.download') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i
                                             class="{{ config('other.font-awesome') }} fa-cloud-download"></i> @lang('backup.download')</a>
                             @endif
                             <a class="btn btn-xs btn-danger" data-disk="{{ $b['disk'] }}" data-file="{{ $b['file_name'] }}" data-button-type="delete"
-                               href="{{ url('/dashboard/backup/delete') }}"><i
+                               href="{{ route('staff.backups.destroy') }}"><i
                                         class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('backup.delete')</a>
                         </td>
                     </tr>

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -422,49 +422,62 @@ Route::group(['middleware' => 'language'], function () {
     */
     Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
 
-        // Display Forum Index
+        // Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
+        // Display Forum Categories
+        Route::get('/category/{id}', 'ForumController@category')->name('forum_category');
+
+        // Posts System
+        Route::group(['prefix' => 'posts'], function () {
+            Route::post('/topic/{id}/reply', 'PostController@reply')->name('forum_reply');
+            Route::get('/posts/{id}/post-{postId}/edit', 'PostController@postEditForm')->name('forum_post_edit_form');
+            Route::post('/posts/{postId}/edit', 'PostController@postEdit')->name('forum_post_edit');
+            Route::get('/posts/{postId}/delete', 'PostController@postDelete')->name('forum_post_delete');
+        });
 
         // TODO (Alpha Order From This Point Down
         // Search Forums
         Route::get('/subscriptions', 'ForumController@subscriptions')->name('forum_subscriptions');
         Route::get('/latest/topics', 'ForumController@latestTopics')->name('forum_latest_topics');
         Route::get('/latest/posts', 'ForumController@latestPosts')->name('forum_latest_posts');
-
         Route::get('/search', 'ForumController@search')->name('forum_search');
         Route::get('/search', 'ForumController@search')->name('forum_search_form');
 
-        // Display Forum Categories
-        Route::get('/category/{id}', 'ForumController@category')->name('forum_category');
-        // Display Topics
-        Route::get('/forum/{id}', 'ForumController@display')->name('forum_display');
-        // Create New Topic
-        Route::get('/forum/{id}/new-topic', 'ForumController@addForm')->name('forum_new_topic_form');
-        Route::post('/forum/{id}/new-topic', 'ForumController@newTopic')->name('forum_new_topic');
-        // View Topic
-        Route::get('/topic/{id}', 'ForumController@topic')->name('forum_topic');
-        // Close Topic
-        Route::get('/topic/{id}/close', 'ForumController@closeTopic')->name('forum_close');
-        // Open Topic
-        Route::get('/topic/{id}/open', 'ForumController@openTopic')->name('forum_open');
-        //
-        Route::post('/posts/{id}/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
-        // Edit Post
-        Route::get('/posts/{id}/post-{postId}/edit', 'ForumController@postEditForm')->name('forum_post_edit_form');
-        Route::post('/posts/{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
-        // Delete Post
-        Route::get('/posts/{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
-        // Reply To Topic
-        Route::post('/topic/{id}/reply', 'ForumController@reply')->name('forum_reply');
-        // Edit Topic
-        Route::get('/topic/{id}/edit', 'ForumController@editForm')->name('forum_edit_topic_form');
-        Route::post('/topic/{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
-        // Delete Topic
-        Route::get('/topic/{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
-        // Pin Topic
-        Route::get('/topic/{id}/pin', 'ForumController@pinTopic')->name('forum_pin_topic');
-        // Unpin Topic
-        Route::get('/topic/{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
+        Route::group(['prefix' => 'topics'], function () {
+            // Display Topics
+            Route::get('/forum/{id}', 'TopicController@display')->name('forum_display');
+
+            // Create New Topic
+            Route::get('/forum/{id}/new-topic', 'TopicController@addForm')->name('forum_new_topic_form');
+            Route::post('/forum/{id}/new-topic', 'TopicController@newTopic')->name('forum_new_topic');
+            // View Topic
+            Route::get('/topic/{id}', 'TopicController@topic')->name('forum_topic');
+            // Close Topic
+            Route::get('/topic/{id}/close', 'TopicController@closeTopic')->name('forum_close');
+            // Open Topic
+            Route::get('/topic/{id}/open', 'TopicController@openTopic')->name('forum_open');
+            //
+            Route::post('/posts/{id}/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
+
+            // Edit Topic
+            Route::get('/topic/{id}/edit', 'TopicController@editForm')->name('forum_edit_topic_form');
+            Route::post('/topic/{id}/edit', 'TopicController@editTopic')->name('forum_edit_topic');
+            // Delete Topic
+            Route::get('/topic/{id}/delete', 'TopicController@deleteTopic')->name('forum_delete_topic');
+            // Pin Topic
+            Route::get('/topic/{id}/pin', 'TopicController@pinTopic')->name('forum_pin_topic');
+            // Unpin Topic
+            Route::get('/topic/{id}/unpin', 'TopicController@unpinTopic')->name('forum_unpin_topic');
+        });
+
+        // Topic Label System
+        Route::get('/topic/{id}/approved', 'ForumController@approvedTopic')->name('forum_approved')->middleware('modo');
+        Route::get('/topic/{id}/denied', 'ForumController@deniedTopic')->name('forum_denied')->middleware('modo');
+        Route::get('/topic/{id}/solved', 'ForumController@solvedTopic')->name('forum_solved')->middleware('modo');
+        Route::get('/topic/{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid')->middleware('modo');
+        Route::get('/topic/{id}/bug', 'ForumController@bugTopic')->name('forum_bug')->middleware('modo');
+        Route::get('/topic/{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion')->middleware('modo');
+        Route::get('/topic/{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented')->middleware('modo');
 
         // Like - Dislike System
         Route::any('/like/post/{postId}', 'LikeController@store')->name('like');
@@ -475,15 +488,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/unsubscribe/topic/{route}.{topic}', 'SubscriptionController@unsubscribeTopic')->name('unsubscribe_topic');
         Route::get('/subscribe/forum/{route}.{forum}', 'SubscriptionController@subscribeForum')->name('subscribe_forum');
         Route::get('/unsubscribe/forum/{route}.{forum}', 'SubscriptionController@unsubscribeForum')->name('unsubscribe_forum');
-
-        // Topic Label System
-        Route::get('/topic/{id}/approved', 'ForumController@approvedTopic')->name('forum_approved')->middleware('modo');
-        Route::get('/topic/{id}/denied', 'ForumController@deniedTopic')->name('forum_denied')->middleware('modo');
-        Route::get('/topic/{id}/solved', 'ForumController@solvedTopic')->name('forum_solved')->middleware('modo');
-        Route::get('/topic/{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid')->middleware('modo');
-        Route::get('/topic/{id}/bug', 'ForumController@bugTopic')->name('forum_bug')->middleware('modo');
-        Route::get('/topic/{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion')->middleware('modo');
-        Route::get('/topic/{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented')->middleware('modo');
     });
 
     /*
@@ -527,12 +531,12 @@ Route::group(['middleware' => 'language'], function () {
 
         // Backup System
         oute::group(['prefix' => 'backups'], function () {
-            Route::get('/', 'BackupController@index')->name('backupManager');
-            Route::post('/create-full', 'BackupController@create');
-            Route::post('/create-files', 'BackupController@createFilesOnly');
-            Route::post('/create-db', 'BackupController@createDatabaseOnly');
-            Route::get('/download/{file_name?}', 'BackupController@download');
-            Route::post('/delete', 'BackupController@delete');
+            Route::get('/', 'BackupController@index')->name('staff.backups.index');
+            Route::post('/full', 'BackupController@create')->name('staff.backups.create');
+            Route::post('/files', 'BackupController@files')->name('staff.backups.files');
+            Route::post('/database', 'BackupController@database')->name('staff.backups.database');
+            Route::get('/download/{file_name?}', 'BackupController@download')->name('staff.backups.download');
+            Route::post('/destroy', 'BackupController@destroy')->name('staff.backups.destroy');
         });
 
         // Ban System
@@ -574,11 +578,11 @@ Route::group(['middleware' => 'language'], function () {
 
         // Chat Management System
         Route::group(['prefix' => 'chat'], function () {
-            Route::get('/', 'ChatController@index')->name('chatManager');
-            Route::post('/room/add', 'ChatController@addChatroom')->name('addChatroom');
+            Route::get('/', 'ChatController@index')->name('staff.chat.index');
+            Route::post('/room/store', 'ChatController@addChatroom')->name('addChatroom');
             Route::post('/room/edit/{id}', 'ChatController@editChatroom')->name('editChatroom');
             Route::post('/room/delete/{id}', 'ChatController@deleteChatroom')->name('deleteChatroom');
-            Route::post('/status/add', 'ChatController@addChatStatus')->name('addChatStatus');
+            Route::post('/status/store', 'ChatController@addChatStatus')->name('addChatStatus');
             Route::post('/status/edit/{id}', 'ChatController@editChatStatus')->name('editChatStatus');
             Route::post('/status/delete/{id}', 'ChatController@deleteChatStatus')->name('deleteChatStatus');
         });

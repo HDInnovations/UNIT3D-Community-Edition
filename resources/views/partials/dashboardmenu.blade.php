@@ -17,7 +17,7 @@
             </li>
             @if (auth()->user()->group->is_owner)
                 <li>
-                    <a href="{{ route('backupManager') }}">
+                    <a href="{{ route('staff.backups.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup') @lang('backup.manager')
                     </a>
                 </li>
@@ -32,7 +32,7 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.chat-tools')
             </li>
             <li>
-                <a href="{{ route('chatManager') }}">
+                <a href="{{ route('staff.chat.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i> @lang('staff.chat')
                 </a>
             </li>

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -65,14 +65,16 @@ class BackupController extends Controller
         $data['backups'] = array_reverse($data['backups']);
         $data['title'] = 'Backups';
 
-        return view('Staff.backup.backup', $data);
+        return view('Staff.backup.index', $data);
     }
 
     /**
      * Create A Backup.
+     *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return string
-*/
+     */
     public function create(Request $request)
     {
         $user = $request->user();
@@ -97,10 +99,12 @@ class BackupController extends Controller
 
     /**
      * Create A Backup.
+     *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return string
-*/
-    public function createFilesOnly(Request $request)
+     */
+    public function files(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -124,10 +128,12 @@ class BackupController extends Controller
 
     /**
      * Create A Backup.
+     *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return string
-*/
-    public function createDatabaseOnly(Request $request)
+     */
+    public function database(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -182,9 +188,10 @@ class BackupController extends Controller
      * Deletes A Backup.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return string
      */
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -69,12 +69,12 @@ class ChatController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withErrors($v->errors());
         } else {
             $chatroom->save();
 
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withSuccess('Chatroom Successfully Added');
         }
     }
@@ -97,12 +97,12 @@ class ChatController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withErrors($v->errors());
         } else {
             $chatroom->save();
 
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withSuccess('Chatroom Successfully Modified');
         }
     }
@@ -119,7 +119,7 @@ class ChatController extends Controller
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->delete();
 
-        return redirect()->route('chatManager')
+        return redirect()->route('staff.chat.index')
             ->withSuccess('Chatroom Successfully Deleted');
     }
 
@@ -144,12 +144,12 @@ class ChatController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withSuccess('Chat Status Successfully Added');
         }
     }
@@ -176,12 +176,12 @@ class ChatController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
-            return redirect()->route('chatManager')
+            return redirect()->route('staff.chat.index')
                 ->withSuccess('Chat Status Successfully Modified');
         }
     }
@@ -198,7 +198,7 @@ class ChatController extends Controller
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
-        return redirect()->route('chatManager')
+        return redirect()->route('staff.chat.index')
             ->withSuccess('Chat Status Successfully Deleted');
     }
 }
