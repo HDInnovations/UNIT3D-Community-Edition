@@ -2,12 +2,12 @@
     <img src="https://i.imgur.com/PKv7tSA.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 <p align="center">
-    💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Sponsors</a></b>💛
+    💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Top Level Sponsors</a></b>💛
 </p>
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.8.29-f4645f.svg?style=flat-square" /></a> 
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-6-f4645f.svg?style=flat-square" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>	
 <a class="badge-align" href="https://www.codacy.com/manual/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HDInnovations/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
@@ -40,7 +40,7 @@
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.8.29, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 6, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -197,23 +197,42 @@ Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 
+## <a name="sponsors"></a> 💖 Top Level Sponsors (Much Love!)
+
+<table>
+    <tr>
+        <td align="center">
+            <a href=https://github.com/PyR8zdl"><img src="https://avatars2.githubusercontent.com/u/48926974?v=4" width="50px;" alt="PyR8zdl"/>
+                <br />
+                <sub><b>PyR8zdl</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Yop Level Sponsor">💖</a>
+        </td>
+        <td align="center">
+            <a href=https://github.com/Darkspac3"><img src="https://avatars2.githubusercontent.com/u/35001866?v=4" width="50px;" alt="Darkspac3"/>
+                <br />
+                <sub><b>Darkspac3</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Yop Level Sponsor">💖</a>
+        </td>
+    </tr>
+</table>
+
 ## <a name="contributors"></a> :blue_heart: Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
+Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="100px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Documentation">📖</a></td><td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="100px;" alt="Everett (Mike) Wiley"/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=poppabear8883" title="Code">💻</a></td><td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="100px;" alt="singularity43"/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=singularity43" title="Code">💻</a></td><td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td><td align="center"><a href="https://github.com/artyuum"><img src="https://avatars0.githubusercontent.com/u/17199757?v=4" width="100px;" alt="Artyum"/><br /><sub><b>Artyuum</b></sub></a><br /><a href="#design-artyuum" title="Design">🎨</a></td><td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="100px;" alt="Morgan Wong"/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td></tr></table>
+<table><tr><td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="50px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Documentation">📖</a></td><td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="50px;" alt="Everett (Mike) Wiley"/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=poppabear8883" title="Code">💻</a></td><td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="50px;" alt="singularity43"/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=singularity43" title="Code">💻</a></td><td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="50px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td><td align="center"><a href="https://github.com/artyuum"><img src="https://avatars0.githubusercontent.com/u/17199757?v=4" width="50px;" alt="Artyum"/><br /><sub><b>Artyuum</b></sub></a><br /><a href="#design-artyuum" title="Design">🎨</a></td><td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="50px;" alt="Morgan Wong"/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## <a name="thanks"></a> :heart: Special Thanks
 
-<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>
-<a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png"></a>
-<a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png"></a>
+<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png" width="50px;"></a>
+<a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png" width="50px;"></a>
+<a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" width="50px;"></a>
 
-
-## <a name="sponsors"></a> 💖 Sponsors (Much Love!)
-
-Coming Soon!
