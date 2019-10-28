@@ -530,7 +530,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Backup System
-        oute::group(['prefix' => 'backups'], function () {
+        Route::group(['prefix' => 'backups'], function () {
             Route::get('/', 'BackupController@index')->name('staff.backups.index');
             Route::post('/full', 'BackupController@create')->name('staff.backups.create');
             Route::post('/files', 'BackupController@files')->name('staff.backups.files');
