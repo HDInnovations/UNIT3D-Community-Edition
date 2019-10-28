@@ -92,7 +92,7 @@ class Post extends Model
      */
     public function setContentAttribute($value)
     {
-        $this->attributes['content'] = clean($value);
+        $this->attributes['content'] = htmlspecialchars($value);
     }
 
     /**

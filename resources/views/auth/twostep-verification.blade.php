@@ -125,17 +125,15 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-xs-8 col-xs-offset-2 text-center submit-container">
-                                        <button type="submit"
-                                                class="btn btn-lg btn-{{ $remainingAttemptsClass }} btn-block"
-                                                id="submit_verification" tabindex="5">
-                                            <i class="glyphicon glyphicon-check" aria-hidden="true"></i>
+                                        <button type="submit" class="btn btn-lg btn-{{ $remainingAttemptsClass }} btn-block" id="submit_verification" tabindex="5">
                                             @lang('auth.verifyButton')
                                         </button>
                                     </div>
                                     <div class="col-xs-12 text-center">
                                         <p class="text-{{ $remainingAttemptsClass }}">
                                             <small>
-                                                <span id="remaining_attempts">{{ $remainingAttempts }}</span> {{ trans_choice('auth.attemptsRemaining', $remainingAttempts) }}
+                                                <span id="remaining_attempts">{{ $remainingAttempts }}</span> 
+                                                {{ trans_choice('auth.attemptsRemaining', $remainingAttempts) }}
                                             </small>
                                         </p>
                                     </div>
@@ -207,6 +205,11 @@
       });
       $("#submit_verification").click(function(event) {
         event.preventDefault();
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
         var formData = $('#verification_form').serialize();
         $.ajax({
           url: '/twostep/verify',
@@ -228,16 +231,16 @@
                 case 0:
                   submitTrigger.addClass('btn-danger');
                   Swal.fire(
-                    "{{ trans('laravel2step::laravel-verification.verificationLockedTitle') }}",
-                    "{{ trans('laravel2step::laravel-verification.verificationLockedMessage') }}",
+                    "{{ trans('auth.verificationLockedTitle') }}",
+                    "{{ trans('auth.verificationLockedMessage') }}",
                     'error'
                   );
                   break;
                 case 1:
                   submitTrigger.addClass('btn-danger');
                   Swal.fire(
-                    "{{ trans('laravel2step::laravel-verification.verificationWarningTitle') }}",
-                    "{{ trans('laravel2step::laravel-verification.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire,]) }}",
+                    "{{ trans('auth.verificationWarningTitle') }}",
+                    "{{ trans('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire,]) }}",
                     'error'
                   );
                   break;
@@ -252,7 +255,7 @@
                   break;
               }
               if (remainingAttempts === 0) {
-                $('#verification_status_title').html('<h3>{{ trans('laravel2step::laravel-verification.titleFailed') }}</h3>');
+                $('#verification_status_title').html('<h3>{{ trans('auth.titleFailed') }}</h3>');
                 varificationForm.fadeOut(100, function() {
                   $('#failed_login_alert').show();
                   setTimeout(function(){
@@ -274,6 +277,11 @@
     <script type="text/javascript" nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
       $("#resend_code_trigger").click(function(event) {
         event.preventDefault();
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
         var self = $(this);
         var resultStatus;
         var resultData;
@@ -311,7 +319,7 @@
             allowOutsideClick: false,
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-lg btn-' + status,
-            confirmButtonText: "{{ trans('laravel2step::laravel-verification.verificationModalConfBtn') }}",
+            confirmButtonText: "{{ trans('auth.verificationModalConfBtn') }}",
           });
           self.removeClass('disabled').attr("disabled", false);
         }

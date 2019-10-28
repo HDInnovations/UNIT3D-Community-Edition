@@ -971,7 +971,7 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute($value)
     {
-        $this->attributes['signature'] = clean($value);
+        $this->attributes['signature'] = htmlspecialchars($value);
     }
 
     /**
@@ -995,7 +995,7 @@ class User extends Authenticatable
      */
     public function setAboutAttribute($value)
     {
-        $this->attributes['about'] = clean($value);
+        $this->attributes['about'] = htmlspecialchars($value);
     }
 
     /**

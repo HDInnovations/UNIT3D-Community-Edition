@@ -106,7 +106,7 @@ class Message extends Model
      */
     public function setMessageAttribute($value)
     {
-        $this->attributes['message'] = clean($value);
+        $this->attributes['message'] = htmlspecialchars($value);
     }
 
     /**

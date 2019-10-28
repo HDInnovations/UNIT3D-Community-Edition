@@ -944,3 +944,9 @@ pre {
 .page-content > ul, .page-content > ul> li > ul > li, .page-content > ol > li > ul > li {
     color: var(--text-color);
 }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] {
+    background-color:hsla(0, 0%, 100%, .16);
+    color: #fff;
+    border: 2px solid rgba(0,0,0,.56)
+}
