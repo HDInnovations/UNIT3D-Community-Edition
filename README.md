@@ -203,7 +203,7 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 <table>
     <tr>
         <td align="center">
-            <a href=https://github.com/PyR8zdl"><img src="https://avatars2.githubusercontent.com/u/48926974?v=4" width="50px;" alt="PyR8zdl"/>
+            <a href="https://github.com/PyR8zdl"><img src="https://avatars2.githubusercontent.com/u/48926974?v=4" width="50px;" alt="PyR8zdl"/>
                 <br />
                 <sub><b>PyR8zdl</b></sub>
             </a>
@@ -211,7 +211,7 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
-            <a href=https://github.com/Darkspac3"><img src="https://avatars2.githubusercontent.com/u/35001866?v=4" width="50px;" alt="Darkspac3"/>
+            <a href="https://github.com/Darkspac3"><img src="https://avatars2.githubusercontent.com/u/35001866?v=4" width="50px;" alt="Darkspac3"/>
                 <br />
                 <sub><b>Darkspac3</b></sub>
             </a>
@@ -219,7 +219,7 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
-            <a href=https://github.com/OsamaBinLightBulb"><img src="https://avatars2.githubusercontent.com/u/46361079?v=4" width="50px;" alt="OsamaBinLightBulb"/>
+            <a href="https://github.com/OsamaBinLightBulb"><img src="https://avatars2.githubusercontent.com/u/46361079?v=4" width="50px;" alt="OsamaBinLightBulb"/>
                 <br />
                 <sub><b>OsamaBinLightBulb</b></sub>
             </a>
@@ -227,7 +227,7 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
         </td>
         <td align="center">
-            <a href=https://github.com/clandestine8"><img src="https://avatars0.githubusercontent.com/u/5833609?v=4" width="50px;" alt="clandestine8"/>
+            <a href="https://github.com/clandestine8"><img src="https://avatars0.githubusercontent.com/u/5833609?v=4" width="50px;" alt="clandestine8"/>
                 <br />
                 <sub><b>clandestine8</b></sub>
             </a>
