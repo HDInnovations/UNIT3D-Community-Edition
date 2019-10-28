@@ -2,7 +2,7 @@
     <img src="https://i.imgur.com/PKv7tSA.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 <p align="center">
-    🎉<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Top Level Sponsors</a></b>🎉
+    🎉<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Sponsors</a></b>🎉
 </p>
 <hr>
 
@@ -197,7 +197,8 @@ Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 
-## <a name="sponsors"></a> 💖 Top Level Sponsors (Much Love!)
+## <a name="sponsors"></a> 😍 Sponsors (Much Love!)
+<h3>Top Level Tier = 💖 , Tier 4 = 💛, Tier 3 = 💚, Tier 2 = 💜, Tier 1 = 💙</h3>
 
 <table>
     <tr>
@@ -207,7 +208,7 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
                 <sub><b>PyR8zdl</b></sub>
             </a>
             <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Yop Level Sponsor">💖</a>
+            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
             <a href=https://github.com/Darkspac3"><img src="https://avatars2.githubusercontent.com/u/35001866?v=4" width="50px;" alt="Darkspac3"/>
@@ -215,10 +216,28 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
                 <sub><b>Darkspac3</b></sub>
             </a>
             <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Yop Level Sponsor">💖</a>
+            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
+        </td>
+        <td align="center">
+            <a href=https://github.com/OsamaBinLightBulb"><img src="https://avatars2.githubusercontent.com/u/46361079?v=4" width="50px;" alt="OsamaBinLightBulb"/>
+                <br />
+                <sub><b>OsamaBinLightBulb</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
+        </td>
+        <td align="center">
+            <a href=https://github.com/clandestine8"><img src="https://avatars0.githubusercontent.com/u/5833609?v=4" width="50px;" alt="clandestine8"/>
+                <br />
+                <sub><b>clandestine8</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
         </td>
     </tr>
 </table>
+
+<h5>Thank you to all out Tier 1, Tier 2 and Tier 3 Sponsors as well. While your not mentioned in the README I do appreciate your sponsorship!</h5>
 
 ## <a name="contributors"></a> ✍️ Contributors
 
