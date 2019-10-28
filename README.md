@@ -2,7 +2,7 @@
     <img src="https://i.imgur.com/PKv7tSA.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 <p align="center">
-    💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Top Level Sponsors</a></b>💛
+    🎉<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Top Level Sponsors</a></b>🎉
 </p>
 <hr>
 
@@ -17,7 +17,7 @@
 </p>
 
 
-## Table of Contents
+## 📝 Table of Contents
 
 1. [Introduction](#introduction)
 2. [Some Features](#features)
@@ -38,7 +38,7 @@
 15. [Sponsors](#sponsors)
 
 
-## <a name="introduction"></a> :page_facing_up: Introduction
+## <a name="introduction"></a> 🧐 Introduction
 
 I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 6, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
@@ -220,7 +220,7 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
     </tr>
 </table>
 
-## <a name="contributors"></a> :blue_heart: Contributors
+## <a name="contributors"></a> ✍️ Contributors
 
 Thanks goes to these wonderful people:
 
@@ -230,7 +230,7 @@ Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-## <a name="thanks"></a> :heart: Special Thanks
+## <a name="thanks"></a> 🎉 Special Thanks
 
 <a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png" width="50px;"></a>
 <a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png" width="50px;"></a>
