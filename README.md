@@ -62,7 +62,7 @@ UNIT3D currently offers the following features:
   - RSS System
   - and MUCH MORE!
 
-## <a name="requirements"></a> :white_check_mark: Requirements
+## <a name="requirements"></a> ☑️ Requirements
 
 - A Web server (NGINX is recommended)
 - PHP 7.1.3 + is required (7.2 for Argon2 Support)
@@ -87,7 +87,7 @@ Traffic: Unlimited
 <b>Is Under $50 A Month</b>
 </pre>
 
-## <a name="installation"></a> :computer: Installation
+## <a name="installation"></a> 🖥️ Installation
 ```
 NOTE: If you are running UNIT3D on a non HTTPS instance you MUST change the following configs.
 
@@ -113,11 +113,11 @@ https://www.youtube.com/watch?v=f2tiMWZ3KbA
 ### <a name="manual-install"></a> Manual Install
 If you rather setup UNIT3D manually you can follow the instructions here: http://docs.unit3d.org/manual_install.html
 
-## <a name="updating"></a> :book: Documentation
+## <a name="updating"></a> 📖 Documentation
 Repo - https://github.com/HDInnovations/UNIT3D-Docs
 Site - http://docs.unit3d.org
 
-## <a name="docs"></a> :computer: Updating
+## <a name="docs"></a> 🖥️ Updating
 `php artisan git:update`
 
 Video Tutorial Can Be Seen Here:
@@ -138,11 +138,11 @@ Here are some packages that are built for UNIT3D.
  1.9.3       |  Active Support :rocket: | >= 7.3
  1.0 to 1.9.2|  End Of Life :skull:     | >= 7.1.3
 
-## <a name="security"></a> :lock: Security
+## <a name="security"></a> 🔐 Security
 
 If you discover any security related issues, please email unit3d@protonmail.com instead of using the issue tracker.
 
-## <a name="contributing"></a> :muscle: Contributing
+## <a name="contributing"></a> ✍️ Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
 
@@ -173,7 +173,7 @@ UNIT3D is open-sourced software licensed under the [GNU General Public License v
 ```
 </b>
 
-## <a name="demo"></a> :computer: Demo
+## <a name="demo"></a>  🖥️ Demo
 
 URL: https://unit3d.org
 
@@ -183,7 +183,7 @@ Password: UNIT3D
 
 Demo is reset every 48 hours!
 
-## <a name="sponsor"></a> :star: Sponsor UNIT3D (HDInnovations / HDVinnie)
+## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
 https://github.com/sponsors/HDVinnie
 
