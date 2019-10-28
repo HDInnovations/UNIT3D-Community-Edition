@@ -92,7 +92,7 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.torrent-tools')
             </li>
             <li>
-                <a href="{{ route('sstaff.moderation.index') }}">
+                <a href="{{ route('staff.moderation.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-moderation')
                 </a>
             </li>
