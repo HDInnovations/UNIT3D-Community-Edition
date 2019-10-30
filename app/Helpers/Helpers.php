@@ -1,8 +1,5 @@
 <?php
-
-use Illuminate\Support\Str;
-
-/*
+/**
  * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -13,6 +10,9 @@ use Illuminate\Support\Str;
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
+
+use Illuminate\Support\Str;
+
 if (! function_exists('appurl')) {
     function appurl()
     {
@@ -25,7 +25,7 @@ if (! function_exists('hrefProfile')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/{$user->username}.{$user->id}";
+        return "{$appurl}/users/{$user->username}";
     }
 }
 
@@ -34,7 +34,7 @@ if (! function_exists('hrefArticle')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/articles/{$article->slug}.{$article->id}";
+        return "{$appurl}/articles/{$article->id}";
     }
 }
 
@@ -43,7 +43,7 @@ if (! function_exists('hrefTorrent')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
+        return "{$appurl}/torrents/{$torrent->id}";
     }
 }
 
@@ -51,9 +51,8 @@ if (! function_exists('hrefRequest')) {
     function hrefRequest($torrentRequest)
     {
         $appurl = appurl();
-        $slug = Str::slug($torrentRequest->name);
 
-        return "{$appurl}/request/{$torrentRequest->id}";
+        return "{$appurl}/requests/{$torrentRequest->id}";
     }
 }
 
@@ -62,7 +61,7 @@ if (! function_exists('hrefPoll')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/poll/{$poll->slug}";
+        return "{$appurl}/polls/{$poll->slug}";
     }
 }
 

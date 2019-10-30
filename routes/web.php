@@ -250,28 +250,28 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
             Route::get('/filter', 'TorrentController@faceted');
             Route::get('/filterSettings', 'TorrentController@filtered');
-            Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
-            Route::get('/torrents/{id}{hash?}', 'TorrentController@torrent')->name('torrent');
-            Route::get('/torrents/{id}/peers', 'TorrentController@peers')->name('peers');
-            Route::get('/torrents/{id}/history', 'TorrentController@history')->name('history');
+            Route::get('/', 'TorrentController@torrents')->name('torrents');
+            Route::get('/{id}{hash?}', 'TorrentController@torrent')->name('torrent');
+            Route::get('/{id}/peers', 'TorrentController@peers')->name('peers');
+            Route::get('/{id}/history', 'TorrentController@history')->name('history');
             Route::get('/upload/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
             Route::post('/upload', 'TorrentController@upload')->name('upload');
             Route::get('/download_check/{id}', 'TorrentController@downloadCheck')->name('download_check');
             Route::get('/download/{id}', 'TorrentController@download')->name('download');
-            Route::get('/torrents/cards', 'TorrentController@cardLayout')->name('cards');
-            Route::get('/torrents/groupings', 'TorrentController@groupingLayout')->name('groupings');
-            Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
-            Route::get('/torrents/{id}/edit', 'TorrentController@editForm')->name('edit_form');
-            Route::post('/torrents/{id}/edit', 'TorrentController@edit')->name('edit');
-            Route::get('/torrents/{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
-            Route::get('/torrents/{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
-            Route::get('/torrents/{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
-            Route::get('/torrents/{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
-            Route::get('/torrents/{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
-            Route::get('/torrents/{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
-            Route::post('/torrents/{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
-            Route::get('/torrents/{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
-            Route::get('/torrents/similar/{category_id}.{tmdb}', 'TorrentController@similar')->name('torrents.similar');
+            Route::get('/cards', 'TorrentController@cardLayout')->name('cards');
+            Route::get('/groupings', 'TorrentController@groupingLayout')->name('groupings');
+            Route::post('/delete', 'TorrentController@deleteTorrent')->name('delete');
+            Route::get('/{id}/edit', 'TorrentController@editForm')->name('edit_form');
+            Route::post('/{id}/edit', 'TorrentController@edit')->name('edit');
+            Route::get('/{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
+            Route::get('/{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
+            Route::get('/{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
+            Route::get('/{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
+            Route::get('/{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
+            Route::get('/{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
+            Route::post('/{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
+            Route::get('/{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
+            Route::get('/similar/{category_id}.{tmdb}', 'TorrentController@similar')->name('torrents.similar');
         });
 
         // Warnings System
@@ -370,10 +370,10 @@ Route::group(['middleware' => 'language'], function () {
         // Invite System
         Route::group(['prefix' => 'invites'], function () {
             Route::name('invites.')->group(function () {
-                Route::get('/{username}', 'InviteController@index')->name('invites.index');
-                Route::get('/create', 'InviteController@create')->name('invites.create');
-                Route::post('/store', 'InviteController@store')->name('invites.store');
-                Route::post('/{id}/send', 'InviteController@send')->name('invites.send');
+                Route::get('/{username}', 'InviteController@index')->name('index');
+                Route::get('/create', 'InviteController@create')->name('create');
+                Route::post('/store', 'InviteController@store')->name('store');
+                Route::post('/{id}/send', 'InviteController@send')->name('send');
             });
         });
 
