@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Articles - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Articles - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
@@ -18,7 +18,7 @@
     <li class="active">
         <a href="{{ route('staff.articles.update', ['id' => $article->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Article Edit</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Article @lang('common.edit')</span>
         </a>
     </li>
 @endsection

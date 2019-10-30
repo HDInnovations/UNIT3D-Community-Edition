@@ -32,10 +32,10 @@
                     <thead>
                     <tr>
                         <th>@lang('common.no')</th>
-                        <th>User</th>
+                        <th>@lang('common.user')</th>
                         <th>IP</th>
                         <th>Created On</th>
-                        <th>Action</th>
+                        <th>@lang('common.action')</th>
                     </tr>
                     </thead>
                     <tbody>

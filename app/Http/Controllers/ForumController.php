@@ -331,13 +331,13 @@ class ForumController extends Controller
     }
 
     /**
-     * Show The Forum Category.
+     * Show Forums And Topics Inside.
      *
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category($id)
+    public function show($id)
     {
         // Find the topic
         $forum = Forum::findOrFail($id);
@@ -350,21 +350,21 @@ class ForumController extends Controller
         $num_topics = Topic::count();
 
         // Check if this is a category or forum
-        if ($forum->parent_id != 0) {
-            return redirect()->route('forum_display', ['id' => $forum->id]);
+        if ($forum->parent_id == 0) {
+            return redirect()->route('forums.categories.show', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
-        $category = Forum::findOrFail($forum->id);
+        $category = Forum::findOrFail($forum->parent_id);
         if ($category->getPermission()->show_forum != true) {
-            return redirect()->route('forum_index')
-                ->withErrors('You Do Not Have Access To This Category!');
+            return redirect()->route('forums.index')
+                ->withErrors('You Do Not Have Access To This Forum!');
         }
 
         // Fetch topics->posts in descending order
-        $topics = $forum->sub_topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
+        $topics = $forum->topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
-        return view('forum.category', [
+        return view('forum.display', [
             'forum'    => $forum,
             'topics'   => $topics,
             'category' => $category,

@@ -34,50 +34,6 @@ use App\Achievements\UserMadeFirstPost;
 class TopicController extends Controller
 {
     /**
-     * Show Forums And Topics Inside.
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function display($id)
-    {
-        // Find the topic
-        $forum = Forum::findOrFail($id);
-
-        // Total Forums Count
-        $num_forums = Forum::count();
-        // Total Posts Count
-        $num_posts = Post::count();
-        // Total Topics Count
-        $num_topics = Topic::count();
-
-        // Check if this is a category or forum
-        if ($forum->parent_id == 0) {
-            return redirect()->route('forum_category', ['id' => $forum->id]);
-        }
-
-        // Check if the user has permission to view the forum
-        $category = Forum::findOrFail($forum->parent_id);
-        if ($category->getPermission()->show_forum != true) {
-            return redirect()->route('forum_index')
-                ->withErrors('You Do Not Have Access To This Forum!');
-        }
-
-        // Fetch topics->posts in descending order
-        $topics = $forum->topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
-
-        return view('forum.display', [
-            'forum'    => $forum,
-            'topics'   => $topics,
-            'category' => $category,
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
-        ]);
-    }
-
-    /**
      * Show The Topic.
      *
      * @param $id
@@ -104,7 +60,7 @@ class TopicController extends Controller
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
             // Redirect him to the forum index
-            return redirect()->route('forum_index')
+            return redirect()->route('forums.index')
                 ->withErrors('You Do Not Have Access To Read This Topic!');
         }
 
@@ -136,7 +92,7 @@ class TopicController extends Controller
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
-            return redirect()->route('forum_index')
+            return redirect()->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
@@ -163,7 +119,7 @@ class TopicController extends Controller
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
-            return redirect()->route('forum_index')
+            return redirect()->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
@@ -193,7 +149,7 @@ class TopicController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('forum_index')
+            return redirect()->route('forums.index')
                 ->withErrors($v->errors());
         } else {
             $topic->save();
@@ -210,7 +166,7 @@ class TopicController extends Controller
             ]);
 
             if ($v->fails()) {
-                return redirect()->route('forum_index')
+                return redirect()->route('forums.index')
                     ->withErrors($v->errors());
             } else {
                 $post->save();
@@ -354,7 +310,7 @@ class TopicController extends Controller
         $posts->delete();
         $topic->delete();
 
-        return redirect()->route('forum_display', ['id' => $topic->forum->id])
+        return redirect()->route('forums.show', ['id' => $topic->forum->id])
             ->withSuccess('This Topic Is Now Deleted!');
     }
 

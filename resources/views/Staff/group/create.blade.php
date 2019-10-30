@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Groups</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Groups</span>
         </a>
     </li>
     <li class="active">
@@ -28,8 +28,8 @@
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
+                        <th>@lang('common.name')</th>
+                        <th>@lang('common.position')</th>
                         <th>Level</th>
                         <th>Color</th>
                         <th>Icon</th>
@@ -51,12 +51,12 @@
                     <tr>
                         <td>
                             <label>
-                                <input type="text" name="name" value="" placeholder="Name" class="form-control"/>
+                                <input type="text" name="name" value="" placeholder="@lang('common.name')" class="form-control"/>
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="number" name="position" value="" placeholder="Position"
+                                <input type="number" name="position" value="" placeholder="@lang('common.position')"
                                        class="form-control"/>
                             </label>
                         </td>

@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Staff Dashboard - {{ config('other.title') }}</title>
+    <title>@lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Staff Dashboard">
+    <meta name="description" content="@lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
 @endsection
@@ -21,7 +21,7 @@
         <div class="box">
             <div class="header gradient pink">
                 <div class="inner_content">
-                    <h1>Staff Dashboard</h1>
+                    <h1>@lang('staff.staff-dashboard')</h1>
                 </div>
             </div>
         </div>

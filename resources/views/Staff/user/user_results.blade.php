@@ -1,27 +1,27 @@
 @extends('layout.default')
 
 @section('title')
-    <title>User Search Results - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>@lang('common.user') Search Results - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="User Search Results - Staff Dashboard">
+    <meta name="description" content="User Search Results - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Search</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Search</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_results') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Search Results</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Search Results</span>
         </a>
     </li>
 @endsection
@@ -42,7 +42,7 @@
                         <thead>
                         <tr>
                             <th class="hidden-xs hidden-sm"></th>
-                            <th>Name and Role</th>
+                            <th>@lang('common.name') and Role</th>
                             <th class="hidden-xs hidden-sm">E-Mail</th>
                             <th>ID</th>
                             <th>Settings</th>
@@ -69,7 +69,7 @@
                                     </td>
                                     <td class="action-links">
                                         <a href="{{ route('user_setting', ['username' => $user->username]) }}"
-                                           class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
+                                           class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> @lang('common.edit') Profile
                                         </a>
                                     </td>
                                 @endif

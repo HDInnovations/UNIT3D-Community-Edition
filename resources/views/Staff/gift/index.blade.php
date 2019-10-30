@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Gifting - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Gifting - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Gifting - Staff Dashboard">
+    <meta name="description" content="Gifting - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Gifts</h2>
-        <form action="{{ route('staff.gifts.store') }}" method="post">
+        <form action="{{ route('staff.gifts.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="users">@lang('common.username')</label>

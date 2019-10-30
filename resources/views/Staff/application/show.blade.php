@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Application - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Application - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Application - Staff Dashboard">
+    <meta name="description" content="Application - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
@@ -123,13 +123,13 @@
                     @else
                     <tr>
                         <td>
-                            <strong>Action</strong>
+                            <strong>@lang('common.action')</strong>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#approve-application"><i class="{{ config('other.font-awesome') }} fa-check"></i> Approve</button>
 
                             <div id="approve-application" class="modal fade" role="dialog">
-                                <form method="post" action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
+                                <form method="POST" action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
                                 @csrf
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -159,7 +159,7 @@
                             <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deny-application"><i class="{{ config('other.font-awesome') }} fa-times"></i> Reject</button>
 
                             <div id="deny-application" class="modal fade" role="dialog">
-                                <form method="post" action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
+                                <form method="POST" action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
                                 @csrf
                                 <div class="modal-dialog">
                                     <div class="modal-content">

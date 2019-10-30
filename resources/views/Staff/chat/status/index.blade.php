@@ -1,10 +1,9 @@
-@@ -1,158 +0,0 @@
 @extends('layout.default')
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -16,7 +15,7 @@
 
 @section('content')
     <div class="container box">
-        <h2>User Chat Statuses</h2>
+        <h2>@lang('common.user') Chat Statuses</h2>
 
         <button class="btn btn-primary" data-toggle="modal" data-target="#addChatStatus">Add New Chat Status</button>
         {{--Add Chatroom Modal--}}
@@ -32,13 +31,13 @@
                         @csrf
                         <div class="modal-body"  style="text-align: center;">
                             <h4>Please fill in all fields for the chat status you would like to create.</h4>
-                            <label for="chatstatus_name"> Name:</label> <label for="name"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter Name Here..." required>
+                            <label for="chatstatus_name"> @lang('common.name'):</label> <label for="name"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter @lang('common.name') Here..." required>
                             <label for="chatstatus_color"> Color:</label> <label for="color"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="color" id="color" placeholder="Enter Hex Color Code Here..." required>
                             <label for="chatstatus_icon"> Icon:</label> <label for="icon"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="icon" id="icon" placeholder="Enter Font Awesome Code Here..." required>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-md btn-default" data-dismiss="modal" >Cancel</button>
+                            <button class="btn btn-md btn-default" data-dismiss="modal" >@lang('common.cancel')</button>
                             <input class="btn btn-md btn-primary" type="submit">
                         </div>
                     </form>
@@ -52,10 +51,10 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>@lang('common.name')</th>
                     <th>Color</th>
                     <th>Icon</th>
-                    <th>Action</th>
+                    <th>@lang('common.action')</th>
                 </tr>
                 </thead>
                 <tbody>

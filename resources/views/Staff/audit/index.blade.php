@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Activity Log - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Activity Log - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Activity Log - Staff Dashboard">
+    <meta name="description" content="Activity Log - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -36,10 +36,10 @@
                         <th>URL</th>
                         <th>Method</th>
                         <th>IP</th>
-                        <th>User Agent</th>
+                        <th>@lang('common.user') Agent</th>
                         <th>Username</th>
                         <th>Created On</th>
-                        <th>Action</th>
+                        <th>@lang('common.action')</th>
                     </tr>
                     </thead>
                     <tbody>

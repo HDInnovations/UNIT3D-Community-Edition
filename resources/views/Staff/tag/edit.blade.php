@@ -3,30 +3,30 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.tags.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-types')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.tags.edit', ['id' => $tag->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Tag</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Tag</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Edit A Torrent Tag (Genre)</h2>
+        <h2>@lang('common.edit') A Torrent Tag (Genre)</h2>
         <form role="form" method="POST" action="{{ route('staff.types.update', ['id' => $tag->id]) }}">
             @csrf
 
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">@lang('common.name')</label>
                 <label>
                     <input type="text" class="form-control" name="name" value="{{ $tag->name }}">
                 </label>

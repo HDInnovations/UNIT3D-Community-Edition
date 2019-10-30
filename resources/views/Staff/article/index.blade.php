@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Articles - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Articles - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -28,7 +28,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Date</th>
-                <th>Action</th>
+                <th>@lang('common.action')</th>
             </tr>
             </thead>
             <tbody>
@@ -42,10 +42,12 @@
                     </td>
                     <td>{{ $article->created_at->toDayDateTimeString() }}</td>
                     <td>
-                        <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}"
-                           class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff.articles.destroy', ['id' => $article->id]) }}"
-                           class="btn btn-danger">Delete</a>
+                        <form action="{{ route('staff.articles.destroy', ['id' => $article->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
+                            <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

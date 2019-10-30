@@ -32,7 +32,7 @@
             <div class="row mb-20">
                 <div class="col-md-12">
                     <form action="{{ route('wish-store', ['uid' => auth()->user()->id]) }}"
-                          method="post"
+                          method="POST"
                           class="form-inline pull-right">
 
                         @csrf

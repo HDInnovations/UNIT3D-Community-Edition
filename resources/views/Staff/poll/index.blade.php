@@ -22,7 +22,7 @@
             <tr>
                 <th>Title</th>
                 <th>Date</th>
-                <th>Action</th>
+                <th>@lang('common.action')</th>
             </tr>
             </thead>
             <tbody>
@@ -31,8 +31,8 @@
                     <td><a href="{{ url('/dashboard/poll/' . $poll->id) }}">{{ $poll->title }}</a></td>
                     <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
                     <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="#" class="btn btn-warning">@lang('common.edit')</a>
+                        <a href="#" class="btn btn-danger">@lang('common.delete')</a>
                     </td>
                 </tr>
             @endforeach

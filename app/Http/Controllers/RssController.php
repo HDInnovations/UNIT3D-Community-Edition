@@ -78,7 +78,8 @@ class RssController extends Controller
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
-            'user'           => $user, ]);
+            'user'           => $user,
+        ]);
     }
 
     /**

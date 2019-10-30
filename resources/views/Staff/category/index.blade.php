@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Categories</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-categories')</span>
         </a>
     </li>
 @endsection
@@ -22,8 +22,8 @@
             <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th>Position</th>
-                <th>Name</th>
+                <th>@lang('common.position')</th>
+                <th>@lang('common.name')</th>
                 <th>Icon</th>
                 <th>Image</th>
                 <th>Movie Meta</th>
@@ -31,7 +31,7 @@
                 <th>Game Meta</th>
                 <th>Music Meta</th>
                 <th>No Meta</th>
-                <th>Action</th>
+                <th>@lang('common.action')</th>
             </tr>
             </thead>
             <tbody>
@@ -90,12 +90,12 @@
                     </td>
                     <td>
                         <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}" class="btn btn-warning">
-                            Edit
+                            @lang('common.edit')
                         </a>
                         <form action="{{ route('staff.categories.destroy', ['id' => $category->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
                         </form>
                     </td>
                 </tr>

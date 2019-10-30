@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-	<title>Edit Playlist - {{ config('other.title') }}</title>
+	<title>@lang('common.edit') Playlist - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-	<meta name="description" content="Edit Playlist">
+	<meta name="description" content="@lang('common.edit') Playlist">
 @endsection
 
 @section('breadcrumb')
@@ -16,7 +16,7 @@
 	</li>
 	<li>
 		<a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-			<span itemprop="title" class="l-breadcrumb-item-link-title">Edit Playlist</span>
+			<span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Playlist</span>
 		</a>
 	</li>
 @endsection
@@ -28,7 +28,7 @@
 			      enctype="multipart/form-data">
 				@csrf
 				@method('PATCH')
-				<h2 class="text-center">Edit Playlist</h2>
+				<h2 class="text-center">@lang('common.edit') Playlist</h2>
 				<div class="form-group">
 					<label for="name">@lang('torrent.title')</label>
 					<input type="text" name="name" class="form-control" value="{{ $playlist->name }}" required>

@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
@@ -14,7 +14,7 @@
     <li class="active">
         <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Page</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Page</span>
         </a>
     </li>
 @endsection
@@ -25,7 +25,7 @@
         <form role="form" method="POST" action="{{ route('staff.pages.update',['id' => $page->id]) }}">
             @csrf
             <div class="form-group">
-                <label for="name">Page Name</label>
+                <label for="name">Page @lang('common.name')</label>
                 <label>
                     <input type="text" name="name" class="form-control" value="{{ $page->name }}">
                 </label>

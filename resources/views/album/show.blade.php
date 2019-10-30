@@ -29,7 +29,7 @@
                      src="{{ url('files/img/' . $album->cover_image) }}"
                      height="175px" width="auto" style="margin-right: 20px;">
                 <div class="media-body">
-                    <h2 class="media-heading">Album Name:</h2>
+                    <h2 class="media-heading">Album @lang('common.name'):</h2>
                     <p class="text-bold">{{ $album->name }}</p>
                     <div class="media">
                         <h2 class="media-heading">Album Description:</h2>
@@ -40,7 +40,7 @@
                         @if (auth()->user()->group->is_modo || auth()->user()->id == $album->user_id && Carbon\Carbon::now()->lt($album->created_at->addDay()))
                         <a href="{{ route('albums.destroy', ['id' => $album->id]) }}"
                            onclick="return confirm('Are you sure?')">
-                            <button type="button" class="btn btn-danger btn-md">Delete Album</button>
+                            <button type="button" class="btn btn-danger btn-md">@lang('common.delete') Album</button>
                         </a>
                         @endif
                     </div>

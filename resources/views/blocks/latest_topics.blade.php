@@ -19,7 +19,7 @@
                     @if ($topic->viewable())
                         <tr>
                             <td>
-                                <a href="{{ route('forum_display', ['id' => $topic->forum->id]) }}">
+                                <a href="{{ route('forums.show', ['id' => $topic->forum->id]) }}">
                                     {{ $topic->forum->name }}
                                 </a>
                             </td>

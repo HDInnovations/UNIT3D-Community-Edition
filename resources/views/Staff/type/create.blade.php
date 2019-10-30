@@ -3,12 +3,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.types.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-types')</span>
         </a>
     </li>
     <li class="active">
@@ -24,13 +24,13 @@
         <form role="form" method="POST" action="{{ route('staff.types.store') }}">
         @csrf
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">@lang('common.name')</label>
             <label>
                 <input type="text" class="form-control" name="name">
             </label>
         </div>
         <div class="form-group">
-            <label for="name">Position</label>
+            <label for="name">@lang('common.position')</label>
             <label>
                 <input type="text" class="form-control" name="position">
             </label>

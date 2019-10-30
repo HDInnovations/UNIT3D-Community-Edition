@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Failed Login Log - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Failed Login Log - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Invites Log - Staff Dashboard">
+    <meta name="description" content="Invites Log - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -34,7 +34,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>User ID</th>
+                            <th>@lang('common.user') ID</th>
                             <th>Username</th>
                             <th>IP Address</th>
                             <th>Created On</th>

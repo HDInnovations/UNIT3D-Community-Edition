@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
@@ -61,7 +61,7 @@
                         if(in_array($r->id,$forum_neos)) {
                     @endphp
                     <tr>
-                        <td class="f-display-topic-icon"><a href="{{ route('forum_display', ['id' => $r->id]) }}"><span
+                        <td class="f-display-topic-icon"><a href="{{ route('forums.show', ['id' => $r->id]) }}"><span
                                         class="badge-extra text-bold">{{ $r->name }}</span></a></td>
                         <td class="f-display-topic-title">
                             --

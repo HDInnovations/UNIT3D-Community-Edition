@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -22,8 +22,8 @@
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>@lang('common.name')</th>
+                        <th>@lang('common.action')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@
                             </td>
                             <td>
                                 <a href="{{ route('staff.tags.edit', ['id' => $tag->id]) }}" class="btn btn-warning">
-                                    Edit
+                                    @lang('common.edit')
                                 </a>
                             </td>
                         </tr>

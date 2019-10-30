@@ -3,37 +3,37 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.types.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-types')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Type</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Type</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Edit A Torrent Type</h2>
+        <h2>@lang('common.edit') A Torrent Type</h2>
         <form role="form" method="POST" action="{{ route('staff.types.update', ['id' => $type->id]) }}">
             @method('PATCH')
             @csrf
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">@lang('common.name')</label>
                 <label>
                     <input type="text" class="form-control" name="name" value="{{ $type->name }}">
                 </label>
             </div>
 
             <div class="form-group">
-                <label for="name">Position</label>
+                <label for="name">@lang('common.position')</label>
                 <label>
                     <input type="text" class="form-control" name="position" value="{{ $type->position }}">
                 </label>

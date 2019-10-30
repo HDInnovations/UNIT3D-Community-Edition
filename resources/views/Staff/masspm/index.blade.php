@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>MassPM - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>MassPM - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="MassPM - Staff Dashboard">
+    <meta name="description" content="MassPM - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Mass PM</h2>
-        <form action="{{ route('staff.mass-pm.store') }}" method="post">
+        <form action="{{ route('staff.mass-pm.store') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="subject">Subject</label>

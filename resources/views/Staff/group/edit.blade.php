@@ -3,18 +3,18 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Groups</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Groups</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.groups.create', ['group' => $group->name, 'id' => $group->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Edit User Group</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') User Group</span>
         </a>
     </li>
 @endsection
@@ -30,8 +30,8 @@
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
+                        <th>@lang('common.name')</th>
+                        <th>@lang('common.position')</th>
                         <th>Level</th>
                         <th>Color</th>
                         <th>Icon</th>

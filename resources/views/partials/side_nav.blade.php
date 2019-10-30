@@ -78,7 +78,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('forum_index') }}">
+            <a href="{{ route('forums.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-comments" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('forum.forums')</span>
                 <span class="selected"></span>

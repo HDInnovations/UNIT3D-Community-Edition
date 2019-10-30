@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Possible Leech Cheaters - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Possible Leech Cheaters - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Possible Leech Cheaters - Staff Dashboard">
+    <meta name="description" content="Possible Leech Cheaters - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -33,7 +33,7 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>User</th>
+                                <th>@lang('common.user')</th>
                                 <th>Group</th>
                                 <th>Joined</th>
                                 <th>Last Login</th>

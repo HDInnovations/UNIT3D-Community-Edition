@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Moderation - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Moderation - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -24,7 +24,7 @@
                 <thead>
                 <tr>
                     <th>Since</th>
-                    <th>Name</th>
+                    <th>@lang('common.name')</th>
                     <th>Category</th>
                     <th>Type</th>
                     <th>Size</th>
@@ -61,7 +61,7 @@
                             {{-- Torrent Postpone Modal --}}
                             <div class="modal fade" id="pendpostpone-{{ $p->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
-                                <form method="post" action="{{ route('staff.moderation.postpone') }}">
+                                <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -108,7 +108,7 @@
                             <!-- Torrent Reject Modal -->
                             {{-- Torrent Reject Modal --}}
                             <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-                                <form method="post" action="{{ route("staff.moderation.reject") }}">
+                                <form method="POST" action="{{ route("staff.moderation.reject") }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -168,15 +168,15 @@
                 <thead>
                 <tr>
                     <th>Since</th>
-                    <th>Name</th>
+                    <th>@lang('common.name')</th>
                     <th>Category</th>
                     <th>Type</th>
                     <th>Size</th>
                     <th>Uploader</th>
                     <th>Staff</th>
                     <th>Approve</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>@lang('common.edit')</th>
+                    <th>@lang('common.delete')</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -206,17 +206,17 @@
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td><a href="{{ route('edit', ['id' => $post->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>Edit</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>@lang('common.edit')</a></td>
                         <td>
                             <button data-target="#postdelete-{{ $post->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Delete
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>@lang('common.delete')
                             </button>
                             <!-- Torrent Delete Modal -->
                             {{-- Torrent Delete Modal --}}
                             <div class="modal fade" id="postdelete-{{ $post->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
-                                <form method="post" action="{{ route('delete') }}">
+                                <form method="POST" action="{{ route('delete') }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -224,7 +224,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $post->name }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">@lang('common.delete') Torrent: {{ $post->name }}</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -277,7 +277,7 @@
                 <thead>
                 <tr>
                     <th>Since</th>
-                    <th>Name</th>
+                    <th>@lang('common.name')</th>
                     <th>Category</th>
                     <th>Type</th>
                     <th>Size</th>
@@ -285,8 +285,8 @@
                     <th>Staff</th>
                     <th>Approve</th>
                     <th>Postpone</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>@lang('common.edit')</th>
+                    <th>@lang('common.delete')</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -322,7 +322,7 @@
                             {{-- Torrent Postpone Modal --}}
                             <div class="modal fade" id="rejectpost-{{ $reject->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
-                                <form method="post" action="{{ route('staff.moderation.postpone') }}">
+                                <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -363,17 +363,17 @@
                         </td>
                         <td><a href="{{ route('edit', ['id' => $reject->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>Edit</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>@lang('common.edit')</a></td>
                         <td>
                             <button data-target="#rejectdelete-{{ $reject->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Delete
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>@lang('common.delete')
                             </button>
                             <!-- Torrent Delete Modal -->
                             {{-- Torrent Delete Modal --}}
                             <div class="modal fade" id="rejectdelete-{{ $reject->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
-                                <form method="post" action=" {{ route('delete') }}">
+                                <form method="POST" action=" {{ route('delete') }}">
                                     @csrf
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -381,7 +381,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $reject->name }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">@lang('common.delete') Torrent: {{ $reject->name }}</h4>
                                             </div>
                                             <div class="modal-body">
 

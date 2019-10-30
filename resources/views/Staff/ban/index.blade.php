@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Bans - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Bans - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Bans - Staff Dashboard">
+    <meta name="description" content="Bans - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>User Bans</h2>
+            <h2>@lang('common.user') Bans</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
@@ -34,7 +34,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User</th>
+                            <th>@lang('common.user')</th>
                             <th>Judge</th>
                             <th>Ban Reason</th>
                             <th>Unban Reason</th>

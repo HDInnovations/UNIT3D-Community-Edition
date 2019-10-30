@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>User Notes - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>@lang('common.user') Notes - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="User Notes - Staff Dashboard">
+    <meta name="description" content="User Notes - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.notes.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Notes</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Notes</span>
         </a>
     </li>
 @endsection
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>User Notes Log</h2>
+            <h2>@lang('common.user') Notes Log</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
@@ -34,39 +34,40 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>User</th>
+                                <th>@lang('common.user')</th>
                                 <th>Staff</th>
                                 <th>Message</th>
                                 <th>Created On</th>
-                                <th>Delete</th>
+                                <th>@lang('common.delete')</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if (count($notes) == 0)
                                 <p>The are no notes in database for this user!</p>
                             @else
-                                @foreach ($notes as $n)
+                                @foreach ($notes as $note)
                                     <tr>
                                         <td>
                                             <a class="name"
-                                               href="{{ route('users.show', ['username' => $n->noteduser->username]) }}">{{ $n->noteduser->username }}</a>
+                                               href="{{ route('users.show', ['username' => $note->noteduser->username]) }}">{{ $note->noteduser->username }}</a>
                                         </td>
                                         <td>
                                             <a class="name"
-                                               href="{{ route('users.show', ['username' => $n->staffuser->username]) }}">{{ $n->staffuser->username }}</a>
+                                               href="{{ route('users.show', ['username' => $note->staffuser->username]) }}">{{ $note->staffuser->username }}</a>
                                         </td>
                                         <td>
-                                            {{ $n->message }}
+                                            {{ $note->message }}
                                         </td>
                                         <td>
-                                            {{ $n->created_at->toDayDateTimeString() }}
-                                            ({{ $n->created_at->diffForHumans() }})
+                                            {{ $note->created_at->toDayDateTimeString() }}
+                                            ({{ $note->created_at->diffForHumans() }})
                                         </td>
                                         <td>
-                                            <a href="{{ route('staff.notes.destroy', ['id' => $n->id]) }}"
-                                               class="btn btn-xs btn-danger">
-                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                            </a>
+                                            <form action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-xs btn-danger"><i class="{{ config('other.font-awesome') }} fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -24,7 +24,7 @@
             <tr>
                 <th>Title</th>
                 <th>Date</th>
-                <th>Action</th>
+                <th>@lang('common.action')</th>
             </tr>
             </thead>
                 <tbody>
@@ -39,12 +39,12 @@
                                 {{ date('d M Y', $page->created_at->getTimestamp()) }}
                             </td>
                             <td>
-                                <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" class="btn btn-warning">
-                                    Edit
-                                </a>
-                                <a href="{{ route('staff.pages.destroy', ['id' => $page->id]) }}" class="btn btn-danger">
-                                    Delete
-                                </a>
+                                <form action="{{ route('staff.pages.destroy', ['id' => $page->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
+                                    <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

@@ -12,7 +12,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('user_invites', ['username' => $user->username]) }}" itemprop="url"
+        <a href="{{ route('invites.index', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.send-invite')</span>
         </a>
@@ -65,7 +65,7 @@
 
             <h3>@lang('user.invite-friend')</h3>
             <div class="block">
-                <form action="{{ route('invite') }}" method="post">
+                <form action="{{ route('invites.store') }}" method="POST">
                     @csrf
                     <div class="form-group"><label for="email">@lang('common.email')</label></div>
                     <div class="form-group"><input class="form-control" name="email" type="email" id="email" size="10" required></div>

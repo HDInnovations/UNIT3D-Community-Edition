@@ -12,7 +12,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('user_invites', ['id' => $owner->id]) }}" itemprop="url"
+        <a href="{{ route('invites.index', ['username' => $owner->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $owner->username }} @lang('user.invites')</span>
         </a>
@@ -90,7 +90,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('reProcess', ['id' => $invite->id]) }}" method="post">
+                                        <form action="{{ route('invites.send', ['id' => $invite->id]) }}" method="POST">
                                             @csrf
                                             <button type="submit" @if ($invite->accepted_at !== null) class="btn btn-xs btn-danger disabled" @endif class="btn btn-xs btn-success">
                                                 <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>

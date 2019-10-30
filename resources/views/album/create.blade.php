@@ -29,7 +29,7 @@
                 @csrf
                 <h2 class="text-center">Create An Album</h2>
                 <h4 class="text-red text-center">
-                    IMDB Number Will Pull Album Name For You!
+                    IMDB Number Will Pull Album @lang('common.name') For You!
                     Please Use A Nice Cover Image For Your Album Creation!
                 </h4>
                 <div class="form-group">

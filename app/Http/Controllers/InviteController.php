@@ -24,13 +24,32 @@ use Illuminate\Support\Facades\Mail;
 class InviteController extends Controller
 {
     /**
+     * Invite Tree.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $username
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(Request $request, $username)
+    {
+        $user = $request->user();
+        $owner = User::where('username', '=', $username)->firstOrFail();
+        abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
+
+        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
+
+        return view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
+    }
+
+    /**
      * Invite Form.
      *
      * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function invite(Request $request)
+    public function create(Request $request)
     {
         $user = $request->user();
 
@@ -58,7 +77,7 @@ class InviteController extends Controller
      * @return Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function process(Request $request)
+    public function store(Request $request)
     {
         $current = new Carbon();
         $user = $request->user();
@@ -69,14 +88,14 @@ class InviteController extends Controller
         }
 
         if ($user->invites <= 0) {
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withErrors('You do not have enough invites!');
         }
 
         $exist = Invite::where('email', '=', $request->input('email'))->first();
 
         if ($exist) {
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withErrors('The email address your trying to send a invite to has already been sent one.');
         }
 
@@ -106,7 +125,7 @@ class InviteController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withErrors($v->errors());
         } else {
             Mail::to($request->input('email'))->send(new InviteUser($invite));
@@ -118,7 +137,7 @@ class InviteController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
 
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withSuccess('Invite was sent successfully!');
         }
     }
@@ -131,7 +150,7 @@ class InviteController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reProcess(Request $request, $id)
+    public function send(Request $request, $id)
     {
         $user = $request->user();
         $invite = Invite::findOrFail($id);
@@ -139,7 +158,7 @@ class InviteController extends Controller
         abort_unless($invite->user_id === $user->id, 403);
 
         if ($invite->accepted_by !== null) {
-            return redirect()->route('user_invites', ['id' => $user->id])
+            return redirect()->route('invites.index', ['username' => $user->username])
                 ->withErrors('The invite you are trying to resend has already been used.');
         }
 
@@ -148,26 +167,7 @@ class InviteController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has resent invite to {$invite->email} .");
 
-        return redirect()->route('user_invites', ['id' => $user->id])
+        return redirect()->route('invites.index', ['username' => $user->username])
             ->withSuccess('Invite was resent successfully!');
-    }
-
-    /**
-     * Invite Tree.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param $username
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function invites(Request $request, $username)
-    {
-        $user = $request->user();
-        $owner = User::where('username', '=', $username)->firstOrFail();
-        abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
-
-        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
-
-        return view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
 }

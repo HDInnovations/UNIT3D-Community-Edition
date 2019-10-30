@@ -91,7 +91,7 @@
                             <div class="form-group">
                                 <label>
                                     <input type="text" name="name" class="form-control"
-                                           placeholder="Seedbox Name" required>
+                                           placeholder="Seedbox @lang('common.name')" required>
                                 </label>
                             </div>
                             <div class="form-group">

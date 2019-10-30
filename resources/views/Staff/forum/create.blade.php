@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Add Forums - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Add Forums - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Add Forums - Staff Dashboard">
+    <meta name="description" content="Add Forums - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -64,7 +64,7 @@
         </div>
 
         <div class="form-group">
-            <label for="position">Position</label>
+            <label for="position">@lang('common.position')</label>
             <label>
                 <input type="text" name="position" class="form-control" placeholder="The position number">
             </label>

@@ -4,10 +4,10 @@
             @lang('user.profile')
         </a>
         @if(auth()->user()->id == $user->id)
-        <a href="{{ route('user_invites', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
+        <a href="{{ route('invites.index', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             @lang('user.invites')
         </a>
-        <a href="{{ route('invite') }}" class="btn btn-sm btn-success">
+        <a href="{{ route('invites.create') }}" class="btn btn-sm btn-success">
             <i class="{{ config('other.font-awesome') }} fa-gift"></i> @lang('user.send-invite')
         </a>
             @endif

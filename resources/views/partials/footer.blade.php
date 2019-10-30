@@ -27,7 +27,7 @@
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">@lang('common.community')</h2>
             <ul>
-                <li><a href="{{ route('forum_index') }}">@lang('forum.forums')</a></li>
+                <li><a href="{{ route('forums.index') }}">@lang('forum.forums')</a></li>
                 <li><a href="{{ route('articles.index') }}">@lang('common.news')</a></li>
             </ul>
         </div>

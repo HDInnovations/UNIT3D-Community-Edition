@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Forums - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Forums - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forums - Staff Dashboard">
+    <meta name="description" content="Forums - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -29,32 +29,50 @@
             <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th>Name</th>
+                <th>@lang('common.name')</th>
                 <th>Type</th>
-                <th>Position</th>
-                <th>Action</th>
+                <th>@lang('common.position')</th>
+                <th>@lang('common.action')</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($categories as $c)
+            @foreach ($categories as $category)
                 <tr class="success">
                     <td>
-                        <a href="{{ route('staff.forums.edit', ['id' => $c->id]) }}">{{ $c->name }}</a>
+                        <a href="{{ route('staff.forums.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
                     </td>
-                    <td>Category</td>
-                    <td>{{ $c->position }}</td>
-                    <td><a href="{{ route('staff.forums.destroy', ['id' => $c->id]) }}"
-                           class="btn btn-danger">Delete</a></td>
+                    <td>
+                        Category
+                    </td>
+                    <td>
+                        {{ $category->position }}
+                    </td>
+                    <td>
+                        <form action="{{ route('staff.forums.destroy', ['id' => $category->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                        </form>
+                    </td>
                 </tr>
-                @foreach ($c->getForumsInCategory()->sortBy('position') as $f)
+                @foreach ($category->getForumsInCategory()->sortBy('position') as $forum)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.forums.edit', ['id' => $f->id]) }}">---- {{ $f->name }}</a>
+                            <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}">---- {{ $forum->name }}</a>
                         </td>
-                        <td>Forum</td>
-                        <td>{{ $f->position }}</td>
-                        <td><a href="{{ route('staff.forums.destroy', ['id' => $f->id]) }}"
-                               class="btn btn-danger">Delete</a></td>
+                        <td>
+                            Forum
+                        </td>
+                        <td>
+                            {{ $forum->position }}
+                        </td>
+                        <td>
+                            <form action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             @endforeach

@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
@@ -22,15 +22,15 @@
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
+                        <th>@lang('common.name')</th>
+                        <th>@lang('common.position')</th>
                         <th>Categories</th>
-                        <th>Types</th>
+                        <th>@lang('common.types')</th>
                         <th>Genres</th>
                         <th>Discounts</th>
                         <th>Special</th>
                         <th>Health</th>
-                        <th>Action</th>
+                        <th>@lang('common.action')</th>
                     </tr>
                     </thead>
                     <tbody>

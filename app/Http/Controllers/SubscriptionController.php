@@ -102,7 +102,7 @@ class SubscriptionController extends Controller
             $params = [];
         }
         if (! isset($logger)) {
-            $logger = 'forum_display';
+            $logger = 'forums.show';
             $params = ['id' => $forum->id];
         }
 
@@ -136,7 +136,7 @@ class SubscriptionController extends Controller
             $params = [];
         }
         if (! isset($logger)) {
-            $logger = 'forum_display';
+            $logger = 'forums.show';
             $params = ['id' => $forum->id];
         }
 

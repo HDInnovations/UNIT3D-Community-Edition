@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
@@ -31,11 +31,11 @@
                     @csrf
                     <div class="modal-body"  style="text-align: center;">
                         <h4>Please enter the name of the chatroom you would like to create.</h4>
-                        <label for="chatroom_name"> Name:</label> <label for="name"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter Name Here..." required>
+                        <label for="chatroom_name"> @lang('common.name'):</label> <label for="name"></label><input style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name" placeholder="Enter @lang('common.name') Here..." required>
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-md btn-default" data-dismiss="modal" >Cancel</button>
+                        <button class="btn btn-md btn-default" data-dismiss="modal" >@lang('common.cancel')</button>
                         <input class="btn btn-md btn-primary" type="submit">
                     </div>
                     </form>
@@ -49,8 +49,8 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Action</th>
+                    <th>@lang('common.name')</th>
+                    <th>@lang('common.action')</th>
                 </tr>
                 </thead>
                 <tbody>

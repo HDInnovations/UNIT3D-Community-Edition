@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
@@ -25,7 +25,7 @@
         @csrf
 
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">@lang('common.name')</label>
             <label>
                 <input type="text" class="form-control" name="name">
             </label>

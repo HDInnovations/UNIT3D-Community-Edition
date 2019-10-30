@@ -46,10 +46,10 @@
 									@csrf
 									@method('DELETE')
 									<a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" class="btn btn-warning">
-										<i class="{{ config('other.font-awesome') }} fa-edit"></i> Edit Playlist
+										<i class="{{ config('other.font-awesome') }} fa-edit"></i> @lang('common.edit') Playlist
 									</a>
 									<button type="submit" class="btn btn-danger">
-										<i class="{{ config('other.font-awesome') }} fa-trash"></i> Delete Playlist
+										<i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('common.delete') Playlist
 									</button>
 								</form>
 							@endif

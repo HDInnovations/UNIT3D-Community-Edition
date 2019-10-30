@@ -18,13 +18,13 @@ use App\Models\Topic;
 class TopicLabelController extends Controller
 {
     /**
-     * Forum Tag System.
+     * Apply/Remove Approved Label.
      *
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function approvedTopic($id)
+    public function approve($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->approved == 0) {
@@ -38,7 +38,14 @@ class TopicLabelController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function deniedTopic($id)
+    /**
+     * Apply/Remove Denied Label.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function deny($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->denied == 0) {
@@ -52,7 +59,14 @@ class TopicLabelController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function solvedTopic($id)
+    /**
+     * Apply/Remove Solved Label.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function solve($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->solved == 0) {
@@ -66,7 +80,14 @@ class TopicLabelController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function invalidTopic($id)
+    /**
+     * Apply/Remove Invalid Label.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function invalid($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->invalid == 0) {
@@ -80,7 +101,14 @@ class TopicLabelController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function bugTopic($id)
+    /**
+     * Apply/Remove Bug Label.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function bug($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->bug == 0) {
@@ -94,7 +122,14 @@ class TopicLabelController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function suggestionTopic($id)
+    /**
+     * Apply/Remove Suggestion Label.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function suggest($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->suggestion == 0) {
@@ -108,7 +143,14 @@ class TopicLabelController extends Controller
             ->withInfo('Label Change Has Been Applied');
     }
 
-    public function implementedTopic($id)
+    /**
+     * Apply/Remove Implemented Label.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function implement($id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->implemented == 0) {
