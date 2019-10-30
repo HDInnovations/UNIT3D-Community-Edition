@@ -1146,7 +1146,7 @@ class TorrentController extends Controller
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
                     $pmuser->subject = 'Torrent Deleted!';
-                    $pmuser->message = "[b]Attention:[/b] Torrent {$torrent->name} has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                    $pmuser->message = "[b]Attention:[/b] Torrent {$torrent->name} has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safley remove it from your client.
                                         [b]Removal Reason:[/b] {$request->message}
                                         [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                     $pmuser->save();

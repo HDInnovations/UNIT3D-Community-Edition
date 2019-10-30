@@ -13,6 +13,7 @@
 
 namespace App\Listeners;
 
+use Session;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
@@ -37,7 +38,7 @@ class AchievementUnlocked
     {
         // There's an AchievementProgress instance located on $event->progress
         $user = User::where('id', '=', $event->progress->achiever_id)->first();
-        session()->flash('achievement', $event->progress->details->name);
+        Session::flash('achievement', $event->progress->details->name);
 
         if ($user->private_profile == 0) {
             $profile_url = hrefProfile($user);

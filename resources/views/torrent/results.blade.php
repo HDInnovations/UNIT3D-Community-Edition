@@ -55,7 +55,7 @@
             @else
                 <tr>
             @endif
-                    <td>
+                    <td style="width: 1%;">
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta && isset($meta) && $meta->poster && $meta->title)
@@ -81,13 +81,13 @@
                         @endif
                     </td>
 
-                    <td>
+                    <td style="width: 1%;">
                         @if ($torrent->category->image != null)
                             <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                 <div class="text-center">
                                     <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                       style="padding-bottom: 6px;" alt="{{  $torrent->category->name }}">
+                                       style="padding-bottom: 10px;" alt="{{  $torrent->category->name }}">
                                 </div>
                             </a>
                         @else
@@ -95,11 +95,11 @@
                                 <div class="text-center">
                                     <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 6px;"></i>
+                                        style="padding-bottom: 10px;"></i>
                                 </div>
                             </a>
                         @endif
-                        <div class="text-center">
+                        <div class="text-center" style="padding-top: 5px;">
                             <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
                                 {{ $torrent->type }}
                             </span>
@@ -344,6 +344,8 @@
                                     data-original-title='@lang('torrent.sd-content')!'></i> @lang('torrent.sd-content')
                             </span>
                         @endif
+
+                        <br>
 
                         @foreach($torrent->tags as $tag)
                             <span class="badge-extra text-bold">

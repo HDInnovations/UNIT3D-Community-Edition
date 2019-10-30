@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Topic;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
@@ -48,7 +47,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a post here?
-        if (!$category->getPermission()->reply_topic || ($topic->state == 'close' && !$request->user()->group->is_modo)) {
+        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
             return redirect()->route('forum_index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }

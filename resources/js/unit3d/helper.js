@@ -736,7 +736,7 @@ class facetedSearchBuilder {
     init(type) {
         this.type = type;
         if (this.type == 'card') {
-            this.api = '/filterTorrents';
+            this.api = '/torrents/filter';
             this.view = 'card';
         }
         else if (this.type == 'request') {
@@ -744,11 +744,11 @@ class facetedSearchBuilder {
             this.view = 'request';
         }
         else if (this.type == 'group') {
-            this.api = '/filterTorrents';
+            this.api = '/torrents/filter';
             this.view = 'group';
         }
         else {
-            this.api = '/filterTorrents';
+            this.api = '/torrents/filter';
             this.view = 'list';
         }
 

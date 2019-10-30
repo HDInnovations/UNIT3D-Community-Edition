@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 
-class ChatController extends Controller
+class ChatStatusController extends Controller
 {
     /**
      * @var ChatRepository
@@ -43,94 +43,21 @@ class ChatController extends Controller
      */
     public function index()
     {
-        $chatrooms = $this->chat->rooms();
         $chatstatuses = $this->chat->statuses();
 
-        return view('Staff.chat.index', [
-            'chatrooms'    => $chatrooms,
+        return view('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,
         ]);
     }
 
     /**
-     * Add A Chatroom.
+     * Store A New Chat Status.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function addChatroom(Request $request)
-    {
-        $chatroom = new Chatroom();
-        $chatroom->name = $request->input('name');
-
-        $v = validator($chatroom->toArray(), [
-            'name' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return redirect()->route('staff.chat.index')
-                ->withErrors($v->errors());
-        } else {
-            $chatroom->save();
-
-            return redirect()->route('staff.chat.index')
-                ->withSuccess('Chatroom Successfully Added');
-        }
-    }
-
-    /**
-     * Edit A Chatroom.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function editChatroom(Request $request, $id)
-    {
-        $chatroom = Chatroom::findOrFail($id);
-        $chatroom->name = $request->input('name');
-
-        $v = validator($chatroom->toArray(), [
-            'name' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return redirect()->route('staff.chat.index')
-                ->withErrors($v->errors());
-        } else {
-            $chatroom->save();
-
-            return redirect()->route('staff.chat.index')
-                ->withSuccess('Chatroom Successfully Modified');
-        }
-    }
-
-    /**
-     * Delete A Chatroom.
-     *
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function deleteChatroom($id)
-    {
-        $chatroom = Chatroom::findOrFail($id);
-        $chatroom->delete();
-
-        return redirect()->route('staff.chat.index')
-            ->withSuccess('Chatroom Successfully Deleted');
-    }
-
-    /**
-     * Add A Chat Status.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function addChatStatus(Request $request)
+    public function store(Request $request)
     {
         $chatstatus = new ChatStatus();
         $chatstatus->name = $request->input('name');
@@ -144,25 +71,25 @@ class ChatController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.chat.index')
+            return redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
-            return redirect()->route('staff.chat.index')
+            return redirect()->route('staff.statuses.index')
                 ->withSuccess('Chat Status Successfully Added');
         }
     }
 
     /**
-     * Edit A Chat Status.
+     * Update A Chat Status.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function editChatStatus(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->name = $request->input('name');
@@ -176,12 +103,12 @@ class ChatController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.chat.index')
+            return redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
-            return redirect()->route('staff.chat.index')
+            return redirect()->route('staff.statuses.index')
                 ->withSuccess('Chat Status Successfully Modified');
         }
     }
@@ -193,12 +120,12 @@ class ChatController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteChatStatus($id)
+    public function destroy($id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
-        return redirect()->route('staff.chat.index')
+        return redirect()->route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');
     }
 }

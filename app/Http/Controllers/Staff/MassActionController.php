@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Jobs\ProcessMassPM;
 use App\Models\User;
 use App\Models\Group;
 
@@ -42,5 +43,52 @@ class MassActionController extends Controller
 
         return redirect()->route('staff.dashboard.index')
             ->withSuccess('Unvalidated Accounts Are Now Validated');
+    }
+
+    /**
+     * Mass PM Form.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('Staff.masspm.index');
+    }
+
+    /**
+     * Send The Mass PM.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
+    {
+        $staff = $request->user();
+        $users = User::all();
+
+        $sender_id = 1;
+        $subject = $request->input('subject');
+        $message = $request->input('message');
+
+        $v = validator($request->all(), [
+            'subject' => 'required|min:5',
+            'message' => 'required|min:5',
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('staff.mass-pm.create')
+                ->withErrors($v->errors());
+        } else {
+            foreach ($users as $user) {
+                $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
+            }
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
+
+            return redirect()->route('staff.mass-pm.create')
+                ->withSuccess('MassPM Sent');
+        }
     }
 }

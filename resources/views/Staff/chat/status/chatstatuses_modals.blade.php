@@ -7,7 +7,7 @@
                 <h3>Edit Chat Status ({{ $chatstatus->name }})</h3>
             </div>
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('editChatStatus', ['id' => $chatstatus->id]) }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.statuses.update', ['id' => $chatstatus->id]) }}">
                 @csrf
                 <div class="modal-body"  style="text-align: center;">
                     <h4>Please enter the new settings you want to use for {{ $chatstatus->name }}</h4>
@@ -35,7 +35,7 @@
                 <h4 class="modal-title">Delete Chat Status ({{ $chatstatus->name }}) Permanently</h4>
             </div>
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('deleteChatStatus', ['id' => $chatstatus->id]) }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.statuses.destroy', ['id' => $chatstatus->id]) }}">
                 @csrf
                 <div class="modal-body">
                     <p>Are you sure about this ?</p>

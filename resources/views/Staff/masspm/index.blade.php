@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('massPM') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.mass-pm.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">MassPM</span>
         </a>
     </li>
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Mass PM</h2>
-        <form action="{{ route('sendMassPM') }}" method="post">
+        <form action="{{ route('staff.mass-pm.store') }}" method="post">
             @csrf
             <div class="form-group">
                 <label for="subject">Subject</label>

@@ -70,6 +70,9 @@ class HomeController extends Controller
         $avg = $sys->avg();
         $basic = $sys->basic();
 
+        // Directory Permissions
+        $file_permissions = $sys->directoryPermissions();
+
         // Pending Applications Count
         $app_count = Application::pending()->count();
 
@@ -90,6 +93,7 @@ class HomeController extends Controller
             'disk'               => $disk,
             'avg'                => $avg,
             'basic'              => $basic,
+            'file_permissions'   => $file_permissions,
             'app_count'          => $app_count,
         ]);
     }

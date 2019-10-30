@@ -35,7 +35,7 @@
                 <div class="block">
                     <div class="panel-body">
                         <h2 class="text-bold text-center text-green">
-                            <i class=" {{ config('other.font-awesome') }} fa-terminal"></i> Codebase
+                            <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Codebase
                         </h2>
                         <h3 class="text-bold text-center">Currently Running {{ config('unit3d.codebase') }} {{ config('unit3d.version') }}</h3>
                         <version></version>
@@ -78,7 +78,7 @@
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
                         <h1 class="text-center">
-                            <u>{{ config('other.title') }} Statistics</u>
+                            <u>Statistics</u>
                         </h1>
                     </div>
                     <div class="panel-body">
@@ -210,7 +210,51 @@
                         </div>
                     </div>
                 </div>
+
+            <div class="col-sm-10 col-lg-10">
+                <div class="block" style=" margin-top: 30px;">
+                    <div class="panel-heading">
+                        <h1 class="text-center">
+                            <u>Directory Permissions</u>
+                        </h1>
+                    </div>
+                    <div class="panel-body">
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th width="80%">Directory</th>
+                                <th>Current</th>
+                                <th>Recommended</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($file_permissions as $permission)
+                                <tr>
+                                    <td>{{ $permission['directory'] }}</td>
+                                    <td>
+                                        @if ($permission['permission'] == $permission['recommended'])
+                                            <span class="bold text-success">
+                                                <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
+                                                {{ $permission['permission'] }}
+                                            </span>
+                                        @else
+                                            <span class="bold text-danger">
+                                                <i class="{{ config('other.font-awesome') }} fa-times-circle"></i>
+                                                {{ $permission['permission'] }}
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $permission['recommended'] }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
 
         </div>
+    </div>
 @endsection

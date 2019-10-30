@@ -837,4 +837,29 @@ class RequestController extends Controller
                 ->withErrors('Nothing To Unclaim.');
         }
     }
+
+    /**
+     * Resets the filled and approved attributes on a given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function resetRequest(Request $request, $id)
+    {
+        $user = $request->user();
+        abort_unless($user->group->is_modo, 403);
+
+        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest->filled_by = null;
+        $torrentRequest->filled_when = null;
+        $torrentRequest->filled_hash = null;
+        $torrentRequest->approved_by = null;
+        $torrentRequest->approved_when = null;
+        $torrentRequest->save();
+
+        return redirect()->route('request', ['id' => $id])
+            ->withSuccess('The request has been reset!');
+    }
 }

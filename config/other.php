@@ -181,15 +181,15 @@ return [
     |--------------------------------------------------------------------------
     | Rules Page URL
     |--------------------------------------------------------------------------
-    | Example: rules.1
+    | Example: 1
     */
-    'rules_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/page/rules.1',
+    'rules_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/1',
 
     /*
     |--------------------------------------------------------------------------
     | FAQ Page URL
     |--------------------------------------------------------------------------
-    | Example: faq.2
+    | Example: 2
     */
-    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/page/faq.2',
+    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/2',
 ];

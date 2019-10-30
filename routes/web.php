@@ -214,12 +214,13 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/vote', 'RequestController@addBonus')->name('add_votes');
             Route::post('/{id}/claim', 'RequestController@claimRequest')->name('claimRequest');
             Route::get('/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
+            Route::get('/{id}/reset', 'RequestController@resetRequest')->name('resetRequest')->middleware('modo');
         });
 
         // Torrent
         Route::group(['prefix' => 'torrents'], function () {
             Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
-            Route::get('/filterTorrents', 'TorrentController@faceted');
+            Route::get('/filter', 'TorrentController@faceted');
             Route::get('/filterSettings', 'TorrentController@filtered');
             Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
             Route::get('/torrents/{id}{hash?}', 'TorrentController@torrent')->name('torrent');
@@ -532,7 +533,7 @@ Route::group(['middleware' => 'language'], function () {
         // Backup System
         Route::group(['prefix' => 'backups'], function () {
             Route::get('/', 'BackupController@index')->name('staff.backups.index');
-            Route::post('/full', 'BackupController@create')->name('staff.backups.create');
+            Route::post('/full', 'BackupController@create')->name('staff.backups.full');
             Route::post('/files', 'BackupController@files')->name('staff.backups.files');
             Route::post('/database', 'BackupController@database')->name('staff.backups.database');
             Route::get('/download/{file_name?}', 'BackupController@download')->name('staff.backups.download');
@@ -567,24 +568,34 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Chat Bots System
-        Route::group(['prefix' => 'bots'], function () {
-            Route::get('/', 'BotsController@index')->name('staff.bots.index');
-            Route::get('/{id}/edit', 'BotsController@edit')->name('staff.bots.edit');
-            Route::patch('/{id}/update', 'BotsController@update')->name('staff.bots.update');
-            Route::delete('/{id}/destroy', 'BotsController@destroy')->name('staff.bots.destroy');
-            Route::get('/{id}/disable', 'BotsController@disable')->name('staff.bots.disable');
-            Route::get('/{id}/enable', 'BotsController@enable')->name('staff.bots.enable');
+        Route::group(['prefix' => 'chat'], function () {
+            Route::get('/bots', 'ChatBotController@index')->name('staff.bots.index');
+            Route::get('/bots/{id}/edit', 'ChatBotController@edit')->name('staff.bots.edit');
+            Route::patch('/bots/{id}/update', 'ChatBotController@update')->name('staff.bots.update');
+            Route::delete('/bots/{id}/destroy', 'ChatBotController@destroy')->name('staff.bots.destroy');
+            Route::get('/{bots/id}/disable', 'ChatBotController@disable')->name('staff.bots.disable');
+            Route::get('/bots/{id}/enable', 'ChatBotController@enable')->name('staff.bots.enable');
         });
 
-        // Chat Management System
+        // Chat Rooms System
         Route::group(['prefix' => 'chat'], function () {
-            Route::get('/', 'ChatController@index')->name('staff.chat.index');
-            Route::post('/room/store', 'ChatController@addChatroom')->name('addChatroom');
-            Route::post('/room/edit/{id}', 'ChatController@editChatroom')->name('editChatroom');
-            Route::post('/room/delete/{id}', 'ChatController@deleteChatroom')->name('deleteChatroom');
-            Route::post('/status/store', 'ChatController@addChatStatus')->name('addChatStatus');
-            Route::post('/status/edit/{id}', 'ChatController@editChatStatus')->name('editChatStatus');
-            Route::post('/status/delete/{id}', 'ChatController@deleteChatStatus')->name('deleteChatStatus');
+            Route::get('/rooms', 'ChatController@index')->name('staff.rooms.index');
+            Route::post('/rooms/store', 'ChatController@store')->name('staff.rooms.store');
+            Route::post('/rooms/{id}/update', 'ChatController@update')->name('staff.rooms.update');
+            Route::post('/rooms/{id]/destroy', 'ChatController@destroy')->name('staff.rooms.destroy');
+        });
+
+        // Chat Statuses System
+        Route::group(['prefix' => 'chat'], function () {
+            Route::get('/statuses', 'ChatController@index')->name('staff.statuses.index');
+            Route::post('/statuses/store', 'ChatController@store')->name('staff.statuses.store');
+            Route::post('/statuses/{id]/update', 'ChatController@update')->name('staff.statuses.update');
+            Route::post('/statuses/{id}/destroy', 'ChatController@destroy')->name('staff.statuses.destroy');
+        });
+
+        // Cheaters
+        Route::group(['prefix' => 'cheaters'], function () {
+            Route::get('/ghost-leechers', 'CheaterController@index')->name('staff.cheaters.index');
         });
 
         // Codebase Version Check
@@ -637,13 +648,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/', 'InviteController@index')->name('staff.invites.index');
         });
 
-        // MassPM
-        Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
-        Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
-
-        // Mass Validate Users
+        // Mass Actions
         Route::group(['prefix' => 'mass-actions'], function () {
             Route::get('/validate', 'MassActionController@validate')->name('staff.mass-actions.validate');
+            Route::get('/mass-pm', 'MassActionController@create')->name('staff.mass-pm.create');
+            Route::post('/mass-pm/store', 'MassActionController@store')->name('staff.mass-pm.store');
         });
 
         // Moderation System
@@ -672,9 +681,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/store', 'PollController@store')->name('staff.polls.store');
         });
 
-        // Possible Cheaters
-        Route::get('/cheaters', 'CheaterController@leechCheaters')->name('leechCheaters');
-
         // Registered Seedboxes
         Route::group(['prefix' => 'seedboxes'], function () {
             Route::get('/', 'SeedboxController@index')->name('staff.seedboxes.index');
@@ -687,9 +693,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}', 'ReportController@show')->name('staff.reports.show');
             Route::post('/{id}/solve', 'ReportController@update')->name('staff.reports.update');
         });
-
-        // Request section
-        Route::get('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
 
         // Tag (Genres)
         Route::group(['prefix' => 'tags'], function () {
@@ -723,7 +726,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/destroy', 'NoteController@destroy')->name('staff.notes.destroy');
         });
 
-        // User Tools
+        // User Tools TODO: Leaving since we will be refactoring users and roles
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'UserController@index')->name('user_search');
             Route::get('/search', 'UserController@search')->name('user_results');

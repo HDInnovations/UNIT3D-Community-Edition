@@ -32,18 +32,23 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.chat-tools')
             </li>
             <li>
-                <a href="{{ route('staff.chat.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i> @lang('staff.chat')
+                <a href="{{ route('staff.statuses.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i> @lang('staff.statuses')
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff.flush.chat') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-broom"></i> @lang('staff.flush-chat')
+                <a href="{{ route('staff.rooms.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i> @lang('staff.rooms')
                 </a>
             </li>
             <li>
                 <a href="{{ route('staff.bots.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('staff.flush.chat') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-broom"></i> @lang('staff.flush-chat')
                 </a>
             </li>
 
@@ -131,7 +136,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('massPM') }}">
+                <a href="{{ route('staff.mass-pm.create') }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope-square"></i> @lang('staff.mass-pm')
                 </a>
             </li>
@@ -141,7 +146,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('leechCheaters') }}">
+                <a href="{{ route('staff.cheaters.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('staff.possible-leech-cheaters')
                 </a>
             </li>

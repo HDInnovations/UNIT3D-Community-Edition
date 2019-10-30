@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
+use App\Models\PrivateMessage;
 
 class WarningController extends Controller
 {
@@ -187,7 +187,6 @@ class WarningController extends Controller
         return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
             ->withSuccess('All Warnings Were Successfully Deleted');
     }
-
 
     /**
      * Restore A Soft Deleted Warning.

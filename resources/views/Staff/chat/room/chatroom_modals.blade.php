@@ -7,7 +7,7 @@
                 <h3>Edit Chatroom ({{ $chatroom->name }})</h3>
             </div>
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('editChatroom', ['id' => $chatroom->id]) }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.rooms.update', ['id' => $chatroom->id]) }}">
             @csrf
             <div class="modal-body"  style="text-align: center;">
                 <h4>Please enter the new name you want to use for {{ $chatroom->name }}</h4>
@@ -33,7 +33,7 @@
                 <h4 class="modal-title">Delete Chatroom ({{ $chatroom->name }}) Permanently</h4>
             </div>
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ route('deleteChatroom', ['id' => $chatroom->id]) }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.rooms.destroy', ['id' => $chatroom->id]) }}">
             @csrf
             <div class="modal-body">
                 <p>Are you sure about this ?</p>

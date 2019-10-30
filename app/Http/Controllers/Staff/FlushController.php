@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Events\MessageDeleted;
-use App\Models\Message;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\History;
+use App\Models\Message;
+use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
 
 class FlushController extends Controller

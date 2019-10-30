@@ -19,6 +19,9 @@
                     @include('partials.breadcrumb')
                     @include('cookieConsent::index')
                     @include('partials.alerts')
+                    @if (Session::has('achievement'))
+                        @include('partials.achievement_modal')
+                    @endif
                     <div id="app">
                         @if ($errors->any())
                             <div id="ERROR_COPY" style="display: none;">
@@ -88,11 +91,7 @@
 
         @if (Session::has('achievement'))
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-                Swal.fire({
-                    title: '@lang('common.achievement-title')!',
-                    text: '@lang('common.unlocked-achievement', ['achievement' => Session::get('achievement')])',
-                    type: 'success'
-                });
+                $('#modal-achievement').modal('show');
             </script>
         @endif
 

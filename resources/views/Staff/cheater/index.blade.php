@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('leechCheaters') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.cheaters.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Possible Leech Cheaters</span>
         </a>
     </li>

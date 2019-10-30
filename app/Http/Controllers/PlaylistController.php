@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MovieScrapper;
 use Image;
 use App\Models\Torrent;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
 use App\Models\PlaylistTorrent;
+use App\Services\MovieScrapper;
 use App\Repositories\ChatRepository;
 
 class PlaylistController extends Controller

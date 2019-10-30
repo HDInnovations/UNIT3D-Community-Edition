@@ -49,7 +49,6 @@ class AlbumController extends Controller
         return view('album.index')->with('albums', $albums);
     }
 
-
     /**
      * Show Album Create Form.
      *

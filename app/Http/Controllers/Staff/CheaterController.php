@@ -24,7 +24,7 @@ class CheaterController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function leechCheaters()
+    public function index()
     {
         $cheaters = History::with('user')
             ->select(['*'])
@@ -44,15 +44,5 @@ class CheaterController extends Controller
             ->paginate(25);
 
         return view('Staff.cheater.index', ['cheaters' => $cheaters]);
-    }
-
-    /**
-     * Possible Ratio Cheaters.
-     *
-     * @return void
-     */
-    public function ratioCheaters()
-    {
-        //
     }
 }

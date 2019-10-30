@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class BotsController extends Controller
+class ChatBotController extends Controller
 {
     /**
      * Display a listing of the Bots resource.
@@ -30,7 +30,7 @@ class BotsController extends Controller
     {
         $bots = Bot::orderBy('position', 'ASC')->get();
 
-        return view('Staff.bot.index', [
+        return view('Staff.chat.bot.index', [
             'bots' => $bots,
         ]);
     }
@@ -48,7 +48,7 @@ class BotsController extends Controller
         $user = $request->user();
         $bot = Bot::findOrFail($id);
 
-        return view('Staff.bot.edit', [
+        return view('Staff.chat.bot.edit', [
             'user'           => $user,
             'bot'            => $bot,
         ]);
