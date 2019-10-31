@@ -13,7 +13,7 @@ return [
   'latest-topics' => 'Najnowsze tematy',
   'active-in-last' => 'Aktywny jako ostatni',
   'users-online' => 'Użytkownicy online',
-  'check-news' => 'Aktualności (sprawdź codziennie)',
+  'check-news' => 'Wiadomości (sprawdź codziennie)',
   'new-news' => 'Nowe wiadomości',
   'new-torrents' => 'Nowe torrenty',
 ];

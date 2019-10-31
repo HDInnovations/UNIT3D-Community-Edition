@@ -32,7 +32,7 @@ return [
   'top-seedtime' => 'Top Seedtime',
   'top-uploaders' => 'Najlepsi przesyłający',
   'total-download' => 'Łączne pobieranie',
-  'total-torrents' => 'Łączne potoki',
+  'total-torrents' => 'Łączne torrenty',
   'total-traffic' => 'Całkowity ruch',
   'total-upload' => 'Łączne przesyłanie',
   'users-in-group' => 'Użytkownicy w grupie',
