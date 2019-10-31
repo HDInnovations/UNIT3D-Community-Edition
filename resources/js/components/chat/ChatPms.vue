@@ -6,14 +6,14 @@
 
                 <h4 class="list-group-item-heading">
 
-                    <span class="badge-user text-bold">
+                    <span class="badge-user text-bold" :style="userStyles(pm.user)">
 
                         <i v-tooltip="pm.user.group.name"
                            :class="pm.user.group.icon">
 
                         </i>
 
-                        <a :style="userStyles(pm.user)">
+                        <a :style="groupColor(pm.user)">
 					        {{ pm.user.username }}
                         </a>
 
@@ -76,6 +76,9 @@
       },
       userStyles (user) {
         return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+      },
+      groupColor (user) {
+        return `color: ${user.group.color};`
       }
     },
     filters: {

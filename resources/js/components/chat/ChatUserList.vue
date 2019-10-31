@@ -14,16 +14,15 @@
                          alt=""/>
                 </a>
                 <h4 class="list-group-item-heading">
-                    <span class="badge-user text-bold">
+                    <span class="badge-user text-bold" :style="userStyles(user)">
 
                         <i v-tooltip="user.group.name"
                            :class="user.group.icon">
-
                         </i>
 
                         <a v-tooltip="$parent.auth.id !== user.id ? `Private Message` : user.username"
-                           @click="pmUser(user)"
-                           :style="userStyles(user)">
+                           :style="groupColor(user)"
+                           @click="pmUser(user)">
 					        {{ user.username }}
                         </a>
 
@@ -52,6 +51,9 @@
     methods: {
       userStyles (user) {
         return user && user.group && user.group.hasOwnProperty('color') ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};` : `cursor: pointer;`
+      },
+      groupColor (user) {
+        return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
       }
     }
   }

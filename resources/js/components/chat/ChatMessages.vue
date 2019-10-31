@@ -23,7 +23,7 @@
 
                 <h4 class="list-group-item-heading bot">
 
-                    <span class="badge-user text-bold">
+                    <span class="badge-user text-bold" :style="userStyles(message.user)">
 
                         <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" v-tooltip="message.user.group.name"
                            :class="message.user.group.icon">
@@ -34,12 +34,12 @@
 
                         <a v-if="message.user && message.user.id > 1" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
                            @click="pmUser(message.user)"
-                           :style="userStyles(message.user)">
+                           :style="groupColor(message.user)">
 					        {{message.user.username}}
                         </a>
 
                         <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" v-tooltip="message.bot && message.bot.id > 0 ? message.bot.name : message.bot.name"
-                           :style="userStyles(message.user)">
+                           :style="groupColor(message.user)">
 					        {{message.bot.name}}
                         </a>
 
@@ -144,6 +144,9 @@
         },
         userStyles (user) {
             return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+        },
+        groupColor (user) {
+            return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
         }
     },
       filters: {
