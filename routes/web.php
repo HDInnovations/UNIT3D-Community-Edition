@@ -219,11 +219,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
             Route::get('/message/{id}', 'PrivateMessageController@getPrivateMessageById')->name('message');
             Route::get('/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
-            Route::get('/create/{receiver_id}/{username}', 'PrivateMessageController@makePrivateMessage')->name('create');
+            Route::get('/create', 'PrivateMessageController@makePrivateMessage')->name('create');
             Route::get('/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
             Route::post('/send', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
-            Route::post('/reply/{id}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
-            Route::post('/delete/{id}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
+            Route::post('/{id}/reply', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
+            Route::post('/{id}/destroy', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
         });
 
         // Requests System
@@ -246,6 +246,11 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Torrents System
+        Route::group(['prefix' => 'upload'], function () {
+            Route::get('/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
+            Route::post('/', 'TorrentController@upload')->name('upload');
+        });
+
         Route::group(['prefix' => 'torrents'], function () {
             Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
             Route::get('/filter', 'TorrentController@faceted');
@@ -254,12 +259,10 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}{hash?}', 'TorrentController@torrent')->name('torrent');
             Route::get('/{id}/peers', 'TorrentController@peers')->name('peers');
             Route::get('/{id}/history', 'TorrentController@history')->name('history');
-            Route::get('/upload/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
-            Route::post('/upload', 'TorrentController@upload')->name('upload');
             Route::get('/download_check/{id}', 'TorrentController@downloadCheck')->name('download_check');
             Route::get('/download/{id}', 'TorrentController@download')->name('download');
-            Route::get('/cards', 'TorrentController@cardLayout')->name('cards');
-            Route::get('/groupings', 'TorrentController@groupingLayout')->name('groupings');
+            Route::get('/view/cards', 'TorrentController@cardLayout')->name('cards');
+            Route::get('/view/groupings', 'TorrentController@groupingLayout')->name('groupings');
             Route::post('/delete', 'TorrentController@deleteTorrent')->name('delete');
             Route::get('/{id}/edit', 'TorrentController@editForm')->name('edit_form');
             Route::post('/{id}/edit', 'TorrentController@edit')->name('edit');
@@ -311,7 +314,6 @@ Route::group(['middleware' => 'language'], function () {
 
             Route::get('/{username}/settings', 'UserController@settings')->name('user_settings');
             Route::get('/{username}/settings/privacy{hash?}', 'UserController@privacy')->name('user_privacy');
-            Route::get('/{username}/settings/profile', 'UserController@profile')->name('user_profile');
             Route::get('/{username}/settings/security{hash?}', 'UserController@security')->name('user_security');
             Route::get('/{username}/settings/notification{hash?}', 'UserController@notification')->name('user_notification');
             Route::post('/{username}/settings/change_settings', 'UserController@changeSettings')->name('change_settings');
@@ -401,8 +403,8 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/filter', 'NotificationController@faceted');
                 Route::get('/', 'NotificationController@index')->name('index');
                 Route::get('/{id}', 'NotificationController@show')->name('show');
-                Route::get('/{id}/update', 'NotificationController@update')->name('update');
-                Route::get('/updateall', 'NotificationController@updateAll')->name('updateall');
+                Route::post('/{id}/update', 'NotificationController@update')->name('update');
+                Route::post('/updateall', 'NotificationController@updateAll')->name('updateall');
                 Route::delete('/{id}/destroy', 'NotificationController@destroy')->name('destroy');
                 Route::delete('/destroyall', 'NotificationController@destroyAll')->name('destroyall');
             });
@@ -486,23 +488,23 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/forum/{id}/new-topic', 'TopicController@addForm')->name('forum_new_topic_form');
             Route::post('/forum/{id}/new-topic', 'TopicController@newTopic')->name('forum_new_topic');
             // View Topic
-            Route::get('/topic/{id}', 'TopicController@topic')->name('forum_topic');
+            Route::get('/{id}{page?}{post?}', 'TopicController@topic')->name('forum_topic');
             // Close Topic
-            Route::get('/topic/{id}/close', 'TopicController@closeTopic')->name('forum_close');
+            Route::get('/{id}/close', 'TopicController@closeTopic')->name('forum_close');
             // Open Topic
-            Route::get('/topic/{id}/open', 'TopicController@openTopic')->name('forum_open');
+            Route::get('/{id}/open', 'TopicController@openTopic')->name('forum_open');
             //
             Route::post('/posts/{id}/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
 
             // Edit Topic
-            Route::get('/topic/{id}/edit', 'TopicController@editForm')->name('forum_edit_topic_form');
-            Route::post('/topic/{id}/edit', 'TopicController@editTopic')->name('forum_edit_topic');
+            Route::get('/{id}/edit', 'TopicController@editForm')->name('forum_edit_topic_form');
+            Route::post('/{id}/edit', 'TopicController@editTopic')->name('forum_edit_topic');
             // Delete Topic
-            Route::get('/topic/{id}/delete', 'TopicController@deleteTopic')->name('forum_delete_topic');
+            Route::get('/{id}/delete', 'TopicController@deleteTopic')->name('forum_delete_topic');
             // Pin Topic
-            Route::get('/topic/{id}/pin', 'TopicController@pinTopic')->name('forum_pin_topic');
+            Route::get('/{id}/pin', 'TopicController@pinTopic')->name('forum_pin_topic');
             // Unpin Topic
-            Route::get('/topic/{id}/unpin', 'TopicController@unpinTopic')->name('forum_unpin_topic');
+            Route::get('/{id}/unpin', 'TopicController@unpinTopic')->name('forum_unpin_topic');
         });
 
         // Topic Label System
@@ -710,7 +712,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Mass Actions
         Route::group(['prefix' => 'mass-actions'], function () {
-            Route::get('/validate', 'MassActionController@validate')->name('staff.mass-actions.validate');
+            Route::get('/validate-users', 'MassActionController@update')->name('staff.mass-actions.validate');
             Route::get('/mass-pm', 'MassActionController@create')->name('staff.mass-pm.create');
             Route::post('/mass-pm/store', 'MassActionController@store')->name('staff.mass-pm.store');
         });

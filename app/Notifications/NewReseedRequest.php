@@ -60,7 +60,7 @@ class NewReseedRequest extends Notification implements ShouldQueue
         return [
             'title' => 'New Reseed Request',
             'body'  => "Some time ago, you downloaded: {$this->torrent->name}. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!",
-            'url'   => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}",
+            'url'   => "{$appurl}/torrents/{$this->torrent->id}",
         ];
     }
 }

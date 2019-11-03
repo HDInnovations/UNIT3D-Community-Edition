@@ -70,7 +70,7 @@
 @section('modals')
     {{-- DELETE MODAL --}}
     <div id="delete-log-modal" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dark">
             <form id="delete-log-form" action="{{ route('log-viewer::logs.delete') }}" method="POST">
                 @method('DELETE')
                 @csrf

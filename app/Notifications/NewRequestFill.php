@@ -68,7 +68,7 @@ class NewRequestFill extends Notification implements ShouldQueue
         return [
             'title' => $this->sender.' Has Filled One Of Your Torrent Requests',
             'body'  => $this->sender.' has filled one of your Requested Torrents '.$this->tr->name,
-            'url'   => "/request/{$this->tr->id}",
+            'url'   => "/requests/{$this->tr->id}",
         ];
     }
 }

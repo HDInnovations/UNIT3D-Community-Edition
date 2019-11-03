@@ -65,7 +65,7 @@
                             @foreach($application->imageProofs as $key => $img_proof)
                                 <button id="show-img" type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button>
                                 <div id="image-{{ $img_proof->id }}" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" data-dismiss="modal">
+                                    <div class="modal-dialog modal-dark" data-dismiss="modal">
                                         <div class="modal-content"  >
                                             <div class="modal-body">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -131,7 +131,7 @@
                             <div id="approve-application" class="modal fade" role="dialog">
                                 <form method="POST" action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
                                 @csrf
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-dark">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -161,7 +161,7 @@
                             <div id="deny-application" class="modal fade" role="dialog">
                                 <form method="POST" action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
                                 @csrf
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-dark">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>

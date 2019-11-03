@@ -20,7 +20,7 @@
         <button class="btn btn-primary" data-toggle="modal" data-target="#addChatroom">Add New Chatroom</button>
         {{--Add Chatroom Modal--}}
         <div id="addChatroom" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dark">
                 <div class="modal-content">
 
                     <div class="modal-header" style="text-align: center;">

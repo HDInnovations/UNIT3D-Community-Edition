@@ -355,7 +355,7 @@
 
 	{{-- Add Torrent Modal --}}
 	<div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-dark">
 			<div class="modal-content">
 				<div class="container-fluid">
 					<form role="form" method="POST" action="{{ route('playlists.attach') }}">

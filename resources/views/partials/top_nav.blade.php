@@ -12,7 +12,7 @@
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
-                <a href="{{ route('inbox', ['username' => auth()->user()->username]) }}"
+                <a href="{{ route('inbox') }}"
                    class="dropdown-toggle icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-blue"></i>
                     @if ($pm > 0)

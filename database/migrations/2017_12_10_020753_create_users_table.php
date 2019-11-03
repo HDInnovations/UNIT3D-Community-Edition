@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
             $table->float('seedbonus', 12)->unsigned()->default(0.00);
             $table->integer('invites')->unsigned()->default(0);
             $table->integer('hitandruns')->unsigned()->default(0);
-            $table->string('rsskey')->default('abcdefg');
+            $table->string('rsskey');
             $table->boolean('hidden')->default(0);
             $table->boolean('style')->default(0);
             $table->boolean('nav')->default(0);

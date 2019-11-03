@@ -68,7 +68,7 @@ class NewRequestFillReject extends Notification implements ShouldQueue
         return [
             'title' => $this->sender.' Has Rejected Your Fill Of A Requested Torrent',
             'body'  => $this->sender.' has rejected your fill of Requested Torrent '.$this->tr->name,
-            'url'   => "/request/{$this->tr->id}",
+            'url'   => "/requests/{$this->tr->id}",
         ];
     }
 }

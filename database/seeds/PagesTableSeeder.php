@@ -10,6 +10,8 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
+
+use App\Models\Page;
 use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
@@ -21,54 +23,46 @@ class PagesTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('pages')->delete();
+        Page::create([
+            'id' => 1,
+            'name' => 'Rules',
+            'slug' => 'rules',
+            'content' => 'RULES GOES HERE',
+        ]);
 
-        \DB::table('pages')->insert([
-            0 => [
-                    'id'         => 1,
-                    'name'       => 'Rules',
-                    'slug'       => 'rules',
-                    'content'    => 'RULES GOES HERE',
-                    'created_at' => '2016-12-20 22:09:45',
-                    'updated_at' => '2017-12-01 13:39:43',
-                ],
-                1 => [
-                    'id'         => 3,
-                    'name'       => 'FAQ',
-                    'slug'       => 'faq',
-                    'content'    => 'FAQ GOES HERE',
-                    'created_at' => '2017-10-28 21:26:15',
-                    'updated_at' => '2017-10-28 21:26:15',
-                ],
-                2 => [
-                    'id'         => 4,
-                    'name'       => 'Suggested Clients',
-                    'slug'       => 'suggested-clients',
-                    'content'    => 'We suggest the following BitTorrent clients.',
-                    'created_at' => '2017-01-27 15:52:01',
-                    'updated_at' => '2017-08-07 17:30:56',
-                ],
-                3 => [
-                    'id'         => 5,
-                    'name'       => 'Upload Guide',
-                    'slug'       => 'upload-guide',
-                    'content'    => 'UPLOAD GUIDE HERE',
-                    'created_at' => '2017-04-24 14:45:03',
-                    'updated_at' => '2017-08-07 17:34:42',
-                ],
-                4 => [
-                    'id'         => 6,
-                    'name'       => 'Tracker Codes',
-                    'slug'       => 'tracker-codes',
-                    'content'    => 'Our Tracker Codes/Responses',
-                    'created_at' => '2017-09-08 14:23:16',
-                    'updated_at' => '2017-09-08 14:27:12',
-                ],
-                5 => [
-                    'id'      => 7,
-                    'name'    => 'Terms Of Use',
-                    'slug'    => 'terms-of-use',
-                    'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
+        Page::create([
+            'id' => 2,
+            'name' => 'FAQ',
+            'slug' => 'faq',
+            'content' => 'FAQ GOES HERE',
+        ]);
+
+        Page::create([
+            'id' => 3,
+            'name' => 'Suggested Clients',
+            'slug' => 'suggested-clients',
+            'content' => 'We suggest the following BitTorrent clients.',
+        ]);
+
+        Page::create([
+            'id' => 4,
+            'name' => 'Upload Guide',
+            'slug' => 'upload-guide',
+            'content' => 'UPLOAD GUIDE HERE',
+        ]);
+
+        Page::create([
+            'id' => 5,
+            'name' => 'Tracker Codes',
+            'slug' => 'tracker-codes',
+            'content' => 'Our Tracker Codes/Responses',
+        ]);
+
+        Page::create([
+            'id' => 6,
+            'name' => 'Terms Of Use',
+            'slug' => 'terms-of-use',
+            'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
 
 Welcome to our website located at '.config('app.url').' (this "Site")! This Site allows you to:
 (a) participate in interactive features that we may make available from time to time through the Site; or
@@ -147,9 +141,6 @@ YOU AGREE THAT YOUR USE OF THIS SITE AND SERVICES WILL BE AT YOUR SOLE RISK. WE 
 (D) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THIS SITE,
 (E) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH MAY BE TRANSMITTED TO OR THROUGH THIS SITE BY ANY THIRD PARTY, AND/OR
 (F) ANY ERRORS OR OMISSIONS IN ANY CONTRIBUTIONS, CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT, CONTRIBUTIONS, OR MATERIALS POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THIS SITE.WE WILL NOT BE LIABLE TO YOU FOR ANY LOSS OF ANY DATA (INCLUDING CONTENT) OR FOR LOSS OF USE OF THIS SITE.SOME STATES OR JURISDICTIONS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF CERTAIN WARRANTIES, OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF YOU RESIDE IN ONE OF THESE STATES OR JURISDICTIONS, THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.',
-                    'created_at' => '2017-10-03 14:50:15',
-                    'updated_at' => '2017-10-03 18:31:25',
-                ],
         ]);
     }
 }

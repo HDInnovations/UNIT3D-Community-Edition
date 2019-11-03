@@ -71,13 +71,13 @@ class NewPost extends Notification implements ShouldQueue
             return [
                 'title' => $this->poster->username.' Has Posted In A Subscribed Topic',
                 'body' => $this->poster->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
-                'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+                'url' => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         } else {
             return [
                 'title' => $this->poster->username.' Has Posted In A Topic You Started',
                 'body' => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,
-                'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+                'url' => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         }
     }

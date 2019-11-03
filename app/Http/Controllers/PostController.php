@@ -15,6 +15,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Topic;
+use App\Repositories\ChatRepository;
+use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
@@ -31,6 +33,28 @@ use App\Achievements\UserMadeFirstPost;
 
 class PostController extends Controller
 {
+    /**
+     * @var TaggedUserRepository
+     */
+    private $tag;
+
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    /**
+     * ForumController Constructor.
+     *
+     * @param TaggedUserRepository $tag
+     * @param ChatRepository       $chat
+     */
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    {
+        $this->tag = $tag;
+        $this->chat = $chat;
+    }
+
     /**
      * Add A Post To A Topic.
      *
@@ -70,7 +94,7 @@ class PostController extends Controller
             $post->save();
 
             $appurl = config('app.url');
-            $href = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
+            $href = "{$appurl}/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
 
             if ($this->tag->hasTags($request->input('content'))) {
@@ -131,8 +155,8 @@ class PostController extends Controller
 
             // Post To Chatbox
             $appurl = config('app.url');
-            $postUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
-            $realUrl = "/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
+            $postUrl = "{$appurl}/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
+            $realUrl = "/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
             $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
@@ -196,7 +220,7 @@ class PostController extends Controller
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->content = $request->input('content');

@@ -16,6 +16,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Forum;
 use App\Models\Topic;
+use App\Repositories\ChatRepository;
+use App\Repositories\TaggedUserRepository;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Achievements\UserMade25Posts;
@@ -34,13 +36,35 @@ use App\Achievements\UserMadeFirstPost;
 class TopicController extends Controller
 {
     /**
+     * @var TaggedUserRepository
+     */
+    private $tag;
+
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    /**
+     * ForumController Constructor.
+     *
+     * @param TaggedUserRepository $tag
+     * @param ChatRepository       $chat
+     */
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    {
+        $this->tag = $tag;
+        $this->chat = $chat;
+    }
+
+    /**
      * Show The Topic.
      *
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function topic($id)
+    public function topic($id, $page = '', $post = '')
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -186,7 +210,7 @@ class TopicController extends Controller
 
                 // Post To ShoutBox
                 $appurl = config('app.url');
-                $topicUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}";
+                $topicUrl = "{$appurl}/forums/topics/{$topic->id}";
                 $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
 
                 $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");

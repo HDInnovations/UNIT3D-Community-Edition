@@ -68,7 +68,7 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
         return [
             'title' => $this->sender.' Has Unclaimed One Of Your Requested Torrents',
             'body'  => $this->sender.' has unclaimed your Requested Torrent '.$this->tr->name,
-            'url'   => "/request/{$this->tr->id}",
+            'url'   => "/requests/{$this->tr->id}",
         ];
     }
 }

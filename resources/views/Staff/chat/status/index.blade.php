@@ -20,7 +20,7 @@
         <button class="btn btn-primary" data-toggle="modal" data-target="#addChatStatus">Add New Chat Status</button>
         {{--Add Chatroom Modal--}}
         <div id="addChatStatus" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dark">
                 <div class="modal-content">
 
                     <div class="modal-header" style="text-align: center;">

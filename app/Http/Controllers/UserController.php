@@ -307,7 +307,7 @@ class UserController extends Controller
         $user->twostep = $request->input('twostep');
         $user->save();
 
-        return redirect()->route('user_profile', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Changed Your TwoStep Auth Status!');
     }
 
@@ -409,7 +409,7 @@ class UserController extends Controller
         $user->private_profile = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Private!');
     }
 
@@ -430,7 +430,7 @@ class UserController extends Controller
         $user->private_profile = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Public!');
     }
 
@@ -451,7 +451,7 @@ class UserController extends Controller
         $user->block_notifications = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disabled Notifications!');
     }
 
@@ -472,7 +472,7 @@ class UserController extends Controller
         $user->block_notifications = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Enabled Notifications!');
     }
 
@@ -493,7 +493,7 @@ class UserController extends Controller
         $user->hidden = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disappeared Like A Ninja!');
     }
 
@@ -514,7 +514,7 @@ class UserController extends Controller
         $user->hidden = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['username' => $user->username])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Given Up Your Ninja Ways And Become Visible!');
     }
 

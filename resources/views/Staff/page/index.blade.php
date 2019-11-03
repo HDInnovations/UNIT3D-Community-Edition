@@ -36,7 +36,7 @@
                                 </a>
                             </td>
                             <td>
-                                {{ date('d M Y', $page->created_at->getTimestamp()) }}
+                                {{ $page->created_at }} ({{ $page->created_at->diffForHumans() }})
                             </td>
                             <td>
                                 <form action="{{ route('staff.pages.destroy', ['id' => $page->id]) }}" method="POST">

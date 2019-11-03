@@ -64,13 +64,13 @@ class NewComment extends Notification
                 return [
                     'title' => 'New Torrent Comment Received',
                     'body' => $this->comment->user->username.' has left you a comment on Torrent '.$this->comment->torrent->name,
-                    'url' => '/torrents/'.$this->comment->torrent->slug.'.'.$this->comment->torrent->id,
+                    'url' => '/torrents/'.$this->comment->torrent->id,
                 ];
             } else {
                 return [
                     'title' => 'New Torrent Comment Received',
                     'body' => 'Anonymous has left you a comment on Torrent '.$this->comment->torrent->name,
-                    'url' => '/torrents/'.$this->comment->torrent->slug.'.'.$this->comment->torrent->id,
+                    'url' => '/torrents/'.$this->comment->torrent->id,
                 ];
             }
         }
@@ -78,13 +78,13 @@ class NewComment extends Notification
             return [
                 'title' => 'New Request Comment Received',
                 'body'  => $this->comment->user->username.' has left you a comment on Torrent Request '.$this->comment->request->name,
-                'url'   => '/request/'.$this->comment->request->id,
+                'url'   => '/requests/'.$this->comment->request->id,
             ];
         } else {
             return [
                 'title' => 'New Request Comment Received',
                 'body'  => 'Anonymous has left you a comment on Torrent Request '.$this->comment->request->name,
-                'url'   => '/request/'.$this->comment->request->id,
+                'url'   => '/requests/'.$this->comment->request->id,
             ];
         }
     }

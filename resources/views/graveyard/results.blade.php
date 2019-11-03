@@ -62,7 +62,7 @@
                             {{-- Resurrect Modal --}}
                             <div class="modal fade" id="resurrect-{{ $torrent->id }}" tabindex="-1" role="dialog"
                                  aria-labelledby="resurrect">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-dark" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

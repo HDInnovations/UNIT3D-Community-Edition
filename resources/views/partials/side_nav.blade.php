@@ -85,21 +85,21 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('inbox', ['username' => auth()->user()->username]) }}">
+            <a href="{{ route('inbox') }}">
                 <i class="{{ config('other.font-awesome') }} fa-envelope" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('pm.inbox')</span>
                 <span class="selected"></span>
             </a>
         </li>
         <li>
-            <a href="{{ route('home.index') }}/page/rules.1">
+            <a href="{{ config('other.rules_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-info-square" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.rules')</span>
                 <span class="selected"></span>
             </a>
         </li>
         <li>
-            <a href="{{ route('home.index') }}/page/faq.3">
+            <a href="{{ config('other.faq_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-question-square" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.faq')</span>
                 <span class="selected"></span>

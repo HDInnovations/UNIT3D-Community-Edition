@@ -63,7 +63,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog modal-dark">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -110,7 +110,7 @@
                             <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                 <form method="POST" action="{{ route("staff.moderation.reject") }}">
                                     @csrf
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog modal-dark">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -218,7 +218,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('delete') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog modal-dark">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -324,7 +324,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog modal-dark">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -375,7 +375,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action=" {{ route('delete') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-lg">
+                                    <div class="modal-dialog modal-dark">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"

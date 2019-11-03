@@ -12,39 +12,15 @@
  */
 
 namespace App\Http\Controllers\Staff;
-
-use App\Jobs\ProcessMassPM;
+;
 use App\Models\User;
 use App\Models\Group;
+use App\Jobs\ProcessMassPM;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class MassActionController extends Controller
 {
-    /**
-     * Mass Validate Unvalidated Users.
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function validate()
-    {
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
-        $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup->id)->get();
-
-        foreach ($users as $user) {
-            $user->group_id = $memberGroup->id;
-            $user->active = 1;
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_request = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->save();
-        }
-
-        return redirect()->route('staff.dashboard.index')
-            ->withSuccess('Unvalidated Accounts Are Now Validated');
-    }
-
     /**
      * Mass PM Form.
      *
@@ -90,5 +66,31 @@ class MassActionController extends Controller
             return redirect()->route('staff.mass-pm.create')
                 ->withSuccess('MassPM Sent');
         }
+    }
+
+    /**
+     * Mass Validate Unvalidated Users.
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function update()
+    {
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
+        $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup->id)->get();
+
+        foreach ($users as $user) {
+            $user->group_id = $memberGroup->id;
+            $user->active = 1;
+            $user->can_upload = 1;
+            $user->can_download = 1;
+            $user->can_request = 1;
+            $user->can_comment = 1;
+            $user->can_invite = 1;
+            $user->save();
+        }
+
+        return redirect()->route('staff.dashboard.index')
+            ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

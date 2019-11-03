@@ -73,7 +73,7 @@ class NewFollow extends Notification implements ShouldQueue
         return [
             'title' => $this->sender->username.' Has Followed You!',
             'body'  => $this->sender->username.' has started to follow you so they will get notifications about your activities.',
-            'url'   => "/{$this->sender->slug}.{$this->sender->id}",
+            'url'   => "/users/{$this->sender->id}",
         ];
     }
 }
