@@ -121,13 +121,13 @@ class AnnounceController extends Controller
         $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
 
         // If User Is Banned Return Error to Client
-        if ($user->group->id == $bannedGroup->id) {
+        if ($user->group_id == $bannedGroup->id) {
             //info('A Banned User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Is Disabled Return Error to Client
-        if ($user->group->id == $disabledGroup->id) {
+        if ($user->group_id == $disabledGroup->id) {
             //info('A Disabled User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -139,7 +139,7 @@ class AnnounceController extends Controller
         }
 
         // If User Is Validating Return Error to Client
-        if ($user->group->id == $validatingGroup->id) {
+        if ($user->group_id == $validatingGroup->id) {
             //info('A Validating User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is still validating']))->withHeaders(['Content-Type' => 'text/plain']);
         }
