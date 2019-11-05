@@ -285,7 +285,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Add A Torrent Request.
+     * Store A New Torrent Request.
      *
      * @param \Illuminate\Http\Request $request
      *

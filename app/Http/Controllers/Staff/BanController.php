@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Mail;
 class BanController extends Controller
 {
     /**
-     * Get All Bans.
+     * Display All Bans.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

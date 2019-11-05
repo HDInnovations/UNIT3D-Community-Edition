@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Add A Application.
+     * Store A New Application.
      *
      * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse

@@ -73,7 +73,7 @@ class PollController extends Controller
     }
 
     /**
-     * Add A Poll.
+     * Store A New Poll.
      *
      * @param StorePoll $request
      *

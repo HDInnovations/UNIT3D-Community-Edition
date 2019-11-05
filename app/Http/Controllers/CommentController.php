@@ -61,7 +61,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Article.
+     * Store A New Comment To A Article.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $id
@@ -161,7 +161,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Playlist.
+     * Store A New Comment To A Playlist.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
@@ -261,7 +261,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Torrent.
+     * Store A New Comment To A Torrent.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $id
@@ -366,7 +366,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Request.
+     * Store A New Comment To A Request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $id
@@ -470,7 +470,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Torrent Via Quick Thanks.
+     * Store A New Comment To A Torrent Via Quick Thanks.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $id

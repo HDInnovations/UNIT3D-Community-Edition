@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Mail;
 class ApplicationController extends Controller
 {
     /**
-     * Get All Applications.
+     * Display All Applications.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

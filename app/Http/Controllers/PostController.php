@@ -56,7 +56,7 @@ class PostController extends Controller
     }
 
     /**
-     * Add A Post To A Topic.
+     * Store A New Post To A Topic.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
