@@ -13,13 +13,13 @@
 
 namespace App\Events;
 
-use App\Models\Message;
-use Illuminate\Queue\SerializesModels;
 use App\Http\Resources\ChatMessageResource;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
+use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class MessageEdited implements ShouldBroadcastNow
 {

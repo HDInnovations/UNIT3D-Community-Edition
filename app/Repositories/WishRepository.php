@@ -13,10 +13,10 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\WishInterface;
+use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
-use App\Models\Torrent;
-use App\Interfaces\WishInterface;
 use App\Services\Clients\OmdbClient;
 
 class WishRepository implements WishInterface

@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use FilesystemIterator;
-use RecursiveIteratorIterator;
 use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class VendorCleanup extends Command
 {

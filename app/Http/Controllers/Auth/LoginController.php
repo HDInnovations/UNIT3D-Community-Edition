@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Group;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {

@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\ChatStatus;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
+use Illuminate\Http\Request;
 
 class ChatStatusController extends Controller
 {

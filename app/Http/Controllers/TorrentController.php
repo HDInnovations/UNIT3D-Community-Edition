@@ -13,39 +13,39 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Peer;
-use App\Models\Type;
-use App\Models\User;
+use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
-use App\Models\History;
-use App\Models\Torrent;
-use App\Models\Warning;
 use App\Helpers\Bencode;
+use App\Helpers\MediaInfo;
+use App\Helpers\TorrentHelper;
+use App\Helpers\TorrentTools;
+use App\Models\BonTransactions;
 use App\Models\Bookmark;
 use App\Models\Category;
-use App\Helpers\MediaInfo;
-use App\Models\TagTorrent;
-use App\Models\TorrentFile;
-use Illuminate\Support\Str;
-use App\Bots\IRCAnnounceBot;
-use Illuminate\Http\Request;
-use App\Helpers\TorrentTools;
-use App\Helpers\TorrentHelper;
-use App\Models\FreeleechToken;
-use App\Models\PrivateMessage;
-use App\Models\TorrentRequest;
-use App\Models\BonTransactions;
 use App\Models\FeaturedTorrent;
-use App\Models\PlaylistTorrent;
+use App\Models\FreeleechToken;
+use App\Models\History;
+use App\Models\Peer;
 use App\Models\PersonalFreeleech;
-use Illuminate\Support\Facades\DB;
-use App\Repositories\ChatRepository;
+use App\Models\PlaylistTorrent;
+use App\Models\PrivateMessage;
+use App\Models\TagTorrent;
+use App\Models\Torrent;
+use App\Models\TorrentFile;
+use App\Models\TorrentRequest;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\Warning;
 use App\Notifications\NewReseedRequest;
-use MarcReichel\IGDBLaravel\Models\Game;
-use MarcReichel\IGDBLaravel\Models\Character;
+use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use MarcReichel\IGDBLaravel\Models\Character;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 class TorrentController extends Controller
 {

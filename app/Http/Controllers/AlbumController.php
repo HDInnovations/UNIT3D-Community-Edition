@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Image;
-use Carbon\Carbon;
 use App\Models\Album;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Services\Clients\OmdbClient;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Image;
 
 class AlbumController extends Controller
 {

@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class SeedboxController extends Controller
 {

@@ -12,8 +12,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Torrent;
 use App\Models\TagTorrent;
+use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 

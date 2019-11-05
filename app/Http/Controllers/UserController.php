@@ -13,29 +13,29 @@
 
 namespace App\Http\Controllers;
 
-use Image;
-use ZipArchive;
-use App\Models\Ban;
-use App\Models\Peer;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Group;
-use App\Models\Topic;
-use App\Models\Follow;
-use App\Models\Invite;
-use App\Models\History;
-use App\Models\Torrent;
-use App\Models\Warning;
 use App\Helpers\Bencode;
-use App\Models\Graveyard;
-use App\Models\UserPrivacy;
-use Illuminate\Http\Request;
-use App\Models\TorrentRequest;
+use App\Models\Ban;
 use App\Models\BonTransactions;
-use App\Models\UserNotification;
+use App\Models\Follow;
+use App\Models\Graveyard;
+use App\Models\Group;
+use App\Models\History;
+use App\Models\Invite;
+use App\Models\Peer;
 use App\Models\PersonalFreeleech;
+use App\Models\Post;
+use App\Models\Topic;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
+use App\Models\User;
+use App\Models\UserNotification;
+use App\Models\UserPrivacy;
+use App\Models\Warning;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Image;
+use ZipArchive;
 
 class UserController extends Controller
 {

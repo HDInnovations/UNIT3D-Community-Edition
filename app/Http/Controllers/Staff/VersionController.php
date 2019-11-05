@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 
 class VersionController extends Controller
 {
