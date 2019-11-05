@@ -56,12 +56,12 @@
                                         {{ $report->type }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('staff.reports.show',['id' => $reportr->id]) }}">{{ $report->title }}</a>
+                                        <a href="{{ route('staff.reports.show',['id' => $report->id]) }}">{{ $report->title }}</a>
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
                                            href="{{ route('users.show', ['username' => $report->reported->username]) }}">
-                                            {{ $r->reported->username }}
+                                            {{ $report->reported->username }}
                                         </a>
                                     </td>
                                     <td class="user-name">
@@ -75,7 +75,7 @@
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
-                                           href="{{ $report->staff->username ? route('profile', ['username' => $report->staff->username]) : route('home')}}">
+                                           href="{{ $report->staff->username ? route('users.show', ['username' => $report->staff->username]) : route('home')}}">
                                             {{ $report->staff_id ? $report->staff->username : "" }}
                                         </a>
                                     </td>
