@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -12,8 +12,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Torrent;
 use App\Models\TagTorrent;
+use App\Models\Torrent;
+use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 
 class FetchGenres extends Command
@@ -40,7 +41,7 @@ class FetchGenres extends Command
      */
     public function handle()
     {
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
         $torrents = Torrent::withAnyStatus()
             ->select(['id', 'category_id', 'imdb', 'tmdb'])

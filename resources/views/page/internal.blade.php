@@ -21,7 +21,7 @@
                 @foreach ($internal as $i)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center oper-item" style="background-color: {{ $i->color }};">
-                            <a href="{{ route('profile', ['username' => $i->username, 'id' => $i->id]) }}"
+                            <a href="{{ route('users.show', ['username' => $i->username]) }}"
                                style="color:#ffffff;"><h1>{{ $i->username }}</h1></a>
                             <span class="badge-user">@lang('page.staff-group'): {{ $i->name }}</span>
                             <br>

@@ -3,7 +3,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -114,5 +114,51 @@ class SystemInformation
         $results = DB::select(DB::raw('select version()'));
 
         return $results[0]->{'version()'};
+    }
+
+    /**
+     * Get all the directory permissions as well as the recommended ones.
+     *
+     * @return array
+     */
+    public function directoryPermissions()
+    {
+        return [
+            [
+                'directory'   => base_path('bootstrap/cache'),
+                'permission'  => $this->getDirectoryPermission('bootstrap/cache'),
+                'recommended' => '0775',
+            ],
+            [
+                'directory'   => base_path('public'),
+                'permission'  => $this->getDirectoryPermission('public'),
+                'recommended' => '0775',
+            ],
+            [
+                'directory'   => base_path('storage'),
+                'permission'  => $this->getDirectoryPermission('storage'),
+                'recommended' => '0775',
+            ],
+            [
+                'directory'   => base_path('vendor'),
+                'permission'  => $this->getDirectoryPermission('vendor'),
+                'recommended' => '0775',
+            ],
+        ];
+    }
+
+    /**
+     * Get the file permissions for a specific path/file.
+     *
+     * @param $path
+     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     */
+    public function getDirectoryPermission($path)
+    {
+        try {
+            return substr(sprintf('%o', fileperms(base_path($path))), -4);
+        } catch (\Exception $ex) {
+            return trans('site.error');
+        }
     }
 }

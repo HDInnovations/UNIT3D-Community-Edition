@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,11 +13,11 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
 use App\Models\Torrent;
-use Illuminate\Support\Str;
-use Illuminate\Console\Command;
+use App\Models\User;
 use App\Services\Clients\OmdbClient;
+use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class DemoSeed extends Command
 {

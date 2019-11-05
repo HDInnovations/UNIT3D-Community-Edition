@@ -16,7 +16,7 @@
 
 @endforeach
 
-{{-- Action Button --}}
+{{-- Button --}}
 @if (isset($actionText))
 <?php
     switch ($level) {

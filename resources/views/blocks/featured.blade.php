@@ -72,7 +72,7 @@
                                     <div class="color-overlay">
                                         <div class="movie-content">
                                             <div class="movie-header">
-                                                <a href="{{ route('torrent', ['slug' => $feature->torrent->slug, 'id' => $feature->torrent->id]) }}">
+                                                <a href="{{ route('torrent', ['id' => $feature->torrent->id]) }}">
                                                     <h1 class="movie-title">{{ $feature->torrent->name }}</h1></a>
                                                 <h4 class="movie-info">
                                                     @if (isset($meta) && $meta->genres)

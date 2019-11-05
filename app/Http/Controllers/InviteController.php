@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,35 +13,56 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\User;
-use Ramsey\Uuid\Uuid;
-use App\Models\Invite;
 use App\Mail\InviteUser;
+use App\Models\Invite;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
 {
     /**
-     * Invite Form.
+     * Invite Tree.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function invite(Request $request)
+    public function index(Request $request, $username)
+    {
+        $user = $request->user();
+        $owner = User::where('username', '=', $username)->firstOrFail();
+        abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
+
+        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
+
+        return view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
+    }
+
+    /**
+     * Invite Form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create(Request $request)
     {
         $user = $request->user();
 
         if (config('other.invite-only') == false) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
             ->withErrors('Invitations Are Disabled Due To Open Registration!');
         }
         if ($user->can_invite == 0) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
             ->withErrors('Your Invite Rights Have Been Revoked!');
         }
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 
@@ -56,25 +77,25 @@ class InviteController extends Controller
      * @return Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function process(Request $request)
+    public function store(Request $request)
     {
         $current = new Carbon();
         $user = $request->user();
 
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
-            return redirect()->route('home')
+            return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 
         if ($user->invites <= 0) {
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withErrors('You do not have enough invites!');
         }
 
         $exist = Invite::where('email', '=', $request->input('email'))->first();
 
         if ($exist) {
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withErrors('The email address your trying to send a invite to has already been sent one.');
         }
 
@@ -104,7 +125,7 @@ class InviteController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withErrors($v->errors());
         } else {
             Mail::to($request->input('email'))->send(new InviteUser($invite));
@@ -116,7 +137,7 @@ class InviteController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
 
-            return redirect()->route('invite')
+            return redirect()->route('invites.create')
                 ->withSuccess('Invite was sent successfully!');
         }
     }
@@ -124,11 +145,12 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reProcess(Request $request, $id)
+    public function send(Request $request, $id)
     {
         $user = $request->user();
         $invite = Invite::findOrFail($id);
@@ -136,7 +158,7 @@ class InviteController extends Controller
         abort_unless($invite->user_id === $user->id, 403);
 
         if ($invite->accepted_by !== null) {
-            return redirect()->route('user_invites', ['slug' => $user->slug, 'id' => $user->id])
+            return redirect()->route('invites.index', ['username' => $user->username])
                 ->withErrors('The invite you are trying to resend has already been used.');
         }
 
@@ -145,26 +167,7 @@ class InviteController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has resent invite to {$invite->email} .");
 
-        return redirect()->route('user_invites', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('invites.index', ['username' => $user->username])
             ->withSuccess('Invite was resent successfully!');
-    }
-
-    /**
-     * Invite Tree.
-     *
-     * @param $username
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function invites(Request $request, $username, $id)
-    {
-        $user = $request->user();
-        $owner = User::findOrFail($id);
-        abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
-
-        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $id)->latest()->paginate(25);
-
-        return view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
 }

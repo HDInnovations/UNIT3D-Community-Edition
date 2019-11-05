@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Group;
 use App\Models\Rss;
+use App\Models\TagTorrent;
+use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
-use App\Models\Group;
-use App\Models\Torrent;
-use App\Models\Category;
-use App\Models\TagTorrent;
-use Illuminate\Http\Request;
 use App\Repositories\TorrentFacetedRepository;
+use Illuminate\Http\Request;
 
 class RssController extends Controller
 {
@@ -43,7 +43,9 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      *
-     * @param  string  $hash
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string                    $hash
+     *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, $hash = null)
@@ -64,6 +66,7 @@ class RssController extends Controller
     /**
      * Show the form for creating a new RSS resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -75,7 +78,8 @@ class RssController extends Controller
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
-            'user'           => $user, ]);
+            'user'           => $user,
+        ]);
     }
 
     /**
@@ -126,7 +130,7 @@ class RssController extends Controller
                 ->withErrors($error);
         }
 
-        return redirect()->route('rss.index.hash', ['hash' => 'private'])
+        return redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -293,7 +297,8 @@ class RssController extends Controller
     /**
      * Show the form for editing the specified RSS resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int                       $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
@@ -320,7 +325,6 @@ class RssController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
         $v = validator($request->all(), [
@@ -357,7 +361,7 @@ class RssController extends Controller
                 ->withErrors($error);
         }
 
-        return redirect()->route('rss.index.hash', ['hash' => 'private'])
+        return redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -372,7 +376,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();
 
-        return redirect()->route('rss.index.hash', ['hash' => 'private'])
+        return redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess('RSS Feed Deleted!');
     }
 }

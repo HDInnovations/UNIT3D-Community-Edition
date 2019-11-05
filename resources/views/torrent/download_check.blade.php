@@ -11,13 +11,13 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
+        <a href="{{ route('download_check', ['id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.download-check')</span>
         </a>
@@ -45,7 +45,7 @@
                     <h4 class="text-center">@lang('torrent.info')</h4></div>
                 <div class="text-center">
                     <h3 class="movie-title">
-                        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="{{ $torrent->name }}">{{ $torrent->name }}</a>
+                        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" title="{{ $torrent->name }}">{{ $torrent->name }}</a>
                     </h3>
                     <ul class="list-inline">
                         <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>@lang('torrent.size')
@@ -91,7 +91,7 @@
                 @if ($user->getRatio() < config('other.ratio') || $user->can_download == 0 && $torrent->user_id != $user->id)
                     <span class="text-red text-bold">@lang('torrent.no-privileges-desc')</span>
                 @else
-                    <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                    <a href="{{ route('download', ['id' => $torrent->id]) }}"
                        role="button" class="btn btn-labeled btn-primary">
                         <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-download'></i></span>@lang('common.download')</a>
                 @endif

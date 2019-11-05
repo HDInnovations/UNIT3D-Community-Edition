@@ -23,14 +23,14 @@
 
 						<ul class="list_menu_bar">
 							<li class="account">
-								<a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">
+								<a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
 									@if ($playlist->user->image != null)
 										<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
 									@else
 										<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
 									@endif
 								</a>
-								<p>A list by<br><a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">{{ $playlist->user->username }}</a></p>
+								<p>A list by<br><a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">{{ $playlist->user->username }}</a></p>
 							</li>
 						</ul>
 
@@ -46,10 +46,10 @@
 									@csrf
 									@method('DELETE')
 									<a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" class="btn btn-warning">
-										<i class="{{ config('other.font-awesome') }} fa-edit"></i> Edit Playlist
+										<i class="{{ config('other.font-awesome') }} fa-edit"></i> @lang('common.edit') Playlist
 									</a>
 									<button type="submit" class="btn btn-danger">
-										<i class="{{ config('other.font-awesome') }} fa-trash"></i> Delete Playlist
+										<i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('common.delete') Playlist
 									</button>
 								</form>
 							@endif
@@ -89,12 +89,12 @@
 								@endif
 								&nbsp;
 								@if (config('torrent.download_check_page') == 1)
-									<a href="{{ route('download_check', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+									<a href="{{ route('download_check', ['id' => $t->torrent->id]) }}" role="button"
 									   data-toggle="tooltip" data-placement="top" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left; margin-right: 10px;">
 										<i class='{{ config("other.font-awesome") }} fa-download'></i>
 									</a>
 								@else
-									<a href="{{ route('download', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+									<a href="{{ route('download', ['id' => $t->torrent->id]) }}" role="button"
 									   data-toggle="tooltip" data-placement="top" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left; margin-right: 10px;">
 										<i class='{{ config("other.font-awesome") }} fa-download'></i>
 									</a>
@@ -142,7 +142,7 @@
 								</div>
 								<div class="body_description">
 									<h3 class="description_title">
-										<a href="{{ route('torrent', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
+										<a href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
 											@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && isset($t->torrent->meta) && $meta->releaseYear)
 												<span class="text-bold text-pink"> {{ $meta->releaseYear }}</span>
 											@endif
@@ -178,13 +178,13 @@
 									@if ($t->torrent->anon == 1)
 										<span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
 											@if (auth()->user()->id == $t->torrent->user->id || auth()->user()->group->is_modo)
-												<a href="{{ route('profile', ['username' => $t->torrent->user->username, 'id' => $t->torrent->user->id]) }}">
+												<a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
                                                             ({{ $t->torrent->user->username }})
                                                         </a>
 											@endif
                                                 </span>
 									@else
-										<a href="{{ route('profile', ['username' => $t->torrent->user->username, 'id' => $t->torrent->user->id]) }}">
+										<a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
                                             <span class="badge-user text-bold" style="color:{{ $t->torrent->user->group->color }}; background-image:{{ $t->torrent->user->group->effect }};">
                                                 <i class="{{ $t->torrent->user->group->icon }}" data-toggle="tooltip" title=""
                                                    data-original-title="{{ $t->torrent->user->group->name }}"></i> {{ $t->torrent->user->username }}
@@ -224,12 +224,12 @@
 									@endif
 
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+                                        <a href="{{ route('download_check', ['id' => $t->torrent->id]) }}" role="button"
                                            data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
                                             <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}" role="button"
+                                        <a href="{{ route('download', ['id' => $t->torrent->id]) }}" role="button"
                                            data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
                                             <i class='{{ config("other.font-awesome") }} fa-download'></i>
                                         </a>
@@ -247,7 +247,7 @@
 									@endif
 									<div class="text">
 										<h3 style="font-size: 25px;">
-											<a data-id="{{ $t->torrent->id }}" data-slug="{{ $t->torrent->slug }}" href="{{ route('torrent', ['slug' => $t->torrent->slug, 'id' => $t->torrent->id]) }}">{{ $t->torrent->name }}</a>
+											<a data-id="{{ $t->torrent->id }}" href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}</a>
 										</h3>
 									</div>
 								</div>
@@ -294,9 +294,9 @@
 														<img src="{{ url('img/profile.png') }}"
 														     alt="{{ $comment->user->username }}" class="img-avatar-48">
 														<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-														<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+														<a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
 												@else
-													<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+													<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
 													   class="pull-left" style="padding-right: 10px">
 														@if ($comment->user->image != null)
 															<img src="{{ url('files/img/' . $comment->user->image) }}"
@@ -306,7 +306,7 @@
 														     alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
 													@endif
 													<strong><a
-																href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+																href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
 												<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
 												@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
 													<a title="@lang('common.delete-comment')"
@@ -355,7 +355,7 @@
 
 	{{-- Add Torrent Modal --}}
 	<div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-dark">
 			<div class="modal-content">
 				<div class="container-fluid">
 					<form role="form" method="POST" action="{{ route('playlists.attach') }}">

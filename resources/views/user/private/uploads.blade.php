@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('user_profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_uploads', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_uploads', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.uploads')</span>
         </a>
@@ -152,18 +152,18 @@
                         @foreach ($uploads as $upload)
                             <tr>
                                 <td>
-                                    <a class="view-torrent" href="{{ route('torrent', ['slug' => $upload->slug, 'id' => $upload->id]) }}">
+                                    <a class="view-torrent" href="{{ route('torrent', ['id' => $upload->id]) }}">
                                         {{ $upload->name }}
                                     </a>
                                     <div class="pull-right">
-                                        <a href="{{ route('download', ['slug' => $upload->slug, 'id' => $upload->id]) }}">
+                                        <a href="{{ route('download', ['id' => $upload->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button"><i
                                                         class="{{ config('other.font-awesome') }} fa-download"></i></button>
                                         </a>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('category', ['slug' => $upload->category->slug, 'id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
+                                    <a href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
                                 </td>
                                 <td>
                                     <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>

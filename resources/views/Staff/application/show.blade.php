@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Application - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Application - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Application - Staff Dashboard">
+    <meta name="description" content="Application - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
@@ -65,7 +65,7 @@
                             @foreach($application->imageProofs as $key => $img_proof)
                                 <button id="show-img" type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button>
                                 <div id="image-{{ $img_proof->id }}" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" data-dismiss="modal">
+                                    <div class="modal-dialog modal-dark" data-dismiss="modal">
                                         <div class="modal-content"  >
                                             <div class="modal-body">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -123,15 +123,15 @@
                     @else
                     <tr>
                         <td>
-                            <strong>Action</strong>
+                            <strong>@lang('common.action')</strong>
                         </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#approve-application"><i class="{{ config('other.font-awesome') }} fa-check"></i> Approve</button>
 
                             <div id="approve-application" class="modal fade" role="dialog">
-                                <form method="post" action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
+                                <form method="POST" action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
                                 @csrf
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-dark">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -159,9 +159,9 @@
                             <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deny-application"><i class="{{ config('other.font-awesome') }} fa-times"></i> Reject</button>
 
                             <div id="deny-application" class="modal fade" role="dialog">
-                                <form method="post" action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
+                                <form method="POST" action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
                                 @csrf
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-dark">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>

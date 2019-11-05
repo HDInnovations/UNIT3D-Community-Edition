@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -16,6 +16,7 @@ namespace App\Listeners;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
+use Session;
 
 class AchievementUnlocked
 {
@@ -37,7 +38,7 @@ class AchievementUnlocked
     {
         // There's an AchievementProgress instance located on $event->progress
         $user = User::where('id', '=', $event->progress->achiever_id)->first();
-        session()->flash('achievement', $event->progress->details->name);
+        Session::flash('achievement', $event->progress->details->name);
 
         if ($user->private_profile == 0) {
             $profile_url = hrefProfile($user);

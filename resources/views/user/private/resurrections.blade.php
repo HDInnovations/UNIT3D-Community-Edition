@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('user_profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_resurrections', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_resurrections', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.resurrections')</span>
         </a>
@@ -104,7 +104,7 @@
                                 <td>
                                     <div class="torrent-file">
                                         <div>
-                                            <a class="view-torrent" href="{{ route('torrent', ['slug' => $resurrection->torrent->slug, 'id' => $resurrection->torrent->id]) }}">
+                                            <a class="view-torrent" href="{{ route('torrent', ['id' => $resurrection->torrent->id]) }}">
                                                 {{ $resurrection->torrent->name }}
                                             </a>
                                         </div>

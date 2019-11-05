@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -10,8 +10,8 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateUsersTable extends Migration
 {
@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
             $table->float('seedbonus', 12)->unsigned()->default(0.00);
             $table->integer('invites')->unsigned()->default(0);
             $table->integer('hitandruns')->unsigned()->default(0);
-            $table->string('rsskey')->default('abcdefg');
+            $table->string('rsskey');
             $table->boolean('hidden')->default(0);
             $table->boolean('style')->default(0);
             $table->boolean('nav')->default(0);

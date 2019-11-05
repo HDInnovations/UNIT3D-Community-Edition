@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Rss;
 use App\Models\Type;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Repositories\TorrentFacetedRepository;
+use Illuminate\Http\Request;
 
 class RssController extends Controller
 {
@@ -55,6 +55,8 @@ class RssController extends Controller
 
     /**
      * Show the form for creating a new RSS resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -116,18 +118,19 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('Staff.rss.create')
+            return redirect()->route('staff.rss.create')
                 ->withErrors($error);
         }
 
-        return redirect()->route('Staff.rss.index')
+        return redirect()->route('staff.rss.index')
             ->withSuccess($success);
     }
 
     /**
      * Show the form for editing the specified RSS resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int                       $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
@@ -154,7 +157,6 @@ class RssController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         $v = validator($request->all(), [
@@ -191,11 +193,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('Staff.rss.edit', ['id' => $id])
+            return redirect()->route('staff.rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('Staff.rss.index')
+        return redirect()->route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -210,7 +212,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
 
-        return redirect()->route('Staff.rss.index')
+        return redirect()->route('staff.rss.index')
             ->withSuccess('RSS Feed Deleted!');
     }
 }

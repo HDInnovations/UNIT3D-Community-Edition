@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,30 +13,30 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Type;
-use App\Models\User;
-use App\Models\Torrent;
-use App\Models\Category;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Models\TorrentRequest;
-use App\Models\BonTransactions;
-use App\Models\TorrentRequestClaim;
-use App\Models\TorrentRequestBounty;
-use App\Repositories\ChatRepository;
-use App\Notifications\NewRequestFill;
-use App\Notifications\NewRequestClaim;
-use App\Notifications\NewRequestBounty;
-use App\Notifications\NewRequestUnclaim;
-use MarcReichel\IGDBLaravel\Models\Game;
+use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
-use App\Achievements\UserFilled100Requests;
-use App\Notifications\NewRequestFillReject;
+use App\Models\BonTransactions;
+use App\Models\Category;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
+use App\Models\TorrentRequestBounty;
+use App\Models\TorrentRequestClaim;
+use App\Models\Type;
+use App\Models\User;
+use App\Notifications\NewRequestBounty;
+use App\Notifications\NewRequestClaim;
+use App\Notifications\NewRequestFill;
 use App\Notifications\NewRequestFillApprove;
+use App\Notifications\NewRequestFillReject;
+use App\Notifications\NewRequestUnclaim;
+use App\Repositories\ChatRepository;
 use App\Repositories\RequestFacetedRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 class RequestController extends Controller
 {
@@ -64,6 +64,8 @@ class RequestController extends Controller
 
     /**
      * Displays Torrent List View.
+     *
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -212,6 +214,7 @@ class RequestController extends Controller
     /**
      * Display The Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -261,6 +264,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Add Form.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  string  $title
      * @param  int  $imdb
      * @param  int  $tmdb
@@ -281,7 +285,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Add A Torrent Request.
+     * Store A New Torrent Request.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -363,7 +367,7 @@ class RequestController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
-            return redirect()->to('/requests')
+            return redirect()->route('requests')
                 ->withSuccess('Request Added.');
         }
     }
@@ -371,6 +375,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Edit Form.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -596,6 +601,7 @@ class RequestController extends Controller
     /**
      * Approve A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -675,6 +681,7 @@ class RequestController extends Controller
     /**
      * Reject A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -715,6 +722,7 @@ class RequestController extends Controller
     /**
      * Delete A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -787,6 +795,7 @@ class RequestController extends Controller
     /**
      * Uncliam A Torrent Request.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -827,5 +836,30 @@ class RequestController extends Controller
             return redirect()->route('request', ['id' => $id])
                 ->withErrors('Nothing To Unclaim.');
         }
+    }
+
+    /**
+     * Resets the filled and approved attributes on a given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function resetRequest(Request $request, $id)
+    {
+        $user = $request->user();
+        abort_unless($user->group->is_modo, 403);
+
+        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest->filled_by = null;
+        $torrentRequest->filled_when = null;
+        $torrentRequest->filled_hash = null;
+        $torrentRequest->approved_by = null;
+        $torrentRequest->approved_when = null;
+        $torrentRequest->save();
+
+        return redirect()->route('request', ['id' => $id])
+            ->withSuccess('The request has been reset!');
     }
 }

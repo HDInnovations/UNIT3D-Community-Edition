@@ -63,7 +63,7 @@
                             @foreach ($pms as $p)
                                 <tr>
                                     <td class="col-sm-2">
-                                        <a href="{{ route('profile', ['username' => $p->sender->username, 'id' => $p->sender->id]) }}"
+                                        <a href="{{ route('users.show', ['username' => $p->sender->username]) }}"
                                           >{{ $p->sender->username}}
                                         </a>
                                     </td>

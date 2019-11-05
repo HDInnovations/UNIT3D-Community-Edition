@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,22 +13,22 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use App\Models\Follow;
+use App\Models\Group;
+use App\Models\Invite;
 use App\Models\Like;
+use App\Models\Message;
 use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\Group;
+use App\Models\PrivateMessage;
 use App\Models\Thank;
 use App\Models\Topic;
-use App\Models\Follow;
-use App\Models\Invite;
-use App\Models\Comment;
-use App\Models\Message;
 use App\Models\Torrent;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -38,7 +38,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function members()
+    public function index()
     {
         $users = User::with('group')->latest()->paginate(25);
         $uploaders = User::with('group')->where('group_id', '=', 7)->latest()->paginate(25);
@@ -61,7 +61,7 @@ class UserController extends Controller
      * @param  Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function userSearch(Request $request)
+    public function search(Request $request)
     {
         $users = User::where([
             ['username', 'like', '%'.$request->input('username').'%'],
@@ -75,15 +75,14 @@ class UserController extends Controller
      * User Edit Form.
      *
      * @param $username
-     * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function userSettings($username, $id)
+    public function settings($username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
-        $notes = Note::where('user_id', '=', $id)->latest()->paginate(25);
+        $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
         return view('Staff.user.user_edit', [
             'user'   => $user,
@@ -97,13 +96,12 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @@return Illuminate\Http\RedirectResponse
      */
-    public function userEdit(Request $request, $username, $id)
+    public function edit(Request $request, $username)
     {
-        $user = User::with('group')->findOrFail($id);
+        $user = User::with('group')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
         $sendto = (int) $request->input('group_id');
@@ -134,7 +132,7 @@ class UserController extends Controller
         // Hard coded until group change.
 
         if ($target >= $sender || ($sender == 0 && ($sendto == 6 || $sendto == 4 || $sendto == 10)) || ($sender == 1 && ($sendto == 4 || $sendto == 10))) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
 
@@ -150,7 +148,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
-        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -159,13 +157,12 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function userPermissions(Request $request, $username, $id)
+    public function permissions(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
         $user->can_upload = $request->input('can_upload');
@@ -179,7 +176,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
-        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -188,13 +185,12 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function userPassword(Request $request, $username, $id)
+    protected function password(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = auth()->user();
 
         $new_password = $request->input('new_password');
@@ -204,7 +200,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
-        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
     }
 
@@ -212,13 +208,12 @@ class UserController extends Controller
      * Delete A User.
      *
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function userDelete($username, $id)
+    protected function destroy($username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = auth()->user();
 
         abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
@@ -296,37 +291,11 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
 
         if ($user->delete()) {
-            return redirect()->to('staff_dashboard')
+            return redirect()->route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         } else {
-            return redirect()->to('staff_dashboard')
+            return redirect()->route('staff.dashboard.index')
                 ->withErrors('Something Went Wrong!');
         }
-    }
-
-    /**
-     * Mass Validate Unvalidated Users.
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function massValidateUsers()
-    {
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
-        $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup->id)->get();
-
-        foreach ($users as $user) {
-            $user->group_id = $memberGroup->id;
-            $user->active = 1;
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_request = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->save();
-        }
-
-        return redirect()->to('staff_dashboard')
-            ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

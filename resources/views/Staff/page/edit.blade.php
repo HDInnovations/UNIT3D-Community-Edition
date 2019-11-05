@@ -2,19 +2,19 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_page_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Pages</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_page_edit_form', ['slug' => $page->slug, 'id' => $page->id]) }}" itemprop="url"
+        <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Page</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Page</span>
         </a>
     </li>
 @endsection
@@ -22,11 +22,10 @@
 @section('content')
     <div class="container box">
         <h2>Add a new page</h2>
-        <form role="form" method="POST"
-              action="{{ route('staff_page_edit',['slug' => $page->slug, 'id' => $page->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.pages.update',['id' => $page->id]) }}">
             @csrf
             <div class="form-group">
-                <label for="name">Page Name</label>
+                <label for="name">Page @lang('common.name')</label>
                 <label>
                     <input type="text" name="name" class="form-control" value="{{ $page->name }}">
                 </label>

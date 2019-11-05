@@ -23,7 +23,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-archive"></i> Logs
                     </a>
                 </li>
-                <li><a href="{{ route('staff_dashboard') }}">Return To Staff Panel</a></li>
+                <li><a href="{{ route('staff.dashboard.index') }}">Return To Staff Panel</a></li>
             </ul>
         </div>
     </div>

@@ -38,7 +38,7 @@
                         </div>
                         <div class="body_description">
                             <h3 class="description_title">
-                                <a href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}
+                                <a href="{{ route('torrent', ['id' => $t->id]) }}">{{ $t->name }}
                                     @if($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->releaseYear)
                                         <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
                                     @endif
@@ -73,10 +73,10 @@
                         <div style="float: left;">
                             @if ($t->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if (auth()->user()->id == $t->user->id || auth()->user()->group->is_modo)
-                                        <a href="{{ route('profile', ['username' => $t->user->username, 'id' => $t->user->id]) }}">({{ $t->user->username }}
+                                        <a href="{{ route('users.show', ['username' => $t->user->username]) }}">({{ $t->user->username }}
                                                     )</a>@endif</span>
                             @else
-                                <a href="{{ route('profile', ['username' => $t->user->username, 'id' => $t->user->id]) }}">
+                                <a href="{{ route('users.show', ['username' => $t->user->username]) }}">
                                 <span class="badge-user text-bold" style="color:{{ $t->user->group->color }}; background-image:{{ $t->user->group->effect }};">
                                     <i class="{{ $t->user->group->icon }}" data-toggle="tooltip" title=""
                                        data-original-title="{{ $t->user->group->name }}"></i> {{ $t->user->username }}

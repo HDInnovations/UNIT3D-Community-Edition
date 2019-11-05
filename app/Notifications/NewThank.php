@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -63,7 +63,7 @@ class NewThank extends Notification
         return [
             'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',
             'body' => $this->thank->user->username.' has left you a thanks on Uploaded Torrent '.$this->thank->torrent->name,
-            'url' => '/torrents/'.$this->thank->torrent->slug.'.'.$this->thank->torrent->id,
+            'url' => '/torrents/'.$this->thank->torrent->id,
         ];
     }
 }

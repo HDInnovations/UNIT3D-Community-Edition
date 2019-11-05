@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
 use App\Models\History;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
 class CheaterController extends Controller
 {
@@ -24,7 +24,7 @@ class CheaterController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function leechCheaters()
+    public function index()
     {
         $cheaters = History::with('user')
             ->select(['*'])
@@ -44,15 +44,5 @@ class CheaterController extends Controller
             ->paginate(25);
 
         return view('Staff.cheater.index', ['cheaters' => $cheaters]);
-    }
-
-    /**
-     * Possible Ratio Cheaters.
-     *
-     * @return void
-     */
-    public function ratioCheaters()
-    {
-        //
     }
 }

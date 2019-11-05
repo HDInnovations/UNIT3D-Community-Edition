@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,30 +13,31 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Peer;
-use App\Models\User;
-use App\Models\Group;
-use App\Models\Report;
-use App\Models\Torrent;
-use App\Models\Application;
-use Illuminate\Http\Request;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Application;
+use App\Models\Group;
+use App\Models\Peer;
+use App\Models\Report;
+use App\Models\Torrent;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Spatie\SslCertificate\SslCertificate;
 
 class HomeController extends Controller
 {
     /**
-     * Staff Dashboard Index.
+     * Display Staff Dashboard.
+     *
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home(Request $request)
+    public function index(Request $request)
     {
         // User Info
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
         $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-
         $num_user = User::count();
         $banned = User::where('group_id', '=', $bannedGroup->id)->count();
         $validating = User::where('group_id', '=', $validatingGroup->id)->count();
@@ -69,10 +70,13 @@ class HomeController extends Controller
         $avg = $sys->avg();
         $basic = $sys->basic();
 
+        // Directory Permissions
+        $file_permissions = $sys->directoryPermissions();
+
         // Pending Applications Count
         $app_count = Application::pending()->count();
 
-        return view('Staff.home.index', [
+        return view('Staff.dashboard.index', [
             'num_user'           => $num_user,
             'banned'             => $banned,
             'validating'         => $validating,
@@ -89,6 +93,7 @@ class HomeController extends Controller
             'disk'               => $disk,
             'avg'                => $avg,
             'basic'              => $basic,
+            'file_permissions'   => $file_permissions,
             'app_count'          => $app_count,
         ]);
     }

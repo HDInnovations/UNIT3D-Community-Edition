@@ -2,7 +2,7 @@
     <ul class="nav panel-list">
         <li class="nav-level">@lang('common.navigation')</li>
         <li>
-            <a href="{{ route('home') }}">
+            <a href="{{ route('home.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-home" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.home')</span>
                 <span class="selected"></span>
@@ -50,7 +50,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('gallery') }}">
+            <a href="{{ route('albums.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-images" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">Gallery</span>
                 <span class="selected"></span>
@@ -78,35 +78,28 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('forum_index') }}">
+            <a href="{{ route('forums.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-comments" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('forum.forums')</span>
                 <span class="selected"></span>
             </a>
         </li>
         <li>
-            <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
+            <a href="{{ route('inbox') }}">
                 <i class="{{ config('other.font-awesome') }} fa-envelope" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('pm.inbox')</span>
                 <span class="selected"></span>
             </a>
         </li>
         <li>
-            <a href="{{ route('bug') }}">
-                <i class="{{ config('other.font-awesome') }} fa-bug" style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">@lang('common.bug')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('home') }}/page/rules.1">
+            <a href="{{ config('other.rules_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-info-square" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.rules')</span>
                 <span class="selected"></span>
             </a>
         </li>
         <li>
-            <a href="{{ route('home') }}/page/faq.3">
+            <a href="{{ config('other.faq_url') }}">
                 <i class="{{ config('other.font-awesome') }} fa-question-square" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.faq')</span>
                 <span class="selected"></span>
@@ -121,7 +114,7 @@
         </li>
         @if (auth()->user()->group->is_modo)
             <li>
-                <a href="{{ route('staff_dashboard') }}">
+                <a href="{{ route('staff.dashboard.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-cogs" style=" font-size: 18px; color: #ffffff;"></i>
                     <span class="menu-text">@lang('staff.staff-dashboard')</span>
                     <span class="selected"></span>

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,20 +13,20 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Torrent;
 use App\Models\BonExchange;
-use Illuminate\Http\Request;
-use App\Notifications\NewBon;
-use App\Models\PrivateMessage;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
+use App\Models\Post;
+use App\Models\PrivateMessage;
+use App\Models\Torrent;
+use App\Models\User;
+use App\Notifications\NewBon;
 use App\Notifications\NewPostTip;
-use Illuminate\Support\Facades\DB;
 use App\Notifications\NewUploadTip;
 use App\Repositories\ChatRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BonusController extends Controller
 {
@@ -47,6 +47,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Gifts System.
+     *
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -73,6 +75,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Tips System.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function tips(Request $request)
@@ -98,6 +101,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Store System.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function store(Request $request)
@@ -128,6 +132,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Gift System.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function gift(Request $request)
@@ -143,7 +148,8 @@ class BonusController extends Controller
     /**
      * Show Bonus Earnings System.
      *
-     * @param  string  $username
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string                    $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bonus(Request $request, $username = '')
@@ -214,7 +220,8 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -334,7 +341,7 @@ class BonusController extends Controller
             $recipient = User::where('username', '=', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
-                return redirect()->to('/bonus/store')
+                return redirect()->route('bonus_store')
                     ->withErrors('Unable to find specified user');
             }
 
@@ -369,7 +376,7 @@ class BonusController extends Controller
             );
 
             if ($dest == 'profile') {
-                return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                return redirect()->route('users.show', ['username' => $recipient->username])
                     ->withSuccess('Gift Sent');
             }
 
@@ -384,12 +391,12 @@ class BonusController extends Controller
                 $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
                 if (! $recipient || $recipient->id == $user->id) {
-                    return redirect()->to('/bonus/gift')
+                    return redirect()->route('bonus_store')
                         ->withErrors('Unable to find specified user');
                 }
 
                 if ($dest == 'profile') {
-                    return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                    return redirect()->route('users.show', ['username' => $recipient->username])
                         ->withErrors('You Must Enter An Amount And Message!');
                 }
 
@@ -398,20 +405,19 @@ class BonusController extends Controller
             }
         }
 
-        return redirect()->to('/bonus/gift')
+        return redirect()->route('bonus_store')
             ->withErrors('Unable to find specified user');
     }
 
     /**
      * Tip Points To A Uploader.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function tipUploader(Request $request, $slug, $id)
+    public function tipUploader(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -419,15 +425,15 @@ class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your To Broke To Tip The Uploader!');
         }
         if ($user->id == $torrent->user_id) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $uploader->seedbonus += $tip_amount;
@@ -450,20 +456,18 @@ class BonusController extends Controller
             $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
         }
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 
     /**
      * Tip Points To A Poster.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function tipPoster(Request $request, $slug, $id)
+    public function tipPoster(Request $request)
     {
         $user = $request->user();
 
@@ -477,15 +481,15 @@ class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+            return redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Are To Broke To Tip The Poster!');
         }
         if ($user->id == $poster->id) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+            return redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+            return redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $poster->seedbonus += $tip_amount;
@@ -506,13 +510,14 @@ class BonusController extends Controller
 
         $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 
-        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+        return redirect()->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 
     /**
      * @method getDyingCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getDyingCount(Request $request)
@@ -532,6 +537,7 @@ class BonusController extends Controller
     /**
      * @method getLegendaryCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getLegendaryCount(Request $request)
@@ -551,6 +557,7 @@ class BonusController extends Controller
     /**
      * @method getOldCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getOldCount(Request $request)
@@ -571,6 +578,7 @@ class BonusController extends Controller
     /**
      * @method getHugeCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getHugeCount(Request $request)
@@ -589,6 +597,7 @@ class BonusController extends Controller
     /**
      * @method getLargeCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getLargeCount(Request $request)
@@ -608,6 +617,7 @@ class BonusController extends Controller
     /**
      * @method getRegularCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getRegularCount(Request $request)
@@ -627,6 +637,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getParticipaintSeedCount(Request $request)
@@ -646,6 +657,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getTeamPlayerSeedCount(Request $request)
@@ -665,6 +677,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getCommitedSeedCount(Request $request)
@@ -684,6 +697,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getMVPSeedCount(Request $request)
@@ -703,6 +717,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return int
      */
     public function getLegendarySeedCount(Request $request)

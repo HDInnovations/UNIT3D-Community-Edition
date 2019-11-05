@@ -1,6 +1,6 @@
 {{-- Vote Modal --}}
 <div class="modal fade" id="vote" tabindex="-1" role="dialog" aria-labelledby="vote">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dark" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -37,7 +37,7 @@
 
 {{-- Fulfill Modal --}}
 <div class="modal fade" id="fill" tabindex="-1" role="dialog" aria-labelledby="fill">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dark" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -74,7 +74,7 @@
 
 {{-- Reset Modal --}}
 <div class="modal fade" id="reset" tabindex="-1" role="dialog" aria-labelledby="reset">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dark" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -100,7 +100,7 @@
 
 {{-- Delete Modal --}}
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dark" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -128,7 +128,7 @@
 
 {{-- Claim Modal --}}
 <div class="modal fade" id="claim" tabindex="-1" role="dialog" aria-labelledby="claim">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dark" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -165,7 +165,7 @@
 
 {{-- Report Modal --}}
 <div class="modal fade" id="modal_request_report" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dark">
         <div class="modal-content">
             <meta charset="utf-8">
             <title>@lang('request.report'): {{ $torrentRequest->name }}</title>

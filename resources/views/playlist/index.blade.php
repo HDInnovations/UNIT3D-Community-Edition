@@ -36,7 +36,7 @@
 								@endif
 							</a>
 							<div class="item-playlist-text-playlist">
-								<a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">
+								<a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
 									@if ($playlist->user->image != null)
 										<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}">
 									@else
@@ -45,7 +45,7 @@
 								</a>
 								<h3 class="text-bold" style=" margin: 0">{{ $playlist->name }}</h3>
 								<h5>
-									<a href="{{ route('profile', ['username' => $playlist->user->username, 'id' => $playlist->user->id]) }}">
+									<a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
 										By: {{ $playlist->user->username }}
 									</a>
 								</h5>

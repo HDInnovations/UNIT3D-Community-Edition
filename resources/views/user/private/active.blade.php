@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('user_profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_active', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_active', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.active')</span>
         </a>
@@ -120,7 +120,7 @@
                         @foreach ($active as $p)
                             <tr>
                                 <td>
-                                    <a class="view-torrent" href="{{ route('torrent', ['slug' => $p->torrent->slug, 'id' => $p->torrent_id]) }}"
+                                    <a class="view-torrent" href="{{ route('torrent', ['id' => $p->torrent_id]) }}"
                                        data-toggle="tooltip" title="{{ $p->torrent->name }}">
                                         {{ $p->torrent->name }}
                                     </a>

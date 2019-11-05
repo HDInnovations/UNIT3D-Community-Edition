@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -74,8 +74,7 @@ class BonExchange extends Model
     {
         return self::where('download', '=', true)
             ->orderBy('value', 'asc')
-            ->get()
-            ->toArray();
+            ->get();
     }
 
     /**
@@ -87,8 +86,7 @@ class BonExchange extends Model
     {
         return self::where('upload', '=', true)
             ->orderBy('value', 'asc')
-            ->get()
-            ->toArray();
+            ->get();
     }
 
     /**
@@ -100,8 +98,7 @@ class BonExchange extends Model
     {
         return self::where('personal_freeleech', '=', true)
             ->orderBy('value', 'asc')
-            ->get()
-            ->toArray();
+            ->get();
     }
 
     /**
@@ -113,8 +110,7 @@ class BonExchange extends Model
     {
         return self::where('invite', '=', true)
             ->orderBy('value', 'asc')
-            ->get()
-            ->toArray();
+            ->get();
     }
 
     /**

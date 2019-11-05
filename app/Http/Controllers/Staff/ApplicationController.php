@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -12,20 +12,20 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Carbon\Carbon;
-use Ramsey\Uuid\Uuid;
-use App\Models\Invite;
+use App\Http\Controllers\Controller;
+use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
 use App\Models\Application;
+use App\Models\Invite;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Mail\DenyApplication;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Ramsey\Uuid\Uuid;
 
 class ApplicationController extends Controller
 {
     /**
-     * Get All Applications.
+     * Display All Applications.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

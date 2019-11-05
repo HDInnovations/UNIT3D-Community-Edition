@@ -12,6 +12,7 @@
   "devDependencies": {
     "ajv": "^6.10.2",
     "axios": "^0.19",
+    "blade-formatter": "^1.1.1",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^6.0",
     "emojione-assets": "^4.5.0",

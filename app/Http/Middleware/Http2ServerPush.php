@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -14,9 +14,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Http2ServerPush
@@ -31,8 +31,12 @@ class Http2ServerPush
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     *
+     * @param  null  $limit
+     * @param  null  $sizeLimit
+     * @param  null  $excludeKeywords
      *
      * @return mixed
      */
@@ -59,8 +63,11 @@ class Http2ServerPush
     }
 
     /**
-     * @param \Illuminate\Http\Response $response
+     * @param  \Illuminate\Http\Response  $response
      *
+     * @param  null  $limit
+     * @param  null  $sizeLimit
+     * @param  null  $excludeKeywords
      * @return $this
      */
     protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)

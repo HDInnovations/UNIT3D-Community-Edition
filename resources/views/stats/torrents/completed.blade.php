@@ -46,7 +46,7 @@
                                     {{ ++$key }}
                                 </td>
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $c->slug, 'id' => $c->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $c->id]) }}">
                                         {{ $c->name }}
                                     </a>
                                 </td>

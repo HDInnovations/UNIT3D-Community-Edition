@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
+        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
         </a>
@@ -53,7 +53,7 @@
                     <div class="button-left"></div>
                     <div class="button-right">
                             @if ($category->getPermission()->start_topic == true)
-                            <a href="{{ route('forum_new_topic_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}"
+                            <a href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}"
                                class="btn btn-sm btn-primary">@lang('forum.create-new-topic')</a>
                             @endif
                             @if ($category->getPermission()->show_forum == true)
@@ -89,7 +89,7 @@
                                                 class="{{ config('other.font-awesome') }} fa-thumbtack fa-2x"></i></span></td>
                             @endif
                             <td class="f-display-topic-title">
-                                <strong><a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></strong>
+                                <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
                                 @if ($t->state == "close") <span
                                         class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
                                 @if ($t->approved == "1") <span
@@ -108,7 +108,7 @@
                                         class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a
-                                        href="{{ route('profile', ['username' => Str::slug($t->first_post_user_username), 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a>
+                                        href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
                             </td>
                             <td class="f-display-topic-stats">
                                 {{ $t->num_post - 1 }} @lang('forum.replies')
@@ -116,7 +116,7 @@
                             </td>
                             @php $last_post = DB::table('posts')->where('topic_id', '=', $t->id)->orderBy('id', 'desc')->first(); @endphp
                             <td class="f-display-topic-last-post">
-                                <a href="{{ route('profile', ['username' => Str::slug($t->last_post_user_username), 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>
+                                <a href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>
                                 on
                                 <time datetime="{{ date('M d Y', strtotime($last_post->created_at ?? "UNKNOWN")) }}">
                                     {{ date('M d Y', strtotime($last_post->created_at ?? "UNKNOWN")) }}

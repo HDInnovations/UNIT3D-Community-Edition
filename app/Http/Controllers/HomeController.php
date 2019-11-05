@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,31 +13,32 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Models\Article;
+use App\Models\Bookmark;
+use App\Models\FeaturedTorrent;
+use App\Models\FreeleechToken;
+use App\Models\Group;
+use App\Models\PersonalFreeleech;
 use App\Models\Poll;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\Group;
 use App\Models\Topic;
-use App\Models\Article;
 use App\Models\Torrent;
-use App\Models\Bookmark;
-use Illuminate\Http\Request;
-use App\Models\FreeleechToken;
-use App\Models\FeaturedTorrent;
-use App\Models\PersonalFreeleech;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     /**
-     * Home Page.
+     * Display Home Page.
+     *
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Exception
      */
-    public function home(Request $request)
+    public function index(Request $request)
     {
         // For Cache
         $current = Carbon::now();
@@ -154,7 +155,7 @@ class HomeController extends Controller
         $freeleech_tokens = FreeleechToken::where('user_id', $user->id)->get();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
-        return view('home.home', [
+        return view('home.index', [
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
             'users'              => $users,

@@ -76,7 +76,7 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('contact') }}"
+                        <a href="{{ route('contact.index') }}"
                            class="contact button white">@lang('common.contact') {{ config('other.title') }}</a>
                     </div>
                 </div>

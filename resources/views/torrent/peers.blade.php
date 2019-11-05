@@ -10,13 +10,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
+        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrent')</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.peers')</span>
         </a>
     </li>
@@ -28,7 +28,7 @@
         <div class="block">
             <div class="">
                 <p class="lead">@lang('torrent.peers') {{ strtolower(trans('common.for')) }}
-                    <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+                    <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                 </p>
             </div>
             <div class="table-responsive">
@@ -56,7 +56,7 @@
                                 <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                                                   aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
                                 @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
-                                    <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
+                                    <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                                 class="badge-user text-bold" style="color:{{ $p->user->group->color }};">({{ $p->user->username }}
                                             )</span></a>@endif</td>
                         @else
@@ -65,7 +65,7 @@
                                     <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                                                       aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
                                 @endif
-                                <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
+                                <a href="{{ route('users.show', ['username' => $p->user->username]) }}"><span
                                             class="badge-user text-bold"
                                             style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
                                                 class="{{ $p->user->group->icon }}" data-toggle="tooltip"

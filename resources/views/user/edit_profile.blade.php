@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_edit_profile_form', ['username' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.profile')</span>
         </a>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         <div class="some-padding">
-            <form role="form" method="POST" action="{{ route('user_edit_profile', ['username' => $user->username, 'id' => $user->id]) }}" enctype="multipart/form-data">
+            <form role="form" method="POST" action="{{ route('user_edit_profile', ['username' => $user->username]) }}" enctype="multipart/form-data">
                 @csrf
             <div class="well">
 

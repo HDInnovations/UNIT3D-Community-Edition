@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('edit_form', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
+        <a href="{{ route('edit_form', ['id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
                   class="l-breadcrumb-item-link-title">@lang('torrent.torrent') @lang('common.edit')</span>
@@ -15,7 +15,7 @@
         <div class="col-md-10">
             <h2>@lang('common.edit'): {{ $torrent->name }}</h2>
             <div class="block">
-                <form role="form" method="POST" action="{{ route('edit', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                <form role="form" method="POST" action="{{ route('edit', ['id' => $torrent->id]) }}">
                 @csrf
                 <div class="form-group">
                     <label for="title">@lang('torrent.title')</label>

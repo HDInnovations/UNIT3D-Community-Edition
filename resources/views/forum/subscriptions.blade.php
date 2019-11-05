@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
@@ -61,7 +61,7 @@
                         if(in_array($r->id,$forum_neos)) {
                     @endphp
                     <tr>
-                        <td class="f-display-topic-icon"><a href="{{ route('forum_display', ['slug' => $r->slug, 'id' => $r->id]) }}"><span
+                        <td class="f-display-topic-icon"><a href="{{ route('forums.show', ['id' => $r->id]) }}"><span
                                         class="badge-extra text-bold">{{ $r->name }}</span></a></td>
                         <td class="f-display-topic-title">
                             --
@@ -94,7 +94,7 @@
                         <td class="f-display-topic-icon"><span
                                     class="badge-extra text-bold">{{ $t->forum->name }}</span></td>
                         <td class="f-display-topic-title">
-                            <strong><a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></strong>
+                            <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
                             @if ($t->state == "close") <span
                                     class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
                             @if ($t->approved == "1") <span
@@ -111,14 +111,14 @@
                                     class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a
-                                    href="{{ route('profile', ['username' => Str::slug($t->first_post_user_username), 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a>
+                                    href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
                             {{ $t->num_post - 1 }} @lang('forum.replies')
                             \ {{ $t->views }} @lang('forum.views')
                         </td>
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profile', ['username' => Str::slug($t->last_post_user_username), 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>,
+                            <a href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>,
                             @if($t->last_reply_at && $t->last_reply_at != null)
                                 <time datetime="{{ date('d-m-Y h:m', strtotime($t->last_reply_at)) }}">
                                     {{ date('M d Y', strtotime($t->last_reply_at)) }}

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,6 +13,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Torrent;
+use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -40,11 +41,12 @@ class FetchReleaseYears extends Command
      */
     public function handle()
     {
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $appurl = config('app.url');
 
         $torrents = Torrent::withAnyStatus()
             ->with(['category'])
-            ->select(['id', 'name', 'category_id', 'imdb', 'tmdb', 'release_year'])
+            ->select(['id', 'slug', 'name', 'category_id', 'imdb', 'tmdb', 'release_year'])
             ->whereNull('release_year')
             ->get();
 
@@ -73,7 +75,8 @@ class FetchReleaseYears extends Command
                     $torrent->save();
                     $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name} \n");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
+                    {$appurl}/torrents/{$torrent->slug}.{$torrent->id} \n");
                 }
             }
 
@@ -88,7 +91,8 @@ class FetchReleaseYears extends Command
                     $torrent->save();
                     $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name} \n");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
+                    {$appurl}/torrents/{$torrent->slug}.{$torrent->id} \n");
                 }
             }
 
@@ -101,7 +105,8 @@ class FetchReleaseYears extends Command
                     $torrent->save();
                     $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name} \n");
+                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
+                    {$appurl}/torrents/{$torrent->slug}.{$torrent->id} \n");
                 }
             }
 

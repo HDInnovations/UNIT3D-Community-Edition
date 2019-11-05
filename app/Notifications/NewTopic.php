@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,11 +13,11 @@
 
 namespace App\Notifications;
 
-use App\Models\User;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewTopic extends Notification implements ShouldQueue
 {
@@ -69,7 +69,7 @@ class NewTopic extends Notification implements ShouldQueue
         return [
             'title' => $this->poster->username.' Has Posted In A Subscribed Forum',
             'body' => $this->poster->username.' has started a new topic in '.$this->topic->forum->name,
-            'url' => "/forums/topic/{$this->topic->slug}.{$this->topic->id}",
+            'url' => "/forums/topics/{$this->topic->id}",
         ];
     }
 }

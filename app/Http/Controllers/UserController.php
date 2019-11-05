@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,83 +13,51 @@
 
 namespace App\Http\Controllers;
 
-use Image;
-use ZipArchive;
-use Carbon\Carbon;
-use App\Models\Ban;
-use App\Models\Peer;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Group;
-use App\Models\Topic;
-use App\Models\Follow;
-use App\Models\Invite;
-use App\Models\History;
-use App\Models\Torrent;
-use App\Models\Warning;
 use App\Helpers\Bencode;
-use App\Models\Graveyard;
-use App\Models\UserPrivacy;
-use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
-use App\Models\TorrentRequest;
+use App\Models\Ban;
 use App\Models\BonTransactions;
-use App\Models\UserNotification;
+use App\Models\Follow;
+use App\Models\Graveyard;
+use App\Models\Group;
+use App\Models\History;
+use App\Models\Invite;
+use App\Models\Peer;
 use App\Models\PersonalFreeleech;
+use App\Models\Post;
+use App\Models\Topic;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
+use App\Models\User;
+use App\Models\UserNotification;
+use App\Models\UserPrivacy;
+use App\Models\Warning;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Image;
+use ZipArchive;
 
 class UserController extends Controller
 {
     /**
-     * Get Users List.
+     * Show A User.
+     *
+     * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function members()
+    public function show($username)
     {
-        $users = User::with('group')->latest()->paginate(50);
-
-        return view('user.members', ['users' => $users]);
-    }
-
-    /**
-     * Search For A User (Public Use).
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function userSearch(Request $request)
-    {
-        $users = User::where([
-            ['username', 'like', '%'.$request->input('username').'%'],
-        ])->paginate(25);
-        $users->setPath('?username='.$request->input('username'));
-
-        return view('user.members')->with('users', $users);
-    }
-
-    /**
-     * Get A User Profile.
-     *
-     * @param $slug
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function profile($slug, $id)
-    {
-        $user = User::with(['privacy', 'history'])->findOrFail($id);
+        $user = User::with(['privacy', 'history'])->where('username', '=', $username)->firstOrFail();
 
         $groups = Group::all();
-        $followers = Follow::where('target_id', '=', $id)->latest()->limit(25)->get();
+        $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
         $history = $user->history;
-        $warnings = Warning::where('user_id', '=', $id)->whereNotNull('torrent')->where('active', '=', 1)->take(3)->get();
-        $hitrun = Warning::where('user_id', '=', $id)->latest()->paginate(10);
+        $warnings = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->where('active', '=', 1)->take(3)->get();
+        $hitrun = Warning::where('user_id', '=', $user->id)->latest()->paginate(10);
 
-        $bonupload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Upload%']])->sum('cost');
-        $bondownload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Download%']])->sum('cost');
+        $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
+        $bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
 
         $realupload = $user->uploaded - $bonupload;
         $realdownload = $user->downloaded + $bondownload;
@@ -120,16 +88,14 @@ class UserController extends Controller
     /**
      * User Followers.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param $username
      *
-     * @param $slug
-     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function followers(Request $request, $slug, int $id)
+    public function followers($username)
     {
-        $user = User::where('id', '=', $id)->firstOrFail();
-        $results = Follow::with('user')->where('target_id', '=', $id)->latest()->paginate(25);
+        $user = User::where('username', '=', $username)->firstOrFail();
+        $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
 
         return view('user.followers', [
                 'route' => 'follower',
@@ -141,15 +107,13 @@ class UserController extends Controller
     /**
      * User Topics.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param $username
      *
-     * @param $slug
-     * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function topics(Request $request, $slug, int $id)
+    public function topics($username)
     {
-        $user = User::where('id', '=', $id)->firstOrFail();
+        $user = User::where('username', '=', $username)->firstOrFail();
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
         return view('user.topics', [
@@ -162,15 +126,13 @@ class UserController extends Controller
     /**
      * User Posts.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param $username
      *
-     * @param $slug
-     * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function posts(Request $request, $slug, int $id)
+    public function posts($username)
     {
-        $user = User::where('id', '=', $id)->firstOrFail();
+        $user = User::where('username', '=', $username)->firstOrFail();
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         return view('user.posts', [
@@ -183,16 +145,16 @@ class UserController extends Controller
     /**
      * Edit Profile Form.
      *
-     * @param Request $request
-     * @param $username
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editProfileForm(Request $request, $username, $id)
+    public function editProfileForm(Request $request, $username)
     {
-        abort_unless($request->user()->id == $id, 403);
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
 
         return view('user.edit_profile', ['user' => $user, 'route' => 'edit']);
     }
@@ -200,16 +162,17 @@ class UserController extends Controller
     /**
      * Edit User Profile.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $username
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function editProfile(Request $request, $username, $id)
+    public function editProfile(Request $request, $username)
     {
-        abort_unless($request->user()->id == $id, 403);
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         // Avatar
         $max_upload = config('image.max_upload_size');
         if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
@@ -227,13 +190,13 @@ class UserController extends Controller
                         if ($v->passes()) {
                             $image->move(public_path('/files/img/'), $filename);
                         } else {
-                            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                            return redirect()->route('users.show', ['username' => $user->username])
                                 ->withErrors('Because you are uploading a GIF, your avatar must be symmetrical!');
                         }
                     }
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
-                    return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                    return redirect()->route('users.show', ['username' => $user->username])
                         ->withErrors('Your avatar is too large, max file size: '.($max_upload / 1000000).' MB');
                 }
             }
@@ -248,23 +211,23 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has updated there profile.");
 
-        return redirect()->route('user_edit_profile_form', ['username' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_edit_profile_form', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
     /**
      * User Account Settings.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings(Request $request, $slug, $id)
+    public function settings(Request $request, $username)
     {
-        abort_unless($request->user()->id == $id, 403);
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
 
         return view('user.settings', ['user' => $user, 'route' => 'settings']);
     }
@@ -272,16 +235,16 @@ class UserController extends Controller
     /**
      * Change User Account Settings.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $username
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function changeSettings(Request $request, $username, $id)
+    public function changeSettings(Request $request, $username)
     {
-        abort_unless($request->user()->id == $id, 403);
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
 
         // General Settings
         $user->censor = $request->input('censor');
@@ -291,7 +254,7 @@ class UserController extends Controller
         $user->style = (int) $request->input('theme');
         $css_url = $request->input('custom_css');
         if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         } else {
             $user->custom_css = $css_url;
@@ -308,22 +271,23 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has changed their account settings.");
 
-        return redirect()->route('user_settings', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('user_settings', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
     /**
      * User Security Settings.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function security(Request $request, $slug, $id)
+    public function security(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
 
         return view('user.security', ['user' => $user]);
     }
@@ -343,20 +307,24 @@ class UserController extends Controller
         $user->twostep = $request->input('twostep');
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Changed Your TwoStep Auth Status!');
     }
 
     /**
      * User Password Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changePassword(Request $request)
+    protected function changePassword(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $v = validator($request->all(), [
             'current_password'          => 'required',
             'new_password'              => 'required|min:6|confirmed',
@@ -370,13 +338,13 @@ class UserController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has changed there account password.");
 
-                return redirect()->to('/')->withSuccess('Your Password Has Been Reset');
+                return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
             } else {
-                return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
+                return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                     ->withErrors('Your Password Was Incorrect!');
             }
         } else {
-            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
+            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your New Password Is To Weak!');
         }
     }
@@ -386,13 +354,14 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeEmail(Request $request, $username, $id)
+    protected function changeEmail(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
 
         if (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
@@ -409,7 +378,7 @@ class UserController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#email'])
+            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withErrors($v->errors());
         } else {
             $user->email = $request->input('email');
@@ -418,7 +387,7 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has changed there email address on file.");
 
-            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#email'])
+            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withSuccess('Your Email Was Updated Successfully!');
         }
     }
@@ -428,17 +397,19 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makePrivate(Request $request, $username, $id)
+    public function makePrivate(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->private_profile = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Private!');
     }
 
@@ -447,17 +418,19 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makePublic(Request $request, $username, $id)
+    public function makePublic(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->private_profile = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Public!');
     }
 
@@ -466,17 +439,19 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function disableNotifications(Request $request, $username, $id)
+    public function disableNotifications(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->block_notifications = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disabled Notifications!');
     }
 
@@ -485,17 +460,19 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function enableNotifications(Request $request, $username, $id)
+    public function enableNotifications(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->block_notifications = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Enabled Notifications!');
     }
 
@@ -504,17 +481,19 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makeHidden(Request $request, $username, $id)
+    public function makeHidden(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->hidden = 1;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disappeared Like A Ninja!');
     }
 
@@ -523,17 +502,19 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makeVisible(Request $request, $username, $id)
+    public function makeVisible(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->hidden = 0;
         $user->save();
 
-        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Given Up Your Ninja Ways And Become Visible!');
     }
 
@@ -542,33 +523,40 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function changePID(Request $request, $username, $id)
+    public function changePID(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->passkey = md5(uniqid().time().microtime());
         $user->save();
 
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has changed their account PID.");
 
-        return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#pid'])
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');
     }
 
     /**
      * User Other Privacy Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param                            $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeOther(Request $request)
+    protected function changeOther(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $privacy = $user->privacy;
         if (! $privacy) {
             $privacy = new UserPrivacy();
@@ -589,20 +577,25 @@ class UserController extends Controller
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#other'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#other'])
             ->withSuccess('Your Other Privacy Settings Have Been Saved!');
     }
 
     /**
      * User Request Privacy Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param                            $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeRequest(Request $request)
+    protected function changeRequest(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $privacy = $user->privacy;
         if (! $privacy) {
             $privacy = new UserPrivacy();
@@ -623,20 +616,25 @@ class UserController extends Controller
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#request'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#request'])
             ->withSuccess('Your Request Privacy Settings Have Been Saved!');
     }
 
     /**
      * User Achievement Privacy Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param                            $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeAchievement(Request $request)
+    protected function changeAchievement(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $privacy = $user->privacy;
         if (! $privacy) {
             $privacy = new UserPrivacy();
@@ -657,20 +655,25 @@ class UserController extends Controller
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#achievement'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#achievement'])
             ->withSuccess('Your Achievement Privacy Settings Have Been Saved!');
     }
 
     /**
      * User Forum Privacy Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeForum(Request $request)
+    protected function changeForum(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $privacy = $user->privacy;
         if (! $privacy) {
             $privacy = new UserPrivacy();
@@ -692,20 +695,24 @@ class UserController extends Controller
         $privacy->show_post = ($request->input('show_post') && $request->input('show_post') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#forum'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#forum'])
             ->withSuccess('Your Forum History Privacy Settings Have Been Saved!');
     }
 
     /**
      * User Follower Privacy Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeFollower(Request $request)
+    protected function changeFollower(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $privacy = $user->privacy;
         if (! $privacy) {
             $privacy = new UserPrivacy();
@@ -726,20 +733,24 @@ class UserController extends Controller
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#follower'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#follower'])
             ->withSuccess('Your Follower Privacy Settings Have Been Saved!');
     }
 
     /**
      * User Torrent Privacy Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeTorrent(Request $request)
+    protected function changeTorrent(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $privacy = $user->privacy;
         if (! $privacy) {
             $privacy = new UserPrivacy();
@@ -765,20 +776,24 @@ class UserController extends Controller
         $user->peer_hidden = 0;
         $user->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#torrent'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent History Privacy Settings Have Been Saved!');
     }
 
     /**
      * User Account Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeAccountNotification(Request $request)
+    protected function changeAccountNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -801,20 +816,24 @@ class UserController extends Controller
         $notification->show_account_unfollow = ($request->input('show_account_unfollow') && $request->input('show_account_unfollow') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#account'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#account'])
             ->withSuccess('Your Account Notification Settings Have Been Saved!');
     }
 
     /**
      * User Following Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeFollowingNotification(Request $request)
+    protected function changeFollowingNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -836,20 +855,24 @@ class UserController extends Controller
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#following'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#following'])
             ->withSuccess('Your Followed User Notification Settings Have Been Saved!');
     }
 
     /**
      * User BON Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeBonNotification(Request $request)
+    protected function changeBonNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -871,20 +894,24 @@ class UserController extends Controller
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#bon'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#bon'])
             ->withSuccess('Your BON Notification Settings Have Been Saved!');
     }
 
     /**
      * User Subscription Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeSubscriptionNotification(Request $request)
+    protected function changeSubscriptionNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -907,20 +934,24 @@ class UserController extends Controller
         $notification->show_subscription_topic = ($request->input('show_subscription_topic') && $request->input('show_subscription_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#subscription'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#subscription'])
             ->withSuccess('Your Subscription Notification Settings Have Been Saved!');
     }
 
     /**
      * User Request Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeRequestNotification(Request $request)
+    protected function changeRequestNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -948,20 +979,24 @@ class UserController extends Controller
         $notification->show_request_unclaim = ($request->input('show_request_unclaim') && $request->input('show_request_unclaim') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#request'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#request'])
             ->withSuccess('Your Request Notification Settings Have Been Saved!');
     }
 
     /**
      * User Torrent Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeTorrentNotification(Request $request)
+    protected function changeTorrentNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -985,20 +1020,24 @@ class UserController extends Controller
         $notification->show_torrent_tip = ($request->input('show_torrent_tip') && $request->input('show_torrent_tip') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#torrent'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent Notification Settings Have Been Saved!');
     }
 
     /**
      * User Mention Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeMentionNotification(Request $request)
+    protected function changeMentionNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -1024,20 +1063,24 @@ class UserController extends Controller
 
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#mention'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#mention'])
             ->withSuccess('Your @Mention Notification Settings Have Been Saved!');
     }
 
     /**
      * User Forum Notification Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeForumNotification(Request $request)
+    protected function changeForumNotification(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $notification = $user->notification;
         if (! $notification) {
             $notification = new UserNotification();
@@ -1059,20 +1102,24 @@ class UserController extends Controller
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#forum'])
+        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#forum'])
             ->withSuccess('Your Forum Notification Settings Have Been Saved!');
     }
 
     /**
      * User Profile Privacy Change.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeProfile(Request $request)
+    protected function changeProfile(Request $request, $username)
     {
-        $user = auth()->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $privacy = $user->privacy;
         if (! $privacy) {
             $privacy = new UserPrivacy();
@@ -1107,44 +1154,46 @@ class UserController extends Controller
         $privacy->show_profile_warning = ($request->input('show_profile_warning') && $request->input('show_profile_warning') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#profile'])
+        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#profile'])
             ->withSuccess('Your Profile Privacy Settings Have Been Saved!');
     }
 
     /**
      * Change User RID.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
-     * @param $id
-     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function changeRID(Request $request, $username, $id)
+    public function changeRID(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $user->rsskey = md5(uniqid().time().microtime());
         $user->save();
 
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has changed their account RID.");
 
-        return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#rid'])
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
             ->withSuccess('Your RID Was Changed Successfully!');
     }
 
     /**
      * User Privacy Settings.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
-     *
+     * @param  Request  $request
+     * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function privacy(Request $request, $slug, $id)
+    public function privacy(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
         return view('user.privacy', ['user' => $user, 'groups'=> $groups]);
@@ -1153,228 +1202,32 @@ class UserController extends Controller
     /**
      * User Notification Settings.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
-     *
+     * @param  Request  $request
+     * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function notification(Request $request, $slug, $id)
+    public function notification(Request $request, $username)
     {
-        $user = $request->user();
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
         return view('user.notification', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
-     * Get A Users Warnings.
-     *
-     * @param Request $request
-     * @param $username
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function getWarnings(Request $request, $username, $id)
-    {
-        abort_unless($request->user()->group->is_modo, 403);
-
-        $user = User::findOrFail($id);
-        $warnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
-        $warningcount = Warning::where('user_id', '=', $id)->count();
-
-        $softDeletedWarnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
-        $softDeletedWarningCount = Warning::where('user_id', '=', $id)->onlyTrashed()->count();
-
-        return view('user.warninglog', [
-            'warnings'                => $warnings,
-            'warningcount'            => $warningcount,
-            'softDeletedWarnings'     => $softDeletedWarnings,
-            'softDeletedWarningCount' => $softDeletedWarningCount,
-            'user'                    => $user,
-        ]);
-    }
-
-    /**
-     * Deactivate A Warning.
-     *
-     * @param Request $request
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function deactivateWarning(Request $request, $id)
-    {
-        abort_unless($request->user()->group->is_modo, 403);
-        $staff = $request->user();
-        $warning = Warning::findOrFail($id);
-        $warning->expires_on = Carbon::now();
-        $warning->active = 0;
-        $warning->save();
-
-        // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'Hit and Run Warning Deactivated';
-        $pm->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deactivated a warning on {$warning->warneduser->username} account.");
-
-        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-            ->withSuccess('Warning Was Successfully Deactivated');
-    }
-
-    /**
-     * Deactivate All Warnings.
-     *
-     * @param Request $request
-     * @param $username
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function deactivateAllWarnings(Request $request, $username, $id)
-    {
-        abort_unless($request->user()->group->is_modo, 403);
-        $staff = $request->user();
-        $user = User::findOrFail($id);
-
-        $warnings = Warning::where('user_id', '=', $user->id)->get();
-
-        foreach ($warnings as $warning) {
-            $warning->expires_on = Carbon::now();
-            $warning->active = 0;
-            $warning->save();
-        }
-
-        // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'All Hit and Run Warning Deactivated';
-        $pm->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deactivated all warnings on {$warning->warneduser->username} account.");
-
-        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-            ->withSuccess('All Warnings Were Successfully Deactivated');
-    }
-
-    /**
-     * Delete A Warning.
-     *
-     * @param Request $request
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function deleteWarning(Request $request, $id)
-    {
-        abort_unless($request->user()->group->is_modo, 403);
-
-        $staff = $request->user();
-        $warning = Warning::findOrFail($id);
-
-        // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'Hit and Run Warning Deleted';
-        $pm->message = $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
-
-        $warning->deleted_by = $staff->id;
-        $warning->save();
-        $warning->delete();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deleted a warning on {$warning->warneduser->username} account.");
-
-        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-            ->withSuccess('Warning Was Successfully Deleted');
-    }
-
-    /**
-     * Delete All Warnings.
-     *
-     * @param Request $request
-     * @param $username
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function deleteAllWarnings(Request $request, $username, $id)
-    {
-        abort_unless($request->user()->group->is_modo, 403);
-
-        $staff = $request->user();
-        $user = User::findOrFail($id);
-
-        $warnings = Warning::where('user_id', '=', $user->id)->get();
-
-        foreach ($warnings as $warning) {
-            $warning->deleted_by = $staff->id;
-            $warning->save();
-            $warning->delete();
-        }
-
-        // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'All Hit and Run Warnings Deleted';
-        $pm->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deleted all warnings on {$warning->warneduser->username} account.");
-
-        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-            ->withSuccess('All Warnings Were Successfully Deleted');
-    }
-
-    /**
-     * Restore A Soft Deleted Warning.
-     *
-     * @param Request $request
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function restoreWarning(Request $request, $id)
-    {
-        abort_unless($request->user()->group->is_modo, 403);
-
-        $staff = $request->user();
-        $warning = Warning::findOrFail($id);
-        $warning->restore();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has restore a soft deleted warning on {$warning->warneduser->username} account.");
-
-        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-            ->withSuccess('Warning Was Successfully Restored');
-    }
-
-    /**
      * Uses Input's To Put Together A Filtered View.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
-     * @param $id
-     *
      * @return array
-     * @throws \Throwable
      */
-    public function myFilter(Request $request, $username, $id)
+    public function myFilter(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
+
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         if ($request->has('view') && $request->input('view') == 'seeds') {
@@ -1866,40 +1719,20 @@ class UserController extends Controller
     }
 
     /**
-     * Show User Achievements.
-     *
-     * @param $username
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function achievements($username, $id)
-    {
-        $user = User::findOrFail($id);
-        $achievements = $user->unlockedAchievements();
-
-        return view('user.achievements', [
-            'route'        => 'achievement',
-            'user'         => $user,
-            'achievements' => $achievements,
-        ]);
-    }
-
-    /**
      * Get A Users Wishlist.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
+     * @param  Request  $request
+     * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function wishes(Request $request, $slug, $id)
+    public function wishes(Request $request, $username)
     {
-        $user = User::with('wishes')->where('id', '=', $id)->firstOrFail();
+        $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
         abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
         $wishes = $user->wishes()->latest()->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id)->first();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
         return view('user.wishlist', [
             'user'               => $user,
@@ -1910,47 +1743,20 @@ class UserController extends Controller
     }
 
     /**
-     * Get A Users Torrent Bookmarks.
-     *
-     * @param Request $request
-     * @param $slug
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function bookmarks(Request $request, $slug, $id)
-    {
-        $user = User::with('bookmarks')->where('id', '=', $id)->firstOrFail();
-
-        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
-
-        $bookmarks = $user->bookmarks()->latest()->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id)->first();
-
-        return view('user.bookmarks', [
-            'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
-            'bookmarks'          => $bookmarks,
-            'route'              => 'bookmark',
-        ]);
-    }
-
-    /**
      * Get A Users Downloads (Fully Downloaded) Table.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
-     *
+     * @param  Request  $request
+     * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function downloads(Request $request, $slug, $id)
+    public function downloads(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
-            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+            $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+            $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
+            $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+            $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
             $logger = 'user.private.downloads';
 
@@ -2009,15 +1815,13 @@ class UserController extends Controller
     /**
      * Get A Users Requested Table.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
-     *
+     * @param  Request  $request
+     * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function requested(Request $request, $slug, $id)
+    public function requested(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
             $logger = 'user.private.requests';
 
@@ -2044,21 +1848,19 @@ class UserController extends Controller
     /**
      * Get A Users Unsatisfieds Table.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function unsatisfieds(Request $request, $username, $id)
+    public function unsatisfieds(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
 
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+        $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
         $logger = 'user.private.unsatisfieds';
 
         if (config('hitrun.enabled') == true) {
@@ -2093,21 +1895,19 @@ class UserController extends Controller
     /**
      * Get A Users History Table.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrents(Request $request, $username, $id)
+    public function torrents(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
 
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+        $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
         $history = History::with(['torrent' => function ($query) {
             $query->withAnyStatus();
         }])->selectRaw('distinct(history.id),max(history.info_hash) as info_hash,max(history.agent) as agent,max(history.uploaded) as uploaded,max(history.downloaded) as downloaded,max(history.seeder) as seeder,max(history.active) as active,max(history.actual_uploaded) as actual_uploaded,max(history.actual_downloaded) as actual_downloaded,max(history.seedtime) as seedtime,max(history.created_at) as created_at,max(history.updated_at) as updated_at,max(history.completed_at) as completed_at,max(history.immune) as immune,max(history.hitrun) as hitrun,max(history.prewarn) as prewarn,max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.status) as status')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('history.user_id', '=', $user->id)->groupBy('history.id')
@@ -2127,14 +1927,13 @@ class UserController extends Controller
     /**
      * Get A Users Graveyard Resurrections.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
+     * @param  Request  $request
+     * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function resurrections(Request $request, $slug, $id)
+    public function resurrections(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(50);
@@ -2149,20 +1948,18 @@ class UserController extends Controller
     /**
      * Get A User Uploads.
      *
-     * @param Request $request
-     * @param $slug
-     * @param $id
-     *
+     * @param  Request  $request
+     * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploads(Request $request, $slug, $id)
+    public function uploads(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         if ($request->user()->id == $user->id || $request->user()->group->is_modo) {
-            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+            $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+            $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
+            $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+            $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
             $logger = 'user.private.uploads';
             $uploads = Torrent::with(['tips', 'thanks', 'category'])->selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,max(bt.tipped_total) as tipped_total')
@@ -2192,22 +1989,20 @@ class UserController extends Controller
     /**
      * Get A Users Active Table.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function active(Request $request, $username, $id)
+    public function active(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
 
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
-        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+        $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
         $active = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
@@ -2229,22 +2024,20 @@ class UserController extends Controller
     /**
      * Get A Users Seeds Table.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function seeds(Request $request, $username, $id)
+    public function seeds(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
 
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
-        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+        $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
         $seeds = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
@@ -2265,17 +2058,15 @@ class UserController extends Controller
     /**
      * Get A Users Bans.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getBans(Request $request, $username, $id)
+    public function getBans(Request $request, $username)
     {
         abort_unless($request->user()->group->is_modo, 403);
 
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
 
         return view('user.banlog', [
@@ -2287,19 +2078,17 @@ class UserController extends Controller
     /**
      * Download All History Torrents.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $username
-     * @param $id
-     *
      * @return \ZipArchive
      */
-    public function downloadHistoryTorrents(Request $request, $username, $id)
+    public function downloadHistoryTorrents(Request $request, $username)
     {
         //  Extend The Maximum Execution Time
         set_time_limit(300);
 
         // Authorized User
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         abort_unless($request->user()->id == $user->id, 403);
 
         // Define Dir Folder

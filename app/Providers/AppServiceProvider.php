@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,12 +13,12 @@
 
 namespace App\Providers;
 
-use App\Models\Page;
-use Illuminate\View\View;
 use App\Interfaces\WishInterface;
+use App\Models\Page;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
         // Share $pages across all views
         view()->composer('*', function (View $view) {
             $pages = cache()->remember('cached-pages', 3600, function () {
-                return Page::select(['id', 'name', 'slug'])->take(6)->get();
+                return Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get();
             });
 
             $view->with(compact('pages'));

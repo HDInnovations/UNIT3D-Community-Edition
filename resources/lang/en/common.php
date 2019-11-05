@@ -151,6 +151,7 @@ return [
     'select'               => 'Select',
     'sort'                 => 'Sort',
     'special'              => 'Special',
+    'sponsor'              => 'Become A Sponsor',
     'staff'                => 'Staff',
     'staff-tools'          => 'Staff tools',
     'stats'                => 'Stats',

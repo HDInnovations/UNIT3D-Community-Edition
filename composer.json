@@ -38,6 +38,7 @@
         "theodorejb/polycast": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
         "matt-allan/laravel-code-style": "^0.4.0",

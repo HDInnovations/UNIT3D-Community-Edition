@@ -1,31 +1,31 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Edit Forums - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>@lang('common.edit') Forums - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Edit Forums - Staff Dashboard">
+    <meta name="description" content="@lang('common.edit') Forums - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_forum_edit_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Forums</span>
+        <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Forums</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Edit: {{ $forum->name }}</h2>
+        <h2>@lang('common.edit'): {{ $forum->name }}</h2>
 
-        <form role="form" method="POST" action="{{ route('staff_forum_edit', ['slug' => $forum->slug, 'id' => $forum->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
             @csrf
         <div class="form-group">
             <label for="title">Title</label>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="form-group">
-            <label for="position">Position</label>
+            <label for="position">@lang('common.position')</label>
             <label>
                 <input type="text" name="position" class="form-control" placeholder="The position number"
                        value="{{ $forum->position }}">

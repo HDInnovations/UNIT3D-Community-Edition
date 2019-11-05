@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -15,8 +15,8 @@ namespace App\Notifications;
 
 use App\Models\Torrent;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewReseedRequest extends Notification implements ShouldQueue
 {
@@ -60,7 +60,7 @@ class NewReseedRequest extends Notification implements ShouldQueue
         return [
             'title' => 'New Reseed Request',
             'body'  => "Some time ago, you downloaded: {$this->torrent->name}. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!",
-            'url'   => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}",
+            'url'   => "{$appurl}/torrents/{$this->torrent->id}",
         ];
     }
 }

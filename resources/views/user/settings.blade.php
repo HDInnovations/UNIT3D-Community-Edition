@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_settings', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_settings', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.general') @lang('user.settings')</span>
         </a>
@@ -35,7 +35,7 @@
                     <div class="tab-content">
                         <br>
                         <div class="tab-pane active" id="general">
-                            <form role="form" method="POST" action="{{ route('change_settings', ['slug' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                            <form role="form" method="POST" action="{{ route('change_settings', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>Style</h3>

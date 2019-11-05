@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -22,14 +22,15 @@ class LikeController extends Controller
     /**
      * Like A Post.
      *
-     * @param $postId
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
@@ -56,14 +57,15 @@ class LikeController extends Controller
     /**
      * Dislike A Post.
      *
-     * @param $postId
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();

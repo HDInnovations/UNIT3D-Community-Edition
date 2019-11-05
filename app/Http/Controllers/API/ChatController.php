@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,24 +13,24 @@
 
 namespace App\Http\Controllers\API;
 
-use Carbon\Carbon;
-use App\Models\Bot;
-use App\Models\User;
-use App\Bots\NerdBot;
 use App\Bots\CasinoBot;
+use App\Bots\NerdBot;
 use App\Bots\SystemBot;
 use App\Events\Chatter;
-use App\Models\UserEcho;
-use App\Models\UserAudible;
-use Illuminate\Http\Request;
-use Illuminate\Auth\AuthManager;
-use App\Http\Resources\BotResource;
 use App\Http\Controllers\Controller;
-use App\Repositories\ChatRepository;
-use App\Http\Resources\ChatRoomResource;
-use App\Http\Resources\UserEchoResource;
+use App\Http\Resources\BotResource;
 use App\Http\Resources\ChatMessageResource;
+use App\Http\Resources\ChatRoomResource;
 use App\Http\Resources\UserAudibleResource;
+use App\Http\Resources\UserEchoResource;
+use App\Models\Bot;
+use App\Models\User;
+use App\Models\UserAudible;
+use App\Models\UserEcho;
+use App\Repositories\ChatRepository;
+use Carbon\Carbon;
+use Illuminate\Auth\AuthManager;
+use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
@@ -523,14 +523,14 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function updateUserTarget(Request $request, $id)
+    public function updateUserTarget($id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
         return response($user);
     }
 
-    public function updateBotTarget(Request $request, $id)
+    public function updateBotTarget($id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,39 +13,39 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Peer;
-use App\Models\Type;
-use App\Models\User;
+use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
-use App\Models\History;
-use App\Models\Torrent;
-use App\Models\Warning;
 use App\Helpers\Bencode;
+use App\Helpers\MediaInfo;
+use App\Helpers\TorrentHelper;
+use App\Helpers\TorrentTools;
+use App\Models\BonTransactions;
 use App\Models\Bookmark;
 use App\Models\Category;
-use App\Helpers\MediaInfo;
-use App\Models\TagTorrent;
-use App\Models\TorrentFile;
-use Illuminate\Support\Str;
-use App\Bots\IRCAnnounceBot;
-use Illuminate\Http\Request;
-use App\Helpers\TorrentTools;
-use App\Helpers\TorrentHelper;
-use App\Models\FreeleechToken;
-use App\Models\PrivateMessage;
-use App\Models\TorrentRequest;
-use App\Models\BonTransactions;
 use App\Models\FeaturedTorrent;
-use App\Models\PlaylistTorrent;
+use App\Models\FreeleechToken;
+use App\Models\History;
+use App\Models\Peer;
 use App\Models\PersonalFreeleech;
-use Illuminate\Support\Facades\DB;
-use App\Repositories\ChatRepository;
+use App\Models\PlaylistTorrent;
+use App\Models\PrivateMessage;
+use App\Models\TagTorrent;
+use App\Models\Torrent;
+use App\Models\TorrentFile;
+use App\Models\TorrentRequest;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\Warning;
 use App\Notifications\NewReseedRequest;
-use MarcReichel\IGDBLaravel\Models\Game;
-use MarcReichel\IGDBLaravel\Models\Character;
+use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use MarcReichel\IGDBLaravel\Models\Character;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 class TorrentController extends Controller
 {
@@ -335,7 +335,7 @@ class TorrentController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $torrent Torrent
+     * @param  Torrent  $torrent
      *
      * @return array
      * @throws \ErrorException
@@ -891,15 +891,14 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
      */
-    public function torrent(Request $request, $slug, $id)
+    public function torrent(Request $request, $id)
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -1008,12 +1007,12 @@ class TorrentController extends Controller
     /**
      * Torrent Edit Form.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm(Request $request, $slug, $id)
+    public function editForm(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1030,13 +1029,12 @@ class TorrentController extends Controller
     /**
      * Edit A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1076,7 +1074,7 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $torrent->save();
@@ -1116,7 +1114,7 @@ class TorrentController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
             }
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Successfully Edited!');
         }
     }
@@ -1148,7 +1146,7 @@ class TorrentController extends Controller
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
                     $pmuser->subject = 'Torrent Deleted!';
-                    $pmuser->message = "[b]Attention:[/b] Torrent {$torrent->name} has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                    $pmuser->message = "[b]Attention:[/b] Torrent {$torrent->name} has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safley remove it from your client.
                                         [b]Removal Reason:[/b] {$request->message}
                                         [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                     $pmuser->save();
@@ -1186,7 +1184,7 @@ class TorrentController extends Controller
                 }
                 Torrent::withAnyStatus()->where('id', '=', $id)->delete();
 
-                return redirect()->to('/torrents')
+                return redirect()->route('torrents')
                     ->withSuccess('Torrent Has Been Deleted!');
             }
         } else {
@@ -1196,7 +1194,7 @@ class TorrentController extends Controller
             }
             \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
 
-            return redirect()->route('home')
+            return redirect()->route('home.index')
                 ->withErrors('Unable to delete Torrent');
         }
     }
@@ -1204,12 +1202,11 @@ class TorrentController extends Controller
     /**
      * Display Peers Of A Torrent.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function peers($slug, $id)
+    public function peers($id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -1220,12 +1217,11 @@ class TorrentController extends Controller
     /**
      * Display History Of A Torrent.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function history($slug, $id)
+    public function history($id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
@@ -1236,9 +1232,10 @@ class TorrentController extends Controller
     /**
      * Torrent Upload Form.
      *
-     * @param $title
-     * @param $imdb
-     * @param $tmdb
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $title
+     * @param  int  $imdb
+     * @param  int  $tmdb
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -1426,18 +1423,18 @@ class TorrentController extends Controller
                     );
                 } else {
                     $this->chat->systemMessage(
-                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 }
 
-                TorrentHelper::approveHelper($torrent->slug, $torrent->id);
+                TorrentHelper::approveHelper($torrent->id);
 
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
             } else {
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");
             }
 
-            return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('download_check', ['id' => $torrent->id])
                 ->withSuccess('Your torrent file is ready to be downloaded and seeded!');
         }
     }
@@ -1445,13 +1442,12 @@ class TorrentController extends Controller
     /**
      * Download Check.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function downloadCheck(Request $request, $slug, $id)
+    public function downloadCheck(Request $request, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();
@@ -1462,14 +1458,13 @@ class TorrentController extends Controller
     /**
      * Download A Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      * @param $rsskey
      *
      * @return TorrentFile
      */
-    public function download(Request $request, $slug, $id, $rsskey = null)
+    public function download(Request $request, $id, $rsskey = null)
     {
         $user = $request->user();
         if (! $user && $rsskey) {
@@ -1480,19 +1475,19 @@ class TorrentController extends Controller
 
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio')) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Ratio Is To Low To Download!');
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0 && $torrent->user_id != $user->id) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
 
         // Torrent Status Is Rejected
         if ($torrent->isRejected()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('This Torrent Has Been Rejected By Staff');
         }
 
@@ -1501,7 +1496,7 @@ class TorrentController extends Controller
 
         // The torrent file exist ?
         if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         } else {
             // Delete the last torrent tmp file
@@ -1517,7 +1512,7 @@ class TorrentController extends Controller
             // Remove Other announce url
             unset($dict['announce-list']);
         } else {
-            return redirect()->to('/login');
+            return redirect()->route('login');
         }
 
         $fileToDownload = Bencode::bencode($dict);
@@ -1529,12 +1524,12 @@ class TorrentController extends Controller
     /**
      * Bump A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function bumpTorrent(Request $request, $slug, $id)
+    public function bumpTorrent(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1563,57 +1558,19 @@ class TorrentController extends Controller
             $bot->message('#announce', "[Link: $torrent_url]");
         }
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Bumped To The Top Successfully!');
-    }
-
-    /**
-     * Bookmark A Torrent.
-     *
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function bookmark(Request $request, $id)
-    {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-
-        if ($request->user()->isBookmarked($torrent->id)) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->withErrors('Torrent has already been bookmarked.');
-        } else {
-            $request->user()->bookmarks()->attach($torrent->id);
-
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->withSuccess('Torrent Has Been Bookmarked Successfully!');
-        }
-    }
-
-    /**
-     * Unbookmark A Torrent.
-     *
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function unBookmark(Request $request, $id)
-    {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $request->user()->bookmarks()->detach($torrent->id);
-
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->withSuccess('Torrent Has Been Unbookmarked Successfully!');
     }
 
     /**
      * Sticky A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function sticky(Request $request, $slug, $id)
+    public function sticky(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1629,20 +1586,19 @@ class TorrentController extends Controller
         // Activity Log
         \LogActivity::addToLog('Staff Member '.$request->user()->username." has stickied torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
     }
 
     /**
      * 100% Freeleech A Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function grantFL(Request $request, $slug, $id)
+    public function grantFL(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1669,19 +1625,19 @@ class TorrentController extends Controller
         // Activity Log
         \LogActivity::addToLog('Staff Member '.$user->username." has revoked freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
     }
 
     /**
      * Feature A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function grantFeatured(Request $request, $slug, $id)
+    public function grantFeatured(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1708,10 +1664,10 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog('Staff Member '.$request->user()->username." has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
         } else {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent Is Already Featured!');
         }
     }
@@ -1719,12 +1675,12 @@ class TorrentController extends Controller
     /**
      * Double Upload A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function grantDoubleUp(Request $request, $slug, $id)
+    public function grantDoubleUp(Request $request, $id)
     {
         $user = $request->user();
 
@@ -1749,19 +1705,19 @@ class TorrentController extends Controller
         // Activity Log
         \LogActivity::addToLog('Staff Member '.$user->username." has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+        return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
     }
 
     /**
      * Reseed Request A Torrent.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reseedTorrent(Request $request, $slug, $id)
+    public function reseedTorrent(Request $request, $id)
     {
         $appurl = config('app.url');
         $user = $request->user();
@@ -1784,10 +1740,10 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has requested a reseed request on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         } else {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('This torrent doesnt meet the rules for a reseed request.');
         }
     }
@@ -1795,13 +1751,12 @@ class TorrentController extends Controller
     /**
      * Use Freeleech Token On A Torrent.
      *
-     * @param Request $request
-     * @param $slug
+     * @param  Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function freeleechToken(Request $request, $slug, $id)
+    public function freeleechToken(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1819,10 +1774,10 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has used a freeleech token on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
         } else {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
         }
     }

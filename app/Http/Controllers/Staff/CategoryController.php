@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Image;
-use App\Models\Category;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Image;
 
 class CategoryController extends Controller
 {
@@ -99,12 +99,11 @@ class CategoryController extends Controller
     /**
      * Category Edit Form.
      *
-     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($slug, $id)
+    public function edit($id)
     {
         $category = Category::findOrFail($id);
 
@@ -114,13 +113,12 @@ class CategoryController extends Controller
     /**
      * Update A Category.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $slug, $id)
+    public function update(Request $request, $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
@@ -168,11 +166,10 @@ class CategoryController extends Controller
      * Destroy A Category.
      *
      * @param $id
-     * @param $slug
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($slug, $id)
+    public function destroy($id)
     {
         $category = Category::findOrFail($id);
         $category->delete();

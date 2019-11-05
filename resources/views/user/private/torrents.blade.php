@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_torrents', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_torrents', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.torrents')</span>
         </a>
@@ -149,7 +149,7 @@
                     @foreach ($history as $his)
                         <tr class="userFiltered" active="{{ ($his->active ? '1' : '0') }}" seeding="{{ ($his->seeder == 1 ? '1' : '0') }}" prewarned="{{ ($his->prewarn ? '1' : '0') }}" hr="{{ ($his->hitrun ? '1' : '0') }}" immune="{{ ($his->immune ? '1' : '0') }}">
                             <td>
-                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $his->torrent->slug, 'id' => $his->torrent->id]) }}">
+                                <a class="view-torrent" href="{{ route('torrent', ['id' => $his->torrent->id]) }}">
                                     {{ $his->torrent->name }}
                                 </a>
                             </td>

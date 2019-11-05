@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_bookmarks', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('bookmarks.index', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.bookmarks')</span>
         </a>
@@ -48,7 +48,7 @@
                     @foreach ($bookmarks as $bookmark)
                         <tr>
                             <td>
-                                <a href="{{ route('category', ['slug' => $bookmark->category->slug, 'id' => $bookmark->category->id]) }}">
+                                <a href="{{ route('categories.show', ['id' => $bookmark->category->id]) }}">
                                     <div class="text-center">
                                         <i class="{{ $bookmark->category->icon }} torrent-icon" data-toggle="tooltip"
                                            data-original-title="{{ $bookmark->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -62,18 +62,18 @@
                                 </div>
                             </td>
                             <td>
-                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a class="view-torrent" href="{{ route('torrent', ['id' => $bookmark->id]) }}">
                                     {{ $bookmark->name }}
                                 </a>
                                 @if (config('torrent.download_check_page') == 1)
-                                    <a href="{{ route('download_check', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                    <a href="{{ route('download_check', ['id' => $bookmark->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
                                     </a>
                                 @else
-                                    <a href="{{ route('download', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                    <a href="{{ route('download', ['id' => $bookmark->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -118,7 +118,7 @@
                                     <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By ANONYMOUS USER
                                         @if ($user->id == $bookmark->user->id || $user->group->is_modo)
-                                            <a href="{{ route('profile', ['username' => $bookmark->user->username, 'id' => $bookmark->user->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $bookmark->user->username]) }}">
                                                 ({{ $bookmark->user->username }})
                                             </a>
                                         @endif
@@ -126,7 +126,7 @@
                                 @else
                                     <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                        <a href="{{ route('profile', ['username' => $bookmark->user->username, 'id' => $bookmark->user->id]) }}">
+                                        <a href="{{ route('users.show', ['username' => $bookmark->user->username]) }}">
                                             {{ $bookmark->user->username }}
                                         </a>
                                     </span>
@@ -246,34 +246,34 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a href="{{ route('peers', ['id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-green text-bold'>
                                         {{ $bookmark->seeders }}
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a href="{{ route('peers', ['id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-red text-bold'>
                                         {{ $bookmark->leechers }}
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('history', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                <a href="{{ route('history', ['id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-orange text-bold'>
                                         {{ $bookmark->times_completed }} @lang('common.times')
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('unbookmark', ['id' => $bookmark->id]) }}">
-                                    <button type="button" id="{{ $bookmark->id }}"
-                                            class="btn btn-xxs btn-danger btn-delete-wishlist" data-toggle="tooltip"
-                                            data-original-title="@lang('torrent.delete-bookmark')">
-                                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                                <form action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-xxs btn-danger">
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('torrent.delete-bookmark')
                                     </button>
-                                </a>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

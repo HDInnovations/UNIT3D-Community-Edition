@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Image;
-use Carbon\Carbon;
 use App\Models\Album;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Services\Clients\OmdbClient;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Image;
 
 class AlbumController extends Controller
 {
@@ -38,7 +38,7 @@ class AlbumController extends Controller
     }
 
     /**
-     * Get All Albums.
+     * Display All Albums.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -46,48 +46,33 @@ class AlbumController extends Controller
     {
         $albums = Album::withCount('images')->get();
 
-        return view('gallery.index')->with('albums', $albums);
+        return view('album.index')->with('albums', $albums);
     }
 
     /**
-     * Get A Album.
-     *
-     * @param $id
+     * Show Album Create Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getAlbum($id)
+    public function create()
     {
-        $album = Album::with('images')->find($id);
-        $albums = Album::with('images')->get();
-
-        return view('gallery.album', ['album' => $album, 'albums' => $albums]);
+        return view('album.create');
     }
 
     /**
-     * Album Add Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function addForm()
-    {
-        return view('gallery.createalbum');
-    }
-
-    /**
-     * Add A Album.
+     * Store A New Album.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
         if ($omdb === null || $omdb === false) {
-            return redirect()->route('create_album_form')
+            return redirect()->route('albums.create')
                 ->withErrors('Bad IMDB Request!');
         }
 
@@ -112,21 +97,37 @@ class AlbumController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('create_album_form')
+            return redirect()->route('albums.create')
                 ->withInput()
                 ->withErrors($v->errors());
         } else {
             $album->save();
 
-            return redirect()->route('show_album', ['id' => $album->id])
+            return redirect()->route('albums.show', ['id' => $album->id])
                 ->withSuccess('Your album has successfully published!');
         }
     }
 
     /**
-     * Delete A Album.
+     * Show A Album.
      *
      * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $album = Album::with('images')->find($id);
+        $albums = Album::with('images')->get();
+
+        return view('album.show', ['album' => $album, 'albums' => $albums]);
+    }
+
+    /**
+     * Delete A Album.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -138,7 +139,7 @@ class AlbumController extends Controller
         abort_unless($user->group->is_modo || $user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay()), 403);
         $album->delete();
 
-        return redirect()->route('home')
+        return redirect()->route('albums.index')
             ->withSuccess('Album has successfully been deleted');
     }
 }

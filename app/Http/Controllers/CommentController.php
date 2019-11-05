@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,28 +13,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Article;
-use App\Models\Comment;
-use App\Models\Torrent;
-use App\Models\Playlist;
-use Illuminate\Http\Request;
-use App\Models\TorrentRequest;
-use App\Notifications\NewComment;
-use App\Repositories\ChatRepository;
-use App\Achievements\UserMadeComment;
-use App\Achievements\UserMade50Comments;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
 use App\Achievements\UserMade400Comments;
 use App\Achievements\UserMade500Comments;
+use App\Achievements\UserMade50Comments;
 use App\Achievements\UserMade600Comments;
 use App\Achievements\UserMade700Comments;
 use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
+use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\Playlist;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
+use App\Models\User;
+use App\Notifications\NewComment;
+use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -61,21 +61,20 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Article.
+     * Store A New Comment To A Article.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function article(Request $request, $slug, $id)
+    public function article(Request $request, $id)
     {
         $article = Article::findOrFail($id);
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
+            return redirect()->route('articles.show', ['id' => $article->id])
                 ->withErros('Your Comment Rights Have Benn Revoked!');
         }
 
@@ -93,7 +92,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
+            return redirect()->route('articles.show', ['id' => $article->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -116,7 +115,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $article->comments()->get()->each(function ($c, $v) use ($users) {
+                    $article->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -156,13 +155,13 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
+            return redirect()->route('articles.show', ['id' => $article->id])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
 
     /**
-     * Add A Comment To A Playlist.
+     * Store A New Comment To A Playlist.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
@@ -216,7 +215,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $playlist->comments()->get()->each(function ($c, $v) use ($users) {
+                    $playlist->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -262,21 +261,20 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Torrent.
+     * Store A New Comment To A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $slug, $id)
+    public function torrent(Request $request, $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErros('Your Comment Rights Have Benn Revoked!');
         }
 
@@ -294,7 +292,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -322,7 +320,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $torrent->comments()->get()->each(function ($c, $v) use ($users) {
+                    $torrent->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -362,13 +360,13 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments'])
+            return redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
 
     /**
-     * Add A Comment To A Request.
+     * Store A New Comment To A Request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $id
@@ -427,7 +425,7 @@ class CommentController extends Controller
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
-                    $tr->comments()->get()->each(function ($c, $v) use ($users) {
+                    $tr->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
@@ -472,8 +470,9 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Torrent Via Quick Thanks.
+     * Store A New Comment To A Torrent Via Quick Thanks.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -484,7 +483,7 @@ class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErros('Your Comment Rights Have Benn Revoked!');
         }
 
@@ -519,7 +518,7 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -551,7 +550,7 @@ class CommentController extends Controller
                 "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
             );
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
@@ -580,6 +579,7 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $comment_id
      *
      * @return Illuminate\Http\RedirectResponse

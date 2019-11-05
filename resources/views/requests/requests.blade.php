@@ -274,7 +274,7 @@
             }
 
             xhr = $.ajax({
-                url: 'filterRequests',
+                url: '/requests/filter',
                 data: {
                     _token: csrf,
                     search: search,

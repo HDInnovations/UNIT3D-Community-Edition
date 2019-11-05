@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -15,8 +15,8 @@ namespace App\Notifications;
 
 use App\Models\Post;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewPostTip extends Notification implements ShouldQueue
 {
@@ -72,7 +72,7 @@ class NewPostTip extends Notification implements ShouldQueue
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For A Forum Post',
             'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
-            'url'   => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+            'url'   => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
         ];
     }
 }

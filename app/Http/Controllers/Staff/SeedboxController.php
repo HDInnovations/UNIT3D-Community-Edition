@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class SeedboxController extends Controller
 {
@@ -34,7 +34,8 @@ class SeedboxController extends Controller
     /**
      * Delete A Registered Seedbox.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -46,7 +47,7 @@ class SeedboxController extends Controller
         abort_unless($user->group->is_modo, 403);
         $seedbox->delete();
 
-        return redirect()->route('staff.seedbox.index')
+        return redirect()->route('staff.seedboxes.index')
             ->withSuccess('Seedbox Record Has Successfully Been Deleted');
     }
 }

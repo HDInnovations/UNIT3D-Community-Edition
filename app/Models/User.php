@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,15 +13,15 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Helpers\Bbcode;
-use Illuminate\Support\Str;
 use App\Helpers\StringHelper;
-use Gstt\Achievements\Achiever;
 use App\Traits\UsersOnlineTrait;
-use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
+use Gstt\Achievements\Achiever;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id

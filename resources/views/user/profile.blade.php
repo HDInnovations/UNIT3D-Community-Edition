@@ -11,7 +11,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', [ 'username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
@@ -72,7 +72,7 @@
                                         </i>
                                     @endif
                                     @if ($user->notes->count() > 0 && auth()->user()->group->is_modo)
-                                        <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
+                                        <a href="{{ route('user_setting', ['username' => $user->username]) }}"
                                            class="edit">
                                         <i class="{{ config('other.font-awesome') }} fa-comment fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
                                             title="" data-original-title="@lang('user.staff-noted')">
@@ -101,7 +101,7 @@
                                                     data-target="#modal_user_ban"><span
                                                         class="{{ config('other.font-awesome') }} fa-ban"></span> @lang('user.ban')</button>
                                         @endif
-                                        <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
+                                        <a href="{{ route('user_setting', ['username' => $user->username]) }}"
                                            class="btn btn-xs btn-warning"><span
                                                     class="{{ config('other.font-awesome') }} fa-pencil"></span> @lang('user.edit') </a>
                                         <button class="btn btn-xs btn-danger" data-toggle="modal"
@@ -403,9 +403,9 @@
             <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
           </span>
                     @if (auth()->user()->group->is_modo)
-                        <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span
+                        <a href="{{ route('warnings.show', ['username' => $user->username]) }}"><span
                                     class="badge-user text-bold"><strong>@lang('user.warning-log')</strong></span></a>
-                        <a href="{{ route('banlog', ['username' => $user->username, 'id' => $user->id]) }}"><span
+                        <a href="{{ route('banlog', ['username' => $user->username]) }}"><span
                                     class="badge-user text-bold"><strong>@lang('user.ban-log')</strong></span></a>
                     @endif
                     </div>
@@ -485,14 +485,14 @@
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_follower'))
                             @foreach ($followers as $f)
                                 @if ($f->user->image != null)
-                                    <a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                         <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
                                              title="{{ $f->user->username }}" height="50px"
                                              data-original-title="{{ $f->user->username }}"
                                              alt="{{ $f->user->username }}">
                                     </a>
                                 @else
-                                    <a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                         <img src="{{ url('img/profile.png') }}" data-toggle="tooltip"
                                              title="{{ $f->user->username }}" height="50px"
                                              data-original-title="{{ $f->user->username }}"
@@ -524,7 +524,7 @@
                     <td>@lang('user.invited-by')</td>
                     <td>
                     @if ($invitedBy)
-                        <a href="{{ route('profile', ['username' => $invitedBy->sender->username, 'id' => $invitedBy->sender->id]) }}">
+                        <a href="{{ route('users.show', ['username' => $invitedBy->sender->username]) }}">
                             <span class="text-bold" style="color:{{ $invitedBy->sender->group->color }}; ">
                                 <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
                             </span>
@@ -662,7 +662,7 @@
                             @foreach ($hitrun as $hr)
                                 <tr>
                                     <td>
-                                        <a class="text-bold" href="{{ route('torrent', ['slug' => $hr->torrenttitle->slug, 'id' => $hr->torrenttitle->id]) }}">
+                                        <a class="text-bold" href="{{ route('torrent', ['id' => $hr->torrenttitle->id]) }}">
                                             {{ $hr->torrenttitle->name }}
                                         </a>
                                     </td>

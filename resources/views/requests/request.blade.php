@@ -140,14 +140,14 @@
                             <td>
                                 @if ($torrentRequest->anon == 0)
                                 <span class="badge-user">
-                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                         {{ $torrentRequest->user->username }}
                                     </a>
                                 </span>
                                 @else
                                 <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
                                 @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
-                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                         ({{ $torrentRequest->user->username }})
                                     </a>
                                 @endif
@@ -183,7 +183,7 @@
                                 @else
                                     @if ($torrentRequestClaim->anon == 0)
                                     <span class="badge-user">
-                                        <a href="{{ route('profile', ['username' => $torrentRequestClaim->username, 'id' => $torrentRequestClaim->user_id]) }}">
+                                        <a href="{{ route('users.show', ['username' => $torrentRequestClaim->username]) }}">
                                             {{ $torrentRequestClaim->username }}
                                         </a>
                                     </span>
@@ -233,14 +233,14 @@
                                 <td>
                                     @if ($torrentRequest->filled_anon == 0)
                                     <span class="badge-user">
-                                        <a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}">
+                                        <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                             {{ $torrentRequest->FillUser->username }}
                                         </a>
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
                                         @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
-                                            <a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}">
+                                            <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                                 ({{ $torrentRequest->FillUser->username }})
                                             </a>
                                         @endif
@@ -256,7 +256,7 @@
                                     <strong>@lang('torrent.torrent')</strong>
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrent', ['slug' => $torrentRequest->torrent->slug, 'id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
+                                    <a href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
                                 </td>
                             </tr>
                         @endif
@@ -269,7 +269,7 @@
                                 <td>
                                     @if ($torrentRequest->filled_anon == 0)
                                     <span class="badge-user">
-                                        <a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}">
+                                        <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                             {{ $torrentRequest->FillUser->username }}
                                         </a>
                                     </span>
@@ -300,7 +300,7 @@
                                     <strong>@lang('torrent.torrent')</strong>
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrent', ['slug' => $torrentRequest->torrent->slug, 'id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
+                                    <a href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
                                 </td>
                             </tr>
                         @endif
@@ -334,14 +334,14 @@
                                         <td>
                                             @if ($voter->anon == 0)
                                             <span class="badge-user">
-                                                <a href="{{ route('profile', ['username' => $voter->user->username, 'id' => $voter->user->id ]) }}">
+                                                <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
                                                     {{ $voter->user->username }}
                                                 </a>
                                             </span>
                                             @else
                                             <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
                                                 @if ($user->group->is_modo || $voter->user->username == $user->username)
-                                                    <a href="{{ route('profile', ['username' => $voter->user->username, 'id' => $voter->user->id ]) }}">
+                                                    <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
                                                         ({{ $voter->user->username }})
                                                     </a>
                                                 @endif
@@ -388,10 +388,10 @@
                                                         <img src="{{ url('img/profile.png') }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                         <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                        <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
+                                                        <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
                                                     @endif
                                                 @else
-                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+                                                    <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                        class="pull-left" style="padding-right: 10px;">
                                                         @if ($comment->user->image != null)
                                                             <img src="{{ url('files/img/' . $comment->user->image) }}"
@@ -402,7 +402,7 @@
                                                              alt="{{ $comment->user->username }}"
                                                              class="img-avatar-48"></a>
                                                     @endif
-                                                    <strong><a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
+                                                    <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                                 @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
