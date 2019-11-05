@@ -41,13 +41,13 @@ class BanController extends Controller
      * Ban A User (current_group -> banned).
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param $id
+     * @param $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
 
@@ -92,13 +92,13 @@ class BanController extends Controller
      * Unban A User (banned -> new_group).
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param $id
+     * @param $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
         abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);

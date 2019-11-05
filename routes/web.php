@@ -111,7 +111,7 @@ Route::group(['middleware' => 'language'], function () {
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
             Route::name('rss.')->group(function () {
-                Route::get('/{hash?}', 'RssController@index')->name('index');
+                Route::get('/', 'RssController@index')->name('index');
                 Route::get('/create', 'RssController@create')->name('create');
                 Route::post('/store', 'RssController@store')->name('store');
                 Route::get('/{id}/edit', 'RssController@edit')->name('edit');
@@ -171,12 +171,12 @@ Route::group(['middleware' => 'language'], function () {
 
         // Pages System
         Route::group(['prefix' => 'pages'], function () {
-            Route::get('/{id}', 'PageController@show')->name('pages.show');
             Route::get('/staff', 'PageController@staff')->name('staff');
             Route::get('/internal', 'PageController@internal')->name('internal');
             Route::get('/blacklist', 'PageController@blacklist')->name('blacklist');
             Route::get('/aboutus', 'PageController@about')->name('about');
             Route::get('/emaillist', 'PageController@emailList')->name('emaillist');
+            Route::get('/{id}', 'PageController@show')->where('id', '[0-9]+')->name('pages.show');
         });
 
         // Comments System
@@ -382,8 +382,8 @@ Route::group(['middleware' => 'language'], function () {
         // Poll System
         Route::group(['prefix' => 'polls'], function () {
             Route::get('/', 'PollController@index')->name('polls');
-            Route::get('/{slug}', 'PollController@show')->name('poll');
             Route::post('/vote', 'PollController@vote')->middleware('check_ip');
+            Route::get('/{slug}', 'PollController@show')->name('poll');
             Route::get('/{slug}/result', 'PollController@result')->name('poll_results');
         });
 
@@ -402,7 +402,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::name('notifications.')->group(function () {
                 Route::get('/filter', 'NotificationController@faceted');
                 Route::get('/', 'NotificationController@index')->name('index');
-                Route::get('/{id}', 'NotificationController@show')->name('show');
+                Route::get('/{id}', 'NotificationController@show')->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/update', 'NotificationController@update')->name('update');
                 Route::post('/updateall', 'NotificationController@updateAll')->name('updateall');
                 Route::delete('/{id}/destroy', 'NotificationController@destroy')->name('destroy');
@@ -426,7 +426,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', 'PlaylistController@index')->name('index');
                 Route::get('/create', 'PlaylistController@create')->name('create');
                 Route::post('/store', 'PlaylistController@store')->name('store');
-                Route::get('/{id}', 'PlaylistController@show')->name('show');
+                Route::get('/{id}', 'PlaylistController@show')->where('id', '[0-9]+')->name('show');
                 Route::get('/{id}/edit', 'PlaylistController@edit')->name('edit');
                 Route::patch('/{id}/update', 'PlaylistController@update')->name('update');
                 Route::delete('/{id}/destroy', 'PlaylistController@destroy')->name('destroy');
@@ -458,13 +458,13 @@ Route::group(['middleware' => 'language'], function () {
         // Forum System
         Route::name('forums.')->group(function () {
             Route::get('/', 'ForumController@index')->name('index');
-            Route::get('/{id}', 'ForumController@show')->name('show');
+            Route::get('/{id}', 'ForumController@show')->where('id', '[0-9]+')->name('show');
         });
 
         // Forum Category System
         Route::group(['prefix' => 'categories'], function () {
             Route::name('forums.categories.')->group(function () {
-                Route::get('/{id}', 'ForumCategoryController@show')->name('show');
+                Route::get('/{id}', 'ForumCategoryController@show')->where('id', '[0-9]+')->name('show');
             });
         });
 
@@ -559,7 +559,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'applications'], function () {
             Route::name('staff.applications.')->group(function () {
                 Route::get('/', 'ApplicationController@index')->name('index');
-                Route::get('/{id}', 'ApplicationController@show')->name('show');
+                Route::get('/{id}', 'ApplicationController@show')->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/approve', 'ApplicationController@approve')->name('approve');
                 Route::post('/{id}/reject', 'ApplicationController@reject')->name('reject');
             });
@@ -596,8 +596,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'bans'], function () {
             Route::name('staff.bans.')->group(function () {
                 Route::get('/', 'BanController@index')->name('index');
-                Route::post('/{id}/store', 'BanController@store')->name('store');
-                Route::post('/{id}/update', 'BanController@update')->name('update');
+                Route::post('/{username}/store', 'BanController@store')->name('store');
+                Route::post('/{username}/update', 'BanController@update')->name('update');
             });
         });
 
@@ -743,7 +743,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'polls'], function () {
             Route::name('staff.polls.')->group(function () {
                 Route::get('/', 'PollController@index')->name('index');
-                Route::get('/{id}', 'PollController@show')->name('show');
+                Route::get('/{id}', 'PollController@show')->where('id', '[0-9]+')->name('show');
                 Route::get('/create', 'PollController@create')->name('create');
                 Route::post('/store', 'PollController@store')->name('store');
             });
@@ -761,7 +761,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'reports'], function () {
             Route::name('staff.reports.')->group(function () {
                 Route::get('/', 'ReportController@index')->name('index');
-                Route::get('/{id}', 'ReportController@show')->name('show');
+                Route::get('/{id}', 'ReportController@show')->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/solve', 'ReportController@update')->name('update');
             });
         });
@@ -795,7 +795,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', 'TypeController@index')->name('index');
                 Route::get('/create', 'TypeController@create')->name('create');
                 Route::post('/store', 'TypeController@store')->name('store');
-                Route::get('//{id}/edit', 'TypeController@edit')->name('edit');
+                Route::get('/{id}/edit', 'TypeController@edit')->name('edit');
                 Route::patch('/{id}/update', 'TypeController@update')->name('update');
                 Route::delete('/{id}/destroy', 'TypeController@destroy')->name('destroy');
             });
@@ -813,7 +813,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'notes'], function () {
             Route::name('staff.notes.')->group(function () {
                 Route::get('/', 'NoteController@index')->name('index');
-                Route::post('/{id}/store', 'NoteController@store')->name('store');
+                Route::post('/{username}/store', 'NoteController@store')->name('store');
                 Route::delete('/{id}/destroy', 'NoteController@destroy')->name('destroy');
             });
         });

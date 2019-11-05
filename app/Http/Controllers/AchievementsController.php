@@ -47,9 +47,9 @@ class AchievementsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
 
         $achievements = $user->unlockedAchievements();
 

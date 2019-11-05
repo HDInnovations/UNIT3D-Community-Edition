@@ -40,7 +40,7 @@
                 confirmButtonText: '<i class="fa fa-thumbs-up"></i> I Do!',
               }).then(function() {
                 $.ajax({
-                  url: "/accept-rules",
+                  url: "/users/accept-rules",
                   type: "post",
                   data: {
                     _token: '{{csrf_token()}}'

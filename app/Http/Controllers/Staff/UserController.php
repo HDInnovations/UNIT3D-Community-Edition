@@ -75,15 +75,14 @@ class UserController extends Controller
      * User Edit Form.
      *
      * @param $username
-     * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings($username, $id)
+    public function settings($username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
-        $notes = Note::where('user_id', '=', $id)->latest()->paginate(25);
+        $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
         return view('Staff.user.user_edit', [
             'user'   => $user,
@@ -97,13 +96,12 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @@return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $username, $id)
+    public function edit(Request $request, $username)
     {
-        $user = User::with('group')->findOrFail($id);
+        $user = User::with('group')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
         $sendto = (int) $request->input('group_id');
@@ -159,13 +157,12 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function permissions(Request $request, $username, $id)
+    public function permissions(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
         $user->can_upload = $request->input('can_upload');
@@ -188,13 +185,12 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function password(Request $request, $username, $id)
+    protected function password(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = auth()->user();
 
         $new_password = $request->input('new_password');
@@ -212,13 +208,12 @@ class UserController extends Controller
      * Delete A User.
      *
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function destroy($username, $id)
+    protected function destroy($username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = auth()->user();
 
         abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
