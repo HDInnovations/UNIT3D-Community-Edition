@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
 
 class PrivateMessageController extends Controller
 {

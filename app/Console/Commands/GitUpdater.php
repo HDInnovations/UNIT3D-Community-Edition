@@ -13,12 +13,12 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Str;
 use App\Console\ConsoleTools;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class GitUpdater extends Command
 {

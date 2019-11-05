@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\User;
-use App\Models\Group;
-use App\Jobs\ProcessMassPM;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessMassPM;
+use App\Models\Group;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class MassActionController extends Controller
 {

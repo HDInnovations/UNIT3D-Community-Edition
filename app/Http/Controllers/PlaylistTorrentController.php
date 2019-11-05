@@ -14,8 +14,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Playlist;
-use Illuminate\Http\Request;
 use App\Models\PlaylistTorrent;
+use Illuminate\Http\Request;
 
 class PlaylistTorrentController extends Controller
 {

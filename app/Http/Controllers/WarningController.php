@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
-use App\Models\PrivateMessage;
 
 class WarningController extends Controller
 {

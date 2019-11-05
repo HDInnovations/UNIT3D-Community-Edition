@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Forum;
+use App\Models\Post;
 use App\Models\Topic;
-use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {

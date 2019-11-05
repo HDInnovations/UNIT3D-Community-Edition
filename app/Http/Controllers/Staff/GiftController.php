@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
-use App\Http\Controllers\Controller;
 
 class GiftController extends Controller
 {

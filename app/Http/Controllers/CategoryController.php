@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Torrent;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\PersonalFreeleech;
+use App\Models\Torrent;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {

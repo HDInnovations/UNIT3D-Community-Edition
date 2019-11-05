@@ -12,10 +12,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Tag;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {

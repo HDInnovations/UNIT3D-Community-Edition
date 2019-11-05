@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use App\Models\Invite;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class AutoRecycleInvites extends Command

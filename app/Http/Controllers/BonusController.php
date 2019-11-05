@@ -13,20 +13,20 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Torrent;
 use App\Models\BonExchange;
-use Illuminate\Http\Request;
-use App\Notifications\NewBon;
-use App\Models\PrivateMessage;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
+use App\Models\Post;
+use App\Models\PrivateMessage;
+use App\Models\Torrent;
+use App\Models\User;
+use App\Notifications\NewBon;
 use App\Notifications\NewPostTip;
-use Illuminate\Support\Facades\DB;
 use App\Notifications\NewUploadTip;
 use App\Repositories\ChatRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BonusController extends Controller
 {

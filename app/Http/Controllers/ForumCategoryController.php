@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Forum;
+use App\Models\Post;
 use App\Models\Topic;
 
 class ForumCategoryController extends Controller

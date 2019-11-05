@@ -13,22 +13,22 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use App\Models\Follow;
+use App\Models\Group;
+use App\Models\Invite;
 use App\Models\Like;
+use App\Models\Message;
 use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\Group;
+use App\Models\PrivateMessage;
 use App\Models\Thank;
 use App\Models\Topic;
-use App\Models\Follow;
-use App\Models\Invite;
-use App\Models\Comment;
-use App\Models\Message;
 use App\Models\Torrent;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller

@@ -13,23 +13,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Topic;
-use Illuminate\Http\Request;
-use App\Repositories\ChatRepository;
-use App\Achievements\UserMade25Posts;
-use App\Achievements\UserMade50Posts;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
+use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade300Posts;
 use App\Achievements\UserMade400Posts;
 use App\Achievements\UserMade500Posts;
+use App\Achievements\UserMade50Posts;
 use App\Achievements\UserMade600Posts;
 use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
+use App\Models\Post;
+use App\Models\Topic;
+use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
