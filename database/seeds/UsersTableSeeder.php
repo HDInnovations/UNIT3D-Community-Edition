@@ -29,6 +29,7 @@ class UsersTableSeeder extends Seeder
                 'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
                 'passkey'  => md5(uniqid().time().microtime()),
+                'rsskey'   => md5(uniqid().time()),
                 'active'   => 1,
             ],
             [
@@ -37,6 +38,7 @@ class UsersTableSeeder extends Seeder
                 'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
                 'passkey'  => md5(uniqid().time().microtime()),
+                'rsskey'   => md5(uniqid().time()),
                 'active'   => 1,
             ],
             [
@@ -45,6 +47,7 @@ class UsersTableSeeder extends Seeder
                 'group_id' => 10,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD', 'UNIT3D')),
                 'passkey'  => md5(uniqid().time().microtime()),
+                'rsskey'   => md5(uniqid().time()),
                 'active'   => 1,
             ],
         ];
@@ -56,6 +59,7 @@ class UsersTableSeeder extends Seeder
                 'group_id' => $user['group_id'],
                 'password' => $user['password'],
                 'passkey'  => $user['passkey'],
+                'rsskey'   => $user['rsskey'],
                 'active'   => $user['active'],
             ]);
         }
