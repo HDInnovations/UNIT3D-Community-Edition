@@ -16,7 +16,6 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Forum;
 use App\Models\Topic;
-use Illuminate\Http\Request;
 
 class ForumCategoryController extends Controller
 {

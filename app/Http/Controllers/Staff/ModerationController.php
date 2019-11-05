@@ -18,7 +18,6 @@ use App\Models\Torrent;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
 use App\Models\PrivateMessage;
-use App\Models\TorrentRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 

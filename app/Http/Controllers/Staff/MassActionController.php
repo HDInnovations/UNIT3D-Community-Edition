@@ -12,7 +12,7 @@
  */
 
 namespace App\Http\Controllers\Staff;
-;
+
 use App\Models\User;
 use App\Models\Group;
 use App\Jobs\ProcessMassPM;

@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

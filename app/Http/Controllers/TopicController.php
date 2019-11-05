@@ -16,10 +16,9 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Forum;
 use App\Models\Topic;
-use App\Repositories\ChatRepository;
-use App\Repositories\TaggedUserRepository;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Repositories\ChatRepository;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
 use App\Achievements\UserMade100Posts;
@@ -32,6 +31,7 @@ use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
+use App\Repositories\TaggedUserRepository;
 
 class TopicController extends Controller
 {

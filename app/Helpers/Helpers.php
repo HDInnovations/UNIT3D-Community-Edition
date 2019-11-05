@@ -10,9 +10,6 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-
-use Illuminate\Support\Str;
-
 if (! function_exists('appurl')) {
     function appurl()
     {
