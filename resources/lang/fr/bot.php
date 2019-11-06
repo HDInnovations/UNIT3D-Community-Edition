@@ -1,15 +1,15 @@
 <?php
 
 return [
-  'about' => 'Sur',
-  'bot' => 'Bot',
-  'bots' => 'Bots',
-  'color' => 'Couleur',
-  'command' => 'Commander',
-  'edit-bot' => 'Edit Bot',
-  'emoji-code' => 'Code Emoji',
-  'help' => 'Aidez-moi',
-  'icon' => 'Icône',
-  'info' => 'Info',
-  'name' => 'prénom',
+  'about' => 'Noin',
+  'bot' => 'bot',
+  'bots' => 'botit',
+  'color' => 'Väri',
+  'command' => 'Komento',
+  'edit-bot' => 'Muokkaa Bot',
+  'emoji-code' => 'Emoji-koodi',
+  'help' => 'auta',
+  'icon' => 'ikoni',
+  'info' => 'Tiedot',
+  'name' => 'Nimi',
 ];
