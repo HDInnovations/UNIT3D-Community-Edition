@@ -134,9 +134,6 @@ class InviteController extends Controller
             $user->invites -= 1;
             $user->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
-
             return redirect()->route('invites.create')
                 ->withSuccess('Invite was sent successfully!');
         }
@@ -163,9 +160,6 @@ class InviteController extends Controller
         }
 
         Mail::to($invite->email)->send(new InviteUser($invite));
-
-        // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has resent invite to {$invite->email} .");
 
         return redirect()->route('invites.index', ['username' => $user->username])
             ->withSuccess('Invite was resent successfully!');

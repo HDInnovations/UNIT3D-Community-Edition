@@ -1,0 +1,213 @@
+<?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie
+ */
+
+namespace App\Traits;
+
+use Carbon\Carbon;
+use DB;
+
+trait Auditable
+{
+    public static function bootAuditable()
+    {
+        static::created(function ($model) {
+            self::registerCreate($model);
+        });
+
+        static::updated(function ($model) {
+            self::registerUpdate($model);
+        });
+
+        static::deleted(function ($model) {
+            self::registerDelete($model);
+        });
+    }
+
+    /**
+     * Strips specified data keys from the audit.
+     *
+     * @param $model
+     * @param $data
+     * @return array
+     */
+    protected static function strip($model, $data)
+    {
+        // Initialize an instance of $model
+        $instance = new $model();
+        // Convert the data to an array
+        $data = (array) $data;
+        // Start stripping
+        $globalDiscards = (! empty(config('audit.global_discards'))) ? config('audit.global_discards') : [];
+        $modelDiscards = (! empty($instance->discarded)) ? $instance->discarded : [];
+        foreach ($data as $key => $value) {
+            // Check the model-specific discards
+            if (in_array($key, $modelDiscards)) {
+                unset($data[$key]);
+            }
+            // Check global discards
+            if (! empty($globalDiscards)) {
+                if (in_array($key, $globalDiscards)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+        // Return
+        return $data;
+    }
+
+    /**
+     * Generates the data to store.
+     *
+     * @param $action
+     * @param array $old
+     * @param array $new
+     * @return false|string
+     */
+    protected static function generate($action, $old = [], $new = [])
+    {
+        $data = [];
+        switch ($action) {
+            default:
+                throw new \InvalidArgumentException("Unknown action `{$action}`.");
+                break;
+            case 'create':
+                // Expect new data to be filled
+                if (empty($new)) {
+                    throw new \ArgumentCountError('Action `create` expects new data.');
+                }
+                // Process
+                foreach ($new as $key => $value) {
+                    $data[$key] = [
+                        'old' => null,
+                        'new' => $value,
+                    ];
+                }
+                break;
+            case 'update':
+                // Expect old and new data to be filled
+                if (empty($old) || empty($new)) {
+                    throw new \ArgumentCountError('Action `update` expects both old and new data.');
+                }
+                // Process only what changed
+                foreach ($new as $key => $value) {
+                    $data[$key] = [
+                        'old' => $old[$key],
+                        'new' => $value,
+                    ];
+                }
+                break;
+            case 'delete':
+                // Expect new data to be filled
+                if (empty($old)) {
+                    throw new \ArgumentCountError('Action `delete` expects new data.');
+                }
+                // Process
+                foreach ($old as $key => $value) {
+                    $data[$key] = [
+                        'old' => $value,
+                        'new' => null,
+                    ];
+                }
+                break;
+        }
+
+        return json_encode($data);
+    }
+
+    /**
+     * Gets the current user ID, or null if guest.
+     *
+     * @return mixed|null
+     */
+    public static function getUserId()
+    {
+        if (auth()->guest()) {
+            return;
+        }
+
+        return auth()->user()->getAuthIdentifier();
+    }
+
+    /**
+     * Logs a record creation.
+     *
+     * @param $model
+     */
+    protected static function registerCreate($model)
+    {
+        // Generate the JSON to store
+        $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
+        // Get auth (if any)
+        $userId = self::getUserId();
+        // Store record
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        DB::table('audits')->insert([
+            'user_id' => $userId,
+            'model_name' => class_basename($model),
+            'model_entry_id' => $model->{$model->getKeyName()},
+            'action' => 'create',
+            'record' => $data,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+    }
+
+    /**
+     * Logs a record update.
+     *
+     * @param $model
+     */
+    protected static function registerUpdate($model)
+    {
+        // Strip data
+        // Generate the JSON to store
+        $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
+        // Get auth (if any)
+        $userId = self::getUserId();
+        // Store record
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        DB::table('audits')->insert([
+            'user_id' => $userId,
+            'model_name' => class_basename($model),
+            'model_entry_id' => $model->{$model->getKeyName()},
+            'action' => 'update',
+            'record' => $data,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+    }
+
+    /**
+     * Logs a record deletion.
+     *
+     * @param $model
+     */
+    protected static function registerDelete($model)
+    {
+        // Generate the JSON to store
+        $data = self::generate('delete', self::strip($model, $model->getAttributes()));
+        // Get auth (if any)
+        $userId = self::getUserId();
+        // Store record
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        DB::table('audits')->insert([
+            'user_id' => $userId,
+            'model_name' => class_basename($model),
+            'model_entry_id' => $model->{$model->getKeyName()},
+            'action' => 'delete',
+            'record' => $data,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+    }
+}

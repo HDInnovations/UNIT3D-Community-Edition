@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
 class Seedbox extends Model
 {
     use Encryptable;
+    use Auditable;
 
     /**
      * The Database Table Used By The Model.

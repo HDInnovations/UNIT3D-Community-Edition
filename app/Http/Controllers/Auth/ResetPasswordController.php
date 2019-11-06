@@ -45,9 +45,6 @@ class ResetPasswordController extends Controller
         $user->active = true;
         $user->save();
 
-        // Activity Log
-        \LogActivity::addToLog('Member '.$user->username.' has successfully reset his/her password.');
-
         UserActivation::where('user_id', '=', $user->id)->delete();
 
         $this->guard()->login($user);

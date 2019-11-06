@@ -78,9 +78,6 @@ class GiftController extends Controller
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
             $pm->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
-
             return redirect()->route('staff.gifts.index')
                 ->withSuccess('Gift Sent');
         }

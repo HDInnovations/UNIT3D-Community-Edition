@@ -189,9 +189,6 @@ class RegisterController extends Controller
             $pm->message = config('welcomepm.message');
             $pm->save();
 
-            // Activity Log
-            \LogActivity::addToLog('Member '.$user->username.' has successfully registered to site.');
-
             return redirect()->route('login')
                 ->withSuccess(trans('auth.register-thanks'));
         }

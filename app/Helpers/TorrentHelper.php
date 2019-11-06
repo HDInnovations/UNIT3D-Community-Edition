@@ -107,8 +107,5 @@ class TorrentHelper
                 $bot->message(config('irc-bot.channels'), "[Link: {$appurl}/torrents/".$id.']');
             }
         }
-
-        // Activity Log
-        \LogActivity::addToLog('Torrent '.$torrent->name.' uploaded by '.$username.' has been approved.');
     }
 }

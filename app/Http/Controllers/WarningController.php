@@ -73,9 +73,6 @@ class WarningController extends Controller
         $pm->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $pm->save();
 
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deactivated a warning on {$warning->warneduser->username} account.");
-
         return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
             ->withSuccess('Warning Was Successfully Deactivated');
     }
@@ -110,9 +107,6 @@ class WarningController extends Controller
         $pm->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $pm->save();
 
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deactivated all warnings on {$warning->warneduser->username} account.");
-
         return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
             ->withSuccess('All Warnings Were Successfully Deactivated');
     }
@@ -143,9 +137,6 @@ class WarningController extends Controller
         $warning->deleted_by = $staff->id;
         $warning->save();
         $warning->delete();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deleted a warning on {$warning->warneduser->username} account.");
 
         return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
             ->withSuccess('Warning Was Successfully Deleted');
@@ -181,9 +172,6 @@ class WarningController extends Controller
         $pm->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $pm->save();
 
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deleted all warnings on {$warning->warneduser->username} account.");
-
         return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
             ->withSuccess('All Warnings Were Successfully Deleted');
     }
@@ -203,9 +191,6 @@ class WarningController extends Controller
         $staff = $request->user();
         $warning = Warning::findOrFail($id);
         $warning->restore();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has restore a soft deleted warning on {$warning->warneduser->username} account.");
 
         return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
             ->withSuccess('Warning Was Successfully Restored');

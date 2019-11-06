@@ -94,9 +94,6 @@ class PollController extends Controller
         });
         $poll->options()->saveMany($options);
 
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$user->username} has created a new poll {$poll->title}.");
-
         $poll_url = hrefPoll($poll);
 
         $this->chat->systemMessage(

@@ -364,9 +364,6 @@ class RequestController extends Controller
                 );
             }
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
-
             return redirect()->route('requests')
                 ->withSuccess('Request Added.');
         }
@@ -448,14 +445,6 @@ class RequestController extends Controller
         } else {
             $torrentRequest->save();
 
-            if ($user->group->is_modo) {
-                // Activity Log
-                \LogActivity::addToLog("Staff Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-            } else {
-                // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-            }
-
             return redirect()->route('requests', ['id' => $torrentRequest->id])
                 ->withSuccess('Request Edited Successfully.');
         }
@@ -532,9 +521,6 @@ class RequestController extends Controller
                 $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
             }
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$tr->id} NAME: {$tr->name} .");
-
             return redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withSuccess('Your bonus has been successfully added.');
         }
@@ -589,9 +575,6 @@ class RequestController extends Controller
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
                 $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
             }
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has filled torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
 
             return redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withSuccess('Your request fill is pending approval by the Requester.');
@@ -662,9 +645,6 @@ class RequestController extends Controller
                 $requester->notify(new NewRequestFillApprove('torrent', $user->username, $tr));
             }
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$tr->id} NAME: {$tr->name} .");
-
             if ($tr->filled_anon == 0) {
                 return redirect()->route('request', ['id' => $id])
                     ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}");
@@ -703,9 +683,6 @@ class RequestController extends Controller
                 $requester->notify(new NewRequestFillReject('torrent', $user->username, $torrentRequest));
             }
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has declined {$torrentRequest->filled_by} fill on torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-
             $torrentRequest->filled_by = null;
             $torrentRequest->filled_when = null;
             $torrentRequest->filled_hash = null;
@@ -735,9 +712,6 @@ class RequestController extends Controller
         if ($user->group->is_modo || $torrentRequest->user_id == $user->id) {
             $name = $torrentRequest->name;
             $torrentRequest->delete();
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has deleted torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('requests')
                 ->withSuccess("You have deleted {$name}");
@@ -781,9 +755,6 @@ class RequestController extends Controller
                 $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
             }
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Claimed');
         } else {
@@ -826,9 +797,6 @@ class RequestController extends Controller
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
                 $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
             }
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has un-claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Un-Claimed');

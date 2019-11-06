@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -54,6 +55,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Report extends Model
 {
+    use Auditable;
+
     /**
      * The Attributes That Aren't Mass Assignable.
      *

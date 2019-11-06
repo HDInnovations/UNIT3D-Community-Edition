@@ -13,12 +13,18 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
-class Playlist extends Model
+class Audit extends Model
 {
-    use Auditable;
+    /**
+     * The Attributes That Are Mass Assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id', 'model_name', 'model_entry_id', 'action', 'record',
+    ];
 
     /**
      * Belongs To A User.
@@ -31,25 +37,5 @@ class Playlist extends Model
             'username' => 'System',
             'id'       => '1',
         ]);
-    }
-
-    /**
-     * Has Many Torrents.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function torrents()
-    {
-        return $this->hasMany(PlaylistTorrent::class);
-    }
-
-    /**
-     * Has Many Comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'playlist_id');
     }
 }

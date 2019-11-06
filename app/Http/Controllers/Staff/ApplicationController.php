@@ -100,9 +100,6 @@ class ApplicationController extends Controller
                 $invite->save();
                 $application->markApproved();
 
-                // Activity Log
-                \LogActivity::addToLog("Staff member {$user->username} has approved {$application->email} application.");
-
                 return redirect()->route('staff.applications.index')
                     ->withSuccess('Application Approved');
             }

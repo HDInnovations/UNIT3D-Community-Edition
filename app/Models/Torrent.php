@@ -18,6 +18,7 @@ use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
 use App\Notifications\NewComment;
 use App\Notifications\NewThank;
+use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
@@ -118,6 +119,7 @@ class Torrent extends Model
 {
     use Moderatable;
     use Sortable;
+    use Auditable;
 
     /**
      * The Columns That Are Sortable.

@@ -35,9 +35,6 @@ class ActivationController extends Controller
             $activation->user->group_id = $memberGroup->id;
             $activation->user->save();
 
-            // Activity Log
-            \LogActivity::addToLog('Member '.$activation->user->username.' has successfully activated his/her account.');
-
             $activation->delete();
 
             return redirect()->route('login')
