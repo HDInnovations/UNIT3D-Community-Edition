@@ -13,11 +13,11 @@
 
 namespace App\Console\Commands;
 
-use App\Models\LogActivity;
+use App\Models\Audit;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleActivityLog extends Command
+class AutoRecycleAudits extends Command
 {
     /**
      * The name and signature of the console command.
@@ -41,10 +41,10 @@ class AutoRecycleActivityLog extends Command
     public function handle()
     {
         $current = Carbon::now();
-        $activities = LogActivity::where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->get();
+        $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle'))->toDateTimeString())->get();
 
-        foreach ($activities as $activity) {
-            $activity->delete();
+        foreach ($audits as $audit) {
+            $audit->delete();
         }
     }
 }

@@ -145,9 +145,6 @@ class UserController extends Controller
         $user->group_id = (int) $request->input('group_id');
         $user->save();
 
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
-
         return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
@@ -173,9 +170,6 @@ class UserController extends Controller
         $user->can_chat = $request->input('can_chat');
         $user->save();
 
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
-
         return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
@@ -196,9 +190,6 @@ class UserController extends Controller
         $new_password = $request->input('new_password');
         $user->password = Hash::make($new_password);
         $user->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
         return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
@@ -287,8 +278,6 @@ class UserController extends Controller
         foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
             $peer->delete();
         }
-        // Activity Log
-        \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
 
         if ($user->delete()) {
             return redirect()->route('staff.dashboard.index')

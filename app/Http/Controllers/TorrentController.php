@@ -1106,14 +1106,6 @@ class TorrentController extends Controller
                 }
             }
 
-            if ($user->group->is_modo) {
-                // Activity Log
-                \LogActivity::addToLog("Staff Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-            } else {
-                // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-            }
-
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Successfully Edited!');
         }
@@ -1152,14 +1144,6 @@ class TorrentController extends Controller
                     $pmuser->save();
                 }
 
-                if ($user->group->is_modo) {
-                    // Activity Log
-                    \LogActivity::addToLog("Staff Member {$user->username} has deleted torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-                } else {
-                    // Activity Log
-                    \LogActivity::addToLog("Member {$user->username} has deleted torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-                }
-
                 // Reset Requests
                 $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
                 foreach ($torrentRequest as $req) {
@@ -1182,7 +1166,7 @@ class TorrentController extends Controller
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
-                Torrent::withAnyStatus()->where('id', '=', $id)->delete();
+                $torrent->delete();
 
                 return redirect()->route('torrents')
                     ->withSuccess('Torrent Has Been Deleted!');
@@ -1428,10 +1412,6 @@ class TorrentController extends Controller
                 }
 
                 TorrentHelper::approveHelper($torrent->id);
-
-                \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
-            } else {
-                \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");
             }
 
             return redirect()->route('download_check', ['id' => $torrent->id])
@@ -1538,9 +1518,6 @@ class TorrentController extends Controller
         $torrent->created_at = Carbon::now();
         $torrent->save();
 
-        // Activity Log
-        \LogActivity::addToLog('Staff Member '.$user->username." has bumped torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
         // Announce To Chat
         $torrent_url = hrefTorrent($torrent);
         $profile_url = hrefProfile($user);
@@ -1583,9 +1560,6 @@ class TorrentController extends Controller
         }
         $torrent->save();
 
-        // Activity Log
-        \LogActivity::addToLog('Staff Member '.$request->user()->username." has stickied torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
     }
@@ -1622,9 +1596,6 @@ class TorrentController extends Controller
 
         $torrent->save();
 
-        // Activity Log
-        \LogActivity::addToLog('Staff Member '.$user->username." has revoked freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
     }
@@ -1660,9 +1631,6 @@ class TorrentController extends Controller
             $this->chat->systemMessage(
                 "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
             );
-
-            // Activity Log
-            \LogActivity::addToLog('Staff Member '.$request->user()->username." has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
@@ -1702,9 +1670,6 @@ class TorrentController extends Controller
         }
         $torrent->save();
 
-        // Activity Log
-        \LogActivity::addToLog('Staff Member '.$user->username." has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
     }
@@ -1737,9 +1702,6 @@ class TorrentController extends Controller
                 "Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
             );
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has requested a reseed request on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         } else {
@@ -1770,9 +1732,6 @@ class TorrentController extends Controller
 
             $user->fl_tokens -= '1';
             $user->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has used a freeleech token on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');

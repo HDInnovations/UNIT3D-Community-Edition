@@ -62,9 +62,6 @@ class NoteController extends Controller
         } else {
             $note->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
-
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('Note Has Successfully Posted');
         }

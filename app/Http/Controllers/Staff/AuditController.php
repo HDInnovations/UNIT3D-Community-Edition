@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Models\Audit;
 use App\Http\Controllers\Controller;
-use App\Models\LogActivity;
 use Illuminate\Http\Request;
 
 class AuditController extends Controller
@@ -26,9 +26,9 @@ class AuditController extends Controller
      */
     public function index()
     {
-        $activities = LogActivity::with('user')->latest()->paginate(50);
+        $audits = Audit::with('user')->latest()->paginate(50);
 
-        return view('Staff.audit.index', ['activities' => $activities]);
+        return view('Staff.audit.index', ['audits' => $audits]);
     }
 
     /**
@@ -42,12 +42,12 @@ class AuditController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = $request->user();
-        $activity = LogActivity::findOrFail($id);
+        $audit = Audit::findOrFail($id);
 
         abort_unless($user->group->is_modo, 403);
-        $activity->delete();
+        $audit->delete();
 
         return redirect()->route('staff.audits.index')
-            ->withSuccess('Activity Record Has Successfully Been Deleted');
+            ->withSuccess('Audit Record Has Successfully Been Deleted');
     }
 }

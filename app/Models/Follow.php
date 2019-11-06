@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -38,6 +39,7 @@ use Illuminate\Notifications\Notifiable;
 class Follow extends Model
 {
     use Notifiable;
+    use Auditable;
 
     /**
      * Belongs To A User.

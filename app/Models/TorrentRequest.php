@@ -15,6 +15,7 @@ namespace App\Models;
 
 use App\Helpers\Bbcode;
 use App\Notifications\NewComment;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -76,6 +77,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TorrentRequest extends Model
 {
+    use Auditable;
+
     /**
      * The Attributes That Should Be Mutated To Dates.
      *

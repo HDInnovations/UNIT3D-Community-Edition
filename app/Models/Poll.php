@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -43,6 +44,8 @@ use Illuminate\Support\Str;
  */
 class Poll extends Model
 {
+    use Auditable;
+
     /**
      * The Attributes That Are Mass Assignable.
      *

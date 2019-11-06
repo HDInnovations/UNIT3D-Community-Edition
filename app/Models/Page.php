@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -36,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Page extends Model
 {
+    use Auditable;
+
     /**
      * Set The Pages Content After Its Been Purified.
      *

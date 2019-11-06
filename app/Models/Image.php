@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -42,6 +43,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Image extends Model
 {
+    use Auditable;
+
     /**
      * Belongs to User.
      */

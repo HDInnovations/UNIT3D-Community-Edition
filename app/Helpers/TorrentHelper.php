@@ -108,7 +108,5 @@ class TorrentHelper
             }
         }
 
-        // Activity Log
-        \LogActivity::addToLog('Torrent '.$torrent->name.' uploaded by '.$username.' has been approved.');
     }
 }

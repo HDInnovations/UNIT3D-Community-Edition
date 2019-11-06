@@ -77,9 +77,6 @@ class BanController extends Controller
             $user->save();
             $ban->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has banned member {$user->username}.");
-
             // Send Email
             Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
@@ -128,9 +125,6 @@ class BanController extends Controller
         } else {
             $user->save();
             $ban->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
 
             // Send Email
             Mail::to($user->email)->send(new UnbanUser($user->email, $ban));

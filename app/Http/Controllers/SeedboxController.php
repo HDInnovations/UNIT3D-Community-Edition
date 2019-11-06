@@ -65,9 +65,6 @@ class SeedboxController extends Controller
         } else {
             $seedbox->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has added a new seedbox to there account.");
-
             return redirect()->route('seedboxes.index', ['username' => $user->username])
                 ->withSuccess('Seedbox Has Been Successfully Added!');
         }

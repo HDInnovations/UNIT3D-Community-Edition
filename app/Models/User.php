@@ -15,6 +15,7 @@ namespace App\Models;
 
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
+use App\Traits\Auditable;
 use App\Traits\UsersOnlineTrait;
 use Carbon\Carbon;
 use Gstt\Achievements\Achiever;

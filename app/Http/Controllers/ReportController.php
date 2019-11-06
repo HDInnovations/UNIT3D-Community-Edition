@@ -69,9 +69,6 @@ class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent Request report.");
-
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Your report has been successfully sent');
         }
@@ -110,9 +107,6 @@ class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent report.");
-
             return redirect()->route('torrent', ['id' => $id])
                 ->withSuccess('Your report has been successfully sent');
         }
@@ -150,9 +144,6 @@ class ReportController extends Controller
                 'message' => $request->get('message'),
                 'solved' => 0,
             ]);
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$reported_by->username} has made a new User report.");
 
             return redirect()->route('users.show', ['username' => $username])
                 ->withSuccess('Your report has been successfully sent');

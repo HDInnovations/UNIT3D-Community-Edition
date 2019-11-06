@@ -60,9 +60,6 @@ class MassActionController extends Controller
                 $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
             }
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
-
             return redirect()->route('staff.mass-pm.create')
                 ->withSuccess('MassPM Sent');
         }

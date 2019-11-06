@@ -205,11 +205,7 @@ class UserController extends Controller
         $user->title = $request->input('title');
         $user->about = $request->input('about');
         $user->signature = $request->input('signature');
-        // Save the user
         $user->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has updated there profile.");
 
         return redirect()->route('user_edit_profile_form', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
@@ -265,11 +261,7 @@ class UserController extends Controller
         $user->torrent_layout = (int) $request->input('torrent_layout');
         $user->show_poster = $request->input('show_poster');
         $user->ratings = $request->input('ratings');
-
         $user->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has changed their account settings.");
 
         return redirect()->route('user_settings', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
@@ -335,9 +327,6 @@ class UserController extends Controller
                 $user->password = Hash::make($request->input('new_password'));
                 $user->save();
 
-                // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has changed there account password.");
-
                 return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
             } else {
                 return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
@@ -383,9 +372,6 @@ class UserController extends Controller
         } else {
             $user->email = $request->input('email');
             $user->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has changed there email address on file.");
 
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withSuccess('Your Email Was Updated Successfully!');
@@ -534,9 +520,6 @@ class UserController extends Controller
 
         $user->passkey = md5(uniqid().time().microtime());
         $user->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has changed their account PID.");
 
         return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');
@@ -1173,9 +1156,6 @@ class UserController extends Controller
 
         $user->rsskey = md5(uniqid().time().microtime());
         $user->save();
-
-        // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has changed their account RID.");
 
         return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
             ->withSuccess('Your RID Was Changed Successfully!');
