@@ -348,12 +348,16 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/seedboxes', 'SeedboxController@index')->name('seedboxes.index');
             Route::post('/{username}/seedboxes', 'SeedboxController@store')->name('seedboxes.store');
             Route::delete('/{username}/seedboxes/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
-            Route::get('/{username}/wishlist', 'UserController@wishes')->name('user_wishlist');
         });
 
         // Wishlist System
-        Route::post('/wish/{uid}', 'WishController@store')->name('wish-store');
-        Route::get('/wish/{uid}/delete/{id}', 'WishController@destroy')->name('wish-delete');
+        Route::group(['prefix' => 'wishes'], function () {
+            Route::name('wishes.')->group(function () {
+                Route::get('/{username}', 'WishController@index')->name('index');
+                Route::post('/store', 'WishController@store')->name('store');
+                Route::get('/{id}/destroy', 'WishController@destroy')->name('destroy');
+            });
+        });
 
         // Follow System
         Route::group(['prefix' => 'follow'], function () {

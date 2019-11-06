@@ -1699,30 +1699,6 @@ class UserController extends Controller
     }
 
     /**
-     * Get A Users Wishlist.
-     *
-     * @param  Request  $request
-     * @param $username
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function wishes(Request $request, $username)
-    {
-        $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
-
-        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
-
-        $wishes = $user->wishes()->latest()->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-
-        return view('user.wishlist', [
-            'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
-            'wishes'             => $wishes,
-            'route'              => 'wish',
-        ]);
-    }
-
-    /**
      * Get A Users Downloads (Fully Downloaded) Table.
      *
      * @param  Request  $request
