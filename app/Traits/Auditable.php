@@ -95,9 +95,9 @@ trait Auditable
                 break;
             case 'update':
                 // Expect old and new data to be filled
-                if (empty($old) || empty($new)) {
+                /*if (empty($old) || empty($new)) {
                     throw new \ArgumentCountError('Action `update` expects both old and new data.');
-                }
+                }*/
                 // Process only what changed
                 foreach ($new as $key => $value) {
                     $data[$key] = [
