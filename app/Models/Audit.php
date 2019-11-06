@@ -23,7 +23,7 @@ class Audit extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'model_name', 'model_entry_id', 'action', 'record'
+        'user_id', 'model_name', 'model_entry_id', 'action', 'record',
     ];
 
     /**
