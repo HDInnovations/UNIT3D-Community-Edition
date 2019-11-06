@@ -13,7 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -44,8 +43,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserAudible extends Model
 {
-    use Auditable;
-
     /**
      * Indicates If The Model Should Be Timestamped.
      *

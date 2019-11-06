@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'ಚಟುವಟಿಕೆ ದಾಖಲೆ',
+  'audit-log' => 'ಚಟುವಟಿಕೆ ದಾಖಲೆ',
   'articles' => 'ಲೇಖನಗಳು',
   'applications' => 'ಅರ್ಜಿಗಳನ್ನು',
   'bans-log' => 'ನಿಷೇಧಿಸಲಾಗಿದೆ',

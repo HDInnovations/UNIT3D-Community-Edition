@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Faoliyat jurnali',
+  'audit-log' => 'Faoliyat jurnali',
   'articles' => 'Maqolalar',
   'applications' => 'Ilovalar',
   'bans-log' => 'Bans qaydnomasi',

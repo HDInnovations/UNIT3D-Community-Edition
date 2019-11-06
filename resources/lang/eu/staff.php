@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Jarduera-erregistroa',
+  'audit-log' => 'Jarduera-erregistroa',
   'articles' => 'artikuluak',
   'applications' => 'eskaerak',
   'bans-log' => 'Debekuen erregistroa',

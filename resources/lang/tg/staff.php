@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Нишондиҳандаи фаъолият',
+  'audit-log' => 'Нишондиҳандаи фаъолият',
   'articles' => 'Мақолаҳо',
   'applications' => 'Барномаҳо',
   'bans-log' => 'Бонкҳо Log',

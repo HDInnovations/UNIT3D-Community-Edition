@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Hoạt động đăng nhập',
+  'audit-log' => 'Hoạt động đăng nhập',
   'articles' => 'Bài viết',
   'applications' => 'Các ứng dụng',
   'bans-log' => 'Nhật ký cấm',

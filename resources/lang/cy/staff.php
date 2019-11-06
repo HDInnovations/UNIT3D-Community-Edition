@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Log Gweithgareddau',
+  'audit-log' => 'Log Gweithgareddau',
   'articles' => 'Erthyglau',
   'applications' => 'Ceisiadau',
   'bans-log' => 'Logiau Gwahardd',

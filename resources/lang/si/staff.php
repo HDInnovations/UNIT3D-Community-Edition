@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'ක්රියාකාරකම් ලොග්',
+  'audit-log' => 'ක්රියාකාරකම් ලොග්',
   'articles' => 'ලිපි',
   'applications' => 'අයදුම්පත්',
   'bans-log' => 'තහනම් කිරීම',

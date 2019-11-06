@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Log aktivitas',
+  'audit-log' => 'Log aktivitas',
   'articles' => 'Artikel',
   'applications' => 'Aplikasi',
   'bans-log' => 'Larangan Log',

@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'गतिविधि लॉग',
+  'audit-log' => 'गतिविधि लॉग',
   'articles' => 'सामग्री',
   'applications' => 'अनुप्रयोगों',
   'bans-log' => 'बंस लॉग',

@@ -161,7 +161,7 @@
             </li>
             <li>
                 <a href="{{ route('staff.audits.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.activity-log')
+                    <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.audit-log')
                 </a>
             </li>
             <li>

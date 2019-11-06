@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'აქტივობის შესვლა',
+  'audit-log' => 'აქტივობის შესვლა',
   'articles' => 'სტატიები',
   'applications' => 'პროგრამები',
   'bans-log' => 'ჩატვირთვა შესვლა',

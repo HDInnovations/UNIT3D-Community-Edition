@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Үйл ажиллагааны бүртгэл',
+  'audit-log' => 'Үйл ажиллагааны бүртгэл',
   'articles' => 'Нийтлэл',
   'applications' => 'Програмууд',
   'bans-log' => 'Бүртгүүлэх',
