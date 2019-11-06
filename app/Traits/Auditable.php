@@ -13,8 +13,8 @@
 
 namespace App\Traits;
 
-use DB;
 use Carbon\Carbon;
+use DB;
 
 trait Auditable
 {
@@ -47,15 +47,15 @@ trait Auditable
         // Convert the data to an array
         $data = (array) $data;
         // Start stripping
-        $globalDiscards = (!empty(config('audit.global_discards'))) ? config('audit.global_discards') : [];
-        $modelDiscards = (!empty($instance->discarded)) ? $instance->discarded : [];
+        $globalDiscards = (! empty(config('audit.global_discards'))) ? config('audit.global_discards') : [];
+        $modelDiscards = (! empty($instance->discarded)) ? $instance->discarded : [];
         foreach ($data as $key => $value) {
             // Check the model-specific discards
             if (in_array($key, $modelDiscards)) {
                 unset($data[$key]);
             }
             // Check global discards
-            if (!empty($globalDiscards)) {
+            if (! empty($globalDiscards)) {
                 if (in_array($key, $globalDiscards)) {
                     unset($data[$key]);
                 }
@@ -80,46 +80,47 @@ trait Auditable
             default:
                 throw new \InvalidArgumentException("Unknown action `{$action}`.");
                 break;
-            case "create":
+            case 'create':
                 // Expect new data to be filled
                 if (empty($new)) {
-                    throw new \ArgumentCountError("Action `create` expects new data.");
+                    throw new \ArgumentCountError('Action `create` expects new data.');
                 }
                 // Process
                 foreach ($new as $key => $value) {
                     $data[$key] = [
                         'old' => null,
-                        'new' => $value
+                        'new' => $value,
                     ];
                 }
                 break;
-            case "update":
+            case 'update':
                 // Expect old and new data to be filled
                 if (empty($old) || empty($new)) {
-                    throw new \ArgumentCountError("Action `update` expects both old and new data.");
+                    throw new \ArgumentCountError('Action `update` expects both old and new data.');
                 }
                 // Process only what changed
                 foreach ($new as $key => $value) {
                     $data[$key] = [
                         'old' => $old[$key],
-                        'new' => $value
+                        'new' => $value,
                     ];
                 }
                 break;
-            case "delete":
+            case 'delete':
                 // Expect new data to be filled
                 if (empty($old)) {
-                    throw new \ArgumentCountError("Action `delete` expects new data.");
+                    throw new \ArgumentCountError('Action `delete` expects new data.');
                 }
                 // Process
                 foreach ($old as $key => $value) {
                     $data[$key] = [
                         'old' => $value,
-                        'new' => null
+                        'new' => null,
                     ];
                 }
                 break;
         }
+
         return json_encode($data);
     }
 
@@ -130,8 +131,10 @@ trait Auditable
      */
     public static function getUserId()
     {
-        if (auth()->guest())
-            return null;
+        if (auth()->guest()) {
+            return;
+        }
+
         return auth()->user()->getAuthIdentifier();
     }
 
@@ -155,7 +158,7 @@ trait Auditable
             'action' => 'create',
             'record' => $data,
             'created_at' => $now,
-            'updated_at' => $now
+            'updated_at' => $now,
         ]);
     }
 
@@ -180,7 +183,7 @@ trait Auditable
             'action' => 'update',
             'record' => $data,
             'created_at' => $now,
-            'updated_at' => $now
+            'updated_at' => $now,
         ]);
     }
 
@@ -204,7 +207,7 @@ trait Auditable
             'action' => 'delete',
             'record' => $data,
             'created_at' => $now,
-            'updated_at' => $now
+            'updated_at' => $now,
         ]);
     }
 }

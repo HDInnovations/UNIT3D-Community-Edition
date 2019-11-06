@@ -107,6 +107,5 @@ class TorrentHelper
                 $bot->message(config('irc-bot.channels'), "[Link: {$appurl}/torrents/".$id.']');
             }
         }
-
     }
 }
