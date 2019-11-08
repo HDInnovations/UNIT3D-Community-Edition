@@ -313,7 +313,7 @@
           Swal.fire({
             text: title,
             text: message,
-            type: status,
+            icon: status,
             grow: false,
             animation: false,
             allowOutsideClick: false,

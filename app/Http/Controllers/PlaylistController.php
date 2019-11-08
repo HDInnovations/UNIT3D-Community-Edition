@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,12 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use Image;
-use App\Models\Torrent;
 use App\Models\Playlist;
-use Illuminate\Http\Request;
 use App\Models\PlaylistTorrent;
+use App\Models\Torrent;
 use App\Repositories\ChatRepository;
+use App\Services\MovieScrapper;
+use Illuminate\Http\Request;
+use Image;
 
 class PlaylistController extends Controller
 {
@@ -134,7 +135,7 @@ class PlaylistController extends Controller
             $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
         }
         if (isset($random) && isset($torrent)) {
-            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             if ($torrent->category_id == 2) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
                     $meta = $client->scrape('tv', null, $torrent->tmdb);

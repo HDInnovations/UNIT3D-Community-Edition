@@ -20,31 +20,31 @@ export default {
         checkUpdate() {
             this.loading = true;
             axios
-                .get('/staff_dashboard/check-update')
+                .get('/dashboard/UNIT3D')
                 .then(response => {
                     if (response.data.updated === false) {
                         this.loading = false;
                         Swal.fire({
                             position: 'center',
-                            type: 'warning',
+                            icon: 'warning',
                             title: 'There Is A Update Available!',
                             showCancelButton: true,
                             showConfirmButton: true,
                             confirmButtonText: '<i class="fa fa-github"></i> Download from Github',
-                            html: `New version <a href="//github.com/HDInnovations/UNIT3D/releases">${
+                            html: `New version <a href="github.com/HDInnovations/UNIT3D-Community-Edition/releases">${
                                 response.data.latestversion
                             } </a> is available`,
                         }).then(result => {
                             if (result.value) {
-                                window.location.assign('//github.com/HDInnovations/UNIT3D/releases');
+                                window.location.assign('//github.com/HDInnovations/UNIT3D-Community-Edition/releases');
                             }
                         });
                     } else {
                         this.loading = false;
                         Swal.fire({
                             position: 'center',
-                            type: 'success',
-                            title: 'You Are Running The Latest Version Of UNIT3D!',
+                            icon: 'success',
+                            title: 'You Are Running The Latest Version Of UNIT3D Community Edition!',
                             showCancelButton: false,
                             timer: 4500,
                         });

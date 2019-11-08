@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -16,8 +16,8 @@ namespace App\Notifications;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewPost extends Notification implements ShouldQueue
 {
@@ -71,13 +71,13 @@ class NewPost extends Notification implements ShouldQueue
             return [
                 'title' => $this->poster->username.' Has Posted In A Subscribed Topic',
                 'body' => $this->poster->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
-                'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+                'url' => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         } else {
             return [
                 'title' => $this->poster->username.' Has Posted In A Topic You Started',
                 'body' => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,
-                'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+                'url' => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         }
     }

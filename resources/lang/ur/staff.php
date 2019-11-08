@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'سرگرمی لاگ ان',
+  'audit-log' => 'سرگرمی لاگ ان',
   'articles' => 'مضامین',
   'applications' => 'درخواستیں',
   'bans-log' => 'پابند لاگ ان',

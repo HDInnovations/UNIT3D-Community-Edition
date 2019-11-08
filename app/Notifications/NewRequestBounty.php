@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,10 +13,10 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Models\TorrentRequest;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewRequestBounty extends Notification implements ShouldQueue
 {
@@ -72,7 +72,7 @@ class NewRequestBounty extends Notification implements ShouldQueue
         return [
             'title' => $this->sender.' Has Added A Bounty Of '.$this->amount.' To A Requested Torrent',
             'body'  => $this->sender.' has added a bounty to one of your Requested Torrents '.$this->tr->name,
-            'url'   => "/request/{$this->tr->id}",
+            'url'   => "/requests/{$this->tr->id}",
         ];
     }
 }

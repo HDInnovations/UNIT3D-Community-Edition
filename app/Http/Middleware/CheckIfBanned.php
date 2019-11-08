@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,8 +13,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Models\Group;
+use Closure;
 
 class CheckIfBanned
 {
@@ -36,7 +36,7 @@ class CheckIfBanned
             auth()->logout();
             $request->session()->flush();
 
-            return redirect()->to('login')
+            return redirect()->route('login')
                 ->withErrors('This account is Banned!');
         }
 

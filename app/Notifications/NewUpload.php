@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -15,8 +15,8 @@ namespace App\Notifications;
 
 use App\Models\Torrent;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewUpload extends Notification implements ShouldQueue
 {
@@ -66,7 +66,7 @@ class NewUpload extends Notification implements ShouldQueue
         return [
             'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',
             'body'  => "{$this->torrent->user->username}, whom you are following has uploaded Torrent {$this->torrent->name}",
-            'url'   => "/torrents/{$this->torrent->slug}.{$this->torrent->id}",
+            'url'   => "/torrents/{$this->torrent->id}",
         ];
     }
 }

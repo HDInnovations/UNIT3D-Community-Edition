@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'activity-log'            => '活动日志',
+    'audit-log'            => '活动日志',
     'articles'                => '公告',
     'applications'            => '申请书',
     'bans-log'                => '禁户日志',

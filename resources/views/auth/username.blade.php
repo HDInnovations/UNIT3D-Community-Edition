@@ -102,7 +102,7 @@
           });
 
           Toast.fire({
-            type: '{{ $key }}',
+            icon: '{{ $key }}',
             title: '{{ Session::get($key) }}'
           })
         </script>
@@ -113,7 +113,7 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       Swal.fire({
         title: '<strong>Validation Error</strong>',
-        type: 'error',
+        icon: 'error',
         html: '{{ Session::get('errors') }}',
         showCloseButton: true,
       })

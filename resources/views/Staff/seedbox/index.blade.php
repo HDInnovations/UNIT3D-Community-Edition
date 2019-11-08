@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.seedbox.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.seedboxes.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.seedboxes')</span>
         </a>
     </li>
@@ -32,10 +32,10 @@
                     <thead>
                     <tr>
                         <th>@lang('common.no')</th>
-                        <th>User</th>
+                        <th>@lang('common.user')</th>
                         <th>IP</th>
                         <th>Created On</th>
-                        <th>Action</th>
+                        <th>@lang('common.action')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,7 +43,7 @@
                         @foreach ($seedboxes as $key => $seedbox)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td><a href="{{ route('profile', ['username' => $seedbox->user->username, 'id' => $seedbox->user->id ]) }}">
+                                <td><a href="{{ route('users.show', ['username' => $seedbox->user->username]) }}">
                                         {{ $seedbox->user->username }}
                                     </a>
                                 </td>
@@ -53,7 +53,7 @@
                                     ({{ $seedbox->created_at->diffForHumans() }})
                                 </td>
                                 <td>
-                                    <form action="{{ route('staff.seedbox.destroy', ['id' => $seedbox->id]) }}" method="POST">
+                                    <form action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-xs btn-danger"><i class="{{ config('other.font-awesome') }} fa-trash"></i></button>

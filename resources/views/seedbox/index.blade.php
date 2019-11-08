@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['username' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
@@ -76,7 +76,7 @@
 
     {{-- Add Seedbox Modal --}}
     <div class="modal fade" id="seedbox" tabindex="-1" role="dialog" aria-labelledby="seedbox">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dark" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -91,7 +91,7 @@
                             <div class="form-group">
                                 <label>
                                     <input type="text" name="name" class="form-control"
-                                           placeholder="Seedbox Name" required>
+                                           placeholder="Seedbox @lang('common.name')" required>
                                 </label>
                             </div>
                             <div class="form-group">

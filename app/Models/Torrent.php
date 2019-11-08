@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -16,11 +16,12 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
-use App\Notifications\NewThank;
 use App\Notifications\NewComment;
+use App\Notifications\NewThank;
+use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
-use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 /**
  * Torrent model.
@@ -118,6 +119,7 @@ class Torrent extends Model
 {
     use Moderatable;
     use Sortable;
+    use Auditable;
 
     /**
      * The Columns That Are Sortable.

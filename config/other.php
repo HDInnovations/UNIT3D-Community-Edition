@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v1.9.4',
+    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v2.0.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -166,7 +166,7 @@ return [
     | far = Regular
     | fal = Light
     */
-    'font-awesome' => 'fal',
+    'font-awesome' => 'fas',
 
     /*
     |--------------------------------------------------------------------------
@@ -181,15 +181,15 @@ return [
     |--------------------------------------------------------------------------
     | Rules Page URL
     |--------------------------------------------------------------------------
-    | Example: rules.1
+    | Example: 1
     */
-    'rules_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/page/rules.1',
+    'rules_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/1',
 
     /*
     |--------------------------------------------------------------------------
     | FAQ Page URL
     |--------------------------------------------------------------------------
-    | Example: faq.2
+    | Example: 2
     */
-    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/page/faq.2',
+    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/2',
 ];

@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Ingia ya Shughuli',
+  'audit-log' => 'Ingia ya Shughuli',
   'articles' => 'Makala',
   'applications' => 'Maombi',
   'bans-log' => 'Kuzuia Ingia',

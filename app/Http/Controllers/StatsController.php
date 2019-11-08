@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Peer;
-use App\Models\User;
+use App\Models\Category;
 use App\Models\Group;
 use App\Models\History;
-use App\Models\Torrent;
-use App\Models\Category;
 use App\Models\Language;
+use App\Models\Peer;
+use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class StatsController extends Controller
@@ -396,7 +396,6 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Languages.
      *
-     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function languages()

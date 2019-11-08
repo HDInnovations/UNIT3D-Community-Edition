@@ -47,12 +47,12 @@
                                         <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                         aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $s->user->id || auth()->user()->group->is_modo)
-                                                <a href="{{ route('profile', ['username' => $s->user->username, 'id' => $s->user->id]) }}">({{ $s->user->username }}
+                                                <a href="{{ route('users.show', ['username' => $s->user->username]) }}">({{ $s->user->username }}
                                                     )</a></span>
                                     @endif
                                     @else
                                         <span class="badge-user text-bold"><a
-                                                    href="{{ route('profile', ['username' => $s->user->username, 'id' => $s->user->id]) }}">{{ $s->user->username }}</a></span>
+                                                    href="{{ route('users.show', ['username' => $s->user->username]) }}">{{ $s->user->username }}</a></span>
                                     @endif
                                 </td>
                                 <td>

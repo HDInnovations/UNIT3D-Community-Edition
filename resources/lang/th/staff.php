@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'บันทึกกิจกรรม',
+  'audit-log' => 'บันทึกกิจกรรม',
   'articles' => 'บทความ',
   'applications' => 'การประยุกต์ใช้งาน',
   'bans-log' => 'เรย์แบน',

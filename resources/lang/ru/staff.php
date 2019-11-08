@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Журнал активности',
+  'audit-log' => 'Журнал активности',
   'articles' => 'Статьи',
   'applications' => 'Приложения',
   'bans-log' => 'Журнал банов',

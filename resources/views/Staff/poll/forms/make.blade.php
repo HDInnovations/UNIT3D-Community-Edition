@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('postCreatePoll') }}">
+<form method="POST" action="{{ route('staff.polls.store') }}">
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -36,7 +36,7 @@
 
     <div class="form-group">
         <button id="add" class="btn btn-primary">Add Option</button>
-        <button id="del" class="btn btn-primary">Delete Option</button>
+        <button id="del" class="btn btn-primary">@lang('common.delete') Option</button>
     </div>
 
     <hr>

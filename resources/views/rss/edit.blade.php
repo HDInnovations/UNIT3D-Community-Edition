@@ -23,7 +23,7 @@
         <h1 class="upload-title">@lang('rss.edit-private-feed')</h1>
         <form role="form" method="POST" action="{{ route('rss.update', ['id' => $rss->id]) }}">
             @csrf
-            @method('PUT')
+            @method('PATCH')
             <div class="block">
                 <div class="upload col-md-12">
                     <div class="form-group">

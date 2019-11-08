@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,38 +13,37 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
 use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class NoteController extends Controller
 {
     /**
-     * Get All User Notes.
+     * Display All User Notes.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getNotes()
+    public function index()
     {
         $notes = Note::latest()->paginate(25);
 
-        return view('Staff.notes.index', ['notes' => $notes]);
+        return view('Staff.note.index', ['notes' => $notes]);
     }
 
     /**
-     * Post A User Note.
+     * Store A New User Note.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postNote(Request $request, $username, $id)
+    public function store(Request $request, $username)
     {
         $staff = $request->user();
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
 
         $note = new Note();
         $note->user_id = $user->id;
@@ -58,15 +57,12 @@ class NoteController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $note->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
-
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('Note Has Successfully Posted');
         }
     }
@@ -78,13 +74,13 @@ class NoteController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteNote($id)
+    public function destroy($id)
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,42 +13,41 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Carbon\Carbon;
-use App\Models\Ban;
-use App\Models\User;
-use App\Mail\BanUser;
-use App\Models\Group;
-use App\Mail\UnbanUser;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\BanUser;
+use App\Mail\UnbanUser;
+use App\Models\Ban;
+use App\Models\Group;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class BanController extends Controller
 {
     /**
-     * Get All Bans.
+     * Display All Bans.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getBans()
+    public function index()
     {
         $bans = Ban::latest()->paginate(25);
 
-        return view('Staff.bans.index', ['bans' => $bans]);
+        return view('Staff.ban.index', ['bans' => $bans]);
     }
 
     /**
      * Ban A User (current_group -> banned).
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function ban(Request $request, $username, $id)
+    public function store(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
 
@@ -72,19 +71,16 @@ class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $user->save();
             $ban->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has banned member {$user->username}.");
-
             // Send Email
             Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('User Is Now Banned!');
         }
     }
@@ -92,15 +88,14 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
-     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unban(Request $request, $username, $id)
+    public function update(Request $request, $username)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
         abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
@@ -125,19 +120,16 @@ class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $user->save();
             $ban->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
-
             // Send Email
             Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('User Is Now Relieved Of His Ban!');
         }
     }

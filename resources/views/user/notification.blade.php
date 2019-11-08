@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_notification', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_notification', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.notification') @lang('user.settings')</span>
         </a>
@@ -42,7 +42,7 @@
                 <div class="tab-content">
                     <br>
                     <div role="tabpanel" class="tab-pane active" id="account">
-                        <form role="form" method="POST" action="{{ route('notification_account', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_account', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.account-notification'):</h3>
@@ -118,7 +118,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="following">
-                        <form role="form" method="POST" action="{{ route('notification_following', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_following', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.following-notification'):</h3>
@@ -177,7 +177,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="subscription">
-                        <form role="form" method="POST" action="{{ route('notification_subscription', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_subscription', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.subscription-notification'):</h3>
@@ -253,7 +253,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="forum">
-                        <form role="form" method="POST" action="{{ route('notification_forum', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_forum', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.forum-notification'):</h3>
@@ -312,7 +312,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="request">
-                        <form role="form" method="POST" action="{{ route('notification_request', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_request', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.request-notification'):</h3>
@@ -473,7 +473,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="torrent">
-                        <form role="form" method="POST" action="{{ route('notification_torrent', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_torrent', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.torrent-notification'):</h3>
@@ -566,7 +566,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="bon">
-                        <form role="form" method="POST" action="{{ route('notification_bon', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_bon', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.bon-notification'):</h3>
@@ -625,7 +625,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="mention">
-                        <form role="form" method="POST" action="{{ route('notification_mention', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('notification_mention', ['username' => $user->username]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="well">
                                 <h3>@lang('user.mention-notification'):</h3>

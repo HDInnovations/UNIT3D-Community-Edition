@@ -6,17 +6,17 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.rss')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.rss.create') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.rss.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.create')</span>
         </a>
     </li>
@@ -25,7 +25,7 @@
 @section('content')
     <div class="container box">
         <h2>@lang('rss.create-public-feed')</h2>
-        <form role="form" method="POST" action="{{ route('Staff.rss.store') }}">
+        <form role="form" method="POST" action="{{ route('staff.rss.store') }}">
             @csrf
                     <div class="form-group">
                         <label for="name">@lang('rss.feed') @lang('rss.name')</label>

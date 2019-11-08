@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -12,15 +12,15 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Tag;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Tag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
     /**
-     * Get All Tags.
+     * Display All Tags.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -36,18 +36,19 @@ class TagController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
-        return view('Staff.tag.add');
+        return view('Staff.tag.create');
     }
 
     /**
-     * Add A Tag.
+     * Store A New Tag.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $tag = new Tag();
         $tag->name = $request->input('name');
@@ -59,12 +60,12 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
         } else {
             $tag->save();
 
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withSuccess('Tag Successfully Added');
         }
     }
@@ -72,11 +73,11 @@ class TagController extends Controller
     /**
      * Tag Edit Form.
      *
-     * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function edit($id)
     {
         $tag = Tag::findOrFail($id);
 
@@ -86,12 +87,12 @@ class TagController extends Controller
     /**
      * Edit A Tag.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function update(Request $request, $id)
     {
         $tag = Tag::findOrFail($id);
         $tag->name = $request->input('name');
@@ -103,12 +104,12 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
         } else {
             $tag->save();
 
-            return redirect()->route('staff_tag_index')
+            return redirect()->route('staff.tags.index')
                 ->withSuccess('Tag Successfully Modified');
         }
     }

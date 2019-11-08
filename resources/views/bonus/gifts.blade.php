@@ -46,12 +46,12 @@
                                 @foreach($gifttransactions as $b)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('profile', ['username' => Str::slug($b->senderObj->username), 'id' => $b->senderObj->id]) }}">
+                                        <a href="{{ route('users.show', ['username' => $b->senderObj->username]) }}">
                                             <span class="badge-user text-bold">{{ $b->senderObj->username }}</span>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('profile', ['username' => Str::slug($b->receiverObj->username), 'id' => $b->receiverObj->id]) }}">
+                                        <a href="{{ route('users.show', ['username' => $b->receiverObj->username]) }}">
                                             <span class="badge-user text-bold">{{ $b->receiverObj->username }}</span>
                                         </a>
                                     </td>

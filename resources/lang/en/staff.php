@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'activity-log'            => 'Activity Log',
+    'audit-log'            => 'Audit Log',
     'articles'                => 'Articles',
     'applications'            => 'Applications',
     'bans-log'                => 'Bans Log',
@@ -28,8 +28,10 @@ return [
     'please-moderate'         => 'Please Moderate This Torrent!',
     'polls'                   => 'Polls',
     'reports-log'             => 'Reports Log',
+    'rooms'                   => 'Rooms',
     'rss'                     => 'RSS',
     'staff-dashboard'         => 'Staff Dashboard',
+    'statuses'                => 'Statuses',
     'torrent-categories'      => 'Torrent Categories',
     'torrent-moderation'      => 'Torrent Moderation',
     'torrent-tools'           => 'Torrent Tools',

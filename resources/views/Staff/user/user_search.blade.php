@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>User Search - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>@lang('common.user') Search - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="User Search - Staff Dashboard">
+    <meta name="description" content="User Search - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Search</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Search</span>
         </a>
     </li>
 @endsection
@@ -46,7 +46,7 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs hidden-sm"></th>
-                                    <th>Name and Role</th>
+                                    <th>@lang('common.name') and Role</th>
                                     <th class="hidden-xs hidden-sm">E-Mail</th>
                                     <th>ID</th>
                                     <th>Settings</th>
@@ -63,7 +63,7 @@
                                                      class="img-circle"> @endif
                                         </td>
                                         <td class="user-name"><a
-                                                    href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}"
+                                                    href="{{ route('users.show', ['username' => $user->username]) }}"
                                                     class="name">{{ $user->username }}</a>
                                             <span>{{ $user->group->name }}</span></td>
                                         @if (auth()->user()->group->is_modo)
@@ -73,8 +73,8 @@
                                                 {{ $user->id }}
                                             </td>
                                             <td class="action-links">
-                                                <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
-                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
+                                                <a href="{{ route('user_setting', ['username' => $user->username]) }}"
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> @lang('common.edit') Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -94,7 +94,7 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs hidden-sm"></th>
-                                    <th>Name and Role</th>
+                                    <th>@lang('common.name') and Role</th>
                                     <th class="hidden-xs hidden-sm">E-Mail</th>
                                     <th>ID</th>
                                     <th>Settings</th>
@@ -110,9 +110,10 @@
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $uploader->username }}"
                                                      class="img-circle"> @endif
                                         </td>
-                                        <td class="user-name"><a
-                                                    href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}"
-                                                    class="name">{{ $uploader->username }}</a>
+                                        <td class="user-name">
+                                            <a href="{{ route('users.show', ['username' => $uploader->username]) }}" class="name">
+                                                {{ $uploader->username }}
+                                            </a>
                                             <span>{{ $uploader->group->name }}</span></td>
                                         @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span
@@ -122,7 +123,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $uploader->username, 'id' => $uploader->id]) }}"
-                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> @lang('common.edit') Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -137,7 +138,7 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs hidden-sm"></th>
-                                    <th>Name and Role</th>
+                                    <th>@lang('common.name') and Role</th>
                                     <th class="hidden-xs hidden-sm">E-Mail</th>
                                     <th>ID</th>
                                     <th>Settings</th>
@@ -153,9 +154,10 @@
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $mod->username }}"
                                                      class="img-circle"> @endif
                                         </td>
-                                        <td class="user-name"><a
-                                                    href="{{ route('profile', ['username' => $mod->username, 'id' => $mod->id]) }}"
-                                                    class="name">{{ $mod->username }}</a>
+                                        <td class="user-name">
+                                            <a href="{{ route('users.show', ['username' => $mod->username]) }}" class="name">
+                                                {{ $mod->username }}
+                                            </a>
                                             <span>{{ $mod->group->name }}</span></td>
                                         @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span class="email">{{ $mod->email }}</span>
@@ -165,7 +167,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $mod->username, 'id' => $mod->id]) }}"
-                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> @lang('common.edit') Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -180,7 +182,7 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs hidden-sm"></th>
-                                    <th>Name and Role</th>
+                                    <th>@lang('common.name') and Role</th>
                                     <th class="hidden-xs hidden-sm">E-Mail</th>
                                     <th>ID</th>
                                     <th>Settings</th>
@@ -196,9 +198,10 @@
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $admin->username }}"
                                                      class="img-circle"> @endif
                                         </td>
-                                        <td class="user-name"><a
-                                                    href="{{ route('profile', ['username' => $admin->username, 'id' => $admin->id]) }}"
-                                                    class="name">{{ $admin->username }}</a>
+                                        <td class="user-name">
+                                            <a href="{{ route('users.show', ['username' => $admin->username]) }}" class="name">
+                                                {{ $admin->username }}
+                                            </a>
                                             <span>{{ $admin->group->name }}</span></td>
                                         @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span
@@ -208,7 +211,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $admin->username, 'id' => $admin->id]) }}"
-                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> @lang('common.edit') Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -223,7 +226,7 @@
                                 <thead>
                                 <tr>
                                     <th class="hidden-xs hidden-sm"></th>
-                                    <th>Name and Role</th>
+                                    <th>@lang('common.name') and Role</th>
                                     <th class="hidden-xs hidden-sm">E-Mail</th>
                                     <th>ID</th>
                                     <th>Settings</th>
@@ -240,7 +243,7 @@
                                                      class="img-circle"> @endif
                                         </td>
                                         <td class="user-name"><a
-                                                    href="{{ route('profile', ['username' => $coder->username, 'id' => $coder->id]) }}"
+                                                    href="{{ route('users.show', ['username' => $coder->username]) }}"
                                                     class="name">{{ $coder->username }}</a>
                                             <span>{{ $coder->group->name }}</span></td>
                                         @if (auth()->user()->group->is_modo)
@@ -251,7 +254,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $coder->username, 'id' => $coder->id]) }}"
-                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> @lang('common.edit') Profile
                                                 </a>
                                             </td>
                                         @endif

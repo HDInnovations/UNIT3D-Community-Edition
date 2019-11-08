@@ -1,7 +1,7 @@
 /*
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -736,19 +736,19 @@ class facetedSearchBuilder {
     init(type) {
         this.type = type;
         if (this.type == 'card') {
-            this.api = '/filterTorrents';
+            this.api = '/torrents/filter';
             this.view = 'card';
         }
         else if (this.type == 'request') {
-            this.api = '/filterRequests';
+            this.api = '/requests/filter';
             this.view = 'request';
         }
         else if (this.type == 'group') {
-            this.api = '/filterTorrents';
+            this.api = '/torrents/filter';
             this.view = 'group';
         }
         else {
-            this.api = '/filterTorrents';
+            this.api = '/torrents/filter';
             this.view = 'list';
         }
 
@@ -949,6 +949,11 @@ class torrentBookmarkBuilder {
         this.destroy(id,custom);
     }
     create(id,custom) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         if(torrentBookmarkXHR != null) {
             torrentBookmarkXHR.abort();
@@ -957,15 +962,15 @@ class torrentBookmarkBuilder {
         torrentBookmarkXHR = new XMLHttpRequest();
 
         torrentBookmarkXHR = $.ajax({
-            url: '/torrents/bookmark/' + id,
+            url: '/bookmarks/' + id,
             data: {
                 _token: this.csrf,
             },
-            type: 'get'
+            type: 'POST'
         }).done(function (e) {
             Swal.fire({
                 position: 'center',
-                type: 'success',
+                icon: 'success',
                 title: 'Torrent Has Been Bookmarked Successfully!',
                 showConfirmButton: false,
                 timer: 4500,
@@ -983,6 +988,11 @@ class torrentBookmarkBuilder {
         });
     }
     destroy(id,custom) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         if(torrentBookmarkXHR != null) {
             return;
@@ -991,15 +1001,16 @@ class torrentBookmarkBuilder {
         torrentBookmarkXHR = new XMLHttpRequest();
 
         torrentBookmarkXHR = $.ajax({
-            url: '/torrents/unbookmark/' + id,
+            url: '/bookmarks/' + id,
             data: {
                 _token: this.csrf,
+                _method: 'DELETE',
             },
-            type: 'get'
+            type: 'POST'
         }).done(function (e) {
             Swal.fire({
                 position: 'center',
-                type: 'success',
+                icon: 'success',
                 title: 'Torrent Has Been Unbookmarked Successfully!',
                 showConfirmButton: false,
                 timer: 4500,

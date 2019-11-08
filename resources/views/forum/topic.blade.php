@@ -6,18 +6,18 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
+        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
+        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
         </a>
@@ -31,7 +31,7 @@
 
         <div class="topic-info">
             @lang('forum.author') <a
-                    href="{{ route('profile', ['username' => Str::slug($topic->first_post_user_username), 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
+                    href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed('topic', $topic->id))
@@ -44,7 +44,7 @@
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
         <br>
-        <div class="topic-posts" id="forumTip" route="{{ route('tip_poster', ['slug' => $topic->slug, 'id' => $topic->id]) }}" leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
+        <div class="topic-posts" id="forumTip" route="{{ route('tip_poster', ['id' => $topic->id]) }}" leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
             @foreach ($posts as $k => $p)
                 <div class="post" id="post-{{$p->id}}">
                     <div class="block">
@@ -52,7 +52,7 @@
                             <div class="head">
                                 <p>{{ date('M d Y', $p->created_at->getTimestamp()) }}
                                     ({{ $p->created_at->diffForHumans() }}) <a class="text-bold permalink"
-                                                                               href="{{ route('forum_topic', ['slug' => $p->topic->slug, 'id' => $p->topic->id]) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">@lang('forum.permalink')</a>
+                                                                               href="{{ route('forum_topic', ['id' => $p->topic->id]) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">@lang('forum.permalink')</a>
                                 </p>
                             </div>
                             <aside class="col-md-2 post-info">
@@ -65,7 +65,7 @@
                                 @endauth
                 <p>
                 <span class="badge-user text-bold">
-                   <a href="{{ route('profile', ['username' => $p->user->slug, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                       class="post-info-username" style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
                     @if ($p->user->isOnline())
                         <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip"
@@ -92,13 +92,13 @@
                                     <p>
                                         @if($p->user->topics && $p->user->topics->count() > 0)
                                             <span class="badge-user text-bold">
-                   <a href="{{ route('user_topics', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('user_topics', ['id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
                                             </span>
                                         @endauth
                                         @if($p->user->posts && $p->user->posts->count() > 0)
                                             <span class="badge-user text-bold">
-                   <a href="{{ route('user_posts', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('user_posts', ['id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
                                             </span>
                         @endauth
@@ -111,11 +111,11 @@
                                                 class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
                                     @endauth
                                     @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id)
-                                        <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
+                                        <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
                                     @endauth
                                     @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id && $topic->state == 'open')
-                                        <a href="{{ route('forum_post_delete', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
+                                        <a href="{{ route('forum_post_delete', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
                                     @endauth
             </span>
@@ -185,7 +185,7 @@
                     <div class="topic-new-post">
                         @if ($topic->state == "close" && auth()->user()->group->is_modo)
                             <form role="form" method="POST"
-                                  action="{{ route('forum_reply',['slug' => $topic->slug, 'id' => $topic->id]) }}">
+                                  action="{{ route('forum_reply',['id' => $topic->id]) }}">
                                 @csrf
                                 <div class="text-danger">This topic is closed, but you can still reply due to you
                                     being {{auth()->user()->group->name}}.
@@ -199,7 +199,7 @@
                             <div class="col-md-12 alert alert-danger">@lang('forum.topic-closed')</div>
                         @else
                             <form role="form" method="POST"
-                                  action="{{ route('forum_reply',['slug' => $topic->slug, 'id' => $topic->id]) }}">
+                                  action="{{ route('forum_reply',['id' => $topic->id]) }}">
                                 @csrf
                                 <div class="from-group">
                                     <label for="topic-response"></label><textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
@@ -212,25 +212,25 @@
                             @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
                                 <h3>@lang('forum.moderation')</h3>
                                 @if ($topic->state == "close")
-                                    <a href="{{ route('forum_open', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('forum_open', ['id' => $topic->id, ])}}"
                                        class="btn btn-success">@lang('forum.open-topic')</a>
                                 @else
-                                    <a href="{{ route('forum_close', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('forum_close', ['id' => $topic->id, ])}}"
                                        class="btn btn-info">@lang('forum.close-topic')</a>
                                 @endif
                             @endif
                             @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
-                                <a href="{{ route('forum_edit_topic_form', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
+                                <a href="{{ route('forum_edit_topic_form', ['id' => $topic->id]) }}"
                                    class="btn btn-warning">@lang('forum.edit-topic')</a>
-                                <a href="{{ route('forum_delete_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
+                                <a href="{{ route('forum_delete_topic', ['id' => $topic->id]) }}"
                                    class="btn btn-danger">@lang('forum.delete-topic')</a>
                             @endif
                             @if (auth()->user()->group->is_modo)
                                 @if ($topic->pinned == 0)
-                                    <a href="{{ route('forum_pin_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
+                                    <a href="{{ route('forum_pin_topic', ['id' => $topic->id]) }}"
                                        class="btn btn-primary">@lang('forum.pin') {{ strtolower(trans('forum.topic')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_unpin_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
+                                    <a href="{{ route('forum_unpin_topic', ['id' => $topic->id]) }}"
                                        class="btn btn-default">@lang('forum.unpin') {{ strtolower(trans('forum.topic')) }}</a>
                                 @endif
                             @endif
@@ -240,52 +240,52 @@
                             @if (auth()->user()->group->is_modo)
                                 <h3>@lang('forum.label-system')</h3>
                                 @if ($topic->approved == "0")
-                                    <a href="{{ route('forum_approved', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.approve', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-success'>@lang('common.add') {{ strtoupper(trans('forum.approved')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_approved', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.approve', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-success'>@lang('common.remove') {{ strtoupper(trans('forum.approved')) }}</a>
                                 @endif
                                 @if ($topic->denied == "0")
-                                    <a href="{{ route('forum_denied', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.deny', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-danger'>@lang('common.add') {{ strtoupper(trans('forum.denied')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_denied', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.deny', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-danger'>@lang('common.remove') {{ strtoupper(trans('forum.denied')) }}</a>
                                 @endif
                                 @if ($topic->solved == "0")
-                                    <a href="{{ route('forum_solved', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.solve', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-info'>@lang('common.add') {{ strtoupper(trans('forum.solved')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_solved', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.solve', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-info'>@lang('common.remove') {{ strtoupper(trans('forum.solved')) }}</a>
                                 @endif
                                 @if ($topic->invalid == "0")
-                                    <a href="{{ route('forum_invalid', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.invalid', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-warning'>@lang('common.add') {{ strtoupper(trans('forum.invalid')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_invalid', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.invalid', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-warning'>@lang('common.remove') {{ strtoupper(trans('forum.invalid')) }}</a>
                                 @endif
                                 @if ($topic->bug == "0")
-                                    <a href="{{ route('forum_bug', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.bug', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-danger'>@lang('common.add') {{ strtoupper(trans('forum.bug')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_bug', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.bug', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-danger'>@lang('common.remove') {{ strtoupper(trans('forum.bug')) }}</a>
                                 @endif
                                 @if ($topic->suggestion == "0")
-                                    <a href="{{ route('forum_suggestion', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.suggest', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-primary'>@lang('common.add') {{ strtoupper(trans('forum.suggestion')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_suggestion', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.suggest', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-primary'>@lang('common.remove') {{ strtoupper(trans('forum.suggestion')) }}</a>
                                 @endif
                                 @if ($topic->implemented == "0")
-                                    <a href="{{ route('forum_implemented', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.implement', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-success'>@lang('common.add') {{ strtoupper(trans('forum.implemented')) }}</a>
                                 @else
-                                    <a href="{{ route('forum_implemented', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
+                                    <a href="{{ route('topics.implement', ['id' => $topic->id, ])}}"
                                        class='label label-sm label-success'>@lang('common.remove') {{ strtoupper(trans('forum.implemented')) }}</a>
                                 @endif
                             @endif

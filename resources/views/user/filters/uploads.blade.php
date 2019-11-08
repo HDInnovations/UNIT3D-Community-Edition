@@ -19,18 +19,18 @@
             @foreach ($uploads as $upload)
                 <tr>
                     <td>
-                        <a class="view-torrent" href="{{ route('torrent', ['slug' => $upload->slug, 'id' => $upload->id]) }}">
+                        <a class="view-torrent" href="{{ route('torrent', ['id' => $upload->id]) }}">
                             {{ $upload->name }}
                         </a>
                         <div class="pull-right">
-                            <a href="{{ route('download', ['slug' => $upload->slug, 'id' => $upload->id]) }}">
+                            <a href="{{ route('download', ['id' => $upload->id]) }}">
                                 <button class="btn btn-primary btn-circle" type="button"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i></button>
                             </a>
                         </div>
                     </td>
                     <td>
-                        <a href="{{ route('category', ['slug' => $upload->category->slug, 'id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
+                        <a href="{{ route('categories.show', ['id' => $upload->category->id]) }}">{{ $upload->category->name }}</a>
                     </td>
                     <td>
                         <span class="badge-extra text-blue text-bold"> {{ $upload->getSize() }}</span>

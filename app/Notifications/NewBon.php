@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,10 +13,10 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use App\Models\BonTransactions;
-use Illuminate\Notifications\Notification;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
 
 class NewBon extends Notification implements ShouldQueue
 {
@@ -68,7 +68,7 @@ class NewBon extends Notification implements ShouldQueue
         return [
             'title' => $this->sender.' Has Gifted You '.$this->transaction->cost.' BON',
             'body'  => $this->sender.' has gifted you '.$this->transaction->cost.' BON with the following note: '.$this->transaction->comment,
-            'url'   => "/{$this->transaction->senderObj->username}.{$this->transaction->senderObj->id}",
+            'url'   => "/users/{$this->transaction->senderObj->id}",
         ];
     }
 }

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use App\Models\History;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class AutoCorrectHistory extends Command
@@ -55,6 +55,7 @@ class AutoCorrectHistory extends Command
 
         foreach ($history as $h) {
             $h->active = false;
+            $h->seeder = false;
             $h->save();
         }
     }

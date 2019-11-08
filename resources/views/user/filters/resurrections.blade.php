@@ -19,7 +19,7 @@
                 <td>
                     <div class="torrent-file">
                         <div>
-                            <a class="view-torrent" href="{{ route('torrent', ['slug' => $resurrection->torrent->slug, 'id' => $resurrection->torrent->id]) }}">
+                            <a class="view-torrent" href="{{ route('torrent', ['id' => $resurrection->torrent->id]) }}">
                                 {{ $resurrection->torrent->name }}
                             </a>
                         </div>

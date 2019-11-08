@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Carbon\Carbon;
-use App\Traits\TwoStep;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\TwoStep;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class TwoStepController extends Controller
 {
@@ -94,6 +94,7 @@ class TwoStepController extends Controller
      * Show the twostep verification form.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function showVerification()
     {

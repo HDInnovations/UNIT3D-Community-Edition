@@ -134,13 +134,12 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 1.9.4       |  Active Support :rocket: | >= 7.3
- 1.9.3       |  Active Support :rocket: | >= 7.3
- 1.0 to 1.9.2|  End Of Life :skull:     | >= 7.1.3
+ 2.0.0       |  Active Support :rocket: | >= 7.3
+ 1.0 to 1.9.4|  End Of Life :skull:     | >= 7.1.3
 
 ## <a name="security"></a> 🔐 Security
 
-If you discover any security related issues, please email unit3d@protonmail.com instead of using the issue tracker.
+If you discover any security related issues, please email hdinnovations@protonmail.com instead of using the issue tracker.
 
 ## <a name="contributing"></a> ✍️ Contributing
 
@@ -148,14 +147,14 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 ## <a name="license"></a> 📝 License
 
-UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE).
+UNIT3D is open-sourced software licensed under the [GNU Affero General Public License v3.0](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE).
 
 <b> As per license do not remove the license from sourcecode files
 ```
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D

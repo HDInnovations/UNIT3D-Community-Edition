@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VoteOnPoll;
+use App\Models\Option;
 use App\Models\Poll;
 use App\Models\Voter;
-use App\Models\Option;
-use Illuminate\Http\Request;
-use App\Http\Requests\VoteOnPoll;
 use App\Repositories\ChatRepository;
+use Illuminate\Http\Request;
 
 class PollController extends Controller
 {
@@ -52,7 +52,8 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
-     * @param $slug
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

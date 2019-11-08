@@ -58,7 +58,7 @@
                             <tr>
                                 <td>
                                     @if ($new->category->image != null)
-                                        <a href="{{ route('category', ['slug' => $new->category->slug, 'id' => $new->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $new->category->id]) }}">
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $new->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -66,7 +66,7 @@
                                             </div>
                                         </a>
                                     @else
-                                        <a href="{{ route('category', ['slug' => $new->category->slug, 'id' => $new->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $new->category->id]) }}">
                                             <div class="text-center">
                                                 <i class="{{ $new->category->icon }} torrent-icon" data-toggle="tooltip"
                                                    data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -82,18 +82,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $new->slug, 'id' => $new->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $new->id]) }}">
                                         {{ $new->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $new->slug, 'id' => $new->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $new->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $new->slug, 'id' => $new->id]) }}">
+                                        <a href="{{ route('download', ['id' => $new->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -108,7 +108,7 @@
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> @lang('common.anonymous')
                                             @if ($user->id == $new->user->id || $user->group->is_modo)
-                                                <a href="{{ route('profile', ['username' => $new->user->username, 'id' => $new->user->id]) }}">
+                                                <a href="{{ route('users.show', ['username' => $new->user->username]) }}">
                                                     ({{ $new->user->username }})
                                                 </a>
                                             @endif
@@ -116,7 +116,7 @@
                                     @else
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                            <a href="{{ route('profile', ['username' => $new->user->username, 'id' => $new->user->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $new->user->username]) }}">
                                                 {{ $new->user->username }}
                                             </a>
                                         </span>
@@ -279,7 +279,7 @@
                             <tr>
                                 <td>
                                     @if ($seed->category->image != null)
-                                        <a href="{{ route('category', ['slug' => $seed->category->slug, 'id' => $seed->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $seed->category->id]) }}">
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $seed->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -287,7 +287,7 @@
                                             </div>
                                         </a>
                                     @else
-                                        <a href="{{ route('category', ['slug' => $seed->category->slug, 'id' => $seed->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $seed->category->id]) }}">
                                             <div class="text-center">
                                                 <i class="{{ $seed->category->icon }} torrent-icon" data-toggle="tooltip"
                                                    data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -303,18 +303,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $seed->slug, 'id' => $seed->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $seed->id]) }}">
                                         {{ $seed->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $seed->slug, 'id' => $seed->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $seed->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $seed->slug, 'id' => $seed->id]) }}">
+                                        <a href="{{ route('download', ['id' => $seed->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -329,7 +329,7 @@
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> @lang('common.anonymous')
                                             @if ($user->id == $seed->user->id || $user->group->is_modo)
-                                                <a href="{{ route('profile', ['username' => $seed->user->username, 'id' => $seed->user->id]) }}">
+                                                <a href="{{ route('users.show', ['username' => $seed->user->username]) }}">
                                                     ({{ $seed->user->username }})
                                                 </a>
                                             @endif
@@ -337,7 +337,7 @@
                                     @else
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                            <a href="{{ route('profile', ['username' => $seed->user->username, 'id' => $seed->user->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $seed->user->username]) }}">
                                                 {{ $seed->user->username }}
                                             </a>
                                         </span>
@@ -501,7 +501,7 @@
                             <tr>
                                 <td>
                                     @if ($leech->category->image != null)
-                                        <a href="{{ route('category', ['slug' => $leech->category->slug, 'id' => $leech->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $leech->category->id]) }}">
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $leech->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -509,7 +509,7 @@
                                             </div>
                                         </a>
                                     @else
-                                        <a href="{{ route('category', ['slug' => $leech->category->slug, 'id' => $leech->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $leech->category->id]) }}">
                                             <div class="text-center">
                                                 <i class="{{ $leech->category->icon }} torrent-icon" data-toggle="tooltip"
                                                    data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -525,18 +525,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $leech->slug, 'id' => $leech->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $leech->id]) }}">
                                         {{ $leech->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $leech->slug, 'id' => $leech->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $leech->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $leech->slug, 'id' => $leech->id]) }}">
+                                        <a href="{{ route('download', ['id' => $leech->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -551,7 +551,7 @@
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> @lang('common.anonymous')
                                             @if ($user->id == $leech->user->id || $user->group->is_modo)
-                                                <a href="{{ route('profile', ['username' => $leech->user->username, 'id' => $leech->user->id]) }}">
+                                                <a href="{{ route('users.show', ['username' => $leech->user->username]) }}">
                                                     ({{ $leech->user->username }})
                                                 </a>
                                             @endif
@@ -559,7 +559,7 @@
                                     @else
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                            <a href="{{ route('profile', ['username' => $leech->user->username, 'id' => $leech->user->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $leech->user->username]) }}">
                                                 {{ $leech->user->username }}
                                             </a>
                                         </span>
@@ -723,7 +723,7 @@
                             <tr>
                                 <td>
                                     @if ($d->category->image != null)
-                                        <a href="{{ route('category', ['slug' => $d->category->slug, 'id' => $d->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $d->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -731,7 +731,7 @@
                                             </div>
                                         </a>
                                     @else
-                                        <a href="{{ route('category', ['slug' => $d->category->slug, 'id' => $d->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                             <div class="text-center">
                                                 <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
                                                    data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -747,18 +747,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $d->id]) }}">
                                         {{ $d->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -773,7 +773,7 @@
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> @lang('common.anonymous')
                                             @if ($user->id == $d->user->id || $user->group->is_modo)
-                                                <a href="{{ route('profile', ['username' => $d->user->username, 'id' => $d->user->id]) }}">
+                                                <a href="{{ route('users.show', ['username' => $d->user->username]) }}">
                                                     ({{ $d->user->username }})
                                                 </a>
                                             @endif
@@ -781,7 +781,7 @@
                                     @else
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                            <a href="{{ route('profile', ['username' => $d->user->username, 'id' => $d->user->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $d->user->username]) }}">
                                                 {{ $d->user->username }}
                                             </a>
                                         </span>
@@ -944,7 +944,7 @@
                             <tr>
                                 <td>
                                     @if ($d->category->image != null)
-                                        <a href="{{ route('category', ['slug' => $d->category->slug, 'id' => $d->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                             <div class="text-center">
                                                 <img src="{{ url('files/img/' . $d->category->image) }}" data-toggle="tooltip"
                                                      data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -952,7 +952,7 @@
                                             </div>
                                         </a>
                                     @else
-                                        <a href="{{ route('category', ['slug' => $d->category->slug, 'id' => $d->category->id]) }}">
+                                        <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                             <div class="text-center">
                                                 <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
                                                    data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
@@ -968,18 +968,18 @@
                                  </td>
 
                                 <td>
-                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                    <a class="text-bold" href="{{ route('torrent', ['id' => $d->id]) }}">
                                         {{ $d->name }}
                                     </a>
                                     @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download_check', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                             </button>
                                         </a>
                                     @else
-                                        <a href="{{ route('download', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        <a href="{{ route('download', ['id' => $d->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                     data-original-title="@lang('common.download')">
                                                 <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -994,7 +994,7 @@
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> @lang('common.anonymous')
                                             @if ($user->id == $d->user->id || $user->group->is_modo)
-                                                <a href="{{ route('profile', ['username' => $d->user->username, 'id' => $d->user->id]) }}">
+                                                <a href="{{ route('users.show', ['username' => $d->user->username]) }}">
                                                     ({{ $d->user->username }})
                                                 </a>
                                             @endif
@@ -1002,7 +1002,7 @@
                                     @else
                                         <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                            <a href="{{ route('profile', ['username' => $d->user->username, 'id' => $d->user->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $d->user->username]) }}">
                                                 {{ $d->user->username }}
                                             </a>
                                         </span>

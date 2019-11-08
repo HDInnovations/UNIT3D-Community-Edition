@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,12 +13,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Post;
-use App\Models\User;
 use App\Models\Comment;
+use App\Models\Post;
 use App\Models\PrivateMessage;
-use App\Notifications\NewPostTag;
+use App\Models\User;
 use App\Notifications\NewCommentTag;
+use App\Notifications\NewPostTag;
 
 class TaggedUserRepository
 {

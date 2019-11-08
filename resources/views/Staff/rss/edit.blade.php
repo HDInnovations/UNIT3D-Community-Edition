@@ -6,17 +6,17 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.rss')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('Staff.rss.edit', ['id' => $rss->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.rss.edit', ['id' => $rss->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.edit')</span>
         </a>
     </li>
@@ -26,9 +26,9 @@
 @section('content')
     <div class="container box">
         <h2>@lang('rss.edit-public-feed')</h2>
-        <form role="form" method="POST" action="{{ route('Staff.rss.update', ['id' => $rss->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.rss.update', ['id' => $rss->id]) }}">
             @csrf
-            @method('PUT')
+            @method('PATCH')
                     <div class="form-group">
                         <label for="name">@lang('rss.feed') @lang('rss.name')</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ $rss->name }}">

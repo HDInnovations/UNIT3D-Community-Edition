@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'گزارش فعالیت',
+  'audit-log' => 'گزارش فعالیت',
   'articles' => 'مقالات',
   'applications' => 'برنامه های کاربردی',
   'bans-log' => 'ورود ممنوع',

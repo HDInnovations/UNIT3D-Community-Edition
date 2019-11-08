@@ -2,43 +2,49 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_type_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
+        <a href="{{ route('staff.types.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-types')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Types</h2>
-        <a href="{{ route('staff_type_add') }}" class="btn btn-primary">Add A Torrent Type</a>
+        <h2>@lang('common.types')</h2>
+        <a href="{{ route('staff.types.create') }}" class="btn btn-primary">Add A Torrent Type</a>
 
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th>Position</th>
-                <th>Name</th>
-                <th>Action</th>
+                <th>@lang('common.position')</th>
+                <th>@lang('common.name')</th>
+                <th>@lang('common.action')</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($types as $t)
+            @foreach ($types as $type)
                 <tr>
-                    <td>{{ $t->position }}</td>
                     <td>
-                        <a href="{{ route('staff_type_edit_form', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
+                        {{ $type->position }}
                     </td>
                     <td>
-                        <a href="{{ route('staff_type_edit_form', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                           class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff_type_delete', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                           class="btn btn-danger">Delete</a>
+                        <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}">
+                            {{ $type->name }}
+                        </a>
+                    </td>
+                    <td>
+                        <form action="{{ route('staff.types.destroy', ['id' => $type->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
+                            <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

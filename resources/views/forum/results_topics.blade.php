@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
@@ -242,7 +242,7 @@
                         <td class="f-display-topic-icon"><span
                                     class="badge-extra text-bold">{{ $r->forum->name }}</span></td>
                         <td class="f-display-topic-title">
-                            <strong><a href="{{ route('forum_topic', ['slug' => $r->slug, 'id' => $r->id]) }}">{{ $r->name }}</a></strong>
+                            <strong><a href="{{ route('forum_topic', ['id' => $r->id]) }}">{{ $r->name }}</a></strong>
                             @if ($r->state == "close") <span
                                     class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
                             @if ($r->approved == "1") <span
@@ -261,14 +261,14 @@
                                     class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a
-                                    href="{{ route('profile', ['username' => Str::slug($r->first_post_user_username), 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a>
+                                    href="{{ route('users.show', ['username' => $r->first_post_user_username]) }}">{{ $r->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
                             {{ $r->num_post - 1 }} @lang('forum.replies')
                             \ {{ $r->views }} @lang('forum.views')
                         </td>
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profile', ['username' => Str::slug($r->last_post_user_username), 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>,
+                            <a href="{{ route('users.show', ['username' => $r->last_post_user_username]) }}">{{ $r->last_post_user_username }}</a>,
                             @if($r->last_reply_at && $r->last_reply_at != null)
                                 <time datetime="{{ date('d-m-Y h:m', strtotime($r->last_reply_at)) }}">
                                     {{ date('M d Y', strtotime($r->last_reply_at)) }}

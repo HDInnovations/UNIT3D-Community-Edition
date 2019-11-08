@@ -11,7 +11,7 @@
 
 @section('breadcrumb')
     <li class="active">
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
@@ -48,7 +48,7 @@
                                 <div class="button-holder">
                                     <div class="button-left"></div>
                                     <div class="button-right">
-                                        <a href="{{ route('forum_category', ['slug' => $category->slug, 'id' => $category->id]) }}"
+                                        <a href="{{ route('forums.categories.show', ['id' => $category->id]) }}"
                                            class="btn btn-sm btn-primary">@lang('forum.view-all')</a>
                                     </div>
                                 </div>
@@ -70,8 +70,8 @@
                             <tr>
                                 <td><img src="{{ url('img/forum.png') }}" alt="forum"></td>
                                 <td>
-                                    <span><h4><a href="{{ route('forum_display', ['slug' => $categoryChild->slug, 'id' => $categoryChild->id]) }}"><span
-                                                        class="text-bold">{{ $categoryChild->name }}</span></a><h4></span>
+                                    <span><h4><a href="{{ route('forums.show', ['id' => $categoryChild->id]) }}"><span
+                                                        class="text-bold">{{ $categoryChild->name }}</span></a></h4></span>
                                     <span class="">{{ $categoryChild->description }}</span>
                                 </td>
                                 <td>{{ $categoryChild->num_post }}</td>
@@ -79,10 +79,10 @@
                                 <td>
                                     <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }} <i
                                                 class="{{ config('other.font-awesome') }} fa-user"></i> <a
-                                                href="{{ route('profile', ['username' => Str::slug($categoryChild->last_post_user_username), 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
+                                                href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
                                     <br>
                                     <span>@lang('forum.topic') <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i><a
-                                                href="{{ route('forum_topic', ['slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id]) }}"> {{ $categoryChild->last_topic_name }}</a></span>
+                                                href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}"> {{ $categoryChild->last_topic_name }}</a></span>
                                     <br>
                                     <span><i class="{{ config('other.font-awesome') }} fa-clock"></i> {{ $categoryChild->updated_at->diffForHumans() }}</span>
                                 </td>

@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Mail\Contact;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -34,9 +34,10 @@ class ContactController extends Controller
      * Send A Contact Email To Owner/First User.
      *
      * @param  Request  $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function contact(Request $request)
+    public function store(Request $request)
     {
         // Fetch owner account
         $user = User::where('id', '=', 3)->first();
@@ -44,7 +45,7 @@ class ContactController extends Controller
         $input = $request->all();
         Mail::to($user->email, $user->username)->send(new Contact($input));
 
-        return redirect()->route('home')
+        return redirect()->route('home.index')
             ->withSuccess('Your Message Was Successfully Sent');
     }
 }

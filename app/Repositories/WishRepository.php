@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,11 +13,10 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\WishInterface;
+use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
-use App\Models\Torrent;
-use Illuminate\Support\Str;
-use App\Interfaces\WishInterface;
 use App\Services\Clients\OmdbClient;
 
 class WishRepository implements WishInterface
@@ -143,7 +142,7 @@ class WishRepository implements WishInterface
                 ->where('status', '=', 1)
                 ->first();
 
-            return route('torrent', ['slug' => Str::slug($source->name), 'id' => $source->id]);
+            return route('torrent', ['id' => $source->id]);
         }
 
         return $this->findById($id)->source ?? null;

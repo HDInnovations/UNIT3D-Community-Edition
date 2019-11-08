@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Seedbox;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SeedboxController extends Controller
@@ -22,6 +22,7 @@ class SeedboxController extends Controller
     /**
      * Get A Users Registered Seedboxes.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -41,11 +42,10 @@ class SeedboxController extends Controller
      * Store A Seedbox.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function store(Request $request, $username)
+    protected function store(Request $request)
     {
         $user = $request->user();
 
@@ -65,9 +65,6 @@ class SeedboxController extends Controller
         } else {
             $seedbox->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has added a new seedbox to there account.");
-
             return redirect()->route('seedboxes.index', ['username' => $user->username])
                 ->withSuccess('Seedbox Has Been Successfully Added!');
         }
@@ -77,12 +74,11 @@ class SeedboxController extends Controller
      * Delete A Seedbox.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param $username
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function destroy(Request $request, $username, $id)
+    protected function destroy(Request $request, $id)
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);

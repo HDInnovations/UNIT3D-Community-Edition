@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Group;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -99,7 +99,7 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect()->to('/')
+            return redirect()->route('home.index')
                 ->withSuccess(trans('auth.welcome-restore'));
         }
 
@@ -114,7 +114,7 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect()->to('/')
+            return redirect()->route('home.index')
                 ->withSuccess(trans('auth.welcome-restore'));
         }
 
@@ -123,7 +123,7 @@ class LoginController extends Controller
                 ->withWarning(trans('auth.require-rules'));
         }
 
-        return redirect()->to('/')
+        return redirect()->route('home.index')
             ->withSuccess(trans('auth.welcome'));
     }
 }

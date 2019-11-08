@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
 
 class PrivateMessageController extends Controller
 {
@@ -56,6 +56,8 @@ class PrivateMessageController extends Controller
     /**
      * View Inbox.
      *
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getPrivateMessages(Request $request)
@@ -69,6 +71,7 @@ class PrivateMessageController extends Controller
     /**
      * View Outbox.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getPrivateMessagesSent(Request $request)
@@ -82,7 +85,8 @@ class PrivateMessageController extends Controller
     /**
      * View A Message.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -107,9 +111,10 @@ class PrivateMessageController extends Controller
     /**
      * Create Message Form.
      *
-     * @param  string  $receiver_id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string                    $receiver_id
      *
-     * @param  string  $username
+     * @param  string                    $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
@@ -159,7 +164,7 @@ class PrivateMessageController extends Controller
 
         if ($v->fails()) {
             if ($dest == 'profile') {
-                return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                return redirect()->route('users.show', ['username' => $recipient->username])
                     ->withErrors($v->errors());
             }
 
@@ -168,7 +173,7 @@ class PrivateMessageController extends Controller
         } else {
             $pm->save();
             if ($dest == 'profile') {
-                return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                return redirect()->route('users.show', ['username' => $recipient->username])
                     ->withSuccess('Your PM Was Sent Successfully!');
             }
 
@@ -222,7 +227,8 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
-     * @param $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param                            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -245,6 +251,7 @@ class PrivateMessageController extends Controller
     /**
      * Mark All Messages As Read.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function markAllAsRead(Request $request)

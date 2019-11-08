@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
-use App\Http\Controllers\Controller;
 
 class GiftController extends Controller
 {
@@ -37,7 +37,7 @@ class GiftController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function gift(Request $request)
+    public function store(Request $request)
     {
         $staff = $request->user();
 
@@ -54,13 +54,13 @@ class GiftController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('systemGift')
+            return redirect()->route('staff.gifts.index')
                 ->withErrors($v->errors());
         } else {
             $recipient = User::where('username', '=', $username)->first();
 
             if (! $recipient) {
-                return redirect()->route('systemGift')
+                return redirect()->route('staff.gifts.index')
                     ->withErrors('Unable To Find Specified User');
             }
 
@@ -78,10 +78,7 @@ class GiftController extends Controller
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
             $pm->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
-
-            return redirect()->route('systemGift')
+            return redirect()->route('staff.gifts.index')
                 ->withSuccess('Gift Sent');
         }
     }

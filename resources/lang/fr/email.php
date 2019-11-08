@@ -2,7 +2,7 @@
 
 return [
   'activate-account' => 'Activer le compte',
-  'ban-reason' => 'Raison',
+  'ban-reason' => 'Raison du bannissement',
   'banned-footer' => 'C est ce que vous obtenez pour ne pas suivre les règles',
   'banned-header' => 'Vous avez été banni',
   'bug-description' => 'Problème',
@@ -12,7 +12,7 @@ return [
   'bug-title' => 'Titre du bug',
   'contact-header' => 'Nouveau mail de contact de',
   'contact-message' => 'Message',
-  'contact-name' => 'prénom',
+  'contact-name' => 'Nom',
   'fail-login-greeting' => 'La connexion au compte a échoué!',
   'fail-login-line1' => 'Un échec de connexion a été détecté pour votre compte.',
   'fail-login-line2' => 'Cette demande provient de: ip (: hôte) à: heure',
@@ -37,7 +37,7 @@ return [
   'report-link-hash' => 'Lien actuel',
   'thanks' => 'Merci d utiliser',
   'unban-footer' => 'Nous saluons le retour!',
-  'unban-header' => 'Vous avez été non banni',
+  'unban-header' => 'Vous avez été débanni',
   'unban-reason' => 'Raison',
   'username-reminder' => 'Vous nous avez récemment envoyé une demande pour votre nom d utilisateur sur notre application. Votre nom d utilisateur est',
   'username-sent' => 'Votre nom d utilisateur a été envoyé à votre adresse email!',

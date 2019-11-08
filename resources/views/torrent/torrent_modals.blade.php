@@ -1,6 +1,6 @@
 {{-- Report Modal --}}
 <div class="modal fade" id="modal_torrent_report" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dark">
         <div class="modal-content">
             <meta charset="utf-8">
             <title>@lang('common.report') {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
@@ -12,7 +12,7 @@
                     : {{ $torrent->name }}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_torrent', ['id' => $torrent->id]) }}">
                     <div class="form-group">
                         @csrf
                         <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
@@ -45,7 +45,7 @@
 
 {{-- Delete Modal --}}
 <div class="modal fade" id="modal_torrent_delete" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dark">
         <div class="modal-content">
             <meta charset="utf-8">
             <title>@lang('common.delete') {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
@@ -92,7 +92,7 @@
 
 {{-- Files Modal --}}
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dark">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -130,7 +130,7 @@
 {{-- NFO Modal --}}
 @if ($torrent->nfo != null)
     <div class="modal fade slideExpandUp" id="modal-10" role="dialog" aria-labelledby="Modallabel3dsign">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dark" role="document">
             <div class="modal-content ">
                 <div class="modal-header bg-info ">
                     <h4 class="modal-title" id="Modallabel3dsign">NFO</h4>
@@ -151,9 +151,9 @@
 {{-- Torrent Postpone Modal --}}
 <div class="modal fade" id="postpone-{{ $torrent->id }}" tabindex="-1" role="dialog"
      aria-hidden="true">
-    <form method="POST" action="{{ route('moderation_postpone') }}">
+    <form method="POST" action="{{ route('staff.moderation.postpone') }}">
         @csrf
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-dark">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
@@ -190,9 +190,9 @@
 
 {{-- Torrent Reject Modal --}}
 <div class="modal fade" id="reject-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-    <form method="POST" action="{{ route("moderation_reject") }}">
+    <form method="POST" action="{{ route("staff.moderation.reject") }}">
         @csrf
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-dark">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"
@@ -235,7 +235,7 @@
 
 {{-- Add Torrent To Playlist Modal --}}
 <div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dark">
         <div class="modal-content">
             <div class="container-fluid">
                 <form role="form" method="POST" action="{{ route('playlists.attach') }}">

@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Aktivitāšu vēsture',
+  'audit-log' => 'Aktivitāšu vēsture',
   'articles' => 'Raksti',
   'applications' => 'Programmas',
   'bans-log' => 'Aizlieguma žurnāls',

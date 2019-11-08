@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Virkni Log',
+  'audit-log' => 'Virkni Log',
   'articles' => 'Greinar',
   'applications' => 'Umsóknir',
   'bans-log' => 'Bans Log',

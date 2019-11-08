@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Torrent;
 use App\Models\Graveyard;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use App\Models\Torrent;
 use App\Repositories\TorrentFacetedRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class GraveyardController extends Controller
 {
@@ -39,6 +39,8 @@ class GraveyardController extends Controller
 
     /**
      * Show The Graveyard.
+     *
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -184,7 +186,8 @@ class GraveyardController extends Controller
     /**
      * Cancel A Ressurection.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int                       $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

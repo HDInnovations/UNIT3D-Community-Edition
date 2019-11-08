@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_wishlist', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('wishes.index', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.wishlist')</span>
         </a>
@@ -31,10 +31,7 @@
             <div class="some-padding">
             <div class="row mb-20">
                 <div class="col-md-12">
-                    <form action="{{ route('wish-store', ['uid' => auth()->user()->id]) }}"
-                          method="post"
-                          class="form-inline pull-right">
-
+                    <form action="{{ route('wishes.store') }}" method="POST" class="form-inline pull-right">
                         @csrf
 
                         <div class="form-group mt-5">
@@ -88,7 +85,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('wish-delete', ['uid' => auth()->user()->id, 'id' => $wish->id]) }}"
+                                    <a href="{{ route('wishes.destroy', ['id' => $wish->id]) }}"
                                        class="btn btn-xs btn-danger">
                                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                     </a>

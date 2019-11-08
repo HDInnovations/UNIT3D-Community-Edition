@@ -11,30 +11,30 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_category', ['slug' => $category->slug, 'id' => $category->id]) }}" itemprop="url"
+        <a href="{{ route('forums.categories.show', ['id' => $category->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
+        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
+        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}"
+        <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $post->id]) }}"
            itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
                   class="l-breadcrumb-item-link-title">@lang('common.edit') @lang('forum.post')</span>
@@ -48,7 +48,7 @@
             <h2>@lang('common.edit') @lang('forum.post') {{ strtolower(trans('forum.in')) }}
                 : {{ $forum->name }}</h2>
             <form role="form" method="POST"
-                  action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}">
+                  action="{{ route('forum_post_edit',['id' => $topic->id, 'postId' => $post->id]) }}">
                 @csrf
                 <div class="form-group">
                     <label for="content"></label><textarea id="content" name="content" cols="30" rows="10"

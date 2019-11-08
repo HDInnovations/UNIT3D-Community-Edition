@@ -7,20 +7,20 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'
         <atom:link href="!#" rel="self" type="application/rss+xml" />
         <title>{{ config('other.title') }} @lang('rss.rss-feed')</title>
         <link>{{ config('app.url') }}</link>
-        <description>Powered By {{ config('other.codebase') }}</description>
+        <description>{{ config('unit3d.powered-by') }}</description>
         @if($torrents)
             @foreach($torrents as $data)
                 <item>
                     <title>{{ $data->name }}</title>
-                    <link>{{ route('torrent.download.rsskey', ['slug' => $data->slug, 'id' => $data->id, 'rsskey' => $rsskey ]) }}</link>
+                    <link>{{ route('torrent.download.rsskey', ['id' => $data->id, 'rsskey' => $rsskey ]) }}</link>
                     <description>{{ $data->category->name }} / {{ $data->type }} / {{ $data->getSize() }} @if($data->freeleech === 1) / Double Upload! @endif @if($data->doubleup === 1) / Freeleech! @endif</description>
                     @if(!$data->anon && $data->user)
                         <author>@lang('torrent.uploaded-by') {{ $data->user->username }}</author>
                     @else
                         <author>@lang('common.anonymous') @lang('torrent.uploader')</author>
                     @endif
-                    <pubDate>{{ $data->created_at->toDayDateTimeString() }}</pubDate>
-                    <comments>{{ route('torrent', ['slug' => $data->slug, 'id' => $data->id ]) }}</comments>
+                    <pubDate>{{ $data->created_at->toRssString() }}</pubDate>
+                    <comments>{{ route('torrent', ['id' => $data->id ]) }}</comments>
                 </item>
             @endforeach
         @endif

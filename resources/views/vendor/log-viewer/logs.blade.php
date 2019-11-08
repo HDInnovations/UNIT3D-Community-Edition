@@ -70,7 +70,7 @@
 @section('modals')
     {{-- DELETE MODAL --}}
     <div id="delete-log-modal" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dark">
             <form id="delete-log-form" action="{{ route('log-viewer::logs.delete') }}" method="POST">
                 @method('DELETE')
                 @csrf
@@ -86,7 +86,7 @@
                         <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-sm btn-default pull-left" data-dismiss="modal">@lang('common.cancel')</button>
                         <button type="submit" class="btn btn-sm btn-danger" data-loading-text="Loading&hellip;">DELETE FILE</button>
                     </div>
                 </div>

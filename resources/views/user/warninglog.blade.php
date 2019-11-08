@@ -17,7 +17,7 @@
     <div class="container">
         <div class="block">
             <h2>
-                <a href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">
+                <a href="{{ route('users.show', ['username' =>  $user->username]) }}">
                     {{ $user->username }}
                 </a>
                 @lang('user.warning-log')
@@ -30,12 +30,12 @@
                             <strong>@lang('user.warnings') {{ $warningcount }} </strong>
                         </span>
                         <div class="pull-right">
-                            <a href="{{ route('massDeactivateWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
+                            <a href="{{ route('massDeactivateWarnings', ['username' =>  $user->username]) }}">
                                 <button type="button" class="btn btn btn-success" data-toggle="tooltip"
                                         data-original-title="@lang('user.deactivate-all')"><i
                                             class="{{ config('other.font-awesome') }} fa-check"></i> @lang('user.deactivate-all')
                             </a>
-                            <a href="{{ route('massDeleteWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
+                            <a href="{{ route('massDeleteWarnings', ['username' =>  $user->username]) }}">
                                 <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
                                         data-original-title="@lang('user.delete-all')"><i
                                             class="{{ config('other.font-awesome') }} fa-times"></i> @lang('user.delete-all')</button>
@@ -67,12 +67,12 @@
                             @foreach ($warnings as $warning)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('profile', ['username' => $warning->staffuser->username, 'id' => $warning->staffuser->id]) }}">
+                                        <a href="{{ route('users.show', ['username' => $warning->staffuser->username]) }}">
                                             {{ $warning->staffuser->username }}
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('torrent', ['slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id]) }}">
+                                        <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                             {{ $warning->torrenttitle->name }}
                                         </a>
                                     </td>
@@ -155,12 +155,12 @@
                                 @foreach ($softDeletedWarnings as $softDeletedWarning)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('profile', ['username' => $softDeletedWarning->staffuser->username, 'id' => $softDeletedWarning->staffuser->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $softDeletedWarning->staffuser->username]) }}">
                                                 {{ $softDeletedWarning->staffuser->username }}
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('torrent', ['slug' =>$softDeletedWarning->torrenttitle->slug, 'id' => $softDeletedWarning->torrenttitle->id]) }}">
+                                            <a href="{{ route('torrent', ['id' => $softDeletedWarning->torrenttitle->id]) }}">
                                                 {{ $softDeletedWarning->torrenttitle->name }}
                                             </a>
                                         </td>
@@ -174,7 +174,7 @@
                                             {{ $softDeletedWarning->deleted_at }}
                                         </td>
                                         <td>
-                                            <a href="{{ route('profile', ['username' => $softDeletedWarning->deletedBy->username, 'id' => $softDeletedWarning->deletedBy->id]) }}">
+                                            <a href="{{ route('users.show', ['username' => $softDeletedWarning->deletedBy->username]) }}">
                                                 {{ $softDeletedWarning->deletedBy->username }}
                                             </a>
                                         </td>

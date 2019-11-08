@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -14,8 +14,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
-use App\Models\Topic;
 use App\Models\Subscription;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -37,7 +37,7 @@ class SubscriptionController extends Controller
         }
         if (! isset($logger)) {
             $logger = 'forum_topic';
-            $params = ['slug' => $topic->slug, 'id' => $topic->id];
+            $params = ['id' => $topic->id];
         }
 
         if (! $request->user()->isSubscribed('topic', $topic->id)) {
@@ -57,8 +57,9 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Topic.
      *
-     * @param  string  $route
-     * @param  Topic  $topic
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string                    $route
+     * @param  Topic                     $topic
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -70,7 +71,7 @@ class SubscriptionController extends Controller
         }
         if (! isset($logger)) {
             $logger = 'forum_topic';
-            $params = ['slug' => $topic->slug, 'id' => $topic->id];
+            $params = ['id' => $topic->id];
         }
 
         if ($request->user()->isSubscribed('topic', $topic->id)) {
@@ -88,8 +89,9 @@ class SubscriptionController extends Controller
     /**
      * Subscribe To A Forum.
      *
-     * @param  string  $route
-     * @param  Forum  $forum
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string                    $route
+     * @param  Forum                     $forum
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -100,8 +102,8 @@ class SubscriptionController extends Controller
             $params = [];
         }
         if (! isset($logger)) {
-            $logger = 'forum_display';
-            $params = ['slug' => $forum->slug, 'id' => $forum->id];
+            $logger = 'forums.show';
+            $params = ['id' => $forum->id];
         }
 
         if (! $request->user()->isSubscribed('forum', $forum->id)) {
@@ -121,8 +123,9 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Forum.
      *
-     * @param  string  $route
-     * @param  Forum  $forum
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string                    $route
+     * @param  Forum                     $forum
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -133,8 +136,8 @@ class SubscriptionController extends Controller
             $params = [];
         }
         if (! isset($logger)) {
-            $logger = 'forum_display';
-            $params = ['slug' => $forum->slug, 'id' => $forum->id];
+            $logger = 'forums.show';
+            $params = ['id' => $forum->id];
         }
 
         if ($request->user()->isSubscribed('forum', $forum->id)) {

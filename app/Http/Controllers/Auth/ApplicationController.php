@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -12,11 +12,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Application;
-use Illuminate\Http\Request;
-use App\Models\ApplicationUrlProof;
 use App\Http\Controllers\Controller;
+use App\Models\Application;
 use App\Models\ApplicationImageProof;
+use App\Models\ApplicationUrlProof;
+use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Add A Application.
+     * Store A New Application.
      *
      * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse

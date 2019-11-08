@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('page', ['slug' => $page->slug, 'id' => $page->id]) }}" itemprop="url"
+        <a href="{{ route('pages.show', ['id' => $page->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $page->name }}</span>
         </a>
@@ -36,11 +36,11 @@
               Swal.fire({
                 title: '<strong>Read The <u>Rules?</u></strong>',
                 text: "Do You Fully Understand Our Rules?",
-                type: "question",
+                icon: "question",
                 confirmButtonText: '<i class="fa fa-thumbs-up"></i> I Do!',
               }).then(function() {
                 $.ajax({
-                  url: "/accept-rules",
+                  url: "/users/accept-rules",
                   type: "post",
                   data: {
                     _token: '{{csrf_token()}}'
@@ -54,7 +54,7 @@
                     });
 
                     Toast.fire({
-                      type: 'success',
+                      icon: 'success',
                       title: 'Thanks For Accepting Our Rules!'
                     })
                   },
@@ -67,7 +67,7 @@
                     });
 
                     Toast.fire({
-                      type: 'error',
+                      icon: 'error',
                       title: 'Something Went Wrong!'
                     })
                   }

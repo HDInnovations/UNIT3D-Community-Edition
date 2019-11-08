@@ -6,13 +6,13 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('user_profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('users.show', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_unsatisfieds', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_unsatisfieds', ['username' => $user->username]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.unsatisfieds')</span>
         </a>
@@ -121,18 +121,18 @@
                         @foreach ($downloads as $download)
                             <tr class="userFiltered" active="{{ ($download->active ? '1' : '0') }}" seeding="{{ ($download->seeder == 1 ? '1' : '0') }}" prewarned="{{ ($download->prewarn ? '1' : '0') }}" hr="{{ ($download->hitrun ? '1' : '0') }}" immune="{{ ($download->immune ? '1' : '0') }}">
                                 <td>
-                                    <a class="view-torrent" href="{{ route('torrent', ['slug' => $download->torrent->slug, 'id' => $download->torrent->id]) }}">
+                                    <a class="view-torrent" href="{{ route('torrent', ['id' => $download->torrent->id]) }}">
                                         {{ $download->torrent->name }}
                                     </a>
                                     <div class="pull-right">
-                                        <a href="{{ route('download', ['slug' => $download->torrent->slug, 'id' => $download->torrent->id]) }}">
+                                        <a href="{{ route('download', ['id' => $download->torrent->id]) }}">
                                             <button class="btn btn-primary btn-circle" type="button"><i
                                                         class="{{ config('other.font-awesome') }} fa-download"></i></button>
                                         </a>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('category', ['slug' => $download->torrent->category->slug, 'id' => $download->torrent->category->id]) }}">{{ $download->torrent->category->name }}</a>
+                                    <a href="{{ route('categories.show', ['id' => $download->torrent->category->id]) }}">{{ $download->torrent->category->name }}</a>
                                 </td>
                                 <td>
                                     <span class="badge-extra text-blue text-bold"> {{ $download->torrent->getSize() }}</span>

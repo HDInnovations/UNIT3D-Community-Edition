@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,20 +13,20 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Carbon\Carbon;
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Jobs\SendActivationMail;
 use App\Models\Group;
 use App\Models\Invite;
-use App\Models\UserPrivacy;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
+use App\Models\User;
 use App\Models\UserActivation;
-use App\Jobs\SendActivationMail;
 use App\Models\UserNotification;
-use App\Http\Controllers\Controller;
+use App\Models\UserPrivacy;
 use App\Repositories\ChatRepository;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -188,9 +188,6 @@ class RegisterController extends Controller
             $pm->subject = config('welcomepm.subject');
             $pm->message = config('welcomepm.message');
             $pm->save();
-
-            // Activity Log
-            \LogActivity::addToLog('Member '.$user->username.' has successfully registered to site.');
 
             return redirect()->route('login')
                 ->withSuccess(trans('auth.register-thanks'));

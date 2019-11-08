@@ -6,7 +6,7 @@ return [
   'enter-description' => 'Décrivez le problème le mieux possible',
   'enter-email' => 'S il vous plaît entrer votre e-mail',
   'enter-title' => 'Veuillez choisir un titre approprié',
-  'enter-username' => 's il vous plaît entrez votre nom d utilisateur',
+  'enter-username' => 'S il vous plaît entrez votre nom d utilisateur',
   'high' => 'Haute',
   'low' => 'Faible',
   'priority' => 'Priorité',

@@ -28,13 +28,13 @@ export default {
     methods: {
         bookmark(id) {
             axios
-                .get('/torrents/bookmark/' + id)
+                .post('/bookmarks/' + id)
                 .then(response => {
                     this.bookmarked = true;
 
                     Swal.fire({
                         position: 'center',
-                        type: 'success',
+                        icon: 'success',
                         title: 'Torrent Has Been Bookmarked Successfully!',
                         showConfirmButton: false,
                         timer: 4500,
@@ -47,13 +47,13 @@ export default {
 
         unBookmark(id) {
             axios
-                .get('/torrents/unbookmark/' + id)
+                .delete('/bookmarks/' + id)
                 .then(response => {
                     this.bookmarked = false;
 
                     Swal.fire({
                         position: 'center',
-                        type: 'success',
+                        icon: 'success',
                         title: 'Torrent Has Been Unbookmarked Successfully!',
                         showConfirmButton: false,
                         timer: 4500,

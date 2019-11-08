@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'activity-log' => 'Naplót',
+  'audit-log' => 'Naplót',
   'articles' => 'Cikkek',
   'applications' => 'Alkalmazások',
   'bans-log' => 'Betiltási napló',

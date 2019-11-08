@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,19 +13,19 @@
 
 namespace App\Repositories;
 
-use App\Models\Bot;
-use App\Events\Ping;
-use App\Models\User;
 use App\Events\Chatter;
-use App\Models\Message;
-use App\Models\Chatroom;
-use App\Models\UserEcho;
-use App\Models\ChatStatus;
-use App\Events\MessageSent;
-use App\Models\UserAudible;
-use Illuminate\Support\Str;
 use App\Events\MessageDeleted;
+use App\Events\MessageSent;
+use App\Events\Ping;
 use App\Http\Resources\ChatMessageResource;
+use App\Models\Bot;
+use App\Models\Chatroom;
+use App\Models\ChatStatus;
+use App\Models\Message;
+use App\Models\User;
+use App\Models\UserAudible;
+use App\Models\UserEcho;
+use Illuminate\Support\Str;
 
 class ChatRepository
 {

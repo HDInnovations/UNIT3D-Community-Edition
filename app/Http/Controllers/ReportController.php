@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Report;
 use App\Models\Torrent;
-use Illuminate\Http\Request;
 use App\Models\TorrentRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
@@ -69,9 +69,6 @@ class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent Request report.");
-
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Your report has been successfully sent');
         }
@@ -81,12 +78,11 @@ class ReportController extends Controller
      * Create A Torrent Report.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function torrent(Request $request, $slug, int $id)
+    public function torrent(Request $request, int $id)
     {
         $torrent = Torrent::findOrFail($id);
         $reported_by = $request->user();
@@ -97,7 +93,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['slug' => $slug, 'id' => $id])
+            return redirect()->route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
@@ -111,10 +107,7 @@ class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent report.");
-
-            return redirect()->route('torrent', ['slug' => $slug, 'id' => $id])
+            return redirect()->route('torrent', ['id' => $id])
                 ->withSuccess('Your report has been successfully sent');
         }
     }
@@ -138,7 +131,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('profile', ['username' => $username, 'id' => $id])
+            return redirect()->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
@@ -152,10 +145,7 @@ class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$reported_by->username} has made a new User report.");
-
-            return redirect()->route('profile', ['username' => $username, 'id' => $id])
+            return redirect()->route('users.show', ['username' => $username])
                 ->withSuccess('Your report has been successfully sent');
         }
     }

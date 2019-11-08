@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -12,20 +12,20 @@
 
 namespace App\Bots;
 
-use Carbon\Carbon;
+use App\Events\Chatter;
+use App\Http\Resources\UserAudibleResource;
+use App\Http\Resources\UserEchoResource;
 use App\Models\Ban;
 use App\Models\Bot;
-use App\Models\Peer;
-use App\Models\User;
-use App\Events\Chatter;
-use App\Models\Torrent;
-use App\Models\Warning;
-use App\Models\UserEcho;
-use App\Models\UserAudible;
 use App\Models\BotTransaction;
+use App\Models\Peer;
+use App\Models\Torrent;
+use App\Models\User;
+use App\Models\UserAudible;
+use App\Models\UserEcho;
+use App\Models\Warning;
 use App\Repositories\ChatRepository;
-use App\Http\Resources\UserEchoResource;
-use App\Http\Resources\UserAudibleResource;
+use Carbon\Carbon;
 
 class NerdBot
 {

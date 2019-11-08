@@ -2,38 +2,38 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('staff.categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Categories</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-categories')</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.categories.edit', ['slug' => $category->slug, 'id' => $category->id]) }}"
+        <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}"
            itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Category</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Category</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Edit A Category</h2>
-            <form role="form" method="POST" action="{{ route('staff.categories.update', ['slug' => $category->slug, 'id' => $category->id]) }}"
+        <h2>@lang('common.edit') A Category</h2>
+            <form role="form" method="POST" action="{{ route('staff.categories.update', ['id' => $category->id]) }}"
                 enctype="multipart/form-data">
             @method('PATCH')
             @csrf
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">@lang('common.name')</label>
                 <label>
                     <input type="text" class="form-control" name="name" value="{{ $category->name }}">
                 </label>
             </div>
             <div class="form-group">
-                <label for="name">Position</label>
+                <label for="name">@lang('common.position')</label>
                 <label>
                     <input type="text" class="form-control" name="position" value="{{ $category->position }}">
                 </label>

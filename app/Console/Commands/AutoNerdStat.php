@@ -2,7 +2,7 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
@@ -13,14 +13,14 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use App\Models\Ban;
 use App\Models\Peer;
-use App\Models\User;
 use App\Models\Torrent;
+use App\Models\User;
 use App\Models\Warning;
-use Illuminate\Console\Command;
 use App\Repositories\ChatRepository;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class AutoNerdStat extends Command
 {

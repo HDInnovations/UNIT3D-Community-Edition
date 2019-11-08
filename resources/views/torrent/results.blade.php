@@ -55,7 +55,7 @@
             @else
                 <tr>
             @endif
-                    <td>
+                    <td style="width: 1%;">
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta && isset($meta) && $meta->poster && $meta->title)
@@ -81,25 +81,25 @@
                         @endif
                     </td>
 
-                    <td>
+                    <td style="width: 1%;">
                         @if ($torrent->category->image != null)
-                            <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                 <div class="text-center">
                                     <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                       style="padding-bottom: 6px;" alt="{{  $torrent->category->name }}">
+                                       style="padding-bottom: 10px;" alt="{{  $torrent->category->name }}">
                                 </div>
                             </a>
                         @else
-                            <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
+                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                 <div class="text-center">
                                     <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 6px;"></i>
+                                        style="padding-bottom: 10px;"></i>
                                 </div>
                             </a>
                         @endif
-                        <div class="text-center">
+                        <div class="text-center" style="padding-top: 5px;">
                             <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
                                 {{ $torrent->type }}
                             </span>
@@ -107,7 +107,7 @@
                     </td>
 
                     <td>
-                        <a class="view-torrent" href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
                             {{ $torrent->name }}
                         </a>
 
@@ -119,14 +119,14 @@
                         @endif--}}
 
                         @if (config('torrent.download_check_page') == 1)
-                            <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                            <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                 <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('common.download')">
                                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                 </button>
                             </a>
                         @else
-                            <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                            <a href="{{ route('download', ['id' => $torrent->id]) }}">
                                 <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                         data-original-title="@lang('common.download')">
                                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -171,7 +171,7 @@
                             <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
                                 @if ($user->id == $torrent->user->id || $user->group->is_modo)
-                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         ({{ $torrent->user->username }})
                                     </a>
                                 @endif
@@ -179,7 +179,7 @@
                         @else
                             <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i>
-                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                    <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>
                             </span>
@@ -232,7 +232,7 @@
                             {{ $torrent->thanks_count }}
                         </span>
 
-                        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments']) }}">
+                        <a href="{{ route('torrent', ['id' => $torrent->id, 'hash' => '#comments']) }}">
                             <span class="badge-extra text-bold text-green">
                                 <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
                                 {{ $torrent->comments_count }}
@@ -345,6 +345,8 @@
                             </span>
                         @endif
 
+                        <br>
+
                         @foreach($torrent->tags as $tag)
                             <span class="badge-extra text-bold">
                                 <i class='{{ config("other.font-awesome") }} fa-tag' data-toggle='tooltip' title=''
@@ -360,21 +362,21 @@
                         <span class='badge-extra text-blue text-bold'>{{ $torrent->getSize() }}</span>
                     </td>
                     <td>
-                        <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
                             <span class='badge-extra text-green text-bold'>
                                 {{ $torrent->seeders }}
                             </span>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
                             <span class='badge-extra text-red text-bold'>
                                 {{ $torrent->leechers }}
                             </span>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        <a href="{{ route('history', ['id' => $torrent->id]) }}">
                             <span class='badge-extra text-orange text-bold'>
                                 {{ $torrent->times_completed }} @lang('common.times')
                             </span>
