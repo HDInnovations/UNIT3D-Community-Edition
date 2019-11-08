@@ -30,7 +30,7 @@
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="comments" value="1" class="filter-checkbox">
+                            <input type="checkbox" id="comment" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-comments text-success"></i> @lang('common.comments')
                         </label>
                     </span>
@@ -191,9 +191,9 @@
             return $("#bon_gifts").val();
           }
         })();
-        var comments = (function () {
-          if ($("#comments").is(":checked")) {
-            return $("#comments").val();
+        var comment = (function () {
+          if ($("#comment").is(":checked")) {
+            return $("#comment").val();
           }
         })();
         var comment_tags = (function () {
@@ -290,7 +290,7 @@
           data: {
             _token: csrf,
             bon_gifts: bon_gifts,
-            comments: comments,
+            comment: comment,
             comment_tags: comment_tags,
             followers: followers,
             posts: posts,
@@ -326,7 +326,7 @@
     </script>
 
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $("#bon_gifts, #comments, #comment_tags, #followers, #posts, #post_tags, #post_tips, #request_bounties, #request_claims, #request_fills, #request_approvals, #request_rejections, #request_unclaims, #reseed_requests, #thanks, #upload_tips, #topics, #unfollows, #uploads").on("click", function () {
+      $("#bon_gifts, #comment, #comment_tags, #followers, #posts, #post_tags, #post_tips, #request_bounties, #request_claims, #request_fills, #request_approvals, #request_rejections, #request_unclaims, #reseed_requests, #thanks, #upload_tips, #topics, #unfollows, #uploads").on("click", function () {
         faceted();
       });
     </script>
