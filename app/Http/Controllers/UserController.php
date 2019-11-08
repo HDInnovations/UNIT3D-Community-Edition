@@ -22,7 +22,6 @@ use App\Models\Group;
 use App\Models\History;
 use App\Models\Invite;
 use App\Models\Peer;
-use App\Models\PersonalFreeleech;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\Torrent;

@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\WishInterface;
-use App\Models\PersonalFreeleech;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
