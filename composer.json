@@ -8,7 +8,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.3",
         "appstract/laravel-opcache": "^3.0",
         "arcanedev/log-viewer": "^5.0",
         "bandwidth-throttle/token-bucket": "^2.0",
@@ -38,7 +38,6 @@
         "theodorejb/polycast": "^1.0"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.2",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
         "matt-allan/laravel-code-style": "^0.4.0",

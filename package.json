@@ -12,7 +12,6 @@
   "devDependencies": {
     "ajv": "^6.10.2",
     "axios": "^0.19",
-    "blade-formatter": "^1.1.1",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^6.0",
     "emojione-assets": "^4.5.0",
@@ -24,12 +23,12 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "resolve-url-loader": "3.1.0",
-    "sass": "^1.23.0",
+    "sass": "^1.23.3",
     "sass-loader": "^8.0.0",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "spin.js": "^4.0.0",
-    "sweetalert2": "^8.18.5",
+    "spin.js": "^4.1.0",
+    "sweetalert2": "^9.1.5",
     "v-tooltip": "^2.0.2",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
@@ -37,6 +36,6 @@
   "dependencies": {
     "laravel-mix-sri": "0.0.4",
     "ncu": "^0.2.1",
-    "npm-check-updates": "^3.1.24"
+    "npm-check-updates": "^3.2.1"
   }
 }
