@@ -63,17 +63,7 @@
                         </td>
                         <td>
                             @foreach($application->imageProofs as $key => $img_proof)
-                                <button id="show-img" type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button>
-                                <div id="image-{{ $img_proof->id }}" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" data-dismiss="modal">
-                                        <div class="modal-content"  >
-                                            <div class="modal-body">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <img src="{{ $img_proof->image }}" alt="image proof" class="img-responsive" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a href="{{ $img_proof->image }}" target="_blank"><button type="button" class="btn btn-sm btn-info">Profile Image {{ ++$key }}</button></a>
                             @endforeach
                         </td>
                     </tr>
