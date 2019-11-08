@@ -8,7 +8,7 @@ return [
     'header'      => [
         'key'     => 'Clé',
         'value'   => 'Valeur',
-        'actions' => 'Actes',
+        'actions' => 'Actions',
     ],
     'actions' => [
         'edit'    => 'Modifier',
