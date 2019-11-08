@@ -34,7 +34,7 @@ export default {
 
                     Swal.fire({
                         position: 'center',
-                        type: 'success',
+                        icon: 'success',
                         title: 'Torrent Has Been Bookmarked Successfully!',
                         showConfirmButton: false,
                         timer: 4500,
@@ -53,7 +53,7 @@ export default {
 
                     Swal.fire({
                         position: 'center',
-                        type: 'success',
+                        icon: 'success',
                         title: 'Torrent Has Been Unbookmarked Successfully!',
                         showConfirmButton: false,
                         timer: 4500,

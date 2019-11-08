@@ -970,7 +970,7 @@ class torrentBookmarkBuilder {
         }).done(function (e) {
             Swal.fire({
                 position: 'center',
-                type: 'success',
+                icon: 'success',
                 title: 'Torrent Has Been Bookmarked Successfully!',
                 showConfirmButton: false,
                 timer: 4500,
@@ -1010,7 +1010,7 @@ class torrentBookmarkBuilder {
         }).done(function (e) {
             Swal.fire({
                 position: 'center',
-                type: 'success',
+                icon: 'success',
                 title: 'Torrent Has Been Unbookmarked Successfully!',
                 showConfirmButton: false,
                 timer: 4500,

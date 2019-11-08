@@ -36,7 +36,7 @@
               Swal.fire({
                 title: '<strong>Read The <u>Rules?</u></strong>',
                 text: "Do You Fully Understand Our Rules?",
-                type: "question",
+                icon: "question",
                 confirmButtonText: '<i class="fa fa-thumbs-up"></i> I Do!',
               }).then(function() {
                 $.ajax({
@@ -54,7 +54,7 @@
                     });
 
                     Toast.fire({
-                      type: 'success',
+                      icon: 'success',
                       title: 'Thanks For Accepting Our Rules!'
                     })
                   },
@@ -67,7 +67,7 @@
                     });
 
                     Toast.fire({
-                      type: 'error',
+                      icon: 'error',
                       title: 'Something Went Wrong!'
                     })
                   }

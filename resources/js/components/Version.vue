@@ -26,7 +26,7 @@ export default {
                         this.loading = false;
                         Swal.fire({
                             position: 'center',
-                            type: 'warning',
+                            icon: 'warning',
                             title: 'There Is A Update Available!',
                             showCancelButton: true,
                             showConfirmButton: true,
@@ -43,7 +43,7 @@ export default {
                         this.loading = false;
                         Swal.fire({
                             position: 'center',
-                            type: 'success',
+                            icon: 'success',
                             title: 'You Are Running The Latest Version Of UNIT3D Community Edition!',
                             showCancelButton: false,
                             timer: 4500,

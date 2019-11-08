@@ -110,7 +110,7 @@
                           });
 
                           Toast.fire({
-                            type: 'warning',
+                            icon: 'warning',
                             title:'@lang('backup.create_warning_message')'
                           })
                         }
@@ -123,7 +123,7 @@
                           });
 
                           Toast.fire({
-                            type: 'success',
+                            icon: 'success',
                             title:'@lang('backup.create_confirmation_message')'
                           })
                         }
@@ -148,7 +148,7 @@
                       });
 
                       Toast.fire({
-                        type: 'warning',
+                        icon: 'warning',
                         title:'@lang('backup.create_error_message')'
                       })
                         // Stop loading
@@ -191,7 +191,7 @@
                   });
 
                   Toast.fire({
-                    type: 'warning',
+                    icon: 'warning',
                     title:'@lang('backup.create_warning_message')'
                   })
                 }
@@ -204,7 +204,7 @@
                   });
 
                   Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title:'@lang('backup.create_confirmation_message')'
                   })
                 }
@@ -229,7 +229,7 @@
                 });
 
                 Toast.fire({
-                  type: 'warning',
+                  icon: 'warning',
                   title:'@lang('backup.create_error_message')'
                 })
                 // Stop loading
@@ -272,7 +272,7 @@
                   });
 
                   Toast.fire({
-                    type: 'warning',
+                    icon: 'warning',
                     title:'@lang('backup.create_warning_message')'
                   })
                 }
@@ -285,7 +285,7 @@
                   });
 
                   Toast.fire({
-                    type: 'success',
+                    icon: 'success',
                     title:'@lang('backup.create_confirmation_message')'
                   })
                 }
@@ -310,7 +310,7 @@
                 });
 
                 Toast.fire({
-                  type: 'warning',
+                  icon: 'warning',
                   title:'@lang('backup.create_error_message')'
                 })
                 // Stop loading
@@ -342,7 +342,7 @@
                           });
 
                           Toast.fire({
-                            type: 'success',
+                            icon: 'success',
                             title:'@lang('backup.delete_confirmation_message')'
                           })
                             // delete the row from the table
@@ -358,7 +358,7 @@
                           });
 
                           Toast.fire({
-                            type: 'warning',
+                            icon: 'warning',
                             title:'@lang('backup.delete_error_title')'
                           })
                         }
@@ -372,7 +372,7 @@
                   });
 
                   Toast.fire({
-                    type: 'info',
+                    icon: 'info',
                     title:'@lang('backup.delete_cancel_message')'
                   })
                 }

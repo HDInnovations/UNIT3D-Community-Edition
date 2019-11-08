@@ -155,7 +155,7 @@
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
           Swal.fire({
             title: 'Info',
-            type: 'info',
+            icon: 'info',
             html: '{{ Session::get('output') }}',
             showCloseButton: true,
           })
