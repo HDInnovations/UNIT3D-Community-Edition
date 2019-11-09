@@ -13,7 +13,7 @@
             @lang('user.seedboxes')</button>
     </a>
     <a href="{{ route('invites.index', ['username' => $user->username]) }}"><span
-                class="btn btn-sm btn-primary">@lang('user.invites')</span></a>
+            class="btn btn-sm btn-primary">@lang('user.invites')</span></a>
     <a href="{{ route('invites.create') }}">
         <button class="btn btn-sm btn-primary">@lang('user.send-invite')
         </button>

@@ -17,39 +17,40 @@
     <div class="container box">
         <h2>@lang('common.types')</h2>
         <a href="{{ route('staff.types.create') }}" class="btn btn-primary">Add A Torrent Type</a>
-
+    
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>@lang('common.position')</th>
-                <th>@lang('common.name')</th>
-                <th>@lang('common.action')</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($types as $type)
-                <tr>
-                    <td>
-                        {{ $type->position }}
-                    </td>
-                    <td>
-                        <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}">
-                            {{ $type->name }}
-                        </a>
-                    </td>
-                    <td>
-                        <form action="{{ route('staff.types.destroy', ['id' => $type->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
-                            <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th>@lang('common.position')</th>
+                        <th>@lang('common.name')</th>
+                        <th>@lang('common.action')</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($types as $type)
+                        <tr>
+                            <td>
+                                {{ $type->position }}
+                            </td>
+                            <td>
+                                <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}">
+                                    {{ $type->name }}
+                                </a>
+                            </td>
+                            <td>
+                                <form action="{{ route('staff.types.destroy', ['id' => $type->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}"
+                                        class="btn btn-warning">@lang('common.edit')</a>
+                                    <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

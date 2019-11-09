@@ -19,7 +19,9 @@
 
 @section('content')
     <div class="container">
-        <div class="page-title"><h1>Poll Results</h1></div>
+        <div class="page-title">
+            <h1>Poll Results</h1>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-chat">
@@ -32,8 +34,8 @@
                                 Vote(s)</span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                     aria-valuenow="{{ $option->votes }}" aria-valuemin="0" aria-valuemax="100"
-                                     style="width: {{ $option->votes }}%;">
+                                    aria-valuenow="{{ $option->votes }}" aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{ $option->votes }}%;">
                                     {{ $option->votes }}
                                 </div>
                             </div>
@@ -43,5 +45,5 @@
             </div>
         </div>
     </div>
-
+    
 @endsection

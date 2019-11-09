@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Reports - @lang('staff.staff-dashboard')"> @endsection
+<meta name="description" content="Reports - @lang('staff.staff-dashboard')"> @endsection
 
 @section('breadcrumb')
     <li>
@@ -19,7 +19,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.reports.show',['id' => $report->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.reports.show', ['id' => $report->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Report</span>
         </a>
     </li>
@@ -30,7 +30,8 @@
         <div class="block">
             <h2>Report Details
                 @if ($report->solved == 0)
-                    <span class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-times"></i> UNSOLVED </strong></span>
+                    <span class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-times"></i> UNSOLVED
+                        </strong></span>
                 @else
                     <span class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-check"></i> SOLVED BY
                             <a class="name" href="{{ route('users.show', ['username' => $report->staff->username]) }}">
@@ -55,7 +56,7 @@
                             {{ $report->reporter->username }}
                         </a>
                     </p>
-
+    
                     @if ($report->torrent)
                         <h3>@lang('torrent.torrent') Title:</h3>
                         <p class="well well-sm">
@@ -64,7 +65,7 @@
                             </a>
                         </p>
                     @endif
-
+    
                     @if ($report->request)
                         <h3>@lang('torrent.torrent-request') Title:</h3>
                         <p class="well well-sm">
@@ -73,28 +74,28 @@
                             </a>
                         </p>
                     @endif
-
+    
                     <h3>Message:</h3>
                     <p class="well well-lg">
                         {{ $report->message }}
                     </p>
-
+    
                     @if (count($urls) > 0)
                         <h3>Referenced Links:</h3>
                         <p class="well">
                             @foreach ($urls as $url)
-                                <a href="{{$url}}" target="_blank">{{$url}}</a><br/>
+                                <a href="{{ $url }}" target="_blank">{{ $url }}</a><br />
                             @endforeach
                         </p>
                     @endif
                 </div>
             </div>
-
+    
             <h2>Resolve Report</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <form role="form" method="POST" action="{{ route('staff.reports.update',['id' => $report->id]) }}">
+                    <form role="form" method="POST" action="{{ route('staff.reports.update', ['id' => $report->id]) }}">
                         @csrf
                         @if ($report->solved == 0)
                             <div class="form-group">

@@ -30,51 +30,52 @@
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th>@lang('common.no')</th>
-                        <th>@lang('common.user')</th>
-                        <th>Email</th>
-                        <th>Type</th>
-                        <th>Image Proofs</th>
-                        <th>Profile Links</th>
-                        <th>Created On</th>
-                        <th>Status</th>
-                        <th>Moderated By</th>
-                        <th>@lang('common.action')</th>
-                    </tr>
+                        <tr>
+                            <th>@lang('common.no')</th>
+                            <th>@lang('common.user')</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Image Proofs</th>
+                            <th>Profile Links</th>
+                            <th>Created On</th>
+                            <th>Status</th>
+                            <th>Moderated By</th>
+                            <th>@lang('common.action')</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @if ($applications)
-                        @foreach ($applications as $key => $application)
-                            <tr>
-                                <td>{{ ++$key }}</td>
-                                <td>{{ $application->user->username ?? 'N/A' }}</td>
-                                <td>{{ $application->email }}</td>
-                                <td>{{ $application->type }}</td>
-                                <td>{{ $application->imageProofs->count() }}</td>
-                                <td>{{ $application->urlProofs->count() }}</td>
-                                <td>
-                                    {{ $application->created_at->toDayDateTimeString() }}
-                                    ({{ $application->created_at->diffForHumans() }})
-                                </td>
-                                <td>
-                                    @if ($application->status == 0)
-                                        <span class="text-warning">PENDING</span>
-                                    @elseif ($application->status == 1)
-                                        <span class="text-success">APPROVED</span>
-                                    @else
-                                        <span class="text-danger">REJECTED</span>
-                                    @endif
-                                </td>
-                                <td>{{ $application->moderated->username ?? 'N/A' }}</td>
-                                <td>
-                                    <a href="{{ route('staff.applications.show', ['id' => $application->id]) }}" class="btn btn-xs btn-success">
-                                        <i class="{{ config('other.font-awesome') }} fa-eye"></i> View App
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
+                        @if ($applications)
+                            @foreach ($applications as $key => $application)
+                                <tr>
+                                    <td>{{ ++$key }}</td>
+                                    <td>{{ $application->user->username ?? 'N/A' }}</td>
+                                    <td>{{ $application->email }}</td>
+                                    <td>{{ $application->type }}</td>
+                                    <td>{{ $application->imageProofs->count() }}</td>
+                                    <td>{{ $application->urlProofs->count() }}</td>
+                                    <td>
+                                        {{ $application->created_at->toDayDateTimeString() }}
+                                        ({{ $application->created_at->diffForHumans() }})
+                                    </td>
+                                    <td>
+                                        @if ($application->status == 0)
+                                            <span class="text-warning">PENDING</span>
+                                        @elseif ($application->status == 1)
+                                            <span class="text-success">APPROVED</span>
+                                        @else
+                                            <span class="text-danger">REJECTED</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $application->moderated->username ?? 'N/A' }}</td>
+                                    <td>
+                                        <a href="{{ route('staff.applications.show', ['id' => $application->id]) }}"
+                                            class="btn btn-xs btn-success">
+                                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> View App
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
                 <div class="text-center">

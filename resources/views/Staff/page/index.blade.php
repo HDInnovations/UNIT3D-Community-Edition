@@ -17,16 +17,16 @@
     <div class="container box">
         <h2>Pages</h2>
         <a href="{{ route('staff.pages.create') }}" class="btn btn-primary">Add a new page</a>
-
+    
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>@lang('common.action')</th>
-            </tr>
-            </thead>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>@lang('common.action')</th>
+                    </tr>
+                </thead>
                 <tbody>
                     @foreach ($pages as $page)
                         <tr>
@@ -42,7 +42,8 @@
                                 <form action="{{ route('staff.pages.destroy', ['id' => $page->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}" class="btn btn-warning">@lang('common.edit')</a>
+                                    <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}"
+                                        class="btn btn-warning">@lang('common.edit')</a>
                                     <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
                                 </form>
                             </td>

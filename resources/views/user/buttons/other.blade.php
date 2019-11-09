@@ -17,12 +17,12 @@
         </a>
     </div>
     <div class="button-right-small">
-            @if(auth()->user()->id == $user->id)
+        @if(auth()->user()->id == $user->id)
             <a href="{{ route('user_settings', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
                 @lang('user.settings')
             </a>
             <a href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}">
                 <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button></a>
-            @endif
+        @endif
     </div>
 </div>

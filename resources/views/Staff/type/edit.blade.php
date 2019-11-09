@@ -12,8 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Type</span>
         </a>
     </li>
@@ -31,14 +30,14 @@
                     <input type="text" class="form-control" name="name" value="{{ $type->name }}">
                 </label>
             </div>
-
+    
             <div class="form-group">
                 <label for="name">@lang('common.position')</label>
                 <label>
                     <input type="text" class="form-control" name="position" value="{{ $type->position }}">
                 </label>
             </div>
-
+    
             <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>

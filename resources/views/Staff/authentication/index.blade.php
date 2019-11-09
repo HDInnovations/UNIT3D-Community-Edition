@@ -31,49 +31,50 @@
                     <h2>Failed Logins</h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>@lang('common.user') ID</th>
-                            <th>Username</th>
-                            <th>IP Address</th>
-                            <th>Created On</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if (count($attempts) == 0)
-                            <p>The are no failed login entries in the database!</p>
-                        @else
-                            @foreach ($attempts as $attempt)
+                            <thead>
                                 <tr>
-                                    <td>
-                                        {{ $attempt->id }}
-                                    </td>
-                                    <td>
-                                        {{ $attempt->user_id ?? 'Not Found'}}
-                                    </td>
-                                    <td>
-                                        @if ($attempt->user_id == null)
-                                            {{ $attempt->username }}
-                                        @else
-                                            <a class="text-bold" href="{{ route('users.show', ['username' =>  $attempt->username]) }}">
-                                                {{ $attempt->username }}
-                                            </a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $attempt->ip_address }}
-                                    </td>
-                                    <td>
-                                        {{ $attempt->created_at }}
-                                    </td>
+                                    <th>#</th>
+                                    <th>@lang('common.user') ID</th>
+                                    <th>Username</th>
+                                    <th>IP Address</th>
+                                    <th>Created On</th>
                                 </tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (count($attempts) == 0)
+                                    <p>The are no failed login entries in the database!</p>
+                                @else
+                                    @foreach ($attempts as $attempt)
+                                        <tr>
+                                            <td>
+                                                {{ $attempt->id }}
+                                            </td>
+                                            <td>
+                                                {{ $attempt->user_id ?? 'Not Found' }}
+                                            </td>
+                                            <td>
+                                                @if ($attempt->user_id == null)
+                                                    {{ $attempt->username }}
+                                                @else
+                                                    <a class="text-bold"
+                                                        href="{{ route('users.show', ['username' => $attempt->username]) }}">
+                                                        {{ $attempt->username }}
+                                                    </a>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $attempt->ip_address }}
+                                            </td>
+                                            <td>
+                                                {{ $attempt->created_at }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="text-center">
                 {{ $attempts->links() }}

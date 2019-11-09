@@ -28,122 +28,129 @@
             <input type="hidden" name="sorting" value="created_at">
             <input type="hidden" name="direction" value="desc">
             <input type="hidden" name="subscribed" value="1">
-            <label for="name"></label><input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.subscription-quick-search')"
-                                             class="form-control">
+            <label for="name"></label><input type="text" name="name" id="name"
+                value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
+                placeholder="@lang('forum.subscription-quick-search')" class="form-control">
         </form>
         <div class="forum-categories">
             <table class="table table-bordered table-hover">
                 <thead class="no-space">
-                <tr class="no-space">
-                    <td colspan="6" class="no-space">
-                        <div class="header gradient teal some-padding">
-                            <div class="inner_content">
-                                <h1 class="no-space">Forum & Topic Subscriptions</h1>
+                    <tr class="no-space">
+                        <td colspan="6" class="no-space">
+                            <div class="header gradient teal some-padding">
+                                <div class="inner_content">
+                                    <h1 class="no-space">Forum & Topic Subscriptions</h1>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                </thead>
-                <thead>
-                <thead>
-                <tr>
-                    <th>@lang('forum.forum')</th>
-                    <th>@lang('forum.topic')</th>
-                    <th>@lang('forum.author')</th>
-                    <th>@lang('forum.stats')</th>
-                    <th>@lang('forum.last-post-info')</th>
-                    <th>@lang('forum.action')</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($results as $r)
-                    @php
-                        if(in_array($r->id,$forum_neos)) {
-                    @endphp
-                    <tr>
-                        <td class="f-display-topic-icon"><a href="{{ route('forums.show', ['id' => $r->id]) }}"><span
-                                        class="badge-extra text-bold">{{ $r->name }}</span></a></td>
-                        <td class="f-display-topic-title">
-                            --
-                        </td>
-                        <td class="f-display-topic-started">
-                            --
-                        </td>
-                        <td class="f-display-topic-stats">
-                            --
-                        </td>
-                        <td class="f-display-topic-last-post">
-                            --
-                        </td>
-                        <td class="f-display-topic-stats">
-                            @if (auth()->user()->isSubscribed('forum',$r->id))
-                                <a href="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}" class="label label-sm label-danger">
-                                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
-                            @else
-                                <a href="{{ route('subscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}" class="label label-sm label-success">
-                                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
-                            @endif
                         </td>
                     </tr>
-                    @php
+                </thead>
+                <thead>
+                    <thead>
+                        <tr>
+                            <th>@lang('forum.forum')</th>
+                            <th>@lang('forum.topic')</th>
+                            <th>@lang('forum.author')</th>
+                            <th>@lang('forum.stats')</th>
+                            <th>@lang('forum.last-post-info')</th>
+                            <th>@lang('forum.action')</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    @foreach ($results as $r)
+                        @php
+                        if(in_array($r->id,$forum_neos)) {
+                        @endphp
+                        <tr>
+                            <td class="f-display-topic-icon"><a href="{{ route('forums.show', ['id' => $r->id]) }}"><span
+                                        class="badge-extra text-bold">{{ $r->name }}</span></a></td>
+                            <td class="f-display-topic-title">
+                                --
+                            </td>
+                            <td class="f-display-topic-started">
+                                --
+                            </td>
+                            <td class="f-display-topic-stats">
+                                --
+                            </td>
+                            <td class="f-display-topic-last-post">
+                                --
+                            </td>
+                            <td class="f-display-topic-stats">
+                                @if (auth()->user()->isSubscribed('forum',$r->id))
+                                    <a href="{{ route('unsubscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
+                                        class="label label-sm label-danger">
+                                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
+                                @else
+                                    <a href="{{ route('subscribe_forum', ['forum' => $r->id, 'route' => 'subscriptions']) }}"
+                                        class="label label-sm label-success">
+                                        <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
+                                @endif
+                            </td>
+                        </tr>
+                        @php
                         }
                         if($r->subscription_topics) {
-                    @endphp
-                    @foreach($r->subscription_topics as $t)
-                    <tr>
-                        <td class="f-display-topic-icon"><span
-                                    class="badge-extra text-bold">{{ $t->forum->name }}</span></td>
-                        <td class="f-display-topic-title">
-                            <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
-                            @if ($t->state == "close") <span
-                                    class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
-                            @if ($t->approved == "1") <span
-                                    class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
-                            @if ($t->denied == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
-                            @if ($t->solved == "1") <span
-                                    class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
-                            @if ($t->invalid == "1") <span
-                                    class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
-                            @if ($t->bug == "1") <span
-                                    class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
-                            @if ($t->suggestion == "1") <span
-                                    class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
-                        </td>
-                        <td class="f-display-topic-started"><a
-                                    href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
-                        </td>
-                        <td class="f-display-topic-stats">
-                            {{ $t->num_post - 1 }} @lang('forum.replies')
-                            \ {{ $t->views }} @lang('forum.views')
-                        </td>
-                        <td class="f-display-topic-last-post">
-                            <a href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>,
-                            @if($t->last_reply_at && $t->last_reply_at != null)
-                                <time datetime="{{ date('d-m-Y h:m', strtotime($t->last_reply_at)) }}">
-                                    {{ date('M d Y', strtotime($t->last_reply_at)) }}
-                                </time>
-                            @else
-                                <time datetime="N/A">
-                                    N/A
-                                </time>
-                            @endif
-                        </td>
-                        <td class="f-display-topic-stats">
-                            @if (auth()->user()->isSubscribed('topic',$t->id))
-                                <a href="{{ route('unsubscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}" class="label label-sm label-danger">
-                                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
-                            @else
-                                <a href="{{ route('subscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}" class="label label-sm label-success">
-                                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                    @php
+                        @endphp
+                        @foreach($r->subscription_topics as $t)
+                            <tr>
+                                <td class="f-display-topic-icon"><span class="badge-extra text-bold">{{ $t->forum->name }}</span>
+                                </td>
+                                <td class="f-display-topic-title">
+                                    <strong><a href="{{ route('forum_topic', ['id' => $t->id]) }}">{{ $t->name }}</a></strong>
+                                    @if ($t->state == "close") <span
+                                        class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
+                                    @if ($t->approved == "1") <span
+                                        class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
+                                    @if ($t->denied == "1") <span
+                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
+                                    @if ($t->solved == "1") <span
+                                        class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
+                                    @if ($t->invalid == "1") <span
+                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
+                                    @if ($t->bug == "1") <span
+                                        class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
+                                    @if ($t->suggestion == "1") <span
+                                            class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span>
+                                    @endif
+                                </td>
+                                <td class="f-display-topic-started"><a
+                                        href="{{ route('users.show', ['username' => $t->first_post_user_username]) }}">{{ $t->first_post_user_username }}</a>
+                                </td>
+                                <td class="f-display-topic-stats">
+                                    {{ $t->num_post - 1 }} @lang('forum.replies')
+                                    \ {{ $t->views }} @lang('forum.views')
+                                </td>
+                                <td class="f-display-topic-last-post">
+                                    <a
+                                        href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>,
+                                    @if($t->last_reply_at && $t->last_reply_at != null)
+                                        <time datetime="{{ date('d-m-Y h:m', strtotime($t->last_reply_at)) }}">
+                                            {{ date('M d Y', strtotime($t->last_reply_at)) }}
+                                        </time>
+                                    @else
+                                        <time datetime="N/A">
+                                            N/A
+                                        </time>
+                                    @endif
+                                </td>
+                                <td class="f-display-topic-stats">
+                                    @if (auth()->user()->isSubscribed('topic',$t->id))
+                                        <a href="{{ route('unsubscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
+                                            class="label label-sm label-danger">
+                                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
+                                    @else
+                                        <a href="{{ route('subscribe_topic', ['topic' => $t->id, 'route' => 'subscriptions']) }}"
+                                            class="label label-sm label-success">
+                                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        @php
                         }
-                    @endphp
-                @endforeach
+                        @endphp
+                    @endforeach
                 </tbody>
             </table>
         </div>

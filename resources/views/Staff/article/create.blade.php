@@ -33,17 +33,17 @@
                     <input type="text" class="form-control" name="title" required>
                 </label>
             </div>
-
+    
             <div class="form-group">
                 <label for="image">Image thumbnail</label>
                 <input type="file" name="image">
             </div>
-
+    
             <div class="form-group">
                 <label for="content">The content of your article</label>
                 <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
             </div>
-
+    
             <button type="submit" class="btn btn-default">Post</button>
         </form>
     </div>
@@ -51,9 +51,10 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#content').wysibb({});
-        emoji.textcomplete()
-      })
+        $(document).ready(function() {
+            $('#content').wysibb({});
+            emoji.textcomplete()
+        })
+    
     </script>
 @endsection

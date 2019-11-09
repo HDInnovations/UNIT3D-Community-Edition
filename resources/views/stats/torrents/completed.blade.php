@@ -20,17 +20,18 @@
 @section('content')
     <div class="container">
         @include('partials.statstorrentmenu')
-
+    
         <div class="block">
             <h2>@lang('stat.top-completed')</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-info"><strong><i class="{{ config('other.font-awesome') }} fa-line-chart"></i> @lang('stat.top-downloaded')
+                    <p class="text-info"><strong><i class="{{ config('other.font-awesome') }} fa-line-chart"></i>
+                            @lang('stat.top-downloaded')
                         </strong></p>
-                    </div>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
+                </div>
+                <table class="table table-condensed table-striped table-bordered">
+                    <thead>
                         <tr>
                             <th>#</th>
                             <th>@lang('torrent.torrent')</th>
@@ -38,8 +39,8 @@
                             <th>@lang('torrent.leechers')</th>
                             <th>@lang('torrent.completed')</th>
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
                         @foreach ($completed as $key => $c)
                             <tr>
                                 <td>
@@ -57,10 +58,10 @@
                                 </td>
                             </tr>
                         @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
     </div>
 @endsection

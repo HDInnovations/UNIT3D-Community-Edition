@@ -29,123 +29,129 @@
                     <h1>Command Shortcuts</h1>
                 </div>
             </div>
-
+    
             <br>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Enable Maintenance Mode
-                                </h3>
-                                <h4 class="text-muted">This commands enables maintenance mode while whitelisting only you IP Address.</h4>
-                                <a href="{{ url('/dashboard/command/maintance-enable') }}" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Disable Maintenance Mode
-                                </h3>
-                                <h4 class="text-muted">This commands disables maintenance mode. Bringing the site backup for all to access.</h4>
-                                <a href="{{ url('/dashboard/command/maintance-disable') }}" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Cache
-                                </h3>
-                                <h4 class="text-muted">This commands clears your sites cache. This cache depends on what driver you are using.</h4>
-                                <a href="" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear View Cache
-                                </h3>
-                                <h4 class="text-muted">This commands clears your sites compiled views cache.</h4>
-                                <a href="" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Route Cache
-                                </h3>
-                                <h4 class="text-muted">This commands clears your sites compiled routes cache.</h4>
-                                <a href="" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Config Cache
-                                </h3>
-                                <h4 class="text-muted">This commands clears your sites compiled configs cache.</h4>
-                                <a href="" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear All Cache
-                                </h3>
-                                <h4 class="text-muted">This commands clears ALL of your sites cache.</h4>
-                                <a href="" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Set All Cache
-                                </h3>
-                                <h4 class="text-muted">This commands sets ALL of your sites cache.</h4>
-                                <a href="" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="block">
-                            <div class="panel-body">
-                                <h3 class="text-bold text-green">
-                                    <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Send Test Email
-                                </h3>
-                                <h4 class="text-muted">This commands tests your email configuration.</h4>
-                                <a href="{{ url('/dashboard/command/test-email') }}" class="btn btn-sm btn-primary">Run Command</a>
-                            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Enable Maintenance Mode
+                            </h3>
+                            <h4 class="text-muted">This commands enables maintenance mode while whitelisting only you IP
+                                Address.</h4>
+                            <a href="{{ url('/dashboard/command/maintance-enable') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
                         </div>
                     </div>
                 </div>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Disable Maintenance Mode
+                            </h3>
+                            <h4 class="text-muted">This commands disables maintenance mode. Bringing the site backup for all
+                                to access.</h4>
+                            <a href="{{ url('/dashboard/command/maintance-disable') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Cache
+                            </h3>
+                            <h4 class="text-muted">This commands clears your sites cache. This cache depends on what driver
+                                you are using.</h4>
+                            <a href="" class="btn btn-sm btn-primary">Run Command</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <br>
+                <br>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear View Cache
+                            </h3>
+                            <h4 class="text-muted">This commands clears your sites compiled views cache.</h4>
+                            <a href="" class="btn btn-sm btn-primary">Run Command</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Route Cache
+                            </h3>
+                            <h4 class="text-muted">This commands clears your sites compiled routes cache.</h4>
+                            <a href="" class="btn btn-sm btn-primary">Run Command</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Config Cache
+                            </h3>
+                            <h4 class="text-muted">This commands clears your sites compiled configs cache.</h4>
+                            <a href="" class="btn btn-sm btn-primary">Run Command</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <br>
+                <br>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear All Cache
+                            </h3>
+                            <h4 class="text-muted">This commands clears ALL of your sites cache.</h4>
+                            <a href="" class="btn btn-sm btn-primary">Run Command</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Set All Cache
+                            </h3>
+                            <h4 class="text-muted">This commands sets ALL of your sites cache.</h4>
+                            <a href="" class="btn btn-sm btn-primary">Run Command</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-md-4">
+                    <div class="block">
+                        <div class="panel-body">
+                            <h3 class="text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Send Test Email
+                            </h3>
+                            <h4 class="text-muted">This commands tests your email configuration.</h4>
+                            <a href="{{ url('/dashboard/command/test-email') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -153,12 +159,14 @@
 @section('javascripts')
     @if (Session::has('output'))
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-          Swal.fire({
-            title: 'Info',
-            icon: 'info',
-            html: '{{ Session::get('output') }}',
-            showCloseButton: true,
-          })
+            Swal.fire({
+                title: 'Info',
+                icon: 'info',
+                html: '{{ Session::get('
+                output ') }}',
+                showCloseButton: true,
+            })
+        
         </script>
     @endif
 @endsection

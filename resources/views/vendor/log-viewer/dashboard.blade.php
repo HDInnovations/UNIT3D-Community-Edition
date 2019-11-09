@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="page-header">Dashboard</h1>
-
+    
     <div class="row">
         <div class="col-md-3">
             <canvas id="stats-doughnut-chart" height="300"></canvas>
@@ -16,7 +16,7 @@
                                 <span class="info-box-icon">
                                     {!! log_styler()->icon($level) !!}
                                 </span>
-
+        
                                 <div class="info-box-content">
                                     <span class="info-box-text">{{ $item['name'] }}</span>
                                     <span class="info-box-number">
@@ -40,7 +40,9 @@
         $(function() {
             new Chart($('canvas#stats-doughnut-chart'), {
                 type: 'doughnut',
-                data: {!! $chartData !!},
+                data: {
+                    !!$chartData!!
+                },
                 options: {
                     legend: {
                         position: 'bottom'
@@ -48,5 +50,6 @@
                 }
             });
         });
+    
     </script>
 @endsection

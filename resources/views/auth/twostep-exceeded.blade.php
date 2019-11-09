@@ -9,7 +9,8 @@
 @endsection
 
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" integrity="{{ Sri::hash('css/main/twostep.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" integrity="{{ Sri::hash('css/main/twostep.css') }}"
+        crossorigin="anonymous">
 @endsection
 
 @section('breadcrumb')
@@ -36,25 +37,24 @@
                             <em>
                                 @lang('auth.lockedUntil')
                             </em>
-                            <br/>
+                            <br />
                             <strong>
                                 {{ $timeUntilUnlock }}
                             </strong>
-                            <br/>
+                            <br />
                             <small>
                                 @lang('auth.tryAgainIn') {{ $timeCountdownUnlock }} &hellip;
                             </small>
                         </h4>
                         <p class="text-center">
                             <a class="btn btn-info" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                               tabindex="6">
-                                <i class="glyphicon glyphicon-home"
-                                   aria-hidden="true"></i> @lang('auth.returnButton')
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                tabindex="6">
+                                <i class="glyphicon glyphicon-home" aria-hidden="true"></i> @lang('auth.returnButton')
                             </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </p>
                     </div>
                 </div>

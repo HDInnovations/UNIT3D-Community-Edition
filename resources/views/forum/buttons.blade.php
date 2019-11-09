@@ -17,7 +17,8 @@
         </a>
     </div>
     <div class="button-right">
-        <span class="badge-user" style="float: right;"><strong>@lang('forum.forums'):</strong> {{ $num_forums }} | <strong>@lang('forum.topics')
+        <span class="badge-user" style="float: right;"><strong>@lang('forum.forums'):</strong> {{ $num_forums }} |
+            <strong>@lang('forum.topics')
                 :</strong> {{ $num_topics }} | <strong>@lang('forum.posts'):</strong> {{ $num_posts }}</span>
     </div>
 </div>

@@ -3,8 +3,8 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('blacklist') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ config('other.title') }} @lang('common.blacklist')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }}
+                @lang('common.blacklist')</span>
         </a>
     </li>
 @endsection
@@ -14,14 +14,16 @@
         <div class="col-md-12 page">
             <div class="header gradient red">
                 <div class="inner_content">
-                    <div class="page-title"><h1>{{ config('other.title') }} @lang('common.blacklist')</h1></div>
+                    <div class="page-title">
+                        <h1>{{ config('other.title') }} @lang('common.blacklist')</h1>
+                    </div>
                 </div>
             </div>
             <div class="alert alert-info" id="alert1">
                 <div class="text-center">
-                <span>
-                    @lang('page.blacklist-desc', ['title' => config('other.title')])
-                </span>
+                    <span>
+                        @lang('page.blacklist-desc', ['title' => config('other.title')])
+                    </span>
                 </div>
             </div>
             <div class="row black-list">

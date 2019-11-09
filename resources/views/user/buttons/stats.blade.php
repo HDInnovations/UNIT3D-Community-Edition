@@ -4,9 +4,9 @@
             @lang('user.profile')
         </a>
         @if(!$user->group || !$user->group->is_immune)
-        <a href="{{ route('user_unsatisfieds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
-            <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> @lang('user.unsatisfieds')
-        </a>
+            <a href="{{ route('user_unsatisfieds', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
+                <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> @lang('user.unsatisfieds')
+            </a>
         @endif
         <a href="{{ route('user_torrents', ['username' => $user->username]) }}" class="btn btn-sm btn-primary">
             @lang('user.torrents')
@@ -24,22 +24,23 @@
             @lang('user.seeds')
         </a>
         @if(auth()->user()->id == $user->id)
-        @if(!$route || $route != 'profile')
-            <a href="{{ route('download_history_torrents', ['username' => $user->username]) }}" role="button" class="btn btn-sm btn-labeled btn-success">
+            @if(!$route || $route != 'profile')
+                <a href="{{ route('download_history_torrents', ['username' => $user->username]) }}" role="button"
+                    class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
-                        <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('torrent.download-all')
+                        <i class='{{ config('other.font-awesome') }} fa-download'></i> @lang('torrent.download-all')
                     </span>
-            </a>
-        @endif
+                </a>
+            @endif
         @endif
     </div>
     <div class="button-right-small">
-            @if(auth()->user()->id == $user->id)
+        @if(auth()->user()->id == $user->id)
             <a href="{{ route('user_settings', ['username' => $user->username]) }}" class="btn btn-sm btn-danger">
                 @lang('user.settings')
             </a>
             <a href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}">
                 <button class="btn btn-sm btn-danger">@lang('user.edit-profile')</button></a>
-            @endif
+        @endif
     </div>
 </div>

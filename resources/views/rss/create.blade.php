@@ -30,32 +30,39 @@
                     </div>
                     <div class="form-group">
                         <label for="search">@lang('torrent.torrent') @lang('torrent.name')</label>
-                        <input type="text" class="form-control" id="search" name="search" placeholder="@lang('torrent.torrent') @lang('torrent.name')">
+                        <input type="text" class="form-control" id="search" name="search"
+                            placeholder="@lang('torrent.torrent') @lang('torrent.name')">
                     </div>
                     <div class="form-group">
                         <label for="description">@lang('torrent.torrent') @lang('torrent.description')</label>
-                        <input type="text" class="form-control" id="description" name="description"  placeholder="@lang('torrent.torrent') @lang('torrent.description')">
+                        <input type="text" class="form-control" id="description" name="description"
+                            placeholder="@lang('torrent.torrent') @lang('torrent.description')">
                     </div>
                     <div class="form-group">
                         <label for="uploader">@lang('torrent.torrent') @lang('torrent.uploader')</label>
-                        <input type="text" class="form-control" id="uploader" name="uploader" placeholder="@lang('torrent.torrent') @lang('torrent.uploader')">
+                        <input type="text" class="form-control" id="uploader" name="uploader"
+                            placeholder="@lang('torrent.torrent') @lang('torrent.uploader')">
                     </div>
-
+    
                     <div class="form-group">
                         <label for="imdb">ID</label>
                         <input type="text" class="form-control" id="imdb" name="imdb" placeholder="IMDB #">
-                        <label for="tvdb"></label><input type="text" class="form-control" id="tvdb" name="tvdb" placeholder="TVDB #">
-                        <label for="tmdb"></label><input type="text" class="form-control" id="tmdb" name="tmdb" placeholder="TMDB #">
-                        <label for="mal"></label><input type="text" class="form-control" id="mal" name="mal" placeholder="MAL #">
+                        <label for="tvdb"></label><input type="text" class="form-control" id="tvdb" name="tvdb"
+                            placeholder="TVDB #">
+                        <label for="tmdb"></label><input type="text" class="form-control" id="tmdb" name="tmdb"
+                            placeholder="TMDB #">
+                        <label for="mal"></label><input type="text" class="form-control" id="mal" name="mal"
+                            placeholder="MAL #">
                     </div>
-
+    
                     <div class="form-group">
                         <label for="category">@lang('torrent.category')</label>
                         <div>
                             @foreach ($torrent_repository->categories() as $id => $category)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}" class="category"> {{ $category }}
+                                        <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}"
+                                            class="category"> {{ $category }}
                                     </label>
                                 </span>
                             @endforeach
@@ -67,7 +74,8 @@
                             @foreach ($torrent_repository->types() as $id => $type)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $type }}" class="type"> {{ $type }}
+                                        <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $type }}" class="type">
+                                        {{ $type }}
                                     </label>
                                 </span>
                             @endforeach
@@ -79,7 +87,8 @@
                             @foreach ($torrent_repository->tags() as $id => $genre)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}" class="genre"> {{ $genre }}
+                                        <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}"
+                                            class="genre"> {{ $genre }}
                                     </label>
                                 </span>
                             @endforeach
@@ -90,64 +99,84 @@
                         <div>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="freeleech" name="freeleech" value="1"> <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> @lang('torrent.freeleech')
+                                    <input type="checkbox" id="freeleech" name="freeleech" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-star text-gold"></span>
+                                    @lang('torrent.freeleech')
                                 </label>
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="doubleupload" name="doubleupload" value="1"> <span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> @lang('torrent.double-upload')
+                                    <input type="checkbox" id="doubleupload" name="doubleupload" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-gem text-green"></span>
+                                    @lang('torrent.double-upload')
                                 </label>
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="featured" name="featured" value="1"> <span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> @lang('torrent.featured')
+                                    <input type="checkbox" id="featured" name="featured" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span>
+                                    @lang('torrent.featured')
                                 </label>
                             </span>
                         </div>
                     </div>
-
+    
                     <div class="form-group">
                         <label for="type">@lang('torrent.special')</label>
                         <div>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="stream" name="stream" value="1"> <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> @lang('torrent.stream-optimized')
+                                    <input type="checkbox" id="stream" name="stream" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-play text-red"></span>
+                                    @lang('torrent.stream-optimized')
                                 </label>
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="highspeed" name="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> @lang('common.high-speeds')
+                                    <input type="checkbox" id="highspeed" name="highspeed" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span>
+                                    @lang('common.high-speeds')
                                 </label>
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                   <input type="checkbox" id="sd" name="sd" value="1"> <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> @lang('torrent.sd-content')
+                                    <input type="checkbox" id="sd" name="sd" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span>
+                                    @lang('torrent.sd-content')
                                 </label>
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="internal" name="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span> @lang('torrent.internal')
+                                    <input type="checkbox" id="internal" name="internal" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></span>
+                                    @lang('torrent.internal')
                                 </label>
                             </span>
                         </div>
                     </div>
-
+    
                     <div class="form-group">
                         <label for="type">@lang('torrent.health')</label>
                         <div>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="alive" name="alive" value="1"> <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> @lang('torrent.alive')
+                                    <input type="checkbox" id="alive" name="alive" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-smile text-green"></span>
+                                    @lang('torrent.alive')
                                 </label>
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="dying" name="dying" value="1"> <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> @lang('torrent.dying-torrent')
+                                    <input type="checkbox" id="dying" name="dying" value="1"> <span
+                                        class="{{ config('other.font-awesome') }} fa-meh text-orange"></span>
+                                    @lang('torrent.dying-torrent')
                                 </label>
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="dead" name="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> @lang('torrent.dead-torrent')
+                                    <input type="checkbox" id="dead" name="dead" value="0"> <span
+                                        class="{{ config('other.font-awesome') }} fa-frown text-red"></span>
+                                    @lang('torrent.dead-torrent')
                                 </label>
                             </span>
                         </div>

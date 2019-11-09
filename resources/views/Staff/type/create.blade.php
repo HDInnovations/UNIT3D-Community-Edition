@@ -22,21 +22,21 @@
     <div class="container box">
         <h2>Add A Torrent Type</h2>
         <form role="form" method="POST" action="{{ route('staff.types.store') }}">
-        @csrf
-        <div class="form-group">
-            <label for="name">@lang('common.name')</label>
-            <label>
-                <input type="text" class="form-control" name="name">
-            </label>
-        </div>
-        <div class="form-group">
-            <label for="name">@lang('common.position')</label>
-            <label>
-                <input type="text" class="form-control" name="position">
-            </label>
-        </div>
-
-        <button type="submit" class="btn btn-default">@lang('common.add')</button>
+            @csrf
+            <div class="form-group">
+                <label for="name">@lang('common.name')</label>
+                <label>
+                    <input type="text" class="form-control" name="name">
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="name">@lang('common.position')</label>
+                <label>
+                    <input type="text" class="form-control" name="position">
+                </label>
+            </div>
+    
+            <button type="submit" class="btn btn-default">@lang('common.add')</button>
         </form>
     </div>
 @endsection

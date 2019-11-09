@@ -3,8 +3,8 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('internal') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ config('other.title') }} @lang('common.internal')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }}
+                @lang('common.internal')</span>
         </a>
     </li>
 @endsection
@@ -14,15 +14,18 @@
         <div class="col-md-12 page">
             <div class="header gradient silver">
                 <div class="inner_content">
-                    <div class="page-title"><h1>{{ config('other.title') }} @lang('common.internal')</h1></div>
+                    <div class="page-title">
+                        <h1>{{ config('other.title') }} @lang('common.internal')</h1>
+                    </div>
                 </div>
             </div>
             <div class="row oper-list">
                 @foreach ($internal as $i)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center oper-item" style="background-color: {{ $i->color }};">
-                            <a href="{{ route('users.show', ['username' => $i->username]) }}"
-                               style="color:#ffffff;"><h1>{{ $i->username }}</h1></a>
+                            <a href="{{ route('users.show', ['username' => $i->username]) }}" style="color:#ffffff;">
+                                <h1>{{ $i->username }}</h1>
+                            </a>
                             <span class="badge-user">@lang('page.staff-group'): {{ $i->name }}</span>
                             <br>
                             <span class="badge-user">@lang('page.staff-title'): {{ $i->title }}</span>

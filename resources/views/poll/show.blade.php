@@ -20,7 +20,8 @@
 @section('content')
     <div class="box container">
         <div class="page-title">
-            <h1>{{ $poll->title }}</h1></div>
+            <h1>{{ $poll->title }}</h1>
+        </div>
         <hr>
         <div class="forum-categories">
             <div class="forum-category">

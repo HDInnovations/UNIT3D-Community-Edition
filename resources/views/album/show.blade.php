@@ -26,8 +26,8 @@
         <div class="block">
             <div class="well">
                 <img class="media-object pull-left" alt="{{ $album->name }}"
-                     src="{{ url('files/img/' . $album->cover_image) }}"
-                     height="175px" width="auto" style="margin-right: 20px;">
+                    src="{{ url('files/img/' . $album->cover_image) }}" height="175px" width="auto"
+                    style="margin-right: 20px;">
                 <div class="media-body">
                     <h2 class="media-heading">Album @lang('common.name'):</h2>
                     <p class="text-bold">{{ $album->name }}</p>
@@ -37,11 +37,12 @@
                         <a href="{{ route('images.create', ['id' => $album->id]) }}">
                             <button type="button" class="btn btn-success btn-md">Add New Image to Album</button>
                         </a>
-                        @if (auth()->user()->group->is_modo || auth()->user()->id == $album->user_id && Carbon\Carbon::now()->lt($album->created_at->addDay()))
-                        <a href="{{ route('albums.destroy', ['id' => $album->id]) }}"
-                           onclick="return confirm('Are you sure?')">
-                            <button type="button" class="btn btn-danger btn-md">@lang('common.delete') Album</button>
-                        </a>
+                        @if (auth()->user()->group->is_modo || auth()->user()->id == $album->user_id &&
+                            Carbon\Carbon::now()->lt($album->created_at->addDay()))
+                            <a href="{{ route('albums.destroy', ['id' => $album->id]) }}"
+                                onclick="return confirm('Are you sure?')">
+                                <button type="button" class="btn btn-danger btn-md">@lang('common.delete') Album</button>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -51,26 +52,29 @@
                     <div class="col-lg-3">
                         <div class="thumbnail" style="max-height: 450px; min-height: 400px;">
                             <img alt="{{ $album->name }}" src="{{ url('files/img/' . $photo->image) }}"
-                                 style="max-height: 300px; min-height: 300px; border: 6px solid rgb(128,128,128); border-radius: 5px;"
-                                 data-image='<img src="{{ url('files/img/' . $photo->image) }}" alt="Poster" style="height: 1000px;">'
-                                 class="show-image">
+                                style="max-height: 300px; min-height: 300px; border: 6px solid rgb(128,128,128); border-radius: 5px;"
+                                data-image='<img src="{{ url('files/img/' . $photo->image) }}" alt="Poster" style="height: 1000px;">'
+                                class="show-image">
                             <div class="caption text-center">
                                 <h4 class="label label-success">{{ $photo->type }}</h4>
                                 <br>
                                 <h4 class="badge badge-user"> Uploaded By: {{ $photo->user->username }}</h4>
                                 <br>
-                                <button type="button" class="btn btn-sm"><i class="{{ config('other.font-awesome') }} fa-heart text-pink"> </i>
+                                <button type="button" class="btn btn-sm"><i
+                                        class="{{ config('other.font-awesome') }} fa-heart text-pink"> </i>
                                 </button>
                                 <a href="{{ route('images.download', ['id' => $photo->id]) }}">
-                                <button type="button" class="btn btn-sm"><i
-                                            class="{{ config('other.font-awesome') }} fa-download text-green"> {{ $photo->downloads }}</i>
-                                </button>
-                                </a>
-                                @if (auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)
-                                <a href="{{ route('images.destroy', ['id' => $photo->id]) }}">
-                                    <button type="button" class="btn btn-sm"><i class="{{ config('other.font-awesome') }} fa-times text-red"> </i>
+                                    <button type="button" class="btn btn-sm"><i
+                                            class="{{ config('other.font-awesome') }} fa-download text-green">
+                                            {{ $photo->downloads }}</i>
                                     </button>
                                 </a>
+                                @if (auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)
+                                    <a href="{{ route('images.destroy', ['id' => $photo->id]) }}">
+                                        <button type="button" class="btn btn-sm"><i
+                                                class="{{ config('other.font-awesome') }} fa-times text-red"> </i>
+                                        </button>
+                                    </a>
                                 @endif
                             </div>
                         </div>
@@ -82,22 +86,23 @@
 @endsection
 
 @section('javascripts')
-<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-  $('.show-image').click(function(e) {
-    e.preventDefault();
-
-    var name = $(this).attr('data-name');
-    var image = $(this).attr('data-image');
-
-    Swal.fire({
-      showConfirmButton: false,
-      showCloseButton: true,
-      background: '#232323',
-      width: 1200,
-      html: image,
-      title: name,
-      text: '',
-    });
-  });
-</script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+        $('.show-image').click(function(e) {
+            e.preventDefault();
+    
+            var name = $(this).attr('data-name');
+            var image = $(this).attr('data-image');
+    
+            Swal.fire({
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: '#232323',
+                width: 1200,
+                html: image,
+                title: name,
+                text: '',
+            });
+        });
+    
+    </script>
 @endsection

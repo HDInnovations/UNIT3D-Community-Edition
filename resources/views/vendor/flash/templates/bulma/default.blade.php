@@ -2,8 +2,8 @@
     @foreach (session()->pull('flash_notification.messages') as $message)
         @if ($message['overlay'])
             @include('flash::templates.bulma.modal', [
-                'title' => $message['title'],
-                'body'  => $message['message']
+            'title' => $message['title'],
+            'body' => $message['message']
             ])
         @else
             @if (isset($message['title']) || is_a($message['message'], 'Illuminate\Support\MessageBag'))
@@ -31,7 +31,7 @@
             @else
                 <div class="notification is-{{ $message['level'] }}">
                     <button class="delete" class="bulma-close-notification"></button>
-
+                
                     <p>{!! $message['message'] !!}</p>
                 </div>
             @endif

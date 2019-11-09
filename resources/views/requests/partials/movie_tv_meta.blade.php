@@ -1,6 +1,6 @@
 <div class="movie-wrapper">
     <div class="movie-backdrop"
-         style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
+        style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
         <div class="tags">
             {{ $torrentRequest->category->name }}
         </div>
@@ -29,7 +29,7 @@
                     @if ($meta->genres)
                         @foreach ($meta->genres as $genre)
                             <span class="badge-user text-bold text-green">
-                                <i class="{{ config("other.font-awesome") }} fa-tag"></i> {{ $genre }}
+                                <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre }}
                             </span>
                         @endforeach
                     @endif
@@ -44,7 +44,8 @@
 
                     @if ($meta->runtime )
                         <span class="badge-user text-bold text-orange">
-                            @lang('torrent.runtime'): {{ $meta->runtime }} @lang('common.minute')@lang('common.plural-suffix')
+                            @lang('torrent.runtime'): {{ $meta->runtime }}
+                            @lang('common.minute')@lang('common.plural-suffix')
                         </span>
                     @endif
 
@@ -63,41 +64,50 @@
                 </span>
 
                 <span class="movie-details">
-                    @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta && $torrentRequest->imdb != 0 && $torrentRequest->imdb != null)
+                    @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta &&
+                        $torrentRequest->imdb != 0 && $torrentRequest->imdb != null)
                         <span class="badge-user text-bold text-orange">
                             <a href="https://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB" target="_blank">
-                                <i class="{{ config("other.font-awesome") }} fa-film"></i> IMDB: {{ $torrentRequest->imdb }}
+                                <i class="{{ config('other.font-awesome') }} fa-film"></i> IMDB: {{ $torrentRequest->imdb }}
                             </a>
                         </span>
                     @endif
 
-                    @if ($torrentRequest->category->tv_meta && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
+                    @if ($torrentRequest->category->tv_meta && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb !=
+                        null)
                         <span class="badge-user text-bold text-orange">
-                            <a href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}" title="TheMovieDatabase" target="_blank">
-                                <i class="{{ config("other.font-awesome") }} fa-film"></i> TMDB: {{ $meta->tmdb }}
+                            <a href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}" title="TheMovieDatabase"
+                                target="_blank">
+                                <i class="{{ config('other.font-awesome') }} fa-film"></i> TMDB: {{ $meta->tmdb }}
                             </a>
                         </span>
                     @endif
 
-                    @if ($torrentRequest->category->movie_meta && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
+                    @if ($torrentRequest->category->movie_meta && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb !=
+                        null)
                         <span class="badge-user text-bold text-orange">
-                            <a href="https://www.themoviedb.org/movie/{{ $meta->tmdb }}" title="TheMovieDatabase" target="_blank">
-                                <i class="{{ config("other.font-awesome") }} fa-film"></i> TMDB: {{ $meta->tmdb }}
+                            <a href="https://www.themoviedb.org/movie/{{ $meta->tmdb }}" title="TheMovieDatabase"
+                                target="_blank">
+                                <i class="{{ config('other.font-awesome') }} fa-film"></i> TMDB: {{ $meta->tmdb }}
                             </a>
                         </span>
                     @endif
 
-                    @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta && $torrentRequest->mal != 0 && $torrentRequest->mal != null)
+                    @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta &&
+                        $torrentRequest->mal != 0 && $torrentRequest->mal != null)
                         <span class="badge-user text-bold text-pink">
                             <a href="https://myanimelist.net/anime/{{ $torrentRequest->mal }}" title="MAL" target="_blank">
-                                <i class="{{ config("other.font-awesome") }} fa-film"></i> MAL: {{ $torrentRequest->mal }}</a>
+                                <i class="{{ config('other.font-awesome') }} fa-film"></i> MAL:
+                                {{ $torrentRequest->mal }}</a>
                         </span>
                     @endif
 
-                    @if ($torrentRequest->category->tv_meta && $torrentRequest->tvdb != 0 && $torrentRequest->tvdb != null)
+                    @if ($torrentRequest->category->tv_meta && $torrentRequest->tvdb != 0 && $torrentRequest->tvdb !=
+                        null)
                         <span class="badge-user text-bold text-pink">
-                            <a href="https://www.thetvdb.com/?tab=series&id={{ $torrentRequest->tvdb }}" title="TVDB" target="_blank">
-                                <i class="{{ config("other.font-awesome") }} fa-film"></i> TVDB: {{ $torrentRequest->tvdb }}
+                            <a href="https://www.thetvdb.com/?tab=series&id={{ $torrentRequest->tvdb }}" title="TVDB"
+                                target="_blank">
+                                <i class="{{ config('other.font-awesome') }} fa-film"></i> TVDB: {{ $torrentRequest->tvdb }}
                             </a>
                         </span>
                     @endif
@@ -112,12 +122,14 @@
 
                     <div class="row cast-list">
                         @if ($meta->actors)
-                            @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
+                            @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'),
+                            config('api-keys.omdb')); @endphp
                             @foreach (array_slice($meta->actors, 0,6) as $actor)
-                                @php $person = $client->person($actor->tmdb); @endphp
+                        @php $person = $client->person($actor->tmdb); @endphp
                                 <div class="col-xs-4 col-md-2 text-center">
                                     <img class="img-people" src="{{ $person->photo }}" alt="{{ $actor->name }}">
-                                    <a href="https://www.themoviedb.org/person/{{ $actor->tmdb }}" title="TheMovieDatabase" target="_blank">
+                                    <a href="https://www.themoviedb.org/person/{{ $actor->tmdb }}" title="TheMovieDatabase"
+                                        target="_blank">
                                         <span class="badge-user" style="white-space:normal;">
                                             <strong>{{ $actor->name }}</strong>
                                         </span>
@@ -131,7 +143,7 @@
 
             <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
                 <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="{{ $meta->title }}"
-                     class="movie-poster img-responsive hidden-xs">
+                    class="movie-poster img-responsive hidden-xs">
             </div>
 
         </div>

@@ -31,53 +31,53 @@
                     <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-ban"></i> Bans</strong></p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>@lang('common.user')</th>
-                            <th>Judge</th>
-                            <th>Ban Reason</th>
-                            <th>Unban Reason</th>
-                            <th>Created</th>
-                            <th>Removed</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if (count($bans) == 0)
-                            <p>The are no bans in database</p>
-                        @else
-                            @foreach ($bans as $b)
+                            <thead>
                                 <tr>
-                                    <td>
-                                        {{ $b->id }}
-                                    </td>
-                                    <td class="user-name">
-                                        <a class="name"
-                                           href="{{ route('users.show', ['username' => $b->banneduser->username]) }}">{{ $b->banneduser->username }}</a>
-                                    </td>
-                                    <td class="user-name">
-                                        <a class="name"
-                                           href="{{ route('users.show', ['username' => $b->staffuser->username]) }}">{{ $b->staffuser->username }}</a>
-                                    </td>
-                                    <td>
-                                        {{ $b->ban_reason }}
-                                    </td>
-                                    <td>
-                                        {{ $b->unban_reason }}
-                                    </td>
-                                    <td>
-                                        {{ $b->created_at }}
-                                    </td>
-                                    <td>
-                                        {{ $b->removed_at }}
-                                    </td>
+                                    <th>ID</th>
+                                    <th>@lang('common.user')</th>
+                                    <th>Judge</th>
+                                    <th>Ban Reason</th>
+                                    <th>Unban Reason</th>
+                                    <th>Created</th>
+                                    <th>Removed</th>
                                 </tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (count($bans) == 0)
+                                    <p>The are no bans in database</p>
+                                @else
+                                    @foreach ($bans as $b)
+                                        <tr>
+                                            <td>
+                                                {{ $b->id }}
+                                            </td>
+                                            <td class="user-name">
+                                                <a class="name"
+                                                    href="{{ route('users.show', ['username' => $b->banneduser->username]) }}">{{ $b->banneduser->username }}</a>
+                                            </td>
+                                            <td class="user-name">
+                                                <a class="name"
+                                                    href="{{ route('users.show', ['username' => $b->staffuser->username]) }}">{{ $b->staffuser->username }}</a>
+                                            </td>
+                                            <td>
+                                                {{ $b->ban_reason }}
+                                            </td>
+                                            <td>
+                                                {{ $b->unban_reason }}
+                                            </td>
+                                            <td>
+                                                {{ $b->created_at }}
+                                            </td>
+                                            <td>
+                                                {{ $b->removed_at }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="text-center">
                 {{ $bans->links() }}
