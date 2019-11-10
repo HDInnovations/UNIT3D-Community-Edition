@@ -94,7 +94,7 @@ class NerdBot
             cache()->put('nerdbot-banker', $banker, $this->expiresAt);
         }
 
-        return "Currently [url=/{$banker->slug}.{$banker->id}]{$banker->username}[/url] Is The Top BON Holder On ".config('other.title').'!';
+        return "Currently [url=/users/{$banker->username}]{$banker->username}[/url] Is The Top BON Holder On ".config('other.title').'!';
     }
 
     /**
@@ -110,7 +110,7 @@ class NerdBot
             cache()->put('nerdbot-snatched', $snatched, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$snatched->slug}.{$snatched->id}]{$snatched->name}[/url] Is The Most Snatched Torrent On ".config('other.title').'!';
+        return "Currently [url=/torrents/{$snatched->id}]{$snatched->name}[/url] Is The Most Snatched Torrent On ".config('other.title').'!';
     }
 
     /**
@@ -126,7 +126,7 @@ class NerdBot
             cache()->put('nerdbot-leeched', $leeched, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$leeched->slug}.{$leeched->id}]{$leeched->name}[/url] Is The Most Leeched Torrent On ".config('other.title').'!';
+        return "Currently [url=/torrents/{$leeched->id}]{$leeched->name}[/url] Is The Most Leeched Torrent On ".config('other.title').'!';
     }
 
     /**
@@ -142,7 +142,7 @@ class NerdBot
             cache()->put('nerdbot-seeded', $seeded, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$seeded->slug}.{$seeded->id}]{$seeded->name}[/url] Is The Most Seeded Torrent On ".config('other.title').'!';
+        return "Currently [url=/torrents/{$seeded->id}]{$seeded->name}[/url] Is The Most Seeded Torrent On ".config('other.title').'!';
     }
 
     /**
