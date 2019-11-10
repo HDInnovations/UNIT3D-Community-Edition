@@ -24,18 +24,23 @@
                         <span class="notification-ago">{{ $notification->created_at->diffForHumans() }}</span>
                     </td>
                     <td>
-                        <a href="{{ route('notifications.update', ['id' => $notification->id]) }}">
-                            <button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip"
-                                data-original-title="@lang('notification.mark-read')" @if ($notification->read_at != null)
-                                disabled @endif><i class="{{ config('other.font-awesome') }} fa-eye"></i></button>
-                        </a>
+                        <form action="{{ route('notifications.update', ['id' => $notification->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-xxs btn-success" data-toggle="tooltip"
+                                    data-original-title="@lang('notification.mark-read')" @if ($notification->read_at != null) disabled @endif>
+                                <i class="{{ config('other.font-awesome') }} fa-eye"></i>
+                            </button>
+                        </form>
                     </td>
                     <td>
-                        <a href="{{ route('notifications.destroy', ['id' => $notification->id]) }}">
-                            <button type="button" class="btn btn-xxs btn-danger" data-toggle="tooltip"
-                                data-original-title="@lang('notification.delete')"><i
-                                    class="{{ config('other.font-awesome') }} fa-times"></i></button>
-                        </a>
+                        <form action="{{ route('notifications.destroy', ['id' => $notification->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-xxs btn-danger" data-toggle="tooltip"
+                                    data-original-title="@lang('notification.delete')">
+                                <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @empty
