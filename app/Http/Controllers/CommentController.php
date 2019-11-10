@@ -493,7 +493,7 @@ class CommentController extends Controller
             $thankArray = [
                 'Thanks for the upload! :thumbsup_tone2:',
                 'Time and effort is much appreciated :thumbsup_tone2:',
-                'Great upload! :fire:', 'Thankyou :smiley:',
+                'Great upload! :fire:', 'Thank you :smiley:',
             ];
         } else {
             $uploader = User::where('id', '=', $torrent->user_id)->first();
