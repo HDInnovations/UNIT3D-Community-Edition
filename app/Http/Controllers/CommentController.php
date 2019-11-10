@@ -75,7 +75,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('articles.show', ['id' => $article->id])
-                ->withErros('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Benn Revoked!');
         }
 
         $comment = new Comment();
@@ -175,7 +175,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('playlists.show', ['id' => $playlist->id])
-                ->withErros('Your Comment Rights Have Been Revoked!');
+                ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
         $comment = new Comment();
@@ -275,7 +275,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErros('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Benn Revoked!');
         }
 
         $comment = new Comment();
@@ -380,7 +380,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->withErros('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Benn Revoked!');
         }
 
         $comment = new Comment();
@@ -484,7 +484,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErros('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Benn Revoked!');
         }
 
         $comment = new Comment();
@@ -493,7 +493,7 @@ class CommentController extends Controller
             $thankArray = [
                 'Thanks for the upload! :thumbsup_tone2:',
                 'Time and effort is much appreciated :thumbsup_tone2:',
-                'Great upload! :fire:', 'Thankyou :smiley:',
+                'Great upload! :fire:', 'Thank you :smiley:',
             ];
         } else {
             $uploader = User::where('id', '=', $torrent->user_id)->first();

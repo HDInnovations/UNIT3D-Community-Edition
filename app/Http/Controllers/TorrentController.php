@@ -1403,7 +1403,7 @@ class TorrentController extends Controller
                 // Announce To Shoutbox
                 if ($anon == 0) {
                     $this->chat->systemMessage(
-                        "User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        "User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 } else {
                     $this->chat->systemMessage(

@@ -349,9 +349,6 @@ class GitUpdater extends Command
         $additional = [
             '.env',
             'laravel-echo-server.json',
-            'public/files',
-            'public/img/emojione',
-            'public/img/joypixels',
         ];
 
         return array_merge($paths, $additional);

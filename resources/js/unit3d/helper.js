@@ -962,7 +962,7 @@ class torrentBookmarkBuilder {
         torrentBookmarkXHR = new XMLHttpRequest();
 
         torrentBookmarkXHR = $.ajax({
-            url: '/bookmarks/' + id,
+            url: '/bookmarks/' + id + '/store',
             data: {
                 _token: this.csrf,
             },
@@ -1001,7 +1001,7 @@ class torrentBookmarkBuilder {
         torrentBookmarkXHR = new XMLHttpRequest();
 
         torrentBookmarkXHR = $.ajax({
-            url: '/bookmarks/' + id,
+            url: '/bookmarks/' + id + '/destroy',
             data: {
                 _token: this.csrf,
                 _method: 'DELETE',
