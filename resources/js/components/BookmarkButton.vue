@@ -28,7 +28,7 @@ export default {
     methods: {
         bookmark(id) {
             axios
-                .post('/bookmarks/' + id)
+                .post('/bookmarks/' + id + '/store')
                 .then(response => {
                     this.bookmarked = true;
 
@@ -47,7 +47,7 @@ export default {
 
         unBookmark(id) {
             axios
-                .delete('/bookmarks/' + id)
+                .delete('/bookmarks/' + id + '/destroy')
                 .then(response => {
                     this.bookmarked = false;
 
