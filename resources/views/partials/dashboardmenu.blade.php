@@ -18,7 +18,8 @@
             @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="{{ route('staff.backups.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup') @lang('backup.manager')
+                        <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup')
+                        @lang('backup.manager')
                     </a>
                 </li>
                 <li>
@@ -147,7 +148,8 @@
             </li>
             <li>
                 <a href="{{ route('staff.cheaters.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('staff.possible-leech-cheaters')
+                    <i class="{{ config('other.font-awesome') }} fa-question"></i>
+                    @lang('staff.possible-leech-cheaters')
                 </a>
             </li>
             <li>

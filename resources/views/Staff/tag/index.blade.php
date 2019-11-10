@@ -17,7 +17,7 @@
     <div class="container box">
         <h2>Tags (Genres)</h2>
         <a href="{{ route('staff.tags.create') }}" class="btn btn-primary">Add A Torrent Tag</a>
-
+    
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>

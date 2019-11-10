@@ -12,8 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff.tags.edit', ['id' => $tag->id]) }}" itemprop="url"
-           class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.tags.edit', ['id' => $tag->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Tag</span>
         </a>
     </li>
@@ -24,14 +23,14 @@
         <h2>@lang('common.edit') A Torrent Tag (Genre)</h2>
         <form role="form" method="POST" action="{{ route('staff.types.update', ['id' => $tag->id]) }}">
             @csrf
-
+    
             <div class="form-group">
                 <label for="name">@lang('common.name')</label>
                 <label>
                     <input type="text" class="form-control" name="name" value="{{ $tag->name }}">
                 </label>
             </div>
-
+    
             <button type="submit" class="btn btn-default">
                 {{ trans('common.submit') }}
             </button>

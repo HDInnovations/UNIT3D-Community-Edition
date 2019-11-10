@@ -29,12 +29,12 @@
                     <input type="text" name="name" class="form-control">
                 </label>
             </div>
-
+    
             <div class="form-group">
                 <label for="content">Content</label>
                 <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
             </div>
-
+    
             <button type="submit" class="btn btn-default">Save</button>
         </form>
     </div>
@@ -42,9 +42,10 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#content').wysibb({});
-        emoji.textcomplete()
-      })
+        $(document).ready(function() {
+            $('#content').wysibb({});
+            emoji.textcomplete()
+        })
+    
     </script>
 @endsection

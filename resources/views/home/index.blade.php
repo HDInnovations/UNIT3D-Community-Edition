@@ -3,11 +3,11 @@
 @section('content')
     <div class="container-fluid">
         @include('blocks.news')
-
+    
         @if (!auth()->user()->chat_hidden)
             @include('blocks.chat')
         @endif
-
+    
         @include('blocks.featured')
         @include('blocks.poll')
         @include('blocks.top_torrents')

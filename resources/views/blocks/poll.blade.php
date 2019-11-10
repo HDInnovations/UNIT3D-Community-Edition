@@ -3,7 +3,8 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4><i class="{{ config("other.font-awesome") }} fa-chart-pie"></i> Latest Poll ({{ $poll->title }}) (Vote Now!)</h4>
+                <h4><i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> Latest Poll ({{ $poll->title }}) (Vote
+                    Now!)</h4>
             </div>
             <div class="panel-body">
                 <div class="forum-categories">
@@ -11,7 +12,7 @@
                         <div class="forum-category-title col-md-12">
                             <div class="forum-category-childs">
                                 <form class="form-horizontal" method="POST" action="/poll/vote">
-                                @csrf
+                                    @csrf
                                     @if (count($errors) > 0)
                                         <div class="alert alert-danger">
                                             <ul>
@@ -21,16 +22,15 @@
                                             </ul>
                                         </div>
                                     @endif
-
+    
                                     {!! csrf_field() !!}
-
+    
                                     @if ($poll->multiple_choice)
                                         @foreach ($poll->options as $option)
                                             <a class="forum-category-childs-forum col-md-4">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="option[]"
-                                                               value="{{ $option->id }}">
+                                                        <input type="checkbox" name="option[]" value="{{ $option->id }}">
                                                         <span class="badge-user">{{ $option->name }}</span>
                                                     </label>
                                                 </div>
@@ -41,19 +41,17 @@
                                             <a class="forum-category-childs-forum col-md-4">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="option[]" value="{{ $option->id }}"
-                                                               required>
+                                                        <input type="radio" name="option[]" value="{{ $option->id }}" required>
                                                         <span class="badge-user">{{ $option->name }}</span>
                                                     </label>
                                                 </div>
                                             </a>
                                         @endforeach
                                     @endif
-
+    
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <button type="submit"
-                                                    class="btn btn-primary">@lang('poll.vote')</button>
+                                            <button type="submit" class="btn btn-primary">@lang('poll.vote')</button>
                                         </div>
                                     </div>
                                 </form>
@@ -68,4 +66,3 @@
         </div>
     </div>
 @endif
-

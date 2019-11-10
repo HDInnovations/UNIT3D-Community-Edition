@@ -11,9 +11,9 @@
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
-                <a href="{{ route('inbox') }}"
-                   class="dropdown-toggle icon-circle">
+                @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read',
+                '=', '0')->count(); @endphp
+                <a href="{{ route('inbox') }}" class="dropdown-toggle icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-blue"></i>
                     @if ($pm > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
@@ -40,7 +40,7 @@
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                     <a href="{{ route('staff.moderation.index') }}" class="icon-circle">
                         <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>
-                        @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
+                    @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
                         @if ($modder > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                         @endif
@@ -52,19 +52,19 @@
         <ul class="right-navbar">
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span>
-                <img src="{{ url('img/flags/'.auth()->user()->locale).'.png' }}" alt="flag" class="img-circle {{ auth()->user()->locale }}"/>
-            </span>
+                    <span>
+                        <img src="{{ url('img/flags/' . auth()->user()->locale) . '.png' }}" alt="flag"
+                            class="img-circle {{ auth()->user()->locale }}" />
+                    </span>
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu">
                     @foreach (App\Models\Language::allowed() as $code => $name)
                         <li class="{{ config('language.flags.li_class') }}">
                             <a href="{{ route('back', [$code]) }}">
-                                <img src="{{ url('img/flags/'.$code.'.png') }}" alt="{{ $name }}"
-                                     class="img-circle {{ $code }}"
-                                     width="{{ config('language.flags.width') }}"/>
-                                    {{ $name }}
+                                <img src="{{ url('img/flags/' . $code . '.png') }}" alt="{{ $name }}"
+                                    class="img-circle {{ $code }}" width="{{ config('language.flags.width') }}" />
+                                {{ $name }}
                                 @if (auth()->user()->locale == $code)
                                     <span class="text-orange text-bold">(@lang('common.active')!)</span>
                                 @endif
@@ -75,14 +75,14 @@
             </li>
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <span>
-            @if (auth()->user()->image != null)
-                  <img src="{{ url('files/img/' . auth()->user()->image) }}" alt="{{ auth()->user()->username }}"
-                       class="img-circle">
-              @else
-                  <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
-              @endif
-          </span>
+                    <span>
+                        @if (auth()->user()->image != null)
+                            <img src="{{ url('files/img/' . auth()->user()->image) }}" alt="{{ auth()->user()->username }}"
+                                class="img-circle">
+                        @else
+                            <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
+                        @endif
+                    </span>
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu ">
@@ -107,18 +107,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('bookmarks.index',['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('bookmarks.index', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_requested',['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('user_requested', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('user.my-requested')
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('wishes.index', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
+                            @lang('user.my-wishlist')
                         </a>
                     </li>
                     <li>

@@ -32,12 +32,12 @@
                     <input type="text" class="form-control" name="subject">
                 </label>
             </div>
-
+    
             <div class="form-group">
                 <label for="message">Message</label>
                 <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
             </div>
-
+    
             <button type="submit" class="btn btn-default">Send</button>
         </form>
     </div>
@@ -45,9 +45,10 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#message').wysibb({});
-        emoji.textcomplete()
-      })
+        $(document).ready(function() {
+            $('#message').wysibb({});
+            emoji.textcomplete()
+        })
+    
     </script>
 @endsection

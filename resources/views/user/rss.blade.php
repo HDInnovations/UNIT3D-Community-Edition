@@ -19,6 +19,6 @@
                 <label>
                     <input type="checkbox" name="labour_types[]" value="{{ $id }}"> {{ $name }}
                 </label>
-            <div>
-         @endforeach
-@endsection
+                <div>
+                @endforeach
+            @endsection

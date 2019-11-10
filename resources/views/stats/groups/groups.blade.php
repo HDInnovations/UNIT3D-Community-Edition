@@ -23,16 +23,21 @@
         <div class="block">
             <h2>@lang('stat.groups')</h2>
             <hr>
-            <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('stat.groups')</strong>
+            <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-users"></i>
+                    @lang('stat.groups')</strong>
                 (@lang('stat.users-per-group'))</p>
             <div class="row col-md-offset-2">
                 @foreach ($groups as $group)
                     <div class="well col-md-3" style="margin: 10px;">
                         <div class="text-center">
-                            <a href="{{ route('group', ['id' => $group->id]) }}"><h2 style="color:{{ $group->color }};">
+                            <a href="{{ route('group', ['id' => $group->id]) }}">
+                                <h2 style="color:{{ $group->color }};">
                                     <i class="{{ $group->icon }}" aria-hidden="true"></i>&nbsp;{{ $group->name }}</h2>
                             </a>
-                            <p class="lead text-blue">{{ $group->users()->withTrashed()->count() }} Users</p>
+                            <p class="lead text-blue">{{ $group
+                                        ->users()
+                                        ->withTrashed()
+                                        ->count() }} Users</p>
                         </div>
                     </div>
                 @endforeach

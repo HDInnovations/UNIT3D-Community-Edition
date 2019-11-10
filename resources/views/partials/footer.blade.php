@@ -1,6 +1,6 @@
 @php $bg = rand(1, 13); $bgchange = $bg.".jpg"; @endphp
 <br>
-<div id="l-footer" style="background-image: url('/img/footer/<?php echo $bgchange; ?>');">
+<div id="l-footer" style="background-image: url('/img/footer/{{ $bgchange }}');">
     <div class="container">
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title"><span class="text-bold">{{ config('other.title') }}</span></h2>
@@ -13,13 +13,14 @@
             <h2 class="l-footer-section-title">@lang('common.account')</h2>
             <ul>
                 <li>
-                    <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">@lang('user.my-profile')</a>
+                    <a
+                        href="{{ route('users.show', ['username' => auth()->user()->username]) }}">@lang('user.my-profile')</a>
                 </li>
                 <li>
                     <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                          style="display: none;">@csrf</form>
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('common.logout')</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf
+                    </form>
                 </li>
             </ul>
         </div>
@@ -33,14 +34,14 @@
         </div>
 
         @if ($pages)
-        <div class="col-md-2 l-footer-section">
-            <h2 class="l-footer-section-title">@lang('common.pages')</h2>
-            <ul>
-                @foreach ($pages as $page)
-                    <li><a href="{{ route('pages.show', ['id' => $page->id]) }}">{{ $page->name }}</a></li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="col-md-2 l-footer-section">
+                <h2 class="l-footer-section-title">@lang('common.pages')</h2>
+                <ul>
+                    @foreach ($pages as $page)
+                        <li><a href="{{ route('pages.show', ['id' => $page->id]) }}">{{ $page->name }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <div class="col-md-2 l-footer-section">
@@ -63,20 +64,20 @@
             <h2 class="l-footer-section-title">@lang('common.other')</h2>
             <ul>
                 <li><a href="https://github.com/sponsors/HDVinnie" target="_blank"
-                    class="btn btn-xs btn-primary">@lang('common.sponsor')</a></li>
-                <li><a href="https://github.com/HDInnovations/UNIT3D" target="_blank" 
-                    class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
+                        class="btn btn-xs btn-primary">@lang('common.sponsor')</a></li>
+                <li><a href="https://github.com/HDInnovations/UNIT3D" target="_blank"
+                        class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<div class="subfooter text-center"style="background-color: #2e2e2e;">
+<div class="subfooter text-center" style="background-color: #2e2e2e;">
     <div class="container">
         <div class="subfooter-inner">
             <div class="row">
                 <div class="col-md-12">
-                    <span>This page took {{ (microtime(true) - LARAVEL_START) }} seconds to render.</span>
+                    <span>This page took {{ microtime(true) - LARAVEL_START }} seconds to render.</span>
                 </div>
             </div>
         </div>

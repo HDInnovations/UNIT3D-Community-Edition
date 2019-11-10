@@ -28,26 +28,30 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-question"></i> Possible Leech Cheaters</strong></p>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-question"></i> Possible
+                            Leech Cheaters</strong></p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
-                            <tr>
-                                <th>@lang('common.user')</th>
-                                <th>Group</th>
-                                <th>Joined</th>
-                                <th>Last Login</th>
-                            </tr>
+                                <tr>
+                                    <th>@lang('common.user')</th>
+                                    <th>Group</th>
+                                    <th>Joined</th>
+                                    <th>Last Login</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($cheaters as $cheater)
                                     <tr>
                                         <td>
-                                            <a class="text-bold" href="{{ route('users.show', ['username' => $cheater->user->username]) }}">{{ $cheater->user->username }}</a>
+                                            <a class="text-bold"
+                                                href="{{ route('users.show', ['username' => $cheater->user->username]) }}">{{ $cheater->user->username }}</a>
                                         </td>
                                         <td>
-                                            <span class="badge-user text-bold" style="color:{{ $cheater->user->group->color }}; background-image:{{ $cheater->user->group->effect }};">
-                                                <i class="{{ $cheater->user->group->icon }}" data-toggle="tooltip" data-original-title="{{ $cheater->user->group->name }}"></i>
+                                            <span class="badge-user text-bold"
+                                                style="color:{{ $cheater->user->group->color }}; background-image:{{ $cheater->user->group->effect }};">
+                                                <i class="{{ $cheater->user->group->icon }}" data-toggle="tooltip"
+                                                    data-original-title="{{ $cheater->user->group->name }}"></i>
                                                 {{ $cheater->user->group->name }}
                                             </span>
                                         </td>

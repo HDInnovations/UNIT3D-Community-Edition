@@ -29,70 +29,73 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h2>Invites Sent <span class="text-blue"><strong><i
-                                        class="{{ config('other.font-awesome') }} fa-note"></i> {{ $invitecount }} </strong></span></h2>
+                                    class="{{ config('other.font-awesome') }} fa-note"></i> {{ $invitecount }}
+                            </strong></span></h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>Sender</th>
-                            <th>Email</th>
-                            <th>Code</th>
-                            <th>Created On</th>
-                            <th>Expires On</th>
-                            <th>Accepted By</th>
-                            <th>Accepted At</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if (count($invites) == 0)
-                            <p>The are no invite logs in the database for this user!</p>
-                        @else
-                            @foreach ($invites as $invite)
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <a href="{{ route('users.show', ['username' => $invite->sender->username]) }}">
-                                            <span class="text-bold" style="color:{{ $invite->sender->group->color }}; ">
-                                                <i class="{{ $invite->sender->group->icon }}"></i> {{ $invite->sender->username }}
-                                            </span>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ $invite->email }}
-                                    </td>
-                                    <td>
-                                        {{ $invite->code }}
-                                    </td>
-                                    <td>
-                                        {{ $invite->created_at }}
-                                    </td>
-                                    <td>
-                                        {{ $invite->expires_on }}
-                                    </td>
-                                    <td>
-                                        @if ($invite->accepted_by != null && $invite->accepted_by != 1)
-                                            <a href="{{ route('users.show', ['username' => $invite->receiver->username]) }}">
-                                                <span class="text-bold" style="color:{{ $invite->receiver->group->color }}; ">
-                                                    <i class="{{ $invite->receiver->group->icon }}"></i> {{ $invite->receiver->username }}
-                                                </span>
-                                            </a>
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($invite->accepted_at != null)
-                                            {{ $invite->accepted_at }}
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
+                                    <th>Sender</th>
+                                    <th>Email</th>
+                                    <th>Code</th>
+                                    <th>Created On</th>
+                                    <th>Expires On</th>
+                                    <th>Accepted By</th>
+                                    <th>Accepted At</th>
                                 </tr>
-                            @endforeach
-                        @endif
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if (count($invites) == 0)
+                                    <p>The are no invite logs in the database for this user!</p>
+                                @else
+                                    @foreach ($invites as $invite)
+                                        <tr>
+                                            <td>
+                                                <a href="{{ route('users.show', ['username' => $invite->sender->username]) }}">
+                                                    <span class="text-bold" style="color:{{ $invite->sender->group->color }}; ">
+                                                        <i class="{{ $invite->sender->group->icon }}"></i>
+                                                        {{ $invite->sender->username }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{ $invite->email }}
+                                            </td>
+                                            <td>
+                                                {{ $invite->code }}
+                                            </td>
+                                            <td>
+                                                {{ $invite->created_at }}
+                                            </td>
+                                            <td>
+                                                {{ $invite->expires_on }}
+                                            </td>
+                                            <td>
+                                                @if ($invite->accepted_by != null && $invite->accepted_by != 1)
+                                                    <a href="{{ route('users.show', ['username' => $invite->receiver->username]) }}">
+                                                        <span class="text-bold" style="color:{{ $invite->receiver->group->color }}; ">
+                                                            <i class="{{ $invite->receiver->group->icon }}"></i>
+                                                            {{ $invite->receiver->username }}
+                                                        </span>
+                                                    </a>
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($invite->accepted_at != null)
+                                                    {{ $invite->accepted_at }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="text-center">
                 {{ $invites->links() }}

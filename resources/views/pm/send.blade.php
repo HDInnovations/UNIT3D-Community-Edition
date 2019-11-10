@@ -26,23 +26,24 @@
                         <div class="form-group">
                             <label for="users">@lang('common.username')</label>
                             <label>
-                                <input name="receiver_id" class="form-control" placeholder="@lang('common.username')" required>
+                                <input name="receiver_id" class="form-control" placeholder="@lang('common.username')"
+                                    required>
                             </label>
                         </div>
-
+    
                         <div class="form-group">
                             <label for="">@lang('pm.subject')</label>
                             <label>
-                                <input name="subject" class="form-control" placeholder="@lang('pm.enter-subject')"
-                                       required>
+                                <input name="subject" class="form-control" placeholder="@lang('pm.enter-subject')" required>
                             </label>
                         </div>
-
+    
                         <div class="form-group">
                             <label for="">@lang('pm.message')</label>
-                            <label for="message"></label><textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
+                            <label for="message"></label><textarea id="message" name="message" cols="30" rows="10"
+                                class="form-control"></textarea>
                         </div>
-
+    
                         <button class="btn btn-primary">
                             <i class="{{ config('other.font-awesome') }} fa-save"></i> @lang('pm.send')
                         </button>
@@ -55,9 +56,10 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#message').wysibb({});
-        emoji.textcomplete()
-      })
+        $(document).ready(function() {
+            $('#message').wysibb({});
+            emoji.textcomplete()
+        })
+    
     </script>
 @endsection

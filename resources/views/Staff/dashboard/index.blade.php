@@ -26,54 +26,55 @@
             </div>
         </div>
     </div>
-
+    
     <div class="container-fluid">
         <div class="row">
             @include('partials.dashboardmenu')
-
+    
             <div class="col-sm-5 col-lg-5">
                 <div class="block">
                     <div class="panel-body">
                         <h2 class="text-bold text-center text-green">
                             <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Codebase
                         </h2>
-                        <h3 class="text-bold text-center">Currently Running {{ config('unit3d.codebase') }} {{ config('unit3d.version') }}</h3>
+                        <h3 class="text-bold text-center">Currently Running {{ config('unit3d.codebase') }}
+                            {{ config('unit3d.version') }}</h3>
                         <version></version>
                     </div>
                 </div>
             </div>
-
+    
             <div class="col-sm-5 col-lg-5">
                 <div class="block">
                     <div class="panel-body">
-                    @if (request()->secure())
-                        <h2 class="text-bold text-center text-green">
-                            <i class=" {{ config('other.font-awesome') }} fa-lock"></i> SSL Cert
-                        </h2>
-                        <h3 class="text-bold text-center">
-                            {{ config('app.url') }}
-                        </h3>
-                        <div class="text-center" style="padding-top: 15px;">
-                            <span class="text-red">Issued By: {{ $certificate->getIssuer() }}</span>
-                            <br>
-                            <span class="text-red">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
-                        </div>
-                    @else
-                        <h2 class="text-bold text-center text-red">
-                            <i class=" {{ config('other.font-awesome') }} fa-unlock"></i> SSL Cert
-                        </h2>
-                        <h3 class="text-bold text-center">
-                            {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
-                        </h3>
-                        <div style="padding-top: 15px;">
-                            <span class="text-red text-left">Issued By: N/A}</span>
-                            <span class="text-red" style="float: right;">Expires: N/A</span>
-                        </div>
-                    @endif
+                        @if (request()->secure())
+                            <h2 class="text-bold text-center text-green">
+                                <i class=" {{ config('other.font-awesome') }} fa-lock"></i> SSL Cert
+                            </h2>
+                            <h3 class="text-bold text-center">
+                                {{ config('app.url') }}
+                            </h3>
+                            <div class="text-center" style="padding-top: 15px;">
+                                <span class="text-red">Issued By: {{ $certificate->getIssuer() }}</span>
+                                <br>
+                                <span class="text-red">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
+                            </div>
+                        @else
+                            <h2 class="text-bold text-center text-red">
+                                <i class=" {{ config('other.font-awesome') }} fa-unlock"></i> SSL Cert
+                            </h2>
+                            <h3 class="text-bold text-center">
+                                {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
+                            </h3>
+                            <div style="padding-top: 15px;">
+                                <span class="text-red text-left">Issued By: N/A}</span>
+                                <span class="text-red" style="float: right;">Expires: N/A</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
-
+    
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -82,7 +83,7 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-
+    
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
@@ -94,7 +95,7 @@
                                     <i class="fal fa-magnet black-icon text-green"></i>
                                 </div>
                             </div>
-
+    
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Peers</h1>
@@ -105,7 +106,7 @@
                                     <i class="fal fa-wifi black-icon text-green"></i>
                                 </div>
                             </div>
-
+    
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Users</h1>
@@ -117,11 +118,11 @@
                                 </div>
                             </div>
                         </div>
-
+    
                     </div>
                 </div>
             </div>
-
+    
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -130,7 +131,7 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-
+    
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
@@ -141,7 +142,7 @@
                                     <i class="fal fa-desktop black-icon text-green"></i>
                                 </div>
                             </div>
-
+    
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">PHP</h1>
@@ -151,7 +152,7 @@
                                     <i class="fal fa-terminal black-icon text-green"></i>
                                 </div>
                             </div>
-
+    
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">DATABASE</h1>
@@ -161,7 +162,7 @@
                                     <i class="fal fa-database black-icon text-green"></i>
                                 </div>
                             </div>
-
+    
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">LARAVEL</h1>
@@ -172,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-
+    
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
@@ -184,7 +185,7 @@
                                     <i class="fal fa-memory black-icon text-green"></i>
                                 </div>
                             </div>
-
+    
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">DISK</h1>
@@ -195,7 +196,7 @@
                                     <i class="fal fa-hdd black-icon text-green"></i>
                                 </div>
                             </div>
-
+    
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">LOAD</h1>
@@ -206,11 +207,11 @@
                                 </div>
                             </div>
                         </div>
-
-                        </div>
+    
                     </div>
                 </div>
-
+            </div>
+    
             <div class="col-sm-10 col-lg-10">
                 <div class="block" style=" margin-top: 30px;">
                     <div class="panel-heading">
@@ -219,42 +220,42 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-
+    
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th width="80%">Directory</th>
-                                <th>Current</th>
-                                <th>Recommended</th>
-                            </tr>
+                                <tr>
+                                    <th width="80%">Directory</th>
+                                    <th>Current</th>
+                                    <th>Recommended</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach ($file_permissions as $permission)
-                                <tr>
-                                    <td>{{ $permission['directory'] }}</td>
-                                    <td>
-                                        @if ($permission['permission'] == $permission['recommended'])
-                                            <span class="bold text-success">
-                                                <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
-                                                {{ $permission['permission'] }}
-                                            </span>
-                                        @else
-                                            <span class="bold text-danger">
-                                                <i class="{{ config('other.font-awesome') }} fa-times-circle"></i>
-                                                {{ $permission['permission'] }}
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td>{{ $permission['recommended'] }}</td>
-                                </tr>
-                            @endforeach
+                                @foreach ($file_permissions as $permission)
+                                    <tr>
+                                        <td>{{ $permission['directory'] }}</td>
+                                        <td>
+                                            @if ($permission['permission'] == $permission['recommended'])
+                                                <span class="bold text-success">
+                                                    <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
+                                                    {{ $permission['permission'] }}
+                                                </span>
+                                            @else
+                                                <span class="bold text-danger">
+                                                    <i class="{{ config('other.font-awesome') }} fa-times-circle"></i>
+                                                    {{ $permission['permission'] }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $permission['recommended'] }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-
+    
                     </div>
                 </div>
             </div>
-
+    
         </div>
     </div>
 @endsection

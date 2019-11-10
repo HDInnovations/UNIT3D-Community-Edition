@@ -43,7 +43,8 @@
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="ip_checking" value="1">Enable duplicate IP checking <span class="text-red">(NEEDED TO PREVENT DUPLICATE VOTING FROM USERS!)</span>
+            <input type="checkbox" name="ip_checking" value="1">Enable duplicate IP checking <span
+                class="text-red">(NEEDED TO PREVENT DUPLICATE VOTING FROM USERS!)</span>
         </label>
     </div>
 
@@ -61,18 +62,21 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         var options = 2;
-
-        $('rgb(170,221,221)').on('click', function (e) {
+    
+        $('rgb(170,221,221)').on('click', function(e) {
             e.preventDefault();
             options = options + 1;
-            var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">Option ' + options + ':</label><input type="text" name="options[]" class="form-control" value="" required></div>';
+            var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">Option ' +
+                options +
+                ':</label><input type="text" name="options[]" class="form-control" value="" required></div>';
             $('.more-options').append(optionHTML);
         });
-
-        $('#del').on('click', function (e) {
+    
+        $('#del').on('click', function(e) {
             e.preventDefault();
             options = (options > 2) ? options - 1 : 2;
             $('.extra-option').last().remove();
         });
+    
     </script>
 @endsection

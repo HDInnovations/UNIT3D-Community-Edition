@@ -26,10 +26,10 @@
         <div class="block">
             <div class="text-center">
                 <form name="addimagetoalbum" method="POST" action="{{ route('images.store') }}"
-                      enctype="multipart/form-data">
+                    enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="album_id" value="{{$album->id}}"/>
-                    <h2>Add an Image to {{$album->name}}</h2>
+                    <input type="hidden" name="album_id" value="{{ $album->id }}" />
+                    <h2>Add an Image to {{ $album->name }}</h2>
                     <div class="form-group">
                         <label for="type">Type</label>
                         <label>
@@ -42,8 +42,8 @@
                     <div class="form-group">
                         <label for="description">Image Description</label>
                         <label>
-<textarea name="description" type="text" class="form-control"
-          placeholder="Hi-Res Sleeve / Disc Art"></textarea>
+                            <textarea name="description" type="text" class="form-control"
+                                placeholder="Hi-Res Sleeve / Disc Art"></textarea>
                         </label>
                     </div>
                     <div class="form-group">

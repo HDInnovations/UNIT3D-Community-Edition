@@ -1,5 +1,5 @@
 <form class="form-horizontal" method="POST" action="/poll/vote">
-@csrf
+    @csrf
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -41,6 +41,6 @@
             <button type="submit" class="btn btn-primary">@lang('poll.vote')</button>
 </form>
 <a class="btn btn-success" href="{{ route('poll_results', ['slug' => $poll->slug]) }}" role="button"><i
-            class="{{ config('other.font-awesome') }} fa-bar-chart" aria-hidden="true"> @lang('poll.results')</i></a>
+        class="{{ config('other.font-awesome') }} fa-bar-chart" aria-hidden="true"> @lang('poll.results')</i></a>
 </div>
 </div>
