@@ -65,7 +65,7 @@
                                                     data-original-title="{{ $f->user->username }}">
                                             </a></td>
                                     @else
-                                        <td><a href="{{ route('v', ['username' => $f->user->username]) }}">
+                                        <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                                 <img src="{{ url('img/profile.png') }}" alt="avatar" data-toggle="tooltip"
                                                     title="{{ $f->user->username }}" height="50px"
                                                     data-original-title="{{ $f->user->username }}">
