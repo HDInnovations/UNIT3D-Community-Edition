@@ -96,7 +96,7 @@ class RegisterController extends Controller
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
                 'password'             => 'required|min:8',
-                'g-recaptcha-response' => 'required|recaptcha',
+                'captcha' => 'hiddencaptcha',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
@@ -109,7 +109,7 @@ class RegisterController extends Controller
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:block', // Blacklist
                 'password'             => 'required|min:8',
-                'g-recaptcha-response' => 'required|recaptcha',
+                'captcha' => 'hiddencaptcha',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($request->all(), [
@@ -122,7 +122,7 @@ class RegisterController extends Controller
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users',
                 'password'             => 'required|min:8',
-                'g-recaptcha-response' => 'required|recaptcha',
+                'captcha' => 'hiddencaptcha',
             ]);
         } else {
             $v = validator($request->all(), [

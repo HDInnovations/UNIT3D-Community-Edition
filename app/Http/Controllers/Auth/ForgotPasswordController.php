@@ -34,7 +34,7 @@ class ForgotPasswordController extends Controller
         } else {
             $request->validate([
                 'email' => 'required|email',
-                'g-recaptcha-response' => 'required|recaptcha',
+                'captcha' => 'hiddencaptcha',
             ]);
         }
     }

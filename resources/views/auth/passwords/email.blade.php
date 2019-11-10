@@ -56,14 +56,7 @@
                     placeholder="@lang('auth.email')" required autofocus>
 
                 @if (config('captcha.enabled') == true)
-                    <div class="text-center">
-                        <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div>
-                        @if ($errors->has('g-recaptcha-response'))
-                            <span class="invalid-feedback" style="display: block;">
-                                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                            </span>
-                        @endif
-                    </div>
+                    @hiddencaptcha
                 @endif
 
                 <button type="submit" class="fadeIn fourth">@lang('common.submit')</button>
@@ -82,10 +75,6 @@
 
     <script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}"
         crossorigin="anonymous"></script>
-
-    @if (config('captcha.enabled') == true)
-        <script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
-    @endif
 
     @foreach (['warning', 'success', 'info'] as $key)
         @if (Session::has($key))
