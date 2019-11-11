@@ -13,7 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
@@ -60,7 +59,6 @@ use Kyslik\ColumnSortable\Sortable;
 class Peer extends Model
 {
     use Sortable;
-    use Auditable;
 
     /**
      * The Columns That Are Sortable.
