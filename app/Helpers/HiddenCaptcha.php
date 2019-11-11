@@ -61,12 +61,12 @@ class HiddenCaptcha
         $formData = $validator->getData();
 
         // Check post values
-        if (!isset($formData['_captcha']) || !($token = self::getToken($formData['_captcha']))) {
+        if (! isset($formData['_captcha']) || ! ($token = self::getToken($formData['_captcha']))) {
             return false;
         }
 
         // Hidden "must be empty" field check
-        if (!array_key_exists($token['must_be_empty'], $formData) || !empty($formData[$token['must_be_empty']])) {
+        if (! array_key_exists($token['must_be_empty'], $formData) || ! empty($formData[$token['must_be_empty']])) {
             return false;
         }
 
@@ -83,7 +83,7 @@ class HiddenCaptcha
 
         // Check if the random field value is similar to the token value
         $randomField = $formData[$token['random_field_name']];
-        if (!ctype_digit($randomField) || $token['timestamp'] != $randomField) {
+        if (! ctype_digit($randomField) || $token['timestamp'] != $randomField) {
             return false;
         }
 
@@ -110,7 +110,7 @@ class HiddenCaptcha
         $token = @unserialize($token);
 
         // Token is null or unserializable
-        if (!$token || !is_array($token) || empty($token)) {
+        if (! $token || ! is_array($token) || empty($token)) {
             return false;
         }
 
