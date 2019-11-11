@@ -13,38 +13,17 @@
 
 namespace App\Providers;
 
+use App\Helpers\HiddenCaptcha;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        // ReCaptcha
-        validator()->extend('recaptcha', 'App\Validators\ReCaptcha@validate');
-
-        // Custom validation for the email whitelist/blacklist
-        validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
-
-        // Share $pages across all views
-        view()->composer('*', function (View $view) {
-            $pages = cache()->remember('cached-pages', 3600, function () {
-                return Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get();
-            });
-
-            $view->with(compact('pages'));
-        });
-    }
-
     /**
      * Register any application services.
      *
@@ -56,14 +35,57 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // we can now inject this class and it will auto resolve for us
+        // OMDB
         $this->app->bind(OmdbClient::class, function ($app) {
             $key = config('api-keys.omdb');
 
             return new OmdbClient($key);
         });
 
-        // registering a interface to a concrete class, so we can inject the interface
+        // Wish
         $this->app->bind(WishInterface::class, WishRepository::class);
+
+        // Hidden Captcha
+        $this->app->bind('hiddencaptcha', 'App\Helpers\HiddenCaptcha');
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Custom validation for the email whitelist/blacklist
+        validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
+
+        // Share $pages across all views
+        view()->composer('*', function (View $view) {
+            $pages = cache()->remember('cached-pages', 3600, function () {
+                return Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get();
+            });
+
+            $view->with(compact('pages'));
+        });
+
+        // Hidden Captcha
+        Blade::directive('hiddencaptcha', function ($mustBeEmptyField = '_username') {
+            return "<?= App\Helpers\HiddenCaptcha::render($mustBeEmptyField); ?>";
+        });
+
+        $this->app['validator']->extendImplicit(
+            'hiddencaptcha',
+            function ($attribute, $value, $parameters, $validator) {
+                $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
+                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1200;
+                if (! HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {
+                    $validator->setCustomMessages(['hiddencaptcha' => 'Captcha error']);
+
+                    return false;
+                }
+
+                return true;
+            }
+        );
     }
 }

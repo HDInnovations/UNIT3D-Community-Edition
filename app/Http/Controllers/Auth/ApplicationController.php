@@ -63,7 +63,7 @@ class ApplicationController extends Controller
                     'images'   => 'min:2',
                     'links.*' => 'filled',
                     'links'   => 'min:2',
-                    'g-recaptcha-response' => 'required|recaptcha',
+                    'captcha' => 'hiddencaptcha',
                 ]);
             }
         } elseif (config('email-white-blacklist.enabled') === 'block') {
@@ -86,7 +86,7 @@ class ApplicationController extends Controller
                     'images'   => 'min:2',
                     'links.*' => 'filled',
                     'links'   => 'min:2',
-                    'g-recaptcha-response' => 'required|recaptcha',
+                    'captcha' => 'hiddencaptcha',
                 ]);
             }
         } else {
@@ -109,7 +109,7 @@ class ApplicationController extends Controller
                     'images'   => 'min:2',
                     'links.*' => 'filled',
                     'links'   => 'min:2',
-                    'g-recaptcha-response' => 'required|recaptcha',
+                    'captcha' => 'hiddencaptcha',
                 ]);
             }
         }
