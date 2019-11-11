@@ -286,16 +286,6 @@ class Bbcode
             'replace' => '<details class="label label-primary"><summary>$1</summary><pre><code>$2</code></pre></details>',
             'content' => '$1',
         ],
-
-        'ss-compare' => [
-            'pattern' => '/\[ss-compare\=(.*?)\](.*?)\[\/ss-compare\]/s',
-            'replace' => '<a class="ss-compare" href="#">
-                          <img src="$1" />
-                          <img src="$2" />
-                          </a>',
-            'content' => '$1',
-        ],
-
     ];
 
     /**
