@@ -121,8 +121,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('
-                                backup.create_warning_message ')'
+                                title: '@lang('backup.create_warning_message ')'
                             })
                         } else {
                             const Toast = Swal.mixin({
@@ -134,8 +133,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('
-                                backup.create_confirmation_message ')'
+                                title: '@lang('backup.create_confirmation_message ')'
                             })
                         }
     
@@ -160,8 +158,7 @@
     
                         Toast.fire({
                             icon: 'warning',
-                            title: '@lang('
-                            backup.create_error_message ')'
+                            title: '@lang('backup.create_error_message ')'
                         })
                         // Stop loading
                         l.stop();
@@ -206,8 +203,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('
-                                backup.create_warning_message ')'
+                                title: '@lang('backup.create_warning_message ')'
                             })
                         } else {
                             const Toast = Swal.mixin({
@@ -219,8 +215,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('
-                                backup.create_confirmation_message ')'
+                                title: '@lang('backup.create_confirmation_message ')'
                             })
                         }
     
@@ -245,8 +240,7 @@
     
                         Toast.fire({
                             icon: 'warning',
-                            title: '@lang('
-                            backup.create_error_message ')'
+                            title: '@lang('backup.create_error_message ')'
                         })
                         // Stop loading
                         l.stop();
@@ -291,8 +285,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('
-                                backup.create_warning_message ')'
+                                title: '@lang('backup.create_warning_message ')'
                             })
                         } else {
                             const Toast = Swal.mixin({
@@ -304,8 +297,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('
-                                backup.create_confirmation_message ')'
+                                title: '@lang('backup.create_confirmation_message ')'
                             })
                         }
     
@@ -330,8 +322,7 @@
     
                         Toast.fire({
                             icon: 'warning',
-                            title: '@lang('
-                            backup.create_error_message ')'
+                            title: '@lang('backup.create_error_message ')'
                         })
                         // Stop loading
                         l.stop();
@@ -367,8 +358,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('
-                                backup.delete_confirmation_message ')'
+                                title: '@lang('backup.delete_confirmation_message ')'
                             })
                             // delete the row from the table
                             delete_button.parentsUntil('tr').parent().remove();
@@ -384,8 +374,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('
-                                backup.delete_error_title ')'
+                                title: '@lang('backup.delete_error_title ')'
                             })
                         }
                     });
@@ -399,8 +388,7 @@
     
                     Toast.fire({
                         icon: 'info',
-                        title: '@lang('
-                        backup.delete_cancel_message ')'
+                        title: '@lang('backup.delete_cancel_message ')'
                     })
                 }
             });
