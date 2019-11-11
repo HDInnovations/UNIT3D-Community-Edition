@@ -35,7 +35,7 @@ class CheaterController extends Controller
                 }
             )
             ->where('seeder', '=', 0)
-            ->where('active', '=', 1)
+            ->where('active', '=', 0)
             ->where('seedtime', '=', 0)
             ->where('actual_downloaded', '=', 0)
             ->where('actual_uploaded', '=', 0)

@@ -159,16 +159,22 @@
         <!-- Mass Options -->
         <br>
         <div class="text-center" style=" margin-top: 100px;">
-            <a href="{{ route('notifications.updateall') }}">
-                <button type="button" class="btn btn btn-success" data-toggle="tooltip"
-                    data-original-title="@lang('notification.mark-all-read')"><i
-                        class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('notification.mark-all-read')</button>
-            </a>
-            <a href="{{ route('notifications.destroyall') }}">
-                <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
-                    data-original-title="@lang('notification.delete-all')"><i
-                        class="{{ config('other.font-awesome') }} fa-times"></i> @lang('notification.delete-all')</button>
-            </a>
+            <form action="{{ route('notifications.updateall') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn btn-success" data-toggle="tooltip"
+                        data-original-title="@lang('notification.mark-all-read')">
+                    <i class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('notification.mark-all-read')
+                </button>
+            </form>
+
+            <form action="{{ route('notifications.destroyall') }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn btn-danger" data-toggle="tooltip"
+                        data-original-title="@lang('notification.delete-all')">
+                    <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('notification.delete-all')
+                </button>
+            </form>
         </div>
         <!-- /Mass Options -->
     

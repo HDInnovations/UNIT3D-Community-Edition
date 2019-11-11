@@ -448,25 +448,6 @@ wbbdebug = true;
                     },
                 },
 
-                sscompare: {
-                    title: 'SS Compare',
-                    buttonText: '[SS-COMPARE]',
-                    modal: {
-                        title: 'Screen Shot Compare',
-                        width: '500px',
-                        tabs: [
-                            {
-                                input: [
-                                    { param: 'URL-1', title: 'First Image', validation: '^http(s)?://.*?.(jpg|png|gif|jpeg|svg)$', },
-                                    { param: 'URL-2', title: 'Second Image', validation: '^http(s)?://.*?.(jpg|png|gif|jpeg|svg)$', },
-                                ],
-                            },
-                        ],
-                    },
-                    transform: {
-                        '<a class="ss-compare" href="#"><img src="{URL-1}" /><img src="{URL-2}" /></a>': '[ss-compare={URL-1}]{URL-2}[/ss-compare]',
-                    },
-                },
             },
             systr: {
                 '<br/>': '\n',

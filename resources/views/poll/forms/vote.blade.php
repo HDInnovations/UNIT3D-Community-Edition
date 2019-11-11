@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="POST" action="/poll/vote">
+<form class="form-horizontal" method="POST" action="/polls/vote">
     @csrf
     @if (count($errors) > 0)
         <div class="alert alert-danger">
