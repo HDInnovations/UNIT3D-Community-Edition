@@ -250,7 +250,7 @@
                                 <h3><strong>{{ $monthly }}</strong> @lang('bon.per-month')</h3>
                                 <h3><strong>{{ $yearly }}</strong> @lang('bon.per-year')</h3>
                             </div>
-                            <a href="{{ route('user_seeds', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}"
+                            <a href="{{ route('user_seeds', ['username' => auth()->user()->username]) }}"
                                 class="btn btn-sm btn-primary">
                                 @lang('bon.review-seeds')
                             </a>

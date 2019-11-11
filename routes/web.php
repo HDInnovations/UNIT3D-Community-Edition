@@ -376,10 +376,10 @@ Route::group(['middleware' => 'language'], function () {
         // Invite System
         Route::group(['prefix' => 'invites'], function () {
             Route::name('invites.')->group(function () {
-                Route::get('/{username}', 'InviteController@index')->name('index');
                 Route::get('/create', 'InviteController@create')->name('create');
                 Route::post('/store', 'InviteController@store')->name('store');
-                Route::post('/{id}/send', 'InviteController@send')->name('send');
+                Route::post('/{id}/send', 'InviteController@send')->where('id', '[0-9]+')->name('send');
+                Route::get('/{username}', 'InviteController@index')->name('index');
             });
         });
 

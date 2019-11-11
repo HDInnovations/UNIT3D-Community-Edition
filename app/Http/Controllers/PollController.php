@@ -89,7 +89,7 @@ class PollController extends Controller
 
         if (Voter::where('user_id', '=', $user->id)->where('poll_id', '=', $poll->id)->exists()) {
             return redirect('poll/'.$poll->slug.'/result')
-                ->withErros('Bro have already vote on this poll. Your vote has not been counted.');
+                ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
         }
 
         if ($poll->ip_checking == 1) {

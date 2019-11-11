@@ -18,10 +18,26 @@ use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\Message;
 use App\Models\Peer;
+use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
 class FlushController extends Controller
 {
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    /**
+     * ChatController Constructor.
+     *
+     * @param ChatRepository $chat
+     */
+    public function __construct(ChatRepository $chat)
+    {
+        $this->chat = $chat;
+    }
+
     /**
      * Flsuh All Old Peers From Database.
      *

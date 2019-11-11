@@ -76,7 +76,7 @@ class FetchReleaseYears extends Command
                     $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
                     $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
-                    {$appurl}/torrents/{$torrent->slug}.{$torrent->id} \n");
+                    {$appurl}/torrents/{$torrent->id} \n");
                 }
             }
 
@@ -92,7 +92,7 @@ class FetchReleaseYears extends Command
                     $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
                     $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
-                    {$appurl}/torrents/{$torrent->slug}.{$torrent->id} \n");
+                    {$appurl}/torrents/{$torrent->id} \n");
                 }
             }
 
@@ -106,7 +106,7 @@ class FetchReleaseYears extends Command
                     $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
                 } else {
                     $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
-                    {$appurl}/torrents/{$torrent->slug}.{$torrent->id} \n");
+                    {$appurl}/torrents/{$torrent->id} \n");
                 }
             }
 

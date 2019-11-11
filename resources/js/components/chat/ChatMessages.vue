@@ -10,7 +10,7 @@
                             message.user.title ? ' (' + message.user.title + ')' : '\'s Profile'
                         }`
                     "
-                    :href="`/${message.user.username}.${message.user.id}`"
+                    :href="`/users/${message.user.username}`"
                 >
                     <img
                         v-if="message.user.id !== 1"

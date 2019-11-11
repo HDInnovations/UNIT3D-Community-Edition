@@ -473,7 +473,7 @@ class ChatController extends Controller
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
         $status = $this->chat->statusFindOrFail($request->input('status_id'));
 
-        $log = '[url=/'.$user->slug.'.'.$user->id.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]';
+        $log = '[url=/users/'.$user->username.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]';
 
         $message = $this->chat->message(1, $user->chatroom->id, $log, null);
         $message->save();
