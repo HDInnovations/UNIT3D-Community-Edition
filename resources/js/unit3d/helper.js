@@ -293,7 +293,7 @@ class userFilterBuilder {
             userFilterXHR.abort();
         }
         userFilterXHR = $.ajax({
-            url: '/'+userName+'.'+userId+'/userFilters',
+            url: '/'+userName+'/userFilters',
             data: {
                 _token: this.csrf,
                 page: page,
