@@ -406,11 +406,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::name('notifications.')->group(function () {
                 Route::get('/filter', 'NotificationController@faceted');
                 Route::get('/', 'NotificationController@index')->name('index');
-                Route::get('/{id}', 'NotificationController@show')->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/update', 'NotificationController@update')->name('update');
                 Route::post('/updateall', 'NotificationController@updateAll')->name('updateall');
                 Route::delete('/{id}/destroy', 'NotificationController@destroy')->name('destroy');
                 Route::delete('/destroyall', 'NotificationController@destroyAll')->name('destroyall');
+                Route::get('/{id}', 'NotificationController@show')->name('show');
             });
         });
 
