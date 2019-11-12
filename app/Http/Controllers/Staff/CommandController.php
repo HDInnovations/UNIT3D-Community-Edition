@@ -48,7 +48,7 @@ class CommandController extends Controller
         \Artisan::call('down --allow='.$request->ip());
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -65,7 +65,7 @@ class CommandController extends Controller
         \Artisan::call('up');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -82,7 +82,7 @@ class CommandController extends Controller
         \Artisan::call('cache:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -99,7 +99,7 @@ class CommandController extends Controller
         \Artisan::call('view:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -116,7 +116,7 @@ class CommandController extends Controller
         \Artisan::call('route:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -133,7 +133,7 @@ class CommandController extends Controller
         \Artisan::call('config:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -150,7 +150,7 @@ class CommandController extends Controller
         \Artisan::call('clear:all_cache');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -167,7 +167,7 @@ class CommandController extends Controller
         \Artisan::call('set:all_cache');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 
     /**
@@ -184,6 +184,6 @@ class CommandController extends Controller
         \Artisan::call('test:email');
 
         return redirect()->route('staff.commands.index')
-            ->withOutput(trim(\Artisan::output()));
+            ->withInfo(trim(\Artisan::output()));
     }
 }
