@@ -62,15 +62,20 @@
                             </td>
                             <td class="text-right">{{ round((int) $b['file_size'] / 1048576, 2) . ' MB' }}</td>
                             <td class="text-right">
-                                @if ($b['download'])
-                                    <a class="btn btn-xs btn-default"
-                                        href="{{ route('staff.backups.download') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i
-                                            class="{{ config('other.font-awesome') }} fa-cloud-download"></i>
-                                        @lang('backup.download')</a>
-                                @endif
-                                <a class="btn btn-xs btn-danger" data-disk="{{ $b['disk'] }}" data-file="{{ $b['file_name'] }}"
-                                    data-button-type="delete" href="{{ route('staff.backups.destroy') }}"><i
-                                        class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('backup.delete')</a>
+                                <form action="{{ route('staff.backups.destroy') }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    @if ($b['download'])
+                                        <a class="btn btn-xs btn-default"
+                                           href="{{ route('staff.backups.download') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}">
+                                            <i class="{{ config('other.font-awesome') }} fa-cloud-download"></i>@lang('backup.download')
+                                        </a>
+                                    @endif
+                                    <button type="submit" class="btn btn-xs btn-danger" data-disk="{{ $b['disk'] }}" data-file="{{ $b['file_name'] }}"
+                                            data-button-type="delete" href="{{ route('staff.backups.destroy') }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>@lang('common.delete')
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -346,7 +351,7 @@
                             disk: disk,
                             file_name: file
                         },
-                        type: 'POST',
+                        type: 'DELETE',
                         success: function(result) {
                             // Show an alert with the result
                             const Toast = Swal.mixin({
