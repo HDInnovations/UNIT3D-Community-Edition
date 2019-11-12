@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\BotTransaction
+ *
  * @property int $id
  * @property string|null $type
  * @property float $cost

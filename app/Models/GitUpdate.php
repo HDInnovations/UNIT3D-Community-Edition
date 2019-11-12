@@ -17,6 +17,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\GitUpdate
+ *
  * @property int $id
  * @property string $name
  * @property string $hash

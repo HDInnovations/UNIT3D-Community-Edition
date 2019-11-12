@@ -18,6 +18,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Post
+ *
  * @property int $id
  * @property string $content
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -38,6 +40,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUserId($value)
  * @mixin \Eloquent
+ * @property-read int|null $likes_count
+ * @property-read int|null $tips_count
  */
 class Post extends Model
 {

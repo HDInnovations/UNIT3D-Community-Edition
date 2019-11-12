@@ -114,6 +114,20 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUserId($value)
  * @mixin \Eloquent
+ * @property string $igdb
+ * @property string|null $release_year
+ * @property-read int|null $comments_count
+ * @property-read int|null $featured_count
+ * @property-read int|null $files_count
+ * @property-read int|null $history_count
+ * @property-read int|null $hitrun_count
+ * @property-read int|null $peers_count
+ * @property-write mixed $media_info
+ * @property-read int|null $tags_count
+ * @property-read int|null $thanks_count
+ * @property-read int|null $tips_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereIgdb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereReleaseYear($value)
  */
 class Torrent extends Model
 {

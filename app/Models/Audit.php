@@ -15,6 +15,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Audit
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property string $model_name
+ * @property int $model_entry_id
+ * @property string $action
+ * @property mixed $record
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereAction($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereModelEntryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereModelName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereRecord($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Audit extends Model
 {
     /**

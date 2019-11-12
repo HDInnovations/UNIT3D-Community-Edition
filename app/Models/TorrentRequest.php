@@ -19,6 +19,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\TorrentRequest
+ *
  * @property int $id
  * @property string $name
  * @property int $category_id
@@ -74,6 +76,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereVotes($value)
  * @mixin \Eloquent
+ * @property string $igdb
+ * @property-read int|null $comments_count
+ * @property-read int|null $request_bounty_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereIgdb($value)
  */
 class TorrentRequest extends Model
 {

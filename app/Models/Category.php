@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Category
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -37,6 +39,20 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereSlug($value)
  * @mixin \Eloquent
+ * @property string|null $image
+ * @property int $no_meta
+ * @property int $music_meta
+ * @property int $game_meta
+ * @property int $tv_meta
+ * @property int $movie_meta
+ * @property-read int|null $requests_count
+ * @property-read int|null $torrents_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereGameMeta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereMovieMeta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereMusicMeta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereNoMeta($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereTvMeta($value)
  */
 class Category extends Model
 {
