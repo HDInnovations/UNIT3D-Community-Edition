@@ -7,7 +7,7 @@
                         <div class="text-left">
                 <a v-if="user.id !== 1" target="_blank"
                    v-tooltip="`${user.username}'s profile`"
-                   :href="`/${user.username}.${user.id}`">
+                   :href="`/users/${user.username}`">
                     <img class="chat-user-image"
                          :style="user && user.hasOwnProperty('chat_status') && user.chat_status.hasOwnProperty('color') ? `border: 3px solid ${user.chat_status.color};` : ``"
                          :src="user.image ? `/files/img/${user.image}` : '/img/profile.png'"
