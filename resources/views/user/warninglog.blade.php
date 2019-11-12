@@ -30,18 +30,20 @@
                             <strong>@lang('user.warnings') {{ $warningcount }} </strong>
                         </span>
                         <div class="pull-right">
-                            <a href="{{ route('massDeactivateWarnings', ['username' => $user->username]) }}">
-                                <button type="button" class="btn btn btn-success" data-toggle="tooltip"
-                                    data-original-title="@lang('user.deactivate-all')"><i
-                                        class="{{ config('other.font-awesome') }} fa-check"></i>
-                                    @lang('user.deactivate-all')
-                            </a>
-                            <a href="{{ route('massDeleteWarnings', ['username' => $user->username]) }}">
-                                <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
-                                    data-original-title="@lang('user.delete-all')"><i
-                                        class="{{ config('other.font-awesome') }} fa-times"></i>
-                                    @lang('user.delete-all')</button>
-                            </a>
+                            <form action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('massDeactivateWarnings', ['username' => $user->username]) }}">
+                                    <button type="button" class="btn btn btn-success" data-toggle="tooltip"
+                                            data-original-title="@lang('user.deactivate-all')">
+                                        <i class="{{ config('other.font-awesome') }} fa-check"></i> @lang('user.deactivate-all')
+                                    </button>
+                                </a>
+                                <button type="submit" class="btn btn btn-danger" data-toggle="tooltip"
+                                        data-original-title="@lang('user.delete-all')">
+                                    <i class="{{ config('other.font-awesome') }} fa-times"></i>@lang('user.delete-all')
+                                </button>
+                            </form>
                         </div>
                     </h2>
                     <div class="table-responsive">
@@ -95,23 +97,19 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($warning->active == 1)
-                                                    <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}"
-                                                        class="btn btn-xs btn-warning">
-                                                        <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}"
-                                                        class="btn btn-xs btn-warning" disabled>
-                                                        <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
-                                                    </a>
-                                                @endif
+                                                <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}"
+                                                   class="btn btn-xs btn-warning" @if ($warning->active == 0) disabled @endif>
+                                                    <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
+                                                </a>
                                             </td>
                                             <td>
-                                                <a href="{{ route('deleteWarning', ['id' => $warning->id]) }}"
-                                                    class="btn btn-xs btn-danger">
-                                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                                </a>
+                                                <form action="{{ route('deleteWarning', ['id' => $warning->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-xs btn-danger">
+                                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

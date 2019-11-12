@@ -279,12 +279,12 @@ Route::group(['middleware' => 'language'], function () {
 
         // Warnings System
         Route::group(['prefix' => 'warnings'], function () {
-            Route::get('/{username}', 'WarningController@show')->name('warnings.show');
             Route::get('/{id}/deactivate', 'WarningController@deactivate')->name('deactivateWarning');
             Route::get('/{username}/mass-deactivate', 'WarningController@deactivateAllWarnings')->name('massDeactivateWarnings');
             Route::delete('/{id}', 'WarningController@deleteWarning')->name('deleteWarning');
-            Route::get('/{username}/mass-delete', 'WarningController@deleteAllWarnings')->name('massDeleteWarnings');
+            Route::delete('/{username}/mass-delete', 'WarningController@deleteAllWarnings')->name('massDeleteWarnings');
             Route::get('/{id}/restore', 'WarningController@restoreWarning')->name('restoreWarning');
+            Route::get('/{username}', 'WarningController@show')->name('warnings.show');
         });
 
         // Users System
