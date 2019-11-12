@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 about: Create a report to help us improve UNIT3D Community Edition
-title: ''
+title: "[BUG]"
 labels: Bug
 assignees: HDVinnie
 

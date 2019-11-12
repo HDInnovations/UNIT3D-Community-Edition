@@ -1,7 +1,7 @@
 ---
 name: Enhancement Request
 about: Suggest an enhancement for UNIT3D Community Edition
-title: ''
+title: "[ENHANCEMENT]"
 labels: Enhancement
 assignees: ''
 
