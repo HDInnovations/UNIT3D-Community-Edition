@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * App\Models\Warning
+ *
  * @property int $id
  * @property int $user_id
  * @property int $warned_by

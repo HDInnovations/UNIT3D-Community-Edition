@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Type
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -31,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereSlug($value)
  * @mixin \Eloquent
+ * @property-read int|null $requests_count
+ * @property-read int|null $torrents_count
  */
 class Type extends Model
 {

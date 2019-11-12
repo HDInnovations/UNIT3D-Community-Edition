@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * App\Models\Rss
+ *
  * @property int $id
  * @property int $position
  * @property string $name

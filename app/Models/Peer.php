@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
+ * App\Models\Peer
+ *
  * @property int $id
  * @property string|null $peer_id
  * @property string|null $md5_peer_id

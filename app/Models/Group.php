@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Group
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -59,6 +61,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereSlug($value)
  * @mixin \Eloquent
+ * @property-read int|null $permissions_count
+ * @property-read int|null $users_count
  */
 class Group extends Model
 {

@@ -18,6 +18,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Comment
+ *
  * @property int $id
  * @property string $content
  * @property int $anon
@@ -44,6 +46,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
  * @mixin \Eloquent
+ * @property int|null $playlist_id
+ * @property-read \App\Models\Playlist|null $playlist
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment wherePlaylistId($value)
  */
 class Comment extends Model
 {

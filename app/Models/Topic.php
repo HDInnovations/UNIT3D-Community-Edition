@@ -18,6 +18,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Topic
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -70,6 +72,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic whereViews($value)
  * @mixin \Eloquent
+ * @property-read int|null $posts_count
+ * @property-read int|null $subscriptions_count
  */
 class Topic extends Model
 {
