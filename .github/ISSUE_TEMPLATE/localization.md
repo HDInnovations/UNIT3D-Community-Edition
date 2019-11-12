@@ -1,7 +1,7 @@
 ---
 name: Localization
 about: Report an localization issue for UNIT3D Community Edition
-title: "[LOCALIZATION]"
+title: "[Localization]"
 labels: Help Wanted, Translation
 assignees: ''
 
