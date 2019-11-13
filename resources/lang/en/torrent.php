@@ -47,6 +47,7 @@ return [
     'dying-torrent'            => 'Dying Torrent',
     'dying-torrents'           => 'Dying Torrents',
     'encode-settings'          => 'Encode Settings',
+    'end-year'                 => 'Year End',
     'estimated-ratio'          => 'Estimated Ratio after Download',
     'failed'                   => 'Failed',
     'feature'                  => 'Feature',
@@ -162,6 +163,7 @@ return [
     'special'                  => 'Special',
     'special-freeleech'        => 'Special Freeleech',
     'staff-tools'              => 'Staff Tools',
+    'start-year'	       => 'Start Year',
     'started'                  => 'Started',
     'status'                   => 'Status',
     'statistics'               => 'Statistics',
@@ -204,4 +206,6 @@ return [
     'view-more'                => 'View more',
     'view-trailer'             => 'View trailer',
     'votes'                    => 'Votes',
+    'year-range'               => 'Year Range',
+
 ];
