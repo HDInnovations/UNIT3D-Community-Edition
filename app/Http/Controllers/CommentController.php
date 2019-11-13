@@ -75,7 +75,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('articles.show', ['id' => $article->id])
-                ->withErrors('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
         $comment = new Comment();
@@ -275,7 +275,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
         $comment = new Comment();
@@ -380,7 +380,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->withErrors('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
         $comment = new Comment();
@@ -484,7 +484,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Your Comment Rights Have Benn Revoked!');
+                ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
         $comment = new Comment();
