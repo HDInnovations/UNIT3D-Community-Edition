@@ -85,7 +85,7 @@ return [
     'internal'                 => 'Internal',
     'internal-release'         => 'Internal release',
     'last-seed-activity'       => 'Last seed activity',
-    'last-seeder'              => 'You Are The Last Remaining Seeder! (has been downloaded atleast 3 times)',
+    'last-seeder'              => 'You Are The Last Remaining Seeder! (has been downloaded at least 3 times)',
     'last-update'              => 'Last update',
     'leave-tip'                => 'Leave tip',
     'leecher'                  => 'Leecher',

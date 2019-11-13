@@ -33,7 +33,7 @@ class AutoDisableInactiveUsers extends Command
      *
      * @var string
      */
-    protected $description = 'User Account Must Be Atleast x Days Old & User Account x Days Of Inactivity To Be Disabled';
+    protected $description = 'User account must be at least x days old & user account x days Of inactivity to be disabled';
 
     /**
      * Execute the console command.
