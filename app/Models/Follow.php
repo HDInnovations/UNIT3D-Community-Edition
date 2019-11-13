@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * App\Models\Follow
+ * App\Models\Follow.
  *
  * @property int $id
  * @property int $user_id

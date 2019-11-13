@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Like
+ * App\Models\Like.
  *
  * @property int $id
  * @property int $user_id

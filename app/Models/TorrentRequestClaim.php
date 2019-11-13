@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TorrentRequestClaim
+ * App\Models\TorrentRequestClaim.
  *
  * @property int $id
  * @property int $request_id
