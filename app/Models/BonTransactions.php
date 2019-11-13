@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\BonTransactions.
+ *
  * @property int $id
  * @property int $itemID
  * @property string $name

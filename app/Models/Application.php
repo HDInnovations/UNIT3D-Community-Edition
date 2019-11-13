@@ -17,6 +17,8 @@ use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Application.
+ *
  * @property int $id
  * @property string $type
  * @property string $email
@@ -45,6 +47,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read int|null $image_proofs_count
+ * @property-read int|null $url_proofs_count
  */
 class Application extends Model
 {

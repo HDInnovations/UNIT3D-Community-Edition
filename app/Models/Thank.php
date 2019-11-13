@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Thank.
+ *
  * @property int $id
  * @property int $user_id
  * @property int $torrent_id

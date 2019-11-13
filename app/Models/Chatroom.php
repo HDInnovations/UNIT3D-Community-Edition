@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 /**
+ * App\Models\Chatroom.
+ *
  * @property int $id
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -33,6 +35,9 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read int|null $messages_count
+ * @property-read int|null $notifications_count
+ * @property-read int|null $users_count
  */
 class Chatroom extends Model
 {

@@ -90,12 +90,12 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}" class="btn btn-warning">
-                                    @lang('common.edit')
-                                </a>
                                 <form action="{{ route('staff.categories.destroy', ['id' => $category->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
+                                    <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}" class="btn btn-warning">
+                                        @lang('common.edit')
+                                    </a>
                                     <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
                                 </form>
                             </td>

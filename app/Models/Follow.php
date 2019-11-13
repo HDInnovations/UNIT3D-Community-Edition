@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 /**
+ * App\Models\Follow.
+ *
  * @property int $id
  * @property int $user_id
  * @property int $target_id
@@ -35,6 +37,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereUserId($value)
  * @mixin \Eloquent
+ * @property-read int|null $notifications_count
  */
 class Follow extends Model
 {

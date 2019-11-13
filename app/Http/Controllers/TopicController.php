@@ -211,7 +211,7 @@ class TopicController extends Controller
                 // Post To ShoutBox
                 $appurl = config('app.url');
                 $topicUrl = "{$appurl}/forums/topics/{$topic->id}";
-                $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
+                $profileUrl = "{$appurl}/users/{$user->username}";
 
                 $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
 

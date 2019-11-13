@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
+ * App\Models\Poll.
+ *
  * @property int $id
  * @property int $user_id
  * @property string $title
@@ -41,6 +43,8 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereUserId($value)
  * @mixin \Eloquent
+ * @property-read int|null $options_count
+ * @property-read int|null $voters_count
  */
 class Poll extends Model
 {

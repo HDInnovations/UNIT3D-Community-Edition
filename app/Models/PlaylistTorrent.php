@@ -16,6 +16,26 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\PlaylistTorrent.
+ *
+ * @property int $id
+ * @property int|null $position
+ * @property int $playlist_id
+ * @property int $torrent_id
+ * @property int $tmdb_id
+ * @property-read \App\Models\Playlist $playlist
+ * @property-read \App\Models\Torrent $torrent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent wherePlaylistId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent wherePosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent whereTmdbId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent whereTorrentId($value)
+ * @mixin \Eloquent
+ */
 class PlaylistTorrent extends Model
 {
     use Auditable;

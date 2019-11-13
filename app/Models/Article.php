@@ -18,6 +18,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Article.
+ *
  * @property int $id
  * @property string $title
  * @property string $slug
@@ -40,6 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUserId($value)
  * @mixin \Eloquent
+ * @property-read int|null $comments_count
  */
 class Article extends Model
 {

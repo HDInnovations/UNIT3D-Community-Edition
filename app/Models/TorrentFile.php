@@ -18,6 +18,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\TorrentFile.
+ *
  * @property int $id
  * @property string $name
  * @property int $size

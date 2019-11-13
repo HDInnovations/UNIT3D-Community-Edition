@@ -18,6 +18,8 @@ use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Seedbox.
+ *
  * @property int $id
  * @property int $user_id
  * @property string $name

@@ -157,7 +157,7 @@ class PostController extends Controller
             $appurl = config('app.url');
             $postUrl = "{$appurl}/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $realUrl = "/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
-            $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
+            $profileUrl = "{$appurl}/users/{$user->username}";
             $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
             // Notify All Subscribers Of New Reply

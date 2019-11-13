@@ -18,6 +18,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Forum.
+ *
  * @property int $id
  * @property int|null $position
  * @property int|null $num_topic
@@ -58,6 +60,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read int|null $forums_count
+ * @property-read int|null $permissions_count
+ * @property-read int|null $sub_topics_count
+ * @property-read int|null $subscription_topics_count
+ * @property-read int|null $subscriptions_count
+ * @property-read int|null $topics_count
  */
 class Forum extends Model
 {

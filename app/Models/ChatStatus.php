@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\ChatStatus.
+ *
  * @property int $id
  * @property string $name
  * @property string $color
@@ -34,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatStatus whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatStatus whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read int|null $users_count
  */
 class ChatStatus extends Model
 {

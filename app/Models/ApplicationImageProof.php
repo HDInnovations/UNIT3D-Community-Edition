@@ -15,6 +15,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\ApplicationImageProof.
+ *
  * @property int $id
  * @property int $application_id
  * @property string $image

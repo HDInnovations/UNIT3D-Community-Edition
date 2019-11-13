@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Album.
+ *
  * @property int $id
  * @property int $user_id
  * @property string $name
@@ -39,6 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Album whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Album whereUserId($value)
  * @mixin \Eloquent
+ * @property-read int|null $images_count
  */
 class Album extends Model
 {

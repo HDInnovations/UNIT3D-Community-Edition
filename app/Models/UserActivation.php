@@ -17,6 +17,8 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\UserActivation.
+ *
  * @property int $id
  * @property int $user_id
  * @property string $token

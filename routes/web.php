@@ -279,12 +279,12 @@ Route::group(['middleware' => 'language'], function () {
 
         // Warnings System
         Route::group(['prefix' => 'warnings'], function () {
-            Route::get('/{username}', 'WarningController@show')->name('warnings.show');
             Route::get('/{id}/deactivate', 'WarningController@deactivate')->name('deactivateWarning');
             Route::get('/{username}/mass-deactivate', 'WarningController@deactivateAllWarnings')->name('massDeactivateWarnings');
             Route::delete('/{id}', 'WarningController@deleteWarning')->name('deleteWarning');
-            Route::get('/{username}/mass-delete', 'WarningController@deleteAllWarnings')->name('massDeleteWarnings');
+            Route::delete('/{username}/mass-delete', 'WarningController@deleteAllWarnings')->name('massDeleteWarnings');
             Route::get('/{id}/restore', 'WarningController@restoreWarning')->name('restoreWarning');
+            Route::get('/{username}', 'WarningController@show')->name('warnings.show');
         });
 
         // Users System
@@ -406,11 +406,11 @@ Route::group(['middleware' => 'language'], function () {
             Route::name('notifications.')->group(function () {
                 Route::get('/filter', 'NotificationController@faceted');
                 Route::get('/', 'NotificationController@index')->name('index');
-                Route::get('/{id}', 'NotificationController@show')->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/update', 'NotificationController@update')->name('update');
                 Route::post('/updateall', 'NotificationController@updateAll')->name('updateall');
                 Route::delete('/{id}/destroy', 'NotificationController@destroy')->name('destroy');
                 Route::delete('/destroyall', 'NotificationController@destroyAll')->name('destroyall');
+                Route::get('/{id}', 'NotificationController@show')->name('show');
             });
         });
 
