@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Ban
+ * App\Models\Ban.
  *
  * @property int $id
  * @property int $owned_by

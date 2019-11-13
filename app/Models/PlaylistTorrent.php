@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\PlaylistTorrent
+ * App\Models\PlaylistTorrent.
  *
  * @property int $id
  * @property int|null $position

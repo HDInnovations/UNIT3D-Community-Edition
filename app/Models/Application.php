@@ -17,7 +17,7 @@ use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Application
+ * App\Models\Application.
  *
  * @property int $id
  * @property string $type

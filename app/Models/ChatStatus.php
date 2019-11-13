@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\ChatStatus
+ * App\Models\ChatStatus.
  *
  * @property int $id
  * @property string $name

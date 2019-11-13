@@ -15,7 +15,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\ApplicationUrlProof
+ * App\Models\ApplicationUrlProof.
  *
  * @property int $id
  * @property int $application_id

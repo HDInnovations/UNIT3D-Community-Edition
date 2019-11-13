@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Voter
+ * App\Models\Voter.
  *
  * @property int $id
  * @property int $poll_id

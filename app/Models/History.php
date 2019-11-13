@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
- * App\Models\History
+ * App\Models\History.
  *
  * @property int $id
  * @property int $user_id

@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\BonExchange
+ * App\Models\BonExchange.
  *
  * @property int $id
  * @property string|null $description

@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Bot
+ * App\Models\Bot.
  *
  * @property int $id
  * @property int $position
