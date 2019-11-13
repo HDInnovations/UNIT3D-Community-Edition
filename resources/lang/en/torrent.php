@@ -163,7 +163,7 @@ return [
     'special'                  => 'Special',
     'special-freeleech'        => 'Special Freeleech',
     'staff-tools'              => 'Staff Tools',
-    'start-year'	       => 'Start Year',
+    'start-year'	           => 'Start Year',
     'started'                  => 'Started',
     'status'                   => 'Status',
     'statistics'               => 'Statistics',
