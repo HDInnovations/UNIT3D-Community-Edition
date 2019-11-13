@@ -132,7 +132,7 @@ config('api-keys.omdb')); @endphp
                                                     <span class="badge-user text-bold text-pink"
                                                         style="background-image:url(/img/sparkels.gif);">
                                                         @lang('blocks.featured-until'):
-                                                        {{ $feature->created_at->addDay(7)->toFormattedDateString() }}({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
+                                                        {{ $feature->created_at->addDay(7)->toFormattedDateString() }} ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
                                                     </span>
                                                     <span class="badge-user text-bold text-pink"
                                                         style="background-image:url(/img/sparkels.gif);">
