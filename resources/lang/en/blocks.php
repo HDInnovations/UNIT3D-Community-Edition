@@ -10,7 +10,7 @@ return [
     'featured-by'             => 'Featured by',
     'featured-torrents'       => 'Featured Torrents',
     'featured-torrents-intro' => 'Get Them While You Can!',
-    'featured-until'          => 'This is featured torrent until',
+    'featured-until'          => 'This is a featured torrent until',
 
     // Latest Torrents
     'top-torrents' => 'Top Torrents',
@@ -29,6 +29,6 @@ return [
     'check-news' => 'News (check daily)',
     'new-news'   => 'New News',
 
-    // Top torrents
-    'new-torrents' => 'New torrents',
+    // Top Torrents
+    'new-torrents' => 'New Torrents',
 ];
