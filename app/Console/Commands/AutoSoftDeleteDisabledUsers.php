@@ -33,7 +33,7 @@ class AutoSoftDeleteDisabledUsers extends Command
      *
      * @var string
      */
-    protected $description = 'User Account Must Be In Disabled Group For Atleast x Days';
+    protected $description = 'User account must be In disabled group for at least x days';
 
     /**
      * Execute the console command.

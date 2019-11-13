@@ -501,7 +501,7 @@ class CommentController extends Controller
 
             $thankArray = [
                 "Thanks for the upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :vulcan_tone2:",
-                "Beatiful upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :fire:",
+                "Beautiful upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :fire:",
                 "Cheers [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] for the upload :beers:",
             ];
         }
