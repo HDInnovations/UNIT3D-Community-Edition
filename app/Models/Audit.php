@@ -16,7 +16,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Audit
+ * App\Models\Audit.
  *
  * @property int $id
  * @property int|null $user_id

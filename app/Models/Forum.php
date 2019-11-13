@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Forum
+ * App\Models\Forum.
  *
  * @property int $id
  * @property int|null $position

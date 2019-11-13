@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Invite
+ * App\Models\Invite.
  *
  * @property int $id
  * @property int $user_id

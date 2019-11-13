@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\FreeleechToken
+ * App\Models\FreeleechToken.
  *
  * @property int $id
  * @property int $user_id

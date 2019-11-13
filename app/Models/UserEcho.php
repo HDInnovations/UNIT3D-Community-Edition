@@ -16,7 +16,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\UserEcho
+ * App\Models\UserEcho.
  *
  * @property int $id
  * @property int $user_id

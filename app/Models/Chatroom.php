@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * App\Models\Chatroom
+ * App\Models\Chatroom.
  *
  * @property int $id
  * @property string $name

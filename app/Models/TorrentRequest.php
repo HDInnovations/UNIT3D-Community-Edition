@@ -19,7 +19,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TorrentRequest
+ * App\Models\TorrentRequest.
  *
  * @property int $id
  * @property string $name

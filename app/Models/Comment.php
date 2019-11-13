@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Comment
+ * App\Models\Comment.
  *
  * @property int $id
  * @property string $content

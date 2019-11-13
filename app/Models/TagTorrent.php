@@ -15,7 +15,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TagTorrent
+ * App\Models\TagTorrent.
  *
  * @property int $id
  * @property int $torrent_id
