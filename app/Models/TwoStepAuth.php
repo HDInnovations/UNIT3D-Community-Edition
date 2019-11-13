@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TwoStepAuth
+ * App\Models\TwoStepAuth.
  *
  * @property int $id
  * @property int $userId

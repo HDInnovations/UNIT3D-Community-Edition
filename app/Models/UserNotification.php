@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\UserNotification
+ * App\Models\UserNotification.
  *
  * @property int $id
  * @property int $user_id

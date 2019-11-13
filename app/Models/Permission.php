@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Permission
+ * App\Models\Permission.
  *
  * @property int $id
  * @property int $forum_id

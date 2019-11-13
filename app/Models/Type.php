@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Type
+ * App\Models\Type.
  *
  * @property int $id
  * @property string $name

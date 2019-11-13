@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\PrivateMessage
+ * App\Models\PrivateMessage.
  *
  * @property int $id
  * @property int $sender_id
