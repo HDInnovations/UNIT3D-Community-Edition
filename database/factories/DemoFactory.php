@@ -52,6 +52,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'email'          => $faker->safeEmail,
         'password'       => bcrypt('secret'),
         'passkey'        => Str::random(16),
+        'rsskey'         => Str::random(16),
         'group_id'       => $faker->numberBetween(1, 18),
         'active'         => $faker->boolean(70),
         'uploaded'       => 53687091200,
