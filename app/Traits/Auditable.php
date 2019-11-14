@@ -182,7 +182,6 @@ trait Auditable
         $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
         if (! is_null($userId) && ! empty(json_decode($data, true))) {
-            info($data);
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
