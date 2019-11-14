@@ -121,7 +121,9 @@ trait Auditable
                 break;
         }
 
-        return json_encode($data);
+        $clean = array_filter($data);
+
+        return json_encode($clean);
     }
 
     /**
@@ -148,10 +150,10 @@ trait Auditable
         // Get auth (if any)
         $userId = self::getUserId();
 
-        if (! is_null($userId)) {
-            // Generate the JSON to store
-            $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
+        // Generate the JSON to store
+        $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
 
+        if (! is_null($userId) && ! empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -176,11 +178,11 @@ trait Auditable
         // Get auth (if any)
         $userId = self::getUserId();
 
-        if (! is_null($userId)) {
-            // Strip data
-            // Generate the JSON to store
-            $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
+        // Generate the JSON to store
+        $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
+        if (! is_null($userId) && ! empty(json_decode($data, true))) {
+            info($data);
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -205,10 +207,10 @@ trait Auditable
         // Get auth (if any)
         $userId = self::getUserId();
 
-        if (! is_null($userId)) {
-            // Generate the JSON to store
-            $data = self::generate('delete', self::strip($model, $model->getAttributes()));
+        // Generate the JSON to store
+        $data = self::generate('delete', self::strip($model, $model->getAttributes()));
 
+        if (! is_null($userId) && ! empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
