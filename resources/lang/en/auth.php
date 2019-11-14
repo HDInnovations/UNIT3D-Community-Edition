@@ -31,7 +31,7 @@ return [
     'lost-username'       => 'Forgot Your Username?',
     'need-invite'         => 'Open Registration Is Disabled and You Will Need A Invite To Gain Access!',
     'newbie'              => 'New To The Game',
-    'not-a-member'        => 'Not yet member ? Signup in less than 30s.',
+    'not-a-member'        => 'Not yet a member ? Signup in less than 30s.',
     'not-activated'       => 'This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.',
     'password'            => 'Password',
     'proof-image'         => 'Proof Image URL',
@@ -44,7 +44,7 @@ return [
     'signup'              => 'Signup',
     'throttle'            => 'Too many login attempts. Please try again in :seconds seconds.',
     'unlock'              => 'Unlock',
-    'user-icon'           => 'User icon',
+    'user-icon'           => 'User Icon',
     'username'            => 'Username',
     'veteran'             => 'Experianced With Private Trackers',
     'welcome'             => 'Welcome Back!',
@@ -58,7 +58,7 @@ return [
     'subtitle'                      => 'Verification Required',
     'title'                         => '2-Step Verification',
     'titleFailed'                   => 'Verification Failed',
-    'titlePassed'                   => 'Good news everyone!',
+    'titlePassed'                   => 'Good News Everyone!',
 
     'inputAlt1'                     => 'Code Input 1',
     'inputAlt2'                     => 'Code Input 2',
@@ -66,7 +66,7 @@ return [
     'inputAlt4'                     => 'Code Input 4',
 
     'attemptsRemaining'             => 'Attempt Remaining|Attempts Remaining',
-    'missingCode'                   => 'Didnt receive verification code?',
+    'missingCode'                   => 'Didn\'t receive verification code?',
     'verifyButton'                  => 'Verify',
 
     'exceededTitle'                 => 'Verification Attempts Exceeded',
