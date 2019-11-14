@@ -135,7 +135,7 @@ trait Auditable
             return;
         }
 
-        return auth()->user()->getAuthIdentifier();
+        return auth()->user()->id;
     }
 
     /**
@@ -148,7 +148,7 @@ trait Auditable
         // Get auth (if any)
         $userId = self::getUserId();
 
-        if ($userId !== 1) {
+        if (! is_null($userId)) {
             // Generate the JSON to store
             $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
 
@@ -176,7 +176,7 @@ trait Auditable
         // Get auth (if any)
         $userId = self::getUserId();
 
-        if ($userId !== 1) {
+        if (! is_null($userId)) {
             // Strip data
             // Generate the JSON to store
             $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
@@ -205,7 +205,7 @@ trait Auditable
         // Get auth (if any)
         $userId = self::getUserId();
 
-        if ($userId !== 1) {
+        if (! is_null($userId)) {
             // Generate the JSON to store
             $data = self::generate('delete', self::strip($model, $model->getAttributes()));
 
