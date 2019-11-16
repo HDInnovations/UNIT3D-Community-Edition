@@ -43,8 +43,8 @@ class FollowController extends Controller
             $follow->user_id = $request->user()->id;
             $follow->target_id = $user->id;
             $follow->save();
-            if ($user->acceptsNotification($request->user(), $user->id, 'account', 'show_account_follow')) {
-                $user->notify(new NewFollow('user', $request->user(), $user->id, $follow));
+            if ($user->acceptsNotification($request->user(), $user, 'account', 'show_account_follow')) {
+                $user->notify(new NewFollow('user', $request->user(), $user, $follow));
             }
 
             return redirect()->route('users.show', ['username' => $user->username])
