@@ -85,7 +85,7 @@
                                     <tr>
                                         <td>
                                             <strong>@lang('common.huge') @lang('torrent.torrents')</strong><br>
-                                            <small>@lang('torrent.torrents') {{ strtolower(trans('torrent.size')) }} <span
+                                            <small>@lang('torrent.torrent) @lang('torrent.size)<span
                                                     class="text-bold">></span> 100GB
                                             </small>
                                         </td>
@@ -102,7 +102,7 @@
                                     <tr>
                                         <td>
                                             <strong>@lang('common.large') @lang('torrent.torrents')</strong><br>
-                                            <small>@lang('torrent.torrents') {{ strtolower(trans('torrent.size')) }} <span
+                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span
                                                     class="text-bold">>=</span> 25GB {{ strtolower(trans('common.but')) }}
                                                 < 100GB </small> </td> <td><strong>{{ $large }} x 0.50</strong></td>
                                         <td>
@@ -117,8 +117,8 @@
                                     <tr>
                                         <td>
                                             <strong>@lang('common.everyday') @lang('torrent.torrents')</strong><br>
-                                            <small>@lang('torrent.torrents') {{ strtolower(trans('torrent.size')) }} <span
-                                                    class="text-bold">>=</span> 1GB {{ strtolower(trans('common.but')) }}
+                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span
+                                                    class="text-bold"> >=</span> 1GB {{ strtolower(trans('common.but')) }}
                                                 < 25GB </small> </td> <td><strong>{{ $regular }} x 0.25</strong></td>
                                         <td>
                                             {{ $regular * 0.25 }} @lang('bon.per-hour')<br />
@@ -201,7 +201,7 @@
                                         <td>
                                             <strong>@lang('torrent.participant') @lang('torrent.seeder')</strong><br>
                                             <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
-                                                1 {{ strtolower(trans('common.months')) }}
+                                                1 {{ strtolower(trans('common.month')) }}
                                                 {{ strtolower(trans('common.but')) }}
                                                 < 2 {{ strtolower(trans('common.months')) }}</small> </td> <td>
                                                     <strong>{{ $participant }} x 0.25</strong></td>
