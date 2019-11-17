@@ -121,7 +121,9 @@ trait Auditable
                 break;
         }
 
-        return json_encode($data);
+        $clean = array_filter($data);
+
+        return json_encode($clean);
     }
 
     /**
@@ -135,7 +137,7 @@ trait Auditable
             return;
         }
 
-        return auth()->user()->getAuthIdentifier();
+        return auth()->user()->id;
     }
 
     /**
@@ -145,21 +147,25 @@ trait Auditable
      */
     protected static function registerCreate($model)
     {
-        // Generate the JSON to store
-        $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
         // Get auth (if any)
         $userId = self::getUserId();
-        // Store record
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        DB::table('audits')->insert([
-            'user_id' => $userId,
-            'model_name' => class_basename($model),
-            'model_entry_id' => $model->{$model->getKeyName()},
-            'action' => 'create',
-            'record' => $data,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
+
+        // Generate the JSON to store
+        $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
+
+        if (! is_null($userId) && ! empty($data)) {
+            // Store record
+            $now = Carbon::now()->format('Y-m-d H:i:s');
+            DB::table('audits')->insert([
+                'user_id' => $userId,
+                'model_name' => class_basename($model),
+                'model_entry_id' => $model->{$model->getKeyName()},
+                'action' => 'create',
+                'record' => $data,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }
     }
 
     /**
@@ -169,22 +175,25 @@ trait Auditable
      */
     protected static function registerUpdate($model)
     {
-        // Strip data
-        // Generate the JSON to store
-        $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
         // Get auth (if any)
         $userId = self::getUserId();
-        // Store record
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        DB::table('audits')->insert([
-            'user_id' => $userId,
-            'model_name' => class_basename($model),
-            'model_entry_id' => $model->{$model->getKeyName()},
-            'action' => 'update',
-            'record' => $data,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
+
+        // Generate the JSON to store
+        $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
+
+        if (! is_null($userId) && ! empty(json_decode($data, true))) {
+            // Store record
+            $now = Carbon::now()->format('Y-m-d H:i:s');
+            DB::table('audits')->insert([
+                'user_id' => $userId,
+                'model_name' => class_basename($model),
+                'model_entry_id' => $model->{$model->getKeyName()},
+                'action' => 'update',
+                'record' => $data,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }
     }
 
     /**
@@ -194,20 +203,24 @@ trait Auditable
      */
     protected static function registerDelete($model)
     {
-        // Generate the JSON to store
-        $data = self::generate('delete', self::strip($model, $model->getAttributes()));
         // Get auth (if any)
         $userId = self::getUserId();
-        // Store record
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        DB::table('audits')->insert([
-            'user_id' => $userId,
-            'model_name' => class_basename($model),
-            'model_entry_id' => $model->{$model->getKeyName()},
-            'action' => 'delete',
-            'record' => $data,
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
+
+        // Generate the JSON to store
+        $data = self::generate('delete', self::strip($model, $model->getAttributes()));
+
+        if (! is_null($userId) && ! empty($data)) {
+            // Store record
+            $now = Carbon::now()->format('Y-m-d H:i:s');
+            DB::table('audits')->insert([
+                'user_id' => $userId,
+                'model_name' => class_basename($model),
+                'model_entry_id' => $model->{$model->getKeyName()},
+                'action' => 'delete',
+                'record' => $data,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }
     }
 }

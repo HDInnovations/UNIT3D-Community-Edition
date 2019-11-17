@@ -165,7 +165,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'contact'], function () {
             Route::name('contact.')->group(function () {
                 Route::get('/', 'ContactController@index')->name('index');
-                Route::post('/store', 'ContactController@sotore')->name('store');
+                Route::post('/store', 'ContactController@store')->name('store');
             });
         });
 

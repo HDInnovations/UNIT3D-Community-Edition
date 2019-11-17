@@ -23,14 +23,21 @@
 
 @section('content')
     <div class="box container">
+        <div class="button-holder">
         @include('forum.buttons')
-        <form role="form" method="GET" action="{{ route('forum_search_form') }}">
-            <input type="hidden" name="sorting" value="created_at">
-            <input type="hidden" name="direction" value="desc">
-            <label for="name"></label><input type="text" name="name" id="name"
-                value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
-                placeholder="@lang('forum.topic-quick-search')" class="form-control">
-        </form>
+            <div class="button-right">
+                <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-inline">
+                    <input type="hidden" name="sorting" value="created_at">
+                    <input type="hidden" name="direction" value="desc">
+                    <label for="name"></label><input type="text" name="name" id="name"
+                        value="{{ isset($params) && is_array($params) && array_key_exists('name', $params) ? $params['name'] : '' }}"
+                        placeholder="@lang('forum.topic-quick-search')" class="form-control">
+                    <button type="submit" class="btn btn-success">
+                        <i class="{{ config('other.font-awesome') }} fa-search"></i> @lang('common.search')
+                    </button>
+                </form>
+            </div>
+        </div>
         <div class="forum-categories">
             <table class="table table-bordered table-hover">
                 <thead class="no-space">
@@ -108,6 +115,6 @@
         <div class="text-center col-md-12">
             {{ $results->links() }}
         </div>
-    </div>
+        @include('forum.stats')
     </div>
 @endsection
