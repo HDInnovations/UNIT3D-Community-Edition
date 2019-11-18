@@ -97,13 +97,13 @@
                                 <p>
                                     @if($p->user->topics && $p->user->topics->count() > 0)
                                         <span class="badge-user text-bold">
-                                            <a href="{{ route('user_topics', ['id' => $p->user->id]) }}"
+                                            <a href="{{ route('user_topics', ['username' => $p->user->username]) }}"
                                                 class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
                                         </span>
                                     @endauth
                                     @if($p->user->posts && $p->user->posts->count() > 0)
                                         <span class="badge-user text-bold">
-                                            <a href="{{ route('user_posts', ['id' => $p->user->id]) }}"
+                                            <a href="{{ route('user_posts', ['username' => $p->user->username]) }}"
                                                 class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
                                         </span>
                                     @endauth
