@@ -197,7 +197,8 @@ Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 
-## <a name="sponsors"></a> 😍 Sponsors (Much Love!)
+## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
+<h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>
 <h3>Top Level Tier = 💖 , Tier 4 = 💛, Tier 3 = 💚, Tier 2 = 💜, Tier 1 = 💙</h3>
 
 <table>
