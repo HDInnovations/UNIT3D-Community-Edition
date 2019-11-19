@@ -37,12 +37,6 @@ class AnnounceController extends Controller
      */
     public function announce(Request $request, $passkey)
     {
-        /*\DB::listen(function($sql) {
-            \Log::info($sql->sql);
-            \Log::info($sql->bindings);
-            \Log::info($sql->time);
-        });*/
-
         // Check Announce Request Method
         $method = $request->method();
         if (! $request->isMethod('get')) {
@@ -114,7 +108,7 @@ class AnnounceController extends Controller
         }
 
         // Check Passkey Against Users Table
-        $user = User::with(['group:is_immune,is_freeleech', 'history'])->where('passkey', '=', $passkey)->first();
+        $user = User::where('passkey', '=', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
         if (! $user) {
@@ -122,25 +116,18 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
-        // Caached System Required Groups
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
 
         // If User Is Banned Return Error to Client
-        if ($user->group_id == $banned_group[0]) {
+        if ($user->group_id == $bannedGroup->id) {
             //info('A Banned User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Is Disabled Return Error to Client
-        if ($user->group_id == $disabled_group[0]) {
+        if ($user->group_id == $disabledGroup->id) {
             //info('A Disabled User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -152,7 +139,7 @@ class AnnounceController extends Controller
         }
 
         // If User Is Validating Return Error to Client
-        if ($user->group_id == $validating_group[0]) {
+        if ($user->group_id == $validatingGroup->id) {
             //info('A Validating User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is still validating']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -256,7 +243,7 @@ class AnnounceController extends Controller
         }
 
         // Get history information
-        $history = $user->history->where('info_hash', '=', $info_hash)->first();
+        $history = History::where('user_id', '=', $user->id)->where('info_hash', '=', $info_hash)->first();
 
         if (! $history) {
             $history = new History();
