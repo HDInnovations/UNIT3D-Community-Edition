@@ -353,17 +353,28 @@
 
                             @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
                                 @if (auth()->user()->isFollowing($uploader->id))
-                                    <a href="{{ route('follow.destroy', ['id' => $uploader->id]) }}"
-                                       id="delete-follow-{{ $uploader->target_id }}" class="btn btn-xs btn-info"
-                                       title="@lang('user.unfollow')">
-                                        <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.unfollow')
-                                    </a>
+                                    <form class="form-inline" role="form"action="{{ route('follow.destroy', ['username' => $uploader->username]) }}"
+                                          style="display: inline-block;" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="form-group">
+                                        <button type="submit" id="delete-follow-{{ $uploader->target_id }}" class="btn btn-xs btn-info"
+                                                title="@lang('user.unfollow')">
+                                            <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.unfollow')
+                                        </button>
+                                        </div>
+                                    </form>
                                 @else
-                                    <a href="{{ route('follow.store', ['id' => $uploader->id]) }}"
-                                       id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
-                                       title="@lang('user.follow')">
-                                        <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.follow')
-                                    </a>
+                                    <form class="form-inline" role="form" action="{{ route('follow.store', ['username' => $uploader->username]) }}"
+                                          style="display: inline-block;" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                        <button type="submit" id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
+                                                title="@lang('user.follow')">
+                                            <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.follow')
+                                        </button>
+                                        </div>
+                                    </form>
                                 @endif
                             @endif
 
