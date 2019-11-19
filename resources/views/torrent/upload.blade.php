@@ -45,7 +45,7 @@
             </div>
             <br>
             <div class="text-center">
-                <p class="text-success">{!! trans('torrent.announce-url-desc-url', ['url' => url('pages/5')]) !!}
+                <p class="text-success">{!! trans('torrent.announce-url-desc-url', ['url' => config('other.upload-guide_url')]) !!}
                 </p>
                 <p class="text-danger">@lang('torrent.announce-url-desc2')!</p>
             </div>
