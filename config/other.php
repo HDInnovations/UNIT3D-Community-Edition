@@ -191,5 +191,5 @@ return [
     |--------------------------------------------------------------------------
     | Example: 2
     */
-    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/2',
+    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/3',
 ];
