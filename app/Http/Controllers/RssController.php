@@ -146,13 +146,17 @@ class RssController extends Controller
         $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
         $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
+        $disabled_group = cache()->rememberForever('disabled_group', function () {
+            return Group::where('slug', '=', 'disabled')->pluck('id');
+        });
 
-        if ($user->group->id == $bannedGroup->id) {
+        if ($user->group->id == $banned_group[0]) {
             abort(404);
         }
-        if ($user->group->id == $disabledGroup->id) {
+        if ($user->group->id == $disabled_group[0]) {
             abort(404);
         }
         if ($user->active == 0) {
