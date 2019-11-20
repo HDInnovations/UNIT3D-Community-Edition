@@ -114,7 +114,7 @@ class AnnounceController extends Controller
         }
 
         // Check Passkey Against Users Table
-        $user = User::with(['group:is_immune,is_freeleech', 'history'])->where('passkey', '=', $passkey)->first();
+        $user = User::with(['group', 'history'])->where('passkey', '=', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
         if (! $user) {
