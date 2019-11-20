@@ -78,7 +78,10 @@ class RegisterController extends Controller
                 ->withErrors(trans('auth.invalid-key'));
         }
 
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
+
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
@@ -89,7 +92,7 @@ class RegisterController extends Controller
         $user->downloaded = config('other.default_download');
         $user->style = config('other.default_style', 0);
         $user->locale = config('app.locale');
-        $user->group_id = $validatingGroup->id;
+        $user->group_id = $validating_group[0];
 
         if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [

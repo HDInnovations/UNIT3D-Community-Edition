@@ -67,12 +67,20 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
-        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
+        $disabled_group = cache()->rememberForever('disabled_group', function () {
+            return Group::where('slug', '=', 'disabled')->pluck('id');
+        });
+        $member_group = cache()->rememberForever('member_group', function () {
+            return Group::where('slug', '=', 'user')->pluck('id');
+        });
 
-        if ($user->active == 0 || $user->group_id == $validatingGroup->id) {
+        if ($user->active == 0 || $user->group_id == $validating_group[0]) {
             $this->guard()->logout();
             $request->session()->invalidate();
 
@@ -80,7 +88,7 @@ class LoginController extends Controller
                 ->withErrors(trans('auth.not-activated'));
         }
 
-        if ($user->group_id == $bannedGroup->id) {
+        if ($user->group_id == $banned_group[0]) {
             $this->guard()->logout();
             $request->session()->invalidate();
 
@@ -88,8 +96,8 @@ class LoginController extends Controller
                 ->withErrors(trans('auth.banned'));
         }
 
-        if ($user->group_id == $disabledGroup->id) {
-            $user->group_id = $memberGroup->id;
+        if ($user->group_id == $disabled_group[0]) {
+            $user->group_id = $member_group[0];
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;
@@ -103,8 +111,8 @@ class LoginController extends Controller
                 ->withSuccess(trans('auth.welcome-restore'));
         }
 
-        if (auth()->viaRemember() && $user->group_id == $disabledGroup->id) {
-            $user->group_id = $memberGroup->id;
+        if (auth()->viaRemember() && $user->group_id == $disabled_group[0]) {
+            $user->group_id = $member_group[0];
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;

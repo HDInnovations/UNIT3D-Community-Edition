@@ -49,11 +49,13 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
 
         abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
-        $user->group_id = $bannedGroup->id;
+        $user->group_id = $banned_group[0];
         $user->can_upload = 0;
         $user->can_download = 0;
         $user->can_comment = 0;

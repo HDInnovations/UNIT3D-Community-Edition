@@ -52,33 +52,47 @@ class StatsController extends Controller
 
         // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
         $active_user = cache()->remember('active_user', $this->expiresAt, function () {
-            $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-            $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-            $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
-            $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
+            $banned_group = cache()->rememberForever('banned_group', function () {
+                return Group::where('slug', '=', 'banned')->pluck('id');
+            });
+            $validating_group = cache()->rememberForever('validating_group', function () {
+                return Group::where('slug', '=', 'validating')->pluck('id');
+            });
+            $disabled_group = cache()->rememberForever('disabled_group', function () {
+                return Group::where('slug', '=', 'disabled')->pluck('id');
+            });
+            $pruned_group = cache()->rememberForever('pruned_group', function () {
+                return Group::where('slug', '=', 'pruned')->pluck('id');
+            });
 
-            return User::whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->count();
+            return User::whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->count();
         });
 
         // Total Disabled Members Count
         $disabled_user = cache()->remember('disabled_user', $this->expiresAt, function () {
-            $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
+            $disabled_group = cache()->rememberForever('disabled_group', function () {
+                return Group::where('slug', '=', 'disabled')->pluck('id');
+            });
 
-            return User::where('group_id', '=', $disabledGroup->id)->count();
+            return User::where('group_id', '=', $disabled_group[0])->count();
         });
 
         // Total Pruned Members Count
         $pruned_user = cache()->remember('pruned_user', $this->expiresAt, function () {
-            $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
+            $pruned_group = cache()->rememberForever('pruned_group', function () {
+                return Group::where('slug', '=', 'pruned')->pluck('id');
+            });
 
-            return User::onlyTrashed()->where('group_id', '=', $prunedGroup->id)->count();
+            return User::onlyTrashed()->where('group_id', '=', $pruned_group[0])->count();
         });
 
         // Total Banned Members Count
         $banned_user = cache()->remember('banned_user', $this->expiresAt, function () {
-            $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+            $banned_group = cache()->rememberForever('banned_group', function () {
+                return Group::where('slug', '=', 'banned')->pluck('id');
+            });
 
-            return User::where('group_id', '=', $bannedGroup->id)->count();
+            return User::where('group_id', '=', $banned_group[0])->count();
         });
 
         // Total Torrents Count
@@ -175,13 +189,21 @@ class StatsController extends Controller
      */
     public function uploaded()
     {
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
-        $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
+        $disabled_group = cache()->rememberForever('disabled_group', function () {
+            return Group::where('slug', '=', 'disabled')->pluck('id');
+        });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
 
         // Fetch Top Uploaders
-        $uploaded = User::latest('uploaded')->whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->take(100)->get();
+        $uploaded = User::latest('uploaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
 
         return view('stats.users.uploaded', ['uploaded' => $uploaded]);
     }
@@ -193,13 +215,21 @@ class StatsController extends Controller
      */
     public function downloaded()
     {
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
-        $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
+        $disabled_group = cache()->rememberForever('disabled_group', function () {
+            return Group::where('slug', '=', 'disabled')->pluck('id');
+        });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
 
         // Fetch Top Downloaders
-        $downloaded = User::latest('downloaded')->whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->take(100)->get();
+        $downloaded = User::latest('downloaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
 
         return view('stats.users.downloaded', ['downloaded' => $downloaded]);
     }
@@ -250,13 +280,21 @@ class StatsController extends Controller
      */
     public function bankers()
     {
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
-        $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
+        $disabled_group = cache()->rememberForever('disabled_group', function () {
+            return Group::where('slug', '=', 'disabled')->pluck('id');
+        });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
 
         // Fetch Top Bankers
-        $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->take(100)->get();
+        $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
 
         return view('stats.users.bankers', ['bankers' => $bankers]);
     }
