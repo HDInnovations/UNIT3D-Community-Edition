@@ -113,7 +113,7 @@
                                                 </p>
                                                 <div class="btns">
                                                     <form id="resurrect-torrent" role="form" method="POST"
-                                                        action="{{ route('graveyard.store', ['torrent_id' => $torrent->id]) }}">
+                                                        action="{{ route('graveyard.store', ['id' => $torrent->id]) }}">
                                                         @csrf
                                                         @if (!$history)
                                                             <label for="seedtime"></label><input hidden="seedtime" name="seedtime"

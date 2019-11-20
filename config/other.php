@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v2.2.3',
+    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v2.2.4',
 
     /*
     |--------------------------------------------------------------------------
@@ -192,4 +192,12 @@ return [
     | Example: 2
     */
     'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/2',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Upload Guide Page URL For Upload Page
+    |--------------------------------------------------------------------------
+    | Example: 4
+    */
+    'upload-guide_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/4',
 ];

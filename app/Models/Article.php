@@ -80,7 +80,7 @@ class Article extends Model
      *
      * @return string Formatted And Trimmed Content
      */
-    public function getBrief($length = 100, $ellipses = true, $strip_html = false)
+    public function getBrief($length = 20, $ellipses = true, $strip_html = false)
     {
         $input = $this->content;
         //strip tags, if desired
