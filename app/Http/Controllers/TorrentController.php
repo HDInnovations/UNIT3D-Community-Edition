@@ -1079,14 +1079,17 @@ class TorrentController extends Controller
         } else {
             $torrent->save();
 
+            $meta = null;
+
             // Torrent Tags System
-            if ($torrent->category_id == 2) {
+            if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
-            } else {
+            }
+            if ($torrent->category->movie_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
@@ -1094,15 +1097,17 @@ class TorrentController extends Controller
                 }
             }
 
-            if ($meta->genres) {
+            if (isset($meta) && $meta->genres) {
+                $old_genres = TagTorrent::where('torrent_id', '=', $torrent->id)->get();
+                foreach ($old_genres as $old_genre) {
+                    $old_genre->delete();
+                }
+
                 foreach ($meta->genres as $genre) {
-                    $exist = TagTorrent::where('torrent_id', '=', $torrent->id)->where('tag_name', '=', $genre)->first();
-                    if (! $exist) {
-                        $tag = new TagTorrent();
-                        $tag->torrent_id = $torrent->id;
-                        $tag->tag_name = $genre;
-                        $tag->save();
-                    }
+                    $tag = new TagTorrent();
+                    $tag->torrent_id = $torrent->id;
+                    $tag->tag_name = $genre;
+                    $tag->save();
                 }
             }
 
