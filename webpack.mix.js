@@ -1,5 +1,6 @@
 let mix = require('laravel-mix');
 require('laravel-mix-sri');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -20,6 +21,13 @@ mix.options({
      */
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .purgeCss({
+      enabled: true,
+
+      extensions: ['html', 'php', 'js', 'vue'],
+
+      whitelistPatterns: [/fa/, /far/, /fas/, /fal/],
+    })
     .generateIntegrityHash()
 
     /*
