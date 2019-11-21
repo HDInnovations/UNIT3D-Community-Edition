@@ -158,8 +158,8 @@
     
         <!-- Mass Options -->
         <br>
-        <div class="text-center" style=" margin-top: 100px;">
-            <form action="{{ route('notifications.updateall') }}" method="POST">
+        <div class="text-center" style=" margin-top: 100px; display: inline-block;">
+            <form action="{{ route('notifications.updateall') }}" method="POST" style="display: inline-block;">
                 @csrf
                 <button type="submit" class="btn btn btn-success" data-toggle="tooltip"
                         data-original-title="@lang('notification.mark-all-read')">
@@ -167,7 +167,7 @@
                 </button>
             </form>
 
-            <form action="{{ route('notifications.destroyall') }}" method="POST">
+            <form action="{{ route('notifications.destroyall') }}" method="POST" style="display: inline-block;">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn btn-danger" data-toggle="tooltip"
