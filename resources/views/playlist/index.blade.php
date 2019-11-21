@@ -56,7 +56,9 @@
                     </div>
                 @endforeach
             </div>
-    
+            <div class="text-center">
+                {{ $playlists->links() }}
+            </div>
         </div>
     </div>
 @endsection

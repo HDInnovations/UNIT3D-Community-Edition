@@ -45,7 +45,7 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(25);
+        $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
 
         return view('playlist.index', ['playlists' => $playlists]);
     }
