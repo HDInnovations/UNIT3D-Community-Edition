@@ -57,8 +57,7 @@
                             <button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
                                 <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span> Postpone
                             </button>
-                            <!-- Torrent Postpone Modal-->
-                            {{-- Torrent Postpone Modal --}}
+
                             <div class="modal fade" id="pendpostpone-{{ $p->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
@@ -98,15 +97,12 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- End Torrent Postpone Modal -->
                         </td>
                         <td>
                             <button data-target="#pendreject-{{ $p->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Reject
                             </button>
-                            <!-- Torrent Reject Modal -->
-                            {{-- Torrent Reject Modal --}}
                             <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                 <form method="POST" action="{{ route("staff.moderation.reject") }}">
                                     @csrf
@@ -152,7 +148,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- End Torrent Reject Modal -->
                         </td>
                     </tr>
                 @endforeach
@@ -212,8 +207,7 @@
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>@lang('common.delete')
                             </button>
-                            <!-- Torrent Delete Modal -->
-                            {{-- Torrent Delete Modal --}}
+
                             <div class="modal fade" id="postdelete-{{ $post->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('delete') }}">
@@ -261,7 +255,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- End Torrent Delete Modal -->
                         </td>
                     </tr>
                 @endforeach
@@ -318,8 +311,7 @@
                             <button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
                                     <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span> Postpone
                             </button>
-                            <!-- Torrent Postpone Modal-->
-                            {{-- Torrent Postpone Modal --}}
+
                             <div class="modal fade" id="rejectpost-{{ $reject->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
@@ -359,7 +351,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- End Torrent Postpone Modal -->
                         </td>
                         <td><a href="{{ route('edit', ['id' => $reject->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
@@ -369,8 +360,7 @@
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>@lang('common.delete')
                             </button>
-                            <!-- Torrent Delete Modal -->
-                            {{-- Torrent Delete Modal --}}
+
                             <div class="modal fade" id="rejectdelete-{{ $reject->id }}" tabindex="-1" role="dialog"
                                  aria-hidden="true">
                                 <form method="POST" action=" {{ route('delete') }}">
@@ -419,7 +409,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- End Torrent Delete Modal -->
                         </td>
                     </tr>
                 @endforeach

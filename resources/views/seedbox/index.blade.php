@@ -75,7 +75,6 @@
         </div>
     </div>
     
-    {{-- Add Seedbox Modal --}}
     <div class="modal fade" id="seedbox" tabindex="-1" role="dialog" aria-labelledby="seedbox">
         <div class="modal-dialog modal-dark" role="document">
             <div class="modal-content">
@@ -114,5 +113,4 @@
             </div>
         </div>
     </div>
-    {{-- /Add Seedbox Modal --}}
 @endsection

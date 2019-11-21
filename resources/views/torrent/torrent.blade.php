@@ -28,23 +28,14 @@
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
 
-        {{-- Movie/TV Meta Data --}}
         @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
             @include('torrent.partials.movie_tv_meta')
         @endif
-        {{-- /Movie/TV Meta Data --}}
 
-        {{-- Game Meta Data --}}
         @if ($torrent->category->game_meta)
             @include('torrent.partials.game_meta')
         @endif
-        {{-- /Game Meta Data --}}
 
-        {{-- Music Meta Data --}}
-            {{--To Be Added Via Partials --}}
-        {{-- /Music Meta Data --}}
-
-        {{-- Button Bar --}}
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
@@ -118,9 +109,7 @@
                 </div>
             </table>
         </div>
-        {{-- /Button Bar --}}
 
-        {{-- General --}}
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> General</h4>
@@ -609,7 +598,6 @@
             </div>
         </div>
 
-        {{-- Tip Jar --}}
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-coins"></i> @lang('torrent.tip-jar')</h4>
@@ -665,20 +653,12 @@
                 </table>
             </div>
         </div>
-        {{-- /Tip Jar --}}
     </div>
 
-    {{-- TMDB Movie/TV Recommendations --}}
     @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
         @include('torrent.partials.movie_tv_recommendations')
     @endif
-    {{-- /TMDB Movie/TV Recommendations --}}
 
-    {{-- IGDN Game Recommendations --}}
-        {{--To Be Added Via Partials --}}
-    {{-- /IGDN Game Recommendations --}}
-
-    {{-- Comments --}}
     <div class="torrent box container" id="comments">
         <div class="clearfix"></div>
         <div class="row ">
@@ -774,8 +754,6 @@
                     </label> @lang('common.no')
                 </form>
             </div>
-            {{-- Comments --}}
-
         </div>
     </div>
     @include('torrent.torrent_modals', ['user' => $user, 'torrent' => $torrent])

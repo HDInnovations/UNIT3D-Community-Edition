@@ -13,7 +13,6 @@
 @endsection
 
 @section('content')
-    <!-- Search -->
     <div class="container box">
         <div class="text-center">
             <h3 class="filter-title">@lang('torrent.filters')</h3>
@@ -101,9 +100,7 @@
             </div>
         </div>
     </div>
-    <!-- /Search -->
     
-    <!-- Results -->
     <div class="container-fluid">
         <div class="block">
             <div class="header gradient silver">
@@ -164,8 +161,7 @@
                 },
                 type: 'get',
                 beforeSend: function() {
-                    $("#result").html('<i class="{{ config('
-                        other.font - awesome ') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
+                    $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function(e) {
                 $data = $(e);

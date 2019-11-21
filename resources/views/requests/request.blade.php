@@ -65,21 +65,13 @@
                     </div>
                 </div>
 
-                {{-- Movie/TV Meta Data --}}
                 @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
                     @include('requests.partials.movie_tv_meta')
                 @endif
-                {{-- /Movie/TV Meta Data --}}
 
-                {{-- Game Meta Data --}}
                 @if ($torrentRequest->category->game_meta)
                     @include('requests.partials.game_meta')
                 @endif
-                {{-- /Game Meta Data --}}
-
-                {{-- Music Meta Data --}}
-                {{--To Be Added Via Partials --}}
-                {{-- /Music Meta Data --}}
 
                 <div class="table-responsive">
                     <table class="table table-condensed table-bordered table-striped">
@@ -363,7 +355,6 @@
                 </div>
             </div>
             <div class="block" id="comments">
-                <!-- Comments -->
                 <div class="clearfix"></div>
                 <div class="row ">
                     <div class="col-md-12 col-sm-12">
@@ -428,14 +419,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /Comments -->
                     <div class="clearfix"></div>
                     <div class="col-md-12 home-pagination">
                         <div class="text-center">{{ $comments->links() }}</div>
                     </div>
                     <br>
 
-                    <!-- Add comment -->
                     <div class="col-md-12">
                         <form role="form" method="POST"
                               action="{{ route('comment_request',['id' => $torrentRequest->id]) }}">
@@ -459,7 +448,6 @@
                             </label> @lang('common.no')
                         </form>
                     </div>
-                    <!-- /Add comment -->
                 </div>
             </div>
         </div>

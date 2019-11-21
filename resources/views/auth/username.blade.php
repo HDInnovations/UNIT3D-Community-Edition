@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>@lang('auth.lost-username') - {{ config('other.title') }}</title>
-    <!-- Meta -->
     @section('meta')
         <meta name="description"
             content="@lang('auth.login-now-on') {{ config('other.title') }} . @lang('auth.not-a-member')">
@@ -29,14 +28,12 @@
     <div class="wrapper fadeInDown">
         <svg viewBox="0 0 800 100" class="sitebanner">
 
-            <!-- Symbol -->
             <symbol id="s-text">
                 <text text-anchor="middle" x="50%" y="50%" dy=".35em">
                     {{ config('other.title') }}
                 </text>
             </symbol>
 
-            <!-- Duplicate symbols -->
             <use xlink:href="#s-text" class="text"></use>
             <use xlink:href="#s-text" class="text"></use>
             <use xlink:href="#s-text" class="text"></use>
@@ -45,7 +42,6 @@
 
         </svg>
         <div id="formContent">
-            <!-- Tabs Titles -->
             <a href="{{ route('login') }}">
                 <h2 class="inactive underlineHover">@lang('auth.login')</h2>
             </a>
@@ -53,12 +49,10 @@
                 <h2 class="inactive underlineHover">@lang('auth.signup')</h2>
             </a>
 
-            <!-- Icon -->
             <div class="fadeIn first">
                 <img src="{{ url('/img/icon.svg') }}" id="icon" alt="@lang('auth.user-icon')" />
             </div>
 
-            <!-- SignUp Form -->
             <form class="form-horizontal" role="form" method="POST" action="{{ route('username.email') }}">
                 @csrf
                 <label for="email"></label><input type="email" id="email" class="fadeIn third" name="email"
@@ -69,7 +63,6 @@
                 <button type="submit" class="fadeIn fourth">@lang('common.submit')</button>
             </form>
 
-            <!-- Remind Passowrd -->
             <div id="formFooter">
                 <a href="{{ route('password.request') }}">
                     <h2 class="inactive underlineHover">@lang('auth.lost-password') </h2>

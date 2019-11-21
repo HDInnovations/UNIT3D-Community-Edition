@@ -1,4 +1,3 @@
-{{-- Gift Modal --}}
 <div class="modal fade" id="modal_user_gift" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
     aria-hidden="true">
     <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
@@ -44,8 +43,6 @@
     </div>
 </div>
 
-
-{{-- Message Modal --}}
 <div class="modal fade" id="modal_user_pm" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
     aria-hidden="true">
     <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
@@ -92,7 +89,6 @@
     </div>
 </div>
 
-{{-- Note Modal --}}
 <div class="modal fade" id="modal_user_note" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
     aria-hidden="true">
     <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
@@ -130,7 +126,6 @@
     </div>
 </div>
 
-{{-- Ban Modal --}}
 <div class="modal fade" id="modal_user_ban" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
     aria-hidden="true">
     <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
@@ -167,7 +162,6 @@
     </div>
 </div>
 
-{{-- Unban Modal --}}
 <div class="modal fade" id="modal_user_unban" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
     aria-hidden="true">
     <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
@@ -217,7 +211,6 @@
     </div>
 </div>
 
-{{-- Report Modal --}}
 <div class="modal fade" id="modal_user_report" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
     aria-hidden="true">
     <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
@@ -254,7 +247,6 @@
     </div>
 </div>
 
-{{-- Delete User Modal --}}
 <div class="modal fade" id="modal_user_delete" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
     aria-hidden="true">
     <div class="modal-dialog modal-dark modal-dialog-centered" role="document">

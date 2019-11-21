@@ -13,7 +13,6 @@
 @endsection
 
 @section('content')
-    <!-- Search -->
     <div class="container box">
         <div class="text-center">
             <h3 class="filter-title">@lang('notification.filter-by-type')</h3>
@@ -156,32 +155,28 @@
             </div>
         </form>
     
-        <!-- Mass Options -->
         <br>
         <div class="text-center" style=" margin-top: 100px; display: inline-block;">
             <form action="{{ route('notifications.updateall') }}" method="POST" style="display: inline-block;">
                 @csrf
                 <button type="submit" class="btn btn btn-success" data-toggle="tooltip"
-                        data-original-title="@lang('notification.mark-all-read')">
+                    data-original-title="@lang('notification.mark-all-read')">
                     <i class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('notification.mark-all-read')
                 </button>
             </form>
-
+    
             <form action="{{ route('notifications.destroyall') }}" method="POST" style="display: inline-block;">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn btn-danger" data-toggle="tooltip"
-                        data-original-title="@lang('notification.delete-all')">
+                    data-original-title="@lang('notification.delete-all')">
                     <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('notification.delete-all')
                 </button>
             </form>
         </div>
-        <!-- /Mass Options -->
     
     </div>
-    <!-- /Search -->
     
-    <!-- Results -->
     <div class="container-fluid">
         <div class="block">
             <div class="header gradient silver">
@@ -335,8 +330,7 @@
                 },
                 type: 'get',
                 beforeSend: function() {
-                    $("#result").html('<i class="{{ config('
-                        other.font - awesome ') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
+                    $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function(e) {
                 $data = $(e);

@@ -24,7 +24,7 @@
 @section('content')
     <div class="box container">
         <div class="button-holder">
-        @include('forum.buttons')
+            @include('forum.buttons')
             <div class="button-right">
                 <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-inline">
                     <input type="hidden" name="sorting" value="created_at">

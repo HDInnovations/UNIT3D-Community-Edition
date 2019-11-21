@@ -62,7 +62,6 @@
                                     @emojione(':zombie:') @lang('graveyard.resurrect')
                                 </span>
                             </button>
-                            {{-- Resurrect Modal --}}
                             <div class="modal fade" id="resurrect-{{ $torrent->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="resurrect">
                                 <div class="modal-dialog modal-dark" role="document">

@@ -88,7 +88,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- Uploaders -->
                         <div class="tab-pane" id="uploaders">
                             <table class="table table-hover members-table middle-align">
                                 <thead>
@@ -134,7 +133,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Mods -->
                         <div class="tab-pane" id="mods">
                             <table class="table table-hover members-table middle-align">
                                 <thead>
@@ -180,7 +178,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Staff -->
                         <div class="tab-pane" id="admins">
                             <table class="table table-hover members-table middle-align">
                                 <thead>
@@ -225,7 +222,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Coders -->
                         <div class="tab-pane" id="coders">
                             <table class="table table-hover members-table middle-align">
                                 <thead>

@@ -14,6 +14,6 @@
     <p class="text-center">
         {{ $exception->getMessage() ?:
             'The Requested Page Cannot Be Found! Not Sure What Your Looking For But Check The
-            Address And Try Again!' }}
+                Address And Try Again!' }}
     </p>
 @stop
