@@ -85,7 +85,7 @@
                                     <tr>
                                         <td>
                                             <strong>@lang('common.huge') @lang('torrent.torrents')</strong><br>
-                                            <small>@lang('torrent.torrent) @lang('torrent.size)<span
+                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span
                                                     class="text-bold">></span> 100GB
                                             </small>
                                         </td>
@@ -129,7 +129,7 @@
                                             </span>
                                         </td>
                                     </tr>
-    
+
                                     <tr>
                                         <td>
                                             <strong>@lang('torrent.legendary-seeder')</strong><br>
@@ -227,8 +227,8 @@
                                             <span class="bonExtension" style="display: none;">
                                                 <strong>{{ $total * 24 }}</strong> @lang('bon.per-day')<br />
                                                 <strong>{{ $total * 24 * 7 }}</strong> @lang('bon.per-week')<br />
-                                                <strong>{{ $total * 24 * 30 }}</strong> @lang('bon.per-month')</td>
-                                        </span>
+                                                <strong>{{ $total * 24 * 30 }}</strong> @lang('bon.per-month')<br />
+                                            </span>
                                         </td>
                                     </tr>
                                 </tfoot>
