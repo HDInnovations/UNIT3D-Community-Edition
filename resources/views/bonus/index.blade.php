@@ -117,8 +117,8 @@
                                     <tr>
                                         <td>
                                             <strong>@lang('common.everyday') @lang('torrent.torrents')</strong><br>
-                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span
-                                                    class="text-bold"> >=</span> 1GB {{ strtolower(trans('common.but')) }}
+                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span class="text-bold">
+                                                    >=</span> 1GB {{ strtolower(trans('common.but')) }}
                                                 < 25GB </small> </td> <td><strong>{{ $regular }} x 0.25</strong></td>
                                         <td>
                                             {{ $regular * 0.25 }} @lang('bon.per-hour')<br />
@@ -129,7 +129,7 @@
                                             </span>
                                         </td>
                                     </tr>
-
+    
                                     <tr>
                                         <td>
                                             <strong>@lang('torrent.legendary-seeder')</strong><br>

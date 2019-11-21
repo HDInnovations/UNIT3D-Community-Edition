@@ -97,7 +97,8 @@
                             </div>
     
                             <div class="mx-0 mt-5 form-group fatten-me">
-                                <label for="release_year" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.year-range')
+                                <label for="release_year"
+                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.year-range')
                                 </label>
                                 <div class="col-sm-2">
                                     <label for="start_year"></label><input type="text" class="form-control facetedSearch"

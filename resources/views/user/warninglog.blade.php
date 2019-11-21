@@ -13,7 +13,6 @@
 @endsection
 
 @section('content')
-    {{--Warnings--}}
     <div class="container">
         <div class="block">
             <h2>
@@ -35,12 +34,13 @@
                                 @method('DELETE')
                                 <a href="{{ route('massDeactivateWarnings', ['username' => $user->username]) }}">
                                     <button type="button" class="btn btn btn-success" data-toggle="tooltip"
-                                            data-original-title="@lang('user.deactivate-all')">
-                                        <i class="{{ config('other.font-awesome') }} fa-check"></i> @lang('user.deactivate-all')
+                                        data-original-title="@lang('user.deactivate-all')">
+                                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                                        @lang('user.deactivate-all')
                                     </button>
                                 </a>
                                 <button type="submit" class="btn btn btn-danger" data-toggle="tooltip"
-                                        data-original-title="@lang('user.delete-all')">
+                                    data-original-title="@lang('user.delete-all')">
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i>@lang('user.delete-all')
                                 </button>
                             </form>
@@ -98,7 +98,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}"
-                                                   class="btn btn-xs btn-warning" @if ($warning->active == 0) disabled @endif>
+                                        class="btn btn-xs btn-warning" @if ($warning->active == 0) disabled @endif>
                                                     <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
                                                 </a>
                                             </td>
@@ -123,7 +123,6 @@
         </div>
     </div>
     
-    {{--SoftDeleted Warnings --}}
     <div class="container">
         <div class="block">
             <h2>

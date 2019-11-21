@@ -8,8 +8,6 @@ config('api-keys.omdb')); @endphp
                 <h4><i class="{{ config('other.font-awesome') }} fa-star"></i> @lang('blocks.featured-torrents')</h4>
             </div>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-                <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
                         <div id="movie-card-list">
@@ -132,7 +130,8 @@ config('api-keys.omdb')); @endphp
                                                     <span class="badge-user text-bold text-pink"
                                                         style="background-image:url(/img/sparkels.gif);">
                                                         @lang('blocks.featured-until'):
-                                                        {{ $feature->created_at->addDay(7)->toFormattedDateString() }} ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
+                                                        {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
+                                                        ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
                                                     </span>
                                                     <span class="badge-user text-bold text-pink"
                                                         style="background-image:url(/img/sparkels.gif);">
@@ -148,7 +147,6 @@ config('api-keys.omdb')); @endphp
                     @endforeach
                 </div>
 
-                <!-- Left and right controls -->
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                     <span class="sr-only">@lang('common.previous')</span>

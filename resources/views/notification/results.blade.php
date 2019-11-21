@@ -27,7 +27,8 @@
                         <form action="{{ route('notifications.update', ['id' => $notification->id]) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-xxs btn-success" data-toggle="tooltip"
-                                    data-original-title="@lang('notification.mark-read')" @if ($notification->read_at != null) disabled @endif>
+                                data-original-title="@lang('notification.mark-read')" @if ($notification->read_at != null)
+                                disabled @endif>
                                 <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                             </button>
                         </form>
@@ -37,7 +38,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-xxs btn-danger" data-toggle="tooltip"
-                                    data-original-title="@lang('notification.delete')">
+                                data-original-title="@lang('notification.delete')">
                                 <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             </button>
                         </form>

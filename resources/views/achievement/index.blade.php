@@ -107,18 +107,18 @@
                             <h3>
                                 <strong>@lang('user.unlocked-achievements')
                                     :</strong>{{ auth()
-                 ->user()
-                 ->unlockedAchievements()
-                 ->count() }}
+                                            ->user()
+                                            ->unlockedAchievements()
+                                            ->count() }}
                             </h3>
                         </div>
                         <div class="text-red well well-sm">
                             <h3>
                                 <strong>@lang('user.locked-achievements')
                                     :</strong>{{ auth()
-                 ->user()
-                 ->lockedAchievements()
-                 ->count() }}
+                                            ->user()
+                                            ->lockedAchievements()
+                                            ->count() }}
                             </h3>
                         </div>
                     </div>

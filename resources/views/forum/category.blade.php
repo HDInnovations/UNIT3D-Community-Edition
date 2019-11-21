@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <div class="button-holder">
-        @include('forum.buttons')
+            @include('forum.buttons')
             <div class="button-right">
                 <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-inline">
                     <input type="hidden" name="sorting" value="updated_at">
@@ -121,7 +121,7 @@
         <div class="text-center col-md-12">
             {{ $topics->links() }}
         </div>
-
+    
         @include('forum.stats')
     </div>
 @endsection
