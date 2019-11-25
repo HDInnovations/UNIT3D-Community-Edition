@@ -57,7 +57,7 @@
                             <td>{{ $seedbox->created_at }}</td>
                             <td>
                                 <form role="form" method="POST"
-                                    action="{{ route('seedboxes.destroy', ['username' => $user->username, 'id' => $seedbox->id]) }}">
+                                    action="{{ route('seedboxes.destroy', ['id' => $seedbox->id]) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
