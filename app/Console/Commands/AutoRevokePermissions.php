@@ -42,14 +42,24 @@ class AutoRevokePermissions extends Command
      */
     public function handle()
     {
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $leechGroup = Group::select(['id'])->where('slug', '=', 'leech')->first();
-        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
-        $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
+        $leech_group = cache()->rememberForever('leech_group', function () {
+            return Group::where('slug', '=', 'leech')->pluck('id');
+        });
+        $disabled_group = cache()->rememberForever('disabled_group', function () {
+            return Group::where('slug', '=', 'disabled')->pluck('id');
+        });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
 
-        User::whereNotIn('group_id', [$bannedGroup->id, $validatingGroup->id, $leechGroup->id, $disabledGroup->id, $prunedGroup->id])->update(['can_download' => '1', 'can_request' => '1']);
-        User::whereIn('group_id', [$bannedGroup->id, $validatingGroup->id, $leechGroup->id, $disabledGroup->id, $prunedGroup->id])->update(['can_download' => '0', 'can_request' => '0']);
+        User::whereNotIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '1', 'can_request' => '1']);
+        User::whereIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '0', 'can_request' => '0']);
 
         $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
 

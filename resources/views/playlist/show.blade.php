@@ -209,67 +209,6 @@
 			</div>
 		</div>
 
-		{{--<div class="block">
-				<div class="row">
-					<div class="col-xs-6 col-sm-4 col-md-3">
-						<div class="image-box text-center mb-20">
-							<div class="overlay-container">
-								<img class='details-poster' src="{{ $meta->poster }}">
-								<div class="overlay-top">
-									@if ($t->torrent->tmdb != 0)
-										<a href="{{ route('torrents.similar', ['category_id' => $t->torrent->category_id, 'tmdb' => $t->torrent->tmdb]) }}" role="button"
-										   data-toggle="tooltip" data-placement="right" data-original-title="@lang('torrent.similar')" class="btn btn-xs btn-primary" style="float: left;">
-											<i class='{{ config("other.font-awesome") }} fa-copy'></i>
-										</a>
-									@endif
-
-                                    @if (config('torrent.download_check_page') == 1)
-                                        <a href="{{ route('download_check', ['id' => $t->torrent->id]) }}" role="button"
-                                           data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
-                                            <i class='{{ config("other.font-awesome") }} fa-download'></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('download', ['id' => $t->torrent->id]) }}" role="button"
-                                           data-toggle="tooltip" data-placement="right" data-original-title="@lang('common.download')" class="btn btn-xs btn-success" style="float: left;">
-                                            <i class='{{ config("other.font-awesome") }} fa-download'></i>
-                                        </a>
-                                    @endif
-
-									@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
-										<form action="{{ route('playlists.detach', ['id' => $t->torrent->id]) }}" method="POST" style="float: right;"
-										      data-toggle="tooltip" data-placement="left" data-original-title="@lang('common.delete')">
-											@csrf
-											@method('DELETE')
-											<button type="submit" class="btn btn-xs btn-danger">
-												<i class="{{ config('other.font-awesome') }} fa-trash"></i>
-											</button>
-										</form>
-									@endif
-									<div class="text">
-										<h3 style="font-size: 25px;">
-											<a data-id="{{ $t->torrent->id }}" href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}</a>
-										</h3>
-									</div>
-								</div>
-								<div class="overlay-bottom">
-									<div class="links">
-										<span class='label label-success'>{{ $t->torrent->type }}</span>
-										<div class="separator mt-10"></div>
-										<ul class="list-unstyled margin-clear">
-											<li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ trans('torrent.seeders') }}: {{ $t->torrent->seeders }}</li>
-											<li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> {{ trans('torrent.leechers') }}: {{ $t->torrent->leechers }}</li>
-											<li><i class="{{ config('other.font-awesome') }} fa-check"></i> {{ trans('torrent.completed') }}: {{ $t->torrent->times_completed }}</li>
-											<li><i class="{{ config('other.font-awesome') }} fa-server"></i> {{ trans('torrent.size') }}: {{ $t->torrent->getSize() }}</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			</div>
-		</div>--}}
-
 		<div class="block" id="comments">
 			<div class="row ">
 				<div class="col-md-12 col-sm-12">
@@ -329,9 +268,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- /Comments -->
 				<br>
-				<!-- Add comment -->
 				<div class="col-md-12">
 					<form role="form" method="POST" action="{{ route('comment_playlist', ['id' => $playlist->id]) }}">
 						@csrf
@@ -348,12 +285,10 @@
 						<input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
 					</form>
 				</div>
-				<!-- /Add comment -->
 			</div>
 		</div>
 	</div>
 
-	{{-- Add Torrent Modal --}}
 	<div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dark">
 			<div class="modal-content">

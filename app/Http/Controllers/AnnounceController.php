@@ -114,7 +114,7 @@ class AnnounceController extends Controller
         }
 
         // Check Passkey Against Users Table
-        $user = User::with(['group', 'history'])->where('passkey', '=', $passkey)->first();
+        $user = User::with(['group'])->where('passkey', '=', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
         if (! $user) {
@@ -256,7 +256,7 @@ class AnnounceController extends Controller
         }
 
         // Get history information
-        $history = $user->history->where('info_hash', '=', $info_hash)->first();
+        $history = History::where('info_hash', '=', $info_hash)->where('user_id', '=', $user->id)->first();
 
         if (! $history) {
             $history = new History();

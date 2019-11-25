@@ -57,7 +57,7 @@
                             <td>{{ $seedbox->created_at }}</td>
                             <td>
                                 <form role="form" method="POST"
-                                    action="{{ route('seedboxes.destroy', ['username' => $user->username, 'id' => $seedbox->id]) }}">
+                                    action="{{ route('seedboxes.destroy', ['id' => $seedbox->id]) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
@@ -75,7 +75,6 @@
         </div>
     </div>
     
-    {{-- Add Seedbox Modal --}}
     <div class="modal fade" id="seedbox" tabindex="-1" role="dialog" aria-labelledby="seedbox">
         <div class="modal-dialog modal-dark" role="document">
             <div class="modal-content">
@@ -114,5 +113,4 @@
             </div>
         </div>
     </div>
-    {{-- /Add Seedbox Modal --}}
 @endsection

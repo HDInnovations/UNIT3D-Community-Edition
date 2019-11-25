@@ -43,11 +43,15 @@ class AutoSoftDeleteDisabledUsers extends Command
     public function handle()
     {
         if (config('pruning.user_pruning') == true) {
-            $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
-            $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
+            $disabled_group = cache()->rememberForever('disabled_group', function () {
+                return Group::where('slug', '=', 'disabled')->pluck('id');
+            });
+            $pruned_group = cache()->rememberForever('pruned_group', function () {
+                return Group::where('slug', '=', 'pruned')->pluck('id');
+            });
 
             $current = Carbon::now();
-            $users = User::where('group_id', '=', $disabledGroup->id)
+            $users = User::where('group_id', '=', $disabled_group[0])
                 ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
@@ -61,7 +65,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->can_invite = 0;
                 $user->can_request = 0;
                 $user->can_chat = 0;
-                $user->group = $prunedGroup->id;
+                $user->group = $pruned_group[0];
                 $user->deleted_by = 1;
                 $user->save();
                 $user->delete();

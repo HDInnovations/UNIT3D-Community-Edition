@@ -40,7 +40,6 @@ class MassActionController extends Controller
      */
     public function store(Request $request)
     {
-        $staff = $request->user();
         $users = User::all();
 
         $sender_id = 1;
@@ -72,12 +71,16 @@ class MassActionController extends Controller
      */
     public function update()
     {
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
-        $memberGroup = Group::select(['id'])->where('slug', '=', 'user')->first();
-        $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup->id)->get();
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
+        $member_group = cache()->rememberForever('member_group', function () {
+            return Group::where('slug', '=', 'user')->pluck('id');
+        });
+        $users = User::where('active', '=', 0)->where('group_id', '=', $validating_group[0])->get();
 
         foreach ($users as $user) {
-            $user->group_id = $memberGroup->id;
+            $user->group_id = $member_group[0];
             $user->active = 1;
             $user->can_upload = 1;
             $user->can_download = 1;

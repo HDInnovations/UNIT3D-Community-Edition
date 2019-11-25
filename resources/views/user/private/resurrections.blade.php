@@ -90,7 +90,6 @@
             </div>
             <span id="filterHeader"></span>
             <div id="userFilter" userName="{{ $user->username }}" userId="{{ $user->id }}" view="resurrections">
-                <!-- Resurrections -->
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>

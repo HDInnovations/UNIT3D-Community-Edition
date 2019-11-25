@@ -1,4 +1,3 @@
-{{--Edit Chatroom--}}
 <div id="editChatroom-{{ $chatroom->id }}" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dark">
         <div class="modal-content">
@@ -25,9 +24,7 @@
         </div>
     </div>
 </div>
-{{--/Edit Chatroom--}}
 
-{{--Delete Chatroom--}}
 <div id="deleteChatroom-{{ $chatroom->id }}" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dark">
         <div class="modal-content">
@@ -53,4 +50,3 @@
         </div>
     </div>
 </div>
-{{--/Delete Chatroom--}}

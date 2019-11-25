@@ -58,7 +58,6 @@
                     </div>
                 @else
                     <div view="requests">
-                        <!-- Requests -->
                         <div class="table-responsive">
                             <table class="table table-condensed table-striped table-bordered">
                                 <thead>

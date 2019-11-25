@@ -94,24 +94,24 @@
             </a>
         @else
             @if (auth()->user()->isFollowing($user->id))
-                <form class="form-inline" role="form"action="{{ route('follow.destroy', ['username' => $user->username]) }}"
-                      style="display: inline-block;" method="POST">
+                <form class="form-inline" role="form" action="{{ route('follow.destroy', ['username' => $user->username]) }}"
+                    style="display: inline-block;" method="POST">
                     @csrf
                     @method('DELETE')
                     <div class="form-group">
                         <button type="submit" id="delete-follow-{{ $user->target_id }}" class="btn btn-sm btn-danger"
-                                title="@lang('user.unfollow')">
+                            title="@lang('user.unfollow')">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.unfollow')
                         </button>
                     </div>
                 </form>
             @else
                 <form class="form-inline" role="form" action="{{ route('follow.store', ['username' => $user->username]) }}"
-                      style="display: inline-block;" method="POST">
+                    style="display: inline-block;" method="POST">
                     @csrf
                     <div class="form-group">
                         <button type="submit" id="follow-user-{{ $user->id }}" class="btn btn-sm btn-success"
-                                title="@lang('user.follow')">
+                            title="@lang('user.follow')">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.follow')
                         </button>
                     </div>

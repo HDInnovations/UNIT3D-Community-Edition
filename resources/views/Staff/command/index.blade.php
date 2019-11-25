@@ -68,7 +68,8 @@
                             </h3>
                             <h4 class="text-muted">This commands clears your sites cache. This cache depends on what driver
                                 you are using.</h4>
-                            <a href="{{ url('/dashboard/commands/clear-cache') }}" class="btn btn-sm btn-primary">Run Command</a>
+                            <a href="{{ url('/dashboard/commands/clear-cache') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
                         </div>
                     </div>
                 </div>
@@ -83,7 +84,8 @@
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear View Cache
                             </h3>
                             <h4 class="text-muted">This commands clears your sites compiled views cache.</h4>
-                            <a href="{{ url('/dashboard/commands/clear-view-cache') }}" class="btn btn-sm btn-primary">Run Command</a>
+                            <a href="{{ url('/dashboard/commands/clear-view-cache') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
                         </div>
                     </div>
                 </div>
@@ -95,7 +97,8 @@
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Route Cache
                             </h3>
                             <h4 class="text-muted">This commands clears your sites compiled routes cache.</h4>
-                            <a href="{{ url('/dashboard/commands/clear-route-cache') }}" class="btn btn-sm btn-primary">Run Command</a>
+                            <a href="{{ url('/dashboard/commands/clear-route-cache') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +110,8 @@
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear Config Cache
                             </h3>
                             <h4 class="text-muted">This commands clears your sites compiled configs cache.</h4>
-                            <a href="{{ url('/dashboard/commands/clear-config-cache') }}" class="btn btn-sm btn-primary">Run Command</a>
+                            <a href="{{ url('/dashboard/commands/clear-config-cache') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
                         </div>
                     </div>
                 </div>
@@ -122,7 +126,8 @@
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Clear All Cache
                             </h3>
                             <h4 class="text-muted">This commands clears ALL of your sites cache.</h4>
-                            <a href="{{ url('/dashboard/commands/clear-all-cache') }}" class="btn btn-sm btn-primary">Run Command</a>
+                            <a href="{{ url('/dashboard/commands/clear-all-cache') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
                         </div>
                     </div>
                 </div>
@@ -134,7 +139,8 @@
                                 <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Set All Cache
                             </h3>
                             <h4 class="text-muted">This commands sets ALL of your sites cache.</h4>
-                            <a href="{{ url('/dashboard/commands/set-all-cache') }}" class="btn btn-sm btn-primary">Run Command</a>
+                            <a href="{{ url('/dashboard/commands/set-all-cache') }}" class="btn btn-sm btn-primary">Run
+                                Command</a>
                         </div>
                     </div>
                 </div>

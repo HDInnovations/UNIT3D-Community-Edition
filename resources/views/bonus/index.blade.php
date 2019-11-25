@@ -85,7 +85,7 @@
                                     <tr>
                                         <td>
                                             <strong>@lang('common.huge') @lang('torrent.torrents')</strong><br>
-                                            <small>@lang('torrent.torrent) @lang('torrent.size)<span
+                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span
                                                     class="text-bold">></span> 100GB
                                             </small>
                                         </td>
@@ -117,8 +117,8 @@
                                     <tr>
                                         <td>
                                             <strong>@lang('common.everyday') @lang('torrent.torrents')</strong><br>
-                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span
-                                                    class="text-bold"> >=</span> 1GB {{ strtolower(trans('common.but')) }}
+                                            <small>@lang('torrent.torrent') @lang('torrent.size')<span class="text-bold">
+                                                    >=</span> 1GB {{ strtolower(trans('common.but')) }}
                                                 < 25GB </small> </td> <td><strong>{{ $regular }} x 0.25</strong></td>
                                         <td>
                                             {{ $regular * 0.25 }} @lang('bon.per-hour')<br />
@@ -227,8 +227,8 @@
                                             <span class="bonExtension" style="display: none;">
                                                 <strong>{{ $total * 24 }}</strong> @lang('bon.per-day')<br />
                                                 <strong>{{ $total * 24 * 7 }}</strong> @lang('bon.per-week')<br />
-                                                <strong>{{ $total * 24 * 30 }}</strong> @lang('bon.per-month')</td>
-                                        </span>
+                                                <strong>{{ $total * 24 * 30 }}</strong> @lang('bon.per-month')<br />
+                                            </span>
                                         </td>
                                     </tr>
                                 </tfoot>

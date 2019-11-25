@@ -18,7 +18,6 @@
         <h2>@lang('common.user') Chat Statuses</h2>
     
         <button class="btn btn-primary" data-toggle="modal" data-target="#addChatStatus">Add New Chat Status</button>
-        {{--Add Chatroom Modal--}}
         <div id="addChatStatus" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dark">
                 <div class="modal-content">
@@ -50,7 +49,6 @@
                 </div>
             </div>
         </div>
-        {{--/Add Chatroom Modal--}}
     
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">

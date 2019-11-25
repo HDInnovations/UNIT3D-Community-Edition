@@ -1,5 +1,4 @@
 <div class="block">
-    <!-- History -->
     <div class="table-responsive">
         <table class="table table-condensed table-striped table-bordered">
             <thead>

@@ -67,12 +67,13 @@
                                     @method('DELETE')
                                     @if ($b['download'])
                                         <a class="btn btn-xs btn-default"
-                                           href="{{ route('staff.backups.download') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}">
+                                            href="{{ route('staff.backups.download') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}">
                                             <i class="{{ config('other.font-awesome') }} fa-cloud-download"></i>@lang('backup.download')
                                         </a>
                                     @endif
-                                    <button type="submit" class="btn btn-xs btn-danger" data-disk="{{ $b['disk'] }}" data-file="{{ $b['file_name'] }}"
-                                            data-button-type="delete" href="{{ route('staff.backups.destroy') }}">
+                                    <button type="submit" class="btn btn-xs btn-danger" data-disk="{{ $b['disk'] }}"
+                                        data-file="{{ $b['file_name'] }}" data-button-type="delete"
+                                        href="{{ route('staff.backups.destroy') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>@lang('common.delete')
                                     </button>
                                 </form>
@@ -126,7 +127,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('backup.create_warning_message ')'
+                                title: '@lang('backup.create_warning_message')'
                             })
                         } else {
                             const Toast = Swal.mixin({
@@ -138,7 +139,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('backup.create_confirmation_message ')'
+                                title: '@lang('backup.create_confirmation_message')'
                             })
                         }
     
@@ -163,7 +164,7 @@
     
                         Toast.fire({
                             icon: 'warning',
-                            title: '@lang('backup.create_error_message ')'
+                            title: '@lang('backup.create_error_message')'
                         })
                         // Stop loading
                         l.stop();
@@ -208,7 +209,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('backup.create_warning_message ')'
+                                title: '@lang('backup.create_warning_message')'
                             })
                         } else {
                             const Toast = Swal.mixin({
@@ -220,7 +221,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('backup.create_confirmation_message ')'
+                                title: '@lang('backup.create_confirmation_message')'
                             })
                         }
     
@@ -245,7 +246,7 @@
     
                         Toast.fire({
                             icon: 'warning',
-                            title: '@lang('backup.create_error_message ')'
+                            title: '@lang('backup.create_error_message')'
                         })
                         // Stop loading
                         l.stop();
@@ -290,7 +291,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('backup.create_warning_message ')'
+                                title: '@lang('backup.create_warning_message')'
                             })
                         } else {
                             const Toast = Swal.mixin({
@@ -302,7 +303,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('backup.create_confirmation_message ')'
+                                title: '@lang('backup.create_confirmation_message')'
                             })
                         }
     
@@ -327,7 +328,7 @@
     
                         Toast.fire({
                             icon: 'warning',
-                            title: '@lang('backup.create_error_message ')'
+                            title: '@lang('backup.create_error_message')'
                         })
                         // Stop loading
                         l.stop();
@@ -363,7 +364,7 @@
     
                             Toast.fire({
                                 icon: 'success',
-                                title: '@lang('backup.delete_confirmation_message ')'
+                                title: '@lang('backup.delete_confirmation_message')'
                             })
                             // delete the row from the table
                             delete_button.parentsUntil('tr').parent().remove();
@@ -379,7 +380,7 @@
     
                             Toast.fire({
                                 icon: 'warning',
-                                title: '@lang('backup.delete_error_title ')'
+                                title: '@lang('backup.delete_error_title')'
                             })
                         }
                     });
@@ -393,7 +394,7 @@
     
                     Toast.fire({
                         icon: 'info',
-                        title: '@lang('backup.delete_cancel_message ')'
+                        title: '@lang('backup.delete_cancel_message')'
                     })
                 }
             });

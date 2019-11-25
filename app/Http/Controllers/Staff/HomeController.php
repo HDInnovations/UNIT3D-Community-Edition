@@ -36,11 +36,15 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // User Info
-        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
-        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $banned_group = cache()->rememberForever('banned_group', function () {
+            return Group::where('slug', '=', 'banned')->pluck('id');
+        });
+        $validating_group = cache()->rememberForever('validating_group', function () {
+            return Group::where('slug', '=', 'validating')->pluck('id');
+        });
         $num_user = User::count();
-        $banned = User::where('group_id', '=', $bannedGroup->id)->count();
-        $validating = User::where('group_id', '=', $validatingGroup->id)->count();
+        $banned = User::where('group_id', '=', $banned_group[0])->count();
+        $validating = User::where('group_id', '=', $validating_group[0])->count();
 
         // Torrent Info
         $num_torrent = Torrent::count();
