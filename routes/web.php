@@ -347,7 +347,7 @@ Route::group(['middleware' => 'language'], function () {
 
             Route::get('/{username}/seedboxes', 'SeedboxController@index')->name('seedboxes.index');
             Route::post('/{username}/seedboxes', 'SeedboxController@store')->name('seedboxes.store');
-            Route::delete('/{username}/seedboxes/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
+            Route::delete('/seedboxes/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
         });
 
         // Wishlist System
