@@ -25,6 +25,13 @@
 </head>
 
 <body>
+    @if ($errors->any())
+        <div id="ERROR_COPY" style="display: none;">
+            @foreach ($errors->all() as $error)
+                {{ $error }}<br>
+            @endforeach
+        </div>
+    @endif
     <br>
     @if(config('other.application_signups') == true)
         <div class="container">
@@ -209,17 +216,16 @@
                 </script>
             @endif
         @endforeach
-    
+
         @if (Session::has('errors'))
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
                 Swal.fire({
-                    title: '<strong>Validation Error</strong>',
+                    title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
                     icon: 'error',
-                    html: '{{ Session::get('
-                    errors ') }}',
+                    html: jQuery("#ERROR_COPY").html(),
                     showCloseButton: true,
                 })
-        
+
             </script>
         @endif
     
