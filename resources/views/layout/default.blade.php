@@ -130,6 +130,7 @@
                 })
     
             </script>
+
         @endif
 
         @yield('javascripts')
