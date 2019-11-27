@@ -14,6 +14,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TorrentResource;
+use App\Http\Resources\TorrentsResource;
+use App\Models\Torrent;
 use Illuminate\Http\Request;
 
 class TorrentController extends Controller
@@ -21,11 +24,11 @@ class TorrentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return TorrentsResource
      */
     public function index()
     {
-        //
+        return new TorrentsResource(Torrent::with(['comments'])->latest()->paginate());
     }
 
     /**
@@ -45,11 +48,15 @@ class TorrentController extends Controller
      *
      * @param  int  $id
      *
-     * @return \Illuminate\Http\Response
+     * @return TorrentResource
      */
     public function show($id)
     {
-        //
+        $torrent = Torrent::findOrFail($id);
+
+        TorrentResource::withoutWrapping();
+
+        return new TorrentResource($torrent);
     }
 
     /**
