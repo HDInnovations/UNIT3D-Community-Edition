@@ -28,7 +28,7 @@ class TorrentController extends Controller
      */
     public function index()
     {
-        return new TorrentsResource(Torrent::with(['comments'])->latest()->paginate());
+        return new TorrentsResource(Torrent::with(['category', 'tags'])->latest()->paginate());
     }
 
     /**
