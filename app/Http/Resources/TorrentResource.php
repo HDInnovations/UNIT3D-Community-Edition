@@ -18,7 +18,14 @@ class TorrentResource extends JsonResource
             'type'          => 'torrent',
             'id'            => (string)$this->id,
             'attributes'    => [
-                'title' => $this->name,
+                'name' => $this->name,
+                'release_year' => $this->release_year,
+                'category' => $this->category->name,
+                'type' => $this->type,
+                'seeders' => $this->seeders,
+                'leechers' => $this->leechers,
+                'times_completed' => $this->times_completed,
+                'created_at' => $this->created_at->toDayDateTimeString(),
             ],
         ];
     }
