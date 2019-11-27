@@ -20,3 +20,10 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// Torrents System
+Route::group(['prefix' => 'torrents', 'namespace' => 'API'], function () {
+    Route::get('/', 'TorrentController@index')->name('torrents.index');
+    Route::get('/{id}', 'TorrentController@show')->where('id', '[0-9]+');
+    Route::post('/upload', 'TorrentController@store');
+});
