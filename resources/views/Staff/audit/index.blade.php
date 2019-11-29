@@ -43,13 +43,17 @@
                     <tbody>
                         @if ($audits->count())
                             @foreach ($audits as $audit)
-                    @php $values = json_decode($audit->record, true); @endphp
+                            @php $values = json_decode($audit->record, true); @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ strtoupper($audit->action) }}</td>
                                     <td>{{ $audit->model_name }}</td>
                                     <td>{{ $audit->model_entry_id }}</td>
-                                    <td>{{ $audit->user->username }}</td>
+                                    <td>
+                                        <a href="{{ route('users.show', ['username' => $audit->user->username]) }}">
+                                            {{ $audit->user->username }}
+                                        </a>
+                                    </td>
                                     <td>
                                         @foreach ($values as $key => $value)
                                             <span class="badge badge-extra">{{ $key }}:</span> {{ $value['old'] }} &rarr;
