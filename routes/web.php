@@ -150,7 +150,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'reports'], function () {
             Route::post('/torrent/{id}', 'ReportController@torrent')->name('report_torrent');
             Route::post('/request/{id}', 'ReportController@request')->name('report_request');
-            Route::post('/user/{id}', 'ReportController@user')->name('report_user');
+            Route::post('/user/{username}', 'ReportController@user')->name('report_user');
         });
 
         // Categories System
