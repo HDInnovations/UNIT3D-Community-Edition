@@ -70,7 +70,7 @@ class OmdbClient extends Client implements MovieTvInterface
         }
 
         $data = [
-            'imdb'         => $movie['imdbID'],
+            'imdb'         => !empty($movie['imdbID']) ? $movie['imdbID'] : 'Not Defined',
             'title'        => $movie['Title'],
             'releaseDate'  => $movie['Released'],
             'plot'         => $movie['Plot'],

@@ -216,17 +216,17 @@ config('api-keys.omdb')) @endphp
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                                 data-original-title="@lang('torrent.view-more')"></i>
                                         </span>
-                                        {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} @lang('torrent.votes'))
+                                        {{ $meta->imdbRating ?? '0' }}/10 ({{ $meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
                                     </span>
                                 </a>
                             @else
             
                                 @if ($torrent->category->tv_meta)
-                                    <a href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}?language={{ config('app.locale') }}"
+                                    <a href="https://www.themoviedb.org/tv/{{ $torrent->tmdb }}?language={{ config('app.locale') }}"
                                         target="_blank">
                                     @endif
                                     @if ($torrent->category->movie_meta)
-                                        <a href="https://www.themoviedb.org/movie/{{ $meta->tmdb }}?language={{ config('app.locale') }}"
+                                        <a href="https://www.themoviedb.org/movie/{{ $torrent->tmdb }}?language={{ config('app.locale') }}"
                                             target="_blank">
                                         @endif
             
@@ -235,7 +235,7 @@ config('api-keys.omdb')) @endphp
                                                 <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                                     data-original-title="@lang('torrent.view-more')"></i>
                                             </span>
-                                            {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} @lang('torrent.votes'))
+                                            {{ $meta->tmdbRating ?? '0' }}/10 ({{ $meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
                                         </span>
                                     </a>
                                 @endif

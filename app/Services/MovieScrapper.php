@@ -47,39 +47,23 @@ class MovieScrapper
         }
 
         if ($type == 'movie') {
-            $omdb_movie = $tmdb_movie = new Movie();
+            $tmdb_movie = new Movie();
 
             if ($tmdb) {
                 $tmdb_movie = $this->tmdbClient->movie($tmdb);
-                $imdb = empty($imdb) ? $tmdb_movie->imdb : $imdb;
             }
 
-            if ($imdb) {
-                if (! $tmdb_movie->title) {
-                    $tmdb_movie = $this->tmdbClient->find(['imdb' => $imdb], $type);
-                }
-                $omdb_movie = $this->omdbClient->movie($imdb);
-            }
-
-            return $tmdb_movie->merge($omdb_movie);
+            return $tmdb_movie;
         }
 
         if ($type == 'tv') {
-            $omdb_tv = $tmdb_tv = new Tv();
+            $tmdb_tv = new Tv();
 
             if ($tmdb) {
                 $tmdb_tv = $this->tmdbClient->tv($tmdb);
-                $imdb = empty($imdb) ? $tmdb_tv->imdb : $imdb;
             }
 
-            if ($imdb) {
-                if (! $tmdb_tv->title) {
-                    $tmdb_tv = $this->tmdbClient->find(['imdb' => $imdb], 'tv');
-                }
-                $omdb_tv = $this->omdbClient->tv($imdb);
-            }
-
-            return $tmdb_tv->merge($omdb_tv);
+            return $tmdb_tv;
         }
     }
 
