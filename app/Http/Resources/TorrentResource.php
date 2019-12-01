@@ -9,7 +9,6 @@ class TorrentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -25,7 +24,13 @@ class TorrentResource extends JsonResource
                 'seeders' => $this->seeders,
                 'leechers' => $this->leechers,
                 'times_completed' => $this->times_completed,
+                'tmdb_id' => $this->tmdb,
+                'imdb_id' => $this->imdb,
+                'tvdb_id' => $this->tvdb,
+                'mal_id' => $this->mal,
+                'igdb_id' => $this->igdb,
                 'created_at' => $this->created_at->toDayDateTimeString(),
+                'download_link' => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey])
             ],
         ];
     }

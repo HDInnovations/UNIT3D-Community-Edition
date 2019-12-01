@@ -24,6 +24,7 @@
 // Torrents System
 Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents', 'namespace' => 'API'], function () {
     Route::get('/', 'TorrentController@index')->name('torrents.index');
+    Route::get('/filter', 'TorrentController@filter');
     Route::get('/{id}', 'TorrentController@show')->where('id', '[0-9]+');
     Route::post('/upload', 'TorrentController@store');
 });

@@ -23,6 +23,7 @@ use App\Models\Category;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class TorrentController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Torrent $torrent)
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -208,7 +209,7 @@ class TorrentController extends BaseController
                 TorrentHelper::approveHelper($torrent->id);
             }
 
-            return $this->sendResponse($torrent->toArray(), 'Torrent uploaded successfully.');
+            return $this->sendResponse(route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
         }
     }
 
@@ -253,6 +254,163 @@ class TorrentController extends BaseController
         //
     }
 
+    /**
+     * Uses Input's To Put Together A Search.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Torrent  $torrent
+     *
+     * @return TorrentsResource
+     */
+    public function filter(Request $request, Torrent $torrent)
+    {
+        $search = $request->input('name');
+        $description = $request->input('description');
+        $uploader = $request->input('uploader');
+        $imdb = $request->input('imdb');
+        $tvdb = $request->input('tvdb');
+        $tmdb = $request->input('tmdb');
+        $mal = $request->input('mal');
+        $igdb = $request->input('igdb');
+        $start_year = $request->input('start_year');
+        $end_year = $request->input('end_year');
+        $categories = $request->input('categories');
+        $types = $request->input('types');
+        $genres = $request->input('genres');
+        $freeleech = $request->input('freeleech');
+        $doubleupload = $request->input('doubleupload');
+        $featured = $request->input('featured');
+        $stream = $request->input('stream');
+        $highspeed = $request->input('highspeed');
+        $sd = $request->input('sd');
+        $internal = $request->input('internal');
+        $alive = $request->input('alive');
+        $dying = $request->input('dying');
+        $dead = $request->input('dead');
+
+        $terms = explode(' ', $search);
+        $search = '';
+        foreach ($terms as $term) {
+            $search .= '%'.$term.'%';
+        }
+
+        $usernames = explode(' ', $uploader);
+        $uploader = null;
+        foreach ($usernames as $username) {
+            $uploader .= $username.'%';
+        }
+
+        $keywords = explode(' ', $description);
+        $description = '';
+        foreach ($keywords as $keyword) {
+            $description .= '%'.$keyword.'%';
+        }
+
+        $torrent = $torrent->newQuery();
+
+        if ($request->has('name') && $request->input('name') != null) {
+            $torrent->where(function ($query) use ($search) {
+                $query->where('torrents.name', 'like', $search);
+            });
+        }
+
+        if ($request->has('description') && $request->input('description') != null) {
+            $torrent->where(function ($query) use ($description) {
+                $query->where('torrents.description', 'like', $description)->orWhere('mediainfo', 'like', $description);
+            });
+        }
+
+        if ($request->has('uploader') && $request->input('uploader') != null) {
+            $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username', 'ASC')->first();
+            if (null === $match) {
+                return ['result' => [], 'count' => 0];
+            }
+            $torrent->where('torrents.user_id', '=', $match->id)->where('anon', '=', 0);
+        }
+
+        if ($request->has('imdb') && $request->input('imdb') != null) {
+            $torrent->where('torrents.imdb', '=', str_replace('tt', '', $imdb));
+        }
+
+        if ($request->has('tvdb') && $request->input('tvdb') != null) {
+            $torrent->where('torrents.tvdb', '=', $tvdb);
+        }
+
+        if ($request->has('tmdb') && $request->input('tmdb') != null) {
+            $torrent->where('torrents.tmdb', '=', $tmdb);
+        }
+
+        if ($request->has('mal') && $request->input('mal') != null) {
+            $torrent->where('torrents.mal', '=', $mal);
+        }
+
+        if ($request->has('igdb') && $request->input('igdb') != null) {
+            $torrent->where('torrents.igdb', '=', $igdb);
+        }
+
+        if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
+            $torrent->whereBetween('torrents.release_year', [$start_year, $end_year]);
+        }
+
+        if ($request->has('categories') && $request->input('categories') != null) {
+            $torrent->whereIn('torrents.category_id', $categories);
+        }
+
+        if ($request->has('types') && $request->input('types') != null) {
+            $torrent->whereIn('torrents.type', $types);
+        }
+
+        if ($request->has('genres') && $request->input('genres') != null) {
+            $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
+            $torrent->whereIn('torrents.id', $genreID);
+        }
+
+        if ($request->has('freeleech') && $request->input('freeleech') != null) {
+            $torrent->where('torrents.free', '=', $freeleech);
+        }
+
+        if ($request->has('doubleupload') && $request->input('doubleupload') != null) {
+            $torrent->where('torrents.doubleup', '=', $doubleupload);
+        }
+
+        if ($request->has('featured') && $request->input('featured') != null) {
+            $torrent->where('torrents.featured', '=', $featured);
+        }
+
+        if ($request->has('stream') && $request->input('stream') != null) {
+            $torrent->where('torrents.stream', '=', $stream);
+        }
+
+        if ($request->has('highspeed') && $request->input('highspeed') != null) {
+            $torrent->where('torrents.highspeed', '=', $highspeed);
+        }
+
+        if ($request->has('sd') && $request->input('sd') != null) {
+            $torrent->where('torrents.sd', '=', $sd);
+        }
+
+        if ($request->has('internal') && $request->input('internal') != null) {
+            $torrent->where('torrents.internal', '=', $internal);
+        }
+
+        if ($request->has('alive') && $request->input('alive') != null) {
+            $torrent->where('torrents.seeders', '>=', $alive);
+        }
+
+        if ($request->has('dying') && $request->input('dying') != null) {
+            $torrent->where('torrents.seeders', '=', $dying)->where('times_completed', '>=', 3);
+        }
+
+        if ($request->has('dead') && $request->input('dead') != null) {
+            $torrent->where('torrents.seeders', '=', $dead);
+        }
+
+        if (! empty($torrent)) {
+            return new TorrentsResource($torrent->paginate(25));
+        } else {
+            return $this->sendResponse('404', 'No Torrents Found');
+        }
+    }
     /**
      * Anonymize A Torrent Media Info.
      *
