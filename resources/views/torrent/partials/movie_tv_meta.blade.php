@@ -12,8 +12,8 @@
             <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
                 <h1 class="movie-heading">
                     @if ($meta->title)
-                        <span class="text-bold">{{ $meta->title }}</span>
-                        <span class="text-bold"><em> {{ $meta->releaseYear }}</em></span>
+                        <span class="text-bold">{{ $meta->title ?? '' }}</span>
+                        <span class="text-bold"><em> {{ $meta->releaseYear ?? '' }}</em></span>
                     @else
                         <span class="text-bold">@lang('torrent.no-meta')</span>
                     @endif
@@ -22,7 +22,7 @@
                 <br>
 
                 <span class="movie-overview">
-                    {{ Str::limit($meta->plot, $limit = 350, $end = '...') }}
+                    {{ Str::limit($meta->plot ?? 'No Plot Found', $limit = 350, $end = '...') }}
                 </span>
 
                 <span class="movie-details">
@@ -55,9 +55,9 @@
                                 <i class="{{ config('other.font-awesome') }} fa-star"></i>
                             </span>
                             @if ($user->ratings == 1)
-                                {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} @lang('torrent.votes'))
+                                {{ $meta->imdbRating ?? '0' }}/10 ({{ $meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
                             @else
-                                {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} @lang('torrent.votes'))
+                                {{ $meta->tmdbRating ?? '0' }}/10 ({{ $meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
                             @endif
                         </span>
                     @endif
