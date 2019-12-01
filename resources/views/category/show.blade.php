@@ -54,15 +54,15 @@
                         @foreach ($torrents as $torrent)
                             @if ($torrent->category->tv_meta)
                                 @if ($torrent->tmdb || $torrent->tmdb != 0)
-                    @php $meta = $client->scrape('tv', null, $torrent->tmdb); @endphp
+                                    @php $meta = $client->scrape('tv', null, $torrent->tmdb); @endphp
                                 @else
-                    @php $meta = $client->scrape('tv', 'tt'. $torrent->imdb); @endphp
+                                    @php $meta = $client->scrape('tv', 'tt'. $torrent->imdb); @endphp
                                 @endif
                             @else
                                 @if ($torrent->tmdb || $torrent->tmdb != 0)
-                    @php $meta = $client->scrape('movie', null, $torrent->tmdb); @endphp
+                                    @php $meta = $client->scrape('movie', null, $torrent->tmdb); @endphp
                                 @else
-                    @php $meta = $client->scrape('movie', 'tt'. $torrent->imdb); @endphp
+                                    @php $meta = $client->scrape('movie', 'tt'. $torrent->imdb); @endphp
                                 @endif
                             @endif
         
@@ -129,8 +129,7 @@
                                         </a>
                                     @endif
         
-                                    @php $history = \App\Models\History::where('user_id', '=', $user->id)->where('info_hash',
-                                    '=', $torrent->info_hash)->first(); @endphp
+                                    @php $history = \App\Models\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first(); @endphp
                                     @if ($history)
                                         @if ($history->seeder == 1 && $history->active == 1)
                                             <button class="btn btn-success btn-circle" type="button" data-toggle="tooltip"
@@ -190,7 +189,7 @@
                                                         <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
                                                             data-original-title="View More"></i>
                                                     </span>
-                                                    {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} votes)
+                                                    {{ $meta->imdbRating ?? '0' }}/10 ({{ $meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
                                                 </span>
                                             </a>
                                         @else
@@ -204,7 +203,7 @@
                                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"
                                                                 data-toggle="tooltip" data-original-title="View More"></i>
                                                         </span>
-                                                        {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} votes)
+                                                        {{ $meta->tmdbRating ?? '0' }}/10 ({{ $meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
                                                     </span>
                                                 </a>
                                             @endif

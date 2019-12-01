@@ -124,7 +124,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         if (is_array($movie)) {
             return new Movie([
-                'imdb' => $movie['imdb_id'],
+                'imdb' => !empty($movie['imdb_id']) ? $movie['imdb_id'] : 'Not Defined',
                 'tmdb' => $movie['id'],
                 'title' => $movie['title'],
                 'releaseDate' => $movie['release_date'],
@@ -208,7 +208,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatPerson($person)
     {
         return new Person([
-            'imdb'         => $person['imdb_id'],
+            'imdb'         => !empty($person['imdb_id']) ? $person['imdb_id'] : 'Not Defined',
             'tmdb'         => $person['id'],
             'name'         => $person['name'],
             'aka'          => $person['also_known_as'],
