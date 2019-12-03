@@ -177,7 +177,7 @@ class TmdbClient extends Client implements MovieTvInterface
                 'creators' => $this->formatCasts($movie['created_by'], 'creators'),
                 'aka' => $this->formatAlternativeTitles($movie),
                 'countries' => $this->formatCountries($movie['origin_country'], 'tv'),
-                'language' => !empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
+                'language' => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
                 'languages' => $this->formatLanguages($movie['languages'], 'tv'),
                 'genres' => $this->formatGenres($movie['genres']),
                 'videoTrailer' => $this->formatVideoTrailers($movie),
