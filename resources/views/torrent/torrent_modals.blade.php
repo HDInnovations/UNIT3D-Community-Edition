@@ -88,7 +88,7 @@
 </div>
 
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog modal-lg modal-dark">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -125,7 +125,7 @@
 
 @if ($torrent->nfo != null)
     <div class="modal fade slideExpandUp" id="modal-10" role="dialog" aria-labelledby="Modallabel3dsign">
-        <div class="modal-dialog modal-dark" role="document">
+        <div class="modal-dialog modal-lg modal-dark" role="document">
             <div class="modal-content ">
                 <div class="modal-header bg-info ">
                     <h4 class="modal-title" id="Modallabel3dsign">NFO</h4>

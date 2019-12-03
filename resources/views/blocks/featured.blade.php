@@ -39,21 +39,20 @@ config('api-keys.omdb')); @endphp
                     @foreach ($featured as $key => $feature)
                         @if ($feature->torrent->category->tv_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                    @php $meta = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
+                                @php $meta = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
                             @else
-                    @php $meta = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
                         @endif
                         @if ($feature->torrent->category->movie_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                    @php $meta = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
+                                @php $meta = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
                             @else
-                    @php $meta = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
                         @endif
                         @if ($feature->torrent->category->game_meta)
-                            @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['artworks' => ['url', 'image_id'], 'genres'
-                            => ['name']])->find($feature->torrent->igdb); @endphp
+                            @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($feature->torrent->igdb); @endphp
                         @endif
                         <div class="item">
                             <div id="movie-card-list">
@@ -62,7 +61,7 @@ config('api-keys.omdb')); @endphp
                                 </div>
                                 <div class="movie-card" @if ($feature->torrent->category->tv_meta ||
                                         $feature->torrent->category->movie_meta)
-                                        style="background-image: url({{ $meta->backdrop }});">
+                                        style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
                                     @elseif ($feature->torrent->category->game_meta && isset($meta) && $meta->artworks)
                                         style="background-image:
                                         url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg');">

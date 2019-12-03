@@ -9967,6 +9967,7 @@ div.no_image_holder.w500_and_h282 {
     box-shadow: 0 3px 8px rgba(0, 0, 0, .06);
     margin-bottom: 30px;
     background: #0f0f0f;
+    min-height: 325px;
 }
 
 .item-playlist-container-playlist img {
@@ -9983,11 +9984,11 @@ div.no_image_holder.w500_and_h282 {
 
 .item-playlist-text-playlist img {
     border-radius: 80px;
-    width: 46px;
+    width: 56px;
     margin-left: -23px;
     border: 3px solid #fff;
     position: absolute;
-    top: -22px;
+    top: -30px;
     left: 50%
 }
 

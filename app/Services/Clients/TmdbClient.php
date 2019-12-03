@@ -122,78 +122,82 @@ class TmdbClient extends Client implements MovieTvInterface
      */
     private function formatMovie($movie)
     {
-        return new Movie([
-            'imdb'         => $movie['imdb_id'],
-            'tmdb'         => $movie['id'],
-            'title'        => $movie['title'],
-            'releaseDate'  => $movie['release_date'],
-            'plot'         => $movie['overview'],
-            'aka'          => $this->formatAlternativeTitles($movie),
-            'countries'    => $this->formatCountries($movie['production_countries']),
-            'language'     => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
-            'languages'    => $this->formatLanguages($movie['spoken_languages']),
-            'genres'       => $this->formatGenres($movie['genres']),
-            'videoTrailer' => $this->formatVideoTrailers($movie),
-            'runtime'      => $movie['runtime'],
-            'actors'       => $this->formatCasts($movie['credits'], 'actors'),
-            'directors'    => $this->formatCasts($movie['credits'], 'directors'),
-            'writers'      => $this->formatCasts($movie['credits'], 'writers'),
-            'producers'    => $this->formatCasts($movie['credits'], 'producers'),
-            'poster'       => ! empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
-            'posters'      => ! empty($movie['images']['posters']) ? $this->formatImages(
-                $movie['images']['posters'],
-                $this->imagePath,
-                $movie['poster_path']
-            ) : 'https://via.placeholder.com/600x900',
-            'backdrop'  => ! empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
-            'backdrops' => ! empty($movie['images']['backdrops']) ? $this->formatImages(
-                $movie['images']['backdrops'],
-                $this->imageBackdropPath,
-                $movie['backdrop_path']
-            ) : 'https://via.placeholder.com/1400x800',
-            'tmdbRating' => $movie['vote_average'],
-            'tmdbVotes'  => $movie['vote_count'],
-            'recommendations' => $movie['recommendations'] ?? null,
-        ]);
+        if (is_array($movie)) {
+            return new Movie([
+                'imdb' => ! empty($movie['imdb_id']) ? $movie['imdb_id'] : 'Not Defined',
+                'tmdb' => $movie['id'],
+                'title' => $movie['title'],
+                'releaseDate' => $movie['release_date'],
+                'plot' => $movie['overview'],
+                'aka' => $this->formatAlternativeTitles($movie),
+                'countries' => $this->formatCountries($movie['production_countries']),
+                'language' => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
+                'languages' => $this->formatLanguages($movie['spoken_languages']),
+                'genres' => $this->formatGenres($movie['genres']),
+                'videoTrailer' => $this->formatVideoTrailers($movie),
+                'runtime' => $movie['runtime'],
+                'actors' => $this->formatCasts($movie['credits'], 'actors'),
+                'directors' => $this->formatCasts($movie['credits'], 'directors'),
+                'writers' => $this->formatCasts($movie['credits'], 'writers'),
+                'producers' => $this->formatCasts($movie['credits'], 'producers'),
+                'poster' => ! empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
+                'posters' => ! empty($movie['images']['posters']) ? $this->formatImages(
+                    $movie['images']['posters'],
+                    $this->imagePath,
+                    $movie['poster_path']
+                ) : 'https://via.placeholder.com/600x900',
+                'backdrop' => ! empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
+                'backdrops' => ! empty($movie['images']['backdrops']) ? $this->formatImages(
+                    $movie['images']['backdrops'],
+                    $this->imageBackdropPath,
+                    $movie['backdrop_path']
+                ) : 'https://via.placeholder.com/1400x800',
+                'tmdbRating' => $movie['vote_average'],
+                'tmdbVotes' => $movie['vote_count'],
+                'recommendations' => $movie['recommendations'] ?? null,
+            ]);
+        }
     }
 
     private function formatTv($movie)
     {
-        return new Tv([
-            'tmdb'         => $movie['id'],
-            'imdb'         => ! empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : 'Not Defined',
-            'tvdb'         => ! empty($movie['external_ids']['tvdb_id']) ? $movie['external_ids']['tvdb_id'] : 'Not Defined',
-            'title'        => $movie['name'],
-            'releaseDate'  => $movie['first_air_date'],
-            'endDate'      => ($movie['status'] == 'Ended') ? $movie['last_air_date'] : null,
-            'plot'         => $movie['overview'],
-            'actors'       => $this->formatCasts($movie['credits'], 'actors'),
-            'directors'    => $this->formatCasts($movie['credits'], 'directors'),
-            'writers'      => $this->formatCasts($movie['credits'], 'writers'),
-            'producers'    => $this->formatCasts($movie['credits'], 'producers'),
-            'creators'     => $this->formatCasts($movie['created_by'], 'creators'),
-            'aka'          => $this->formatAlternativeTitles($movie),
-            'countries'    => $this->formatCountries($movie['origin_country'], 'tv'),
-            'language'     => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
-            'languages'    => $this->formatLanguages($movie['languages'], 'tv'),
-            'genres'       => $this->formatGenres($movie['genres']),
-            'videoTrailer' => $this->formatVideoTrailers($movie),
-            'poster'       => ! empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
-            'posters'      => ! empty($movie['images']['posters']) ? $this->formatImages(
-                $movie['images']['posters'],
-                $this->imagePath,
-                $movie['poster_path']
-            ) : 'https://via.placeholder.com/600x900',
-            'backdrop'  => ! empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
-            'backdrops' => ! empty($movie['images']['backdrops']) ? $this->formatImages(
-                $movie['images']['backdrops'],
-                $this->imageBackdropPath,
-                $movie['backdrop_path']
-            ) : 'https://via.placeholder.com/1400x800',
-            'tmdbRating' => $movie['vote_average'],
-            'tmdbVotes'  => $movie['vote_count'],
-            'recommendations' => $movie['recommendations'] ?? null,
-        ]);
+        if (is_array($movie)) {
+            return new Tv([
+                'tmdb' => $movie['id'],
+                'imdb' => ! empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : 'Not Defined',
+                'tvdb' => ! empty($movie['external_ids']['tvdb_id']) ? $movie['external_ids']['tvdb_id'] : 'Not Defined',
+                'title' => $movie['name'],
+                'releaseDate' => $movie['first_air_date'],
+                'endDate' => ($movie['status'] == 'Ended') ? $movie['last_air_date'] : null,
+                'plot' => $movie['overview'],
+                'actors' => $this->formatCasts($movie['credits'], 'actors'),
+                'directors' => $this->formatCasts($movie['credits'], 'directors'),
+                'writers' => $this->formatCasts($movie['credits'], 'writers'),
+                'producers' => $this->formatCasts($movie['credits'], 'producers'),
+                'creators' => $this->formatCasts($movie['created_by'], 'creators'),
+                'aka' => $this->formatAlternativeTitles($movie),
+                'countries' => $this->formatCountries($movie['origin_country'], 'tv'),
+                'language' => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
+                'languages' => $this->formatLanguages($movie['languages'], 'tv'),
+                'genres' => $this->formatGenres($movie['genres']),
+                'videoTrailer' => $this->formatVideoTrailers($movie),
+                'poster' => ! empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
+                'posters' => ! empty($movie['images']['posters']) ? $this->formatImages(
+                    $movie['images']['posters'],
+                    $this->imagePath,
+                    $movie['poster_path']
+                ) : 'https://via.placeholder.com/600x900',
+                'backdrop' => ! empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
+                'backdrops' => ! empty($movie['images']['backdrops']) ? $this->formatImages(
+                    $movie['images']['backdrops'],
+                    $this->imageBackdropPath,
+                    $movie['backdrop_path']
+                ) : 'https://via.placeholder.com/1400x800',
+                'tmdbRating' => $movie['vote_average'],
+                'tmdbVotes' => $movie['vote_count'],
+                'recommendations' => $movie['recommendations'] ?? null,
+            ]);
+        }
     }
 
     /**
@@ -204,7 +208,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatPerson($person)
     {
         return new Person([
-            'imdb'         => $person['imdb_id'],
+            'imdb'         => ! empty($person['imdb_id']) ? $person['imdb_id'] : 'Not Defined',
             'tmdb'         => $person['id'],
             'name'         => $person['name'],
             'aka'          => $person['also_known_as'],

@@ -27,9 +27,9 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
                                                 @if($t->meta && ($t->meta->imdbRating || $t->meta->tmdbVotes))
                                         @if ($user->ratings == 1)
-                                            {{ $t->meta->imdbRating }}/10 ({{ $t->meta->imdbVotes }} @lang('torrent.votes'))
+                                            {{ $t->meta->imdbRating ?? '0' }}/10 ({{ $t->meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
                                         @else
-                                            {{ $t->meta->tmdbRating }}/10 ({{ $t->meta->tmdbVotes }} @lang('torrent.votes'))
+                                            {{ $t->meta->tmdbRating ?? '0' }}/10 ({{ $t->meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
                                         @endif
                                     @endif
                                             </span>

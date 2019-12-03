@@ -40,7 +40,7 @@
                             <h3 class="description_title">
                                 <a href="{{ route('torrent', ['id' => $t->id]) }}">{{ $t->name }}
                                     @if($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->releaseYear)
-                                        <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
+                                        <span class="text-bold text-pink"> {{ $t->meta->releaseYear ?? '' }}</span>
                                     @endif
                                     @if($t->category->game_meta && isset($t->meta) && $t->meta->first_release_date)
                                         <span class="text-bold text-pink"> {{ date('Y', strtotime( $t->meta->first_release_date)) }}</span>

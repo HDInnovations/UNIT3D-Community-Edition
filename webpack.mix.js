@@ -26,7 +26,7 @@ mix.options({
 
       extensions: ['html', 'php', 'js', 'vue'],
 
-      whitelistPatterns: [/fa/, /far/, /fas/, /fal/],
+      whitelistPatterns: [/tooltip/, /fa/, /far/, /fas/, /fal/],
     })
     .generateIntegrityHash()
 

@@ -1477,7 +1477,7 @@ class TorrentController extends Controller
         }
 
         // Define the filename for the download
-        $tmpFileName = $torrent->slug.'.torrent';
+        $tmpFileName = str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']'.$torrent->name.'.torrent');
 
         // The torrent file exist ?
         if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
