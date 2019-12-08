@@ -1,7 +1,8 @@
 @foreach ($articles as $article)
     <div class="col-md-10 col-sm-10 col-md-offset-1">
-        @if (auth()->user()->updated_at->getTimestamp() < $article->created_at->getTimestamp())
-                <div class="panel panel-danger">
+        @if (auth()->user()->updated_at->subDays(3)->getTimestamp() < $article->created_at->getTimestamp())
+			@php($expanded = 'in')
+			    <div class="panel panel-danger">
                     <div class="panel-heading">
                         <h4 class="text-center">
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
@@ -11,17 +12,18 @@
                         </h4>
                     </div>
                 @else
+				@php($expanded = '')
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h4 class="text-center">
                                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                     href="#collapse4" style="color:#ffffff;">
-                                    @lang('blocks.check-news')
+                                    @lang('blocks.check-news') ({{$article->created_at->diffForHumans()}})
                                 </a>
                             </h4>
                         </div>
                     @endif
-                    <div id="collapse4" class="panel-collapse collapse" style="height: 0;">
+                    <div id="collapse4" class="panel-collapse collapse {{ $expanded }}" style="height: 0;">
                         <div class="panel-body no-padding">
                             <div class="news-blocks">
                                 <a href="{{ route('articles.show', ['id' => $article->id]) }}"
