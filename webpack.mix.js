@@ -21,13 +21,13 @@ mix.options({
      */
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .purgeCss({
+    /*.purgeCss({
       enabled: true,
 
       extensions: ['html', 'php', 'js', 'vue'],
 
       whitelistPatterns: [/tooltip/, /fa/, /far/, /fas/, /fal/],
-    })
+    })*/
     .generateIntegrityHash()
 
     /*
