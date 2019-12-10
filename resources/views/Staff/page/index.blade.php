@@ -28,21 +28,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($pages as $page)
+                    @foreach ($folios as $folio)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}">
-                                    {{ $page->name }}
+                                <a href="{{ route('pages.show', ['id' => $folio->id]) }}">
+                                    {{ $folio->name }}
                                 </a>
                             </td>
                             <td>
-                                {{ $page->created_at }} ({{ $page->created_at->diffForHumans() }})
+                                {{ $folio->created_at }} ({{ $folio->created_at->diffForHumans() }})
                             </td>
                             <td>
-                                <form action="{{ route('staff.pages.destroy', ['id' => $page->id]) }}" method="POST">
+                                <form action="{{ route('staff.pages.destroy', ['id' => $folio->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}"
+                                    <a href="{{ route('staff.pages.edit', ['id' => $folio->id]) }}"
                                         class="btn btn-warning">@lang('common.edit')</a>
                                     <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
                                 </form>
