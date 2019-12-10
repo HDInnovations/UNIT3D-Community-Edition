@@ -46,7 +46,7 @@ return [
     'unlock'              => 'Unlock',
     'user-icon'           => 'User Icon',
     'username'            => 'Username',
-    'veteran'             => 'Experianced With Private Trackers',
+    'veteran'             => 'Experienced With Private Trackers',
     'welcome'             => 'Welcome Back!',
     'welcome-restore'     => 'Welcome Back! Your Account Is No Longer Disabled!',
 
