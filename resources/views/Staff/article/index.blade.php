@@ -20,7 +20,7 @@
 @section('content')
     <div class="container box">
         <h2>Articles</h2>
-        <a href="{{ route('staff.articles.create') }}" class="btn btn-primary">Add A Article</a>
+        <a href="{{ route('staff.articles.create') }}" class="btn btn-primary">Add An Article</a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
