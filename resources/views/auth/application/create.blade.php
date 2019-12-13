@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="radio-inline">
                                         <label>
-                                            <input type="radio" name="type" value="Experianced With Private Trackers">
+                                            <input type="radio" name="type" value="Experienced With Private Trackers">
                                             @lang('auth.veteran')
                                         </label>
                                     </div>
