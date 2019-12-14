@@ -29,14 +29,14 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "spin.js": "^4.1.0",
-    "sweetalert2": "^9.3.17",
+    "sweetalert2": "^9.5.3",
     "v-tooltip": "^2.0.2",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
     "laravel-mix-sri": "0.0.4",
     "ncu": "^0.2.1",
-    "npm-check-updates": "^3.2.1"
+    "npm-check-updates": "^4.0.1"
   }
 }
