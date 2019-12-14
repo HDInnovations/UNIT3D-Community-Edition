@@ -13,6 +13,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->times_completed }}
                     </span>&nbsp;
                         <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->getSize() }}</span>&nbsp;
+                        <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->resolution }}</span>&nbsp;
                         <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->type }}</span>&nbsp;
                         <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->category->name }}</span>&nbsp;
                     </div>
@@ -64,7 +65,7 @@
                             @endif
                             <p class="description_plot">
                                 @if($t->category->movie_meta || $t->category->tv_meta && $t->meta && $t->meta->plot)
-                                    {{ $t->meta->plot }}
+                                    {{ $t->meta->plot ?? '' }}
                                 @endif
                             </p>
                         </div>

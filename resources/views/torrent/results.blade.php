@@ -18,7 +18,8 @@ config('api-keys.omdb')) @endphp
                 @else
                     <th></th>
                 @endif
-                <th>@lang('torrent.category')/@lang('torrent.type')</th>
+                <th>@lang('torrent.category')</th>
+                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                 <th style="white-space: nowrap !important;">@sortablelink('name', trans('common.name'), '',
                     ['id'=>'name','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting
                     == "name" ? $direction : 0)])</th>
@@ -111,7 +112,7 @@ config('api-keys.omdb')) @endphp
                                 <div class="text-center">
                                     <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 10px;" alt="{{ $torrent->category->name }}">
+                                        style="padding-top: 17px;" alt="{{ $torrent->category->name }}">
                                 </div>
                             </a>
                         @else
@@ -119,14 +120,23 @@ config('api-keys.omdb')) @endphp
                                 <div class="text-center">
                                     <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 10px;"></i>
+                                        style="padding-top: 17px;"></i>
                                 </div>
                             </a>
                         @endif
-                        <div class="text-center" style="padding-top: 5px;">
+                    </td>
+
+                    <td style="width: 1%;">
+                        <div class="text-center" style="padding-top: 15px;">
                             <span class="label label-success" data-toggle="tooltip"
-                                data-original-title="@lang('torrent.type')">
+                                  data-original-title="@lang('torrent.type')">
                                 {{ $torrent->type }}
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('torrent.resolution')">
+                                {{ $torrent->resolution }}
                             </span>
                         </div>
                     </td>

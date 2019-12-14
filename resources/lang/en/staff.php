@@ -34,6 +34,7 @@ return [
     'statuses'                => 'Statuses',
     'torrent-categories'      => 'Torrent Categories',
     'torrent-moderation'      => 'Torrent Moderation',
+    'torrent-resolutions'     => 'Torrent Resolutions',
     'torrent-tools'           => 'Torrent Tools',
     'torrent-types'           => 'Torrent Types',
     'torrents'                => 'Torrents',

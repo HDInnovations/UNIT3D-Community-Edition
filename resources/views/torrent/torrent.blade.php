@@ -408,6 +408,11 @@
                     </tr>
 
                     <tr>
+                        <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
+                        <td>{{ $torrent->resolution }}</td>
+                    </tr>
+
+                    <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.stream-optimized')?</strong></td>
                         <td>
                             @if ($torrent->stream == "1") @lang('common.yes') @else @lang('common.no') @endif

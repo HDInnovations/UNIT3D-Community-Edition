@@ -23,16 +23,16 @@
                     </div>
     
                     <div class="form-group">
-                        <label for="name">IMDB ID <b>(@lang('common.required'))</b></label>
-                        <label>
-                            <input type="number" name="imdb" value="{{ $torrent->imdb }}" class="form-control" required>
-                        </label>
-                    </div>
-    
-                    <div class="form-group">
                         <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
                         <label>
                             <input type="number" name="tmdb" value="{{ $torrent->tmdb }}" class="form-control" required>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">IMDB ID (Optional)</label>
+                        <label>
+                            <input type="number" name="imdb" value="{{ $torrent->imdb }}" class="form-control" required>
                         </label>
                     </div>
     
@@ -51,7 +51,7 @@
                     </div>
     
                     <div class="form-group">
-                        <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="name">IGDB ID (Optional)</label>
                         <label>
                             <input type="number" name="igdb" value="{{ $torrent->igdb }}" class="form-control" required>
                         </label>
@@ -80,6 +80,20 @@
                                 </option>
                                 @foreach ($types as $type)
                                     <option value="{{ $type->name }}">{{ $type->name }}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">@lang('torrent.resolution')</label>
+                        <label>
+                            <select name="resolution" class="form-control">
+                                <option value="{{ $torrent->resolution }}" selected>{{ $torrent->resolution }}
+                                    (@lang('torrent.current'))
+                                </option>
+                                @foreach ($resolutions as $resolution)
+                                    <option value="{{ $resolution->name }}">{{ $resolution->name }}</option>
                                 @endforeach
                             </select>
                         </label>

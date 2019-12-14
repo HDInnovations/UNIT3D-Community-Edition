@@ -27,6 +27,7 @@
                     <th>@lang('common.name')</th>
                     <th>Category</th>
                     <th>Type</th>
+                    <th>Resolution</th>
                     <th>Size</th>
                     <th>Uploader</th>
                     <th>Approve</th>
@@ -45,6 +46,7 @@
                         <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $p->category->name }} Torrent"></i></td>
                         <td>{{ $p->type }}</td>
+                        <td>{{ $p->resolution }}</td>
                         <td>{{ $p->getSize() }}</td>
                         <td><a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
@@ -166,6 +168,7 @@
                     <th>@lang('common.name')</th>
                     <th>Category</th>
                     <th>Type</th>
+                    <th>Resolution</th>
                     <th>Size</th>
                     <th>Uploader</th>
                     <th>Staff</th>
@@ -185,6 +188,7 @@
                         <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $post->category->name }} Torrent"></i></td>
                         <td>{{ $post->type }}</td>
+                        <td>{{ $post->resolution }}</td>
                         <td>{{ $post->getSize() }}</td>
                         <td>
                             <a href="{{ route('users.show', ['username' => $post->user->username]) }}"
@@ -273,6 +277,7 @@
                     <th>@lang('common.name')</th>
                     <th>Category</th>
                     <th>Type</th>
+                    <th>Resolution</th>
                     <th>Size</th>
                     <th>Uploader</th>
                     <th>Staff</th>
@@ -293,6 +298,7 @@
                         <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $reject->category->name }} Torrent"></i></td>
                         <td>{{ $reject->type }}</td>
+                        <td>{{ $reject->resolution }}</td>
                         <td>{{ $reject->getSize() }}</td>
                         <td>@if ($reject->user) <a
                                     href="{{ route('users.show', ['username' => $reject->user->username]) }}"

@@ -126,6 +126,21 @@
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="resolution"
+                               class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.resolution')</label>
+                        <div class="col-sm-10">
+                            @foreach ($repository->resolutions() as $id => $resolution)
+                                <span class="badge-user">
+                                            <label class="inline">
+                                                <input type="checkbox" id="{{ $resolution }}" value="{{ $resolution }}"
+                                                       class="resolution facetedSearch" trigger="click"> {{ $resolution }}
+                                            </label>
+                                        </span>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                         <div class="col-sm-10">
                             @foreach ($repository->tags() as $id => $genre)
@@ -303,6 +318,7 @@
                                                                 <thead>
                                                                 <tr>
                                                                     <th>@lang('torrent.category')</th>
+                                                                    <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                                                                     <th>@lang('torrent.name')</th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
@@ -335,14 +351,13 @@
                                                                     @else
                                                                         <tr class="{{ $class }}" style="{{ $hidden }}" torrent="{{ $attr }}">
                                                                             @endif
-                                                                            <td>
+                                                                            <td style="width: 1%;">
                                                                                 @if ($current->category->image != null)
                                                                                     <a href="{{ route('categories.show', ['id' => $current->category->id]) }}">
                                                                                         <div class="text-center">
-                                                                                            <img src="{{ url('files/img/' . $current->category->image) }}" alt="{{ $current->category->name }}"
-                                                                                                 data-toggle="tooltip"
+                                                                                            <img src="{{ url('files/img/' . $current->category->image) }}" data-toggle="tooltip"
                                                                                                  data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                                                                 style="padding-bottom: 6px;">
+                                                                                                 style="padding-top: 17px;" alt="{{ $current->category->name }}">
                                                                                         </div>
                                                                                     </a>
                                                                                 @else
@@ -350,14 +365,24 @@
                                                                                         <div class="text-center">
                                                                                             <i class="{{ $current->category->icon }} torrent-icon" data-toggle="tooltip"
                                                                                                data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                                                               style="padding-bottom: 6px;"></i>
+                                                                                               style="padding-top: 17px;"></i>
                                                                                         </div>
                                                                                     </a>
                                                                                 @endif
+                                                                            </td>
+
+                                                                            <td style="width: 1%;">
+                                                                                <div class="text-center" style="padding-top: 15px;">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('torrent.type')">
+                                {{ $current->type }}
+                            </span>
+                                                                                </div>
                                                                                 <div class="text-center">
-                                                            <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
-                                                                {{ $current->type }}
-                                                            </span>
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('torrent.resolution')">
+                                {{ $current->resolution }}
+                            </span>
                                                                                 </div>
                                                                             </td>
                                                                             <td>

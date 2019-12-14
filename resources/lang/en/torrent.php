@@ -140,6 +140,7 @@ return [
     'remaining'                => 'Remaining',
     'request-reseed'           => 'Request Reseed',
     'requires-reseed'          => 'Requires Reseed',
+    'resolution'               => 'Resolution',
     'resurrections'            => 'Resurrections',
     'revoke'                   => 'Revoke',
     'rss'                      => 'RSS',
