@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Group;
+use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
@@ -78,6 +79,7 @@ class RssController extends Controller
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
+            'resolutions'    => Resolution::all()->sortBy('position'),
             'user'           => $user,
         ]);
     }
@@ -100,12 +102,13 @@ class RssController extends Controller
             'uploader' => 'max:255',
             'categories' => 'sometimes|array|max:999',
             'types' => 'sometimes|array|max:999',
+            'resolutions' => 'sometimes|array|max:999',
             'genres' => 'sometimes|array|max:999',
             'position' => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['name', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
+            'types', 'resolutions', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
@@ -172,6 +175,7 @@ class RssController extends Controller
         $mal = $rss->object_torrent->mal;
         $categories = $rss->object_torrent->categories;
         $types = $rss->object_torrent->types;
+        $resolutions = $rss->object_torrent->resolutions;
         $genres = $rss->object_torrent->genres;
         $freeleech = $rss->object_torrent->freeleech;
         $doubleupload = $rss->object_torrent->doubleupload;
@@ -248,6 +252,10 @@ class RssController extends Controller
             $torrent->whereIn('type', $types);
         }
 
+        if ($rss->object_torrent->resolutions && is_array($rss->object_torrent->resolutions)) {
+            $torrent->whereIn('resolution', $resolutions);
+        }
+
         if ($rss->object_torrent->genres && is_array($rss->object_torrent->genres)) {
             $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
             $torrent->whereIn('id', $genreID)->cursor();
@@ -315,6 +323,7 @@ class RssController extends Controller
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
+            'resolutions'    => Resolution::all()->sortBy('position'),
             'user'           => $user,
             'rss'            => $rss,
         ]);
@@ -337,6 +346,7 @@ class RssController extends Controller
             'uploader' => 'max:255',
             'categories' => 'sometimes|array|max:999',
             'types' => 'sometimes|array|max:999',
+            'resolutions' => 'sometimes|array|max:999',
             'genres' => 'sometimes|array|max:999',
             'position' => 'sometimes|integer|max:9999',
         ]);

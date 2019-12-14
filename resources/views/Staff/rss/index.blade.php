@@ -26,6 +26,7 @@
                             <th>@lang('common.position')</th>
                             <th>Categories</th>
                             <th>@lang('common.types')</th>
+                            <th>Resolutions</th>
                             <th>Genres</th>
                             <th>Discounts</th>
                             <th>Special</th>
@@ -44,6 +45,9 @@
                                             class="{{ config('other.font-awesome') }} fa-check text-green"></i>@else<i
                                             class="{{ config('other.font-awesome') }} fa-times text-red"></i>@endif</td>
                                     <td>@if ($rss->object_torrent->types)<i
+                                            class="{{ config('other.font-awesome') }} fa-check text-green"></i>@else<i
+                                            class="{{ config('other.font-awesome') }} fa-times text-red"></i>@endif</td>
+                                    <td>@if ($rss->object_torrent->resolutions)<i
                                             class="{{ config('other.font-awesome') }} fa-check text-green"></i>@else<i
                                             class="{{ config('other.font-awesome') }} fa-times text-red"></i>@endif</td>
                                     <td>@if ($rss->object_torrent->genres)<i
