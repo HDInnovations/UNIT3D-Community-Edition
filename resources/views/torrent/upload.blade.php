@@ -157,6 +157,8 @@
                             <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
                         </label>
                     </div>
+                    @else
+                        <input type="hidden" name="igdb" value="0">
                     @endif
         
                     <div class="form-group">

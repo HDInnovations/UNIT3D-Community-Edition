@@ -1322,7 +1322,7 @@ class TorrentController extends Controller
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
-        $torrent->igdb = $request->input('igdb');;
+        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->resolution = $request->input('resolution');
         $torrent->anon = $request->input('anonymous');
