@@ -52,20 +52,6 @@ class CategoriesTableSeeder extends Seeder
                     'music_meta'  => 0,
                     'no_meta'     => 0,
                 ],
-                2 => [
-                    'id'          => 3,
-                    'name'        => 'Music',
-                    'slug'        => 'music',
-                    'position'    => 2,
-                    'icon'        => config('other.font-awesome').' fa-music',
-                    'num_torrent' => 0,
-                    'image'       => null,
-                    'movie_meta'  => 0,
-                    'tv_meta'     => 0,
-                    'game_meta'   => 0,
-                    'music_meta'  => 1,
-                    'no_meta'     => 0,
-                ],
         ]);
     }
 }
