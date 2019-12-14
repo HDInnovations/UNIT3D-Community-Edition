@@ -77,10 +77,12 @@
                     <div class="form-group">
                         <label for="category_id">@lang('torrent.category')</label>
                         <label>
-                            <select name="category_id" class="form-control">
+                            <select name="category_id" id="autocat" class="form-control">
+                                <option value="">--Select Category--</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" @if (old('category_id')==$category->id) selected="selected"
-                                        @endif>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" @if ($category_id==$category->id) selected="selected"@endif>
+                                        {{ $category->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </label>
@@ -90,6 +92,7 @@
                         <label for="type">@lang('torrent.type')</label>
                         <label>
                             <select name="type" id="autotype" class="form-control">
+                                <option value="">--Select Type--</option>
                                 @foreach ($types as $type)
                                     <option value="{{ $type->name }}" @if (old('type')==$type->name) selected="selected"
                                         @endif>{{ $type->name }}</option>
@@ -97,41 +100,64 @@
                             </select>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="name">IMDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="type">@lang('torrent.resolution')</label>
                         <label>
-                            <input type="number" name="imdb" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
+                            <select name="resolution" id="autores" class="form-control">
+                                <option value="">--Select Resolution--</option>
+                                @foreach ($resolutions as $resolution)
+                                    <option value="{{ $resolution->name }}" @if (old('resolution')==$resolution->name) selected="selected"
+                                            @endif>{{ $resolution->name }}</option>
+                                @endforeach
+                            </select>
                         </label>
                     </div>
-        
+
+                    @php $data = App\Models\Category::where('id', '=', isset($category_id) ? $category_id : old('category_id'))->first();@endphp
+                    @if ($data->movie_meta || $data->tv_meta)
                     <div class="form-group">
                         <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
                         <label>
-                            <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
+                            <input type="text" name="apimatch" id="apimatch" class="form-control" value="" disabled>
+                            <input type="number" name="tmdb" id="autotmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
                         </label>
                     </div>
-        
+
+                    <div class="form-group">
+                        <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
+                        <label>
+                            <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
+                        </label>
+                    </div>
+                    @endif
+
+                    @if ($data->tv_meta)
                     <div class="form-group">
                         <label for="name">TVDB ID (@lang('torrent.optional'))</label>
                         <label>
-                            <input type="number" name="tvdb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
+                            <input type="number" name="tvdb" id="autotmvb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
                         </label>
                     </div>
-        
+                    @endif
+
+                    @if ($data->movie_meta || $data->tv_meta)
                     <div class="form-group">
                         <label for="name">MAL ID (@lang('torrent.optional'))</label>
                         <label>
                             <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
                         </label>
                     </div>
-        
+                    @endif
+
+                    @if ($data->game_meta)
                     <div class="form-group">
                         <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
                         <label>
                             <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
                         </label>
                     </div>
+                    @endif
         
                     <div class="form-group">
                         <label for="description">@lang('torrent.description')</label>
@@ -140,7 +166,8 @@
                         {{ old('description') }}
                         </textarea>
                     </div>
-        
+
+                    @if ($data->movie_meta || $data->tv_meta)
                     <div class="form-group">
                         <label for="mediainfo">@lang('torrent.media-info-parser')</label>
                         <label for="upload-form-description"></label><textarea id="upload-form-description" name="mediainfo"
@@ -148,6 +175,7 @@
                         {{ old('mediainfo') }}
                         </textarea>
                     </div>
+                    @endif
         
                     <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
@@ -156,15 +184,16 @@
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" checked="checked" value="0">@lang('common.no')</label>
                     </div>
-        
+
+                    @if ($data->movie_meta || $data->tv_meta)
                     <br>
         
                     <label for="stream" class="control-label">@lang('torrent.stream-optimized')?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="stream" value="1">@lang('common.yes')</label>
+                        <label><input type="radio" name="stream" id="stream" value="1">@lang('common.yes')</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="stream" checked="checked" value="0">@lang('common.no')</label>
+                        <label><input type="radio" name="stream" id="stream" checked="checked" value="0">@lang('common.no')</label>
                     </div>
         
                     <br>
@@ -176,7 +205,8 @@
                     <div class="radio-inline">
                         <label><input type="radio" name="sd" checked="checked" value="0">@lang('common.no')</label>
                     </div>
-        
+                    @endif
+
                     <br>
         
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)

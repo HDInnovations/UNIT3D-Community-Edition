@@ -11,23 +11,33 @@
         <li>
             @if (auth()->user()->torrent_layout == 1)
                 <a href="{{ route('groupings') }}">
-                @elseif (auth()->user()->torrent_layout == 2)
-                    <a href="{{ route('cards') }}">
-                    @else
-                        <a href="{{ route('torrents') }}">
-                        @endif
-                        <i class="{{ config('other.font-awesome') }} fa-tv-retro"
-                            style=" font-size: 18px; color: #ffffff;"></i>
-                        <span class="menu-text">@lang('torrent.torrents')</span>
-                        <span class="selected"></span>
-                    </a>
+            @elseif (auth()->user()->torrent_layout == 2)
+                <a href="{{ route('cards') }}">
+            @else
+                <a href="{{ route('torrents') }}">
+            @endif
+                <i class="{{ config('other.font-awesome') }} fa-tv-retro" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">@lang('torrent.torrents')</span>
+                <span class="selected"></span>
+            </a>
         </li>
-        <li>
-            <a href="{{ route('upload') }}">
+        <li class="hoe-has-menu">
+            <a href="javascript:void(0)">
                 <i class="{{ config('other.font-awesome') }} fa-upload" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.publish')</span>
                 <span class="selected"></span>
             </a>
+            <ul class="hoe-sub-menu">
+                @php $categories = App\Models\Category::all(); @endphp
+                @foreach($categories as $category)
+                    <li>
+                        <a href="{{ route('upload_form', ['category_id' => $category->id]) }}">
+                            <span class="menu-text">{{ $category->name }}</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </li>
         <li>
             <a href="{{ route('requests') }}">

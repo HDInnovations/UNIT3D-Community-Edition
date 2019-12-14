@@ -27,7 +27,7 @@
                             <label for="users">@lang('common.username')</label>
                             <label>
                                 <input name="receiver_id" class="form-control" placeholder="@lang('common.username')"
-                                    required>
+                                       value="{{ old('receiver_id') ?? $receiver_id }}" required>
                             </label>
                         </div>
     

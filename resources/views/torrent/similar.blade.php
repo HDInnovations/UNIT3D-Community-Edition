@@ -88,7 +88,7 @@
                         <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>@lang('torrent.torrents'):
                             </strong> {{ $torrents->count() }}</li>
                         <li>
-                            <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
+                            <a href="{{ route('upload_form', ['category_id' => $torrents->first()->category_id, 'title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
                                 class="btn btn-xs btn-danger">
                                 @lang('common.upload') {{ $meta->title }}
                             </a>
@@ -101,6 +101,7 @@
                     <thead>
                         <tr>
                             <th>@lang('torrent.category')</th>
+                            <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                             <th>@lang('torrent.name')</th>
                             <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                             <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
@@ -116,21 +117,40 @@
                                 @else
                                 <tr>
                                 @endif
-                                <td>
-                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                        <div class="text-center">
-                                            <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                style="padding-bottom: 6px;"></i>
+                                    <td style="width: 1%;">
+                                        @if ($torrent->category->image != null)
+                                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                                <div class="text-center">
+                                                    <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                         style="padding-top: 17px;" alt="{{ $torrent->category->name }}">
+                                                </div>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                                <div class="text-center">
+                                                    <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
+                                                       data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                       style="padding-top: 17px;"></i>
+                                                </div>
+                                            </a>
+                                        @endif
+                                    </td>
+
+                                    <td style="width: 1%;">
+                                        <div class="text-center" style="padding-top: 15px;">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('torrent.type')">
+                                {{ $torrent->type }}
+                            </span>
                                         </div>
-                                    </a>
-                                    <div class="text-center">
-                                        <span class="label label-success" data-toggle="tooltip"
-                                            data-original-title="@lang('torrent.type')">
-                                            {{ $torrent->type }}
-                                        </span>
-                                    </div>
-                                </td>
+                                        <div class="text-center">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('torrent.resolution')">
+                                {{ $torrent->resolution }}
+                            </span>
+                                        </div>
+                                    </td>
         
                                 <td>
                                     <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">

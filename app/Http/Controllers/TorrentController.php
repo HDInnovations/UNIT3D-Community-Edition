@@ -29,6 +29,7 @@ use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
+use App\Models\Resolution;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
@@ -221,9 +222,9 @@ class TorrentController extends Controller
         $cache = [];
         $attributes = [];
 
-        $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname,max(torrents.size) as ssize')->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')->groupBy('torrents.imdb')->whereRaw('torrents.status = ? AND torrents.imdb != ?', [1, 0]);
+        $torrent = DB::table('torrents')->selectRaw('distinct(torrents.tmdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname,max(torrents.size) as ssize')->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')->groupBy('torrents.tmdb')->whereRaw('torrents.status = ? AND torrents.tmdb != ?', [1, 0]);
 
-        $prelauncher = $torrent->orderBy('s'.$sorting, $order)->pluck('imdb')->toArray();
+        $prelauncher = $torrent->orderBy('s'.$sorting, $order)->pluck('tmdb')->toArray();
 
         if (! is_array($prelauncher)) {
             $prelauncher = [];
@@ -237,38 +238,38 @@ class TorrentController extends Controller
         }
         $totals = [];
         $counts = [];
-        $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
+        $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('tmdb', $fed)->orderBy($sorting, $order);
         foreach ($launcher->cursor() as $chunk) {
-            if ($chunk->imdb) {
-                if (! array_key_exists($chunk->imdb, $totals)) {
-                    $totals[$chunk->imdb] = 1;
+            if ($chunk->tmdb) {
+                if (! array_key_exists($chunk->tmdb, $totals)) {
+                    $totals[$chunk->tmdb] = 1;
                 } else {
-                    $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
+                    $totals[$chunk->tmdb] = $totals[$chunk->tmdb] + 1;
                 }
-                if (! array_key_exists('imdb'.$chunk->imdb, $cache)) {
-                    $cache['imdb'.$chunk->imdb] = [];
+                if (! array_key_exists('tmdb'.$chunk->tmdb, $cache)) {
+                    $cache['tmdb'.$chunk->tmdb] = [];
                 }
-                if (! array_key_exists('imdb'.$chunk->imdb, $counts)) {
-                    $counts['imdb'.$chunk->imdb] = 0;
+                if (! array_key_exists('tmdb'.$chunk->tmdb, $counts)) {
+                    $counts['tmdb'.$chunk->tmdb] = 0;
                 }
-                if (! array_key_exists('imdb'.$chunk->imdb, $attributes)) {
-                    $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
-                    $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
-                    $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
-                    $attributes['imdb'.$chunk->imdb]['types'] = [];
-                    $attributes['imdb'.$chunk->imdb]['categories'] = [];
-                    $attributes['imdb'.$chunk->imdb]['genres'] = [];
+                if (! array_key_exists('tmdb'.$chunk->tmdb, $attributes)) {
+                    $attributes['tmdb'.$chunk->tmdb]['seeders'] = 0;
+                    $attributes['tmdb'.$chunk->tmdb]['leechers'] = 0;
+                    $attributes['tmdb'.$chunk->tmdb]['times_completed'] = 0;
+                    $attributes['tmdb'.$chunk->tmdb]['types'] = [];
+                    $attributes['tmdb'.$chunk->tmdb]['categories'] = [];
+                    $attributes['tmdb'.$chunk->tmdb]['genres'] = [];
                 }
-                $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
-                $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
-                $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                if (! array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
-                    $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
+                $attributes['tmdb'.$chunk->tmdb]['times_completed'] += $chunk->times_completed;
+                $attributes['tmdb'.$chunk->tmdb]['seeders'] += $chunk->seeders;
+                $attributes['tmdb'.$chunk->tmdb]['leechers'] += $chunk->leechers;
+                if (! array_key_exists($chunk->type, $attributes['tmdb'.$chunk->tmdb])) {
+                    $attributes['tmdb'.$chunk->tmdb]['types'][$chunk->type] = $chunk->type;
                 }
-                if (! array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
-                    $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
+                if (! array_key_exists($chunk->category_id, $attributes['tmdb'.$chunk->tmdb])) {
+                    $attributes['tmdb'.$chunk->tmdb]['categories'][$chunk->category_id] = $chunk->category_id;
                 }
-                $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
+                $cache['tmdb'.$chunk->tmdb]['torrent'.$counts['tmdb'.$chunk->tmdb]] = [
                     'created_at' => $chunk->created_at,
                     'seeders' => $chunk->seeders,
                     'leechers' => $chunk->leechers,
@@ -277,7 +278,7 @@ class TorrentController extends Controller
                     'size' => $chunk->size,
                     'chunk' => $chunk,
                 ];
-                $counts['imdb'.$chunk->imdb]++;
+                $counts['tmdb'.$chunk->tmdb]++;
             }
         }
         if (count($cache) > 0) {
@@ -392,6 +393,7 @@ class TorrentController extends Controller
         $end_year = $request->input('end_year');
         $categories = $request->input('categories');
         $types = $request->input('types');
+        $resolutions = $request->input('resolutions');
         $genres = $request->input('genres');
         $freeleech = $request->input('freeleech');
         $doubleupload = $request->input('doubleupload');
@@ -453,10 +455,10 @@ class TorrentController extends Controller
         }
 
         if ($collection == 1) {
-            $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname,max(torrents.size) as ssize')
+            $torrent = DB::table('torrents')->selectRaw('distinct(torrents.tmdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname,max(torrents.size) as ssize')
                 ->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')
-                ->groupBy('torrents.imdb')
-                ->whereRaw('torrents.status = ? AND torrents.imdb != ?', [1, 0]);
+                ->groupBy('torrents.tmdb')
+                ->whereRaw('torrents.status = ? AND torrents.tmdb != ?', [1, 0]);
 
             if ($request->has('search') && $request->input('search') != null) {
                 $torrent->where(function ($query) use ($search) {
@@ -507,6 +509,10 @@ class TorrentController extends Controller
 
             if ($request->has('types') && $request->input('types') != null) {
                 $torrent->whereIn('torrentsl.type', $types);
+            }
+
+            if ($request->has('resolutions') && $request->input('resolutions') != null) {
+                $torrent->whereIn('torrentsl.resolution', $resolutions);
             }
 
             if ($request->has('genres') && $request->input('genres') != null) {
@@ -642,6 +648,10 @@ class TorrentController extends Controller
                 $torrent->whereIn('torrents.type', $types);
             }
 
+            if ($request->has('resolutions') && $request->input('resolutions') != null) {
+                $torrent->whereIn('torrents.resolution', $resolutions);
+            }
+
             if ($request->has('genres') && $request->input('genres') != null) {
                 $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
                 $torrent->whereIn('torrents.id', $genreID);
@@ -697,7 +707,7 @@ class TorrentController extends Controller
                 $logger = 'torrent.results_groupings';
             }
 
-            $prelauncher = $torrent->orderBy('s'.$sorting, $order)->pluck('imdb')->toArray();
+            $prelauncher = $torrent->orderBy('s'.$sorting, $order)->pluck('tmdb')->toArray();
 
             if (! is_array($prelauncher)) {
                 $prelauncher = [];
@@ -714,38 +724,38 @@ class TorrentController extends Controller
             }
             $totals = [];
             $counts = [];
-            $launcher = Torrent::with(['user', 'category', 'tags'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
+            $launcher = Torrent::with(['user', 'category', 'tags'])->withCount(['thanks', 'comments'])->whereIn('tmdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $chunk) {
-                if ($chunk->imdb) {
-                    if (! array_key_exists($chunk->imdb, $totals)) {
-                        $totals[$chunk->imdb] = 1;
+                if ($chunk->tmdb) {
+                    if (! array_key_exists($chunk->tmdb, $totals)) {
+                        $totals[$chunk->tmdb] = 1;
                     } else {
-                        $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
+                        $totals[$chunk->tmdb] = $totals[$chunk->tmdb] + 1;
                     }
-                    if (! array_key_exists('imdb'.$chunk->imdb, $cache)) {
-                        $cache['imdb'.$chunk->imdb] = [];
+                    if (! array_key_exists('tmdb'.$chunk->tmdb, $cache)) {
+                        $cache['tmdb'.$chunk->tmdb] = [];
                     }
-                    if (! array_key_exists('imdb'.$chunk->imdb, $counts)) {
-                        $counts['imdb'.$chunk->imdb] = 0;
+                    if (! array_key_exists('tmdb'.$chunk->tmdb, $counts)) {
+                        $counts['tmdb'.$chunk->tmdb] = 0;
                     }
-                    if (! array_key_exists('imdb'.$chunk->imdb, $attributes)) {
-                        $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
-                        $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
-                        $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
-                        $attributes['imdb'.$chunk->imdb]['types'] = [];
-                        $attributes['imdb'.$chunk->imdb]['categories'] = [];
-                        $attributes['imdb'.$chunk->imdb]['genres'] = [];
+                    if (! array_key_exists('tmdb'.$chunk->tmdb, $attributes)) {
+                        $attributes['tmdb'.$chunk->tmdb]['seeders'] = 0;
+                        $attributes['tmdb'.$chunk->tmdb]['leechers'] = 0;
+                        $attributes['tmdb'.$chunk->tmdb]['times_completed'] = 0;
+                        $attributes['tmdb'.$chunk->tmdb]['types'] = [];
+                        $attributes['tmdb'.$chunk->tmdb]['categories'] = [];
+                        $attributes['tmdb'.$chunk->tmdb]['genres'] = [];
                     }
-                    $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
-                    $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
-                    $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                    if (! array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
-                        $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
+                    $attributes['tmdb'.$chunk->tmdb]['times_completed'] += $chunk->times_completed;
+                    $attributes['tmdb'.$chunk->tmdb]['seeders'] += $chunk->seeders;
+                    $attributes['tmdb'.$chunk->tmdb]['leechers'] += $chunk->leechers;
+                    if (! array_key_exists($chunk->type, $attributes['tmdb'.$chunk->tmdb])) {
+                        $attributes['tmdb'.$chunk->tmdb]['types'][$chunk->type] = $chunk->type;
                     }
-                    if (! array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
-                        $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
+                    if (! array_key_exists($chunk->category_id, $attributes['tmdb'.$chunk->tmdb])) {
+                        $attributes['tmdb'.$chunk->tmdb]['categories'][$chunk->category_id] = $chunk->category_id;
                     }
-                    $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
+                    $cache['tmdb'.$chunk->tmdb]['torrent'.$counts['tmdb'.$chunk->tmdb]] = [
                         'created_at' => $chunk->created_at,
                         'seeders' => $chunk->seeders,
                         'leechers' => $chunk->leechers,
@@ -754,7 +764,7 @@ class TorrentController extends Controller
                         'size' => $chunk->size,
                         'chunk' => $chunk,
                     ];
-                    $counts['imdb'.$chunk->imdb]++;
+                    $counts['tmdb'.$chunk->tmdb]++;
                 }
             }
             if (count($cache) > 0) {
@@ -1022,6 +1032,7 @@ class TorrentController extends Controller
         return view('torrent.edit_torrent', [
             'categories' => Category::all()->sortBy('position'),
             'types'      => Type::all()->sortBy('position'),
+            'resolutions'    => Resolution::all()->sortBy('position'),
             'torrent'    => $torrent,
         ]);
     }
@@ -1051,6 +1062,7 @@ class TorrentController extends Controller
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
+        $torrent->resolution = $request->input('resolution');
         $torrent->mediainfo = $request->input('mediainfo');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
@@ -1061,13 +1073,8 @@ class TorrentController extends Controller
             'name'        => 'required',
             'slug'        => 'required',
             'description' => 'required',
-            'category_id' => 'required',
-            'imdb'        => 'required|numeric',
-            'tvdb'        => 'required|numeric',
-            'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'         => 'required|numeric',
-            'type'        => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'user_id'     => 'required|exists:users,id',
             'anon'        => 'required',
             'stream'      => 'required',
             'sd'          => 'required',
@@ -1222,23 +1229,26 @@ class TorrentController extends Controller
      * Torrent Upload Form.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  null  $category_id
      * @param  string  $title
      * @param  int  $imdb
      * @param  int  $tmdb
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploadForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
+    public function uploadForm(Request $request, $category_id = null, $title = '', $imdb = 0, $tmdb = 0)
     {
         $user = $request->user();
 
         return view('torrent.upload', [
-            'categories' => Category::all()->sortBy('position'),
-            'types'      => Type::all()->sortBy('position'),
-            'user'       => $user,
-            'title'      => $title,
-            'imdb'       => str_replace('tt', '', $imdb),
-            'tmdb'       => $tmdb,
+            'categories'  => Category::all()->sortBy('position'),
+            'types'       => Type::all()->sortBy('position'),
+            'resolutions' => Resolution::all()->sortBy('position'),
+            'user'        => $user,
+            'category_id' => $category_id,
+            'title'       => $title,
+            'imdb'        => str_replace('tt', '', $imdb),
+            'tmdb'        => $tmdb,
         ]);
     }
 
@@ -1312,8 +1322,9 @@ class TorrentController extends Controller
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
-        $torrent->igdb = $request->input('igdb');
+        $torrent->igdb = $request->input('igdb');;
         $torrent->type = $request->input('type');
+        $torrent->resolution = $request->input('resolution');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -1331,14 +1342,10 @@ class TorrentController extends Controller
             'num_file'    => 'required|numeric',
             'announce'    => 'required',
             'size'        => 'required',
-            'category_id' => 'required',
-            'user_id'     => 'required',
-            'imdb'        => 'required|numeric',
-            'tvdb'        => 'required|numeric',
-            'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
-            'type'        => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'user_id'     => 'required|exists:users,id',
+            'type'        => 'required|exists:types,name',
+            'resolution'  => 'exists:resolutions,name',
             'anon'        => 'required',
             'stream'      => 'required',
             'sd'          => 'required',

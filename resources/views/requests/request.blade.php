@@ -161,7 +161,7 @@
                                         </i> @lang('request.claim')
                                     </button>
                                     @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
-                                        <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
+                                        <a href="{{ route('upload_form', ['category_id' => $torrentRequest->category->id, 'title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
                                            class="btn btn-md btn-success"><i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
                                         </a>
                                     @endif

@@ -27,44 +27,136 @@ class uploadExtensionBuilder {
         // Empty for now
     }
     hook() {
-        let name = document.querySelector('#title');
-        let torrent = document.querySelector('#torrent');
-        if (!name.value) {
-            let fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
-            let allowed = ['1.0', '2.0', '5.1', '6.1', '7.1', 'H.264'];
-            var newValue = '';
-            var preValue = torrent.value;
-            fileEndings.forEach(function (e) {
-                preValue = preValue.replace(e, '');
-            });
-            var recursion = preValue.split('\\').pop().split('/').pop();
-            for(var i=0; i<recursion.length; i++) {
-                var prev = false;
-                var next = false;
-                if(recursion[i] == '.') {
-                    var joined = false;
-                    for(var j=0; j<allowed.length; j++) {
-                        var tmp = allowed[j].split('.');
-                        if(tmp[0] == 'H') {
-                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == '2' && recursion[i + 2] != undefined && recursion[i + 2] == '6' && recursion[i + 3] != undefined && recursion[i + 3] =='4') {
-                                joined = true;
-                            }
-                        } else {
-                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == tmp[1]) {
-                                joined = true;
-                            }
-                        }
-                    }
-                    if(joined == false) { newValue=newValue+' '; }
-                    else {
-                        newValue = newValue+'.';
-                    }
+        // Torrent Name
+        const rules =
+          {
+              "erase": [
+                  "\\[.*\\]"
+              ]
+          }
+        let name = document.querySelector("#title");
+        let torrent = document.querySelector("#torrent");
+        let release;
+        let fileEndings = [".mkv.torrent", ".torrent", ".mp4.torrent"];
+        let allowed = ["1.0", "2.0", "5.1", "7.1", "H.264"];
+        let separators = [" ", "."];
+        let value = torrent.value.split("\\").pop().split("/").pop();
+        fileEndings.forEach(function (e) {
+            if (value.endsWith(e)) {
+                value = value.substr(0, value.length - e.length);
+            }
+        });
+        value = value.replace(/\./g, " ");
+        allowed.forEach(function (a) {
+            search = a.replace(/\./g, " ");
+            let replaceIndexes = [];
+            let pos = value.indexOf(search);
+            while (pos !== -1) {
+                let start = pos > 0 ? value[pos - 1] : " ";
+                let end = pos + search.length < value.length ? value[pos + search.length] : " ";
+                if (separators.includes(start) && separators.includes(end)) {
+                    replaceIndexes.push(pos);
                 }
-                else {
-                    newValue = newValue + recursion[i];
+                pos = value.indexOf(search, pos + search.length);
+            }
+            newValue = "";
+            ignore = 0;
+            for (let i = 0; i < value.length; ++i) {
+                if (ignore > 0) {
+                    --ignore;
+                } else if (replaceIndexes.length > 0 && replaceIndexes[0] === i) {
+                    replaceIndexes.shift();
+                    newValue += a;
+                    ignore = a.length - 1;
+                } else {
+                    newValue += value[i];
                 }
             }
-            name.value = newValue;
+            value = newValue;
+        });
+        function clean(value, erase) {
+            erase.forEach(regexp => value = value.replace(new RegExp(`[\.\-]*?${regexp.replace(/\\\\/g, '\\')}[\.\-]*?`, 'ig'), ''))
+
+            return value;
+        }
+        name.value = value;
+
+        /* PARSING */
+        release = title_parser.parse(name.value, {
+            strict: true, // if no main tags found, will throw an exception
+            flagged: true, // add flags to generated relese name (like STV, REMASTERED, READNFO)
+            erase: [], // add expressions to erase before parsing
+            defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
+        });
+
+        console.log(release);
+
+        let matcher = value.toLowerCase();
+
+        // Torrent Resolution
+        if (release.type === "Movie") {
+            $("#autocat").val(1);
+        } else if (release.type === "TV Show") {
+            $("#autocat").val(2);
+        }
+
+        // Torrent Type
+        if (matcher.indexOf("bd50") > 0 || matcher.indexOf("bd25") > 0 || matcher.indexOf("untouched") > 0 || matcher.indexOf("dvd5") > 0 || matcher.indexOf("dvd9") > 0 || matcher.indexOf("mpeg-2") > 0 || matcher.indexOf("avc") > 0 || matcher.indexOf("vc-1") > 0) {
+            $("#autotype").val("Full Disc");
+        }
+        if (matcher.indexOf("remux") > 0) {
+            $("#autotype").val("Remux");
+        }
+        if (matcher.indexOf("x264") > 0) {
+            $("#autotype").val("Encode");
+        }
+        if (matcher.indexOf("x265") > 0) {
+            $("#autotype").val("Encode");
+        }
+        if (matcher.indexOf("webdl") > 0 || matcher.indexOf("web-dl") > 0) {
+            $("#autotype").val("WEB-DL");
+        }
+        if (matcher.indexOf("web-rip") > 0 || matcher.indexOf("webrip") > 0) {
+            $("#autotype").val("WEB-Rip");
+        }
+        if (matcher.indexOf("hdtv") > 0) {
+            $("#autotype").val("HDTV");
+        }
+
+        // Torrent Resolution
+        $("#autores").val(release.resolution);
+
+        // Torrent TMDB ID
+        if (release.type === "Movie") {
+            theMovieDb.search.getMovie({ "query": release.title }, successCB, errorCB);
+        } else if (release.type === "TV Show") {
+            theMovieDb.search.getTv({ "query": release.title }, successCB, errorCB);
+        }
+
+        function successCB(data) {
+            data = JSON.parse(data);
+            if (release.type === "Movie") {
+                if (data.results && data.results.length > 0) {
+                    $("#autotmdb").val(data.results[0].id);
+                    $("#apimatch").val('Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')');
+                    //$("#autoimdb").val(data.results[0].imdb_id);
+                }
+            } else if (release.type === "TV Show") {
+                if (data.results && data.results.length > 0) {
+                    $("#autotmdb").val(data.results[0].id);
+                    $("#apimatch").val('Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')');
+                    //$("#autoimdb").val(data.results[0].imdb_id);
+                    //$("#autotvdb").val(data.results[0].tvdb_id);
+                }
+            }
+        }
+        function errorCB(data) {
+            console.log("Error callback: " + data);
+        }
+
+        // Torrent Stream Optimized?
+        if (release.container === "MP4" && release.audio === "AAC") {
+            document.getElementById("stream").checked = true;
         }
     }
 }
@@ -432,6 +524,7 @@ class facetedSearchBuilder {
         var end_year = $("#end_year").val();
         var categories = [];
         var types = [];
+        var resolutions = [];
         var genres = [];
         var qty = $("#qty").val();
         var notdownloaded = (function () {
@@ -514,6 +607,9 @@ class facetedSearchBuilder {
         });
         $(".type:checked").each(function () {
             types.push($(this).val());
+        });
+        $(".resolution:checked").each(function () {
+            resolutions.push($(this).val());
         });
         $(".genre:checked").each(function () {
             genres.push($(this).val());
@@ -599,6 +695,7 @@ class facetedSearchBuilder {
                 end_year: end_year,
                 categories: categories,
                 types: types,
+                resolutions: resolutions,
                 genres: genres,
                 freeleech: freeleech,
                 doubleupload: doubleupload,
