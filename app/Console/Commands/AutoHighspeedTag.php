@@ -50,7 +50,7 @@ class AutoHighspeedTag extends Command
             $torid = Peer::select(['torrent_id'])->whereIn('user_id', $seedbox_users)->where('seeder', '=', 1)->get()->toArray();
 
             foreach ($torid as $id) {
-                $torrent = Torrent::where('id', '=', $id)->first();
+                $torrent = Torrent::where('id', '=', $id)->firstOrFail();
                 $torrent->highspeed = 1;
                 $torrent->save();
 
