@@ -1299,7 +1299,6 @@ class TorrentController extends Controller
         $infohash = Bencode::get_infohash($decodedTorrent);
         $meta = Bencode::get_meta($decodedTorrent);
         $fileName = uniqid().'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
@@ -1352,15 +1351,13 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            if (file_exists(getcwd().'/files/torrents/'.$fileName)) {
-                unlink(getcwd().'/files/torrents/'.$fileName);
-            }
 
             return redirect()->route('upload_form')
                 ->withErrors($v->errors())->withInput();
         } else {
             // Save The Torrent
             $torrent->save();
+            file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
             // Count and save the torrent number in this category
             $category->num_torrent = $category->torrents_count;
