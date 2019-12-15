@@ -621,11 +621,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'chat'], function () {
             Route::name('staff.bots.')->group(function () {
                 Route::get('/bots', 'ChatBotController@index')->name('index');
+                Route::get('/bots/disable/{id}', 'ChatBotController@disable')->name('disable');
+                Route::get('/bots/enable/{id}', 'ChatBotController@enable')->name('enable');
                 Route::get('/bots/{id}/edit', 'ChatBotController@edit')->name('edit');
                 Route::patch('/bots/{id}/update', 'ChatBotController@update')->name('update');
                 Route::delete('/bots/{id}/destroy', 'ChatBotController@destroy')->name('destroy');
-                Route::get('/{bots/id}/disable', 'ChatBotController@disable')->name('disable');
-                Route::get('/bots/{id}/enable', 'ChatBotController@enable')->name('enable');
             });
         });
 
