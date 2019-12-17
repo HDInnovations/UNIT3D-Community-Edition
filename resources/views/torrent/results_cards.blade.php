@@ -19,7 +19,7 @@
                     </div>
                     <div class="card_body">
                         <div class="body_poster">
-                            @if ($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->poster && $t->meta->title)
+                            @if ($t->category->movie_meta || $t->category->tv_meta)
                                 <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster"
                                      data-name='<i style="color: #a5a5a5;">{{ $t->meta->title ?? 'N/A' }}</i>' data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
