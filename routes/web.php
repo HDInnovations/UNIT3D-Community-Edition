@@ -321,6 +321,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/change_email', 'UserController@changeEmail')->name('change_email');
             Route::post('/{username}/settings/change_pid', 'UserController@changePID')->name('change_pid');
             Route::post('/{username}/settings/change_rid', 'UserController@changeRID')->name('change_rid');
+            Route::post('/{username}/settings/change_api_token', 'UserController@changeApiToken')->name('change_api_token');
             Route::get('/{username}/settings/notification/disable', 'UserController@disableNotifications')->name('notification_disable');
             Route::get('/{username}/settings/notification/enable', 'UserController@enableNotifications')->name('notification_enable');
             Route::post('/{username}/settings/notification/account', 'UserController@changeAccountNotification')->name('notification_account');
