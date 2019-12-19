@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Xss;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -116,7 +117,8 @@ class Comment extends Model
      */
     public function setContentAttribute($value)
     {
-        $this->attributes['content'] = htmlspecialchars($value);
+        $xss = new Xss();
+        $this->attributes['content'] = $xss->filter($value);
     }
 
     /**

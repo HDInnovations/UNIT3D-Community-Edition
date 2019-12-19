@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Xss;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -84,7 +85,8 @@ class PrivateMessage extends Model
      */
     public function setMessageAttribute($value)
     {
-        $this->attributes['message'] = htmlspecialchars($value);
+        $xss = new Xss();
+        $this->attributes['message'] = $xss->filter($value);
     }
 
     /**

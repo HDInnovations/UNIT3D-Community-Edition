@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Xss;
 use App\Notifications\NewComment;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -202,7 +203,8 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = htmlspecialchars($value);
+        $xss = new Xss();
+        $this->attributes['description'] = $xss->filter($value);
     }
 
     /**

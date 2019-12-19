@@ -15,6 +15,7 @@ namespace App\Models;
 
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
+use App\Helpers\Xss;
 use App\Traits\UsersOnlineTrait;
 use Carbon\Carbon;
 use Gstt\Achievements\Achiever;
@@ -973,7 +974,8 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute($value)
     {
-        $this->attributes['signature'] = htmlspecialchars($value);
+        $xss = new Xss();
+        $this->attributes['signature'] = $xss->filter($value);
     }
 
     /**
@@ -997,7 +999,8 @@ class User extends Authenticatable
      */
     public function setAboutAttribute($value)
     {
-        $this->attributes['about'] = htmlspecialchars($value);
+        $xss = new Xss();
+        $this->attributes['about'] = $xss->filter($value);
     }
 
     /**
