@@ -77,7 +77,7 @@
         <div class="subfooter-inner">
             <div class="row">
                 <div class="col-md-12">
-                    <span>This page took {{ microtime(true) - LARAVEL_START }} seconds to render.</span>
+                    <span>This page took {{ microtime(true) - LARAVEL_START }} seconds and {{ (round(memory_get_peak_usage() / 1024 / 1024)) }} MB of memory to render.</span>
                 </div>
             </div>
         </div>
