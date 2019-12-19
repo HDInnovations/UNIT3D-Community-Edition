@@ -198,7 +198,11 @@ class PrivateMessageController extends Controller
 
         $pm = new PrivateMessage();
         $pm->sender_id = $user->id;
-        $pm->receiver_id = $message->sender_id;
+		if ($message->sender_id == $user->id) {
+			$pm->receiver_id = $message->receiver_id;
+		} else {
+			$pm->receiver_id = $message->sender_id;
+		}
         $pm->subject = $message->subject;
         $pm->message = $request->input('message');
         $pm->related_to = $message->id;
