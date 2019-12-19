@@ -236,12 +236,21 @@ class PrivateMessageController extends Controller
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
+		
+        $dest = 'default';
+        if ($request->has('dest') && $request->input('dest') == 'outbox') {
+            $dest = 'outbox';
+        }
 
         if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             $pm->delete();
 
-            return redirect()->route('inbox')
-                ->withSuccess('PM Was Deleted Successfully!');
+			if ($dest == 'outbox') {
+				return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
+			} else {
+				return redirect()->route('inbox')
+					->withSuccess('PM Was Deleted Successfully!');
+			}		
         } else {
             return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');
