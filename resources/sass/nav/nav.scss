@@ -57,6 +57,14 @@ body {
     z-index: 999;
 }
 
+// fix for anchors links when using fixed header
+.anchor {
+    display: block;
+    height: 50px; //same height as header
+    margin-top: -50px; //same height as header
+    visibility: hidden;
+}
+
 .hoe-left-header a {
     color: #fff;
 }
