@@ -14,6 +14,8 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\BBCodeConverter;
+use App\Helpers\Markdown;
 use App\Helpers\Xss;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -111,9 +113,11 @@ class Post extends Model
      */
     public function getContentHtml()
     {
-        $bbcode = new Bbcode();
+        $converter = new BBCodeConverter($this->content);
+        $content = $converter->toMarkdown();
+        $parser = new Markdown();
 
-        return $bbcode->parse($this->content, true);
+        return $parser->text($content);
     }
 
     /**
