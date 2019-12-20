@@ -25,6 +25,7 @@ use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\History;
+use App\Models\Keyword;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
@@ -383,6 +384,7 @@ class TorrentController extends Controller
 
         $search = $request->input('search');
         $description = $request->input('description');
+        $words = self::parseKeywords($request->input('keywords'));
         $uploader = $request->input('uploader');
         $imdb = $request->input('imdb');
         $tvdb = $request->input('tvdb');
@@ -469,6 +471,10 @@ class TorrentController extends Controller
                 $torrent->where(function ($query) use ($description) {
                     $query->where('torrentsl.description', 'like', $description)->orwhere('torrentsl.mediainfo', 'like', $description);
                 });
+            }
+            if ($request->has('keywords') && $request->input('keywords') != null) {
+                $keyword = Keyword::select(['torrent_id'])->whereIn('name', $words)->get();
+                $torrent->whereIn('torrentsl.id', $keyword);
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
@@ -606,6 +612,11 @@ class TorrentController extends Controller
                 $torrent->where(function ($query) use ($description) {
                     $query->where('torrents.description', 'like', $description)->orWhere('mediainfo', 'like', $description);
                 });
+            }
+
+            if ($request->has('keywords') && $request->input('keywords') != null) {
+                $keyword = Keyword::select(['torrent_id'])->whereIn('name', $words)->get();
+                $torrent->whereIn('torrents.id', $keyword);
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
@@ -899,6 +910,27 @@ class TorrentController extends Controller
     }
 
     /**
+     * Parse Torrent Keywords.
+     *
+     * @param $text
+     *
+     * @return array
+     */
+    private static function parseKeywords($text) {
+        $parts = explode(', ', $text);
+        $len = count($parts);
+        $result = [];
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if ($part != "") {
+                array_push($result, $part);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Display The Torrent.
      *
      * @param  Request  $request
@@ -915,7 +947,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(5);
+        $comments = $torrent->comments()->latest()->paginate(10);
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
@@ -1376,7 +1408,7 @@ class TorrentController extends Controller
 
             $meta = null;
 
-            // Torrent Tags System
+            // Fetch Meta
             if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('tv', null, $torrent->tmdb);
@@ -1391,7 +1423,13 @@ class TorrentController extends Controller
                     $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
+            if ($torrent->category->game_meta) {
+                if ($torrent->igdb && $torrent->igdb != 0) {
+                    $meta = Game::find($torrent->igdb);
+                }
+            }
 
+            // Torrent Genres
             if (isset($meta) && $meta->genres) {
                 foreach ($meta->genres as $genre) {
                     $tag = new TagTorrent();
@@ -1399,6 +1437,25 @@ class TorrentController extends Controller
                     $tag->tag_name = $genre;
                     $tag->save();
                 }
+            }
+
+            // Torrent Release Year
+            if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
+                $torrent->release_year = $meta->releaseYear;
+                $torrent->save();
+            }
+            if (isset($meta->first_release_date) && $meta->first_release_date > '1900') {
+                $torrent->release_year = date('Y', strtotime($meta->first_release_date));
+                $torrent->save();
+            }
+
+            // Torrent Keywords
+            $keywords = self::parseKeywords($request->input('keywords'));
+            foreach ($keywords as $keyword) {
+                $tag = new Keyword();
+                $tag->name = $keyword;
+                $tag->torrent_id = $torrent->id;
+                $tag->save();
             }
 
             // check for trusted user and update torrent

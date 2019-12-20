@@ -11,7 +11,7 @@ theMovieDb.common = {
     let myOptions, query, option;
 
     myOptions = options || {};
-    query = "?api_key=" + theMovieDb.common.api_key + "&append_to_response=external_ids" + "&language=" + theMovieDb.common.language;
+    query = "?api_key=" + theMovieDb.common.api_key + "&language=" + theMovieDb.common.language;
 
     if (Object.keys(myOptions).length > 0) {
       for (option in myOptions) {

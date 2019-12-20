@@ -16,6 +16,7 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
+use App\Helpers\Xss;
 use App\Notifications\NewComment;
 use App\Notifications\NewThank;
 use App\Traits\Auditable;
@@ -232,6 +233,16 @@ class Torrent extends Model
     }
 
     /**
+     * Has Many Keywords.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function keywords()
+    {
+        return $this->hasMany(Keyword::class);
+    }
+
+    /**
      * Has Many History.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -330,7 +341,8 @@ class Torrent extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = htmlspecialchars($value);
+        $xss = new Xss();
+        $this->attributes['description'] = $xss->filter($value);
     }
 
     /**
@@ -354,7 +366,8 @@ class Torrent extends Model
      */
     public function setMediaInfoAttribute($value)
     {
-        $this->attributes['mediainfo'] = htmlspecialchars($value);
+        //$xss = new Xss();
+        $this->attributes['mediainfo'] = $value;
     }
 
     /**

@@ -64,6 +64,15 @@
                                 </div>
                             </div>
                             <div class="mx-0 mt-5 form-group fatten-me">
+                                <label for="keywords"
+                                       class="mt-5 col-sm-1 label label-default fatten-me">Keywords</label>
+                                <div class="col-sm-9 fatten-me">
+                                    <label for="keywaords"></label>
+                                    <input type="text" class="form-control facetedSearch"
+                                        trigger="keyup" id="keywords" placeholder="Keywords">
+                                </div>
+                            </div>
+                            <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="uploader"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.uploader')</label>
                                 <div class="col-sm-9 fatten-me">

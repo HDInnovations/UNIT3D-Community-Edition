@@ -895,7 +895,7 @@ wbbdebug = true;
                 let mheight = this.options.autoresize === true ? this.options.resize_maxheight : height;
                 this.$body = $(
                     this.strf(
-                        '<div class="wysibb-text-editor" style="max-height:{maxheight}px;min-height:{height}px;"></div>',
+                        '<div class="wysibb-text-editor" style="max-height:{maxheight}px;min-height:100px;"></div>',
                         { maxheight: mheight, height: height }
                     )
                 ).insertAfter(this.$txtArea);

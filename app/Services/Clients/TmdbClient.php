@@ -134,6 +134,7 @@ class TmdbClient extends Client implements MovieTvInterface
                 'language' => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
                 'languages' => $this->formatLanguages($movie['spoken_languages']),
                 'genres' => $this->formatGenres($movie['genres']),
+                //'keywords' => $this->formatKeywords($movie['keywords']),
                 'videoTrailer' => $this->formatVideoTrailers($movie),
                 'runtime' => $movie['runtime'],
                 'actors' => $this->formatCasts($movie['credits'], 'actors'),
@@ -180,6 +181,7 @@ class TmdbClient extends Client implements MovieTvInterface
                 'language' => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
                 'languages' => $this->formatLanguages($movie['languages'], 'tv'),
                 'genres' => $this->formatGenres($movie['genres']),
+                //'keywords' => $this->formatKeywords($movie['keywords']),
                 'videoTrailer' => $this->formatVideoTrailers($movie),
                 'poster' => ! empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
                 'posters' => ! empty($movie['images']['posters']) ? $this->formatImages(
@@ -293,6 +295,18 @@ class TmdbClient extends Client implements MovieTvInterface
         }
 
         return $movie_genres;
+    }
+
+    private function formatKeywords($keywords)
+    {
+        $movie_keywords = [];
+        if (! is_null($keywords)) {
+            foreach ($keywords as $keyword) {
+                $movie_keywords[] = $keyword[0]['name'];
+            }
+        }
+
+        return $movie_keywords;
     }
 
     private function formatAlternativeTitles($movie)

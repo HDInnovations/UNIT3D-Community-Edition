@@ -73,6 +73,11 @@ class Movie
     public $genres;
 
     /**
+     * @var array
+     */
+    public $keywords;
+
+    /**
      * @var int
      */
     public $runtime;

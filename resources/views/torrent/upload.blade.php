@@ -160,6 +160,15 @@
                     @else
                         <input type="hidden" name="igdb" value="0">
                     @endif
+
+                    @if ($data->movie_meta || $data->tv_meta)
+                    <div class="form-group">
+                        <label for="name">Keywords (<i>Example: superhero, dc comics, marvel</i>)</label>
+                        <label>
+                            <input type="text" name="keywords" id="autokeywords" class="form-control">
+                        </label>
+                    </div>
+                    @endif
         
                     <div class="form-group">
                         <label for="description">@lang('torrent.description')</label>

@@ -89,7 +89,7 @@ class uploadExtensionBuilder {
             defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
         });
 
-        console.log(release);
+        //console.log(release);
 
         let matcher = value.toLowerCase();
 
@@ -139,18 +139,32 @@ class uploadExtensionBuilder {
                 if (data.results && data.results.length > 0) {
                     $("#autotmdb").val(data.results[0].id);
                     $("#apimatch").val('Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')');
-                    //$("#autoimdb").val(data.results[0].imdb_id);
+                    theMovieDb.movies.getKeywords({ "id": data.results[0].id }, success, error);
                 }
             } else if (release.type === "TV Show") {
                 if (data.results && data.results.length > 0) {
                     $("#autotmdb").val(data.results[0].id);
                     $("#apimatch").val('Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')');
-                    //$("#autoimdb").val(data.results[0].imdb_id);
-                    //$("#autotvdb").val(data.results[0].tvdb_id);
+                    theMovieDb.tv.getKeywords({ "id": data.results[0].id }, success, error);
                 }
             }
         }
         function errorCB(data) {
+            console.log("Error callback: " + data);
+        }
+
+        //Torrent Keywords
+        function success(data) {
+            data = JSON.parse(data);
+            if (release.type === "Movie") {
+                let tags = data.keywords.map(({ name }) => name).join(', ');
+                $("#autokeywords").val(tags);
+            } else if (release.type === "TV Show") {
+                let tags = data.results.map(({ name }) => name).join(', ');
+                $("#autokeywords").val(tags);
+            }
+        }
+        function error(data) {
             console.log("Error callback: " + data);
         }
 
@@ -514,6 +528,7 @@ class facetedSearchBuilder {
             var search = $("#search").val();
         }
         var description = $("#description").val();
+        var keywords = $("#keywords").val();
         var uploader = $("#uploader").val();
         var imdb = $("#imdb").val();
         var tvdb = $("#tvdb").val();
@@ -679,6 +694,7 @@ class facetedSearchBuilder {
                 _token: this.csrf,
                 search: search,
                 description: description,
+                keywords: keywords,
                 uploader: uploader,
                 imdb: imdb,
                 tvdb: tvdb,
