@@ -163,6 +163,7 @@ return [
     'my-security'               => 'My Security',
     'my-security-settings'      => 'My Security Settings',
     'my-seedboxes'              => 'My Seedboxes',
+    'my-uploads'                => 'My Uploads',
     'my-settings'               => 'My Settings',
     'my-wishlist'               => 'My Wishlist',
     'no-ban'                    => 'The are no bans in the database for this user!',

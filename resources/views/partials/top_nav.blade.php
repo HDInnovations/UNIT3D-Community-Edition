@@ -107,6 +107,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i> @lang('user.my-uploads')
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('bookmarks.index', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
