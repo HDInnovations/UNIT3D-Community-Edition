@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -24,13 +25,26 @@ use Illuminate\Http\Request;
 final class MassActionController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Mass PM Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(): Factory
     {
-        return view('Staff.masspm.index');
+        return $this->viewFactory->make('Staff.masspm.index');
     }
 
     /**
@@ -53,14 +67,14 @@ final class MassActionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.mass-pm.create')
+            return $this->redirector->route('staff.mass-pm.create')
                 ->withErrors($v->errors());
         } else {
             foreach ($users as $user) {
                 $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
             }
 
-            return redirect()->route('staff.mass-pm.create')
+            return $this->redirector->route('staff.mass-pm.create')
                 ->withSuccess('MassPM Sent');
         }
     }
@@ -87,7 +101,7 @@ final class MassActionController extends Controller
             $user->save();
         }
 
-        return redirect()->route('staff.dashboard.index')
+        return $this->redirector->route('staff.dashboard.index')
             ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Posts;
@@ -44,6 +47,18 @@ final class PostController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
 
     /**
      * ForumController Constructor.
@@ -51,10 +66,13 @@ final class PostController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Redirector $redirector, Repository $configRepository, Factory $viewFactory)
     {
         $this->tag = $tag;
         $this->chat = $chat;
+        $this->redirector = $redirector;
+        $this->configRepository = $configRepository;
+        $this->viewFactory = $viewFactory;
     }
 
     /**
@@ -73,7 +91,7 @@ final class PostController extends Controller
 
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
-            return redirect()->route('forums.index')
+            return $this->redirector->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
 
@@ -89,18 +107,18 @@ final class PostController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('forum_topic', ['id' => $topic->id])
+            return $this->redirector->route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
         } else {
             $post->save();
 
-            $appurl = config('app.url');
+            $appurl = $this->configRepository->get('app.url');
             $href = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
             $message = sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
 
             if ($this->tag->hasTags($request->input('content'))) {
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
+                    $users = new Collection([]);
 
                     $topic->posts()->get()->each(function ($p) use ($users) {
                         $users->push($p->user);
@@ -155,7 +173,7 @@ final class PostController extends Controller
             $forum->save();
 
             // Post To Chatbox
-            $appurl = config('app.url');
+            $appurl = $this->configRepository->get('app.url');
             $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
             $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
             $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
@@ -181,7 +199,7 @@ final class PostController extends Controller
             $user->addProgress(new UserMade800Posts(), 1);
             $user->addProgress(new UserMade900Posts(), 1);
 
-            return redirect()->to($realUrl)
+            return $this->redirector->to($realUrl)
                 ->withSuccess('Post Successfully Posted');
         }
     }
@@ -201,7 +219,7 @@ final class PostController extends Controller
         $category = $forum->getCategory();
         $post = Post::findOrFail($postId);
 
-        return view('forum.post_edit', [
+        return $this->viewFactory->make('forum.post_edit', [
             'topic'    => $topic,
             'forum'    => $forum,
             'post'     => $post,
@@ -227,7 +245,7 @@ final class PostController extends Controller
         $post->content = $request->input('content');
         $post->save();
 
-        return redirect()->to($postUrl)
+        return $this->redirector->to($postUrl)
             ->withSuccess('Post Successfully Edited!');
     }
 
@@ -247,7 +265,7 @@ final class PostController extends Controller
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->delete();
 
-        return redirect()->route('forum_topic', ['id' => $post->topic->id])
+        return $this->redirector->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('This Post Is Now Deleted!');
     }
 }

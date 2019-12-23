@@ -13,6 +13,9 @@
 
 namespace App\Notifications;
 
+use Illuminate\Translation\Translator;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -21,13 +24,28 @@ use Illuminate\Notifications\Notification;
 final class UsernameReminder extends Notification implements ShouldQueue
 {
     use Queueable;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\UrlGenerator
+     */
+    private $urlGenerator;
 
     /**
      * Create a new notification instance.
      *
      * UsernameReminderEmail constructor.
      */
-    public function __construct()
+    public function __construct(Translator $translator, Repository $configRepository, UrlGenerator $urlGenerator
+    $this->translator = $translator;
+    $this->configRepository = $configRepository;
+    $this->urlGenerator = $urlGenerator;)
     {
         // nothing special to do
     }
@@ -53,10 +71,10 @@ final class UsernameReminder extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->subject(trans('common.your').' '.config('app.name').' '.trans('common.username'))
-                    ->greeting(trans('common.contact-header').', '.$notifiable->username)
-                    ->line(trans('email.username-reminder').' '.$notifiable->username)
-                    ->action('Login as '.$notifiable->username, route('login'))
-                    ->line(trans('email.thanks').' '.config('app.name'));
+                    ->subject($this->translator->trans('common.your').' '.$this->configRepository->get('app.name').' '.$this->translator->trans('common.username'))
+                    ->greeting($this->translator->trans('common.contact-header').', '.$notifiable->username)
+                    ->line($this->translator->trans('email.username-reminder').' '.$notifiable->username)
+                    ->action('Login as '.$notifiable->username, $this->urlGenerator->route('login'))
+                    ->line($this->translator->trans('email.thanks').' '.$this->configRepository->get('app.name'));
     }
 }

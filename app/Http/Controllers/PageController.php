@@ -13,12 +13,32 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\View\Factory;
 use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
 final class PageController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Factory $viewFactory, DatabaseManager $databaseManager, Repository $configRepository)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->databaseManager = $databaseManager;
+        $this->configRepository = $configRepository;
+    }
     /**
      * Show A Page.
      *
@@ -30,7 +50,7 @@ final class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return view('page.page', ['page' => $page]);
+        return $this->viewFactory->make('page.page', ['page' => $page]);
     }
 
     /**
@@ -40,9 +60,9 @@ final class PageController extends Controller
      */
     public function staff(): Factory
     {
-        $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
+        $staff = $this->databaseManager->table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
 
-        return view('page.staff', ['staff' => $staff]);
+        return $this->viewFactory->make('page.staff', ['staff' => $staff]);
     }
 
     /**
@@ -52,9 +72,9 @@ final class PageController extends Controller
      */
     public function internal(): Factory
     {
-        $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_internal', 1)->get();
+        $internal = $this->databaseManager->table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_internal', 1)->get();
 
-        return view('page.internal', ['internal' => $internal]);
+        return $this->viewFactory->make('page.internal', ['internal' => $internal]);
     }
 
     /**
@@ -64,10 +84,10 @@ final class PageController extends Controller
      */
     public function blacklist(): Factory
     {
-        $clients = config('client-blacklist.clients', []);
-        $browsers = config('client-blacklist.browsers', []);
+        $clients = $this->configRepository->get('client-blacklist.clients', []);
+        $browsers = $this->configRepository->get('client-blacklist.browsers', []);
 
-        return view('page.blacklist', ['clients' => $clients, 'browsers' => $browsers]);
+        return $this->viewFactory->make('page.blacklist', ['clients' => $clients, 'browsers' => $browsers]);
     }
 
     /**
@@ -77,7 +97,7 @@ final class PageController extends Controller
      */
     public function about(): Factory
     {
-        return view('page.aboutus');
+        return $this->viewFactory->make('page.aboutus');
     }
 
     /**
@@ -87,9 +107,9 @@ final class PageController extends Controller
      */
     public function emailList(): Factory
     {
-        $whitelist = config('email-white-blacklist.allow', []);
-        $blacklist = config('email-white-blacklist.block', []);
+        $whitelist = $this->configRepository->get('email-white-blacklist.allow', []);
+        $blacklist = $this->configRepository->get('email-white-blacklist.block', []);
 
-        return view('page.emaillist', ['whitelist' => $whitelist, 'blacklist' => $blacklist]);
+        return $this->viewFactory->make('page.emaillist', ['whitelist' => $whitelist, 'blacklist' => $blacklist]);
     }
 }

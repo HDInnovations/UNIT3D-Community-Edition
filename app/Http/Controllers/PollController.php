@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\VoteOnPoll;
 use App\Models\Option;
@@ -27,15 +28,25 @@ final class PollController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * PollController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -47,7 +58,7 @@ final class PollController extends Controller
     {
         $polls = Poll::latest()->paginate(15);
 
-        return view('poll.latest', ['polls' => $polls]);
+        return $this->viewFactory->make('poll.latest', ['polls' => $polls]);
     }
 
     /**
@@ -64,11 +75,11 @@ final class PollController extends Controller
         $user_has_voted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
-            return redirect('polls/'.$poll->slug.'/result')
+            return $this->redirector->back('polls/'.$poll->slug.'/result')
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
 
-        return view('poll.show', ['poll' => $poll]);
+        return $this->viewFactory->make('poll.show', ['poll' => $poll]);
     }
 
     /**
@@ -87,7 +98,7 @@ final class PollController extends Controller
         }
 
         if (Voter::where('user_id', '=', $user->id)->where('poll_id', '=', $poll->id)->exists()) {
-            return redirect('polls/'.$poll->slug.'/result')
+            return $this->redirector->back('polls/'.$poll->slug.'/result')
                 ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
         }
 
@@ -106,7 +117,7 @@ final class PollController extends Controller
             sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)
         );
 
-        return redirect('polls/'.$poll->slug.'/result')
+        return $this->redirector->back('polls/'.$poll->slug.'/result')
             ->withSuccess('Your vote has been counted.');
     }
 
@@ -125,6 +136,6 @@ final class PollController extends Controller
             'total_votes' => $poll->totalVotes(),
         ];
 
-        return view('poll.result', $map);
+        return $this->viewFactory->make('poll.result', $map);
     }
 }

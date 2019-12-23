@@ -19,6 +19,14 @@ use App\Models\Article;
 final class ArticleController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(Factory $viewFactory)
+    {
+        $this->viewFactory = $viewFactory;
+    }
+    /**
      * Display All Articles.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -27,7 +35,7 @@ final class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(6);
 
-        return view('article.index', ['articles' => $articles]);
+        return $this->viewFactory->make('article.index', ['articles' => $articles]);
     }
 
     /**
@@ -41,6 +49,6 @@ final class ArticleController extends Controller
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 
-        return view('article.show', ['article' => $article]);
+        return $this->viewFactory->make('article.show', ['article' => $article]);
     }
 }

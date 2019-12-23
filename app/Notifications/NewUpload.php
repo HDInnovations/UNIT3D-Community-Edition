@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Torrent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,6 +32,10 @@ final class NewUpload extends Notification implements ShouldQueue
      * @var \App\Models\Torrent
      */
     public Torrent $torrent;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -40,10 +45,11 @@ final class NewUpload extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $type, Torrent $torrent)
+    public function __construct(string $type, Torrent $torrent, Repository $configRepository)
     {
         $this->type = $type;
         $this->torrent = $torrent;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -65,7 +71,7 @@ final class NewUpload extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',

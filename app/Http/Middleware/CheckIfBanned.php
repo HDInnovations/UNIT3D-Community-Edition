@@ -13,12 +13,27 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Routing\Redirector;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use Closure;
 
 final class CheckIfBanned
 {
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Guard $guard, Redirector $redirector)
+    {
+        $this->guard = $guard;
+        $this->redirector = $redirector;
+    }
     /**
      * Handle an incoming request.
      *
@@ -33,10 +48,10 @@ final class CheckIfBanned
         $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
 
         if ($user && $user->group_id == $banned_group[0]) {
-            auth()->logout();
+            $this->guard->logout();
             $request->session()->flush();
 
-            return redirect()->route('login')
+            return $this->redirector->route('login')
                 ->withErrors('This account is Banned!');
         }
 

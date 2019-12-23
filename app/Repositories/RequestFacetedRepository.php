@@ -13,12 +13,21 @@
 
 namespace App\Repositories;
 
+use Illuminate\Translation\Translator;
 use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Type;
 
 final class RequestFacetedRepository
 {
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
     /**
      * Return a collection of Category Name from storage.
      *
@@ -47,10 +56,10 @@ final class RequestFacetedRepository
     public function sorting(): array
     {
         return [
-            'created_at' => trans('torrent.date'),
-            'name'       => trans('torrent.name'),
-            'bounty'     => trans('request.bounty'),
-            'votes'      => trans('request.votes'),
+            'created_at' => $this->translator->trans('torrent.date'),
+            'name'       => $this->translator->trans('torrent.name'),
+            'bounty'     => $this->translator->trans('request.bounty'),
+            'votes'      => $this->translator->trans('request.votes'),
         ];
     }
 
@@ -62,8 +71,8 @@ final class RequestFacetedRepository
     public function direction(): array
     {
         return [
-            'desc' => trans('common.descending'),
-            'asc'  => trans('common.ascending'),
+            'desc' => $this->translator->trans('common.descending'),
+            'asc'  => $this->translator->trans('common.ascending'),
         ];
     }
 }

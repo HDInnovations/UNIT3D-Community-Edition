@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Forum;
@@ -33,6 +34,14 @@ final class ForumController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * ForumController Constructor.
@@ -40,10 +49,12 @@ final class ForumController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {
         $this->tag = $tag;
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -170,7 +181,7 @@ final class ForumController extends Controller
 
         $params = $request->all();
 
-        return view($logger, [
+        return $this->viewFactory->make($logger, [
                 'categories' => $categories,
                 'results' => $results,
                 'user' => $user,
@@ -226,7 +237,7 @@ final class ForumController extends Controller
 
         $params = $request->all();
 
-        return view($logger, [
+        return $this->viewFactory->make($logger, [
                 'results' => $results,
                 'user' => $user,
                 'name' => $request->input('name'),
@@ -265,7 +276,7 @@ final class ForumController extends Controller
         // Total Topics Count
         $num_topics = Topic::count();
 
-        return view('forum.latest_topics', [
+        return $this->viewFactory->make('forum.latest_topics', [
                 'results' => $results,
                 'user' => $user,
                 'num_posts'  => $num_posts,
@@ -299,7 +310,7 @@ final class ForumController extends Controller
         // Total Topics Count
         $num_topics = Topic::count();
 
-        return view('forum.latest_posts', [
+        return $this->viewFactory->make('forum.latest_posts', [
                 'results' => $results,
                 'user' => $user,
                 'num_posts'  => $num_posts,
@@ -324,7 +335,7 @@ final class ForumController extends Controller
         // Total Topics Count
         $num_topics = Topic::count();
 
-        return view('forum.index', [
+        return $this->viewFactory->make('forum.index', [
             'categories' => $categories,
             'num_posts'  => $num_posts,
             'num_forums' => $num_forums,
@@ -353,20 +364,20 @@ final class ForumController extends Controller
 
         // Check if this is a category or forum
         if ($forum->parent_id == 0) {
-            return redirect()->route('forums.categories.show', ['id' => $forum->id]);
+            return $this->redirector->route('forums.categories.show', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
         $category = Forum::findOrFail($forum->parent_id);
         if ($category->getPermission()->show_forum != true) {
-            return redirect()->route('forums.index')
+            return $this->redirector->route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }
 
         // Fetch topics->posts in descending order
         $topics = $forum->topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
-        return view('forum.display', [
+        return $this->viewFactory->make('forum.display', [
             'forum'    => $forum,
             'topics'   => $topics,
             'category' => $category,

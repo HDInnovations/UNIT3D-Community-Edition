@@ -14,10 +14,20 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 final class Authenticate extends Middleware
 {
+    /**
+     * @var \Illuminate\Routing\UrlGenerator
+     */
+    private $urlGenerator;
+    public function __construct(UrlGenerator $urlGenerator)
+    {
+        $this->urlGenerator = $urlGenerator;
+        parent::__construct();
+    }
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
@@ -27,6 +37,6 @@ final class Authenticate extends Middleware
      */
     protected function redirectTo($request): string
     {
-        return route('login');
+        return $this->urlGenerator->route('login');
     }
 }

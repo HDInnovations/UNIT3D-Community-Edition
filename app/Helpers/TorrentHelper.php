@@ -13,6 +13,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Achievements\UserMade100Uploads;
 use App\Achievements\UserMade200Uploads;
 use App\Achievements\UserMade25Uploads;
@@ -35,10 +36,18 @@ use App\Notifications\NewUpload;
 
 final class TorrentHelper
 {
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+    }
     public static function approveHelper($id): void
     {
-        $appurl = config('app.url');
-        $appname = config('app.name');
+        $appurl = $this->configRepository->get('app.url');
+        $appname = $this->configRepository->get('app.name');
 
         Torrent::approve($id);
         $torrent = Torrent::with('uploader')->withAnyStatus()->where('id', '=', $id)->first();
@@ -94,17 +103,17 @@ final class TorrentHelper
         }
 
         // Announce To IRC
-        if (config('irc-bot.enabled') == true) {
-            $appname = config('app.name');
+        if ($this->configRepository->get('irc-bot.enabled') == true) {
+            $appname = $this->configRepository->get('app.name');
             $bot = new IRCAnnounceBot();
             if ($anon == 0) {
-                $bot->message(config('irc-bot.channels'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
-                $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
-                $bot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                $bot->message($this->configRepository->get('irc-bot.channels'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
+                $bot->message($this->configRepository->get('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
+                $bot->message($this->configRepository->get('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
             } else {
-                $bot->message(config('irc-bot.channels'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
-                $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size: '.$torrent->getSize().']');
-                $bot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                $bot->message($this->configRepository->get('irc-bot.channels'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
+                $bot->message($this->configRepository->get('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size: '.$torrent->getSize().']');
+                $bot->message($this->configRepository->get('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
             }
         }
     }

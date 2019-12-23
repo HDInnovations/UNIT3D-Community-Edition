@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Graveyard;
@@ -28,15 +29,25 @@ final class GraveyardController extends Controller
      * @var TorrentFacetedRepository
      */
     private TorrentFacetedRepository $faceted;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * GraveyardController Constructor.
      *
      * @param TorrentFacetedRepository $faceted
      */
-    public function __construct(TorrentFacetedRepository $faceted)
+    public function __construct(TorrentFacetedRepository $faceted, Factory $viewFactory, Redirector $redirector)
     {
         $this->faceted = $faceted;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -54,7 +65,7 @@ final class GraveyardController extends Controller
         $repository = $this->faceted;
         $deadcount = Torrent::where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
 
-        return view('graveyard.index', [
+        return $this->viewFactory->make('graveyard.index', [
             'user'       => $user,
             'torrents'   => $torrents,
             'repository' => $repository,
@@ -133,7 +144,7 @@ final class GraveyardController extends Controller
             $torrents = $torrent->paginate(25);
         }
 
-        return view('graveyard.results', [
+        return $this->viewFactory->make('graveyard.results', [
             'user'     => $user,
             'torrents' => $torrents,
         ])->render();
@@ -153,12 +164,12 @@ final class GraveyardController extends Controller
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
         if ($resurrected) {
-            return redirect()->route('graveyard.index')
+            return $this->redirector->route('graveyard.index')
                 ->withErrors('Torrent Resurrection Failed! This torrent is already pending a resurrection.');
         }
 
         if ($user->id === $torrent->user_id) {
-            return redirect()->route('graveyard.index')
+            return $this->redirector->route('graveyard.index')
                 ->withErrors('Torrent Resurrection Failed! You cannot resurrect your own uploads.');
         }
 
@@ -174,12 +185,12 @@ final class GraveyardController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('graveyard.index')
+            return $this->redirector->route('graveyard.index')
                 ->withErrors($v->errors());
         } else {
             $resurrection->save();
 
-            return redirect()->route('graveyard.index')
+            return $this->redirector->route('graveyard.index')
                 ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
         }
     }
@@ -200,7 +211,7 @@ final class GraveyardController extends Controller
         abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
 
-        return redirect()->route('graveyard.index')
+        return $this->redirector->route('graveyard.index')
             ->withSuccess('Resurrection Successfully Canceled!');
     }
 }

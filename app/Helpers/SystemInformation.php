@@ -14,12 +14,33 @@
 
 namespace App\Helpers;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Translation\Translator;
 use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 final class SystemInformation
 {
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Repository $configRepository, DatabaseManager $databaseManager, Translator $translator)
+    {
+        $this->configRepository = $configRepository;
+        $this->databaseManager = $databaseManager;
+        $this->translator = $translator;
+    }
     public function avg(): float
     {
         if (is_readable('/proc/loadavg')) {
@@ -121,10 +142,10 @@ final class SystemInformation
             'pgsql',
             'sqlsrv',
         ];
-        if (! in_array(config('database.default'), $knownDatabases)) {
+        if (! in_array($this->configRepository->get('database.default'), $knownDatabases)) {
             return 'Unkown';
         }
-        $results = DB::select(DB::raw('select version()'));
+        $results = $this->databaseManager->select($this->databaseManager->raw('select version()'));
 
         return $results[0]->{'version()'};
     }
@@ -170,7 +191,7 @@ final class SystemInformation
         try {
             return substr(sprintf('%o', fileperms(base_path($path))), -4);
         } catch (Exception $exception) {
-            return trans('site.error');
+            return $this->translator->trans('site.error');
         }
     }
 }

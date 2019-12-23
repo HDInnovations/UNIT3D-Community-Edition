@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Audit;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -32,6 +33,15 @@ final class AutoRecycleAudits extends Command
      * @var string
      */
     protected string $description = 'Recycle Activity From Log Once 30 Days Old.';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -41,7 +51,7 @@ final class AutoRecycleAudits extends Command
     public function handle(): void
     {
         $current = Carbon::now();
-        $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle'))->toDateTimeString())->get();
+        $audits = Audit::where('created_at', '<', $current->copy()->subDays($this->configRepository->get('audit.recycle'))->toDateTimeString())->get();
 
         foreach ($audits as $audit) {
             $audit->delete();

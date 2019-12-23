@@ -13,6 +13,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -24,6 +25,10 @@ final class BanUser extends Mailable
     public $email;
 
     public $ban;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new message instance.
@@ -31,10 +36,11 @@ final class BanUser extends Mailable
      * @param $email
      * @param $ban
      */
-    public function __construct($email, $ban)
+    public function __construct($email, $ban, Repository $configRepository)
     {
         $this->email = $email;
         $this->ban = $ban;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -45,6 +51,6 @@ final class BanUser extends Mailable
     public function build(): self
     {
         return $this->markdown('emails.ban')
-            ->subject('You Have Been Banned - '.config('other.title'));
+            ->subject('You Have Been Banned - '.$this->configRepository->get('other.title'));
     }
 }

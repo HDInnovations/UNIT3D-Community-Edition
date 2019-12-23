@@ -13,6 +13,8 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Events\Dispatcher;
 use App\Jobs\SendDisableUserMail;
 use App\Models\Group;
 use App\Models\User;
@@ -34,6 +36,20 @@ final class AutoDisableInactiveUsers extends Command
      * @var string
      */
     protected string $description = 'User account must be at least x days old & user account x days Of inactivity to be disabled';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $eventDispatcher;
+    public function __construct(Repository $configRepository, Dispatcher $eventDispatcher)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+        $this->eventDispatcher = $eventDispatcher;
+    }
 
     /**
      * Execute the console command.
@@ -42,15 +58,15 @@ final class AutoDisableInactiveUsers extends Command
      */
     public function handle(): void
     {
-        if (config('pruning.user_pruning') == true) {
+        if ($this->configRepository->get('pruning.user_pruning') == true) {
             $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();
 
-            $matches = User::whereIn('group_id', [config('pruning.group_ids')]);
+            $matches = User::whereIn('group_id', [$this->configRepository->get('pruning.group_ids')]);
 
-            $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
-                ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
+            $users = $matches->where('created_at', '<', $current->copy()->subDays($this->configRepository->get('pruning.account_age'))->toDateTimeString())
+                ->where('last_login', '<', $current->copy()->subDays($this->configRepository->get('pruning.last_login'))->toDateTimeString())
                 ->get();
 
             foreach ($users as $user) {
@@ -66,7 +82,7 @@ final class AutoDisableInactiveUsers extends Command
                     $user->save();
 
                     // Send Email
-                    dispatch(new SendDisableUserMail($user));
+                    $this->eventDispatcher->dispatch(new SendDisableUserMail($user));
                 }
             }
         }

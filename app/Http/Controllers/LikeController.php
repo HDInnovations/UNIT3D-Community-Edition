@@ -13,12 +13,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 final class LikeController extends Controller
 {
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Redirector $redirector)
+    {
+        $this->redirector = $redirector;
+    }
     /**
      * Like A Post.
      *
@@ -36,10 +45,10 @@ final class LikeController extends Controller
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return redirect()->to($postUrl)
+            return $this->redirector->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
         } elseif ($user->id == $post->user_id) {
-            return redirect()->to($postUrl)
+            return $this->redirector->to($postUrl)
                 ->withErrors('You cannot like your own post!');
         } else {
             $new = new Like();
@@ -48,7 +57,7 @@ final class LikeController extends Controller
             $new->like = 1;
             $new->save();
 
-            return redirect()->to($postUrl)
+            return $this->redirector->to($postUrl)
                 ->withSuccess('Like Successfully Applied!');
         }
     }
@@ -70,10 +79,10 @@ final class LikeController extends Controller
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return redirect()->to($postUrl)
+            return $this->redirector->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
         } elseif ($user->id == $post->user_id) {
-            return redirect()->to($postUrl)
+            return $this->redirector->to($postUrl)
                 ->withErrors('You cannot dislike your own post!');
         } else {
             $new = new Like();
@@ -82,7 +91,7 @@ final class LikeController extends Controller
             $new->dislike = 1;
             $new->save();
 
-            return redirect()->to($postUrl)
+            return $this->redirector->to($postUrl)
                 ->withSuccess('Dislike Successfully Applied!');
         }
     }

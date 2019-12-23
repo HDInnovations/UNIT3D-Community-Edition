@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Ban;
 use App\Models\Peer;
 use App\Models\Torrent;
@@ -28,12 +29,17 @@ final class AutoNerdStat extends Command
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Repository $configRepository)
     {
         parent::__construct();
 
         $this->chat = $chat;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -57,7 +63,7 @@ final class AutoNerdStat extends Command
      */
     public function handle(): void
     {
-        if (config('chat.nerd_bot') == true) {
+        if ($this->configRepository->get('chat.nerd_bot') == true) {
             // Current Timestamp
             $current = Carbon::now();
 
@@ -65,7 +71,7 @@ final class AutoNerdStat extends Command
             $expiresAt = $current->addMinutes(60);
 
             // Site Birthday
-            $bday = config('other.birthdate');
+            $bday = $this->configRepository->get('other.birthdate');
 
             // Logins Count Last 24hours
             $logins = User::whereNotNull('last_login')->where('last_login', '>', $current->subDay())->count();
@@ -123,20 +129,20 @@ final class AutoNerdStat extends Command
 
             // Select A Random Nerd Stat
             $statArray = [
-                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Unique Users Have Logged Into ', $logins).config('other.title').'!',
-                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Torrents Have Been Uploaded To ', $uploads).config('other.title').'!',
-                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Users Have Registered To ', $users).config('other.title').'!',
-                sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Freeleech Torrents On ', $fl).config('other.title').'!',
-                sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Double Upload Torrents On ', $du).config('other.title').'!',
-                sprintf('Currently [url=%s]%s[/url] Is The Best Seeded Torrent On ', $seeded_url, $seeded->name).config('other.title').'!',
-                sprintf('Currently [url=%s]%s[/url] Is The Most Leeched Torrent On ', $leeched_url, $leeched->name).config('other.title').'!',
-                sprintf('Currently [url=%s]%s[/url] Is The Most Snatched Torrent On ', $snatched_url, $snatched->name).config('other.title').'!',
-                sprintf('Currently [url=%s]%s[/url] Is The Top BON Holder On ', $banker_url, $banker->username).config('other.title').'!',
-                sprintf('Currently There Are [color=#93c47d][b]%s[/b][/color] Peers On ', $peers).config('other.title').'!',
-                sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Users Have Been Banned From ', $bans).config('other.title').'!',
-                sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Hit and Run Warnings Have Been Issued On ', $warnings).config('other.title').'!',
-                config('other.title').sprintf(' Birthday Is [b]%s[/b]!', $bday),
-                config('other.title').' Is King!',
+                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Unique Users Have Logged Into ', $logins).$this->configRepository->get('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Torrents Have Been Uploaded To ', $uploads).$this->configRepository->get('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Users Have Registered To ', $users).$this->configRepository->get('other.title').'!',
+                sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Freeleech Torrents On ', $fl).$this->configRepository->get('other.title').'!',
+                sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Double Upload Torrents On ', $du).$this->configRepository->get('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Best Seeded Torrent On ', $seeded_url, $seeded->name).$this->configRepository->get('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Most Leeched Torrent On ', $leeched_url, $leeched->name).$this->configRepository->get('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Most Snatched Torrent On ', $snatched_url, $snatched->name).$this->configRepository->get('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Top BON Holder On ', $banker_url, $banker->username).$this->configRepository->get('other.title').'!',
+                sprintf('Currently There Are [color=#93c47d][b]%s[/b][/color] Peers On ', $peers).$this->configRepository->get('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Users Have Been Banned From ', $bans).$this->configRepository->get('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Hit and Run Warnings Have Been Issued On ', $warnings).$this->configRepository->get('other.title').'!',
+                $this->configRepository->get('other.title').sprintf(' Birthday Is [b]%s[/b]!', $bday),
+                $this->configRepository->get('other.title').' Is King!',
             ];
             $selected = mt_rand(0, count($statArray) - 1);
 

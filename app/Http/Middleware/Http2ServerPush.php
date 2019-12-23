@@ -13,6 +13,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 use Closure;
 use Illuminate\Http\Request;
@@ -28,6 +29,14 @@ final class Http2ServerPush
      * @var \Symfony\Component\DomCrawler\Crawler
      */
     protected Crawler $crawler;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+    }
 
     /**
      * Handle an incoming request.
@@ -62,7 +71,7 @@ final class Http2ServerPush
             return $default;
         }
 
-        return config('http2serverpush.'.$key, $default);
+        return $this->configRepository->get('http2serverpush.'.$key, $default);
     }
 
     /**
@@ -84,7 +93,7 @@ final class Http2ServerPush
                 if (! $value) {
                     return false;
                 }
-                $exclude_keywords = collect($excludeKeywords)->map(fn($keyword) => preg_quote($keyword));
+                $exclude_keywords = (new Collection($excludeKeywords))->map(fn($keyword) => preg_quote($keyword));
                 if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
@@ -133,7 +142,7 @@ final class Http2ServerPush
     {
         $crawler = $this->getCrawler($response);
 
-        return collect($crawler->filter('link:not([rel*="icon"]), script[src], img[src], object[data]')->extract(['src', 'href', 'data']));
+        return new Collection($crawler->filter('link:not([rel*="icon"]), script[src], img[src], object[data]')->extract(['src', 'href', 'data']));
     }
 
     /**
@@ -150,7 +159,7 @@ final class Http2ServerPush
             '.JS'   => 'script',
         ];
 
-        $type = collect($linkTypeMap)->first(fn($type, $extension) => Str::contains(strtoupper($url), $extension));
+        $type = (new Collection($linkTypeMap))->first(fn($type, $extension) => Str::contains(strtoupper($url), $extension));
 
         if (! preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');

@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewTopic;
 use App\Traits\Auditable;
@@ -71,6 +72,15 @@ use Illuminate\Database\Eloquent\Model;
 final class Forum extends Model
 {
     use Auditable;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    public function __construct(Guard $guard)
+    {
+        $this->guard = $guard;
+        parent::__construct();
+    }
 
     /**
      * Has Many Topic.
@@ -112,9 +122,9 @@ final class Forum extends Model
      */
     public function subscription_topics()
     {
-        if (auth()->user() !== null) {
+        if ($this->guard->user() !== null) {
             $id = $this->id;
-            $subscriptions = auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
+            $subscriptions = $this->guard->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
 
             return $this->hasMany(Topic::class)->where(function ($query) use ($id, $subscriptions) {
                 $query->whereIn('topics.id', [$id])->orWhereIn('topics.id', $subscriptions);
@@ -236,7 +246,7 @@ final class Forum extends Model
      */
     public function getPermission(): string
     {
-        $group = auth()->check() ? auth()->user()->group : Group::find(2);
+        $group = $this->guard->check() ? $this->guard->user()->group : Group::find(2);
 
         return $group->permissions->where('forum_id', $this->id)->first();
     }

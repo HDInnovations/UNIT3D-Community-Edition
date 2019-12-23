@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Collection;
 use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
@@ -48,6 +51,14 @@ final class CommentController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
 
     /**
      * CommentController Constructor.
@@ -55,10 +66,12 @@ final class CommentController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Redirector $redirector, Guard $guard)
     {
         $this->tag = $tag;
         $this->chat = $chat;
+        $this->redirector = $redirector;
+        $this->guard = $guard;
     }
 
     /**
@@ -74,7 +87,7 @@ final class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('articles.show', ['id' => $article->id])
+            return $this->redirector->route('articles.show', ['id' => $article->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
@@ -92,7 +105,7 @@ final class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('articles.show', ['id' => $article->id])
+            return $this->redirector->route('articles.show', ['id' => $article->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -113,7 +126,7 @@ final class CommentController extends Controller
 
             if ($this->tag->hasTags($request->input('content'))) {
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
+                    $users = new Collection([]);
 
                     $article->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
@@ -151,7 +164,7 @@ final class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('articles.show', ['id' => $article->id])
+            return $this->redirector->route('articles.show', ['id' => $article->id])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
@@ -166,10 +179,10 @@ final class CommentController extends Controller
     public function playlist(Request $request, $id)
     {
         $playlist = Playlist::findOrFail($id);
-        $user = auth()->user();
+        $user = $this->guard->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('playlists.show', ['id' => $playlist->id])
+            return $this->redirector->route('playlists.show', ['id' => $playlist->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
@@ -187,7 +200,7 @@ final class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('playlists.show', ['id' => $playlist->id])
+            return $this->redirector->route('playlists.show', ['id' => $playlist->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -208,7 +221,7 @@ final class CommentController extends Controller
 
             if ($this->tag->hasTags($request->input('content'))) {
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
+                    $users = new Collection([]);
 
                     $playlist->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
@@ -246,7 +259,7 @@ final class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
+            return $this->redirector->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
@@ -264,7 +277,7 @@ final class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
@@ -282,7 +295,7 @@ final class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -308,7 +321,7 @@ final class CommentController extends Controller
 
             if ($this->tag->hasTags($request->input('content'))) {
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
+                    $users = new Collection([]);
 
                     $torrent->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
@@ -346,7 +359,7 @@ final class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
+            return $this->redirector->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
@@ -364,7 +377,7 @@ final class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('request', ['id' => $tr->id])
+            return $this->redirector->route('request', ['id' => $tr->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
@@ -382,7 +395,7 @@ final class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('request', ['id' => $tr->id])
+            return $this->redirector->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -408,7 +421,7 @@ final class CommentController extends Controller
 
             if ($this->tag->hasTags($request->input('content'))) {
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
+                    $users = new Collection([]);
 
                     $tr->comments()->get()->each(function ($c) use ($users) {
                         $users->push($c->user);
@@ -445,7 +458,7 @@ final class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
+            return $this->redirector->route('request', ['id' => $tr->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
@@ -463,7 +476,7 @@ final class CommentController extends Controller
         $user = $request->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your Comment Rights Have Been Revoked!');
         }
 
@@ -498,7 +511,7 @@ final class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
         } else {
             $comment->save();
@@ -530,7 +543,7 @@ final class CommentController extends Controller
                 sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
             );
 
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Your Comment Has Been Added!');
         }
     }
@@ -553,7 +566,7 @@ final class CommentController extends Controller
         $comment->content = $content;
         $comment->save();
 
-        return redirect()->back()->withSuccess('Comment Has Been Edited.');
+        return $this->redirector->back()->withSuccess('Comment Has Been Edited.');
     }
 
     /**
@@ -572,6 +585,6 @@ final class CommentController extends Controller
         abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();
 
-        return redirect()->back()->withSuccess('Comment Has Been Deleted.');
+        return $this->redirector->back()->withSuccess('Comment Has Been Deleted.');
     }
 }

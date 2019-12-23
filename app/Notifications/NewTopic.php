@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -37,6 +38,10 @@ final class NewTopic extends Notification implements ShouldQueue
      * @var \App\Models\Topic
      */
     public Topic $topic;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -45,11 +50,12 @@ final class NewTopic extends Notification implements ShouldQueue
      * @param  User  $poster
      * @param  Topic  $topic
      */
-    public function __construct(string $type, User $poster, Topic $topic)
+    public function __construct(string $type, User $poster, Topic $topic, Repository $configRepository)
     {
         $this->type = $type;
         $this->topic = $topic;
         $this->poster = $poster;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -71,7 +77,7 @@ final class NewTopic extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->poster->username.' Has Posted In A Subscribed Forum',

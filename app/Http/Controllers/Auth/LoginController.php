@@ -13,6 +13,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
+use Illuminate\Translation\Translator;
+use Illuminate\Contracts\Auth\Guard;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -39,13 +43,33 @@ final class LoginController extends Controller
      * @var int
      */
     public int $decayMinutes = 60;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
 
     /**
      * LoginController Constructor.
      */
-    public function __construct()
+    public function __construct(Repository $configRepository, Redirector $redirector, Translator $translator, Guard $guard)
     {
         $this->middleware('guest', ['except' => 'logout']);
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
+        $this->translator = $translator;
+        $this->guard = $guard;
     }
 
     public function username(): string
@@ -60,7 +84,7 @@ final class LoginController extends Controller
      */
     protected function validateLogin(Request $request): void
     {
-        if (config('captcha.enabled') == true) {
+        if ($this->configRepository->get('captcha.enabled') == true) {
             $this->validate($request, [
                 $this->username()      => 'required|string',
                 'password'             => 'required|string',
@@ -88,16 +112,16 @@ final class LoginController extends Controller
             $this->guard()->logout();
             $request->session()->invalidate();
 
-            return redirect()->route('login')
-                ->withErrors(trans('auth.not-activated'));
+            return $this->redirector->route('login')
+                ->withErrors($this->translator->trans('auth.not-activated'));
         }
 
         if ($user->group_id == $banned_group[0]) {
             $this->guard()->logout();
             $request->session()->invalidate();
 
-            return redirect()->route('login')
-                ->withErrors(trans('auth.banned'));
+            return $this->redirector->route('login')
+                ->withErrors($this->translator->trans('auth.banned'));
         }
 
         if ($user->group_id == $disabled_group[0]) {
@@ -111,11 +135,11 @@ final class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect()->route('home.index')
-                ->withSuccess(trans('auth.welcome-restore'));
+            return $this->redirector->route('home.index')
+                ->withSuccess($this->translator->trans('auth.welcome-restore'));
         }
 
-        if (auth()->viaRemember() && $user->group_id == $disabled_group[0]) {
+        if ($this->guard->viaRemember() && $user->group_id == $disabled_group[0]) {
             $user->group_id = $member_group[0];
             $user->can_upload = 1;
             $user->can_download = 1;
@@ -126,16 +150,16 @@ final class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
 
-            return redirect()->route('home.index')
-                ->withSuccess(trans('auth.welcome-restore'));
+            return $this->redirector->route('home.index')
+                ->withSuccess($this->translator->trans('auth.welcome-restore'));
         }
 
         if ($user->read_rules == 0) {
-            return redirect()->to(config('other.rules_url'))
-                ->withWarning(trans('auth.require-rules'));
+            return $this->redirector->to($this->configRepository->get('other.rules_url'))
+                ->withWarning($this->translator->trans('auth.require-rules'));
         }
 
-        return redirect()->route('home.index')
-            ->withSuccess(trans('auth.welcome'));
+        return $this->redirector->route('home.index')
+            ->withSuccess($this->translator->trans('auth.welcome'));
     }
 }

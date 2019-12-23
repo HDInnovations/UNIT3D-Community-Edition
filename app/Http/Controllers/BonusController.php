@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Contracts\View\Factory;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
@@ -35,15 +38,35 @@ final class BonusController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
 
     /**
      * BonusController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector, Repository $configRepository, DatabaseManager $databaseManager)
     {
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+        $this->configRepository = $configRepository;
+        $this->databaseManager = $databaseManager;
     }
 
     /**
@@ -64,7 +87,7 @@ final class BonusController extends Controller
         $gifts_sent = BonTransactions::where('sender', '=', $user->id)->where('name', '=', 'gift')->sum('cost');
         $gifts_received = BonTransactions::where('receiver', '=', $user->id)->where('name', '=', 'gift')->sum('cost');
 
-        return view('bonus.gifts', [
+        return $this->viewFactory->make('bonus.gifts', [
             'user'              => $user,
             'gifttransactions'  => $gifttransactions,
             'userbon'           => $userbon,
@@ -90,7 +113,7 @@ final class BonusController extends Controller
         $tips_sent = BonTransactions::where('sender', '=', $user->id)->where('name', '=', 'tip')->sum('cost');
         $tips_received = BonTransactions::where('receiver', '=', $user->id)->where('name', '=', 'tip')->sum('cost');
 
-        return view('bonus.tips', [
+        return $this->viewFactory->make('bonus.tips', [
             'user'              => $user,
             'bontransactions'   => $bontransactions,
             'userbon'           => $userbon,
@@ -118,7 +141,7 @@ final class BonusController extends Controller
         $personalFreeleech = $BonExchange->getPersonalFreeleechOption();
         $invite = $BonExchange->getInviteOption();
 
-        return view('bonus.store', [
+        return $this->viewFactory->make('bonus.store', [
             'users'             => $users,
             'userbon'           => $userbon,
             'activefl'          => $activefl,
@@ -141,7 +164,7 @@ final class BonusController extends Controller
         $user = $request->user();
         $userbon = $user->getSeedbonus();
 
-        return view('bonus.gift', [
+        return $this->viewFactory->make('bonus.gift', [
             'userbon'           => $userbon,
         ]);
     }
@@ -194,7 +217,7 @@ final class BonusController extends Controller
         $minute = $total / 60;
         $second = $minute / 60;
 
-        return view('bonus.index', [
+        return $this->viewFactory->make('bonus.index', [
             'userbon'           => $userbon,
             'dying'             => $dying,
             'legendary'         => $legendary,
@@ -237,18 +260,18 @@ final class BonusController extends Controller
             $flag = $this->doItemExchange($user->id, $id);
 
             if ($flag === '') {
-                return redirect()->route('bonus_store')
+                return $this->redirector->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return redirect()->route('bonus_store')
+            return $this->redirector->route('bonus_store')
                 ->withErrors('Bonus Exchange Failed!');
         }
 
-        return redirect()->route('bonus_store')
+        return $this->redirector->route('bonus_store')
             ->withSuccess('Bonus Exchange Successful');
     }
 
@@ -290,7 +313,7 @@ final class BonusController extends Controller
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user_acc->id;
                 $pm->subject = 'Personal 24 Hour Freeleech Activated';
-                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
+                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).$this->configRepository->get('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             } else {
@@ -340,7 +363,7 @@ final class BonusController extends Controller
             $recipient = User::where('username', '=', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
-                return redirect()->route('bonus_store')
+                return $this->redirector->route('bonus_store')
                     ->withErrors('Unable to find specified user');
             }
 
@@ -375,11 +398,11 @@ final class BonusController extends Controller
             );
 
             if ($dest == 'profile') {
-                return redirect()->route('users.show', ['username' => $recipient->username])
+                return $this->redirector->route('users.show', ['username' => $recipient->username])
                     ->withSuccess('Gift Sent');
             }
 
-            return redirect()->route('bonus_gift')
+            return $this->redirector->route('bonus_gift')
                 ->withSuccess('Gift Sent');
         } else {
             $v = validator($request->all(), [
@@ -390,21 +413,21 @@ final class BonusController extends Controller
                 $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
                 if (! $recipient || $recipient->id == $user->id) {
-                    return redirect()->route('bonus_store')
+                    return $this->redirector->route('bonus_store')
                         ->withErrors('Unable to find specified user');
                 }
 
                 if ($dest == 'profile') {
-                    return redirect()->route('users.show', ['username' => $recipient->username])
+                    return $this->redirector->route('users.show', ['username' => $recipient->username])
                         ->withErrors('You Must Enter An Amount And Message!');
                 }
 
-                return redirect()->route('bonus_gift')
+                return $this->redirector->route('bonus_gift')
                     ->withErrors('You Must Enter An Amount And Message!');
             }
         }
 
-        return redirect()->route('bonus_store')
+        return $this->redirector->route('bonus_store')
             ->withErrors('Unable to find specified user');
     }
 
@@ -423,15 +446,15 @@ final class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your To Broke To Tip The Uploader!');
         }
         if ($user->id == $torrent->user_id) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $uploader->seedbonus += $tip_amount;
@@ -454,7 +477,7 @@ final class BonusController extends Controller
             $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
         }
 
-        return redirect()->route('torrent', ['id' => $torrent->id])
+        return $this->redirector->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 
@@ -478,15 +501,15 @@ final class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return $this->redirector->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Are To Broke To Tip The Poster!');
         }
         if ($user->id == $poster->id) {
-            return redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return $this->redirector->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return $this->redirector->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $poster->seedbonus += $tip_amount;
@@ -507,7 +530,7 @@ final class BonusController extends Controller
 
         $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 
-        return redirect()->route('forum_topic', ['id' => $post->topic->id])
+        return $this->redirector->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 
@@ -521,7 +544,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('peers')
+        return $this->databaseManager->table('peers')
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -541,7 +564,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('peers')
+        return $this->databaseManager->table('peers')
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
@@ -561,7 +584,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('peers')
+        return $this->databaseManager->table('peers')
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
@@ -582,7 +605,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('peers')
+        return $this->databaseManager->table('peers')
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -601,7 +624,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('peers')
+        return $this->databaseManager->table('peers')
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -621,7 +644,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('peers')
+        return $this->databaseManager->table('peers')
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -641,7 +664,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('history')
+        return $this->databaseManager->table('history')
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
@@ -661,7 +684,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('history')
+        return $this->databaseManager->table('history')
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
@@ -681,7 +704,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('history')
+        return $this->databaseManager->table('history')
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
@@ -701,7 +724,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('history')
+        return $this->databaseManager->table('history')
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
@@ -721,7 +744,7 @@ final class BonusController extends Controller
     {
         $user = $request->user();
 
-        return DB::table('history')
+        return $this->databaseManager->table('history')
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)

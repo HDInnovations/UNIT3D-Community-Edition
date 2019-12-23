@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -30,6 +31,10 @@ final class NewComment extends Notification
      * @var \App\Models\Comment
      */
     public Comment $comment;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -37,10 +42,11 @@ final class NewComment extends Notification
      * @param  string  $type
      * @param  Comment  $comment
      */
-    public function __construct(string $type, Comment $comment)
+    public function __construct(string $type, Comment $comment, Repository $configRepository)
     {
         $this->type = $type;
         $this->comment = $comment;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -62,7 +68,7 @@ final class NewComment extends Notification
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
         if ($this->type == 'torrent') {
             if ($this->comment->anon == 0) {
                 return [

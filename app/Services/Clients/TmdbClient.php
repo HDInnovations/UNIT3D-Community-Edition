@@ -13,6 +13,7 @@
 
 namespace App\Services\Clients;
 
+use Illuminate\Contracts\Config\Repository;
 use HttpInvalidParamException;
 use App\Services\Contracts\MovieTvInterface;
 use App\Services\Data\Movie;
@@ -45,10 +46,15 @@ final class TmdbClient extends Client implements MovieTvInterface
      * @var string
      */
     private string $imageProfilePath = 'https://image.tmdb.org/t/p/h632';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
-    public function __construct($apiKey)
+    public function __construct($apiKey, Repository $configRepository)
     {
         parent::__construct($this->apiUrl, $apiKey);
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -64,7 +70,7 @@ final class TmdbClient extends Client implements MovieTvInterface
 
         if ($type === 'movie') {
             if (isset($keys['imdb'])) {
-                $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
+                $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.$this->configRepository->get('app.locale');
                 $results = $this->toArray($this->request($url));
 
                 if (isset($results['movie_results'][0]['id'])) {
@@ -105,7 +111,7 @@ final class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
+        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.$this->configRepository->get('app.locale');
         $movie = $this->toArray($this->request($url));
 
         if ($type === 'tv') {
@@ -124,7 +130,7 @@ final class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl.'person/'.$id.'?append_to_response=movie_credits,tv_credits,external_ids,images&api_key='.$this->apiKey.'&language='.config('app.locale');
+        $url = $this->apiUrl.'person/'.$id.'?append_to_response=movie_credits,tv_credits,external_ids,images&api_key='.$this->apiKey.'&language='.$this->configRepository->get('app.locale');
 
         return $this->formatPerson($this->toArray($this->request($url)));
     }

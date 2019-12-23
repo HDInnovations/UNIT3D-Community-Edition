@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Models\PersonalFreeleech;
@@ -22,6 +23,19 @@ use Illuminate\Http\Request;
 
 final class BookmarkController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
     /**
      * Display All Bookmarks.
      *
@@ -39,7 +53,7 @@ final class BookmarkController extends Controller
         $bookmarks = $user->bookmarks()->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
-        return view('user.bookmarks', [
+        return $this->viewFactory->make('user.bookmarks', [
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
             'bookmarks'          => $bookmarks,
@@ -59,12 +73,12 @@ final class BookmarkController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($request->user()->isBookmarked($torrent->id)) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent has already been bookmarked.');
         } else {
             $request->user()->bookmarks()->attach($torrent->id);
 
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Has Been Bookmarked Successfully!');
         }
     }
@@ -82,7 +96,7 @@ final class BookmarkController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $request->user()->bookmarks()->detach($torrent->id);
 
-        return redirect()->route('torrent', ['id' => $torrent->id])
+        return $this->redirector->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Unbookmarked Successfully!');
     }
 }

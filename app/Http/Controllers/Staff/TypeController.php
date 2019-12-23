@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -23,6 +24,19 @@ use Illuminate\Support\Str;
 final class TypeController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All Types.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -31,7 +45,7 @@ final class TypeController extends Controller
     {
         $types = Type::all()->sortBy('position');
 
-        return view('Staff.type.index', ['types' => $types]);
+        return $this->viewFactory->make('Staff.type.index', ['types' => $types]);
     }
 
     /**
@@ -41,7 +55,7 @@ final class TypeController extends Controller
      */
     public function create(): Factory
     {
-        return view('Staff.type.create');
+        return $this->viewFactory->make('Staff.type.create');
     }
 
     /**
@@ -64,12 +78,12 @@ final class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.types.index')
+            return $this->redirector->route('staff.types.index')
                 ->withErrors($v->errors());
         } else {
             $type->save();
 
-            return redirect()->route('staff.types.index')
+            return $this->redirector->route('staff.types.index')
                 ->withSuccess('Type Successfully Added');
         }
     }
@@ -85,7 +99,7 @@ final class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
 
-        return view('Staff.type.edit', ['type' => $type]);
+        return $this->viewFactory->make('Staff.type.edit', ['type' => $type]);
     }
 
     /**
@@ -109,12 +123,12 @@ final class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.types.index')
+            return $this->redirector->route('staff.types.index')
                 ->withErrors($v->errors());
         } else {
             $type->save();
 
-            return redirect()->route('staff.types.index')
+            return $this->redirector->route('staff.types.index')
                 ->withSuccess('Type Successfully Modified');
         }
     }
@@ -131,7 +145,7 @@ final class TypeController extends Controller
         $type = Type::findOrFail($id);
         $type->delete();
 
-        return redirect()->route('staff.types.index')
+        return $this->redirector->route('staff.types.index')
             ->withSuccess('Type Successfully Deleted');
     }
 }

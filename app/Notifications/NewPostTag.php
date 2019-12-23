@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,6 +37,10 @@ final class NewPostTag extends Notification implements ShouldQueue
      * @var \App\Models\Post
      */
     public Post $post;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -44,11 +49,12 @@ final class NewPostTag extends Notification implements ShouldQueue
      * @param  string  $tagger
      * @param  Post  $post
      */
-    public function __construct(string $type, string $tagger, Post $post)
+    public function __construct(string $type, string $tagger, Post $post, Repository $configRepository)
     {
         $this->type = $type;
         $this->post = $post;
         $this->tagger = $tagger;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -70,7 +76,7 @@ final class NewPostTag extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->tagger.' Has Tagged You In A Post',

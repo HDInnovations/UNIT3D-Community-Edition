@@ -13,12 +13,27 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Translation\Translator;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
 
 final class ActivationController extends Controller
 {
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Redirector $redirector, Translator $translator)
+    {
+        $this->redirector = $redirector;
+        $this->translator = $translator;
+    }
     /**
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
@@ -40,11 +55,11 @@ final class ActivationController extends Controller
 
             $activation->delete();
 
-            return redirect()->route('login')
-                ->withSuccess(trans('auth.activation-success'));
+            return $this->redirector->route('login')
+                ->withSuccess($this->translator->trans('auth.activation-success'));
         } else {
-            return redirect()->route('login')
-                ->withErrors(trans('auth.activation-error'));
+            return $this->redirector->route('login')
+                ->withErrors($this->translator->trans('auth.activation-error'));
         }
     }
 }

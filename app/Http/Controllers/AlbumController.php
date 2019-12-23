@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -21,7 +22,7 @@ use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Image;
 
 final class AlbumController extends Controller
 {
@@ -29,15 +30,25 @@ final class AlbumController extends Controller
      * @var OmdbClient
      */
     private OmdbClient $client;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * AlbumController Constructor.
      *
      * @param OmdbClient $client
      */
-    public function __construct(OmdbClient $client)
+    public function __construct(OmdbClient $client, Factory $viewFactory, Redirector $redirector)
     {
         $this->client = $client;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -49,7 +60,7 @@ final class AlbumController extends Controller
     {
         $albums = Album::withCount('images')->get();
 
-        return view('album.index')->with('albums', $albums);
+        return $this->viewFactory->make('album.index')->with('albums', $albums);
     }
 
     /**
@@ -59,7 +70,7 @@ final class AlbumController extends Controller
      */
     public function create(): Factory
     {
-        return view('album.create');
+        return $this->viewFactory->make('album.create');
     }
 
     /**
@@ -74,7 +85,7 @@ final class AlbumController extends Controller
         $omdb = $this->client->find(['imdb' => $imdb]);
 
         if ($omdb === null || !$omdb) {
-            return redirect()->route('albums.create')
+            return $this->redirector->route('albums.create')
                 ->withErrors('Bad IMDB Request!');
         }
 
@@ -99,13 +110,13 @@ final class AlbumController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('albums.create')
+            return $this->redirector->route('albums.create')
                 ->withInput()
                 ->withErrors($v->errors());
         } else {
             $album->save();
 
-            return redirect()->route('albums.show', ['id' => $album->id])
+            return $this->redirector->route('albums.show', ['id' => $album->id])
                 ->withSuccess('Your album has successfully published!');
         }
     }
@@ -122,7 +133,7 @@ final class AlbumController extends Controller
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
 
-        return view('album.show', ['album' => $album, 'albums' => $albums]);
+        return $this->viewFactory->make('album.show', ['album' => $album, 'albums' => $albums]);
     }
 
     /**
@@ -141,7 +152,7 @@ final class AlbumController extends Controller
         abort_unless($user->group->is_modo || $user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay()), 403);
         $album->delete();
 
-        return redirect()->route('albums.index')
+        return $this->redirector->route('albums.index')
             ->withSuccess('Album has successfully been deleted');
     }
 }

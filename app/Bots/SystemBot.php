@@ -12,6 +12,8 @@
 
 namespace App\Bots;
 
+use Illuminate\Events\Dispatcher;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Events\Chatter;
 use App\Http\Resources\UserAudibleResource;
 use App\Http\Resources\UserEchoResource;
@@ -51,16 +53,26 @@ final class SystemBot
     private int $targeted;
 
     private $log;
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $eventDispatcher;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
 
     /**
      * SystemBot Constructor.
      * @param  ChatRepository  $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Dispatcher $eventDispatcher, ResponseFactory $responseFactory)
     {
         $bot = Bot::where('id', '=', '1')->firstOrFail();
         $this->chat = $chat;
         $this->bot = $bot;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
@@ -232,7 +244,7 @@ final class SystemBot
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-echoes'.$target->id, $receiver_echoes, $expiresAt);
-                event(new Chatter('echo', $target->id, UserEchoResource::collection($receiver_echoes)));
+                $this->eventDispatcher->fire(new Chatter('echo', $target->id, UserEchoResource::collection($receiver_echoes)));
             }
             $receiver_dirty = 0;
             $receiver_audibles = cache()->get('user-audibles'.$target->id);
@@ -256,7 +268,7 @@ final class SystemBot
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-audibles'.$target->id, $receiver_audibles, $expiresAt);
-                event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
+                $this->eventDispatcher->fire(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
             }
 
             if ($txt != '') {
@@ -265,21 +277,21 @@ final class SystemBot
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
 
-            return response('success');
+            return $this->responseFactory->make('success');
         } elseif ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
 
-            return response('success');
+            return $this->responseFactory->make('success');
         } elseif ($type == 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
-            return response('success');
+            return $this->responseFactory->make('success');
         }
 
         return true;

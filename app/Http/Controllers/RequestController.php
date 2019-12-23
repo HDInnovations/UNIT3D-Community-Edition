@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Services\MovieScrapper;
@@ -52,6 +54,18 @@ final class RequestController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * RequestController Constructor.
@@ -59,10 +73,13 @@ final class RequestController extends Controller
      * @param RequestFacetedRepository $faceted
      * @param ChatRepository           $chat
      */
-    public function __construct(RequestFacetedRepository $faceted, ChatRepository $chat)
+    public function __construct(RequestFacetedRepository $faceted, ChatRepository $chat, Factory $viewFactory, Repository $configRepository, Redirector $redirector)
     {
         $this->faceted = $faceted;
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -85,7 +102,7 @@ final class RequestController extends Controller
         $torrentRequests = TorrentRequest::with(['user', 'category'])->paginate(25);
         $repository = $this->faceted;
 
-        return view('requests.requests', [
+        return $this->viewFactory->make('requests.requests', [
             'torrentRequests'  => $torrentRequests,
             'repository'       => $repository,
             'user'             => $user,
@@ -208,7 +225,7 @@ final class RequestController extends Controller
             $torrentRequests = $torrentRequest->paginate(25);
         }
 
-        return view('requests.results', [
+        return $this->viewFactory->make('requests.results', [
             'user'            => $user,
             'torrentRequests' => $torrentRequests,
         ])->render();
@@ -234,7 +251,7 @@ final class RequestController extends Controller
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
 
-        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper($this->configRepository->get('api-keys.tmdb'), $this->configRepository->get('api-keys.tvdb'), $this->configRepository->get('api-keys.omdb'));
         $meta = null;
         if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
@@ -254,7 +271,7 @@ final class RequestController extends Controller
             $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrentRequest->igdb);
         }
 
-        return view('requests.request', [
+        return $this->viewFactory->make('requests.request', [
             'torrentRequest'      => $torrentRequest,
             'voters'              => $voters, 'user' => $user,
             'comments'            => $comments,
@@ -277,7 +294,7 @@ final class RequestController extends Controller
     {
         $user = $request->user();
 
-        return view('requests.add_request', [
+        return $this->viewFactory->make('requests.add_request', [
             'categories' => Category::all()->sortBy('position'),
             'types'      => Type::all()->sortBy('position'),
             'user'       => $user,
@@ -328,7 +345,7 @@ final class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('requests')
+            return $this->redirector->route('requests')
                 ->withErrors($v->errors())->withInput();
         } else {
             $tr->save();
@@ -366,7 +383,7 @@ final class RequestController extends Controller
                 );
             }
 
-            return redirect()->route('requests')
+            return $this->redirector->route('requests')
                 ->withSuccess('Request Added.');
         }
     }
@@ -384,7 +401,7 @@ final class RequestController extends Controller
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
 
-        return view('requests.edit_request', [
+        return $this->viewFactory->make('requests.edit_request', [
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
             'user'           => $user,
@@ -441,12 +458,12 @@ final class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('requests')
+            return $this->redirector->route('requests')
                 ->withErrors($v->errors());
         } else {
             $torrentRequest->save();
 
-            return redirect()->route('requests', ['id' => $torrentRequest->id])
+            return $this->redirector->route('requests', ['id' => $torrentRequest->id])
                 ->withSuccess('Request Edited Successfully.');
         }
     }
@@ -472,7 +489,7 @@ final class RequestController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('request', ['id' => $tr->id])
+            return $this->redirector->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
         } else {
             $tr->save();
@@ -517,7 +534,7 @@ final class RequestController extends Controller
                 $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
             }
 
-            return redirect()->route('request', ['id' => $request->input('request_id')])
+            return $this->redirector->route('request', ['id' => $request->input('request_id')])
                 ->withSuccess('Your bonus has been successfully added.');
         }
     }
@@ -547,18 +564,18 @@ final class RequestController extends Controller
 
         $torrent = Torrent::where('info_hash', '=', $torrentRequest->filled_hash)->first();
         if ($torrent && ! $torrent->isApproved()) {
-            return redirect()->route('request', ['id' => $request->input('request_id')])
+            return $this->redirector->route('request', ['id' => $request->input('request_id')])
                 ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
         }
 
         if ($v->fails()) {
-            return redirect()->route('request', ['id' => $request->input('request_id')])
+            return $this->redirector->route('request', ['id' => $request->input('request_id')])
                 ->withErrors($v->errors());
         } else {
             $torrentRequest->save();
 
             // Send Private Message
-            $appurl = config('app.url');
+            $appurl = $this->configRepository->get('app.url');
 
             $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
 
@@ -567,7 +584,7 @@ final class RequestController extends Controller
                 $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
             }
 
-            return redirect()->route('request', ['id' => $request->input('request_id')])
+            return $this->redirector->route('request', ['id' => $request->input('request_id')])
                 ->withSuccess('Your request fill is pending approval by the Requester.');
         }
     }
@@ -587,7 +604,7 @@ final class RequestController extends Controller
 
         if ($user->id == $tr->user_id || $request->user()->group->is_modo) {
             if ($tr->approved_by != null) {
-                return redirect()->route('request', ['id' => $id])
+                return $this->redirector->route('request', ['id' => $id])
                     ->withErrors('Seems this request was already approved');
             }
             $tr->approved_by = $user->id;
@@ -636,14 +653,14 @@ final class RequestController extends Controller
             }
 
             if ($tr->filled_anon == 0) {
-                return redirect()->route('request', ['id' => $id])
+                return $this->redirector->route('request', ['id' => $id])
                     ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
             } else {
-                return redirect()->route('request', ['id' => $id])
+                return $this->redirector->route('request', ['id' => $id])
                     ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
             }
         } else {
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withErrors("You don't have access to approve this request");
         }
     }
@@ -658,12 +675,12 @@ final class RequestController extends Controller
     public function rejectRequest(Request $request, $id)
     {
         $user = $request->user();
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
         $torrentRequest = TorrentRequest::findOrFail($id);
 
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
-                return redirect()->route('request', ['id' => $id])
+                return $this->redirector->route('request', ['id' => $id])
                     ->withErrors('Seems this request was already rejected');
             }
 
@@ -677,10 +694,10 @@ final class RequestController extends Controller
             $torrentRequest->filled_hash = null;
             $torrentRequest->save();
 
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withSuccess('This request has been reset.');
         } else {
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withSuccess("You don't have access to approve this request");
         }
     }
@@ -701,10 +718,10 @@ final class RequestController extends Controller
             $name = $torrentRequest->name;
             $torrentRequest->delete();
 
-            return redirect()->route('requests')
+            return $this->redirector->route('requests')
                 ->withSuccess(sprintf('You have deleted %s', $name));
         } else {
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withErrors("You don't have access to delete this request.");
         }
     }
@@ -738,10 +755,10 @@ final class RequestController extends Controller
                 $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
             }
 
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Claimed');
         } else {
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withErrors('Someone else has already claimed this request buddy.');
         }
     }
@@ -776,10 +793,10 @@ final class RequestController extends Controller
                 $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
             }
 
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Un-Claimed');
         } else {
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withErrors('Nothing To Unclaim.');
         }
     }
@@ -805,7 +822,7 @@ final class RequestController extends Controller
         $torrentRequest->approved_when = null;
         $torrentRequest->save();
 
-        return redirect()->route('request', ['id' => $id])
+        return $this->redirector->route('request', ['id' => $id])
             ->withSuccess('The request has been reset!');
     }
 }

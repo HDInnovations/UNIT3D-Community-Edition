@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -26,15 +27,25 @@ final class ChatRoomController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * ChatController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -46,7 +57,7 @@ final class ChatRoomController extends Controller
     {
         $chatrooms = $this->chat->rooms();
 
-        return view('Staff.chat.room.index', [
+        return $this->viewFactory->make('Staff.chat.room.index', [
             'chatrooms'    => $chatrooms,
         ]);
     }
@@ -67,12 +78,12 @@ final class ChatRoomController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.rooms.index')
+            return $this->redirector->route('staff.rooms.index')
                 ->withErrors($v->errors());
         } else {
             $chatroom->save();
 
-            return redirect()->route('staff.rooms.index')
+            return $this->redirector->route('staff.rooms.index')
                 ->withSuccess('Chatroom Successfully Added');
         }
     }
@@ -94,12 +105,12 @@ final class ChatRoomController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.rooms.index')
+            return $this->redirector->route('staff.rooms.index')
                 ->withErrors($v->errors());
         } else {
             $chatroom->save();
 
-            return redirect()->route('staff.rooms.index')
+            return $this->redirector->route('staff.rooms.index')
                 ->withSuccess('Chatroom Successfully Modified');
         }
     }
@@ -116,7 +127,7 @@ final class ChatRoomController extends Controller
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->delete();
 
-        return redirect()->route('staff.rooms.index')
+        return $this->redirector->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Deleted');
     }
 }

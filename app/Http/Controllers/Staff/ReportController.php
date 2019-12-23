@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
@@ -22,6 +24,24 @@ use Illuminate\Http\Request;
 final class ReportController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Guard $guard, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->guard = $guard;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All Reports.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -30,7 +50,7 @@ final class ReportController extends Controller
     {
         $reports = Report::latest()->paginate(25);
 
-        return view('Staff.report.index', ['reports' => $reports]);
+        return $this->viewFactory->make('Staff.report.index', ['reports' => $reports]);
     }
 
     /**
@@ -46,7 +66,7 @@ final class ReportController extends Controller
 
         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
 
-        return view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
+        return $this->viewFactory->make('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
     }
 
     /**
@@ -58,7 +78,7 @@ final class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $this->guard->user();
 
         $v = validator($request->all(), [
             'verdict'  => 'required|min:3',
@@ -68,7 +88,7 @@ final class ReportController extends Controller
         $report = Report::findOrFail($id);
 
         if ($report->solved == 1) {
-            return redirect()->route('staff.reports.index')
+            return $this->redirector->route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
         }
 
@@ -89,7 +109,7 @@ final class ReportController extends Controller
                         [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $pm->save();
 
-        return redirect()->route('staff.reports.index')
+        return $this->redirector->route('staff.reports.index')
             ->withSuccess('Report has been successfully resolved');
     }
 }

@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Helpers\Bbcode;
@@ -105,6 +106,15 @@ final class TorrentRequest extends Model
      * @var string
      */
     protected string $table = 'requests';
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    public function __construct(Guard $guard)
+    {
+        $this->guard = $guard;
+        parent::__construct();
+    }
 
     /**
      * Belongs To A User.
@@ -229,7 +239,7 @@ final class TorrentRequest extends Model
     public function notifyRequester($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
-        if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {
+        if ($user->acceptsNotification($this->guard->user(), $user, 'request', 'show_request_comment')) {
             $user->notify(new NewComment('request', $payload));
 
             return true;

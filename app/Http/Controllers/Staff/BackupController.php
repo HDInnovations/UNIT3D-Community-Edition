@@ -13,6 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Translation\Translator;
+use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Log\Writer;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,6 +29,44 @@ use League\Flysystem\Adapter\Local;
 
 final class BackupController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    /**
+     * @var \Illuminate\Filesystem\FilesystemManager
+     */
+    private $filesystemManager;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Console\Kernel
+     */
+    private $kernel;
+    /**
+     * @var \Illuminate\Log\Writer
+     */
+    private $logWriter;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
+    public function __construct(Repository $configRepository, Translator $translator, FilesystemManager $filesystemManager, Factory $viewFactory, Kernel $kernel, Writer $logWriter, ResponseFactory $responseFactory)
+    {
+        $this->configRepository = $configRepository;
+        $this->translator = $translator;
+        $this->filesystemManager = $filesystemManager;
+        $this->viewFactory = $viewFactory;
+        $this->kernel = $kernel;
+        $this->logWriter = $logWriter;
+        $this->responseFactory = $responseFactory;
+    }
     /**
      * Display All Backups.
      *
@@ -35,14 +79,14 @@ final class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        if ((is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0) === 0) {
-            dd(trans('backup.no_disks_configured'));
+        if ((is_countable($this->configRepository->get('backup.backup.destination.disks')) ? count($this->configRepository->get('backup.backup.destination.disks')) : 0) === 0) {
+            dd($this->translator->trans('backup.no_disks_configured'));
         }
 
         $data['backups'] = [];
 
-        foreach (config('backup.backup.destination.disks') as $disk_name) {
-            $disk = Storage::disk($disk_name);
+        foreach ($this->configRepository->get('backup.backup.destination.disks') as $disk_name) {
+            $disk = $this->filesystemManager->disk($disk_name);
             $adapter = $disk->getDriver()->getAdapter();
             $files = $disk->allFiles();
 
@@ -66,7 +110,7 @@ final class BackupController extends Controller
         $data['backups'] = array_reverse($data['backups']);
         $data['title'] = 'Backups';
 
-        return view('Staff.backup.index', $data);
+        return $this->viewFactory->make('Staff.backup.index', $data);
     }
 
     /**
@@ -84,15 +128,15 @@ final class BackupController extends Controller
         try {
             ini_set('max_execution_time', 900);
             // start the backup process
-            Artisan::call('backup:run');
-            $output = Artisan::output();
+            $this->kernel->call('backup:run');
+            $output = $this->kernel->output();
 
             // log the results
-            info('A new backup was initiated from the staff dashboard '.$output);
+            $this->logWriter->info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $exception) {
-            response($exception->getMessage(), 500);
+            $this->responseFactory->make($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -113,15 +157,15 @@ final class BackupController extends Controller
         try {
             ini_set('max_execution_time', 900);
             // start the backup process
-            Artisan::call('backup:run --only-files');
-            $output = Artisan::output();
+            $this->kernel->call('backup:run --only-files');
+            $output = $this->kernel->output();
 
             // log the results
-            info('A new backup was initiated from the staff dashboard '.$output);
+            $this->logWriter->info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $exception) {
-            response($exception->getMessage(), 500);
+            $this->responseFactory->make($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -142,15 +186,15 @@ final class BackupController extends Controller
         try {
             ini_set('max_execution_time', 900);
             // start the backup process
-            Artisan::call('backup:run --only-db');
-            $output = Artisan::output();
+            $this->kernel->call('backup:run --only-db');
+            $output = $this->kernel->output();
 
             // log the results
-            info('A new backup was initiated from the staff dashboard '.$output);
+            $this->logWriter->info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $exception) {
-            response($exception->getMessage(), 500);
+            $this->responseFactory->make($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -167,7 +211,7 @@ final class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        $disk = Storage::disk($request->input('disk'));
+        $disk = $this->filesystemManager->disk($request->input('disk'));
         $file_name = $request->input('file_name');
         $adapter = $disk->getDriver()->getAdapter();
 
@@ -175,13 +219,13 @@ final class BackupController extends Controller
             $storage_path = $disk->getDriver()->getAdapter()->getPathPrefix();
 
             if ($disk->exists($file_name)) {
-                return response()->download($storage_path.$file_name);
+                return $this->responseFactory->download($storage_path.$file_name);
             } else {
-                return abort(404, trans('backup.backup_doesnt_exist'));
+                return abort(404, $this->translator->trans('backup.backup_doesnt_exist'));
             }
         }
 
-        return abort(404, trans('backup.only_local_downloads_supported'));
+        return abort(404, $this->translator->trans('backup.only_local_downloads_supported'));
     }
 
     /**
@@ -196,7 +240,7 @@ final class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        $disk = Storage::disk($request->input('disk'));
+        $disk = $this->filesystemManager->disk($request->input('disk'));
         $file_name = $request->input('file_name');
         $adapter = $disk->getDriver()->getAdapter();
 
@@ -206,10 +250,10 @@ final class BackupController extends Controller
 
                 return 'success';
             } else {
-                return abort(404, trans('backup.backup_doesnt_exist'));
+                return abort(404, $this->translator->trans('backup.backup_doesnt_exist'));
             }
         }
 
-        return abort(404, trans('backup.backup_doesnt_exist'));
+        return abort(404, $this->translator->trans('backup.backup_doesnt_exist'));
     }
 }

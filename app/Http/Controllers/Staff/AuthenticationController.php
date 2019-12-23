@@ -20,6 +20,14 @@ use App\Models\FailedLoginAttempt;
 final class AuthenticationController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(Factory $viewFactory)
+    {
+        $this->viewFactory = $viewFactory;
+    }
+    /**
      * Authentications Log.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -28,6 +36,6 @@ final class AuthenticationController extends Controller
     {
         $attempts = FailedLoginAttempt::latest()->paginate(25);
 
-        return view('Staff.authentication.index', ['attempts' => $attempts]);
+        return $this->viewFactory->make('Staff.authentication.index', ['attempts' => $attempts]);
     }
 }

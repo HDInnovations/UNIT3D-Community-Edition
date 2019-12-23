@@ -13,6 +13,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\JsonResponse;
@@ -26,6 +27,14 @@ final class ProAjaxMiddleware
      * @var array
      */
     public string $flash_name = 'flash_message';
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
+    public function __construct(ResponseFactory $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
 
     /**
      * After the request has been made, determine if an alert should be shown,
@@ -55,7 +64,7 @@ final class ProAjaxMiddleware
         // return redirect('/contact')
         // then the user should be redirected
         if ($this->shouldRedirectRequest($request, $response)) {
-            return response()->json(['redirect' => $response->getTargetUrl()]);
+            return $this->responseFactory->json(['redirect' => $response->getTargetUrl()]);
         }
 
         // If we've gotten this far, it looks like its an ajax request
@@ -71,7 +80,7 @@ final class ProAjaxMiddleware
             $request->session()->forget($this->flash_name);
 
             // Finally, let's return a json with the flash message
-            return response()->json([
+            return $this->responseFactory->json([
                 'type'    => $flash_message['type'],
                 'message' => $flash_message['message'],
                 //'redirect' => $flash_message['redirect'], // Returns false if no redirect request
@@ -79,7 +88,7 @@ final class ProAjaxMiddleware
         }
 
         // So... if the request wants json, return json
-        return $request->wantsJson() ? response()->json() : $response;
+        return $request->wantsJson() ? $this->responseFactory->json() : $response;
         //return $response;
     }
 

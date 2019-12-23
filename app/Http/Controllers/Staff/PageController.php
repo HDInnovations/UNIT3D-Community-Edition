@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -23,6 +24,19 @@ use Illuminate\Support\Str;
 final class PageController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All Pages.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -31,7 +45,7 @@ final class PageController extends Controller
     {
         $pages = Page::all();
 
-        return view('Staff.page.index', ['pages' => $pages]);
+        return $this->viewFactory->make('Staff.page.index', ['pages' => $pages]);
     }
 
     /**
@@ -41,7 +55,7 @@ final class PageController extends Controller
      */
     public function create(): Factory
     {
-        return view('Staff.page.create');
+        return $this->viewFactory->make('Staff.page.create');
     }
 
     /**
@@ -64,12 +78,12 @@ final class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.pages.index')
+            return $this->redirector->route('staff.pages.index')
                 ->withErrors($v->errors());
         } else {
             $page->save();
 
-            return redirect()->route('staff.pages.index')
+            return $this->redirector->route('staff.pages.index')
                 ->withSuccess('Page has been created successfully');
         }
     }
@@ -85,7 +99,7 @@ final class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return view('Staff.page.edit', ['page' => $page]);
+        return $this->viewFactory->make('Staff.page.edit', ['page' => $page]);
     }
 
     /**
@@ -109,12 +123,12 @@ final class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.pages.index')
+            return $this->redirector->route('staff.pages.index')
                 ->withErrors($v->errors());
         } else {
             $page->save();
 
-            return redirect()->route('staff.pages.index')
+            return $this->redirector->route('staff.pages.index')
                 ->withSuccess('Page has been edited successfully');
         }
     }
@@ -130,7 +144,7 @@ final class PageController extends Controller
     {
         Page::findOrFail($id)->delete();
 
-        return redirect()->route('staff.pages.index')
+        return $this->redirector->route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');
     }
 }

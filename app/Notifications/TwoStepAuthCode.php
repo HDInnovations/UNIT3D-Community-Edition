@@ -13,6 +13,9 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Translation\Translator;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -25,16 +28,31 @@ final class TwoStepAuthCode extends Notification implements ShouldQueue
     protected $code;
 
     protected $user;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    /**
+     * @var \Illuminate\Routing\UrlGenerator
+     */
+    private $urlGenerator;
 
     /**
      * Create a new notification instance.
      * @param $user
      * @param $code
      */
-    public function __construct($user, $code)
+    public function __construct($user, $code, Repository $configRepository, Translator $translator, UrlGenerator $urlGenerator)
     {
         $this->code = $code;
         $this->user = $user;
+        $this->configRepository = $configRepository;
+        $this->translator = $translator;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -58,11 +76,11 @@ final class TwoStepAuthCode extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-            ->from(config('auth.verificationEmailFrom'), config('auth.verificationEmailFromName'))
-            ->subject(trans('auth.verificationEmailSubject'))
-            ->greeting(trans('auth.verificationEmailGreeting', ['username' => $this->user->name]))
-            ->line(trans('auth.verificationEmailMessage'))
+            ->from($this->configRepository->get('auth.verificationEmailFrom'), $this->configRepository->get('auth.verificationEmailFromName'))
+            ->subject($this->translator->trans('auth.verificationEmailSubject'))
+            ->greeting($this->translator->trans('auth.verificationEmailGreeting', ['username' => $this->user->name]))
+            ->line($this->translator->trans('auth.verificationEmailMessage'))
             ->line($this->code)
-            ->action(trans('auth.verificationEmailButton'), route('verificationNeeded'));
+            ->action($this->translator->trans('auth.verificationEmailButton'), $this->urlGenerator->route('verificationNeeded'));
     }
 }

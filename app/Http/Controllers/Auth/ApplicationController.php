@@ -12,6 +12,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
+use Illuminate\Translation\Translator;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
@@ -22,13 +26,36 @@ use Illuminate\Http\Request;
 final class ApplicationController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Translator $translator)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
+        $this->translator = $translator;
+    }
+    /**
      * Application Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(): Factory
     {
-        return view('auth.application.create');
+        return $this->viewFactory->make('auth.application.create');
     }
 
     /**
@@ -44,8 +71,8 @@ final class ApplicationController extends Controller
         $application->email = $request->input('email');
         $application->referrer = $request->input('referrer');
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
-            if (config('captcha.enabled') == false) {
+        if ($this->configRepository->get('email-white-blacklist.enabled') === 'allow') {
+            if ($this->configRepository->get('captcha.enabled') == false) {
                 $v = validator($request->all(), [
                     'type' => 'required',
                     'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
@@ -67,8 +94,8 @@ final class ApplicationController extends Controller
                     'captcha' => 'hiddencaptcha',
                 ]);
             }
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
-            if (config('captcha.enabled') == false) {
+        } elseif ($this->configRepository->get('email-white-blacklist.enabled') === 'block') {
+            if ($this->configRepository->get('captcha.enabled') == false) {
                 $v = validator($request->all(), [
                     'type' => 'required',
                     'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
@@ -90,7 +117,7 @@ final class ApplicationController extends Controller
                     'captcha' => 'hiddencaptcha',
                 ]);
             }
-        } elseif (config('captcha.enabled') == false) {
+        } elseif ($this->configRepository->get('captcha.enabled') == false) {
             $v = validator($request->all(), [
                 'type' => 'required',
                 'email' => 'required|email|unique:invites|unique:users|unique:applications',
@@ -114,21 +141,21 @@ final class ApplicationController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('application.create')
+            return $this->redirector->route('application.create')
                 ->withErrors($v->errors());
         } else {
             $application->save();
 
             // Map And Save IMG Proofs
-            $imgs = collect($request->input('images'))->map(fn($value) => new ApplicationImageProof(['image' => $value]));
+            $imgs = (new Collection($request->input('images')))->map(fn($value) => new ApplicationImageProof(['image' => $value]));
             $application->imageProofs()->saveMany($imgs);
 
             // Map And Save URL Proofs
-            $urls = collect($request->input('links'))->map(fn($value) => new ApplicationUrlProof(['url' => $value]));
+            $urls = (new Collection($request->input('links')))->map(fn($value) => new ApplicationUrlProof(['url' => $value]));
             $application->urlProofs()->saveMany($urls);
 
-            return redirect()->route('login')
-                ->withSuccess(trans('application-submitted'));
+            return $this->redirector->route('login')
+                ->withSuccess($this->translator->trans('application-submitted'));
         }
     }
 }

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Artisan;
 use App\Http\Controllers\Controller;
@@ -20,6 +21,19 @@ use Illuminate\Http\Request;
 
 final class CommandController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
     /**
      * Display All Commands.
      *
@@ -32,7 +46,7 @@ final class CommandController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        return view('Staff.command.index');
+        return $this->viewFactory->make('Staff.command.index');
     }
 
     /**
@@ -49,7 +63,7 @@ final class CommandController extends Controller
 
         Artisan::call('down --allow='.$request->ip());
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -66,7 +80,7 @@ final class CommandController extends Controller
 
         Artisan::call('up');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -83,7 +97,7 @@ final class CommandController extends Controller
 
         Artisan::call('cache:clear');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -100,7 +114,7 @@ final class CommandController extends Controller
 
         Artisan::call('view:clear');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -117,7 +131,7 @@ final class CommandController extends Controller
 
         Artisan::call('route:clear');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -134,7 +148,7 @@ final class CommandController extends Controller
 
         Artisan::call('config:clear');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -151,7 +165,7 @@ final class CommandController extends Controller
 
         Artisan::call('clear:all_cache');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -168,7 +182,7 @@ final class CommandController extends Controller
 
         Artisan::call('set:all_cache');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 
@@ -185,7 +199,7 @@ final class CommandController extends Controller
 
         Artisan::call('test:email');
 
-        return redirect()->route('staff.commands.index')
+        return $this->redirector->route('staff.commands.index')
             ->withInfo(trim(Artisan::output()));
     }
 }

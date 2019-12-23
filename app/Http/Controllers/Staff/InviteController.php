@@ -20,6 +20,14 @@ use App\Models\Invite;
 final class InviteController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(Factory $viewFactory)
+    {
+        $this->viewFactory = $viewFactory;
+    }
+    /**
      * Invites Log.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -29,6 +37,6 @@ final class InviteController extends Controller
         $invites = Invite::latest()->paginate(25);
         $invitecount = Invite::count();
 
-        return view('Staff.invite.index', ['invites' => $invites, 'invitecount' => $invitecount]);
+        return $this->viewFactory->make('Staff.invite.index', ['invites' => $invites, 'invitecount' => $invitecount]);
     }
 }

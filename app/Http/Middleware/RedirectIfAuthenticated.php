@@ -14,11 +14,26 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Routing\Redirector;
 use Illuminate\Http\Request;
 use Closure;
 
 final class RedirectIfAuthenticated
 {
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Guard $guard, Redirector $redirector)
+    {
+        $this->guard = $guard;
+        $this->redirector = $redirector;
+    }
     /**
      * Handle an incoming request.
      *
@@ -29,8 +44,8 @@ final class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ?string $guard = null)
     {
-        if (auth()->guard($guard)->check()) {
-            return redirect()->route('home.index');
+        if ($this->guard->guard($guard)->check()) {
+            return $this->redirector->route('home.index');
         }
 
         return $next($request);

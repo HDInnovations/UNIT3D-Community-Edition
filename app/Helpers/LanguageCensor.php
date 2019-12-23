@@ -13,6 +13,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Contracts\Config\Repository;
 /**
  * Class LanguageCensor.
  *
@@ -20,6 +21,14 @@ namespace App\Helpers;
  */
 final class LanguageCensor
 {
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+    }
     protected static function isSpecial($c): bool
     {
         $specialChars = "<>\n [].;,";
@@ -56,7 +65,7 @@ final class LanguageCensor
      */
     public static function censor($source)
     {
-        $redactArray = config('censor.redact', []);
+        $redactArray = $this->configRepository->get('censor.redact', []);
         foreach ($redactArray as $word) {
             $result = '';
             $length = strlen($source);
@@ -78,7 +87,7 @@ final class LanguageCensor
             $source = $result;
         }
 
-        $replaceDict = config('censor.replace', []);
+        $replaceDict = $this->configRepository->get('censor.replace', []);
         foreach ($replaceDict as $word => $replacement) {
             $source = str_ireplace($word, $replacement, $source);
         }

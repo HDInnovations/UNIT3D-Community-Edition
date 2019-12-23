@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use App\Models\Follow;
 use App\Models\User;
 use App\Notifications\NewFollow;
@@ -21,6 +22,14 @@ use Illuminate\Http\Request;
 
 final class FollowController extends Controller
 {
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Redirector $redirector)
+    {
+        $this->redirector = $redirector;
+    }
     /**
      * Follow A User.
      *
@@ -33,7 +42,7 @@ final class FollowController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
 
         if ($request->user()->id == $user->id) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withErrors('Nice try, but sadly you can not follow yourself.');
         }
 
@@ -46,10 +55,10 @@ final class FollowController extends Controller
                 $user->notify(new NewFollow('user', $request->user(), $user, $follow));
             }
 
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are now following '.$user->username);
         } else {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withErrors('You are already following this user');
         }
     }
@@ -72,10 +81,10 @@ final class FollowController extends Controller
                 $user->notify(new NewUnfollow('user', $request->user(), $user, $follow));
             }
 
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are no longer following '.$user->username);
         } else {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withErrors('You are not following this user to begin with');
         }
     }

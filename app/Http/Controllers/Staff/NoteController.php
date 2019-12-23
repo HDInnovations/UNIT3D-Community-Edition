@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -23,6 +24,19 @@ use Illuminate\Http\Request;
 final class NoteController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All User Notes.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -31,7 +45,7 @@ final class NoteController extends Controller
     {
         $notes = Note::latest()->paginate(25);
 
-        return view('Staff.note.index', ['notes' => $notes]);
+        return $this->viewFactory->make('Staff.note.index', ['notes' => $notes]);
     }
 
     /**
@@ -58,12 +72,12 @@ final class NoteController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $note->save();
 
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withSuccess('Note Has Successfully Posted');
         }
     }
@@ -81,7 +95,7 @@ final class NoteController extends Controller
         $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return $this->redirector->route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

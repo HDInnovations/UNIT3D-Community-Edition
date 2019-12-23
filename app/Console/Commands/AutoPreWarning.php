@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Warning;
@@ -34,6 +35,15 @@ final class AutoPreWarning extends Command
      * @var string
      */
     protected string $description = 'Automatically Sends Pre Warning PM To Users';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -42,7 +52,7 @@ final class AutoPreWarning extends Command
      */
     public function handle(): void
     {
-        if (config('hitrun.enabled') == true) {
+        if ($this->configRepository->get('hitrun.enabled') == true) {
             $current = new Carbon();
             $prewarn = History::with(['user', 'torrent'])
                 ->where('prewarn', '=', 0)
@@ -50,13 +60,13 @@ final class AutoPreWarning extends Command
                 ->where('immune', '=', 0)
                 ->where('actual_downloaded', '>', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<=', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
+                ->where('seedtime', '<=', $this->configRepository->get('hitrun.seedtime'))
+                ->where('updated_at', '<', $current->copy()->subDays($this->configRepository->get('hitrun.prewarn'))->toDateTimeString())
                 ->get();
 
             foreach ($prewarn as $pre) {
                 if (! $pre->user->group->is_immune) {
-                    if ($pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
+                    if ($pre->actual_downloaded > ($pre->torrent->size * ($this->configRepository->get('hitrun.buffer') / 100))) {
                         $exsist = Warning::withTrashed()
                             ->where('torrent', '=', $pre->torrent->id)
                             ->where('user_id', '=', $pre->user->id)
@@ -64,15 +74,15 @@ final class AutoPreWarning extends Command
 
                         // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
                         if ($exsist === null) {
-                            $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
+                            $timeleft = $this->configRepository->get('hitrun.grace') - $this->configRepository->get('hitrun.prewarn');
 
                             // Send Private Message
                             $pm = new PrivateMessage();
                             $pm->sender_id = 1;
                             $pm->receiver_id = $pre->user->id;
                             $pm->subject = 'Hit and Run Warning Incoming';
-                            $pm->message = 'You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.config('hitrun.prewarn').sprintf(' days on Torrent %s
-                                            and have not yet met the required seedtime rules set by ', $pre->torrent->name).config('other.title').sprintf('. If you fail to seed it within %s day(s) you will receive a automated WARNING which will last ', $timeleft).config('hitrun.expire').' days![/b]
+                            $pm->message = 'You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.$this->configRepository->get('hitrun.prewarn').sprintf(' days on Torrent %s
+                                            and have not yet met the required seedtime rules set by ', $pre->torrent->name).$this->configRepository->get('other.title').sprintf('. If you fail to seed it within %s day(s) you will receive a automated WARNING which will last ', $timeleft).$this->configRepository->get('hitrun.expire').' days![/b]
                                             [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                             $pm->save();
 

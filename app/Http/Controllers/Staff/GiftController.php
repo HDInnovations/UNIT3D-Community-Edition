@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
@@ -22,13 +23,26 @@ use Illuminate\Http\Request;
 final class GiftController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Send Gift Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(): Factory
     {
-        return view('Staff.gift.index');
+        return $this->viewFactory->make('Staff.gift.index');
     }
 
     /**
@@ -54,13 +68,13 @@ final class GiftController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.gifts.index')
+            return $this->redirector->route('staff.gifts.index')
                 ->withErrors($v->errors());
         } else {
             $recipient = User::where('username', '=', $username)->first();
 
             if (! $recipient) {
-                return redirect()->route('staff.gifts.index')
+                return $this->redirector->route('staff.gifts.index')
                     ->withErrors('Unable To Find Specified User');
             }
 
@@ -78,7 +92,7 @@ final class GiftController extends Controller
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $staff->username, $seedbonus, $invites, $fl_tokens);
             $pm->save();
 
-            return redirect()->route('staff.gifts.index')
+            return $this->redirector->route('staff.gifts.index')
                 ->withSuccess('Gift Sent');
         }
     }

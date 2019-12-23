@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Routing\UrlGenerator;
 use App\Interfaces\WishInterface;
 use App\Models\Torrent;
 use App\Models\User;
@@ -40,6 +41,10 @@ final class WishRepository implements WishInterface
      * @var Torrent
      */
     private Torrent $torrent;
+    /**
+     * @var \Illuminate\Routing\UrlGenerator
+     */
+    private $urlGenerator;
 
     /**
      * WishRepository constructor.
@@ -49,12 +54,13 @@ final class WishRepository implements WishInterface
      * @param OmdbClient $client
      * @param Torrent    $torrent
      */
-    public function __construct(Wish $wish, User $user, OmdbClient $client, Torrent $torrent)
+    public function __construct(Wish $wish, User $user, OmdbClient $client, Torrent $torrent, UrlGenerator $urlGenerator)
     {
         $this->wish = $wish;
         $this->user = $user;
         $this->client = $client;
         $this->torrent = $torrent;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -142,7 +148,7 @@ final class WishRepository implements WishInterface
                 ->where('status', '=', 1)
                 ->first();
 
-            return route('torrent', ['id' => $source->id]);
+            return $this->urlGenerator->route('torrent', ['id' => $source->id]);
         }
 
         return $this->findById($id)->source ?? null;

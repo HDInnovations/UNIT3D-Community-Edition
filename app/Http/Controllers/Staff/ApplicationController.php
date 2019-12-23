@@ -12,6 +12,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
+use Illuminate\Mail\Mailer;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Mail\DenyApplication;
@@ -26,6 +29,29 @@ use Ramsey\Uuid\Uuid;
 final class ApplicationController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
+    public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Mailer $mailer)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
+        $this->mailer = $mailer;
+    }
+    /**
      * Display All Applications.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -37,7 +63,7 @@ final class ApplicationController extends Controller
             ->latest()
             ->paginate(25);
 
-        return view('Staff.application.index', ['applications' => $applications]);
+        return $this->viewFactory->make('Staff.application.index', ['applications' => $applications]);
     }
 
     /**
@@ -50,7 +76,7 @@ final class ApplicationController extends Controller
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
-        return view('Staff.application.show', ['application' => $application]);
+        return $this->viewFactory->make('Staff.application.show', ['application' => $application]);
     }
 
     /**
@@ -73,15 +99,15 @@ final class ApplicationController extends Controller
             $invite->user_id = $user->id;
             $invite->email = $application->email;
             $invite->code = $code;
-            $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+            $invite->expires_on = $current->copy()->addDays($this->configRepository->get('other.invite_expire'));
             $invite->custom = $request->input('approve');
 
-            if (config('email-white-blacklist.enabled') === 'allow') {
+            if ($this->configRepository->get('email-white-blacklist.enabled') === 'allow') {
                 $v = validator($request->all(), [
                     'email' => 'required|email|unique:invites|unique:users|email_list:allow', // Whitelist
                     'approve' => 'required',
                 ]);
-            } elseif (config('email-white-blacklist.enabled') === 'block') {
+            } elseif ($this->configRepository->get('email-white-blacklist.enabled') === 'block') {
                 $v = validator($request->all(), [
                     'email' => 'required|email|unique:invites|unique:users|email_list:block', // Blacklist
                     'approve' => 'required',
@@ -94,18 +120,18 @@ final class ApplicationController extends Controller
             }
 
             if ($v->fails()) {
-                return redirect()->route('staff.applications.index')
+                return $this->redirector->route('staff.applications.index')
                     ->withErrors($v->errors());
             } else {
-                Mail::to($application->email)->send(new InviteUser($invite));
+                $this->mailer->to($application->email)->send(new InviteUser($invite));
                 $invite->save();
                 $application->markApproved();
 
-                return redirect()->route('staff.applications.index')
+                return $this->redirector->route('staff.applications.index')
                     ->withSuccess('Application Approved');
             }
         } else {
-            return redirect()->route('staff.applications.index')
+            return $this->redirector->route('staff.applications.index')
                 ->withErrors('Application Already Approved');
         }
     }
@@ -128,12 +154,12 @@ final class ApplicationController extends Controller
             ]);
 
             $application->markRejected();
-            Mail::to($application->email)->send(new DenyApplication($denied_message));
+            $this->mailer->to($application->email)->send(new DenyApplication($denied_message));
 
-            return redirect()->route('staff.applications.index')
+            return $this->redirector->route('staff.applications.index')
                 ->withSuccess('Application Rejected');
         } else {
-            return redirect()->route('staff.applications.index')
+            return $this->redirector->route('staff.applications.index')
                 ->withErrors('Application Already Rejected');
         }
     }

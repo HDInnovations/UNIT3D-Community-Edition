@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Message;
@@ -28,12 +29,17 @@ final class AutoGraveyard extends Command
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Repository $configRepository)
     {
         parent::__construct();
 
         $this->chat = $chat;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -75,11 +81,11 @@ final class AutoGraveyard extends Command
                 $reward->rewarded = 1;
                 $reward->save();
 
-                $user->fl_tokens += config('graveyard.reward');
+                $user->fl_tokens += $this->configRepository->get('graveyard.reward');
                 $user->save();
 
                 // Auto Shout
-                $appurl = config('app.url');
+                $appurl = $this->configRepository->get('app.url');
 
                 $this->chat->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s.%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->slug, $torrent->id, $torrent->name)

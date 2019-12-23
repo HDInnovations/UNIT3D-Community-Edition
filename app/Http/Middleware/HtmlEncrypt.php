@@ -13,6 +13,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
 use Bepsvpt\SecureHeaders\SecureHeaders;
 use Closure;
@@ -23,13 +24,18 @@ final class HtmlEncrypt
      * @var string
      */
     private string $hex;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * HtmlEncrypt constructor.
      */
-    public function __construct()
+    public function __construct(Repository $configRepository)
     {
         $this->hex = '';
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -69,11 +75,11 @@ final class HtmlEncrypt
 
         $script = sprintf('<script type=\'text/javascript\' nonce=\'%s\'>document.writeln(unescape(\'%s\'));</script>', $nonce, $this->hex);
 
-        if (config('html-encrypt.disable_right_click')) {
+        if ($this->configRepository->get('html-encrypt.disable_right_click')) {
             $script .= sprintf('<script type=\'text/javascript\' nonce=\'%s\'>let body = document.getElementsByTagName(\'body\')[0];var att = document.createAttribute(\'oncontextmenu\');att.value = \'return false\'\';body.setAttributeNode(att);</script>', $nonce);
         }
 
-        if (config('html-encrypt.disable_ctrl_and_F12_key')) {
+        if ($this->configRepository->get('html-encrypt.disable_ctrl_and_F12_key')) {
             $script .= sprintf('<script type=\'text/javascript\' nonce=\'%s\'>document.onkeydown=function(e){if(e.ctrlKey || e.keyCode == 123){return false}}</script>', $nonce);
         }
 

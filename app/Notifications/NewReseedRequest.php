@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Torrent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,15 +27,20 @@ final class NewReseedRequest extends Notification implements ShouldQueue
      * @var \App\Models\Torrent
      */
     public Torrent $torrent;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
      *
      * @param  Torrent  $torrent
      */
-    public function __construct(Torrent $torrent)
+    public function __construct(Torrent $torrent, Repository $configRepository)
     {
         $this->torrent = $torrent;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -56,7 +62,7 @@ final class NewReseedRequest extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => 'New Reseed Request',

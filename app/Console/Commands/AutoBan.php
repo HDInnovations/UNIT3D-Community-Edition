@@ -13,6 +13,9 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Mail\Mailer;
 use App\Mail\BanUser;
 use App\Models\Ban;
 use App\Models\Group;
@@ -36,6 +39,25 @@ final class AutoBan extends Command
      * @var string
      */
     protected string $description = 'Ban User If Has More Than X Active Warnings';
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
+    public function __construct(DatabaseManager $databaseManager, Repository $configRepository, Mailer $mailer)
+    {
+        $this->databaseManager = $databaseManager;
+        parent::__construct();
+        $this->configRepository = $configRepository;
+        $this->mailer = $mailer;
+    }
 
     /**
      * Execute the console command.
@@ -46,7 +68,7 @@ final class AutoBan extends Command
     {
         $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
+        $bans = Warning::with('warneduser')->select($this->databaseManager->raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', $this->configRepository->get('hitrun.max_warnings'))->get();
 
         foreach ($bans as $ban) {
             if ($ban->warneduser->group_id != $banned_group[0] && ! $ban->warneduser->group->is_immune) {
@@ -69,7 +91,7 @@ final class AutoBan extends Command
                 $logban->save();
 
                 // Send Email
-                Mail::to($ban->warneduser->email)->send(new BanUser($ban->warneduser->email, $logban));
+                $this->mailer->to($ban->warneduser->email)->send(new BanUser($ban->warneduser->email, $logban));
             }
         }
     }

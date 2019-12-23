@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -25,15 +26,20 @@ final class ReportController extends Controller
      * @var Report
      */
     private Report $report;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * ReportController Constructor.
      *
      * @param Report  $report
      */
-    public function __construct(Report $report)
+    public function __construct(Report $report, Redirector $redirector)
     {
         $this->report = $report;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -54,7 +60,7 @@ final class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
@@ -68,7 +74,7 @@ final class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            return redirect()->route('request', ['id' => $id])
+            return $this->redirector->route('request', ['id' => $id])
                 ->withSuccess('Your report has been successfully sent');
         }
     }
@@ -91,7 +97,7 @@ final class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['id' => $id])
+            return $this->redirector->route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
@@ -105,7 +111,7 @@ final class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            return redirect()->route('torrent', ['id' => $id])
+            return $this->redirector->route('torrent', ['id' => $id])
                 ->withSuccess('Your report has been successfully sent');
         }
     }
@@ -128,7 +134,7 @@ final class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $username])
+            return $this->redirector->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
@@ -142,7 +148,7 @@ final class ReportController extends Controller
                 'solved' => 0,
             ]);
 
-            return redirect()->route('users.show', ['username' => $username])
+            return $this->redirector->route('users.show', ['username' => $username])
                 ->withSuccess('Your report has been successfully sent');
         }
     }

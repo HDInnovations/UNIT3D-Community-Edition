@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
@@ -21,6 +22,19 @@ use Illuminate\Support\Str;
 final class TagController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All Tags.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -29,7 +43,7 @@ final class TagController extends Controller
     {
         $tags = Tag::all()->sortBy('name');
 
-        return view('Staff.tag.index', ['tags' => $tags]);
+        return $this->viewFactory->make('Staff.tag.index', ['tags' => $tags]);
     }
 
     /**
@@ -39,7 +53,7 @@ final class TagController extends Controller
      */
     public function create(): Factory
     {
-        return view('Staff.tag.create');
+        return $this->viewFactory->make('Staff.tag.create');
     }
 
     /**
@@ -60,12 +74,12 @@ final class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.tags.index')
+            return $this->redirector->route('staff.tags.index')
                 ->withErrors($v->errors());
         } else {
             $tag->save();
 
-            return redirect()->route('staff.tags.index')
+            return $this->redirector->route('staff.tags.index')
                 ->withSuccess('Tag Successfully Added');
         }
     }
@@ -81,7 +95,7 @@ final class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
 
-        return view('Staff.tag.edit', ['tag' => $tag]);
+        return $this->viewFactory->make('Staff.tag.edit', ['tag' => $tag]);
     }
 
     /**
@@ -103,12 +117,12 @@ final class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.tags.index')
+            return $this->redirector->route('staff.tags.index')
                 ->withErrors($v->errors());
         } else {
             $tag->save();
 
-            return redirect()->route('staff.tags.index')
+            return $this->redirector->route('staff.tags.index')
                 ->withSuccess('Tag Successfully Modified');
         }
     }

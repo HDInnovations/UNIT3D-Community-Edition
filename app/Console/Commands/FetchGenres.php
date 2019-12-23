@@ -12,6 +12,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
@@ -32,6 +33,15 @@ final class FetchGenres extends Command
      * @var string
      */
     protected string $description = 'Fetch Genres For Torrents In DB';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -41,7 +51,7 @@ final class FetchGenres extends Command
      */
     public function handle(): void
     {
-        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper($this->configRepository->get('api-keys.tmdb'), $this->configRepository->get('api-keys.tvdb'), $this->configRepository->get('api-keys.omdb'));
 
         $torrents = Torrent::withAnyStatus()
             ->select(['id', 'category_id', 'imdb', 'tmdb'])

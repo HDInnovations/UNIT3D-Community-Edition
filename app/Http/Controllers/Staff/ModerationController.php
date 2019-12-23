@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
@@ -28,15 +30,30 @@ final class ModerationController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * ModerationController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Factory $viewFactory, Repository $configRepository, Redirector $redirector)
     {
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -51,7 +68,7 @@ final class ModerationController extends Controller
         $postponed = Torrent::with(['user', 'category'])->postponed()->get();
         $rejected = Torrent::with(['user', 'category'])->rejected()->get();
 
-        return view('Staff.moderation.index', [
+        return $this->viewFactory->make('Staff.moderation.index', [
             'current'   => $current,
             'pending'   => $pending,
             'postponed' => $postponed,
@@ -70,7 +87,7 @@ final class ModerationController extends Controller
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->first();
 
         if ($torrent->status !== 1) {
-            $appurl = config('app.url');
+            $appurl = $this->configRepository->get('app.url');
             $user = $torrent->user;
             $user_id = $user->id;
             $username = $user->username;
@@ -89,10 +106,10 @@ final class ModerationController extends Controller
 
             TorrentHelper::approveHelper($torrent->id);
 
-            return redirect()->route('staff.moderation.index')
+            return $this->redirector->route('staff.moderation.index')
                 ->withSuccess('Torrent Approved');
         } else {
-            return redirect()->route('staff.moderation.index')
+            return $this->redirector->route('staff.moderation.index')
                 ->withErrors('Torrent Already Approved');
         }
     }
@@ -112,7 +129,7 @@ final class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.moderation.index')
+            return $this->redirector->route('staff.moderation.index')
                 ->withErrors($v->errors());
         } else {
             $user = $request->user();
@@ -130,7 +147,7 @@ final class ModerationController extends Controller
 %s', $torrent->name, $request->input('message'));
             $pm->save();
 
-            return redirect()->route('staff.moderation.index')
+            return $this->redirector->route('staff.moderation.index')
                 ->withSuccess('Torrent Postponed');
         }
     }
@@ -150,7 +167,7 @@ final class ModerationController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.moderation.index')
+            return $this->redirector->route('staff.moderation.index')
                 ->withErrors($v->errors());
         } else {
             $user = $request->user();
@@ -168,7 +185,7 @@ final class ModerationController extends Controller
 %s', $torrent->name, $request->input('message'));
             $pm->save();
 
-            return redirect()->route('staff.moderation.index')
+            return $this->redirector->route('staff.moderation.index')
                 ->withSuccess('Torrent Rejected');
         }
     }

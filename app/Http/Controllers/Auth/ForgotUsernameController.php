@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
+use Illuminate\Translation\Translator;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -22,13 +25,36 @@ use Illuminate\Http\Request;
 final class ForgotUsernameController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Translator $translator)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
+        $this->translator = $translator;
+    }
+    /**
      * Forgot Username Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showForgotUsernameForm(): Factory
     {
-        return view('auth.username');
+        return $this->viewFactory->make('auth.username');
     }
 
     /**
@@ -41,7 +67,7 @@ final class ForgotUsernameController extends Controller
     {
         $email = $request->get('email');
 
-        if (config('captcha.enabled') == false) {
+        if ($this->configRepository->get('captcha.enabled') == false) {
             $v = validator($request->all(), [
                 'email' => 'required',
             ]);
@@ -53,21 +79,21 @@ final class ForgotUsernameController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('username.request')
+            return $this->redirector->route('username.request')
                 ->withErrors($v->errors());
         } else {
             $user = User::where('email', '=', $email)->first();
 
             if (empty($user)) {
-                return redirect()->route('username.request')
-                    ->withErrors(trans('email.no-email-found'));
+                return $this->redirector->route('username.request')
+                    ->withErrors($this->translator->trans('email.no-email-found'));
             }
 
             //send username reminder notification
             $user->notify(new UsernameReminder());
 
-            return redirect()->route('login')
-                ->withSuccess(trans('email.username-sent'));
+            return $this->redirector->route('login')
+                ->withSuccess($this->translator->trans('email.username-sent'));
         }
     }
 }

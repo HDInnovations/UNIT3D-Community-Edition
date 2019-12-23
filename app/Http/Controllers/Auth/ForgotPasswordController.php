@@ -14,6 +14,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
@@ -21,15 +22,20 @@ use Illuminate\Http\Request;
 final class ForgotPasswordController extends Controller
 {
     use SendsPasswordResetEmails;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
-    public function __construct()
+    public function __construct(Repository $configRepository)
     {
         $this->middleware('guest');
+        $this->configRepository = $configRepository;
     }
 
     protected function validateEmail(Request $request): void
     {
-        if (config('captcha.enabled') == false) {
+        if ($this->configRepository->get('captcha.enabled') == false) {
             $request->validate(['email' => 'required|email']);
         } else {
             $request->validate([

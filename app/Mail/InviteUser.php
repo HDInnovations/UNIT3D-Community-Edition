@@ -13,6 +13,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Invite;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -26,15 +27,20 @@ final class InviteUser extends Mailable
      * @var \App\Models\Invite
      */
     public Invite $invite;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new message instance.
      *
      * @param  Invite  $invite
      */
-    public function __construct(Invite $invite)
+    public function __construct(Invite $invite, Repository $configRepository)
     {
         $this->invite = $invite;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -45,6 +51,6 @@ final class InviteUser extends Mailable
     public function build(): self
     {
         return $this->markdown('emails.invite')
-            ->subject('Invite Received '.config('other.title'));
+            ->subject('Invite Received '.$this->configRepository->get('other.title'));
     }
 }

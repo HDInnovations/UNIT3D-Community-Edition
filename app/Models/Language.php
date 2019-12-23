@@ -13,12 +13,32 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
 use App\Traits\Auditable;
 
 final class Language
 {
     use Auditable;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\UrlGenerator
+     */
+    private $urlGenerator;
+    public function __construct(Factory $viewFactory, Repository $configRepository, UrlGenerator $urlGenerator)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
+        $this->urlGenerator = $urlGenerator;
+    }
 
     /**
      * Get single flags view.
@@ -36,7 +56,7 @@ final class Language
         $name = self::getName($code);
         $code = self::country($code);
 
-        return view('vendor.language.flag', ['code' => $code, 'name' => $name]);
+        return $this->viewFactory->make('vendor.language.flag', ['code' => $code, 'name' => $name]);
     }
 
     /**
@@ -52,7 +72,7 @@ final class Language
             $locale = app()->getLocale();
         }
 
-        if (config('language.mode.code', 'short') == 'short') {
+        if ($this->configRepository->get('language.mode.code', 'short') == 'short') {
             $code = strtolower(substr(self::getLongCode($locale), 3));
         } else {
             $code = strtolower(substr($locale, 3));
@@ -68,7 +88,7 @@ final class Language
      **/
     public static function flags(): Factory
     {
-        return view('vendor.language.flags');
+        return $this->viewFactory->make('vendor.language.flags');
     }
 
     /**
@@ -85,10 +105,10 @@ final class Language
             return array_key_exists($locale, self::allowed());
         }
 
-        if (config('language.allowed')) {
-            return self::names(array_merge(config('language.allowed'), [config('app.locale')]));
+        if ($this->configRepository->get('language.allowed')) {
+            return self::names(array_merge($this->configRepository->get('language.allowed'), [$this->configRepository->get('app.locale')]));
         } else {
-            return self::names([config('app.locale')]);
+            return self::names([$this->configRepository->get('app.locale')]);
         }
     }
 
@@ -102,10 +122,10 @@ final class Language
     public static function names(array $codes): array
     {
         // Get mode
-        $mode = config('language.mode');
+        $mode = $this->configRepository->get('language.mode');
 
         // Get languages from config
-        $languages = config('language.all');
+        $languages = $this->configRepository->get('language.all');
 
         $array = [];
 
@@ -135,10 +155,10 @@ final class Language
     public static function codes(array $langs): array
     {
         // Get mode
-        $mode = config('language.mode');
+        $mode = $this->configRepository->get('language.mode');
 
         // Get languages from config
-        $languages = config('language.all');
+        $languages = $this->configRepository->get('language.all');
 
         $array = [];
 
@@ -167,7 +187,7 @@ final class Language
      **/
     public static function back(string $code): string
     {
-        return route('back', ['locale' => $code]);
+        return $this->urlGenerator->route('back', ['locale' => $code]);
     }
 
     /**
@@ -179,7 +199,7 @@ final class Language
      **/
     public static function home(string $code): string
     {
-        return route('home', ['locale' => $code]);
+        return $this->urlGenerator->route('home', ['locale' => $code]);
     }
 
     /**
@@ -214,7 +234,7 @@ final class Language
         $long = 'en-GB';
 
         // Get languages from config
-        $languages = config('language.all');
+        $languages = $this->configRepository->get('language.all');
 
         foreach ($languages as $language) {
             if ($language['short'] != $short) {
@@ -243,7 +263,7 @@ final class Language
         $short = 'en';
 
         // Get languages from config
-        $languages = config('language.all');
+        $languages = $this->configRepository->get('language.all');
 
         foreach ($languages as $language) {
             if ($language['long'] != $long) {

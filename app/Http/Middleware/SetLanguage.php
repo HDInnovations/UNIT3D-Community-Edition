@@ -13,6 +13,10 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Session\SessionManager;
 use Illuminate\Http\Request;
 use Date;
 use App\Models\Language;
@@ -23,6 +27,29 @@ use Illuminate\Support\Facades\App;
 final class SetLanguage
 {
     /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Foundation\Application
+     */
+    private $application;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    /**
+     * @var \Illuminate\Session\SessionManager
+     */
+    private $sessionManager;
+    public function __construct(Repository $configRepository, Application $application, Guard $guard, SessionManager $sessionManager)
+    {
+        $this->configRepository = $configRepository;
+        $this->application = $application;
+        $this->guard = $guard;
+        $this->sessionManager = $sessionManager;
+    }
+    /**
      * This function checks if language to set is an allowed lang of config.
      *
      * @param string $locale
@@ -31,16 +58,16 @@ final class SetLanguage
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
-            $locale = config('app.locale');
+            $locale = $this->configRepository->get('app.locale');
         }
 
         // Set app language
-        App::setLocale($locale);
+        $this->application->setLocale($locale);
 
         // Set carbon language
-        if (config('language.carbon')) {
+        if ($this->configRepository->get('language.carbon')) {
             // Carbon uses only language code
-            if (config('language.mode.code') == 'long') {
+            if ($this->configRepository->get('language.mode.code') == 'long') {
                 $locale = explode('-', $locale)[0];
             }
 
@@ -48,9 +75,9 @@ final class SetLanguage
         }
 
         // Set date language
-        if (config('language.date')) {
+        if ($this->configRepository->get('language.date')) {
             // Date uses only language code
-            if (config('language.mode.code') == 'long') {
+            if ($this->configRepository->get('language.mode.code') == 'long') {
                 $locale = explode('-', $locale)[0];
             }
 
@@ -60,12 +87,12 @@ final class SetLanguage
 
     public function setDefaultLocale(): void
     {
-        $this->setLocale(config('app.locale'));
+        $this->setLocale($this->configRepository->get('app.locale'));
     }
 
     public function setUserLocale(): void
     {
-        $user = auth()->user();
+        $user = $this->guard->user();
 
         if ($user->locale) {
             $this->setLocale($user->locale);
@@ -77,7 +104,7 @@ final class SetLanguage
     public function setSystemLocale($request): void
     {
         if ($request->session()->has('locale')) {
-            $this->setLocale(session('locale'));
+            $this->setLocale($this->sessionManager->get('locale'));
         } else {
             $this->setDefaultLocale();
         }
@@ -94,7 +121,7 @@ final class SetLanguage
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));
-        } elseif (auth()->check()) {
+        } elseif ($this->guard->check()) {
             $this->setUserLocale();
         } else {
             $this->setSystemLocale($request);

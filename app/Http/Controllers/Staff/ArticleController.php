@@ -13,16 +13,30 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Image;
 
 final class ArticleController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
     /**
      * Display All Articles.
      *
@@ -32,7 +46,7 @@ final class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(25);
 
-        return view('Staff.article.index', ['articles' => $articles]);
+        return $this->viewFactory->make('Staff.article.index', ['articles' => $articles]);
     }
 
     /**
@@ -42,7 +56,7 @@ final class ArticleController extends Controller
      */
     public function create(): Factory
     {
-        return view('Staff.article.create');
+        return $this->viewFactory->make('Staff.article.create');
     }
 
     /**
@@ -78,12 +92,12 @@ final class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.articles.index')
+            return $this->redirector->route('staff.articles.index')
                 ->withErrors($v->errors());
         } else {
             $article->save();
 
-            return redirect()->route('staff.articles.index')
+            return $this->redirector->route('staff.articles.index')
                 ->withSuccess('Your article has successfully published!');
         }
     }
@@ -99,7 +113,7 @@ final class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        return view('Staff.article.edit', ['article' => $article]);
+        return $this->viewFactory->make('Staff.article.edit', ['article' => $article]);
     }
 
     /**
@@ -134,12 +148,12 @@ final class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.articles.index')
+            return $this->redirector->route('staff.articles.index')
                 ->withErrors($v->errors());
         } else {
             $article->save();
 
-            return redirect()->route('staff.articles.index')
+            return $this->redirector->route('staff.articles.index')
                 ->withSuccess('Your article changes have successfully published!');
         }
     }
@@ -156,7 +170,7 @@ final class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $article->delete();
 
-        return redirect()->route('staff.articles.index')
+        return $this->redirector->route('staff.articles.index')
             ->withSuccess('Article has successfully been deleted');
     }
 }

@@ -13,16 +13,30 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Image;
 
 final class CategoryController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
     /**
      * Display All Categories.
      *
@@ -32,7 +46,7 @@ final class CategoryController extends Controller
     {
         $categories = Category::all()->sortBy('position');
 
-        return view('Staff.category.index', ['categories' => $categories]);
+        return $this->viewFactory->make('Staff.category.index', ['categories' => $categories]);
     }
 
     /**
@@ -42,7 +56,7 @@ final class CategoryController extends Controller
      */
     public function create(): Factory
     {
-        return view('Staff.category.create');
+        return $this->viewFactory->make('Staff.category.create');
     }
 
     /**
@@ -87,12 +101,12 @@ final class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.categories.index')
+            return $this->redirector->route('staff.categories.index')
                 ->withErrors($v->errors());
         } else {
             $category->save();
 
-            return redirect()->route('staff.categories.index')
+            return $this->redirector->route('staff.categories.index')
                 ->withSuccess('Category Successfully Added');
         }
     }
@@ -108,7 +122,7 @@ final class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view('Staff.category.edit', ['category' => $category]);
+        return $this->viewFactory->make('Staff.category.edit', ['category' => $category]);
     }
 
     /**
@@ -152,12 +166,12 @@ final class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.categories.index')
+            return $this->redirector->route('staff.categories.index')
                 ->withErrors($v->errors());
         } else {
             $category->save();
 
-            return redirect()->route('staff.categories.index')
+            return $this->redirector->route('staff.categories.index')
                 ->withSuccess('Category Successfully Modified');
         }
     }
@@ -174,7 +188,7 @@ final class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('staff.categories.index')
+        return $this->redirector->route('staff.categories.index')
             ->withSuccess('Category Successfully Deleted');
     }
 }

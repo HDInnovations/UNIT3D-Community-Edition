@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -22,6 +23,19 @@ use Illuminate\Http\Request;
 final class SeedboxController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All Registered Seedboxes.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -30,7 +44,7 @@ final class SeedboxController extends Controller
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
-        return view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
+        return $this->viewFactory->make('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
     }
 
     /**
@@ -49,7 +63,7 @@ final class SeedboxController extends Controller
         abort_unless($user->group->is_modo, 403);
         $seedbox->delete();
 
-        return redirect()->route('staff.seedboxes.index')
+        return $this->redirector->route('staff.seedboxes.index')
             ->withSuccess('Seedbox Record Has Successfully Been Deleted');
     }
 }

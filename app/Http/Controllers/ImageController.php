@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Album;
@@ -21,6 +23,24 @@ use Illuminate\Http\Request;
 
 final class ImageController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
+    public function __construct(Factory $viewFactory, Redirector $redirector, ResponseFactory $responseFactory)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+        $this->responseFactory = $responseFactory;
+    }
     /**
      * Show Image Create Form.
      *
@@ -32,7 +52,7 @@ final class ImageController extends Controller
     {
         $album = Album::find($id);
 
-        return view('album.image', ['album' => $album]);
+        return $this->viewFactory->make('album.image', ['album' => $album]);
     }
 
     /**
@@ -66,12 +86,12 @@ final class ImageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('images.create', ['id' => $request->input('album_id')])
+            return $this->redirector->route('images.create', ['id' => $request->input('album_id')])
                 ->withErrors($v->errors());
         } else {
             $image->save();
 
-            return redirect()->route('albums.show', ['id' => $request->input('album_id')])
+            return $this->redirector->route('albums.show', ['id' => $request->input('album_id')])
                 ->withSuccess('Your image has successfully published!');
         }
     }
@@ -89,14 +109,14 @@ final class ImageController extends Controller
         $filename = $image->image;
 
         if (! file_exists(getcwd().'/files/img/'.$filename)) {
-            return redirect()->route('show_album', ['id' => $image->album_id])
+            return $this->redirector->route('show_album', ['id' => $image->album_id])
                 ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
 
         $image->downloads++;
         $image->save();
 
-        return response()->download(getcwd().'/files/img/'.$filename);
+        return $this->responseFactory->download(getcwd().'/files/img/'.$filename);
     }
 
     /**
@@ -115,7 +135,7 @@ final class ImageController extends Controller
         abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
         $image->delete();
 
-        return redirect()->route('albums.show', ['id' => $image->album_id])
+        return $this->redirector->route('albums.show', ['id' => $image->album_id])
             ->withSuccess('Image has successfully been deleted');
     }
 }

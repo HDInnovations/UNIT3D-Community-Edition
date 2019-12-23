@@ -13,6 +13,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Collection;
 use datetime;
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
@@ -154,7 +155,7 @@ trait TwoStep
             'remaining' => $remaining,
         ];
 
-        return collect($data);
+        return new Collection($data);
     }
 
     /**

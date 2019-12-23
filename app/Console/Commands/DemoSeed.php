@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use Exception;
 use App\Models\Torrent;
 use App\Models\User;
@@ -35,15 +36,20 @@ final class DemoSeed extends Command
      * @var string
      */
     protected string $description = 'Seeds Fake Data For Demonstration Or Testing Purposes';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Repository $configRepository)
     {
         parent::__construct();
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -119,7 +125,7 @@ final class DemoSeed extends Command
         // we delay between api calls to reduce throttling
         usleep(500_000);
 
-        $key = config('api-keys.omdb');
+        $key = $this->configRepository->get('api-keys.omdb');
 
         $url = 'http://www.omdbapi.com/?apikey='.$key.'&i='.$id.'&r=json&plot=full';
 

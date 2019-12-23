@@ -13,6 +13,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -31,6 +32,10 @@ final class ActivateUser extends Mailable
      * @var string
      */
     public string $code;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * ActivateUser constructor.
@@ -38,15 +43,16 @@ final class ActivateUser extends Mailable
      * @param User   $user
      * @param string $code
      */
-    public function __construct(User $user, string $code)
+    public function __construct(User $user, string $code, Repository $configRepository)
     {
         $this->user = $user;
         $this->code = $code;
+        $this->configRepository = $configRepository;
     }
 
     public function build(): self
     {
         return $this->markdown('emails.activate')
-            ->subject('Activation Required '.config('other.title'));
+            ->subject('Activation Required '.$this->configRepository->get('other.title'));
     }
 }

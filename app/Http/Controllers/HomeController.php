@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Contracts\View\Factory;
 use App\Models\Article;
 use App\Models\Bookmark;
@@ -32,6 +33,19 @@ use Illuminate\Support\Facades\DB;
 
 final class HomeController extends Controller
 {
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(DatabaseManager $databaseManager, Factory $viewFactory)
+    {
+        $this->databaseManager = $databaseManager;
+        $this->viewFactory = $viewFactory;
+    }
     /**
      * Display Home Page.
      *
@@ -113,7 +127,7 @@ final class HomeController extends Controller
 
         // Top Uploaders Block
         $uploaders = cache()->remember('top_uploaders', $expiresAt, fn() => Torrent::with('user')
-            ->select(DB::raw('user_id, count(*) as value'))
+            ->select($this->databaseManager->raw('user_id, count(*) as value'))
             ->groupBy('user_id')
             ->latest('value')
             ->take(10)
@@ -121,7 +135,7 @@ final class HomeController extends Controller
 
         $past_uploaders = cache()->remember('month_uploaders', $expiresAt, fn() => Torrent::with('user')
             ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
-            ->select(DB::raw('user_id, count(*) as value'))
+            ->select($this->databaseManager->raw('user_id, count(*) as value'))
             ->groupBy('user_id')
             ->latest('value')
             ->take(10)
@@ -130,7 +144,7 @@ final class HomeController extends Controller
         $freeleech_tokens = FreeleechToken::where('user_id', $user->id)->get();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
-        return view('home.index', [
+        return $this->viewFactory->make('home.index', [
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
             'users'              => $users,

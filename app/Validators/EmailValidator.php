@@ -13,20 +13,29 @@
 
 namespace App\Validators;
 
+use Illuminate\Contracts\Config\Repository;
 final class EmailValidator
 {
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+    }
     public function validateEmailList($attribute, $value, $parameters, $validator): bool
     {
         $domain = substr(strrchr($value, '@'), 1);
         switch ($parameters[0]) {
             case 'block':
-                $domain_list = config('email-white-blacklist.block');
+                $domain_list = $this->configRepository->get('email-white-blacklist.block');
 
                 return ! in_array($domain, $domain_list);
 
                 break;
             case 'allow':
-                $domain_list = config('email-white-blacklist.allow');
+                $domain_list = $this->configRepository->get('email-white-blacklist.allow');
 
                 return in_array($domain, $domain_list);
 

@@ -13,6 +13,8 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Events\Dispatcher;
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Group;
 use App\Models\User;
@@ -34,6 +36,20 @@ final class AutoSoftDeleteDisabledUsers extends Command
      * @var string
      */
     protected string $description = 'User account must be In disabled group for at least x days';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $eventDispatcher;
+    public function __construct(Repository $configRepository, Dispatcher $eventDispatcher)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+        $this->eventDispatcher = $eventDispatcher;
+    }
 
     /**
      * Execute the console command.
@@ -42,18 +58,18 @@ final class AutoSoftDeleteDisabledUsers extends Command
      */
     public function handle(): void
     {
-        if (config('pruning.user_pruning') == true) {
+        if ($this->configRepository->get('pruning.user_pruning') == true) {
             $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
             $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
             $users = User::where('group_id', '=', $disabled_group[0])
-                ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
+                ->where('disabled_at', '<', $current->copy()->subDays($this->configRepository->get('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
             foreach ($users as $user) {
                 // Send Email
-                dispatch(new SendDeleteUserMail($user));
+                $this->eventDispatcher->dispatch(new SendDeleteUserMail($user));
 
                 $user->can_upload = 0;
                 $user->can_download = 0;

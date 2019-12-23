@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -25,6 +26,19 @@ use Illuminate\Support\Str;
 final class ForumController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All Forums.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -33,7 +47,7 @@ final class ForumController extends Controller
     {
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
-        return view('Staff.forum.index', ['categories' => $categories]);
+        return $this->viewFactory->make('Staff.forum.index', ['categories' => $categories]);
     }
 
     /**
@@ -46,7 +60,7 @@ final class ForumController extends Controller
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
+        return $this->viewFactory->make('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
     }
 
     /**
@@ -90,7 +104,7 @@ final class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff.forums.index')
+        return $this->redirector->route('staff.forums.index')
             ->withSuccess('Forum has been created successfully');
     }
 
@@ -107,7 +121,7 @@ final class ForumController extends Controller
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return view('Staff.forum.edit', [
+        return $this->viewFactory->make('Staff.forum.edit', [
             'categories' => $categories,
             'groups'     => $groups,
             'forum'      => $forum,
@@ -156,7 +170,7 @@ final class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff.forums.index')
+        return $this->redirector->route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
     }
 
@@ -215,7 +229,7 @@ final class ForumController extends Controller
             $forum->delete();
         }
 
-        return redirect()->route('staff.forums.index')
+        return $this->redirector->route('staff.forums.index')
             ->withSuccess('Forum has been deleted successfully');
     }
 }

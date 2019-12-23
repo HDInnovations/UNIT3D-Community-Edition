@@ -13,13 +13,29 @@
 
 namespace App\Helpers;
 
+use Illuminate\Session\SessionManager;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 use Exception;
-use Illuminate\Support\Facades\Crypt;
+use Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 
 final class HiddenCaptcha
 {
+    /**
+     * @var \Illuminate\Session\SessionManager
+     */
+    private $sessionManager;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(SessionManager $sessionManager, Factory $viewFactory)
+    {
+        $this->sessionManager = $sessionManager;
+        $this->viewFactory = $viewFactory;
+    }
     /**
      * Set the hidden captcha tags to put in your form.
      *
@@ -27,7 +43,7 @@ final class HiddenCaptcha
      *
      * @return string
      */
-    public static function render(string $mustBeEmptyField = '_username'): string
+    public static function render(string $mustBeEmptyField = '_username', Request $request): string
     {
         $ts = time();
         $random = Str::random(16);
@@ -35,9 +51,9 @@ final class HiddenCaptcha
         // Generate the token
         $token = [
             'timestamp'         => $ts,
-            'session_id'        => session()->getId(),
-            'ip'                => request()->ip(),
-            'user_agent'        => request()->header('User-Agent'),
+            'session_id'        => $this->sessionManager->getId(),
+            'ip'                => $request->ip(),
+            'user_agent'        => $request->header('User-Agent'),
             'random_field_name' => $random,
             'must_be_empty'     => $mustBeEmptyField,
         ];
@@ -45,7 +61,7 @@ final class HiddenCaptcha
         // Encrypt the token
         $token = Crypt::encrypt(serialize($token));
 
-        return (string) view('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
+        return (string) $this->viewFactory->make('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
     }
 
     /**
@@ -98,7 +114,7 @@ final class HiddenCaptcha
      * @param string $captcha
      * @return bool|mixed[]
      */
-    private static function getToken(string $captcha)
+    private static function getToken(string $captcha, Request $request)
     {
         // Get the token values
         try {
@@ -118,9 +134,9 @@ final class HiddenCaptcha
         if (empty($token['session_id']) ||
             empty($token['ip']) ||
             empty($token['user_agent']) ||
-            $token['session_id'] !== session()->getId() ||
-            $token['ip'] !== request()->ip() ||
-            $token['user_agent'] !== request()->header('User-Agent')
+            $token['session_id'] !== $this->sessionManager->getId() ||
+            $token['ip'] !== $request->ip() ||
+            $token['user_agent'] !== $request->header('User-Agent')
         ) {
             return false;
         }

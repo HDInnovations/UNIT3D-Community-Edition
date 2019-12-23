@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Mail\Mailer;
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Mail\Contact;
@@ -23,13 +25,31 @@ use Illuminate\Support\Facades\Mail;
 final class ContactController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Mailer $mailer, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->mailer = $mailer;
+        $this->redirector = $redirector;
+    }
+    /**
      * Contact Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(): Factory
     {
-        return view('contact.index');
+        return $this->viewFactory->make('contact.index');
     }
 
     /**
@@ -45,9 +65,9 @@ final class ContactController extends Controller
         $user = User::where('id', '=', 3)->first();
 
         $input = $request->all();
-        Mail::to($user->email, $user->username)->send(new Contact($input));
+        $this->mailer->to($user->email, $user->username)->send(new Contact($input));
 
-        return redirect()->route('home.index')
+        return $this->redirector->route('home.index')
             ->withSuccess('Your Message Was Successfully Sent');
     }
 }

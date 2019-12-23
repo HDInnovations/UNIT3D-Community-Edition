@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Models\PrivateMessage;
@@ -23,6 +24,19 @@ use Illuminate\Http\Request;
 
 final class WarningController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
     /**
      * Show A Users Warnings.
      *
@@ -43,7 +57,7 @@ final class WarningController extends Controller
         $softDeletedWarnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
         $softDeletedWarningCount = Warning::where('user_id', '=', $user->id)->onlyTrashed()->count();
 
-        return view('user.warninglog', [
+        return $this->viewFactory->make('user.warninglog', [
             'warnings'                => $warnings,
             'warningcount'            => $warningcount,
             'softDeletedWarnings'     => $softDeletedWarnings,
@@ -77,7 +91,7 @@ final class WarningController extends Controller
         $pm->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $pm->save();
 
-        return redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return $this->redirector->route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Deactivated');
     }
 
@@ -111,7 +125,7 @@ final class WarningController extends Controller
         $pm->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $pm->save();
 
-        return redirect()->route('warnings.show', ['username' => $user->username])
+        return $this->redirector->route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deactivated');
     }
 
@@ -143,7 +157,7 @@ final class WarningController extends Controller
         $warning->save();
         $warning->delete();
 
-        return redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return $this->redirector->route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Deleted');
     }
 
@@ -177,7 +191,7 @@ final class WarningController extends Controller
         $pm->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $pm->save();
 
-        return redirect()->route('warnings.show', ['username' => $user->username])
+        return $this->redirector->route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deleted');
     }
 
@@ -197,7 +211,7 @@ final class WarningController extends Controller
         $warning = Warning::withTrashed()->findOrFail($id);
         $warning->restore();
 
-        return redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return $this->redirector->route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Restored');
     }
 }

@@ -13,6 +13,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,15 @@ final class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected string $namespace = 'App\Http\Controllers';
+    /**
+     * @var \Illuminate\Routing\Router
+     */
+    private $router;
+    public function __construct(Router $router)
+    {
+        $this->router = $router;
+        parent::__construct();
+    }
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -55,7 +65,7 @@ final class RouteServiceProvider extends ServiceProvider
 
     protected function mapVueApiRoutes(): void
     {
-        Route::prefix('api')
+        $this->router->prefix('api')
             ->middleware(['web', 'auth'])
             ->namespace($this->namespace)
             ->group(base_path('routes/vue.php'));
@@ -70,7 +80,7 @@ final class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes(): void
     {
-        Route::middleware('web')
+        $this->router->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
     }
@@ -84,7 +94,7 @@ final class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(): void
     {
-        Route::prefix('api')
+        $this->router->prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));

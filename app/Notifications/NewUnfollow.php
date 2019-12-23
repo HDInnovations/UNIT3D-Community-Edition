@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,6 +37,10 @@ final class NewUnfollow extends Notification implements ShouldQueue
      * @var \App\Models\User
      */
     public User $target;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -44,11 +49,12 @@ final class NewUnfollow extends Notification implements ShouldQueue
      * @param  User  $sender
      * @param  User  $target
      */
-    public function __construct(string $type, User $sender, User $target)
+    public function __construct(string $type, User $sender, User $target, Repository $configRepository)
     {
         $this->type = $type;
         $this->sender = $sender;
         $this->target = $target;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -70,7 +76,7 @@ final class NewUnfollow extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->sender->username.' Has Unfollowed You!',

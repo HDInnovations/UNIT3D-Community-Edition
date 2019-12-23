@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Broadcasting\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
@@ -28,15 +30,25 @@ final class FlushController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\Broadcasting\Factory
+     */
+    private $broadcastFactory;
 
     /**
      * ChatController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Redirector $redirector, Factory $broadcastFactory)
     {
         $this->chat = $chat;
+        $this->redirector = $redirector;
+        $this->broadcastFactory = $broadcastFactory;
     }
 
     /**
@@ -58,7 +70,7 @@ final class FlushController extends Controller
             $peer->delete();
         }
 
-        return redirect()->route('staff.dashboard.index')
+        return $this->redirector->route('staff.dashboard.index')
             ->withSuccess('Ghost Peers Have Been Flushed');
     }
 
@@ -70,7 +82,7 @@ final class FlushController extends Controller
     public function chat(): RedirectResponse
     {
         foreach (Message::all() as $message) {
-            broadcast(new MessageDeleted($message));
+            $this->broadcastFactory->event(new MessageDeleted($message));
             $message->delete();
         }
 
@@ -78,7 +90,7 @@ final class FlushController extends Controller
             'Chatbox Has Been Flushed! :broom:'
         );
 
-        return redirect()->route('staff.dashboard.index')
+        return $this->redirector->route('staff.dashboard.index')
             ->withSuccess('Chatbox Has Been Flushed');
     }
 }

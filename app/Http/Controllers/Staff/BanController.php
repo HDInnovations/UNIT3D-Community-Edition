@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Mail\Mailer;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Mail\BanUser;
@@ -27,6 +29,24 @@ use Illuminate\Support\Facades\Mail;
 final class BanController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
+    public function __construct(Factory $viewFactory, Redirector $redirector, Mailer $mailer)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+        $this->mailer = $mailer;
+    }
+    /**
      * Display All Bans.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -35,7 +55,7 @@ final class BanController extends Controller
     {
         $bans = Ban::latest()->paginate(25);
 
-        return view('Staff.ban.index', ['bans' => $bans]);
+        return $this->viewFactory->make('Staff.ban.index', ['bans' => $bans]);
     }
 
     /**
@@ -71,16 +91,16 @@ final class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $user->save();
             $ban->save();
 
             // Send Email
-            Mail::to($user->email)->send(new BanUser($user->email, $ban));
+            $this->mailer->to($user->email)->send(new BanUser($user->email, $ban));
 
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withSuccess('User Is Now Banned!');
         }
     }
@@ -119,16 +139,16 @@ final class BanController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $user->save();
             $ban->save();
 
             // Send Email
-            Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
+            $this->mailer->to($user->email)->send(new UnbanUser($user->email, $ban));
 
-            return redirect()->route('users.show', ['username' => $user->username])
+            return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withSuccess('User Is Now Relieved Of His Ban!');
         }
     }

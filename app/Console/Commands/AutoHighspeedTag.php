@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Database\DatabaseManager;
 use App\Models\Peer;
 use App\Models\Seedbox;
 use App\Models\Torrent;
@@ -34,6 +35,15 @@ final class AutoHighspeedTag extends Command
      * @var string
      */
     protected string $description = 'Updates Torrents Highspeed Tag Based On Registered Seedboxes.';
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    public function __construct(DatabaseManager $databaseManager)
+    {
+        $this->databaseManager = $databaseManager;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -42,7 +52,7 @@ final class AutoHighspeedTag extends Command
      */
     public function handle(): void
     {
-        DB::table('torrents')->update(['highspeed' => 0]);
+        $this->databaseManager->table('torrents')->update(['highspeed' => 0]);
 
         $seedbox_users = Seedbox::select(['user_id'])->get()->toArray();
 

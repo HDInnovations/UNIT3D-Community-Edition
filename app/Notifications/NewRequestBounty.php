@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\TorrentRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,6 +39,10 @@ final class NewRequestBounty extends Notification implements ShouldQueue
     public TorrentRequest $tr;
 
     public $amount;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -47,12 +52,13 @@ final class NewRequestBounty extends Notification implements ShouldQueue
      * @param $amount
      * @param  TorrentRequest  $tr
      */
-    public function __construct(string $type, string $sender, $amount, TorrentRequest $tr)
+    public function __construct(string $type, string $sender, $amount, TorrentRequest $tr, Repository $configRepository)
     {
         $this->type = $type;
         $this->sender = $sender;
         $this->tr = $tr;
         $this->amount = $amount;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -74,7 +80,7 @@ final class NewRequestBounty extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->sender.' Has Added A Bounty Of '.$this->amount.' To A Requested Torrent',

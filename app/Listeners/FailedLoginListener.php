@@ -13,6 +13,7 @@
 
 namespace App\Listeners;
 
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\FailedLoginAttempt;
 use App\Notifications\FailedLogin;
@@ -20,6 +21,14 @@ use Illuminate\Support\Facades\Request;
 
 final class FailedLoginListener
 {
+    /**
+     * @var \Illuminate\Http\Request
+     */
+    private $request;
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
     /**
      * Handle the event.
      *
@@ -30,13 +39,13 @@ final class FailedLoginListener
     {
         FailedLoginAttempt::record(
             $event->user,
-            Request::input('username'),
-            Request::getClientIp()
+            $this->request->input('username'),
+            $this->request->getClientIp()
         );
 
         if (isset($event->user) && is_a($event->user, Model::class)) {
             $event->user->notify(new FailedLogin(
-                Request::getClientIp()
+                $this->request->getClientIp()
             ));
         }
     }

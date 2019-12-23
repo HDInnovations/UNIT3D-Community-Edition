@@ -13,6 +13,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Contracts\Config\Repository;
 final class TorrentTools
 {
     /**
@@ -26,6 +27,14 @@ final class TorrentTools
      * @var mixed[]
      */
     public static array $decodedTorrent = [];
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+    }
 
     /**
      * Moves and decodes the torrent.
@@ -38,13 +47,13 @@ final class TorrentTools
         // The PID will be set if an user downloads the torrent, but for
         // security purposes it's better to overwrite the user-provided
         // announce URL.
-        $announce = config('app.url');
+        $announce = $this->configRepository->get('app.url');
         $announce .= '/announce/PID';
         $result['announce'] = $announce;
-        $result['info']['source'] = config('torrent.source');
+        $result['info']['source'] = $this->configRepository->get('torrent.source');
         $result['info']['private'] = 1;
-        $created_by = config('torrent.created_by', null);
-        $created_by_append = config('torrent.created_by_append', false);
+        $created_by = $this->configRepository->get('torrent.created_by', null);
+        $created_by_append = $this->configRepository->get('torrent.created_by_append', false);
         if ($created_by !== null) {
             if ($created_by_append && array_key_exists('created by', $result)) {
                 $c = $result['created by'];
@@ -54,7 +63,7 @@ final class TorrentTools
             }
             $result['created by'] = $created_by;
         }
-        $comment = config('torrent.comment', null);
+        $comment = $this->configRepository->get('torrent.comment', null);
         if ($comment !== null) {
             $result['comment'] = $comment;
         }

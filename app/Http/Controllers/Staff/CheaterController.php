@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\History;
@@ -20,6 +21,19 @@ use Illuminate\Support\Facades\DB;
 
 final class CheaterController extends Controller
 {
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(DatabaseManager $databaseManager, Factory $viewFactory)
+    {
+        $this->databaseManager = $databaseManager;
+        $this->viewFactory = $viewFactory;
+    }
     /**
      * Possible Ghost Leech Cheaters.
      *
@@ -30,7 +44,7 @@ final class CheaterController extends Controller
         $cheaters = History::with('user')
             ->select(['*'])
             ->join(
-                DB::raw('(SELECT MAX(id) AS id FROM history GROUP BY history.user_id) AS unique_history'),
+                $this->databaseManager->raw('(SELECT MAX(id) AS id FROM history GROUP BY history.user_id) AS unique_history'),
                 function ($join) {
                     $join->on('history.id', '=', 'unique_history.id');
                 }
@@ -44,6 +58,6 @@ final class CheaterController extends Controller
             ->latest()
             ->paginate(25);
 
-        return view('Staff.cheater.index', ['cheaters' => $cheaters]);
+        return $this->viewFactory->make('Staff.cheater.index', ['cheaters' => $cheaters]);
     }
 }

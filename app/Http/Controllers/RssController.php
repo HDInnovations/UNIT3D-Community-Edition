@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
 use App\Models\Category;
@@ -31,15 +33,30 @@ final class RssController extends Controller
      * @var TorrentFacetedRepository
      */
     private TorrentFacetedRepository $torrent_faceted;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
 
     /**
      * RssController Constructor.
      *
      * @param TorrentFacetedRepository $torrent_faceted
      */
-    public function __construct(TorrentFacetedRepository $torrent_faceted)
+    public function __construct(TorrentFacetedRepository $torrent_faceted, Factory $viewFactory, Redirector $redirector, ResponseFactory $responseFactory)
     {
         $this->torrent_faceted = $torrent_faceted;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
@@ -57,7 +74,7 @@ final class RssController extends Controller
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
         $private_rss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
-        return view('rss.index', [
+        return $this->viewFactory->make('rss.index', [
             'hash' => $hash,
             'public_rss' => $public_rss,
             'private_rss' => $private_rss,
@@ -76,7 +93,7 @@ final class RssController extends Controller
         $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
 
-        return view('rss.create', [
+        return $this->viewFactory->make('rss.create', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -127,11 +144,11 @@ final class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('rss.create')
+            return $this->redirector->route('rss.create')
                 ->withErrors($error);
         }
 
-        return redirect()->route('rss.index', ['hash' => 'private'])
+        return $this->redirector->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -292,7 +309,7 @@ final class RssController extends Controller
 
         $torrents = $torrent->latest()->take(50)->get();
 
-        return response()->view('rss.show', ['torrents' => $torrents, 'rsskey' => $user->rsskey])->header('Content-Type', 'text/xml');
+        return $this->responseFactory->view('rss.show', ['torrents' => $torrents, 'rsskey' => $user->rsskey])->header('Content-Type', 'text/xml');
     }
 
     /**
@@ -308,7 +325,7 @@ final class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
-        return view('rss.edit', [
+        return $this->viewFactory->make('rss.edit', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -358,11 +375,11 @@ final class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('rss.edit', ['id' => $id])
+            return $this->redirector->route('rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('rss.index', ['hash' => 'private'])
+        return $this->redirector->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -377,7 +394,7 @@ final class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();
 
-        return redirect()->route('rss.index', ['hash' => 'private'])
+        return $this->redirector->route('rss.index', ['hash' => 'private'])
             ->withSuccess('RSS Feed Deleted!');
     }
 }

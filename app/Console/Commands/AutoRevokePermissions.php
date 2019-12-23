@@ -13,6 +13,8 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Warning;
@@ -34,6 +36,20 @@ final class AutoRevokePermissions extends Command
      * @var string
      */
     protected string $description = 'Revokes Certain Permissions Of Users Who Have Above X Active Warnings';
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(DatabaseManager $databaseManager, Repository $configRepository)
+    {
+        $this->databaseManager = $databaseManager;
+        parent::__construct();
+        $this->configRepository = $configRepository;
+    }
 
     /**
      * Execute the console command.
@@ -51,7 +67,7 @@ final class AutoRevokePermissions extends Command
         User::whereNotIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '1', 'can_request' => '1']);
         User::whereIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '0', 'can_request' => '0']);
 
-        $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
+        $warning = Warning::with('warneduser')->select($this->databaseManager->raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', $this->configRepository->get('hitrun.revoke'))->get();
 
         foreach ($warning as $deny) {
             if ($deny->warneduser->can_download == 1 && $deny->warneduser->can_request == 1) {

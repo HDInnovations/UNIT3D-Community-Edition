@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Playlist;
@@ -21,7 +24,7 @@ use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\MovieScrapper;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use Image;
 
 final class PlaylistController extends Controller
 {
@@ -29,15 +32,35 @@ final class PlaylistController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * PlaylistController Constructor.
      *
      * @param ChatRepository           $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Factory $viewFactory, Guard $guard, Redirector $redirector, Repository $configRepository)
     {
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->guard = $guard;
+        $this->redirector = $redirector;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -49,7 +72,7 @@ final class PlaylistController extends Controller
     {
         $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
 
-        return view('playlist.index', ['playlists' => $playlists]);
+        return $this->viewFactory->make('playlist.index', ['playlists' => $playlists]);
     }
 
     /**
@@ -59,7 +82,7 @@ final class PlaylistController extends Controller
      */
     public function create(): Factory
     {
-        return view('playlist.create');
+        return $this->viewFactory->make('playlist.create');
     }
 
     /**
@@ -70,7 +93,7 @@ final class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->guard->user();
 
         $playlist = new Playlist();
         $playlist->user_id = $user->id;
@@ -97,21 +120,21 @@ final class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('playlists.create')
+            return $this->redirector->route('playlists.create')
                 ->withInput()
                 ->withErrors($v->errors());
         } else {
             $playlist->save();
 
             // Announce To Shoutbox
-            $appurl = config('app.url');
+            $appurl = $this->configRepository->get('app.url');
             if ($playlist->is_private != 1) {
                 $this->chat->systemMessage(
                     sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
                 );
             }
 
-            return redirect()->route('playlists.show', ['id' => $playlist->id])
+            return $this->redirector->route('playlists.show', ['id' => $playlist->id])
                 ->withSuccess('Your Playlist Was Created Successfully!');
         }
     }
@@ -136,7 +159,7 @@ final class PlaylistController extends Controller
             $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
         }
         if (isset($random) && isset($torrent)) {
-            $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $client = new MovieScrapper($this->configRepository->get('api-keys.tmdb'), $this->configRepository->get('api-keys.tvdb'), $this->configRepository->get('api-keys.omdb'));
             if ($torrent->category_id == 2) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
                     $meta = $client->scrape('tv', null, $torrent->tmdb);
@@ -152,7 +175,7 @@ final class PlaylistController extends Controller
 
         $torrents = PlaylistTorrent::with(['torrent'])->where('playlist_id', '=', $playlist->id)->get()->sortBy('name');
 
-        return view('playlist.show', ['playlist' => $playlist, 'meta' => $meta, 'torrents' => $torrents]);
+        return $this->viewFactory->make('playlist.show', ['playlist' => $playlist, 'meta' => $meta, 'torrents' => $torrents]);
     }
 
     /**
@@ -164,12 +187,12 @@ final class PlaylistController extends Controller
      */
     public function edit($id): Factory
     {
-        $user = auth()->user();
+        $user = $this->guard->user();
         $playlist = Playlist::findOrFail($id);
 
         abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
 
-        return view('playlist.edit', ['playlist' => $playlist]);
+        return $this->viewFactory->make('playlist.edit', ['playlist' => $playlist]);
     }
 
     /**
@@ -181,7 +204,7 @@ final class PlaylistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $this->guard->user();
         $playlist = Playlist::findOrFail($id);
 
         abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
@@ -208,13 +231,13 @@ final class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('playlists.edit', ['id' => $playlist->id])
+            return $this->redirector->route('playlists.edit', ['id' => $playlist->id])
                 ->withInput()
                 ->withErrors($v->errors());
         } else {
             $playlist->save();
 
-            return redirect()->route('playlists.show', ['id' => $playlist->id])
+            return $this->redirector->route('playlists.show', ['id' => $playlist->id])
                 ->withSuccess('Your Playlist Has Successfully Been Updated!');
         }
     }
@@ -228,14 +251,14 @@ final class PlaylistController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        $user = auth()->user();
+        $user = $this->guard->user();
         $playlist = Playlist::findOrFail($id);
 
         abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
 
         $playlist->delete();
 
-        return redirect()->route('playlists.index')
+        return $this->redirector->route('playlists.index')
             ->withSuccess('Playlist Deleted!');
     }
 }

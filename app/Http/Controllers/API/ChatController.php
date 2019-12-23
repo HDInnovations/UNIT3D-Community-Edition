@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Contracts\Auth\Factory;
@@ -46,17 +47,27 @@ final class ChatController extends Controller
      * @var AuthManager
      */
     private AuthManager $auth;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $eventDispatcher;
 
-    public function __construct(ChatRepository $chat, Factory $auth)
+    public function __construct(ChatRepository $chat, Factory $auth, ResponseFactory $responseFactory, Dispatcher $eventDispatcher)
     {
         $this->chat = $chat;
         $this->auth = $auth;
+        $this->responseFactory = $responseFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /* STATUSES */
     public function statuses(): ResponseFactory
     {
-        return response($this->chat->statuses());
+        return $this->responseFactory->make($this->chat->statuses());
     }
 
     /* ECHOES */
@@ -104,7 +115,7 @@ final class ChatController extends Controller
 
     public function config(): ResponseFactory
     {
-        return response($this->chat->config());
+        return $this->responseFactory->make($this->chat->config());
     }
 
     /* MESSAGES */
@@ -144,16 +155,16 @@ final class ChatController extends Controller
         $save = $request->get('save');
 
         if ($this->auth->user()->id !== $user_id) {
-            return response('error', 401);
+            return $this->responseFactory->make('error', 401);
         }
 
         if ($this->auth->user()->can_chat === 0) {
-            return response('error', 401);
+            return $this->responseFactory->make('error', 401);
         }
 
         // Temp Fix For HTMLPurifier
         if ($message === '<') {
-            return response('error', 401);
+            return $this->responseFactory->make('error', 401);
         }
 
         $bot_dirty = 0;
@@ -278,12 +289,12 @@ final class ChatController extends Controller
             if ($sender_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-echoes'.$user_id, $sender_echoes, $expiresAt);
-                event(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
+                $this->eventDispatcher->fire(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
             }
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-echoes'.$receiver_id, $receiver_echoes, $expiresAt);
-                event(new Chatter('echo', $receiver_id, UserEchoResource::collection($receiver_echoes)));
+                $this->eventDispatcher->fire(new Chatter('echo', $receiver_id, UserEchoResource::collection($receiver_echoes)));
             }
 
             $sender_dirty = 0;
@@ -329,12 +340,12 @@ final class ChatController extends Controller
             if ($sender_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-audibles'.$user_id, $sender_audibles, $expiresAt);
-                event(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
+                $this->eventDispatcher->fire(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
             }
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-audibles'.$receiver_id, $receiver_audibles, $expiresAt);
-                event(new Chatter('audible', $receiver_id, UserAudibleResource::collection($receiver_audibles)));
+                $this->eventDispatcher->fire(new Chatter('audible', $receiver_id, UserAudibleResource::collection($receiver_audibles)));
             }
 
             $room_id = 0;
@@ -356,14 +367,14 @@ final class ChatController extends Controller
             return new ChatMessageResource($message);
         }
 
-        return response('success');
+        return $this->responseFactory->make('success');
     }
 
     public function deleteMessage($id): ResponseFactory
     {
         $this->chat->deleteMessage($id);
 
-        return response('success');
+        return $this->responseFactory->make('success');
     }
 
     public function deleteRoomEcho(Request $request, $user_id): ResponseFactory
@@ -383,9 +394,9 @@ final class ChatController extends Controller
 
         $expiresAt = Carbon::now()->addMinutes(60);
         cache()->put('user-echoes'.$user_id, $sender_echoes, $expiresAt);
-        event(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
+        $this->eventDispatcher->fire(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function deleteTargetEcho(Request $request, $user_id): ResponseFactory
@@ -398,9 +409,9 @@ final class ChatController extends Controller
 
         $expiresAt = Carbon::now()->addMinutes(60);
         cache()->put('user-echoes'.$user_id, $sender_echoes, $expiresAt);
-        event(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
+        $this->eventDispatcher->fire(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function deleteBotEcho(Request $request, $user_id): ResponseFactory
@@ -413,9 +424,9 @@ final class ChatController extends Controller
 
         $expiresAt = Carbon::now()->addMinutes(60);
         cache()->put('user-echoes'.$user_id, $sender_echoes, $expiresAt);
-        event(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
+        $this->eventDispatcher->fire(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function toggleRoomAudible(Request $request, $user_id): ResponseFactory
@@ -429,9 +440,9 @@ final class ChatController extends Controller
 
         $expiresAt = Carbon::now()->addMinutes(60);
         cache()->put('user-audibles'.$user_id, $sender_audibles, $expiresAt);
-        event(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
+        $this->eventDispatcher->fire(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function toggleTargetAudible(Request $request, $user_id): ResponseFactory
@@ -445,9 +456,9 @@ final class ChatController extends Controller
 
         $expiresAt = Carbon::now()->addMinutes(60);
         cache()->put('user-audibles'.$user_id, $sender_audibles, $expiresAt);
-        event(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
+        $this->eventDispatcher->fire(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function toggleBotAudible(Request $request, $user_id): ResponseFactory
@@ -461,9 +472,9 @@ final class ChatController extends Controller
 
         $expiresAt = Carbon::now()->addMinutes(60);
         cache()->put('user-audibles'.$user_id, $sender_audibles, $expiresAt);
-        event(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
+        $this->eventDispatcher->fire(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     /* USERS */
@@ -482,7 +493,7 @@ final class ChatController extends Controller
 
         $user->save();
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function updateUserRoom(Request $request, $id): ResponseFactory
@@ -517,23 +528,23 @@ final class ChatController extends Controller
         if ($sender_dirty == 1) {
             $expiresAt = Carbon::now()->addMinutes(60);
             cache()->put('user-echoes'.$id, $sender_echoes, $expiresAt);
-            event(new Chatter('echo', $id, UserEchoResource::collection($sender_echoes)));
+            $this->eventDispatcher->fire(new Chatter('echo', $id, UserEchoResource::collection($sender_echoes)));
         }
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function updateUserTarget($id): ResponseFactory
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 
     public function updateBotTarget($id): ResponseFactory
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
-        return response($user);
+        return $this->responseFactory->make($user);
     }
 }

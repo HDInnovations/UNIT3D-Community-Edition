@@ -12,6 +12,9 @@
 
 namespace App\Bots;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Events\Chatter;
 use App\Http\Resources\UserAudibleResource;
 use App\Http\Resources\UserEchoResource;
@@ -67,18 +70,33 @@ final class NerdBot
      * @var \Carbon\Carbon
      */
     private Carbon $current;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $eventDispatcher;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
 
     /**
      * NerdBot Constructor.
      * @param  ChatRepository  $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Repository $configRepository, Dispatcher $eventDispatcher, ResponseFactory $responseFactory)
     {
         $bot = Bot::where('id', '=', '2')->firstOrFail();
         $this->chat = $chat;
         $this->bot = $bot;
         $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();
+        $this->configRepository = $configRepository;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
@@ -115,7 +133,7 @@ final class NerdBot
             cache()->put('nerdbot-banker', $banker, $this->expiresAt);
         }
 
-        return sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username).config('other.title').'!';
+        return sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -131,7 +149,7 @@ final class NerdBot
             cache()->put('nerdbot-snatched', $snatched, $this->expiresAt);
         }
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name).config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -147,7 +165,7 @@ final class NerdBot
             cache()->put('nerdbot-leeched', $leeched, $this->expiresAt);
         }
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name).config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -163,7 +181,7 @@ final class NerdBot
             cache()->put('nerdbot-seeded', $seeded, $this->expiresAt);
         }
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name).config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -179,7 +197,7 @@ final class NerdBot
             cache()->put('nerdbot-fl', $fl, $this->expiresAt);
         }
 
-        return sprintf('There Are Currently %s Freeleech Torrents On ', $fl).config('other.title').'!';
+        return sprintf('There Are Currently %s Freeleech Torrents On ', $fl).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -195,7 +213,7 @@ final class NerdBot
             cache()->put('nerdbot-doubleup', $du, $this->expiresAt);
         }
 
-        return sprintf('There Are Currently %s Double Upload Torrents On ', $du).config('other.title').'!';
+        return sprintf('There Are Currently %s Double Upload Torrents On ', $du).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -211,7 +229,7 @@ final class NerdBot
             cache()->put('nerdbot-peers', $peers, $this->expiresAt);
         }
 
-        return sprintf('Currently There Are %s Peers On ', $peers).config('other.title').'!';
+        return sprintf('Currently There Are %s Peers On ', $peers).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -227,7 +245,7 @@ final class NerdBot
             cache()->put('nerdbot-bans', $bans, $this->expiresAt);
         }
 
-        return sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans).config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -243,7 +261,7 @@ final class NerdBot
             cache()->put('nerdbot-warnings', $warnings, $this->expiresAt);
         }
 
-        return sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings).config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -259,7 +277,7 @@ final class NerdBot
             cache()->put('nerdbot-uploads', $uploads, $this->expiresAt);
         }
 
-        return sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads).config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -275,7 +293,7 @@ final class NerdBot
             cache()->put('nerdbot-logins', $logins, $this->expiresAt);
         }
 
-        return sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins).config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -291,7 +309,7 @@ final class NerdBot
             cache()->put('nerdbot-users', $users, $this->expiresAt);
         }
 
-        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $users).config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $users).$this->configRepository->get('other.title').'!';
     }
 
     /**
@@ -329,7 +347,7 @@ final class NerdBot
      */
     public function getKing(): string
     {
-        return config('other.title').' Is King!';
+        return $this->configRepository->get('other.title').' Is King!';
     }
 
     /**
@@ -511,7 +529,7 @@ final class NerdBot
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-echoes'.$target->id, $receiver_echoes, $expiresAt);
-                event(new Chatter('echo', $target->id, UserEchoResource::collection($receiver_echoes)));
+                $this->eventDispatcher->fire(new Chatter('echo', $target->id, UserEchoResource::collection($receiver_echoes)));
             }
             $receiver_dirty = 0;
             $receiver_audibles = cache()->get('user-audibles'.$target->id);
@@ -535,7 +553,7 @@ final class NerdBot
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-audibles'.$target->id, $receiver_audibles, $expiresAt);
-                event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
+                $this->eventDispatcher->fire(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
             }
 
             if ($txt != '') {
@@ -544,21 +562,21 @@ final class NerdBot
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
 
-            return response('success');
+            return $this->responseFactory->make('success');
         } elseif ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
 
-            return response('success');
+            return $this->responseFactory->make('success');
         } elseif ($type == 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
-            return response('success');
+            return $this->responseFactory->make('success');
         }
 
         return true;

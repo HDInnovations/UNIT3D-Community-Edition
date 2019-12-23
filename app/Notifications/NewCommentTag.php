@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,6 +37,10 @@ final class NewCommentTag extends Notification implements ShouldQueue
      * @var \App\Models\Comment
      */
     public Comment $comment;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -44,11 +49,12 @@ final class NewCommentTag extends Notification implements ShouldQueue
      * @param  string  $tagger
      * @param  Comment  $comment
      */
-    public function __construct(string $type, string $tagger, Comment $comment)
+    public function __construct(string $type, string $tagger, Comment $comment, Repository $configRepository)
     {
         $this->type = $type;
         $this->comment = $comment;
         $this->tagger = $tagger;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -70,7 +76,7 @@ final class NewCommentTag extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         if ($this->type == 'torrent') {
             return [

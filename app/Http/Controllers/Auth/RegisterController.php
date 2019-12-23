@@ -13,6 +13,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
+use Illuminate\Translation\Translator;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Hashing\Hasher;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendActivationMail;
 use App\Models\Group;
@@ -34,15 +39,40 @@ final class RegisterController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Hashing\Hasher
+     */
+    private $hasher;
 
     /**
      * RegisterController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Repository $configRepository, Redirector $redirector, Translator $translator, Factory $viewFactory, Hasher $hasher)
     {
         $this->chat = $chat;
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
+        $this->translator = $translator;
+        $this->viewFactory = $viewFactory;
+        $this->hasher = $hasher;
     }
 
     /**
@@ -54,18 +84,18 @@ final class RegisterController extends Controller
     public function registrationForm($code = null)
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
-        if ($code === 'null' && config('other.invite-only') == 1 && config('other.application_signups') == true) {
-            return redirect()->route('application.create')
-                ->withInfo(trans('auth.allow-invite-appl'));
+        if ($code === 'null' && $this->configRepository->get('other.invite-only') == 1 && $this->configRepository->get('other.application_signups') == true) {
+            return $this->redirector->route('application.create')
+                ->withInfo($this->translator->trans('auth.allow-invite-appl'));
         }
 
         // Make sure open reg is off and invite code is not present
-        if ($code === 'null' && config('other.invite-only') == 1) {
-            return redirect()->route('login')
-                ->withWarning(trans('auth.allow-invite'));
+        if ($code === 'null' && $this->configRepository->get('other.invite-only') == 1) {
+            return $this->redirector->route('login')
+                ->withWarning($this->translator->trans('auth.allow-invite'));
         }
 
-        return view('auth.register', ['code' => $code]);
+        return $this->viewFactory->make('auth.register', ['code' => $code]);
     }
 
     /**
@@ -75,9 +105,9 @@ final class RegisterController extends Controller
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
-            return redirect()->route('registrationForm', ['code' => $code])
-                ->withErrors(trans('auth.invalid-key'));
+        if ($this->configRepository->get('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
+            return $this->redirector->route('registrationForm', ['code' => $code])
+                ->withErrors($this->translator->trans('auth.invalid-key'));
         }
 
         $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
@@ -85,42 +115,42 @@ final class RegisterController extends Controller
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
+        $user->password = $this->hasher->make($request->input('password'));
         $user->passkey = md5(uniqid().time().microtime());
         $user->rsskey = md5(uniqid().time().microtime().$user->password);
-        $user->uploaded = config('other.default_upload');
-        $user->downloaded = config('other.default_download');
-        $user->style = config('other.default_style', 0);
-        $user->locale = config('app.locale');
+        $user->uploaded = $this->configRepository->get('other.default_upload');
+        $user->downloaded = $this->configRepository->get('other.default_download');
+        $user->style = $this->configRepository->get('other.default_style', 0);
+        $user->locale = $this->configRepository->get('app.locale');
         $user->group_id = $validating_group[0];
 
-        if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
+        if ($this->configRepository->get('email-white-blacklist.enabled') === 'allow' && $this->configRepository->get('captcha.enabled') == true) {
             $v = validator($request->all(), [
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
                 'password'             => 'required|min:8',
                 'captcha' => 'hiddencaptcha',
             ]);
-        } elseif (config('email-white-blacklist.enabled') === 'allow') {
+        } elseif ($this->configRepository->get('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'    => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
                 'password' => 'required|min:8',
             ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block' && config('captcha.enabled') == true) {
+        } elseif ($this->configRepository->get('email-white-blacklist.enabled') === 'block' && $this->configRepository->get('captcha.enabled') == true) {
             $v = validator($request->all(), [
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users|email_list:block', // Blacklist
                 'password'             => 'required|min:8',
                 'captcha' => 'hiddencaptcha',
             ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
+        } elseif ($this->configRepository->get('email-white-blacklist.enabled') === 'block') {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'    => 'required|email|max:255|unique:users|email_list:block', // Blacklist
                 'password' => 'required|min:8',
             ]);
-        } elseif (config('captcha.enabled') == true) {
+        } elseif ($this->configRepository->get('captcha.enabled') == true) {
             $v = validator($request->all(), [
                 'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email'                => 'required|email|max:255|unique:users',
@@ -136,7 +166,7 @@ final class RegisterController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('registrationForm', ['code' => $code])
+            return $this->redirector->route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
         } else {
             $user->save();
@@ -159,7 +189,7 @@ final class RegisterController extends Controller
             }
 
             // Handle The Activation System
-            $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
+            $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), $this->configRepository->get('app.key'));
             $activation = new UserActivation();
             $activation->user_id = $user->id;
             $activation->token = $token;
@@ -170,13 +200,13 @@ final class RegisterController extends Controller
             $profile_url = hrefProfile($user);
 
             $welcomeArray = [
-                sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
+                sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).$this->configRepository->get('other.title').'! Hope you enjoy the community :rocket:',
                 sprintf('[url=%s]%s[/url], We\'ve been expecting you :space_invader:', $profile_url, $user->username),
                 sprintf('[url=%s]%s[/url] has arrived. Party\'s over. :cry:', $profile_url, $user->username),
                 sprintf('It\'s a bird! It\'s a plane! Nevermind, it\'s just [url=%s]%s[/url].', $profile_url, $user->username),
                 sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
                 sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
-                'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
+                'Welcome to '.$this->configRepository->get('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
             ];
             $selected = mt_rand(0, count($welcomeArray) - 1);
 
@@ -188,12 +218,12 @@ final class RegisterController extends Controller
             $pm = new PrivateMessage();
             $pm->sender_id = 1;
             $pm->receiver_id = $user->id;
-            $pm->subject = config('welcomepm.subject');
-            $pm->message = config('welcomepm.message');
+            $pm->subject = $this->configRepository->get('welcomepm.subject');
+            $pm->message = $this->configRepository->get('welcomepm.message');
             $pm->save();
 
-            return redirect()->route('login')
-                ->withSuccess(trans('auth.register-thanks'));
+            return $this->redirector->route('login')
+                ->withSuccess($this->translator->trans('auth.register-thanks'));
         }
     }
 }

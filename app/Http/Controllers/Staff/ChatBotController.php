@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -23,6 +24,19 @@ use Illuminate\Support\Str;
 final class ChatBotController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display a listing of the Bots resource.
      *
      * @param  string  $hash
@@ -32,7 +46,7 @@ final class ChatBotController extends Controller
     {
         $bots = Bot::orderBy('position', 'ASC')->get();
 
-        return view('Staff.chat.bot.index', [
+        return $this->viewFactory->make('Staff.chat.bot.index', [
             'bots' => $bots,
         ]);
     }
@@ -50,7 +64,7 @@ final class ChatBotController extends Controller
         $user = $request->user();
         $bot = Bot::findOrFail($id);
 
-        return view('Staff.chat.bot.edit', [
+        return $this->viewFactory->make('Staff.chat.bot.edit', [
             'user'           => $user,
             'bot'            => $bot,
         ]);
@@ -118,11 +132,11 @@ final class ChatBotController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('staff.bots.edit', ['id' => $id])
+            return $this->redirector->route('staff.bots.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('staff.bots.edit', ['id' => $id])
+        return $this->redirector->route('staff.bots.edit', ['id' => $id])
             ->withSuccess($success);
     }
 
@@ -137,7 +151,7 @@ final class ChatBotController extends Controller
         $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
         $bot->delete();
 
-        return redirect()->route('staff.bots.index')
+        return $this->redirector->route('staff.bots.index')
             ->withSuccess('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');
     }
 
@@ -153,7 +167,7 @@ final class ChatBotController extends Controller
         $bot->active = 0;
         $bot->save();
 
-        return redirect()->route('staff.bots.index')
+        return $this->redirector->route('staff.bots.index')
             ->withSuccess('The Bot Has Been Disabled');
     }
 
@@ -169,7 +183,7 @@ final class ChatBotController extends Controller
         $bot->active = 1;
         $bot->save();
 
-        return redirect()->route('staff.bots.index')
+        return $this->redirector->route('staff.bots.index')
             ->withSuccess('The Bot Has Been Enabled');
     }
 }

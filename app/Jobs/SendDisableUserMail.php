@@ -13,6 +13,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Mail\Mailer;
 use App\Mail\DisableUser;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -37,15 +38,20 @@ final class SendDisableUserMail implements ShouldQueue
      * @var int
      */
     public int $tries = 3;
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
 
     /**
      * ActivateUser constructor.
      *
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct(User $user, Mailer $mailer)
     {
         $this->user = $user;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -59,6 +65,6 @@ final class SendDisableUserMail implements ShouldQueue
             $this->delay(min(30 * $this->attempts(), 300));
         }
 
-        Mail::to($this->user)->send(new DisableUser($this->user));
+        $this->mailer->to($this->user)->send(new DisableUser($this->user));
     }
 }

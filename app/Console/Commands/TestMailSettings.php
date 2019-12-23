@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Mail\Mailer;
 use Exception;
 use App\Mail\TestEmail;
 use App\Models\User;
@@ -34,6 +35,15 @@ final class TestMailSettings extends Command
      * @var string
      */
     protected string $description = 'Send A Test Email To Owner Account Using The Current Mail Configuration';
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
+    public function __construct(Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -48,7 +58,7 @@ final class TestMailSettings extends Command
         sleep(5);
 
         try {
-            Mail::to($owner)->send(new TestEmail());
+            $this->mailer->to($owner)->send(new TestEmail());
         } catch (Exception $exception) {
             $this->error('Failed!');
             $this->alert('Email failed to send. Please review your mail configs in the .env file.');

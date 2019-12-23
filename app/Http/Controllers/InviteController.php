@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Routing\Redirector;
+use Illuminate\Mail\Mailer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Mail\InviteUser;
@@ -25,6 +28,29 @@ use Ramsey\Uuid\Uuid;
 
 final class InviteController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
+    public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Mailer $mailer)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
+        $this->redirector = $redirector;
+        $this->mailer = $mailer;
+    }
     /**
      * Invite Tree.
      *
@@ -41,7 +67,7 @@ final class InviteController extends Controller
 
         $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
 
-        return view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
+        return $this->viewFactory->make('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
 
     /**
@@ -55,20 +81,20 @@ final class InviteController extends Controller
     {
         $user = $request->user();
 
-        if (config('other.invite-only') == false) {
-            return redirect()->route('home.index')
+        if ($this->configRepository->get('other.invite-only') == false) {
+            return $this->redirector->route('home.index')
             ->withErrors('Invitations Are Disabled Due To Open Registration!');
         }
         if ($user->can_invite == 0) {
-            return redirect()->route('home.index')
+            return $this->redirector->route('home.index')
             ->withErrors('Your Invite Rights Have Been Revoked!');
         }
-        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
-            return redirect()->route('home.index')
+        if ($this->configRepository->get('other.invites_restriced') == true && ! in_array($user->group->name, $this->configRepository->get('other.invite_groups'))) {
+            return $this->redirector->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 
-        return view('user.invite', ['user' => $user, 'route' => 'invite']);
+        return $this->viewFactory->make('user.invite', ['user' => $user, 'route' => 'invite']);
     }
 
     /**
@@ -84,20 +110,20 @@ final class InviteController extends Controller
         $current = new Carbon();
         $user = $request->user();
 
-        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
-            return redirect()->route('home.index')
+        if ($this->configRepository->get('other.invites_restriced') == true && ! in_array($user->group->name, $this->configRepository->get('other.invite_groups'))) {
+            return $this->redirector->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
 
         if ($user->invites <= 0) {
-            return redirect()->route('invites.create')
+            return $this->redirector->route('invites.create')
                 ->withErrors('You do not have enough invites!');
         }
 
         $exist = Invite::where('email', '=', $request->input('email'))->first();
 
         if ($exist) {
-            return redirect()->route('invites.create')
+            return $this->redirector->route('invites.create')
                 ->withErrors('The email address your trying to send a invite to has already been sent one.');
         }
 
@@ -106,15 +132,15 @@ final class InviteController extends Controller
         $invite->user_id = $user->id;
         $invite->email = $request->input('email');
         $invite->code = $code;
-        $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+        $invite->expires_on = $current->copy()->addDays($this->configRepository->get('other.invite_expire'));
         $invite->custom = $request->input('message');
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        if ($this->configRepository->get('email-white-blacklist.enabled') === 'allow') {
             $v = validator($invite->toArray(), [
             'email'  => 'required|email|unique:users|email_list:allow', // Whitelist
             'custom' => 'required',
             ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
+        } elseif ($this->configRepository->get('email-white-blacklist.enabled') === 'block') {
             $v = validator($invite->toArray(), [
             'email'  => 'required|email|unique:users|email_list:block', // Blacklist
             'custom' => 'required',
@@ -127,16 +153,16 @@ final class InviteController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('invites.create')
+            return $this->redirector->route('invites.create')
                 ->withErrors($v->errors());
         } else {
-            Mail::to($request->input('email'))->send(new InviteUser($invite));
+            $this->mailer->to($request->input('email'))->send(new InviteUser($invite));
             $invite->save();
 
             --$user->invites;
             $user->save();
 
-            return redirect()->route('invites.create')
+            return $this->redirector->route('invites.create')
                 ->withSuccess('Invite was sent successfully!');
         }
     }
@@ -156,13 +182,13 @@ final class InviteController extends Controller
         abort_unless($invite->user_id === $user->id, 403);
 
         if ($invite->accepted_by !== null) {
-            return redirect()->route('invites.index', ['username' => $user->username])
+            return $this->redirector->route('invites.index', ['username' => $user->username])
                 ->withErrors('The invite you are trying to resend has already been used.');
         }
 
-        Mail::to($invite->email)->send(new InviteUser($invite));
+        $this->mailer->to($invite->email)->send(new InviteUser($invite));
 
-        return redirect()->route('invites.index', ['username' => $user->username])
+        return $this->redirector->route('invites.index', ['username' => $user->username])
             ->withSuccess('Invite was resent successfully!');
     }
 }

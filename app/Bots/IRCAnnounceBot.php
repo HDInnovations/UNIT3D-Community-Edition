@@ -13,6 +13,7 @@
 
 namespace App\Bots;
 
+use Illuminate\Contracts\Config\Repository;
 final class IRCAnnounceBot
 {
     /**
@@ -42,22 +43,27 @@ final class IRCAnnounceBot
     private $username = null;
 
     private bool $registered = false;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
-    public function __construct()
+    public function __construct(Repository $configRepository)
     {
-        $this->username = config('irc-bot.username');
-        $this->channels = config('irc-bot.channels');
-        $this->server = config('irc-bot.server');
-        $this->port = config('irc-bot.port');
-        $this->hostname = config('irc-bot.hostname');
-        $this->nickservpass = config('irc-bot.nickservpass');
-        $this->joinchannels = config('irc-bot.joinchannels');
+        $this->username = $this->configRepository->get('irc-bot.username');
+        $this->channels = $this->configRepository->get('irc-bot.channels');
+        $this->server = $this->configRepository->get('irc-bot.server');
+        $this->port = $this->configRepository->get('irc-bot.port');
+        $this->hostname = $this->configRepository->get('irc-bot.hostname');
+        $this->nickservpass = $this->configRepository->get('irc-bot.nickservpass');
+        $this->joinchannels = $this->configRepository->get('irc-bot.joinchannels');
         $this->socket = fsockopen($this->server, $this->port);
 
         $this->send_data(sprintf('NICK %s', $this->username));
         $this->send_data(sprintf('USER %s %s %s %s', $this->username, $this->hostname, $this->server, $this->username));
 
         $this->connect();
+        $this->configRepository = $configRepository;
     }
 
     public function __destruct()

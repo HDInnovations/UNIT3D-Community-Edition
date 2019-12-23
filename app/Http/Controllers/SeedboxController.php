@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Seedbox;
@@ -21,6 +22,19 @@ use Illuminate\Http\Request;
 
 final class SeedboxController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
     /**
      * Get A Users Registered Seedboxes.
      *
@@ -37,7 +51,7 @@ final class SeedboxController extends Controller
 
         $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
 
-        return view('seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
+        return $this->viewFactory->make('seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
     }
 
     /**
@@ -61,12 +75,12 @@ final class SeedboxController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('seedboxes.index', ['username' => $user->username])
+            return $this->redirector->route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
         } else {
             $seedbox->save();
 
-            return redirect()->route('seedboxes.index', ['username' => $user->username])
+            return $this->redirector->route('seedboxes.index', ['username' => $user->username])
                 ->withSuccess('Seedbox Has Been Successfully Added!');
         }
     }
@@ -88,7 +102,7 @@ final class SeedboxController extends Controller
 
         $seedbox->delete();
 
-        return redirect()->route('seedboxes.index', ['username' => $user->username])
+        return $this->redirector->route('seedboxes.index', ['username' => $user->username])
             ->withSuccess('Seedbox Has Been Successfully Deleted');
     }
 }

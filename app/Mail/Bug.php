@@ -13,6 +13,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -25,15 +26,20 @@ final class Bug extends Mailable
      * @var mixed[]
      */
     public array $input;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new message instance.
      *
      * @param  array  $input
      */
-    public function __construct(array $input)
+    public function __construct(array $input, Repository $configRepository)
     {
         $this->input = $input;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -44,7 +50,7 @@ final class Bug extends Mailable
     public function build(): self
     {
         return $this->markdown('emails.bug')
-            ->from($this->input['email'], config('other.title'))
+            ->from($this->input['email'], $this->configRepository->get('other.title'))
             ->subject('New Bug Report!');
     }
 }

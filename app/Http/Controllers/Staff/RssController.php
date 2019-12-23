@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -28,15 +29,25 @@ final class RssController extends Controller
      * @var TorrentFacetedRepository
      */
     private TorrentFacetedRepository $torrent_faceted;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * RssController Constructor.
      *
      * @param TorrentFacetedRepository $torrent_faceted
      */
-    public function __construct(TorrentFacetedRepository $torrent_faceted)
+    public function __construct(TorrentFacetedRepository $torrent_faceted, Factory $viewFactory, Redirector $redirector)
     {
         $this->torrent_faceted = $torrent_faceted;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -49,7 +60,7 @@ final class RssController extends Controller
     {
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
-        return view('Staff.rss.index', [
+        return $this->viewFactory->make('Staff.rss.index', [
             'hash' => $hash,
             'public_rss' => $public_rss,
         ]);
@@ -67,7 +78,7 @@ final class RssController extends Controller
         $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
 
-        return view('Staff.rss.create', [
+        return $this->viewFactory->make('Staff.rss.create', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -119,11 +130,11 @@ final class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('staff.rss.create')
+            return $this->redirector->route('staff.rss.create')
                 ->withErrors($error);
         }
 
-        return redirect()->route('staff.rss.index')
+        return $this->redirector->route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -140,7 +151,7 @@ final class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
-        return view('Staff.rss.edit', [
+        return $this->viewFactory->make('Staff.rss.edit', [
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
@@ -194,11 +205,11 @@ final class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('staff.rss.edit', ['id' => $id])
+            return $this->redirector->route('staff.rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('staff.rss.index')
+        return $this->redirector->route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -213,7 +224,7 @@ final class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
 
-        return redirect()->route('staff.rss.index')
+        return $this->redirector->route('staff.rss.index')
             ->withSuccess('RSS Feed Deleted!');
     }
 }

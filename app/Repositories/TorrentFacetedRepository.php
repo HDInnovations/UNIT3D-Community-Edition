@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Translation\Translator;
 use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Tag;
@@ -20,6 +21,14 @@ use App\Models\Type;
 
 final class TorrentFacetedRepository
 {
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
     /**
      * Return a collection of Category Name from storage.
      *
@@ -58,12 +67,12 @@ final class TorrentFacetedRepository
     public function sorting(): array
     {
         return [
-            'created_at'      => trans('torrent.date'),
-            'name'            => trans('torrent.name'),
-            'seeders'         => trans('torrent.seeders'),
-            'leechers'        => trans('torrent.leechers'),
-            'times_completed' => trans('torrent.completed-times'),
-            'size'            => trans('torrent.size'),
+            'created_at'      => $this->translator->trans('torrent.date'),
+            'name'            => $this->translator->trans('torrent.name'),
+            'seeders'         => $this->translator->trans('torrent.seeders'),
+            'leechers'        => $this->translator->trans('torrent.leechers'),
+            'times_completed' => $this->translator->trans('torrent.completed-times'),
+            'size'            => $this->translator->trans('torrent.size'),
         ];
     }
 
@@ -75,8 +84,8 @@ final class TorrentFacetedRepository
     public function direction(): array
     {
         return [
-            'desc' => trans('common.descending'),
-            'asc'  => trans('common.ascending'),
+            'desc' => $this->translator->trans('common.descending'),
+            'asc'  => $this->translator->trans('common.ascending'),
         ];
     }
 }

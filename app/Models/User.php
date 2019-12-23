@@ -13,6 +13,9 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Translation\Translator;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -216,6 +219,25 @@ final class User extends Authenticatable
         'last_login',
         'last_action',
     ];
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Repository $configRepository, Guard $guard, Translator $translator)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+        $this->guard = $guard;
+        $this->translator = $translator;
+    }
 
     /**
      * Belongs To A Group.
@@ -225,21 +247,21 @@ final class User extends Authenticatable
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class)->withDefault([
-            'color'  => config('user.group.defaults.color'),
-            'effect'  => config('user.group.defaults.effect'),
-            'icon'  => config('user.group.defaults.icon'),
-            'name'  => config('user.group.defaults.name'),
-            'slug'  => config('user.group.defaults.slug'),
-            'position' => config('user.group.defaults.position'),
-            'is_admin'  => config('user.group.defaults.is_admin'),
-            'is_freeleech'  => config('user.group.defaults.is_freeleech'),
-            'is_immune'  => config('user.group.defaults.is_immune'),
-            'is_incognito'  => config('user.group.defaults.is_incognito'),
-            'is_internal'  => config('user.group.defaults.is_internal'),
-            'is_modo'  => config('user.group.defaults.is_modo'),
-            'is_trusted'  => config('user.group.defaults.is_trusted'),
-            'can_upload'  => config('user.group.defaults.can_upload'),
-            'level' => config('user.group.defaults.level'),
+            'color'  => $this->configRepository->get('user.group.defaults.color'),
+            'effect'  => $this->configRepository->get('user.group.defaults.effect'),
+            'icon'  => $this->configRepository->get('user.group.defaults.icon'),
+            'name'  => $this->configRepository->get('user.group.defaults.name'),
+            'slug'  => $this->configRepository->get('user.group.defaults.slug'),
+            'position' => $this->configRepository->get('user.group.defaults.position'),
+            'is_admin'  => $this->configRepository->get('user.group.defaults.is_admin'),
+            'is_freeleech'  => $this->configRepository->get('user.group.defaults.is_freeleech'),
+            'is_immune'  => $this->configRepository->get('user.group.defaults.is_immune'),
+            'is_incognito'  => $this->configRepository->get('user.group.defaults.is_incognito'),
+            'is_internal'  => $this->configRepository->get('user.group.defaults.is_internal'),
+            'is_modo'  => $this->configRepository->get('user.group.defaults.is_modo'),
+            'is_trusted'  => $this->configRepository->get('user.group.defaults.is_trusted'),
+            'can_upload'  => $this->configRepository->get('user.group.defaults.can_upload'),
+            'level' => $this->configRepository->get('user.group.defaults.level'),
         ]);
     }
 
@@ -774,7 +796,7 @@ final class User extends Authenticatable
     public function isVisible(self $target, string $group = 'profile', bool $type = false): bool
     {
         $target_group = 'json_'.$group.'_groups';
-        $sender = auth()->user();
+        $sender = $this->guard->user();
         if ($sender->id == $target->id) {
             return true;
         }
@@ -809,7 +831,7 @@ final class User extends Authenticatable
     public function isAllowed(self $target, string $group = 'profile', bool $type = false): bool
     {
         $target_group = 'json_'.$group.'_groups';
-        $sender = auth()->user();
+        $sender = $this->guard->user();
         if ($sender->id == $target->id) {
             return true;
         }
@@ -934,7 +956,7 @@ final class User extends Authenticatable
     public function ratioAfterSizeString($size, $freeleech = false): string
     {
         if ($freeleech) {
-            return $this->getRatioString().' ('.trans('torrent.freeleech').')';
+            return $this->getRatioString().' ('.$this->translator->trans('torrent.freeleech').')';
         }
 
         $ratio = $this->ratioAfterSize($size);

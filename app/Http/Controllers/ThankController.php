@@ -13,12 +13,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
 final class ThankController extends Controller
 {
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Redirector $redirector)
+    {
+        $this->redirector = $redirector;
+    }
     /**
      * Store A New Thank.
      *
@@ -32,13 +41,13 @@ final class ThankController extends Controller
         $torrent = Torrent::findOrFail($id);
 
         if ($user->id === $torrent->user_id) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Thank Your Own Torrent!');
         }
 
         $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         if ($thank) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return $this->redirector->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Have Already Thanked On This Torrent!');
         }
 
@@ -52,7 +61,7 @@ final class ThankController extends Controller
             $torrent->notifyUploader('thank', $thank);
         }
 
-        return redirect()->route('torrent', ['id' => $torrent->id])
+        return $this->redirector->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Thank Was Successfully Applied!');
     }
 }

@@ -13,11 +13,38 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Routing\Redirector;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
 final class LanguageController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    /**
+     * @var \Illuminate\Contracts\Routing\UrlGenerator
+     */
+    private $urlGenerator;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Repository $configRepository, Guard $guard, UrlGenerator $urlGenerator, Redirector $redirector)
+    {
+        $this->configRepository = $configRepository;
+        $this->guard = $guard;
+        $this->urlGenerator = $urlGenerator;
+        $this->redirector = $redirector;
+    }
     /**
      * Set locale if it's allowed.
      *
@@ -28,11 +55,11 @@ final class LanguageController extends Controller
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
-            $locale = config('app.locale');
+            $locale = $this->configRepository->get('app.locale');
         }
 
-        if (auth()->check()) {
-            auth()->user()->setAttribute('locale', $locale)->save();
+        if ($this->guard->check()) {
+            $this->guard->user()->setAttribute('locale', $locale)->save();
         } else {
             $request->session()->put('locale', $locale);
         }
@@ -50,9 +77,9 @@ final class LanguageController extends Controller
     {
         $this->setLocale($locale, $request);
 
-        $url = config('language.url') ? url('/'.$locale) : url('/');
+        $url = $this->configRepository->get('language.url') ? $this->urlGenerator->to('/'.$locale) : $this->urlGenerator->to('/');
 
-        return redirect($url)
+        return $this->redirector->back($url)
             ->withSuccess('Language Changed!');
     }
 
@@ -69,7 +96,7 @@ final class LanguageController extends Controller
         $this->setLocale($locale, $request);
 
         $session = $request->session();
-        if (config('language.url')) {
+        if ($this->configRepository->get('language.url')) {
             $previous_url = substr(str_replace(env('APP_URL'), '', $session->previousUrl()), 7);
             if (strlen($previous_url) === 3) {
                 $previous_url = substr($previous_url, 3);
@@ -80,7 +107,7 @@ final class LanguageController extends Controller
             $session->setPreviousUrl($url);
         }
 
-        return redirect($session->previousUrl())
+        return $this->redirector->back($session->previousUrl())
             ->withSuccess('Language Changed!');
     }
 }

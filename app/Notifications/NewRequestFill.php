@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\TorrentRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,6 +37,10 @@ final class NewRequestFill extends Notification implements ShouldQueue
      * @var \App\Models\TorrentRequest
      */
     public TorrentRequest $tr;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -44,11 +49,12 @@ final class NewRequestFill extends Notification implements ShouldQueue
      * @param  string  $sender
      * @param  TorrentRequest  $tr
      */
-    public function __construct(string $type, string $sender, TorrentRequest $tr)
+    public function __construct(string $type, string $sender, TorrentRequest $tr, Repository $configRepository)
     {
         $this->type = $type;
         $this->sender = $sender;
         $this->tr = $tr;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -70,7 +76,7 @@ final class NewRequestFill extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->sender.' Has Filled One Of Your Torrent Requests',

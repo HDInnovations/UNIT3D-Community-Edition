@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -22,6 +23,19 @@ use Illuminate\Http\Request;
 final class AuditController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Display All Audits.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -30,7 +44,7 @@ final class AuditController extends Controller
     {
         $audits = Audit::with('user')->latest()->paginate(50);
 
-        return view('Staff.audit.index', ['audits' => $audits]);
+        return $this->viewFactory->make('Staff.audit.index', ['audits' => $audits]);
     }
 
     /**
@@ -49,7 +63,7 @@ final class AuditController extends Controller
         abort_unless($user->group->is_modo, 403);
         $audit->delete();
 
-        return redirect()->route('staff.audits.index')
+        return $this->redirector->route('staff.audits.index')
             ->withSuccess('Audit Record Has Successfully Been Deleted');
     }
 }

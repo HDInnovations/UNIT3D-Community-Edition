@@ -14,6 +14,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Notifications\NewBon;
@@ -40,6 +41,19 @@ use Illuminate\Http\Request;
 final class NotificationController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Factory $viewFactory, Redirector $redirector)
+    {
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
+    }
+    /**
      * Show All Notifications.
      *
      * @param \Illuminate\Http\Request $request
@@ -50,7 +64,7 @@ final class NotificationController extends Controller
     {
         $notifications = $request->user()->notifications()->paginate(25);
 
-        return view('notification.index', ['notifications' => $notifications]);
+        return $this->viewFactory->make('notification.index', ['notifications' => $notifications]);
     }
 
     /**
@@ -146,7 +160,7 @@ final class NotificationController extends Controller
 
         $notifications = $notification->paginate(25);
 
-        return view('notification.results', [
+        return $this->viewFactory->make('notification.results', [
             'user'            => $user,
             'notifications' => $notifications,
         ])->render();
@@ -165,7 +179,7 @@ final class NotificationController extends Controller
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
 
-        return redirect()->to($notification->data['url'])
+        return $this->redirector->to($notification->data['url'])
             ->withSuccess('Notification Marked As Read!');
     }
 
@@ -181,18 +195,18 @@ final class NotificationController extends Controller
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
         if (! $notification) {
-            return redirect()->route('notifications.index')
+            return $this->redirector->route('notifications.index')
                 ->withErrors('Notification Does Not Exist!');
         }
 
         if ($notification->read_at != null) {
-            return redirect()->route('notifications.index')
+            return $this->redirector->route('notifications.index')
                 ->withErrors('Notification Already Marked As Read!');
         }
 
         $notification->markAsRead();
 
-        return redirect()->route('notifications.index')
+        return $this->redirector->route('notifications.index')
             ->withSuccess('Notification Marked As Read!');
     }
 
@@ -209,7 +223,7 @@ final class NotificationController extends Controller
         $current = new Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $current]);
 
-        return redirect()->route('notifications.index')
+        return $this->redirector->route('notifications.index')
             ->withSuccess('All Notifications Marked As Read!');
     }
 
@@ -225,7 +239,7 @@ final class NotificationController extends Controller
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 
-        return redirect()->route('notifications.index')
+        return $this->redirector->route('notifications.index')
             ->withSuccess('Notification Deleted!');
     }
 
@@ -240,7 +254,7 @@ final class NotificationController extends Controller
     {
         $request->user()->notifications()->delete();
 
-        return redirect()->route('notifications.index')
+        return $this->redirector->route('notifications.index')
             ->withSuccess('All Notifications Deleted!');
     }
 }

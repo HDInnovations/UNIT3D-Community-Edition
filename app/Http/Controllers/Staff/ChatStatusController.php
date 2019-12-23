@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -26,15 +27,25 @@ final class ChatStatusController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * ChatController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {
         $this->chat = $chat;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -46,7 +57,7 @@ final class ChatStatusController extends Controller
     {
         $chatstatuses = $this->chat->statuses();
 
-        return view('Staff.chat.status.index', [
+        return $this->viewFactory->make('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,
         ]);
     }
@@ -71,12 +82,12 @@ final class ChatStatusController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.statuses.index')
+            return $this->redirector->route('staff.statuses.index')
                 ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
-            return redirect()->route('staff.statuses.index')
+            return $this->redirector->route('staff.statuses.index')
                 ->withSuccess('Chat Status Successfully Added');
         }
     }
@@ -102,12 +113,12 @@ final class ChatStatusController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.statuses.index')
+            return $this->redirector->route('staff.statuses.index')
                 ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
-            return redirect()->route('staff.statuses.index')
+            return $this->redirector->route('staff.statuses.index')
                 ->withSuccess('Chat Status Successfully Modified');
         }
     }
@@ -124,7 +135,7 @@ final class ChatStatusController extends Controller
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
-        return redirect()->route('staff.statuses.index')
+        return $this->redirector->route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');
     }
 }

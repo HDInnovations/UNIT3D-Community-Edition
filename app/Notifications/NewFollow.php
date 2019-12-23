@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -42,6 +43,10 @@ final class NewFollow extends Notification implements ShouldQueue
      * @var \App\Models\User
      */
     public User $target;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -51,12 +56,13 @@ final class NewFollow extends Notification implements ShouldQueue
      * @param  User  $target
      * @param  Follow  $follow
      */
-    public function __construct(string $type, User $sender, User $target, Follow $follow)
+    public function __construct(string $type, User $sender, User $target, Follow $follow, Repository $configRepository)
     {
         $this->type = $type;
         $this->follow = $follow;
         $this->sender = $sender;
         $this->target = $target;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -78,7 +84,7 @@ final class NewFollow extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->sender->username.' Has Followed You!',

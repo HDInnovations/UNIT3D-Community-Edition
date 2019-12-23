@@ -20,6 +20,14 @@ use Illuminate\Http\Request;
 final class AchievementsController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(Factory $viewFactory)
+    {
+        $this->viewFactory = $viewFactory;
+    }
+    /**
      * Display All Achievements.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -33,7 +41,7 @@ final class AchievementsController extends Controller
         $achievements = $user->unlockedAchievements();
         $pending = $user->inProgressAchievements();
 
-        return view('achievement.index', [
+        return $this->viewFactory->make('achievement.index', [
             'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,
@@ -54,7 +62,7 @@ final class AchievementsController extends Controller
 
         $achievements = $user->unlockedAchievements();
 
-        return view('achievement.show', [
+        return $this->viewFactory->make('achievement.show', [
             'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,

@@ -13,6 +13,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -22,15 +23,20 @@ final class DeleteUser extends Mailable
     use Queueable, SerializesModels;
 
     public $email;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new message instance.
      *
      * @param $email
      */
-    public function __construct($email)
+    public function __construct($email, Repository $configRepository)
     {
         $this->email = $email;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -41,6 +47,6 @@ final class DeleteUser extends Mailable
     public function build(): self
     {
         return $this->markdown('emails.pruned')
-            ->subject('Your Account Has Been Pruned - '.config('other.title'));
+            ->subject('Your Account Has Been Pruned - '.$this->configRepository->get('other.title'));
     }
 }

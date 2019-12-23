@@ -12,6 +12,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
@@ -32,6 +33,15 @@ final class FetchReleaseYears extends Command
      * @var string
      */
     protected string $description = 'Fetch Release Years For Torrents In DB';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -41,8 +51,8 @@ final class FetchReleaseYears extends Command
      */
     public function handle(): void
     {
-        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        $appurl = config('app.url');
+        $client = new MovieScrapper($this->configRepository->get('api-keys.tmdb'), $this->configRepository->get('api-keys.tvdb'), $this->configRepository->get('api-keys.omdb'));
+        $appurl = $this->configRepository->get('app.url');
 
         $torrents = Torrent::withAnyStatus()
             ->with(['category'])

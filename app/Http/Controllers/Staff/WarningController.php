@@ -20,6 +20,14 @@ use App\Models\Warning;
 final class WarningController extends Controller
 {
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(Factory $viewFactory)
+    {
+        $this->viewFactory = $viewFactory;
+    }
+    /**
      * Warnings Log.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -29,6 +37,6 @@ final class WarningController extends Controller
         $warnings = Warning::with(['torrenttitle', 'warneduser'])->latest()->paginate(25);
         $warningcount = Warning::count();
 
-        return view('Staff.warning.index', ['warnings' => $warnings, 'warningcount' => $warningcount]);
+        return $this->viewFactory->make('Staff.warning.index', ['warnings' => $warnings, 'warningcount' => $warningcount]);
     }
 }

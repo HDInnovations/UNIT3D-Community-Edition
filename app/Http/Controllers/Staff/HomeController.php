@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\View\Factory;
 use Exception;
 use App\Helpers\SystemInformation;
@@ -28,6 +29,19 @@ use Spatie\SslCertificate\SslCertificate;
 
 final class HomeController extends Controller
 {
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    public function __construct(Repository $configRepository, Factory $viewFactory)
+    {
+        $this->configRepository = $configRepository;
+        $this->viewFactory = $viewFactory;
+    }
     /**
      * Display Staff Dashboard.
      *
@@ -59,7 +73,7 @@ final class HomeController extends Controller
 
         // SSL Info
         try {
-            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
+            $certificate = $request->secure() ? SslCertificate::createForHostName($this->configRepository->get('app.url')) : '';
         } catch (Exception $exception) {
             $certificate = '';
         }
@@ -78,7 +92,7 @@ final class HomeController extends Controller
         // Pending Applications Count
         $app_count = Application::pending()->count();
 
-        return view('Staff.dashboard.index', [
+        return $this->viewFactory->make('Staff.dashboard.index', [
             'num_user'           => $num_user,
             'banned'             => $banned,
             'validating'         => $validating,

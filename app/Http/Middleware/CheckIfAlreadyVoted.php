@@ -13,6 +13,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Http\Request;
 use App\Models\Option;
 use App\Models\Voter;
@@ -20,6 +21,14 @@ use Closure;
 
 final class CheckIfAlreadyVoted
 {
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    public function __construct(Redirector $redirector)
+    {
+        $this->redirector = $redirector;
+    }
     /**
      * Handle an incoming request.
      *
@@ -39,7 +48,7 @@ final class CheckIfAlreadyVoted
         //if we already have this user's IP stored and linked to the poll they are trying to vote on
         if ($poll->ip_checking == 1) {
             if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
-                return redirect('poll/'.$poll->slug.'/result')
+                return $this->redirector->back('poll/'.$poll->slug.'/result')
                     ->withErrors('There is already a vote on this poll from your IP. Your vote has not been counted.');
             }
         }

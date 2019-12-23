@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Interfaces\WishInterface;
@@ -26,15 +27,25 @@ final class WishController extends Controller
      * @var WishInterface
      */
     private WishInterface $wish;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
 
     /**
      * WishController Constructor.
      *
      * @param WishInterface $wish
      */
-    public function __construct(WishInterface $wish)
+    public function __construct(WishInterface $wish, Factory $viewFactory, Redirector $redirector)
     {
         $this->wish = $wish;
+        $this->viewFactory = $viewFactory;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -53,7 +64,7 @@ final class WishController extends Controller
 
         $wishes = $user->wishes()->latest()->paginate(25);
 
-        return view('user.wishlist', [
+        return $this->viewFactory->make('user.wishlist', [
             'user'               => $user,
             'wishes'             => $wishes,
             'route'              => 'wish',
@@ -72,14 +83,14 @@ final class WishController extends Controller
         $imdb = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
 
         if ($this->wish->exists($user->id, $imdb)) {
-            return redirect()
+            return $this->redirector
                 ->route('wishes.index', ['id' => $uid])
                 ->withErrors('Wish already exists!');
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
         if ($omdb === null || $omdb === false) {
-            return redirect()
+            return $this->redirector
                 ->route('wishes.index', ['id' => $uid])
                 ->withErrors('IMDB Bad Request!');
         }
@@ -94,7 +105,7 @@ final class WishController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return redirect()
+        return $this->redirector
             ->route('wishes.index', ['username' => $user->username])
             ->withSuccess('Wish Successfully Added!');
     }
@@ -113,7 +124,7 @@ final class WishController extends Controller
 
         $this->wish->delete($id);
 
-        return redirect()
+        return $this->redirector
             ->route('wishes.index', ['username' => $user->username])
             ->withSuccess('Wish Successfully Removed!');
     }

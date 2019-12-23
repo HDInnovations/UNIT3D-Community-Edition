@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Redirector;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use App\Achievements\UserMade100Posts;
@@ -46,6 +48,18 @@ final class TopicController extends Controller
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Routing\Redirector
+     */
+    private $redirector;
+    /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * ForumController Constructor.
@@ -53,10 +67,13 @@ final class TopicController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Redirector $redirector, Factory $viewFactory, Repository $configRepository)
     {
         $this->tag = $tag;
         $this->chat = $chat;
+        $this->redirector = $redirector;
+        $this->viewFactory = $viewFactory;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -86,7 +103,7 @@ final class TopicController extends Controller
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
             // Redirect him to the forum index
-            return redirect()->route('forums.index')
+            return $this->redirector->route('forums.index')
                 ->withErrors('You Do Not Have Access To Read This Topic!');
         }
 
@@ -94,7 +111,7 @@ final class TopicController extends Controller
         $topic->views++;
         $topic->save();
 
-        return view('forum.topic', [
+        return $this->viewFactory->make('forum.topic', [
             'topic'     => $topic,
             'forum'     => $forum,
             'category'  => $category,
@@ -118,11 +135,11 @@ final class TopicController extends Controller
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
-            return redirect()->route('forums.index')
+            return $this->redirector->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
-        return view('forum.new_topic', [
+        return $this->viewFactory->make('forum.new_topic', [
             'forum'    => $forum,
             'category' => $category,
             'title'    => $request->input('title'),
@@ -144,7 +161,7 @@ final class TopicController extends Controller
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
-            return redirect()->route('forums.index')
+            return $this->redirector->route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
@@ -176,7 +193,7 @@ final class TopicController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('forums.index')
+            return $this->redirector->route('forums.index')
                 ->withErrors($v->errors());
         } else {
             $topic->save();
@@ -193,7 +210,7 @@ final class TopicController extends Controller
             ]);
 
             if ($v->fails()) {
-                return redirect()->route('forums.index')
+                return $this->redirector->route('forums.index')
                     ->withErrors($v->errors());
             } else {
                 $post->save();
@@ -212,7 +229,7 @@ final class TopicController extends Controller
                 $forum->notifySubscribers($user, $topic);
 
                 // Post To ShoutBox
-                $appurl = config('app.url');
+                $appurl = $this->configRepository->get('app.url');
                 $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
                 $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
 
@@ -232,7 +249,7 @@ final class TopicController extends Controller
                 $user->addProgress(new UserMade800Posts(), 1);
                 $user->addProgress(new UserMade900Posts(), 1);
 
-                return redirect()->route('forum_topic', ['id' => $topic->id])
+                return $this->redirector->route('forum_topic', ['id' => $topic->id])
                     ->withSuccess('Topic Created Successfully!');
             }
         }
@@ -250,7 +267,7 @@ final class TopicController extends Controller
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
 
-        return view('forum.edit_topic', ['topic' => $topic, 'categories' => $categories]);
+        return $this->viewFactory->make('forum.edit_topic', ['topic' => $topic, 'categories' => $categories]);
     }
 
     /**
@@ -273,7 +290,7 @@ final class TopicController extends Controller
         $topic->forum_id = $forum_id;
         $topic->save();
 
-        return redirect()->route('forum_topic', ['id' => $topic->id])
+        return $this->redirector->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('Topic Successfully Edited');
     }
 
@@ -294,7 +311,7 @@ final class TopicController extends Controller
         $topic->state = 'close';
         $topic->save();
 
-        return redirect()->route('forum_topic', ['id' => $topic->id])
+        return $this->redirector->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Closed!');
     }
 
@@ -315,7 +332,7 @@ final class TopicController extends Controller
         $topic->state = 'open';
         $topic->save();
 
-        return redirect()->route('forum_topic', ['id' => $topic->id])
+        return $this->redirector->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Open!');
     }
 
@@ -338,7 +355,7 @@ final class TopicController extends Controller
 
         $topic->delete();
 
-        return redirect()->route('forums.show', ['id' => $topic->forum->id])
+        return $this->redirector->route('forums.show', ['id' => $topic->forum->id])
             ->withSuccess('This Topic Is Now Deleted!');
     }
 
@@ -355,7 +372,7 @@ final class TopicController extends Controller
         $topic->pinned = 1;
         $topic->save();
 
-        return redirect()->route('forum_topic', ['id' => $topic->id])
+        return $this->redirector->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Pinned!');
     }
 
@@ -372,7 +389,7 @@ final class TopicController extends Controller
         $topic->pinned = 0;
         $topic->save();
 
-        return redirect()->route('forum_topic', ['id' => $topic->id])
+        return $this->redirector->route('forum_topic', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Unpinned!');
     }
 }

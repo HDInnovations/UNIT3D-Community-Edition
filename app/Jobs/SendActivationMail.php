@@ -13,6 +13,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Mail\Mailer;
 use App\Mail\ActivateUser;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -42,6 +43,10 @@ final class SendActivationMail implements ShouldQueue
      * @var int
      */
     public int $tries = 3;
+    /**
+     * @var \Illuminate\Mail\Mailer
+     */
+    private $mailer;
 
     /**
      * ActivateUser constructor.
@@ -49,10 +54,11 @@ final class SendActivationMail implements ShouldQueue
      * @param User   $user
      * @param string $code
      */
-    public function __construct(User $user, string $code)
+    public function __construct(User $user, string $code, Mailer $mailer)
     {
         $this->user = $user;
         $this->code = $code;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -66,6 +72,6 @@ final class SendActivationMail implements ShouldQueue
             $this->delay(min(30 * $this->attempts(), 300));
         }
 
-        Mail::to($this->user)->send(new ActivateUser($this->user, $this->code));
+        $this->mailer->to($this->user)->send(new ActivateUser($this->user, $this->code));
     }
 }

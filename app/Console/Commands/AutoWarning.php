@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Warning;
@@ -34,6 +35,15 @@ final class AutoWarning extends Command
      * @var string
      */
     protected string $description = 'Automatically Post Warnings To Users Accounts and Warnings Table';
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    public function __construct(Repository $configRepository)
+    {
+        $this->configRepository = $configRepository;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -42,7 +52,7 @@ final class AutoWarning extends Command
      */
     public function handle(): void
     {
-        if (config('hitrun.enabled') == true) {
+        if ($this->configRepository->get('hitrun.enabled') == true) {
             $current = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)
@@ -50,13 +60,13 @@ final class AutoWarning extends Command
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
+                ->where('seedtime', '<', $this->configRepository->get('hitrun.seedtime'))
+                ->where('updated_at', '<', $current->copy()->subDays($this->configRepository->get('hitrun.grace'))->toDateTimeString())
                 ->get();
 
             foreach ($hitrun as $hr) {
                 if (! $hr->user->group->is_immune) {
-                    if ($hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
+                    if ($hr->actual_downloaded > ($hr->torrent->size * ($this->configRepository->get('hitrun.buffer') / 100))) {
                         $exsist = Warning::withTrashed()
                             ->where('torrent', '=', $hr->torrent->id)
                             ->where('user_id', '=', $hr->user->id)
@@ -69,7 +79,7 @@ final class AutoWarning extends Command
                             $warning->warned_by = '1';
                             $warning->torrent = $hr->torrent->id;
                             $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
-                            $warning->expires_on = $current->copy()->addDays(config('hitrun.expire'));
+                            $warning->expires_on = $current->copy()->addDays($this->configRepository->get('hitrun.expire'));
                             $warning->active = '1';
                             $warning->save();
 

@@ -13,6 +13,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Translation\Translator;
 final class StringHelper
 {
     /**
@@ -39,6 +41,19 @@ final class StringHelper
      * @var int
      */
     private const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
+    public function __construct(Repository $configRepository, Translator $translator)
+    {
+        $this->configRepository = $configRepository;
+        $this->translator = $translator;
+    }
 
     public static function generateRandomString($length = 20): string
     {
@@ -92,7 +107,7 @@ final class StringHelper
         $months = 0;
         $years = 0;
 
-        $seconds = config('hitrun.seedtime') - $seconds;
+        $seconds = $this->configRepository->get('hitrun.seedtime') - $seconds;
 
         if ($seconds == 0) {
             return 'N/A';
@@ -121,13 +136,13 @@ final class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
+        $years = ($years === 0) ? '' : $years.$this->translator->trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.$this->translator->trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.$this->translator->trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.$this->translator->trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.$this->translator->trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.$this->translator->trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.$this->translator->trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
@@ -175,13 +190,13 @@ final class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
+        $years = ($years === 0) ? '' : $years.$this->translator->trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.$this->translator->trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.$this->translator->trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.$this->translator->trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.$this->translator->trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.$this->translator->trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.$this->translator->trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }

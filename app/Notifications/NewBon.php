@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\BonTransactions;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,6 +37,10 @@ final class NewBon extends Notification implements ShouldQueue
      * @var \App\Models\BonTransactions
      */
     public BonTransactions $transaction;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -44,11 +49,12 @@ final class NewBon extends Notification implements ShouldQueue
      * @param  string  $sender
      * @param  BonTransactions  $transaction
      */
-    public function __construct(string $type, string $sender, BonTransactions $transaction)
+    public function __construct(string $type, string $sender, BonTransactions $transaction, Repository $configRepository)
     {
         $this->type = $type;
         $this->transaction = $transaction;
         $this->sender = $sender;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -70,7 +76,7 @@ final class NewBon extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->sender.' Has Gifted You '.$this->transaction->cost.' BON',

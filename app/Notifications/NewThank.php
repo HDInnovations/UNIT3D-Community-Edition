@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\Thank;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -30,6 +31,10 @@ final class NewThank extends Notification
      * @var \App\Models\Thank
      */
     public Thank $thank;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
     /**
      * Create a new notification instance.
@@ -37,10 +42,11 @@ final class NewThank extends Notification
      * @param  string  $type
      * @param  Thank  $thank
      */
-    public function __construct(string $type, Thank $thank)
+    public function __construct(string $type, Thank $thank, Repository $configRepository)
     {
         $this->type = $type;
         $this->thank = $thank;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -62,7 +68,7 @@ final class NewThank extends Notification
      */
     public function toArray($notifiable): array
     {
-        $appurl = config('app.url');
+        $appurl = $this->configRepository->get('app.url');
 
         return [
             'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',

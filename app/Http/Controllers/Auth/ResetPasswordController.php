@@ -14,6 +14,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Hashing\BcryptHasher;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
@@ -28,17 +29,22 @@ final class ResetPasswordController extends Controller
      * @var string
      */
     protected string $redirectTo = '/';
+    /**
+     * @var \Illuminate\Hashing\BcryptHasher
+     */
+    private $bcryptHasher;
 
-    public function __construct()
+    public function __construct(BcryptHasher $bcryptHasher)
     {
         $this->middleware('guest');
+        $this->bcryptHasher = $bcryptHasher;
     }
 
     protected function resetPassword($user, $password): void
     {
         $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
         $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
-        $user->password = bcrypt($password);
+        $user->password = $this->bcryptHasher->make($password);
         $user->remember_token = Str::random(60);
 
         if ($user->group_id === $validating_group[0]) {

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Contracts\View\Factory;
 use App\Models\Category;
 use App\Models\Group;
@@ -32,11 +33,21 @@ final class StatsController extends Controller
      */
     public $expiresAt;
     /**
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $viewFactory;
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    /**
      * StatsController Constructor.
      */
-    public function __construct()
+    public function __construct(Factory $viewFactory, DatabaseManager $databaseManager)
     {
         $this->expiresAt = Carbon::now()->addMinutes(60);
+        $this->viewFactory = $viewFactory;
+        $this->databaseManager = $databaseManager;
     }
 
     /**
@@ -126,7 +137,7 @@ final class StatsController extends Controller
         //Total Up/Down Traffic with perks
         $credited_up_down = $credited_upload + $credited_download;
 
-        return view('stats.index', [
+        return $this->viewFactory->make('stats.index', [
             'all_user'          => $all_user,
             'active_user'       => $active_user,
             'disabled_user'     => $disabled_user,
@@ -164,7 +175,7 @@ final class StatsController extends Controller
         // Fetch Top Uploaders
         $uploaded = User::latest('uploaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
 
-        return view('stats.users.uploaded', ['uploaded' => $uploaded]);
+        return $this->viewFactory->make('stats.users.uploaded', ['uploaded' => $uploaded]);
     }
 
     /**
@@ -182,7 +193,7 @@ final class StatsController extends Controller
         // Fetch Top Downloaders
         $downloaded = User::latest('downloaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
 
-        return view('stats.users.downloaded', ['downloaded' => $downloaded]);
+        return $this->viewFactory->make('stats.users.downloaded', ['downloaded' => $downloaded]);
     }
 
     /**
@@ -193,9 +204,9 @@ final class StatsController extends Controller
     public function seeders(): Factory
     {
         // Fetch Top Seeders
-        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
+        $seeders = Peer::with('user')->select($this->databaseManager->raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
 
-        return view('stats.users.seeders', ['seeders' => $seeders]);
+        return $this->viewFactory->make('stats.users.seeders', ['seeders' => $seeders]);
     }
 
     /**
@@ -206,9 +217,9 @@ final class StatsController extends Controller
     public function leechers(): Factory
     {
         // Fetch Top Leechers
-        $leechers = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 0)->groupBy('user_id')->latest('value')->take(100)->get();
+        $leechers = Peer::with('user')->select($this->databaseManager->raw('user_id, count(*) as value'))->where('seeder', '=', 0)->groupBy('user_id')->latest('value')->take(100)->get();
 
-        return view('stats.users.leechers', ['leechers' => $leechers]);
+        return $this->viewFactory->make('stats.users.leechers', ['leechers' => $leechers]);
     }
 
     /**
@@ -219,9 +230,9 @@ final class StatsController extends Controller
     public function uploaders(): Factory
     {
         // Fetch Top Uploaders
-        $uploaders = Torrent::with('user')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
+        $uploaders = Torrent::with('user')->select($this->databaseManager->raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
 
-        return view('stats.users.uploaders', ['uploaders' => $uploaders]);
+        return $this->viewFactory->make('stats.users.uploaders', ['uploaders' => $uploaders]);
     }
 
     /**
@@ -239,7 +250,7 @@ final class StatsController extends Controller
         // Fetch Top Bankers
         $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
 
-        return view('stats.users.bankers', ['bankers' => $bankers]);
+        return $this->viewFactory->make('stats.users.bankers', ['bankers' => $bankers]);
     }
 
     /**
@@ -250,9 +261,9 @@ final class StatsController extends Controller
     public function seedtime(): Factory
     {
         // Fetch Top Total Seedtime
-        $seedtime = User::with('history')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('seedtime');
+        $seedtime = User::with('history')->select($this->databaseManager->raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('seedtime');
 
-        return view('stats.users.seedtime', ['seedtime' => $seedtime]);
+        return $this->viewFactory->make('stats.users.seedtime', ['seedtime' => $seedtime]);
     }
 
     /**
@@ -263,9 +274,9 @@ final class StatsController extends Controller
     public function seedsize(): Factory
     {
         // Fetch Top Total Seedsize Users
-        $seedsize = User::with(['peers', 'torrents'])->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
+        $seedsize = User::with(['peers', 'torrents'])->select($this->databaseManager->raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
 
-        return view('stats.users.seedsize', ['seedsize' => $seedsize]);
+        return $this->viewFactory->make('stats.users.seedsize', ['seedsize' => $seedsize]);
     }
 
     /**
@@ -278,7 +289,7 @@ final class StatsController extends Controller
         // Fetch Top Seeded
         $seeded = Torrent::latest('seeders')->take(100)->get();
 
-        return view('stats.torrents.seeded', ['seeded' => $seeded]);
+        return $this->viewFactory->make('stats.torrents.seeded', ['seeded' => $seeded]);
     }
 
     /**
@@ -291,7 +302,7 @@ final class StatsController extends Controller
         // Fetch Top Leeched
         $leeched = Torrent::latest('leechers')->take(100)->get();
 
-        return view('stats.torrents.leeched', ['leeched' => $leeched]);
+        return $this->viewFactory->make('stats.torrents.leeched', ['leeched' => $leeched]);
     }
 
     /**
@@ -304,7 +315,7 @@ final class StatsController extends Controller
         // Fetch Top Completed
         $completed = Torrent::latest('times_completed')->take(100)->get();
 
-        return view('stats.torrents.completed', ['completed' => $completed]);
+        return $this->viewFactory->make('stats.torrents.completed', ['completed' => $completed]);
     }
 
     /**
@@ -317,7 +328,7 @@ final class StatsController extends Controller
         // Fetch Top Dying
         $dying = Torrent::where('seeders', '=', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
 
-        return view('stats.torrents.dying', ['dying' => $dying]);
+        return $this->viewFactory->make('stats.torrents.dying', ['dying' => $dying]);
     }
 
     /**
@@ -330,7 +341,7 @@ final class StatsController extends Controller
         // Fetch Top Dead
         $dead = Torrent::where('seeders', '=', 0)->latest('leechers')->take(100)->get();
 
-        return view('stats.torrents.dead', ['dead' => $dead]);
+        return $this->viewFactory->make('stats.torrents.dead', ['dead' => $dead]);
     }
 
     /**
@@ -343,7 +354,7 @@ final class StatsController extends Controller
         // Fetch Top Bountied
         $bountied = TorrentRequest::latest('bounty')->take(100)->get();
 
-        return view('stats.requests.bountied', ['bountied' => $bountied]);
+        return $this->viewFactory->make('stats.requests.bountied', ['bountied' => $bountied]);
     }
 
     /**
@@ -356,7 +367,7 @@ final class StatsController extends Controller
         // Fetch Groups User Counts
         $groups = Group::oldest('position')->get();
 
-        return view('stats.groups.groups', ['groups' => $groups]);
+        return $this->viewFactory->make('stats.groups.groups', ['groups' => $groups]);
     }
 
     /**
@@ -371,7 +382,7 @@ final class StatsController extends Controller
         $group = Group::findOrFail($id);
         $users = User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100);
 
-        return view('stats.groups.group', ['users' => $users, 'group' => $group]);
+        return $this->viewFactory->make('stats.groups.group', ['users' => $users, 'group' => $group]);
     }
 
     /**
@@ -384,6 +395,6 @@ final class StatsController extends Controller
         // Fetch All Languages
         $languages = Language::allowed();
 
-        return view('stats.languages.languages', ['languages' => $languages]);
+        return $this->viewFactory->make('stats.languages.languages', ['languages' => $languages]);
     }
 }

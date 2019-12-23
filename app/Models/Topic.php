@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewPost;
@@ -80,6 +81,15 @@ use Illuminate\Database\Eloquent\Model;
 final class Topic extends Model
 {
     use Auditable;
+    /**
+     * @var \Illuminate\Contracts\Auth\Guard
+     */
+    private $guard;
+    public function __construct(Guard $guard)
+    {
+        $this->guard = $guard;
+        parent::__construct();
+    }
 
     /**
      * Belongs To A Forum.
@@ -151,7 +161,7 @@ final class Topic extends Model
      */
     public function viewable()
     {
-        if (auth()->user()->group->is_modo) {
+        if ($this->guard->user()->group->is_modo) {
             return true;
         }
 
@@ -169,7 +179,7 @@ final class Topic extends Model
     public function notifyStarter($poster, $topic, $post): bool
     {
         $user = User::find($topic->first_post_user_id);
-        if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
+        if ($user->acceptsNotification($this->guard->user(), $user, 'forum', 'show_forum_topic')) {
             $user->notify(new NewPost('topic', $poster, $post));
         }
 

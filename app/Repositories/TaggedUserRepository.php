@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PrivateMessage;
@@ -87,7 +88,7 @@ final class TaggedUserRepository
      */
     public function contains($haystack, $needle): bool
     {
-        return collect($this->getTags($haystack))->contains($needle);
+        return (new Collection($this->getTags($haystack)))->contains($needle);
     }
 
     public function messageTaggedCommentUsers(string $type, string $content, User $sender, $alias, Comment $comment): bool
@@ -105,7 +106,7 @@ final class TaggedUserRepository
         // Array of User objects
         if (is_iterable($users)) {
             // we only want unique users from the collection
-            $users = is_array($users) ? collect($users)->unique() : $users->unique();
+            $users = is_array($users) ? (new Collection($users))->unique() : $users->unique();
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
@@ -144,7 +145,7 @@ final class TaggedUserRepository
         // Array of User objects
         if (is_iterable($users)) {
             // we only want unique users from the collection
-            $users = is_array($users) ? collect($users)->unique() : $users->unique();
+            $users = is_array($users) ? (new Collection($users))->unique() : $users->unique();
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {

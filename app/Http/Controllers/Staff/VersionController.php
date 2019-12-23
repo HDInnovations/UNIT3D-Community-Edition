@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
@@ -23,10 +24,20 @@ final class VersionController extends Controller
      * @var VersionController
      */
     private VersionController $version;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    private $responseFactory;
 
-    public function __construct()
+    public function __construct(Repository $configRepository, ResponseFactory $responseFactory)
     {
-        $this->version = config('unit3d.version');
+        $this->version = $this->configRepository->get('unit3d.version');
+        $this->configRepository = $configRepository;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
@@ -40,7 +51,7 @@ final class VersionController extends Controller
         $response = json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody(), false, 512, JSON_THROW_ON_ERROR);
         $lastestVersion = $response[0]->tag_name;
 
-        return response([
+        return $this->responseFactory->make([
             'updated'       => !version_compare($this->version, $lastestVersion, '<'),
             'latestversion' => $lastestVersion,
         ]);

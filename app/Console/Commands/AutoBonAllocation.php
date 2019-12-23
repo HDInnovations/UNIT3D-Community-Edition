@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Database\DatabaseManager;
 use App\Models\BonTransactions;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -33,6 +34,15 @@ final class AutoBonAllocation extends Command
      * @var string
      */
     protected string $description = 'Allocates Bonus Points To Users Based On Peer Activity.';
+    /**
+     * @var \Illuminate\Database\DatabaseManager
+     */
+    private $databaseManager;
+    public function __construct(DatabaseManager $databaseManager)
+    {
+        $this->databaseManager = $databaseManager;
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -41,8 +51,8 @@ final class AutoBonAllocation extends Command
      */
     public function handle(): void
     {
-        $dying_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+        $dying_torrent = $this->databaseManager->table('peers')
+            ->select($this->databaseManager->raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('torrents.seeders', 1)
             ->where('torrents.times_completed', '>', 2)
@@ -52,8 +62,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+        $legendary_torrent = $this->databaseManager->table('peers')
+            ->select($this->databaseManager->raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
@@ -62,8 +72,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $old_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+        $old_torrent = $this->databaseManager->table('peers')
+            ->select($this->databaseManager->raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
@@ -73,8 +83,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $huge_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+        $huge_torrent = $this->databaseManager->table('peers')
+            ->select($this->databaseManager->raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', 1_073_741_824 * 100)
@@ -83,8 +93,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $large_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+        $large_torrent = $this->databaseManager->table('peers')
+            ->select($this->databaseManager->raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', 1_073_741_824 * 25)
@@ -94,8 +104,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $regular_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
+        $regular_torrent = $this->databaseManager->table('peers')
+            ->select($this->databaseManager->raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', 1_073_741_824)
@@ -105,8 +115,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $participaint_seeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+        $participaint_seeder = $this->databaseManager->table('history')
+            ->select($this->databaseManager->raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000)
@@ -115,8 +125,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $teamplayer_seeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+        $teamplayer_seeder = $this->databaseManager->table('history')
+            ->select($this->databaseManager->raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 2)
@@ -125,8 +135,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $commited_seeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+        $commited_seeder = $this->databaseManager->table('history')
+            ->select($this->databaseManager->raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 3)
@@ -135,8 +145,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $mvp_seeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+        $mvp_seeder = $this->databaseManager->table('history')
+            ->select($this->databaseManager->raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 6)
@@ -145,8 +155,8 @@ final class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary_seeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+        $legendary_seeder = $this->databaseManager->table('history')
+            ->select($this->databaseManager->raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2_592_000 * 12)

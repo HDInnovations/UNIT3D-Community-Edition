@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use Illuminate\Translation\Translator;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,6 +37,10 @@ final class FailedLogin extends Notification implements ShouldQueue
      * @var Carbon\Carbon
      */
     public Carbon $time;
+    /**
+     * @var \Illuminate\Translation\Translator
+     */
+    private $translator;
 
     /**
      * Create a new notification instance.
@@ -44,10 +49,11 @@ final class FailedLogin extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $ip)
+    public function __construct(string $ip, Translator $translator)
     {
         $this->ip = $ip;
         $this->time = Carbon::now();
+        $this->translator = $translator;
     }
 
     /**
@@ -86,9 +92,9 @@ final class FailedLogin extends Notification implements ShouldQueue
     {
         return (new MailMessage())
                 ->error()
-                ->subject(trans('email.fail-login-subject'))
-                ->greeting(trans('email.fail-login-greeting'))
-                ->line(trans('email.fail-login-line1'))
-                ->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => $this->time]));
+                ->subject($this->translator->trans('email.fail-login-subject'))
+                ->greeting($this->translator->trans('email.fail-login-greeting'))
+                ->line($this->translator->trans('email.fail-login-line1'))
+                ->line($this->translator->trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => $this->time]));
     }
 }

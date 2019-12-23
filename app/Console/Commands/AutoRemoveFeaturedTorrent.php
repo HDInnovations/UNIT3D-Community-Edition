@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Contracts\Config\Repository;
 use App\Models\FeaturedTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
@@ -25,12 +26,17 @@ final class AutoRemoveFeaturedTorrent extends Command
      * @var ChatRepository
      */
     private ChatRepository $chat;
+    /**
+     * @var \Illuminate\Contracts\Config\Repository
+     */
+    private $configRepository;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, Repository $configRepository)
     {
         parent::__construct();
 
         $this->chat = $chat;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -66,7 +72,7 @@ final class AutoRemoveFeaturedTorrent extends Command
             $torrent->save();
 
             // Auto Announce Featured Expired
-            $appurl = config('app.url');
+            $appurl = $this->configRepository->get('app.url');
 
             $this->chat->systemMessage(
                 sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
