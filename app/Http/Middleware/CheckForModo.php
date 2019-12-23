@@ -13,8 +13,8 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Closure;
+use Illuminate\Http\Request;
 
 final class CheckForModo
 {

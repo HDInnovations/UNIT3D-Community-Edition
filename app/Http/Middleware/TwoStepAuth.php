@@ -13,12 +13,12 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Session\SessionManager;
-use Illuminate\Routing\Redirector;
 use App\Traits\TwoStep;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Session\SessionManager;
 
 final class TwoStepAuth
 {
@@ -35,6 +35,7 @@ final class TwoStepAuth
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Repository $configRepository, SessionManager $sessionManager, Redirector $redirector)
     {
         $this->configRepository = $configRepository;
@@ -68,7 +69,7 @@ final class TwoStepAuth
                 $this->sessionManager->put(['nextUri' => $nextUri]);
 
                 if ($this->configRepository->get('auth.TwoStepEnabled') && $user->twostep == 1) {
-                    if (!$this->twoStepVerification()) {
+                    if (! $this->twoStepVerification()) {
                         return $this->redirector->route('verificationNeeded');
                     }
                 }

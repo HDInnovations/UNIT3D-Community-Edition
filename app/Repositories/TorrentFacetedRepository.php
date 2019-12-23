@@ -13,11 +13,11 @@
 
 namespace App\Repositories;
 
-use Illuminate\Translation\Translator;
-use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Type;
+use Illuminate\Support\Collection;
+use Illuminate\Translation\Translator;
 
 final class TorrentFacetedRepository
 {
@@ -25,10 +25,12 @@ final class TorrentFacetedRepository
      * @var \Illuminate\Translation\Translator
      */
     private $translator;
+
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;
     }
+
     /**
      * Return a collection of Category Name from storage.
      *

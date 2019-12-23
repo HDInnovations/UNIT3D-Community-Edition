@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Str;
 
 final class TypeController extends Controller
@@ -31,11 +31,13 @@ final class TypeController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Factory $viewFactory, Redirector $redirector)
     {
         $this->viewFactory = $viewFactory;
         $this->redirector = $redirector;
     }
+
     /**
      * Display All Types.
      *

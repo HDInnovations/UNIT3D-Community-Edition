@@ -12,18 +12,17 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Mail\Mailer;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailer;
+use Illuminate\Routing\Redirector;
 use Ramsey\Uuid\Uuid;
 
 final class ApplicationController extends Controller
@@ -44,6 +43,7 @@ final class ApplicationController extends Controller
      * @var \Illuminate\Mail\Mailer
      */
     private $mailer;
+
     public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Mailer $mailer)
     {
         $this->viewFactory = $viewFactory;
@@ -51,6 +51,7 @@ final class ApplicationController extends Controller
         $this->redirector = $redirector;
         $this->mailer = $mailer;
     }
+
     /**
      * Display All Applications.
      *

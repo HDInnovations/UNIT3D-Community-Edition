@@ -13,11 +13,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewTopic;
 use App\Traits\Auditable;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Forum.
@@ -76,6 +76,7 @@ final class Forum extends Model
      * @var \Illuminate\Contracts\Auth\Guard
      */
     private $guard;
+
     public function __construct(Guard $guard)
     {
         $this->guard = $guard;

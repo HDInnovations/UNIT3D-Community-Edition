@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
 use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class ThankController extends Controller
 {
@@ -24,10 +24,12 @@ final class ThankController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Redirector $redirector)
     {
         $this->redirector = $redirector;
     }
+
     /**
      * Store A New Thank.
      *

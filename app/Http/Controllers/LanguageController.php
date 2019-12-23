@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Routing\Redirector;
 use App\Models\Language;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class LanguageController extends Controller
 {
@@ -38,6 +38,7 @@ final class LanguageController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Repository $configRepository, Guard $guard, UrlGenerator $urlGenerator, Redirector $redirector)
     {
         $this->configRepository = $configRepository;
@@ -45,6 +46,7 @@ final class LanguageController extends Controller
         $this->urlGenerator = $urlGenerator;
         $this->redirector = $redirector;
     }
+
     /**
      * Set locale if it's allowed.
      *

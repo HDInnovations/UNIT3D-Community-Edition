@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
 use App\Models\Forum;
 use App\Models\Subscription;
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class SubscriptionController extends Controller
 {
@@ -25,10 +25,12 @@ final class SubscriptionController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Redirector $redirector)
     {
         $this->redirector = $redirector;
     }
+
     /**
      * Subscribe To A Topic.
      *

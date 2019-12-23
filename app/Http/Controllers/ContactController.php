@@ -13,14 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Mail\Mailer;
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Mail\Contact;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailer;
+use Illuminate\Routing\Redirector;
 
 final class ContactController extends Controller
 {
@@ -36,12 +35,14 @@ final class ContactController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Factory $viewFactory, Mailer $mailer, Redirector $redirector)
     {
         $this->viewFactory = $viewFactory;
         $this->mailer = $mailer;
         $this->redirector = $redirector;
     }
+
     /**
      * Contact Form.
      *

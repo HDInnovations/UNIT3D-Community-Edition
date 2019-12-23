@@ -13,11 +13,11 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Collection;
-use datetime;
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
 use Carbon\Carbon;
+use datetime;
+use Illuminate\Support\Collection;
 
 trait TwoStep
 {
@@ -170,6 +170,7 @@ trait TwoStep
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
         $expired = $now->gt($expire);
+
         return (bool) $expired;
     }
 

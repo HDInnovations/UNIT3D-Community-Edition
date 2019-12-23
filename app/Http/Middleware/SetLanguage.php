@@ -13,15 +13,15 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Foundation\Application;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Session\SessionManager;
-use Illuminate\Http\Request;
-use Date;
 use App\Models\Language;
 use Carbon\Carbon;
 use Closure;
+use Date;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
+use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\App;
 
 final class SetLanguage
@@ -42,6 +42,7 @@ final class SetLanguage
      * @var \Illuminate\Session\SessionManager
      */
     private $sessionManager;
+
     public function __construct(Repository $configRepository, Application $application, Guard $guard, SessionManager $sessionManager)
     {
         $this->configRepository = $configRepository;
@@ -49,6 +50,7 @@ final class SetLanguage
         $this->guard = $guard;
         $this->sessionManager = $sessionManager;
     }
+
     /**
      * This function checks if language to set is an allowed lang of config.
      *

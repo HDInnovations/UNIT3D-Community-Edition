@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
 use App\Models\Category;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 
 final class CategoryController extends Controller
@@ -25,10 +25,12 @@ final class CategoryController extends Controller
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(Factory $viewFactory)
     {
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Display All Categories.
      *

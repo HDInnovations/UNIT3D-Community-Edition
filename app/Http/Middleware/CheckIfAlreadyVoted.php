@@ -13,11 +13,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Http\Request;
 use App\Models\Option;
 use App\Models\Voter;
 use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class CheckIfAlreadyVoted
 {
@@ -25,10 +25,12 @@ final class CheckIfAlreadyVoted
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Redirector $redirector)
     {
         $this->redirector = $redirector;
     }
+
     /**
      * Handle an incoming request.
      *

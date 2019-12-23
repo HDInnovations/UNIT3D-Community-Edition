@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Str;
 
 final class GroupController extends Controller
@@ -32,11 +32,13 @@ final class GroupController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Factory $viewFactory, Redirector $redirector)
     {
         $this->viewFactory = $viewFactory;
         $this->redirector = $redirector;
     }
+
     /**
      * Display All Groups.
      *

@@ -13,8 +13,8 @@
 
 namespace App\Mail;
 
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 

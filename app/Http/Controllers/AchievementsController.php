@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 
 final class AchievementsController extends Controller
@@ -23,10 +23,12 @@ final class AchievementsController extends Controller
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(Factory $viewFactory)
     {
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Display All Achievements.
      *

@@ -14,16 +14,19 @@
 namespace App\Validators;
 
 use Illuminate\Contracts\Config\Repository;
+
 final class EmailValidator
 {
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;
     }
+
     public function validateEmailList($attribute, $value, $parameters, $validator): bool
     {
         $domain = substr(strrchr($value, '@'), 1);

@@ -13,11 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\History;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\DatabaseManager;
 
 final class CheaterController extends Controller
 {
@@ -29,11 +28,13 @@ final class CheaterController extends Controller
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(DatabaseManager $databaseManager, Factory $viewFactory)
     {
         $this->databaseManager = $databaseManager;
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Possible Ghost Leech Cheaters.
      *

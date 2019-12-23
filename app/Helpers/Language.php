@@ -1,7 +1,8 @@
 <?php
 
 use App\Models\Language;
-/**
+
+/*
  * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0

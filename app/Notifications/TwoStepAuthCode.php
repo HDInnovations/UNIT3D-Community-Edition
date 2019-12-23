@@ -13,13 +13,13 @@
 
 namespace App\Notifications;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Translation\Translator;
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Translation\Translator;
 
 final class TwoStepAuthCode extends Notification implements ShouldQueue
 {
