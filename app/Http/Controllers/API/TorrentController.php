@@ -411,6 +411,7 @@ class TorrentController extends BaseController
             return $this->sendResponse('404', 'No Torrents Found');
         }
     }
+
     /**
      * Anonymize A Torrent Media Info.
      *

@@ -15,7 +15,7 @@ class TorrentResource extends JsonResource
     {
         return [
             'type'          => 'torrent',
-            'id'            => (string)$this->id,
+            'id'            => (string) $this->id,
             'attributes'    => [
                 'name' => $this->name,
                 'release_year' => $this->release_year,
@@ -30,7 +30,7 @@ class TorrentResource extends JsonResource
                 'mal_id' => $this->mal,
                 'igdb_id' => $this->igdb,
                 'created_at' => $this->created_at->toDayDateTimeString(),
-                'download_link' => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey])
+                'download_link' => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]),
             ],
         ];
     }
