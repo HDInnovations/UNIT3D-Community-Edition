@@ -916,13 +916,14 @@ class TorrentController extends Controller
      *
      * @return array
      */
-    private static function parseKeywords($text) {
+    private static function parseKeywords($text)
+    {
         $parts = explode(', ', $text);
         $len = count($parts);
         $result = [];
         foreach ($parts as $part) {
             $part = trim($part);
-            if ($part != "") {
+            if ($part != '') {
                 array_push($result, $part);
             }
         }
@@ -1383,7 +1384,6 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-
             return redirect()->route('upload_form')
                 ->withErrors($v->errors())->withInput();
         } else {

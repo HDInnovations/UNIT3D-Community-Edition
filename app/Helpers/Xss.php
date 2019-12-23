@@ -22,7 +22,7 @@ class Xss
         '<script.*script>',
         '<frame.*frame>',
         '<object.*object>',
-        '<embed.*embed>'
+        '<embed.*embed>',
     ];
 
     /**
@@ -36,6 +36,7 @@ class Xss
     public static function getTagsPattern()
     {
         $allTags = implode('|', self::TAGS_TO_FILTER);
+
         return sprintf('/(%s)/isU', $allTags);
     }
 
@@ -72,12 +73,13 @@ class Xss
             $pregResult
         );
         $matches = array_key_first($pregResult);
-        if(!$matches) {
+        if (! $matches) {
             $matches = [];
         }
-        foreach($matches as $tag) {
+        foreach ($matches as $tag) {
             $valueToFilter = str_replace($tag, e($tag), $valueToFilter);
         }
+
         return $valueToFilter;
     }
 

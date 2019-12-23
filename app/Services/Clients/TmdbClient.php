@@ -126,7 +126,7 @@ class TmdbClient extends Client implements MovieTvInterface
             return new Movie([
                 'imdb' => ! empty($movie['imdb_id']) ? $movie['imdb_id'] : 'Not Defined',
                 'tmdb' => $movie['id'],
-                'title' => ! empty($movie['title']) ? $movie['title'] : $movie['original_title'] ,
+                'title' => ! empty($movie['title']) ? $movie['title'] : $movie['original_title'],
                 'releaseDate' => $movie['release_date'],
                 'plot' => $movie['overview'],
                 'aka' => $this->formatAlternativeTitles($movie),
@@ -167,7 +167,7 @@ class TmdbClient extends Client implements MovieTvInterface
                 'tmdb' => $movie['id'],
                 'imdb' => ! empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : 'Not Defined',
                 'tvdb' => ! empty($movie['external_ids']['tvdb_id']) ? $movie['external_ids']['tvdb_id'] : 'Not Defined',
-                'title' => ! empty($movie['name']) ? $movie['name'] : $movie['original_name'] ,
+                'title' => ! empty($movie['name']) ? $movie['name'] : $movie['original_name'],
                 'releaseDate' => $movie['first_air_date'],
                 'endDate' => ($movie['status'] == 'Ended') ? $movie['last_air_date'] : null,
                 'plot' => $movie['overview'],

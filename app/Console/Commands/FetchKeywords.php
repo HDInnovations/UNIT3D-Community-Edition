@@ -12,8 +12,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Torrent;
 use App\Models\Keyword;
+use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 
@@ -91,7 +91,6 @@ class FetchKeywords extends Command
                     {$appurl}/torrents/{$torrent->id} \n");
                 }
             }
-
 
             if ($torrent->category->no_meta || $torrent->category->music_meta || $torrent->category->game_meta) {
                 $this->warn("(SKIPPED) {$torrent->name} Is In A Category That Does Not Have Meta. \n");
