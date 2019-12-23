@@ -13,7 +13,6 @@
 
 namespace App\Helpers;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Achievements\UserMade100Uploads;
 use App\Achievements\UserMade200Uploads;
 use App\Achievements\UserMade25Uploads;
@@ -33,6 +32,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
+use Illuminate\Contracts\Config\Repository;
 
 final class TorrentHelper
 {
@@ -40,10 +40,12 @@ final class TorrentHelper
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;
     }
+
     public static function approveHelper($id): void
     {
         $appurl = $this->configRepository->get('app.url');

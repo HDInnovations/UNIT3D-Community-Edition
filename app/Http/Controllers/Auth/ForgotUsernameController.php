@@ -13,14 +13,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Translation\Translator;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\UsernameReminder;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Translation\Translator;
 
 final class ForgotUsernameController extends Controller
 {
@@ -40,6 +40,7 @@ final class ForgotUsernameController extends Controller
      * @var \Illuminate\Translation\Translator
      */
     private $translator;
+
     public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Translator $translator)
     {
         $this->viewFactory = $viewFactory;
@@ -47,6 +48,7 @@ final class ForgotUsernameController extends Controller
         $this->redirector = $redirector;
         $this->translator = $translator;
     }
+
     /**
      * Forgot Username Form.
      *

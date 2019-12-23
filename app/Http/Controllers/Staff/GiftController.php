@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class GiftController extends Controller
 {
@@ -30,11 +30,13 @@ final class GiftController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Factory $viewFactory, Redirector $redirector)
     {
         $this->viewFactory = $viewFactory;
         $this->redirector = $redirector;
     }
+
     /**
      * Send Gift Form.
      *

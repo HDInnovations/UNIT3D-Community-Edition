@@ -13,11 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\DatabaseManager;
+use App\Models\Page;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\View\Factory;
-use App\Models\Page;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\DatabaseManager;
 
 final class PageController extends Controller
 {
@@ -33,12 +32,14 @@ final class PageController extends Controller
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Factory $viewFactory, DatabaseManager $databaseManager, Repository $configRepository)
     {
         $this->viewFactory = $viewFactory;
         $this->databaseManager = $databaseManager;
         $this->configRepository = $configRepository;
     }
+
     /**
      * Show A Page.
      *

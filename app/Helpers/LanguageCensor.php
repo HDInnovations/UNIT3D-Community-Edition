@@ -14,6 +14,7 @@
 namespace App\Helpers;
 
 use Illuminate\Contracts\Config\Repository;
+
 /**
  * Class LanguageCensor.
  *
@@ -25,10 +26,12 @@ final class LanguageCensor
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;
     }
+
     protected static function isSpecial($c): bool
     {
         $specialChars = "<>\n [].;,";

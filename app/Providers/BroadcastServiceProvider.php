@@ -14,7 +14,6 @@
 namespace App\Providers;
 
 use Illuminate\Contracts\Broadcasting\Factory;
-use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\ServiceProvider;
 
 final class BroadcastServiceProvider extends ServiceProvider
@@ -23,11 +22,13 @@ final class BroadcastServiceProvider extends ServiceProvider
      * @var \Illuminate\Contracts\Broadcasting\Factory
      */
     private $factory;
+
     public function __construct(Factory $factory)
     {
         $this->factory = $factory;
         parent::__construct();
     }
+
     /**
      * Bootstrap any application services.
      *

@@ -13,10 +13,10 @@
 
 namespace App\Traits;
 
-use InvalidArgumentException;
 use ArgumentCountError;
 use Carbon\Carbon;
 use DB;
+use InvalidArgumentException;
 
 trait Auditable
 {

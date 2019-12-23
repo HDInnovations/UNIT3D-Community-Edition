@@ -14,8 +14,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 

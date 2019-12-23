@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
 use App\Models\Follow;
 use App\Models\User;
 use App\Notifications\NewFollow;
 use App\Notifications\NewUnfollow;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class FollowController extends Controller
 {
@@ -26,10 +26,12 @@ final class FollowController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Redirector $redirector)
     {
         $this->redirector = $redirector;
     }
+
     /**
      * Follow A User.
      *

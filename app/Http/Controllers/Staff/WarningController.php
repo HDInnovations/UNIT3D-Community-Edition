@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Warning;
+use Illuminate\Contracts\View\Factory;
 
 final class WarningController extends Controller
 {
@@ -23,10 +23,12 @@ final class WarningController extends Controller
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(Factory $viewFactory)
     {
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Warnings Log.
      *

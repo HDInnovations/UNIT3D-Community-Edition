@@ -13,10 +13,10 @@
 
 namespace App\Listeners;
 
-use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\FailedLoginAttempt;
 use App\Notifications\FailedLogin;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request;
 
 final class FailedLoginListener
@@ -25,10 +25,12 @@ final class FailedLoginListener
      * @var \Illuminate\Http\Request
      */
     private $request;
+
     public function __construct(Request $request)
     {
         $this->request = $request;
     }
+
     /**
      * Handle the event.
      *

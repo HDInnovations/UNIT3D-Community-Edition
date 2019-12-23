@@ -13,11 +13,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
@@ -33,8 +28,12 @@ use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Redirector;
 
 final class UserController extends Controller
 {
@@ -54,6 +53,7 @@ final class UserController extends Controller
      * @var \Illuminate\Contracts\Hashing\Hasher
      */
     private $hasher;
+
     public function __construct(Factory $viewFactory, Redirector $redirector, Guard $guard, Hasher $hasher)
     {
         $this->viewFactory = $viewFactory;
@@ -61,6 +61,7 @@ final class UserController extends Controller
         $this->guard = $guard;
         $this->hasher = $hasher;
     }
+
     /**
      * Users List.
      *

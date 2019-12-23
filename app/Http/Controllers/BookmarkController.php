@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class BookmarkController extends Controller
 {
@@ -31,11 +31,13 @@ final class BookmarkController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Factory $viewFactory, Redirector $redirector)
     {
         $this->viewFactory = $viewFactory;
         $this->redirector = $redirector;
     }
+
     /**
      * Display All Bookmarks.
      *

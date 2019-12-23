@@ -13,18 +13,16 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Exception;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Translation\Translator;
-use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Log\Writer;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
-use Exception;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
+use Illuminate\Log\Writer;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Translation\Translator;
 use League\Flysystem\Adapter\Local;
 
 final class BackupController extends Controller
@@ -57,6 +55,7 @@ final class BackupController extends Controller
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
     private $responseFactory;
+
     public function __construct(Repository $configRepository, Translator $translator, FilesystemManager $filesystemManager, Factory $viewFactory, Kernel $kernel, Writer $logWriter, ResponseFactory $responseFactory)
     {
         $this->configRepository = $configRepository;
@@ -67,6 +66,7 @@ final class BackupController extends Controller
         $this->logWriter = $logWriter;
         $this->responseFactory = $responseFactory;
     }
+
     /**
      * Display All Backups.
      *

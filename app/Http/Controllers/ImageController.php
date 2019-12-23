@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
+use App\Models\Album;
+use App\Models\Image;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Album;
-use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class ImageController extends Controller
 {
@@ -35,12 +35,14 @@ final class ImageController extends Controller
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
     private $responseFactory;
+
     public function __construct(Factory $viewFactory, Redirector $redirector, ResponseFactory $responseFactory)
     {
         $this->viewFactory = $viewFactory;
         $this->redirector = $redirector;
         $this->responseFactory = $responseFactory;
     }
+
     /**
      * Show Image Create Form.
      *

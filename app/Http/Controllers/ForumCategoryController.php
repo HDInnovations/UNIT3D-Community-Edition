@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 final class ForumCategoryController extends Controller
 {
@@ -30,11 +30,13 @@ final class ForumCategoryController extends Controller
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(Redirector $redirector, Factory $viewFactory)
     {
         $this->redirector = $redirector;
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Show The Forum Category.
      *

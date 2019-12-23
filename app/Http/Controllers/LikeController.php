@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class LikeController extends Controller
 {
@@ -24,10 +24,12 @@ final class LikeController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Redirector $redirector)
     {
         $this->redirector = $redirector;
     }
+
     /**
      * Like A Post.
      *

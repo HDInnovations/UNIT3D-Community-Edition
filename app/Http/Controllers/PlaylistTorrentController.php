@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Routing\Redirector;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class PlaylistTorrentController extends Controller
 {
@@ -30,11 +30,13 @@ final class PlaylistTorrentController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Guard $guard, Redirector $redirector)
     {
         $this->guard = $guard;
         $this->redirector = $redirector;
     }
+
     /**
      * Attach A Torrent To A Playlist.
      *

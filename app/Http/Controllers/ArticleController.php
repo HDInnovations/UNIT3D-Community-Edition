@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
 use App\Models\Article;
+use Illuminate\Contracts\View\Factory;
 
 final class ArticleController extends Controller
 {
@@ -22,10 +22,12 @@ final class ArticleController extends Controller
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(Factory $viewFactory)
     {
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Display All Articles.
      *

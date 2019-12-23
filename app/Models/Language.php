@@ -13,10 +13,10 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Contracts\View\Factory;
 use App\Traits\Auditable;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Routing\UrlGenerator;
 
 final class Language
 {
@@ -33,6 +33,7 @@ final class Language
      * @var \Illuminate\Routing\UrlGenerator
      */
     private $urlGenerator;
+
     public function __construct(Factory $viewFactory, Repository $configRepository, UrlGenerator $urlGenerator)
     {
         $this->viewFactory = $viewFactory;

@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\Report;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class ReportController extends Controller
 {
@@ -35,12 +35,14 @@ final class ReportController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Factory $viewFactory, Guard $guard, Redirector $redirector)
     {
         $this->viewFactory = $viewFactory;
         $this->guard = $guard;
         $this->redirector = $redirector;
     }
+
     /**
      * Display All Reports.
      *

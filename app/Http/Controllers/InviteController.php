@@ -13,17 +13,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Mail\Mailer;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailer;
+use Illuminate\Routing\Redirector;
 use Ramsey\Uuid\Uuid;
 
 final class InviteController extends Controller
@@ -44,6 +43,7 @@ final class InviteController extends Controller
      * @var \Illuminate\Mail\Mailer
      */
     private $mailer;
+
     public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Mailer $mailer)
     {
         $this->viewFactory = $viewFactory;
@@ -51,6 +51,7 @@ final class InviteController extends Controller
         $this->redirector = $redirector;
         $this->mailer = $mailer;
     }
+
     /**
      * Invite Tree.
      *
@@ -159,7 +160,7 @@ final class InviteController extends Controller
             $this->mailer->to($request->input('email'))->send(new InviteUser($invite));
             $invite->save();
 
-            --$user->invites;
+            $user->invites--;
             $user->save();
 
             return $this->redirector->route('invites.create')

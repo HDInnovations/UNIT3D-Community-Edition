@@ -14,9 +14,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Notification;
 use App\Notifications\NewBon;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
@@ -31,12 +29,14 @@ use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
 use App\Notifications\NewReseedRequest;
 use App\Notifications\NewThank;
-use App\Notifications\NewUploadTip;
 use App\Notifications\NewTopic;
 use App\Notifications\NewUpload;
-use App\Models\Notification;
+use App\Notifications\NewUploadTip;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class NotificationController extends Controller
 {
@@ -48,11 +48,13 @@ final class NotificationController extends Controller
      * @var \Illuminate\Routing\Redirector
      */
     private $redirector;
+
     public function __construct(Factory $viewFactory, Redirector $redirector)
     {
         $this->viewFactory = $viewFactory;
         $this->redirector = $redirector;
     }
+
     /**
      * Show All Notifications.
      *
