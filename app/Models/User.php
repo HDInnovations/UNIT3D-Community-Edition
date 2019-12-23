@@ -960,7 +960,7 @@ class User extends Authenticatable
             return '∞';
         }
 
-        $bytes = round($this->uploaded / $ratio);
+        $bytes = round(($this->uploaded / $ratio) - $this->downloaded);
 
         return StringHelper::formatBytes($bytes);
     }

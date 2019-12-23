@@ -917,7 +917,7 @@ a>strong:hover {
     color: var(--color-light-blue);
 }
 
-.page-content>blockquote {
+.page-content blockquote {
     color: var(--text-color);
     border-color: var(--color-light-purple);
     border-left-width: 3px;
@@ -936,7 +936,7 @@ pre {
     border: none;
 }
 
-.page-content > ul, .page-content > ul> li > ul > li, .page-content > ol > li > ul > li {
+.page-content li, ul {
     color: var(--text-color);
 }
 

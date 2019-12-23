@@ -190,7 +190,7 @@ class UserController extends Controller
                             $image->move(public_path('/files/img/'), $filename);
                         } else {
                             return redirect()->route('users.show', ['username' => $user->username])
-                                ->withErrors('Because you are uploading a GIF, your avatar must be symmetrical!');
+                                ->withErrors('Because you are uploading a GIF, your avatar must be square!');
                         }
                     }
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();

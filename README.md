@@ -220,6 +220,14 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
+            <a href="https://github.com/NemoSciri"><img src="https://avatars2.githubusercontent.com/u/58690995?v=4" width="50px;" alt="NemoSciri"/>
+                <br />
+                <sub><b>NemoSciri</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
+        </td>
+        <td align="center">
             <a href="https://github.com/OsamaBinLightBulb"><img src="https://avatars2.githubusercontent.com/u/46361079?v=4" width="50px;" alt="OsamaBinLightBulb"/>
                 <br />
                 <sub><b>OsamaBinLightBulb</b></sub>
@@ -231,6 +239,14 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/clandestine8"><img src="https://avatars0.githubusercontent.com/u/5833609?v=4" width="50px;" alt="clandestine8"/>
                 <br />
                 <sub><b>clandestine8</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/STiCKYFiNGAZZ"><img src="https://avatars2.githubusercontent.com/u/26826902?v=4" width="50px;" alt="STiCKYFiNGAZZ"/>
+                <br />
+                <sub><b>STiCKYFiNGAZZ</b></sub>
             </a>
             <br />
             <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
