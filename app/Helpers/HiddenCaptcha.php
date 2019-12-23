@@ -36,14 +36,16 @@ final class HiddenCaptcha
         $this->sessionManager = $sessionManager;
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Set the hidden captcha tags to put in your form.
      *
-     * @param string $mustBeEmptyField
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $mustBeEmptyField
      *
      * @return string
      */
-    public static function render(string $mustBeEmptyField = '_username', Request $request): string
+    public static function render(Request $request, string $mustBeEmptyField = '_username'): string
     {
         $ts = time();
         $random = Str::random(16);
