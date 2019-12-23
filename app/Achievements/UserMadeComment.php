@@ -17,18 +17,16 @@ use Gstt\Achievements\Achievement;
 
 final class UserMadeComment extends Achievement
 {
-    /*
-     * The achievement name
-     */
     /**
+     * The achievement name
+     *
      * @var string
      */
     public string $name = 'FirstComment';
 
-    /*
-     * A small description for the achievement
-     */
     /**
+     * A small description for the achievement
+     *
      * @var string
      */
     public string $description = 'Congratulations! You have made your first comment!';

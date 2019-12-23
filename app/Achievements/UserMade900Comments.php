@@ -17,26 +17,23 @@ use Gstt\Achievements\Achievement;
 
 final class UserMade900Comments extends Achievement
 {
-    /*
-     * The achievement name
-     */
     /**
+     * The achievement name
+     *
      * @var string
      */
     public string $name = '900Comments';
 
-    /*
-     * A small description for the achievement
-     */
     /**
+     * A small description for the achievement
+     *
      * @var string
      */
     public string $description = 'DAMN BRO! You have made 900 comments!';
 
-    /*
-     * The amount of "points" this user need to obtain in order to complete this achievement
-     */
     /**
+     * The amount of "points" this user need to obtain in order to complete this achievement
+     *
      * @var int
      */
     public int $points = 900;

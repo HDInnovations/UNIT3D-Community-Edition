@@ -17,18 +17,16 @@ use Gstt\Achievements\Achievement;
 
 final class UserMadeUpload extends Achievement
 {
-    /*
-     * The achievement name
-     */
     /**
+     * The achievement name
+     *
      * @var string
      */
     public string $name = 'FirstUpload';
 
-    /*
-     * A small description for the achievement
-     */
     /**
+     * A small description for the achievement
+     *
      * @var string
      */
     public string $description = 'Congratulations! You have made your first torrent upload!';
