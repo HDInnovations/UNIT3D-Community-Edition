@@ -33,6 +33,7 @@ use App\Models\Warning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Image;
 use ZipArchive;
 
@@ -1158,6 +1159,27 @@ class UserController extends Controller
 
         return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
             ->withSuccess('Your RID Was Changed Successfully!');
+    }
+
+    /**
+     * Change User API Token.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param $username
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function changeApiToken(Request $request, $username)
+    {
+        $user = User::where('username', '=', $username)->firstOrFail();
+
+        abort_unless($request->user()->id == $user->id, 403);
+
+        $user->api_token = Str::random(100);
+        $user->save();
+
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#api'])
+            ->withSuccess('Your API Token Was Changed Successfully!');
     }
 
     /**

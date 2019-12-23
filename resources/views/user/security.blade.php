@@ -34,6 +34,7 @@
                     <li><a href="#email" data-toggle="tab">Email</a></li>
                     <li><a href="#pid" data-toggle="tab">Pass Key (PID)</a></li>
                     <li><a href="#rid" data-toggle="tab">RSS Key (RID)</a></li>
+                    <li><a href="#api" data-toggle="tab">API Token</a></li>
                     @if (config('auth.TwoStepEnabled') == true)
                         <li><a href="#twostep" data-toggle="tab">Two Step Auth</a></li>
                     @endif
@@ -125,7 +126,7 @@
     
                                 <div class="form-group">
                                     <label for="current_rid">Current RID</label>
-                                    <p class="form-control-static text-monospace current_pid">{{ $user->rsskey }}</p>
+                                    <p class="form-control-static text-monospace current_rid">{{ $user->rsskey }}</p>
                                 </div>
                             </div>
                             <div class="well text-center">
@@ -133,7 +134,26 @@
                             </div>
                         </form>
                     </div>
-    
+
+                    <div role="tabpanel" class="tab-pane" id="api">
+                        <form role="form" method="POST" action="{{ route('change_api_token', ['username' => $user->username]) }}">
+                            @csrf
+                            <div class="well">
+                                <h3>@lang('user.reset-api-token').</h3>
+                                <div class="help-block">@lang('user.reset-api-help').</div>
+                                </h3>
+                                <hr>
+
+                                <div class="form-group">
+                                    <label for="current_rid">Current API Token</label>
+                                    <p class="form-control-static text-monospace current_api">{{ $user->api_token ?? 'You currently do not have a API Token.' }}</p>
+                                </div>
+                            </div>
+                            <div class="well text-center">
+                                <button type="submit" class="btn btn-primary">Reset API Token</button>
+                            </div>
+                        </form>
+                    </div>
     
                     @if (config('auth.TwoStepEnabled') == true)
                         <div role="tabpanel" class="tab-pane" id="twostep">
