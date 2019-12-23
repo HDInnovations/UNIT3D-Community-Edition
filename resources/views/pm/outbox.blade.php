@@ -39,6 +39,7 @@
                                     <td class="col-sm-2">@lang('pm.to')</td>
                                     <td class="col-sm-6">@lang('pm.subject')</td>
                                     <td class="col-sm-2">@lang('pm.sent-at')</td>
+                                    <td class="col-sm-2">@lang('pm.delete')</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,6 +52,18 @@
                                                 href="{{ route('message', ['id' => $p->id]) }}">{{ $p->subject }}</a>
                                         </td>
                                         <td class="col-sm-2">{{ $p->created_at->diffForHumans() }}</td>
+                                        <td class="col-sm-2">
+                                            <form role="form" method="POST" action="{{ route('delete-pm', ['id' => $p->id]) }}">
+                                                @csrf
+                                                <input type="hidden" name="dest" value="outbox" />
+                                                <div class="col-sm-1">
+                                                    <button type="submit" class="btn btn-xs btn-danger"
+                                                        title="@lang('pm.delete')"><i
+                                                            class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

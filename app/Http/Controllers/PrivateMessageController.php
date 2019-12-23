@@ -198,7 +198,11 @@ class PrivateMessageController extends Controller
 
         $pm = new PrivateMessage();
         $pm->sender_id = $user->id;
-        $pm->receiver_id = $message->sender_id;
+		if ($message->sender_id == $user->id) {
+			$pm->receiver_id = $message->receiver_id;
+		} else {
+			$pm->receiver_id = $message->sender_id;
+		}
         $pm->subject = $message->subject;
         $pm->message = $request->input('message');
         $pm->related_to = $message->id;
@@ -236,12 +240,21 @@ class PrivateMessageController extends Controller
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
+		
+        $dest = 'default';
+        if ($request->has('dest') && $request->input('dest') == 'outbox') {
+            $dest = 'outbox';
+        }
 
         if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             $pm->delete();
 
-            return redirect()->route('inbox')
-                ->withSuccess('PM Was Deleted Successfully!');
+			if ($dest == 'outbox') {
+				return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
+			} else {
+				return redirect()->route('inbox')
+					->withSuccess('PM Was Deleted Successfully!');
+			}		
         } else {
             return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');
