@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,7 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BotTransaction whereUserId($value)
  * @mixin \Eloquent
  */
-class BotTransaction extends Model
+final class BotTransaction extends Model
 {
     use Auditable;
 
@@ -55,7 +56,7 @@ class BotTransaction extends Model
      *
      * @var bool
      */
-    public $timestamps = true;
+    public bool $timestamps = true;
 
     /**
      * Belongs To A User.
@@ -65,7 +66,7 @@ class BotTransaction extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -81,7 +82,7 @@ class BotTransaction extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function bot()
+    public function bot(): BelongsTo
     {
         return $this->belongsTo(Bot::class)->withDefault([
             'username' => 'System',
@@ -94,7 +95,7 @@ class BotTransaction extends Model
      *
      * @return int
      */
-    public function forHumans()
+    public function forHumans(): string
     {
         if ($this->type == 'bon') {
             return 'BON';

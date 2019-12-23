@@ -13,17 +13,18 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Type;
 
-class RequestFacetedRepository
+final class RequestFacetedRepository
 {
     /**
      * Return a collection of Category Name from storage.
      *
      * @return \Illuminate\Support\Collection
      */
-    public function categories()
+    public function categories(): Collection
     {
         return Category::all()->sortBy('position')->pluck('name', 'id');
     }
@@ -33,7 +34,7 @@ class RequestFacetedRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function types()
+    public function types(): Collection
     {
         return Type::all()->sortBy('position')->pluck('name', 'id');
     }
@@ -43,7 +44,7 @@ class RequestFacetedRepository
      *
      * @return array
      */
-    public function sorting()
+    public function sorting(): array
     {
         return [
             'created_at' => trans('torrent.date'),
@@ -58,7 +59,7 @@ class RequestFacetedRepository
      *
      * @return array
      */
-    public function direction()
+    public function direction(): array
     {
         return [
             'desc' => trans('common.descending'),

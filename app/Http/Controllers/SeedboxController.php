@@ -13,11 +13,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class SeedboxController extends Controller
+final class SeedboxController extends Controller
 {
     /**
      * Get A Users Registered Seedboxes.
@@ -27,7 +29,7 @@ class SeedboxController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $username)
+    public function index(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -41,9 +43,8 @@ class SeedboxController extends Controller
     /**
      * Store A Seedbox.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     protected function store(Request $request)
     {
@@ -78,7 +79,7 @@ class SeedboxController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function destroy(Request $request, $id)
+    protected function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);

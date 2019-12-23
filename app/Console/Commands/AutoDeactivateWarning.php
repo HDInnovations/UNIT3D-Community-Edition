@@ -18,28 +18,28 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoDeactivateWarning extends Command
+final class AutoDeactivateWarning extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:deactivate_warning';
+    protected string $signature = 'auto:deactivate_warning';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Deactivates User Warnings If Expired';
+    protected string $description = 'Automatically Deactivates User Warnings If Expired';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $warnings = Warning::with(['warneduser', 'torrenttitle'])->where('active', '=', 1)->where('expires_on', '<', $current)->get();

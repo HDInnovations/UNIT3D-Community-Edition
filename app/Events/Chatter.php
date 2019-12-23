@@ -20,7 +20,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Chatter implements ShouldBroadcastNow
+final class Chatter implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -29,7 +29,7 @@ class Chatter implements ShouldBroadcastNow
      *
      * @var Message
      */
-    public $echoes;
+    public Message $echoes;
 
     public $target;
 
@@ -70,7 +70,7 @@ class Chatter implements ShouldBroadcastNow
      *
      * @return PrivateChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PrivateChannel
     {
         // $this->dontBroadcastToCurrentUser();
 

@@ -17,15 +17,14 @@ use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
-class ThankController extends Controller
+final class ThankController extends Controller
 {
     /**
      * Store A New Thank.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $id)
     {

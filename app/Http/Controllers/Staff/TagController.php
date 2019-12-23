@@ -12,19 +12,20 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TagController extends Controller
+final class TagController extends Controller
 {
     /**
      * Display All Tags.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $tags = Tag::all()->sortBy('name');
 
@@ -36,7 +37,7 @@ class TagController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('Staff.tag.create');
     }
@@ -45,8 +46,7 @@ class TagController extends Controller
      * Store A New Tag.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -77,7 +77,7 @@ class TagController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): Factory
     {
         $tag = Tag::findOrFail($id);
 
@@ -87,10 +87,9 @@ class TagController extends Controller
     /**
      * Edit A Tag.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {

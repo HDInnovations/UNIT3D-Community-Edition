@@ -19,36 +19,32 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoSoftDeleteDisabledUsers extends Command
+final class AutoSoftDeleteDisabledUsers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:softdelete_disabled_users';
+    protected string $signature = 'auto:softdelete_disabled_users';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'User account must be In disabled group for at least x days';
+    protected string $description = 'User account must be In disabled group for at least x days';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (config('pruning.user_pruning') == true) {
-            $disabled_group = cache()->rememberForever('disabled_group', function () {
-                return Group::where('slug', '=', 'disabled')->pluck('id');
-            });
-            $pruned_group = cache()->rememberForever('pruned_group', function () {
-                return Group::where('slug', '=', 'pruned')->pluck('id');
-            });
+            $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
             $users = User::where('group_id', '=', $disabled_group[0])

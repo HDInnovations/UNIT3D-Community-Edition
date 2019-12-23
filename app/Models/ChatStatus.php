@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,7 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read int|null $users_count
  */
-class ChatStatus extends Model
+final class ChatStatus extends Model
 {
     use Auditable;
 
@@ -47,7 +48,7 @@ class ChatStatus extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class, 'chat_status_id', 'id');
     }

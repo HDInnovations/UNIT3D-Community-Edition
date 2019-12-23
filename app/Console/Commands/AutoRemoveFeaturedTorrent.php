@@ -19,12 +19,12 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRemoveFeaturedTorrent extends Command
+final class AutoRemoveFeaturedTorrent extends Command
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     public function __construct(ChatRepository $chat)
     {
@@ -38,21 +38,21 @@ class AutoRemoveFeaturedTorrent extends Command
      *
      * @var string
      */
-    protected $signature = 'auto:remove_featured_torrent';
+    protected string $signature = 'auto:remove_featured_torrent';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Removes Featured Torrents If Expired';
+    protected string $description = 'Automatically Removes Featured Torrents If Expired';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $featured_torrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->get();
@@ -69,7 +69,7 @@ class AutoRemoveFeaturedTorrent extends Command
             $appurl = config('app.url');
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$appurl}/torrents/{$torrent->id}]{$torrent->name}[/url] is no longer featured. :poop:"
+                sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
             );
 
             // Delete The Record From DB

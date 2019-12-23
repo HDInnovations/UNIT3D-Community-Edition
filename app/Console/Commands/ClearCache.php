@@ -15,21 +15,21 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class ClearCache extends Command
+final class ClearCache extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'clear:all_cache';
+    protected string $signature = 'clear:all_cache';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Clears Several Common Cache\'s ...';
+    protected string $description = "Clears Several Common Cache's ...";
 
     /**
      * Create a new command instance.
@@ -46,9 +46,9 @@ class ClearCache extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        $this->comment('Clearing several common cache\'s ...');
+        $this->comment("Clearing several common cache's ...");
         $this->call('view:clear');
         $this->call('route:clear');
         $this->call('config:clear');

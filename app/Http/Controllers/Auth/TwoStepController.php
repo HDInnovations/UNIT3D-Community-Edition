@@ -13,24 +13,36 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Controllers\Controller;
 use App\Traits\TwoStep;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class TwoStepController extends Controller
+final class TwoStepController extends Controller
 {
     use TwoStep;
 
+    /**
+     * @var float|int
+     */
     private $_authCount;
 
     private $_authStatus;
 
     private $_twoStepAuth;
 
+    /**
+     * @var float|int
+     */
     private $_remainingAttempts;
 
-    private $_user;
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    private ?Authenticatable $_user;
 
     /**
      * Create a new controller instance.
@@ -53,7 +65,7 @@ class TwoStepController extends Controller
      *
      * @return void
      */
-    private function setUser2StepData()
+    private function setUser2StepData(): void
     {
         $user = auth()->user();
         $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
@@ -69,12 +81,11 @@ class TwoStepController extends Controller
      * Validation and Invalid code failed actions and return message.
      *
      * @param array $errors (optional)
-     *
-     * @return array
+     * @return mixed[]
      */
-    private function invalidCodeReturnData($errors = null)
+    private function invalidCodeReturnData(array $errors = null): array
     {
-        $this->_authCount = $this->_twoStepAuth->authCount += 1;
+        $this->_authCount = ++$this->_twoStepAuth->authCount;
         $this->_twoStepAuth->save();
 
         $returnData = [
@@ -96,7 +107,7 @@ class TwoStepController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function showVerification()
+    public function showVerification(): View
     {
         if (! config('auth.TwoStepEnabled')) {
             abort(404);
@@ -153,7 +164,7 @@ class TwoStepController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function verify(Request $request)
+    public function verify(Request $request): JsonResponse
     {
         if (! config('auth.TwoStepEnabled')) {
             abort(404);
@@ -200,7 +211,7 @@ class TwoStepController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function resend()
+    public function resend(): JsonResponse
     {
         if (! config('auth.TwoStepEnabled')) {
             abort(404);

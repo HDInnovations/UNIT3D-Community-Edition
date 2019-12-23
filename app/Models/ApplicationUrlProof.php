@@ -12,6 +12,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,14 +34,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof whereUrl($value)
  * @mixin \Eloquent
  */
-class ApplicationUrlProof extends Model
+final class ApplicationUrlProof extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'application_id',
         'url',
     ];
@@ -50,7 +51,7 @@ class ApplicationUrlProof extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function application()
+    public function application(): BelongsTo
     {
         return $this->belongsTo(Application::class);
     }

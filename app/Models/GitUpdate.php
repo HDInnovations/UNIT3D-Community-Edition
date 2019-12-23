@@ -34,7 +34,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\GitUpdate whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class GitUpdate extends Model
+final class GitUpdate extends Model
 {
-    protected $guarded = ['id'];
+    /**
+     * @var string[]
+     */
+    protected array $guarded = ['id'];
 }

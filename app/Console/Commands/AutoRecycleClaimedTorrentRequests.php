@@ -19,26 +19,26 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleClaimedTorrentRequests extends Command
+final class AutoRecycleClaimedTorrentRequests extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:recycle_claimed_torrent_requests';
+    protected string $signature = 'auto:recycle_claimed_torrent_requests';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle Torrent Requests That Wwere Claimed But Not Filled Within 7 Days.';
+    protected string $description = 'Recycle Torrent Requests That Wwere Claimed But Not Filled Within 7 Days.';
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     public function __construct(ChatRepository $chat)
     {
@@ -52,7 +52,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $torrentRequests = TorrentRequest::where('claimed', '=', 1)
@@ -68,7 +68,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
             if ($requestClaim) {
                 $tr_url = hrefRequest($torrentRequest);
                 $this->chat->systemMessage(
-                    "[url={$tr_url}]{$torrentRequest->name}[/url] claim has been reset due to not being filled within 7 days."
+                    sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $tr_url, $torrentRequest->name)
                 );
 
                 $requestClaim->delete();

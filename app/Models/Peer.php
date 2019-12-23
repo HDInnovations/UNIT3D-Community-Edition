@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
@@ -58,7 +59,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Peer whereUserId($value)
  * @mixin \Eloquent
  */
-class Peer extends Model
+final class Peer extends Model
 {
     use Sortable;
 
@@ -67,7 +68,7 @@ class Peer extends Model
      *
      * @var array
      */
-    public $sortable = [
+    public array $sortable = [
         'id',
         'agent',
         'uploaded',
@@ -82,7 +83,7 @@ class Peer extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -95,7 +96,7 @@ class Peer extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -105,7 +106,7 @@ class Peer extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function seed()
+    public function seed(): BelongsTo
     {
         return $this->belongsTo(Torrent::class, 'torrents.id', 'torrent_id');
     }

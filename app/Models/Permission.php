@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,7 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereStartTopic($value)
  * @mixin \Eloquent
  */
-class Permission extends Model
+final class Permission extends Model
 {
     use Auditable;
 
@@ -49,14 +50,14 @@ class Permission extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * Belongs To A Group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function group()
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
@@ -66,7 +67,7 @@ class Permission extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function forum()
+    public function forum(): BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }

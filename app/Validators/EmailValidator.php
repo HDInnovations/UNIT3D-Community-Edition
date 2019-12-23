@@ -13,9 +13,9 @@
 
 namespace App\Validators;
 
-class EmailValidator
+final class EmailValidator
 {
-    public function validateEmailList($attribute, $value, $parameters, $validator)
+    public function validateEmailList($attribute, $value, $parameters, $validator): bool
     {
         $domain = substr(strrchr($value, '@'), 1);
         switch ($parameters[0]) {

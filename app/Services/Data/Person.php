@@ -15,7 +15,7 @@ namespace App\Services\Data;
 
 use Carbon\Carbon;
 
-class Person
+final class Person
 {
     public $imdb;
 
@@ -27,9 +27,15 @@ class Person
 
     public $gender;
 
-    public $birthday;
+    /**
+     * @var \Carbon\Carbon|null
+     */
+    public ?Carbon $birthday;
 
-    public $deathday;
+    /**
+     * @var \Carbon\Carbon|null
+     */
+    public ?Carbon $deathday;
 
     public $placeOfBirth;
 

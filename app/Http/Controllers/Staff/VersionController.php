@@ -13,15 +13,16 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 
-class VersionController extends Controller
+final class VersionController extends Controller
 {
     /**
      * @var VersionController
      */
-    private $version;
+    private VersionController $version;
 
     public function __construct()
     {
@@ -33,14 +34,14 @@ class VersionController extends Controller
      *
      * @return string
      */
-    public function checkVersion()
+    public function checkVersion(): ResponseFactory
     {
         $client = new Client();
-        $response = json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody());
+        $response = json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody(), false, 512, JSON_THROW_ON_ERROR);
         $lastestVersion = $response[0]->tag_name;
 
         return response([
-            'updated'       => version_compare($this->version, $lastestVersion, '<') ? false : true,
+            'updated'       => !version_compare($this->version, $lastestVersion, '<'),
             'latestversion' => $lastestVersion,
         ]);
     }

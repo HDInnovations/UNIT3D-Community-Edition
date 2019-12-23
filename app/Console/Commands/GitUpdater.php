@@ -20,28 +20,29 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class GitUpdater extends Command
+final class GitUpdater extends Command
 {
     use ConsoleTools;
 
     /**
      * The copy command.
+     * @var string
      */
-    protected $copy_command = 'cp -Rfp';
+    protected string $copy_command = 'cp -Rfp';
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'git:update';
+    protected string $signature = 'git:update';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Executes The Commands Necessary To Update Your Website Using Git';
+    protected string $description = 'Executes The Commands Necessary To Update Your Website Using Git';
 
     /**
      * Create a new command instance.
@@ -58,7 +59,7 @@ class GitUpdater extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->input = new ArgvInput();
         $this->output = new ConsoleOutput();
@@ -102,11 +103,11 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function update()
+    private function update(): void
     {
         $updating = $this->checkForUpdates();
 
-        if (count($updating) > 0) {
+        if ((is_countable($updating) ? count($updating) : 0) > 0) {
             $this->alertDanger('Found Updates');
 
             $this->cyan('Files that need updated:');
@@ -172,7 +173,10 @@ class GitUpdater extends Command
         }
     }
 
-    private function checkForUpdates()
+    /**
+     * @return string[]
+     */
+    private function checkForUpdates(): array
     {
         $this->header('Checking For Updates');
 
@@ -185,13 +189,13 @@ class GitUpdater extends Command
         return $updating;
     }
 
-    private function manualUpdate($updating)
+    private function manualUpdate($updating): void
     {
         $this->alertInfo('Manual Update');
         $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
 
         foreach ($updating as $file) {
-            if ($this->io->confirm("Update $file", true)) {
+            if ($this->io->confirm(sprintf('Update %s', $file), true)) {
                 $this->updateFile($file);
             }
         }
@@ -199,12 +203,12 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function updateFile($file)
+    private function updateFile($file): void
     {
-        $this->process("git checkout origin/master -- $file");
+        $this->process(sprintf('git checkout origin/master -- %s', $file));
     }
 
-    private function backup(array $paths)
+    private function backup(array $paths): void
     {
         $this->header('Backing Up Files');
 
@@ -222,7 +226,7 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function restore(array $paths)
+    private function restore(array $paths): void
     {
         $this->header('Restoring Backups');
 
@@ -235,7 +239,7 @@ class GitUpdater extends Command
                 $from .= '/*';
             }
 
-            $this->process("$this->copy_command $from $to");
+            $this->process(sprintf('%s %s %s', $this->copy_command, $from, $to));
         }
 
         $this->commands([
@@ -245,7 +249,7 @@ class GitUpdater extends Command
         ]);
     }
 
-    private function composer()
+    private function composer(): void
     {
         $this->header('Installing Composer Packages');
 
@@ -257,7 +261,7 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function compile()
+    private function compile(): void
     {
         $this->header('Compiling Assets ...');
 
@@ -270,68 +274,67 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function updateUNIT3DConfig()
+    private function updateUNIT3DConfig(): void
     {
         $this->header('Updating UNIT3D Configuration File');
         $this->process('git fetch origin && git checkout origin/master -- config/unit3d.php');
         $this->done();
     }
 
-    private function clearCache()
+    private function clearCache(): void
     {
         $this->header('Clearing Cache');
         $this->call('clear:all_cache');
         $this->done();
     }
 
-    private function setCache()
+    private function setCache(): void
     {
         $this->header('Setting Cache');
         $this->call('set:all_cache');
         $this->done();
     }
 
-    private function migrations()
+    private function migrations(): void
     {
         $this->header('Running New Migrations');
         $this->call('migrate');
         $this->done();
     }
 
-    private function permissions()
+    private function permissions(): void
     {
         $this->header('Refreshing Permissions');
         $this->process('chown -R www-data: storage bootstrap public config');
         $this->done();
     }
 
-    private function validatePath($path)
+    private function validatePath($path): void
     {
         if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
-            $this->red("The path '$path' is invalid");
+            $this->red(sprintf('The path \'%s\' is invalid', $path));
             //$this->call('up');
             //die();
         }
     }
 
-    private function createBackupPath($path)
+    private function createBackupPath($path): void
     {
-        if (! is_dir(storage_path("gitupdate/$path")) && ! is_file(base_path($path))) {
-            mkdir(storage_path("gitupdate/$path"), 0775, true);
+        if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! is_file(base_path($path))) {
+            mkdir(storage_path(sprintf('gitupdate/%s', $path)), 0775, true);
         } elseif (is_file(base_path($path)) && dirname($path) !== '.') {
             $path = dirname($path);
-            if (! is_dir(storage_path("gitupdate/$path"))) {
-                mkdir(storage_path("gitupdate/$path"), 0775, true);
+            if (! is_dir(storage_path(sprintf('gitupdate/%s', $path)))) {
+                mkdir(storage_path(sprintf('gitupdate/%s', $path)), 0775, true);
             }
         }
     }
 
     /**
      * Get the console command arguments.
-     *
-     * @return array
+     * @return mixed[]
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
 
@@ -339,9 +342,9 @@ class GitUpdater extends Command
     }
 
     /**
-     * @return array
+     * @return string[]
      */
-    private function paths()
+    private function paths(): array
     {
         $p = $this->process('git diff master --name-only');
         $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
@@ -351,6 +354,6 @@ class GitUpdater extends Command
             'laravel-echo-server.json',
         ];
 
-        return array_merge($paths, $additional);
+        return [...$paths, ...$additional];
     }
 }

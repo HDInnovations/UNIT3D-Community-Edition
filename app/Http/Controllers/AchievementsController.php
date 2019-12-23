@@ -13,10 +13,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AchievementsController extends Controller
+final class AchievementsController extends Controller
 {
     /**
      * Display All Achievements.
@@ -25,7 +26,7 @@ class AchievementsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory
     {
         $user = $request->user();
 
@@ -47,7 +48,7 @@ class AchievementsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($username)
+    public function show($username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

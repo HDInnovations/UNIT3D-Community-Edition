@@ -17,16 +17,16 @@ use App\Traits\TwoStep;
 use Closure;
 use Illuminate\Http\Request;
 
-class TwoStepAuth
+final class TwoStepAuth
 {
     use TwoStep;
 
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Closure  $next
-     * @return mixed
+     * @param \Illuminate\Http\Request  $request
+     * @param Closure  $next
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function handle(Request $request, Closure $next)
     {
@@ -47,7 +47,7 @@ class TwoStepAuth
                 session(['nextUri' => $nextUri]);
 
                 if (config('auth.TwoStepEnabled') && $user->twostep == 1) {
-                    if ($this->twoStepVerification($request) !== true) {
+                    if (!$this->twoStepVerification()) {
                         return redirect()->route('verificationNeeded');
                     }
                 }

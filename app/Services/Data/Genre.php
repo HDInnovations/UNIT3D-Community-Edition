@@ -13,11 +13,14 @@
 
 namespace App\Services\Data;
 
-class Genre
+final class Genre
 {
     public $genres;
 
-    protected $movieGenres = [
+    /**
+     * @var string[]
+     */
+    protected array $movieGenres = [
         'Action',
         'Adventure',
         'Animation',
@@ -41,7 +44,10 @@ class Genre
         'Western',
     ];
 
-    protected $tvGenres = [
+    /**
+     * @var string[]
+     */
+    protected array $tvGenres = [
         'Game-Show',
         'News',
         'Reality-TV',
@@ -55,7 +61,10 @@ class Genre
         $this->genres = $this->parseGenres($genres);
     }
 
-    private function parseGenres($genres)
+    /**
+     * @return mixed[]
+     */
+    private function parseGenres($genres): array
     {
         $myGenre = [];
         $genreCollection = $this->movieGenres + $this->tvGenres;
@@ -70,13 +79,13 @@ class Genre
         return $myGenre;
     }
 
+    /**
+     * @return string|bool
+     */
     private function matchGenre($genre)
     {
-        switch ($genre) {
-            case 'Sci-Fi':
-                return 'Science Fiction';
-
-                break;
+        if ($genre == 'Sci-Fi') {
+            return 'Science Fiction';
         }
 
         return false;

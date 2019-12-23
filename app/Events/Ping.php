@@ -19,13 +19,16 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Ping implements ShouldBroadcastNow
+final class Ping implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $room;
 
-    public $ping;
+    /**
+     * @var mixed[]
+     */
+    public array $ping;
 
     /**
      * Create a new event instance.
@@ -44,14 +47,14 @@ class Ping implements ShouldBroadcastNow
      *
      * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 
         return new PresenceChannel('chatroom.'.$this->room);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.ping';
     }

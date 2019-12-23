@@ -13,22 +13,28 @@
 
 namespace App\Exceptions;
 
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler
+final class Handler extends ExceptionHandler
 {
     /**
      * A list of the exception types that are not reported.
      *
      * @var array
      */
-    protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Illuminate\Validation\ValidationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+    protected array $dontReport = [
+        AuthenticationException::class,
+        AuthorizationException::class,
+        ValidationException::class,
+        HttpException::class,
+        ModelNotFoundException::class,
     ];
 
     /**
@@ -36,7 +42,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontFlash = [
+    protected array $dontFlash = [
         'password',
         'password_confirmation',
     ];
@@ -50,7 +56,7 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(Exception $exception): void
     {
         parent::report($exception);
     }
@@ -63,7 +69,7 @@ class Handler extends ExceptionHandler
      *
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $exception): Response
     {
         return parent::render($request, $exception);
     }

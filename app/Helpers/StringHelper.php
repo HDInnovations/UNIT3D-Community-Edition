@@ -13,19 +13,34 @@
 
 namespace App\Helpers;
 
-class StringHelper
+final class StringHelper
 {
-    const KIB = 1024;
+    /**
+     * @var int
+     */
+    private const KIB = 1_024;
 
-    const MIB = 1024 * 1024;
+    /**
+     * @var int
+     */
+    private const MIB = 1_024 * 1_024;
 
-    const GIB = 1024 * 1024 * 1024;
+    /**
+     * @var int
+     */
+    private const GIB = 1_024 * 1_024 * 1_024;
 
-    const TIB = 1024 * 1024 * 1024 * 1024;
+    /**
+     * @var int
+     */
+    private const TIB = 1_024 * 1_024 * 1_024 * 1_024;
 
-    const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
+    /**
+     * @var int
+     */
+    private const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
 
-    public static function generateRandomString($length = 20)
+    public static function generateRandomString($length = 20): string
     {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
         $string = '';
@@ -36,7 +51,7 @@ class StringHelper
         return $string;
     }
 
-    public static function formatBytes($bytes, $precision = 2)
+    public static function formatBytes($bytes, $precision = 2): string
     {
         $bytes = max($bytes, 0);
         $suffix = 'B';
@@ -68,7 +83,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeRemaining($seconds)
+    public static function timeRemaining($seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -82,36 +97,36 @@ class StringHelper
         if ($seconds == 0) {
             return 'N/A';
         }
-        while ($seconds >= 31536000) {
+        while ($seconds >= 31_536_000) {
             $years++;
-            $seconds -= 31536000;
+            $seconds -= 31_536_000;
         }
-        while ($seconds >= 2592000) {
+        while ($seconds >= 2_592_000) {
             $months++;
-            $seconds -= 2592000;
+            $seconds -= 2_592_000;
         }
-        while ($seconds >= 604800) {
+        while ($seconds >= 604_800) {
             $weeks++;
-            $seconds -= 604800;
+            $seconds -= 604_800;
         }
-        while ($seconds >= 86400) {
+        while ($seconds >= 86_400) {
             $days++;
-            $seconds -= 86400;
+            $seconds -= 86_400;
         }
-        while ($seconds >= 3600) {
+        while ($seconds >= 3_600) {
             $hours++;
-            $seconds -= 3600;
+            $seconds -= 3_600;
         }
         while ($seconds >= 60) {
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
         $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
@@ -124,7 +139,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeElapsed($seconds)
+    public static function timeElapsed($seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -136,42 +151,42 @@ class StringHelper
         if ($seconds == 0) {
             return 'N/A';
         }
-        while ($seconds >= 31536000) {
+        while ($seconds >= 31_536_000) {
             $years++;
-            $seconds -= 31536000;
+            $seconds -= 31_536_000;
         }
-        while ($seconds >= 2592000) {
+        while ($seconds >= 2_592_000) {
             $months++;
-            $seconds -= 2592000;
+            $seconds -= 2_592_000;
         }
-        while ($seconds >= 604800) {
+        while ($seconds >= 604_800) {
             $weeks++;
-            $seconds -= 604800;
+            $seconds -= 604_800;
         }
-        while ($seconds >= 86400) {
+        while ($seconds >= 86_400) {
             $days++;
-            $seconds -= 86400;
+            $seconds -= 86_400;
         }
-        while ($seconds >= 3600) {
+        while ($seconds >= 3_600) {
             $hours++;
-            $seconds -= 3600;
+            $seconds -= 3_600;
         }
         while ($seconds >= 60) {
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
         $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
 
-    public static function ordinal($number)
+    public static function ordinal($number): string
     {
         $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {

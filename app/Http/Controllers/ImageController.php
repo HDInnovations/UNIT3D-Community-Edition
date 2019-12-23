@@ -13,11 +13,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Album;
 use App\Models\Image;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+final class ImageController extends Controller
 {
     /**
      * Show Image Create Form.
@@ -26,7 +28,7 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($id)
+    public function create($id): Factory
     {
         $album = Album::find($id);
 
@@ -37,8 +39,7 @@ class ImageController extends Controller
      * Store A New Image.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -82,7 +83,7 @@ class ImageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function download($id)
+    public function download($id): RedirectResponse
     {
         $image = Image::findOrFail($id);
         $filename = $image->image;
@@ -106,7 +107,7 @@ class ImageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $image = Image::findOrFail($id);

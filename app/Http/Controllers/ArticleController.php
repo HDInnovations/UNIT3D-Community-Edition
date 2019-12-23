@@ -13,16 +13,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use App\Models\Article;
 
-class ArticleController extends Controller
+final class ArticleController extends Controller
 {
     /**
      * Display All Articles.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $articles = Article::latest()->paginate(6);
 
@@ -36,7 +37,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): Factory
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 

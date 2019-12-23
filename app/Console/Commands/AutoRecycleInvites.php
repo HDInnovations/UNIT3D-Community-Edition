@@ -17,28 +17,28 @@ use App\Models\Invite;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleInvites extends Command
+final class AutoRecycleInvites extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:recycle_invites';
+    protected string $signature = 'auto:recycle_invites';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle Invites That Are Expired.';
+    protected string $description = 'Recycle Invites That Are Expired.';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $invites = Invite::whereNull('accepted_by')->whereNull('accepted_at')->where('expires_on', '<', $current)->get();

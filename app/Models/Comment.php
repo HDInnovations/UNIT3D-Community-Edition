@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Helpers\Bbcode;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -50,7 +51,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Playlist|null $playlist
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment wherePlaylistId($value)
  */
-class Comment extends Model
+final class Comment extends Model
 {
     use Auditable;
 
@@ -59,7 +60,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -69,7 +70,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function article()
+    public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class);
     }
@@ -79,7 +80,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function request()
+    public function request(): BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class, 'requests_id', 'id');
     }
@@ -89,7 +90,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function playlist()
+    public function playlist(): BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }
@@ -99,7 +100,7 @@ class Comment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -114,7 +115,7 @@ class Comment extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = htmlspecialchars($value);
     }
@@ -124,7 +125,7 @@ class Comment extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
 

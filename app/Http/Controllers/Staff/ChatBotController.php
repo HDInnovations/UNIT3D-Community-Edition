@@ -13,12 +13,14 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Bot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ChatBotController extends Controller
+final class ChatBotController extends Controller
 {
     /**
      * Display a listing of the Bots resource.
@@ -26,7 +28,7 @@ class ChatBotController extends Controller
      * @param  string  $hash
      * @return \Illuminate\Http\Response
      */
-    public function index($hash = null)
+    public function index(string $hash = null): Factory
     {
         $bots = Bot::orderBy('position', 'ASC')->get();
 
@@ -43,7 +45,7 @@ class ChatBotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, int $id): Factory
     {
         $user = $request->user();
         $bot = Bot::findOrFail($id);
@@ -57,11 +59,11 @@ class ChatBotController extends Controller
     /**
      * Update the specified Bot resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request  $request
+     * @param int  $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $user = $request->user();
         $bot = Bot::findOrFail($id);
@@ -110,7 +112,7 @@ class ChatBotController extends Controller
             $bot->save();
             $success = 'The Bot Has Been Updated';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -130,7 +132,7 @@ class ChatBotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): Response
     {
         $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
         $bot->delete();
@@ -145,7 +147,7 @@ class ChatBotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function disable($id)
+    public function disable(int $id): Response
     {
         $bot = Bot::findOrFail($id);
         $bot->active = 0;
@@ -161,7 +163,7 @@ class ChatBotController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function enable($id)
+    public function enable(int $id): Response
     {
         $bot = Bot::findOrFail($id);
         $bot->active = 1;

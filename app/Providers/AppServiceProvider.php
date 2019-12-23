@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
-class AppServiceProvider extends ServiceProvider
+final class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -33,10 +33,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // OMDB
-        $this->app->bind(OmdbClient::class, function ($app) {
+        $this->app->bind(OmdbClient::class, function ($app): OmdbClient {
             $key = config('api-keys.omdb');
 
             return new OmdbClient($key);
@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WishInterface::class, WishRepository::class);
 
         // Hidden Captcha
-        $this->app->bind('hiddencaptcha', 'App\Helpers\HiddenCaptcha');
+        $this->app->bind('hiddencaptcha', HiddenCaptcha::class);
     }
 
     /**
@@ -54,30 +54,26 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
 
         // Share $pages across all views
         view()->composer('*', function (View $view) {
-            $pages = cache()->remember('cached-pages', 3600, function () {
-                return Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get();
-            });
+            $pages = cache()->remember('cached-pages', 3_600, fn() => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
 
-            $view->with(compact('pages'));
+            $view->with(['pages' => $pages]);
         });
 
         // Hidden Captcha
-        Blade::directive('hiddencaptcha', function ($mustBeEmptyField = '_username') {
-            return "<?= App\Helpers\HiddenCaptcha::render($mustBeEmptyField); ?>";
-        });
+        Blade::directive('hiddencaptcha', fn($mustBeEmptyField = '_username') => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
-            function ($attribute, $value, $parameters, $validator) {
+            function ($attribute, $value, $parameters, $validator): bool {
                 $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
-                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1200;
+                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
                 if (! HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {
                     $validator->setCustomMessages(['hiddencaptcha' => 'Captcha error']);
 

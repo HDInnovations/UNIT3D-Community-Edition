@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,14 +45,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereUserId($value)
  * @mixin \Eloquent
  */
-class Message extends Model
+final class Message extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'message',
         'user_id',
         'chatroom_id',
@@ -64,7 +65,7 @@ class Message extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function bot()
+    public function bot(): BelongsTo
     {
         return $this->belongsTo(Bot::class);
     }
@@ -74,7 +75,7 @@ class Message extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -84,7 +85,7 @@ class Message extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver()
+    public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
@@ -94,7 +95,7 @@ class Message extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function chatroom()
+    public function chatroom(): BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
     }
@@ -106,7 +107,7 @@ class Message extends Model
      *
      * @return void
      */
-    public function setMessageAttribute($value)
+    public function setMessageAttribute(string $value): void
     {
         $this->attributes['message'] = htmlspecialchars($value);
     }
@@ -117,7 +118,7 @@ class Message extends Model
      * @param $message
      * @return string Parsed BBCODE To HTML
      */
-    public static function getMessageHtml($message)
+    public static function getMessageHtml($message): string
     {
         $bbcode = new Bbcode();
 

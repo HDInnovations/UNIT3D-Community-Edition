@@ -13,55 +13,56 @@
 
 namespace App\Services\Data;
 
+use DateTime;
 use Carbon\Carbon;
 
-class Tv extends Movie
+final class Tv extends Movie
 {
     /**
      * @var array
      */
-    public $tvdb;
+    public array $tvdb = [];
 
     /**
      * @var array
      */
-    public $episodes;
+    public array $episodes = [];
 
     /**
      * @var Carbon
      */
-    public $endDate;
+    public ?Carbon $endDate;
 
     /**
      * @var bool
      */
-    public $ended;
+    public bool $ended;
 
     /**
      * @var string
      */
-    public $network;
+    public string $network;
 
     /**
      * @var array
      */
-    public $creators;
+    public array $creators = [];
 
     /**
      * @var float
      */
-    public $tvdbRating;
+    public float $tvdbRating;
 
     /**
      * @var int
      */
-    public $tvdbVotes;
+    public int $tvdbVotes;
 
     public function __construct($data = [])
     {
         parent::__construct($data);
 
-        if ($this->endDate instanceof \DateTime) {
+        if ($this->endDate instanceof DateTime) {
             $this->endDate = $this->endDate ? (new Carbon())->instance($this->endDate) : null;
         } else {
             $this->endDate = $this->endDate ? (new Carbon($this->endDate)) : null;

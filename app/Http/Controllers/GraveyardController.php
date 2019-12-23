@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Graveyard;
 use App\Models\Torrent;
 use App\Repositories\TorrentFacetedRepository;
@@ -20,12 +22,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class GraveyardController extends Controller
+final class GraveyardController extends Controller
 {
     /**
      * @var TorrentFacetedRepository
      */
-    private $faceted;
+    private TorrentFacetedRepository $faceted;
 
     /**
      * GraveyardController Constructor.
@@ -44,7 +46,7 @@ class GraveyardController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory
     {
         $current = Carbon::now();
         $user = $request->user();
@@ -66,8 +68,8 @@ class GraveyardController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Torrent $torrent
      *
-     * @return array
      * @throws \Throwable
+     * @return mixed[]|string
      */
     public function faceted(Request $request, Torrent $torrent)
     {
@@ -142,8 +144,7 @@ class GraveyardController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $id)
     {
@@ -191,7 +192,7 @@ class GraveyardController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, int $id): RedirectResponse
     {
         $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);

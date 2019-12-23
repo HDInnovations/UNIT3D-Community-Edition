@@ -13,17 +13,28 @@
 
 namespace App\Services\Clients;
 
+use Exception;
+use HttpResponseException;
 use GuzzleHttp\Client as GuzzleClient;
 
 abstract class Client
 {
-    protected $guzzle;
+    /**
+     * @var GuzzleClient
+     */
+    protected GuzzleClient $guzzle;
 
-    protected $apiUrl;
+    /**
+     * @var string
+     */
+    protected string $apiUrl;
 
     protected $apiKey;
 
-    protected $apiSecure = false;
+    /**
+     * @var bool
+     */
+    protected bool $apiSecure = false;
 
     public function __construct($apiUrl, $apiKey = null)
     {
@@ -32,6 +43,9 @@ abstract class Client
         $this->guzzle = new GuzzleClient();
     }
 
+    /**
+     * @return mixed
+     */
     public function request($url, array $options = [])
     {
         $key = md5($url.serialize($options));
@@ -41,7 +55,7 @@ abstract class Client
 
         try {
             $response = $this->guzzle->request('GET', $url, $options);
-        } catch (\Exception $e) {
+        } catch (Exception $exception) {
         }
 
         if (! empty($response)) {
@@ -54,22 +68,26 @@ abstract class Client
 
     public function toArray($string)
     {
-        return json_decode($string, true);
+        return json_decode($string, true, 512, JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * @return string|bool
+     */
     public function toJson(array $array, $options = 0)
     {
         return json_encode($array, $options);
     }
 
+    /**
+     * @return mixed
+     */
     public function cache($key, $data = null)
     {
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            cache()->remember($key, 7 * 24 * 60, function () use ($data) {
-                return serialize($data);
-            });
+            cache()->remember($key, 7 * 24 * 60, fn() => serialize($data));
         }
 
         if (cache()->has($key)) {
@@ -79,7 +97,7 @@ abstract class Client
         return $data;
     }
 
-    protected function validateKeys($keys)
+    protected function validateKeys($keys): void
     {
         /*if (!empty($keys['imdb'])) {
             if (!preg_match('/tt\\d{7}/', $keys['imdb'])) {
@@ -100,10 +118,10 @@ abstract class Client
         }*/
     }
 
-    protected function validateStatus($statusCode)
+    protected function validateStatus($statusCode): void
     {
         if ($statusCode < 200 && $statusCode > 299) {
-            throw new \HttpResponseException('Invalid Status Code');
+            throw new HttpResponseException('Invalid Status Code');
         }
     }
 }

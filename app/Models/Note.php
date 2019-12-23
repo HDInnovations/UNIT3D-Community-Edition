@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,7 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereUserId($value)
  * @mixin \Eloquent
  */
-class Note extends Model
+final class Note extends Model
 {
     use Auditable;
 
@@ -47,14 +48,14 @@ class Note extends Model
      *
      * @var string
      */
-    protected $table = 'user_notes';
+    protected string $table = 'user_notes';
 
     /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function noteduser()
+    public function noteduser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
@@ -67,7 +68,7 @@ class Note extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function staffuser()
+    public function staffuser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',

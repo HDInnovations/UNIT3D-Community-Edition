@@ -13,19 +13,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Mail\Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class ContactController extends Controller
+final class ContactController extends Controller
 {
     /**
      * Contact Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         return view('contact.index');
     }
@@ -37,7 +39,7 @@ class ContactController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // Fetch owner account
         $user = User::where('id', '=', 3)->first();

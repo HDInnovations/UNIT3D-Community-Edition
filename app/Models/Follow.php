@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -39,7 +40,7 @@ use Illuminate\Notifications\Notifiable;
  * @mixin \Eloquent
  * @property-read int|null $notifications_count
  */
-class Follow extends Model
+final class Follow extends Model
 {
     use Notifiable;
     use Auditable;
@@ -49,7 +50,7 @@ class Follow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -62,7 +63,7 @@ class Follow extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function target()
+    public function target(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

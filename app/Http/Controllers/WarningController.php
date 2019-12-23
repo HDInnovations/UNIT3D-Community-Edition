@@ -13,13 +13,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class WarningController extends Controller
+final class WarningController extends Controller
 {
     /**
      * Show A Users Warnings.
@@ -29,7 +31,7 @@ class WarningController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, $username)
+    public function show(Request $request, $username): Factory
     {
         abort_unless($request->user()->group->is_modo, 403);
 
@@ -58,7 +60,7 @@ class WarningController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deactivate(Request $request, $id)
+    public function deactivate(Request $request, $id): RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
         $staff = $request->user();
@@ -87,7 +89,7 @@ class WarningController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deactivateAllWarnings(Request $request, $username)
+    public function deactivateAllWarnings(Request $request, $username): RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
         $staff = $request->user();
@@ -121,7 +123,7 @@ class WarningController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteWarning(Request $request, $id)
+    public function deleteWarning(Request $request, $id): RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
 
@@ -137,6 +139,7 @@ class WarningController extends Controller
         $pm->save();
 
         $warning->deleted_by = $staff->id;
+
         $warning->save();
         $warning->delete();
 
@@ -151,7 +154,7 @@ class WarningController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteAllWarnings(Request $request, $username)
+    public function deleteAllWarnings(Request $request, $username): RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
 
@@ -186,7 +189,7 @@ class WarningController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function restoreWarning(Request $request, $id)
+    public function restoreWarning(Request $request, $id): RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
 

@@ -15,15 +15,21 @@ namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
 
-class UserMadeUpload extends Achievement
+final class UserMadeUpload extends Achievement
 {
     /*
      * The achievement name
      */
-    public $name = 'FirstUpload';
+    /**
+     * @var string
+     */
+    public string $name = 'FirstUpload';
 
     /*
      * A small description for the achievement
      */
-    public $description = 'Congratulations! You have made your first torrent upload!';
+    /**
+     * @var string
+     */
+    public string $description = 'Congratulations! You have made your first torrent upload!';
 }

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Http\RedirectResponse;
 use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
 use App\Models\History;
@@ -21,12 +22,12 @@ use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class FlushController extends Controller
+final class FlushController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * ChatController Constructor.
@@ -43,7 +44,7 @@ class FlushController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function peers()
+    public function peers(): RedirectResponse
     {
         $current = new Carbon();
         $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
@@ -66,7 +67,7 @@ class FlushController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function chat()
+    public function chat(): RedirectResponse
     {
         foreach (Message::all() as $message) {
             broadcast(new MessageDeleted($message));

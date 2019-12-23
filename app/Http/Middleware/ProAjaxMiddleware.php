@@ -13,10 +13,11 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\JsonResponse;
 
-class ProAjaxMiddleware
+final class ProAjaxMiddleware
 {
     /**
      * All your flash names.
@@ -24,7 +25,7 @@ class ProAjaxMiddleware
      *
      * @var array
      */
-    public $flash_name = 'flash_message';
+    public string $flash_name = 'flash_message';
 
     /**
      * After the request has been made, determine if an alert should be shown,
@@ -32,10 +33,9 @@ class ProAjaxMiddleware
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
-     *
-     * @return mixed
+     * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         //return  $response = $next($request);
         $response = $next($request);
@@ -90,7 +90,7 @@ class ProAjaxMiddleware
      *
      * @return bool
      */
-    public function isAjaxRequest($request)
+    public function isAjaxRequest($request): bool
     {
         return $request->ajax() && $request->wantsJson();
     }
@@ -102,7 +102,7 @@ class ProAjaxMiddleware
      *
      * @return bool
      */
-    public function sessionHasFlashData($request)
+    public function sessionHasFlashData($request): bool
     {
         return $request->session()->has($this->flash_name);
     }
@@ -114,12 +114,12 @@ class ProAjaxMiddleware
      *
      * @return array
      */
-    public function getFlashMessage($request)
+    public function getFlashMessage($request): array
     {
         $session = $request->session();
 
-        $flash_message['type'] = $session->get("{$this->flash_name}.type");
-        $flash_message['message'] = $session->get("{$this->flash_name}.message");
+        $flash_message['type'] = $session->get(sprintf('%s.type', $this->flash_name));
+        $flash_message['message'] = $session->get(sprintf('%s.message', $this->flash_name));
 
         return $flash_message;
     }
@@ -132,7 +132,7 @@ class ProAjaxMiddleware
      *
      * @return bool
      */
-    public function shouldRedirectRequest($request, $response)
+    public function shouldRedirectRequest($request, $response): bool
     {
         // If there is no target URL, we know that it is not a redirect request
         if (! method_exists($response, 'getTargetUrl')) {

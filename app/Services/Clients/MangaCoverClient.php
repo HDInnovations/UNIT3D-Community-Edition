@@ -15,33 +15,39 @@ namespace App\Services\Clients;
 
 use App\Services\Contracts\MangaInterface;
 
-class MangaCoverClient extends Client implements MangaInterface
+final class MangaCoverClient extends Client implements MangaInterface
 {
-    protected $apiUrl = 'mcd.iosphe.re/api/v1/';
+    /**
+     * @var string
+     */
+    protected string $apiUrl = 'mcd.iosphe.re/api/v1/';
 
-    protected $apiSecure = false;
+    /**
+     * @var bool
+     */
+    protected bool $apiSecure = false;
 
     public function __construct()
     {
         parent::__construct($this->apiUrl);
     }
 
-    public function find($key)
+    public function find($key): void
     {
         // TODO: Implement find() method.
     }
 
-    public function manga($id)
+    public function manga($id): void
     {
         // TODO: Implement manga() method.
     }
 
-    public function authors($id)
+    public function authors($id): void
     {
         // TODO: Implement authors() method.
     }
 
-    public function characters($id)
+    public function characters($id): void
     {
         // TODO: Implement characters() method.
     }

@@ -13,12 +13,16 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Bepsvpt\SecureHeaders\SecureHeaders;
 use Closure;
 
-class HtmlEncrypt
+final class HtmlEncrypt
 {
-    private $hex;
+    /**
+     * @var string
+     */
+    private string $hex;
 
     /**
      * HtmlEncrypt constructor.
@@ -33,10 +37,9 @@ class HtmlEncrypt
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
-     *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         /**
          * @var Response
@@ -54,7 +57,7 @@ class HtmlEncrypt
         return $response;
     }
 
-    public function encryptHtml($content)
+    public function encryptHtml($content): string
     {
         $nonce = SecureHeaders::nonce();
 
@@ -64,20 +67,20 @@ class HtmlEncrypt
             $this->addHexValue('%'.$a);
         });
 
-        $script = "<script type='text/javascript' nonce='{$nonce}'>document.writeln(unescape('{$this->hex}'));</script>";
+        $script = sprintf('<script type=\'text/javascript\' nonce=\'%s\'>document.writeln(unescape(\'%s\'));</script>', $nonce, $this->hex);
 
         if (config('html-encrypt.disable_right_click')) {
-            $script .= "<script type='text/javascript' nonce='{$nonce}'>let body = document.getElementsByTagName('body')[0];var att = document.createAttribute('oncontextmenu');att.value = 'return false'';body.setAttributeNode(att);</script>";
+            $script .= sprintf('<script type=\'text/javascript\' nonce=\'%s\'>let body = document.getElementsByTagName(\'body\')[0];var att = document.createAttribute(\'oncontextmenu\');att.value = \'return false\'\';body.setAttributeNode(att);</script>', $nonce);
         }
 
         if (config('html-encrypt.disable_ctrl_and_F12_key')) {
-            $script .= "<script type='text/javascript' nonce='{$nonce}'>document.onkeydown=function(e){if(e.ctrlKey || e.keyCode == 123){return false}}</script>";
+            $script .= sprintf('<script type=\'text/javascript\' nonce=\'%s\'>document.onkeydown=function(e){if(e.ctrlKey || e.keyCode == 123){return false}}</script>', $nonce);
         }
 
         return $script;
     }
 
-    public function addHexValue($hex)
+    public function addHexValue($hex): void
     {
         $this->hex .= $hex;
     }

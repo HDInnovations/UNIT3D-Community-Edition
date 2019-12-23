@@ -19,28 +19,28 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoWarning extends Command
+final class AutoWarning extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:warning';
+    protected string $signature = 'auto:warning';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Post Warnings To Users Accounts and Warnings Table';
+    protected string $description = 'Automatically Post Warnings To Users Accounts and Warnings Table';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (config('hitrun.enabled') == true) {
             $current = new Carbon();
@@ -63,12 +63,12 @@ class AutoWarning extends Command
                             ->first();
 
                         // Insert Warning Into Warnings Table if doesnt already exsist
-                        if (! $exsist) {
+                        if ($exsist === null) {
                             $warning = new Warning();
                             $warning->user_id = $hr->user->id;
                             $warning->warned_by = '1';
                             $warning->torrent = $hr->torrent->id;
-                            $warning->reason = "Hit and Run Warning For Torrent {$hr->torrent->name}";
+                            $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
                             $warning->expires_on = $current->copy()->addDays(config('hitrun.expire'));
                             $warning->active = '1';
                             $warning->save();

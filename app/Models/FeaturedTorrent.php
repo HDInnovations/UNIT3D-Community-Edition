@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FeaturedTorrent whereUserId($value)
  * @mixin \Eloquent
  */
-class FeaturedTorrent extends Model
+final class FeaturedTorrent extends Model
 {
     use Auditable;
 
@@ -45,7 +46,7 @@ class FeaturedTorrent extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -55,7 +56,7 @@ class FeaturedTorrent extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

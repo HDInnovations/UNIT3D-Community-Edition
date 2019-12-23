@@ -15,7 +15,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BotResource extends JsonResource
+final class BotResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,7 +24,7 @@ class BotResource extends JsonResource
      *
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return parent::toArray($request);
     }

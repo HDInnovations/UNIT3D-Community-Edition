@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $requests_count
  * @property-read int|null $torrents_count
  */
-class Type extends Model
+final class Type extends Model
 {
     use Auditable;
 
@@ -45,14 +46,14 @@ class Type extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * Has Many Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function torrents()
+    public function torrents(): HasMany
     {
         return $this->hasMany(Torrent::class);
     }
@@ -62,7 +63,7 @@ class Type extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function requests()
+    public function requests(): HasMany
     {
         return $this->hasMany(TorrentRequest::class);
     }

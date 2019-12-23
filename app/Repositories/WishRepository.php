@@ -19,27 +19,27 @@ use App\Models\User;
 use App\Models\Wish;
 use App\Services\Clients\OmdbClient;
 
-class WishRepository implements WishInterface
+final class WishRepository implements WishInterface
 {
     /**
      * @var Wish
      */
-    private $wish;
+    private Wish $wish;
 
     /**
      * @var User
      */
-    private $user;
+    private User $user;
 
     /**
      * @var OmdbClient
      */
-    private $client;
+    private OmdbClient $client;
 
     /**
      * @var Torrent
      */
-    private $torrent;
+    private Torrent $torrent;
 
     /**
      * WishRepository constructor.
@@ -105,10 +105,10 @@ class WishRepository implements WishInterface
      */
     public function exists($uid, $id)
     {
-        return $this->user->find($uid)
+        return (bool) $this->user->find($uid)
             ->wishes()
             ->where('imdb', '=', $id)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**
@@ -120,11 +120,11 @@ class WishRepository implements WishInterface
     {
         $id = str_replace('tt', '', $id);
 
-        return $this->torrent
+        return (bool) $this->torrent
             ->where('imdb', '=', $id)
             ->where('seeders', '>', 0)
             ->where('status', '=', 1)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**

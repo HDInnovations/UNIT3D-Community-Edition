@@ -16,21 +16,21 @@ namespace App\Console\Commands;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 
-class SyncPeers extends Command
+final class SyncPeers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:sync_peers';
+    protected string $signature = 'auto:sync_peers';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Corrects Torrent Seeders/Leechers (Peers) Count Due To Not Receiving A STOPPED Event From Client.';
+    protected string $description = 'Corrects Torrent Seeders/Leechers (Peers) Count Due To Not Receiving A STOPPED Event From Client.';
 
     /**
      * Create a new command instance.
@@ -47,7 +47,7 @@ class SyncPeers extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $torrents = Torrent::select(['id', 'seeders', 'leechers'])
             ->with('peers')

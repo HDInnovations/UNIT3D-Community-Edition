@@ -17,20 +17,19 @@ use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class LikeController extends Controller
+final class LikeController extends Controller
 {
     /**
      * Like A Post.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $postId
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $postId
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
@@ -57,15 +56,14 @@ class LikeController extends Controller
     /**
      * Dislike A Post.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $postId
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $postId
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function destroy(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();

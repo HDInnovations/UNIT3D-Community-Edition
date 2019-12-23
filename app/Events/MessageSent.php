@@ -21,7 +21,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageSent implements ShouldBroadcastNow
+final class MessageSent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -30,7 +30,7 @@ class MessageSent implements ShouldBroadcastNow
      *
      * @var Message
      */
-    public $message;
+    public ChatMessageResource $message;
 
     /**
      * Create a new event instance.
@@ -55,14 +55,14 @@ class MessageSent implements ShouldBroadcastNow
      *
      * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 
         return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.message';
     }

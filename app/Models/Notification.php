@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Notification whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Notification extends Model
+final class Notification extends Model
 {
     use Auditable;
 

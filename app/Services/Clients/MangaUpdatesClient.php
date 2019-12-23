@@ -16,26 +16,41 @@ namespace App\Services\Clients;
 use App\Services\Contracts\MangaInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
-class MangaUpdatesClient extends Client implements MangaInterface
+final class MangaUpdatesClient extends Client implements MangaInterface
 {
-    protected $apiUrl = 'www.mangaupdates.com/';
+    /**
+     * @var string
+     */
+    protected string $apiUrl = 'www.mangaupdates.com/';
 
-    protected $apiSecure = true;
+    /**
+     * @var bool
+     */
+    protected bool $apiSecure = true;
 
-    protected $apiSeriesUrl = 'series.html?id=';
+    /**
+     * @var string
+     */
+    protected string $apiSeriesUrl = 'series.html?id=';
 
-    protected $apiAuthorUrl = 'authors.html?id=';
+    /**
+     * @var string
+     */
+    protected string $apiAuthorUrl = 'authors.html?id=';
 
     public function __construct()
     {
         parent::__construct($this->apiUrl);
     }
 
-    public function find($key)
+    public function find($key): void
     {
     }
 
-    public function manga($id)
+    /**
+     * @return mixed[][]|string[][]|null[][]
+     */
+    public function manga($id): array
     {
         $webpage = $this->request($this->apiUrl.$this->apiSeriesUrl.$id);
         $dom = new Crawler($webpage);
@@ -44,7 +59,7 @@ class MangaUpdatesClient extends Client implements MangaInterface
         $data['description'] = $dom->filter('.sContainer .sContent')->first()->html();
 
         preg_match(
-            '/(?:class\=\"sCat\"\>\<b\>Associated Names\<\/b\>\<\/div\>)+\n?(?:\<div class\=\"sContent\" \>)(.+)(?:\n?+\<\/div\>)/i',
+            '#(?:class\=\"sCat\"\>\<b\>Associated Names\<\/b\>\<\/div\>)+\n?(?:\<div class\=\"sContent\" \>)(.+)(?:\n?+\<\/div\>)#i',
             $webpage,
             $aka_titles
         );
@@ -52,21 +67,21 @@ class MangaUpdatesClient extends Client implements MangaInterface
         $data['aka_titles'] = array_filter($aka_titles, 'html_entity_decode');
 
         preg_match(
-            '/(?:class\=\"sCat\"\>\<b\>Genre\<\/b\>\<\/div\>)+\n?(?:\<div class\=\"sContent\" \>)(.+)(?:\n?+\<\/div\>)/i',
+            '#(?:class\=\"sCat\"\>\<b\>Genre\<\/b\>\<\/div\>)+\n?(?:\<div class\=\"sContent\" \>)(.+)(?:\n?+\<\/div\>)#i',
             $webpage,
             $genre_block
         );
-        preg_match_all('/series\.html\?act\=genresearch\&amp\;genre\=([\w-+]+)/i', $genre_block[1], $genres);
+        preg_match_all('#series\.html\?act\=genresearch\&amp\;genre\=([\w\-+]+)#i', $genre_block[1], $genres);
         $data['genres'] = array_filter($genres[1], 'urldecode');
 
         return $data;
     }
 
-    public function authors($id)
+    public function authors($id): void
     {
     }
 
-    public function characters($id)
+    public function characters($id): void
     {
     }
 }

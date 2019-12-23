@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Response;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\Rss;
@@ -23,12 +25,12 @@ use App\Models\User;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
-class RssController extends Controller
+final class RssController extends Controller
 {
     /**
      * @var TorrentFacetedRepository
      */
-    private $torrent_faceted;
+    private TorrentFacetedRepository $torrent_faceted;
 
     /**
      * RssController Constructor.
@@ -48,7 +50,7 @@ class RssController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $hash = null)
+    public function index(Request $request, string $hash = null): Factory
     {
         $user = $request->user();
 
@@ -69,7 +71,7 @@ class RssController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request): Factory
     {
         $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
@@ -85,9 +87,8 @@ class RssController extends Controller
     /**
      * Store a newly created RSS resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -115,12 +116,12 @@ class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = array_merge($expected, $params);
+            $rss->json_torrent = [...$expected, ...$params];
             $rss->is_private = 1;
             $rss->save();
             $success = 'Private RSS Feed Created';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -137,21 +138,17 @@ class RssController extends Controller
     /**
      * Display the specified RSS resource.
      *
-     * @param  int  $id
-     * @param  string $rsskey
-     * @return \Illuminate\Http\Response
+     * @param int  $id
+     * @param string $rsskey
+     * @return int[]|mixed[][]|\Illuminate\Http\Response
      */
-    public function show($id, $rsskey)
+    public function show(int $id, string $rsskey)
     {
-        $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
-        $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
+        $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
+        $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         if ($user->group->id == $banned_group[0]) {
             abort(404);
@@ -305,7 +302,7 @@ class RssController extends Controller
      * @param  int                       $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, int $id): Factory
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
@@ -323,11 +320,11 @@ class RssController extends Controller
     /**
      * Update the specified RSS resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request  $request
+     * @param int  $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
@@ -355,7 +352,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Updated';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -375,7 +372,7 @@ class RssController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): Response
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();

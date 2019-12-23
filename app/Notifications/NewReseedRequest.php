@@ -18,11 +18,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewReseedRequest extends Notification implements ShouldQueue
+final class NewReseedRequest extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $torrent;
+    /**
+     * @var \App\Models\Torrent
+     */
+    public Torrent $torrent;
 
     /**
      * Create a new notification instance.
@@ -38,10 +41,9 @@ class NewReseedRequest extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -50,17 +52,16 @@ class NewReseedRequest extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => 'New Reseed Request',
-            'body'  => "Some time ago, you downloaded: {$this->torrent->name}. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!",
-            'url'   => "{$appurl}/torrents/{$this->torrent->id}",
+            'body'  => sprintf('Some time ago, you downloaded: %s. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!', $this->torrent->name),
+            'url'   => sprintf('%s/torrents/%s', $appurl, $this->torrent->id),
         ];
     }
 }

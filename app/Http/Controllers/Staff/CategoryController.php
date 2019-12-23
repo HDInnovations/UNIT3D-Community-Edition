@@ -13,20 +13,22 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 
-class CategoryController extends Controller
+final class CategoryController extends Controller
 {
     /**
      * Display All Categories.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $categories = Category::all()->sortBy('position');
 
@@ -38,7 +40,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('Staff.category.create');
     }
@@ -47,8 +49,7 @@ class CategoryController extends Controller
      * Store A Category.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -103,7 +104,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): Factory
     {
         $category = Category::findOrFail($id);
 
@@ -113,10 +114,9 @@ class CategoryController extends Controller
     /**
      * Update A Category.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -169,7 +169,7 @@ class CategoryController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->delete();

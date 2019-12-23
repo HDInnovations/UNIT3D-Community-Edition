@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Helpers\Bbcode;
 use App\Notifications\NewComment;
 use App\Traits\Auditable;
@@ -81,7 +83,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $request_bounty_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereIgdb($value)
  */
-class TorrentRequest extends Model
+final class TorrentRequest extends Model
 {
     use Auditable;
 
@@ -90,7 +92,7 @@ class TorrentRequest extends Model
      *
      * @var array
      */
-    protected $dates = [
+    protected array $dates = [
         'created_at',
         'updated_at',
         'filled_when',
@@ -102,14 +104,14 @@ class TorrentRequest extends Model
      *
      * @var string
      */
-    protected $table = 'requests';
+    protected string $table = 'requests';
 
     /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -122,7 +124,7 @@ class TorrentRequest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function approveUser()
+    public function approveUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by')->withDefault([
             'username' => 'System',
@@ -135,7 +137,7 @@ class TorrentRequest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function FillUser()
+    public function FillUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'filled_by')->withDefault([
             'username' => 'System',
@@ -148,7 +150,7 @@ class TorrentRequest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
@@ -158,7 +160,7 @@ class TorrentRequest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
     }
@@ -168,7 +170,7 @@ class TorrentRequest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class, 'filled_hash', 'info_hash');
     }
@@ -178,7 +180,7 @@ class TorrentRequest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'requests_id', 'id');
     }
@@ -188,7 +190,7 @@ class TorrentRequest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function requestBounty()
+    public function requestBounty(): HasMany
     {
         return $this->hasMany(TorrentRequestBounty::class, 'requests_id', 'id');
     }
@@ -200,7 +202,7 @@ class TorrentRequest extends Model
      *
      * @return void
      */
-    public function setDescriptionAttribute($value)
+    public function setDescriptionAttribute(string $value): void
     {
         $this->attributes['description'] = htmlspecialchars($value);
     }
@@ -210,7 +212,7 @@ class TorrentRequest extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getDescriptionHtml()
+    public function getDescriptionHtml(): string
     {
         $bbcode = new Bbcode();
 
@@ -224,7 +226,7 @@ class TorrentRequest extends Model
      * @param $payload
      * @return bool
      */
-    public function notifyRequester($type, $payload)
+    public function notifyRequester($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
         if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {

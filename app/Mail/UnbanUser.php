@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UnbanUser extends Mailable
+final class UnbanUser extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -42,7 +42,7 @@ class UnbanUser extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.unban')
             ->subject('You Have Been Unbanned - '.config('other.title'));

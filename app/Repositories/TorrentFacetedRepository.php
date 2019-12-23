@@ -13,18 +13,19 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Type;
 
-class TorrentFacetedRepository
+final class TorrentFacetedRepository
 {
     /**
      * Return a collection of Category Name from storage.
      *
      * @return \Illuminate\Support\Collection
      */
-    public function categories()
+    public function categories(): Collection
     {
         return Category::all()->sortBy('position')->pluck('name', 'id');
     }
@@ -34,7 +35,7 @@ class TorrentFacetedRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function types()
+    public function types(): Collection
     {
         return Type::all()->sortBy('position')->pluck('name', 'id');
     }
@@ -44,7 +45,7 @@ class TorrentFacetedRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function tags()
+    public function tags(): Collection
     {
         return Tag::all()->sortBy('name')->pluck('name', 'id');
     }
@@ -54,7 +55,7 @@ class TorrentFacetedRepository
      *
      * @return array
      */
-    public function sorting()
+    public function sorting(): array
     {
         return [
             'created_at'      => trans('torrent.date'),
@@ -71,7 +72,7 @@ class TorrentFacetedRepository
      *
      * @return array
      */
-    public function direction()
+    public function direction(): array
     {
         return [
             'desc' => trans('common.descending'),

@@ -13,9 +13,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Topic;
 
-class TopicLabelController extends Controller
+final class TopicLabelController extends Controller
 {
     /**
      * Apply/Remove Approved Label.
@@ -24,14 +25,10 @@ class TopicLabelController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function approve($id)
+    public function approve($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        if ($topic->approved == 0) {
-            $topic->approved = '1';
-        } else {
-            $topic->approved = '0';
-        }
+        $topic->approved = $topic->approved == 0 ? '1' : '0';
         $topic->save();
 
         return redirect()->route('forum_topic', ['id' => $topic->id])
@@ -45,14 +42,10 @@ class TopicLabelController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deny($id)
+    public function deny($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        if ($topic->denied == 0) {
-            $topic->denied = '1';
-        } else {
-            $topic->denied = '0';
-        }
+        $topic->denied = $topic->denied == 0 ? '1' : '0';
         $topic->save();
 
         return redirect()->route('forum_topic', ['id' => $topic->id])
@@ -66,14 +59,10 @@ class TopicLabelController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function solve($id)
+    public function solve($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        if ($topic->solved == 0) {
-            $topic->solved = '1';
-        } else {
-            $topic->solved = '0';
-        }
+        $topic->solved = $topic->solved == 0 ? '1' : '0';
         $topic->save();
 
         return redirect()->route('forum_topic', ['id' => $topic->id])
@@ -87,14 +76,10 @@ class TopicLabelController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function invalid($id)
+    public function invalid($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        if ($topic->invalid == 0) {
-            $topic->invalid = '1';
-        } else {
-            $topic->invalid = '0';
-        }
+        $topic->invalid = $topic->invalid == 0 ? '1' : '0';
         $topic->save();
 
         return redirect()->route('forum_topic', ['id' => $topic->id])
@@ -108,14 +93,10 @@ class TopicLabelController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function bug($id)
+    public function bug($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        if ($topic->bug == 0) {
-            $topic->bug = '1';
-        } else {
-            $topic->bug = '0';
-        }
+        $topic->bug = $topic->bug == 0 ? '1' : '0';
         $topic->save();
 
         return redirect()->route('forum_topic', ['id' => $topic->id])
@@ -129,14 +110,10 @@ class TopicLabelController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function suggest($id)
+    public function suggest($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        if ($topic->suggestion == 0) {
-            $topic->suggestion = '1';
-        } else {
-            $topic->suggestion = '0';
-        }
+        $topic->suggestion = $topic->suggestion == 0 ? '1' : '0';
         $topic->save();
 
         return redirect()->route('forum_topic', ['id' => $topic->id])
@@ -150,14 +127,10 @@ class TopicLabelController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function implement($id)
+    public function implement($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        if ($topic->implemented == 0) {
-            $topic->implemented = '1';
-        } else {
-            $topic->implemented = '0';
-        }
+        $topic->implemented = $topic->implemented == 0 ? '1' : '0';
         $topic->save();
 
         return redirect()->route('forum_topic', ['id' => $topic->id])

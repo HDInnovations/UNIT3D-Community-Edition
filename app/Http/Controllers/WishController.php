@@ -13,17 +13,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Interfaces\WishInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class WishController extends Controller
+final class WishController extends Controller
 {
     /**
      * @var WishInterface
      */
-    private $wish;
+    private WishInterface $wish;
 
     /**
      * WishController Constructor.
@@ -43,7 +45,7 @@ class WishController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $username)
+    public function index(Request $request, $username): Factory
     {
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
@@ -62,8 +64,7 @@ class WishController extends Controller
      * Add New Wish.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -106,7 +107,7 @@ class WishController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
 

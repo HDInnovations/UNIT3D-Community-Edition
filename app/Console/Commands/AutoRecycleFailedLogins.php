@@ -17,28 +17,28 @@ use App\Models\FailedLoginAttempt;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleFailedLogins extends Command
+final class AutoRecycleFailedLogins extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:recycle_failed_logins';
+    protected string $signature = 'auto:recycle_failed_logins';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle Failed Logins Once 30 Days Old.';
+    protected string $description = 'Recycle Failed Logins Once 30 Days Old.';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $failedLogins = FailedLoginAttempt::where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->get();

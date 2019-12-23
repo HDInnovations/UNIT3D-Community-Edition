@@ -13,19 +13,21 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class PageController extends Controller
+final class PageController extends Controller
 {
     /**
      * Display All Pages.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $pages = Page::all();
 
@@ -37,7 +39,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('Staff.page.create');
     }
@@ -46,8 +48,7 @@ class PageController extends Controller
      * Store A New Page.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -80,7 +81,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): Factory
     {
         $page = Page::findOrFail($id);
 
@@ -90,10 +91,9 @@ class PageController extends Controller
     /**
      * Edit A Page.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -126,7 +126,7 @@ class PageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         Page::findOrFail($id)->delete();
 

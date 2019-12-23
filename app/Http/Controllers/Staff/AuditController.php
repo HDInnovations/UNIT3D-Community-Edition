@@ -13,18 +13,20 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Audit;
 use Illuminate\Http\Request;
 
-class AuditController extends Controller
+final class AuditController extends Controller
 {
     /**
      * Display All Audits.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $audits = Audit::with('user')->latest()->paginate(50);
 
@@ -39,7 +41,7 @@ class AuditController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $audit = Audit::findOrFail($id);

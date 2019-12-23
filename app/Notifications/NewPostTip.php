@@ -18,15 +18,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewPostTip extends Notification implements ShouldQueue
+final class NewPostTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $tipper;
+    /**
+     * @var string
+     */
+    public string $tipper;
 
-    public $post;
+    /**
+     * @var \App\Models\Post
+     */
+    public Post $post;
 
     public $amount;
 
@@ -50,10 +59,9 @@ class NewPostTip extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -62,17 +70,16 @@ class NewPostTip extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For A Forum Post',
             'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
-            'url'   => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+            'url'   => sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
         ];
     }
 }

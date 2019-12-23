@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
@@ -21,12 +22,12 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ModerationController extends Controller
+final class ModerationController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * ModerationController Constructor.
@@ -43,7 +44,7 @@ class ModerationController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $current = Carbon::now();
         $pending = Torrent::with(['user', 'category'])->pending()->get();
@@ -62,8 +63,7 @@ class ModerationController extends Controller
      * Approve A Torrent.
      *
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function approve($id)
     {
@@ -79,11 +79,11 @@ class ModerationController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chat->systemMessage(
-                    "User [url={$appurl}/users/".$username.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             }
 
@@ -101,8 +101,7 @@ class ModerationController extends Controller
      * Postpone A Torrent.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function postpone(Request $request)
     {
@@ -123,8 +122,12 @@ class ModerationController extends Controller
             $pm = new PrivateMessage();
             $pm->sender_id = $user->id;
             $pm->receiver_id = $torrent->user_id;
-            $pm->subject = "Your upload, {$torrent->name} ,has been postponed by {$user->username}";
-            $pm->message = "Greetings, \n\n Your upload, {$torrent->name} ,has been postponed. Please see below the message from the staff member. \n\n{$request->input('message')}";
+            $pm->subject = sprintf('Your upload, %s ,has been postponed by %s', $torrent->name, $user->username);
+            $pm->message = sprintf('Greetings, 
+
+ Your upload, %s ,has been postponed. Please see below the message from the staff member. 
+
+%s', $torrent->name, $request->input('message'));
             $pm->save();
 
             return redirect()->route('staff.moderation.index')
@@ -136,8 +139,7 @@ class ModerationController extends Controller
      * Reject A Torrent.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function reject(Request $request)
     {
@@ -158,8 +160,12 @@ class ModerationController extends Controller
             $pm = new PrivateMessage();
             $pm->sender_id = $user->id;
             $pm->receiver_id = $torrent->user_id;
-            $pm->subject = "Your upload, {$torrent->name} ,has been rejected by {$user->username}";
-            $pm->message = "Greetings, \n\n Your upload {$torrent->name} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}";
+            $pm->subject = sprintf('Your upload, %s ,has been rejected by %s', $torrent->name, $user->username);
+            $pm->message = sprintf('Greetings, 
+
+ Your upload %s has been rejected. Please see below the message from the staff member. 
+
+%s', $torrent->name, $request->input('message'));
             $pm->save();
 
             return redirect()->route('staff.moderation.index')

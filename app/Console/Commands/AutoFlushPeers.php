@@ -18,21 +18,21 @@ use App\Models\Peer;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoFlushPeers extends Command
+final class AutoFlushPeers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:flush_peers';
+    protected string $signature = 'auto:flush_peers';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Flushes Ghost Peers';
+    protected string $description = 'Flushes Ghost Peers';
 
     /**
      * Create a new command instance.
@@ -49,7 +49,7 @@ class AutoFlushPeers extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = new Carbon();
         $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();

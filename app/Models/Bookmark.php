@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark whereUserId($value)
  * @mixin \Eloquent
  */
-class Bookmark extends Model
+final class Bookmark extends Model
 {
     use Auditable;
 
@@ -45,7 +46,7 @@ class Bookmark extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -58,7 +59,7 @@ class Bookmark extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }

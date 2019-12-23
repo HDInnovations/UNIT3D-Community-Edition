@@ -18,18 +18,27 @@ use App\Models\Group;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+final class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
     // Upon Successful Login
-    protected $redirectTo = '/';
+    /**
+     * @var string
+     */
+    protected string $redirectTo = '/';
 
     // Max Attempts Until Lockout
-    public $maxAttempts = 3;
+    /**
+     * @var int
+     */
+    public int $maxAttempts = 3;
 
     // Minutes Lockout
-    public $decayMinutes = 60;
+    /**
+     * @var int
+     */
+    public int $decayMinutes = 60;
 
     /**
      * LoginController Constructor.
@@ -39,7 +48,7 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function username()
+    public function username(): string
     {
         return 'username';
     }
@@ -49,7 +58,7 @@ class LoginController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    protected function validateLogin(Request $request)
+    protected function validateLogin(Request $request): void
     {
         if (config('captcha.enabled') == true) {
             $this->validate($request, [
@@ -65,20 +74,15 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     */
     protected function authenticated(Request $request, $user)
     {
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
-        $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
 
         if ($user->active == 0 || $user->group_id == $validating_group[0]) {
             $this->guard()->logout();

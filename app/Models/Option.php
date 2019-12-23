@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Option whereVotes($value)
  * @mixin \Eloquent
  */
-class Option extends Model
+final class Option extends Model
 {
     use Auditable;
 
@@ -45,7 +46,10 @@ class Option extends Model
      *
      * @var array
      */
-    protected $fillable = [
+    /**
+     * @var string[]
+     */
+    protected array $fillable = [
         'name',
     ];
 
@@ -53,7 +57,7 @@ class Option extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function poll()
+    public function poll(): BelongsTo
     {
         return $this->belongsTo(Poll::class);
     }

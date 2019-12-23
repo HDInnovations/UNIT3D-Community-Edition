@@ -22,26 +22,26 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class SendActivationMail implements ShouldQueue
+final class SendActivationMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var User
      */
-    public $user;
+    public User $user;
 
     /**
      * @var string
      */
-    public $code;
+    public string $code;
 
     /**
      * The number of times the job may be attempted.
      *
      * @var int
      */
-    public $tries = 3;
+    public int $tries = 3;
 
     /**
      * ActivateUser constructor.
@@ -49,7 +49,7 @@ class SendActivationMail implements ShouldQueue
      * @param User   $user
      * @param string $code
      */
-    public function __construct(User $user, $code)
+    public function __construct(User $user, string $code)
     {
         $this->user = $user;
         $this->code = $code;
@@ -60,7 +60,7 @@ class SendActivationMail implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->attempts() > 2) {
             $this->delay(min(30 * $this->attempts(), 300));

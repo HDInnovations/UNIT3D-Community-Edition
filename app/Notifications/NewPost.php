@@ -19,15 +19,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewPost extends Notification implements ShouldQueue
+final class NewPost extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $post;
+    /**
+     * @var \App\Models\Post
+     */
+    public Post $post;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $poster;
+    /**
+     * @var \App\Models\User
+     */
+    public User $poster;
 
     /**
      * Create a new notification instance.
@@ -48,10 +57,9 @@ class NewPost extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -60,10 +68,9 @@ class NewPost extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
@@ -71,13 +78,13 @@ class NewPost extends Notification implements ShouldQueue
             return [
                 'title' => $this->poster->username.' Has Posted In A Subscribed Topic',
                 'body' => $this->poster->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
-                'url' => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+                'url' => sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
             ];
         } else {
             return [
                 'title' => $this->poster->username.' Has Posted In A Topic You Started',
                 'body' => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,
-                'url' => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+                'url' => sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
             ];
         }
     }

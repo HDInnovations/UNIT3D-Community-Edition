@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Contracts\Auth\Factory;
 use App\Bots\CasinoBot;
 use App\Bots\NerdBot;
 use App\Bots\SystemBot;
@@ -32,36 +35,36 @@ use Carbon\Carbon;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 
-class ChatController extends Controller
+final class ChatController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * @var AuthManager
      */
-    private $auth;
+    private AuthManager $auth;
 
-    public function __construct(ChatRepository $chat, AuthManager $auth)
+    public function __construct(ChatRepository $chat, Factory $auth)
     {
         $this->chat = $chat;
         $this->auth = $auth;
     }
 
     /* STATUSES */
-    public function statuses()
+    public function statuses(): ResponseFactory
     {
         return response($this->chat->statuses());
     }
 
     /* ECHOES */
-    public function echoes()
+    public function echoes(): AnonymousResourceCollection
     {
         $user = User::with(['echoes'])->findOrFail($this->auth->user()->id);
 
-        if (! $user->echoes || count($user->echoes->toArray()) < 1) {
+        if (! $user->echoes || (is_countable($user->echoes->toArray()) ? count($user->echoes->toArray()) : 0) < 1) {
             $echoes = new UserEcho();
             $echoes->user_id = $this->auth->user()->id;
             $echoes->room_id = 1;
@@ -72,11 +75,11 @@ class ChatController extends Controller
     }
 
     /* AUDIBLES */
-    public function audibles()
+    public function audibles(): AnonymousResourceCollection
     {
         $user = User::with(['audibles'])->findOrFail($this->auth->user()->id);
 
-        if (! $user->audibles || count($user->audibles->toArray()) < 1) {
+        if (! $user->audibles || (is_countable($user->audibles->toArray()) ? count($user->audibles->toArray()) : 0) < 1) {
             $audibles = new UserAudible();
             $audibles->user_id = $this->auth->user()->id;
             $audibles->room_id = 1;
@@ -88,36 +91,36 @@ class ChatController extends Controller
     }
 
     /* BOTS */
-    public function bots()
+    public function bots(): AnonymousResourceCollection
     {
         return BotResource::collection($this->chat->bots());
     }
 
     /* ROOMS */
-    public function rooms()
+    public function rooms(): AnonymousResourceCollection
     {
         return ChatRoomResource::collection($this->chat->rooms());
     }
 
-    public function config()
+    public function config(): ResponseFactory
     {
         return response($this->chat->config());
     }
 
     /* MESSAGES */
-    public function messages($room_id)
+    public function messages($room_id): AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chat->messages($room_id));
     }
 
     /* MESSAGES */
-    public function privateMessages($target_id)
+    public function privateMessages($target_id): AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chat->privateMessages($this->auth->user()->id, $target_id));
     }
 
     /* MESSAGES */
-    public function botMessages($bot_id)
+    public function botMessages($bot_id): AnonymousResourceCollection
     {
         $bot = Bot::where('id', '=', $bot_id)->firstOrFail();
         if ($bot->is_systembot) {
@@ -169,7 +172,7 @@ class ChatController extends Controller
         $target = null;
         $runbot = null;
         $trip = 'msg';
-        if ($message && substr($message, 0, 1 + (strlen($trip))) == '/'.$trip) {
+        if ($message && substr($message, 0, 1 + (strlen($trip))) === '/'.$trip) {
             $which = 'skip';
             $command = @explode(' ', $message);
             if (array_key_exists(1, $command)) {
@@ -184,7 +187,7 @@ class ChatController extends Controller
         }
 
         $trip = 'gift';
-        if ($message && substr($message, 0, 1 + (strlen($trip))) == '/'.$trip) {
+        if ($message && substr($message, 0, 1 + (strlen($trip))) === '/'.$trip) {
             $which = 'echo';
             $target = 'system';
             $message = '/bot gift'.substr($message, strlen($trip) + 1, strlen($message));
@@ -194,21 +197,21 @@ class ChatController extends Controller
         }
         if ($which == null) {
             foreach ($bots as $bot) {
-                if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '/'.$bot->command) {
+                if ($message && substr($message, 0, 1 + (strlen($bot->command))) === '/'.$bot->command) {
                     $which = 'echo';
-                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) == '!'.$bot->command) {
+                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) === '!'.$bot->command) {
                     $which = 'public';
-                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) == '@'.$bot->command) {
+                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) === '@'.$bot->command) {
                     $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     $which = 'private';
                 } elseif ($message && $receiver_id == 1 && $bot->id == $bot_id) {
-                    if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '/'.$bot->command) {
+                    if ($message && substr($message, 0, 1 + (strlen($bot->command))) === '/'.$bot->command) {
                         $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     }
-                    if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '!'.$bot->command) {
+                    if ($message && substr($message, 0, 1 + (strlen($bot->command))) === '!'.$bot->command) {
                         $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     }
-                    if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '@'.$bot->command) {
+                    if ($message && substr($message, 0, 1 + (strlen($bot->command))) === '@'.$bot->command) {
                         $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     }
                     $which = 'message';
@@ -228,7 +231,7 @@ class ChatController extends Controller
                 $runbot = new CasinoBot($this->chat);
             }
         }
-        if ($runbot) {
+        if ($runbot !== null) {
             return $runbot->process($which, $this->auth->user(), $message, 0);
         }
 
@@ -335,11 +338,7 @@ class ChatController extends Controller
             }
 
             $room_id = 0;
-            if ($bot_id > 0 && $receiver_id == 1) {
-                $ignore = true;
-            } else {
-                $ignore = null;
-            }
+            $ignore = $bot_id > 0 && $receiver_id == 1 ? true : null;
             $save = true;
             $echo = true;
             $message = $this->chat->privateMessage($user_id, $room_id, $message, $receiver_id, null, $ignore);
@@ -353,21 +352,21 @@ class ChatController extends Controller
             $message->delete();
         }
 
-        if ($save && $echo != false) {
+        if ($save && $echo) {
             return new ChatMessageResource($message);
         }
 
         return response('success');
     }
 
-    public function deleteMessage($id)
+    public function deleteMessage($id): ResponseFactory
     {
         $this->chat->deleteMessage($id);
 
         return response('success');
     }
 
-    public function deleteRoomEcho(Request $request, $user_id)
+    public function deleteRoomEcho(Request $request, $user_id): ResponseFactory
     {
         $echo = UserEcho::where('user_id', '=', $user_id)->where('room_id', '=', $request->input('room_id'))->firstOrFail();
         $echo->delete();
@@ -389,7 +388,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function deleteTargetEcho(Request $request, $user_id)
+    public function deleteTargetEcho(Request $request, $user_id): ResponseFactory
     {
         $echo = UserEcho::where('user_id', '=', $user_id)->where('target_id', '=', $request->input('target_id'))->firstOrFail();
         $echo->delete();
@@ -404,7 +403,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function deleteBotEcho(Request $request, $user_id)
+    public function deleteBotEcho(Request $request, $user_id): ResponseFactory
     {
         $echo = UserEcho::where('user_id', '=', $user_id)->where('bot_id', '=', $request->input('bot_id'))->firstOrFail();
         $echo->delete();
@@ -419,7 +418,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function toggleRoomAudible(Request $request, $user_id)
+    public function toggleRoomAudible(Request $request, $user_id): ResponseFactory
     {
         $echo = UserAudible::where('user_id', '=', $user_id)->where('room_id', '=', $request->input('room_id'))->firstOrFail();
         $echo->status = ($echo->status == 1 ? 0 : 1);
@@ -435,7 +434,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function toggleTargetAudible(Request $request, $user_id)
+    public function toggleTargetAudible(Request $request, $user_id): ResponseFactory
     {
         $echo = UserAudible::where('user_id', '=', $user_id)->where('target_id', '=', $request->input('target_id'))->firstOrFail();
         $echo->status = ($echo->status == 1 ? 0 : 1);
@@ -451,7 +450,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function toggleBotAudible(Request $request, $user_id)
+    public function toggleBotAudible(Request $request, $user_id): ResponseFactory
     {
         $echo = UserAudible::where('user_id', '=', $user_id)->where('bot_id', '=', $request->input('bot_id'))->firstOrFail();
         $echo->status = ($echo->status == 1 ? 0 : 1);
@@ -468,7 +467,7 @@ class ChatController extends Controller
     }
 
     /* USERS */
-    public function updateUserChatStatus(Request $request, $id)
+    public function updateUserChatStatus(Request $request, $id): ResponseFactory
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
         $status = $this->chat->statusFindOrFail($request->input('status_id'));
@@ -480,12 +479,13 @@ class ChatController extends Controller
 
         $user->chatStatus()->dissociate();
         $user->chatStatus()->associate($status);
+
         $user->save();
 
         return response($user);
     }
 
-    public function updateUserRoom(Request $request, $id)
+    public function updateUserRoom(Request $request, $id): ResponseFactory
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
         $room = $this->chat->roomFindOrFail($request->input('room_id'));
@@ -523,14 +523,14 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function updateUserTarget($id)
+    public function updateUserTarget($id): ResponseFactory
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
         return response($user);
     }
 
-    public function updateBotTarget($id)
+    public function updateBotTarget($id): ResponseFactory
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 

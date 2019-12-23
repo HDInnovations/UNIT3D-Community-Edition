@@ -18,28 +18,31 @@ namespace App\Helpers;
  *
  * A class that can redact/replace words.
  */
-class LanguageCensor
+final class LanguageCensor
 {
-    protected static function isSpecial($c)
+    protected static function isSpecial($c): bool
     {
         $specialChars = "<>\n [].;,";
 
-        return strpos($specialChars, $c) !== false;
+        return strpos($specialChars, (string) $c) !== false;
     }
 
-    protected static function matchWordIndexes($string, $word)
+    /**
+     * @return int[]
+     */
+    protected static function matchWordIndexes($string, $word): array
     {
         $result = [];
         $length = strlen($word);
         $string_length = strlen($string);
-        $pos = stripos($string, $word, 0);
+        $pos = stripos($string, (string) $word, 0);
         while ($pos !== false) {
             $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
             $last = ($pos + $length) < $string_length ? $string[$pos + $length] : ' ';
             if (self::isSpecial($prev) && self::isSpecial($last)) {
                 array_push($result, $pos);
             }
-            $pos = stripos($string, $word, $pos + $length);
+            $pos = stripos($string, (string) $word, $pos + $length);
         }
 
         return $result;
@@ -49,7 +52,6 @@ class LanguageCensor
      * Censor a text.
      *
      * @param $source
-     *
      * @return mixed
      */
     public static function censor($source)
@@ -63,9 +65,9 @@ class LanguageCensor
             $indexes = self::matchWordIndexes($source, $word);
             $ignore = 0;
             for ($i = 0; $i < $length; $i++) {
-                if (count($indexes) > 0 && $indexes[0] == $i) {
+                if ((is_countable($indexes) ? count($indexes) : 0) > 0 && $indexes[0] == $i) {
                     $match = substr($source, $indexes[0], $word_length);
-                    $result .= "<span class='censor'>{$match}</span>";
+                    $result .= sprintf('<span class=\'censor\'>%s</span>', $match);
                     $ignore = $word_length - 1;
                 } elseif ($ignore > 0) {
                     $ignore--;

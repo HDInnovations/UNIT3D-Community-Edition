@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Group;
@@ -20,7 +21,7 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class GroupController extends Controller
+final class GroupController extends Controller
 {
     /**
      * Display All Groups.
@@ -29,7 +30,7 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -46,7 +47,7 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create(Request $request): Factory
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -58,8 +59,7 @@ class GroupController extends Controller
      * Store A New Group.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -128,7 +128,7 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id): Factory
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -141,10 +141,9 @@ class GroupController extends Controller
     /**
      * Edit A Group.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {

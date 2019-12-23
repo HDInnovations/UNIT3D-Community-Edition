@@ -13,18 +13,20 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
 use App\Models\Option;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
 
-class PollController extends Controller
+final class PollController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * PollController Constructor.
@@ -41,7 +43,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $polls = Poll::latest()->paginate(25);
 
@@ -55,7 +57,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): Factory
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
@@ -67,7 +69,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('Staff.poll.create');
     }
@@ -79,25 +81,19 @@ class PollController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(StorePoll $request)
+    public function store(StorePoll $request): RedirectResponse
     {
         $user = $request->user();
 
-        if ($request->user()) {
-            $poll = $user->polls()->create($request->all());
-        } else {
-            $poll = Poll::create($request->all());
-        }
+        $poll = $request->user() ? $user->polls()->create($request->all()) : Poll::create($request->all());
 
-        $options = collect($request->input('options'))->map(function ($value) {
-            return new Option(['name' => $value]);
-        });
+        $options = collect($request->input('options'))->map(fn($value) => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
 
         $poll_url = hrefPoll($poll);
 
         $this->chat->systemMessage(
-            "A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
         );
 
         return redirect()->route('staff.polls.index')

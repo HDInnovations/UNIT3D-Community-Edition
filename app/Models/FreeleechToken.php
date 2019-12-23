@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken whereUserId($value)
  * @mixin \Eloquent
  */
-class FreeleechToken extends Model
+final class FreeleechToken extends Model
 {
     use Auditable;
 

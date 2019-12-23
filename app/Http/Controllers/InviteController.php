@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
@@ -21,7 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
-class InviteController extends Controller
+final class InviteController extends Controller
 {
     /**
      * Invite Tree.
@@ -31,7 +33,7 @@ class InviteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $username)
+    public function index(Request $request, $username): Factory
     {
         $user = $request->user();
         $owner = User::where('username', '=', $username)->firstOrFail();
@@ -49,7 +51,7 @@ class InviteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
         $user = $request->user();
 
@@ -74,8 +76,8 @@ class InviteController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
      * @throws \Exception
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -131,7 +133,7 @@ class InviteController extends Controller
             Mail::to($request->input('email'))->send(new InviteUser($invite));
             $invite->save();
 
-            $user->invites -= 1;
+            --$user->invites;
             $user->save();
 
             return redirect()->route('invites.create')
@@ -142,10 +144,9 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function send(Request $request, $id)
     {

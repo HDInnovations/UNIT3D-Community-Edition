@@ -19,33 +19,31 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoDisableInactiveUsers extends Command
+final class AutoDisableInactiveUsers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:disable_inactive_users';
+    protected string $signature = 'auto:disable_inactive_users';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'User account must be at least x days old & user account x days Of inactivity to be disabled';
+    protected string $description = 'User account must be at least x days old & user account x days Of inactivity to be disabled';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (config('pruning.user_pruning') == true) {
-            $disabled_group = cache()->rememberForever('disabled_group', function () {
-                return Group::where('slug', '=', 'disabled')->pluck('id');
-            });
+            $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $current = Carbon::now();
 

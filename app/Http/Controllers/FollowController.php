@@ -19,15 +19,14 @@ use App\Notifications\NewFollow;
 use App\Notifications\NewUnfollow;
 use Illuminate\Http\Request;
 
-class FollowController extends Controller
+final class FollowController extends Controller
 {
     /**
      * Follow A User.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $username
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $username)
     {
@@ -58,9 +57,9 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $username
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $username)
     {

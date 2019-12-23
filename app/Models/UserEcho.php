@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -41,28 +42,28 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserEcho whereUserId($value)
  * @mixin \Eloquent
  */
-class UserEcho extends Model
+final class UserEcho extends Model
 {
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
-    public $timestamps = true;
+    public bool $timestamps = true;
 
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
-    protected $table = 'user_echoes';
+    protected string $table = 'user_echoes';
 
     /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -72,7 +73,7 @@ class UserEcho extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function room()
+    public function room(): BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
     }
@@ -82,7 +83,7 @@ class UserEcho extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function target()
+    public function target(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -92,7 +93,7 @@ class UserEcho extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function bot()
+    public function bot(): BelongsTo
     {
         return $this->belongsTo(Bot::class);
     }

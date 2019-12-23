@@ -13,6 +13,7 @@
 
 namespace App\Services\Data;
 
+use DateTime;
 use Carbon\Carbon;
 
 class Movie
@@ -20,142 +21,142 @@ class Movie
     /**
      * @var string
      */
-    public $imdb;
+    public string $imdb;
 
     /**
      * @var int
      */
-    public $tmdb;
+    public int $tmdb;
 
     /**
      * @var string
      */
-    public $title;
+    public string $title;
 
     /**
      * @var array
      */
-    public $aka;
+    public array $aka = [];
 
     /**
      * @var Carbon
      */
-    public $releaseDate;
+    public Carbon $releaseDate;
 
     /**
      * @var int
      */
-    public $releaseYear;
+    public int $releaseYear;
 
     /**
      * @var string
      */
-    public $plot;
+    public string $plot;
 
     /**
      * @var array
      */
-    public $countries;
+    public array $countries = [];
 
     /**
      * @var string
      */
-    public $language;
+    public string $language;
 
     /**
      * @var array
      */
-    public $languages;
+    public array $languages = [];
 
     /**
      * @var array
      */
-    public $genres;
+    public array $genres = [];
 
     /**
      * @var int
      */
-    public $runtime;
+    public int $runtime;
 
     /**
      * @var array
      */
-    public $actors;
+    public array $actors = [];
 
     /**
      * @var array
      */
-    public $directors;
+    public array $directors = [];
 
     /**
      * @var array
      */
-    public $writers;
+    public array $writers = [];
 
     /**
      * @var array
      */
-    public $producers;
+    public array $producers = [];
 
     /**
      * @var string
      */
-    public $poster;
+    public string $poster;
 
     /**
      * @var array
      */
-    public $posters;
+    public array $posters = [];
 
     /**
      * @var string
      */
-    public $backdrop;
+    public string $backdrop;
 
     /**
      * @var array
      */
-    public $backdrops;
+    public array $backdrops = [];
 
     /**
      * @var string
      */
-    public $videoTrailer;
+    public string $videoTrailer;
 
     /**
      * @var string
      */
-    public $wikiUrl;
+    public string $wikiUrl;
 
     /**
      * @var string
      */
-    public $rated;
+    public string $rated;
 
     /**
      * @var float
      */
-    public $tmdbRating;
+    public float $tmdbRating;
 
     /**
      * @var int
      */
-    public $tmdbVotes;
+    public int $tmdbVotes;
 
     /**
      * @var float
      */
-    public $imdbRating;
+    public float $imdbRating;
 
     /**
      * @var int
      */
-    public $imdbVotes;
+    public int $imdbVotes;
 
     /**
      * @var int
      */
-    public $recommendations;
+    public int $recommendations;
 
     public function __construct($data = [])
     {
@@ -168,7 +169,7 @@ class Movie
             }
         }
 
-        if ($this->releaseDate instanceof \DateTime) {
+        if ($this->releaseDate instanceof DateTime) {
             $release_date = $this->releaseDate ? (new Carbon())->instance($this->releaseDate) : null;
         } else {
             $release_date = $this->releaseDate ? new Carbon($this->releaseDate) : null;
@@ -181,7 +182,7 @@ class Movie
         $this->genres = ! empty($this->genres) ? $this->cleanGenres($this->genres) : null;
     }
 
-    public function merge(self $data, self $data2 = null)
+    public function merge(self $data, self $data2 = null): self
     {
         $movies = func_get_args();
 
@@ -215,7 +216,7 @@ class Movie
         if (strlen($title) > 4) {
             $might_be_year_one = str_replace(substr($title, 0, -6), '', $title);
             $might_be_year = str_replace(['(', ')'], '', $might_be_year_one);
-            if ($might_be_year > 1900 && $might_be_year < (date('Y') + 100)) {
+            if ($might_be_year > 1_900 && $might_be_year < (date('Y') + 100)) {
                 $title = trim(str_replace($might_be_year_one, '', $title));
             }
         }
@@ -223,7 +224,10 @@ class Movie
         return $title;
     }
 
-    private function cleanGenres($genres)
+    /**
+     * @return mixed[]
+     */
+    private function cleanGenres($genres): array
     {
         $genres = new Genre((array) $genres);
 
@@ -239,7 +243,7 @@ class Movie
      *
      * @return array
      */
-    private function removeSimilar($data, $title, $diff)
+    private function removeSimilar($data, ?string $title, $diff): array
     {
         if ($title) {
             foreach ($data as $key => $value) {
@@ -274,7 +278,7 @@ class Movie
         return $data;
     }
 
-    private function genreMerge($genres)
+    private function genreMerge($genres): void
     {
         if (empty($this->genres) && $genres) {
             $this->genres = [];

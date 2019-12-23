@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
@@ -28,12 +29,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class BonusController extends Controller
+final class BonusController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * BonusController Constructor.
@@ -52,7 +53,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gifts(Request $request)
+    public function gifts(Request $request): Factory
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -78,7 +79,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tips(Request $request)
+    public function tips(Request $request): Factory
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -104,7 +105,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request)
+    public function store(Request $request): Factory
     {
         $user = $request->user();
         $users = User::oldest('username')->get();
@@ -135,7 +136,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gift(Request $request)
+    public function gift(Request $request): Factory
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -152,7 +153,7 @@ class BonusController extends Controller
      * @param  string                    $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bonus(Request $request, $username = '')
+    public function bonus(Request $request, string $username = ''): Factory
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -220,10 +221,9 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function exchange(Request $request, $id)
     {
@@ -236,7 +236,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if (! $flag) {
+            if ($flag === '') {
                 return redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }
@@ -260,7 +260,7 @@ class BonusController extends Controller
      *
      * @return string
      */
-    public function doItemExchange($userID, $itemID)
+    public function doItemExchange($userID, $itemID): bool
     {
         $current = Carbon::now();
         $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
@@ -290,7 +290,7 @@ class BonusController extends Controller
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user_acc->id;
                 $pm->subject = 'Personal 24 Hour Freeleech Activated';
-                $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on {$current->addDays(1)->toDayDateTimeString()} [b]".config('app.timezone').'[/b]! 
+                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             } else {
@@ -319,8 +319,7 @@ class BonusController extends Controller
      * Gift Points To A User.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function sendGift(Request $request)
     {
@@ -328,7 +327,7 @@ class BonusController extends Controller
 
         $v = validator($request->all(), [
                 'to_username'   => 'required|exists:users,username|max:180',
-                'bonus_points'  => "required|numeric|min:1|max:{$user->seedbonus}",
+                'bonus_points'  => sprintf('required|numeric|min:1|max:%s', $user->seedbonus),
                 'bonus_message' => 'required|string',
             ]);
 
@@ -372,7 +371,7 @@ class BonusController extends Controller
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)
             );
 
             if ($dest == 'profile') {
@@ -412,10 +411,9 @@ class BonusController extends Controller
     /**
      * Tip Points To A Uploader.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function tipUploader(Request $request, $id)
     {
@@ -463,9 +461,8 @@ class BonusController extends Controller
     /**
      * Tip Points To A Poster.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function tipPoster(Request $request)
     {
@@ -520,7 +517,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getDyingCount(Request $request)
+    public function getDyingCount(Request $request): int
     {
         $user = $request->user();
 
@@ -540,7 +537,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getLegendaryCount(Request $request)
+    public function getLegendaryCount(Request $request): int
     {
         $user = $request->user();
 
@@ -560,7 +557,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getOldCount(Request $request)
+    public function getOldCount(Request $request): int
     {
         $user = $request->user();
 
@@ -581,7 +578,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getHugeCount(Request $request)
+    public function getHugeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -589,7 +586,7 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 100)
+            ->where('torrents.size', '>=', 1_073_741_824 * 100)
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -600,7 +597,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getLargeCount(Request $request)
+    public function getLargeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -608,8 +605,8 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 25)
-            ->where('torrents.size', '<', 1073741824 * 100)
+            ->where('torrents.size', '>=', 1_073_741_824 * 25)
+            ->where('torrents.size', '<', 1_073_741_824 * 100)
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -620,7 +617,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getRegularCount(Request $request)
+    public function getRegularCount(Request $request): int
     {
         $user = $request->user();
 
@@ -628,8 +625,8 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824)
-            ->where('torrents.size', '<', 1073741824 * 25)
+            ->where('torrents.size', '>=', 1_073_741_824)
+            ->where('torrents.size', '<', 1_073_741_824 * 25)
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -640,7 +637,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getParticipaintSeedCount(Request $request)
+    public function getParticipaintSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -648,8 +645,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000)
-            ->where('history.seedtime', '<', 2592000 * 2)
+            ->where('history.seedtime', '>=', 2_592_000)
+            ->where('history.seedtime', '<', 2_592_000 * 2)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -660,7 +657,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getTeamPlayerSeedCount(Request $request)
+    public function getTeamPlayerSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -668,8 +665,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 2)
-            ->where('history.seedtime', '<', 2592000 * 3)
+            ->where('history.seedtime', '>=', 2_592_000 * 2)
+            ->where('history.seedtime', '<', 2_592_000 * 3)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -680,7 +677,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getCommitedSeedCount(Request $request)
+    public function getCommitedSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -688,8 +685,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 3)
-            ->where('history.seedtime', '<', 2592000 * 6)
+            ->where('history.seedtime', '>=', 2_592_000 * 3)
+            ->where('history.seedtime', '<', 2_592_000 * 6)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -700,7 +697,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getMVPSeedCount(Request $request)
+    public function getMVPSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -708,8 +705,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 6)
-            ->where('history.seedtime', '<', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 6)
+            ->where('history.seedtime', '<', 2_592_000 * 12)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -720,7 +717,7 @@ class BonusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return int
      */
-    public function getLegendarySeedCount(Request $request)
+    public function getLegendarySeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -728,7 +725,7 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 12)
             ->where('history.user_id', $user->id)
             ->count();
     }

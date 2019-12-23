@@ -19,7 +19,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class FailedLogin extends Notification implements ShouldQueue
+final class FailedLogin extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -28,14 +28,14 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @var string
      */
-    public $ip;
+    public string $ip;
 
     /**
      * The Time.
      *
      * @var Carbon\Carbon
      */
-    public $time;
+    public Carbon $time;
 
     /**
      * Create a new notification instance.
@@ -44,7 +44,7 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($ip)
+    public function __construct(string $ip)
     {
         $this->ip = $ip;
         $this->time = Carbon::now();
@@ -54,10 +54,9 @@ class FailedLogin extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -65,11 +64,10 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * Get the database representation of the notification.
      *
-     * @param  mixed  $notifiable
-     *
-     * @return array
+     * @param mixed  $notifiable
+     * @return Carbon\Carbon\Carbon[]|string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'ip'   => $this->ip,
@@ -84,7 +82,7 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
                 ->error()

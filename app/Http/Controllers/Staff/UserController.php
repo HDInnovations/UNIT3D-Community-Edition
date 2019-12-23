@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Follow;
@@ -31,14 +33,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     /**
      * Users List.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $users = User::with('group')->latest()->paginate(25);
         $uploaders = User::with('group')->where('group_id', '=', 7)->latest()->paginate(25);
@@ -61,7 +63,7 @@ class UserController extends Controller
      * @param  Request  $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function search(Request $request)
+    public function search(Request $request): Factory
     {
         $users = User::where([
             ['username', 'like', '%'.$request->input('username').'%'],
@@ -78,7 +80,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings($username)
+    public function settings($username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
@@ -96,8 +98,7 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function edit(Request $request, $username)
     {
@@ -157,7 +158,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function permissions(Request $request, $username)
+    public function permissions(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -182,7 +183,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function password(Request $request, $username)
+    protected function password(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = auth()->user();
@@ -199,8 +200,7 @@ class UserController extends Controller
      * Delete A User.
      *
      * @param $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     protected function destroy($username)
     {

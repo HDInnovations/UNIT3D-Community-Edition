@@ -21,7 +21,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ProcessMassPM implements ShouldQueue
+final class ProcessMassPM implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -54,7 +54,7 @@ class ProcessMassPM implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $pm = new PrivateMessage();
         $pm->sender_id = $this->sender_id;

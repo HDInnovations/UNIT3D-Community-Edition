@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereValue($value)
  * @mixin \Eloquent
  */
-class BonExchange extends Model
+final class BonExchange extends Model
 {
     use Auditable;
 
@@ -49,21 +49,21 @@ class BonExchange extends Model
      *
      * @var string
      */
-    protected $table = 'bon_exchange';
+    protected string $table = 'bon_exchange';
 
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * The Attributes That Should Be Casted To Native Types.
      *
      * @var array
      */
-    protected $casts = [
+    protected array $casts = [
         'upload'             => 'boolean',
         'download'           => 'boolean',
         'personal_freeleech' => 'boolean',
@@ -75,7 +75,7 @@ class BonExchange extends Model
      *
      * @return array
      */
-    public function getDownloadOptions()
+    public function getDownloadOptions(): array
     {
         return self::where('download', '=', true)
             ->orderBy('value', 'asc')
@@ -87,7 +87,7 @@ class BonExchange extends Model
      *
      * @return array
      */
-    public function getUploadOptions()
+    public function getUploadOptions(): array
     {
         return self::where('upload', '=', true)
             ->orderBy('value', 'asc')
@@ -99,7 +99,7 @@ class BonExchange extends Model
      *
      * @return array
      */
-    public function getPersonalFreeleechOption()
+    public function getPersonalFreeleechOption(): array
     {
         return self::where('personal_freeleech', '=', true)
             ->orderBy('value', 'asc')
@@ -111,7 +111,7 @@ class BonExchange extends Model
      *
      * @return array
      */
-    public function getInviteOption()
+    public function getInviteOption(): array
     {
         return self::where('invite', '=', true)
             ->orderBy('value', 'asc')
@@ -124,7 +124,7 @@ class BonExchange extends Model
      * @param $id
      * @return int
      */
-    public function getItemCost($id)
+    public function getItemCost($id): int
     {
         return self::where('id', '=', $id)
             ->get()

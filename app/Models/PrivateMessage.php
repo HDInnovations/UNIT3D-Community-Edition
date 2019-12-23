@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Helpers\Bbcode;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -45,7 +46,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class PrivateMessage extends Model
+final class PrivateMessage extends Model
 {
     use Auditable;
 
@@ -54,7 +55,7 @@ class PrivateMessage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sender()
+    public function sender(): BelongsTo
     {
         return $this->belongsTo(User::class, 'sender_id')->withDefault([
             'username' => 'System',
@@ -67,7 +68,7 @@ class PrivateMessage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver()
+    public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id')->withDefault([
             'username' => 'System',
@@ -82,7 +83,7 @@ class PrivateMessage extends Model
      *
      * @return void
      */
-    public function setMessageAttribute($value)
+    public function setMessageAttribute(string $value): void
     {
         $this->attributes['message'] = htmlspecialchars($value);
     }
@@ -92,7 +93,7 @@ class PrivateMessage extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getMessageHtml()
+    public function getMessageHtml(): string
     {
         $bbcode = new Bbcode();
 

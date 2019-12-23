@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereUserId($value)
  * @mixin \Eloquent
  */
-class Subscription extends Model
+final class Subscription extends Model
 {
     use Auditable;
 
@@ -48,7 +49,7 @@ class Subscription extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -61,7 +62,7 @@ class Subscription extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function topic()
+    public function topic(): BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
@@ -71,7 +72,7 @@ class Subscription extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function forum()
+    public function forum(): BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }

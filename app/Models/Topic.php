@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewPost;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -75,7 +77,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $posts_count
  * @property-read int|null $subscriptions_count
  */
-class Topic extends Model
+final class Topic extends Model
 {
     use Auditable;
 
@@ -84,7 +86,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function forum()
+    public function forum(): BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }
@@ -94,7 +96,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'first_post_user_id', 'id');
     }
@@ -104,7 +106,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
@@ -114,7 +116,7 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subscriptions()
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
     }
@@ -127,7 +129,7 @@ class Topic extends Model
      * @param $post
      * @return string
      */
-    public function notifySubscribers($poster, $topic, $post)
+    public function notifySubscribers($poster, $topic, $post): void
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -145,8 +147,7 @@ class Topic extends Model
 
     /**
      * Does User Have Permission To View Topic.
-     *
-     * @return string
+     * @return bool|mixed
      */
     public function viewable()
     {
@@ -165,7 +166,7 @@ class Topic extends Model
      * @param $post
      * @return bool
      */
-    public function notifyStarter($poster, $topic, $post)
+    public function notifyStarter($poster, $topic, $post): bool
     {
         $user = User::find($topic->first_post_user_id);
         if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
@@ -182,11 +183,11 @@ class Topic extends Model
      *
      * @return string
      */
-    public function postNumberFromId($searchId)
+    public function postNumberFromId($searchId): int
     {
         $count = 0;
         foreach ($this->posts as $post) {
-            $count += 1;
+            ++$count;
             if ($searchId == $post->id) {
                 break;
             }

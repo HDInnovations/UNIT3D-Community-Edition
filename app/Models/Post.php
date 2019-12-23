@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Helpers\Bbcode;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -43,7 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $likes_count
  * @property-read int|null $tips_count
  */
-class Post extends Model
+final class Post extends Model
 {
     use Auditable;
 
@@ -52,7 +54,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function topic()
+    public function topic(): BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
@@ -62,7 +64,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -75,7 +77,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function likes()
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
@@ -85,7 +87,7 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function tips()
+    public function tips(): HasMany
     {
         return $this->hasMany(BonTransactions::class);
     }
@@ -97,7 +99,7 @@ class Post extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = htmlspecialchars($value);
     }
@@ -107,7 +109,7 @@ class Post extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
 
@@ -123,7 +125,7 @@ class Post extends Model
      *
      * @return string Formatted And Trimmed Content
      */
-    public function getBrief($length = 100, $ellipses = true, $strip_html = false)
+    public function getBrief($length = 100, $ellipses = true, $strip_html = false): string
     {
         $input = $this->content;
         //strip tags, if desired
@@ -153,7 +155,7 @@ class Post extends Model
      *
      * @return string
      */
-    public function getPostNumber()
+    public function getPostNumber(): string
     {
         return $this->topic->postNumberFromId($this->id);
     }
@@ -163,11 +165,10 @@ class Post extends Model
      *
      * @return string
      */
-    public function getPageNumber()
+    public function getPageNumber(): float
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
-        $result = floor($result);
 
-        return $result;
+        return floor($result);
     }
 }

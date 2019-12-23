@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\VoteOnPoll;
 use App\Models\Option;
 use App\Models\Poll;
@@ -20,12 +21,12 @@ use App\Models\Voter;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class PollController extends Controller
+final class PollController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * PollController Constructor.
@@ -42,7 +43,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $polls = Poll::latest()->paginate(15);
 
@@ -52,10 +53,9 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $slug
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \Illuminate\Http\Request  $request
+     * @param $slug
+     * @return mixed|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Request $request, $slug)
     {
@@ -68,15 +68,14 @@ class PollController extends Controller
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
 
-        return view('poll.show', compact('poll'));
+        return view('poll.show', ['poll' => $poll]);
     }
 
     /**
      * Vote On A Poll.
      *
      * @param VoteOnPoll $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function vote(VoteOnPoll $request)
     {
@@ -104,7 +103,7 @@ class PollController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
+            sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)
         );
 
         return redirect('polls/'.$poll->slug.'/result')
@@ -118,7 +117,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function result($slug)
+    public function result($slug): Factory
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
         $map = [

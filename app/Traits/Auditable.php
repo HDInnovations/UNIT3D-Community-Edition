@@ -13,12 +13,14 @@
 
 namespace App\Traits;
 
+use InvalidArgumentException;
+use ArgumentCountError;
 use Carbon\Carbon;
 use DB;
 
 trait Auditable
 {
-    public static function bootAuditable()
+    public static function bootAuditable(): void
     {
         static::created(function ($model) {
             self::registerCreate($model);
@@ -40,7 +42,7 @@ trait Auditable
      * @param $data
      * @return array
      */
-    protected static function strip($model, $data)
+    protected static function strip($model, $data): array
     {
         // Initialize an instance of $model
         $instance = new $model();
@@ -73,17 +75,17 @@ trait Auditable
      * @param array $new
      * @return false|string
      */
-    protected static function generate($action, $old = [], $new = [])
+    protected static function generate($action, array $old = [], array $new = [])
     {
         $data = [];
         switch ($action) {
             default:
-                throw new \InvalidArgumentException("Unknown action `{$action}`.");
+                throw new InvalidArgumentException(sprintf('Unknown action `%s`.', $action));
                 break;
             case 'create':
                 // Expect new data to be filled
                 if (empty($new)) {
-                    throw new \ArgumentCountError('Action `create` expects new data.');
+                    throw new ArgumentCountError('Action `create` expects new data.');
                 }
                 // Process
                 foreach ($new as $key => $value) {
@@ -109,7 +111,7 @@ trait Auditable
             case 'delete':
                 // Expect new data to be filled
                 if (empty($old)) {
-                    throw new \ArgumentCountError('Action `delete` expects new data.');
+                    throw new ArgumentCountError('Action `delete` expects new data.');
                 }
                 // Process
                 foreach ($old as $key => $value) {
@@ -123,7 +125,7 @@ trait Auditable
 
         $clean = array_filter($data);
 
-        return json_encode($clean);
+        return json_encode($clean, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -145,7 +147,7 @@ trait Auditable
      *
      * @param $model
      */
-    protected static function registerCreate($model)
+    protected static function registerCreate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -173,7 +175,7 @@ trait Auditable
      *
      * @param $model
      */
-    protected static function registerUpdate($model)
+    protected static function registerUpdate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -181,7 +183,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
-        if (! is_null($userId) && ! empty(json_decode($data, true))) {
+        if (! is_null($userId) && ! empty(json_decode($data, true, 512, JSON_THROW_ON_ERROR))) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -201,7 +203,7 @@ trait Auditable
      *
      * @param $model
      */
-    protected static function registerDelete($model)
+    protected static function registerDelete($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();

@@ -13,17 +13,18 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Invite;
 
-class InviteController extends Controller
+final class InviteController extends Controller
 {
     /**
      * Invites Log.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $invites = Invite::latest()->paginate(25);
         $invitecount = Invite::count();

@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class BanUser extends Mailable
+final class BanUser extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -42,7 +42,7 @@ class BanUser extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.ban')
             ->subject('You Have Been Banned - '.config('other.title'));

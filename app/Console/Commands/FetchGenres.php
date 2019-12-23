@@ -17,21 +17,21 @@ use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 
-class FetchGenres extends Command
+final class FetchGenres extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'fetch:genres';
+    protected string $signature = 'fetch:genres';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fetch Genres For Torrents In DB';
+    protected string $description = 'Fetch Genres For Torrents In DB';
 
     /**
      * Execute the console command.
@@ -39,7 +39,7 @@ class FetchGenres extends Command
      * @return mixed
      * @throws \ErrorException
      */
-    public function handle()
+    public function handle(): void
     {
         $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 

@@ -15,14 +15,14 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
+final class AuthServiceProvider extends ServiceProvider
 {
     /**
      * The policy mappings for the application.
      *
      * @var array
      */
-    protected $policies = [
+    protected array $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 

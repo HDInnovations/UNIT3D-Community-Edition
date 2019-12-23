@@ -74,7 +74,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereUploaded($value)
  * @mixin \Eloquent
  */
-class Bot extends Model
+final class Bot extends Model
 {
     use Auditable;
 
@@ -83,14 +83,14 @@ class Bot extends Model
      *
      * @var bool
      */
-    public $timestamps = true;
+    public bool $timestamps = true;
 
     /**
      * The Attributes That Should Be Cast To Native Types.
      *
      * @var array
      */
-    protected $casts = [
+    protected array $casts = [
         'name' => 'string',
     ];
 
@@ -99,5 +99,5 @@ class Bot extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected array $dates = ['deleted_at'];
 }

@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read int|null $torrents_count
  */
-class Tag extends Model
+final class Tag extends Model
 {
     use Auditable;
 
@@ -41,14 +42,14 @@ class Tag extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * Belongs To Many Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function torrents()
+    public function torrents(): BelongsToMany
     {
         return $this->belongsToMany(Torrent::class);
     }

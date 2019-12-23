@@ -13,11 +13,12 @@
 
 namespace App\Helpers;
 
-use Crypt;
+use Exception;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 
-class HiddenCaptcha
+final class HiddenCaptcha
 {
     /**
      * Set the hidden captcha tags to put in your form.
@@ -26,7 +27,7 @@ class HiddenCaptcha
      *
      * @return string
      */
-    public static function render($mustBeEmptyField = '_username')
+    public static function render(string $mustBeEmptyField = '_username'): string
     {
         $ts = time();
         $random = Str::random(16);
@@ -44,7 +45,7 @@ class HiddenCaptcha
         // Encrypt the token
         $token = Crypt::encrypt(serialize($token));
 
-        return (string) view('partials.captcha', compact('mustBeEmptyField', 'ts', 'random', 'token'));
+        return (string) view('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
     }
 
     /**
@@ -56,7 +57,7 @@ class HiddenCaptcha
      *
      * @return bool
      */
-    public static function check(Validator $validator, $minLimit = 0, $maxLimit = 1200)
+    public static function check(Validator $validator, int $minLimit = 0, int $maxLimit = 1_200): bool
     {
         $formData = $validator->getData();
 
@@ -95,15 +96,14 @@ class HiddenCaptcha
      * Get and check the token values.
      *
      * @param string $captcha
-     *
-     * @return string|bool
+     * @return bool|mixed[]
      */
-    private static function getToken($captcha)
+    private static function getToken(string $captcha)
     {
         // Get the token values
         try {
             $token = Crypt::decrypt($captcha);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return false;
         }
 

@@ -13,31 +13,41 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Events\Logout;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Failed;
+use Gstt\Achievements\Event\Unlocked;
+use Spatie\Backup\Events\BackupZipWasCreated;
+use App\Listeners\LogoutListener;
+use App\Listeners\LoginListener;
+use App\Listeners\FailedLoginListener;
+use App\Listeners\AchievementUnlocked;
+use App\Listeners\PasswordProtectBackup;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
-class EventServiceProvider extends ServiceProvider
+final class EventServiceProvider extends ServiceProvider
 {
     /**
      * The event listener mappings for the application.
      *
      * @var array
      */
-    protected $listen = [
-        'Illuminate\Auth\Events\Logout' => [
-            \App\Listeners\LogoutListener::class,
+    protected array $listen = [
+        Logout::class => [
+            LogoutListener::class,
         ],
-        'Illuminate\Auth\Events\Login' => [
-            \App\Listeners\LoginListener::class,
+        Login::class => [
+            LoginListener::class,
         ],
-        'Illuminate\Auth\Events\Failed' => [
-            \App\Listeners\FailedLoginListener::class,
+        Failed::class => [
+            FailedLoginListener::class,
         ],
-        'Gstt\Achievements\Event\Unlocked' => [
-            \App\Listeners\AchievementUnlocked::class,
+        Unlocked::class => [
+            AchievementUnlocked::class,
         ],
-        'Spatie\Backup\Events\BackupZipWasCreated' => [
-            \App\Listeners\PasswordProtectBackup::class,
+        BackupZipWasCreated::class => [
+            PasswordProtectBackup::class,
         ],
     ];
 
@@ -46,7 +56,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 

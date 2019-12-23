@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
 use App\Achievements\UserMade25Posts;
@@ -33,17 +35,17 @@ use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TopicController extends Controller
+final class TopicController extends Controller
 {
     /**
      * @var TaggedUserRepository
      */
-    private $tag;
+    private TaggedUserRepository $tag;
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * ForumController Constructor.
@@ -64,7 +66,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function topic($id, $page = '', $post = '')
+    public function topic($id, $page = '', $post = ''): RedirectResponse
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -109,7 +111,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm(Request $request, $id)
+    public function addForm(Request $request, $id): RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
@@ -130,10 +132,9 @@ class TopicController extends Controller
     /**
      * Create A New Topic In The Forum.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function newTopic(Request $request, $id)
     {
@@ -152,8 +153,10 @@ class TopicController extends Controller
         $topic->name = $request->input('title');
         $topic->slug = Str::slug($request->input('title'));
         $topic->state = 'open';
-        $topic->first_post_user_id = $topic->last_post_user_id = $user->id;
-        $topic->first_post_user_username = $topic->last_post_user_username = $user->username;
+        $topic->first_post_user_id = $user->id;
+        $topic->last_post_user_id = $user->id;
+        $topic->first_post_user_username = $user->username;
+        $topic->last_post_user_username = $user->username;
         $topic->views = 0;
         $topic->pinned = false;
         $topic->forum_id = $forum->id;
@@ -210,10 +213,10 @@ class TopicController extends Controller
 
                 // Post To ShoutBox
                 $appurl = config('app.url');
-                $topicUrl = "{$appurl}/forums/topics/{$topic->id}";
-                $profileUrl = "{$appurl}/users/{$user->username}";
+                $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
+                $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
 
-                $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
+                $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
 
                 //Achievements
                 $user->unlock(new UserMadeFirstPost(), 1);
@@ -242,7 +245,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($id)
+    public function editForm($id): Factory
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
@@ -258,7 +261,7 @@ class TopicController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function editTopic(Request $request, $id)
+    public function editTopic(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -282,7 +285,7 @@ class TopicController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function closeTopic(Request $request, $id)
+    public function closeTopic(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -303,7 +306,7 @@ class TopicController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function openTopic(Request $request, $id)
+    public function openTopic(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -324,7 +327,7 @@ class TopicController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteTopic(Request $request, $id)
+    public function deleteTopic(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -332,6 +335,7 @@ class TopicController extends Controller
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
         $posts = $topic->posts();
         $posts->delete();
+
         $topic->delete();
 
         return redirect()->route('forums.show', ['id' => $topic->forum->id])
@@ -345,7 +349,7 @@ class TopicController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function pinTopic($id)
+    public function pinTopic($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
@@ -362,7 +366,7 @@ class TopicController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unpinTopic($id)
+    public function unpinTopic($id): RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;

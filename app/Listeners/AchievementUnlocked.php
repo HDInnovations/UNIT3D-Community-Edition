@@ -18,9 +18,12 @@ use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
 use Session;
 
-class AchievementUnlocked
+final class AchievementUnlocked
 {
-    private $chat;
+    /**
+     * @var \App\Repositories\ChatRepository
+     */
+    private ChatRepository $chat;
 
     public function __construct(ChatRepository $chat)
     {
@@ -34,7 +37,7 @@ class AchievementUnlocked
      *
      * @return void
      */
-    public function handle(Unlocked $event)
+    public function handle(Unlocked $event): void
     {
         // There's an AchievementProgress instance located on $event->progress
         $user = User::where('id', '=', $event->progress->achiever_id)->first();
@@ -44,7 +47,7 @@ class AchievementUnlocked
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "User [url={$profile_url}]{$user->username}[/url] has unlocked the {$event->progress->details->name} achievement :medal:"
+                sprintf('User [url=%s]%s[/url] has unlocked the %s achievement :medal:', $profile_url, $user->username, $event->progress->details->name)
             );
         }
     }

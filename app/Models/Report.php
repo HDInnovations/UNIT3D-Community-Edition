@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -55,7 +56,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Report whereVerdict($value)
  * @mixin \Eloquent
  */
-class Report extends Model
+final class Report extends Model
 {
     use Auditable;
 
@@ -64,7 +65,7 @@ class Report extends Model
      *
      * @var array
      */
-    protected $guarded = [
+    protected array $guarded = [
         'id',
     ];
 
@@ -73,7 +74,7 @@ class Report extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function request()
+    public function request(): BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class, 'request_id');
     }
@@ -83,7 +84,7 @@ class Report extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class, 'torrent_id');
     }
@@ -93,7 +94,7 @@ class Report extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function reporter()
+    public function reporter(): BelongsTo
     {
         return $this->belongsTo(User::class, 'reporter_id')->withDefault([
             'username' => 'System',
@@ -106,7 +107,7 @@ class Report extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function reported()
+    public function reported(): BelongsTo
     {
         return $this->belongsTo(User::class, 'reported_user')->withDefault([
             'username' => 'System',
@@ -119,7 +120,7 @@ class Report extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function staff()
+    public function staff(): BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',

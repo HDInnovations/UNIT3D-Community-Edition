@@ -18,55 +18,55 @@ if (! function_exists('appurl')) {
 }
 
 if (! function_exists('hrefProfile')) {
-    function hrefProfile($user)
+    function hrefProfile($user): string
     {
         $appurl = appurl();
 
-        return "{$appurl}/users/{$user->username}";
+        return sprintf('%s/users/%s', $appurl, $user->username);
     }
 }
 
 if (! function_exists('hrefArticle')) {
-    function hrefArticle($article)
+    function hrefArticle($article): string
     {
         $appurl = appurl();
 
-        return "{$appurl}/articles/{$article->id}";
+        return sprintf('%s/articles/%s', $appurl, $article->id);
     }
 }
 
 if (! function_exists('hrefTorrent')) {
-    function hrefTorrent($torrent)
+    function hrefTorrent($torrent): string
     {
         $appurl = appurl();
 
-        return "{$appurl}/torrents/{$torrent->id}";
+        return sprintf('%s/torrents/%s', $appurl, $torrent->id);
     }
 }
 
 if (! function_exists('hrefRequest')) {
-    function hrefRequest($torrentRequest)
+    function hrefRequest($torrentRequest): string
     {
         $appurl = appurl();
 
-        return "{$appurl}/requests/{$torrentRequest->id}";
+        return sprintf('%s/requests/%s', $appurl, $torrentRequest->id);
     }
 }
 
 if (! function_exists('hrefPoll')) {
-    function hrefPoll($poll)
+    function hrefPoll($poll): string
     {
         $appurl = appurl();
 
-        return "{$appurl}/polls/{$poll->slug}";
+        return sprintf('%s/polls/%s', $appurl, $poll->slug);
     }
 }
 
 if (! function_exists('hrefPlaylist')) {
-    function hrefPlaylist($playlist)
+    function hrefPlaylist($playlist): string
     {
         $appurl = appurl();
 
-        return "{$appurl}/playlists/{$playlist->id}";
+        return sprintf('%s/playlists/%s', $appurl, $playlist->id);
     }
 }

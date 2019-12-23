@@ -13,16 +13,23 @@
 
 namespace App\Services;
 
+use ErrorException;
 use App\Services\Clients\OmdbClient;
 use App\Services\Clients\TmdbClient;
 use App\Services\Data\Movie;
 use App\Services\Data\Tv;
 
-class MovieScrapper
+final class MovieScrapper
 {
-    private $tmdbClient;
+    /**
+     * @var \App\Services\Clients\TmdbClient
+     */
+    private TmdbClient $tmdbClient;
 
-    private $omdbClient;
+    /**
+     * @var \App\Services\Clients\OmdbClient
+     */
+    private OmdbClient $omdbClient;
 
     public function __construct($tmdb_key = null, $tvdb_key = null, $omdb_key = null)
     {
@@ -43,7 +50,7 @@ class MovieScrapper
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {
         if (! $imdb && ! $tmdb && ! $tvdb) {
-            throw new \ErrorException('Either $imdb, $tmdb or $tvdb is required');
+            throw new ErrorException('Either $imdb, $tmdb or $tvdb is required');
         }
 
         if ($type == 'movie') {

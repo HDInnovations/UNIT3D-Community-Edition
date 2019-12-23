@@ -14,9 +14,10 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 
-class RedirectIfAuthenticated
+final class RedirectIfAuthenticated
 {
     /**
      * Handle an incoming request.
@@ -24,10 +25,9 @@ class RedirectIfAuthenticated
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      * @param string|null              $guard
-     *
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, ?string $guard = null)
     {
         if (auth()->guard($guard)->check()) {
             return redirect()->route('home.index');

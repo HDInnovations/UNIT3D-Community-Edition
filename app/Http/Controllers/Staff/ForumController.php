@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Group;
@@ -20,14 +22,14 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ForumController extends Controller
+final class ForumController extends Controller
 {
     /**
      * Display All Forums.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
@@ -39,7 +41,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
@@ -54,7 +56,7 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $groups = Group::all();
 
@@ -75,10 +77,10 @@ class ForumController extends Controller
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
+                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
+                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
+                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
                 $perm->show_forum = false;
                 $perm->read_topic = false;
@@ -99,7 +101,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): Factory
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
@@ -120,7 +122,7 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
@@ -129,11 +131,7 @@ class ForumController extends Controller
         $forum->position = $request->input('position');
         $forum->slug = Str::slug($request->input('title'));
         $forum->description = $request->input('description');
-        if ($request->input('forum_type') == 'category') {
-            $forum->parent_id = 0;
-        } else {
-            $forum->parent_id = $request->input('parent_id');
-        }
+        $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
         $forum->save();
 
         // Permissions
@@ -145,10 +143,10 @@ class ForumController extends Controller
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
+                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
+                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
+                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
                 $perm->show_forum = false;
                 $perm->read_topic = false;
@@ -169,7 +167,7 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         // Forum to delete
         $forum = Forum::findOrFail($id);

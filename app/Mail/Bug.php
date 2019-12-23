@@ -17,11 +17,14 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Bug extends Mailable
+final class Bug extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $input;
+    /**
+     * @var mixed[]
+     */
+    public array $input;
 
     /**
      * Create a new message instance.
@@ -38,7 +41,7 @@ class Bug extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.bug')
             ->from($this->input['email'], config('other.title'))

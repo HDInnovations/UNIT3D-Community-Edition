@@ -27,42 +27,42 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use Illuminate\Support\Str;
 
-class ChatRepository
+final class ChatRepository
 {
     /**
      * @var Message
      */
-    private $message;
+    private Message $message;
 
     /**
      * @var Chatroom
      */
-    private $room;
+    private Chatroom $room;
 
     /**
      * @var ChatStatus
      */
-    private $status;
+    private ChatStatus $status;
 
     /**
      * @var User
      */
-    private $user;
+    private User $user;
 
     /**
      * @var Bot
      */
-    private $bot;
+    private Bot $bot;
 
     /**
-     * @var Echo
+     * @var \App\Models\UserEcho
      */
-    private $echo;
+    private UserEcho $echo;
 
     /**
-     * @var Audible
+     * @var \App\Models\UserAudible
      */
-    private $audible;
+    private UserAudible $audible;
 
     public function __construct(Message $message, Chatroom $room, ChatStatus $status, User $user, Bot $bot, UserEcho $echo, UserAudible $audible)
     {
@@ -287,7 +287,7 @@ class ChatRepository
     {
         $messages = $this->messages($room_id)->toArray();
         $limit = config('chat.message_limit');
-        $count = count($messages);
+        $count = is_countable($messages) ? count($messages) : 0;
 
         // Lets purge all old messages and keep the database to the limit settings
         if ($count > $limit) {
@@ -369,8 +369,8 @@ class ChatRepository
     protected function censorMessage($message)
     {
         foreach (config('censor.redact') as $word) {
-            if (preg_match("/\b$word(?=[.,]|$|\s)/mi", $message)) {
-                $message = str_replace($word, "<span class='censor'>{$word}</span>", $message);
+            if (preg_match(sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), $message)) {
+                $message = str_replace($word, sprintf('<span class=\'censor\'>%s</span>', $word), $message);
             }
         }
 

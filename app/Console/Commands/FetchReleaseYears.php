@@ -17,21 +17,21 @@ use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 use MarcReichel\IGDBLaravel\Models\Game;
 
-class FetchReleaseYears extends Command
+final class FetchReleaseYears extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'fetch:release_years';
+    protected string $signature = 'fetch:release_years';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fetch Release Years For Torrents In DB';
+    protected string $description = 'Fetch Release Years For Torrents In DB';
 
     /**
      * Execute the console command.
@@ -39,7 +39,7 @@ class FetchReleaseYears extends Command
      * @return mixed
      * @throws \ErrorException
      */
-    public function handle()
+    public function handle(): void
     {
         $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $appurl = config('app.url');
@@ -58,8 +58,8 @@ class FetchReleaseYears extends Command
             ->whereNull('release_year')
             ->count();
 
-        $this->alert("{$withyear} Torrents Already Have A Release Year Value");
-        $this->alert("{$withoutyear} Torrents Are Missing A Release Year Value");
+        $this->alert(sprintf('%s Torrents Already Have A Release Year Value', $withyear));
+        $this->alert(sprintf('%s Torrents Are Missing A Release Year Value', $withoutyear));
 
         foreach ($torrents as $torrent) {
             $meta = null;
@@ -73,10 +73,12 @@ class FetchReleaseYears extends Command
                 if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
+                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
-                    {$appurl}/torrents/{$torrent->id} \n");
+                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    %s/torrents/%s 
+', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
 
@@ -89,10 +91,12 @@ class FetchReleaseYears extends Command
                 if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
+                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
-                    {$appurl}/torrents/{$torrent->id} \n");
+                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    %s/torrents/%s 
+', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
 
@@ -103,15 +107,18 @@ class FetchReleaseYears extends Command
                 if (isset($meta->first_release_date) && $meta->first_release_date > '1900') {
                     $torrent->release_year = date('Y', strtotime($meta->first_release_date));
                     $torrent->save();
-                    $this->info("({$torrent->category->name}) Release Year Fetched For Torrent {$torrent->name} \n");
+                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn("({$torrent->category->name}) No Release Year Found For Torrent {$torrent->name}
-                    {$appurl}/torrents/{$torrent->id} \n");
+                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    %s/torrents/%s 
+', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
 
             if ($torrent->category->no_meta || $torrent->category->music_meta) {
-                $this->warn("(SKIPPED) {$torrent->name} Is In A Category That Does Not Have Meta. \n");
+                $this->warn(sprintf('(SKIPPED) %s Is In A Category That Does Not Have Meta. 
+', $torrent->name));
             }
 
             // sleep for 1 second

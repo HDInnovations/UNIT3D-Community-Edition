@@ -15,20 +15,29 @@ namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
 
-class UserFilled75Requests extends Achievement
+final class UserFilled75Requests extends Achievement
 {
     /*
      * The achievement name
      */
-    public $name = 'Filled75Requests';
+    /**
+     * @var string
+     */
+    public string $name = 'Filled75Requests';
 
     /*
      * A small description for the achievement
      */
-    public $description = 'Woot! You have already filled 75 requests!';
+    /**
+     * @var string
+     */
+    public string $description = 'Woot! You have already filled 75 requests!';
 
     /*
      * The amount of "points" this user need to obtain in order to complete this achievement
      */
-    public $points = 75;
+    /**
+     * @var int
+     */
+    public int $points = 75;
 }

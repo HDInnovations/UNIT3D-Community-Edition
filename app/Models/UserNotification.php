@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -89,7 +90,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification whereUserId($value)
  * @mixin \Eloquent
  */
-class UserNotification extends Model
+final class UserNotification extends Model
 {
     use Auditable;
 
@@ -98,14 +99,14 @@ class UserNotification extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * The Attributes That Should Be Cast To Native Values.
      *
      * @var array
      */
-    protected $casts = [
+    protected array $casts = [
         'json_account_groups' => 'array',
         'json_mention_groups' => 'array',
         'json_request_groups' => 'array',
@@ -121,7 +122,7 @@ class UserNotification extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
             'username' => 'System',
@@ -131,26 +132,20 @@ class UserNotification extends Model
 
     /**
      * Get the Expected groups for form validation.
-     *
-     * @return array
+     * @return int[][]
      */
-    public function getExpectedGroupsAttribute()
+    public function getExpectedGroupsAttribute(): array
     {
-        $expected_groups = ['default_groups' => ['1' => 0]];
-
-        return $expected_groups;
+        return ['default_groups' => ['1' => 0]];
     }
 
     /**
      * Get the Expected fields for form validation.
-     *
-     * @return array
+     * @return mixed[]
      */
-    public function getExpectedFieldsAttribute()
+    public function getExpectedFieldsAttribute(): array
     {
-        $expected_fields = [];
-
-        return $expected_fields;
+        return [];
     }
 
     /**
@@ -159,7 +154,7 @@ class UserNotification extends Model
      * @param  string  $type
      * @return void
      */
-    public function setDefaultValues($type = 'default')
+    public function setDefaultValues(string $type = 'default'): void
     {
         foreach ($this->casts as $k => $v) {
             if ($v == 'array') {

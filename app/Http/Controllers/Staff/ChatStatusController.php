@@ -13,17 +13,19 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class ChatStatusController extends Controller
+final class ChatStatusController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * ChatController Constructor.
@@ -40,7 +42,7 @@ class ChatStatusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $chatstatuses = $this->chat->statuses();
 
@@ -53,8 +55,7 @@ class ChatStatusController extends Controller
      * Store A New Chat Status.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -85,8 +86,7 @@ class ChatStatusController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -119,7 +119,7 @@ class ChatStatusController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();

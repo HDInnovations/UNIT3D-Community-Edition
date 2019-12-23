@@ -18,15 +18,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewUploadTip extends Notification implements ShouldQueue
+final class NewUploadTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $tipper;
+    /**
+     * @var string
+     */
+    public string $tipper;
 
-    public $torrent;
+    /**
+     * @var \App\Models\Torrent
+     */
+    public Torrent $torrent;
 
     public $amount;
 
@@ -50,10 +59,9 @@ class NewUploadTip extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -62,17 +70,16 @@ class NewUploadTip extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',
             'body'  => $this->tipper.' has tipped one of your Uploaded Torrents '.$this->torrent->name,
-            'url'   => "/torrents/{$this->torrent->id}",
+            'url'   => sprintf('/torrents/%s', $this->torrent->id),
         ];
     }
 }

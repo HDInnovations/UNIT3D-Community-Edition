@@ -15,20 +15,29 @@ namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
 
-class UserMade200Posts extends Achievement
+final class UserMade200Posts extends Achievement
 {
     /*
      * The achievement name
      */
-    public $name = '200Posts';
+    /**
+     * @var string
+     */
+    public string $name = '200Posts';
 
     /*
      * A small description for the achievement
      */
-    public $description = 'Wow! You have already made 200 posts!';
+    /**
+     * @var string
+     */
+    public string $description = 'Wow! You have already made 200 posts!';
 
     /*
      * The amount of "points" this user need to obtain in order to complete this achievement
      */
-    public $points = 200;
+    /**
+     * @var int
+     */
+    public int $points = 200;
 }

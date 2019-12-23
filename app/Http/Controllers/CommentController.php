@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -36,17 +37,17 @@ use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+final class CommentController extends Controller
 {
     /**
      * @var TaggedUserRepository
      */
-    private $tag;
+    private TaggedUserRepository $tag;
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * CommentController Constructor.
@@ -63,10 +64,9 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function article(Request $request, $id)
     {
@@ -103,11 +103,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on article [url={$article_url}]{$article->title}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profile_url, $user->username, $article_url, $article->title)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on article [url={$article_url}]{$article->title}[/url]"
+                    sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $article_url, $article->title)
                 );
             }
 
@@ -126,11 +126,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'article',
                         $request->input('content'),
@@ -165,8 +161,7 @@ class CommentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function playlist(Request $request, $id)
     {
@@ -203,11 +198,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on playlist [url={$playlist_url}]{$playlist->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profile_url, $user->username, $playlist_url, $playlist->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on playlist [url={$playlist_url}]{$playlist->name}[/url]"
+                    sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlist_url, $playlist->name)
                 );
             }
 
@@ -226,11 +221,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'playlist',
                         $request->input('content'),
@@ -263,10 +254,9 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function torrent(Request $request, $id)
     {
@@ -308,11 +298,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                    sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrent_url, $torrent->name)
                 );
             }
 
@@ -331,11 +321,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'torrent',
                         $request->input('content'),
@@ -368,10 +354,9 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function request(Request $request, $id)
     {
@@ -408,11 +393,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $tr_url, $tr->name)
                 );
             }
 
@@ -436,11 +421,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'request',
                         $request->input('content'),
@@ -472,10 +453,9 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function quickthanks(Request $request, $id)
     {
@@ -500,13 +480,13 @@ class CommentController extends Controller
             $uploader_url = hrefProfile($uploader);
 
             $thankArray = [
-                "Thanks for the upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :vulcan_tone2:",
-                "Beautiful upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :fire:",
-                "Cheers [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] for the upload :beers:",
+                sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploader_url, $uploader->group->color, $uploader->username),
+                sprintf('Beautiful upload [url=%s][color=%s][b]%s[/b][/color][/url] :fire:', $uploader_url, $uploader->group->color, $uploader->username),
+                sprintf('Cheers [url=%s][color=%s][b]%s[/b][/color][/url] for the upload :beers:', $uploader_url, $uploader->group->color, $uploader->username),
             ];
         }
 
-        $selected = mt_rand(0, count($thankArray) - 1);
+        $selected = mt_rand(0, (is_countable($thankArray) ? count($thankArray) : 0) - 1);
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
@@ -547,7 +527,7 @@ class CommentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
             );
 
             return redirect()->route('torrent', ['id' => $torrent->id])
@@ -563,7 +543,7 @@ class CommentController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function editComment(Request $request, $comment_id)
+    public function editComment(Request $request, $comment_id): RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($comment_id);
@@ -584,7 +564,7 @@ class CommentController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteComment(Request $request, $comment_id)
+    public function deleteComment(Request $request, $comment_id): RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($comment_id);

@@ -13,18 +13,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use Illuminate\Http\Request;
 
-class PlaylistTorrentController extends Controller
+final class PlaylistTorrentController extends Controller
 {
     /**
      * Attach A Torrent To A Playlist.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -60,7 +60,7 @@ class PlaylistTorrentController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $user = auth()->user();
         $playlist_torrent = PlaylistTorrent::findOrFail($id);

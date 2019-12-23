@@ -18,21 +18,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class IrcBroadcast extends Command
+final class IrcBroadcast extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'irc:broadcast';
+    protected string $name = 'irc:broadcast';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Broadcast to all IRC Channels in config';
+    protected string $description = 'Broadcast to all IRC Channels in config';
 
     /**
      * Create a new command instance.
@@ -49,7 +49,7 @@ class IrcBroadcast extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Broadcasting: '.$this->argument('message'));
         $bot = new IRCAnnounceBot();
@@ -58,10 +58,9 @@ class IrcBroadcast extends Command
 
     /**
      * Get the console command arguments.
-     *
-     * @return array
+     * @return int[][]|string[][]
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
             ['message', InputArgument::REQUIRED, 'Message you would like to send'],

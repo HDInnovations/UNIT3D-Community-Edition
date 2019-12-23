@@ -23,7 +23,7 @@ interface MovieTvInterface
      *
      * @return array
      */
-    public function find($keys, $type = null);
+    public function find(array $keys, ?string $type = null): array;
 
     /**
      * @param $id
@@ -44,5 +44,5 @@ interface MovieTvInterface
      *
      * @return array
      */
-    public function person($id);
+    public function person($id): array;
 }

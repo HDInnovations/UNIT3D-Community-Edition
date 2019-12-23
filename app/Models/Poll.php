@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -46,7 +48,7 @@ use Illuminate\Support\Str;
  * @property-read int|null $options_count
  * @property-read int|null $voters_count
  */
-class Poll extends Model
+final class Poll extends Model
 {
     use Auditable;
 
@@ -55,7 +57,7 @@ class Poll extends Model
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'title',
         'slug',
         'ip_checking',
@@ -67,7 +69,7 @@ class Poll extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -80,7 +82,7 @@ class Poll extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function options()
+    public function options(): HasMany
     {
         return $this->hasMany(Option::class);
     }
@@ -90,7 +92,7 @@ class Poll extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function voters()
+    public function voters(): HasMany
     {
         return $this->hasMany(Voter::class);
     }
@@ -99,12 +101,11 @@ class Poll extends Model
      * Set The Poll's Title, Adds A Question Mark (?) If Needed.
      *
      * @param $title
-     *
-     * @return string
+     * @return string|mixed
      */
     public function setTitleAttribute($title)
     {
-        if (substr($title, -1) != '?') {
+        if (substr($title, -1) !== '?') {
             return $this->attributes['title'] = $title.'?';
         }
 
@@ -118,12 +119,12 @@ class Poll extends Model
      *
      * @return string
      */
-    public function makeSlugFromTitle($title)
+    public function makeSlugFromTitle($title): string
     {
         $slug = strlen($title) > 20 ? substr(Str::slug($title), 0, 20) : Str::slug($title);
-        $count = $this->where('slug', 'LIKE', "%$slug%")->count();
+        $count = $this->where('slug', 'LIKE', sprintf('%%s%', $slug))->count();
 
-        return $count ? "{$slug}-{$count}" : $slug;
+        return $count ? sprintf('%s-%s', $slug, $count) : $slug;
     }
 
     /**
@@ -131,7 +132,7 @@ class Poll extends Model
      *
      * @return string
      */
-    public function totalVotes()
+    public function totalVotes(): int
     {
         $result = 0;
         foreach ($this->options as $option) {
@@ -141,10 +142,10 @@ class Poll extends Model
         return $result;
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
-        self::creating(function ($poll) {
+        self::creating(function ($poll): bool {
             if (empty($poll->slug)) {
                 $poll->slug = $poll->makeSlugFromTitle($poll->title);
             }

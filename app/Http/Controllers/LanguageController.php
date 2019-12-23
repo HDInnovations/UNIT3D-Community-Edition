@@ -16,7 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
-class LanguageController extends Controller
+final class LanguageController extends Controller
 {
     /**
      * Set locale if it's allowed.
@@ -24,7 +24,7 @@ class LanguageController extends Controller
      * @param string                   $locale
      * @param \Illuminate\Http\Request $request
      **/
-    private function setLocale($locale, $request)
+    private function setLocale(string $locale, Request $request): void
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
@@ -46,7 +46,7 @@ class LanguageController extends Controller
      *
      * @return string
      **/
-    public function home($locale, Request $request)
+    public function home(string $locale, Request $request): string
     {
         $this->setLocale($locale, $request);
 
@@ -64,14 +64,14 @@ class LanguageController extends Controller
      *
      * @return string
      **/
-    public function back($locale, Request $request)
+    public function back(string $locale, Request $request): string
     {
         $this->setLocale($locale, $request);
 
         $session = $request->session();
         if (config('language.url')) {
             $previous_url = substr(str_replace(env('APP_URL'), '', $session->previousUrl()), 7);
-            if (strlen($previous_url) == 3) {
+            if (strlen($previous_url) === 3) {
                 $previous_url = substr($previous_url, 3);
             } else {
                 $previous_url = substr($previous_url, strrpos($previous_url, '/') + 1);

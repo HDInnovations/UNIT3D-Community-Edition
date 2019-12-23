@@ -18,7 +18,7 @@ use App\Models\Subscription;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
-class SubscriptionController extends Controller
+final class SubscriptionController extends Controller
 {
     /**
      * Subscribe To A Topic.
@@ -26,12 +26,11 @@ class SubscriptionController extends Controller
      * @param Request $request
      * @param string $route
      * @param Topic $topic
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function subscribeTopic(Request $request, string $route, Topic $topic)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }
@@ -57,15 +56,14 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Topic.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $route
-     * @param  Topic                     $topic
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param string                    $route
+     * @param Topic                     $topic
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function unsubscribeTopic(Request $request, string $route, Topic $topic)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }
@@ -89,15 +87,14 @@ class SubscriptionController extends Controller
     /**
      * Subscribe To A Forum.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $route
-     * @param  Forum                     $forum
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param string                    $route
+     * @param Forum                     $forum
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function subscribeForum(Request $request, string $route, Forum $forum)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }
@@ -123,15 +120,14 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Forum.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $route
-     * @param  Forum                     $forum
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param string                    $route
+     * @param Forum                     $forum
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function unsubscribeForum(Request $request, string $route, Forum $forum)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }

@@ -13,19 +13,21 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class NoteController extends Controller
+final class NoteController extends Controller
 {
     /**
      * Display All User Notes.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $notes = Note::latest()->paginate(25);
 
@@ -35,10 +37,9 @@ class NoteController extends Controller
     /**
      * Store A New User Note.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $username)
     {
@@ -74,7 +75,7 @@ class NoteController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);

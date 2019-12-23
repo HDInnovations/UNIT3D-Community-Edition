@@ -18,15 +18,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewRequestClaim extends Notification implements ShouldQueue
+final class NewRequestClaim extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $sender;
+    /**
+     * @var string
+     */
+    public string $sender;
 
-    public $tr;
+    /**
+     * @var \App\Models\TorrentRequest
+     */
+    public TorrentRequest $tr;
 
     /**
      * Create a new notification instance.
@@ -46,10 +55,9 @@ class NewRequestClaim extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -58,17 +66,16 @@ class NewRequestClaim extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => $this->sender.' Has Claimed One Of Your Requested Torrents',
             'body'  => $this->sender.' has claimed your Requested Torrent '.$this->tr->name,
-            'url'   => "/requests/{$this->tr->id}",
+            'url'   => sprintf('/requests/%s', $this->tr->id),
         ];
     }
 }

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Mail\BanUser;
 use App\Mail\UnbanUser;
@@ -23,14 +24,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class BanController extends Controller
+final class BanController extends Controller
 {
     /**
      * Display All Bans.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $bans = Ban::latest()->paginate(25);
 
@@ -40,18 +41,15 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned).
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
 
         abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
@@ -90,10 +88,9 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $username)
     {

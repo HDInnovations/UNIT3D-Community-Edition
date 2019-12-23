@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -64,7 +65,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $permissions_count
  * @property-read int|null $users_count
  */
-class Group extends Model
+final class Group extends Model
 {
     use Auditable;
 
@@ -73,21 +74,21 @@ class Group extends Model
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected array $guarded = ['id'];
 
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * Has Many Users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
@@ -97,7 +98,7 @@ class Group extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function permissions()
+    public function permissions(): HasMany
     {
         return $this->hasMany(Permission::class);
     }
@@ -121,14 +122,10 @@ class Group extends Model
      * @param $group_id
      * @return int
      */
-    public function isAllowed($object, $group_id)
+    public function isAllowed($object, $group_id): bool
     {
         if (is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id, $object['default_groups'])) {
-            if ($object['default_groups'][$group_id] == 1) {
-                return true;
-            }
-
-            return false;
+            return $object['default_groups'][$group_id] == 1;
         }
 
         return true;

@@ -13,19 +13,21 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
+use Date;
 use App\Models\Language;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\App;
 
-class SetLanguage
+final class SetLanguage
 {
     /**
      * This function checks if language to set is an allowed lang of config.
      *
      * @param string $locale
      **/
-    private function setLocale($locale)
+    private function setLocale(string $locale): void
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
@@ -52,16 +54,16 @@ class SetLanguage
                 $locale = explode('-', $locale)[0];
             }
 
-            \Date::setLocale($locale);
+            Date::setLocale($locale);
         }
     }
 
-    public function setDefaultLocale()
+    public function setDefaultLocale(): void
     {
         $this->setLocale(config('app.locale'));
     }
 
-    public function setUserLocale()
+    public function setUserLocale(): void
     {
         $user = auth()->user();
 
@@ -72,7 +74,7 @@ class SetLanguage
         }
     }
 
-    public function setSystemLocale($request)
+    public function setSystemLocale($request): void
     {
         if ($request->session()->has('locale')) {
             $this->setLocale(session('locale'));
@@ -86,10 +88,9 @@ class SetLanguage
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
-     *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));

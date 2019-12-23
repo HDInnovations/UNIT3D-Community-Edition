@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Helpers\StringHelper;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentFile whereTorrentId($value)
  * @mixin \Eloquent
  */
-class TorrentFile extends Model
+final class TorrentFile extends Model
 {
     use Auditable;
 
@@ -43,21 +44,21 @@ class TorrentFile extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
-    protected $table = 'files';
+    protected string $table = 'files';
 
     /**
      * Belongs To A Torrent.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -69,7 +70,7 @@ class TorrentFile extends Model
      * @param  int  $precision
      * @return string
      */
-    public function getSize($bytes = null, $precision = 2)
+    public function getSize($bytes = null, int $precision = 2): string
     {
         $bytes = $this->size;
 

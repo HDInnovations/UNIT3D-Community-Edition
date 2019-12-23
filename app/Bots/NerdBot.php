@@ -27,25 +27,46 @@ use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class NerdBot
+final class NerdBot
 {
     private $bot;
 
-    private $chat;
+    /**
+     * @var \App\Repositories\ChatRepository
+     */
+    private ChatRepository $chat;
 
-    private $target;
+    /**
+     * @var \App\Models\User
+     */
+    private User $target;
 
-    private $type;
+    /**
+     * @var string
+     */
+    private string $type;
 
-    private $message;
+    /**
+     * @var string
+     */
+    private string $message;
 
-    private $targeted;
+    /**
+     * @var int
+     */
+    private int $targeted;
 
     private $log;
 
-    private $expiresAt;
+    /**
+     * @var \Carbon\Carbon
+     */
+    private Carbon $expiresAt;
 
-    private $current;
+    /**
+     * @var \Carbon\Carbon
+     */
+    private Carbon $current;
 
     /**
      * NerdBot Constructor.
@@ -63,7 +84,7 @@ class NerdBot
     /**
      * Replace Vars.
      * @param $output
-     * @return mixed
+     * @return mixed[]|string
      */
     public function replaceVars($output)
     {
@@ -86,7 +107,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getBanker($duration = 'default')
+    public function getBanker(string $duration = 'default'): string
     {
         $banker = cache()->get('nerdbot-banker');
         if (! $banker || $banker == null) {
@@ -94,7 +115,7 @@ class NerdBot
             cache()->put('nerdbot-banker', $banker, $this->expiresAt);
         }
 
-        return "Currently [url=/users/{$banker->username}]{$banker->username}[/url] Is The Top BON Holder On ".config('other.title').'!';
+        return sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username).config('other.title').'!';
     }
 
     /**
@@ -102,7 +123,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getSnatched($duration = 'default')
+    public function getSnatched(string $duration = 'default'): string
     {
         $snatched = cache()->get('nerdbot-snatched');
         if (! $snatched || $snatched == null) {
@@ -110,7 +131,7 @@ class NerdBot
             cache()->put('nerdbot-snatched', $snatched, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$snatched->id}]{$snatched->name}[/url] Is The Most Snatched Torrent On ".config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name).config('other.title').'!';
     }
 
     /**
@@ -118,7 +139,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getLeeched($duration = 'default')
+    public function getLeeched(string $duration = 'default'): string
     {
         $leeched = cache()->get('nerdbot-leeched');
         if (! $leeched || $leeched == null) {
@@ -126,7 +147,7 @@ class NerdBot
             cache()->put('nerdbot-leeched', $leeched, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$leeched->id}]{$leeched->name}[/url] Is The Most Leeched Torrent On ".config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name).config('other.title').'!';
     }
 
     /**
@@ -134,7 +155,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getSeeded($duration = 'default')
+    public function getSeeded(string $duration = 'default'): string
     {
         $seeded = cache()->get('nerdbot-seeded');
         if (! $seeded || $seeded == null) {
@@ -142,7 +163,7 @@ class NerdBot
             cache()->put('nerdbot-seeded', $seeded, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$seeded->id}]{$seeded->name}[/url] Is The Most Seeded Torrent On ".config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name).config('other.title').'!';
     }
 
     /**
@@ -150,7 +171,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getFreeleech($duration = 'default')
+    public function getFreeleech(string $duration = 'default'): string
     {
         $fl = cache()->get('nerdbot-fl');
         if (! $fl || $fl == null) {
@@ -158,7 +179,7 @@ class NerdBot
             cache()->put('nerdbot-fl', $fl, $this->expiresAt);
         }
 
-        return "There Are Currently {$fl} Freeleech Torrents On ".config('other.title').'!';
+        return sprintf('There Are Currently %s Freeleech Torrents On ', $fl).config('other.title').'!';
     }
 
     /**
@@ -166,7 +187,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getDoubleUpload($duration = 'default')
+    public function getDoubleUpload(string $duration = 'default'): string
     {
         $du = cache()->get('nerdbot-doubleup');
         if (! $du || $du == null) {
@@ -174,7 +195,7 @@ class NerdBot
             cache()->put('nerdbot-doubleup', $du, $this->expiresAt);
         }
 
-        return "There Are Currently {$du} Double Upload Torrents On ".config('other.title').'!';
+        return sprintf('There Are Currently %s Double Upload Torrents On ', $du).config('other.title').'!';
     }
 
     /**
@@ -182,7 +203,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getPeers($duration = 'default')
+    public function getPeers(string $duration = 'default'): string
     {
         $peers = cache()->get('nerdbot-peers');
         if (! $peers || $peers == null) {
@@ -190,7 +211,7 @@ class NerdBot
             cache()->put('nerdbot-peers', $peers, $this->expiresAt);
         }
 
-        return "Currently There Are {$peers} Peers On ".config('other.title').'!';
+        return sprintf('Currently There Are %s Peers On ', $peers).config('other.title').'!';
     }
 
     /**
@@ -198,7 +219,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getBans($duration = 'default')
+    public function getBans(string $duration = 'default'): string
     {
         $bans = cache()->get('nerdbot-bans');
         if (! $bans || $bans == null) {
@@ -206,7 +227,7 @@ class NerdBot
             cache()->put('nerdbot-bans', $bans, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$bans} Users Have Been Banned From ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans).config('other.title').'!';
     }
 
     /**
@@ -214,7 +235,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getWarnings($duration = 'default')
+    public function getWarnings(string $duration = 'default'): string
     {
         $warnings = cache()->get('nerdbot-warnings');
         if (! $warnings || $warnings == null) {
@@ -222,7 +243,7 @@ class NerdBot
             cache()->put('nerdbot-warnings', $warnings, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$warnings} Hit and Run Warnings Have Been Issued On ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings).config('other.title').'!';
     }
 
     /**
@@ -230,7 +251,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getUploads($duration = 'default')
+    public function getUploads(string $duration = 'default'): string
     {
         $uploads = cache()->get('nerdbot-uploads');
         if (! $uploads || $uploads == null) {
@@ -238,7 +259,7 @@ class NerdBot
             cache()->put('nerdbot-uploads', $uploads, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$uploads} Torrents Have Been Uploaded To ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads).config('other.title').'!';
     }
 
     /**
@@ -246,7 +267,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getLogins($duration = 'default')
+    public function getLogins(string $duration = 'default'): string
     {
         $logins = cache()->get('nerdbot-logins');
         if (! $logins || $logins == null) {
@@ -254,7 +275,7 @@ class NerdBot
             cache()->put('nerdbot-logins', $logins, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$logins} Unique Users Have Logged Into ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins).config('other.title').'!';
     }
 
     /**
@@ -262,7 +283,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getRegistrations($duration = 'default')
+    public function getRegistrations(string $duration = 'default'): string
     {
         $registrations = cache()->get('nerdbot-users');
         if (! $registrations || $registrations == null) {
@@ -270,7 +291,7 @@ class NerdBot
             cache()->put('nerdbot-users', $users, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$users} Users Have Registered To ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $users).config('other.title').'!';
     }
 
     /**
@@ -278,7 +299,7 @@ class NerdBot
      * @param  string  $duration
      * @return string
      */
-    public function getDonations($duration = 'default')
+    public function getDonations(string $duration = 'default'): string
     {
         $donations = cache()->get('nerdbot-donations');
         if (! $donations || $donations == null) {
@@ -306,7 +327,7 @@ class NerdBot
     /**
      * Get King.
      */
-    public function getKing()
+    public function getKing(): string
     {
         return config('other.title').' Is King!';
     }
@@ -317,12 +338,12 @@ class NerdBot
      * @param  string  $note
      * @return string
      */
-    public function putDonate($amount = 0, $note = '')
+    public function putDonate(int $amount = 0, string $note = ''): string
     {
         $output = implode(' ', $note);
         $v = validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
-            'amount'  => "required|numeric|min:1|max:{$this->target->seedbonus}",
+            'amount'  => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note' => 'required|string',
         ]);
         if ($v->passes()) {
@@ -359,7 +380,7 @@ class NerdBot
      * @param  int  $targeted
      * @return bool
      */
-    public function process($type, User $target, $message = '', $targeted = 0)
+    public function process($type, User $target, string $message = '', int $targeted = 0): bool
     {
         $this->target = $target;
         if ($type == 'message') {
@@ -372,7 +393,7 @@ class NerdBot
             $z = 3;
         }
 
-        if ($message == '') {
+        if ($message === '') {
             $log = '';
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
@@ -394,52 +415,52 @@ class NerdBot
         }
 
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'banker') {
+            if ($command[$x] === 'banker') {
                 $log = $this->getBanker($params);
             }
-            if ($command[$x] == 'bans') {
+            if ($command[$x] === 'bans') {
                 $log = $this->getBans($params);
             }
-            if ($command[$x] == 'donations') {
+            if ($command[$x] === 'donations') {
                 $log = $this->getDonations($params);
             }
-            if ($command[$x] == 'donate') {
+            if ($command[$x] === 'donate') {
                 $log = $this->putDonate($params, $wildcard);
             }
-            if ($command[$x] == 'doubleupload') {
+            if ($command[$x] === 'doubleupload') {
                 $log = $this->getDoubleUpload($params);
             }
-            if ($command[$x] == 'freeleech') {
+            if ($command[$x] === 'freeleech') {
                 $log = $this->getFreeleech($params);
             }
-            if ($command[$x] == 'help') {
+            if ($command[$x] === 'help') {
                 $log = $this->getHelp();
             }
-            if ($command[$x] == 'king') {
+            if ($command[$x] === 'king') {
                 $log = $this->getKing();
             }
-            if ($command[$x] == 'logins') {
+            if ($command[$x] === 'logins') {
                 $log = $this->getLogins($params);
             }
-            if ($command[$x] == 'peers') {
+            if ($command[$x] === 'peers') {
                 $log = $this->getPeers($params);
             }
-            if ($command[$x] == 'registrations') {
+            if ($command[$x] === 'registrations') {
                 $log = $this->getRegistrations($params);
             }
-            if ($command[$x] == 'uploads') {
+            if ($command[$x] === 'uploads') {
                 $log = $this->getUploads($params);
             }
-            if ($command[$x] == 'warnings') {
+            if ($command[$x] === 'warnings') {
                 $log = $this->getWarnings($params);
             }
-            if ($command[$x] == 'seeded') {
+            if ($command[$x] === 'seeded') {
                 $log = $this->getSeeded($params);
             }
-            if ($command[$x] == 'leeched') {
+            if ($command[$x] === 'leeched') {
                 $log = $this->getLeeched($params);
             }
-            if ($command[$x] == 'snatched') {
+            if ($command[$x] === 'snatched') {
                 $log = $this->getSnatched($params);
             }
         }
@@ -453,6 +474,7 @@ class NerdBot
 
     /**
      * Output Message.
+     * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function pm()
     {

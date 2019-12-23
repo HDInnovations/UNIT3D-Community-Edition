@@ -13,6 +13,7 @@
 
 namespace App\Traits;
 
+use datetime;
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
 use Carbon\Carbon;
@@ -24,17 +25,15 @@ trait TwoStep
      *
      * @return bool
      */
-    private function twoStepVerification()
+    private function twoStepVerification(): bool
     {
         $user = auth()->user();
         if ($user) {
             $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
             if ($twoStepAuthStatus->authStatus !== true) {
                 return false;
-            } else {
-                if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
-                    return false;
-                }
+            } elseif ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
+                return false;
             }
 
             return true;
@@ -50,7 +49,7 @@ trait TwoStep
      *
      * @return bool
      */
-    private function checkTimeSinceVerified($twoStepAuth)
+    private function checkTimeSinceVerified($twoStepAuth): bool
     {
         $expireMinutes = config('auth.TwoStepVerifiedLifetimeMinutes');
         $now = Carbon::now();
@@ -96,7 +95,7 @@ trait TwoStep
      * @return string
      * @throws \Exception
      */
-    private function generateCode(int $length = 4, string $prefix = '', string $suffix = '')
+    private function generateCode(int $length = 4, string $prefix = '', string $suffix = ''): string
     {
         for ($i = 0; $i < $length; $i++) {
             $prefix .= random_int(0, 1) ? chr(random_int(65, 90)) : random_int(0, 9);
@@ -114,7 +113,7 @@ trait TwoStep
      */
     private function checkTwoStepAuthStatus(int $userId)
     {
-        $twoStepAuth = TwoStepAuth::firstOrCreate(
+        return TwoStepAuth::firstOrCreate(
             [
                 'userId' => $userId,
             ],
@@ -124,8 +123,6 @@ trait TwoStep
                 'authCount' => 0,
             ]
         );
-
-        return $twoStepAuth;
     }
 
     /**
@@ -147,7 +144,7 @@ trait TwoStep
      *
      * @return collection
      */
-    protected function exceededTimeParser($time)
+    protected function exceededTimeParser(string $time)
     {
         $tomorrow = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
         $remaining = $time->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
@@ -167,17 +164,12 @@ trait TwoStep
      *
      * @return bool
      */
-    protected function checkExceededTime($time)
+    protected function checkExceededTime(datetime $time): bool
     {
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
         $expired = $now->gt($expire);
-
-        if ($expired) {
-            return true;
-        }
-
-        return false;
+        return (bool) $expired;
     }
 
     /**
@@ -203,7 +195,7 @@ trait TwoStep
      *
      * @return void
      */
-    protected function resetActivationCountdown($twoStepAuth)
+    protected function resetActivationCountdown($twoStepAuth): void
     {
         $twoStepAuth->authCode = $this->generateCode();
         $twoStepAuth->authCount = 0;
@@ -221,7 +213,7 @@ trait TwoStep
      * @param  string  $deliveryMethod  (nullable)
      * @return void
      */
-    protected function sendVerificationCodeNotification($twoStepAuth, $deliveryMethod = null)
+    protected function sendVerificationCodeNotification($twoStepAuth, string $deliveryMethod = null): void
     {
         $user = auth()->user();
         if ($deliveryMethod === null) {

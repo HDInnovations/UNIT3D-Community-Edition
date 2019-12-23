@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,7 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invite whereUserId($value)
  * @mixin \Eloquent
  */
-class Invite extends Model
+final class Invite extends Model
 {
     use Auditable;
 
@@ -55,7 +56,7 @@ class Invite extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sender()
+    public function sender(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
@@ -68,7 +69,7 @@ class Invite extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function receiver()
+    public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'accepted_by')->withDefault([
             'username' => 'System',

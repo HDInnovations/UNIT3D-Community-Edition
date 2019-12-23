@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Upload query()
  * @mixin \Eloquent
  */
-class Upload extends Model
+final class Upload extends Model
 {
     //
 }

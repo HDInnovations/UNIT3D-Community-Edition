@@ -17,8 +17,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class DenyApplication extends Mailable
+final class DenyApplication extends Mailable
 {
+    public $input;
     use Queueable, SerializesModels;
 
     public $denied_message;
@@ -38,7 +39,7 @@ class DenyApplication extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.deny_application')->subject('Your Application Has Been Denied!');
     }

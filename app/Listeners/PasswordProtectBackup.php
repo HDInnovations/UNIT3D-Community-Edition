@@ -16,7 +16,7 @@ namespace App\Listeners;
 use App\Helpers\BackupPassword;
 use Spatie\Backup\Events\BackupZipWasCreated;
 
-class PasswordProtectBackup
+final class PasswordProtectBackup
 {
     /**
      * Create the event listener.
@@ -34,7 +34,7 @@ class PasswordProtectBackup
      * @param  \Spatie\Backup\Events\BackupZipWasCreated  $event
      * @return string
      */
-    public function handle(BackupZipWasCreated $event)
+    public function handle(BackupZipWasCreated $event): string
     {
         return (new BackupPassword($event->pathToZip))->path;
     }

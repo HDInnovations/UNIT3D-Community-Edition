@@ -18,7 +18,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UsernameReminder extends Notification implements ShouldQueue
+final class UsernameReminder extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -36,10 +36,9 @@ class UsernameReminder extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -51,7 +50,7 @@ class UsernameReminder extends Notification implements ShouldQueue
      *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
                     ->subject(trans('common.your').' '.config('app.name').' '.trans('common.username'))

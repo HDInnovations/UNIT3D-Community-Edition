@@ -13,10 +13,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
-class PageController extends Controller
+final class PageController extends Controller
 {
     /**
      * Show A Page.
@@ -25,7 +26,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): Factory
     {
         $page = Page::findOrFail($id);
 
@@ -37,7 +38,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function staff()
+    public function staff(): Factory
     {
         $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
 
@@ -49,7 +50,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function internal()
+    public function internal(): Factory
     {
         $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_internal', 1)->get();
 
@@ -61,7 +62,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function blacklist()
+    public function blacklist(): Factory
     {
         $clients = config('client-blacklist.clients', []);
         $browsers = config('client-blacklist.browsers', []);
@@ -74,7 +75,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function about()
+    public function about(): Factory
     {
         return view('page.aboutus');
     }
@@ -84,7 +85,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function emailList()
+    public function emailList(): Factory
     {
         $whitelist = config('email-white-blacklist.allow', []);
         $blacklist = config('email-white-blacklist.block', []);

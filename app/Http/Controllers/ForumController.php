@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
@@ -20,17 +22,17 @@ use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
-class ForumController extends Controller
+final class ForumController extends Controller
 {
     /**
      * @var TaggedUserRepository
      */
-    private $tag;
+    private TaggedUserRepository $tag;
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * ForumController Constructor.
@@ -51,7 +53,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function search(Request $request)
+    public function search(Request $request): Factory
     {
         $categories = Forum::all()->sortBy('position');
 
@@ -127,7 +129,7 @@ class ForumController extends Controller
 
         if ($request->has('category')) {
             $category = (int) $request->input('category');
-            if ($category > 0 && $category < 99999999999) {
+            if ($category > 0 && $category < 99_999_999_999) {
                 $children = Forum::where('parent_id', '=', $category)->get()->toArray();
                 if (is_array($children)) {
                     $result->where(function ($query) use ($category, $children) {
@@ -139,7 +141,7 @@ class ForumController extends Controller
 
         if ($request->has('body') && $request->input('body') != '') {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "posts.{$request->input('sorting')}";
+                $sorting = sprintf('posts.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'posts.id';
@@ -148,7 +150,7 @@ class ForumController extends Controller
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "topics.{$request->input('sorting')}";
+                $sorting = sprintf('topics.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'topics.last_reply_at';
@@ -188,7 +190,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function subscriptions(Request $request)
+    public function subscriptions(Request $request): Factory
     {
         $user = $request->user();
 
@@ -245,7 +247,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function latestTopics(Request $request)
+    public function latestTopics(Request $request): Factory
     {
         $user = $request->user();
 
@@ -279,7 +281,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function latestPosts(Request $request)
+    public function latestPosts(Request $request): Factory
     {
         $user = $request->user();
 
@@ -311,7 +313,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $categories = Forum::all()->sortBy('position');
 
@@ -337,7 +339,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): RedirectResponse
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

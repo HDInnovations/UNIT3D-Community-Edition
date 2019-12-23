@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwoStepAuth whereUserId($value)
  * @mixin \Eloquent
  */
-class TwoStepAuth extends Model
+final class TwoStepAuth extends Model
 {
     use Auditable;
 
@@ -51,21 +51,21 @@ class TwoStepAuth extends Model
      *
      * @var string
      */
-    protected $table = 'twostep_auth';
+    protected string $table = 'twostep_auth';
 
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
-    public $timestamps = true;
+    public bool $timestamps = true;
 
     /**
      * The Attributes That Are Not Mass Assignable.
      *
      * @var array
      */
-    protected $guarded = [
+    protected array $guarded = [
         'id',
     ];
 
@@ -74,7 +74,7 @@ class TwoStepAuth extends Model
      *
      * @var array
      */
-    protected $dates = [
+    protected array $dates = [
         'created_at',
         'updated_at',
         'requestDate',
@@ -86,7 +86,7 @@ class TwoStepAuth extends Model
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'userId',
         'authCode',
         'authCount',
@@ -100,7 +100,7 @@ class TwoStepAuth extends Model
      *
      * @var array
      */
-    protected $casts = [
+    protected array $casts = [
         'userId'     => 'integer',
         'authCode'   => 'string',
         'authCount'  => 'integer',
@@ -114,7 +114,7 @@ class TwoStepAuth extends Model
      *
      * @return array
      */
-    public static function rules($merge = [])
+    public static function rules(array $merge = []): array
     {
         return array_merge(
             [

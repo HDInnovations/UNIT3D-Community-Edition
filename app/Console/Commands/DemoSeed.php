@@ -13,27 +13,28 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Clients\OmdbClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
-class DemoSeed extends Command
+final class DemoSeed extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'demo:seed';
+    protected string $name = 'demo:seed';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Seeds Fake Data For Demonstration Or Testing Purposes';
+    protected string $description = 'Seeds Fake Data For Demonstration Or Testing Purposes';
 
     /**
      * Create a new command instance.
@@ -50,7 +51,7 @@ class DemoSeed extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->alert('Demo Seeder v1.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');
@@ -64,7 +65,7 @@ class DemoSeed extends Command
             // Users
             $this->info('Creating User Account');
 
-            $uid = factory(User::class)->create()->id;
+            $uid = factory()->create()->id;
 
             // random boolean
             if ([false, true][rand(0, 1)]) {
@@ -74,7 +75,7 @@ class DemoSeed extends Command
                 $this->info('Creating Movie Torrents for Account ID #'.$uid);
 
                 try {
-                    factory(Torrent::class)->create([
+                    factory()->create([
                             'user_id' => $uid,
                             'imdb' => $id,
                             'name' => $r['Title'],
@@ -82,7 +83,7 @@ class DemoSeed extends Command
                             'description' => $r['Plot'],
                             'category_id' => 1,
                         ]);
-                } catch (\Exception $e) {
+                } catch (Exception $exception) {
                     $abort = true;
 
                     break;
@@ -104,10 +105,9 @@ class DemoSeed extends Command
 
     /**
      * Get the console command arguments.
-     *
-     * @return array
+     * @return mixed[]
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
 
@@ -117,7 +117,7 @@ class DemoSeed extends Command
     private function search($id)
     {
         // we delay between api calls to reduce throttling
-        usleep(500000);
+        usleep(500_000);
 
         $key = config('api-keys.omdb');
 
@@ -128,7 +128,10 @@ class DemoSeed extends Command
         return $omdb->toArray($omdb->request($url));
     }
 
-    private function ids()
+    /**
+     * @return string[]
+     */
+    private function ids(): array
     {
         return [
             '2948356',

@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Helpers\Bencode;
 use App\Models\Ban;
 use App\Models\BonTransactions;
@@ -34,10 +36,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 use ZipArchive;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     /**
      * Show A User.
@@ -46,7 +48,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($username)
+    public function show($username): Factory
     {
         $user = User::with(['privacy', 'history'])->where('username', '=', $username)->firstOrFail();
 
@@ -92,7 +94,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function followers($username)
+    public function followers($username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
@@ -111,7 +113,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function topics($username)
+    public function topics($username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
@@ -130,7 +132,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function posts($username)
+    public function posts($username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
@@ -150,7 +152,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editProfileForm(Request $request, $username)
+    public function editProfileForm(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -162,10 +164,9 @@ class UserController extends Controller
     /**
      * Edit User Profile.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $username
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function editProfile(Request $request, $username)
     {
@@ -175,13 +176,13 @@ class UserController extends Controller
 
         // Avatar
         $max_upload = config('image.max_upload_size');
-        if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
+        if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
             if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', $image->getMimeType())) {
                 if ($max_upload >= $image->getSize()) {
                     $filename = $user->username.'.'.$image->getClientOriginalExtension();
                     $path = public_path('/files/img/'.$filename);
-                    if ($image->getClientOriginalExtension() != 'gif') {
+                    if ($image->getClientOriginalExtension() !== 'gif') {
                         Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
                     } else {
                         $v = validator($request->all(), [
@@ -197,7 +198,7 @@ class UserController extends Controller
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
                     return redirect()->route('users.show', ['username' => $user->username])
-                        ->withErrors('Your avatar is too large, max file size: '.($max_upload / 1000000).' MB');
+                        ->withErrors('Your avatar is too large, max file size: '.($max_upload / 1_000_000).' MB');
                 }
             }
         }
@@ -219,7 +220,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings(Request $request, $username)
+    public function settings(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -231,10 +232,9 @@ class UserController extends Controller
     /**
      * Change User Account Settings.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $username
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function changeSettings(Request $request, $username)
     {
@@ -249,7 +249,7 @@ class UserController extends Controller
         // Style Settings
         $user->style = (int) $request->input('theme');
         $css_url = $request->input('custom_css');
-        if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
+        if (isset($css_url) && !filter_var($css_url, FILTER_VALIDATE_URL)) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         } else {
@@ -275,7 +275,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function security(Request $request, $username)
+    public function security(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -291,7 +291,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeTwoStep(Request $request)
+    protected function changeTwoStep(Request $request): RedirectResponse
     {
         $user = auth()->user();
 
@@ -306,10 +306,9 @@ class UserController extends Controller
     /**
      * User Password Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $username
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     protected function changePassword(Request $request, $username)
     {
@@ -343,8 +342,7 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     protected function changeEmail(Request $request, $username)
     {
@@ -386,7 +384,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makePrivate(Request $request, $username)
+    public function makePrivate(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -407,7 +405,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makePublic(Request $request, $username)
+    public function makePublic(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -428,7 +426,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function disableNotifications(Request $request, $username)
+    public function disableNotifications(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -449,7 +447,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function enableNotifications(Request $request, $username)
+    public function enableNotifications(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -470,7 +468,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makeHidden(Request $request, $username)
+    public function makeHidden(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -491,7 +489,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function makeVisible(Request $request, $username)
+    public function makeVisible(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -512,7 +510,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function changePID(Request $request, $username)
+    public function changePID(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -534,7 +532,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeOther(Request $request, $username)
+    protected function changeOther(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -550,11 +548,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_other_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
@@ -573,7 +567,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeRequest(Request $request, $username)
+    protected function changeRequest(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -589,11 +583,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_request_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
@@ -612,7 +602,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeAchievement(Request $request, $username)
+    protected function changeAchievement(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -628,11 +618,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_achievement_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
@@ -651,7 +637,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeForum(Request $request, $username)
+    protected function changeForum(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -667,11 +653,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_forum_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_topic = ($request->input('show_topic') && $request->input('show_topic') == 1 ? 1 : 0);
@@ -690,7 +672,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeFollower(Request $request, $username)
+    protected function changeFollower(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -706,11 +688,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_follower_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
@@ -728,7 +706,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeTorrent(Request $request, $username)
+    protected function changeTorrent(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -744,11 +722,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_torrent_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
@@ -771,7 +745,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeAccountNotification(Request $request, $username)
+    protected function changeAccountNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -788,11 +762,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_account_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_account_follow = ($request->input('show_account_follow') && $request->input('show_account_follow') == 1 ? 1 : 0);
@@ -811,7 +781,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeFollowingNotification(Request $request, $username)
+    protected function changeFollowingNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -828,11 +798,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_following_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
@@ -850,7 +816,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeBonNotification(Request $request, $username)
+    protected function changeBonNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -867,11 +833,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_bon_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
@@ -889,7 +851,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeSubscriptionNotification(Request $request, $username)
+    protected function changeSubscriptionNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -906,11 +868,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_subscription_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_subscription_forum = ($request->input('show_subscription_forum') && $request->input('show_subscription_forum') == 1 ? 1 : 0);
@@ -929,7 +887,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeRequestNotification(Request $request, $username)
+    protected function changeRequestNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -946,11 +904,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_request_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_request_comment = ($request->input('show_request_comment') && $request->input('show_request_comment') == 1 ? 1 : 0);
@@ -974,7 +928,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeTorrentNotification(Request $request, $username)
+    protected function changeTorrentNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -991,11 +945,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_torrent_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_torrent_comment = ($request->input('show_torrent_comment') && $request->input('show_torrent_comment') == 1 ? 1 : 0);
@@ -1015,7 +965,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeMentionNotification(Request $request, $username)
+    protected function changeMentionNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1032,11 +982,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_mention_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_mention_torrent_comment = ($request->input('show_mention_torrent_comment') && $request->input('show_mention_torrent_comment') == 1 ? 1 : 0);
@@ -1058,7 +1004,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeForumNotification(Request $request, $username)
+    protected function changeForumNotification(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1075,11 +1021,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_forum_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
@@ -1097,7 +1039,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    protected function changeProfile(Request $request, $username)
+    protected function changeProfile(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1114,11 +1056,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_profile_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_profile_torrent_count = ($request->input('show_profile_torrent_count') && $request->input('show_profile_torrent_count') == 1 ? 1 : 0);
@@ -1148,7 +1086,7 @@ class UserController extends Controller
      * @param $username
      * @return Illuminate\Http\RedirectResponse
      */
-    public function changeRID(Request $request, $username)
+    public function changeRID(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1169,7 +1107,7 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function changeApiToken(Request $request, $username)
+    public function changeApiToken(Request $request, $username): RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1189,7 +1127,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function privacy(Request $request, $username)
+    public function privacy(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1207,7 +1145,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function notification(Request $request, $username)
+    public function notification(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1221,9 +1159,9 @@ class UserController extends Controller
     /**
      * Uses Input's To Put Together A Filtered View.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request  $request
      * @param $username
-     * @return array
+     * @return bool|mixed[]|string
      */
     public function myFilter(Request $request, $username)
     {
@@ -1290,11 +1228,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'seedtime') {
@@ -1355,11 +1289,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting == 'date') {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy('created_at', $order)->paginate(25);
@@ -1397,11 +1327,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'goal') {
@@ -1445,11 +1371,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 $table = $history->where('peers.user_id', '=', $user->id)->orderBy('peers.'.$sorting, $order)->paginate(50);
@@ -1492,11 +1414,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('error') && $request->input('error') != null) {
                 $history->where('seeder', '=', 0);
@@ -1508,17 +1426,15 @@ class UserController extends Controller
 
             if ($sorting != 'name' && $sorting != 'satisfied_at' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
-            } else {
-                if ($sorting == 'satisfied_at') {
-                    if ($order == 'desc') {
-                        $order = 'asc';
-                    } elseif ($order == 'asc') {
-                        $order = 'desc';
-                    }
-                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
-                } else {
-                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+            } elseif ($sorting == 'satisfied_at') {
+                if ($order == 'desc') {
+                    $order = 'asc';
+                } elseif ($order == 'asc') {
+                    $order = 'desc';
                 }
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+            } else {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
             }
 
             return view('user.filters.unsatisfieds', [
@@ -1555,11 +1471,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('completed') && $request->input('completed') != null) {
                 $history->where('completed_at', '>', 0);
@@ -1640,11 +1552,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting == 'tipped' || $sorting == 'thanked') {
                 $table = $history->orderBy($sorting.'_total', $order)->paginate(50);
@@ -1674,11 +1582,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
@@ -1726,7 +1630,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function downloads(Request $request, $username)
+    public function downloads(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
@@ -1796,7 +1700,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function requested(Request $request, $username)
+    public function requested(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
@@ -1829,7 +1733,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function unsatisfieds(Request $request, $username)
+    public function unsatisfieds(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1876,7 +1780,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrents(Request $request, $username)
+    public function torrents(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -1908,7 +1812,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function resurrections(Request $request, $username)
+    public function resurrections(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
@@ -1929,7 +1833,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploads(Request $request, $username)
+    public function uploads(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         if ($request->user()->id == $user->id || $request->user()->group->is_modo) {
@@ -1970,7 +1874,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function active(Request $request, $username)
+    public function active(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -2005,7 +1909,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function seeds(Request $request, $username)
+    public function seeds(Request $request, $username): Factory
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -2039,7 +1943,7 @@ class UserController extends Controller
      * @param $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getBans(Request $request, $username)
+    public function getBans(Request $request, $username): Factory
     {
         abort_unless($request->user()->group->is_modo, 403);
 
@@ -2059,7 +1963,7 @@ class UserController extends Controller
      * @param $username
      * @return \ZipArchive
      */
-    public function downloadHistoryTorrents(Request $request, $username)
+    public function downloadHistoryTorrents(Request $request, $username): RedirectResponse
     {
         //  Extend The Maximum Execution Time
         set_time_limit(300);
@@ -2072,7 +1976,7 @@ class UserController extends Controller
         $path = getcwd().'/files/tmp_zip/';
 
         // Zip File Name
-        $zipFileName = "{$user->username}.zip";
+        $zipFileName = sprintf('%s.zip', $user->username);
 
         // Create ZipArchive Obj
         $zip = new ZipArchive();
@@ -2087,16 +1991,13 @@ class UserController extends Controller
                 $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
 
                 // Define The Torrent Filename
-                $tmpFileName = "{$torrent->slug}.torrent";
+                $tmpFileName = sprintf('%s.torrent', $torrent->slug);
 
                 // The Torrent File Exist?
                 if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     return redirect()->back()->withErrors('Torrent File Not Found! Please Report This Torrent!');
-                } else {
-                    // Delete The Last Torrent Tmp File If Exist
-                    if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
-                        unlink(getcwd().'/files/tmp/'.$tmpFileName);
-                    }
+                } elseif (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
+                    unlink(getcwd().'/files/tmp/'.$tmpFileName);
                 }
 
                 // Get The Content Of The Torrent
@@ -2131,7 +2032,7 @@ class UserController extends Controller
      * @param Request $request
      * @return void
      */
-    public function acceptRules(Request $request)
+    public function acceptRules(Request $request): void
     {
         $user = $request->user();
         $user->read_rules = 1;

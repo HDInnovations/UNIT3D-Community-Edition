@@ -13,9 +13,10 @@
 
 namespace App\Services\Data;
 
+use DateTime;
 use Carbon\Carbon;
 
-class Episode
+final class Episode
 {
     public $season;
 
@@ -23,7 +24,10 @@ class Episode
 
     public $title;
 
-    public $releaseDate;
+    /**
+     * @var \Carbon\Carbon|null
+     */
+    public ?Carbon $releaseDate;
 
     public $plot;
 
@@ -40,7 +44,7 @@ class Episode
             }
         }
 
-        if ($this->releaseDate instanceof \DateTime) {
+        if ($this->releaseDate instanceof DateTime) {
             $release_date = $this->releaseDate ? (new Carbon())->instance($this->releaseDate) : null;
         } else {
             $release_date = $this->releaseDate ? new Carbon($this->releaseDate) : null;

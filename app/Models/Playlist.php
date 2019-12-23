@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -51,7 +53,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Playlist whereUserId($value)
  * @mixin \Eloquent
  */
-class Playlist extends Model
+final class Playlist extends Model
 {
     use Auditable;
 
@@ -60,7 +62,7 @@ class Playlist extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -73,7 +75,7 @@ class Playlist extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function torrents()
+    public function torrents(): HasMany
     {
         return $this->hasMany(PlaylistTorrent::class);
     }
@@ -83,7 +85,7 @@ class Playlist extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'playlist_id');
     }

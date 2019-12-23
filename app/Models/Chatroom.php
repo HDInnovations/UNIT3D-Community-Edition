@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -39,7 +40,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $notifications_count
  * @property-read int|null $users_count
  */
-class Chatroom extends Model
+final class Chatroom extends Model
 {
     use Notifiable;
     use Auditable;
@@ -49,7 +50,7 @@ class Chatroom extends Model
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'name',
     ];
 
@@ -58,7 +59,7 @@ class Chatroom extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function messages()
+    public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
     }
@@ -68,7 +69,7 @@ class Chatroom extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }

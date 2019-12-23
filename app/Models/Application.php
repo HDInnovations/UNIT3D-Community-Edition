@@ -12,6 +12,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
@@ -50,7 +52,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $image_proofs_count
  * @property-read int|null $url_proofs_count
  */
-class Application extends Model
+final class Application extends Model
 {
     use Moderatable;
     use Auditable;
@@ -60,7 +62,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -70,7 +72,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function moderated()
+    public function moderated(): BelongsTo
     {
         return $this->belongsTo(User::class, 'moderated_by');
     }
@@ -80,7 +82,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function imageProofs()
+    public function imageProofs(): HasMany
     {
         return $this->hasMany(ApplicationImageProof::class);
     }
@@ -90,7 +92,7 @@ class Application extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function urlProofs()
+    public function urlProofs(): HasMany
     {
         return $this->hasMany(ApplicationUrlProof::class);
     }

@@ -14,19 +14,19 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 
-class UpdateLastAction
+final class UpdateLastAction
 {
     /**
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
      * @param Closure                  $next
-     *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if (! $user = $request->user()) {
             return $next($request);

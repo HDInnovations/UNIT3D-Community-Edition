@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewTopic;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -67,7 +68,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $subscriptions_count
  * @property-read int|null $topics_count
  */
-class Forum extends Model
+final class Forum extends Model
 {
     use Auditable;
 
@@ -76,15 +77,14 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function topics()
+    public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);
     }
 
     /**
      * Has Many Sub Topics.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return mixed
      */
     public function sub_topics()
     {
@@ -101,19 +101,18 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function forums()
+    public function forums(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
     /**
      * Has Many Subscribed Topics.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return mixed|\Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function subscription_topics()
     {
-        if (auth()->user()) {
+        if (auth()->user() !== null) {
             $id = $this->id;
             $subscriptions = auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
 
@@ -130,7 +129,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subscriptions()
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class, 'forum_id', 'id');
     }
@@ -140,7 +139,7 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function permissions()
+    public function permissions(): HasMany
     {
         return $this->hasMany(Permission::class);
     }
@@ -152,7 +151,7 @@ class Forum extends Model
      * @param $topic
      * @return string
      */
-    public function notifySubscribers($poster, $topic)
+    public function notifySubscribers($poster, $topic): void
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -173,7 +172,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getForumsInCategory()
+    public function getForumsInCategory(): string
     {
         return self::where('parent_id', '=', $this->id)->get();
     }
@@ -184,7 +183,7 @@ class Forum extends Model
      * @param $forumId
      * @return string
      */
-    public function getForumsInCategoryById($forumId)
+    public function getForumsInCategoryById($forumId): string
     {
         return self::where('parent_id', '=', $forumId)->get();
     }
@@ -194,7 +193,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getCategory()
+    public function getCategory(): string
     {
         return self::find($this->parent_id);
     }
@@ -203,7 +202,7 @@ class Forum extends Model
      * Count The Number Of Posts In The Forum.
      *
      * @param $forumId
-     * @return string
+     * @return float|int
      */
     public function getPostCount($forumId)
     {
@@ -223,7 +222,7 @@ class Forum extends Model
      * @param $forumId
      * @return string
      */
-    public function getTopicCount($forumId)
+    public function getTopicCount($forumId): string
     {
         $forum = self::find($forumId);
 
@@ -235,13 +234,9 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getPermission()
+    public function getPermission(): string
     {
-        if (auth()->check()) {
-            $group = auth()->user()->group;
-        } else {
-            $group = Group::find(2);
-        }
+        $group = auth()->check() ? auth()->user()->group : Group::find(2);
 
         return $group->permissions->where('forum_id', $this->id)->first();
     }

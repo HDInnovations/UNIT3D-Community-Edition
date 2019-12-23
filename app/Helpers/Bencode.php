@@ -15,12 +15,12 @@ namespace App\Helpers;
 
 use function theodorejb\polycast\safe_int;
 
-class Bencode
+final class Bencode
 {
-    public static function parse_integer($s, &$pos)
+    public static function parse_integer($s, &$pos): int
     {
         $len = strlen($s);
-        if ($len == 0 || $s[$pos] != 'i') {
+        if ($len === 0 || $s[$pos] != 'i') {
             return;
         }
         $pos++;
@@ -50,7 +50,7 @@ class Bencode
         }
     }
 
-    public static function parse_string($s, &$pos)
+    public static function parse_string($s, &$pos): string
     {
         $len = strlen($s);
         $length_str = '';
@@ -91,6 +91,9 @@ class Bencode
         return $result;
     }
 
+    /**
+     * @return mixed|mixed[]
+     */
     public static function bdecode($s, &$pos = 0)
     {
         $len = strlen($s);
@@ -146,7 +149,7 @@ class Bencode
         }
     }
 
-    public static function bencode($d)
+    public static function bencode($d): string
     {
         if (is_array($d)) {
             $ret = 'l';
@@ -201,12 +204,15 @@ class Bencode
         return self::bdecode($f);
     }
 
-    public static function get_infohash($t)
+    public static function get_infohash($t): string
     {
         return sha1(self::bencode($t['info']));
     }
 
-    public static function get_meta($t)
+    /**
+     * @return mixed[]
+     */
+    public static function get_meta($t): array
     {
         $result = [];
         $size = 0;

@@ -19,28 +19,28 @@ use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class AutoHighspeedTag extends Command
+final class AutoHighspeedTag extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:highspeed_tag';
+    protected string $signature = 'auto:highspeed_tag';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Updates Torrents Highspeed Tag Based On Registered Seedboxes.';
+    protected string $description = 'Updates Torrents Highspeed Tag Based On Registered Seedboxes.';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         DB::table('torrents')->update(['highspeed' => 0]);
 

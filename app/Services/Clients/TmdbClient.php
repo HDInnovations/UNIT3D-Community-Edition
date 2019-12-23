@@ -13,22 +13,38 @@
 
 namespace App\Services\Clients;
 
+use HttpInvalidParamException;
 use App\Services\Contracts\MovieTvInterface;
 use App\Services\Data\Movie;
 use App\Services\Data\Person;
 use App\Services\Data\Tv;
 
-class TmdbClient extends Client implements MovieTvInterface
+final class TmdbClient extends Client implements MovieTvInterface
 {
-    protected $apiUrl = 'api.themoviedb.org/3/';
+    /**
+     * @var string
+     */
+    protected string $apiUrl = 'api.themoviedb.org/3/';
 
-    protected $apiSecure = true;
+    /**
+     * @var bool
+     */
+    protected bool $apiSecure = true;
 
-    private $imagePath = 'https://image.tmdb.org/t/p/w780';
+    /**
+     * @var string
+     */
+    private string $imagePath = 'https://image.tmdb.org/t/p/w780';
 
-    private $imageBackdropPath = 'https://image.tmdb.org/t/p/w1280';
+    /**
+     * @var string
+     */
+    private string $imageBackdropPath = 'https://image.tmdb.org/t/p/w1280';
 
-    private $imageProfilePath = 'https://image.tmdb.org/t/p/h632';
+    /**
+     * @var string
+     */
+    private string $imageProfilePath = 'https://image.tmdb.org/t/p/h632';
 
     public function __construct($apiKey)
     {
@@ -40,14 +56,13 @@ class TmdbClient extends Client implements MovieTvInterface
      * @param string $type
      *
      * @throws \HttpInvalidParamException
-     *
-     * @return Movie
+     * @return \App\Services\Data\Movie|mixed|\App\Services\Data\Tv
      */
-    public function find($keys, $type = 'movie')
+    public function find(array $keys, string $type = 'movie'): array
     {
         $this->validateKeys($keys);
 
-        if ($type == 'movie') {
+        if ($type === 'movie') {
             if (isset($keys['imdb'])) {
                 $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
                 $results = $this->toArray($this->request($url));
@@ -60,7 +75,7 @@ class TmdbClient extends Client implements MovieTvInterface
             }
         }
 
-        if ($type == 'tv') {
+        if ($type === 'tv') {
             $url = null;
             if (isset($keys['imdb'])) {
                 $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id';
@@ -78,35 +93,34 @@ class TmdbClient extends Client implements MovieTvInterface
             return new Tv();
         }
 
-        throw new \HttpInvalidParamException('What are you trying to find?');
+        throw new HttpInvalidParamException('What are you trying to find?');
     }
 
     /**
      * @param $id
      * @param string $type
-     *
-     * @return Movie
+     * @return mixed|\App\Services\Data\Movie
      */
-    public function movie($id, $type = 'movie')
+    public function movie($id, string $type = 'movie')
     {
         $this->validateKeys(['tmdb' => $id]);
 
         $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
         $movie = $this->toArray($this->request($url));
 
-        if ($type == 'tv') {
+        if ($type === 'tv') {
             return $this->formatTv($movie);
         }
 
         return $this->formatMovie($movie);
     }
 
-    public function tv($id)
+    public function tv($id): Movie
     {
         return $this->movie($id, 'tv');
     }
 
-    public function person($id)
+    public function person($id): array
     {
         $this->validateKeys(['tmdb' => $id]);
 
@@ -120,7 +134,7 @@ class TmdbClient extends Client implements MovieTvInterface
      *
      * @return Movie
      */
-    private function formatMovie($movie)
+    private function formatMovie($movie): Movie
     {
         if (is_array($movie)) {
             return new Movie([
@@ -159,7 +173,7 @@ class TmdbClient extends Client implements MovieTvInterface
         }
     }
 
-    private function formatTv($movie)
+    private function formatTv($movie): Tv
     {
         if (is_array($movie)) {
             return new Tv([
@@ -205,7 +219,7 @@ class TmdbClient extends Client implements MovieTvInterface
      *
      * @return Person
      */
-    private function formatPerson($person)
+    private function formatPerson($person): Person
     {
         return new Person([
             'imdb'         => ! empty($person['imdb_id']) ? $person['imdb_id'] : 'Not Defined',
@@ -228,7 +242,10 @@ class TmdbClient extends Client implements MovieTvInterface
         ]);
     }
 
-    private function formatCountries($countries, $type = 'movie')
+    /**
+     * @return mixed[][]
+     */
+    private function formatCountries($countries, $type = 'movie'): array
     {
         $movie_countries = [];
         if ($type == 'movie') {
@@ -256,7 +273,10 @@ class TmdbClient extends Client implements MovieTvInterface
         return $movie_countries;
     }
 
-    private function formatLanguages($languages, $type = 'movie')
+    /**
+     * @return mixed[][]
+     */
+    private function formatLanguages($languages, $type = 'movie'): array
     {
         $movie_languages = [];
         if ($type == 'movie') {
@@ -283,7 +303,10 @@ class TmdbClient extends Client implements MovieTvInterface
         return $movie_languages;
     }
 
-    private function formatGenres($genres)
+    /**
+     * @return mixed[]
+     */
+    private function formatGenres($genres): array
     {
         $movie_genres = [];
         if (! is_null($genres)) {
@@ -295,18 +318,21 @@ class TmdbClient extends Client implements MovieTvInterface
         return $movie_genres;
     }
 
-    private function formatAlternativeTitles($movie)
+    /**
+     * @return mixed[]
+     */
+    private function formatAlternativeTitles($movie): array
     {
         $akas = [];
 
         if (! empty($movie['original_title'])) {
-            if (strtolower($movie['original_title']) != strtolower($movie['title'])) {
+            if (strtolower($movie['original_title']) !== strtolower($movie['title'])) {
                 $akas[] = $movie['original_title'];
             }
         }
 
         if (! empty($movie['original_name'])) {
-            if (strtolower($movie['original_name']) != strtolower($movie['name'])) {
+            if (strtolower($movie['original_name']) !== strtolower($movie['name'])) {
                 $akas[] = $movie['original_name'];
             }
         }
@@ -337,7 +363,7 @@ class TmdbClient extends Client implements MovieTvInterface
         return $akas;
     }
 
-    private function formatVideoTrailers($movie)
+    private function formatVideoTrailers($movie): string
     {
         if (! empty($trailers = $movie['videos']['results'])) {
             foreach ($trailers as $trailer) {
@@ -348,24 +374,22 @@ class TmdbClient extends Client implements MovieTvInterface
         }
     }
 
-    private function formatImages($images, $path, $image)
+    /**
+     * @return mixed[]
+     */
+    private function formatImages($images, $path, $image): array
     {
-        $images = array_map(function ($item) use ($path) {
-            return $path.$item['file_path'];
-        }, $images);
+        $images = array_map(fn($item) => $path.$item['file_path'], $images);
 
-        $images = array_filter($images, function ($item) use ($path, $image) {
-            if ($item == $path.$image) {
-                return false;
-            }
-
-            return true;
+        return array_filter($images, function ($item) use ($path, $image): bool {
+            return !$item != !($path.$image);
         });
-
-        return $images;
     }
 
-    private function formatCasts($credits, $role)
+    /**
+     * @return \App\Services\Data\Person[]
+     */
+    private function formatCasts($credits, $role): array
     {
         $casts = [];
         if ($role == 'actors') {

@@ -18,28 +18,28 @@ use App\Models\PrivateMessage;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRemovePersonalFreeleech extends Command
+final class AutoRemovePersonalFreeleech extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:remove_personal_freeleech';
+    protected string $signature = 'auto:remove_personal_freeleech';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Removes A Users Personal Freeleech If It Has Expired';
+    protected string $description = 'Automatically Removes A Users Personal Freeleech If It Has Expired';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $personal_freeleech = PersonalFreeleech::where('created_at', '<', $current->copy()->subDays(1)->toDateTimeString())->get();

@@ -13,17 +13,18 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\FailedLoginAttempt;
 
-class AuthenticationController extends Controller
+final class AuthenticationController extends Controller
 {
     /**
      * Authentications Log.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $attempts = FailedLoginAttempt::latest()->paginate(25);
 

@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
@@ -65,7 +66,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereUserId($value)
  * @mixin \Eloquent
  */
-class History extends Model
+final class History extends Model
 {
     use Sortable;
 
@@ -74,7 +75,7 @@ class History extends Model
      *
      * @var array
      */
-    public $sortable = [
+    public array $sortable = [
         'id',
         'agent',
         'active',
@@ -95,14 +96,14 @@ class History extends Model
      *
      * @var string
      */
-    protected $table = 'history';
+    protected string $table = 'history';
 
     /**
      * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'user_id',
         'info_hash',
     ];
@@ -112,14 +113,14 @@ class History extends Model
      *
      * @var array
      */
-    protected $dates = ['completed_at'];
+    protected array $dates = ['completed_at'];
 
     /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -132,7 +133,7 @@ class History extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrent()
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class, 'info_hash', 'info_hash');
     }

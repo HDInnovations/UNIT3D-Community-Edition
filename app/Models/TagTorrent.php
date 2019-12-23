@@ -12,6 +12,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -29,28 +30,28 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TagTorrent whereTorrentId($value)
  * @mixin \Eloquent
  */
-class TagTorrent extends Model
+final class TagTorrent extends Model
 {
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
-    protected $table = 'tag_torrent';
+    protected string $table = 'tag_torrent';
 
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * Has Many Tags.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function genre()
+    public function genre(): BelongsTo
     {
         return $this->belongsTo(Tag::class, 'tag_name', 'name');
     }

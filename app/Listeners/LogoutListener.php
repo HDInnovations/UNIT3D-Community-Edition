@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-class LogoutListener
+final class LogoutListener
 {
     /**
      * Handle the event.
@@ -21,7 +21,7 @@ class LogoutListener
      * @param  auth.logout  $event
      * @return void
      */
-    public function handle($event)
+    public function handle($event): void
     {
         //
     }

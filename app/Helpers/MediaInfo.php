@@ -13,9 +13,12 @@
 
 namespace App\Helpers;
 
-class MediaInfo
+final class MediaInfo
 {
-    private $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
+    /**
+     * @var string
+     */
+    private string $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
 
     public function parse($string)
     {
@@ -34,20 +37,23 @@ class MediaInfo
             }
         }
 
-        if (count($output)) {
+        if (count($output) > 0) {
             $output = $this->parseSections($output);
         }
 
         return $this->formatOutput($output);
     }
 
-    private function parseSections(array $sections)
+    /**
+     * @return mixed[]
+     */
+    private function parseSections(array $sections): array
     {
         $output = [];
         foreach ($sections as $key => $section) {
             $key_section = strtolower(explode(' ', $key)[0]);
             if (! empty($section)) {
-                if ($key_section == 'general') {
+                if ($key_section === 'general') {
                     $output[$key_section] = $this->parseProperty($section, $key_section);
                 } else {
                     $output[$key_section][] = $this->parseProperty($section, $key_section);
@@ -58,7 +64,10 @@ class MediaInfo
         return $output;
     }
 
-    private function parseProperty($sections, $section)
+    /**
+     * @return mixed[]
+     */
+    private function parseProperty($sections, $section): array
     {
         $output = [];
         foreach ($sections as $info) {
@@ -281,7 +290,7 @@ class MediaInfo
         return $output;
     }
 
-    public static function stripPath($string)
+    public static function stripPath($string): string
     {
         $string = str_replace('\\', '/', $string);
         $path_parts = pathinfo($string);
@@ -292,7 +301,7 @@ class MediaInfo
     private function parseFileSize($string)
     {
         $number = (float) $string;
-        preg_match('/[KMGTPEZ]/i', $string, $size);
+        preg_match('#[KMGTPEZ]#i', $string, $size);
         if (! empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
         }
@@ -300,19 +309,21 @@ class MediaInfo
         return $number;
     }
 
-    private function parseBitRate($string)
+    private function parseBitRate($string): string
     {
         $string = str_replace(' ', '', strtolower($string));
-        $string = str_replace('kbps', ' kbps', $string);
 
-        return $string;
+        return str_replace('kbps', ' kbps', $string);
     }
 
-    private function parseWidthHeight($string)
+    private function parseWidthHeight($string): string
     {
         return str_replace(['pixels', ' '], null, strtolower($string));
     }
 
+    /**
+     * @return string[]|string
+     */
     private function parseAudioChannels($string)
     {
         $replace = [
@@ -328,7 +339,10 @@ class MediaInfo
         return str_ireplace(array_keys($replace), $replace, $string);
     }
 
-    private function formatOutput($data)
+    /**
+     * @return mixed[]
+     */
+    private function formatOutput($data): array
     {
         $output = [];
         $output['general'] = ! empty($data['general']) ? $data['general'] : null;
@@ -413,7 +427,7 @@ class MediaInfo
                         $temp_text_output[] = $text_element[$property];
                     }
                 }
-                if (isset($text_element['forced']) && strtolower($text_element['forced']) == 'yes') {
+                if (isset($text_element['forced']) && strtolower($text_element['forced']) === 'yes') {
                     $temp_text_output[] = 'Forced';
                 }
 
@@ -440,7 +454,7 @@ class MediaInfo
         $factors = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
 
         if (isset($factors[$size])) {
-            return (float) number_format($bytes * pow(1024, $factors[$size]), 2, '.', '');
+            return (float) number_format($bytes * pow(1_024, $factors[$size]), 2, '.', '');
         }
 
         return $bytes;

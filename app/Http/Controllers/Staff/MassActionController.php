@@ -13,20 +13,22 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessMassPM;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MassActionController extends Controller
+final class MassActionController extends Controller
 {
     /**
      * Mass PM Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('Staff.masspm.index');
     }
@@ -35,8 +37,7 @@ class MassActionController extends Controller
      * Send The Mass PM.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -69,14 +70,10 @@ class MassActionController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function update()
+    public function update(): RedirectResponse
     {
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
-        });
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
         $users = User::where('active', '=', 0)->where('group_id', '=', $validating_group[0])->get();
 
         foreach ($users as $user) {

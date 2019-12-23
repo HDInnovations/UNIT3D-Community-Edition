@@ -17,14 +17,14 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-class Kernel extends ConsoleKernel
+final class Kernel extends ConsoleKernel
 {
     /**
      * The Artisan commands provided by your application.
      *
      * @var array
      */
-    protected $commands = [
+    protected array $commands = [
 
     ];
 
@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         $schedule->command('auto:group ')->daily();
         $schedule->command('auto:nerdstat ')->hourly();
@@ -65,7 +65,7 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
 

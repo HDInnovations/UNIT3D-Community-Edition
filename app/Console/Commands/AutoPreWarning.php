@@ -19,28 +19,28 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoPreWarning extends Command
+final class AutoPreWarning extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:prewarning';
+    protected string $signature = 'auto:prewarning';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Sends Pre Warning PM To Users';
+    protected string $description = 'Automatically Sends Pre Warning PM To Users';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (config('hitrun.enabled') == true) {
             $current = new Carbon();
@@ -63,7 +63,7 @@ class AutoPreWarning extends Command
                             ->first();
 
                         // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
-                        if (! $exsist) {
+                        if ($exsist === null) {
                             $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
 
                             // Send Private Message
@@ -71,8 +71,8 @@ class AutoPreWarning extends Command
                             $pm->sender_id = 1;
                             $pm->receiver_id = $pre->user->id;
                             $pm->subject = 'Hit and Run Warning Incoming';
-                            $pm->message = 'You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.config('hitrun.prewarn')." days on Torrent {$pre->torrent->name}
-                                            and have not yet met the required seedtime rules set by ".config('other.title').". If you fail to seed it within {$timeleft} day(s) you will receive a automated WARNING which will last ".config('hitrun.expire').' days![/b]
+                            $pm->message = 'You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.config('hitrun.prewarn').sprintf(' days on Torrent %s
+                                            and have not yet met the required seedtime rules set by ', $pre->torrent->name).config('other.title').sprintf('. If you fail to seed it within %s day(s) you will receive a automated WARNING which will last ', $timeleft).config('hitrun.expire').' days![/b]
                                             [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                             $pm->save();
 

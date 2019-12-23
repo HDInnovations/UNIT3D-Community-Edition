@@ -24,19 +24,31 @@ use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class SystemBot
+final class SystemBot
 {
     private $bot;
 
-    private $chat;
+    /**
+     * @var \App\Repositories\ChatRepository
+     */
+    private ChatRepository $chat;
 
-    private $target;
+    /**
+     * @var \App\Models\User
+     */
+    private User $target;
 
     private $type;
 
-    private $message;
+    /**
+     * @var string
+     */
+    private string $message;
 
-    private $targeted;
+    /**
+     * @var int
+     */
+    private int $targeted;
 
     private $log;
 
@@ -54,7 +66,7 @@ class SystemBot
     /**
      * Replace Vars.
      * @param $output
-     * @return mixed
+     * @return mixed[]|string
      */
     public function replaceVars($output)
     {
@@ -87,12 +99,12 @@ class SystemBot
      * @param  string  $note
      * @return string
      */
-    public function putGift($receiver = '', $amount = 0, $note = '')
+    public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
     {
         $output = implode(' ', $note);
         $v = validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
             'receiver'   => 'required|string|exists:users,username',
-            'amount'  => "required|numeric|min:1|max:{$this->target->seedbonus}",
+            'amount'  => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note' => 'required|string',
         ]);
         if ($v->passes()) {
@@ -129,7 +141,7 @@ class SystemBot
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$this->target->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $this->target->username, $value, $recipient_url, $recipient->username)
             );
 
             return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';
@@ -146,26 +158,22 @@ class SystemBot
      * @param  int  $targeted
      * @return bool
      */
-    public function process($type, User $target, $message = '', $targeted = 0)
+    public function process($type, User $target, string $message = '', int $targeted = 0): bool
     {
         $this->target = $target;
-        if ($type == 'message') {
-            $x = 0;
-        } else {
-            $x = 1;
-        }
+        $x = $type == 'message' ? 0 : 1;
 
         $y = $x + 1;
         $z = $y + 1;
 
-        if ($message == '') {
+        if ($message === '') {
             $log = '';
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
         $command = @explode(' ', $message);
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'gift' && array_key_exists($y, $command) && array_key_exists($z, $command) && array_key_exists($z + 1, $command)) {
+            if ($command[$x] === 'gift' && array_key_exists($y, $command) && array_key_exists($z, $command) && array_key_exists($z + 1, $command)) {
                 $clone = $command;
                 array_shift($clone);
                 array_shift($clone);
@@ -173,7 +181,7 @@ class SystemBot
                 array_shift($clone);
                 $log = $this->putGift($command[$y], $command[$z], $clone);
             }
-            if ($command[$x] == 'help') {
+            if ($command[$x] === 'help') {
                 $log = $this->getHelp();
             }
         }
@@ -187,6 +195,7 @@ class SystemBot
 
     /**
      * Output Message.
+     * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function pm()
     {

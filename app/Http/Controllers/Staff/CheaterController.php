@@ -13,18 +13,19 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\History;
 use Illuminate\Support\Facades\DB;
 
-class CheaterController extends Controller
+final class CheaterController extends Controller
 {
     /**
      * Possible Ghost Leech Cheaters.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $cheaters = History::with('user')
             ->select(['*'])

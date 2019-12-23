@@ -17,28 +17,28 @@ use App\Models\Audit;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleAudits extends Command
+final class AutoRecycleAudits extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:recycle_activity_log';
+    protected string $signature = 'auto:recycle_activity_log';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle Activity From Log Once 30 Days Old.';
+    protected string $description = 'Recycle Activity From Log Once 30 Days Old.';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = Carbon::now();
         $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle'))->toDateTimeString())->get();

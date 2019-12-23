@@ -15,7 +15,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserAudibleResource extends JsonResource
+final class UserAudibleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,7 +24,7 @@ class UserAudibleResource extends JsonResource
      *
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id'         => $this->id,

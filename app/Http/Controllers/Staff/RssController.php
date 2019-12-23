@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Rss;
@@ -20,12 +22,12 @@ use App\Models\Type;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
-class RssController extends Controller
+final class RssController extends Controller
 {
     /**
      * @var TorrentFacetedRepository
      */
-    private $torrent_faceted;
+    private TorrentFacetedRepository $torrent_faceted;
 
     /**
      * RssController Constructor.
@@ -43,7 +45,7 @@ class RssController extends Controller
      * @param  string  $hash
      * @return \Illuminate\Http\Response
      */
-    public function index($hash = null)
+    public function index(string $hash = null): Factory
     {
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
@@ -60,7 +62,7 @@ class RssController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request): Factory
     {
         $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
@@ -75,9 +77,8 @@ class RssController extends Controller
     /**
      * Store a newly created RSS resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -105,14 +106,14 @@ class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = array_merge($expected, $params);
+            $rss->json_torrent = [...$expected, ...$params];
             $rss->is_private = 0;
             $rss->staff_id = $user->id;
             $rss->position = (int) $request->input('position');
             $rss->save();
             $success = 'Public RSS Feed Created';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -133,7 +134,7 @@ class RssController extends Controller
      * @param  int                       $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, int $id): Factory
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
@@ -151,11 +152,11 @@ class RssController extends Controller
     /**
      * Update the specified RSS resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request  $request
+     * @param int  $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
@@ -187,7 +188,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Public RSS Feed Updated';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -207,7 +208,7 @@ class RssController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id): Response
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();

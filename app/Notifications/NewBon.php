@@ -18,15 +18,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewBon extends Notification implements ShouldQueue
+final class NewBon extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $sender;
+    /**
+     * @var string
+     */
+    public string $sender;
 
-    public $transaction;
+    /**
+     * @var \App\Models\BonTransactions
+     */
+    public BonTransactions $transaction;
 
     /**
      * Create a new notification instance.
@@ -46,10 +55,9 @@ class NewBon extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -58,17 +66,16 @@ class NewBon extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => $this->sender.' Has Gifted You '.$this->transaction->cost.' BON',
             'body'  => $this->sender.' has gifted you '.$this->transaction->cost.' BON with the following note: '.$this->transaction->comment,
-            'url'   => "/users/{$this->transaction->senderObj->username}",
+            'url'   => sprintf('/users/%s', $this->transaction->senderObj->username),
         ];
     }
 }

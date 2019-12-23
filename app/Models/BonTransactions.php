@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -47,7 +48,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonTransactions whereTorrentId($value)
  * @mixin \Eloquent
  */
-class BonTransactions extends Model
+final class BonTransactions extends Model
 {
     use Auditable;
 
@@ -56,14 +57,14 @@ class BonTransactions extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * The Storage Format Of The Model's Date Columns.
      *
      * @var string
      */
-    protected $dateFormat = 'U';
+    protected string $dateFormat = 'U';
 
     /**
      * Belongs To A Sender.
@@ -73,7 +74,7 @@ class BonTransactions extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function senderObj()
+    public function senderObj(): BelongsTo
     {
         return $this->belongsTo(User::class, 'sender', 'id')->withDefault([
             'username' => 'System',
@@ -89,7 +90,7 @@ class BonTransactions extends Model
 
     // Bad name to not conflict with sender (not sender_id)
 
-    public function receiverObj()
+    public function receiverObj(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver', 'id')->withDefault([
             'username' => 'System',
@@ -102,7 +103,7 @@ class BonTransactions extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function exchange()
+    public function exchange(): BelongsTo
     {
         return $this->belongsTo(BonExchange::class, 'itemID', 'id')->withDefault([
             'value' => 0,

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use App\Helpers\Bencode;
 use App\Models\FreeleechToken;
 use App\Models\Group;
@@ -24,7 +25,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class AnnounceController extends Controller
+final class AnnounceController extends Controller
 {
     /**
      * Announce Code.
@@ -35,7 +36,7 @@ class AnnounceController extends Controller
      * @return Bencode response for the torrent client
      * @throws \Exception
      */
-    public function announce(Request $request, $passkey)
+    public function announce(Request $request, $passkey): Response
     {
         /*\DB::listen(function($sql) {
             \Log::info($sql->sql);
@@ -117,21 +118,15 @@ class AnnounceController extends Controller
         $user = User::with(['group'])->where('passkey', '=', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
-        if (! $user) {
+        if ($user === null) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // Caached System Required Groups
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {
@@ -172,11 +167,11 @@ class AnnounceController extends Controller
 
         //Extra Information Fields
         $tracker_id = $request->has('trackerid') ? bin2hex($request->input('tracker_id')) : null;
-        $compact = ($request->has('compact') && $request->input('compact') == 1) ? true : false;
+        $compact = $request->has('compact') && $request->input('compact') == 1;
         $key = $request->has('key') ? bin2hex($request->input('key')) : null;
         $corrupt = $request->has('corrupt') ? $request->input('corrupt') : null;
         $ipv6 = $request->has('ipv6') ? bin2hex($request->input('ipv6')) : null;
-        $no_peer_id = ($request->has('no_peer_id') && $request->input('no_peer_id') == 1) ? true : false;
+        $no_peer_id = $request->has('no_peer_id') && $request->input('no_peer_id') == 1;
 
         // If User Download Rights Are Disabled Return Error to Client
         if ($user->can_download == 0 && $left != 0) {
@@ -284,18 +279,14 @@ class AnnounceController extends Controller
             $mod_downloaded = $downloaded;
         }
 
-        if (config('other.doubleup') == 1 || $torrent->doubleup == 1) {
-            $mod_uploaded = $uploaded * 2;
-        } else {
-            $mod_uploaded = $uploaded;
-        }
+        $mod_uploaded = config('other.doubleup') == 1 || $torrent->doubleup == 1 ? $uploaded * 2 : $uploaded;
 
         if ($event == 'started') {
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? true : false;
-            $history->immune = ($user->group->is_immune == 1) ? true : false;
+            $history->seeder = $left == 0;
+            $history->immune = $user->group->is_immune == 1;
             $history->uploaded += 0;
             $history->actual_uploaded += 0;
             $history->client_uploaded = $real_uploaded;
@@ -315,7 +306,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
+            $client->seeder = $left == 0;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -326,8 +317,8 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? true : false;
-            $history->immune = ($user->group->is_immune == 1) ? true : false;
+            $history->seeder = $left == 0;
+            $history->immune = $user->group->is_immune == 1;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
@@ -371,8 +362,8 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 0;
-            $history->seeder = ($left == 0) ? true : false;
-            $history->immune = ($user->group->is_immune == 1) ? true : false;
+            $history->seeder = $left == 0;
+            $history->immune = $user->group->is_immune == 1;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = 0;
@@ -396,7 +387,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
+            $client->seeder = $left == 0;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -417,7 +408,7 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? true : false;
+            $history->seeder = $left == 0;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
@@ -441,7 +432,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
+            $client->seeder = $left == 0;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -463,10 +454,10 @@ class AnnounceController extends Controller
         $torrent->save();
 
         $res = [];
-        $min = 2400; // 40 Minutes
-        $max = 3600; // 60 Minutes
+        $min = 2_400; // 40 Minutes
+        $max = 3_600; // 60 Minutes
         $res['interval'] = rand($min, $max);
-        $res['min interval'] = 1800; // 30 Minutes
+        $res['min interval'] = 1_800; // 30 Minutes
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
         $res['complete'] = $torrent->seeders;
         $res['incomplete'] = $torrent->leechers;
@@ -480,7 +471,7 @@ class AnnounceController extends Controller
      * @param $peers
      * @param $compact
      * @param $no_peer_id
-     * @return string
+     * @return string|mixed
      */
     private function givePeers($peers, $compact, $no_peer_id)
     {
@@ -513,7 +504,7 @@ class AnnounceController extends Controller
      * @param $peers
      * @param $compact
      * @param $no_peer_id
-     * @return string
+     * @return string|mixed
      */
     private function givePeers6($peers, $compact, $no_peer_id)
     {

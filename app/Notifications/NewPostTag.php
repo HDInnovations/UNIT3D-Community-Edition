@@ -18,15 +18,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewPostTag extends Notification implements ShouldQueue
+final class NewPostTag extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $tagger;
+    /**
+     * @var string
+     */
+    public string $tagger;
 
-    public $post;
+    /**
+     * @var \App\Models\Post
+     */
+    public Post $post;
 
     /**
      * Create a new notification instance.
@@ -46,10 +55,9 @@ class NewPostTag extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -58,17 +66,16 @@ class NewPostTag extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => $this->tagger.' Has Tagged You In A Post',
             'body'  => $this->tagger.' has tagged you in a Post in Topic '.$this->post->topic->name,
-            'url'   => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+            'url'   => sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
         ];
     }
 }

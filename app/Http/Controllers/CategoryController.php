@@ -13,19 +13,20 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use App\Models\Category;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+final class CategoryController extends Controller
 {
     /**
      * Display All Categories.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $categories = Category::withCount('torrents')->get()->sortBy('position');
 
@@ -40,7 +41,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id): Factory
     {
         $user = $request->user();
         $category = Category::select(['id', 'name'])->findOrFail($id);

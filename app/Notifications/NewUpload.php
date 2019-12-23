@@ -18,13 +18,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewUpload extends Notification implements ShouldQueue
+final class NewUpload extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $torrent;
+    /**
+     * @var \App\Models\Torrent
+     */
+    public Torrent $torrent;
 
     /**
      * Create a new notification instance.
@@ -44,10 +50,9 @@ class NewUpload extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -56,17 +61,16 @@ class NewUpload extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',
-            'body'  => "{$this->torrent->user->username}, whom you are following has uploaded Torrent {$this->torrent->name}",
-            'url'   => "/torrents/{$this->torrent->id}",
+            'body'  => sprintf('%s, whom you are following has uploaded Torrent %s', $this->torrent->user->username, $this->torrent->name),
+            'url'   => sprintf('/torrents/%s', $this->torrent->id),
         ];
     }
 }

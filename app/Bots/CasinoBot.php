@@ -23,25 +23,49 @@ use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class CasinoBot
+final class CasinoBot
 {
     private $bot;
 
-    private $chat;
+    /**
+     * @var \App\Repositories\ChatRepository
+     */
+    private ChatRepository $chat;
 
-    private $target;
+    /**
+     * @var \App\Models\User
+     */
+    private User $target;
 
-    private $type;
+    /**
+     * @var string
+     */
+    private string $type;
 
-    private $message;
+    /**
+     * @var string
+     */
+    private string $message;
 
-    private $targeted;
+    /**
+     * @var int
+     */
+    private int $targeted;
 
-    private $log;
+    /**
+     * @var string
+     */
+    private string $log;
 
-    private $expiresAt;
+    /**
+     * @var \Carbon\Carbon
+     */
+    private Carbon $expiresAt;
 
-    private $current;
+    /**
+     * @var \Carbon\Carbon
+     */
+    private Carbon $current;
 
     /**
      * NerdBot Constructor.
@@ -59,7 +83,7 @@ class CasinoBot
     /**
      * Replace Vars.
      * @param $output
-     * @return mixed
+     * @return mixed[]|string
      */
     public function replaceVars($output)
     {
@@ -83,12 +107,12 @@ class CasinoBot
      * @param  string  $note
      * @return string
      */
-    public function putDonate($amount = 0, $note = '')
+    public function putDonate(int $amount = 0, string $note = ''): string
     {
         $output = implode(' ', $note);
         $v = validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
-            'amount'  => "required|numeric|min:1|max:{$this->target->seedbonus}",
+            'amount'  => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note' => 'required|string',
         ]);
         if ($v->passes()) {
@@ -122,7 +146,7 @@ class CasinoBot
      * @param  string  $duration
      * @return string
      */
-    public function getDonations($duration = 'default')
+    public function getDonations(string $duration = 'default'): string
     {
         $donations = cache()->get('casinobot-donations');
         if (! $donations || $donations == null) {
@@ -155,7 +179,7 @@ class CasinoBot
      * @param  int  $targeted
      * @return bool
      */
-    public function process($type, User $target, $message = '', $targeted = 0)
+    public function process($type, User $target, string $message = '', int $targeted = 0): bool
     {
         $this->target = $target;
         if ($type == 'message') {
@@ -168,7 +192,7 @@ class CasinoBot
             $z = 3;
         }
 
-        if ($message == '') {
+        if ($message === '') {
             $log = '';
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
@@ -190,10 +214,10 @@ class CasinoBot
         }
 
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'donations') {
+            if ($command[$x] === 'donations') {
                 $log = $this->getDonations($params);
             }
-            if ($command[$x] == 'donate') {
+            if ($command[$x] === 'donate') {
                 $log = $this->putDonate($params, $wildcard);
             }
         }
@@ -207,6 +231,7 @@ class CasinoBot
 
     /**
      * Output Message.
+     * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function pm()
     {

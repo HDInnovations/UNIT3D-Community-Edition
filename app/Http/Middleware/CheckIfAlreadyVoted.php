@@ -13,21 +13,21 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use App\Models\Option;
 use App\Models\Voter;
 use Closure;
 
-class CheckIfAlreadyVoted
+final class CheckIfAlreadyVoted
 {
     /**
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
-     *
-     * @return mixed
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         //If user hasn't selected any options, carry on to form validation / rejection
         if (! $request->input('option.0')) {

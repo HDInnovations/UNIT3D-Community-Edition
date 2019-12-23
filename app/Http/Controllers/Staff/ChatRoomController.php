@@ -13,17 +13,19 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Chatroom;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class ChatRoomController extends Controller
+final class ChatRoomController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * ChatController Constructor.
@@ -40,7 +42,7 @@ class ChatRoomController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $chatrooms = $this->chat->rooms();
 
@@ -53,8 +55,7 @@ class ChatRoomController extends Controller
      * Store A New Chatroom.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -81,8 +82,7 @@ class ChatRoomController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -111,7 +111,7 @@ class ChatRoomController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->delete();

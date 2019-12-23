@@ -14,26 +14,30 @@
 
 namespace App\Helpers;
 
+use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class SystemInformation
+final class SystemInformation
 {
-    public function avg()
+    public function avg(): float
     {
         if (is_readable('/proc/loadavg')) {
             return (float) file_get_contents('/proc/loadavg');
         }
     }
 
-    public function memory()
+    /**
+     * @return mixed[]|int[]
+     */
+    public function memory(): array
     {
         if (is_readable('/proc/meminfo')) {
             $content = file_get_contents('/proc/meminfo');
-            preg_match('/^MemTotal: \s*(\d*)/m', $content, $matches);
-            $total = $matches[1] * 1024;
-            preg_match('/^MemFree: \s*(\d*)/m', $content, $matches);
-            $free = $matches[1] * 1024;
+            preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
+            $total = $matches[1] * 1_024;
+            preg_match('#^MemFree: \s*(\d*)#m', $content, $matches);
+            $free = $matches[1] * 1_024;
             //preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
             //$used = $this->formatBytes($matches[1] * 1024);
 
@@ -51,12 +55,12 @@ class SystemInformation
         ];
     }
 
-    protected function formatBytes($bytes, $precision = 2)
+    protected function formatBytes($bytes, $precision = 2): string
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
         $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1_024));
         $pow = min($pow, count($units) - 1);
 
         // Uncomment one of the following alternatives
@@ -66,7 +70,10 @@ class SystemInformation
         return round($bytes, $precision).' '.$units[$pow];
     }
 
-    public function disk()
+    /**
+     * @return mixed[]
+     */
+    public function disk(): array
     {
         $total = disk_total_space(base_path());
         $free = disk_free_space(base_path());
@@ -78,7 +85,7 @@ class SystemInformation
         ];
     }
 
-    public function uptime()
+    public function uptime(): float
     {
         if (is_readable('/proc/uptime')) {
             return (float) file_get_contents('/proc/uptime');
@@ -90,7 +97,10 @@ class SystemInformation
         return Carbon::now();
     }
 
-    public function basic()
+    /**
+     * @return mixed[]
+     */
+    public function basic(): array
     {
         return [
             'os'       => php_uname('s'),
@@ -100,6 +110,9 @@ class SystemInformation
         ];
     }
 
+    /**
+     * @return string|mixed
+     */
     private function getDatabase()
     {
         $knownDatabases = [
@@ -118,10 +131,9 @@ class SystemInformation
 
     /**
      * Get all the directory permissions as well as the recommended ones.
-     *
-     * @return array
+     * @return string[][]|\Symfony\Component\Translation\TranslatorInterface[][]
      */
-    public function directoryPermissions()
+    public function directoryPermissions(): array
     {
         return [
             [
@@ -157,7 +169,7 @@ class SystemInformation
     {
         try {
             return substr(sprintf('%o', fileperms(base_path($path))), -4);
-        } catch (\Exception $ex) {
+        } catch (Exception $exception) {
             return trans('site.error');
         }
     }

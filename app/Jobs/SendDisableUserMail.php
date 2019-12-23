@@ -22,21 +22,21 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class SendDisableUserMail implements ShouldQueue
+final class SendDisableUserMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var User
      */
-    public $user;
+    public User $user;
 
     /**
      * The number of times the job may be attempted.
      *
      * @var int
      */
-    public $tries = 3;
+    public int $tries = 3;
 
     /**
      * ActivateUser constructor.
@@ -53,7 +53,7 @@ class SendDisableUserMail implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->attempts() > 2) {
             $this->delay(min(30 * $this->attempts(), 300));

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Adapter\Local;
 
-class BackupController extends Controller
+final class BackupController extends Controller
 {
     /**
      * Display All Backups.
@@ -29,12 +30,12 @@ class BackupController extends Controller
      *
      * @return
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        if (! count(config('backup.backup.destination.disks'))) {
+        if ((is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0) === 0) {
             dd(trans('backup.no_disks_configured'));
         }
 
@@ -48,14 +49,14 @@ class BackupController extends Controller
             // make an array of backup files, with their filesize and creation date
             foreach ($files as $k => $f) {
                 // only take the zip files into account
-                if (substr($f, -4) == '.zip' && $disk->exists($f)) {
+                if (substr($f, -4) === '.zip' && $disk->exists($f)) {
                     $data['backups'][] = [
                         'file_path'     => $f,
                         'file_name'     => str_replace('backups/', '', $f),
                         'file_size'     => $disk->size($f),
                         'last_modified' => $disk->lastModified($f),
                         'disk'          => $disk_name,
-                        'download'      => ($adapter instanceof Local) ? true : false,
+                        'download'      => $adapter instanceof Local,
                         ];
                 }
             }
@@ -75,7 +76,7 @@ class BackupController extends Controller
      *
      * @return string
      */
-    public function create(Request $request)
+    public function create(Request $request): string
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -90,8 +91,8 @@ class BackupController extends Controller
             info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
-        } catch (Exception $e) {
-            response($e->getMessage(), 500);
+        } catch (Exception $exception) {
+            response($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -104,7 +105,7 @@ class BackupController extends Controller
      *
      * @return string
      */
-    public function files(Request $request)
+    public function files(Request $request): string
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -119,8 +120,8 @@ class BackupController extends Controller
             info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
-        } catch (Exception $e) {
-            response($e->getMessage(), 500);
+        } catch (Exception $exception) {
+            response($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -133,7 +134,7 @@ class BackupController extends Controller
      *
      * @return string
      */
-    public function database(Request $request)
+    public function database(Request $request): string
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -148,8 +149,8 @@ class BackupController extends Controller
             info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
-        } catch (Exception $e) {
-            response($e->getMessage(), 500);
+        } catch (Exception $exception) {
+            response($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -158,9 +159,8 @@ class BackupController extends Controller
     /**
      * Download A Backup.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return
+     * @param \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download(Request $request)
     {

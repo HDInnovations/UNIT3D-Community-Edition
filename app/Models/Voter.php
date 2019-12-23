@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -38,7 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Voter whereUserId($value)
  * @mixin \Eloquent
  */
-class Voter extends Model
+final class Voter extends Model
 {
     use Auditable;
 
@@ -47,7 +48,7 @@ class Voter extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function poll()
+    public function poll(): BelongsTo
     {
         return $this->belongsTo(Poll::class);
     }
@@ -57,7 +58,7 @@ class Voter extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

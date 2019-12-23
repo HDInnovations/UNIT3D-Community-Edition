@@ -13,11 +13,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 
-class ForumCategoryController extends Controller
+final class ForumCategoryController extends Controller
 {
     /**
      * Show The Forum Category.
@@ -26,7 +27,7 @@ class ForumCategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): RedirectResponse
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

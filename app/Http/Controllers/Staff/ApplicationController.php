@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
@@ -22,14 +23,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
-class ApplicationController extends Controller
+final class ApplicationController extends Controller
 {
     /**
      * Display All Applications.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $applications = Application::withAnyStatus()
             ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
@@ -45,7 +46,7 @@ class ApplicationController extends Controller
      * @param  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): Factory
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
@@ -57,7 +58,7 @@ class ApplicationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function approve(Request $request, $id)
     {
@@ -114,7 +115,7 @@ class ApplicationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
-     * @return Illuminate\Http\RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request, $id)
     {

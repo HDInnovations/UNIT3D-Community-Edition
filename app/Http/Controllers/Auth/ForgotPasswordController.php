@@ -18,7 +18,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 
-class ForgotPasswordController extends Controller
+final class ForgotPasswordController extends Controller
 {
     use SendsPasswordResetEmails;
 
@@ -27,7 +27,7 @@ class ForgotPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    protected function validateEmail(Request $request)
+    protected function validateEmail(Request $request): void
     {
         if (config('captcha.enabled') == false) {
             $request->validate(['email' => 'required|email']);

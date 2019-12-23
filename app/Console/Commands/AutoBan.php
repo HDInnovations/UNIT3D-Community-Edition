@@ -21,32 +21,30 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
-class AutoBan extends Command
+final class AutoBan extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:ban';
+    protected string $signature = 'auto:ban';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Ban User If Has More Than X Active Warnings';
+    protected string $description = 'Ban User If Has More Than X Active Warnings';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
 
         $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
 

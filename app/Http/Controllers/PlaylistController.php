@@ -13,20 +13,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\MovieScrapper;
 use Illuminate\Http\Request;
-use Image;
+use Intervention\Image\Facades\Image;
 
-class PlaylistController extends Controller
+final class PlaylistController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * PlaylistController Constructor.
@@ -43,7 +45,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
 
@@ -55,7 +57,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('playlist.create');
     }
@@ -63,9 +65,8 @@ class PlaylistController extends Controller
     /**
      * Store A New Playlist.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -77,7 +78,7 @@ class PlaylistController extends Controller
         $playlist->description = $request->input('description');
         $playlist->cover_image = null;
 
-        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() == 0) {
+        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
             $image = $request->file('cover_image');
             $filename = 'playlist-cover_'.uniqid().'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
@@ -106,7 +107,7 @@ class PlaylistController extends Controller
             $appurl = config('app.url');
             if ($playlist->is_private != 1) {
                 $this->chat->systemMessage(
-                    "User [url={$appurl}/".$user->username.'.'.$user->id.']'.$user->username."[/url] has created a new playlist [url={$appurl}/playlists/".$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
+                    sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
                 );
             }
 
@@ -125,7 +126,7 @@ class PlaylistController extends Controller
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
      */
-    public function show($id)
+    public function show($id): Factory
     {
         $playlist = Playlist::findOrFail($id);
         $meta = null;
@@ -142,12 +143,10 @@ class PlaylistController extends Controller
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
+            } elseif ($torrent->tmdb || $torrent->tmdb != 0) {
+                $meta = $client->scrape('movie', null, $torrent->tmdb);
             } else {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = $client->scrape('movie', null, $torrent->tmdb);
-                } else {
-                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
-                }
+                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
             }
         }
 
@@ -163,7 +162,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): Factory
     {
         $user = auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -176,10 +175,9 @@ class PlaylistController extends Controller
     /**
      * Update A Playlist.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Playlist  $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param \App\Playlist  $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -192,7 +190,7 @@ class PlaylistController extends Controller
         $playlist->description = $request->input('description');
         $playlist->cover_image = null;
 
-        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() == 0) {
+        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
             $image = $request->file('cover_image');
             $filename = 'playlist-cover_'.uniqid().'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
@@ -228,7 +226,7 @@ class PlaylistController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $user = auth()->user();
         $playlist = Playlist::findOrFail($id);

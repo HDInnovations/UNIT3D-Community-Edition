@@ -13,19 +13,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Album;
 use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 
-class AlbumController extends Controller
+final class AlbumController extends Controller
 {
     /**
      * @var OmdbClient
      */
-    private $client;
+    private OmdbClient $client;
 
     /**
      * AlbumController Constructor.
@@ -42,7 +45,7 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         $albums = Album::withCount('images')->get();
 
@@ -54,7 +57,7 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('album.create');
     }
@@ -63,15 +66,14 @@ class AlbumController extends Controller
      * Store A New Album.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
-        if ($omdb === null || $omdb === false) {
+        if ($omdb === null || !$omdb) {
             return redirect()->route('albums.create')
                 ->withErrors('Bad IMDB Request!');
         }
@@ -115,7 +117,7 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): Factory
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
@@ -131,7 +133,7 @@ class AlbumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $album = Album::findOrFail($id);

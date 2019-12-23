@@ -20,25 +20,24 @@ use App\Models\UserActivation;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
 
-class ResetPasswordController extends Controller
+final class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
-    protected $redirectTo = '/';
+    /**
+     * @var string
+     */
+    protected string $redirectTo = '/';
 
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    protected function resetPassword($user, $password)
+    protected function resetPassword($user, $password): void
     {
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
-        });
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
         $user->password = bcrypt($password);
         $user->remember_token = Str::random(60);
 

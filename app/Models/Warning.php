@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -56,7 +57,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Warning withoutTrashed()
  * @mixin \Eloquent
  */
-class Warning extends Model
+final class Warning extends Model
 {
     use SoftDeletes;
     use Auditable;
@@ -66,7 +67,7 @@ class Warning extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function torrenttitle()
+    public function torrenttitle(): BelongsTo
     {
         return $this->belongsTo(Torrent::class, 'torrent');
     }
@@ -76,7 +77,7 @@ class Warning extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function warneduser()
+    public function warneduser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
@@ -89,7 +90,7 @@ class Warning extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function staffuser()
+    public function staffuser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'warned_by')->withDefault([
             'username' => 'System',
@@ -102,7 +103,7 @@ class Warning extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function deletedBy()
+    public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by')->withDefault([
             'username' => 'System',

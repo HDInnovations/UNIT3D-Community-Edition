@@ -13,19 +13,21 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TypeController extends Controller
+final class TypeController extends Controller
 {
     /**
      * Display All Types.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $types = Type::all()->sortBy('position');
 
@@ -37,7 +39,7 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('Staff.type.create');
     }
@@ -46,8 +48,7 @@ class TypeController extends Controller
      * Store A New Type.
      *
      * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -80,7 +81,7 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): Factory
     {
         $type = Type::findOrFail($id);
 
@@ -90,10 +91,9 @@ class TypeController extends Controller
     /**
      * Edit A Type.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @param \Illuminate\Http\Request  $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -126,7 +126,7 @@ class TypeController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $type = Type::findOrFail($id);
         $type->delete();

@@ -17,18 +17,27 @@ use App\Services\Contracts\MovieTvInterface;
 use App\Services\Data\Movie;
 use App\Services\Data\Tv;
 
-class OmdbClient extends Client implements MovieTvInterface
+final class OmdbClient extends Client implements MovieTvInterface
 {
-    protected $apiUrl = 'www.omdbapi.com';
+    /**
+     * @var string
+     */
+    protected string $apiUrl = 'www.omdbapi.com';
 
-    protected $apiSecure = true;
+    /**
+     * @var bool
+     */
+    protected bool $apiSecure = true;
 
     public function __construct($apiKey = null)
     {
         parent::__construct($this->apiUrl, $apiKey);
     }
 
-    public function find($keys, $type = null)
+    /**
+     * @return mixed[]
+     */
+    public function find(array $keys, ?string $type = null): array
     {
         $this->validateKeys($keys);
 
@@ -36,15 +45,13 @@ class OmdbClient extends Client implements MovieTvInterface
 
         $result = $this->toArray($this->request($url));
         if (isset($result['Response']) && $result['Response'] == 'True') {
-            $result = array_map(function ($value) {
+            return array_map(function ($value) {
                 if ($value == 'N/A') {
                     return;
                 }
 
                 return $value;
             }, $result);
-
-            return $result;
         }
     }
 
@@ -58,12 +65,12 @@ class OmdbClient extends Client implements MovieTvInterface
         return $this->formatMovie($this->find(['imdb' => $id], 'series'), 'series');
     }
 
-    public function person($id)
+    public function person($id): array
     {
         //
     }
 
-    private function formatMovie($movie, $type = 'movie')
+    private function formatMovie($movie, $type = 'movie'): Movie
     {
         if (is_array($movie) && $movie['Type'] != $type) {
             return ($type == 'movie') ? new Movie([]) : new Tv([]);
@@ -88,7 +95,10 @@ class OmdbClient extends Client implements MovieTvInterface
         return ($type == 'movie') ? new Movie($data) : new Tv($data);
     }
 
-    private function formatLanguages($languages)
+    /**
+     * @return string[][]|null[][]
+     */
+    private function formatLanguages($languages): array
     {
         $movie_languages = [];
         if (! empty($languages)) {
@@ -104,7 +114,10 @@ class OmdbClient extends Client implements MovieTvInterface
         return $movie_languages;
     }
 
-    private function formatGenres($genres)
+    /**
+     * @return string[]
+     */
+    private function formatGenres($genres): array
     {
         $movie_genres = [];
         if (! empty($genres)) {
@@ -117,6 +130,9 @@ class OmdbClient extends Client implements MovieTvInterface
         return $movie_genres;
     }
 
+    /**
+     * @return mixed[]|string
+     */
     private function resizePoster($poster)
     {
         return str_replace('SX300', 'SX780', $poster);

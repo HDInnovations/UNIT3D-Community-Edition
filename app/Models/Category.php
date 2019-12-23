@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,7 +55,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereNoMeta($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereTvMeta($value)
  */
-class Category extends Model
+final class Category extends Model
 {
     use Auditable;
 
@@ -63,14 +64,14 @@ class Category extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     /**
      * Has Many Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function torrents()
+    public function torrents(): HasMany
     {
         return $this->hasMany(Torrent::class);
     }
@@ -80,7 +81,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function requests()
+    public function requests(): HasMany
     {
         return $this->hasMany(TorrentRequest::class);
     }

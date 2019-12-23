@@ -18,7 +18,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TwoStepAuthCode extends Notification implements ShouldQueue
+final class TwoStepAuthCode extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -41,10 +41,9 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -56,7 +55,7 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
      *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->from(config('auth.verificationEmailFrom'), config('auth.verificationEmailFromName'))

@@ -13,19 +13,20 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\Report;
 use Illuminate\Http\Request;
 
-class ReportController extends Controller
+final class ReportController extends Controller
 {
     /**
      * Display All Reports.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $reports = Report::latest()->paginate(25);
 
@@ -39,7 +40,7 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): Factory
     {
         $report = Report::findOrFail($id);
 
@@ -51,10 +52,9 @@ class ReportController extends Controller
     /**
      * Update A Report.
      *
-     * @param  Request  $request
+     * @param Request  $request
      * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -82,11 +82,11 @@ class ReportController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $report->reporter_id;
         $pm->subject = 'Your Report Has A New Verdict';
-        $pm->message = "[b]REPORT TITLE:[/b] {$report->title}
+        $pm->message = sprintf('[b]REPORT TITLE:[/b] %s
         
-                        [b]ORIGINAL MESSAGE:[/b] {$report->message}
+                        [b]ORIGINAL MESSAGE:[/b] %s
                         
-                        [b]VERDICT:[/b] {$report->verdict}";
+                        [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $pm->save();
 
         return redirect()->route('staff.reports.index')

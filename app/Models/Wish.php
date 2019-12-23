@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereUserId($value)
  * @mixin \Eloquent
  */
-class Wish extends Model
+final class Wish extends Model
 {
     use Auditable;
 
@@ -50,14 +51,14 @@ class Wish extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    protected array $guarded = [];
 
     /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

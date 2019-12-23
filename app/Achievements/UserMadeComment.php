@@ -15,15 +15,21 @@ namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
 
-class UserMadeComment extends Achievement
+final class UserMadeComment extends Achievement
 {
     /*
      * The achievement name
      */
-    public $name = 'FirstComment';
+    /**
+     * @var string
+     */
+    public string $name = 'FirstComment';
 
     /*
      * A small description for the achievement
      */
-    public $description = 'Congratulations! You have made your first comment!';
+    /**
+     * @var string
+     */
+    public string $description = 'Congratulations! You have made your first comment!';
 }

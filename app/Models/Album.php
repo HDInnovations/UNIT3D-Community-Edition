@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,7 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read int|null $images_count
  */
-class Album extends Model
+final class Album extends Model
 {
     use Auditable;
 
@@ -52,7 +54,7 @@ class Album extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -65,7 +67,7 @@ class Album extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function images()
+    public function images(): HasMany
     {
         return $this->hasMany(Image::class);
     }

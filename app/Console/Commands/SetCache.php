@@ -15,21 +15,21 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class SetCache extends Command
+final class SetCache extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'set:all_cache';
+    protected string $signature = 'set:all_cache';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sets Several Common Cache\'s ...';
+    protected string $description = "Sets Several Common Cache's ...";
 
     /**
      * Create a new command instance.
@@ -46,9 +46,9 @@ class SetCache extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        $this->comment('Setting several common cache\'s ...');
+        $this->comment("Setting several common cache's ...");
         $this->call('view:cache');
         $this->call('route:cache');
         $this->call('config:cache');

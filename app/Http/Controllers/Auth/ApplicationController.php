@@ -12,20 +12,21 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\ApplicationImageProof;
 use App\Models\ApplicationUrlProof;
 use Illuminate\Http\Request;
 
-class ApplicationController extends Controller
+final class ApplicationController extends Controller
 {
     /**
      * Application Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): Factory
     {
         return view('auth.application.create');
     }
@@ -34,7 +35,7 @@ class ApplicationController extends Controller
      * Store A New Application.
      *
      * @param \Illuminate\Http\Request $request
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -89,29 +90,27 @@ class ApplicationController extends Controller
                     'captcha' => 'hiddencaptcha',
                 ]);
             }
+        } elseif (config('captcha.enabled') == false) {
+            $v = validator($request->all(), [
+                'type' => 'required',
+                'email' => 'required|email|unique:invites|unique:users|unique:applications',
+                'referrer' => 'required',
+                'images.*' => 'filled',
+                'images'   => 'min:2',
+                'links.*' => 'filled',
+                'links'   => 'min:2',
+            ]);
         } else {
-            if (config('captcha.enabled') == false) {
-                $v = validator($request->all(), [
-                    'type' => 'required',
-                    'email' => 'required|email|unique:invites|unique:users|unique:applications',
-                    'referrer' => 'required',
-                    'images.*' => 'filled',
-                    'images'   => 'min:2',
-                    'links.*' => 'filled',
-                    'links'   => 'min:2',
-                ]);
-            } else {
-                $v = validator($request->all(), [
-                    'type' => 'required',
-                    'email' => 'required|email|unique:invites|unique:users|unique:applications',
-                    'referrer' => 'required',
-                    'images.*' => 'filled',
-                    'images'   => 'min:2',
-                    'links.*' => 'filled',
-                    'links'   => 'min:2',
-                    'captcha' => 'hiddencaptcha',
-                ]);
-            }
+            $v = validator($request->all(), [
+                'type' => 'required',
+                'email' => 'required|email|unique:invites|unique:users|unique:applications',
+                'referrer' => 'required',
+                'images.*' => 'filled',
+                'images'   => 'min:2',
+                'links.*' => 'filled',
+                'links'   => 'min:2',
+                'captcha' => 'hiddencaptcha',
+            ]);
         }
 
         if ($v->fails()) {
@@ -121,15 +120,11 @@ class ApplicationController extends Controller
             $application->save();
 
             // Map And Save IMG Proofs
-            $imgs = collect($request->input('images'))->map(function ($value) {
-                return new ApplicationImageProof(['image' => $value]);
-            });
+            $imgs = collect($request->input('images'))->map(fn($value) => new ApplicationImageProof(['image' => $value]));
             $application->imageProofs()->saveMany($imgs);
 
             // Map And Save URL Proofs
-            $urls = collect($request->input('links'))->map(function ($value) {
-                return new ApplicationUrlProof(['url' => $value]);
-            });
+            $urls = collect($request->input('links'))->map(fn($value) => new ApplicationUrlProof(['url' => $value]));
             $application->urlProofs()->saveMany($urls);
 
             return redirect()->route('login')

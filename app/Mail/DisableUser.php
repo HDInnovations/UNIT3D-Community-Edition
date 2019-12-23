@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class DisableUser extends Mailable
+final class DisableUser extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -38,7 +38,7 @@ class DisableUser extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.disabled')
             ->subject('Your Account Has Been Disabled - '.config('other.title'));

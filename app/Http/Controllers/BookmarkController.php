@@ -13,12 +13,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class BookmarkController extends Controller
+final class BookmarkController extends Controller
 {
     /**
      * Display All Bookmarks.
@@ -28,7 +30,7 @@ class BookmarkController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $username)
+    public function index(Request $request, $username): Factory
     {
         $user = User::with('bookmarks')->where('username', '=', $username)->firstOrFail();
 
@@ -50,8 +52,7 @@ class BookmarkController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $id)
     {
@@ -76,7 +77,7 @@ class BookmarkController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): RedirectResponse
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $request->user()->bookmarks()->detach($torrent->id);

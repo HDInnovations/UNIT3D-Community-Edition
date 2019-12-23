@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\Auditable;
 use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereUserId($value)
  * @mixin \Eloquent
  */
-class Seedbox extends Model
+final class Seedbox extends Model
 {
     use Encryptable;
     use Auditable;
@@ -48,14 +49,14 @@ class Seedbox extends Model
      *
      * @var string
      */
-    protected $table = 'clients';
+    protected string $table = 'clients';
 
     /**
      * The Attributes That Are Encrypted.
      *
      * @var array
      */
-    protected $encryptable = [
+    protected array $encryptable = [
         'ip',
     ];
 
@@ -64,7 +65,7 @@ class Seedbox extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

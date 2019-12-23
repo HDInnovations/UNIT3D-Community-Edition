@@ -13,17 +13,19 @@
 
 namespace App\Helpers;
 
-class TorrentTools
+final class TorrentTools
 {
     /**
      * Name of the file to be saved.
+     * @var string
      */
-    public static $fileName = '';
+    public static string $fileName = '';
 
     /**
      * Representative table of the decoded torrent.
+     * @var mixed[]
      */
-    public static $decodedTorrent = [];
+    public static array $decodedTorrent = [];
 
     /**
      * Moves and decodes the torrent.
@@ -65,11 +67,11 @@ class TorrentTools
      * @param $decodedTorrent
      * @return int
      */
-    public static function getFileCount($decodedTorrent)
+    public static function getFileCount($decodedTorrent): int
     {
         // Multiple file torrent ?
-        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
-            return count($decodedTorrent['info']['files']);
+        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
+            return is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;
@@ -83,11 +85,11 @@ class TorrentTools
     public static function getTorrentSize($decodedTorrent)
     {
         $size = 0;
-        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
+        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
                 $size += $file['length'];
-                $count = count($file['path']);
+                $count = is_countable($file['path']) ? count($file['path']) : 0;
             }
         } else {
             $size = $decodedTorrent['info']['length'];
@@ -100,16 +102,16 @@ class TorrentTools
     /**
      * Returns the torrent file list.
      * @param $decodedTorrent
-     * @return mixed
+     * @return mixed[][]
      */
-    public static function getTorrentFiles($decodedTorrent)
+    public static function getTorrentFiles($decodedTorrent): array
     {
-        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
+        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
-                $count = count($file['path']);
+                $count = is_countable($file['path']) ? count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
-                    if (($i + 1) == $count) {
+                    if ($i + 1 === $count) {
                         $fname = $dir.$file['path'][$i];
                         $files[$k]['name'] = $fname;
                     } else {
@@ -132,7 +134,7 @@ class TorrentTools
      * @param $decodedTorrent
      * @return string
      */
-    public static function getTorrentHash($decodedTorrent)
+    public static function getTorrentHash($decodedTorrent): string
     {
         return sha1(Bencode::bencode($decodedTorrent['info']));
     }
@@ -142,10 +144,10 @@ class TorrentTools
      * @param $decodedTorrent
      * @return int
      */
-    public static function getTorrentFileCount($decodedTorrent)
+    public static function getTorrentFileCount($decodedTorrent): int
     {
         if (array_key_exists('files', $decodedTorrent['info'])) {
-            return count($decodedTorrent['info']['files']);
+            return is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;
@@ -154,7 +156,7 @@ class TorrentTools
     /**
      * Returns the NFO.
      * @param $inputFile
-     * @return false|string|null
+     * @return string|bool|null
      */
     public static function getNfo($inputFile)
     {

@@ -13,19 +13,19 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 
-class CheckForModo
+final class CheckForModo
 {
     /**
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
-     *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         abort_unless($request->user()->group->is_modo, 403);
 

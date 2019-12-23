@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -40,14 +41,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereUserId($value)
  * @mixin \Eloquent
  */
-class Audit extends Model
+final class Audit extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'user_id', 'model_name', 'model_entry_id', 'action', 'record',
     ];
 
@@ -56,7 +57,7 @@ class Audit extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

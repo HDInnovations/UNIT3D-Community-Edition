@@ -19,17 +19,29 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewFollow extends Notification implements ShouldQueue
+final class NewFollow extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
+    /**
+     * @var string
+     */
+    public string $type;
 
-    public $sender;
+    /**
+     * @var \App\Models\User
+     */
+    public User $sender;
 
-    public $follow;
+    /**
+     * @var \App\Models\Follow
+     */
+    public Follow $follow;
 
-    public $target;
+    /**
+     * @var \App\Models\User
+     */
+    public User $target;
 
     /**
      * Create a new notification instance.
@@ -51,10 +63,9 @@ class NewFollow extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -63,17 +74,16 @@ class NewFollow extends Notification implements ShouldQueue
      * Get the array representation of the notification.
      *
      * @param mixed $notifiable
-     *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 
         return [
             'title' => $this->sender->username.' Has Followed You!',
             'body'  => $this->sender->username.' has started to follow you so they will get notifications about your activities.',
-            'url'   => "/users/{$this->sender->username}",
+            'url'   => sprintf('/users/%s', $this->sender->username),
         ];
     }
 }

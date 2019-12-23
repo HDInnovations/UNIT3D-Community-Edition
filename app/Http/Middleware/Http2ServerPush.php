@@ -13,32 +13,32 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Collection;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
-class Http2ServerPush
+final class Http2ServerPush
 {
     /**
      * The DomCrawler instance.
      *
      * @var \Symfony\Component\DomCrawler\Crawler
      */
-    protected $crawler;
+    protected Crawler $crawler;
 
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request  $request
+     * @param \Closure  $next
      *
-     * @param  null  $limit
-     * @param  null  $sizeLimit
-     * @param  null  $excludeKeywords
-     *
-     * @return mixed
+     * @param null  $limit
+     * @param null  $sizeLimit
+     * @param null  $excludeKeywords
+     * @return mixed|\Illuminate\Http\Response
      */
     public function handle(Request $request, Closure $next, $limit = null, $sizeLimit = null, $excludeKeywords = null)
     {
@@ -53,6 +53,9 @@ class Http2ServerPush
         return $response;
     }
 
+    /**
+     * @return mixed
+     */
     public function getConfig($key, $default = false)
     {
         if (! function_exists('config')) { // for tests..
@@ -70,22 +73,18 @@ class Http2ServerPush
      * @param  null  $excludeKeywords
      * @return $this
      */
-    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)
+    protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null): self
     {
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
             ->flatten(1)
-            ->map(function ($url) {
-                return $this->buildLinkHeaderString($url);
-            })
+            ->map(fn($url) => $this->buildLinkHeaderString($url))
             ->unique()
-            ->filter(function ($value, $key) use ($excludeKeywords) {
+            ->filter(function ($value, $key) use ($excludeKeywords): bool {
                 if (! $value) {
                     return false;
                 }
-                $exclude_keywords = collect($excludeKeywords)->map(function ($keyword) {
-                    return preg_quote($keyword);
-                });
+                $exclude_keywords = collect($excludeKeywords)->map(fn($keyword) => preg_quote($keyword));
                 if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
@@ -94,7 +93,7 @@ class Http2ServerPush
             })
             ->take($limit);
 
-        $sizeLimit = $sizeLimit ?? max(1, intval($this->getConfig('size_limit', 32 * 1024)));
+        $sizeLimit ??= max(1, intval($this->getConfig('size_limit', 32 * 1_024)));
         $headersText = trim($headers->implode(','));
         while (strlen($headersText) > $sizeLimit) {
             $headers->pop();
@@ -112,8 +111,7 @@ class Http2ServerPush
      * Get the DomCrawler instance.
      *
      * @param \Illuminate\Http\Response $response
-     *
-     * @return \Symfony\Component\DomCrawler\Crawler
+     * @return \Symfony\Component\DomCrawler\Crawler|mixed
      */
     protected function getCrawler(Response $response)
     {
@@ -131,7 +129,7 @@ class Http2ServerPush
      *
      * @return \Illuminate\Support\Collection
      */
-    protected function fetchLinkableNodes($response)
+    protected function fetchLinkableNodes(Response $response): Collection
     {
         $crawler = $this->getCrawler($response);
 
@@ -145,23 +143,21 @@ class Http2ServerPush
      *
      * @return string
      */
-    private function buildLinkHeaderString($url)
+    private function buildLinkHeaderString(string $url): ?string
     {
         $linkTypeMap = [
             '.CSS'  => 'style',
             '.JS'   => 'script',
         ];
 
-        $type = collect($linkTypeMap)->first(function ($type, $extension) use ($url) {
-            return Str::contains(strtoupper($url), $extension);
-        });
+        $type = collect($linkTypeMap)->first(fn($type, $extension) => Str::contains(strtoupper($url), $extension));
 
-        if (! preg_match('%^https?://%i', $url)) {
+        if (! preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);
         }
 
-        return is_null($type) ? null : "<{$url}>; rel=preload; as={$type}";
+        return is_null($type) ? null : sprintf('<%s>; rel=preload; as=%s', $url, $type);
     }
 
     /**
@@ -171,7 +167,7 @@ class Http2ServerPush
      *
      * @param $link
      */
-    private function addLinkHeader(Response $response, $link)
+    private function addLinkHeader(Response $response, $link): void
     {
         if ($response->headers->get('Link')) {
             $link = $response->headers->get('Link').','.$link;

@@ -13,18 +13,20 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use Illuminate\Http\Request;
 
-class SeedboxController extends Controller
+final class SeedboxController extends Controller
 {
     /**
      * Display All Registered Seedboxes.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): Factory
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
@@ -39,7 +41,7 @@ class SeedboxController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);
