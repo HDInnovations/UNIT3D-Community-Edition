@@ -13,9 +13,9 @@
 
 namespace App\Notifications;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Thank;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Notifications\Notification;
 
 final class NewThank extends Notification

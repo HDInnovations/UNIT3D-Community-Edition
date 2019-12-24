@@ -13,10 +13,6 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Events\Dispatcher;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Contracts\Auth\Factory;
 use App\Bots\CasinoBot;
 use App\Bots\NerdBot;
 use App\Bots\SystemBot;
@@ -34,7 +30,11 @@ use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Factory;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class ChatController extends Controller
 {

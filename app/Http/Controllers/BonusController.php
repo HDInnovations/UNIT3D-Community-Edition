@@ -13,10 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Contracts\View\Factory;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
@@ -29,8 +25,11 @@ use App\Notifications\NewPostTip;
 use App\Notifications\NewUploadTip;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Redirector;
 
 final class BonusController extends Controller
 {

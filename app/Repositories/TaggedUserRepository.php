@@ -13,13 +13,13 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Collection;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Notifications\NewCommentTag;
 use App\Notifications\NewPostTag;
+use Illuminate\Support\Collection;
 
 final class TaggedUserRepository
 {

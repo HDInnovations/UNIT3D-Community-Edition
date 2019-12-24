@@ -14,6 +14,7 @@
 namespace App\Bots;
 
 use Illuminate\Contracts\Config\Repository;
+
 final class IRCAnnounceBot
 {
     /**

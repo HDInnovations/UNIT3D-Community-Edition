@@ -13,16 +13,16 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class ModerationController extends Controller
 {

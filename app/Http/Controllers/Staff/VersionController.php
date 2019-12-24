@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\ResponseFactory;
 
 final class VersionController extends Controller
 {
@@ -52,7 +52,7 @@ final class VersionController extends Controller
         $lastestVersion = $response[0]->tag_name;
 
         return $this->responseFactory->make([
-            'updated'       => !version_compare($this->version, $lastestVersion, '<'),
+            'updated'       => ! version_compare($this->version, $lastestVersion, '<'),
             'latestversion' => $lastestVersion,
         ]);
     }

@@ -18,21 +18,21 @@ use Gstt\Achievements\Achievement;
 final class UserMade400Uploads extends Achievement
 {
     /**
-     * The achievement name
+     * The achievement name.
      *
      * @var string
      */
     public string $name = '400Uploads';
 
     /**
-     * A small description for the achievement
+     * A small description for the achievement.
      *
      * @var string
      */
     public string $description = 'You have made 400 torrent uploads!';
 
     /**
-     * The amount of "points" this user need to obtain in order to complete this achievement
+     * The amount of "points" this user need to obtain in order to complete this achievement.
      *
      * @var int
      */

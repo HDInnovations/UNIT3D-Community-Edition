@@ -18,21 +18,21 @@ use Gstt\Achievements\Achievement;
 final class UserFilled50Requests extends Achievement
 {
     /**
-     * The achievement name
+     * The achievement name.
      *
      * @var string
      */
     public string $name = 'Filled50Requests';
 
     /**
-     * A small description for the achievement
+     * A small description for the achievement.
      *
      * @var string
      */
     public string $description = 'Wow! You have already filled 50 requests!';
 
     /**
-     * The amount of "points" this user need to obtain in order to complete this achievement
+     * The amount of "points" this user need to obtain in order to complete this achievement.
      *
      * @var int
      */

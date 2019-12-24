@@ -13,13 +13,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Helpers\Bbcode;
 use App\Notifications\NewComment;
 use App\Traits\Auditable;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\TorrentRequest.
@@ -110,6 +110,7 @@ final class TorrentRequest extends Model
      * @var \Illuminate\Contracts\Auth\Guard
      */
     private $guard;
+
     public function __construct(Guard $guard)
     {
         $this->guard = $guard;

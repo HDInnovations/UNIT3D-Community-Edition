@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Interfaces\WishInterface;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Str;
 
 final class WishController extends Controller

@@ -13,12 +13,12 @@
 
 namespace App\Repositories;
 
-use Illuminate\Routing\UrlGenerator;
 use App\Interfaces\WishInterface;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
 use App\Services\Clients\OmdbClient;
+use Illuminate\Routing\UrlGenerator;
 
 final class WishRepository implements WishInterface
 {

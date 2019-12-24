@@ -13,11 +13,11 @@
 
 namespace App\Helpers;
 
-use Illuminate\Session\SessionManager;
+use Crypt;
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Exception;
-use Crypt;
+use Illuminate\Session\SessionManager;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 
@@ -31,6 +31,7 @@ final class HiddenCaptcha
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(SessionManager $sessionManager, Factory $viewFactory)
     {
         $this->sessionManager = $sessionManager;

@@ -12,11 +12,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 
 final class FetchGenres extends Command
 {
@@ -37,6 +37,7 @@ final class FetchGenres extends Command
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;

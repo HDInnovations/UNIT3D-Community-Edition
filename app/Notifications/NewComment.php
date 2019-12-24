@@ -13,9 +13,9 @@
 
 namespace App\Notifications;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Notifications\Notification;
 
 final class NewComment extends Notification

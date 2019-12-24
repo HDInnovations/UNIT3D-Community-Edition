@@ -13,11 +13,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Collection;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -33,6 +33,7 @@ final class Http2ServerPush
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;
@@ -87,13 +88,13 @@ final class Http2ServerPush
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
             ->flatten(1)
-            ->map(fn($url) => $this->buildLinkHeaderString($url))
+            ->map(fn ($url) => $this->buildLinkHeaderString($url))
             ->unique()
             ->filter(function ($value, $key) use ($excludeKeywords): bool {
                 if (! $value) {
                     return false;
                 }
-                $exclude_keywords = (new Collection($excludeKeywords))->map(fn($keyword) => preg_quote($keyword));
+                $exclude_keywords = (new Collection($excludeKeywords))->map(fn ($keyword) => preg_quote($keyword));
                 if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
@@ -159,7 +160,7 @@ final class Http2ServerPush
             '.JS'   => 'script',
         ];
 
-        $type = (new Collection($linkTypeMap))->first(fn($type, $extension) => Str::contains(strtoupper($url), $extension));
+        $type = (new Collection($linkTypeMap))->first(fn ($type, $extension) => Str::contains(strtoupper($url), $extension));
 
         if (! preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');

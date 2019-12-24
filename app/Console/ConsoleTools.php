@@ -34,7 +34,7 @@ trait ConsoleTools
 
     private function white($line): void
     {
-        $this->io->writeln(PHP_EOL . $line);
+        $this->io->writeln(PHP_EOL.$line);
     }
 
     private function magenta($line): void

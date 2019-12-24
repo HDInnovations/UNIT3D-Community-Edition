@@ -13,10 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Collection;
-use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -38,7 +34,11 @@ use App\Models\User;
 use App\Notifications\NewComment;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Collection;
 
 final class CommentController extends Controller
 {

@@ -13,12 +13,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
@@ -26,7 +20,13 @@ use App\Notifications\NewComment;
 use App\Notifications\NewThank;
 use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
@@ -163,6 +163,7 @@ final class Torrent extends Model
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Guard $guard, Repository $configRepository)
     {
         $this->guard = $guard;

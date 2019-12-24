@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 class Preloader
 {
@@ -15,11 +15,11 @@ class Preloader
     public function __construct(string ...$paths)
     {
         $this->paths = $paths;
-        $classMap = require __DIR__ . '/vendor/composer/autoload_classmap.php';
+        $classMap = require __DIR__.'/vendor/composer/autoload_classmap.php';
         $this->fileMap = array_flip($classMap);
     }
 
-    public function paths(string ...$paths): Preloader
+    public function paths(string ...$paths): self
     {
         $this->paths = array_merge(
             $this->paths,
@@ -29,7 +29,7 @@ class Preloader
         return $this;
     }
 
-    public function ignore(string ...$names): Preloader
+    public function ignore(string ...$names): self
     {
         $this->ignores = array_merge(
             $this->ignores,
@@ -47,7 +47,7 @@ class Preloader
 
         $count = self::$count;
 
-        echo "[Preloader] Preloaded {$count} classes" . PHP_EOL;
+        echo "[Preloader] Preloaded {$count} classes".PHP_EOL;
     }
 
     private function loadPath(string $path): void
@@ -84,11 +84,11 @@ class Preloader
             return;
         }
 
-        require_once($path);
+        require_once $path;
 
         self::$count++;
 
-        echo "[Preloader] Preloaded `{$class}`" . PHP_EOL;
+        echo "[Preloader] Preloaded `{$class}`".PHP_EOL;
     }
 
     private function shouldIgnore(?string $name): bool
@@ -108,7 +108,7 @@ class Preloader
 }
 
 (new Preloader())
-    ->paths(__DIR__ . '/vendor/laravel')
+    ->paths(__DIR__.'/vendor/laravel')
     ->ignore(
         \Illuminate\Filesystem\Cache::class,
         \Illuminate\Log\LogManager::class,

@@ -13,17 +13,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\MovieScrapper;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Image;
 
 final class PlaylistController extends Controller

@@ -13,12 +13,12 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 
 final class AutoGroup extends Command
 {
@@ -39,6 +39,7 @@ final class AutoGroup extends Command
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;

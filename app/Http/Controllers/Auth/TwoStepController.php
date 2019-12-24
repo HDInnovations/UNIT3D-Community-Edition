@@ -13,19 +13,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Translation\Translator;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Session\SessionManager;
-use Illuminate\View\View;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Controllers\Controller;
 use App\Traits\TwoStep;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Session\SessionManager;
+use Illuminate\Translation\Translator;
+use Illuminate\View\View;
 
 final class TwoStepController extends Controller
 {

@@ -13,10 +13,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Http\Request;
 use Bepsvpt\SecureHeaders\SecureHeaders;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Http\Request;
 
 final class HtmlEncrypt
 {

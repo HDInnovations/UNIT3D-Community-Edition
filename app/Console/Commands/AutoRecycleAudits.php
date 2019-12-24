@@ -13,10 +13,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Audit;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 
 final class AutoRecycleAudits extends Command
 {
@@ -37,6 +37,7 @@ final class AutoRecycleAudits extends Command
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;

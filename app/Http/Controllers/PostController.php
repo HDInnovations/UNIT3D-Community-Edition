@@ -13,11 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Collection;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
 use App\Achievements\UserMade25Posts;
@@ -34,7 +29,12 @@ use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Collection;
 
 final class PostController extends Controller
 {

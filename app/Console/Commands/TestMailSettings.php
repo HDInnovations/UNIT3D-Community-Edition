@@ -13,12 +13,11 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Mail\Mailer;
-use Exception;
 use App\Mail\TestEmail;
 use App\Models\User;
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailer;
 
 final class TestMailSettings extends Command
 {
@@ -39,6 +38,7 @@ final class TestMailSettings extends Command
      * @var \Illuminate\Mail\Mailer
      */
     private $mailer;
+
     public function __construct(Mailer $mailer)
     {
         $this->mailer = $mailer;

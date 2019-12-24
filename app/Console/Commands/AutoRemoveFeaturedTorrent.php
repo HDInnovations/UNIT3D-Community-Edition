@@ -13,12 +13,12 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\FeaturedTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 
 final class AutoRemoveFeaturedTorrent extends Command
 {

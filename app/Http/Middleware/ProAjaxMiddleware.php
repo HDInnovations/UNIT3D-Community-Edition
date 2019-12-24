@@ -13,10 +13,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Request;
 use Closure;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 final class ProAjaxMiddleware
 {
@@ -31,6 +31,7 @@ final class ProAjaxMiddleware
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
     private $responseFactory;
+
     public function __construct(ResponseFactory $responseFactory)
     {
         $this->responseFactory = $responseFactory;

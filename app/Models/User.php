@@ -13,23 +13,23 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Translation\Translator;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Carbon\Carbon;
 use Gstt\Achievements\Achiever;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Illuminate\Translation\Translator;
 
 /**
  * @property int $id
@@ -231,6 +231,7 @@ final class User extends Authenticatable
      * @var \Illuminate\Translation\Translator
      */
     private $translator;
+
     public function __construct(Repository $configRepository, Guard $guard, Translator $translator)
     {
         $this->configRepository = $configRepository;
@@ -969,6 +970,7 @@ final class User extends Authenticatable
 
     // Return the size (pretty formated) which can be safely downloaded
     // without falling under the minimum ratio.
+
     /**
      * @return string|mixed
      */

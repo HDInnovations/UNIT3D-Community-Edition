@@ -13,15 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Helpers\Bencode;
 use App\Models\Ban;
 use App\Models\BonTransactions;
@@ -39,9 +30,16 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Redirector;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Str;
 use Image;
 use ZipArchive;
@@ -80,6 +78,7 @@ final class UserController extends Controller
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
     private $responseFactory;
+
     public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Guard $guard, Hasher $hasher, DatabaseManager $databaseManager, UrlGenerator $urlGenerator, ResponseFactory $responseFactory)
     {
         $this->viewFactory = $viewFactory;
@@ -91,6 +90,7 @@ final class UserController extends Controller
         $this->urlGenerator = $urlGenerator;
         $this->responseFactory = $responseFactory;
     }
+
     /**
      * Show A User.
      *
@@ -299,7 +299,7 @@ final class UserController extends Controller
         // Style Settings
         $user->style = (int) $request->input('theme');
         $css_url = $request->input('custom_css');
-        if (isset($css_url) && !filter_var($css_url, FILTER_VALIDATE_URL)) {
+        if (isset($css_url) && ! filter_var($css_url, FILTER_VALIDATE_URL)) {
             return $this->redirector->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         } else {

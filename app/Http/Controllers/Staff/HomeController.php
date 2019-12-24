@@ -13,9 +13,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\View\Factory;
-use Exception;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
@@ -24,6 +21,9 @@ use App\Models\Peer;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\User;
+use Exception;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Spatie\SslCertificate\SslCertificate;
 
@@ -37,11 +37,13 @@ final class HomeController extends Controller
      * @var \Illuminate\Contracts\View\Factory
      */
     private $viewFactory;
+
     public function __construct(Repository $configRepository, Factory $viewFactory)
     {
         $this->configRepository = $configRepository;
         $this->viewFactory = $viewFactory;
     }
+
     /**
      * Display Staff Dashboard.
      *
@@ -52,8 +54,8 @@ final class HomeController extends Controller
     public function index(Request $request): Factory
     {
         // User Info
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $num_user = User::count();
         $banned = User::where('group_id', '=', $banned_group[0])->count();
         $validating = User::where('group_id', '=', $validating_group[0])->count();

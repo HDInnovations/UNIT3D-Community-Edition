@@ -13,18 +13,18 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Logout;
-use Illuminate\Auth\Events\Login;
-use Illuminate\Auth\Events\Failed;
-use Gstt\Achievements\Event\Unlocked;
-use Spatie\Backup\Events\BackupZipWasCreated;
-use App\Listeners\LogoutListener;
-use App\Listeners\LoginListener;
-use App\Listeners\FailedLoginListener;
 use App\Listeners\AchievementUnlocked;
+use App\Listeners\FailedLoginListener;
+use App\Listeners\LoginListener;
+use App\Listeners\LogoutListener;
 use App\Listeners\PasswordProtectBackup;
+use Gstt\Achievements\Event\Unlocked;
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Spatie\Backup\Events\BackupZipWasCreated;
 
 final class EventServiceProvider extends ServiceProvider
 {
