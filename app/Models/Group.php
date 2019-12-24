@@ -123,7 +123,7 @@ final class Group extends Model
      * @param $object
      * @param $group_id
      * @return bool
-*/
+     */
     public function isAllowed($object, $group_id): bool
     {
         if (is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id, $object['default_groups'])) {
