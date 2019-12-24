@@ -42,7 +42,7 @@ final class ForumCategoryController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show($id): RedirectResponse
     {

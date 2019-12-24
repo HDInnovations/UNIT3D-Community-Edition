@@ -79,7 +79,10 @@ final class CasinoBot
 
     /**
      * NerdBot Constructor.
+     *
      * @param  ChatRepository  $chat
+     * @param  \Illuminate\Events\Dispatcher  $eventDispatcher
+     * @param  \Illuminate\Contracts\Routing\ResponseFactory  $responseFactory
      */
     public function __construct(ChatRepository $chat, Dispatcher $eventDispatcher, ResponseFactory $responseFactory)
     {

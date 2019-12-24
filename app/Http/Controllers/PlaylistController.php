@@ -52,7 +52,11 @@ final class PlaylistController extends Controller
     /**
      * PlaylistController Constructor.
      *
-     * @param ChatRepository           $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Contracts\Auth\Guard  $guard
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(ChatRepository $chat, Factory $viewFactory, Guard $guard, Redirector $redirector, Repository $configRepository)
     {
@@ -247,7 +251,7 @@ final class PlaylistController extends Controller
      *
      * @param  \App\Playlist  $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id): RedirectResponse
     {

@@ -41,7 +41,9 @@ final class RssController extends Controller
     /**
      * RssController Constructor.
      *
-     * @param TorrentFacetedRepository $torrent_faceted
+     * @param  TorrentFacetedRepository  $torrent_faceted
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(TorrentFacetedRepository $torrent_faceted, Factory $viewFactory, Redirector $redirector)
     {
@@ -54,7 +56,8 @@ final class RssController extends Controller
      * Display a listing of the RSS resource.
      *
      * @param  string  $hash
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Contracts\View\Factory
      */
     public function index(string $hash = null): Factory
     {
@@ -71,7 +74,7 @@ final class RssController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory
      */
     public function create(Request $request): Factory
     {
@@ -142,8 +145,8 @@ final class RssController extends Controller
      * Show the form for editing the specified RSS resource.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int                       $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, int $id): Factory
     {

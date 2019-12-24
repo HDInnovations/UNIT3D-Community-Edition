@@ -64,8 +64,11 @@ final class TopicController extends Controller
     /**
      * ForumController Constructor.
      *
-     * @param TaggedUserRepository $tag
-     * @param ChatRepository       $chat
+     * @param  TaggedUserRepository  $tag
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Redirector $redirector, Factory $viewFactory, Repository $configRepository)
     {
@@ -81,7 +84,10 @@ final class TopicController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  string  $page
+     * @param  string  $post
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function topic($id, $page = '', $post = ''): RedirectResponse
     {
@@ -126,7 +132,7 @@ final class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function addForm(Request $request, $id): RedirectResponse
     {
@@ -276,7 +282,7 @@ final class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function editTopic(Request $request, $id): RedirectResponse
     {
@@ -300,7 +306,7 @@ final class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function closeTopic(Request $request, $id): RedirectResponse
     {
@@ -321,7 +327,7 @@ final class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function openTopic(Request $request, $id): RedirectResponse
     {
@@ -342,7 +348,7 @@ final class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTopic(Request $request, $id): RedirectResponse
     {
@@ -364,7 +370,7 @@ final class TopicController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function pinTopic($id): RedirectResponse
     {
@@ -381,7 +387,7 @@ final class TopicController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function unpinTopic($id): RedirectResponse
     {

@@ -105,7 +105,9 @@ final class Group extends Model
 
     /**
      * Returns The Requested Row From The Permissions Table.
+     *
      * @param $forum
+     *
      * @return
      */
     public function getPermissionsByForum($forum)
@@ -120,8 +122,8 @@ final class Group extends Model
      *
      * @param $object
      * @param $group_id
-     * @return int
-     */
+     * @return bool
+*/
     public function isAllowed($object, $group_id): bool
     {
         if (is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id, $object['default_groups'])) {

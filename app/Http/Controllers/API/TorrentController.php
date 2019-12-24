@@ -61,7 +61,11 @@ class TorrentController extends BaseController
      *
      * @param  \Illuminate\Http\Request  $request
      *
+     * @param  \App\Models\Torrent  $torrent
+     *
      * @return \Illuminate\Http\Response
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function store(Request $request, Torrent $torrent)
     {
@@ -235,7 +239,7 @@ class TorrentController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -247,7 +251,7 @@ class TorrentController extends BaseController
      *
      * @param  int  $id
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy($id)
     {

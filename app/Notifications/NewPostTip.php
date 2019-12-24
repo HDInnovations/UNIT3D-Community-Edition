@@ -51,6 +51,7 @@ final class NewPostTip extends Notification implements ShouldQueue
      * @param  string  $tipper
      * @param $amount
      * @param  Post  $post
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, string $tipper, $amount, Post $post, Repository $configRepository)
     {

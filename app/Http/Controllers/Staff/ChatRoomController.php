@@ -39,7 +39,9 @@ final class ChatRoomController extends Controller
     /**
      * ChatController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {
@@ -120,7 +122,7 @@ final class ChatRoomController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id): RedirectResponse
     {

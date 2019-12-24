@@ -183,7 +183,7 @@ final class CategoryController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id): RedirectResponse
     {

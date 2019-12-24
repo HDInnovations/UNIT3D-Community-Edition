@@ -160,7 +160,8 @@ final class Forum extends Model
      *
      * @param $poster
      * @param $topic
-     * @return string
+     *
+     * @return void
      */
     public function notifySubscribers($poster, $topic): void
     {

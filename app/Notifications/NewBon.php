@@ -48,6 +48,7 @@ final class NewBon extends Notification implements ShouldQueue
      * @param  string  $type
      * @param  string  $sender
      * @param  BonTransactions  $transaction
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, string $sender, BonTransactions $transaction, Repository $configRepository)
     {

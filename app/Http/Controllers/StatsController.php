@@ -42,6 +42,9 @@ final class StatsController extends Controller
 
     /**
      * StatsController Constructor.
+     *
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Database\DatabaseManager  $databaseManager
      */
     public function __construct(Factory $viewFactory, DatabaseManager $databaseManager)
     {

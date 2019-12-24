@@ -53,11 +53,10 @@ final class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $passkey
      *
-     * @return Bencode response for the torrent client
-     * @throws \Exception
+     * @return \Illuminate\Http\Response response for the torrent client
      */
     public function announce(Request $request, $passkey): Response
     {

@@ -84,7 +84,7 @@ final class MassActionController extends Controller
     /**
      * Mass Validate Unvalidated Users.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(): RedirectResponse
     {

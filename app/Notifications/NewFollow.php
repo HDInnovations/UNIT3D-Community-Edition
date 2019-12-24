@@ -55,6 +55,7 @@ final class NewFollow extends Notification implements ShouldQueue
      * @param  User  $sender
      * @param  User  $target
      * @param  Follow  $follow
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, User $sender, User $target, Follow $follow, Repository $configRepository)
     {

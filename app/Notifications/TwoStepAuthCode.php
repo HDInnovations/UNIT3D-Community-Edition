@@ -43,8 +43,12 @@ final class TwoStepAuthCode extends Notification implements ShouldQueue
 
     /**
      * Create a new notification instance.
+     *
      * @param $user
      * @param $code
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Translation\Translator  $translator
+     * @param  \Illuminate\Routing\UrlGenerator  $urlGenerator
      */
     public function __construct($user, $code, Repository $configRepository, Translator $translator, UrlGenerator $urlGenerator)
     {

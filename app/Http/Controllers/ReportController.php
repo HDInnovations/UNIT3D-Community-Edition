@@ -34,7 +34,8 @@ final class ReportController extends Controller
     /**
      * ReportController Constructor.
      *
-     * @param Report  $report
+     * @param  Report  $report
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(Report $report, Redirector $redirector)
     {

@@ -114,7 +114,9 @@ final class HiddenCaptcha
     /**
      * Get and check the token values.
      *
-     * @param string $captcha
+     * @param  string  $captcha
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return bool|mixed[]
      */
     private static function getToken(string $captcha, Request $request)

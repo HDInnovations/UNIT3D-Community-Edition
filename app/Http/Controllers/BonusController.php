@@ -57,7 +57,11 @@ final class BonusController extends Controller
     /**
      * BonusController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Database\DatabaseManager  $databaseManager
      */
     public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector, Repository $configRepository, DatabaseManager $databaseManager)
     {
@@ -280,7 +284,7 @@ final class BonusController extends Controller
      * @param $userID
      * @param $itemID
      *
-     * @return string
+     * @return bool
      */
     public function doItemExchange($userID, $itemID): bool
     {

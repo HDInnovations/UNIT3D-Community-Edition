@@ -189,6 +189,9 @@ final class VendorCleanup extends Command
     }
 
     /**
+     * @param $needle
+     * @param  array  $haystack
+     *
      * @return bool|int|string
      */
     protected function arrayFind($needle, array $haystack)

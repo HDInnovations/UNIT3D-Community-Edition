@@ -50,8 +50,9 @@ final class SendActivationMail implements ShouldQueue
     /**
      * ActivateUser constructor.
      *
-     * @param User   $user
-     * @param string $code
+     * @param  User  $user
+     * @param  string  $code
+     * @param  \Illuminate\Mail\Mailer  $mailer
      */
     public function __construct(User $user, string $code, Mailer $mailer)
     {

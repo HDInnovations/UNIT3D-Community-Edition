@@ -41,7 +41,9 @@ final class PollController extends Controller
     /**
      * PollController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {
@@ -89,9 +91,9 @@ final class PollController extends Controller
     /**
      * Store A New Poll.
      *
-     * @param StorePoll $request
+     * @param  StorePoll  $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StorePoll $request): RedirectResponse
     {

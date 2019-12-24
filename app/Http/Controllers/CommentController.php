@@ -63,8 +63,10 @@ final class CommentController extends Controller
     /**
      * CommentController Constructor.
      *
-     * @param TaggedUserRepository $tag
-     * @param ChatRepository       $chat
+     * @param  TaggedUserRepository  $tag
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Contracts\Auth\Guard  $guard
      */
     public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Redirector $redirector, Guard $guard)
     {
@@ -551,10 +553,10 @@ final class CommentController extends Controller
     /**
      * Edit A Comment.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $comment_id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function editComment(Request $request, $comment_id): RedirectResponse
     {
@@ -575,7 +577,7 @@ final class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param $comment_id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteComment(Request $request, $comment_id): RedirectResponse
     {

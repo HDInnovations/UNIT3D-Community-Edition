@@ -40,8 +40,9 @@ final class ActivateUser extends Mailable
     /**
      * ActivateUser constructor.
      *
-     * @param User   $user
-     * @param string $code
+     * @param  User  $user
+     * @param  string  $code
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(User $user, string $code, Repository $configRepository)
     {

@@ -50,6 +50,7 @@ final class NewPost extends Notification implements ShouldQueue
      *
      * @param  User  $poster
      * @param  Post  $post
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, User $poster, Post $post, Repository $configRepository)
     {

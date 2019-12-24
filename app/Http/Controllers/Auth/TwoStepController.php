@@ -77,7 +77,12 @@ final class TwoStepController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param  \Illuminate\Contracts\Auth\Guard  $guard
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Translation\Translator  $translator
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Contracts\Routing\ResponseFactory  $responseFactory
+     * @param  \Illuminate\Session\SessionManager  $sessionManager
      */
     public function __construct(Guard $guard, Repository $configRepository, Translator $translator, Factory $viewFactory, ResponseFactory $responseFactory, SessionManager $sessionManager)
     {
@@ -140,7 +145,7 @@ final class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      * @throws \Exception
      */
     public function showVerification(): View
@@ -196,9 +201,10 @@ final class TwoStepController extends Controller
     /**
      * Verify the user code input.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function verify(Request $request): JsonResponse
     {
@@ -245,7 +251,7 @@ final class TwoStepController extends Controller
     /**
      * Resend the validation code triggered by user.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function resend(): JsonResponse
     {

@@ -42,7 +42,8 @@ final class ChatBotController extends Controller
      * Display a listing of the Bots resource.
      *
      * @param  string  $hash
-     * @return \Illuminate\Http\Response
+     *
+     * @return \Illuminate\Contracts\View\Factory
      */
     public function index(string $hash = null): Factory
     {
@@ -59,7 +60,7 @@ final class ChatBotController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory
      */
     public function edit(Request $request, int $id): Factory
     {

@@ -42,7 +42,9 @@ final class FlushController extends Controller
     /**
      * ChatController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Contracts\Broadcasting\Factory  $broadcastFactory
      */
     public function __construct(ChatRepository $chat, Redirector $redirector, Factory $broadcastFactory)
     {
@@ -54,7 +56,7 @@ final class FlushController extends Controller
     /**
      * Flsuh All Old Peers From Database.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function peers(): RedirectResponse
     {
@@ -77,7 +79,7 @@ final class FlushController extends Controller
     /**
      * Flush All Chat Messages.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function chat(): RedirectResponse
     {

@@ -337,9 +337,9 @@ final class UserController extends Controller
     /**
      * User TwoStep Auth.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeTwoStep(Request $request): RedirectResponse
     {
@@ -429,10 +429,10 @@ final class UserController extends Controller
     /**
      * Change User Privacy Level.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makePrivate(Request $request, $username): RedirectResponse
     {
@@ -450,10 +450,10 @@ final class UserController extends Controller
     /**
      * Change User Privacy Level.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makePublic(Request $request, $username): RedirectResponse
     {
@@ -471,10 +471,10 @@ final class UserController extends Controller
     /**
      * Change User Notification Setting.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function disableNotifications(Request $request, $username): RedirectResponse
     {
@@ -492,10 +492,10 @@ final class UserController extends Controller
     /**
      * Change User Notification Setting.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function enableNotifications(Request $request, $username): RedirectResponse
     {
@@ -513,10 +513,10 @@ final class UserController extends Controller
     /**
      * Change User Hidden Value.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makeHidden(Request $request, $username): RedirectResponse
     {
@@ -534,10 +534,10 @@ final class UserController extends Controller
     /**
      * Change User Hidden Value.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makeVisible(Request $request, $username): RedirectResponse
     {
@@ -555,10 +555,10 @@ final class UserController extends Controller
     /**
      * Change User PID.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changePID(Request $request, $username): RedirectResponse
     {
@@ -580,7 +580,7 @@ final class UserController extends Controller
      *
      * @param                            $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeOther(Request $request, $username): RedirectResponse
     {
@@ -615,7 +615,7 @@ final class UserController extends Controller
      *
      * @param                            $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeRequest(Request $request, $username): RedirectResponse
     {
@@ -650,7 +650,7 @@ final class UserController extends Controller
      *
      * @param                            $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeAchievement(Request $request, $username): RedirectResponse
     {
@@ -685,7 +685,7 @@ final class UserController extends Controller
      *
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeForum(Request $request, $username): RedirectResponse
     {
@@ -720,7 +720,8 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeFollower(Request $request, $username): RedirectResponse
     {
@@ -754,7 +755,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeTorrent(Request $request, $username): RedirectResponse
     {
@@ -793,7 +794,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeAccountNotification(Request $request, $username): RedirectResponse
     {
@@ -829,7 +830,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeFollowingNotification(Request $request, $username): RedirectResponse
     {
@@ -864,7 +865,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeBonNotification(Request $request, $username): RedirectResponse
     {
@@ -899,7 +900,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeSubscriptionNotification(Request $request, $username): RedirectResponse
     {
@@ -935,7 +936,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeRequestNotification(Request $request, $username): RedirectResponse
     {
@@ -976,7 +977,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeTorrentNotification(Request $request, $username): RedirectResponse
     {
@@ -1013,7 +1014,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeMentionNotification(Request $request, $username): RedirectResponse
     {
@@ -1052,7 +1053,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeForumNotification(Request $request, $username): RedirectResponse
     {
@@ -1087,7 +1088,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      *
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeProfile(Request $request, $username): RedirectResponse
     {
@@ -1134,7 +1135,7 @@ final class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changeRID(Request $request, $username): RedirectResponse
     {
@@ -1155,7 +1156,7 @@ final class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changeApiToken(Request $request, $username): RedirectResponse
     {
@@ -2011,7 +2012,7 @@ final class UserController extends Controller
      *
      * @param  Request  $request
      * @param $username
-     * @return \ZipArchive
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function downloadHistoryTorrents(Request $request, $username): RedirectResponse
     {

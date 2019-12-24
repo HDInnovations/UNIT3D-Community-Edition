@@ -72,7 +72,7 @@ final class BackupController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return
+     * @return \Illuminate\Contracts\View\Factory
      */
     public function index(Request $request): Factory
     {

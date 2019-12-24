@@ -48,6 +48,7 @@ final class NewUnfollow extends Notification implements ShouldQueue
      * @param  string  $type
      * @param  User  $sender
      * @param  User  $target
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, User $sender, User $target, Repository $configRepository)
     {

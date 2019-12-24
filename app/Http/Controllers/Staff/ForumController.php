@@ -68,9 +68,9 @@ final class ForumController extends Controller
     /**
      * Store A New Forum.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request): RedirectResponse
     {
@@ -136,7 +136,7 @@ final class ForumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id): RedirectResponse
     {
@@ -181,7 +181,7 @@ final class ForumController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id): RedirectResponse
     {

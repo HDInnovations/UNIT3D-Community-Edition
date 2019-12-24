@@ -44,7 +44,11 @@ abstract class Client
     }
 
     /**
+     * @param $url
+     * @param  array  $options
+     *
      * @return mixed
+     * @throws \HttpResponseException
      */
     public function request($url, array $options = [])
     {
@@ -72,6 +76,9 @@ abstract class Client
     }
 
     /**
+     * @param  array  $array
+     * @param  int  $options
+     *
      * @return string|bool
      */
     public function toJson(array $array, $options = 0)
@@ -80,6 +87,8 @@ abstract class Client
     }
 
     /**
+     * @param $key
+     * @param  null  $data
      * @return mixed
      */
     public function cache($key, $data = null)

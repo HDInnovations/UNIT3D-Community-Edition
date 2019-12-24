@@ -34,7 +34,7 @@ final class FailedLogin extends Notification implements ShouldQueue
     /**
      * The Time.
      *
-     * @var Carbon\Carbon
+     * @var \Carbon\Carbon
      */
     public Carbon $time;
     /**
@@ -45,9 +45,9 @@ final class FailedLogin extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param string $ip
+     * @param  string  $ip
      *
-     * @return void
+     * @param  \Illuminate\Translation\Translator  $translator
      */
     public function __construct(string $ip, Translator $translator)
     {

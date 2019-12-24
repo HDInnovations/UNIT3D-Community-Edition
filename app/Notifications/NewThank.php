@@ -41,6 +41,7 @@ final class NewThank extends Notification
      *
      * @param  string  $type
      * @param  Thank  $thank
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, Thank $thank, Repository $configRepository)
     {

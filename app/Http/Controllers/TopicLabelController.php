@@ -34,7 +34,7 @@ final class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function approve($id): RedirectResponse
     {
@@ -51,7 +51,7 @@ final class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deny($id): RedirectResponse
     {
@@ -68,7 +68,7 @@ final class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function solve($id): RedirectResponse
     {
@@ -85,7 +85,7 @@ final class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function invalid($id): RedirectResponse
     {
@@ -102,7 +102,7 @@ final class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function bug($id): RedirectResponse
     {
@@ -119,7 +119,7 @@ final class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function suggest($id): RedirectResponse
     {
@@ -136,7 +136,7 @@ final class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function implement($id): RedirectResponse
     {

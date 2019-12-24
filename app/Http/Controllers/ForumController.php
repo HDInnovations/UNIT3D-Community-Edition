@@ -46,8 +46,10 @@ final class ForumController extends Controller
     /**
      * ForumController Constructor.
      *
-     * @param TaggedUserRepository $tag
-     * @param ChatRepository       $chat
+     * @param  TaggedUserRepository  $tag
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {
@@ -348,7 +350,7 @@ final class ForumController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show($id): RedirectResponse
     {

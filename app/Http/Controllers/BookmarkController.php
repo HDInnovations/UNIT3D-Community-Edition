@@ -88,10 +88,10 @@ final class BookmarkController extends Controller
     /**
      * Delete A Bookmark.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id): RedirectResponse
     {

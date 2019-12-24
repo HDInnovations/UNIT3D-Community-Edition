@@ -28,7 +28,7 @@ final class MessageSent implements ShouldBroadcastNow
     /**
      * Message details.
      *
-     * @var Message
+     * @var \App\Http\Resources\ChatMessageResource
      */
     public ChatMessageResource $message;
 

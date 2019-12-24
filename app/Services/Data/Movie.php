@@ -225,6 +225,8 @@ class Movie
     }
 
     /**
+     * @param $genres
+     *
      * @return mixed[]
      */
     private function cleanGenres($genres): array

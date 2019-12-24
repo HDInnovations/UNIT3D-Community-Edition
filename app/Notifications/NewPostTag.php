@@ -48,6 +48,7 @@ final class NewPostTag extends Notification implements ShouldQueue
      * @param  string  $type
      * @param  string  $tagger
      * @param  Post  $post
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, string $tagger, Post $post, Repository $configRepository)
     {

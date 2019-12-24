@@ -37,6 +37,8 @@ final class ActivationController extends Controller
     }
 
     /**
+     * @param $token
+     *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function activate($token)

@@ -42,7 +42,9 @@ final class AlbumController extends Controller
     /**
      * AlbumController Constructor.
      *
-     * @param OmdbClient $client
+     * @param  OmdbClient  $client
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(OmdbClient $client, Factory $viewFactory, Redirector $redirector)
     {
@@ -142,7 +144,7 @@ final class AlbumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id): RedirectResponse
     {

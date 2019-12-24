@@ -171,10 +171,10 @@ final class NotificationController extends Controller
     /**
      * Show A Notification And Mark As Read.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Request $request, $id): RedirectResponse
     {
@@ -215,10 +215,9 @@ final class NotificationController extends Controller
     /**
      * Mass Update All Notification's To Read.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
-     * @return Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateAll(Request $request): RedirectResponse
     {
@@ -232,10 +231,10 @@ final class NotificationController extends Controller
     /**
      * Delete A Notification.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id): RedirectResponse
     {
@@ -248,9 +247,9 @@ final class NotificationController extends Controller
     /**
      * Mass Delete All Notification's.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroyAll(Request $request): RedirectResponse
     {

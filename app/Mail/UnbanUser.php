@@ -35,6 +35,7 @@ final class UnbanUser extends Mailable
      *
      * @param $email
      * @param $ban
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct($email, $ban, Repository $configRepository)
     {

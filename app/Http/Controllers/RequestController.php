@@ -70,8 +70,11 @@ final class RequestController extends Controller
     /**
      * RequestController Constructor.
      *
-     * @param RequestFacetedRepository $faceted
-     * @param ChatRepository           $chat
+     * @param  RequestFacetedRepository  $faceted
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(RequestFacetedRepository $faceted, ChatRepository $chat, Factory $viewFactory, Repository $configRepository, Redirector $redirector)
     {
@@ -807,7 +810,7 @@ final class RequestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function resetRequest(Request $request, $id): RedirectResponse
     {

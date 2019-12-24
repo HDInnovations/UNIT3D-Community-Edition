@@ -130,7 +130,7 @@ final class Poll extends Model
     /**
      * Get Total Votes On A Poll Option.
      *
-     * @return string
+     * @return int
      */
     public function totalVotes(): int
     {

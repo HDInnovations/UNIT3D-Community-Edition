@@ -48,6 +48,7 @@ final class NewRequestFillApprove extends Notification implements ShouldQueue
      * @param  string  $type
      * @param  string  $sender
      * @param  TorrentRequest  $tr
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, string $sender, TorrentRequest $tr, Repository $configRepository)
     {

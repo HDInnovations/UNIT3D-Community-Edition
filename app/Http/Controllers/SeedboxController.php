@@ -93,7 +93,7 @@ final class SeedboxController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function destroy(Request $request, $id): RedirectResponse
     {

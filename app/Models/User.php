@@ -289,7 +289,7 @@ final class User extends Authenticatable
     /**
      * Belongs To Many Bookmarks.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function bookmarks(): BelongsToMany
     {
@@ -394,7 +394,7 @@ final class User extends Authenticatable
     /**
      * Has Many Thanks Received.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function thanksReceived(): HasManyThrough
     {
@@ -758,7 +758,8 @@ final class User extends Authenticatable
      * @param  self  $target
      * @param  string  $group
      * @param  bool  $type
-     * @return int
+     *
+     * @return bool
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool $type = false): bool
     {
@@ -792,7 +793,7 @@ final class User extends Authenticatable
      * @param  self  $target
      * @param  string  $group
      * @param  bool  $type
-     * @return int
+     * @return bool
      */
     public function isVisible(self $target, string $group = 'profile', bool $type = false): bool
     {
@@ -827,7 +828,7 @@ final class User extends Authenticatable
      * @param  self  $target
      * @param  string  $group
      * @param  bool  $type
-     * @return int
+     * @return bool
      */
     public function isAllowed(self $target, string $group = 'profile', bool $type = false): bool
     {
@@ -859,10 +860,10 @@ final class User extends Authenticatable
     /**
      * Does Subscription Exist.
      *
-     * @param $type
+     * @param  string  $type
      * @param $topic_id
      *
-     * @return string
+     * @return bool
      */
     public function isSubscribed(string $type, $topic_id): bool
     {
@@ -878,7 +879,7 @@ final class User extends Authenticatable
      *
      * @param $target_id
      *
-     * @return string
+     * @return bool
      */
     public function isFollowing($target_id): bool
     {
@@ -972,6 +973,7 @@ final class User extends Authenticatable
     // without falling under the minimum ratio.
 
     /**
+     * @param $ratio
      * @return string|mixed
      */
     public function untilRatio($ratio)

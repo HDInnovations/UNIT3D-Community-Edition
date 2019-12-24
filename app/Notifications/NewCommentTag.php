@@ -48,6 +48,7 @@ final class NewCommentTag extends Notification implements ShouldQueue
      * @param  string  $type
      * @param  string  $tagger
      * @param  Comment  $comment
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, string $tagger, Comment $comment, Repository $configRepository)
     {

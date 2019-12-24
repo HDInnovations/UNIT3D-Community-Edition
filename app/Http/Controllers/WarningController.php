@@ -71,10 +71,10 @@ final class WarningController extends Controller
     /**
      * Deactivate A Warning.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deactivate(Request $request, $id): RedirectResponse
     {
@@ -103,7 +103,7 @@ final class WarningController extends Controller
      * @param  Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deactivateAllWarnings(Request $request, $username): RedirectResponse
     {
@@ -134,10 +134,10 @@ final class WarningController extends Controller
     /**
      * Delete A Warning.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteWarning(Request $request, $id): RedirectResponse
     {
@@ -168,7 +168,8 @@ final class WarningController extends Controller
      *
      * @param  Request  $request
      * @param $username
-     * @return Illuminate\Http\RedirectResponse
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteAllWarnings(Request $request, $username): RedirectResponse
     {
@@ -200,10 +201,10 @@ final class WarningController extends Controller
     /**
      * Restore A Soft Deleted Warning.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function restoreWarning(Request $request, $id): RedirectResponse
     {

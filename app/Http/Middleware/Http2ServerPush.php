@@ -64,6 +64,9 @@ final class Http2ServerPush
     }
 
     /**
+     * @param $key
+     * @param  bool  $default
+     *
      * @return mixed
      */
     public function getConfig($key, $default = false)

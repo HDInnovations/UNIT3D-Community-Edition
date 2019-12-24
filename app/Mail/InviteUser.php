@@ -36,6 +36,7 @@ final class InviteUser extends Mailable
      * Create a new message instance.
      *
      * @param  Invite  $invite
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(Invite $invite, Repository $configRepository)
     {

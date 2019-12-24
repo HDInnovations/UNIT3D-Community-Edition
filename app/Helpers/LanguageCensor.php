@@ -40,6 +40,9 @@ final class LanguageCensor
     }
 
     /**
+     * @param $string
+     * @param $word
+     *
      * @return int[]
      */
     protected static function matchWordIndexes($string, $word): array

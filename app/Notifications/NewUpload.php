@@ -40,10 +40,10 @@ final class NewUpload extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param string $type
-     * @param Torrent $torrent
+     * @param  string  $type
+     * @param  Torrent  $torrent
      *
-     * @return void
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, Torrent $torrent, Repository $configRepository)
     {

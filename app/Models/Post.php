@@ -163,7 +163,7 @@ final class Post extends Model
     /**
      * Get A Posts Page Number.
      *
-     * @return string
+     * @return float
      */
     public function getPageNumber(): float
     {

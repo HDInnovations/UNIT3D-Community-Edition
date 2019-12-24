@@ -106,7 +106,7 @@ final class PrivateMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getPrivateMessageById(Request $request, $id): RedirectResponse
     {
@@ -276,7 +276,8 @@ final class PrivateMessageController extends Controller
      * Mark All Messages As Read.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Illuminate\Http\RedirectResponse
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function markAllAsRead(Request $request): RedirectResponse
     {

@@ -49,10 +49,11 @@ final class WishRepository implements WishInterface
     /**
      * WishRepository constructor.
      *
-     * @param Wish       $wish
-     * @param User       $user
-     * @param OmdbClient $client
-     * @param Torrent    $torrent
+     * @param  Wish  $wish
+     * @param  User  $user
+     * @param  OmdbClient  $client
+     * @param  Torrent  $torrent
+     * @param  \Illuminate\Routing\UrlGenerator  $urlGenerator
      */
     public function __construct(Wish $wish, User $user, OmdbClient $client, Torrent $torrent, UrlGenerator $urlGenerator)
     {

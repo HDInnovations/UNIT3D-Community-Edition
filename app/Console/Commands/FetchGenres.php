@@ -49,6 +49,7 @@ final class FetchGenres extends Command
      *
      * @return mixed
      * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function handle(): void
     {

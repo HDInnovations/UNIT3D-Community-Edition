@@ -40,7 +40,9 @@ final class PollController extends Controller
     /**
      * PollController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(ChatRepository $chat, Factory $viewFactory, Redirector $redirector)
     {

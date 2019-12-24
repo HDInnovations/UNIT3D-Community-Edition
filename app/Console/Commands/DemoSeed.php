@@ -42,7 +42,7 @@ final class DemoSeed extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(Repository $configRepository)
     {

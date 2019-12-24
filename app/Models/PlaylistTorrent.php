@@ -51,7 +51,7 @@ final class PlaylistTorrent extends Model
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrent(): BelongsTo
     {
@@ -61,7 +61,7 @@ final class PlaylistTorrent extends Model
     /**
      * Belongs To A Playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function playlist(): BelongsTo
     {

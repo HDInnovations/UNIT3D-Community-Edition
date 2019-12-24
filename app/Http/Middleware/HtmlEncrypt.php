@@ -31,6 +31,8 @@ final class HtmlEncrypt
 
     /**
      * HtmlEncrypt constructor.
+     *
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(Repository $configRepository)
     {

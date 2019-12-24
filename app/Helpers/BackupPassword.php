@@ -30,7 +30,9 @@ final class BackupPassword
 
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.
-     * @param string $path the path to the .zip-file
+     *
+     * @param  string  $path  the path to the .zip-file
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $path, Repository $configRepository)
     {

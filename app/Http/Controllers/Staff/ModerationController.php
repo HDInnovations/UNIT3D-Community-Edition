@@ -46,7 +46,10 @@ final class ModerationController extends Controller
     /**
      * ModerationController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(ChatRepository $chat, Factory $viewFactory, Repository $configRepository, Redirector $redirector)
     {

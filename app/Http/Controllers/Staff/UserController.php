@@ -180,10 +180,10 @@ final class UserController extends Controller
     /**
      * Edit A Users Permissions.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function permissions(Request $request, $username): RedirectResponse
     {
@@ -205,10 +205,10 @@ final class UserController extends Controller
     /**
      * Edit A Users Password.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function password(Request $request, $username): RedirectResponse
     {

@@ -249,6 +249,9 @@ final class TmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $countries
+     * @param  string  $type
+     *
      * @return mixed[][]
      */
     private function formatCountries($countries, $type = 'movie'): array
@@ -280,6 +283,8 @@ final class TmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $languages
+     * @param  string  $type
      * @return mixed[][]
      */
     private function formatLanguages($languages, $type = 'movie'): array
@@ -310,6 +315,7 @@ final class TmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $genres
      * @return mixed[]
      */
     private function formatGenres($genres): array
@@ -325,6 +331,7 @@ final class TmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $movie
      * @return mixed[]
      */
     private function formatAlternativeTitles($movie): array
@@ -381,6 +388,9 @@ final class TmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $images
+     * @param $path
+     * @param $image
      * @return mixed[]
      */
     private function formatImages($images, $path, $image): array
@@ -393,6 +403,8 @@ final class TmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $credits
+     * @param $role
      * @return \App\Services\Data\Person[]
      */
     private function formatCasts($credits, $role): array

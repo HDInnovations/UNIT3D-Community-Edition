@@ -51,6 +51,7 @@ final class NewRequestBounty extends Notification implements ShouldQueue
      * @param  string  $sender
      * @param $amount
      * @param  TorrentRequest  $tr
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, string $sender, $amount, TorrentRequest $tr, Repository $configRepository)
     {

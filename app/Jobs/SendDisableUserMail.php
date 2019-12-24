@@ -45,7 +45,8 @@ final class SendDisableUserMail implements ShouldQueue
     /**
      * ActivateUser constructor.
      *
-     * @param User $user
+     * @param  User  $user
+     * @param  \Illuminate\Mail\Mailer  $mailer
      */
     public function __construct(User $user, Mailer $mailer)
     {

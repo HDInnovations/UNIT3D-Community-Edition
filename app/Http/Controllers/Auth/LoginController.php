@@ -62,6 +62,11 @@ final class LoginController extends Controller
 
     /**
      * LoginController Constructor.
+     *
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Translation\Translator  $translator
+     * @param  \Illuminate\Contracts\Auth\Guard  $guard
      */
     public function __construct(Repository $configRepository, Redirector $redirector, Translator $translator, Guard $guard)
     {
@@ -99,6 +104,8 @@ final class LoginController extends Controller
     }
 
     /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param $user
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
     protected function authenticated(Request $request, $user)

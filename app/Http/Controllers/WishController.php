@@ -39,7 +39,9 @@ final class WishController extends Controller
     /**
      * WishController Constructor.
      *
-     * @param WishInterface $wish
+     * @param  WishInterface  $wish
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(WishInterface $wish, Factory $viewFactory, Redirector $redirector)
     {

@@ -62,7 +62,12 @@ final class RegisterController extends Controller
     /**
      * RegisterController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Translation\Translator  $translator
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Contracts\Hashing\Hasher  $hasher
      */
     public function __construct(ChatRepository $chat, Repository $configRepository, Redirector $redirector, Translator $translator, Factory $viewFactory, Hasher $hasher)
     {
@@ -98,6 +103,9 @@ final class RegisterController extends Controller
     }
 
     /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  null  $code
+     *
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function register(Request $request, $code = null)

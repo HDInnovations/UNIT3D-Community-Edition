@@ -41,7 +41,9 @@ final class GraveyardController extends Controller
     /**
      * GraveyardController Constructor.
      *
-     * @param TorrentFacetedRepository $faceted
+     * @param  TorrentFacetedRepository  $faceted
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Routing\Redirector  $redirector
      */
     public function __construct(TorrentFacetedRepository $faceted, Factory $viewFactory, Redirector $redirector)
     {
@@ -199,9 +201,9 @@ final class GraveyardController extends Controller
      * Cancel A Ressurection.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int                       $id
+     * @param  int  $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, int $id): RedirectResponse
     {

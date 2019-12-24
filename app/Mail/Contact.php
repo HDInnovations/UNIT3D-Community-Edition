@@ -35,6 +35,7 @@ final class Contact extends Mailable
      * Create a new message instance.
      *
      * @param  array  $input
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(array $input, Repository $configRepository)
     {

@@ -41,6 +41,7 @@ final class NewComment extends Notification
      *
      * @param  string  $type
      * @param  Comment  $comment
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(string $type, Comment $comment, Repository $configRepository)
     {

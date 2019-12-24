@@ -85,7 +85,11 @@ final class NerdBot
 
     /**
      * NerdBot Constructor.
+     *
      * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Events\Dispatcher  $eventDispatcher
+     * @param  \Illuminate\Contracts\Routing\ResponseFactory  $responseFactory
      */
     public function __construct(ChatRepository $chat, Repository $configRepository, Dispatcher $eventDispatcher, ResponseFactory $responseFactory)
     {

@@ -95,8 +95,14 @@ final class TorrentController extends Controller
     /**
      * RequestController Constructor.
      *
-     * @param TorrentFacetedRepository $faceted
-     * @param ChatRepository           $chat
+     * @param  TorrentFacetedRepository  $faceted
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Database\DatabaseManager  $databaseManager
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Routing\UrlGenerator  $urlGenerator
+     * @param  \Illuminate\Contracts\Routing\ResponseFactory  $responseFactory
      */
     public function __construct(TorrentFacetedRepository $faceted, ChatRepository $chat, Factory $viewFactory, Repository $configRepository, DatabaseManager $databaseManager, Redirector $redirector, UrlGenerator $urlGenerator, ResponseFactory $responseFactory)
     {
@@ -1039,9 +1045,12 @@ final class TorrentController extends Controller
     /**
      * Edit A Torrent.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse|mixed
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function edit(Request $request, $id)
     {
@@ -1457,7 +1466,7 @@ final class TorrentController extends Controller
      * @param $id
      * @param $rsskey
      *
-     * @return TorrentFile
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function download(Request $request, $id, $rsskey = null): RedirectResponse
     {
@@ -1519,7 +1528,7 @@ final class TorrentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function bumpTorrent(Request $request, $id): RedirectResponse
     {
@@ -1557,7 +1566,7 @@ final class TorrentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function sticky(Request $request, $id): RedirectResponse
     {
@@ -1578,7 +1587,7 @@ final class TorrentController extends Controller
      * @param  Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function grantFL(Request $request, $id): RedirectResponse
     {
@@ -1653,7 +1662,7 @@ final class TorrentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function grantDoubleUp(Request $request, $id): RedirectResponse
     {

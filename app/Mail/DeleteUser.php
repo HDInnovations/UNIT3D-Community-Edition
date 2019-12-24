@@ -32,6 +32,7 @@ final class DeleteUser extends Mailable
      * Create a new message instance.
      *
      * @param $email
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct($email, Repository $configRepository)
     {

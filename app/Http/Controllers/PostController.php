@@ -63,8 +63,11 @@ final class PostController extends Controller
     /**
      * ForumController Constructor.
      *
-     * @param TaggedUserRepository $tag
-     * @param ChatRepository       $chat
+     * @param  TaggedUserRepository  $tag
+     * @param  ChatRepository  $chat
+     * @param  \Illuminate\Routing\Redirector  $redirector
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
+     * @param  \Illuminate\Contracts\View\Factory  $viewFactory
      */
     public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Redirector $redirector, Repository $configRepository, Factory $viewFactory)
     {
@@ -230,10 +233,10 @@ final class PostController extends Controller
     /**
      * Edit A Post In A Topic.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $postId
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit(Request $request, $postId): RedirectResponse
     {
@@ -255,7 +258,7 @@ final class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param                            $postId
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postDelete(Request $request, $postId): RedirectResponse
     {

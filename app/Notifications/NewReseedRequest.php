@@ -36,6 +36,7 @@ final class NewReseedRequest extends Notification implements ShouldQueue
      * Create a new notification instance.
      *
      * @param  Torrent  $torrent
+     * @param  \Illuminate\Contracts\Config\Repository  $configRepository
      */
     public function __construct(Torrent $torrent, Repository $configRepository)
     {
