@@ -42,12 +42,11 @@ final class UsernameReminder extends Notification implements ShouldQueue
      *
      * UsernameReminderEmail constructor.
      */
-    public function __construct(Translator $translator, Repository $configRepository, UrlGenerator $urlGenerator
-    $this->translator = $translator;
-    $this->configRepository = $configRepository;
-    $this->urlGenerator = $urlGenerator;)
+    public function __construct(Translator $translator, Repository $configRepository, UrlGenerator $urlGenerator)
     {
-        // nothing special to do
+        $this->translator = $translator;
+        $this->configRepository = $configRepository;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
