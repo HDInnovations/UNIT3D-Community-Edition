@@ -13,9 +13,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Mail\Mailer;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Mail\BanUser;
 use App\Mail\UnbanUser;
@@ -23,8 +20,10 @@ use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailer;
+use Illuminate\Routing\Redirector;
 
 final class BanController extends Controller
 {
@@ -40,12 +39,14 @@ final class BanController extends Controller
      * @var \Illuminate\Mail\Mailer
      */
     private $mailer;
+
     public function __construct(Factory $viewFactory, Redirector $redirector, Mailer $mailer)
     {
         $this->viewFactory = $viewFactory;
         $this->redirector = $redirector;
         $this->mailer = $mailer;
     }
+
     /**
      * Display All Bans.
      *
@@ -69,7 +70,7 @@ final class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
         abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 

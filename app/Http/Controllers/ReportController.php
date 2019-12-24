@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 final class ReportController extends Controller
 {

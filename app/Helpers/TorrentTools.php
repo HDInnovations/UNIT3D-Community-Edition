@@ -14,6 +14,7 @@
 namespace App\Helpers;
 
 use Illuminate\Contracts\Config\Repository;
+
 final class TorrentTools
 {
     /**
@@ -31,6 +32,7 @@ final class TorrentTools
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;

@@ -14,8 +14,8 @@
 namespace App\Services\Clients;
 
 use Exception;
-use HttpResponseException;
 use GuzzleHttp\Client as GuzzleClient;
+use HttpResponseException;
 
 abstract class Client
 {
@@ -87,7 +87,7 @@ abstract class Client
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            cache()->remember($key, 7 * 24 * 60, fn() => serialize($data));
+            cache()->remember($key, 7 * 24 * 60, fn () => serialize($data));
         }
 
         if (cache()->has($key)) {

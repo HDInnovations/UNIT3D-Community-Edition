@@ -15,6 +15,7 @@ namespace App\Helpers;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Translation\Translator;
+
 final class StringHelper
 {
     /**
@@ -49,6 +50,7 @@ final class StringHelper
      * @var \Illuminate\Translation\Translator
      */
     private $translator;
+
     public function __construct(Repository $configRepository, Translator $translator)
     {
         $this->configRepository = $configRepository;

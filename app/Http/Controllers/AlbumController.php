@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Album;
 use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Image;
 
 final class AlbumController extends Controller
@@ -84,7 +84,7 @@ final class AlbumController extends Controller
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
-        if ($omdb === null || !$omdb) {
+        if ($omdb === null || ! $omdb) {
             return $this->redirector->route('albums.create')
                 ->withErrors('Bad IMDB Request!');
         }

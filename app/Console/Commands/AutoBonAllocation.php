@@ -13,11 +13,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Database\DatabaseManager;
 use App\Models\BonTransactions;
 use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\DatabaseManager;
 
 final class AutoBonAllocation extends Command
 {
@@ -38,6 +37,7 @@ final class AutoBonAllocation extends Command
      * @var \Illuminate\Database\DatabaseManager
      */
     private $databaseManager;
+
     public function __construct(DatabaseManager $databaseManager)
     {
         $this->databaseManager = $databaseManager;

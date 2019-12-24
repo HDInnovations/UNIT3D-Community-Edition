@@ -13,8 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Contracts\View\Factory;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\History;
@@ -24,7 +22,8 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\DatabaseManager;
 
 final class StatsController extends Controller
 {
@@ -40,6 +39,7 @@ final class StatsController extends Controller
      * @var \Illuminate\Database\DatabaseManager
      */
     private $databaseManager;
+
     /**
      * StatsController Constructor.
      */
@@ -62,74 +62,74 @@ final class StatsController extends Controller
         set_time_limit(300);
 
         // Total Members Count (All Groups)
-        $all_user = cache()->remember('all_user', $this->expiresAt, fn() => User::withTrashed()->count());
+        $all_user = cache()->remember('all_user', $this->expiresAt, fn () => User::withTrashed()->count());
 
         // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
         $active_user = cache()->remember('active_user', $this->expiresAt, function () {
-            $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-            $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-            $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+            $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+            $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+            $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             return User::whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->count();
         });
 
         // Total Disabled Members Count
         $disabled_user = cache()->remember('disabled_user', $this->expiresAt, function () {
-            $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             return User::where('group_id', '=', $disabled_group[0])->count();
         });
 
         // Total Pruned Members Count
         $pruned_user = cache()->remember('pruned_user', $this->expiresAt, function (): int {
-            $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+            $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             return User::onlyTrashed()->where('group_id', '=', $pruned_group[0])->count();
         });
 
         // Total Banned Members Count
         $banned_user = cache()->remember('banned_user', $this->expiresAt, function () {
-            $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+            $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
             return User::where('group_id', '=', $banned_group[0])->count();
         });
 
         // Total Torrents Count
-        $num_torrent = cache()->remember('num_torrent', $this->expiresAt, fn() => Torrent::count());
+        $num_torrent = cache()->remember('num_torrent', $this->expiresAt, fn () => Torrent::count());
 
         // Total Categories With Torrent Count
         $categories = Category::withCount('torrents')->get()->sortBy('position');
 
         // Total HD Count
-        $num_hd = cache()->remember('num_hd', $this->expiresAt, fn() => Torrent::where('sd', '=', 0)->count());
+        $num_hd = cache()->remember('num_hd', $this->expiresAt, fn () => Torrent::where('sd', '=', 0)->count());
 
         // Total SD Count
-        $num_sd = cache()->remember('num_sd', $this->expiresAt, fn() => Torrent::where('sd', '=', 1)->count());
+        $num_sd = cache()->remember('num_sd', $this->expiresAt, fn () => Torrent::where('sd', '=', 1)->count());
 
         // Total Torrent Size
-        $torrent_size = cache()->remember('torrent_size', $this->expiresAt, fn() => Torrent::select(['size'])->sum('size'));
+        $torrent_size = cache()->remember('torrent_size', $this->expiresAt, fn () => Torrent::select(['size'])->sum('size'));
 
         // Total Seeders
-        $num_seeders = cache()->remember('num_seeders', $this->expiresAt, fn() => Peer::where('seeder', '=', 1)->count());
+        $num_seeders = cache()->remember('num_seeders', $this->expiresAt, fn () => Peer::where('seeder', '=', 1)->count());
 
         // Total Leechers
-        $num_leechers = cache()->remember('num_leechers', $this->expiresAt, fn() => Peer::where('seeder', '=', 0)->count());
+        $num_leechers = cache()->remember('num_leechers', $this->expiresAt, fn () => Peer::where('seeder', '=', 0)->count());
 
         // Total Peers
-        $num_peers = cache()->remember('num_peers', $this->expiresAt, fn() => Peer::count());
+        $num_peers = cache()->remember('num_peers', $this->expiresAt, fn () => Peer::count());
 
         //Total Upload Traffic Without Double Upload
-        $actual_upload = cache()->remember('actual_upload', $this->expiresAt, fn() => History::all()->sum('actual_uploaded'));
+        $actual_upload = cache()->remember('actual_upload', $this->expiresAt, fn () => History::all()->sum('actual_uploaded'));
 
         //Total Upload Traffic With Double Upload
-        $credited_upload = cache()->remember('credited_upload', $this->expiresAt, fn() => History::all()->sum('uploaded'));
+        $credited_upload = cache()->remember('credited_upload', $this->expiresAt, fn () => History::all()->sum('uploaded'));
 
         //Total Download Traffic Without Freeleech
-        $actual_download = cache()->remember('actual_download', $this->expiresAt, fn() => History::all()->sum('actual_downloaded'));
+        $actual_download = cache()->remember('actual_download', $this->expiresAt, fn () => History::all()->sum('actual_downloaded'));
 
         //Total Download Traffic With Freeleech
-        $credited_download = cache()->remember('credited_download', $this->expiresAt, fn() => History::all()->sum('downloaded'));
+        $credited_download = cache()->remember('credited_download', $this->expiresAt, fn () => History::all()->sum('downloaded'));
 
         //Total Up/Down Traffic without perks
         $actual_up_down = $actual_upload + $actual_download;
@@ -167,10 +167,10 @@ final class StatsController extends Controller
      */
     public function uploaded(): Factory
     {
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Uploaders
         $uploaded = User::latest('uploaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
@@ -185,10 +185,10 @@ final class StatsController extends Controller
      */
     public function downloaded(): Factory
     {
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Downloaders
         $downloaded = User::latest('downloaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
@@ -242,10 +242,10 @@ final class StatsController extends Controller
      */
     public function bankers(): Factory
     {
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Bankers
         $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();

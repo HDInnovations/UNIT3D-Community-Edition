@@ -13,13 +13,13 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Events\Dispatcher;
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Group;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Events\Dispatcher;
 
 final class AutoSoftDeleteDisabledUsers extends Command
 {
@@ -44,6 +44,7 @@ final class AutoSoftDeleteDisabledUsers extends Command
      * @var \Illuminate\Events\Dispatcher
      */
     private $eventDispatcher;
+
     public function __construct(Repository $configRepository, Dispatcher $eventDispatcher)
     {
         $this->configRepository = $configRepository;
@@ -59,8 +60,8 @@ final class AutoSoftDeleteDisabledUsers extends Command
     public function handle(): void
     {
         if ($this->configRepository->get('pruning.user_pruning') == true) {
-            $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+            $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
             $users = User::where('group_id', '=', $disabled_group[0])

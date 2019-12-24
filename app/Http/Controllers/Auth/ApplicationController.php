@@ -12,16 +12,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Translation\Translator;
-use Illuminate\Support\Collection;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\ApplicationImageProof;
 use App\Models\ApplicationUrlProof;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Collection;
+use Illuminate\Translation\Translator;
 
 final class ApplicationController extends Controller
 {
@@ -41,6 +41,7 @@ final class ApplicationController extends Controller
      * @var \Illuminate\Translation\Translator
      */
     private $translator;
+
     public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Translator $translator)
     {
         $this->viewFactory = $viewFactory;
@@ -48,6 +49,7 @@ final class ApplicationController extends Controller
         $this->redirector = $redirector;
         $this->translator = $translator;
     }
+
     /**
      * Application Add Form.
      *
@@ -147,11 +149,11 @@ final class ApplicationController extends Controller
             $application->save();
 
             // Map And Save IMG Proofs
-            $imgs = (new Collection($request->input('images')))->map(fn($value) => new ApplicationImageProof(['image' => $value]));
+            $imgs = (new Collection($request->input('images')))->map(fn ($value) => new ApplicationImageProof(['image' => $value]));
             $application->imageProofs()->saveMany($imgs);
 
             // Map And Save URL Proofs
-            $urls = (new Collection($request->input('links')))->map(fn($value) => new ApplicationUrlProof(['url' => $value]));
+            $urls = (new Collection($request->input('links')))->map(fn ($value) => new ApplicationUrlProof(['url' => $value]));
             $application->urlProofs()->saveMany($urls);
 
             return $this->redirector->route('login')

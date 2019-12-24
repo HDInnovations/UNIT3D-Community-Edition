@@ -13,12 +13,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
-use Exception;
-use App\Models\Torrent;
-use App\Models\User;
 use App\Services\Clients\OmdbClient;
+use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Str;
 
 final class DemoSeed extends Command

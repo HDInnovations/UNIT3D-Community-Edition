@@ -13,8 +13,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 final class RouteServiceProvider extends ServiceProvider
@@ -31,6 +31,7 @@ final class RouteServiceProvider extends ServiceProvider
      * @var \Illuminate\Routing\Router
      */
     private $router;
+
     public function __construct(Router $router)
     {
         $this->router = $router;

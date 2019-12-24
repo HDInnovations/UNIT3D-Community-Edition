@@ -13,12 +13,12 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 
 final class AutoPreWarning extends Command
 {
@@ -39,6 +39,7 @@ final class AutoPreWarning extends Command
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;

@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Translation\Translator;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
+use Illuminate\Routing\Redirector;
+use Illuminate\Translation\Translator;
 
 final class ActivationController extends Controller
 {
@@ -29,18 +29,20 @@ final class ActivationController extends Controller
      * @var \Illuminate\Translation\Translator
      */
     private $translator;
+
     public function __construct(Redirector $redirector, Translator $translator)
     {
         $this->redirector = $redirector;
         $this->translator = $translator;
     }
+
     /**
      * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function activate($token)
     {
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $banned_group[0]) {

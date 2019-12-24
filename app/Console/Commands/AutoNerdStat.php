@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Ban;
 use App\Models\Peer;
 use App\Models\Torrent;
@@ -22,6 +21,7 @@ use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 
 final class AutoNerdStat extends Command
 {

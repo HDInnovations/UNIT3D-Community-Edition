@@ -14,11 +14,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Hashing\BcryptHasher;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Support\Str;
 
 final class ResetPasswordController extends Controller
@@ -42,8 +42,8 @@ final class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password): void
     {
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
         $user->password = $this->bcryptHasher->make($password);
         $user->remember_token = Str::random(60);
 

@@ -13,16 +13,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\Compilers\BladeCompiler;
 use App\Helpers\HiddenCaptcha;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
-use Illuminate\Support\Facades\Blade;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\View;
 
 final class AppServiceProvider extends ServiceProvider
@@ -39,6 +38,7 @@ final class AppServiceProvider extends ServiceProvider
      * @var \Illuminate\View\Compilers\BladeCompiler
      */
     private $bladeCompiler;
+
     public function __construct(Repository $configRepository, Factory $viewFactory, BladeCompiler $bladeCompiler)
     {
         $this->configRepository = $configRepository;
@@ -46,6 +46,7 @@ final class AppServiceProvider extends ServiceProvider
         $this->viewFactory = $viewFactory;
         $this->bladeCompiler = $bladeCompiler;
     }
+
     /**
      * Register any application services.
      *
@@ -83,13 +84,13 @@ final class AppServiceProvider extends ServiceProvider
 
         // Share $pages across all views
         $this->viewFactory->composer('*', function (View $view) {
-            $pages = cache()->remember('cached-pages', 3_600, fn() => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
+            $pages = cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
 
             $view->with(['pages' => $pages]);
         });
 
         // Hidden Captcha
-        $this->bladeCompiler->directive('hiddencaptcha', fn($mustBeEmptyField = '_username') => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
+        $this->bladeCompiler->directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',

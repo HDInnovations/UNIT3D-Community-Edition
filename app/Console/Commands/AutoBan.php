@@ -13,16 +13,14 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Mail\Mailer;
 use App\Mail\BanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\Warning;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Mail\Mailer;
 
 final class AutoBan extends Command
 {
@@ -51,6 +49,7 @@ final class AutoBan extends Command
      * @var \Illuminate\Mail\Mailer
      */
     private $mailer;
+
     public function __construct(DatabaseManager $databaseManager, Repository $configRepository, Mailer $mailer)
     {
         $this->databaseManager = $databaseManager;
@@ -66,7 +65,7 @@ final class AutoBan extends Command
      */
     public function handle(): void
     {
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
         $bans = Warning::with('warneduser')->select($this->databaseManager->raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', $this->configRepository->get('hitrun.max_warnings'))->get();
 

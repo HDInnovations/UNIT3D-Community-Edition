@@ -13,11 +13,11 @@
 
 namespace App\Services;
 
-use ErrorException;
 use App\Services\Clients\OmdbClient;
 use App\Services\Clients\TmdbClient;
 use App\Services\Data\Movie;
 use App\Services\Data\Tv;
+use ErrorException;
 
 final class MovieScrapper
 {

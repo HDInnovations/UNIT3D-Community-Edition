@@ -13,13 +13,12 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\Warning;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\DatabaseManager;
 
 final class AutoRevokePermissions extends Command
 {
@@ -44,6 +43,7 @@ final class AutoRevokePermissions extends Command
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(DatabaseManager $databaseManager, Repository $configRepository)
     {
         $this->databaseManager = $databaseManager;
@@ -58,11 +58,11 @@ final class AutoRevokePermissions extends Command
      */
     public function handle(): void
     {
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $leech_group = cache()->rememberForever('leech_group', fn() => Group::where('slug', '=', 'leech')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $leech_group = cache()->rememberForever('leech_group', fn () => Group::where('slug', '=', 'leech')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         User::whereNotIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '1', 'can_request' => '1']);
         User::whereIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '0', 'can_request' => '0']);

@@ -13,11 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
-use App\Services\MovieScrapper;
 use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
@@ -38,8 +33,13 @@ use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
 use App\Repositories\ChatRepository;
 use App\Repositories\RequestFacetedRepository;
+use App\Services\MovieScrapper;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -480,7 +480,7 @@ final class RequestController extends Controller
         $user = $request->user();
 
         $tr = TorrentRequest::with('user')->findOrFail($id);
-        ++$tr->votes;
+        $tr->votes++;
         $tr->bounty += $request->input('bonus_value');
         $tr->created_at = Carbon::now();
 

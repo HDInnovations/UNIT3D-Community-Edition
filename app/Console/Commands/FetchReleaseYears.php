@@ -12,10 +12,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 final class FetchReleaseYears extends Command
@@ -37,6 +37,7 @@ final class FetchReleaseYears extends Command
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $configRepository;
+
     public function __construct(Repository $configRepository)
     {
         $this->configRepository = $configRepository;

@@ -13,9 +13,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Broadcasting\Factory;
-use Illuminate\Events\Dispatcher;
 use App\Events\Chatter;
 use App\Events\MessageDeleted;
 use App\Events\MessageSent;
@@ -28,6 +25,9 @@ use App\Models\Message;
 use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
+use Illuminate\Contracts\Broadcasting\Factory;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Str;
 
 final class ChatRepository

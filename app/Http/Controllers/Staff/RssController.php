@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Rss;
 use App\Models\Type;
 use App\Repositories\TorrentFacetedRepository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 
 final class RssController extends Controller
 {

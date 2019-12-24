@@ -13,15 +13,14 @@
 
 namespace App\Jobs;
 
-use Illuminate\Mail\Mailer;
 use App\Mail\DeleteUser;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Mail\Mailer;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
 final class SendDeleteUserMail implements ShouldQueue
 {

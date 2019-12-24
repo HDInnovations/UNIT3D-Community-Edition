@@ -14,12 +14,11 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Translation\Translator;
-use Exception;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 final class SystemInformation
 {
@@ -35,12 +34,14 @@ final class SystemInformation
      * @var \Illuminate\Translation\Translator
      */
     private $translator;
+
     public function __construct(Repository $configRepository, DatabaseManager $databaseManager, Translator $translator)
     {
         $this->configRepository = $configRepository;
         $this->databaseManager = $databaseManager;
         $this->translator = $translator;
     }
+
     public function avg(): float
     {
         if (is_readable('/proc/loadavg')) {

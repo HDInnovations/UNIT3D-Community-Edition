@@ -13,11 +13,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Routing\Redirector;
-use Illuminate\Translation\Translator;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\Hashing\Hasher;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendActivationMail;
 use App\Models\Group;
@@ -29,9 +24,13 @@ use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Str;
+use Illuminate\Translation\Translator;
 
 final class RegisterController extends Controller
 {
@@ -110,7 +109,7 @@ final class RegisterController extends Controller
                 ->withErrors($this->translator->trans('auth.invalid-key'));
         }
 
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');

@@ -13,12 +13,12 @@
 
 namespace App\Notifications;
 
-use Illuminate\Translation\Translator;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Translation\Translator;
 
 final class FailedLogin extends Notification implements ShouldQueue
 {

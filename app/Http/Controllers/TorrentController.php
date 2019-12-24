@@ -13,15 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Routing\Redirector;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
-use App\Services\MovieScrapper;
-use Log;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
@@ -48,11 +39,20 @@ use App\Models\Warning;
 use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
+use App\Services\MovieScrapper;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Routing\Redirector;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Log;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -1280,7 +1280,7 @@ final class TorrentController extends Controller
         $client = new MovieScrapper($this->configRepository->get('api-keys.tmdb'), $this->configRepository->get('api-keys.tvdb'), $this->configRepository->get('api-keys.omdb'));
         $requestFile = $request->file('torrent');
 
-        if (!$request->hasFile('torrent')) {
+        if (! $request->hasFile('torrent')) {
             return $this->viewFactory->make('torrent.upload', [
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),

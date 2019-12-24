@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Contracts\Config\Repository;
 use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Message;
@@ -22,6 +21,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 
 final class AutoGraveyard extends Command
 {

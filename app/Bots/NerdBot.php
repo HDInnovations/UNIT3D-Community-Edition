@@ -12,9 +12,6 @@
 
 namespace App\Bots;
 
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Events\Chatter;
 use App\Http\Resources\UserAudibleResource;
 use App\Http\Resources\UserEchoResource;
@@ -29,6 +26,9 @@ use App\Models\UserEcho;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Events\Dispatcher;
 
 final class NerdBot
 {
