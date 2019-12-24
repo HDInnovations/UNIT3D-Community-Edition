@@ -24,7 +24,7 @@ final class TorrentFacetedRepository
     /**
      * @var \Illuminate\Translation\Translator
      */
-    private $translator;
+    private Translator $translator;
 
     public function __construct(Translator $translator)
     {

@@ -33,15 +33,15 @@ final class ModerationController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
 
     /**
      * ModerationController Constructor.

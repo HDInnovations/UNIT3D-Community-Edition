@@ -24,7 +24,7 @@ final class CategoryController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
 
     public function __construct(Factory $viewFactory)
     {

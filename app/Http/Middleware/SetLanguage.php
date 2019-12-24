@@ -29,19 +29,19 @@ final class SetLanguage
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Foundation\Application
      */
-    private $application;
+    private Application $application;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Session\SessionManager
      */
-    private $sessionManager;
+    private SessionManager $sessionManager;
 
     public function __construct(Repository $configRepository, Application $application, Guard $guard, SessionManager $sessionManager)
     {

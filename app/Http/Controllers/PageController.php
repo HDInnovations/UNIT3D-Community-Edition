@@ -23,15 +23,15 @@ final class PageController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     public function __construct(Factory $viewFactory, DatabaseManager $databaseManager, Repository $configRepository)
     {

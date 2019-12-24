@@ -44,7 +44,7 @@ final class WishRepository implements WishInterface
     /**
      * @var \Illuminate\Routing\UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
 
     /**
      * WishRepository constructor.

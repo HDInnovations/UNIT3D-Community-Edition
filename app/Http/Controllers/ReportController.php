@@ -29,7 +29,7 @@ final class ReportController extends Controller
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
 
     /**
      * ReportController Constructor.

@@ -26,15 +26,15 @@ final class ReportController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
 
     public function __construct(Factory $viewFactory, Guard $guard, Redirector $redirector)
     {

@@ -33,15 +33,15 @@ final class AnnounceController extends Controller
     /**
      * @var \Illuminate\Log\Writer
      */
-    private $logWriter;
+    private Writer $logWriter;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     public function __construct(Writer $logWriter, ResponseFactory $responseFactory, Repository $configRepository)
     {

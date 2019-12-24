@@ -54,11 +54,11 @@ final class CommentController extends Controller
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
 
     /**
      * CommentController Constructor.

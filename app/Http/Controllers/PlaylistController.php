@@ -35,19 +35,19 @@ final class PlaylistController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     /**
      * PlaylistController Constructor.

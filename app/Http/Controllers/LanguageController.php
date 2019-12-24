@@ -25,19 +25,19 @@ final class LanguageController extends Controller
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Contracts\Routing\UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
 
     public function __construct(Repository $configRepository, Guard $guard, UrlGenerator $urlGenerator, Redirector $redirector)
     {

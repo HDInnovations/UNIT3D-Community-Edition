@@ -39,11 +39,11 @@ final class AutoDisableInactiveUsers extends Command
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Events\Dispatcher
      */
-    private $eventDispatcher;
+    private Dispatcher $eventDispatcher;
 
     public function __construct(Repository $configRepository, Dispatcher $eventDispatcher)
     {

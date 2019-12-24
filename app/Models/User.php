@@ -222,15 +222,15 @@ final class User extends Authenticatable
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Translation\Translator
      */
-    private $translator;
+    private Translator $translator;
 
     public function __construct(Repository $configRepository, Guard $guard, Translator $translator)
     {

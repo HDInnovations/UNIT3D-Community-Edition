@@ -56,11 +56,11 @@ final class SystemBot
     /**
      * @var \Illuminate\Events\Dispatcher
      */
-    private $eventDispatcher;
+    private Dispatcher $eventDispatcher;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     /**
      * SystemBot Constructor.
@@ -116,7 +116,7 @@ final class SystemBot
      */
     public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
     {
-        $output = implode(' ', $note);
+        $output = implode((array) ' ', $note);
         $v = validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
             'receiver'   => 'required|string|exists:users,username',
             'amount'  => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),

@@ -21,7 +21,7 @@ final class ArticleController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
 
     public function __construct(Factory $viewFactory)
     {

@@ -37,7 +37,7 @@ final class AutoHighspeedTag extends Command
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
 
     public function __construct(DatabaseManager $databaseManager)
     {

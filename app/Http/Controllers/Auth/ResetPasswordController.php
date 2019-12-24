@@ -32,7 +32,7 @@ final class ResetPasswordController extends Controller
     /**
      * @var \Illuminate\Hashing\BcryptHasher
      */
-    private $bcryptHasher;
+    private BcryptHasher $bcryptHasher;
 
     public function __construct(BcryptHasher $bcryptHasher)
     {

@@ -40,7 +40,7 @@ final class SendDisableUserMail implements ShouldQueue
     /**
      * @var \Illuminate\Mail\Mailer
      */
-    private $mailer;
+    private Mailer $mailer;
 
     /**
      * ActivateUser constructor.

@@ -37,7 +37,7 @@ final class DemoSeed extends Command
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     /**
      * Create a new command instance.

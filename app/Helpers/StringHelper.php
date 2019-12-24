@@ -45,11 +45,11 @@ final class StringHelper
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Translation\Translator
      */
-    private $translator;
+    private Translator $translator;
 
     public function __construct(Repository $configRepository, Translator $translator)
     {

@@ -24,11 +24,11 @@ final class ActivationController extends Controller
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Translation\Translator
      */
-    private $translator;
+    private Translator $translator;
 
     public function __construct(Redirector $redirector, Translator $translator)
     {

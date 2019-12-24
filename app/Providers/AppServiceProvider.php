@@ -29,15 +29,15 @@ final class AppServiceProvider extends ServiceProvider
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\View\Compilers\BladeCompiler
      */
-    private $bladeCompiler;
+    private BladeCompiler $bladeCompiler;
 
     public function __construct(Repository $configRepository, Factory $viewFactory, BladeCompiler $bladeCompiler)
     {

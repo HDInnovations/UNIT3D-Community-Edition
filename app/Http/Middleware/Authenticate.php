@@ -22,7 +22,7 @@ final class Authenticate extends Middleware
     /**
      * @var \Illuminate\Routing\UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
 
     public function __construct(UrlGenerator $urlGenerator)
     {

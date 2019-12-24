@@ -26,7 +26,7 @@ final class DeleteUser extends Mailable
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     /**
      * Create a new message instance.

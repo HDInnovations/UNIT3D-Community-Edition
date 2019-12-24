@@ -30,31 +30,31 @@ final class BackupController extends Controller
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Translation\Translator
      */
-    private $translator;
+    private Translator $translator;
     /**
      * @var \Illuminate\Filesystem\FilesystemManager
      */
-    private $filesystemManager;
+    private FilesystemManager $filesystemManager;
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Contracts\Console\Kernel
      */
-    private $kernel;
+    private Kernel $kernel;
     /**
      * @var \Illuminate\Log\Writer
      */
-    private $logWriter;
+    private Writer $logWriter;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     public function __construct(Repository $configRepository, Translator $translator, FilesystemManager $filesystemManager, Factory $viewFactory, Kernel $kernel, Writer $logWriter, ResponseFactory $responseFactory)
     {

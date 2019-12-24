@@ -30,19 +30,19 @@ final class InviteController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Mail\Mailer
      */
-    private $mailer;
+    private Mailer $mailer;
 
     public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Mailer $mailer)
     {

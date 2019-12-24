@@ -26,7 +26,7 @@ final class BackupPassword
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.

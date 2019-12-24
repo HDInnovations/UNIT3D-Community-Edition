@@ -30,7 +30,7 @@ final class ProAjaxMiddleware
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     public function __construct(ResponseFactory $responseFactory)
     {

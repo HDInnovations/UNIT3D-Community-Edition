@@ -109,7 +109,7 @@ final class TorrentRequest extends Model
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
 
     public function __construct(Guard $guard)
     {

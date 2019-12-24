@@ -37,7 +37,7 @@ final class TestMailSettings extends Command
     /**
      * @var \Illuminate\Mail\Mailer
      */
-    private $mailer;
+    private Mailer $mailer;
 
     public function __construct(Mailer $mailer)
     {

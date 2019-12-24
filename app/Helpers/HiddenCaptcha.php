@@ -26,11 +26,11 @@ final class HiddenCaptcha
     /**
      * @var \Illuminate\Session\SessionManager
      */
-    private $sessionManager;
+    private SessionManager $sessionManager;
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
 
     public function __construct(SessionManager $sessionManager, Factory $viewFactory)
     {

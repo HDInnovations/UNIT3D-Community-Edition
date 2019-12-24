@@ -15,7 +15,7 @@ namespace App\Services\Data;
 
 final class Genre
 {
-    public $genres;
+    public array $genres;
 
     /**
      * @var string[]

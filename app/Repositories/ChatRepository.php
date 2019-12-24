@@ -69,15 +69,15 @@ final class ChatRepository
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Contracts\Broadcasting\Factory
      */
-    private $broadcastFactory;
+    private Factory $broadcastFactory;
     /**
      * @var \Illuminate\Events\Dispatcher
      */
-    private $eventDispatcher;
+    private Dispatcher $eventDispatcher;
 
     public function __construct(Message $message, Chatroom $room, ChatStatus $status, User $user, Bot $bot, UserEcho $echo, UserAudible $audible, Repository $configRepository, Factory $broadcastFactory, Dispatcher $eventDispatcher)
     {

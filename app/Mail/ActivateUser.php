@@ -35,7 +35,7 @@ final class ActivateUser extends Mailable
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     /**
      * ActivateUser constructor.

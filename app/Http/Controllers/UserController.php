@@ -49,35 +49,35 @@ final class UserController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Contracts\Hashing\Hasher
      */
-    private $hasher;
+    private Hasher $hasher;
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
     /**
      * @var \Illuminate\Routing\UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     public function __construct(Factory $viewFactory, Repository $configRepository, Redirector $redirector, Guard $guard, Hasher $hasher, DatabaseManager $databaseManager, UrlGenerator $urlGenerator, ResponseFactory $responseFactory)
     {

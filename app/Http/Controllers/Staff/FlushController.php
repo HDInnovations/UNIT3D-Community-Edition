@@ -33,11 +33,11 @@ final class FlushController extends Controller
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Contracts\Broadcasting\Factory
      */
-    private $broadcastFactory;
+    private Factory $broadcastFactory;
 
     /**
      * ChatController Constructor.

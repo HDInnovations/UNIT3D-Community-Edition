@@ -70,27 +70,27 @@ final class TorrentController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Routing\UrlGenerator
      */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     /**
      * RequestController Constructor.

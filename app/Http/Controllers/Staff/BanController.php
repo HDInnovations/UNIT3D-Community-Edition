@@ -30,15 +30,15 @@ final class BanController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Mail\Mailer
      */
-    private $mailer;
+    private Mailer $mailer;
 
     public function __construct(Factory $viewFactory, Redirector $redirector, Mailer $mailer)
     {

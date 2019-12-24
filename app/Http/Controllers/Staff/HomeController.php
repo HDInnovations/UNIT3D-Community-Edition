@@ -32,11 +32,11 @@ final class HomeController extends Controller
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
 
     public function __construct(Repository $configRepository, Factory $viewFactory)
     {

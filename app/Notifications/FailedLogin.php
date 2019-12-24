@@ -40,7 +40,7 @@ final class FailedLogin extends Notification implements ShouldQueue
     /**
      * @var \Illuminate\Translation\Translator
      */
-    private $translator;
+    private Translator $translator;
 
     /**
      * Create a new notification instance.

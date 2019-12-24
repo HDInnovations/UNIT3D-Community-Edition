@@ -73,15 +73,15 @@ final class NerdBot
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Events\Dispatcher
      */
-    private $eventDispatcher;
+    private Dispatcher $eventDispatcher;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     /**
      * NerdBot Constructor.
@@ -362,7 +362,7 @@ final class NerdBot
      */
     public function putDonate(int $amount = 0, string $note = ''): string
     {
-        $output = implode(' ', $note);
+        $output = implode((array) ' ', $note);
         $v = validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
             'amount'  => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),

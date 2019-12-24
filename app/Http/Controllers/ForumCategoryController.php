@@ -25,11 +25,11 @@ final class ForumCategoryController extends Controller
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
 
     public function __construct(Redirector $redirector, Factory $viewFactory)
     {

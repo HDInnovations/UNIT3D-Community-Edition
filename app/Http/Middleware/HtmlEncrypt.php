@@ -27,7 +27,7 @@ final class HtmlEncrypt
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     /**
      * HtmlEncrypt constructor.

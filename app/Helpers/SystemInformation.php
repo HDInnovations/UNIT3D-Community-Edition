@@ -25,15 +25,15 @@ final class SystemInformation
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
     /**
      * @var \Illuminate\Translation\Translator
      */
-    private $translator;
+    private Translator $translator;
 
     public function __construct(Repository $configRepository, DatabaseManager $databaseManager, Translator $translator)
     {

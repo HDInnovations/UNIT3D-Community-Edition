@@ -24,11 +24,11 @@ final class CheckIfBanned
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
 
     public function __construct(Guard $guard, Redirector $redirector)
     {

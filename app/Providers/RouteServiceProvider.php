@@ -30,7 +30,7 @@ final class RouteServiceProvider extends ServiceProvider
     /**
      * @var \Illuminate\Routing\Router
      */
-    private $router;
+    private Router $router;
 
     public function __construct(Router $router)
     {

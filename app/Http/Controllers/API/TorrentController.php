@@ -34,7 +34,7 @@ class TorrentController extends BaseController
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private ChatRepository $chat;
 
     /**
      * RequestController Constructor.

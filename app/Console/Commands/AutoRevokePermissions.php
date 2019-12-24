@@ -38,11 +38,11 @@ final class AutoRevokePermissions extends Command
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     public function __construct(DatabaseManager $databaseManager, Repository $configRepository)
     {

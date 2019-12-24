@@ -26,15 +26,15 @@ final class TwoStepAuth
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Session\SessionManager
      */
-    private $sessionManager;
+    private SessionManager $sessionManager;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
 
     public function __construct(Repository $configRepository, SessionManager $sessionManager, Redirector $redirector)
     {

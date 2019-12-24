@@ -50,11 +50,11 @@ final class ChatController extends Controller
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
     /**
      * @var \Illuminate\Events\Dispatcher
      */
-    private $eventDispatcher;
+    private Dispatcher $eventDispatcher;
 
     public function __construct(ChatRepository $chat, Factory $auth, ResponseFactory $responseFactory, Dispatcher $eventDispatcher)
     {

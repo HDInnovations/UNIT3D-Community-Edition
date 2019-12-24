@@ -27,11 +27,11 @@ final class VersionController extends Controller
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     public function __construct(Repository $configRepository, ResponseFactory $responseFactory)
     {

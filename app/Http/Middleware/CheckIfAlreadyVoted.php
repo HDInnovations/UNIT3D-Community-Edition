@@ -24,7 +24,7 @@ final class CheckIfAlreadyVoted
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
 
     public function __construct(Redirector $redirector)
     {

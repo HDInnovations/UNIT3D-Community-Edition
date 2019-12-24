@@ -40,15 +40,15 @@ final class AutoBan extends Command
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
     /**
      * @var \Illuminate\Mail\Mailer
      */
-    private $mailer;
+    private Mailer $mailer;
 
     public function __construct(DatabaseManager $databaseManager, Repository $configRepository, Mailer $mailer)
     {

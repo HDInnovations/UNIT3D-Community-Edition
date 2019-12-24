@@ -32,7 +32,7 @@ final class AutoGraveyard extends Command
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     public function __construct(ChatRepository $chat, Repository $configRepository)
     {

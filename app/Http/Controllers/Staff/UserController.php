@@ -40,19 +40,19 @@ final class UserController extends Controller
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
     /**
      * @var \Illuminate\Routing\Redirector
      */
-    private $redirector;
+    private Redirector $redirector;
     /**
      * @var \Illuminate\Contracts\Auth\Guard
      */
-    private $guard;
+    private Guard $guard;
     /**
      * @var \Illuminate\Contracts\Hashing\Hasher
      */
-    private $hasher;
+    private Hasher $hasher;
 
     public function __construct(Factory $viewFactory, Redirector $redirector, Guard $guard, Hasher $hasher)
     {

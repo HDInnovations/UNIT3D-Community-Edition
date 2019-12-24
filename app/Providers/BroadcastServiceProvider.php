@@ -21,7 +21,7 @@ final class BroadcastServiceProvider extends ServiceProvider
     /**
      * @var \Illuminate\Contracts\Broadcasting\Factory
      */
-    private $factory;
+    private Factory $factory;
 
     public function __construct(Factory $factory)
     {

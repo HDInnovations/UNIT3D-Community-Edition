@@ -23,11 +23,11 @@ final class CheaterController extends Controller
     /**
      * @var \Illuminate\Database\DatabaseManager
      */
-    private $databaseManager;
+    private DatabaseManager $databaseManager;
     /**
      * @var \Illuminate\Contracts\View\Factory
      */
-    private $viewFactory;
+    private Factory $viewFactory;
 
     public function __construct(DatabaseManager $databaseManager, Factory $viewFactory)
     {

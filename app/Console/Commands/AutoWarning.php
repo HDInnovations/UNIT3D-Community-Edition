@@ -38,7 +38,7 @@ final class AutoWarning extends Command
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     public function __construct(Repository $configRepository)
     {

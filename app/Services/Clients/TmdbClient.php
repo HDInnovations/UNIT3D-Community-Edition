@@ -49,7 +49,7 @@ final class TmdbClient extends Client implements MovieTvInterface
     /**
      * @var \Illuminate\Contracts\Config\Repository
      */
-    private $configRepository;
+    private Repository $configRepository;
 
     public function __construct($apiKey, Repository $configRepository)
     {

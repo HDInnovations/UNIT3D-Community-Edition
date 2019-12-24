@@ -45,7 +45,7 @@ final class SendActivationMail implements ShouldQueue
     /**
      * @var \Illuminate\Mail\Mailer
      */
-    private $mailer;
+    private Mailer $mailer;
 
     /**
      * ActivateUser constructor.
