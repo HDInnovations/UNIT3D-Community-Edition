@@ -33,6 +33,7 @@ use App\Models\Warning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Image;
 use ZipArchive;
@@ -2070,6 +2071,11 @@ class UserController extends Controller
 
         // Define Dir Folder
         $path = getcwd().'/files/tmp_zip/';
+
+        // Check Directory exists
+        if(!File::isDirectory($path)){
+            File::makeDirectory($path, 0755, true, true);
+        }
 
         // Zip File Name
         $zipFileName = "{$user->username}.zip";
