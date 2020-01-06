@@ -309,7 +309,7 @@
                                     </div>
                                     <div class="card_body">
                                         <div class="body_poster">
-                                            @if ($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) &&
+                                            @if (($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) &&
                                                 $t->meta->poster && $t->meta->title)
                                                 <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}"
                                                     class="show-poster"
