@@ -309,7 +309,7 @@
                                     </div>
                                     <div class="card_body">
                                         <div class="body_poster">
-                                            @if ($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) &&
+                                            @if (($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) &&
                                                 $t->meta->poster && $t->meta->title)
                                                 <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}"
                                                     class="show-poster"
@@ -340,7 +340,7 @@
                                         <div class="body_description">
                                             <h3 class="description_title">
                                                 <a href="{{ route('torrent', ['id' => $t->id]) }}">{{ $t->name }}
-                                                    @if($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) &&
+                                                    @if(($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) &&
                                                         $t->meta->releaseYear)
                                                         <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
                                                     @endif
@@ -367,7 +367,7 @@
                                                 @endforeach
                                             @endif
                                             <p class="description_plot">
-                                                @if($t->category->movie_meta || $t->category->tv_meta && $t->meta &&
+                                                @if(($t->category->movie_meta || $t->category->tv_meta) && $t->meta &&
                                                     $t->meta->plot)
                                                     {{ $t->meta->plot }}
                                                 @endif
