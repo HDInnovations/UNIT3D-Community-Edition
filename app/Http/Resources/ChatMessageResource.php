@@ -43,11 +43,11 @@ class ChatMessageResource extends JsonResource
         }
 
         return [
-            'id' => $this->id,
-            'bot' => new BotResource($this->whenLoaded('bot')),
-            'user' => new UserResource($this->whenLoaded('user')),
-            'receiver' => new UserResource($this->whenLoaded('receiver')),
-            'chatroom' => new ChatRoomResource($this->whenLoaded('chatroom')),
+            'id'         => $this->id,
+            'bot'        => new BotResource($this->whenLoaded('bot')),
+            'user'       => new UserResource($this->whenLoaded('user')),
+            'receiver'   => new UserResource($this->whenLoaded('receiver')),
+            'chatroom'   => new ChatRoomResource($this->whenLoaded('chatroom')),
             'message'    => htmlspecialchars_decode($logger),
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),

@@ -99,9 +99,9 @@ class UserController extends Controller
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
 
         return view('user.followers', [
-            'route' => 'follower',
+            'route'   => 'follower',
             'results' => $results,
-            'user' => $user,
+            'user'    => $user,
         ]);
     }
 
@@ -118,9 +118,9 @@ class UserController extends Controller
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
         return view('user.topics', [
-            'route' => 'forum',
+            'route'   => 'forum',
             'results' => $results,
-            'user' => $user,
+            'user'    => $user,
         ]);
     }
 
@@ -137,9 +137,9 @@ class UserController extends Controller
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         return view('user.posts', [
-            'route' => 'forum',
+            'route'   => 'forum',
             'results' => $results,
-            'user' => $user,
+            'user'    => $user,
         ]);
     }
 
@@ -1310,7 +1310,7 @@ class UserController extends Controller
             }
 
             return view('user.filters.seeds', [
-                'user' => $user,
+                'user'  => $user,
                 'seeds' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'requests') {
@@ -1369,7 +1369,7 @@ class UserController extends Controller
             }
 
             return view('user.filters.requests', [
-                'user' => $user,
+                'user'            => $user,
                 'torrentRequests' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
@@ -1415,7 +1415,7 @@ class UserController extends Controller
             }
 
             return view('user.filters.resurrections', [
-                'user' => $user,
+                'user'          => $user,
                 'resurrections' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'active') {
@@ -1459,7 +1459,7 @@ class UserController extends Controller
             }
 
             return view('user.filters.active', [
-                'user' => $user,
+                'user'   => $user,
                 'active' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'unsatisfieds') {
@@ -1523,7 +1523,7 @@ class UserController extends Controller
             }
 
             return view('user.filters.unsatisfieds', [
-                'user' => $user,
+                'user'      => $user,
                 'downloads' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'downloads') {
@@ -1593,7 +1593,7 @@ class UserController extends Controller
             }
 
             return view('user.filters.downloads', [
-                'user' => $user,
+                'user'      => $user,
                 'downloads' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'uploads') {
@@ -1654,7 +1654,7 @@ class UserController extends Controller
             }
 
             return view('user.filters.uploads', [
-                'user' => $user,
+                'user'    => $user,
                 'uploads' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'history') {
@@ -1712,7 +1712,7 @@ class UserController extends Controller
             $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
 
             return view('user.filters.history', [
-                'user' => $user,
+                'user'    => $user,
                 'history' => $table,
             ])->render();
         }
@@ -1754,7 +1754,7 @@ class UserController extends Controller
             }
 
             return view($logger, [
-                'route'        => 'downloads',
+                'route'         => 'downloads',
                 'user'          => $user,
                 'downloads'     => $downloads,
                 'his_upl'       => $his_upl,
@@ -1784,8 +1784,8 @@ class UserController extends Controller
 
             return view($logger, [
                 'route'        => 'downloads',
-                'user'        => $user,
-                'downloads'   => $downloads,
+                'user'         => $user,
+                'downloads'    => $downloads,
             ]);
         }
     }
@@ -1806,8 +1806,8 @@ class UserController extends Controller
             $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->latest()->paginate(25);
 
             return view($logger, [
-                'route'         => 'requests',
-                'user'          => $user,
+                'route'           => 'requests',
+                'user'            => $user,
                 'torrentRequests' => $torrentRequests,
             ]);
         } else {
@@ -1816,8 +1816,8 @@ class UserController extends Controller
             $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
             return view($logger, [
-                'route'         => 'requests',
-                'user'          => $user,
+                'route'           => 'requests',
+                'user'            => $user,
                 'torrentRequests' => $torrentRequests,
             ]);
         }
@@ -1860,7 +1860,7 @@ class UserController extends Controller
         }
 
         return view($logger, [
-            'route'        => 'unsatisfieds',
+            'route'         => 'unsatisfieds',
             'user'          => $user,
             'downloads'     => $downloads,
             'his_upl'       => $his_upl,
@@ -1990,12 +1990,12 @@ class UserController extends Controller
             ->paginate(50);
 
         return view('user.private.active', ['user' => $user,
-            'route'         => 'active',
-            'active'        => $active,
-            'his_upl'       => $his_upl,
-            'his_upl_cre'   => $his_upl_cre,
-            'his_downl'     => $his_downl,
-            'his_downl_cre' => $his_downl_cre,
+            'route'                                => 'active',
+            'active'                               => $active,
+            'his_upl'                              => $his_upl,
+            'his_upl_cre'                          => $his_upl_cre,
+            'his_downl'                            => $his_downl,
+            'his_downl_cre'                        => $his_downl_cre,
         ]);
     }
 
@@ -2024,12 +2024,12 @@ class UserController extends Controller
             ->paginate(50);
 
         return view('user.private.seeds', ['user' => $user,
-            'route'         => 'seeds',
-            'seeds'         => $seeds,
-            'his_upl'       => $his_upl,
-            'his_upl_cre'   => $his_upl_cre,
-            'his_downl'     => $his_downl,
-            'his_downl_cre' => $his_downl_cre,
+            'route'                               => 'seeds',
+            'seeds'                               => $seeds,
+            'his_upl'                             => $his_upl,
+            'his_upl_cre'                         => $his_upl_cre,
+            'his_downl'                           => $his_downl,
+            'his_downl_cre'                       => $his_downl_cre,
         ]);
     }
 
@@ -2049,7 +2049,7 @@ class UserController extends Controller
 
         return view('user.banlog', [
             'user'      => $user,
-            'bans'  => $bans,
+            'bans'      => $bans,
         ]);
     }
 

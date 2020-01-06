@@ -68,27 +68,27 @@ class ChatBotController extends Controller
 
         if ($request->has('command') && $request->input('command') == $bot->command) {
             $v = validator($request->all(), [
-                'name' => 'required|min:3|max:255',
-                'command' => 'required|alpha_dash|min:3|max:255',
+                'name'     => 'required|min:3|max:255',
+                'command'  => 'required|alpha_dash|min:3|max:255',
                 'position' => 'required',
-                'color' => 'required',
-                'icon' => 'required',
-                'emoji' => 'required',
-                'help' => 'sometimes|max:9999',
-                'info' => 'sometimes|max:9999',
-                'about' => 'sometimes|max:9999',
+                'color'    => 'required',
+                'icon'     => 'required',
+                'emoji'    => 'required',
+                'help'     => 'sometimes|max:9999',
+                'info'     => 'sometimes|max:9999',
+                'about'    => 'sometimes|max:9999',
             ]);
         } else {
             $v = validator($request->all(), [
-                'name' => 'required|min:3|max:255',
-                'command' => 'required|alpha_dash|min:3|max:255|unique:bots',
+                'name'     => 'required|min:3|max:255',
+                'command'  => 'required|alpha_dash|min:3|max:255|unique:bots',
                 'position' => 'required',
-                'color' => 'required',
-                'icon' => 'required',
-                'emoji' => 'required',
-                'help' => 'sometimes|max:9999',
-                'info' => 'sometimes|max:9999',
-                'about' => 'sometimes|max:9999',
+                'color'    => 'required',
+                'icon'     => 'required',
+                'emoji'    => 'required',
+                'help'     => 'sometimes|max:9999',
+                'info'     => 'sometimes|max:9999',
+                'about'    => 'sometimes|max:9999',
             ]);
         }
 

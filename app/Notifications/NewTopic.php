@@ -68,8 +68,8 @@ class NewTopic extends Notification implements ShouldQueue
 
         return [
             'title' => $this->poster->username.' Has Posted In A Subscribed Forum',
-            'body' => $this->poster->username.' has started a new topic in '.$this->topic->forum->name,
-            'url' => "/forums/topics/{$this->topic->id}",
+            'body'  => $this->poster->username.' has started a new topic in '.$this->topic->forum->name,
+            'url'   => "/forums/topics/{$this->topic->id}",
         ];
     }
 }

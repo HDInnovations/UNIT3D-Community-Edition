@@ -39,7 +39,7 @@ class PlaylistTorrentController extends Controller
 
         $v = validator($playlist_torrent->toArray(), [
             'playlist_id'    => 'required|numeric|exists:playlists,id',
-            'torrent_id'    => 'required|numeric|exists:torrents,id',
+            'torrent_id'     => 'required|numeric|exists:torrents,id',
         ]);
 
         if ($v->fails()) {

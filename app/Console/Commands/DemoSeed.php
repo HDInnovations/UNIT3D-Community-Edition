@@ -75,13 +75,13 @@ class DemoSeed extends Command
 
                 try {
                     factory(Torrent::class)->create([
-                            'user_id' => $uid,
-                            'imdb' => $id,
-                            'name' => $r['Title'],
-                            'slug' => Str::slug($r['Title']),
-                            'description' => $r['Plot'],
-                            'category_id' => 1,
-                        ]);
+                        'user_id'     => $uid,
+                        'imdb'        => $id,
+                        'name'        => $r['Title'],
+                        'slug'        => Str::slug($r['Title']),
+                        'description' => $r['Plot'],
+                        'category_id' => 1,
+                    ]);
                 } catch (\Exception $e) {
                     $abort = true;
 

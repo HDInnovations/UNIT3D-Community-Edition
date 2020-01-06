@@ -77,17 +77,17 @@ class ApplicationController extends Controller
 
             if (config('email-white-blacklist.enabled') === 'allow') {
                 $v = validator($request->all(), [
-                    'email' => 'required|email|unique:invites|unique:users|email_list:allow', // Whitelist
+                    'email'   => 'required|email|unique:invites|unique:users|email_list:allow', // Whitelist
                     'approve' => 'required',
                 ]);
             } elseif (config('email-white-blacklist.enabled') === 'block') {
                 $v = validator($request->all(), [
-                    'email' => 'required|email|unique:invites|unique:users|email_list:block', // Blacklist
+                    'email'   => 'required|email|unique:invites|unique:users|email_list:block', // Blacklist
                     'approve' => 'required',
                 ]);
             } else {
                 $v = validator($request->all(), [
-                    'email' => 'required|email|unique:invites|unique:users', // Default
+                    'email'   => 'required|email|unique:invites|unique:users', // Default
                     'approve' => 'required',
                 ]);
             }

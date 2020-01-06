@@ -122,10 +122,10 @@ class TorrentController extends Controller
         }
 
         return view('torrent.similar', [
-            'user' => $user,
+            'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
-            'torrents' => $torrents,
-            'tmdb' => $tmdb,
+            'torrents'           => $torrents,
+            'tmdb'               => $tmdb,
         ]);
     }
 
@@ -169,8 +169,8 @@ class TorrentController extends Controller
         }
 
         return view('torrent.cards', [
-            'user' => $user,
-            'torrents' => $torrents,
+            'user'       => $user,
+            'torrents'   => $torrents,
             'repository' => $repository,
         ]);
     }
@@ -269,13 +269,13 @@ class TorrentController extends Controller
                     $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
                 }
                 $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
-                    'created_at' => $chunk->created_at,
-                    'seeders' => $chunk->seeders,
-                    'leechers' => $chunk->leechers,
-                    'name' => $chunk->name,
+                    'created_at'      => $chunk->created_at,
+                    'seeders'         => $chunk->seeders,
+                    'leechers'        => $chunk->leechers,
+                    'name'            => $chunk->name,
                     'times_completed' => $chunk->times_completed,
-                    'size' => $chunk->size,
-                    'chunk' => $chunk,
+                    'size'            => $chunk->size,
+                    'chunk'           => $chunk,
                 ];
                 $counts['imdb'.$chunk->imdb]++;
             }
@@ -746,13 +746,13 @@ class TorrentController extends Controller
                         $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
                     }
                     $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
-                        'created_at' => $chunk->created_at,
-                        'seeders' => $chunk->seeders,
-                        'leechers' => $chunk->leechers,
-                        'name' => $chunk->name,
+                        'created_at'      => $chunk->created_at,
+                        'seeders'         => $chunk->seeders,
+                        'leechers'        => $chunk->leechers,
+                        'name'            => $chunk->name,
                         'times_completed' => $chunk->times_completed,
-                        'size' => $chunk->size,
-                        'chunk' => $chunk,
+                        'size'            => $chunk->size,
+                        'chunk'           => $chunk,
                     ];
                     $counts['imdb'.$chunk->imdb]++;
                 }
@@ -1058,19 +1058,19 @@ class TorrentController extends Controller
         $torrent->internal = $request->input('internal');
 
         $v = validator($torrent->toArray(), [
-            'name'        => 'required',
-            'slug'        => 'required',
-            'description' => 'required',
-            'category_id' => 'required',
-            'imdb'        => 'required|numeric',
-            'tvdb'        => 'required|numeric',
-            'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
+            'name'         => 'required',
+            'slug'         => 'required',
+            'description'  => 'required',
+            'category_id'  => 'required',
+            'imdb'         => 'required|numeric',
+            'tvdb'         => 'required|numeric',
+            'tmdb'         => 'required|numeric',
+            'mal'          => 'required|numeric',
             'igdb'         => 'required|numeric',
-            'type'        => 'required',
-            'anon'        => 'required',
-            'stream'      => 'required',
-            'sd'          => 'required',
+            'type'         => 'required',
+            'anon'         => 'required',
+            'stream'       => 'required',
+            'sd'           => 'required',
         ]);
 
         if ($v->fails()) {

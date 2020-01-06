@@ -133,17 +133,17 @@ class UserPrivacy extends Model
      * @var array
      */
     protected $casts = [
-        'json_profile_groups' => 'array',
-        'json_torrent_groups' => 'array',
-        'json_forum_groups' => 'array',
-        'json_bon_groups' => 'array',
-        'json_comment_groups' => 'array',
-        'json_wishlist_groups' => 'array',
-        'json_follower_groups' => 'array',
+        'json_profile_groups'     => 'array',
+        'json_torrent_groups'     => 'array',
+        'json_forum_groups'       => 'array',
+        'json_bon_groups'         => 'array',
+        'json_comment_groups'     => 'array',
+        'json_wishlist_groups'    => 'array',
+        'json_follower_groups'    => 'array',
         'json_achievement_groups' => 'array',
-        'json_rank_groups' => 'array',
-        'json_request_groups' => 'array',
-        'json_other_groups' => 'array',
+        'json_rank_groups'        => 'array',
+        'json_request_groups'     => 'array',
+        'json_other_groups'       => 'array',
     ];
 
     /**

@@ -68,21 +68,21 @@ class NewCommentTag extends Notification implements ShouldQueue
         if ($this->type == 'torrent') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Torrent Comment',
-                'body' => $this->tagger.' has tagged you in a Comment for Torrent '.$this->comment->torrent->name,
-                'url' => "/torrents/{$this->comment->torrent->id}",
+                'body'  => $this->tagger.' has tagged you in a Comment for Torrent '.$this->comment->torrent->name,
+                'url'   => "/torrents/{$this->comment->torrent->id}",
             ];
         } elseif ($this->type == 'request') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Request Comment',
-                'body' => $this->tagger.' has tagged you in a Comment for Request '.$this->comment->request->name,
-                'url' => "/requests/{$this->comment->request->id}",
+                'body'  => $this->tagger.' has tagged you in a Comment for Request '.$this->comment->request->name,
+                'url'   => "/requests/{$this->comment->request->id}",
             ];
         }
 
         return [
             'title' => $this->tagger.' Has Tagged You In An Article Comment',
-            'body' => $this->tagger.' has tagged you in a Comment for Article '.$this->comment->article->title,
-            'url' => "/articles/{$this->comment->article->id}",
+            'body'  => $this->tagger.' has tagged you in a Comment for Article '.$this->comment->article->title,
+            'url'   => "/articles/{$this->comment->article->id}",
         ];
     }
 }

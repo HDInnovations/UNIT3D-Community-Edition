@@ -88,8 +88,8 @@ class CasinoBot
         $output = implode(' ', $note);
         $v = validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
-            'amount'  => "required|numeric|min:1|max:{$this->target->seedbonus}",
-            'note' => 'required|string',
+            'amount'   => "required|numeric|min:1|max:{$this->target->seedbonus}",
+            'note'     => 'required|string',
         ]);
         if ($v->passes()) {
             $value = $amount;
