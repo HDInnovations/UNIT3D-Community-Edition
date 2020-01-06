@@ -57,15 +57,15 @@ return [
      | -----------------------------------------------------------------
      */
 
-     'route' => [
-         'enabled' => true,
+    'route' => [
+        'enabled' => true,
 
-         'attributes' => [
-             'prefix'     => 'staff/log-viewer',
-             'namespace'  => ['Staff'],
-             'middleware' => ['web', 'auth', 'owner'],
-         ],
-     ],
+        'attributes' => [
+            'prefix'     => 'staff/log-viewer',
+            'namespace'  => ['Staff'],
+            'middleware' => ['web', 'auth', 'owner'],
+        ],
+    ],
 
     /* -----------------------------------------------------------------
      |  Log entries per page

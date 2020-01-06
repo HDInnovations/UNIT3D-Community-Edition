@@ -44,9 +44,9 @@ return [
     ],
 
     'privacy' => [
-      'defaults' => [
+        'defaults' => [
             'is_hidden' => false,
             'is_private' => false,
-      ],
+        ],
     ],
 ];
