@@ -18,7 +18,7 @@
                     </div>
                     <div class="card_body">
                         <div class="body_poster">
-                            @if ($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->poster && $t->meta->title)
+                            @if (($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) && $t->meta->poster && $t->meta->title)
                                 <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster"
                                      data-name='<i style="color: #a5a5a5;">{{ $t->meta->title ?? 'N/A' }}</i>' data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
@@ -39,7 +39,7 @@
                         <div class="body_description">
                             <h3 class="description_title">
                                 <a href="{{ route('torrent', ['id' => $t->id]) }}">{{ $t->name }}
-                                    @if($t->category->movie_meta || $t->category->tv_meta && isset($t->meta) && $t->meta->releaseYear)
+                                    @if(($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) && $t->meta->releaseYear)
                                         <span class="text-bold text-pink"> {{ $t->meta->releaseYear ?? '' }}</span>
                                     @endif
                                     @if($t->category->game_meta && isset($t->meta) && $t->meta->first_release_date)
@@ -63,7 +63,7 @@
                                 @endforeach
                             @endif
                             <p class="description_plot">
-                                @if($t->category->movie_meta || $t->category->tv_meta && $t->meta && $t->meta->plot)
+                                @if(($t->category->movie_meta || $t->category->tv_meta) && $t->meta && $t->meta->plot)
                                     {{ $t->meta->plot }}
                                 @endif
                             </p>
