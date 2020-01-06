@@ -109,18 +109,18 @@ class InviteController extends Controller
 
         if (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($invite->toArray(), [
-            'email'  => 'required|email|unique:users|email_list:allow', // Whitelist
-            'custom' => 'required',
+                'email'  => 'required|email|unique:users|email_list:allow', // Whitelist
+                'custom' => 'required',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($invite->toArray(), [
-            'email'  => 'required|email|unique:users|email_list:block', // Blacklist
-            'custom' => 'required',
+                'email'  => 'required|email|unique:users|email_list:block', // Blacklist
+                'custom' => 'required',
             ]);
         } else {
             $v = validator($invite->toArray(), [
-            'email'  => 'required|email|unique:users', // Default
-            'custom' => 'required',
+                'email'  => 'required|email|unique:users', // Default
+                'custom' => 'required',
             ]);
         }
 

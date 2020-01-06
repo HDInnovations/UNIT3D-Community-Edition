@@ -327,10 +327,10 @@ class BonusController extends Controller
         $user = $request->user();
 
         $v = validator($request->all(), [
-                'to_username'   => 'required|exists:users,username|max:180',
-                'bonus_points'  => "required|numeric|min:1|max:{$user->seedbonus}",
-                'bonus_message' => 'required|string',
-            ]);
+            'to_username'   => 'required|exists:users,username|max:180',
+            'bonus_points'  => "required|numeric|min:1|max:{$user->seedbonus}",
+            'bonus_message' => 'required|string',
+        ]);
 
         $dest = 'default';
         if ($request->has('dest') && $request->input('dest') == 'profile') {

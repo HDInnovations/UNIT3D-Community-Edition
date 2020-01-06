@@ -169,16 +169,16 @@ class ForumController extends Controller
         $params = $request->all();
 
         return view($logger, [
-                'categories' => $categories,
-                'results' => $results,
-                'user' => $user,
-                'name' => $request->input('name'),
-                'body' => $request->input('body'),
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-                'params'     => $params,
-            ]);
+            'categories' => $categories,
+            'results' => $results,
+            'user' => $user,
+            'name' => $request->input('name'),
+            'body' => $request->input('body'),
+            'num_posts'  => $num_posts,
+            'num_forums' => $num_forums,
+            'num_topics' => $num_topics,
+            'params'     => $params,
+        ]);
     }
 
     /**
@@ -225,17 +225,17 @@ class ForumController extends Controller
         $params = $request->all();
 
         return view($logger, [
-                'results' => $results,
-                'user' => $user,
-                'name' => $request->input('name'),
-                'body' => $request->input('body'),
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-                'params'     => $params,
-                'forum_neos' => $forum_neos,
-                'topic_neos' => $topic_neos,
-            ]);
+            'results' => $results,
+            'user' => $user,
+            'name' => $request->input('name'),
+            'body' => $request->input('body'),
+            'num_posts'  => $num_posts,
+            'num_forums' => $num_forums,
+            'num_topics' => $num_topics,
+            'params'     => $params,
+            'forum_neos' => $forum_neos,
+            'topic_neos' => $topic_neos,
+        ]);
     }
 
     /**
@@ -264,12 +264,12 @@ class ForumController extends Controller
         $num_topics = Topic::count();
 
         return view('forum.latest_topics', [
-                'results' => $results,
-                'user' => $user,
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-            ]);
+            'results' => $results,
+            'user' => $user,
+            'num_posts'  => $num_posts,
+            'num_forums' => $num_forums,
+            'num_topics' => $num_topics,
+        ]);
     }
 
     /**
@@ -298,12 +298,12 @@ class ForumController extends Controller
         $num_topics = Topic::count();
 
         return view('forum.latest_posts', [
-                'results' => $results,
-                'user' => $user,
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-            ]);
+            'results' => $results,
+            'user' => $user,
+            'num_posts'  => $num_posts,
+            'num_forums' => $num_forums,
+            'num_topics' => $num_topics,
+        ]);
     }
 
     /**
