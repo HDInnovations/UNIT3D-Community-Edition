@@ -25,14 +25,14 @@ class ArticlesTableSeeder extends Seeder
 
         \DB::table('articles')->insert([
             0 => [
-                    'id'         => 1,
-                    'title'      => 'Welcome To '.config('other.title').' .',
-                    'slug'       => 'welcome',
-                    'content'    => 'Welcome to '.config('other.title').'. Powered By '.config('other.codebase').'.',
-                    'user_id'    => 3,
-                    'created_at' => '2017-02-28 17:22:37',
-                    'updated_at' => '2017-04-21 12:21:06',
-                ],
+                'id'         => 1,
+                'title'      => 'Welcome To '.config('other.title').' .',
+                'slug'       => 'welcome',
+                'content'    => 'Welcome to '.config('other.title').'. Powered By '.config('other.codebase').'.',
+                'user_id'    => 3,
+                'created_at' => '2017-02-28 17:22:37',
+                'updated_at' => '2017-04-21 12:21:06',
+            ],
         ]);
     }
 }
