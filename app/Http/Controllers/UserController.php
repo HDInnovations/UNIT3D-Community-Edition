@@ -32,8 +32,8 @@ use App\Models\UserPrivacy;
 use App\Models\Warning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Image;
 use ZipArchive;
@@ -99,10 +99,10 @@ class UserController extends Controller
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
 
         return view('user.followers', [
-                'route' => 'follower',
-                'results' => $results,
-                'user' => $user,
-            ]);
+            'route' => 'follower',
+            'results' => $results,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -118,10 +118,10 @@ class UserController extends Controller
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
         return view('user.topics', [
-                'route' => 'forum',
-                'results' => $results,
-                'user' => $user,
-            ]);
+            'route' => 'forum',
+            'results' => $results,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -137,10 +137,10 @@ class UserController extends Controller
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         return view('user.posts', [
-                'route' => 'forum',
-                'results' => $results,
-                'user' => $user,
-            ]);
+            'route' => 'forum',
+            'results' => $results,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -2073,7 +2073,7 @@ class UserController extends Controller
         $path = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if(!File::isDirectory($path)){
+        if (! File::isDirectory($path)) {
             File::makeDirectory($path, 0755, true, true);
         }
 
