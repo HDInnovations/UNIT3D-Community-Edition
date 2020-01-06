@@ -170,10 +170,10 @@ class ForumController extends Controller
 
         return view($logger, [
             'categories' => $categories,
-            'results' => $results,
-            'user' => $user,
-            'name' => $request->input('name'),
-            'body' => $request->input('body'),
+            'results'    => $results,
+            'user'       => $user,
+            'name'       => $request->input('name'),
+            'body'       => $request->input('body'),
             'num_posts'  => $num_posts,
             'num_forums' => $num_forums,
             'num_topics' => $num_topics,
@@ -225,10 +225,10 @@ class ForumController extends Controller
         $params = $request->all();
 
         return view($logger, [
-            'results' => $results,
-            'user' => $user,
-            'name' => $request->input('name'),
-            'body' => $request->input('body'),
+            'results'    => $results,
+            'user'       => $user,
+            'name'       => $request->input('name'),
+            'body'       => $request->input('body'),
             'num_posts'  => $num_posts,
             'num_forums' => $num_forums,
             'num_topics' => $num_topics,
@@ -264,8 +264,8 @@ class ForumController extends Controller
         $num_topics = Topic::count();
 
         return view('forum.latest_topics', [
-            'results' => $results,
-            'user' => $user,
+            'results'    => $results,
+            'user'       => $user,
             'num_posts'  => $num_posts,
             'num_forums' => $num_forums,
             'num_topics' => $num_topics,
@@ -298,8 +298,8 @@ class ForumController extends Controller
         $num_topics = Topic::count();
 
         return view('forum.latest_posts', [
-            'results' => $results,
-            'user' => $user,
+            'results'    => $results,
+            'user'       => $user,
             'num_posts'  => $num_posts,
             'num_forums' => $num_forums,
             'num_topics' => $num_topics,
@@ -365,9 +365,9 @@ class ForumController extends Controller
         $topics = $forum->topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
         return view('forum.display', [
-            'forum'    => $forum,
-            'topics'   => $topics,
-            'category' => $category,
+            'forum'      => $forum,
+            'topics'     => $topics,
+            'category'   => $category,
             'num_posts'  => $num_posts,
             'num_forums' => $num_forums,
             'num_topics' => $num_topics,

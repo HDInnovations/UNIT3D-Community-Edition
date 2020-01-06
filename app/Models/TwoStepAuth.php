@@ -118,10 +118,10 @@ class TwoStepAuth extends Model
     {
         return array_merge(
             [
-            'userId'     => 'required|integer',
-            'authCode'   => 'required|string|max:4|min:4',
-            'authCount'  => 'required|integer',
-            'authStatus' => 'required|boolean',
+                'userId'     => 'required|integer',
+                'authCode'   => 'required|string|max:4|min:4',
+                'authCount'  => 'required|integer',
+                'authStatus' => 'required|boolean',
             ],
             $merge
         );

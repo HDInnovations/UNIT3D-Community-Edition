@@ -146,9 +146,9 @@ class ChatRepository
         $message = $this->message->create([
             'user_id'     => $user_id,
             'chatroom_id' => $room_id,
-            'message' => $message,
+            'message'     => $message,
             'receiver_id' => $receiver,
-            'bot_id' => $bot,
+            'bot_id'      => $bot,
         ]);
 
         $this->checkMessageLimits($room_id);
@@ -169,7 +169,7 @@ class ChatRepository
             'bot_id'      => $bot_id,
             'user_id'     => 1,
             'chatroom_id' => 0,
-            'message' => $message,
+            'message'     => $message,
             'receiver_id' => $receiver,
         ]);
 
@@ -194,11 +194,11 @@ class ChatRepository
         $message = $this->htmlifyMessage($message);
 
         $save = $this->message->create([
-            'user_id' => $user_id,
+            'user_id'     => $user_id,
             'chatroom_id' => 0,
-            'message' => $message,
+            'message'     => $message,
             'receiver_id' => $receiver,
-            'bot_id' => $bot,
+            'bot_id'      => $bot,
         ]);
 
         $message = Message::with([

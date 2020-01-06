@@ -59,14 +59,14 @@ class ReportController extends Controller
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
-                'type' => 'Request',
-                'request_id' => $torrentRequest->id,
-                'torrent_id' => 0,
-                'reporter_id' => $reported_by->id,
+                'type'          => 'Request',
+                'request_id'    => $torrentRequest->id,
+                'torrent_id'    => 0,
+                'reporter_id'   => $reported_by->id,
                 'reported_user' => $reported_user->id,
-                'title' => $torrentRequest->name,
-                'message' => $request->get('message'),
-                'solved' => 0,
+                'title'         => $torrentRequest->name,
+                'message'       => $request->get('message'),
+                'solved'        => 0,
             ]);
 
             return redirect()->route('request', ['id' => $id])
@@ -97,14 +97,14 @@ class ReportController extends Controller
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
-                'type' => 'Torrent',
-                'torrent_id' => $torrent->id,
-                'request_id' => 0,
-                'reporter_id' => $reported_by->id,
+                'type'          => 'Torrent',
+                'torrent_id'    => $torrent->id,
+                'request_id'    => 0,
+                'reporter_id'   => $reported_by->id,
                 'reported_user' => $reported_user->id,
-                'title' => $torrent->name,
-                'message' => $request->get('message'),
-                'solved' => 0,
+                'title'         => $torrent->name,
+                'message'       => $request->get('message'),
+                'solved'        => 0,
             ]);
 
             return redirect()->route('torrent', ['id' => $id])
@@ -135,14 +135,14 @@ class ReportController extends Controller
                 ->withErrors($v->errors());
         } else {
             $this->report->create([
-                'type' => 'User',
-                'torrent_id' => 0,
-                'request_id' => 0,
-                'reporter_id' => $reported_by->id,
+                'type'          => 'User',
+                'torrent_id'    => 0,
+                'request_id'    => 0,
+                'reporter_id'   => $reported_by->id,
                 'reported_user' => $reported_user->id,
-                'title' => $reported_user->username,
-                'message' => $request->get('message'),
-                'solved' => 0,
+                'title'         => $reported_user->username,
+                'message'       => $request->get('message'),
+                'solved'        => 0,
             ]);
 
             return redirect()->route('users.show', ['username' => $username])

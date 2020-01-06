@@ -72,7 +72,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'admin'         => \App\Http\Middleware\CheckForAdmin::class,
         'auth'          => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'banned'        => \App\Http\Middleware\CheckIfBanned::class,
         'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -85,8 +85,8 @@ class Kernel extends HttpKernel
         'owner'         => \App\Http\Middleware\CheckForOwner::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 
     /**

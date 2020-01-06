@@ -106,7 +106,7 @@ class BonTransactions extends Model
     {
         return $this->belongsTo(BonExchange::class, 'itemID', 'id')->withDefault([
             'value' => 0,
-            'cost' => 0,
+            'cost'  => 0,
         ]);
     }
 }

@@ -46,7 +46,7 @@ class ForgotUsernameController extends Controller
             ]);
         } else {
             $v = validator($request->all(), [
-                'email' => 'required',
+                'email'   => 'required',
                 'captcha' => 'hiddencaptcha',
             ]);
         }

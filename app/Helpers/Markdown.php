@@ -300,9 +300,9 @@ class Markdown
 
             $Block = [
                 'element' => [
-                    'name' => 'pre',
+                    'name'    => 'pre',
                     'handler' => 'element',
-                    'text' => [
+                    'text'    => [
                         'name' => 'code',
                         'text' => $text,
                     ],
@@ -398,11 +398,11 @@ class Markdown
             }
 
             $Block = [
-                'char' => $Line['text'][0],
+                'char'    => $Line['text'][0],
                 'element' => [
-                    'name' => 'pre',
+                    'name'    => 'pre',
                     'handler' => 'element',
-                    'text' => $Element,
+                    'text'    => $Element,
                 ],
             ];
 
@@ -464,8 +464,8 @@ class Markdown
 
             $Block = [
                 'element' => [
-                    'name' => 'h'.min(6, $level),
-                    'text' => $text,
+                    'name'    => 'h'.min(6, $level),
+                    'text'    => $text,
                     'handler' => 'line',
                 ],
             ];
@@ -483,10 +483,10 @@ class Markdown
 
         if (preg_match('/^('.$pattern.'[ ]+)(.*)/', $Line['text'], $matches)) {
             $Block = [
-                'indent' => $Line['indent'],
+                'indent'  => $Line['indent'],
                 'pattern' => $pattern,
                 'element' => [
-                    'name' => $name,
+                    'name'    => $name,
                     'handler' => 'elements',
                 ],
             ];
@@ -500,9 +500,9 @@ class Markdown
             }
 
             $Block['li'] = [
-                'name' => 'li',
+                'name'    => 'li',
                 'handler' => 'li',
-                'text' => [
+                'text'    => [
                     $matches[2],
                 ],
             ];
@@ -529,9 +529,9 @@ class Markdown
             $text = isset($matches[1]) ? $matches[1] : '';
 
             $Block['li'] = [
-                'name' => 'li',
+                'name'    => 'li',
                 'handler' => 'li',
-                'text' => [
+                'text'    => [
                     $text,
                 ],
             ];
@@ -587,9 +587,9 @@ class Markdown
         if (preg_match('/^>[ ]?(.*)/', $Line['text'], $matches)) {
             $Block = [
                 'element' => [
-                    'name' => 'blockquote',
+                    'name'    => 'blockquote',
                     'handler' => 'lines',
-                    'text' => (array) $matches[1],
+                    'text'    => (array) $matches[1],
                 ],
             ];
 
@@ -667,8 +667,8 @@ class Markdown
             }
 
             $Block = [
-                'name' => $matches[1],
-                'depth' => 0,
+                'name'   => $matches[1],
+                'depth'  => 0,
                 'markup' => $Line['text'],
             ];
 
@@ -734,7 +734,7 @@ class Markdown
             $id = strtolower($matches[1]);
 
             $Data = [
-                'url' => $matches[2],
+                'url'   => $matches[2],
                 'title' => null,
             ];
 
@@ -806,8 +806,8 @@ class Markdown
                 $headerCell = trim($headerCell);
 
                 $HeaderElement = [
-                    'name' => 'th',
-                    'text' => $headerCell,
+                    'name'    => 'th',
+                    'text'    => $headerCell,
                     'handler' => 'line',
                 ];
 
@@ -827,27 +827,27 @@ class Markdown
             $Block = [
                 'alignments' => $alignments,
                 'identified' => true,
-                'element' => [
-                    'name' => 'table',
+                'element'    => [
+                    'name'    => 'table',
                     'handler' => 'elements',
                 ],
             ];
 
             $Block['element']['text'][] = [
-                'name' => 'thead',
+                'name'    => 'thead',
                 'handler' => 'elements',
             ];
 
             $Block['element']['text'][] = [
-                'name' => 'tbody',
+                'name'    => 'tbody',
                 'handler' => 'elements',
-                'text' => [],
+                'text'    => [],
             ];
 
             $Block['element']['text'][0]['text'][] = [
-                'name' => 'tr',
+                'name'    => 'tr',
                 'handler' => 'elements',
-                'text' => $HeaderElements,
+                'text'    => $HeaderElements,
             ];
 
             return $Block;
@@ -874,9 +874,9 @@ class Markdown
                 $cell = trim($cell);
 
                 $Element = [
-                    'name' => 'td',
+                    'name'    => 'td',
                     'handler' => 'line',
-                    'text' => $cell,
+                    'text'    => $cell,
                 ];
 
                 if (isset($Block['alignments'][$index])) {
@@ -889,9 +889,9 @@ class Markdown
             }
 
             $Element = [
-                'name' => 'tr',
+                'name'    => 'tr',
                 'handler' => 'elements',
-                'text' => $Elements,
+                'text'    => $Elements,
             ];
 
             $Block['element']['text'][1]['text'][] = $Element;
@@ -908,8 +908,8 @@ class Markdown
     {
         $Block = [
             'element' => [
-                'name' => 'p',
-                'text' => $Line['text'],
+                'name'    => 'p',
+                'text'    => $Line['text'],
                 'handler' => 'line',
             ],
         ];
@@ -922,17 +922,17 @@ class Markdown
     //
 
     protected $InlineTypes = [
-        '"' => ['SpecialCharacter'],
-        '!' => ['Image'],
-        '&' => ['SpecialCharacter'],
-        '*' => ['Emphasis'],
-        ':' => ['Url'],
-        '<' => ['UrlTag', 'EmailTag', 'Markup', 'SpecialCharacter'],
-        '>' => ['SpecialCharacter'],
-        '[' => ['Link'],
-        '_' => ['Emphasis'],
-        '`' => ['Code'],
-        '~' => ['Strikethrough'],
+        '"'  => ['SpecialCharacter'],
+        '!'  => ['Image'],
+        '&'  => ['SpecialCharacter'],
+        '*'  => ['Emphasis'],
+        ':'  => ['Url'],
+        '<'  => ['UrlTag', 'EmailTag', 'Markup', 'SpecialCharacter'],
+        '>'  => ['SpecialCharacter'],
+        '['  => ['Link'],
+        '_'  => ['Emphasis'],
+        '`'  => ['Code'],
+        '~'  => ['Strikethrough'],
         '\\' => ['EscapeSequence'],
     ];
 
@@ -1030,7 +1030,7 @@ class Markdown
             $text = preg_replace("/[ ]*\n/", ' ', $text);
 
             return [
-                'extent' => strlen($matches[0]),
+                'extent'  => strlen($matches[0]),
                 'element' => [
                     'name' => 'code',
                     'text' => $text,
@@ -1049,10 +1049,10 @@ class Markdown
             }
 
             return [
-                'extent' => strlen($matches[0]),
+                'extent'  => strlen($matches[0]),
                 'element' => [
-                    'name' => 'a',
-                    'text' => $matches[1],
+                    'name'       => 'a',
+                    'text'       => $matches[1],
                     'attributes' => [
                         'href' => $url,
                     ],
@@ -1078,11 +1078,11 @@ class Markdown
         }
 
         return [
-            'extent' => strlen($matches[0]),
+            'extent'  => strlen($matches[0]),
             'element' => [
-                'name' => $emphasis,
+                'name'    => $emphasis,
                 'handler' => 'line',
-                'text' => $matches[1],
+                'text'    => $matches[1],
             ],
         ];
     }
@@ -1112,9 +1112,9 @@ class Markdown
         }
 
         $Inline = [
-            'extent' => $Link['extent'] + 1,
+            'extent'  => $Link['extent'] + 1,
             'element' => [
-                'name' => 'img',
+                'name'       => 'img',
                 'attributes' => [
                     'src' => $Link['element']['attributes']['href'],
                     'alt' => $Link['element']['text'],
@@ -1132,12 +1132,12 @@ class Markdown
     protected function inlineLink($Excerpt)
     {
         $Element = [
-            'name' => 'a',
-            'handler' => 'line',
+            'name'         => 'a',
+            'handler'      => 'line',
             'nonNestables' => ['Url', 'Link'],
-            'text' => null,
-            'attributes' => [
-                'href' => null,
+            'text'         => null,
+            'attributes'   => [
+                'href'  => null,
                 'title' => null,
             ],
         ];
@@ -1185,7 +1185,7 @@ class Markdown
         }
 
         return [
-            'extent' => $extent,
+            'extent'  => $extent,
             'element' => $Element,
         ];
     }
@@ -1245,10 +1245,10 @@ class Markdown
 
         if ($Excerpt['text'][1] === '~' and preg_match('/^~~(?=\S)(.+?)(?<=\S)~~/', $Excerpt['text'], $matches)) {
             return [
-                'extent' => strlen($matches[0]),
+                'extent'  => strlen($matches[0]),
                 'element' => [
-                    'name' => 'del',
-                    'text' => $matches[1],
+                    'name'    => 'del',
+                    'text'    => $matches[1],
                     'handler' => 'line',
                 ],
             ];
@@ -1265,11 +1265,11 @@ class Markdown
             $url = $matches[0][0];
 
             $Inline = [
-                'extent' => strlen($matches[0][0]),
+                'extent'   => strlen($matches[0][0]),
                 'position' => $matches[0][1],
-                'element' => [
-                    'name' => 'a',
-                    'text' => $url,
+                'element'  => [
+                    'name'       => 'a',
+                    'text'       => $url,
                     'attributes' => [
                         'href' => $url,
                     ],
@@ -1286,10 +1286,10 @@ class Markdown
             $url = $matches[1];
 
             return [
-                'extent' => strlen($matches[0]),
+                'extent'  => strlen($matches[0]),
                 'element' => [
-                    'name' => 'a',
-                    'text' => $url,
+                    'name'       => 'a',
+                    'text'       => $url,
                     'attributes' => [
                         'href' => $url,
                     ],
@@ -1511,8 +1511,8 @@ class Markdown
         'q', 'rt', 'ins', 'font',          'strong',
         's', 'tt', 'kbd', 'mark',
         'u', 'xm', 'sub', 'nobr',
-                   'sup', 'ruby',
-                   'var', 'span',
-                   'wbr', 'time',
+        'sup', 'ruby',
+        'var', 'span',
+        'wbr', 'time',
     ];
 }

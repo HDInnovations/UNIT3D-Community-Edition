@@ -55,8 +55,8 @@ class SeedboxController extends Controller
         $seedbox->ip = $request->input('ip');
 
         $v = validator($seedbox->toArray(), [
-            'name'  =>  'required|alpha_num',
-            'ip'    =>  'required|unique:clients,ip',
+            'name'  => 'required|alpha_num',
+            'ip'    => 'required|unique:clients,ip',
         ]);
 
         if ($v->fails()) {

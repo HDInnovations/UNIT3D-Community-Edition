@@ -62,8 +62,8 @@ class NewThank extends Notification
 
         return [
             'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',
-            'body' => $this->thank->user->username.' has left you a thanks on Uploaded Torrent '.$this->thank->torrent->name,
-            'url' => '/torrents/'.$this->thank->torrent->id,
+            'body'  => $this->thank->user->username.' has left you a thanks on Uploaded Torrent '.$this->thank->torrent->name,
+            'url'   => '/torrents/'.$this->thank->torrent->id,
         ];
     }
 }

@@ -55,12 +55,12 @@ class LoginController extends Controller
             $this->validate($request, [
                 $this->username()      => 'required|string',
                 'password'             => 'required|string',
-                'captcha' => 'hiddencaptcha',
+                'captcha'              => 'hiddencaptcha',
             ]);
         } else {
             $this->validate($request, [
                 $this->username() => 'required|string',
-                'password' => 'required|string',
+                'password'        => 'required|string',
             ]);
         }
     }

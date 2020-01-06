@@ -48,7 +48,7 @@ class RssController extends Controller
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
         return view('Staff.rss.index', [
-            'hash' => $hash,
+            'hash'       => $hash,
             'public_rss' => $public_rss,
         ]);
     }
@@ -67,9 +67,9 @@ class RssController extends Controller
 
         return view('Staff.rss.create', [
             'torrent_repository' => $torrent_repository,
-            'categories'     => Category::all()->sortBy('position'),
-            'types'          => Type::all()->sortBy('position'),
-            'user'           => $user, ]);
+            'categories'         => Category::all()->sortBy('position'),
+            'types'              => Type::all()->sortBy('position'),
+            'user'               => $user, ]);
     }
 
     /**
@@ -84,14 +84,14 @@ class RssController extends Controller
         $user = $request->user();
 
         $v = validator($request->all(), [
-            'name' => 'required|min:3|max:255',
-            'search' => 'max:255',
+            'name'        => 'required|min:3|max:255',
+            'search'      => 'max:255',
             'description' => 'max:255',
-            'uploader' => 'max:255',
-            'categories' => 'sometimes|array|max:999',
-            'types' => 'sometimes|array|max:999',
-            'genres' => 'sometimes|array|max:999',
-            'position' => 'sometimes|integer|max:9999',
+            'uploader'    => 'max:255',
+            'categories'  => 'sometimes|array|max:999',
+            'types'       => 'sometimes|array|max:999',
+            'genres'      => 'sometimes|array|max:999',
+            'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['type', 'name', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
@@ -141,10 +141,10 @@ class RssController extends Controller
 
         return view('Staff.rss.edit', [
             'torrent_repository' => $torrent_repository,
-            'categories'     => Category::all()->sortBy('position'),
-            'types'          => Type::all()->sortBy('position'),
-            'user'           => $user,
-            'rss'            => $rss,
+            'categories'         => Category::all()->sortBy('position'),
+            'types'              => Type::all()->sortBy('position'),
+            'user'               => $user,
+            'rss'                => $rss,
         ]);
     }
 
@@ -160,14 +160,14 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         $v = validator($request->all(), [
-            'name' => 'required|min:3|max:255',
-            'search' => 'max:255',
+            'name'        => 'required|min:3|max:255',
+            'search'      => 'max:255',
             'description' => 'max:255',
-            'uploader' => 'max:255',
-            'categories' => 'sometimes|array|max:999',
-            'types' => 'sometimes|array|max:999',
-            'genres' => 'sometimes|array|max:999',
-            'position' => 'sometimes|integer|max:9999',
+            'uploader'    => 'max:255',
+            'categories'  => 'sometimes|array|max:999',
+            'types'       => 'sometimes|array|max:999',
+            'genres'      => 'sometimes|array|max:999',
+            'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['type', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',

@@ -129,7 +129,7 @@ class NotificationController extends Controller
 
         return view('notification.results', [
             'user'            => $user,
-            'notifications' => $notifications,
+            'notifications'   => $notifications,
         ])->render();
     }
 

@@ -157,13 +157,13 @@ trait Auditable
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
-                'user_id' => $userId,
-                'model_name' => class_basename($model),
+                'user_id'        => $userId,
+                'model_name'     => class_basename($model),
                 'model_entry_id' => $model->{$model->getKeyName()},
-                'action' => 'create',
-                'record' => $data,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'action'         => 'create',
+                'record'         => $data,
+                'created_at'     => $now,
+                'updated_at'     => $now,
             ]);
         }
     }
@@ -185,13 +185,13 @@ trait Auditable
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
-                'user_id' => $userId,
-                'model_name' => class_basename($model),
+                'user_id'        => $userId,
+                'model_name'     => class_basename($model),
                 'model_entry_id' => $model->{$model->getKeyName()},
-                'action' => 'update',
-                'record' => $data,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'action'         => 'update',
+                'record'         => $data,
+                'created_at'     => $now,
+                'updated_at'     => $now,
             ]);
         }
     }
@@ -213,13 +213,13 @@ trait Auditable
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
-                'user_id' => $userId,
-                'model_name' => class_basename($model),
+                'user_id'        => $userId,
+                'model_name'     => class_basename($model),
                 'model_entry_id' => $model->{$model->getKeyName()},
-                'action' => 'delete',
-                'record' => $data,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'action'         => 'delete',
+                'record'         => $data,
+                'created_at'     => $now,
+                'updated_at'     => $now,
             ]);
         }
     }
