@@ -76,7 +76,7 @@ config('api-keys.omdb')) @endphp
                     <td style="width: 1%;">
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
-                                @if ($torrent->category->movie_meta || $torrent->category->tv_meta && isset($meta) &&
+                                @if (($torrent->category->movie_meta || $torrent->category->tv_meta) && isset($meta) &&
                                     $meta->poster && $meta->title)
                                     <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
                                         data-name='<i style="color: #a5a5a5;">{{ $meta->title ?? 'N/A' }}</i>'
