@@ -89,14 +89,20 @@
                                         <td>{{ $categoryChild->num_post }}</td>
                                         <td>{{ $categoryChild->num_topic }}</td>
                                         <td>
-                                            <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }} <i
-                                                    class="{{ config('other.font-awesome') }} fa-user"></i> <a
-                                                    href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}">
-                                                    {{ $categoryChild->last_post_user_username }}</a></span>
+                                            <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }}
+                                                <i class="{{ config('other.font-awesome') }} fa-user"></i>
+                                                @if ($categoryChild->last_post_user_username !== null)
+                                                    <a href="{{ route('users.show', ['username' => $categoryChild->last_post_user_username]) }}">
+                                                    {{ $categoryChild->last_post_user_username }}</a>
+                                                @endif
+                                            </span>
                                             <br>
-                                            <span>@lang('forum.topic') <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i><a
-                                                    href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}">
-                                                    {{ $categoryChild->last_topic_name }}</a></span>
+                                            <span>@lang('forum.topic') <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i>
+                                                @if ($categoryChild->last_topic_id !== null)
+                                                    <a href="{{ route('forum_topic', ['id' => $categoryChild->last_topic_id]) }}">
+                                                    {{ $categoryChild->last_topic_name }}</a>
+                                                @endif
+                                            </span>
                                             <br>
                                             <span><i class="{{ config('other.font-awesome') }} fa-clock"></i>
                                                 {{ $categoryChild->updated_at->diffForHumans() }}</span>
