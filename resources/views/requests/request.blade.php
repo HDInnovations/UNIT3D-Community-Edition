@@ -161,8 +161,8 @@
                                         </i> @lang('request.claim')
                                     </button>
                                     @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
-                                        <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
-                                           class="btn btn-md btn-success"><i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('common.upload')
+                                        <a href="{{ route('upload_form', ['title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
+                                           class="btn btn-xs btn-success"> @lang('common.upload') {{ $meta->title ?? ''}}
                                         </a>
                                     @endif
                                 @elseif ($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
@@ -199,7 +199,7 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.unclaim')
                                             </span>
                                         </a>
-                                        <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
+                                        <a href="{{ route('upload_form', ['title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
                                            class="btn btn-xs btn-success"> @lang('common.upload') {{ $meta->title ?? ''}}
                                         </a>
                                     @endif
