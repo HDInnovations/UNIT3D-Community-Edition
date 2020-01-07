@@ -11,7 +11,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff.polls.show', ['slug' => $poll->slug]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Poll Results</span>
         </a>
     </li>
