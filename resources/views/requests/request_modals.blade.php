@@ -13,7 +13,7 @@
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
                         <label>
-                            <input type="number" tabindex="3" name='bonus_value' min='100' value="100">
+                            <input class="form-control" type="number" tabindex="3" name='bonus_value' min='100' value="100">
                         </label>
                         <p>Anonymous Bounty?</p>
                         <div class="radio-inline">
@@ -51,7 +51,7 @@
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
                         <label>
-                            <input type="text" tabindex="3" name='info_hash'
+                            <input class="form-control" type="text" tabindex="3" name='info_hash'
                                 placeholder="@lang('request.torrent-hash')">
                         </label>
                         <p>Anonymous Fill?</p>
