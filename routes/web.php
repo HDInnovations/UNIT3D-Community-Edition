@@ -345,7 +345,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{username}/settings/private', 'UserController@makePrivate')->name('user_private');
             Route::get('/{username}/settings/public', 'UserController@makePublic')->name('user_public');
             Route::post('/accept-rules', 'UserController@acceptRules')->name('accept.rules');
-
             Route::get('/{username}/seedboxes', 'SeedboxController@index')->name('seedboxes.index');
             Route::post('/{username}/seedboxes', 'SeedboxController@store')->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', 'SeedboxController@destroy')->name('seedboxes.destroy');
@@ -625,7 +624,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/bots/{id}/edit', 'ChatBotController@edit')->name('edit');
                 Route::patch('/bots/{id}/update', 'ChatBotController@update')->name('update');
                 Route::delete('/bots/{id}/destroy', 'ChatBotController@destroy')->name('destroy');
-                Route::get('/{bots/id}/disable', 'ChatBotController@disable')->name('disable');
+                Route::get('/bots/{id}/disable', 'ChatBotController@disable')->name('disable');
                 Route::get('/bots/{id}/enable', 'ChatBotController@enable')->name('enable');
             });
         });
