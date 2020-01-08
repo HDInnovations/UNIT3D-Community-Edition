@@ -146,8 +146,8 @@ class RssController extends Controller
      */
     public function show($id, $rsskey)
     {
-        $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
-        $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
+        $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
+        $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
         $banned_group = cache()->rememberForever('banned_group', function () {
             return Group::where('slug', '=', 'banned')->pluck('id');

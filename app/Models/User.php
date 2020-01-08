@@ -917,7 +917,7 @@ class User extends Authenticatable
             return INF;
         }
 
-        return (float) round($this->uploaded / $this->downloaded, 2);
+        return round($this->uploaded / $this->downloaded, 2);
     }
 
     // Return the ratio pretty formated as a string.
@@ -937,7 +937,7 @@ class User extends Authenticatable
             return INF;
         }
 
-        return (float) round($this->uploaded / ($this->downloaded + $size), 2);
+        return round($this->uploaded / ($this->downloaded + $size), 2);
     }
 
     // Return the ratio after $size bytes would be downloaded, pretty formatted
