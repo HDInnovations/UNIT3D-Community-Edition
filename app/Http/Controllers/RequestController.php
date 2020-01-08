@@ -13,11 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Throwable;
-use ErrorException;
-use App\Services\MovieScrapper;
-use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
@@ -38,10 +33,15 @@ use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
 use App\Repositories\ChatRepository;
 use App\Repositories\RequestFacetedRepository;
+use App\Services\MovieScrapper;
 use Carbon\Carbon;
+use ErrorException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
+use Throwable;
 
 final class RequestController extends Controller
 {
@@ -360,6 +360,7 @@ final class RequestController extends Controller
                 sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $tr->name)
             );
         }
+
         return redirect()->route('requests')
             ->withSuccess('Request Added.');
     }
@@ -439,6 +440,7 @@ final class RequestController extends Controller
                 ->withErrors($v->errors());
         }
         $torrentRequest->save();
+
         return redirect()->route('requests', ['id' => $torrentRequest->id])
             ->withSuccess('Request Edited Successfully.');
     }
@@ -456,7 +458,7 @@ final class RequestController extends Controller
         $user = $request->user();
 
         $tr = TorrentRequest::with('user')->findOrFail($id);
-        ++$tr->votes;
+        $tr->votes++;
         $tr->bounty += $request->input('bonus_value');
         $tr->created_at = Carbon::now();
 
@@ -502,6 +504,7 @@ final class RequestController extends Controller
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
             $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
         }
+
         return redirect()->route('request', ['id' => $request->input('request_id')])
             ->withSuccess('Your bonus has been successfully added.');
     }
@@ -548,6 +551,7 @@ final class RequestController extends Controller
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
             $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
         }
+
         return redirect()->route('request', ['id' => $request->input('request_id')])
             ->withSuccess('Your request fill is pending approval by the Requester.');
     }
@@ -620,6 +624,7 @@ final class RequestController extends Controller
                 return redirect()->route('request', ['id' => $id])
                     ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
             }
+
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
         } else {
@@ -686,6 +691,7 @@ final class RequestController extends Controller
             return redirect()->route('requests')
                 ->withSuccess(sprintf('You have deleted %s', $name));
         }
+
         return redirect()->route('request', ['id' => $id])
             ->withErrors("You don't have access to delete this request.");
     }

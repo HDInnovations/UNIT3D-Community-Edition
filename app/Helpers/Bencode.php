@@ -46,7 +46,6 @@ final class Bencode
         if (safe_int($result)) {
             return (int) $result;
         }
-        return;
     }
 
     public static function parse_string($s, &$pos): string

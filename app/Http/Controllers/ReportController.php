@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -66,6 +65,7 @@ final class ReportController extends Controller
             'message'       => $request->get('message'),
             'solved'        => 0,
         ]);
+
         return redirect()->route('request', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
@@ -102,6 +102,7 @@ final class ReportController extends Controller
             'message'       => $request->get('message'),
             'solved'        => 0,
         ]);
+
         return redirect()->route('torrent', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
@@ -138,6 +139,7 @@ final class ReportController extends Controller
             'message'       => $request->get('message'),
             'solved'        => 0,
         ]);
+
         return redirect()->route('users.show', ['username' => $username])
             ->withSuccess('Your report has been successfully sent');
     }

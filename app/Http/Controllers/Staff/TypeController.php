@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 final class TypeController extends Controller
 {
@@ -70,6 +70,7 @@ final class TypeController extends Controller
                 ->withErrors($v->errors());
         }
         $type->save();
+
         return redirect()->route('staff.types.index')
             ->withSuccess('Type Successfully Added');
     }
@@ -114,6 +115,7 @@ final class TypeController extends Controller
                 ->withErrors($v->errors());
         }
         $type->save();
+
         return redirect()->route('staff.types.index')
             ->withSuccess('Type Successfully Modified');
     }

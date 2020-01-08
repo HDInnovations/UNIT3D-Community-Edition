@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use ErrorException;
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
+use ErrorException;
 use Illuminate\Console\Command;
 use MarcReichel\IGDBLaravel\Models\Game;
 

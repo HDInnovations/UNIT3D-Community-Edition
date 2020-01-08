@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Models\PrivateMessage;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 final class PrivateMessageController extends Controller
@@ -115,8 +115,8 @@ final class PrivateMessageController extends Controller
      * Create Message Form.
      *
      * @param Request $request
-     * @param string                   $receiver_id
-     * @param string                   $username
+     * @param string  $receiver_id
+     * @param string  $username
      *
      * @return Factory|\Illuminate\View\View
      */
@@ -221,6 +221,7 @@ final class PrivateMessageController extends Controller
                 ->withErrors($v->errors());
         }
         $pm->save();
+
         return redirect()->route('inbox')
             ->withSuccess('Your PM Was Sent Successfully!');
     }
@@ -249,6 +250,7 @@ final class PrivateMessageController extends Controller
             if ($dest == 'outbox') {
                 return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
             }
+
             return redirect()->route('inbox')
                 ->withSuccess('PM Was Deleted Successfully!');
         } else {

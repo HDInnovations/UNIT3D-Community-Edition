@@ -13,9 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
@@ -28,8 +25,10 @@ use App\Notifications\NewPostTip;
 use App\Notifications\NewUploadTip;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 final class BonusController extends Controller
 {
@@ -152,7 +151,7 @@ final class BonusController extends Controller
      * Show Bonus Earnings System.
      *
      * @param Request $request
-     * @param string                   $username
+     * @param string  $username
      *
      * @return Factory|View
      */

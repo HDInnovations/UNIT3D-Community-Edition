@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Artisan;
 use App\Http\Controllers\Controller;
+use Artisan;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 
 final class CommandController extends Controller

@@ -13,15 +13,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\VoteOnPoll;
 use App\Models\Option;
 use App\Models\Poll;
 use App\Models\Voter;
 use App\Repositories\ChatRepository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class PollController extends Controller
 {

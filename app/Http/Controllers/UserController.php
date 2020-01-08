@@ -13,8 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use App\Helpers\Bencode;
 use App\Models\Ban;
 use App\Models\BonTransactions;
@@ -32,6 +30,8 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Warning;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -331,6 +331,7 @@ final class UserController extends Controller
 
                 return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
             }
+
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your Password Was Incorrect!');
         } else {
@@ -373,6 +374,7 @@ final class UserController extends Controller
         }
         $user->email = $request->input('email');
         $user->save();
+
         return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
             ->withSuccess('Your Email Was Updated Successfully!');
     }
@@ -1719,6 +1721,7 @@ final class UserController extends Controller
         }
         $logger = 'user.requests';
         $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
+
         return view($logger, [
             'route'           => 'requests',
             'user'            => $user,
@@ -1862,6 +1865,7 @@ final class UserController extends Controller
         }
         $logger = 'user.uploads';
         $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
+
         return view($logger, [
             'route'       => 'uploads',
             'user'        => $user,
@@ -2033,6 +2037,7 @@ final class UserController extends Controller
         if (file_exists($zip_file)) {
             return response()->download($zip_file)->deleteFileAfterSend(true);
         }
+
         return redirect()->back()->withErrors('Something Went Wrong!');
     }
 

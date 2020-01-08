@@ -13,10 +13,10 @@
 
 namespace App\Console\Commands;
 
-use ErrorException;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
+use ErrorException;
 use Illuminate\Console\Command;
 
 final class FetchGenres extends Command

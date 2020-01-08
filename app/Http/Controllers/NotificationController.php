@@ -14,9 +14,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Throwable;
+use App\Models\Notification;
 use App\Notifications\NewBon;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
@@ -31,14 +29,16 @@ use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
 use App\Notifications\NewReseedRequest;
 use App\Notifications\NewThank;
-use App\Notifications\NewUploadTip;
 use App\Notifications\NewTopic;
 use App\Notifications\NewUpload;
-use Illuminate\Http\RedirectResponse;
-use Exception;
-use App\Models\Notification;
+use App\Notifications\NewUploadTip;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Throwable;
 
 final class NotificationController extends Controller
 {

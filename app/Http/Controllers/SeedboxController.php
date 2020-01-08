@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Seedbox;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class SeedboxController extends Controller
 {
@@ -67,6 +67,7 @@ final class SeedboxController extends Controller
                 ->withErrors($v->errors());
         }
         $seedbox->save();
+
         return redirect()->route('seedboxes.index', ['username' => $user->username])
             ->withSuccess('Seedbox Has Been Successfully Added!');
     }

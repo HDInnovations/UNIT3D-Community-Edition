@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Note;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class NoteController extends Controller
 {
@@ -64,6 +64,7 @@ final class NoteController extends Controller
                 ->withErrors($v->errors());
         }
         $note->save();
+
         return redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Posted');
     }

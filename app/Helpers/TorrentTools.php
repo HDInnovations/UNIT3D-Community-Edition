@@ -22,6 +22,7 @@ final class TorrentTools
 
     /**
      * Representative table of the decoded torrent.
+     *
      * @var mixed[]
      */
     public static array $decodedTorrent = [];

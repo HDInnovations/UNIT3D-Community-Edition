@@ -25,7 +25,7 @@ final class TwoStepAuth
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure                  $next
+     * @param Closure $next
      *
      * @return \Illuminate\Http\RedirectResponse|mixed
      */

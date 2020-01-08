@@ -13,17 +13,16 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use Ramsey\Uuid\Uuid;
 
 final class ApplicationController extends Controller
@@ -105,6 +104,7 @@ final class ApplicationController extends Controller
             Mail::to($application->email)->send(new InviteUser($invite));
             $invite->save();
             $application->markApproved();
+
             return redirect()->route('staff.applications.index')
                 ->withSuccess('Application Approved');
         } else {
@@ -137,6 +137,7 @@ final class ApplicationController extends Controller
             return redirect()->route('staff.applications.index')
                 ->withSuccess('Application Rejected');
         }
+
         return redirect()->route('staff.applications.index')
             ->withErrors('Application Already Rejected');
     }

@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 final class ApiSettingController extends Controller
 {
@@ -78,7 +78,7 @@ final class ApiSettingController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int                      $id
+     * @param int     $id
      *
      * @return Response
      */

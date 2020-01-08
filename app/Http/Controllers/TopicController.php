@@ -13,9 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
 use App\Achievements\UserMade25Posts;
@@ -33,8 +30,11 @@ use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 final class TopicController extends Controller
 {
@@ -205,14 +205,14 @@ final class TopicController extends Controller
             $forum->notifySubscribers($user, $topic);
 
             // Post To ShoutBox
-                $appurl = config('app.url');
+            $appurl = config('app.url');
             $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
             $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
 
             $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
 
             //Achievements
-                $user->unlock(new UserMadeFirstPost(), 1);
+            $user->unlock(new UserMadeFirstPost(), 1);
             $user->addProgress(new UserMade25Posts(), 1);
             $user->addProgress(new UserMade50Posts(), 1);
             $user->addProgress(new UserMade100Posts(), 1);

@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class CategoryController extends Controller
 {

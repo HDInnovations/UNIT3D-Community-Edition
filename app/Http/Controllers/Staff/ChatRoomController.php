@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Chatroom;
 use App\Repositories\ChatRepository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class ChatRoomController extends Controller
 {
@@ -70,6 +70,7 @@ final class ChatRoomController extends Controller
                 ->withErrors($v->errors());
         }
         $chatroom->save();
+
         return redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Added');
     }
@@ -96,6 +97,7 @@ final class ChatRoomController extends Controller
                 ->withErrors($v->errors());
         }
         $chatroom->save();
+
         return redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Modified');
     }

@@ -15,7 +15,6 @@
 namespace App\Console;
 
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 
@@ -31,7 +30,7 @@ trait ConsoleTools
 
     private function white($line): void
     {
-        $this->io->writeln(PHP_EOL . $line);
+        $this->io->writeln(PHP_EOL.$line);
     }
 
     private function magenta($line): void

@@ -13,11 +13,11 @@
 
 namespace App\Http\Middleware;
 
-use Date;
-use Illuminate\Http\Request;
 use App\Models\Language;
 use Carbon\Carbon;
 use Closure;
+use Date;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 final class SetLanguage
@@ -87,7 +87,7 @@ final class SetLanguage
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure                 $next
+     * @param Closure $next
      *
      * @return mixed
      */

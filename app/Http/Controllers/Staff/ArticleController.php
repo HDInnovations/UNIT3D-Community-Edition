@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Image;
 
 final class ArticleController extends Controller
@@ -84,6 +84,7 @@ final class ArticleController extends Controller
                 ->withErrors($v->errors());
         }
         $article->save();
+
         return redirect()->route('staff.articles.index')
             ->withSuccess('Your article has successfully published!');
     }
@@ -139,6 +140,7 @@ final class ArticleController extends Controller
                 ->withErrors($v->errors());
         }
         $article->save();
+
         return redirect()->route('staff.articles.index')
             ->withSuccess('Your article changes have successfully published!');
     }

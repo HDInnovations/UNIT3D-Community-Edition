@@ -13,16 +13,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Exception;
-use Illuminate\Http\RedirectResponse;
 use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use Ramsey\Uuid\Uuid;
 
 final class InviteController extends Controller
@@ -135,8 +134,9 @@ final class InviteController extends Controller
         }
         Mail::to($request->input('email'))->send(new InviteUser($invite));
         $invite->save();
-        --$user->invites;
+        $user->invites--;
         $user->save();
+
         return redirect()->route('invites.create')
             ->withSuccess('Invite was sent successfully!');
     }

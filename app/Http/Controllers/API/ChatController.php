@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Contracts\Auth\Factory;
 use App\Bots\CasinoBot;
 use App\Bots\NerdBot;
 use App\Bots\SystemBot;
@@ -30,7 +29,7 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
-use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Http\Request;
 
 final class ChatController extends Controller
@@ -46,6 +45,7 @@ final class ChatController extends Controller
     }
 
     /* STATUSES */
+
     /**
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
@@ -486,6 +486,7 @@ final class ChatController extends Controller
     }
 
     /* USERS */
+
     /**
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */

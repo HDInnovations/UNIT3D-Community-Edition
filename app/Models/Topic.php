@@ -13,11 +13,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewPost;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Topic.
@@ -192,7 +192,7 @@ final class Topic extends Model
     {
         $count = 0;
         foreach ($this->posts as $post) {
-            ++$count;
+            $count++;
             if ($searchId == $post->id) {
                 break;
             }

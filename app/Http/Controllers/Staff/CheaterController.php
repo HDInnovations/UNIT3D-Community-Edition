@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\History;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 final class CheaterController extends Controller
 {

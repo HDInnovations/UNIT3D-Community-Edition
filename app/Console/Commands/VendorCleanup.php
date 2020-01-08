@@ -66,6 +66,7 @@ final class VendorCleanup extends Command
      * List of File and Folders Patters Going To Be Excluded.
      *
      * @return void
+     *
      * @var string[]
      */
     protected array $excluded =

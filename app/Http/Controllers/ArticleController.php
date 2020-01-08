@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
-use App\Models\Article;
 
 final class ArticleController extends Controller
 {

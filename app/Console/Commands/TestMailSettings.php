@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use Exception;
 use App\Mail\TestEmail;
 use App\Models\User;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 

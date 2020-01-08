@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Exception;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Traits\TwoStep;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 final class TwoStepController extends Controller
 {

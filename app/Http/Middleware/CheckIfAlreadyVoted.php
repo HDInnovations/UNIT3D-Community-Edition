@@ -13,10 +13,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use App\Models\Option;
 use App\Models\Voter;
 use Closure;
+use Illuminate\Http\Request;
 
 final class CheckIfAlreadyVoted
 {
@@ -24,7 +24,7 @@ final class CheckIfAlreadyVoted
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure                 $next
+     * @param Closure $next
      *
      * @return mixed|\Illuminate\Http\RedirectResponse
      */

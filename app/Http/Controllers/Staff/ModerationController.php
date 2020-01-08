@@ -13,16 +13,15 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class ModerationController extends Controller
 {
@@ -129,6 +128,7 @@ final class ModerationController extends Controller
 
 %s', $torrent->name, $request->input('message'));
         $pm->save();
+
         return redirect()->route('staff.moderation.index')
             ->withSuccess('Torrent Postponed');
     }
@@ -165,6 +165,7 @@ final class ModerationController extends Controller
 
 %s', $torrent->name, $request->input('message'));
         $pm->save();
+
         return redirect()->route('staff.moderation.index')
             ->withSuccess('Torrent Rejected');
     }

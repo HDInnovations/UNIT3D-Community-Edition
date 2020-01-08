@@ -13,15 +13,14 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 final class GroupController extends Controller
 {
@@ -116,6 +115,7 @@ final class GroupController extends Controller
             $permission->start_topic = 1;
             $permission->save();
         }
+
         return redirect()->route('staff.groups.index')
             ->withSuccess('Group Was Created Successfully!');
     }
@@ -189,6 +189,7 @@ final class GroupController extends Controller
                 ->withErrors($v->errors());
         }
         $group->save();
+
         return redirect()->route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');
     }

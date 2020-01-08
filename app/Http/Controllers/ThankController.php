@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;

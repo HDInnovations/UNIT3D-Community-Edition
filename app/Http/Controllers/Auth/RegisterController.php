@@ -13,8 +13,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendActivationMail;
 use App\Models\Group;
@@ -29,6 +27,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 final class RegisterController extends Controller
 {
@@ -80,7 +79,7 @@ final class RegisterController extends Controller
                 ->withErrors(trans('auth.invalid-key'));
         }
 
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');
@@ -150,7 +149,7 @@ final class RegisterController extends Controller
         $notification->save();
         if ($key) {
             // Update The Invite Record
-                $key->accepted_by = $user->id;
+            $key->accepted_by = $user->id;
             $key->accepted_at = new Carbon();
             $key->save();
         }
@@ -183,6 +182,7 @@ final class RegisterController extends Controller
         $pm->subject = config('welcomepm.subject');
         $pm->message = config('welcomepm.message');
         $pm->save();
+
         return redirect()->route('login')
             ->withSuccess(trans('auth.register-thanks'));
     }

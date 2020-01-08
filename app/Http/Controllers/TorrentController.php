@@ -13,12 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use ErrorException;
-use App\Services\MovieScrapper;
-use Throwable;
-use Illuminate\Http\RedirectResponse;
-use Log;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
@@ -45,13 +39,19 @@ use App\Models\Warning;
 use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
+use App\Services\MovieScrapper;
 use Carbon\Carbon;
+use ErrorException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Log;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
+use Throwable;
 
 final class TorrentController extends Controller
 {
@@ -1088,6 +1088,7 @@ final class TorrentController extends Controller
                 $tag->save();
             }
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Successfully Edited!');
     }
@@ -1612,6 +1613,7 @@ final class TorrentController extends Controller
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withErrors('Torrent Is Already Featured!');
     }
@@ -1681,6 +1683,7 @@ final class TorrentController extends Controller
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withErrors('This torrent doesnt meet the rules for a reseed request.');
     }
@@ -1711,6 +1714,7 @@ final class TorrentController extends Controller
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }

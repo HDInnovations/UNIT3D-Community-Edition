@@ -13,14 +13,14 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
 use App\Models\Option;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 final class PollController extends Controller
 {
@@ -85,7 +85,7 @@ final class PollController extends Controller
 
         $poll = $request->user() ? $user->polls()->create($request->all()) : Poll::create($request->all());
 
-        $options = collect($request->input('options'))->map(fn($value): \App\Models\Option => new Option(['name' => $value]));
+        $options = collect($request->input('options'))->map(fn ($value): \App\Models\Option => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
 
         $poll_url = hrefPoll($poll);

@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class ChatStatusController extends Controller
 {
@@ -74,6 +74,7 @@ final class ChatStatusController extends Controller
                 ->withErrors($v->errors());
         }
         $chatstatus->save();
+
         return redirect()->route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Added');
     }
@@ -104,6 +105,7 @@ final class ChatStatusController extends Controller
                 ->withErrors($v->errors());
         }
         $chatstatus->save();
+
         return redirect()->route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');
     }

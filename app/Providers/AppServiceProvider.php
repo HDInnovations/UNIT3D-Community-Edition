@@ -61,13 +61,13 @@ final class AppServiceProvider extends ServiceProvider
 
         // Share $pages across all views
         view()->composer('*', function (View $view) {
-            $pages = cache()->remember('cached-pages', 3_600, fn() => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
+            $pages = cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
 
             $view->with(['pages' => $pages]);
         });
 
         // Hidden Captcha
-        Blade::directive('hiddencaptcha', fn($mustBeEmptyField = '_username'): string => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
+        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username'): string => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
