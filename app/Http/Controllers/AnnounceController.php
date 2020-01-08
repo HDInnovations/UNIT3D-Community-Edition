@@ -37,7 +37,7 @@ class AnnounceController extends Controller
      *
      * @return Bencode response for the torrent client
      */
-    public function announce(Request $request, $passkey)
+    public function announce(Request $request, $passkey): \Illuminate\Http\Response
     {
         /*\DB::listen(function($sql) {
             \Log::info($sql->sql);
@@ -479,7 +479,7 @@ class AnnounceController extends Controller
      * @param $compact
      * @param $no_peer_id
      *
-     * @return string
+     * @return string|mixed
      */
     private function givePeers($peers, $compact, $no_peer_id)
     {
@@ -513,7 +513,7 @@ class AnnounceController extends Controller
      * @param $compact
      * @param $no_peer_id
      *
-     * @return string
+     * @return string|mixed
      */
     private function givePeers6($peers, $compact, $no_peer_id)
     {

@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(Exception $exception): void
     {
         parent::report($exception);
     }
@@ -70,7 +70,7 @@ class Handler extends ExceptionHandler
      *
      * @return Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $exception): \Symfony\Component\HttpFoundation\Response
     {
         return parent::render($request, $exception);
     }

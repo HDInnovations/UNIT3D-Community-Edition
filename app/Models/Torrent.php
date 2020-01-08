@@ -162,7 +162,7 @@ class Torrent extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -175,7 +175,7 @@ class Torrent extends Model
      *
      * @return BelongsTo
      */
-    public function uploader()
+    public function uploader(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         // Not needed yet but may use this soon.
 
@@ -190,7 +190,7 @@ class Torrent extends Model
      *
      * @return BelongsTo
      */
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
@@ -200,7 +200,7 @@ class Torrent extends Model
      *
      * @return BelongsTo
      */
-    public function type()
+    public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Type::class);
     }
@@ -210,7 +210,7 @@ class Torrent extends Model
      *
      * @return BelongsTo
      */
-    public function moderated()
+    public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'moderated_by')->withDefault([
             'username' => 'System',
@@ -223,7 +223,7 @@ class Torrent extends Model
      *
      * @return BelongsToMany
      */
-    public function tags()
+    public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'tag_torrent', 'torrent_id', 'tag_name', 'id', 'name');
     }
@@ -233,7 +233,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function history()
+    public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(History::class, 'info_hash', 'info_hash');
     }
@@ -243,7 +243,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function tips()
+    public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
     }
@@ -253,7 +253,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function thanks()
+    public function thanks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Thank::class);
     }
@@ -263,7 +263,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function hitrun()
+    public function hitrun(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Warning::class, 'torrent');
     }
@@ -273,7 +273,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function featured()
+    public function featured(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FeaturedTorrent::class);
     }
@@ -283,7 +283,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function files()
+    public function files(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentFile::class);
     }
@@ -293,7 +293,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function comments()
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class);
     }
@@ -303,7 +303,7 @@ class Torrent extends Model
      *
      * @return HasMany
      */
-    public function peers()
+    public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Peer::class);
     }
@@ -313,7 +313,7 @@ class Torrent extends Model
      *
      * @return HasOne
      */
-    public function request()
+    public function request(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
     }
@@ -325,7 +325,7 @@ class Torrent extends Model
      *
      * @return void
      */
-    public function setDescriptionAttribute($value)
+    public function setDescriptionAttribute(string $value): void
     {
         $this->attributes['description'] = htmlspecialchars($value);
     }
@@ -335,7 +335,7 @@ class Torrent extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getDescriptionHtml()
+    public function getDescriptionHtml(): string
     {
         $bbcode = new Bbcode();
 
@@ -349,7 +349,7 @@ class Torrent extends Model
      *
      * @return void
      */
-    public function setMediaInfoAttribute($value)
+    public function setMediaInfoAttribute(string $value): void
     {
         $this->attributes['mediainfo'] = htmlspecialchars($value);
     }
@@ -359,7 +359,7 @@ class Torrent extends Model
      *
      * @return array
      */
-    public function getMediaInfo()
+    public function getMediaInfo(): array
     {
         $parser = new MediaInfo();
 
@@ -374,7 +374,7 @@ class Torrent extends Model
      *
      * @return string
      */
-    public function getSize($bytes = null, $precision = 2)
+    public function getSize($bytes = null, int $precision = 2): string
     {
         $bytes = $this->size;
 
@@ -384,7 +384,7 @@ class Torrent extends Model
     /**
      * Bookmarks.
      */
-    public function bookmarked()
+    public function bookmarked(): bool
     {
         return (bool) Bookmark::where('user_id', '=', auth()->user()->id)
             ->where('torrent_id', '=', $this->id)
@@ -399,7 +399,7 @@ class Torrent extends Model
      *
      * @return bool
      */
-    public function notifyUploader($type, $payload)
+    public function notifyUploader($type, $payload): bool
     {
         if ($type == 'thank') {
             $user = User::with('notification')->findOrFail($this->user_id);
@@ -428,7 +428,7 @@ class Torrent extends Model
      *
      * @return bool
      */
-    public function isFreeleech($user = null)
+    public function isFreeleech($user = null): bool
     {
         $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
 

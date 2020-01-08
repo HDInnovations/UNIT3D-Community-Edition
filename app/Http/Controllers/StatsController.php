@@ -54,7 +54,7 @@ class StatsController extends Controller
         set_time_limit(300);
 
         // Total Members Count (All Groups)
-        $all_user = cache()->remember('all_user', $this->expiresAt, function () {
+        $all_user = cache()->remember('all_user', $this->expiresAt, function (): int {
             return User::withTrashed()->count();
         });
 
@@ -86,7 +86,7 @@ class StatsController extends Controller
         });
 
         // Total Pruned Members Count
-        $pruned_user = cache()->remember('pruned_user', $this->expiresAt, function () {
+        $pruned_user = cache()->remember('pruned_user', $this->expiresAt, function (): int {
             $pruned_group = cache()->rememberForever('pruned_group', function () {
                 return Group::where('slug', '=', 'pruned')->pluck('id');
             });

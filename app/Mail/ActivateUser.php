@@ -38,13 +38,13 @@ class ActivateUser extends Mailable
      * @param User   $user
      * @param string $code
      */
-    public function __construct(User $user, $code)
+    public function __construct(User $user, string $code)
     {
         $this->user = $user;
         $this->code = $code;
     }
 
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.activate')
             ->subject('Activation Required '.config('other.title'));

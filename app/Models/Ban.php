@@ -53,7 +53,7 @@ class Ban extends Model
      *
      * @return BelongsTo
      */
-    public function banneduser()
+    public function banneduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'owned_by')->withDefault([
             'username' => 'System',
@@ -66,7 +66,7 @@ class Ban extends Model
      *
      * @return BelongsTo
      */
-    public function staffuser()
+    public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by')->withDefault([
             'username' => 'System',

@@ -53,7 +53,7 @@ class ApplicationImageProof extends Model
      *
      * @return BelongsTo
      */
-    public function application()
+    public function application(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Application::class);
     }

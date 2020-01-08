@@ -49,7 +49,7 @@ class IrcBroadcast extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Broadcasting: '.$this->argument('message'));
         $bot = new IRCAnnounceBot();
@@ -59,9 +59,9 @@ class IrcBroadcast extends Command
     /**
      * Get the console command arguments.
      *
-     * @return array
+     * @return int[][]|string[][]
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
             ['message', InputArgument::REQUIRED, 'Message you would like to send'],

@@ -19,6 +19,9 @@ use Closure;
 
 class HtmlEncrypt
 {
+    /**
+     * @var string
+     */
     private $hex;
 
     /**
@@ -37,7 +40,7 @@ class HtmlEncrypt
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next)
     {
         /**
          * @var Response
@@ -55,7 +58,7 @@ class HtmlEncrypt
         return $response;
     }
 
-    public function encryptHtml($content)
+    public function encryptHtml($content): string
     {
         $nonce = SecureHeaders::nonce();
 
@@ -78,7 +81,7 @@ class HtmlEncrypt
         return $script;
     }
 
-    public function addHexValue($hex)
+    public function addHexValue($hex): void
     {
         $this->hex .= $hex;
     }

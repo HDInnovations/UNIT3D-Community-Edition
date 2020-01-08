@@ -40,7 +40,7 @@ class StringHelper
      */
     const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
 
-    public static function generateRandomString($length = 20)
+    public static function generateRandomString($length = 20): string
     {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
         $string = '';
@@ -51,7 +51,7 @@ class StringHelper
         return $string;
     }
 
-    public static function formatBytes($bytes, $precision = 2)
+    public static function formatBytes($bytes, $precision = 2): string
     {
         $bytes = max($bytes, 0);
         $suffix = 'B';
@@ -83,7 +83,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeRemaining($seconds)
+    public static function timeRemaining($seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -139,7 +139,7 @@ class StringHelper
      *
      * @return string
      */
-    public static function timeElapsed($seconds)
+    public static function timeElapsed($seconds): string
     {
         $minutes = 0;
         $hours = 0;
@@ -186,7 +186,7 @@ class StringHelper
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
 
-    public static function ordinal($number)
+    public static function ordinal($number): string
     {
         $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {

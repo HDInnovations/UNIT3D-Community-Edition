@@ -79,7 +79,7 @@ class Forum extends Model
      *
      * @return HasMany
      */
-    public function topics()
+    public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Topic::class);
     }
@@ -87,7 +87,7 @@ class Forum extends Model
     /**
      * Has Many Sub Topics.
      *
-     * @return HasMany
+     * @return mixed
      */
     public function sub_topics()
     {
@@ -104,7 +104,7 @@ class Forum extends Model
      *
      * @return HasMany
      */
-    public function forums()
+    public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
@@ -112,7 +112,7 @@ class Forum extends Model
     /**
      * Has Many Subscribed Topics.
      *
-     * @return HasMany
+     * @return mixed|\Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function subscription_topics()
     {
@@ -133,7 +133,7 @@ class Forum extends Model
      *
      * @return HasMany
      */
-    public function subscriptions()
+    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Subscription::class, 'forum_id', 'id');
     }
@@ -143,7 +143,7 @@ class Forum extends Model
      *
      * @return HasMany
      */
-    public function permissions()
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Permission::class);
     }
@@ -156,7 +156,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function notifySubscribers($poster, $topic)
+    public function notifySubscribers($poster, $topic): void
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -177,7 +177,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getForumsInCategory()
+    public function getForumsInCategory(): string
     {
         return self::where('parent_id', '=', $this->id)->get();
     }
@@ -189,7 +189,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getForumsInCategoryById($forumId)
+    public function getForumsInCategoryById($forumId): string
     {
         return self::where('parent_id', '=', $forumId)->get();
     }
@@ -199,7 +199,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getCategory()
+    public function getCategory(): string
     {
         return self::find($this->parent_id);
     }
@@ -209,7 +209,7 @@ class Forum extends Model
      *
      * @param $forumId
      *
-     * @return string
+     * @return float|int
      */
     public function getPostCount($forumId)
     {
@@ -230,7 +230,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getTopicCount($forumId)
+    public function getTopicCount($forumId): string
     {
         $forum = self::find($forumId);
 
@@ -242,7 +242,7 @@ class Forum extends Model
      *
      * @return string
      */
-    public function getPermission()
+    public function getPermission(): string
     {
         $group = auth()->check() ? auth()->user()->group : Group::find(2);
 

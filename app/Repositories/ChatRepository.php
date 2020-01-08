@@ -55,12 +55,12 @@ class ChatRepository
     private $bot;
 
     /**
-     * @var Echo
+     * @var \App\Models\UserEcho
      */
     private $echo;
 
     /**
-     * @var Audible
+     * @var \App\Models\UserAudible
      */
     private $audible;
 

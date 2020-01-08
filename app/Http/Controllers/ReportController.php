@@ -43,7 +43,7 @@ class ReportController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function request(Request $request, int $id)
     {
@@ -79,7 +79,7 @@ class ReportController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function torrent(Request $request, int $id)
     {
@@ -116,7 +116,7 @@ class ReportController extends Controller
      * @param $username
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function user(Request $request, $username, int $id)
     {

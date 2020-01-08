@@ -18,8 +18,14 @@ use SimpleXMLElement;
 
 class AnnClient extends Client implements MangaInterface
 {
+    /**
+     * @var string
+     */
     protected $apiUrl = 'cdn.animenewsnetwork.com/encyclopedia/api.xml';
 
+    /**
+     * @var bool
+     */
     protected $apiSecure = false;
 
     public function __construct()
@@ -27,12 +33,15 @@ class AnnClient extends Client implements MangaInterface
         parent::__construct($this->apiUrl);
     }
 
-    public function find($key)
+    public function find($key): void
     {
         // TODO: Implement find() method.
     }
 
-    public function manga($id)
+    /**
+     * @return mixed[][]
+     */
+    public function manga($id): array
     {
         $url = $this->apiUrl.'?manga='.$id;
         $data = $this->request($url);
@@ -49,12 +58,12 @@ class AnnClient extends Client implements MangaInterface
         return $staffs;
     }
 
-    public function authors($id)
+    public function authors($id): void
     {
         // TODO: Implement authors() method.
     }
 
-    public function characters($id)
+    public function characters($id): void
     {
         // TODO: Implement characters() method.
     }

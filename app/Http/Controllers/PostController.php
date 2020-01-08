@@ -64,7 +64,7 @@ class PostController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function reply(Request $request, $id)
     {
@@ -203,7 +203,7 @@ class PostController extends Controller
      *
      * @return RedirectResponse
      */
-    public function postEdit(Request $request, $postId)
+    public function postEdit(Request $request, $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
@@ -225,7 +225,7 @@ class PostController extends Controller
      *
      * @return RedirectResponse
      */
-    public function postDelete(Request $request, $postId)
+    public function postDelete(Request $request, $postId): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);

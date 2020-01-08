@@ -18,12 +18,24 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class MangaUpdatesClient extends Client implements MangaInterface
 {
+    /**
+     * @var string
+     */
     protected $apiUrl = 'www.mangaupdates.com/';
 
+    /**
+     * @var bool
+     */
     protected $apiSecure = true;
 
+    /**
+     * @var string
+     */
     protected $apiSeriesUrl = 'series.html?id=';
 
+    /**
+     * @var string
+     */
     protected $apiAuthorUrl = 'authors.html?id=';
 
     public function __construct()
@@ -31,11 +43,14 @@ class MangaUpdatesClient extends Client implements MangaInterface
         parent::__construct($this->apiUrl);
     }
 
-    public function find($key)
+    public function find($key): void
     {
     }
 
-    public function manga($id)
+    /**
+     * @return mixed[][]|string[][]|null[][]
+     */
+    public function manga($id): array
     {
         $webpage = $this->request($this->apiUrl.$this->apiSeriesUrl.$id);
         $dom = new Crawler($webpage);
@@ -62,11 +77,11 @@ class MangaUpdatesClient extends Client implements MangaInterface
         return $data;
     }
 
-    public function authors($id)
+    public function authors($id): void
     {
     }
 
-    public function characters($id)
+    public function characters($id): void
     {
     }
 }

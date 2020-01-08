@@ -26,7 +26,7 @@ class FailedLoginListener
      *
      * @return void
      */
-    public function handle($event)
+    public function handle($event): void
     {
         FailedLoginAttempt::record(
             $event->user,

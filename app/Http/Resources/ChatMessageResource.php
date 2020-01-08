@@ -27,7 +27,7 @@ class ChatMessageResource extends JsonResource
      *
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $emojiOne = app()->make(LaravelEmojiOne::class);
 

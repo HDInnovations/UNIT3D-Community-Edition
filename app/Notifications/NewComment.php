@@ -21,8 +21,14 @@ class NewComment extends Notification
 {
     use Queueable;
 
+    /**
+     * @var string
+     */
     public $type;
 
+    /**
+     * @var \App\Models\Comment
+     */
     public $comment;
 
     /**
@@ -42,9 +48,9 @@ class NewComment extends Notification
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -54,9 +60,9 @@ class NewComment extends Notification
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
         if ($this->type == 'torrent') {

@@ -24,7 +24,7 @@ class RequestFacetedRepository
      *
      * @return Collection
      */
-    public function categories()
+    public function categories(): \Illuminate\Support\Collection
     {
         return Category::all()->sortBy('position')->pluck('name', 'id');
     }
@@ -34,7 +34,7 @@ class RequestFacetedRepository
      *
      * @return Collection
      */
-    public function types()
+    public function types(): \Illuminate\Support\Collection
     {
         return Type::all()->sortBy('position')->pluck('name', 'id');
     }
@@ -44,7 +44,7 @@ class RequestFacetedRepository
      *
      * @return array
      */
-    public function sorting()
+    public function sorting(): array
     {
         return [
             'created_at' => trans('torrent.date'),
@@ -59,7 +59,7 @@ class RequestFacetedRepository
      *
      * @return array
      */
-    public function direction()
+    public function direction(): array
     {
         return [
             'desc' => trans('common.descending'),

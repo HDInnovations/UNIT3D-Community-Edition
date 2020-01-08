@@ -66,7 +66,7 @@ class Seedbox extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

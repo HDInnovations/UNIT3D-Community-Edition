@@ -27,8 +27,14 @@ class Person
 
     public $gender;
 
+    /**
+     * @var \Carbon\Carbon|null
+     */
     public $birthday;
 
+    /**
+     * @var \Carbon\Carbon|null
+     */
     public $deathday;
 
     public $placeOfBirth;

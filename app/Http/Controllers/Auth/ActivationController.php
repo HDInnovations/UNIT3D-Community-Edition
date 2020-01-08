@@ -19,6 +19,9 @@ use App\Models\UserActivation;
 
 class ActivationController extends Controller
 {
+    /**
+     * @return mixed|\Illuminate\Http\RedirectResponse
+     */
     public function activate($token)
     {
         $banned_group = cache()->rememberForever('banned_group', function () {

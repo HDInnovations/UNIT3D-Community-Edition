@@ -53,7 +53,7 @@ class TagTorrent extends Model
      *
      * @return BelongsToMany
      */
-    public function genre()
+    public function genre(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Tag::class, 'tag_name', 'name');
     }

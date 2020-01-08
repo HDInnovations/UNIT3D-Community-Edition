@@ -22,10 +22,19 @@ class NewUnfollow extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var string
+     */
     public $type;
 
+    /**
+     * @var \App\Models\User
+     */
     public $sender;
 
+    /**
+     * @var \App\Models\User
+     */
     public $target;
 
     /**
@@ -47,9 +56,9 @@ class NewUnfollow extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -59,9 +68,9 @@ class NewUnfollow extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 

@@ -63,7 +63,7 @@ class ApplicationController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function approve(Request $request, $id)
     {
@@ -119,7 +119,7 @@ class ApplicationController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request, $id)
     {

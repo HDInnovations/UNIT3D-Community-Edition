@@ -66,7 +66,7 @@ class ModerationController extends Controller
      *
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function approve($id)
     {
@@ -105,7 +105,7 @@ class ModerationController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function postpone(Request $request)
     {
@@ -141,7 +141,7 @@ class ModerationController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function reject(Request $request)
     {

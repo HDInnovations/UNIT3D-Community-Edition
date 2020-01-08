@@ -52,7 +52,7 @@ class RegisterController extends Controller
      *
      * @param $code
      *
-     * @return Factory|View
+     * @return mixed|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function registrationForm($code = null)
     {
@@ -71,6 +71,9 @@ class RegisterController extends Controller
         return view('auth.register', ['code' => $code]);
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|mixed
+     */
     public function register(Request $request, $code = null)
     {
         // Make sure open reg is off and invite code exist and has not been used already

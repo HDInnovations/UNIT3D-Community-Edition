@@ -63,7 +63,7 @@ class NotificationController extends Controller
      *
      * @throws Throwable
      *
-     * @return array
+     * @return mixed[]|string
      */
     public function faceted(Request $request)
     {
@@ -163,7 +163,7 @@ class NotificationController extends Controller
      *
      * @return RedirectResponse
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
@@ -178,7 +178,7 @@ class NotificationController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {
@@ -209,7 +209,7 @@ class NotificationController extends Controller
      *
      * @return RedirectResponse
      */
-    public function updateAll(Request $request)
+    public function updateAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $current = new Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $current]);
@@ -226,7 +226,7 @@ class NotificationController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 
@@ -241,7 +241,7 @@ class NotificationController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroyAll(Request $request)
+    public function destroyAll(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->user()->notifications()->delete();
 

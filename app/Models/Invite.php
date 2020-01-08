@@ -57,7 +57,7 @@ class Invite extends Model
      *
      * @return BelongsTo
      */
-    public function sender()
+    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
@@ -70,7 +70,7 @@ class Invite extends Model
      *
      * @return BelongsTo
      */
-    public function receiver()
+    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'accepted_by')->withDefault([
             'username' => 'System',

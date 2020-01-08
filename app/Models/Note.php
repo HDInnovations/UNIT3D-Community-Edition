@@ -56,7 +56,7 @@ class Note extends Model
      *
      * @return BelongsTo
      */
-    public function noteduser()
+    public function noteduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
@@ -69,7 +69,7 @@ class Note extends Model
      *
      * @return BelongsTo
      */
-    public function staffuser()
+    public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',

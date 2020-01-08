@@ -21,6 +21,9 @@ class Contact extends Mailable
 {
     use Queueable, SerializesModels;
 
+    /**
+     * @var mixed[]
+     */
     public $input;
 
     /**
@@ -38,7 +41,7 @@ class Contact extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.contact')
             ->from($this->input['email'], config('other.title'))

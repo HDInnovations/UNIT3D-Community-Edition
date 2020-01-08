@@ -20,6 +20,9 @@ use Session;
 
 class AchievementUnlocked
 {
+    /**
+     * @var \App\Repositories\ChatRepository
+     */
     private $chat;
 
     public function __construct(ChatRepository $chat)
@@ -34,7 +37,7 @@ class AchievementUnlocked
      *
      * @return void
      */
-    public function handle(Unlocked $event)
+    public function handle(Unlocked $event): void
     {
         // There's an AchievementProgress instance located on $event->progress
         $user = User::where('id', '=', $event->progress->achiever_id)->first();

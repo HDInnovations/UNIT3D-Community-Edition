@@ -31,7 +31,7 @@ class VersionController extends Controller
     /**
      * Check the latest release of UNIT3D and compare them to the local version.
      *
-     * @return string
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function checkVersion()
     {

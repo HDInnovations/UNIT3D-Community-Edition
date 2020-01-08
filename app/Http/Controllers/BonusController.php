@@ -159,7 +159,7 @@ class BonusController extends Controller
      *
      * @return Factory|View
      */
-    public function bonus(Request $request, $username = '')
+    public function bonus(Request $request, string $username = '')
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -230,7 +230,7 @@ class BonusController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function exchange(Request $request, $id)
     {
@@ -267,7 +267,7 @@ class BonusController extends Controller
      *
      * @return string
      */
-    public function doItemExchange($userID, $itemID)
+    public function doItemExchange($userID, $itemID): bool
     {
         $current = Carbon::now();
         $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
@@ -327,7 +327,7 @@ class BonusController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function sendGift(Request $request)
     {
@@ -422,7 +422,7 @@ class BonusController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function tipUploader(Request $request, $id)
     {
@@ -472,7 +472,7 @@ class BonusController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function tipPoster(Request $request)
     {
@@ -528,7 +528,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getDyingCount(Request $request)
+    public function getDyingCount(Request $request): int
     {
         $user = $request->user();
 
@@ -549,7 +549,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getLegendaryCount(Request $request)
+    public function getLegendaryCount(Request $request): int
     {
         $user = $request->user();
 
@@ -570,7 +570,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getOldCount(Request $request)
+    public function getOldCount(Request $request): int
     {
         $user = $request->user();
 
@@ -592,7 +592,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getHugeCount(Request $request)
+    public function getHugeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -612,7 +612,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getLargeCount(Request $request)
+    public function getLargeCount(Request $request): int
     {
         $user = $request->user();
 
@@ -633,7 +633,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getRegularCount(Request $request)
+    public function getRegularCount(Request $request): int
     {
         $user = $request->user();
 
@@ -654,7 +654,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getParticipaintSeedCount(Request $request)
+    public function getParticipaintSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -675,7 +675,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getTeamPlayerSeedCount(Request $request)
+    public function getTeamPlayerSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -696,7 +696,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getCommitedSeedCount(Request $request)
+    public function getCommitedSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -717,7 +717,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getMVPSeedCount(Request $request)
+    public function getMVPSeedCount(Request $request): int
     {
         $user = $request->user();
 
@@ -738,7 +738,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getLegendarySeedCount(Request $request)
+    public function getLegendarySeedCount(Request $request): int
     {
         $user = $request->user();
 

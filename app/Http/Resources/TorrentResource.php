@@ -9,9 +9,9 @@ class TorrentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @return array
+     * @return mixed[][]|string[][]
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'type'          => 'torrent',

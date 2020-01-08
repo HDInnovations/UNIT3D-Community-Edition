@@ -38,7 +38,7 @@ class ForgotUsernameController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function sendUsernameReminder(Request $request)
     {

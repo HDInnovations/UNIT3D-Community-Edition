@@ -34,9 +34,9 @@ class ProAjaxMiddleware
      * @param Request $request
      * @param Closure                 $next
      *
-     * @return mixed
+     * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next)
     {
         //return  $response = $next($request);
         $response = $next($request);
@@ -91,7 +91,7 @@ class ProAjaxMiddleware
      *
      * @return bool
      */
-    public function isAjaxRequest($request)
+    public function isAjaxRequest($request): bool
     {
         return $request->ajax() && $request->wantsJson();
     }
@@ -103,7 +103,7 @@ class ProAjaxMiddleware
      *
      * @return bool
      */
-    public function sessionHasFlashData($request)
+    public function sessionHasFlashData($request): bool
     {
         return $request->session()->has($this->flash_name);
     }
@@ -115,7 +115,7 @@ class ProAjaxMiddleware
      *
      * @return array
      */
-    public function getFlashMessage($request)
+    public function getFlashMessage($request): array
     {
         $session = $request->session();
 
@@ -133,7 +133,7 @@ class ProAjaxMiddleware
      *
      * @return bool
      */
-    public function shouldRedirectRequest($request, $response)
+    public function shouldRedirectRequest($request, $response): bool
     {
         // If there is no target URL, we know that it is not a redirect request
         if (!method_exists($response, 'getTargetUrl')) {

@@ -26,7 +26,7 @@ class ThankController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $id)
     {

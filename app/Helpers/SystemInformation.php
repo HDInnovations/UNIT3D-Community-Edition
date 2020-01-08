@@ -21,14 +21,17 @@ use Illuminate\Support\Facades\DB;
 
 class SystemInformation
 {
-    public function avg()
+    public function avg(): float
     {
         if (is_readable('/proc/loadavg')) {
             return (float) file_get_contents('/proc/loadavg');
         }
     }
 
-    public function memory()
+    /**
+     * @return mixed[]|int[]
+     */
+    public function memory(): array
     {
         if (is_readable('/proc/meminfo')) {
             $content = file_get_contents('/proc/meminfo');
@@ -53,7 +56,7 @@ class SystemInformation
         ];
     }
 
-    protected function formatBytes($bytes, $precision = 2)
+    protected function formatBytes($bytes, $precision = 2): string
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
@@ -68,7 +71,10 @@ class SystemInformation
         return round($bytes, $precision).' '.$units[$pow];
     }
 
-    public function disk()
+    /**
+     * @return mixed[]
+     */
+    public function disk(): array
     {
         $total = disk_total_space(base_path());
         $free = disk_free_space(base_path());
@@ -80,7 +86,7 @@ class SystemInformation
         ];
     }
 
-    public function uptime()
+    public function uptime(): float
     {
         if (is_readable('/proc/uptime')) {
             return (float) file_get_contents('/proc/uptime');
@@ -92,7 +98,10 @@ class SystemInformation
         return Carbon::now();
     }
 
-    public function basic()
+    /**
+     * @return mixed[]
+     */
+    public function basic(): array
     {
         return [
             'os'       => php_uname('s'),
@@ -102,6 +111,9 @@ class SystemInformation
         ];
     }
 
+    /**
+     * @return string|mixed
+     */
     private function getDatabase()
     {
         $knownDatabases = [
@@ -121,9 +133,9 @@ class SystemInformation
     /**
      * Get all the directory permissions as well as the recommended ones.
      *
-     * @return array
+     * @return string[][]|\Symfony\Component\Translation\TranslatorInterface[][]
      */
-    public function directoryPermissions()
+    public function directoryPermissions(): array
     {
         return [
             [

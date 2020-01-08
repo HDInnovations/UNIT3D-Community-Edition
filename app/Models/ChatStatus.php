@@ -50,7 +50,7 @@ class ChatStatus extends Model
      *
      * @return HasMany
      */
-    public function users()
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class, 'chat_status_id', 'id');
     }

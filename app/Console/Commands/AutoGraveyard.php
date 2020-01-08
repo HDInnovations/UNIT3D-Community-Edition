@@ -55,7 +55,7 @@ class AutoGraveyard extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $rewardable = Graveyard::where('rewarded', '!=', 1)->oldest()->get();
 

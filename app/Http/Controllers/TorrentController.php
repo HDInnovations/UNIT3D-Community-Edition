@@ -192,7 +192,7 @@ class TorrentController extends Controller
      *
      * @return void
      */
-    public function filtered(Request $request)
+    public function filtered(Request $request): void
     {
         $user = $request->user();
         if ($user) {
@@ -217,7 +217,7 @@ class TorrentController extends Controller
      * @throws \HttpInvalidParamException
      * @throws Throwable
      *
-     * @return Factory|\Illuminate\View\View
+     * @return mixed[]|string
      */
     public function groupingLayout(Request $request)
     {
@@ -346,7 +346,7 @@ class TorrentController extends Controller
      * @throws \HttpInvalidParamException
      * @throws Throwable
      *
-     * @return array
+     * @return int|mixed[][]|mixed[]|string
      */
     public function faceted(Request $request, Torrent $torrent)
     {
@@ -855,7 +855,7 @@ class TorrentController extends Controller
      *
      * @param $mediainfo
      *
-     * @return array
+     * @return mixed|mixed[]|string
      */
     private static function anonymizeMediainfo($mediainfo)
     {
@@ -919,7 +919,7 @@ class TorrentController extends Controller
         }
 
         if (isset($meta) && $meta->recommendations) {
-            $meta->recommendations['results'] = array_map(function ($recomentaion) {
+            $meta->recommendations['results'] = array_map(function ($recomentaion): array {
                 $recomentaion['exists'] = Torrent::where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
 
                 return $recomentaion;
@@ -1019,7 +1019,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function edit(Request $request, $id)
     {
@@ -1103,7 +1103,7 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function deleteTorrent(Request $request)
     {
@@ -1212,7 +1212,7 @@ class TorrentController extends Controller
      *
      * @return Factory|\Illuminate\View\View
      */
-    public function uploadForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
+    public function uploadForm(Request $request, string $title = '', int $imdb = 0, int $tmdb = 0)
     {
         $user = $request->user();
 
@@ -1234,7 +1234,7 @@ class TorrentController extends Controller
      * @throws ErrorException
      * @throws \HttpInvalidParamException
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function upload(Request $request)
     {
@@ -1432,7 +1432,7 @@ class TorrentController extends Controller
      * @param $id
      * @param $rsskey
      *
-     * @return TorrentFile
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download(Request $request, $id, $rsskey = null)
     {
@@ -1496,7 +1496,7 @@ class TorrentController extends Controller
      *
      * @return RedirectResponse
      */
-    public function bumpTorrent(Request $request, $id)
+    public function bumpTorrent(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1534,7 +1534,7 @@ class TorrentController extends Controller
      *
      * @return RedirectResponse
      */
-    public function sticky(Request $request, $id)
+    public function sticky(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1555,7 +1555,7 @@ class TorrentController extends Controller
      *
      * @return RedirectResponse
      */
-    public function grantFL(Request $request, $id)
+    public function grantFL(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1589,7 +1589,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function grantFeatured(Request $request, $id)
     {
@@ -1630,7 +1630,7 @@ class TorrentController extends Controller
      *
      * @return RedirectResponse
      */
-    public function grantDoubleUp(Request $request, $id)
+    public function grantDoubleUp(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
@@ -1662,7 +1662,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function reseedTorrent(Request $request, $id)
     {
@@ -1697,7 +1697,7 @@ class TorrentController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function freeleechToken(Request $request, $id)
     {

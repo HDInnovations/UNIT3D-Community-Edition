@@ -58,7 +58,7 @@ class PollController extends Controller
      * @param Request $request
      * @param $slug
      *
-     * @return Factory|View
+     * @return mixed|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Request $request, $slug)
     {
@@ -79,7 +79,7 @@ class PollController extends Controller
      *
      * @param VoteOnPoll $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function vote(VoteOnPoll $request)
     {

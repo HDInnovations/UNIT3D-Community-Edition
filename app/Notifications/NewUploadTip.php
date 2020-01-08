@@ -22,10 +22,19 @@ class NewUploadTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var string
+     */
     public $type;
 
+    /**
+     * @var string
+     */
     public $tipper;
 
+    /**
+     * @var \App\Models\Torrent
+     */
     public $torrent;
 
     public $amount;
@@ -51,9 +60,9 @@ class NewUploadTip extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -63,9 +72,9 @@ class NewUploadTip extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 

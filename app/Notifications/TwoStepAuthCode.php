@@ -43,9 +43,9 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -57,7 +57,7 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
      *
      * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
         return (new MailMessage())
             ->from(config('auth.verificationEmailFrom'), config('auth.verificationEmailFromName'))

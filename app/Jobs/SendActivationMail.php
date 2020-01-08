@@ -49,7 +49,7 @@ class SendActivationMail implements ShouldQueue
      * @param User   $user
      * @param string $code
      */
-    public function __construct(User $user, $code)
+    public function __construct(User $user, string $code)
     {
         $this->user = $user;
         $this->code = $code;
@@ -60,7 +60,7 @@ class SendActivationMail implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->attempts() > 2) {
             $this->delay(min(30 * $this->attempts(), 300));

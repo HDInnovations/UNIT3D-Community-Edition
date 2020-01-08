@@ -42,7 +42,7 @@ class AuditController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $audit = Audit::findOrFail($id);

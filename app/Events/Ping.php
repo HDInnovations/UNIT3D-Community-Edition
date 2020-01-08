@@ -25,6 +25,9 @@ class Ping implements ShouldBroadcastNow
 
     public $room;
 
+    /**
+     * @var mixed[]
+     */
     public $ping;
 
     /**
@@ -44,14 +47,14 @@ class Ping implements ShouldBroadcastNow
      *
      * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 
         return new PresenceChannel('chatroom.'.$this->room);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'new.ping';
     }

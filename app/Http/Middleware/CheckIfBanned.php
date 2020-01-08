@@ -26,9 +26,9 @@ class CheckIfBanned
      * @param Closure                 $next
      * @param string|null              $guard
      *
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(\Illuminate\Http\Request $request, Closure $next, ?string $guard = null)
     {
         $user = $request->user();
         $banned_group = cache()->rememberForever('banned_group', function () {

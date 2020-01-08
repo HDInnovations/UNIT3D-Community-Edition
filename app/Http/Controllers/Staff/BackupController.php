@@ -28,6 +28,7 @@ class BackupController extends Controller
      * @param Request $request
      *
      * @return
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -75,7 +76,7 @@ class BackupController extends Controller
      *
      * @return string
      */
-    public function create(Request $request)
+    public function create(Request $request): string
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -104,7 +105,7 @@ class BackupController extends Controller
      *
      * @return string
      */
-    public function files(Request $request)
+    public function files(Request $request): string
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -133,7 +134,7 @@ class BackupController extends Controller
      *
      * @return string
      */
-    public function database(Request $request)
+    public function database(Request $request): string
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
@@ -161,6 +162,7 @@ class BackupController extends Controller
      * @param Request $request
      *
      * @return
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download(Request $request)
     {

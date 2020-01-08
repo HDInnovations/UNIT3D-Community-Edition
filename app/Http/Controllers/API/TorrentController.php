@@ -53,7 +53,7 @@ class TorrentController extends BaseController
      *
      * @return TorrentsResource
      */
-    public function index()
+    public function index(): \App\Http\Resources\TorrentsResource
     {
         return new TorrentsResource(Torrent::with(['category', 'tags'])->latest()->paginate());
     }
@@ -65,7 +65,7 @@ class TorrentController extends BaseController
      *
      * @return Response
      */
-    public function store(Request $request, Torrent $torrent)
+    public function store(Request $request, Torrent $torrent): \Illuminate\Http\Response
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -222,7 +222,7 @@ class TorrentController extends BaseController
      *
      * @return TorrentResource
      */
-    public function show($id)
+    public function show(int $id): \App\Http\Resources\TorrentResource
     {
         $torrent = Torrent::findOrFail($id);
 
@@ -239,7 +239,7 @@ class TorrentController extends BaseController
      *
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -251,7 +251,7 @@ class TorrentController extends BaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }
@@ -262,7 +262,7 @@ class TorrentController extends BaseController
      * @param Request $request
      * @param \App\Models\Torrent      $torrent
      *
-     * @return TorrentsResource
+     * @return int|mixed[][]|\App\Http\Resources\TorrentsResource|mixed
      */
     public function filter(Request $request, Torrent $torrent)
     {
@@ -418,7 +418,7 @@ class TorrentController extends BaseController
      *
      * @param $mediainfo
      *
-     * @return array
+     * @return mixed|mixed[]|string
      */
     private static function anonymizeMediainfo($mediainfo)
     {

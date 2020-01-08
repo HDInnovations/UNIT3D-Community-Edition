@@ -27,7 +27,7 @@ class SetLanguage
      *
      * @param string $locale
      **/
-    private function setLocale($locale)
+    private function setLocale(string $locale): void
     {
         // Check if is allowed and set default locale if not
         if (!Language::allowed($locale)) {
@@ -58,12 +58,12 @@ class SetLanguage
         }
     }
 
-    public function setDefaultLocale()
+    public function setDefaultLocale(): void
     {
         $this->setLocale(config('app.locale'));
     }
 
-    public function setUserLocale()
+    public function setUserLocale(): void
     {
         $user = auth()->user();
 
@@ -74,7 +74,7 @@ class SetLanguage
         }
     }
 
-    public function setSystemLocale($request)
+    public function setSystemLocale($request): void
     {
         if ($request->session()->has('locale')) {
             $this->setLocale(session('locale'));
@@ -91,7 +91,7 @@ class SetLanguage
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next)
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));

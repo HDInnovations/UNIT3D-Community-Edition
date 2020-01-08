@@ -25,7 +25,7 @@ class PlaylistTorrentController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -59,7 +59,7 @@ class PlaylistTorrentController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         $user = auth()->user();
         $playlist_torrent = PlaylistTorrent::findOrFail($id);

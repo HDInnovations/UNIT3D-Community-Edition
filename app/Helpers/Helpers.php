@@ -18,7 +18,7 @@ if (!function_exists('appurl')) {
 }
 
 if (!function_exists('hrefProfile')) {
-    function hrefProfile($user)
+    function hrefProfile($user): string
     {
         $appurl = appurl();
 
@@ -27,7 +27,7 @@ if (!function_exists('hrefProfile')) {
 }
 
 if (!function_exists('hrefArticle')) {
-    function hrefArticle($article)
+    function hrefArticle($article): string
     {
         $appurl = appurl();
 
@@ -36,7 +36,7 @@ if (!function_exists('hrefArticle')) {
 }
 
 if (!function_exists('hrefTorrent')) {
-    function hrefTorrent($torrent)
+    function hrefTorrent($torrent): string
     {
         $appurl = appurl();
 
@@ -45,7 +45,7 @@ if (!function_exists('hrefTorrent')) {
 }
 
 if (!function_exists('hrefRequest')) {
-    function hrefRequest($torrentRequest)
+    function hrefRequest($torrentRequest): string
     {
         $appurl = appurl();
 
@@ -54,7 +54,7 @@ if (!function_exists('hrefRequest')) {
 }
 
 if (!function_exists('hrefPoll')) {
-    function hrefPoll($poll)
+    function hrefPoll($poll): string
     {
         $appurl = appurl();
 
@@ -63,7 +63,7 @@ if (!function_exists('hrefPoll')) {
 }
 
 if (!function_exists('hrefPlaylist')) {
-    function hrefPlaylist($playlist)
+    function hrefPlaylist($playlist): string
     {
         $appurl = appurl();
 

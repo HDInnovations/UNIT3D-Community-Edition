@@ -37,5 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GitUpdate extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $guarded = ['id'];
 }

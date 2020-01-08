@@ -108,7 +108,7 @@ class RequestController extends Controller
      *
      * @throws Throwable
      *
-     * @return array
+     * @return mixed[]|string
      */
     public function faceted(Request $request, TorrentRequest $torrentRequest)
     {
@@ -278,7 +278,7 @@ class RequestController extends Controller
      *
      * @return Factory|\Illuminate\View\View
      */
-    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
+    public function addRequestForm(Request $request, string $title = '', int $imdb = 0, int $tmdb = 0)
     {
         $user = $request->user();
 
@@ -297,7 +297,7 @@ class RequestController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function addrequest(Request $request)
     {
@@ -396,7 +396,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function editrequest(Request $request, $id)
     {
@@ -455,7 +455,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function addBonus(Request $request, $id)
     {
@@ -518,7 +518,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function fillRequest(Request $request, $id)
     {
@@ -564,7 +564,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function approveRequest(Request $request, $id)
     {
@@ -640,7 +640,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function rejectRequest(Request $request, $id)
     {
@@ -678,7 +678,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function deleteRequest(Request $request, $id)
     {
@@ -702,7 +702,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function claimRequest(Request $request, $id)
     {
@@ -740,7 +740,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function unclaimRequest(Request $request, $id)
     {
@@ -781,7 +781,7 @@ class RequestController extends Controller
      *
      * @return RedirectResponse
      */
-    public function resetRequest(Request $request, $id)
+    public function resetRequest(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         abort_unless($user->group->is_modo, 403);

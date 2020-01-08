@@ -71,7 +71,7 @@ class Poll extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -84,7 +84,7 @@ class Poll extends Model
      *
      * @return HasMany
      */
-    public function options()
+    public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Option::class);
     }
@@ -94,7 +94,7 @@ class Poll extends Model
      *
      * @return HasMany
      */
-    public function voters()
+    public function voters(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Voter::class);
     }
@@ -104,7 +104,7 @@ class Poll extends Model
      *
      * @param $title
      *
-     * @return string
+     * @return string|mixed
      */
     public function setTitleAttribute($title)
     {
@@ -122,7 +122,7 @@ class Poll extends Model
      *
      * @return string
      */
-    public function makeSlugFromTitle($title)
+    public function makeSlugFromTitle($title): string
     {
         $slug = strlen($title) > 20 ? substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', sprintf('%%s%', $slug))->count();
@@ -135,7 +135,7 @@ class Poll extends Model
      *
      * @return string
      */
-    public function totalVotes()
+    public function totalVotes(): int
     {
         $result = 0;
         foreach ($this->options as $option) {
@@ -145,10 +145,10 @@ class Poll extends Model
         return $result;
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
-        self::creating(function ($poll) {
+        self::creating(function ($poll): bool {
             if (empty($poll->slug)) {
                 $poll->slug = $poll->makeSlugFromTitle($poll->title);
             }

@@ -23,7 +23,7 @@ class ApiSettingController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(): void
     {
         //
     }
@@ -33,7 +33,7 @@ class ApiSettingController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -45,7 +45,7 @@ class ApiSettingController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
@@ -57,7 +57,7 @@ class ApiSettingController extends Controller
      *
      * @return Response
      */
-    public function show($id)
+    public function show(int $id): void
     {
         //
     }
@@ -69,7 +69,7 @@ class ApiSettingController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(int $id): void
     {
         //
     }
@@ -82,7 +82,7 @@ class ApiSettingController extends Controller
      *
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): void
     {
         //
     }
@@ -94,7 +94,7 @@ class ApiSettingController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }

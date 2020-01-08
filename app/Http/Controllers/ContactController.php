@@ -40,7 +40,7 @@ class ContactController extends Controller
      *
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         // Fetch owner account
         $user = User::where('id', '=', 3)->first();

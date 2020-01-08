@@ -40,7 +40,7 @@ class AutoDisableInactiveUsers extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (config('pruning.user_pruning') == true) {
             $disabled_group = cache()->rememberForever('disabled_group', function () {

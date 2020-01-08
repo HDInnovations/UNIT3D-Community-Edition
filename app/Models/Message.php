@@ -66,7 +66,7 @@ class Message extends Model
      *
      * @return BelongsTo
      */
-    public function bot()
+    public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bot::class);
     }
@@ -76,7 +76,7 @@ class Message extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -86,7 +86,7 @@ class Message extends Model
      *
      * @return BelongsTo
      */
-    public function receiver()
+    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
@@ -96,7 +96,7 @@ class Message extends Model
      *
      * @return BelongsTo
      */
-    public function chatroom()
+    public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
     }
@@ -108,7 +108,7 @@ class Message extends Model
      *
      * @return void
      */
-    public function setMessageAttribute($value)
+    public function setMessageAttribute(string $value): void
     {
         $this->attributes['message'] = htmlspecialchars($value);
     }
@@ -120,7 +120,7 @@ class Message extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public static function getMessageHtml($message)
+    public static function getMessageHtml($message): string
     {
         $bbcode = new Bbcode();
 

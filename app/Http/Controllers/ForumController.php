@@ -337,7 +337,7 @@ class ForumController extends Controller
      *
      * @param $id
      *
-     * @return Factory|View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {

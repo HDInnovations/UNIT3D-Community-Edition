@@ -22,6 +22,9 @@ class NewReseedRequest extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var \App\Models\Torrent
+     */
     public $torrent;
 
     /**
@@ -39,9 +42,9 @@ class NewReseedRequest extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -51,9 +54,9 @@ class NewReseedRequest extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 

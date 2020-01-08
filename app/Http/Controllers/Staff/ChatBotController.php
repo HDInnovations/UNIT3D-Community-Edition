@@ -26,9 +26,9 @@ class ChatBotController extends Controller
      *
      * @param string $hash
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($hash = null)
+    public function index(string $hash = null)
     {
         $bots = Bot::orderBy('position', 'ASC')->get();
 
@@ -43,9 +43,9 @@ class ChatBotController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, int $id)
     {
         $user = $request->user();
         $bot = Bot::findOrFail($id);
@@ -62,9 +62,9 @@ class ChatBotController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $user = $request->user();
         $bot = Bot::findOrFail($id);
@@ -134,7 +134,7 @@ class ChatBotController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\Response
     {
         $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
         $bot->delete();
@@ -150,7 +150,7 @@ class ChatBotController extends Controller
      *
      * @return Response
      */
-    public function disable($id)
+    public function disable(int $id): \Illuminate\Http\Response
     {
         $bot = Bot::findOrFail($id);
         $bot->active = 0;
@@ -167,7 +167,7 @@ class ChatBotController extends Controller
      *
      * @return Response
      */
-    public function enable($id)
+    public function enable(int $id): \Illuminate\Http\Response
     {
         $bot = Bot::findOrFail($id);
         $bot->active = 1;

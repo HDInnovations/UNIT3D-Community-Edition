@@ -56,7 +56,7 @@ class ReportController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Factory|View
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $id)
     {

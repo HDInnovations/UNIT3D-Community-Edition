@@ -44,7 +44,7 @@ class FlushController extends Controller
      *
      * @return RedirectResponse
      */
-    public function peers()
+    public function peers(): \Illuminate\Http\RedirectResponse
     {
         $current = new Carbon();
         $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
@@ -67,7 +67,7 @@ class FlushController extends Controller
      *
      * @return RedirectResponse
      */
-    public function chat()
+    public function chat(): \Illuminate\Http\RedirectResponse
     {
         foreach (Message::all() as $message) {
             broadcast(new MessageDeleted($message));

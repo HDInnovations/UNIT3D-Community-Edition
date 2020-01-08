@@ -115,7 +115,7 @@ class TwoStepAuth extends Model
      *
      * @return array
      */
-    public static function rules($merge = [])
+    public static function rules(array $merge = []): array
     {
         return array_merge(
             [

@@ -65,7 +65,7 @@ class TopicController extends Controller
      *
      * @param $id
      *
-     * @return Factory|View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function topic($id, $page = '', $post = '')
     {
@@ -110,7 +110,7 @@ class TopicController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Factory|View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addForm(Request $request, $id)
     {
@@ -136,7 +136,7 @@ class TopicController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function newTopic(Request $request, $id)
     {
@@ -259,7 +259,7 @@ class TopicController extends Controller
      *
      * @return RedirectResponse
      */
-    public function editTopic(Request $request, $id)
+    public function editTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -283,7 +283,7 @@ class TopicController extends Controller
      *
      * @return RedirectResponse
      */
-    public function closeTopic(Request $request, $id)
+    public function closeTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -304,7 +304,7 @@ class TopicController extends Controller
      *
      * @return RedirectResponse
      */
-    public function openTopic(Request $request, $id)
+    public function openTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -325,7 +325,7 @@ class TopicController extends Controller
      *
      * @return RedirectResponse
      */
-    public function deleteTopic(Request $request, $id)
+    public function deleteTopic(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -347,7 +347,7 @@ class TopicController extends Controller
      *
      * @return RedirectResponse
      */
-    public function pinTopic($id)
+    public function pinTopic($id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
@@ -364,7 +364,7 @@ class TopicController extends Controller
      *
      * @return RedirectResponse
      */
-    public function unpinTopic($id)
+    public function unpinTopic($id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;

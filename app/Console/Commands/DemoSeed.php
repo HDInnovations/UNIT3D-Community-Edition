@@ -51,7 +51,7 @@ class DemoSeed extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->alert('Demo Seeder v1.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');
@@ -106,9 +106,9 @@ class DemoSeed extends Command
     /**
      * Get the console command arguments.
      *
-     * @return array
+     * @return mixed[]
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
 
@@ -129,7 +129,10 @@ class DemoSeed extends Command
         return $omdb->toArray($omdb->request($url));
     }
 
-    private function ids()
+    /**
+     * @return string[]
+     */
+    private function ids(): array
     {
         return [
             '2948356',

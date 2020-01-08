@@ -41,7 +41,7 @@ class NoteController extends Controller
      * @param Request $request
      * @param $username
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $username)
     {
@@ -75,7 +75,7 @@ class NoteController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\RedirectResponse
     {
         $note = Note::findOrFail($id);
         $user = User::findOrFail($note->user_id);

@@ -23,10 +23,19 @@ class NewTopic extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var string
+     */
     public $type;
 
+    /**
+     * @var \App\Models\User
+     */
     public $poster;
 
+    /**
+     * @var \App\Models\Topic
+     */
     public $topic;
 
     /**
@@ -48,9 +57,9 @@ class NewTopic extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -60,9 +69,9 @@ class NewTopic extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 

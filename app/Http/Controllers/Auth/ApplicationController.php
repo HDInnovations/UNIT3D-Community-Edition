@@ -39,7 +39,7 @@ class ApplicationController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -123,12 +123,12 @@ class ApplicationController extends Controller
         }
         $application->save();
         // Map And Save IMG Proofs
-        $imgs = collect($request->input('images'))->map(function ($value) {
+        $imgs = collect($request->input('images'))->map(function ($value): \App\Models\ApplicationImageProof {
             return new ApplicationImageProof(['image' => $value]);
         });
         $application->imageProofs()->saveMany($imgs);
         // Map And Save URL Proofs
-        $urls = collect($request->input('links'))->map(function ($value) {
+        $urls = collect($request->input('links'))->map(function ($value): \App\Models\ApplicationUrlProof {
             return new ApplicationUrlProof(['url' => $value]);
         });
         $application->urlProofs()->saveMany($urls);

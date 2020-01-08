@@ -51,7 +51,7 @@ class InviteController extends Controller
      *
      * @param Request $request
      *
-     * @return Factory|View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -80,7 +80,7 @@ class InviteController extends Controller
      *
      * @throws Exception
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -147,7 +147,7 @@ class InviteController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function send(Request $request, $id)
     {

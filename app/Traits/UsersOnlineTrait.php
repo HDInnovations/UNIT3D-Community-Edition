@@ -20,7 +20,7 @@ trait UsersOnlineTrait
      *
      * @return bool
      */
-    public function isOnline()
+    public function isOnline(): bool
     {
         if (!$this->last_action) {
             return false;

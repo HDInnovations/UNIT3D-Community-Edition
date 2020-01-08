@@ -15,6 +15,9 @@ namespace App\Helpers;
 
 class MediaInfo
 {
+    /**
+     * @var string
+     */
     private $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
 
     public function parse($string)
@@ -41,7 +44,10 @@ class MediaInfo
         return $this->formatOutput($output);
     }
 
-    private function parseSections(array $sections)
+    /**
+     * @return mixed[]
+     */
+    private function parseSections(array $sections): array
     {
         $output = [];
         foreach ($sections as $key => $section) {
@@ -58,7 +64,10 @@ class MediaInfo
         return $output;
     }
 
-    private function parseProperty($sections, $section)
+    /**
+     * @return mixed[]
+     */
+    private function parseProperty($sections, $section): array
     {
         $output = [];
         foreach ($sections as $info) {
@@ -281,7 +290,7 @@ class MediaInfo
         return $output;
     }
 
-    public static function stripPath($string)
+    public static function stripPath($string): string
     {
         $string = str_replace('\\', '/', $string);
         $path_parts = pathinfo($string);
@@ -300,18 +309,21 @@ class MediaInfo
         return $number;
     }
 
-    private function parseBitRate($string)
+    private function parseBitRate($string): string
     {
         $string = str_replace(' ', '', strtolower($string));
 
         return str_replace('kbps', ' kbps', $string);
     }
 
-    private function parseWidthHeight($string)
+    private function parseWidthHeight($string): string
     {
         return str_replace(['pixels', ' '], null, strtolower($string));
     }
 
+    /**
+     * @return string[]|string
+     */
     private function parseAudioChannels($string)
     {
         $replace = [
@@ -327,7 +339,10 @@ class MediaInfo
         return str_ireplace(array_keys($replace), $replace, $string);
     }
 
-    private function formatOutput($data)
+    /**
+     * @return mixed[]
+     */
+    private function formatOutput($data): array
     {
         $output = [];
         $output['general'] = !empty($data['general']) ? $data['general'] : null;

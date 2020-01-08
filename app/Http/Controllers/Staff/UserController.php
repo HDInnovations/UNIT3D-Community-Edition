@@ -101,7 +101,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function edit(Request $request, $username)
     {
@@ -161,7 +161,7 @@ class UserController extends Controller
      *
      * @return RedirectResponse
      */
-    public function permissions(Request $request, $username)
+    public function permissions(Request $request, $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
@@ -186,7 +186,7 @@ class UserController extends Controller
      *
      * @return RedirectResponse
      */
-    protected function password(Request $request, $username)
+    protected function password(Request $request, $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = auth()->user();
@@ -204,7 +204,7 @@ class UserController extends Controller
      *
      * @param $username
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     protected function destroy($username)
     {

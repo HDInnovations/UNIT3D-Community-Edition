@@ -24,7 +24,7 @@ class LanguageController extends Controller
      * @param string                   $locale
      * @param Request $request
      **/
-    private function setLocale($locale, $request)
+    private function setLocale(string $locale, \Illuminate\Http\Request $request): void
     {
         // Check if is allowed and set default locale if not
         if (!Language::allowed($locale)) {
@@ -46,7 +46,7 @@ class LanguageController extends Controller
      *
      * @return string
      **/
-    public function home($locale, Request $request)
+    public function home(string $locale, Request $request): string
     {
         $this->setLocale($locale, $request);
 
@@ -64,7 +64,7 @@ class LanguageController extends Controller
      *
      * @return string
      **/
-    public function back($locale, Request $request)
+    public function back(string $locale, Request $request): string
     {
         $this->setLocale($locale, $request);
 

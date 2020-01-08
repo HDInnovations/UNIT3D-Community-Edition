@@ -26,7 +26,7 @@ class LikeController extends Controller
      * @param Request $request
      * @param $postId
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $postId)
     {
@@ -59,7 +59,7 @@ class LikeController extends Controller
      * @param Request $request
      * @param $postId
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function destroy(Request $request, $postId)
     {

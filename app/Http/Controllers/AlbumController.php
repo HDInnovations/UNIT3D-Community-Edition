@@ -45,7 +45,7 @@ class AlbumController extends Controller
      *
      * @return Factory|View
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $albums = Album::withCount('images')->get();
 
@@ -67,7 +67,7 @@ class AlbumController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -132,7 +132,7 @@ class AlbumController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $album = Album::findOrFail($id);

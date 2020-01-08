@@ -24,14 +24,23 @@ class TwoStepController extends Controller
 {
     use TwoStep;
 
+    /**
+     * @var float|int
+     */
     private $_authCount;
 
     private $_authStatus;
 
     private $_twoStepAuth;
 
+    /**
+     * @var float|int
+     */
     private $_remainingAttempts;
 
+    /**
+     * @var \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     private $_user;
 
     /**
@@ -55,7 +64,7 @@ class TwoStepController extends Controller
      *
      * @return void
      */
-    private function setUser2StepData()
+    private function setUser2StepData(): void
     {
         $user = auth()->user();
         $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
@@ -72,9 +81,9 @@ class TwoStepController extends Controller
      *
      * @param array $errors (optional)
      *
-     * @return array
+     * @return mixed[]
      */
-    private function invalidCodeReturnData($errors = null)
+    private function invalidCodeReturnData(array $errors = null): array
     {
         $this->_authCount = ++$this->_twoStepAuth->authCount;
         $this->_twoStepAuth->save();
@@ -99,7 +108,7 @@ class TwoStepController extends Controller
      *
      * @return Response
      */
-    public function showVerification()
+    public function showVerification(): \Illuminate\View\View
     {
         if (!config('auth.TwoStepEnabled')) {
             abort(404);
@@ -156,7 +165,7 @@ class TwoStepController extends Controller
      *
      * @return Response
      */
-    public function verify(Request $request)
+    public function verify(Request $request): \Illuminate\Http\JsonResponse
     {
         if (!config('auth.TwoStepEnabled')) {
             abort(404);
@@ -203,7 +212,7 @@ class TwoStepController extends Controller
      *
      * @return Response
      */
-    public function resend()
+    public function resend(): \Illuminate\Http\JsonResponse
     {
         if (!config('auth.TwoStepEnabled')) {
             abort(404);

@@ -61,7 +61,7 @@ class WarningController extends Controller
      *
      * @return RedirectResponse
      */
-    public function deactivate(Request $request, $id)
+    public function deactivate(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
         $staff = $request->user();
@@ -90,7 +90,7 @@ class WarningController extends Controller
      *
      * @return RedirectResponse
      */
-    public function deactivateAllWarnings(Request $request, $username)
+    public function deactivateAllWarnings(Request $request, $username): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
         $staff = $request->user();
@@ -124,7 +124,7 @@ class WarningController extends Controller
      *
      * @return RedirectResponse
      */
-    public function deleteWarning(Request $request, $id)
+    public function deleteWarning(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
 
@@ -156,7 +156,7 @@ class WarningController extends Controller
      *
      * @return RedirectResponse
      */
-    public function deleteAllWarnings(Request $request, $username)
+    public function deleteAllWarnings(Request $request, $username): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
 
@@ -191,7 +191,7 @@ class WarningController extends Controller
      *
      * @return RedirectResponse
      */
-    public function restoreWarning(Request $request, $id)
+    public function restoreWarning(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
 

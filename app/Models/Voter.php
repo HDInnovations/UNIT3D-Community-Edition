@@ -49,7 +49,7 @@ class Voter extends Model
      *
      * @return BelongsTo
      */
-    public function poll()
+    public function poll(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Poll::class);
     }
@@ -59,7 +59,7 @@ class Voter extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',

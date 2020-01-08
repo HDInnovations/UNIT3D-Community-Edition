@@ -63,7 +63,7 @@ class Comment extends Model
      *
      * @return BelongsTo
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -73,7 +73,7 @@ class Comment extends Model
      *
      * @return BelongsTo
      */
-    public function article()
+    public function article(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Article::class);
     }
@@ -83,7 +83,7 @@ class Comment extends Model
      *
      * @return BelongsTo
      */
-    public function request()
+    public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class, 'requests_id', 'id');
     }
@@ -93,7 +93,7 @@ class Comment extends Model
      *
      * @return BelongsTo
      */
-    public function playlist()
+    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }
@@ -103,7 +103,7 @@ class Comment extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -118,7 +118,7 @@ class Comment extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = htmlspecialchars($value);
     }
@@ -128,7 +128,7 @@ class Comment extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
 

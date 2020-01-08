@@ -26,9 +26,9 @@ class RedirectIfAuthenticated
      * @param Closure                 $next
      * @param string|null              $guard
      *
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(\Illuminate\Http\Request $request, Closure $next, ?string $guard = null)
     {
         if (auth()->guard($guard)->check()) {
             return redirect()->route('home.index');

@@ -182,7 +182,7 @@ class Movie
         $this->genres = !empty($this->genres) ? $this->cleanGenres($this->genres) : null;
     }
 
-    public function merge(self $data, self $data2 = null)
+    public function merge(self $data, self $data2 = null): self
     {
         $movies = func_get_args();
 
@@ -224,7 +224,10 @@ class Movie
         return $title;
     }
 
-    private function cleanGenres($genres)
+    /**
+     * @return mixed[]
+     */
+    private function cleanGenres($genres): array
     {
         $genres = new Genre((array) $genres);
 
@@ -240,7 +243,7 @@ class Movie
      *
      * @return array
      */
-    private function removeSimilar($data, $title, $diff)
+    private function removeSimilar($data, ?string $title, $diff): array
     {
         if ($title) {
             foreach ($data as $key => $value) {
@@ -275,7 +278,7 @@ class Movie
         return $data;
     }
 
-    private function genreMerge($genres)
+    private function genreMerge($genres): void
     {
         if (empty($this->genres) && $genres) {
             $this->genres = [];

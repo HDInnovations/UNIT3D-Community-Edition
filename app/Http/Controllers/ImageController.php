@@ -41,7 +41,7 @@ class ImageController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -81,7 +81,7 @@ class ImageController extends Controller
      *
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download($id)
     {
@@ -107,7 +107,7 @@ class ImageController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $image = Image::findOrFail($id);

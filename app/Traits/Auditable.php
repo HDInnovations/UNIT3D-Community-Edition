@@ -20,7 +20,7 @@ use DB;
 
 trait Auditable
 {
-    public static function bootAuditable()
+    public static function bootAuditable(): void
     {
         static::created(function ($model) {
             self::registerCreate($model);
@@ -43,7 +43,7 @@ trait Auditable
      *
      * @return array
      */
-    protected static function strip($model, $data)
+    protected static function strip($model, $data): array
     {
         // Initialize an instance of $model
         $instance = new $model();
@@ -77,7 +77,7 @@ trait Auditable
      *
      * @return false|string
      */
-    protected static function generate($action, $old = [], $new = [])
+    protected static function generate($action, array $old = [], array $new = [])
     {
         $data = [];
         switch ($action) {
@@ -149,7 +149,7 @@ trait Auditable
      *
      * @param $model
      */
-    protected static function registerCreate($model)
+    protected static function registerCreate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -177,7 +177,7 @@ trait Auditable
      *
      * @param $model
      */
-    protected static function registerUpdate($model)
+    protected static function registerUpdate($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -205,7 +205,7 @@ trait Auditable
      *
      * @param $model
      */
-    protected static function registerDelete($model)
+    protected static function registerDelete($model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();

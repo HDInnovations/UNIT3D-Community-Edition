@@ -90,7 +90,7 @@ class Group extends Model
      *
      * @return HasMany
      */
-    public function users()
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class);
     }
@@ -100,7 +100,7 @@ class Group extends Model
      *
      * @return HasMany
      */
-    public function permissions()
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Permission::class);
     }
@@ -127,7 +127,7 @@ class Group extends Model
      *
      * @return int
      */
-    public function isAllowed($object, $group_id)
+    public function isAllowed($object, $group_id): bool
     {
         if (is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id, $object['default_groups'])) {
             return $object['default_groups'][$group_id] == 1;

@@ -67,7 +67,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function article(Request $request, $id)
     {
@@ -157,7 +157,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function playlist(Request $request, $id)
     {
@@ -247,7 +247,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function torrent(Request $request, $id)
     {
@@ -341,7 +341,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function request(Request $request, $id)
     {
@@ -435,7 +435,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function quickthanks(Request $request, $id)
     {
@@ -517,7 +517,7 @@ class CommentController extends Controller
      *
      * @return RedirectResponse
      */
-    public function editComment(Request $request, $comment_id)
+    public function editComment(Request $request, $comment_id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($comment_id);
@@ -538,7 +538,7 @@ class CommentController extends Controller
      *
      * @return RedirectResponse
      */
-    public function deleteComment(Request $request, $comment_id)
+    public function deleteComment(Request $request, $comment_id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $comment = Comment::findOrFail($comment_id);

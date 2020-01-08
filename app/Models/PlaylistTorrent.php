@@ -54,7 +54,7 @@ class PlaylistTorrent extends Model
      *
      * @return BelongsToMany
      */
-    public function torrent()
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -64,7 +64,7 @@ class PlaylistTorrent extends Model
      *
      * @return BelongsToMany
      */
-    public function playlist()
+    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }

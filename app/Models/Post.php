@@ -56,7 +56,7 @@ class Post extends Model
      *
      * @return BelongsTo
      */
-    public function topic()
+    public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
@@ -66,7 +66,7 @@ class Post extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -79,7 +79,7 @@ class Post extends Model
      *
      * @return HasMany
      */
-    public function likes()
+    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class);
     }
@@ -89,7 +89,7 @@ class Post extends Model
      *
      * @return HasMany
      */
-    public function tips()
+    public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(BonTransactions::class);
     }
@@ -101,7 +101,7 @@ class Post extends Model
      *
      * @return void
      */
-    public function setContentAttribute($value)
+    public function setContentAttribute(string $value): void
     {
         $this->attributes['content'] = htmlspecialchars($value);
     }
@@ -111,7 +111,7 @@ class Post extends Model
      *
      * @return string Parsed BBCODE To HTML
      */
-    public function getContentHtml()
+    public function getContentHtml(): string
     {
         $bbcode = new Bbcode();
 
@@ -127,7 +127,7 @@ class Post extends Model
      *
      * @return string Formatted And Trimmed Content
      */
-    public function getBrief($length = 100, $ellipses = true, $strip_html = false)
+    public function getBrief($length = 100, $ellipses = true, $strip_html = false): string
     {
         $input = $this->content;
         //strip tags, if desired
@@ -157,7 +157,7 @@ class Post extends Model
      *
      * @return string
      */
-    public function getPostNumber()
+    public function getPostNumber(): string
     {
         return $this->topic->postNumberFromId($this->id);
     }
@@ -167,7 +167,7 @@ class Post extends Model
      *
      * @return string
      */
-    public function getPageNumber()
+    public function getPageNumber(): float
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
 

@@ -21,8 +21,14 @@ use App\Services\Data\Tv;
 
 class MovieScrapper
 {
+    /**
+     * @var \App\Services\Clients\TmdbClient
+     */
     private $tmdbClient;
 
+    /**
+     * @var \App\Services\Clients\OmdbClient
+     */
     private $omdbClient;
 
     public function __construct($tmdb_key = null, $tvdb_key = null, $omdb_key = null)
@@ -69,7 +75,10 @@ class MovieScrapper
         }
     }
 
-    public function person($tmdb)
+    /**
+     * @return mixed[]
+     */
+    public function person($tmdb): array
     {
         return $this->tmdbClient->person($tmdb);
     }

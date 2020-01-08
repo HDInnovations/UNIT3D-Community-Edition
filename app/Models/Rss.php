@@ -93,7 +93,7 @@ class Rss extends Model
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -106,7 +106,7 @@ class Rss extends Model
      *
      * @return BelongsTo
      */
-    public function staff()
+    public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         // Not needed yet. Just added for future extendability.
         return $this->belongsTo(User::class, 'staff_id');
@@ -115,7 +115,7 @@ class Rss extends Model
     /**
      * Get the RSS feeds JSON Torrent as object.
      *
-     * @return string
+     * @return \stdClass|bool
      */
     public function getObjectTorrentAttribute()
     {
@@ -132,9 +132,9 @@ class Rss extends Model
     /**
      * Get the RSS feeds expected fields for form validation.
      *
-     * @return array
+     * @return null[]
      */
-    public function getExpectedFieldsAttribute()
+    public function getExpectedFieldsAttribute(): array
     {
         // Just Torrents for now... extendable to check on feed type in future.
         $expected_fields = ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null,

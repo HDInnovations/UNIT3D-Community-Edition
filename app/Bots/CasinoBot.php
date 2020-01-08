@@ -28,20 +28,44 @@ class CasinoBot
 {
     private $bot;
 
+    /**
+     * @var \App\Repositories\ChatRepository
+     */
     private $chat;
 
+    /**
+     * @var \App\Models\User
+     */
     private $target;
 
+    /**
+     * @var string
+     */
     private $type;
 
+    /**
+     * @var string
+     */
     private $message;
 
+    /**
+     * @var int
+     */
     private $targeted;
 
+    /**
+     * @var string
+     */
     private $log;
 
+    /**
+     * @var \Carbon\Carbon
+     */
     private $expiresAt;
 
+    /**
+     * @var \Carbon\Carbon
+     */
     private $current;
 
     /**
@@ -63,7 +87,7 @@ class CasinoBot
      *
      * @param $output
      *
-     * @return mixed
+     * @return mixed[]|string
      */
     public function replaceVars($output)
     {
@@ -89,7 +113,7 @@ class CasinoBot
      *
      * @return string
      */
-    public function putDonate($amount = 0, $note = '')
+    public function putDonate(int $amount = 0, string $note = ''): string
     {
         $output = implode(' ', $note);
         $v = validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
@@ -130,7 +154,7 @@ class CasinoBot
      *
      * @return string
      */
-    public function getDonations($duration = 'default')
+    public function getDonations(string $duration = 'default'): string
     {
         $donations = cache()->get('casinobot-donations');
         if (!$donations || $donations == null) {
@@ -165,7 +189,7 @@ class CasinoBot
      *
      * @return bool
      */
-    public function process($type, User $target, $message = '', $targeted = 0)
+    public function process($type, User $target, string $message = '', int $targeted = 0): bool
     {
         $this->target = $target;
         if ($type == 'message') {
@@ -217,6 +241,7 @@ class CasinoBot
 
     /**
      * Output Message.
+     * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function pm()
     {

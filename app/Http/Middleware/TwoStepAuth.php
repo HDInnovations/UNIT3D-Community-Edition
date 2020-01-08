@@ -27,7 +27,7 @@ class TwoStepAuth
      * @param Request $request
      * @param Closure                  $next
      *
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function handle(Request $request, Closure $next)
     {

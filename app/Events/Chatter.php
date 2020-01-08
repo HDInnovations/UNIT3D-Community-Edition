@@ -70,7 +70,7 @@ class Chatter implements ShouldBroadcastNow
      *
      * @return PrivateChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\PrivateChannel
     {
         // $this->dontBroadcastToCurrentUser();
 

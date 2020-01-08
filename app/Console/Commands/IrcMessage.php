@@ -49,7 +49,7 @@ class IrcMessage extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Messaging '.$this->argument('channel').': '.$this->argument('message'));
         $bot = new IRCAnnounceBot();
@@ -59,9 +59,9 @@ class IrcMessage extends Command
     /**
      * Get the console command arguments.
      *
-     * @return array
+     * @return int[][]|string[][]
      */
-    protected function getArguments()
+    protected function getArguments(): array
     {
         return [
             ['channel', InputArgument::REQUIRED, 'Channel that you would like to message'],

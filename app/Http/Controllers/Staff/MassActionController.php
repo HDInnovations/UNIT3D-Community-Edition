@@ -39,7 +39,7 @@ class MassActionController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -70,7 +70,7 @@ class MassActionController extends Controller
      *
      * @return RedirectResponse
      */
-    public function update()
+    public function update(): \Illuminate\Http\RedirectResponse
     {
         $validating_group = cache()->rememberForever('validating_group', function () {
             return Group::where('slug', '=', 'validating')->pluck('id');

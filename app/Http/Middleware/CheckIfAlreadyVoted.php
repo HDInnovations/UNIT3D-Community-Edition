@@ -26,9 +26,9 @@ class CheckIfAlreadyVoted
      * @param Request $request
      * @param Closure                 $next
      *
-     * @return mixed
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next)
     {
         //If user hasn't selected any options, carry on to form validation / rejection
         if (!$request->input('option.0')) {

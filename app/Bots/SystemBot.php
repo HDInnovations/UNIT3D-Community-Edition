@@ -29,14 +29,26 @@ class SystemBot
 {
     private $bot;
 
+    /**
+     * @var \App\Repositories\ChatRepository
+     */
     private $chat;
 
+    /**
+     * @var \App\Models\User
+     */
     private $target;
 
     private $type;
 
+    /**
+     * @var string
+     */
     private $message;
 
+    /**
+     * @var int
+     */
     private $targeted;
 
     private $log;
@@ -58,7 +70,7 @@ class SystemBot
      *
      * @param $output
      *
-     * @return mixed
+     * @return mixed[]|string
      */
     public function replaceVars($output)
     {
@@ -93,7 +105,7 @@ class SystemBot
      *
      * @return string
      */
-    public function putGift($receiver = '', $amount = 0, $note = '')
+    public function putGift(string $receiver = '', int $amount = 0, string $note = ''): string
     {
         $output = implode(' ', $note);
         $v = validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
@@ -154,7 +166,7 @@ class SystemBot
      *
      * @return bool
      */
-    public function process($type, User $target, $message = '', $targeted = 0)
+    public function process($type, User $target, string $message = '', int $targeted = 0): bool
     {
         $this->target = $target;
         $x = $type == 'message' ? 0 : 1;
@@ -191,6 +203,7 @@ class SystemBot
 
     /**
      * Output Message.
+     * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function pm()
     {

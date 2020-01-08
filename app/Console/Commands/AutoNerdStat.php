@@ -55,7 +55,7 @@ class AutoNerdStat extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (config('chat.nerd_bot') == true) {
             // Current Timestamp

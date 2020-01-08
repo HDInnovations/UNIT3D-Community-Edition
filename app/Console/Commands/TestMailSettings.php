@@ -40,7 +40,7 @@ class TestMailSettings extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $owner = User::where('id', '=', 3)->pluck('email');
 

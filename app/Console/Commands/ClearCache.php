@@ -46,7 +46,7 @@ class ClearCache extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->comment("Clearing several common cache's ...");
         $this->call('view:clear');

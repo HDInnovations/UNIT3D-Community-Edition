@@ -9,6 +9,9 @@ use RecursiveIteratorIterator;
 
 class VendorCleanup extends Command
 {
+    /**
+     * @var string
+     */
     protected $signature = 'vendor:cleanup {--check : Runs in dry mode without deleting files.}';
 
     /**
@@ -18,6 +21,9 @@ class VendorCleanup extends Command
      */
     protected $description = 'Cleans up useless files from  vendor folder.';
 
+    /**
+     * @var string[]
+     */
     protected $patterns =
         [
             'test',
@@ -60,6 +66,7 @@ class VendorCleanup extends Command
      * List of File and Folders Patters Going To Be Excluded.
      *
      * @return void
+     * @var string[]
      */
     protected $excluded =
         [
@@ -78,7 +85,7 @@ class VendorCleanup extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $patterns = array_diff($this->patterns, $this->excluded);
 
@@ -131,7 +138,7 @@ class VendorCleanup extends Command
      *
      * @return array
      */
-    protected function expandDirectoryTree($dir)
+    protected function expandDirectoryTree(string $dir): array
     {
         $directories = [];
         $files = array_diff(scandir($dir), ['.', '..']);
@@ -153,7 +160,7 @@ class VendorCleanup extends Command
      *
      * @return bool
      */
-    protected function delTree($dir)
+    protected function delTree(string $dir): bool
     {
         if (!file_exists($dir) || !is_dir($dir)) {
             return false;
@@ -179,11 +186,14 @@ class VendorCleanup extends Command
      *
      * @return string
      */
-    protected function prepareWord($matches)
+    protected function prepareWord(string $matches): string
     {
         return '['.strtolower($matches[1]).strtoupper($matches[1]).']';
     }
 
+    /**
+     * @return bool|int|string
+     */
     protected function arrayFind($needle, array $haystack)
     {
         foreach ($haystack as $key => $value) {
@@ -195,7 +205,7 @@ class VendorCleanup extends Command
         return false;
     }
 
-    protected function out($message)
+    protected function out($message): void
     {
         if ($this->option('check')) {
             echo $message.PHP_EOL;

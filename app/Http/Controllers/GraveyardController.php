@@ -72,7 +72,7 @@ class GraveyardController extends Controller
      *
      * @throws Throwable
      *
-     * @return array
+     * @return mixed[]|string
      */
     public function faceted(Request $request, Torrent $torrent)
     {
@@ -148,7 +148,7 @@ class GraveyardController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $id)
     {
@@ -194,7 +194,7 @@ class GraveyardController extends Controller
      *
      * @return RedirectResponse
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);

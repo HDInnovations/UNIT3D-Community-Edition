@@ -46,7 +46,7 @@ class BanController extends Controller
      * @param Request $request
      * @param $username
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request, $username)
     {
@@ -93,7 +93,7 @@ class BanController extends Controller
      * @param Request $request
      * @param $username
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function update(Request $request, $username)
     {

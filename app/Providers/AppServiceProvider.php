@@ -33,10 +33,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // OMDB
-        $this->app->bind(OmdbClient::class, function ($app) {
+        $this->app->bind(OmdbClient::class, function ($app): \App\Services\Clients\OmdbClient {
             $key = config('api-keys.omdb');
 
             return new OmdbClient($key);
@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
@@ -69,13 +69,13 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // Hidden Captcha
-        Blade::directive('hiddencaptcha', function ($mustBeEmptyField = '_username') {
+        Blade::directive('hiddencaptcha', function ($mustBeEmptyField = '_username'): string {
             return sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField);
         });
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
-            function ($attribute, $value, $parameters, $validator) {
+            function ($attribute, $value, $parameters, $validator): bool {
                 $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
                 $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1200;
                 if (!HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {

@@ -42,7 +42,7 @@ class FetchReleaseYears extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $appurl = config('app.url');

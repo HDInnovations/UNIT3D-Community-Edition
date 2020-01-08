@@ -43,9 +43,9 @@ class RssController extends Controller
      *
      * @param string $hash
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($hash = null)
+    public function index(string $hash = null)
     {
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
@@ -60,7 +60,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -79,7 +79,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -134,9 +134,9 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, int $id)
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
@@ -157,9 +157,9 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
@@ -212,7 +212,7 @@ class RssController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();

@@ -19,12 +19,21 @@ use GuzzleHttp\Client as GuzzleClient;
 
 abstract class Client
 {
+    /**
+     * @var GuzzleClient
+     */
     protected $guzzle;
 
+    /**
+     * @var string
+     */
     protected $apiUrl;
 
     protected $apiKey;
 
+    /**
+     * @var bool
+     */
     protected $apiSecure = false;
 
     public function __construct($apiUrl, $apiKey = null)
@@ -34,6 +43,9 @@ abstract class Client
         $this->guzzle = new GuzzleClient();
     }
 
+    /**
+     * @return mixed
+     */
     public function request($url, array $options = [])
     {
         $key = md5($url.serialize($options));
@@ -59,17 +71,23 @@ abstract class Client
         return json_decode($string, true, 512, JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * @return string|bool
+     */
     public function toJson(array $array, $options = 0)
     {
         return json_encode($array, $options);
     }
 
+    /**
+     * @return mixed
+     */
     public function cache($key, $data = null)
     {
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            cache()->remember($key, 7 * 24 * 60, function () use ($data) {
+            cache()->remember($key, 7 * 24 * 60, function () use ($data): string {
                 return serialize($data);
             });
         }
@@ -81,7 +99,7 @@ abstract class Client
         return $data;
     }
 
-    protected function validateKeys($keys)
+    protected function validateKeys($keys): void
     {
         /*if (!empty($keys['imdb'])) {
             if (!preg_match('/tt\\d{7}/', $keys['imdb'])) {
@@ -102,7 +120,7 @@ abstract class Client
         }*/
     }
 
-    protected function validateStatus($statusCode)
+    protected function validateStatus($statusCode): void
     {
         if ($statusCode < 200 && $statusCode > 299) {
             throw new HttpResponseException('Invalid Status Code');

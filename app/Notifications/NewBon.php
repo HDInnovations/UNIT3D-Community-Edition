@@ -22,10 +22,19 @@ class NewBon extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var string
+     */
     public $type;
 
+    /**
+     * @var string
+     */
     public $sender;
 
+    /**
+     * @var \App\Models\BonTransactions
+     */
     public $transaction;
 
     /**
@@ -47,9 +56,9 @@ class NewBon extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
@@ -59,9 +68,9 @@ class NewBon extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return array
+     * @return string[]
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $appurl = config('app.url');
 

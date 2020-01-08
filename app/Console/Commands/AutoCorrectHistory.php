@@ -48,7 +48,7 @@ class AutoCorrectHistory extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $current = new Carbon();
         $history = History::select(['id', 'active', 'updated_at'])->where('active', '=', 1)->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();

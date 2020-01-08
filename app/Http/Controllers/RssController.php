@@ -47,9 +47,9 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param string                   $hash
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $hash = null)
+    public function index(Request $request, string $hash = null)
     {
         $user = $request->user();
 
@@ -69,7 +69,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -89,7 +89,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function store(Request $request)
     {
@@ -142,9 +142,9 @@ class RssController extends Controller
      * @param int    $id
      * @param string $rsskey
      *
-     * @return Response
+     * @return int|mixed[][]|\Illuminate\Http\Response
      */
-    public function show($id, $rsskey)
+    public function show(int $id, string $rsskey)
     {
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
@@ -307,9 +307,9 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, int $id)
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
@@ -330,9 +330,9 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
@@ -381,7 +381,7 @@ class RssController extends Controller
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(int $id): \Illuminate\Http\Response
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();

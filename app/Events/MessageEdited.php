@@ -48,14 +48,14 @@ class MessageEdited implements ShouldBroadcastNow
      *
      * @return PresenceChannel
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();
 
         return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'edit.message';
     }

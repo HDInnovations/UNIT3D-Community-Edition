@@ -24,6 +24,9 @@ class Episode
 
     public $title;
 
+    /**
+     * @var \Carbon\Carbon|null
+     */
     public $releaseDate;
 
     public $plot;

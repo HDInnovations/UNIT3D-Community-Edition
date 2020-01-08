@@ -51,7 +51,7 @@ class Tag extends Model
      *
      * @return BelongsToMany
      */
-    public function torrents()
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Torrent::class);
     }

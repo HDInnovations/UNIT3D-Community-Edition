@@ -40,7 +40,7 @@ class AutoPreWarning extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         if (config('hitrun.enabled') == true) {
             $current = new Carbon();

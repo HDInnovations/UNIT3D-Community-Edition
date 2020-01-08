@@ -91,7 +91,7 @@ class PrivateMessageController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getPrivateMessageById(Request $request, $id)
     {
@@ -120,7 +120,7 @@ class PrivateMessageController extends Controller
      *
      * @return Factory|\Illuminate\View\View
      */
-    public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
+    public function makePrivateMessage(Request $request, string $receiver_id = '', string $username = '')
     {
         $user = $request->user();
 
@@ -132,7 +132,7 @@ class PrivateMessageController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function sendPrivateMessage(Request $request)
     {
@@ -191,7 +191,7 @@ class PrivateMessageController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function replyPrivateMessage(Request $request, $id)
     {
@@ -231,7 +231,7 @@ class PrivateMessageController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return RedirectResponse
+     * @return mixed|\Illuminate\Http\RedirectResponse
      */
     public function deletePrivateMessage(Request $request, $id)
     {
@@ -264,7 +264,7 @@ class PrivateMessageController extends Controller
      *
      * @return RedirectResponse
      */
-    public function markAllAsRead(Request $request)
+    public function markAllAsRead(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $pms = PrivateMessage::where('receiver_id', '=', $user->id)->get();

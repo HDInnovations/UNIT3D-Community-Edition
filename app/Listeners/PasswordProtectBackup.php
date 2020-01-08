@@ -35,7 +35,7 @@ class PasswordProtectBackup
      *
      * @return string
      */
-    public function handle(BackupZipWasCreated $event)
+    public function handle(BackupZipWasCreated $event): string
     {
         return (new BackupPassword($event->pathToZip))->path;
     }

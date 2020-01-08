@@ -21,6 +21,9 @@ class Bug extends Mailable
 {
     use Queueable, SerializesModels;
 
+    /**
+     * @var mixed[]
+     */
     public $input;
 
     /**
@@ -38,7 +41,7 @@ class Bug extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->markdown('emails.bug')
             ->from($this->input['email'], config('other.title'))

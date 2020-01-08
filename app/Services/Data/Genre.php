@@ -17,6 +17,9 @@ class Genre
 {
     public $genres;
 
+    /**
+     * @var string[]
+     */
     protected $movieGenres = [
         'Action',
         'Adventure',
@@ -41,6 +44,9 @@ class Genre
         'Western',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $tvGenres = [
         'Game-Show',
         'News',
@@ -55,7 +61,10 @@ class Genre
         $this->genres = $this->parseGenres($genres);
     }
 
-    private function parseGenres($genres)
+    /**
+     * @return mixed[]
+     */
+    private function parseGenres($genres): array
     {
         $myGenre = [];
         $genreCollection = $this->movieGenres + $this->tvGenres;
@@ -70,6 +79,9 @@ class Genre
         return $myGenre;
     }
 
+    /**
+     * @return string|bool
+     */
     private function matchGenre($genre)
     {
         if ($genre == 'Sci-Fi') {

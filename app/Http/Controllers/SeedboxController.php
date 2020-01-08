@@ -46,7 +46,7 @@ class SeedboxController extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     protected function store(Request $request)
     {
@@ -79,7 +79,7 @@ class SeedboxController extends Controller
      *
      * @return RedirectResponse
      */
-    protected function destroy(Request $request, $id)
+    protected function destroy(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);

@@ -20,14 +20,17 @@ namespace App\Helpers;
  */
 class LanguageCensor
 {
-    protected static function isSpecial($c)
+    protected static function isSpecial($c): bool
     {
         $specialChars = "<>\n [].;,";
 
         return strpos($specialChars, (string) $c) !== false;
     }
 
-    protected static function matchWordIndexes($string, $word)
+    /**
+     * @return int[]
+     */
+    protected static function matchWordIndexes($string, $word): array
     {
         $result = [];
         $length = strlen($word);

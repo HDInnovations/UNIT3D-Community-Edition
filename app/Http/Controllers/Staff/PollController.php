@@ -82,13 +82,13 @@ class PollController extends Controller
      *
      * @return RedirectResponse
      */
-    public function store(StorePoll $request)
+    public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 
         $poll = $request->user() ? $user->polls()->create($request->all()) : Poll::create($request->all());
 
-        $options = collect($request->input('options'))->map(function ($value) {
+        $options = collect($request->input('options'))->map(function ($value): \App\Models\Option {
             return new Option(['name' => $value]);
         });
         $poll->options()->saveMany($options);
