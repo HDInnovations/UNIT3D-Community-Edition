@@ -336,45 +336,38 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('requests')
                 ->withErrors($v->errors())->withInput();
-        } else {
-            $tr->save();
-
-            $requestsBounty = new TorrentRequestBounty();
-            $requestsBounty->user_id = $user->id;
-            $requestsBounty->seedbonus = $request->input('bounty');
-            $requestsBounty->requests_id = $tr->id;
-            $requestsBounty->anon = $request->input('anon');
-            $requestsBounty->save();
-
-            $BonTransactions = new BonTransactions();
-            $BonTransactions->itemID = 0;
-            $BonTransactions->name = 'request';
-            $BonTransactions->cost = $request->input('bounty');
-            $BonTransactions->sender = $user->id;
-            $BonTransactions->receiver = 0;
-            $BonTransactions->comment = sprintf('new request - %s', $request->input('name'));
-            $BonTransactions->save();
-
-            $user->seedbonus -= $request->input('bounty');
-            $user->save();
-
-            $tr_url = hrefRequest($tr);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($tr->anon == 0) {
-                $this->chat->systemMessage(
-                    sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
-                );
-            } else {
-                $this->chat->systemMessage(
-                    sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $tr->name)
-                );
-            }
-
-            return redirect()->route('requests')
-                ->withSuccess('Request Added.');
         }
+        $tr->save();
+        $requestsBounty = new TorrentRequestBounty();
+        $requestsBounty->user_id = $user->id;
+        $requestsBounty->seedbonus = $request->input('bounty');
+        $requestsBounty->requests_id = $tr->id;
+        $requestsBounty->anon = $request->input('anon');
+        $requestsBounty->save();
+        $BonTransactions = new BonTransactions();
+        $BonTransactions->itemID = 0;
+        $BonTransactions->name = 'request';
+        $BonTransactions->cost = $request->input('bounty');
+        $BonTransactions->sender = $user->id;
+        $BonTransactions->receiver = 0;
+        $BonTransactions->comment = sprintf('new request - %s', $request->input('name'));
+        $BonTransactions->save();
+        $user->seedbonus -= $request->input('bounty');
+        $user->save();
+        $tr_url = hrefRequest($tr);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($tr->anon == 0) {
+            $this->chat->systemMessage(
+                sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
+            );
+        } else {
+            $this->chat->systemMessage(
+                sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $tr->name)
+            );
+        }
+        return redirect()->route('requests')
+            ->withSuccess('Request Added.');
     }
 
     /**
@@ -450,12 +443,10 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('requests')
                 ->withErrors($v->errors());
-        } else {
-            $torrentRequest->save();
-
-            return redirect()->route('requests', ['id' => $torrentRequest->id])
-                ->withSuccess('Request Edited Successfully.');
         }
+        $torrentRequest->save();
+        return redirect()->route('requests', ['id' => $torrentRequest->id])
+            ->withSuccess('Request Edited Successfully.');
     }
 
     /**
@@ -482,52 +473,43 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
-        } else {
-            $tr->save();
-
-            $requestsBounty = new TorrentRequestBounty();
-            $requestsBounty->user_id = $user->id;
-            $requestsBounty->seedbonus = $request->input('bonus_value');
-            $requestsBounty->requests_id = $tr->id;
-            $requestsBounty->anon = $request->input('anon');
-            $requestsBounty->save();
-
-            $BonTransactions = new BonTransactions();
-            $BonTransactions->itemID = 0;
-            $BonTransactions->name = 'request';
-            $BonTransactions->cost = $request->input('bonus_value');
-            $BonTransactions->sender = $user->id;
-            $BonTransactions->receiver = 0;
-            $BonTransactions->comment = sprintf('adding bonus to %s', $tr->name);
-            $BonTransactions->save();
-
-            $user->seedbonus -= $request->input('bonus_value');
-            $user->save();
-
-            $tr_url = hrefRequest($tr);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($requestsBounty->anon == 0) {
-                $this->chat->systemMessage(
-                    sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profile_url, $user->username, $request->input('bonus_value'), $tr_url, $tr->name)
-                );
-            } else {
-                $this->chat->systemMessage(
-                    sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $tr_url, $tr->name)
-                );
-            }
-
-            $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
-
-            $requester = $tr->user;
-            if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
-                $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
-            }
-
-            return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withSuccess('Your bonus has been successfully added.');
         }
+        $tr->save();
+        $requestsBounty = new TorrentRequestBounty();
+        $requestsBounty->user_id = $user->id;
+        $requestsBounty->seedbonus = $request->input('bonus_value');
+        $requestsBounty->requests_id = $tr->id;
+        $requestsBounty->anon = $request->input('anon');
+        $requestsBounty->save();
+        $BonTransactions = new BonTransactions();
+        $BonTransactions->itemID = 0;
+        $BonTransactions->name = 'request';
+        $BonTransactions->cost = $request->input('bonus_value');
+        $BonTransactions->sender = $user->id;
+        $BonTransactions->receiver = 0;
+        $BonTransactions->comment = sprintf('adding bonus to %s', $tr->name);
+        $BonTransactions->save();
+        $user->seedbonus -= $request->input('bonus_value');
+        $user->save();
+        $tr_url = hrefRequest($tr);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($requestsBounty->anon == 0) {
+            $this->chat->systemMessage(
+                sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profile_url, $user->username, $request->input('bonus_value'), $tr_url, $tr->name)
+            );
+        } else {
+            $this->chat->systemMessage(
+                sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $tr_url, $tr->name)
+            );
+        }
+        $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
+        $requester = $tr->user;
+        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
+            $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
+        }
+        return redirect()->route('request', ['id' => $request->input('request_id')])
+            ->withSuccess('Your bonus has been successfully added.');
     }
 
     /**
@@ -563,22 +545,17 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors($v->errors());
-        } else {
-            $torrentRequest->save();
-
-            // Send Private Message
-            $appurl = config('app.url');
-
-            $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
-
-            $requester = $torrentRequest->user;
-            if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
-                $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
-            }
-
-            return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withSuccess('Your request fill is pending approval by the Requester.');
         }
+        $torrentRequest->save();
+        // Send Private Message
+        $appurl = config('app.url');
+        $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
+        $requester = $torrentRequest->user;
+        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
+            $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
+        }
+        return redirect()->route('request', ['id' => $request->input('request_id')])
+            ->withSuccess('Your request fill is pending approval by the Requester.');
     }
 
     /**
@@ -648,10 +625,9 @@ class RequestController extends Controller
             if ($tr->filled_anon == 0) {
                 return redirect()->route('request', ['id' => $id])
                     ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
-            } else {
-                return redirect()->route('request', ['id' => $id])
-                    ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
             }
+            return redirect()->route('request', ['id' => $id])
+                ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
         } else {
             return redirect()->route('request', ['id' => $id])
                 ->withErrors("You don't have access to approve this request");
@@ -715,10 +691,9 @@ class RequestController extends Controller
 
             return redirect()->route('requests')
                 ->withSuccess(sprintf('You have deleted %s', $name));
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to delete this request.");
         }
+        return redirect()->route('request', ['id' => $id])
+            ->withErrors("You don't have access to delete this request.");
     }
 
     /**

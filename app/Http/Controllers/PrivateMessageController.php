@@ -219,12 +219,10 @@ class PrivateMessageController extends Controller
         if ($v->fails()) {
             return redirect()->route('inbox')
                 ->withErrors($v->errors());
-        } else {
-            $pm->save();
-
-            return redirect()->route('inbox')
-                ->withSuccess('Your PM Was Sent Successfully!');
         }
+        $pm->save();
+        return redirect()->route('inbox')
+            ->withSuccess('Your PM Was Sent Successfully!');
     }
 
     /**
@@ -250,10 +248,9 @@ class PrivateMessageController extends Controller
 
             if ($dest == 'outbox') {
                 return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
-            } else {
-                return redirect()->route('inbox')
-                    ->withSuccess('PM Was Deleted Successfully!');
             }
+            return redirect()->route('inbox')
+                ->withSuccess('PM Was Deleted Successfully!');
         } else {
             return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');

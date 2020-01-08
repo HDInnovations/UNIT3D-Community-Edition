@@ -57,14 +57,12 @@ class MassActionController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.mass-pm.create')
                 ->withErrors($v->errors());
-        } else {
-            foreach ($users as $user) {
-                $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
-            }
-
-            return redirect()->route('staff.mass-pm.create')
-                ->withSuccess('MassPM Sent');
         }
+        foreach ($users as $user) {
+            $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
+        }
+        return redirect()->route('staff.mass-pm.create')
+            ->withSuccess('MassPM Sent');
     }
 
     /**

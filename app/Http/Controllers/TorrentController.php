@@ -1063,44 +1063,39 @@ class TorrentController extends Controller
         if ($v->fails()) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
-        } else {
-            $torrent->save();
-
-            $meta = null;
-
-            // Torrent Tags System
-            if ($torrent->category->tv_meta) {
-                if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('tv', null, $torrent->tmdb);
-                } else {
-                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
-                }
-            }
-            if ($torrent->category->movie_meta) {
-                if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('movie', null, $torrent->tmdb);
-                } else {
-                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
-                }
-            }
-
-            if (isset($meta) && $meta->genres) {
-                $old_genres = TagTorrent::where('torrent_id', '=', $torrent->id)->get();
-                foreach ($old_genres as $old_genre) {
-                    $old_genre->delete();
-                }
-
-                foreach ($meta->genres as $genre) {
-                    $tag = new TagTorrent();
-                    $tag->torrent_id = $torrent->id;
-                    $tag->tag_name = $genre;
-                    $tag->save();
-                }
-            }
-
-            return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withSuccess('Successfully Edited!');
         }
+        $torrent->save();
+        $meta = null;
+        // Torrent Tags System
+        if ($torrent->category->tv_meta) {
+            if ($torrent->tmdb && $torrent->tmdb != 0) {
+                $meta = $client->scrape('tv', null, $torrent->tmdb);
+            } else {
+                $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
+            }
+        }
+        if ($torrent->category->movie_meta) {
+            if ($torrent->tmdb && $torrent->tmdb != 0) {
+                $meta = $client->scrape('movie', null, $torrent->tmdb);
+            } else {
+                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+            }
+        }
+        if (isset($meta) && $meta->genres) {
+            $old_genres = TagTorrent::where('torrent_id', '=', $torrent->id)->get();
+            foreach ($old_genres as $old_genre) {
+                $old_genre->delete();
+            }
+
+            foreach ($meta->genres as $genre) {
+                $tag = new TagTorrent();
+                $tag->torrent_id = $torrent->id;
+                $tag->tag_name = $genre;
+                $tag->save();
+            }
+        }
+        return redirect()->route('torrent', ['id' => $torrent->id])
+            ->withSuccess('Successfully Edited!');
     }
 
     /**
@@ -1622,10 +1617,9 @@ class TorrentController extends Controller
 
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
-        } else {
-            return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('Torrent Is Already Featured!');
         }
+        return redirect()->route('torrent', ['id' => $torrent->id])
+            ->withErrors('Torrent Is Already Featured!');
     }
 
     /**
@@ -1692,10 +1686,9 @@ class TorrentController extends Controller
 
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
-        } else {
-            return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('This torrent doesnt meet the rules for a reseed request.');
         }
+        return redirect()->route('torrent', ['id' => $torrent->id])
+            ->withErrors('This torrent doesnt meet the rules for a reseed request.');
     }
 
     /**
@@ -1723,9 +1716,8 @@ class TorrentController extends Controller
 
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
-        } else {
-            return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
         }
+        return redirect()->route('torrent', ['id' => $torrent->id])
+            ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }
 }

@@ -409,9 +409,8 @@ class TorrentController extends BaseController
 
         if (!empty($torrent)) {
             return new TorrentsResource($torrent->paginate(25));
-        } else {
-            return $this->sendResponse('404', 'No Torrents Found');
         }
+        return $this->sendResponse('404', 'No Torrents Found');
     }
 
     /**

@@ -118,25 +118,22 @@ class ModerationController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
-        } else {
-            $user = $request->user();
-            $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
-            $torrent->markPostponed();
-
-            $pm = new PrivateMessage();
-            $pm->sender_id = $user->id;
-            $pm->receiver_id = $torrent->user_id;
-            $pm->subject = sprintf('Your upload, %s ,has been postponed by %s', $torrent->name, $user->username);
-            $pm->message = sprintf('Greetings, 
+        }
+        $user = $request->user();
+        $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
+        $torrent->markPostponed();
+        $pm = new PrivateMessage();
+        $pm->sender_id = $user->id;
+        $pm->receiver_id = $torrent->user_id;
+        $pm->subject = sprintf('Your upload, %s ,has been postponed by %s', $torrent->name, $user->username);
+        $pm->message = sprintf('Greetings, 
 
  Your upload, %s ,has been postponed. Please see below the message from the staff member. 
 
 %s', $torrent->name, $request->input('message'));
-            $pm->save();
-
-            return redirect()->route('staff.moderation.index')
-                ->withSuccess('Torrent Postponed');
-        }
+        $pm->save();
+        return redirect()->route('staff.moderation.index')
+            ->withSuccess('Torrent Postponed');
     }
 
     /**
@@ -157,24 +154,21 @@ class ModerationController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.moderation.index')
                 ->withErrors($v->errors());
-        } else {
-            $user = $request->user();
-            $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
-            $torrent->markRejected();
-
-            $pm = new PrivateMessage();
-            $pm->sender_id = $user->id;
-            $pm->receiver_id = $torrent->user_id;
-            $pm->subject = sprintf('Your upload, %s ,has been rejected by %s', $torrent->name, $user->username);
-            $pm->message = sprintf('Greetings, 
+        }
+        $user = $request->user();
+        $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
+        $torrent->markRejected();
+        $pm = new PrivateMessage();
+        $pm->sender_id = $user->id;
+        $pm->receiver_id = $torrent->user_id;
+        $pm->subject = sprintf('Your upload, %s ,has been rejected by %s', $torrent->name, $user->username);
+        $pm->message = sprintf('Greetings, 
 
  Your upload %s has been rejected. Please see below the message from the staff member. 
 
 %s', $torrent->name, $request->input('message'));
-            $pm->save();
-
-            return redirect()->route('staff.moderation.index')
-                ->withSuccess('Torrent Rejected');
-        }
+        $pm->save();
+        return redirect()->route('staff.moderation.index')
+            ->withSuccess('Torrent Rejected');
     }
 }

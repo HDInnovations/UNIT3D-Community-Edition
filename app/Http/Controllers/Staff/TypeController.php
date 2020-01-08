@@ -68,12 +68,10 @@ class TypeController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.types.index')
                 ->withErrors($v->errors());
-        } else {
-            $type->save();
-
-            return redirect()->route('staff.types.index')
-                ->withSuccess('Type Successfully Added');
         }
+        $type->save();
+        return redirect()->route('staff.types.index')
+            ->withSuccess('Type Successfully Added');
     }
 
     /**
@@ -114,12 +112,10 @@ class TypeController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.types.index')
                 ->withErrors($v->errors());
-        } else {
-            $type->save();
-
-            return redirect()->route('staff.types.index')
-                ->withSuccess('Type Successfully Modified');
         }
+        $type->save();
+        return redirect()->route('staff.types.index')
+            ->withSuccess('Type Successfully Modified');
     }
 
     /**

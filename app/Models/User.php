@@ -752,12 +752,14 @@ class User extends Authenticatable
         if ($target->notification && $type && (!$target->notification->$type)) {
             return false;
         }
-        if ($target->notification && $target->notification->$target_group && is_array($target->notification->$target_group['default_groups'])) {
-            if (array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
-                return $target->notification->$target_group['default_groups'][$sender->group->id] == 1;
-            } else {
-                return true;
-            }
+        if (!($target->notification && $target->notification->$target_group)) {
+            return true;
+        }
+        if (!is_array($target->notification->$target_group['default_groups'])) {
+            return true;
+        }
+        if (array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
+            return $target->notification->$target_group['default_groups'][$sender->group->id] == 1;
         }
 
         return true;
@@ -788,12 +790,14 @@ class User extends Authenticatable
         if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
-            if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
-                return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
-            } else {
-                return true;
-            }
+        if (!($target->privacy && $target->privacy->$target_group)) {
+            return true;
+        }
+        if (!is_array($target->privacy->$target_group['default_groups'])) {
+            return true;
+        }
+        if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
+            return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
         }
 
         return true;
@@ -824,12 +828,14 @@ class User extends Authenticatable
         if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
-            if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
-                return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
-            } else {
-                return true;
-            }
+        if (!($target->privacy && $target->privacy->$target_group)) {
+            return true;
+        }
+        if (!is_array($target->privacy->$target_group['default_groups'])) {
+            return true;
+        }
+        if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
+            return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
         }
 
         return true;
@@ -920,9 +926,8 @@ class User extends Authenticatable
         $ratio = $this->getRatio();
         if (is_infinite($ratio)) {
             return '∞';
-        } else {
-            return (string) $ratio;
         }
+        return (string) $ratio;
     }
 
     // Return the ratio after $size bytes would be downloaded.
@@ -946,9 +951,8 @@ class User extends Authenticatable
         $ratio = $this->ratioAfterSize($size);
         if (is_infinite($ratio)) {
             return '∞';
-        } else {
-            return (string) $ratio;
         }
+        return (string) $ratio;
     }
 
     // Return the size (pretty formated) which can be safely downloaded
@@ -1009,11 +1013,9 @@ class User extends Authenticatable
     {
         if (empty($this->about)) {
             return 'N/A';
-        } else {
-            $bbcode = new Bbcode();
-
-            return $bbcode->parse($this->about, true);
         }
+        $bbcode = new Bbcode();
+        return $bbcode->parse($this->about, true);
     }
 
     /**

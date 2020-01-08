@@ -132,16 +132,13 @@ class InviteController extends Controller
         if ($v->fails()) {
             return redirect()->route('invites.create')
                 ->withErrors($v->errors());
-        } else {
-            Mail::to($request->input('email'))->send(new InviteUser($invite));
-            $invite->save();
-
-            --$user->invites;
-            $user->save();
-
-            return redirect()->route('invites.create')
-                ->withSuccess('Invite was sent successfully!');
         }
+        Mail::to($request->input('email'))->send(new InviteUser($invite));
+        $invite->save();
+        --$user->invites;
+        $user->save();
+        return redirect()->route('invites.create')
+            ->withSuccess('Invite was sent successfully!');
     }
 
     /**

@@ -140,62 +140,52 @@ class RegisterController extends Controller
         if ($v->fails()) {
             return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
-        } else {
-            $user->save();
-
-            $privacy = new UserPrivacy();
-            $privacy->setDefaultValues();
-            $privacy->user_id = $user->id;
-            $privacy->save();
-
-            $notification = new UserNotification();
-            $notification->setDefaultValues();
-            $notification->user_id = $user->id;
-            $notification->save();
-
-            if ($key) {
-                // Update The Invite Record
-                $key->accepted_by = $user->id;
-                $key->accepted_at = new Carbon();
-                $key->save();
-            }
-
-            // Handle The Activation System
-            $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
-            $activation = new UserActivation();
-            $activation->user_id = $user->id;
-            $activation->token = $token;
-            $activation->save();
-            $this->dispatch(new SendActivationMail($user, $token));
-
-            // Select A Random Welcome Message
-            $profile_url = hrefProfile($user);
-
-            $welcomeArray = [
-                sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
-                sprintf('[url=%s]%s[/url], We\'ve been expecting you :space_invader:', $profile_url, $user->username),
-                sprintf('[url=%s]%s[/url] has arrived. Party\'s over. :cry:', $profile_url, $user->username),
-                sprintf('It\'s a bird! It\'s a plane! Nevermind, it\'s just [url=%s]%s[/url].', $profile_url, $user->username),
-                sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
-                sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
-                'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
-            ];
-            $selected = mt_rand(0, count($welcomeArray) - 1);
-
-            $this->chat->systemMessage(
-                sprintf('%s', $welcomeArray[$selected])
-            );
-
-            // Send Welcome PM
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $user->id;
-            $pm->subject = config('welcomepm.subject');
-            $pm->message = config('welcomepm.message');
-            $pm->save();
-
-            return redirect()->route('login')
-                ->withSuccess(trans('auth.register-thanks'));
         }
+        $user->save();
+        $privacy = new UserPrivacy();
+        $privacy->setDefaultValues();
+        $privacy->user_id = $user->id;
+        $privacy->save();
+        $notification = new UserNotification();
+        $notification->setDefaultValues();
+        $notification->user_id = $user->id;
+        $notification->save();
+        if ($key) {
+            // Update The Invite Record
+                $key->accepted_by = $user->id;
+            $key->accepted_at = new Carbon();
+            $key->save();
+        }
+        // Handle The Activation System
+        $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
+        $activation = new UserActivation();
+        $activation->user_id = $user->id;
+        $activation->token = $token;
+        $activation->save();
+        $this->dispatch(new SendActivationMail($user, $token));
+        // Select A Random Welcome Message
+        $profile_url = hrefProfile($user);
+        $welcomeArray = [
+            sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
+            sprintf('[url=%s]%s[/url], We\'ve been expecting you :space_invader:', $profile_url, $user->username),
+            sprintf('[url=%s]%s[/url] has arrived. Party\'s over. :cry:', $profile_url, $user->username),
+            sprintf('It\'s a bird! It\'s a plane! Nevermind, it\'s just [url=%s]%s[/url].', $profile_url, $user->username),
+            sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
+            sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
+            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
+        ];
+        $selected = mt_rand(0, count($welcomeArray) - 1);
+        $this->chat->systemMessage(
+            sprintf('%s', $welcomeArray[$selected])
+        );
+        // Send Welcome PM
+        $pm = new PrivateMessage();
+        $pm->sender_id = 1;
+        $pm->receiver_id = $user->id;
+        $pm->subject = config('welcomepm.subject');
+        $pm->message = config('welcomepm.message');
+        $pm->save();
+        return redirect()->route('login')
+            ->withSuccess(trans('auth.register-thanks'));
     }
 }

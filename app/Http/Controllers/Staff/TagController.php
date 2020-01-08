@@ -66,12 +66,10 @@ class TagController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
-        } else {
-            $tag->save();
-
-            return redirect()->route('staff.tags.index')
-                ->withSuccess('Tag Successfully Added');
         }
+        $tag->save();
+        return redirect()->route('staff.tags.index')
+            ->withSuccess('Tag Successfully Added');
     }
 
     /**
@@ -110,11 +108,9 @@ class TagController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
-        } else {
-            $tag->save();
-
-            return redirect()->route('staff.tags.index')
-                ->withSuccess('Tag Successfully Modified');
         }
+        $tag->save();
+        return redirect()->route('staff.tags.index')
+            ->withSuccess('Tag Successfully Modified');
     }
 }

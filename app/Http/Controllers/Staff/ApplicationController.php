@@ -101,14 +101,12 @@ class ApplicationController extends Controller
             if ($v->fails()) {
                 return redirect()->route('staff.applications.index')
                     ->withErrors($v->errors());
-            } else {
-                Mail::to($application->email)->send(new InviteUser($invite));
-                $invite->save();
-                $application->markApproved();
-
-                return redirect()->route('staff.applications.index')
-                    ->withSuccess('Application Approved');
             }
+            Mail::to($application->email)->send(new InviteUser($invite));
+            $invite->save();
+            $application->markApproved();
+            return redirect()->route('staff.applications.index')
+                ->withSuccess('Application Approved');
         } else {
             return redirect()->route('staff.applications.index')
                 ->withErrors('Application Already Approved');
@@ -138,9 +136,8 @@ class ApplicationController extends Controller
 
             return redirect()->route('staff.applications.index')
                 ->withSuccess('Application Rejected');
-        } else {
-            return redirect()->route('staff.applications.index')
-                ->withErrors('Application Already Rejected');
         }
+        return redirect()->route('staff.applications.index')
+            ->withErrors('Application Already Rejected');
     }
 }

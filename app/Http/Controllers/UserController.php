@@ -255,9 +255,8 @@ class UserController extends Controller
         if (isset($css_url) && !filter_var($css_url, FILTER_VALIDATE_URL)) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
-        } else {
-            $user->custom_css = $css_url;
         }
+        $user->custom_css = $css_url;
         $user->nav = $request->input('sidenav');
 
         // Torrent Settings
@@ -331,10 +330,9 @@ class UserController extends Controller
                 $user->save();
 
                 return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
-            } else {
-                return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                    ->withErrors('Your Password Was Incorrect!');
             }
+            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+                ->withErrors('Your Password Was Incorrect!');
         } else {
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your New Password Is To Weak!');
@@ -372,13 +370,11 @@ class UserController extends Controller
         if ($v->fails()) {
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withErrors($v->errors());
-        } else {
-            $user->email = $request->input('email');
-            $user->save();
-
-            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
-                ->withSuccess('Your Email Was Updated Successfully!');
         }
+        $user->email = $request->input('email');
+        $user->save();
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
+            ->withSuccess('Your Email Was Updated Successfully!');
     }
 
     /**
@@ -1720,17 +1716,14 @@ class UserController extends Controller
                 'user'            => $user,
                 'torrentRequests' => $torrentRequests,
             ]);
-        } else {
-            $logger = 'user.requests';
-
-            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
-
-            return view($logger, [
-                'route'           => 'requests',
-                'user'            => $user,
-                'torrentRequests' => $torrentRequests,
-            ]);
         }
+        $logger = 'user.requests';
+        $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
+        return view($logger, [
+            'route'           => 'requests',
+            'user'            => $user,
+            'torrentRequests' => $torrentRequests,
+        ]);
     }
 
     /**
@@ -1866,16 +1859,14 @@ class UserController extends Controller
                 'his_downl'     => $his_downl,
                 'his_downl_cre' => $his_downl_cre,
             ]);
-        } else {
-            $logger = 'user.uploads';
-            $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
-
-            return view($logger, [
-                'route'       => 'uploads',
-                'user'        => $user,
-                'uploads'     => $uploads,
-            ]);
         }
+        $logger = 'user.uploads';
+        $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
+        return view($logger, [
+            'route'       => 'uploads',
+            'user'        => $user,
+            'uploads'     => $uploads,
+        ]);
     }
 
     /**
@@ -2041,9 +2032,8 @@ class UserController extends Controller
 
         if (file_exists($zip_file)) {
             return response()->download($zip_file)->deleteFileAfterSend(true);
-        } else {
-            return redirect()->back()->withErrors('Something Went Wrong!');
         }
+        return redirect()->back()->withErrors('Something Went Wrong!');
     }
 
     /**

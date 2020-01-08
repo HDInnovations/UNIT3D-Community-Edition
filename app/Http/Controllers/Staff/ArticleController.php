@@ -82,12 +82,10 @@ class ArticleController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
-        } else {
-            $article->save();
-
-            return redirect()->route('staff.articles.index')
-                ->withSuccess('Your article has successfully published!');
         }
+        $article->save();
+        return redirect()->route('staff.articles.index')
+            ->withSuccess('Your article has successfully published!');
     }
 
     /**
@@ -139,12 +137,10 @@ class ArticleController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
-        } else {
-            $article->save();
-
-            return redirect()->route('staff.articles.index')
-                ->withSuccess('Your article changes have successfully published!');
         }
+        $article->save();
+        return redirect()->route('staff.articles.index')
+            ->withSuccess('Your article changes have successfully published!');
     }
 
     /**

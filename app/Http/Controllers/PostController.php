@@ -93,99 +93,83 @@ class PostController extends Controller
         if ($v->fails()) {
             return redirect()->route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
-        } else {
-            $post->save();
-
-            $appurl = config('app.url');
-            $href = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
-            $message = sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
-
-            if ($this->tag->hasTags($request->input('content'))) {
-                if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
-
-                    $topic->posts()->get()->each(function ($p) use ($users) {
-                        $users->push($p->user);
-                    });
-
-                    $this->tag->messagePostUsers(
-                        'forum',
-                        $users,
-                        $user,
-                        'Staff',
-                        $post
-                    );
-                } else {
-                    $this->tag->messageTaggedPostUsers(
-                        'forum',
-                        $request->input('content'),
-                        $user,
-                        $user->username,
-                        $post
-                    );
-                }
-            }
-
-            // Save last post user data to topic table
-            $topic->last_post_user_id = $user->id;
-            $topic->last_post_user_username = $user->username;
-
-            // Count post in topic
-            $topic->num_post = Post::where('topic_id', '=', $topic->id)->count();
-
-            // Update time
-            $topic->last_reply_at = $post->created_at;
-
-            // Save
-            $topic->save();
-
-            // Count posts
-            $forum->num_post = $forum->getPostCount($forum->id);
-
-            // Count topics
-            $forum->num_topic = $forum->getTopicCount($forum->id);
-
-            // Save last post user data to the forum table
-            $forum->last_post_user_id = $user->id;
-            $forum->last_post_user_username = $user->username;
-
-            // Save last topic data to the forum table
-            $forum->last_topic_id = $topic->id;
-            $forum->last_topic_name = $topic->name;
-
-            // Save
-            $forum->save();
-
-            // Post To Chatbox
-            $appurl = config('app.url');
-            $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
-            $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
-            $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
-            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
-
-            // Notify All Subscribers Of New Reply
-            if ($topic->first_user_poster_id != $user->id) {
-                $topic->notifyStarter($user, $topic, $post);
-            }
-            $topic->notifySubscribers($user, $topic, $post);
-
-            //Achievements
-            $user->unlock(new UserMadeFirstPost(), 1);
-            $user->addProgress(new UserMade25Posts(), 1);
-            $user->addProgress(new UserMade50Posts(), 1);
-            $user->addProgress(new UserMade100Posts(), 1);
-            $user->addProgress(new UserMade200Posts(), 1);
-            $user->addProgress(new UserMade300Posts(), 1);
-            $user->addProgress(new UserMade400Posts(), 1);
-            $user->addProgress(new UserMade500Posts(), 1);
-            $user->addProgress(new UserMade600Posts(), 1);
-            $user->addProgress(new UserMade700Posts(), 1);
-            $user->addProgress(new UserMade800Posts(), 1);
-            $user->addProgress(new UserMade900Posts(), 1);
-
-            return redirect()->to($realUrl)
-                ->withSuccess('Post Successfully Posted');
         }
+        $post->save();
+        $appurl = config('app.url');
+        $href = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+        $message = sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
+        if ($this->tag->hasTags($request->input('content'))) {
+            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+                $users = collect([]);
+
+                $topic->posts()->get()->each(function ($p) use ($users) {
+                    $users->push($p->user);
+                });
+
+                $this->tag->messagePostUsers(
+                    'forum',
+                    $users,
+                    $user,
+                    'Staff',
+                    $post
+                );
+            } else {
+                $this->tag->messageTaggedPostUsers(
+                    'forum',
+                    $request->input('content'),
+                    $user,
+                    $user->username,
+                    $post
+                );
+            }
+        }
+        // Save last post user data to topic table
+        $topic->last_post_user_id = $user->id;
+        $topic->last_post_user_username = $user->username;
+        // Count post in topic
+        $topic->num_post = Post::where('topic_id', '=', $topic->id)->count();
+        // Update time
+        $topic->last_reply_at = $post->created_at;
+        // Save
+        $topic->save();
+        // Count posts
+        $forum->num_post = $forum->getPostCount($forum->id);
+        // Count topics
+        $forum->num_topic = $forum->getTopicCount($forum->id);
+        // Save last post user data to the forum table
+        $forum->last_post_user_id = $user->id;
+        $forum->last_post_user_username = $user->username;
+        // Save last topic data to the forum table
+        $forum->last_topic_id = $topic->id;
+        $forum->last_topic_name = $topic->name;
+        // Save
+        $forum->save();
+        // Post To Chatbox
+        $appurl = config('app.url');
+        $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+        $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
+        $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
+        $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+        // Notify All Subscribers Of New Reply
+        if ($topic->first_user_poster_id != $user->id) {
+            $topic->notifyStarter($user, $topic, $post);
+        }
+        $topic->notifySubscribers($user, $topic, $post);
+        //Achievements
+        $user->unlock(new UserMadeFirstPost(), 1);
+        $user->addProgress(new UserMade25Posts(), 1);
+        $user->addProgress(new UserMade50Posts(), 1);
+        $user->addProgress(new UserMade100Posts(), 1);
+        $user->addProgress(new UserMade200Posts(), 1);
+        $user->addProgress(new UserMade300Posts(), 1);
+        $user->addProgress(new UserMade400Posts(), 1);
+        $user->addProgress(new UserMade500Posts(), 1);
+        $user->addProgress(new UserMade600Posts(), 1);
+        $user->addProgress(new UserMade700Posts(), 1);
+        $user->addProgress(new UserMade800Posts(), 1);
+        $user->addProgress(new UserMade900Posts(), 1);
+        return redirect()->to($realUrl)
+            ->withSuccess('Post Successfully Posted');
     }
 
     /**

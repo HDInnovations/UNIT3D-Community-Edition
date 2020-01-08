@@ -95,66 +95,60 @@ class CommentController extends Controller
         if ($v->fails()) {
             return redirect()->route('articles.show', ['id' => $article->id])
                 ->withErrors($v->errors());
+        }
+        $comment->save();
+        $article_url = hrefArticle($article);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($comment->anon == 0) {
+            $this->chat->systemMessage(
+                sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profile_url, $user->username, $article_url, $article->title)
+            );
         } else {
-            $comment->save();
+            $this->chat->systemMessage(
+                sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $article_url, $article->title)
+            );
+        }
+        if ($this->tag->hasTags($request->input('content'))) {
+            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+                $users = collect([]);
 
-            $article_url = hrefArticle($article);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($comment->anon == 0) {
-                $this->chat->systemMessage(
-                    sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profile_url, $user->username, $article_url, $article->title)
+                $article->comments()->get()->each(function ($c) use ($users) {
+                    $users->push($c->user);
+                });
+                $this->tag->messageCommentUsers(
+                    'article',
+                    $users,
+                    $user,
+                    'Staff',
+                    $comment
                 );
             } else {
-                $this->chat->systemMessage(
-                    sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $article_url, $article->title)
+                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $this->tag->messageTaggedCommentUsers(
+                    'article',
+                    $request->input('content'),
+                    $user,
+                    $sender,
+                    $comment
                 );
             }
-
-            if ($this->tag->hasTags($request->input('content'))) {
-                if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
-
-                    $article->comments()->get()->each(function ($c) use ($users) {
-                        $users->push($c->user);
-                    });
-                    $this->tag->messageCommentUsers(
-                        'article',
-                        $users,
-                        $user,
-                        'Staff',
-                        $comment
-                    );
-                } else {
-                    $sender = $comment->anon ? 'Anonymous' : $user->username;
-                    $this->tag->messageTaggedCommentUsers(
-                        'article',
-                        $request->input('content'),
-                        $user,
-                        $sender,
-                        $comment
-                    );
-                }
-            }
-
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
-
-            return redirect()->route('articles.show', ['id' => $article->id])
-                ->withSuccess('Your Comment Has Been Added!');
         }
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
+        return redirect()->route('articles.show', ['id' => $article->id])
+            ->withSuccess('Your Comment Has Been Added!');
     }
 
     /**
@@ -191,66 +185,60 @@ class CommentController extends Controller
         if ($v->fails()) {
             return redirect()->route('playlists.show', ['id' => $playlist->id])
                 ->withErrors($v->errors());
+        }
+        $comment->save();
+        $playlist_url = hrefPlaylist($playlist);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($comment->anon == 0) {
+            $this->chat->systemMessage(
+                sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profile_url, $user->username, $playlist_url, $playlist->name)
+            );
         } else {
-            $comment->save();
+            $this->chat->systemMessage(
+                sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlist_url, $playlist->name)
+            );
+        }
+        if ($this->tag->hasTags($request->input('content'))) {
+            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+                $users = collect([]);
 
-            $playlist_url = hrefPlaylist($playlist);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($comment->anon == 0) {
-                $this->chat->systemMessage(
-                    sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profile_url, $user->username, $playlist_url, $playlist->name)
+                $playlist->comments()->get()->each(function ($c) use ($users) {
+                    $users->push($c->user);
+                });
+                $this->tag->messageCommentUsers(
+                    'playlist',
+                    $users,
+                    $user,
+                    'Staff',
+                    $comment
                 );
             } else {
-                $this->chat->systemMessage(
-                    sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlist_url, $playlist->name)
+                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $this->tag->messageTaggedCommentUsers(
+                    'playlist',
+                    $request->input('content'),
+                    $user,
+                    $sender,
+                    $comment
                 );
             }
-
-            if ($this->tag->hasTags($request->input('content'))) {
-                if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
-
-                    $playlist->comments()->get()->each(function ($c) use ($users) {
-                        $users->push($c->user);
-                    });
-                    $this->tag->messageCommentUsers(
-                        'playlist',
-                        $users,
-                        $user,
-                        'Staff',
-                        $comment
-                    );
-                } else {
-                    $sender = $comment->anon ? 'Anonymous' : $user->username;
-                    $this->tag->messageTaggedCommentUsers(
-                        'playlist',
-                        $request->input('content'),
-                        $user,
-                        $sender,
-                        $comment
-                    );
-                }
-            }
-
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
-
-            return redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
-                ->withSuccess('Your Comment Has Been Added!');
         }
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
+        return redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
+            ->withSuccess('Your Comment Has Been Added!');
     }
 
     /**
@@ -287,71 +275,64 @@ class CommentController extends Controller
         if ($v->fails()) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
+        }
+        $comment->save();
+        //Notification
+        if ($user->id != $torrent->user_id) {
+            $torrent->notifyUploader('comment', $comment);
+        }
+        $torrent_url = hrefTorrent($torrent);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($comment->anon == 0) {
+            $this->chat->systemMessage(
+                sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
+            );
         } else {
-            $comment->save();
+            $this->chat->systemMessage(
+                sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrent_url, $torrent->name)
+            );
+        }
+        if ($this->tag->hasTags($request->input('content'))) {
+            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+                $users = collect([]);
 
-            //Notification
-            if ($user->id != $torrent->user_id) {
-                $torrent->notifyUploader('comment', $comment);
-            }
-
-            $torrent_url = hrefTorrent($torrent);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($comment->anon == 0) {
-                $this->chat->systemMessage(
-                    sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
+                $torrent->comments()->get()->each(function ($c) use ($users) {
+                    $users->push($c->user);
+                });
+                $this->tag->messageCommentUsers(
+                    'torrent',
+                    $users,
+                    $user,
+                    'Staff',
+                    $comment
                 );
             } else {
-                $this->chat->systemMessage(
-                    sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrent_url, $torrent->name)
+                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $this->tag->messageTaggedCommentUsers(
+                    'torrent',
+                    $request->input('content'),
+                    $user,
+                    $sender,
+                    $comment
                 );
             }
-
-            if ($this->tag->hasTags($request->input('content'))) {
-                if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
-
-                    $torrent->comments()->get()->each(function ($c) use ($users) {
-                        $users->push($c->user);
-                    });
-                    $this->tag->messageCommentUsers(
-                        'torrent',
-                        $users,
-                        $user,
-                        'Staff',
-                        $comment
-                    );
-                } else {
-                    $sender = $comment->anon ? 'Anonymous' : $user->username;
-                    $this->tag->messageTaggedCommentUsers(
-                        'torrent',
-                        $request->input('content'),
-                        $user,
-                        $sender,
-                        $comment
-                    );
-                }
-            }
-
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
-
-            return redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
-                ->withSuccess('Your Comment Has Been Added!');
         }
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
+        return redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
+            ->withSuccess('Your Comment Has Been Added!');
     }
 
     /**
@@ -388,70 +369,64 @@ class CommentController extends Controller
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
+        }
+        $comment->save();
+        $tr_url = hrefRequest($tr);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($comment->anon == 0) {
+            $this->chat->systemMessage(
+                sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
+            );
         } else {
-            $comment->save();
+            $this->chat->systemMessage(
+                sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $tr_url, $tr->name)
+            );
+        }
+        //Notification
+        if ($user->id != $tr->user_id) {
+            $tr->notifyRequester('comment', $comment);
+        }
+        if ($this->tag->hasTags($request->input('content'))) {
+            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+                $users = collect([]);
 
-            $tr_url = hrefRequest($tr);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($comment->anon == 0) {
-                $this->chat->systemMessage(
-                    sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
+                $tr->comments()->get()->each(function ($c) use ($users) {
+                    $users->push($c->user);
+                });
+                $this->tag->messageCommentUsers(
+                    'request',
+                    $users,
+                    $user,
+                    'Staff',
+                    $comment
                 );
             } else {
-                $this->chat->systemMessage(
-                    sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $tr_url, $tr->name)
+                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $this->tag->messageTaggedCommentUsers(
+                    'request',
+                    $request->input('content'),
+                    $user,
+                    $sender,
+                    $comment
                 );
             }
-
-            //Notification
-            if ($user->id != $tr->user_id) {
-                $tr->notifyRequester('comment', $comment);
-            }
-
-            if ($this->tag->hasTags($request->input('content'))) {
-                if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
-
-                    $tr->comments()->get()->each(function ($c) use ($users) {
-                        $users->push($c->user);
-                    });
-                    $this->tag->messageCommentUsers(
-                        'request',
-                        $users,
-                        $user,
-                        'Staff',
-                        $comment
-                    );
-                } else {
-                    $sender = $comment->anon ? 'Anonymous' : $user->username;
-                    $this->tag->messageTaggedCommentUsers(
-                        'request',
-                        $request->input('content'),
-                        $user,
-                        $sender,
-                        $comment
-                    );
-                }
-            }
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
-
-            return redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
-                ->withSuccess('Your Comment Has Been Added!');
         }
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
+        return redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
+            ->withSuccess('Your Comment Has Been Added!');
     }
 
     /**
@@ -505,39 +480,33 @@ class CommentController extends Controller
         if ($v->fails()) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors($v->errors());
-        } else {
-            $comment->save();
-
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
-
-            //Notification
-            if ($user->id != $torrent->user_id) {
-                User::find($torrent->user_id)->notify(new NewComment('torrent', $comment));
-            }
-
-            // Auto Shout
-            $torrent_url = hrefTorrent($torrent);
-            $profile_url = hrefProfile($user);
-
-            $this->chat->systemMessage(
-                sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
-            );
-
-            return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withSuccess('Your Comment Has Been Added!');
         }
+        $comment->save();
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
+        //Notification
+        if ($user->id != $torrent->user_id) {
+            User::find($torrent->user_id)->notify(new NewComment('torrent', $comment));
+        }
+        // Auto Shout
+        $torrent_url = hrefTorrent($torrent);
+        $profile_url = hrefProfile($user);
+        $this->chat->systemMessage(
+            sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
+        );
+        return redirect()->route('torrent', ['id' => $torrent->id])
+            ->withSuccess('Your Comment Has Been Added!');
     }
 
     /**
