@@ -25,7 +25,7 @@ class BackupController extends Controller
     /**
      * Display All Backups.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return
      */
@@ -34,7 +34,7 @@ class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        if (! count(config('backup.backup.destination.disks'))) {
+        if (!count(config('backup.backup.destination.disks'))) {
             dd(trans('backup.no_disks_configured'));
         }
 
@@ -71,7 +71,7 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return string
      */
@@ -100,7 +100,7 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return string
      */
@@ -129,7 +129,7 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return string
      */
@@ -158,7 +158,7 @@ class BackupController extends Controller
     /**
      * Download A Backup.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return
      */
@@ -187,7 +187,7 @@ class BackupController extends Controller
     /**
      * Deletes A Backup.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return string
      */

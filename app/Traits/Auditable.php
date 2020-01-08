@@ -38,6 +38,7 @@ trait Auditable
      *
      * @param $model
      * @param $data
+     *
      * @return array
      */
     protected static function strip($model, $data)
@@ -47,15 +48,15 @@ trait Auditable
         // Convert the data to an array
         $data = (array) $data;
         // Start stripping
-        $globalDiscards = (! empty(config('audit.global_discards'))) ? config('audit.global_discards') : [];
-        $modelDiscards = (! empty($instance->discarded)) ? $instance->discarded : [];
+        $globalDiscards = (!empty(config('audit.global_discards'))) ? config('audit.global_discards') : [];
+        $modelDiscards = (!empty($instance->discarded)) ? $instance->discarded : [];
         foreach ($data as $key => $value) {
             // Check the model-specific discards
             if (in_array($key, $modelDiscards)) {
                 unset($data[$key]);
             }
             // Check global discards
-            if (! empty($globalDiscards)) {
+            if (!empty($globalDiscards)) {
                 if (in_array($key, $globalDiscards)) {
                     unset($data[$key]);
                 }
@@ -71,6 +72,7 @@ trait Auditable
      * @param $action
      * @param array $old
      * @param array $new
+     *
      * @return false|string
      */
     protected static function generate($action, $old = [], $new = [])
@@ -153,7 +155,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
 
-        if (! is_null($userId) && ! empty($data)) {
+        if (!is_null($userId) && !empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -181,7 +183,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
-        if (! is_null($userId) && ! empty(json_decode($data, true))) {
+        if (!is_null($userId) && !empty(json_decode($data, true))) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -209,7 +211,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('delete', self::strip($model, $model->getAttributes()));
 
-        if (! is_null($userId) && ! empty($data)) {
+        if (!is_null($userId) && !empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([

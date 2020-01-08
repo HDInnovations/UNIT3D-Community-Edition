@@ -39,9 +39,9 @@ class NotificationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
-     *
      * @throws \Throwable
+     *
+     * @return array
      */
     public function faceted(Request $request)
     {
@@ -162,7 +162,7 @@ class NotificationController extends Controller
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
-        if (! $notification) {
+        if (!$notification) {
             return redirect()->route('notifications.index')
                 ->withErrors('Notification Does Not Exist!');
         }
@@ -183,8 +183,9 @@ class NotificationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return Illuminate\Http\RedirectResponse
      */
     public function updateAll(Request $request)
     {

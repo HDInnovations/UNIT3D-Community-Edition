@@ -32,8 +32,9 @@ class AnnounceController extends Controller
      * @param Request $request
      * @param $passkey
      *
-     * @return Bencode response for the torrent client
      * @throws \Exception
+     *
+     * @return Bencode response for the torrent client
      */
     public function announce(Request $request, $passkey)
     {
@@ -45,7 +46,7 @@ class AnnounceController extends Controller
 
         // Check Announce Request Method
         $method = $request->method();
-        if (! $request->isMethod('get')) {
+        if (!$request->isMethod('get')) {
             info('Announce Request Method Was Not GET');
 
             return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']))->withHeaders(['Content-Type' => 'text/plain']);
@@ -78,37 +79,37 @@ class AnnounceController extends Controller
         }
 
         // If Infohash Is Not Provided Return Error to Client
-        if (! $request->has('info_hash')) {
+        if (!$request->has('info_hash')) {
             //info('Client Attempted To Connect To Announce Without A Infohash');
             return response(Bencode::bencode(['failure reason' => 'Missing info_hash']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Peerid Is Not Provided Return Error to Client
-        if (! $request->has('peer_id')) {
+        if (!$request->has('peer_id')) {
             //info('Client Attempted To Connect To Announce Without A Peerid');
             return response(Bencode::bencode(['failure reason' => 'Missing peer_id']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Port Is Not Provided Return Error to Client
-        if (! $request->has('port')) {
+        if (!$request->has('port')) {
             //info('Client Attempted To Connect To Announce Without A Specified Port');
             return response(Bencode::bencode(['failure reason' => 'Missing port']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Left" Is Not Provided Return Error to Client
-        if (! $request->has('left')) {
+        if (!$request->has('left')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Left" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing left']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Upload" Is Not Provided Return Error to Client
-        if (! $request->has('uploaded')) {
+        if (!$request->has('uploaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Upload" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing upload']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Download" Is Not Provided Return Error to Client
-        if (! $request->has('downloaded')) {
+        if (!$request->has('downloaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Download" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing download']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -117,7 +118,7 @@ class AnnounceController extends Controller
         $user = User::with(['group'])->where('passkey', '=', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
-        if (! $user) {
+        if (!$user) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -191,7 +192,7 @@ class AnnounceController extends Controller
         }
 
         // If User Client Does Not Support Compact Return Error to Client
-        if (! $compact) {
+        if (!$compact) {
             //info('Client Attempted To Connect To Announce But Doesn't Support Compact');
             return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -204,7 +205,7 @@ class AnnounceController extends Controller
             ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
-        if (! $torrent || $torrent->id < 0) {
+        if (!$torrent || $torrent->id < 0) {
             //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
             return response(Bencode::bencode(['failure reason' => 'Torrent not found']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -245,9 +246,9 @@ class AnnounceController extends Controller
         $ghost = false;
 
         // Creates a new client if not existing
-        if (! $client && $event == 'completed') {
+        if (!$client && $event == 'completed') {
             return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
-        } elseif (! $client) {
+        } elseif (!$client) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
                 $event = 'started';
@@ -258,7 +259,7 @@ class AnnounceController extends Controller
         // Get history information
         $history = History::where('info_hash', '=', $info_hash)->where('user_id', '=', $user->id)->first();
 
-        if (! $history) {
+        if (!$history) {
             $history = new History();
             $history->user_id = $user->id;
             $history->info_hash = $info_hash;
@@ -480,6 +481,7 @@ class AnnounceController extends Controller
      * @param $peers
      * @param $compact
      * @param $no_peer_id
+     *
      * @return string
      */
     private function givePeers($peers, $compact, $no_peer_id)
@@ -513,6 +515,7 @@ class AnnounceController extends Controller
      * @param $peers
      * @param $compact
      * @param $no_peer_id
+     *
      * @return string
      */
     private function givePeers6($peers, $compact, $no_peer_id)

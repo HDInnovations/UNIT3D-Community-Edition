@@ -28,6 +28,7 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
 
     /**
      * Create a new notification instance.
+     *
      * @param $user
      * @param $code
      */

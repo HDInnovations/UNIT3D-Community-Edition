@@ -35,7 +35,7 @@ class NoteController extends Controller
     /**
      * Store A New User Note.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return Illuminate\Http\RedirectResponse

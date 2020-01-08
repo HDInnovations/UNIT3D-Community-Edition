@@ -28,6 +28,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \App\Models\User $target
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow query()
@@ -37,6 +38,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereUserId($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $notifications_count
  */
 class Follow extends Model

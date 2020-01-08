@@ -33,10 +33,10 @@ class Episode
     {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
-                if (is_array($value) && ! count($value)) {
+                if (is_array($value) && !count($value)) {
                     $value = null;
                 }
-                $this->$key = ! empty($value) ? $value : null;
+                $this->$key = !empty($value) ? $value : null;
             }
         }
 

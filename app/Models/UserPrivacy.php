@@ -63,6 +63,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read array $expected_fields
  * @property-read array $expected_groups
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy query()
@@ -186,7 +187,8 @@ class UserPrivacy extends Model
     /**
      * Set the base vars on object creation without touching boot.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return void
      */
     public function setDefaultValues($type = 'default')

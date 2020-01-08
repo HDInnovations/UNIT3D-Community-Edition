@@ -39,7 +39,7 @@ class TorrentController extends BaseController
     /**
      * RequestController Constructor.
      *
-     * @param ChatRepository           $chat
+     * @param ChatRepository $chat
      */
     public function __construct(ChatRepository $chat)
     {
@@ -59,7 +59,7 @@ class TorrentController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -216,7 +216,7 @@ class TorrentController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return TorrentResource
      */
@@ -232,8 +232,8 @@ class TorrentController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -245,7 +245,7 @@ class TorrentController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -257,8 +257,8 @@ class TorrentController extends BaseController
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Torrent  $torrent
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Torrent      $torrent
      *
      * @return TorrentsResource
      */
@@ -405,7 +405,7 @@ class TorrentController extends BaseController
             $torrent->where('torrents.seeders', '=', $dead);
         }
 
-        if (! empty($torrent)) {
+        if (!empty($torrent)) {
             return new TorrentsResource($torrent->paginate(25));
         } else {
             return $this->sendResponse('404', 'No Torrents Found');

@@ -18,7 +18,8 @@ class LogoutListener
     /**
      * Handle the event.
      *
-     * @param  auth.logout  $event
+     * @param auth.logout $event
+     *
      * @return void
      */
     public function handle($event)

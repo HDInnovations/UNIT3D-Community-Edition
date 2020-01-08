@@ -52,8 +52,8 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $slug
+     * @param \Illuminate\Http\Request $request
+     * @param                          $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

@@ -26,7 +26,7 @@ class Contact extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param  array  $input
+     * @param array $input
      */
     public function __construct(array $input)
     {

@@ -40,7 +40,7 @@ class GraveyardController extends Controller
     /**
      * Show The Graveyard.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -64,10 +64,11 @@ class GraveyardController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Torrent $torrent
+     * @param Torrent                  $torrent
+     *
+     * @throws \Throwable
      *
      * @return array
-     * @throws \Throwable
      */
     public function faceted(Request $request, Torrent $torrent)
     {
@@ -186,8 +187,8 @@ class GraveyardController extends Controller
     /**
      * Cancel A Ressurection.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int                       $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

@@ -65,7 +65,7 @@ class RequestController extends Controller
     /**
      * Displays Torrent List View.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -99,10 +99,11 @@ class RequestController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param TorrentRequest $torrentRequest
+     * @param TorrentRequest           $torrentRequest
+     *
+     * @throws \Throwable
      *
      * @return array
-     * @throws \Throwable
      */
     public function faceted(Request $request, TorrentRequest $torrentRequest)
     {
@@ -214,12 +215,13 @@ class RequestController extends Controller
     /**
      * Display The Torrent Request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function request(Request $request, $id)
     {
@@ -264,10 +266,11 @@ class RequestController extends Controller
     /**
      * Torrent Request Add Form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $title
-     * @param  int  $imdb
-     * @param  int  $tmdb
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $title
+     * @param int                      $imdb
+     * @param int                      $tmdb
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
@@ -372,7 +375,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Edit Form.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -551,7 +554,7 @@ class RequestController extends Controller
         ]);
 
         $torrent = Torrent::where('info_hash', '=', $torrentRequest->filled_hash)->first();
-        if ($torrent && ! $torrent->isApproved()) {
+        if ($torrent && !$torrent->isApproved()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
         }
@@ -584,7 +587,7 @@ class RequestController extends Controller
     /**
      * Approve A Torrent Request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -661,7 +664,7 @@ class RequestController extends Controller
     /**
      * Reject A Torrent Request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -699,7 +702,7 @@ class RequestController extends Controller
     /**
      * Delete A Torrent Request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -766,7 +769,7 @@ class RequestController extends Controller
     /**
      * Uncliam A Torrent Request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -809,8 +812,8 @@ class RequestController extends Controller
     /**
      * Resets the filled and approved attributes on a given request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

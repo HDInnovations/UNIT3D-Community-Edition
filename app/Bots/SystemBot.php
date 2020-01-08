@@ -6,6 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     singularity43
  */
@@ -42,7 +43,8 @@ class SystemBot
 
     /**
      * SystemBot Constructor.
-     * @param  ChatRepository  $chat
+     *
+     * @param ChatRepository $chat
      */
     public function __construct(ChatRepository $chat)
     {
@@ -53,7 +55,9 @@ class SystemBot
 
     /**
      * Replace Vars.
+     *
      * @param $output
+     *
      * @return mixed
      */
     public function replaceVars($output)
@@ -82,9 +86,11 @@ class SystemBot
 
     /**
      * Send Gift.
-     * @param  string  $receiver
-     * @param  int  $amount
-     * @param  string  $note
+     *
+     * @param string $receiver
+     * @param int    $amount
+     * @param string $note
+     *
      * @return string
      */
     public function putGift($receiver = '', $amount = 0, $note = '')
@@ -98,7 +104,7 @@ class SystemBot
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $receiver)->first();
 
-            if (! $recipient || $recipient->id == $this->target->id) {
+            if (!$recipient || $recipient->id == $this->target->id) {
                 return 'Your BON gift could not be sent.';
             }
 
@@ -140,10 +146,12 @@ class SystemBot
 
     /**
      * Process Message.
+     *
      * @param $type
-     * @param  User  $target
-     * @param  string  $message
-     * @param  int  $targeted
+     * @param User   $target
+     * @param string $message
+     * @param int    $targeted
+     *
      * @return bool
      */
     public function process($type, User $target, $message = '', $targeted = 0)
@@ -203,7 +211,7 @@ class SystemBot
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = cache()->get('user-echoes'.$target->id);
-            if (! $receiver_echoes || ! is_array($receiver_echoes) || count($receiver_echoes) < 1) {
+            if (!$receiver_echoes || !is_array($receiver_echoes) || count($receiver_echoes) < 1) {
                 $receiver_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -212,7 +220,7 @@ class SystemBot
                     $receiver_listening = true;
                 }
             }
-            if (! $receiver_listening) {
+            if (!$receiver_listening) {
                 $receiver_port = new UserEcho();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;
@@ -227,7 +235,7 @@ class SystemBot
             }
             $receiver_dirty = 0;
             $receiver_audibles = cache()->get('user-audibles'.$target->id);
-            if (! $receiver_audibles || ! is_array($receiver_audibles) || count($receiver_audibles) < 1) {
+            if (!$receiver_audibles || !is_array($receiver_audibles) || count($receiver_audibles) < 1) {
                 $receiver_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -236,7 +244,7 @@ class SystemBot
                     $receiver_listening = true;
                 }
             }
-            if (! $receiver_listening) {
+            if (!$receiver_listening) {
                 $receiver_port = new UserAudible();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;

@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()
@@ -42,6 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUserId($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $comments_count
  */
 class Article extends Model
@@ -108,7 +110,7 @@ class Article extends Model
     /**
      * Set The Articles Content After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */

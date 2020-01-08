@@ -34,8 +34,8 @@ class AuditController extends Controller
     /**
      * Delete A Audit.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

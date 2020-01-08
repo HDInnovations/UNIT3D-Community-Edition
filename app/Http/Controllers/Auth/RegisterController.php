@@ -73,7 +73,7 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
+        if (config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
             return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors(trans('auth.invalid-key'));
         }

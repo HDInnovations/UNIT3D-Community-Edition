@@ -90,8 +90,8 @@ class PageController extends Controller
     /**
      * Edit A Page.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

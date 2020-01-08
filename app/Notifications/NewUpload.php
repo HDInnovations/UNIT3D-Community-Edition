@@ -29,7 +29,7 @@ class NewUpload extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param string $type
+     * @param string  $type
      * @param Torrent $torrent
      *
      * @return void

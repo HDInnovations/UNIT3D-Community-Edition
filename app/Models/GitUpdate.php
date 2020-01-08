@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $hash
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\GitUpdate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\GitUpdate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\GitUpdate query()

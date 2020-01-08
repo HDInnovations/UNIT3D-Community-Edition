@@ -63,7 +63,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -263,7 +263,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -368,7 +368,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -472,7 +472,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -579,7 +579,7 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $comment_id
      *
      * @return Illuminate\Http\RedirectResponse

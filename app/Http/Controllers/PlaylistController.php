@@ -31,7 +31,7 @@ class PlaylistController extends Controller
     /**
      * PlaylistController Constructor.
      *
-     * @param ChatRepository           $chat
+     * @param ChatRepository $chat
      */
     public function __construct(ChatRepository $chat)
     {
@@ -63,7 +63,7 @@ class PlaylistController extends Controller
     /**
      * Store A New Playlist.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -118,12 +118,12 @@ class PlaylistController extends Controller
     /**
      * Show A Playlist.
      *
-     * @param  \App\Playlist  $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Playlist $id
      *
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
@@ -159,7 +159,7 @@ class PlaylistController extends Controller
     /**
      * Show Playlist Update Form.
      *
-     * @param  \App\Playlist  $id
+     * @param \App\Playlist $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -176,8 +176,8 @@ class PlaylistController extends Controller
     /**
      * Update A Playlist.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Playlist  $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Playlist            $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -224,7 +224,7 @@ class PlaylistController extends Controller
     /**
      * Delete A Playlist.
      *
-     * @param  \App\Playlist  $id
+     * @param \App\Playlist $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

@@ -124,12 +124,12 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class         => ['mail'],
             \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class        => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class     => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class   => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class    => ['mail'],
         ],
 
         /*
@@ -139,7 +139,7 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' =>  env('DEFAULT_OWNER_EMAIL'),
+            'to' => env('DEFAULT_OWNER_EMAIL'),
         ],
 
         'slack' => [
@@ -164,10 +164,10 @@ return [
      */
     'monitor_backups' => [
         [
-            'name' => env('APP_NAME', 'UNIT3D'),
-            'disks' => ['backups'],
+            'name'          => env('APP_NAME', 'UNIT3D'),
+            'disks'         => ['backups'],
             'health_checks' => [
-                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
+                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class          => 1,
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
             ],
         ],
@@ -232,7 +232,7 @@ return [
     ],
 
     'security' => [
-        'password' => env('APP_KEY'),
+        'password'   => env('APP_KEY'),
         'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_256,
 
         // Available encryption methods:

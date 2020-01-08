@@ -92,7 +92,7 @@ class VendorCleanup extends Command
 
                 $files = glob($directory.'/'.$casePattern, GLOB_BRACE);
 
-                if (! $files) {
+                if (!$files) {
                     continue;
                 }
 
@@ -109,12 +109,12 @@ class VendorCleanup extends Command
                 foreach ($files as $file) {
                     if (is_dir($file)) {
                         $this->out('DELETING DIR: '.$file);
-                        if (! $isDry) {
+                        if (!$isDry) {
                             $this->delTree($file);
                         }
                     } else {
                         $this->out('DELETING FILE: '.$file);
-                        if (! $isDry) {
+                        if (!$isDry) {
                             @unlink($file);
                         }
                     }
@@ -127,7 +127,8 @@ class VendorCleanup extends Command
     /**
      * Recursively traverses the directory tree.
      *
-     * @param  string $dir
+     * @param string $dir
+     *
      * @return array
      */
     protected function expandDirectoryTree($dir)
@@ -148,12 +149,13 @@ class VendorCleanup extends Command
     /**
      * Recursively deletes the directory.
      *
-     * @param  string $dir
+     * @param string $dir
+     *
      * @return bool
      */
     protected function delTree($dir)
     {
-        if (! file_exists($dir) || ! is_dir($dir)) {
+        if (!file_exists($dir) || !is_dir($dir)) {
             return false;
         }
         $iterator = new RecursiveIteratorIterator(
@@ -173,7 +175,8 @@ class VendorCleanup extends Command
     /**
      * Prepare word.
      *
-     * @param  string $matches
+     * @param string $matches
+     *
      * @return string
      */
     protected function prepareWord($matches)

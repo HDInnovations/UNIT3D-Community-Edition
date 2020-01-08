@@ -43,7 +43,7 @@ class HtmlEncrypt
          */
         $response = $next($request);
 
-        if ($request->isMethod('get') && ! $request->ajax()) {
+        if ($request->isMethod('get') && !$request->ajax()) {
             $contentType = $response->headers->get('Content-Type');
 
             if (strpos($contentType, 'text/html') !== false) {

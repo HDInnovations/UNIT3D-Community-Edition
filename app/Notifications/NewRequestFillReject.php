@@ -31,9 +31,9 @@ class NewRequestFillReject extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param  string  $type
-     * @param  string  $sender
-     * @param  TorrentRequest  $tr
+     * @param string         $type
+     * @param string         $sender
+     * @param TorrentRequest $tr
      */
     public function __construct(string $type, string $sender, TorrentRequest $tr)
     {

@@ -27,6 +27,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom query()
@@ -35,6 +36,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $messages_count
  * @property-read int|null $notifications_count
  * @property-read int|null $users_count

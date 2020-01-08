@@ -22,7 +22,7 @@ class EmailValidator
             case 'block':
                 $domain_list = config('email-white-blacklist.block');
 
-                return ! in_array($domain, $domain_list);
+                return !in_array($domain, $domain_list);
 
                 break;
             case 'allow':

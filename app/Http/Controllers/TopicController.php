@@ -104,8 +104,8 @@ class TopicController extends Controller
     /**
      * Topic Add Form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -130,8 +130,8 @@ class TopicController extends Controller
     /**
      * Create A New Topic In The Forum.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -253,8 +253,8 @@ class TopicController extends Controller
     /**
      * Edit Topic In The Forum.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -277,8 +277,8 @@ class TopicController extends Controller
     /**
      * Close The Topic.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -298,8 +298,8 @@ class TopicController extends Controller
     /**
      * Open The Topic.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -319,8 +319,8 @@ class TopicController extends Controller
     /**
      * Delete The Topic and The Posts.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

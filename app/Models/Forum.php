@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $subscription_topics
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $subscriptions
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $topics
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum query()
@@ -60,6 +61,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $forums_count
  * @property-read int|null $permissions_count
  * @property-read int|null $sub_topics_count
@@ -150,6 +152,7 @@ class Forum extends Model
      *
      * @param $poster
      * @param $topic
+     *
      * @return string
      */
     public function notifySubscribers($poster, $topic)
@@ -182,6 +185,7 @@ class Forum extends Model
      * Returns A Table With The Forums In The Category.
      *
      * @param $forumId
+     *
      * @return string
      */
     public function getForumsInCategoryById($forumId)
@@ -203,6 +207,7 @@ class Forum extends Model
      * Count The Number Of Posts In The Forum.
      *
      * @param $forumId
+     *
      * @return string
      */
     public function getPostCount($forumId)
@@ -221,6 +226,7 @@ class Forum extends Model
      * Count The Number Of Topics In The Forum.
      *
      * @param $forumId
+     *
      * @return string
      */
     public function getTopicCount($forumId)

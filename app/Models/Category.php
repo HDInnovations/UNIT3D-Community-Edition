@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $num_torrent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequest[] $requests
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category query()
@@ -39,6 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereSlug($value)
  * @mixin \Eloquent
+ *
  * @property string|null $image
  * @property int $no_meta
  * @property int $music_meta
@@ -47,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $movie_meta
  * @property-read int|null $requests_count
  * @property-read int|null $torrents_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereGameMeta($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereMovieMeta($value)

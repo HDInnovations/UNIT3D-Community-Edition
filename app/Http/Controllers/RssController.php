@@ -43,8 +43,8 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $hash
+     * @param \Illuminate\Http\Request $request
+     * @param string                   $hash
      *
      * @return \Illuminate\Http\Response
      */
@@ -66,7 +66,8 @@ class RssController extends Controller
     /**
      * Show the form for creating a new RSS resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -85,7 +86,7 @@ class RssController extends Controller
     /**
      * Store a newly created RSS resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -120,7 +121,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Created';
         }
-        if (! $success) {
+        if (!$success) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -137,8 +138,9 @@ class RssController extends Controller
     /**
      * Display the specified RSS resource.
      *
-     * @param  int  $id
-     * @param  string $rsskey
+     * @param int    $id
+     * @param string $rsskey
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id, $rsskey)
@@ -301,8 +303,9 @@ class RssController extends Controller
     /**
      * Show the form for editing the specified RSS resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int                       $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
@@ -323,8 +326,9 @@ class RssController extends Controller
     /**
      * Update the specified RSS resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -355,7 +359,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Updated';
         }
-        if (! $success) {
+        if (!$success) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -372,7 +376,8 @@ class RssController extends Controller
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

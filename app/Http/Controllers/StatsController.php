@@ -37,8 +37,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Index.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -420,6 +421,7 @@ class StatsController extends Controller
      * Show Extra-Stats Groups.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function group($id)

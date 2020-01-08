@@ -28,8 +28,8 @@ class NewComment extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param  string  $type
-     * @param  Comment  $comment
+     * @param string  $type
+     * @param Comment $comment
      */
     public function __construct(string $type, Comment $comment)
     {

@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $size
  * @property int $torrent_id
  * @property-read \App\Models\Torrent $torrent
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentFile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentFile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentFile query()
@@ -65,8 +66,9 @@ class TorrentFile extends Model
     /**
      * Return Size In Human Format.
      *
-     * @param  null  $bytes
-     * @param  int  $precision
+     * @param null $bytes
+     * @param int  $precision
+     *
      * @return string
      */
     public function getSize($bytes = null, $precision = 2)

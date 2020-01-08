@@ -104,8 +104,8 @@ class ArticleController extends Controller
     /**
      * Edit A Article.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

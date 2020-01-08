@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $download
  * @property bool $personal_freeleech
  * @property bool $invite
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange query()
@@ -122,6 +123,7 @@ class BonExchange extends Model
      * @method getItemCost
      *
      * @param $id
+     *
      * @return int
      */
     public function getItemCost($id)

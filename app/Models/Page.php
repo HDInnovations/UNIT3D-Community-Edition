@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Page newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Page newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Page query()
@@ -42,7 +43,7 @@ class Page extends Model
     /**
      * Set The Pages Content After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */

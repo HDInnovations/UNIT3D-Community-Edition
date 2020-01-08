@@ -31,12 +31,11 @@ class Http2ServerPush
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     *
-     * @param  null  $limit
-     * @param  null  $sizeLimit
-     * @param  null  $excludeKeywords
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     * @param null                     $limit
+     * @param null                     $sizeLimit
+     * @param null                     $excludeKeywords
      *
      * @return mixed
      */
@@ -44,7 +43,7 @@ class Http2ServerPush
     {
         $response = $next($request);
 
-        if ($response->isRedirection() || ! $response instanceof Response || $request->isJson()) {
+        if ($response->isRedirection() || !$response instanceof Response || $request->isJson()) {
             return $response;
         }
 
@@ -55,7 +54,7 @@ class Http2ServerPush
 
     public function getConfig($key, $default = false)
     {
-        if (! function_exists('config')) { // for tests..
+        if (!function_exists('config')) { // for tests..
             return $default;
         }
 
@@ -63,11 +62,11 @@ class Http2ServerPush
     }
 
     /**
-     * @param  \Illuminate\Http\Response  $response
+     * @param \Illuminate\Http\Response $response
+     * @param null                      $limit
+     * @param null                      $sizeLimit
+     * @param null                      $excludeKeywords
      *
-     * @param  null  $limit
-     * @param  null  $sizeLimit
-     * @param  null  $excludeKeywords
      * @return $this
      */
     protected function generateAndAttachLinkHeaders(Response $response, $limit = null, $sizeLimit = null, $excludeKeywords = null)
@@ -80,7 +79,7 @@ class Http2ServerPush
             })
             ->unique()
             ->filter(function ($value, $key) use ($excludeKeywords) {
-                if (! $value) {
+                if (!$value) {
                     return false;
                 }
                 $exclude_keywords = collect($excludeKeywords)->map(function ($keyword) {
@@ -90,7 +89,7 @@ class Http2ServerPush
                     return true;
                 }
 
-                return ! preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
+                return !preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
             })
             ->take($limit);
 
@@ -101,7 +100,7 @@ class Http2ServerPush
             $headersText = trim($headers->implode(','));
         }
 
-        if (! empty($headersText)) {
+        if (!empty($headersText)) {
             $this->addLinkHeader($response, $headersText);
         }
 
@@ -156,7 +155,7 @@ class Http2ServerPush
             return Str::contains(strtoupper($url), $extension);
         });
 
-        if (! preg_match('%^https?://%i', $url)) {
+        if (!preg_match('%^https?://%i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);
         }
@@ -168,7 +167,6 @@ class Http2ServerPush
      * Add Link Header.
      *
      * @param \Illuminate\Http\Response $response
-     *
      * @param $link
      */
     private function addLinkHeader(Response $response, $link)

@@ -24,8 +24,8 @@ class FollowController extends Controller
     /**
      * Follow A User.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -38,7 +38,7 @@ class FollowController extends Controller
                 ->withErrors('Nice try, but sadly you can not follow yourself.');
         }
 
-        if (! $request->user()->isFollowing($user->id)) {
+        if (!$request->user()->isFollowing($user->id)) {
             $follow = new Follow();
             $follow->user_id = $request->user()->id;
             $follow->target_id = $user->id;
@@ -58,8 +58,9 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $username)

@@ -170,6 +170,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $imdb
+     *
      * @return array|mixed|null
      */
     public function omdbRequest($imdb)

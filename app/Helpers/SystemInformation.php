@@ -108,7 +108,7 @@ class SystemInformation
             'pgsql',
             'sqlsrv',
         ];
-        if (! in_array(config('database.default'), $knownDatabases)) {
+        if (!in_array(config('database.default'), $knownDatabases)) {
             return 'Unkown';
         }
         $results = DB::select(DB::raw('select version()'));
@@ -151,6 +151,7 @@ class SystemInformation
      * Get the file permissions for a specific path/file.
      *
      * @param $path
+     *
      * @return string|\Symfony\Component\Translation\TranslatorInterface
      */
     public function getDirectoryPermission($path)

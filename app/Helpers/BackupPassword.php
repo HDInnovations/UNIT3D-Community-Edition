@@ -19,12 +19,14 @@ class BackupPassword
 {
     /**
      * Path to .zip-fil.
+     *
      * @var string
      */
     public $path;
 
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.
+     *
      * @param string $path the path to the .zip-file
      */
     public function __construct(string $path)

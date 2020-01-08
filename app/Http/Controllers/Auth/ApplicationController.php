@@ -6,6 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -34,6 +35,7 @@ class ApplicationController extends Controller
      * Store A New Application.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)

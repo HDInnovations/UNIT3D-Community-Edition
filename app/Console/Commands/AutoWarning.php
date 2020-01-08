@@ -55,7 +55,7 @@ class AutoWarning extends Command
                 ->get();
 
             foreach ($hitrun as $hr) {
-                if (! $hr->user->group->is_immune) {
+                if (!$hr->user->group->is_immune) {
                     if ($hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
                         $exsist = Warning::withTrashed()
                             ->where('torrent', '=', $hr->torrent->id)
@@ -63,7 +63,7 @@ class AutoWarning extends Command
                             ->first();
 
                         // Insert Warning Into Warnings Table if doesnt already exsist
-                        if (! $exsist) {
+                        if (!$exsist) {
                             $warning = new Warning();
                             $warning->user_id = $hr->user->id;
                             $warning->warned_by = '1';
