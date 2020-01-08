@@ -54,7 +54,7 @@ abstract class Client
 
     public function toArray($string)
     {
-        return json_decode($string, true);
+        return json_decode($string, true, 512, JSON_THROW_ON_ERROR);
     }
 
     public function toJson(array $array, $options = 0)
