@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
@@ -47,9 +49,9 @@ class ForumController extends Controller
     /**
      * Search For Topics.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function search(Request $request)
     {
@@ -139,7 +141,7 @@ class ForumController extends Controller
 
         if ($request->has('body') && $request->input('body') != '') {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "posts.{$request->input('sorting')}";
+                $sorting = sprintf('posts.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'posts.id';
@@ -148,7 +150,7 @@ class ForumController extends Controller
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "topics.{$request->input('sorting')}";
+                $sorting = sprintf('topics.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'topics.last_reply_at';
@@ -184,9 +186,9 @@ class ForumController extends Controller
     /**
      * Search For Subscribed Forums & Topics.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function subscriptions(Request $request)
     {
@@ -241,9 +243,9 @@ class ForumController extends Controller
     /**
      * Latest Topics.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function latestTopics(Request $request)
     {
@@ -275,9 +277,9 @@ class ForumController extends Controller
     /**
      * Latest Posts.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function latestPosts(Request $request)
     {
@@ -309,7 +311,7 @@ class ForumController extends Controller
     /**
      * Show All Forums.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -335,7 +337,7 @@ class ForumController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($id)
     {

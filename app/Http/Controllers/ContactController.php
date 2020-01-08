@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Mail\Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,7 +26,7 @@ class ContactController extends Controller
     /**
      * Contact Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -35,7 +38,7 @@ class ContactController extends Controller
      *
      * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {

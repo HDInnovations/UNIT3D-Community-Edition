@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Contracts\Auth\Factory;
 use App\Bots\CasinoBot;
 use App\Bots\NerdBot;
 use App\Bots\SystemBot;
@@ -44,7 +45,7 @@ class ChatController extends Controller
      */
     private $auth;
 
-    public function __construct(ChatRepository $chat, \Illuminate\Contracts\Auth\Factory $auth)
+    public function __construct(ChatRepository $chat, Factory $auth)
     {
         $this->chat = $chat;
         $this->auth = $auth;
@@ -228,7 +229,7 @@ class ChatController extends Controller
                 $runbot = new CasinoBot($this->chat);
             }
         }
-        if ($runbot) {
+        if ($runbot !== null) {
             return $runbot->process($which, $this->auth->user(), $message, 0);
         }
 
@@ -476,6 +477,7 @@ class ChatController extends Controller
 
         $user->chatStatus()->dissociate();
         $user->chatStatus()->associate($status);
+
         $user->save();
 
         return response($user);

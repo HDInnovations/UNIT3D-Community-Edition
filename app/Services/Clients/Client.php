@@ -13,6 +13,8 @@
 
 namespace App\Services\Clients;
 
+use Exception;
+use HttpResponseException;
 use GuzzleHttp\Client as GuzzleClient;
 
 abstract class Client
@@ -41,7 +43,7 @@ abstract class Client
 
         try {
             $response = $this->guzzle->request('GET', $url, $options);
-        } catch (\Exception $e) {
+        } catch (Exception $exception) {
         }
 
         if (!empty($response)) {
@@ -103,7 +105,7 @@ abstract class Client
     protected function validateStatus($statusCode)
     {
         if ($statusCode < 200 && $statusCode > 299) {
-            throw new \HttpResponseException('Invalid Status Code');
+            throw new HttpResponseException('Invalid Status Code');
         }
     }
 }

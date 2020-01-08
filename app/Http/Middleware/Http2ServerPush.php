@@ -13,6 +13,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Collection;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,15 +25,15 @@ class Http2ServerPush
     /**
      * The DomCrawler instance.
      *
-     * @var \Symfony\Component\DomCrawler\Crawler
+     * @var Crawler
      */
     protected $crawler;
 
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param Request $request
+     * @param Closure                 $next
      * @param null                     $limit
      * @param null                     $sizeLimit
      * @param null                     $excludeKeywords
@@ -112,7 +113,7 @@ class Http2ServerPush
      *
      * @param \Illuminate\Http\Response $response
      *
-     * @return \Symfony\Component\DomCrawler\Crawler
+     * @return Crawler
      */
     protected function getCrawler(Response $response)
     {
@@ -128,7 +129,7 @@ class Http2ServerPush
      *
      * @param \Illuminate\Http\Response $response
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     protected function fetchLinkableNodes($response)
     {
@@ -155,12 +156,12 @@ class Http2ServerPush
             return Str::contains(strtoupper($url), $extension);
         });
 
-        if (!preg_match('%^https?://%i', $url)) {
+        if (!preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);
         }
 
-        return is_null($type) ? null : "<{$url}>; rel=preload; as={$type}";
+        return is_null($type) ? null : sprintf('<%s>; rel=preload; as=%s', $url, $type);
     }
 
     /**

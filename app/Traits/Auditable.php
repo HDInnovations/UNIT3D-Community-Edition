@@ -13,6 +13,8 @@
 
 namespace App\Traits;
 
+use InvalidArgumentException;
+use ArgumentCountError;
 use Carbon\Carbon;
 use DB;
 
@@ -80,12 +82,12 @@ trait Auditable
         $data = [];
         switch ($action) {
             default:
-                throw new \InvalidArgumentException("Unknown action `{$action}`.");
+                throw new InvalidArgumentException(sprintf('Unknown action `%s`.', $action));
                 break;
             case 'create':
                 // Expect new data to be filled
                 if (empty($new)) {
-                    throw new \ArgumentCountError('Action `create` expects new data.');
+                    throw new ArgumentCountError('Action `create` expects new data.');
                 }
                 // Process
                 foreach ($new as $key => $value) {
@@ -111,7 +113,7 @@ trait Auditable
             case 'delete':
                 // Expect new data to be filled
                 if (empty($old)) {
-                    throw new \ArgumentCountError('Action `delete` expects new data.');
+                    throw new ArgumentCountError('Action `delete` expects new data.');
                 }
                 // Process
                 foreach ($old as $key => $value) {

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Bot;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class ChatBotController extends Controller
      *
      * @param string $hash
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index($hash = null)
     {
@@ -42,7 +43,7 @@ class ChatBotController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Request $request, $id)
     {
@@ -61,7 +62,7 @@ class ChatBotController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -112,7 +113,7 @@ class ChatBotController extends Controller
             $bot->save();
             $success = 'The Bot Has Been Updated';
         }
-        if (!$success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -131,7 +132,7 @@ class ChatBotController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
@@ -147,7 +148,7 @@ class ChatBotController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function disable($id)
     {
@@ -164,7 +165,7 @@ class ChatBotController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function enable($id)
     {

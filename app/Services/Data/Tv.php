@@ -13,6 +13,7 @@
 
 namespace App\Services\Data;
 
+use DateTime;
 use Carbon\Carbon;
 
 class Tv extends Movie
@@ -20,12 +21,12 @@ class Tv extends Movie
     /**
      * @var array
      */
-    public $tvdb;
+    public $tvdb = [];
 
     /**
      * @var array
      */
-    public $episodes;
+    public $episodes = [];
 
     /**
      * @var Carbon
@@ -45,7 +46,7 @@ class Tv extends Movie
     /**
      * @var array
      */
-    public $creators;
+    public $creators = [];
 
     /**
      * @var float
@@ -61,7 +62,7 @@ class Tv extends Movie
     {
         parent::__construct($data);
 
-        if ($this->endDate instanceof \DateTime) {
+        if ($this->endDate instanceof DateTime) {
             $this->endDate = $this->endDate ? (new Carbon())->instance($this->endDate) : null;
         } else {
             $this->endDate = $this->endDate ? (new Carbon($this->endDate)) : null;

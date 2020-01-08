@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
@@ -25,9 +28,9 @@ class WarningController extends Controller
      * Show A Users Warnings.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $username
+     * @param $username
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Request $request, $username)
     {
@@ -56,7 +59,7 @@ class WarningController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deactivate(Request $request, $id)
     {
@@ -85,7 +88,7 @@ class WarningController extends Controller
      * @param Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deactivateAllWarnings(Request $request, $username)
     {
@@ -119,7 +122,7 @@ class WarningController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteWarning(Request $request, $id)
     {
@@ -137,6 +140,7 @@ class WarningController extends Controller
         $pm->save();
 
         $warning->deleted_by = $staff->id;
+
         $warning->save();
         $warning->delete();
 
@@ -150,7 +154,7 @@ class WarningController extends Controller
      * @param Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAllWarnings(Request $request, $username)
     {
@@ -185,7 +189,7 @@ class WarningController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function restoreWarning(Request $request, $id)
     {

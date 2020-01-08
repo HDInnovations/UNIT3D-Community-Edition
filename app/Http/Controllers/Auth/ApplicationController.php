@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\ApplicationImageProof;
@@ -24,7 +27,7 @@ class ApplicationController extends Controller
     /**
      * Application Add Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -34,9 +37,9 @@ class ApplicationController extends Controller
     /**
      * Store A New Application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {

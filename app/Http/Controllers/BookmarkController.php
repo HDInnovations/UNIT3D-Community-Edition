@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
@@ -23,10 +26,10 @@ class BookmarkController extends Controller
     /**
      * Display All Bookmarks.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $username
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request, $username)
     {
@@ -48,10 +51,10 @@ class BookmarkController extends Controller
     /**
      * Store A New Bookmark.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, $id)
     {
@@ -71,10 +74,10 @@ class BookmarkController extends Controller
     /**
      * Delete A Bookmark.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request, $id)
     {

@@ -100,7 +100,7 @@ class NerdBot
             cache()->put('nerdbot-banker', $banker, $this->expiresAt);
         }
 
-        return "Currently [url=/users/{$banker->username}]{$banker->username}[/url] Is The Top BON Holder On ".config('other.title').'!';
+        return sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username).config('other.title').'!';
     }
 
     /**
@@ -118,7 +118,7 @@ class NerdBot
             cache()->put('nerdbot-snatched', $snatched, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$snatched->id}]{$snatched->name}[/url] Is The Most Snatched Torrent On ".config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name).config('other.title').'!';
     }
 
     /**
@@ -136,7 +136,7 @@ class NerdBot
             cache()->put('nerdbot-leeched', $leeched, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$leeched->id}]{$leeched->name}[/url] Is The Most Leeched Torrent On ".config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name).config('other.title').'!';
     }
 
     /**
@@ -154,7 +154,7 @@ class NerdBot
             cache()->put('nerdbot-seeded', $seeded, $this->expiresAt);
         }
 
-        return "Currently [url=/torrents/{$seeded->id}]{$seeded->name}[/url] Is The Most Seeded Torrent On ".config('other.title').'!';
+        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name).config('other.title').'!';
     }
 
     /**
@@ -172,7 +172,7 @@ class NerdBot
             cache()->put('nerdbot-fl', $fl, $this->expiresAt);
         }
 
-        return "There Are Currently {$fl} Freeleech Torrents On ".config('other.title').'!';
+        return sprintf('There Are Currently %s Freeleech Torrents On ', $fl).config('other.title').'!';
     }
 
     /**
@@ -190,7 +190,7 @@ class NerdBot
             cache()->put('nerdbot-doubleup', $du, $this->expiresAt);
         }
 
-        return "There Are Currently {$du} Double Upload Torrents On ".config('other.title').'!';
+        return sprintf('There Are Currently %s Double Upload Torrents On ', $du).config('other.title').'!';
     }
 
     /**
@@ -208,7 +208,7 @@ class NerdBot
             cache()->put('nerdbot-peers', $peers, $this->expiresAt);
         }
 
-        return "Currently There Are {$peers} Peers On ".config('other.title').'!';
+        return sprintf('Currently There Are %s Peers On ', $peers).config('other.title').'!';
     }
 
     /**
@@ -226,7 +226,7 @@ class NerdBot
             cache()->put('nerdbot-bans', $bans, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$bans} Users Have Been Banned From ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans).config('other.title').'!';
     }
 
     /**
@@ -244,7 +244,7 @@ class NerdBot
             cache()->put('nerdbot-warnings', $warnings, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$warnings} Hit and Run Warnings Have Been Issued On ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings).config('other.title').'!';
     }
 
     /**
@@ -262,7 +262,7 @@ class NerdBot
             cache()->put('nerdbot-uploads', $uploads, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$uploads} Torrents Have Been Uploaded To ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads).config('other.title').'!';
     }
 
     /**
@@ -280,7 +280,7 @@ class NerdBot
             cache()->put('nerdbot-logins', $logins, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$logins} Unique Users Have Logged Into ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins).config('other.title').'!';
     }
 
     /**
@@ -298,7 +298,7 @@ class NerdBot
             cache()->put('nerdbot-users', $users, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$users} Users Have Registered To ".config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $users).config('other.title').'!';
     }
 
     /**
@@ -354,7 +354,7 @@ class NerdBot
         $output = implode(' ', $note);
         $v = validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
-            'amount'   => "required|numeric|min:1|max:{$this->target->seedbonus}",
+            'amount'   => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'     => 'required|string',
         ]);
         if ($v->passes()) {

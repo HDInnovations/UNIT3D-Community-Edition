@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +25,7 @@ class PageController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($id)
     {
@@ -35,7 +37,7 @@ class PageController extends Controller
     /**
      * Show Staff Page.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function staff()
     {
@@ -47,7 +49,7 @@ class PageController extends Controller
     /**
      * Show Internals Page.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function internal()
     {
@@ -59,7 +61,7 @@ class PageController extends Controller
     /**
      * Show Blacklist Page.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function blacklist()
     {
@@ -72,7 +74,7 @@ class PageController extends Controller
     /**
      * Show About Us Page.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function about()
     {
@@ -82,7 +84,7 @@ class PageController extends Controller
     /**
      * Show Email Whitelist / Blacklist Page.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function emailList()
     {

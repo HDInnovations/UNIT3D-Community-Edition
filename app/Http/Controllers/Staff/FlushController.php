@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Http\RedirectResponse;
 use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
 use App\Models\History;
@@ -41,7 +42,7 @@ class FlushController extends Controller
     /**
      * Flsuh All Old Peers From Database.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function peers()
     {
@@ -64,7 +65,7 @@ class FlushController extends Controller
     /**
      * Flush All Chat Messages.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function chat()
     {

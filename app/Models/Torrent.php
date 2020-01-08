@@ -13,6 +13,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
@@ -156,7 +160,7 @@ class Torrent extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -169,7 +173,7 @@ class Torrent extends Model
     /**
      * Belongs To A Uploader.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function uploader()
     {
@@ -184,7 +188,7 @@ class Torrent extends Model
     /**
      * Belongs To A Category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function category()
     {
@@ -194,7 +198,7 @@ class Torrent extends Model
     /**
      * Belongs To A Type.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function type()
     {
@@ -204,7 +208,7 @@ class Torrent extends Model
     /**
      * Torrent Has Been Moderated By.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function moderated()
     {
@@ -217,7 +221,7 @@ class Torrent extends Model
     /**
      * Has Many Tags.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function tags()
     {
@@ -227,7 +231,7 @@ class Torrent extends Model
     /**
      * Has Many History.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function history()
     {
@@ -237,7 +241,7 @@ class Torrent extends Model
     /**
      * Has Many Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function tips()
     {
@@ -247,7 +251,7 @@ class Torrent extends Model
     /**
      * Has Many Thank.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function thanks()
     {
@@ -257,7 +261,7 @@ class Torrent extends Model
     /**
      * Has Many HitRuns.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function hitrun()
     {
@@ -267,7 +271,7 @@ class Torrent extends Model
     /**
      * Has Many Featured.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function featured()
     {
@@ -277,7 +281,7 @@ class Torrent extends Model
     /**
      * Has Many Files.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function files()
     {
@@ -287,7 +291,7 @@ class Torrent extends Model
     /**
      * Has Many Comments.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function comments()
     {
@@ -297,7 +301,7 @@ class Torrent extends Model
     /**
      * Has Many Peers.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function peers()
     {
@@ -307,7 +311,7 @@ class Torrent extends Model
     /**
      * Relationship To A Single Request.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function request()
     {

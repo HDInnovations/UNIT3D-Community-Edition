@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
@@ -28,7 +31,7 @@ class ApplicationController extends Controller
     /**
      * Display All Applications.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -43,9 +46,9 @@ class ApplicationController extends Controller
     /**
      * Get A Application.
      *
-     * @param  $id
+     * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($id)
     {
@@ -57,10 +60,10 @@ class ApplicationController extends Controller
     /**
      * Approve A Application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function approve(Request $request, $id)
     {
@@ -115,10 +118,10 @@ class ApplicationController extends Controller
     /**
      * Reject A Application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function reject(Request $request, $id)
     {

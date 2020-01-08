@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
@@ -23,7 +25,7 @@ class CategoryController extends Controller
     /**
      * Display All Categories.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -35,10 +37,10 @@ class CategoryController extends Controller
     /**
      * Show A Category.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Request $request, $id)
     {

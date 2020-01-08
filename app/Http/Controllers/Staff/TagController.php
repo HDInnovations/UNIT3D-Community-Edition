@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -23,7 +26,7 @@ class TagController extends Controller
     /**
      * Display All Tags.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -35,7 +38,7 @@ class TagController extends Controller
     /**
      * Tag Add Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -45,9 +48,9 @@ class TagController extends Controller
     /**
      * Store A New Tag.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -76,7 +79,7 @@ class TagController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($id)
     {
@@ -88,10 +91,10 @@ class TagController extends Controller
     /**
      * Edit A Tag.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {

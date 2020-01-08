@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Mail\BanUser;
 use App\Mail\UnbanUser;
@@ -28,7 +31,7 @@ class BanController extends Controller
     /**
      * Display All Bans.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -40,10 +43,10 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned).
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, $username)
     {
@@ -90,10 +93,10 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $username)
     {

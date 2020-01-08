@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -42,7 +43,7 @@ class ReportController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function request(Request $request, int $id)
     {
@@ -80,7 +81,7 @@ class ReportController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function torrent(Request $request, int $id)
     {
@@ -119,7 +120,7 @@ class ReportController extends Controller
      * @param $username
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function user(Request $request, $username, int $id)
     {

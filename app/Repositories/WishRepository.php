@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use App\Interfaces\WishInterface;
 use App\Models\Torrent;
 use App\Models\User;
@@ -60,7 +61,7 @@ class WishRepository implements WishInterface
     /**
      * @param null $paginate
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return Collection|static[]
      */
     public function all($paginate = null)
     {

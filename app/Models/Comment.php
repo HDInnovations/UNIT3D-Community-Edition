@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Helpers\Bbcode;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -60,7 +61,7 @@ class Comment extends Model
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function torrent()
     {
@@ -70,7 +71,7 @@ class Comment extends Model
     /**
      * Belongs To A Article.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function article()
     {
@@ -80,7 +81,7 @@ class Comment extends Model
     /**
      * Belongs To A Request.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function request()
     {
@@ -90,7 +91,7 @@ class Comment extends Model
     /**
      * Belongs To A Playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function playlist()
     {
@@ -100,7 +101,7 @@ class Comment extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {

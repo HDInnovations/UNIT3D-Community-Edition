@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Type;
@@ -22,7 +23,7 @@ class TorrentFacetedRepository
     /**
      * Return a collection of Category Name from storage.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function categories()
     {
@@ -32,7 +33,7 @@ class TorrentFacetedRepository
     /**
      * Return a collection of Type Name from storage.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function types()
     {
@@ -42,7 +43,7 @@ class TorrentFacetedRepository
     /**
      * Return a collection of Tag Name from storage.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function tags()
     {

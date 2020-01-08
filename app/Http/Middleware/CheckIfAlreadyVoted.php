@@ -13,6 +13,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use App\Models\Option;
 use App\Models\Voter;
 use Closure;
@@ -22,8 +23,8 @@ class CheckIfAlreadyVoted
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param Request $request
+     * @param Closure                 $next
      *
      * @return mixed
      */

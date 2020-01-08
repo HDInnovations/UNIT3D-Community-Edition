@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
@@ -22,10 +23,10 @@ class ThankController extends Controller
     /**
      * Store A New Thank.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, $id)
     {

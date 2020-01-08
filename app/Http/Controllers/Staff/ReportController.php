@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\Report;
@@ -23,7 +25,7 @@ class ReportController extends Controller
     /**
      * Display All Reports.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -37,7 +39,7 @@ class ReportController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($id)
     {
@@ -54,7 +56,7 @@ class ReportController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function update(Request $request, $id)
     {
@@ -82,11 +84,11 @@ class ReportController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $report->reporter_id;
         $pm->subject = 'Your Report Has A New Verdict';
-        $pm->message = "[b]REPORT TITLE:[/b] {$report->title}
+        $pm->message = sprintf('[b]REPORT TITLE:[/b] %s
         
-                        [b]ORIGINAL MESSAGE:[/b] {$report->message}
+                        [b]ORIGINAL MESSAGE:[/b] %s
                         
-                        [b]VERDICT:[/b] {$report->verdict}";
+                        [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $pm->save();
 
         return redirect()->route('staff.reports.index')

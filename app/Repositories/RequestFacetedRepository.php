@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Type;
 
@@ -21,7 +22,7 @@ class RequestFacetedRepository
     /**
      * Return a collection of Category Name from storage.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function categories()
     {
@@ -31,7 +32,7 @@ class RequestFacetedRepository
     /**
      * Return a collection of Type Name from storage.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function types()
     {

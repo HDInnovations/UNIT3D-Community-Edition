@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Album;
 use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
@@ -40,7 +43,7 @@ class AlbumController extends Controller
     /**
      * Display All Albums.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -52,7 +55,7 @@ class AlbumController extends Controller
     /**
      * Show Album Create Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -64,14 +67,14 @@ class AlbumController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
-        if ($omdb === null || $omdb === false) {
+        if ($omdb === null || !$omdb) {
             return redirect()->route('albums.create')
                 ->withErrors('Bad IMDB Request!');
         }
@@ -113,7 +116,7 @@ class AlbumController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($id)
     {
@@ -127,9 +130,9 @@ class AlbumController extends Controller
      * Delete A Album.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request, $id)
     {

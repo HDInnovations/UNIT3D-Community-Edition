@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewPost;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -84,7 +86,7 @@ class Topic extends Model
     /**
      * Belongs To A Forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function forum()
     {
@@ -94,7 +96,7 @@ class Topic extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -104,7 +106,7 @@ class Topic extends Model
     /**
      * Has Many Posts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function posts()
     {
@@ -114,7 +116,7 @@ class Topic extends Model
     /**
      * Has Many Subscriptions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function subscriptions()
     {
@@ -190,7 +192,7 @@ class Topic extends Model
     {
         $count = 0;
         foreach ($this->posts as $post) {
-            $count += 1;
+            ++$count;
             if ($searchId == $post->id) {
                 break;
             }

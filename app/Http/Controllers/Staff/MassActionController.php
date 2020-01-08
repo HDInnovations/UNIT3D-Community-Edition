@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessMassPM;
 use App\Models\Group;
@@ -24,7 +27,7 @@ class MassActionController extends Controller
     /**
      * Mass PM Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -34,9 +37,9 @@ class MassActionController extends Controller
     /**
      * Send The Mass PM.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -67,7 +70,7 @@ class MassActionController extends Controller
     /**
      * Mass Validate Unvalidated Users.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update()
     {

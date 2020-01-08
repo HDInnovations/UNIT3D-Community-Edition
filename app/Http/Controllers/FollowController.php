@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Follow;
 use App\Models\User;
 use App\Notifications\NewFollow;
@@ -24,10 +25,10 @@ class FollowController extends Controller
     /**
      * Follow A User.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $username
+     * @param Request $request
+     * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, $username)
     {
@@ -58,10 +59,10 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $username
+     * @param Request $request
+     * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request, $username)
     {

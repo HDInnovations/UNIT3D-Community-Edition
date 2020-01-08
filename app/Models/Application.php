@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
@@ -61,7 +63,7 @@ class Application extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -71,7 +73,7 @@ class Application extends Model
     /**
      * Application Has Been Moderated By.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function moderated()
     {
@@ -81,7 +83,7 @@ class Application extends Model
     /**
      * A Application Has Many Image Proofs.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function imageProofs()
     {
@@ -91,7 +93,7 @@ class Application extends Model
     /**
      * A Application Has Many URL Proofs.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function urlProofs()
     {

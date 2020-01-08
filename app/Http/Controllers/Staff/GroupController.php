@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Forum;
 use App\Models\Group;
@@ -25,9 +28,9 @@ class GroupController extends Controller
     /**
      * Display All Groups.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
@@ -42,9 +45,9 @@ class GroupController extends Controller
     /**
      * Group Add Form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create(Request $request)
     {
@@ -57,9 +60,9 @@ class GroupController extends Controller
     /**
      * Store A New Group.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -123,10 +126,10 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Request $request, $id)
     {
@@ -141,10 +144,10 @@ class GroupController extends Controller
     /**
      * Edit A Group.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {

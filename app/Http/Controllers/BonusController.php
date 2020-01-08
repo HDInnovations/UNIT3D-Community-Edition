@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
@@ -48,9 +51,9 @@ class BonusController extends Controller
     /**
      * Show Bonus Gifts System.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function gifts(Request $request)
     {
@@ -75,9 +78,9 @@ class BonusController extends Controller
     /**
      * Show Bonus Tips System.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function tips(Request $request)
     {
@@ -102,9 +105,9 @@ class BonusController extends Controller
     /**
      * Show Bonus Store System.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function store(Request $request)
     {
@@ -134,9 +137,9 @@ class BonusController extends Controller
     /**
      * Show Bonus Gift System.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function gift(Request $request)
     {
@@ -151,10 +154,10 @@ class BonusController extends Controller
     /**
      * Show Bonus Earnings System.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param string                   $username
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function bonus(Request $request, $username = '')
     {
@@ -224,10 +227,10 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function exchange(Request $request, $id)
     {
@@ -294,7 +297,7 @@ class BonusController extends Controller
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user_acc->id;
                 $pm->subject = 'Personal 24 Hour Freeleech Activated';
-                $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on {$current->addDays(1)->toDayDateTimeString()} [b]".config('app.timezone').'[/b]! 
+                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             } else {
@@ -322,9 +325,9 @@ class BonusController extends Controller
     /**
      * Gift Points To A User.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sendGift(Request $request)
     {
@@ -332,7 +335,7 @@ class BonusController extends Controller
 
         $v = validator($request->all(), [
             'to_username'   => 'required|exists:users,username|max:180',
-            'bonus_points'  => "required|numeric|min:1|max:{$user->seedbonus}",
+            'bonus_points'  => sprintf('required|numeric|min:1|max:%s', $user->seedbonus),
             'bonus_message' => 'required|string',
         ]);
 
@@ -376,7 +379,7 @@ class BonusController extends Controller
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)
             );
 
             if ($dest == 'profile') {
@@ -416,10 +419,10 @@ class BonusController extends Controller
     /**
      * Tip Points To A Uploader.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function tipUploader(Request $request, $id)
     {
@@ -467,9 +470,9 @@ class BonusController extends Controller
     /**
      * Tip Points To A Poster.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function tipPoster(Request $request)
     {
@@ -521,7 +524,7 @@ class BonusController extends Controller
     /**
      * @method getDyingCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -542,7 +545,7 @@ class BonusController extends Controller
     /**
      * @method getLegendaryCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -563,7 +566,7 @@ class BonusController extends Controller
     /**
      * @method getOldCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -585,7 +588,7 @@ class BonusController extends Controller
     /**
      * @method getHugeCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -605,7 +608,7 @@ class BonusController extends Controller
     /**
      * @method getLargeCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -626,7 +629,7 @@ class BonusController extends Controller
     /**
      * @method getRegularCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -647,7 +650,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -668,7 +671,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -689,7 +692,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -710,7 +713,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */
@@ -731,7 +734,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return int
      */

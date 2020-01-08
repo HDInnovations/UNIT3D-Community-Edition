@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Helpers\Bencode;
 use App\Models\FreeleechToken;
 use App\Models\Group;
@@ -32,7 +33,7 @@ class AnnounceController extends Controller
      * @param Request $request
      * @param $passkey
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return Bencode response for the torrent client
      */
@@ -118,7 +119,7 @@ class AnnounceController extends Controller
         $user = User::with(['group'])->where('passkey', '=', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
-        if (!$user) {
+        if ($user === null) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
         }

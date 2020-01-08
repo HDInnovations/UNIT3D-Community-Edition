@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,9 +24,9 @@ class PrivateMessageController extends Controller
     /**
      * Search PM Inbox.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function searchPMInbox(Request $request)
     {
@@ -39,9 +41,9 @@ class PrivateMessageController extends Controller
     /**
      * Search PM Outbox.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function searchPMOutbox(Request $request)
     {
@@ -56,9 +58,9 @@ class PrivateMessageController extends Controller
     /**
      * View Inbox.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function getPrivateMessages(Request $request)
     {
@@ -71,9 +73,9 @@ class PrivateMessageController extends Controller
     /**
      * View Outbox.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function getPrivateMessagesSent(Request $request)
     {
@@ -86,10 +88,10 @@ class PrivateMessageController extends Controller
     /**
      * View A Message.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function getPrivateMessageById(Request $request, $id)
     {
@@ -112,11 +114,11 @@ class PrivateMessageController extends Controller
     /**
      * Create Message Form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param string                   $receiver_id
      * @param string                   $username
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
     {
@@ -128,9 +130,9 @@ class PrivateMessageController extends Controller
     /**
      * Create A Message.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sendPrivateMessage(Request $request)
     {
@@ -186,10 +188,10 @@ class PrivateMessageController extends Controller
     /**
      * Reply To A Message.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function replyPrivateMessage(Request $request, $id)
     {
@@ -228,10 +230,10 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deletePrivateMessage(Request $request, $id)
     {
@@ -261,9 +263,9 @@ class PrivateMessageController extends Controller
     /**
      * Mark All Messages As Read.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function markAllAsRead(Request $request)
     {

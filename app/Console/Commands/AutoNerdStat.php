@@ -123,25 +123,25 @@ class AutoNerdStat extends Command
 
             // Select A Random Nerd Stat
             $statArray = [
-                "In The Last 24 Hours [color=#93c47d][b]{$logins}[/b][/color] Unique Users Have Logged Into ".config('other.title').'!',
-                "In The Last 24 Hours [color=#93c47d][b]{$uploads}[/b][/color] Torrents Have Been Uploaded To ".config('other.title').'!',
-                "In The Last 24 Hours [color=#93c47d][b]{$users}[/b][/color] Users Have Registered To ".config('other.title').'!',
-                "There Are Currently [color=#93c47d][b]{$fl}[/b][/color] Freeleech Torrents On ".config('other.title').'!',
-                "There Are Currently [color=#93c47d][b]{$du}[/b][/color] Double Upload Torrents On ".config('other.title').'!',
-                "Currently [url={$seeded_url}]{$seeded->name}[/url] Is The Best Seeded Torrent On ".config('other.title').'!',
-                "Currently [url={$leeched_url}]{$leeched->name}[/url] Is The Most Leeched Torrent On ".config('other.title').'!',
-                "Currently [url={$snatched_url}]{$snatched->name}[/url] Is The Most Snatched Torrent On ".config('other.title').'!',
-                "Currently [url={$banker_url}]{$banker->username}[/url] Is The Top BON Holder On ".config('other.title').'!',
-                "Currently There Are [color=#93c47d][b]{$peers}[/b][/color] Peers On ".config('other.title').'!',
-                "In The Last 24 Hours [color=#dd7e6b][b]{$bans}[/b][/color] Users Have Been Banned From ".config('other.title').'!',
-                "In The Last 24 Hours [color=#dd7e6b][b]{$warnings}[/b][/color] Hit and Run Warnings Have Been Issued On ".config('other.title').'!',
-                config('other.title')." Birthday Is [b]{$bday}[/b]!",
+                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Unique Users Have Logged Into ', $logins).config('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Torrents Have Been Uploaded To ', $uploads).config('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Users Have Registered To ', $users).config('other.title').'!',
+                sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Freeleech Torrents On ', $fl).config('other.title').'!',
+                sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Double Upload Torrents On ', $du).config('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Best Seeded Torrent On ', $seeded_url, $seeded->name).config('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Most Leeched Torrent On ', $leeched_url, $leeched->name).config('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Most Snatched Torrent On ', $snatched_url, $snatched->name).config('other.title').'!',
+                sprintf('Currently [url=%s]%s[/url] Is The Top BON Holder On ', $banker_url, $banker->username).config('other.title').'!',
+                sprintf('Currently There Are [color=#93c47d][b]%s[/b][/color] Peers On ', $peers).config('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Users Have Been Banned From ', $bans).config('other.title').'!',
+                sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Hit and Run Warnings Have Been Issued On ', $warnings).config('other.title').'!',
+                config('other.title').sprintf(' Birthday Is [b]%s[/b]!', $bday),
                 config('other.title').' Is King!',
             ];
             $selected = mt_rand(0, count($statArray) - 1);
 
             // Auto Shout Nerd Stat
-            $this->chat->systemMessage("{$statArray[$selected]}", 2);
+            $this->chat->systemMessage(sprintf('%s', $statArray[$selected]), 2);
         }
     }
 }

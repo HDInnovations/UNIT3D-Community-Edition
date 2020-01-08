@@ -13,6 +13,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
@@ -216,7 +219,7 @@ class User extends Authenticatable
     /**
      * Belongs To A Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function group()
     {
@@ -242,7 +245,7 @@ class User extends Authenticatable
     /**
      * Belongs To A Chatroom.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function chatroom()
     {
@@ -252,7 +255,7 @@ class User extends Authenticatable
     /**
      * Belongs To A Chat Status.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function chatStatus()
     {
@@ -262,7 +265,7 @@ class User extends Authenticatable
     /**
      * Belongs To Many Bookmarks.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function bookmarks()
     {
@@ -277,7 +280,7 @@ class User extends Authenticatable
     /**
      * Has Many Messages.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function messages()
     {
@@ -287,7 +290,7 @@ class User extends Authenticatable
     /**
      * Has One Privacy Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function privacy()
     {
@@ -297,7 +300,7 @@ class User extends Authenticatable
     /**
      * Has One Chat Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function chat()
     {
@@ -307,7 +310,7 @@ class User extends Authenticatable
     /**
      * Has One Notifications Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function notification()
     {
@@ -317,7 +320,7 @@ class User extends Authenticatable
     /**
      * Has Many RSS Feeds.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function rss()
     {
@@ -327,7 +330,7 @@ class User extends Authenticatable
     /**
      * Has Many Echo Settings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function echoes()
     {
@@ -337,7 +340,7 @@ class User extends Authenticatable
     /**
      * Has Many Audible Settings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function audibles()
     {
@@ -347,7 +350,7 @@ class User extends Authenticatable
     /**
      * Has Many Thanks Given.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function thanksGiven()
     {
@@ -357,7 +360,7 @@ class User extends Authenticatable
     /**
      * Has Many Wish's.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function wishes()
     {
@@ -367,7 +370,7 @@ class User extends Authenticatable
     /**
      * Has Many Thanks Received.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function thanksReceived()
     {
@@ -377,7 +380,7 @@ class User extends Authenticatable
     /**
      * Has Many Polls.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function polls()
     {
@@ -387,7 +390,7 @@ class User extends Authenticatable
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function torrents()
     {
@@ -397,7 +400,7 @@ class User extends Authenticatable
     /**
      * Has Many Playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function playlists()
     {
@@ -407,7 +410,7 @@ class User extends Authenticatable
     /**
      * Has Many Sent PM's.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function pm_sender()
     {
@@ -417,7 +420,7 @@ class User extends Authenticatable
     /**
      * Has Many Received PM's.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function pm_receiver()
     {
@@ -427,7 +430,7 @@ class User extends Authenticatable
     /**
      * Has Many Peers.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function peers()
     {
@@ -437,7 +440,7 @@ class User extends Authenticatable
     /**
      * Has Many Followers.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function follows()
     {
@@ -447,7 +450,7 @@ class User extends Authenticatable
     /**
      * Has Many Articles.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function articles()
     {
@@ -457,7 +460,7 @@ class User extends Authenticatable
     /**
      * Has Many Topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function topics()
     {
@@ -467,7 +470,7 @@ class User extends Authenticatable
     /**
      * Has Many Posts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function posts()
     {
@@ -477,7 +480,7 @@ class User extends Authenticatable
     /**
      * Has Many Comments.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function comments()
     {
@@ -487,7 +490,7 @@ class User extends Authenticatable
     /**
      * Has Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function requests()
     {
@@ -497,7 +500,7 @@ class User extends Authenticatable
     /**
      * Has Approved Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function ApprovedRequests()
     {
@@ -507,7 +510,7 @@ class User extends Authenticatable
     /**
      * Has Filled Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function FilledRequests()
     {
@@ -517,7 +520,7 @@ class User extends Authenticatable
     /**
      * Has Many Torrent Request BON Bounties.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function requestBounty()
     {
@@ -527,7 +530,7 @@ class User extends Authenticatable
     /**
      * Has Moderated Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function moderated()
     {
@@ -537,7 +540,7 @@ class User extends Authenticatable
     /**
      * Has Many Notes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function notes()
     {
@@ -547,7 +550,7 @@ class User extends Authenticatable
     /**
      * Has Many Reports.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function reports()
     {
@@ -557,7 +560,7 @@ class User extends Authenticatable
     /**
      * Has Solved Many Reports.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function solvedReports()
     {
@@ -567,7 +570,7 @@ class User extends Authenticatable
     /**
      * Has Many Torrent History.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function history()
     {
@@ -577,7 +580,7 @@ class User extends Authenticatable
     /**
      * Has Many Bans.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function userban()
     {
@@ -587,7 +590,7 @@ class User extends Authenticatable
     /**
      * Has Given Many Bans.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function staffban()
     {
@@ -597,7 +600,7 @@ class User extends Authenticatable
     /**
      * Has Given Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function staffwarning()
     {
@@ -607,7 +610,7 @@ class User extends Authenticatable
     /**
      * Has Deleted Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function staffdeletedwarning()
     {
@@ -617,7 +620,7 @@ class User extends Authenticatable
     /**
      * Has Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function userwarning()
     {
@@ -627,7 +630,7 @@ class User extends Authenticatable
     /**
      * Has Given Many Invites.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function sentInvite()
     {
@@ -637,7 +640,7 @@ class User extends Authenticatable
     /**
      * Has Received Many Invites.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function receivedInvite()
     {
@@ -647,7 +650,7 @@ class User extends Authenticatable
     /**
      * Has Many Featured Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function featuredTorrent()
     {
@@ -657,7 +660,7 @@ class User extends Authenticatable
     /**
      * Has Many Post Likes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function likes()
     {
@@ -667,7 +670,7 @@ class User extends Authenticatable
     /**
      * Has Given Many BON Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function bonGiven()
     {
@@ -677,7 +680,7 @@ class User extends Authenticatable
     /**
      * Has Received Many BON Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function bonReceived()
     {
@@ -687,7 +690,7 @@ class User extends Authenticatable
     /**
      * Has Many Subscriptions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function subscriptions()
     {
@@ -697,7 +700,7 @@ class User extends Authenticatable
     /**
      * Has many free leech tokens.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function freeleechTokens()
     {
@@ -707,7 +710,7 @@ class User extends Authenticatable
     /**
      * Has many warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function warnings()
     {

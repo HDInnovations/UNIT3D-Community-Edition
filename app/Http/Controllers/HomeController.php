@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Models\Article;
 use App\Models\Bookmark;
 use App\Models\FeaturedTorrent;
@@ -34,9 +36,9 @@ class HomeController extends Controller
     /**
      * Display Home Page.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {

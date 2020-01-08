@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
 use App\Models\Option;
@@ -39,7 +42,7 @@ class PollController extends Controller
     /**
      * Display All Polls.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -53,7 +56,7 @@ class PollController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($id)
     {
@@ -65,7 +68,7 @@ class PollController extends Controller
     /**
      * Poll Add Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -77,7 +80,7 @@ class PollController extends Controller
      *
      * @param StorePoll $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(StorePoll $request)
     {
@@ -93,7 +96,7 @@ class PollController extends Controller
         $poll_url = hrefPoll($poll);
 
         $this->chat->systemMessage(
-            "A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
         );
 
         return redirect()->route('staff.polls.index')

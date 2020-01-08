@@ -13,6 +13,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
@@ -26,10 +30,10 @@ class InviteController extends Controller
     /**
      * Invite Tree.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $username
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request, $username)
     {
@@ -45,9 +49,9 @@ class InviteController extends Controller
     /**
      * Invite Form.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create(Request $request)
     {
@@ -72,11 +76,11 @@ class InviteController extends Controller
     /**
      * Send Invite.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @throws \Exception
+     * @throws Exception
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -132,7 +136,7 @@ class InviteController extends Controller
             Mail::to($request->input('email'))->send(new InviteUser($invite));
             $invite->save();
 
-            $user->invites -= 1;
+            --$user->invites;
             $user->save();
 
             return redirect()->route('invites.create')
@@ -143,10 +147,10 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function send(Request $request, $id)
     {

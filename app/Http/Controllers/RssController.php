@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\Rss;
@@ -46,7 +47,7 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param string                   $hash
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request, $hash = null)
     {
@@ -68,7 +69,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(Request $request)
     {
@@ -88,7 +89,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -121,7 +122,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Created';
         }
-        if (!$success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -141,7 +142,7 @@ class RssController extends Controller
      * @param int    $id
      * @param string $rsskey
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id, $rsskey)
     {
@@ -306,7 +307,7 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Request $request, $id)
     {
@@ -329,7 +330,7 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -359,7 +360,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Updated';
         }
-        if (!$success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -378,7 +379,7 @@ class RssController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

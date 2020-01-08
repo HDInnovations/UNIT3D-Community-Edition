@@ -25,7 +25,7 @@ class BackupController extends Controller
     /**
      * Display All Backups.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return
      */
@@ -71,7 +71,7 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return string
      */
@@ -90,8 +90,8 @@ class BackupController extends Controller
             info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
-        } catch (Exception $e) {
-            response($e->getMessage(), 500);
+        } catch (Exception $exception) {
+            response($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -100,7 +100,7 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return string
      */
@@ -119,8 +119,8 @@ class BackupController extends Controller
             info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
-        } catch (Exception $e) {
-            response($e->getMessage(), 500);
+        } catch (Exception $exception) {
+            response($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -129,7 +129,7 @@ class BackupController extends Controller
     /**
      * Create A Backup.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return string
      */
@@ -148,8 +148,8 @@ class BackupController extends Controller
             info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
-        } catch (Exception $e) {
-            response($e->getMessage(), 500);
+        } catch (Exception $exception) {
+            response($exception->getMessage(), 500);
         }
 
         return 'success';
@@ -158,7 +158,7 @@ class BackupController extends Controller
     /**
      * Download A Backup.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return
      */
@@ -187,7 +187,7 @@ class BackupController extends Controller
     /**
      * Deletes A Backup.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return string
      */

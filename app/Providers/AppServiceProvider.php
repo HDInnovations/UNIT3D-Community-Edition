@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WishInterface::class, WishRepository::class);
 
         // Hidden Captcha
-        $this->app->bind('hiddencaptcha', 'App\Helpers\HiddenCaptcha');
+        $this->app->bind('hiddencaptcha', HiddenCaptcha::class);
     }
 
     /**
@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Hidden Captcha
         Blade::directive('hiddencaptcha', function ($mustBeEmptyField = '_username') {
-            return "<?= App\Helpers\HiddenCaptcha::render($mustBeEmptyField); ?>";
+            return sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField);
         });
 
         $this->app['validator']->extendImplicit(

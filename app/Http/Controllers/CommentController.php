@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -66,7 +67,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function article(Request $request, $id)
     {
@@ -103,11 +104,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on article [url={$article_url}]{$article->title}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profile_url, $user->username, $article_url, $article->title)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on article [url={$article_url}]{$article->title}[/url]"
+                    sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $article_url, $article->title)
                 );
             }
 
@@ -162,7 +163,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function playlist(Request $request, $id)
     {
@@ -199,11 +200,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on playlist [url={$playlist_url}]{$playlist->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profile_url, $user->username, $playlist_url, $playlist->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on playlist [url={$playlist_url}]{$playlist->name}[/url]"
+                    sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlist_url, $playlist->name)
                 );
             }
 
@@ -258,7 +259,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function torrent(Request $request, $id)
     {
@@ -300,11 +301,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                    sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrent_url, $torrent->name)
                 );
             }
 
@@ -359,7 +360,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function request(Request $request, $id)
     {
@@ -396,11 +397,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $tr_url, $tr->name)
                 );
             }
 
@@ -459,7 +460,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function quickthanks(Request $request, $id)
     {
@@ -484,9 +485,9 @@ class CommentController extends Controller
             $uploader_url = hrefProfile($uploader);
 
             $thankArray = [
-                "Thanks for the upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :vulcan_tone2:",
-                "Beautiful upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :fire:",
-                "Cheers [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] for the upload :beers:",
+                sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploader_url, $uploader->group->color, $uploader->username),
+                sprintf('Beautiful upload [url=%s][color=%s][b]%s[/b][/color][/url] :fire:', $uploader_url, $uploader->group->color, $uploader->username),
+                sprintf('Cheers [url=%s][color=%s][b]%s[/b][/color][/url] for the upload :beers:', $uploader_url, $uploader->group->color, $uploader->username),
             ];
         }
 
@@ -531,7 +532,7 @@ class CommentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
             );
 
             return redirect()->route('torrent', ['id' => $torrent->id])
@@ -545,7 +546,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $comment_id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function editComment(Request $request, $comment_id)
     {
@@ -566,7 +567,7 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $comment_id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteComment(Request $request, $comment_id)
     {

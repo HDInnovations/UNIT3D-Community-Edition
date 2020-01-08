@@ -13,6 +13,7 @@
 
 namespace App\Services\Clients;
 
+use HttpInvalidParamException;
 use App\Services\Contracts\MovieTvInterface;
 use App\Services\Data\Movie;
 use App\Services\Data\Person;
@@ -78,7 +79,7 @@ class TmdbClient extends Client implements MovieTvInterface
             return new Tv();
         }
 
-        throw new \HttpInvalidParamException('What are you trying to find?');
+        throw new HttpInvalidParamException('What are you trying to find?');
     }
 
     /**

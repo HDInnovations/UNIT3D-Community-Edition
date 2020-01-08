@@ -22,7 +22,7 @@ class LanguageController extends Controller
      * Set locale if it's allowed.
      *
      * @param string                   $locale
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      **/
     private function setLocale($locale, $request)
     {
@@ -42,7 +42,7 @@ class LanguageController extends Controller
      * Set locale and return home url.
      *
      * @param string                   $locale
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return string
      **/
@@ -60,7 +60,7 @@ class LanguageController extends Controller
      * Set locale and return back.
      *
      * @param string                   $locale
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return string
      **/

@@ -13,6 +13,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Throwable;
+use ErrorException;
+use App\Services\MovieScrapper;
+use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
@@ -67,7 +72,7 @@ class RequestController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function requests(Request $request)
     {
@@ -101,7 +106,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param TorrentRequest           $torrentRequest
      *
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @return array
      */
@@ -218,10 +223,10 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function request(Request $request, $id)
     {
@@ -233,7 +238,7 @@ class RequestController extends Controller
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
 
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $meta = null;
         if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
@@ -271,7 +276,7 @@ class RequestController extends Controller
      * @param int                      $imdb
      * @param int                      $tmdb
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
     {
@@ -292,7 +297,7 @@ class RequestController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function addrequest(Request $request)
     {
@@ -324,7 +329,7 @@ class RequestController extends Controller
             'category_id' => 'required|exists:categories,id',
             'type'        => 'required',
             'description' => 'required|string',
-            'bounty'      => "required|numeric|min:0|max:{$user->seedbonus}",
+            'bounty'      => sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
             'anon'        => 'required',
         ]);
 
@@ -347,7 +352,7 @@ class RequestController extends Controller
             $BonTransactions->cost = $request->input('bounty');
             $BonTransactions->sender = $user->id;
             $BonTransactions->receiver = 0;
-            $BonTransactions->comment = "new request - {$request->input('name')}";
+            $BonTransactions->comment = sprintf('new request - %s', $request->input('name'));
             $BonTransactions->save();
 
             $user->seedbonus -= $request->input('bounty');
@@ -359,11 +364,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($tr->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $tr->name)
                 );
             }
 
@@ -378,7 +383,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function editRequestForm(Request $request, $id)
     {
@@ -398,7 +403,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function editrequest(Request $request, $id)
     {
@@ -459,19 +464,19 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function addBonus(Request $request, $id)
     {
         $user = $request->user();
 
         $tr = TorrentRequest::with('user')->findOrFail($id);
-        $tr->votes += 1;
+        ++$tr->votes;
         $tr->bounty += $request->input('bonus_value');
         $tr->created_at = Carbon::now();
 
         $v = validator($request->all(), [
-            'bonus_value' => "required|numeric|min:100|max:{$user->seedbonus}",
+            'bonus_value' => sprintf('required|numeric|min:100|max:%s', $user->seedbonus),
         ]);
 
         if ($v->fails()) {
@@ -493,7 +498,7 @@ class RequestController extends Controller
             $BonTransactions->cost = $request->input('bonus_value');
             $BonTransactions->sender = $user->id;
             $BonTransactions->receiver = 0;
-            $BonTransactions->comment = "adding bonus to {$tr->name}";
+            $BonTransactions->comment = sprintf('adding bonus to %s', $tr->name);
             $BonTransactions->save();
 
             $user->seedbonus -= $request->input('bonus_value');
@@ -505,11 +510,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($requestsBounty->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profile_url, $user->username, $request->input('bonus_value'), $tr_url, $tr->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $tr_url, $tr->name)
                 );
             }
 
@@ -531,7 +536,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function fillRequest(Request $request, $id)
     {
@@ -582,7 +587,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function approveRequest(Request $request, $id)
     {
@@ -609,7 +614,7 @@ class RequestController extends Controller
             $BonTransactions->cost = $fill_amount;
             $BonTransactions->sender = 0;
             $BonTransactions->receiver = $fill_user->id;
-            $BonTransactions->comment = "{$fill_user->username} has filled {$tr->name} and has been awarded {$fill_amount} BONUS.";
+            $BonTransactions->comment = sprintf('%s has filled %s and has been awarded %s BONUS.', $fill_user->username, $tr->name, $fill_amount);
             $BonTransactions->save();
 
             $fill_user->seedbonus += $fill_amount;
@@ -627,11 +632,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($tr->filled_anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$fill_user->username}[/url] has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profile_url, $fill_user->username, $tr_url, $tr->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $tr_url, $tr->name)
                 );
             }
 
@@ -642,10 +647,10 @@ class RequestController extends Controller
 
             if ($tr->filled_anon == 0) {
                 return redirect()->route('request', ['id' => $id])
-                    ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}");
+                    ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
             } else {
                 return redirect()->route('request', ['id' => $id])
-                    ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to a anonymous user");
+                    ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
             }
         } else {
             return redirect()->route('request', ['id' => $id])
@@ -659,7 +664,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function rejectRequest(Request $request, $id)
     {
@@ -697,7 +702,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteRequest(Request $request, $id)
     {
@@ -709,7 +714,7 @@ class RequestController extends Controller
             $torrentRequest->delete();
 
             return redirect()->route('requests')
-                ->withSuccess("You have deleted {$name}");
+                ->withSuccess(sprintf('You have deleted %s', $name));
         } else {
             return redirect()->route('request', ['id' => $id])
                 ->withErrors("You don't have access to delete this request.");
@@ -722,7 +727,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function claimRequest(Request $request, $id)
     {
@@ -760,7 +765,7 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function unclaimRequest(Request $request, $id)
     {
@@ -797,9 +802,9 @@ class RequestController extends Controller
      * Resets the filled and approved attributes on a given request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function resetRequest(Request $request, $id)
     {

@@ -13,6 +13,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use ErrorException;
+use App\Services\MovieScrapper;
+use Throwable;
+use Illuminate\Http\RedirectResponse;
+use Log;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
@@ -41,7 +47,7 @@ use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Character;
@@ -76,7 +82,7 @@ class TorrentController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function torrents(Request $request)
     {
@@ -106,7 +112,7 @@ class TorrentController extends Controller
      * @param $category_id
      * @param $tmdb
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function similar(Request $request, $category_id, $tmdb)
     {
@@ -136,10 +142,10 @@ class TorrentController extends Controller
      *
      * @param Request $request
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function cardLayout(Request $request)
     {
@@ -147,7 +153,7 @@ class TorrentController extends Controller
         $torrents = Torrent::with(['user', 'category'])->latest()->paginate(33);
         $repository = $this->faceted;
 
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         foreach ($torrents as $torrent) {
             $meta = null;
             if ($torrent->category->tv_meta) {
@@ -207,11 +213,11 @@ class TorrentController extends Controller
      *
      * @param Request $request
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
-     * @throws \Throwable
+     * @throws Throwable
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function groupingLayout(Request $request)
     {
@@ -235,7 +241,7 @@ class TorrentController extends Controller
         if (!is_array($prelauncher)) {
             $prelauncher = [];
         }
-        $links = new Paginator($prelauncher, count($prelauncher), $qty);
+        $links = new LengthAwarePaginator($prelauncher, count($prelauncher), $qty);
 
         $hungry = array_chunk($prelauncher, $qty);
         $fed = [];
@@ -286,7 +292,7 @@ class TorrentController extends Controller
         $torrents = count($cache) > 0 ? $cache : null;
 
         if (is_array($torrents)) {
-            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
                     $meta = null;
@@ -336,9 +342,9 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Torrent                  $torrent
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @return array
      */
@@ -694,7 +700,7 @@ class TorrentController extends Controller
             if (!is_array($prelauncher)) {
                 $prelauncher = [];
             }
-            $links = new Paginator($prelauncher, count($prelauncher), $qty);
+            $links = new LengthAwarePaginator($prelauncher, count($prelauncher), $qty);
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
@@ -753,7 +759,7 @@ class TorrentController extends Controller
                 $prelauncher = [];
             }
 
-            $links = new Paginator($prelauncher, count($prelauncher), $qty);
+            $links = new LengthAwarePaginator($prelauncher, count($prelauncher), $qty);
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
@@ -768,7 +774,7 @@ class TorrentController extends Controller
             $torrents = $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order)->paginate($qty);
         }
         if ($collection == 1 && is_array($torrents)) {
-            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
                     $meta = null;
@@ -799,7 +805,7 @@ class TorrentController extends Controller
             if ($logger == null) {
                 $logger = 'torrent.results_cards';
             }
-            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $torrent) {
                 $meta = null;
                 if ($torrent->category->tv_meta) {
@@ -878,10 +884,10 @@ class TorrentController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function torrent(Request $request, $id)
     {
@@ -895,7 +901,7 @@ class TorrentController extends Controller
         $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
 
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $meta = null;
         if ($torrent->category->tv_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
@@ -991,7 +997,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function editForm(Request $request, $id)
     {
@@ -1013,13 +1019,13 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function edit(Request $request, $id)
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
         abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
         $torrent->name = $request->input('name');
@@ -1102,7 +1108,7 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteTorrent(Request $request)
     {
@@ -1123,10 +1129,10 @@ class TorrentController extends Controller
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
-                    $pmuser->subject = "Torrent Deleted! - {$torrent->name}";
-                    $pmuser->message = "[b]Attention:[/b] Torrent {$torrent->name} has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-                                        [b]Removal Reason:[/b] {$request->message}
-                                        [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                    $pmuser->subject = sprintf('Torrent Deleted! - %s', $torrent->name);
+                    $pmuser->message = sprintf('[b]Attention:[/b] Torrent %s has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                                        [b]Removal Reason:[/b] %s
+                                        [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $torrent->name, $request->message);
                     $pmuser->save();
                 }
 
@@ -1162,7 +1168,9 @@ class TorrentController extends Controller
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error."\n";
             }
-            \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
+            Log::notice(sprintf('Deletion of torrent failed due to: 
+
+%s', $errors));
 
             return redirect()->route('home.index')
                 ->withErrors('Unable to delete Torrent');
@@ -1174,7 +1182,7 @@ class TorrentController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function peers($id)
     {
@@ -1189,7 +1197,7 @@ class TorrentController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function history($id)
     {
@@ -1207,7 +1215,7 @@ class TorrentController extends Controller
      * @param int                      $imdb
      * @param int                      $tmdb
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function uploadForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
     {
@@ -1228,10 +1236,10 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function upload(Request $request)
     {
@@ -1249,7 +1257,7 @@ class TorrentController extends Controller
                 ->withWarning('Torrent Description Preview Loaded!');
         }
 
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $requestFile = $request->file('torrent');
 
         if (!$request->hasFile('torrent')) {
@@ -1390,11 +1398,11 @@ class TorrentController extends Controller
                 // Announce To Shoutbox
                 if ($anon == 0) {
                     $this->chat->systemMessage(
-                        "User [url={$appurl}/users/".$username.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 } else {
                     $this->chat->systemMessage(
-                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 }
 
@@ -1412,7 +1420,7 @@ class TorrentController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function downloadCheck(Request $request, $id)
     {
@@ -1491,7 +1499,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function bumpTorrent(Request $request, $id)
     {
@@ -1507,7 +1515,7 @@ class TorrentController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            "Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to the top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
+            sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrent_url, $torrent->name, $profile_url, $user->username)
         );
 
         // Announce To IRC
@@ -1516,7 +1524,7 @@ class TorrentController extends Controller
             $bot = new IRCAnnounceBot();
             $bot->message('#announce', '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
             $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
-            $bot->message('#announce', "[Link: $torrent_url]");
+            $bot->message('#announce', sprintf('[Link: %s]', $torrent_url));
         }
 
         return redirect()->route('torrent', ['id' => $torrent->id])
@@ -1529,7 +1537,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sticky(Request $request, $id)
     {
@@ -1550,7 +1558,7 @@ class TorrentController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function grantFL(Request $request, $id)
     {
@@ -1564,13 +1572,13 @@ class TorrentController extends Controller
             $torrent->free = '1';
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
             );
         } else {
             $torrent->free = '0';
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its 100% FreeLeech! :poop:', $torrent_url, $torrent->name)
             );
         }
 
@@ -1586,7 +1594,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function grantFeatured(Request $request, $id)
     {
@@ -1609,7 +1617,7 @@ class TorrentController extends Controller
             $torrent_url = hrefTorrent($torrent);
             $profile_url = hrefProfile($user);
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrent_url, $torrent->name, $profile_url, $user->username)
             );
 
             return redirect()->route('torrent', ['id' => $torrent->id])
@@ -1626,7 +1634,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function grantDoubleUp(Request $request, $id)
     {
@@ -1640,12 +1648,12 @@ class TorrentController extends Controller
             $torrent->doubleup = '1';
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
             );
         } else {
             $torrent->doubleup = '0';
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrent_url, $torrent->name)
             );
         }
         $torrent->save();
@@ -1660,7 +1668,7 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function reseedTorrent(Request $request, $id)
     {
@@ -1679,7 +1687,7 @@ class TorrentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
+                sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrent_url, $torrent->name)
             );
 
             return redirect()->route('torrent', ['id' => $torrent->id])
@@ -1696,7 +1704,7 @@ class TorrentController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function freeleechToken(Request $request, $id)
     {

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Rss;
@@ -42,7 +43,7 @@ class RssController extends Controller
      *
      * @param string $hash
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index($hash = null)
     {
@@ -59,7 +60,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(Request $request)
     {
@@ -78,7 +79,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -113,7 +114,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Public RSS Feed Created';
         }
-        if (!$success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -133,7 +134,7 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Request $request, $id)
     {
@@ -156,7 +157,7 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -190,7 +191,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Public RSS Feed Updated';
         }
-        if (!$success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -209,7 +210,7 @@ class RssController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

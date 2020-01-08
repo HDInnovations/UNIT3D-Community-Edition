@@ -13,6 +13,7 @@
 
 namespace App\Services;
 
+use ErrorException;
 use App\Services\Clients\OmdbClient;
 use App\Services\Clients\TmdbClient;
 use App\Services\Data\Movie;
@@ -36,7 +37,7 @@ class MovieScrapper
      * @param null $tmdb
      * @param null $tvdb
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
      *
      * @return Movie|Tv
@@ -44,7 +45,7 @@ class MovieScrapper
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {
         if (!$imdb && !$tmdb && !$tvdb) {
-            throw new \ErrorException('Either $imdb, $tmdb or $tvdb is required');
+            throw new ErrorException('Either $imdb, $tmdb or $tvdb is required');
         }
 
         if ($type == 'movie') {

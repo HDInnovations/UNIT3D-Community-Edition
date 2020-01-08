@@ -13,6 +13,8 @@
 
 namespace App\Http\Middleware;
 
+use Date;
+use Illuminate\Http\Request;
 use App\Models\Language;
 use Carbon\Carbon;
 use Closure;
@@ -52,7 +54,7 @@ class SetLanguage
                 $locale = explode('-', $locale)[0];
             }
 
-            \Date::setLocale($locale);
+            Date::setLocale($locale);
         }
     }
 
@@ -84,8 +86,8 @@ class SetLanguage
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param Request $request
+     * @param Closure                 $next
      *
      * @return mixed
      */

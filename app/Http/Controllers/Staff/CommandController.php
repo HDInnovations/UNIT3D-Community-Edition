@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Artisan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -21,9 +23,9 @@ class CommandController extends Controller
     /**
      * Display All Commands.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -36,162 +38,162 @@ class CommandController extends Controller
     /**
      * Bring Site Into Maintenance Mode.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function maintanceEnable(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('down --allow='.$request->ip());
+        Artisan::call('down --allow='.$request->ip());
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Bring Site Out Of Maintenance Mode.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function maintanceDisable(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('up');
+        Artisan::call('up');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Clear Site Cache.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function clearCache(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('cache:clear');
+        Artisan::call('cache:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Clear Site View Cache.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function clearView(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('view:clear');
+        Artisan::call('view:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Clear Site Routes Cache.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function clearRoute(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('route:clear');
+        Artisan::call('route:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Clear Site Config Cache.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function clearConfig(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('config:clear');
+        Artisan::call('config:clear');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Clear All Site Cache At Once.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function clearAllCache(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('clear:all_cache');
+        Artisan::call('clear:all_cache');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Set All Site Cache At Once.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function setAllCache(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('set:all_cache');
+        Artisan::call('set:all_cache');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 
     /**
      * Send Test Email To Test Email Configuration.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function testEmail(Request $request)
     {
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('test:email');
+        Artisan::call('test:email');
 
         return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+            ->withInfo(trim(Artisan::output()));
     }
 }

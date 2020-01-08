@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Exception;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Traits\TwoStep;
 use Carbon\Carbon;
@@ -74,7 +76,7 @@ class TwoStepController extends Controller
      */
     private function invalidCodeReturnData($errors = null)
     {
-        $this->_authCount = $this->_twoStepAuth->authCount += 1;
+        $this->_authCount = ++$this->_twoStepAuth->authCount;
         $this->_twoStepAuth->save();
 
         $returnData = [
@@ -93,9 +95,9 @@ class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
-     * @throws \Exception
+     * @throws Exception
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showVerification()
     {
@@ -152,7 +154,7 @@ class TwoStepController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function verify(Request $request)
     {
@@ -199,7 +201,7 @@ class TwoStepController extends Controller
     /**
      * Resend the validation code triggered by user.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function resend()
     {

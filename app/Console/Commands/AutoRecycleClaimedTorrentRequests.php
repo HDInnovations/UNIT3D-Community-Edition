@@ -68,7 +68,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
             if ($requestClaim) {
                 $tr_url = hrefRequest($torrentRequest);
                 $this->chat->systemMessage(
-                    "[url={$tr_url}]{$torrentRequest->name}[/url] claim has been reset due to not being filled within 7 days."
+                    sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $tr_url, $torrentRequest->name)
                 );
 
                 $requestClaim->delete();

@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\VoteOnPoll;
 use App\Models\Option;
 use App\Models\Poll;
@@ -40,7 +43,7 @@ class PollController extends Controller
     /**
      * Show All Polls.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -52,10 +55,10 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $slug
+     * @param Request $request
+     * @param $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Request $request, $slug)
     {
@@ -76,7 +79,7 @@ class PollController extends Controller
      *
      * @param VoteOnPoll $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function vote(VoteOnPoll $request)
     {
@@ -104,7 +107,7 @@ class PollController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
+            sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)
         );
 
         return redirect('polls/'.$poll->slug.'/result')
@@ -116,7 +119,7 @@ class PollController extends Controller
      *
      * @param $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function result($slug)
     {

@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
@@ -38,7 +41,7 @@ class ChatStatusController extends Controller
     /**
      * Chat Management.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -52,9 +55,9 @@ class ChatStatusController extends Controller
     /**
      * Store A New Chat Status.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -83,10 +86,10 @@ class ChatStatusController extends Controller
     /**
      * Update A Chat Status.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -117,7 +120,7 @@ class ChatStatusController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy($id)
     {

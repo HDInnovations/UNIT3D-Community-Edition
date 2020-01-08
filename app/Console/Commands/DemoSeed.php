@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Clients\OmdbClient;
@@ -82,7 +83,7 @@ class DemoSeed extends Command
                         'description' => $r['Plot'],
                         'category_id' => 1,
                     ]);
-                } catch (\Exception $e) {
+                } catch (Exception $exception) {
                     $abort = true;
 
                     break;

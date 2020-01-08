@@ -14,6 +14,28 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Throwable;
+use App\Notifications\NewBon;
+use App\Notifications\NewComment;
+use App\Notifications\NewCommentTag;
+use App\Notifications\NewFollow;
+use App\Notifications\NewPost;
+use App\Notifications\NewPostTag;
+use App\Notifications\NewPostTip;
+use App\Notifications\NewRequestClaim;
+use App\Notifications\NewRequestFill;
+use App\Notifications\NewRequestFillApprove;
+use App\Notifications\NewRequestFillReject;
+use App\Notifications\NewRequestUnclaim;
+use App\Notifications\NewReseedRequest;
+use App\Notifications\NewThank;
+use App\Notifications\NewUploadTip;
+use App\Notifications\NewTopic;
+use App\Notifications\NewUpload;
+use Illuminate\Http\RedirectResponse;
+use Exception;
 use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,9 +45,9 @@ class NotificationController extends Controller
     /**
      * Show All Notifications.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
@@ -37,9 +59,9 @@ class NotificationController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @return array
      */
@@ -50,31 +72,31 @@ class NotificationController extends Controller
         $notification = $user->notifications();
 
         if ($request->has('bon_gifts') && $request->input('bon_gifts') != null) {
-            $notification->where('type', '=', \App\Notifications\NewBon::class);
+            $notification->where('type', '=', NewBon::class);
         }
 
         if ($request->has('comments') && $request->input('comments') != null) {
-            $notification->where('type', '=', \App\Notifications\NewComment::class);
+            $notification->where('type', '=', NewComment::class);
         }
 
         if ($request->has('comment_tags') && $request->input('comment_tags') != null) {
-            $notification->where('type', '=', \App\Notifications\NewCommentTag::class);
+            $notification->where('type', '=', NewCommentTag::class);
         }
 
         if ($request->has('followers') && $request->input('followers') != null) {
-            $notification->where('type', '=', \App\Notifications\NewFollow::class);
+            $notification->where('type', '=', NewFollow::class);
         }
 
         if ($request->has('posts') && $request->input('posts') != null) {
-            $notification->where('type', '=', \App\Notifications\NewPost::class);
+            $notification->where('type', '=', NewPost::class);
         }
 
         if ($request->has('post_tags') && $request->input('post_tags') != null) {
-            $notification->where('type', '=', \App\Notifications\NewPostTag::class);
+            $notification->where('type', '=', NewPostTag::class);
         }
 
         if ($request->has('post_tips') && $request->input('post_tips') != null) {
-            $notification->where('type', '=', \App\Notifications\NewPostTip::class);
+            $notification->where('type', '=', NewPostTip::class);
         }
 
         if ($request->has('request_bounties') && $request->input('request_bounties') != null) {
@@ -82,39 +104,39 @@ class NotificationController extends Controller
         }
 
         if ($request->has('request_claims') && $request->input('request_claims') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestClaim::class);
+            $notification->where('type', '=', NewRequestClaim::class);
         }
 
         if ($request->has('request_fills') && $request->input('request_fills') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestFill::class);
+            $notification->where('type', '=', NewRequestFill::class);
         }
 
         if ($request->has('request_approvals') && $request->input('request_approvals') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestFillApprove::class);
+            $notification->where('type', '=', NewRequestFillApprove::class);
         }
 
         if ($request->has('request_rejections') && $request->input('request_rejections') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestFillReject::class);
+            $notification->where('type', '=', NewRequestFillReject::class);
         }
 
         if ($request->has('request_unclaims') && $request->input('request_unclaims') != null) {
-            $notification->where('type', '=', \App\Notifications\NewRequestUnclaim::class);
+            $notification->where('type', '=', NewRequestUnclaim::class);
         }
 
         if ($request->has('reseed_requests') && $request->input('reseed_requests') != null) {
-            $notification->where('type', '=', \App\Notifications\NewReseedRequest::class);
+            $notification->where('type', '=', NewReseedRequest::class);
         }
 
         if ($request->has('thanks') && $request->input('thanks') != null) {
-            $notification->where('type', '=', \App\Notifications\NewThank::class);
+            $notification->where('type', '=', NewThank::class);
         }
 
         if ($request->has('upload_tips') && $request->input('upload_tips') != null) {
-            $notification->where('type', '=', \App\Notifications\NewUploadTip::class);
+            $notification->where('type', '=', NewUploadTip::class);
         }
 
         if ($request->has('topics') && $request->input('topics') != null) {
-            $notification->where('type', '=', \App\Notifications\NewTopic::class);
+            $notification->where('type', '=', NewTopic::class);
         }
 
         if ($request->has('unfollows') && $request->input('unfollows') != null) {
@@ -122,7 +144,7 @@ class NotificationController extends Controller
         }
 
         if ($request->has('uploads') && $request->input('uploads') != null) {
-            $notification->where('type', '=', \App\Notifications\NewUpload::class);
+            $notification->where('type', '=', NewUpload::class);
         }
 
         $notifications = $notification->paginate(25);
@@ -136,10 +158,10 @@ class NotificationController extends Controller
     /**
      * Show A Notification And Mark As Read.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function show(Request $request, $id)
     {
@@ -153,10 +175,10 @@ class NotificationController extends Controller
     /**
      * Set A Notification To Read.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -181,11 +203,11 @@ class NotificationController extends Controller
     /**
      * Mass Update All Notification's To Read.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @throws \Exception
+     * @throws Exception
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function updateAll(Request $request)
     {
@@ -199,10 +221,10 @@ class NotificationController extends Controller
     /**
      * Delete A Notification.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request, $id)
     {
@@ -215,9 +237,9 @@ class NotificationController extends Controller
     /**
      * Mass Delete All Notification's.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroyAll(Request $request)
     {

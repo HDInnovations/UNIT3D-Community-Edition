@@ -13,6 +13,7 @@
 
 namespace App\Services\Data;
 
+use DateTime;
 use Carbon\Carbon;
 
 class Episode
@@ -40,7 +41,7 @@ class Episode
             }
         }
 
-        if ($this->releaseDate instanceof \DateTime) {
+        if ($this->releaseDate instanceof DateTime) {
             $release_date = $this->releaseDate ? (new Carbon())->instance($this->releaseDate) : null;
         } else {
             $release_date = $this->releaseDate ? new Carbon($this->releaseDate) : null;

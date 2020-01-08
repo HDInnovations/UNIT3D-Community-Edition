@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use Illuminate\Http\Request;
@@ -22,9 +23,9 @@ class PlaylistTorrentController extends Controller
     /**
      * Attach A Torrent To A Playlist.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -58,7 +59,7 @@ class PlaylistTorrentController extends Controller
      *
      * @param int $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy($id)
     {

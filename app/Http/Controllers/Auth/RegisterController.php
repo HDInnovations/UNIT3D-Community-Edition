@@ -13,6 +13,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendActivationMail;
 use App\Models\Group;
@@ -50,7 +52,7 @@ class RegisterController extends Controller
      *
      * @param $code
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function registrationForm($code = null)
     {
@@ -170,18 +172,18 @@ class RegisterController extends Controller
             $profile_url = hrefProfile($user);
 
             $welcomeArray = [
-                "[url={$profile_url}]{$user->username}[/url], Welcome to ".config('other.title').'! Hope you enjoy the community :rocket:',
-                "[url={$profile_url}]{$user->username}[/url], We've been expecting you :space_invader:",
-                "[url={$profile_url}]{$user->username}[/url] has arrived. Party's over. :cry:",
-                "It's a bird! It's a plane! Nevermind, it's just [url={$profile_url}]{$user->username}[/url].",
-                "Ready player [url={$profile_url}]{$user->username}[/url].",
-                "A wild [url={$profile_url}]{$user->username}[/url] appeared.",
-                'Welcome to '.config('other.title')." [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)",
+                sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
+                sprintf('[url=%s]%s[/url], We\'ve been expecting you :space_invader:', $profile_url, $user->username),
+                sprintf('[url=%s]%s[/url] has arrived. Party\'s over. :cry:', $profile_url, $user->username),
+                sprintf('It\'s a bird! It\'s a plane! Nevermind, it\'s just [url=%s]%s[/url].', $profile_url, $user->username),
+                sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
+                sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
+                'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
             ];
             $selected = mt_rand(0, count($welcomeArray) - 1);
 
             $this->chat->systemMessage(
-                "{$welcomeArray[$selected]}"
+                sprintf('%s', $welcomeArray[$selected])
             );
 
             // Send Welcome PM

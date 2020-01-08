@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
 use App\Achievements\UserMade25Posts;
@@ -58,10 +61,10 @@ class PostController extends Controller
     /**
      * Store A New Post To A Topic.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param Request $request
+     * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function reply(Request $request, $id)
     {
@@ -94,8 +97,8 @@ class PostController extends Controller
             $post->save();
 
             $appurl = config('app.url');
-            $href = "{$appurl}/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
-            $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
+            $href = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+            $message = sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
 
             if ($this->tag->hasTags($request->input('content'))) {
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
@@ -155,10 +158,10 @@ class PostController extends Controller
 
             // Post To Chatbox
             $appurl = config('app.url');
-            $postUrl = "{$appurl}/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
-            $realUrl = "/forums/topics/{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
-            $profileUrl = "{$appurl}/users/{$user->username}";
-            $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
+            $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+            $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
+            $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
+            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
 
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
@@ -191,7 +194,7 @@ class PostController extends Controller
      * @param $id
      * @param $postId
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function postEditForm($id, $postId)
     {
@@ -211,16 +214,16 @@ class PostController extends Controller
     /**
      * Edit A Post In A Topic.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $postId
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function postEdit(Request $request, $postId)
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->content = $request->input('content');
@@ -233,10 +236,10 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $postId
+     * @param Request $request
+     * @param $postId
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function postDelete(Request $request, $postId)
     {

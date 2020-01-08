@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -61,7 +62,7 @@ class UserEcho extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -71,7 +72,7 @@ class UserEcho extends Model
     /**
      * Belongs To A Chatroom.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function room()
     {
@@ -81,7 +82,7 @@ class UserEcho extends Model
     /**
      * Belongs To A Target.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function target()
     {
@@ -91,7 +92,7 @@ class UserEcho extends Model
     /**
      * Belongs To A Bot.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function bot()
     {

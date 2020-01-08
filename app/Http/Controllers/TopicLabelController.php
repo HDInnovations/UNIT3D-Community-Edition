@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use App\Models\Topic;
 
 class TopicLabelController extends Controller
@@ -22,7 +23,7 @@ class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function approve($id)
     {
@@ -39,7 +40,7 @@ class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deny($id)
     {
@@ -56,7 +57,7 @@ class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function solve($id)
     {
@@ -73,7 +74,7 @@ class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function invalid($id)
     {
@@ -90,7 +91,7 @@ class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function bug($id)
     {
@@ -107,7 +108,7 @@ class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function suggest($id)
     {
@@ -124,7 +125,7 @@ class TopicLabelController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function implement($id)
     {

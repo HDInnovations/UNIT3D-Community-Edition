@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Helpers\Bbcode;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -52,7 +54,7 @@ class Post extends Model
     /**
      * Belongs To A Topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function topic()
     {
@@ -62,7 +64,7 @@ class Post extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -75,7 +77,7 @@ class Post extends Model
     /**
      * A Post Has Many Likes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function likes()
     {
@@ -85,7 +87,7 @@ class Post extends Model
     /**
      * A Post Has Many Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function tips()
     {

@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 
@@ -63,7 +64,7 @@ class Message extends Model
     /**
      * Belongs To A Bot.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function bot()
     {
@@ -73,7 +74,7 @@ class Message extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -83,7 +84,7 @@ class Message extends Model
     /**
      * A message belongs to a receiver.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function receiver()
     {
@@ -93,7 +94,7 @@ class Message extends Model
     /**
      * Belongs To A Chat Room.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function chatroom()
     {

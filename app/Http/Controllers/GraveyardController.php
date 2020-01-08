@@ -13,6 +13,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Throwable;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Graveyard;
 use App\Models\Torrent;
 use App\Repositories\TorrentFacetedRepository;
@@ -40,9 +44,9 @@ class GraveyardController extends Controller
     /**
      * Show The Graveyard.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
@@ -63,10 +67,10 @@ class GraveyardController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Torrent                  $torrent
      *
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @return array
      */
@@ -141,10 +145,10 @@ class GraveyardController extends Controller
     /**
      * Resurrect A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request, $id)
     {
@@ -187,10 +191,10 @@ class GraveyardController extends Controller
     /**
      * Cancel A Ressurection.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int                      $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request, $id)
     {

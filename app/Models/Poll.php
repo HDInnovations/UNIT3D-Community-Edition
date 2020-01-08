@@ -13,6 +13,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -67,7 +69,7 @@ class Poll extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -80,7 +82,7 @@ class Poll extends Model
     /**
      * A Poll Has Many Options.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function options()
     {
@@ -90,7 +92,7 @@ class Poll extends Model
     /**
      * A Poll Has Many Voters.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function voters()
     {
@@ -123,9 +125,9 @@ class Poll extends Model
     public function makeSlugFromTitle($title)
     {
         $slug = strlen($title) > 20 ? substr(Str::slug($title), 0, 20) : Str::slug($title);
-        $count = $this->where('slug', 'LIKE', "%$slug%")->count();
+        $count = $this->where('slug', 'LIKE', sprintf('%%s%', $slug))->count();
 
-        return $count ? "{$slug}-{$count}" : $slug;
+        return $count ? sprintf('%s-%s', $slug, $count) : $slug;
     }
 
     /**

@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\History;
@@ -27,7 +30,7 @@ use Illuminate\Support\Facades\DB;
 class StatsController extends Controller
 {
     /**
-     * @var \Carbon\Carbon|mixed
+     * @var Carbon|mixed
      */
     public $expiresAt;
     /**
@@ -41,9 +44,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Index.
      *
-     * @throws \Exception
+     * @throws Exception
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -190,7 +193,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function uploaded()
     {
@@ -216,7 +219,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function downloaded()
     {
@@ -242,7 +245,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function seeders()
     {
@@ -255,7 +258,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function leechers()
     {
@@ -268,7 +271,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function uploaders()
     {
@@ -281,7 +284,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function bankers()
     {
@@ -307,7 +310,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function seedtime()
     {
@@ -320,7 +323,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function seedsize()
     {
@@ -333,7 +336,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function seeded()
     {
@@ -346,7 +349,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function leeched()
     {
@@ -359,7 +362,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function completed()
     {
@@ -372,7 +375,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function dying()
     {
@@ -385,7 +388,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrents.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function dead()
     {
@@ -398,7 +401,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Torrent Requests.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function bountied()
     {
@@ -411,7 +414,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Groups.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function groups()
     {
@@ -426,7 +429,7 @@ class StatsController extends Controller
      *
      * @param $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function group($id)
     {
@@ -440,7 +443,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Languages.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function languages()
     {

@@ -14,6 +14,36 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckForMaintenanceMode;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use App\Http\Middleware\TrimStrings;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use App\Http\Middleware\TrustProxies;
+use Bepsvpt\SecureHeaders\SecureHeadersMiddleware;
+use App\Http\Middleware\Http2ServerPush;
+use App\Http\Middleware\EncryptCookies;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use App\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\UpdateLastAction;
+use App\Http\Middleware\CheckForAdmin;
+use App\Http\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use App\Http\Middleware\CheckIfBanned;
+use Illuminate\Http\Middleware\SetCacheHeaders;
+use Illuminate\Auth\Middleware\Authorize;
+use App\Http\Middleware\CheckIfAlreadyVoted;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\CheckForModo;
+use App\Http\Middleware\CheckForOwner;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use App\Http\Middleware\TwoStepAuth;
+use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -27,15 +57,15 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // Default Laravel
-        \App\Http\Middleware\CheckForMaintenanceMode::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
+        CheckForMaintenanceMode::class,
+        ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
+        TrustProxies::class,
 
         // Extra
-        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
-        \App\Http\Middleware\Http2ServerPush::class,
+        SecureHeadersMiddleware::class,
+        Http2ServerPush::class,
         //\App\Http\Middleware\HtmlEncrypt::class,
         //\App\Http\Middleware\ProAjaxMiddleware::class,
     ];
@@ -47,14 +77,14 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \App\Http\Middleware\UpdateLastAction::class,
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            AuthenticateSession::class,
+            ShareErrorsFromSession::class,
+            SubstituteBindings::class,
+            VerifyCsrfToken::class,
+            UpdateLastAction::class,
         ],
         'api' => [
             'throttle:60,1',
@@ -70,23 +100,23 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'admin'         => \App\Http\Middleware\CheckForAdmin::class,
-        'auth'          => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'banned'        => \App\Http\Middleware\CheckIfBanned::class,
-        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'check_ip'      => \App\Http\Middleware\CheckIfAlreadyVoted::class,
-        'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
-        'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'language'      => \App\Http\Middleware\SetLanguage::class,
-        'modo'          => \App\Http\Middleware\CheckForModo::class,
-        'owner'         => \App\Http\Middleware\CheckForOwner::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
-        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'admin'         => CheckForAdmin::class,
+        'auth'          => Authenticate::class,
+        'auth.basic'    => AuthenticateWithBasicAuth::class,
+        'banned'        => CheckIfBanned::class,
+        'bindings'      => SubstituteBindings::class,
+        'cache.headers' => SetCacheHeaders::class,
+        'can'           => Authorize::class,
+        'check_ip'      => CheckIfAlreadyVoted::class,
+        'csrf'          => VerifyCsrfToken::class,
+        'guest'         => RedirectIfAuthenticated::class,
+        'language'      => SetLanguage::class,
+        'modo'          => CheckForModo::class,
+        'owner'         => CheckForOwner::class,
+        'throttle'      => ThrottleRequests::class,
+        'twostep'       => TwoStepAuth::class,
+        'signed'        => ValidateSignature::class,
+        'verified'      => EnsureEmailIsVerified::class,
     ];
 
     /**
@@ -97,12 +127,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \App\Http\Middleware\Authenticate::class,
-        \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        \Illuminate\Session\Middleware\AuthenticateSession::class,
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        \Illuminate\Auth\Middleware\Authorize::class,
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        Authenticate::class,
+        ThrottleRequests::class,
+        AuthenticateSession::class,
+        SubstituteBindings::class,
+        Authorize::class,
     ];
 }

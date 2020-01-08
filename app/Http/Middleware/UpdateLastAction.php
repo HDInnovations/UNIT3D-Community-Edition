@@ -14,6 +14,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 
 class UpdateLastAction
@@ -21,7 +22,7 @@ class UpdateLastAction
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Closure                  $next
      *
      * @return mixed

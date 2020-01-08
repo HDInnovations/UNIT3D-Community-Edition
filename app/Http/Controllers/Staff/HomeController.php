@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Exception;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
@@ -29,9 +32,9 @@ class HomeController extends Controller
     /**
      * Display Staff Dashboard.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
@@ -62,7 +65,7 @@ class HomeController extends Controller
         // SSL Info
         try {
             $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
-        } catch (\Exception $e) {
+        } catch (Exception $exception) {
             $certificate = '';
         }
 

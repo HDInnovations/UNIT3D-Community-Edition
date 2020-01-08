@@ -13,6 +13,7 @@
 
 namespace App\Traits;
 
+use Exception;
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
 use Carbon\Carbon;
@@ -91,7 +92,7 @@ trait TwoStep
      * @param string $prefix
      * @param string $suffix
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return string
      */

@@ -13,6 +13,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\JsonResponse;
 
@@ -30,8 +31,8 @@ class ProAjaxMiddleware
      * After the request has been made, determine if an alert should be shown,
      * or if the user should be redirected to another page.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param Request $request
+     * @param Closure                 $next
      *
      * @return mixed
      */
@@ -118,8 +119,8 @@ class ProAjaxMiddleware
     {
         $session = $request->session();
 
-        $flash_message['type'] = $session->get("{$this->flash_name}.type");
-        $flash_message['message'] = $session->get("{$this->flash_name}.message");
+        $flash_message['type'] = $session->get(sprintf('%s.type', $this->flash_name));
+        $flash_message['message'] = $session->get(sprintf('%s.message', $this->flash_name));
 
         return $flash_message;
     }

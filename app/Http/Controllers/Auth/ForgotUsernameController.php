@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\UsernameReminder;
@@ -23,7 +26,7 @@ class ForgotUsernameController extends Controller
     /**
      * Forgot Username Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showForgotUsernameForm()
     {
@@ -35,7 +38,7 @@ class ForgotUsernameController extends Controller
      *
      * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function sendUsernameReminder(Request $request)
     {

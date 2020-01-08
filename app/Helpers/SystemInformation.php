@@ -14,6 +14,8 @@
 
 namespace App\Helpers;
 
+use Symfony\Component\Translation\TranslatorInterface;
+use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -30,9 +32,9 @@ class SystemInformation
     {
         if (is_readable('/proc/meminfo')) {
             $content = file_get_contents('/proc/meminfo');
-            preg_match('/^MemTotal: \s*(\d*)/m', $content, $matches);
+            preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
             $total = $matches[1] * 1024;
-            preg_match('/^MemFree: \s*(\d*)/m', $content, $matches);
+            preg_match('#^MemFree: \s*(\d*)#m', $content, $matches);
             $free = $matches[1] * 1024;
             //preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
             //$used = $this->formatBytes($matches[1] * 1024);
@@ -152,13 +154,13 @@ class SystemInformation
      *
      * @param $path
      *
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     * @return string|TranslatorInterface
      */
     public function getDirectoryPermission($path)
     {
         try {
             return substr(sprintf('%o', fileperms(base_path($path))), -4);
-        } catch (\Exception $ex) {
+        } catch (Exception $exception) {
             return trans('site.error');
         }
     }

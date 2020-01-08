@@ -13,6 +13,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use ErrorException;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
@@ -41,7 +45,7 @@ class PlaylistController extends Controller
     /**
      * Display All Playlists.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -53,7 +57,7 @@ class PlaylistController extends Controller
     /**
      * Show Playlist Create Form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -63,9 +67,9 @@ class PlaylistController extends Controller
     /**
      * Store A New Playlist.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -106,7 +110,7 @@ class PlaylistController extends Controller
             $appurl = config('app.url');
             if ($playlist->is_private != 1) {
                 $this->chat->systemMessage(
-                    "User [url={$appurl}/".$user->username.'.'.$user->id.']'.$user->username."[/url] has created a new playlist [url={$appurl}/playlists/".$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
+                    sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
                 );
             }
 
@@ -120,10 +124,10 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      * @throws \HttpInvalidParamException
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show($id)
     {
@@ -159,7 +163,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($id)
     {
@@ -174,10 +178,10 @@ class PlaylistController extends Controller
     /**
      * Update A Playlist.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \App\Playlist            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -224,7 +228,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy($id)
     {

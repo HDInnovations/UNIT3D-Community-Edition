@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Notifications\NewTopic;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -76,7 +77,7 @@ class Forum extends Model
     /**
      * Has Many Topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function topics()
     {
@@ -86,7 +87,7 @@ class Forum extends Model
     /**
      * Has Many Sub Topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function sub_topics()
     {
@@ -101,7 +102,7 @@ class Forum extends Model
     /**
      * Has Many Sub Forums.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function forums()
     {
@@ -111,7 +112,7 @@ class Forum extends Model
     /**
      * Has Many Subscribed Topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function subscription_topics()
     {
@@ -130,7 +131,7 @@ class Forum extends Model
     /**
      * Has Many Subscriptions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function subscriptions()
     {
@@ -140,7 +141,7 @@ class Forum extends Model
     /**
      * Has Many Permissions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function permissions()
     {
