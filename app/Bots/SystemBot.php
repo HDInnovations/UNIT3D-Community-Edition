@@ -191,6 +191,7 @@ final class SystemBot
 
     /**
      * Output Message.
+     *
      * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function pm()

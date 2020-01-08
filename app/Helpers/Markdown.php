@@ -275,7 +275,7 @@ final class Markdown
 
         // ~
 
-        return $markup . "\n";
+        return $markup."\n";
     }
 
     protected function isBlockContinuable($Type): bool
@@ -290,6 +290,7 @@ final class Markdown
 
     //
     // Code
+
     /**
      * @return string[][]|string[][][]
      */
@@ -345,6 +346,7 @@ final class Markdown
 
     //
     // Comment
+
     /**
      * @return mixed[]
      */
@@ -387,6 +389,7 @@ final class Markdown
 
     //
     // Fenced Code
+
     /**
      * @return mixed[]
      */
@@ -453,6 +456,7 @@ final class Markdown
 
     //
     // Header
+
     /**
      * @return string[][]
      */
@@ -483,6 +487,7 @@ final class Markdown
 
     //
     // List
+
     /**
      * @return mixed[]
      */
@@ -596,6 +601,7 @@ final class Markdown
 
     //
     // Quote
+
     /**
      * @return string[][]|mixed[][][]
      */
@@ -638,6 +644,7 @@ final class Markdown
 
     //
     // Rule
+
     /**
      * @return string[][]
      */
@@ -654,6 +661,7 @@ final class Markdown
 
     //
     // Setext
+
     /**
      * @return mixed[]
      */
@@ -672,6 +680,7 @@ final class Markdown
 
     //
     // Markup
+
     /**
      * @return mixed[]
      */
@@ -752,6 +761,7 @@ final class Markdown
 
     //
     // Reference
+
     /**
      * @return bool[]
      */
@@ -931,6 +941,7 @@ final class Markdown
     //
     // ~
     //
+
     /**
      * @return mixed[][]
      */
@@ -1040,12 +1051,13 @@ final class Markdown
             $text = substr($text, $markerPosition + 1);
         }
 
-        return $markup . $this->unmarkedText($text);
+        return $markup.$this->unmarkedText($text);
     }
 
     //
     // ~
     //
+
     /**
      * @return mixed[][][]|int[][]
      */
@@ -1355,6 +1367,7 @@ final class Markdown
     }
 
     // ~
+
     /**
      * @return mixed[]|string|null
      */
@@ -1364,6 +1377,7 @@ final class Markdown
             return preg_replace('#[ ]*\n#', "<br />\n", $text);
         }
         $text = preg_replace('#(?:[ ][ ]+|[ ]*\\\)\n#', "<br />\n", $text);
+
         return str_replace(" \n", "\n", $text);
     }
 
@@ -1418,7 +1432,7 @@ final class Markdown
             $markup .= "\n".$this->element($Element);
         }
 
-        return $markup . "\n";
+        return $markup."\n";
     }
 
     // ~
@@ -1510,6 +1524,7 @@ final class Markdown
         if ($len > strlen($string)) {
             return false;
         }
+
         return strtolower(substr($string, 0, $len)) === strtolower($needle);
     }
 

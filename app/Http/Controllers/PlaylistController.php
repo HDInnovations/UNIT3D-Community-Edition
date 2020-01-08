@@ -13,16 +13,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-use ErrorException;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\MovieScrapper;
+use ErrorException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Image;
 
 final class PlaylistController extends Controller
@@ -109,6 +109,7 @@ final class PlaylistController extends Controller
                 sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
             );
         }
+
         return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Your Playlist Was Created Successfully!');
     }
@@ -172,8 +173,8 @@ final class PlaylistController extends Controller
     /**
      * Update A Playlist.
      *
-     * @param Request $request
-     * @param \App\Playlist            $id
+     * @param Request       $request
+     * @param \App\Playlist $id
      *
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
@@ -211,6 +212,7 @@ final class PlaylistController extends Controller
                 ->withErrors($v->errors());
         }
         $playlist->save();
+
         return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Your Playlist Has Successfully Been Updated!');
     }

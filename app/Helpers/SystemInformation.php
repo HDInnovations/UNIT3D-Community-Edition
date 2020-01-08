@@ -14,10 +14,10 @@
 
 namespace App\Helpers;
 
-use Symfony\Component\Translation\TranslatorInterface;
-use Exception;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Translation\TranslatorInterface;
 
 final class SystemInformation
 {

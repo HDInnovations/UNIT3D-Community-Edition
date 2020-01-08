@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Album;
 use App\Models\Image;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class ImageController extends Controller
 {
@@ -72,6 +72,7 @@ final class ImageController extends Controller
                 ->withErrors($v->errors());
         }
         $image->save();
+
         return redirect()->route('albums.show', ['id' => $request->input('album_id')])
             ->withSuccess('Your image has successfully published!');
     }

@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -49,6 +48,7 @@ final class LikeController extends Controller
         $new->post_id = $post->id;
         $new->like = 1;
         $new->save();
+
         return redirect()->to($postUrl)
             ->withSuccess('Like Successfully Applied!');
     }
@@ -82,6 +82,7 @@ final class LikeController extends Controller
         $new->post_id = $post->id;
         $new->dislike = 1;
         $new->save();
+
         return redirect()->to($postUrl)
             ->withSuccess('Dislike Successfully Applied!');
     }

@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -35,6 +34,7 @@ use App\Models\User;
 use App\Notifications\NewComment;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 final class CommentController extends Controller
@@ -141,6 +141,7 @@ final class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('articles.show', ['id' => $article->id])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -231,6 +232,7 @@ final class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -325,6 +327,7 @@ final class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -419,6 +422,7 @@ final class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -499,6 +503,7 @@ final class CommentController extends Controller
         $this->chat->systemMessage(
             sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
         );
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Comment Has Been Added!');
     }

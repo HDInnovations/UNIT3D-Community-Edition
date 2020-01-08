@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Topic;
+use Illuminate\Http\RedirectResponse;
 
 final class TopicLabelController extends Controller
 {

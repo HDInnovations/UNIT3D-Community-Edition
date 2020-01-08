@@ -179,6 +179,7 @@ final class BackupController extends Controller
             if ($disk->exists($file_name)) {
                 return response()->download($storage_path.$file_name);
             }
+
             return abort(404, trans('backup.backup_doesnt_exist'));
         }
 
@@ -207,6 +208,7 @@ final class BackupController extends Controller
 
                 return 'success';
             }
+
             return abort(404, trans('backup.backup_doesnt_exist'));
         }
 

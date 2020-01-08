@@ -14,37 +14,37 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\CheckForMaintenanceMode;
-use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
-use App\Http\Middleware\TrimStrings;
-use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
-use App\Http\Middleware\TrustProxies;
-use Bepsvpt\SecureHeaders\SecureHeadersMiddleware;
-use App\Http\Middleware\Http2ServerPush;
-use App\Http\Middleware\EncryptCookies;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Session\Middleware\AuthenticateSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use App\Http\Middleware\VerifyCsrfToken;
-use App\Http\Middleware\UpdateLastAction;
-use App\Http\Middleware\CheckForAdmin;
 use App\Http\Middleware\Authenticate;
-use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use App\Http\Middleware\CheckIfBanned;
-use Illuminate\Http\Middleware\SetCacheHeaders;
-use Illuminate\Auth\Middleware\Authorize;
-use App\Http\Middleware\CheckIfAlreadyVoted;
-use App\Http\Middleware\RedirectIfAuthenticated;
-use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\CheckForAdmin;
+use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\CheckForModo;
 use App\Http\Middleware\CheckForOwner;
-use Illuminate\Routing\Middleware\ThrottleRequests;
+use App\Http\Middleware\CheckIfAlreadyVoted;
+use App\Http\Middleware\CheckIfBanned;
+use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\Http2ServerPush;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\TrimStrings;
+use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\TwoStepAuth;
-use Illuminate\Routing\Middleware\ValidateSignature;
+use App\Http\Middleware\UpdateLastAction;
+use App\Http\Middleware\VerifyCsrfToken;
+use Bepsvpt\SecureHeaders\SecureHeadersMiddleware;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\SetCacheHeaders;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 final class Kernel extends HttpKernel
 {

@@ -13,14 +13,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Carbon\Carbon;
 use Gstt\Achievements\Achiever;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -927,6 +927,7 @@ final class User extends Authenticatable
         if (is_infinite($ratio)) {
             return '∞';
         }
+
         return (string) $ratio;
     }
 
@@ -952,11 +953,13 @@ final class User extends Authenticatable
         if (is_infinite($ratio)) {
             return '∞';
         }
+
         return (string) $ratio;
     }
 
     // Return the size (pretty formated) which can be safely downloaded
     // without falling under the minimum ratio.
+
     /**
      * @return string|mixed
      */
@@ -1018,6 +1021,7 @@ final class User extends Authenticatable
             return 'N/A';
         }
         $bbcode = new Bbcode();
+
         return $bbcode->parse($this->about, true);
     }
 

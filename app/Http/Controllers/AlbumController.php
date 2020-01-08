@@ -13,14 +13,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Album;
 use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Image;
 
 final class AlbumController extends Controller
@@ -102,6 +102,7 @@ final class AlbumController extends Controller
                 ->withErrors($v->errors());
         }
         $album->save();
+
         return redirect()->route('albums.show', ['id' => $album->id])
             ->withSuccess('Your album has successfully published!');
     }

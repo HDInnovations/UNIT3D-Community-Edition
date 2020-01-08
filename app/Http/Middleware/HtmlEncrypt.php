@@ -13,9 +13,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Bepsvpt\SecureHeaders\SecureHeaders;
 use Closure;
+use Illuminate\Http\Request;
 
 final class HtmlEncrypt
 {
@@ -33,7 +33,7 @@ final class HtmlEncrypt
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure                 $next
+     * @param Closure $next
      *
      * @return mixed
      */

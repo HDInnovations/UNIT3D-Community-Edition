@@ -13,9 +13,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 final class ProAjaxMiddleware
 {
@@ -30,7 +30,7 @@ final class ProAjaxMiddleware
      * or if the user should be redirected to another page.
      *
      * @param Request $request
-     * @param Closure                 $next
+     * @param Closure $next
      *
      * @return mixed|\Illuminate\Http\JsonResponse
      */

@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\Rss;
@@ -23,6 +22,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 final class RssController extends Controller
 {
@@ -146,8 +146,8 @@ final class RssController extends Controller
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         if ($user->group->id == $banned_group[0]) {
             abort(404);

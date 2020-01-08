@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use App\Helpers\Bencode;
 use App\Models\FreeleechToken;
 use App\Models\Group;
@@ -23,6 +22,7 @@ use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 
 final class AnnounceController extends Controller
@@ -125,9 +125,9 @@ final class AnnounceController extends Controller
         }
 
         // Caached System Required Groups
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {

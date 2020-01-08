@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class BookmarkController extends Controller
 {
@@ -65,6 +65,7 @@ final class BookmarkController extends Controller
                 ->withErrors('Torrent has already been bookmarked.');
         }
         $request->user()->bookmarks()->attach($torrent->id);
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Bookmarked Successfully!');
     }

@@ -13,8 +13,6 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Response;
-use App\Services\MovieScrapper;
 use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
@@ -27,8 +25,10 @@ use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use App\Services\MovieScrapper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 final class TorrentController extends BaseController
@@ -232,7 +232,7 @@ final class TorrentController extends BaseController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int                      $id
+     * @param int     $id
      *
      * @return Response
      */
@@ -256,8 +256,8 @@ final class TorrentController extends BaseController
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param Request $request
-     * @param \App\Models\Torrent      $torrent
+     * @param Request             $request
+     * @param \App\Models\Torrent $torrent
      *
      * @return int|mixed[][]|\App\Http\Resources\TorrentsResource|mixed
      */
@@ -407,6 +407,7 @@ final class TorrentController extends BaseController
         if (!empty($torrent)) {
             return new TorrentsResource($torrent->paginate(25));
         }
+
         return $this->sendResponse('404', 'No Torrents Found');
     }
 

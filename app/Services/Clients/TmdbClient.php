@@ -13,11 +13,11 @@
 
 namespace App\Services\Clients;
 
-use HttpInvalidParamException;
 use App\Services\Contracts\MovieTvInterface;
 use App\Services\Data\Movie;
 use App\Services\Data\Person;
 use App\Services\Data\Tv;
+use HttpInvalidParamException;
 
 final class TmdbClient extends Client implements MovieTvInterface
 {
@@ -372,9 +372,9 @@ final class TmdbClient extends Client implements MovieTvInterface
      */
     private function formatImages($images, $path, $image): array
     {
-        $images = array_map(fn($item): string => $path.$item['file_path'], $images);
+        $images = array_map(fn ($item): string => $path.$item['file_path'], $images);
 
-        return array_filter($images, fn($item): bool => !$item != !($path.$image));
+        return array_filter($images, fn ($item): bool => !$item != !($path.$image));
     }
 
     /**

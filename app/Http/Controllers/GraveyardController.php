@@ -13,16 +13,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Throwable;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Graveyard;
 use App\Models\Torrent;
 use App\Repositories\TorrentFacetedRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
+use Throwable;
 
 final class GraveyardController extends Controller
 {
@@ -65,7 +65,7 @@ final class GraveyardController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param Request $request
-     * @param Torrent                  $torrent
+     * @param Torrent $torrent
      *
      * @throws Throwable
      *
@@ -179,6 +179,7 @@ final class GraveyardController extends Controller
                 ->withErrors($v->errors());
         }
         $resurrection->save();
+
         return redirect()->route('graveyard.index')
             ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
     }
@@ -187,7 +188,7 @@ final class GraveyardController extends Controller
      * Cancel A Ressurection.
      *
      * @param Request $request
-     * @param int                      $id
+     * @param int     $id
      *
      * @return RedirectResponse
      */

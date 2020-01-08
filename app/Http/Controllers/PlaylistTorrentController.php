@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 final class PlaylistTorrentController extends Controller
@@ -48,6 +48,7 @@ final class PlaylistTorrentController extends Controller
                 ->withErrors($v->errors());
         }
         $playlist_torrent->save();
+
         return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Torrent Has Successfully Been Attached To Your Playlist.');
     }

@@ -13,13 +13,12 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 final class TagController extends Controller
 {
@@ -68,6 +67,7 @@ final class TagController extends Controller
                 ->withErrors($v->errors());
         }
         $tag->save();
+
         return redirect()->route('staff.tags.index')
             ->withSuccess('Tag Successfully Added');
     }
@@ -110,6 +110,7 @@ final class TagController extends Controller
                 ->withErrors($v->errors());
         }
         $tag->save();
+
         return redirect()->route('staff.tags.index')
             ->withSuccess('Tag Successfully Modified');
     }

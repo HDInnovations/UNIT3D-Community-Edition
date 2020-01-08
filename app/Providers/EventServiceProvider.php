@@ -13,10 +13,10 @@
 
 namespace App\Providers;
 
-use App\Listeners\LogoutListener;
-use App\Listeners\LoginListener;
-use App\Listeners\FailedLoginListener;
 use App\Listeners\AchievementUnlocked;
+use App\Listeners\FailedLoginListener;
+use App\Listeners\LoginListener;
+use App\Listeners\LogoutListener;
 use App\Listeners\PasswordProtectBackup;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;

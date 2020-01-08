@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use App\Models\Follow;
 use App\Models\User;
 use App\Notifications\NewFollow;

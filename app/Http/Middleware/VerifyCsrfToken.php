@@ -14,9 +14,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Illuminate\Http\Request;
 
 final class VerifyCsrfToken extends BaseVerifier
 {
@@ -40,7 +40,7 @@ final class VerifyCsrfToken extends BaseVerifier
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure                 $next
+     * @param Closure $next
      *
      * @return mixed
      */

@@ -13,14 +13,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use App\Models\ApplicationImageProof;
 use App\Models\ApplicationUrlProof;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class ApplicationController extends Controller
 {
@@ -123,11 +122,12 @@ final class ApplicationController extends Controller
         }
         $application->save();
         // Map And Save IMG Proofs
-        $imgs = collect($request->input('images'))->map(fn($value): \App\Models\ApplicationImageProof => new ApplicationImageProof(['image' => $value]));
+        $imgs = collect($request->input('images'))->map(fn ($value): \App\Models\ApplicationImageProof => new ApplicationImageProof(['image' => $value]));
         $application->imageProofs()->saveMany($imgs);
         // Map And Save URL Proofs
-        $urls = collect($request->input('links'))->map(fn($value): \App\Models\ApplicationUrlProof => new ApplicationUrlProof(['url' => $value]));
+        $urls = collect($request->input('links'))->map(fn ($value): \App\Models\ApplicationUrlProof => new ApplicationUrlProof(['url' => $value]));
         $application->urlProofs()->saveMany($urls);
+
         return redirect()->route('login')
             ->withSuccess(trans('application-submitted'));
     }

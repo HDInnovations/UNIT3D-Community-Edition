@@ -13,10 +13,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Collection;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -31,10 +31,10 @@ final class Http2ServerPush
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param Closure                 $next
-     * @param null                     $limit
-     * @param null                     $sizeLimit
-     * @param null                     $excludeKeywords
+     * @param Closure $next
+     * @param null    $limit
+     * @param null    $sizeLimit
+     * @param null    $excludeKeywords
      *
      * @return mixed|\Illuminate\Http\Response
      */
@@ -76,13 +76,13 @@ final class Http2ServerPush
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
             ->flatten(1)
-            ->map(fn($url): string => $this->buildLinkHeaderString($url))
+            ->map(fn ($url): string => $this->buildLinkHeaderString($url))
             ->unique()
             ->filter(function ($value, $key) use ($excludeKeywords): bool {
                 if (!$value) {
                     return false;
                 }
-                $exclude_keywords = collect($excludeKeywords)->map(fn($keyword): string => preg_quote($keyword));
+                $exclude_keywords = collect($excludeKeywords)->map(fn ($keyword): string => preg_quote($keyword));
                 if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
@@ -149,7 +149,7 @@ final class Http2ServerPush
             '.JS'   => 'script',
         ];
 
-        $type = collect($linkTypeMap)->first(fn($type, $extension): bool => Str::contains(strtoupper($url), $extension));
+        $type = collect($linkTypeMap)->first(fn ($type, $extension): bool => Str::contains(strtoupper($url), $extension));
 
         if (!preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');

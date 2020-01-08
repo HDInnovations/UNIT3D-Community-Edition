@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 final class PageController extends Controller
 {
@@ -70,6 +70,7 @@ final class PageController extends Controller
                 ->withErrors($v->errors());
         }
         $page->save();
+
         return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been created successfully');
     }
@@ -114,6 +115,7 @@ final class PageController extends Controller
                 ->withErrors($v->errors());
         }
         $page->save();
+
         return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
     }

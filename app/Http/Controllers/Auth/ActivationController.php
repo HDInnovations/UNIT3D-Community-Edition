@@ -24,8 +24,8 @@ final class ActivationController extends Controller
      */
     public function activate($token)
     {
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $banned_group[0]) {
@@ -43,6 +43,7 @@ final class ActivationController extends Controller
             return redirect()->route('login')
                 ->withSuccess(trans('auth.activation-success'));
         }
+
         return redirect()->route('login')
             ->withErrors(trans('auth.activation-error'));
     }

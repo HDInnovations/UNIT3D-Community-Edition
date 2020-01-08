@@ -13,10 +13,10 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Type;
+use Illuminate\Support\Collection;
 
 final class TorrentFacetedRepository
 {

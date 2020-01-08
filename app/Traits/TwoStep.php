@@ -13,10 +13,10 @@
 
 namespace App\Traits;
 
-use Exception;
 use App\Models\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
 use Carbon\Carbon;
+use Exception;
 
 trait TwoStep
 {
@@ -170,6 +170,7 @@ trait TwoStep
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
         $expired = $now->gt($expire);
+
         return (bool) $expired;
     }
 

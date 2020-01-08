@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Http\RedirectResponse;
 use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
 use App\Models\History;
@@ -21,6 +20,7 @@ use App\Models\Message;
 use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 
 final class FlushController extends Controller
 {
