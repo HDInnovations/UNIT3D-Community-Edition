@@ -47,7 +47,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys($keys);
 
-        if ($type == 'movie') {
+        if ($type === 'movie') {
             if (isset($keys['imdb'])) {
                 $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
                 $results = $this->toArray($this->request($url));
@@ -60,7 +60,7 @@ class TmdbClient extends Client implements MovieTvInterface
             }
         }
 
-        if ($type == 'tv') {
+        if ($type === 'tv') {
             $url = null;
             if (isset($keys['imdb'])) {
                 $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id';
@@ -94,7 +94,7 @@ class TmdbClient extends Client implements MovieTvInterface
         $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
         $movie = $this->toArray($this->request($url));
 
-        if ($type == 'tv') {
+        if ($type === 'tv') {
             return $this->formatTv($movie);
         }
 
@@ -300,13 +300,13 @@ class TmdbClient extends Client implements MovieTvInterface
         $akas = [];
 
         if (!empty($movie['original_title'])) {
-            if (strtolower($movie['original_title']) != strtolower($movie['title'])) {
+            if (strtolower($movie['original_title']) !== strtolower($movie['title'])) {
                 $akas[] = $movie['original_title'];
             }
         }
 
         if (!empty($movie['original_name'])) {
-            if (strtolower($movie['original_name']) != strtolower($movie['name'])) {
+            if (strtolower($movie['original_name']) !== strtolower($movie['name'])) {
                 $akas[] = $movie['original_name'];
             }
         }
@@ -354,15 +354,9 @@ class TmdbClient extends Client implements MovieTvInterface
             return $path.$item['file_path'];
         }, $images);
 
-        $images = array_filter($images, function ($item) use ($path, $image) {
-            if ($item == $path.$image) {
-                return false;
-            }
-
-            return true;
+        return array_filter($images, function ($item) use ($path, $image) {
+            return !$item != !($path.$image);
         });
-
-        return $images;
     }
 
     private function formatCasts($credits, $role)

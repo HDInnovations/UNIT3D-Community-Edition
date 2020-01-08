@@ -168,8 +168,7 @@ class Post extends Model
     public function getPageNumber()
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
-        $result = floor($result);
 
-        return $result;
+        return floor($result);
     }
 }

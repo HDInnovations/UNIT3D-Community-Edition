@@ -247,11 +247,7 @@ class TorrentController extends Controller
         $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
         foreach ($launcher->cursor() as $chunk) {
             if ($chunk->imdb) {
-                if (!array_key_exists($chunk->imdb, $totals)) {
-                    $totals[$chunk->imdb] = 1;
-                } else {
-                    $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
-                }
+                $totals[$chunk->imdb] = !array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
                 if (!array_key_exists('imdb'.$chunk->imdb, $cache)) {
                     $cache['imdb'.$chunk->imdb] = [];
                 }
@@ -287,11 +283,7 @@ class TorrentController extends Controller
                 $counts['imdb'.$chunk->imdb]++;
             }
         }
-        if (count($cache) > 0) {
-            $torrents = $cache;
-        } else {
-            $torrents = null;
-        }
+        $torrents = count($cache) > 0 ? $cache : null;
 
         if (is_array($torrents)) {
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
@@ -448,17 +440,9 @@ class TorrentController extends Controller
             // $order = 'asc';
         }
 
-        if ($order == 'asc') {
-            $direction = 1;
-        } else {
-            $direction = 2;
-        }
+        $direction = $order == 'asc' ? 1 : 2;
 
-        if ($request->has('qty')) {
-            $qty = $request->input('qty');
-        } else {
-            $qty = 25;
-        }
+        $qty = $request->has('qty') ? $request->input('qty') : 25;
 
         if ($collection == 1) {
             $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname,max(torrents.size) as ssize')
@@ -701,7 +685,7 @@ class TorrentController extends Controller
         $attributes = [];
         $links = null;
         if ($collection == 1) {
-            if ($logger == null) {
+            if ($logger === null) {
                 $logger = 'torrent.results_groupings';
             }
 
@@ -725,11 +709,7 @@ class TorrentController extends Controller
             $launcher = Torrent::with(['user', 'category', 'tags'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $chunk) {
                 if ($chunk->imdb) {
-                    if (!array_key_exists($chunk->imdb, $totals)) {
-                        $totals[$chunk->imdb] = 1;
-                    } else {
-                        $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
-                    }
+                    $totals[$chunk->imdb] = !array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
                     if (!array_key_exists('imdb'.$chunk->imdb, $cache)) {
                         $cache['imdb'.$chunk->imdb] = [];
                     }
@@ -765,11 +745,7 @@ class TorrentController extends Controller
                     $counts['imdb'.$chunk->imdb]++;
                 }
             }
-            if (count($cache) > 0) {
-                $torrents = $cache;
-            } else {
-                $torrents = null;
-            }
+            $torrents = count($cache) > 0 ? $cache : null;
         } elseif ($history == 1) {
             $prelauncher = $torrent->orderBy('torrents.sticky', 'desc')->orderBy('torrents.'.$sorting, $order)->pluck('id')->toArray();
 
@@ -950,11 +926,7 @@ class TorrentController extends Controller
             $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
         }
 
-        if ($torrent->featured == 1) {
-            $featured = FeaturedTorrent::where('torrent_id', '=', $id)->first();
-        } else {
-            $featured = null;
-        }
+        $featured = $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null;
 
         $general = null;
         $video = null;
@@ -1280,13 +1252,13 @@ class TorrentController extends Controller
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $requestFile = $request->file('torrent');
 
-        if ($request->hasFile('torrent') == false) {
+        if (!$request->hasFile('torrent')) {
             return view('torrent.upload', [
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),
                 'user'       => $user, ])
                 ->withErrors('You Must Provide A Torrent File For Upload!');
-        } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+        } elseif ($requestFile->getError() !== 0 && $requestFile->getClientOriginalExtension() !== 'torrent') {
             return view('torrent.upload', [
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),
@@ -1383,14 +1355,14 @@ class TorrentController extends Controller
             $meta = null;
 
             // Torrent Tags System
-            if ($torrent->category->tv_meta) {
+            if ($torrent->category->tv_meta !== 0) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
             }
-            if ($torrent->category->movie_meta) {
+            if ($torrent->category->movie_meta !== 0) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
@@ -1493,11 +1465,8 @@ class TorrentController extends Controller
         if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
-        } else {
-            // Delete the last torrent tmp file
-            if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
-                unlink(getcwd().'/files/tmp/'.$tmpFileName);
-            }
+        } elseif (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
+            unlink(getcwd().'/files/tmp/'.$tmpFileName);
         }
         // Get the content of the torrent
         $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
@@ -1568,11 +1537,7 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        if ($torrent->sticky == 0) {
-            $torrent->sticky = '1';
-        } else {
-            $torrent->sticky = '0';
-        }
+        $torrent->sticky = $torrent->sticky == 0 ? '1' : '0';
         $torrent->save();
 
         return redirect()->route('torrent', ['id' => $torrent->id])

@@ -15,6 +15,26 @@ namespace App\Bots;
 
 class IRCAnnounceBot
 {
+    /**
+     * @var mixed
+     */
+    public $server;
+    /**
+     * @var mixed
+     */
+    public $port;
+    /**
+     * @var mixed
+     */
+    public $hostname;
+    /**
+     * @var mixed
+     */
+    public $nickservpass;
+    /**
+     * @var mixed
+     */
+    public $joinchannels;
     protected $socket = null;
 
     private $channels = [];
@@ -53,7 +73,7 @@ class IRCAnnounceBot
             flush();
             $ex = explode(' ', $data);
 
-            if ($ex[0] == 'PING') {
+            if ($ex[0] === 'PING') {
                 $this->send_data('PONG '.$ex[1]);
                 if ($this->nickservpass) {
                     $this->send_data("NICKSERV IDENTIFY {$this->nickservpass}");

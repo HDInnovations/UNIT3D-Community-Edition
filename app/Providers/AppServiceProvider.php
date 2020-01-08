@@ -65,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
                 return Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get();
             });
 
-            $view->with(compact('pages'));
+            $view->with(['pages' => $pages]);
         });
 
         // Hidden Captcha

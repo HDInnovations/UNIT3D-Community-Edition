@@ -34,7 +34,7 @@ class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        if (!(is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0)) {
+        if ((is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0) === 0) {
             dd(trans('backup.no_disks_configured'));
         }
 
@@ -48,14 +48,14 @@ class BackupController extends Controller
             // make an array of backup files, with their filesize and creation date
             foreach ($files as $k => $f) {
                 // only take the zip files into account
-                if (substr($f, -4) == '.zip' && $disk->exists($f)) {
+                if (substr($f, -4) === '.zip' && $disk->exists($f)) {
                     $data['backups'][] = [
                         'file_path'     => $f,
                         'file_name'     => str_replace('backups/', '', $f),
                         'file_size'     => $disk->size($f),
                         'last_modified' => $disk->lastModified($f),
                         'disk'          => $disk_name,
-                        'download'      => ($adapter instanceof Local) ? true : false,
+                        'download'      => $adapter instanceof Local,
                     ];
                 }
             }

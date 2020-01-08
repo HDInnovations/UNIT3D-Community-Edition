@@ -178,7 +178,7 @@ class CasinoBot
             $z = 3;
         }
 
-        if ($message == '') {
+        if ($message === '') {
             $log = '';
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
@@ -200,10 +200,10 @@ class CasinoBot
         }
 
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'donations') {
+            if ($command[$x] === 'donations') {
                 $log = $this->getDonations($params);
             }
-            if ($command[$x] == 'donate') {
+            if ($command[$x] === 'donate') {
                 $log = $this->putDonate($params, $wildcard);
             }
         }

@@ -513,11 +513,7 @@ class RequestController extends Controller
                 );
             }
 
-            if ($request->input('anon') == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
 
             $requester = $tr->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
@@ -568,11 +564,7 @@ class RequestController extends Controller
             // Send Private Message
             $appurl = config('app.url');
 
-            if ($request->input('filled_anon') == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
@@ -747,11 +739,7 @@ class RequestController extends Controller
             $torrentRequest->claimed = 1;
             $torrentRequest->save();
 
-            if ($request->input('anon') == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
@@ -790,11 +778,7 @@ class RequestController extends Controller
             $torrentRequest->claimed = null;
             $torrentRequest->save();
 
-            if ($isAnon == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $isAnon == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {

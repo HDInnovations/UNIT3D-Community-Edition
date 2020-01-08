@@ -282,10 +282,10 @@ class Movie
 
         if (is_array($genres)) {
             foreach ($genres as $genre) {
-                array_push($this->genres, $genre);
+                $this->genres[] = $genre;
             }
         } else {
-            array_push($this->genres, $genres);
+            $this->genres[] = $genres;
         }
     }
 }

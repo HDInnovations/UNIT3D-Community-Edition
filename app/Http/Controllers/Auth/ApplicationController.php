@@ -91,29 +91,27 @@ class ApplicationController extends Controller
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }
+        } elseif (config('captcha.enabled') == false) {
+            $v = validator($request->all(), [
+                'type'     => 'required',
+                'email'    => 'required|email|unique:invites|unique:users|unique:applications',
+                'referrer' => 'required',
+                'images.*' => 'filled',
+                'images'   => 'min:2',
+                'links.*'  => 'filled',
+                'links'    => 'min:2',
+            ]);
         } else {
-            if (config('captcha.enabled') == false) {
-                $v = validator($request->all(), [
-                    'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications',
-                    'referrer' => 'required',
-                    'images.*' => 'filled',
-                    'images'   => 'min:2',
-                    'links.*'  => 'filled',
-                    'links'    => 'min:2',
-                ]);
-            } else {
-                $v = validator($request->all(), [
-                    'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications',
-                    'referrer' => 'required',
-                    'images.*' => 'filled',
-                    'images'   => 'min:2',
-                    'links.*'  => 'filled',
-                    'links'    => 'min:2',
-                    'captcha'  => 'hiddencaptcha',
-                ]);
-            }
+            $v = validator($request->all(), [
+                'type'     => 'required',
+                'email'    => 'required|email|unique:invites|unique:users|unique:applications',
+                'referrer' => 'required',
+                'images.*' => 'filled',
+                'images'   => 'min:2',
+                'links.*'  => 'filled',
+                'links'    => 'min:2',
+                'captcha'  => 'hiddencaptcha',
+            ]);
         }
 
         if ($v->fails()) {

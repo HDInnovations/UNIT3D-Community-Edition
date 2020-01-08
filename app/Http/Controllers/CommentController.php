@@ -126,11 +126,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'article',
                         $request->input('content'),
@@ -226,11 +222,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'playlist',
                         $request->input('content'),
@@ -331,11 +323,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'torrent',
                         $request->input('content'),
@@ -436,11 +424,7 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
+                    $sender = $comment->anon ? 'Anonymous' : $user->username;
                     $this->tag->messageTaggedCommentUsers(
                         'request',
                         $request->input('content'),

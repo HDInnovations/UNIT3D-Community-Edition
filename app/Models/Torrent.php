@@ -358,9 +358,8 @@ class Torrent extends Model
     public function getMediaInfo()
     {
         $parser = new MediaInfo();
-        $parsed = $parser->parse($this->mediaInfo);
 
-        return $parsed;
+        return $parser->parse($this->mediaInfo);
     }
 
     /**
@@ -383,9 +382,9 @@ class Torrent extends Model
      */
     public function bookmarked()
     {
-        return Bookmark::where('user_id', '=', auth()->user()->id)
+        return (bool) Bookmark::where('user_id', '=', auth()->user()->id)
             ->where('torrent_id', '=', $this->id)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**

@@ -19,6 +19,7 @@ use Illuminate\Queue\SerializesModels;
 
 class DenyApplication extends Mailable
 {
+    public $input;
     use Queueable, SerializesModels;
 
     public $denied_message;

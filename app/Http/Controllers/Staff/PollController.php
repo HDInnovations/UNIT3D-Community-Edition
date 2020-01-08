@@ -83,11 +83,7 @@ class PollController extends Controller
     {
         $user = $request->user();
 
-        if ($request->user()) {
-            $poll = $user->polls()->create($request->all());
-        } else {
-            $poll = Poll::create($request->all());
-        }
+        $poll = $request->user() ? $user->polls()->create($request->all()) : Poll::create($request->all());
 
         $options = collect($request->input('options'))->map(function ($value) {
             return new Option(['name' => $value]);

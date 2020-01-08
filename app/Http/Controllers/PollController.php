@@ -68,7 +68,7 @@ class PollController extends Controller
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
 
-        return view('poll.show', compact('poll'));
+        return view('poll.show', ['poll' => $poll]);
     }
 
     /**

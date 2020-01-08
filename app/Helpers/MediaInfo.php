@@ -34,7 +34,7 @@ class MediaInfo
             }
         }
 
-        if (count($output)) {
+        if (count($output) > 0) {
             $output = $this->parseSections($output);
         }
 
@@ -47,7 +47,7 @@ class MediaInfo
         foreach ($sections as $key => $section) {
             $key_section = strtolower(explode(' ', $key)[0]);
             if (!empty($section)) {
-                if ($key_section == 'general') {
+                if ($key_section === 'general') {
                     $output[$key_section] = $this->parseProperty($section, $key_section);
                 } else {
                     $output[$key_section][] = $this->parseProperty($section, $key_section);
@@ -303,9 +303,8 @@ class MediaInfo
     private function parseBitRate($string)
     {
         $string = str_replace(' ', '', strtolower($string));
-        $string = str_replace('kbps', ' kbps', $string);
 
-        return $string;
+        return str_replace('kbps', ' kbps', $string);
     }
 
     private function parseWidthHeight($string)
@@ -413,7 +412,7 @@ class MediaInfo
                         $temp_text_output[] = $text_element[$property];
                     }
                 }
-                if (isset($text_element['forced']) && strtolower($text_element['forced']) == 'yes') {
+                if (isset($text_element['forced']) && strtolower($text_element['forced']) === 'yes') {
                     $temp_text_output[] = 'Forced';
                 }
 

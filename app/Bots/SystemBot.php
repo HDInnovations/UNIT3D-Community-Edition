@@ -157,23 +157,19 @@ class SystemBot
     public function process($type, User $target, $message = '', $targeted = 0)
     {
         $this->target = $target;
-        if ($type == 'message') {
-            $x = 0;
-        } else {
-            $x = 1;
-        }
+        $x = $type == 'message' ? 0 : 1;
 
         $y = $x + 1;
         $z = $y + 1;
 
-        if ($message == '') {
+        if ($message === '') {
             $log = '';
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
         $command = @explode(' ', $message);
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'gift' && array_key_exists($y, $command) && array_key_exists($z, $command) && array_key_exists($z + 1, $command)) {
+            if ($command[$x] === 'gift' && array_key_exists($y, $command) && array_key_exists($z, $command) && array_key_exists($z + 1, $command)) {
                 $clone = $command;
                 array_shift($clone);
                 array_shift($clone);
@@ -181,7 +177,7 @@ class SystemBot
                 array_shift($clone);
                 $log = $this->putGift($command[$y], $command[$z], $clone);
             }
-            if ($command[$x] == 'help') {
+            if ($command[$x] === 'help') {
                 $log = $this->getHelp();
             }
         }

@@ -31,10 +31,8 @@ trait TwoStep
             $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
             if ($twoStepAuthStatus->authStatus !== true) {
                 return false;
-            } else {
-                if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
-                    return false;
-                }
+            } elseif ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
+                return false;
             }
 
             return true;
@@ -115,7 +113,7 @@ trait TwoStep
      */
     private function checkTwoStepAuthStatus(int $userId)
     {
-        $twoStepAuth = TwoStepAuth::firstOrCreate(
+        return TwoStepAuth::firstOrCreate(
             [
                 'userId' => $userId,
             ],
@@ -125,8 +123,6 @@ trait TwoStep
                 'authCount' => 0,
             ]
         );
-
-        return $twoStepAuth;
     }
 
     /**
@@ -173,12 +169,7 @@ trait TwoStep
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
         $expired = $now->gt($expire);
-
-        if ($expired) {
-            return true;
-        }
-
-        return false;
+        return (bool) $expired;
     }
 
     /**

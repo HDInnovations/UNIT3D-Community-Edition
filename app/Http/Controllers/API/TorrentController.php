@@ -68,9 +68,9 @@ class TorrentController extends BaseController
         $user = $request->user();
         $requestFile = $request->file('torrent');
 
-        if ($request->hasFile('torrent') == false) {
+        if (!$request->hasFile('torrent')) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
-        } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+        } elseif ($requestFile->getError() !== 0 && $requestFile->getClientOriginalExtension() !== 'torrent') {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
@@ -163,14 +163,14 @@ class TorrentController extends BaseController
             $meta = null;
 
             // Torrent Tags System
-            if ($torrent->category->tv_meta) {
+            if ($torrent->category->tv_meta !== 0) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
             }
-            if ($torrent->category->movie_meta) {
+            if ($torrent->category->movie_meta !== 0) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {

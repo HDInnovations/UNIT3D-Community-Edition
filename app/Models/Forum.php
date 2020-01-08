@@ -115,7 +115,7 @@ class Forum extends Model
      */
     public function subscription_topics()
     {
-        if (auth()->user()) {
+        if (auth()->user() !== null) {
             $id = $this->id;
             $subscriptions = auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
 
@@ -243,11 +243,7 @@ class Forum extends Model
      */
     public function getPermission()
     {
-        if (auth()->check()) {
-            $group = auth()->user()->group;
-        } else {
-            $group = Group::find(2);
-        }
+        $group = auth()->check() ? auth()->user()->group : Group::find(2);
 
         return $group->permissions->where('forum_id', $this->id)->first();
     }
