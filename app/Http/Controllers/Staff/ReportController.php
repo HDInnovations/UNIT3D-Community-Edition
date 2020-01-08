@@ -51,7 +51,7 @@ class ReportController extends Controller
     /**
      * Update A Report.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

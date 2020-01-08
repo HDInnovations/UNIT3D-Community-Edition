@@ -65,7 +65,7 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * Get the database representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      *
      * @return array
      */

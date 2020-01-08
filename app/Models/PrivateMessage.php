@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $receiver
  * @property-read \App\Models\User $sender
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage query()
@@ -78,7 +79,7 @@ class PrivateMessage extends Model
     /**
      * Set The PM Message After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */

@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\User $staffuser
  * @property-read \App\Models\Torrent $torrenttitle
  * @property-read \App\Models\User $warneduser
+ *
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning newQuery()

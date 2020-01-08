@@ -28,8 +28,8 @@ class NewThank extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param  string  $type
-     * @param  Thank  $thank
+     * @param string $type
+     * @param Thank  $thank
      */
     public function __construct(string $type, Thank $thank)
     {

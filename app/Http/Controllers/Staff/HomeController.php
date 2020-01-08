@@ -29,7 +29,7 @@ class HomeController extends Controller
     /**
      * Display Staff Dashboard.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

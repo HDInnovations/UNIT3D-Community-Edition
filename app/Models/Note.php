@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $noteduser
  * @property-read \App\Models\User $staffuser
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note query()

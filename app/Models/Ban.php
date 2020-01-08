@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $banneduser
  * @property-read \App\Models\User|null $staffuser
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ban newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ban newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ban query()

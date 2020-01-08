@@ -126,8 +126,8 @@ class AlbumController extends Controller
     /**
      * Delete A Album.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

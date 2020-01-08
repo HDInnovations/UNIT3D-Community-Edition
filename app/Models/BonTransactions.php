@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\BonExchange $exchange
  * @property-read \App\Models\User $receiverObj
  * @property-read \App\Models\User $senderObj
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonTransactions newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonTransactions newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonTransactions query()

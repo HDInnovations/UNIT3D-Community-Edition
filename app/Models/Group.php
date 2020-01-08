@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $autogroup
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group query()
@@ -61,6 +62,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereSlug($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $permissions_count
  * @property-read int|null $users_count
  */
@@ -104,7 +106,9 @@ class Group extends Model
 
     /**
      * Returns The Requested Row From The Permissions Table.
+     *
      * @param $forum
+     *
      * @return
      */
     public function getPermissionsByForum($forum)
@@ -119,6 +123,7 @@ class Group extends Model
      *
      * @param $object
      * @param $group_id
+     *
      * @return int
      */
     public function isAllowed($object, $group_id)

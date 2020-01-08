@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Torrent $torrent
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark query()

@@ -74,6 +74,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
  * @property-read \App\Models\User $uploader
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent query()
@@ -114,6 +115,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUserId($value)
  * @mixin \Eloquent
+ *
  * @property string $igdb
  * @property string|null $release_year
  * @property-read int|null $comments_count
@@ -126,6 +128,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read int|null $tags_count
  * @property-read int|null $thanks_count
  * @property-read int|null $tips_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereIgdb($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereReleaseYear($value)
  */
@@ -314,7 +317,7 @@ class Torrent extends Model
     /**
      * Set The Torrents Description After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
@@ -338,7 +341,7 @@ class Torrent extends Model
     /**
      * Set The Torrents MediaInfo After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
@@ -363,8 +366,9 @@ class Torrent extends Model
     /**
      * Returns The Size In Human Format.
      *
-     * @param  null  $bytes
-     * @param  int  $precision
+     * @param null $bytes
+     * @param int  $precision
+     *
      * @return string
      */
     public function getSize($bytes = null, $precision = 2)
@@ -389,6 +393,7 @@ class Torrent extends Model
      *
      * @param $type
      * @param $payload
+     *
      * @return bool
      */
     public function notifyUploader($type, $payload)
@@ -415,7 +420,9 @@ class Torrent extends Model
 
     /**
      * Torrent Is Freeleech.
-     * @param  null  $user
+     *
+     * @param null $user
+     *
      * @return bool
      */
     public function isFreeleech($user = null)

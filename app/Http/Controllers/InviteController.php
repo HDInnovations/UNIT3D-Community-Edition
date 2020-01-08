@@ -26,7 +26,7 @@ class InviteController extends Controller
     /**
      * Invite Tree.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -45,7 +45,7 @@ class InviteController extends Controller
     /**
      * Invite Form.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -61,7 +61,7 @@ class InviteController extends Controller
             return redirect()->route('home.index')
             ->withErrors('Your Invite Rights Have Been Revoked!');
         }
-        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
+        if (config('other.invites_restriced') == true && !in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
@@ -74,15 +74,16 @@ class InviteController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         $current = new Carbon();
         $user = $request->user();
 
-        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
+        if (config('other.invites_restriced') == true && !in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
@@ -142,7 +143,7 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse

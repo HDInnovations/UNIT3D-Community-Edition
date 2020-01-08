@@ -6,6 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -43,6 +44,7 @@ class ApplicationController extends Controller
      * Get A Application.
      *
      * @param  $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -57,6 +59,7 @@ class ApplicationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function approve(Request $request, $id)
@@ -114,6 +117,7 @@ class ApplicationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request, $id)

@@ -40,6 +40,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property \Illuminate\Support\Carbon|null $completed_at
  * @property-read \App\Models\Torrent $torrent
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History query()

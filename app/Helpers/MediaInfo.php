@@ -46,7 +46,7 @@ class MediaInfo
         $output = [];
         foreach ($sections as $key => $section) {
             $key_section = strtolower(explode(' ', $key)[0]);
-            if (! empty($section)) {
+            if (!empty($section)) {
                 if ($key_section == 'general') {
                     $output[$key_section] = $this->parseProperty($section, $key_section);
                 } else {
@@ -293,7 +293,7 @@ class MediaInfo
     {
         $number = (float) $string;
         preg_match('/[KMGTPEZ]/i', $string, $size);
-        if (! empty($size[0])) {
+        if (!empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
         }
 
@@ -331,10 +331,10 @@ class MediaInfo
     private function formatOutput($data)
     {
         $output = [];
-        $output['general'] = ! empty($data['general']) ? $data['general'] : null;
-        $output['video'] = ! empty($data['video']) ? $data['video'] : null;
-        $output['audio'] = ! empty($data['audio']) ? $data['audio'] : null;
-        $output['text'] = ! empty($data['text']) ? $data['text'] : null;
+        $output['general'] = !empty($data['general']) ? $data['general'] : null;
+        $output['video'] = !empty($data['video']) ? $data['video'] : null;
+        $output['audio'] = !empty($data['audio']) ? $data['audio'] : null;
+        $output['text'] = !empty($data['text']) ? $data['text'] : null;
 
         return $output;
     }
@@ -374,12 +374,12 @@ class MediaInfo
                     }
                 }
 
-                if (! empty($temp_video_output)) {
+                if (!empty($temp_video_output)) {
                     $temp_output[] = $temp_video_output;
                 }
             }
 
-            $output['video'] = ! empty($temp_output) ? $temp_output : null;
+            $output['video'] = !empty($temp_output) ? $temp_output : null;
         }
 
         if ($data['audio'] === null) {
@@ -394,12 +394,12 @@ class MediaInfo
                     }
                 }
 
-                if (! empty($temp_audio_output)) {
+                if (!empty($temp_audio_output)) {
                     $temp_output[] = $temp_audio_output;
                 }
             }
 
-            $output['audio'] = ! empty($temp_output) ? $temp_output : null;
+            $output['audio'] = !empty($temp_output) ? $temp_output : null;
         }
 
         if ($data['text'] === null) {
@@ -417,12 +417,12 @@ class MediaInfo
                     $temp_text_output[] = 'Forced';
                 }
 
-                if (! empty($temp_text_output)) {
+                if (!empty($temp_text_output)) {
                     $temp_output[] = $temp_text_output;
                 }
             }
 
-            $output['text'] = ! empty($temp_output) ? $temp_output : null;
+            $output['text'] = !empty($temp_output) ? $temp_output : null;
         }
 
         return $output;

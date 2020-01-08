@@ -146,8 +146,8 @@ class UserController extends Controller
     /**
      * Edit Profile Form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -163,8 +163,8 @@ class UserController extends Controller
     /**
      * Edit User Profile.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -215,8 +215,8 @@ class UserController extends Controller
     /**
      * User Account Settings.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -232,8 +232,8 @@ class UserController extends Controller
     /**
      * Change User Account Settings.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -271,8 +271,8 @@ class UserController extends Controller
     /**
      * User Security Settings.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -307,8 +307,8 @@ class UserController extends Controller
     /**
      * User Password Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -529,9 +529,8 @@ class UserController extends Controller
     /**
      * User Other Privacy Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -542,7 +541,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (! $privacy) {
+        if (!$privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -568,9 +567,8 @@ class UserController extends Controller
     /**
      * User Request Privacy Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -581,7 +579,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (! $privacy) {
+        if (!$privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -607,9 +605,8 @@ class UserController extends Controller
     /**
      * User Achievement Privacy Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @param                            $username
+     * @param \Illuminate\Http\Request $request
+     * @param                          $username
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -620,7 +617,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (! $privacy) {
+        if (!$privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -646,8 +643,7 @@ class UserController extends Controller
     /**
      * User Forum Privacy Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return Illuminate\Http\RedirectResponse
@@ -659,7 +655,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (! $privacy) {
+        if (!$privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -686,9 +682,9 @@ class UserController extends Controller
     /**
      * User Follower Privacy Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeFollower(Request $request, $username)
@@ -698,7 +694,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (! $privacy) {
+        if (!$privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -724,9 +720,9 @@ class UserController extends Controller
     /**
      * User Torrent Privacy Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeTorrent(Request $request, $username)
@@ -736,7 +732,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (! $privacy) {
+        if (!$privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -767,9 +763,9 @@ class UserController extends Controller
     /**
      * User Account Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeAccountNotification(Request $request, $username)
@@ -779,7 +775,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -807,9 +803,9 @@ class UserController extends Controller
     /**
      * User Following Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeFollowingNotification(Request $request, $username)
@@ -819,7 +815,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -846,9 +842,9 @@ class UserController extends Controller
     /**
      * User BON Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeBonNotification(Request $request, $username)
@@ -858,7 +854,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -885,9 +881,9 @@ class UserController extends Controller
     /**
      * User Subscription Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeSubscriptionNotification(Request $request, $username)
@@ -897,7 +893,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -925,9 +921,9 @@ class UserController extends Controller
     /**
      * User Request Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeRequestNotification(Request $request, $username)
@@ -937,7 +933,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -970,9 +966,9 @@ class UserController extends Controller
     /**
      * User Torrent Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeTorrentNotification(Request $request, $username)
@@ -982,7 +978,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -1011,9 +1007,9 @@ class UserController extends Controller
     /**
      * User Mention Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeMentionNotification(Request $request, $username)
@@ -1023,7 +1019,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -1054,9 +1050,9 @@ class UserController extends Controller
     /**
      * User Forum Notification Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeForumNotification(Request $request, $username)
@@ -1066,7 +1062,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (! $notification) {
+        if (!$notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -1093,9 +1089,9 @@ class UserController extends Controller
     /**
      * User Profile Privacy Change.
      *
-     * @param  \Illuminate\Http\Request  $request
-     *
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function changeProfile(Request $request, $username)
@@ -1105,7 +1101,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (! $privacy) {
+        if (!$privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -1145,8 +1141,9 @@ class UserController extends Controller
     /**
      * Change User RID.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function changeRID(Request $request, $username)
@@ -1165,7 +1162,7 @@ class UserController extends Controller
     /**
      * Change User API Token.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return Illuminate\Http\RedirectResponse
@@ -1186,8 +1183,9 @@ class UserController extends Controller
     /**
      * User Privacy Settings.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function privacy(Request $request, $username)
@@ -1204,8 +1202,9 @@ class UserController extends Controller
     /**
      * User Notification Settings.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function notification(Request $request, $username)
@@ -1222,8 +1221,9 @@ class UserController extends Controller
     /**
      * Uses Input's To Put Together A Filtered View.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
+     *
      * @return array
      */
     public function myFilter(Request $request, $username)
@@ -1286,7 +1286,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1351,7 +1351,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1393,7 +1393,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1441,7 +1441,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1488,7 +1488,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1551,7 +1551,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1636,7 +1636,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1670,7 +1670,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (!$sorting || $sorting == null || !$order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1723,8 +1723,9 @@ class UserController extends Controller
     /**
      * Get A Users Downloads (Fully Downloaded) Table.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function downloads(Request $request, $username)
@@ -1793,8 +1794,9 @@ class UserController extends Controller
     /**
      * Get A Users Requested Table.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function requested(Request $request, $username)
@@ -1826,8 +1828,9 @@ class UserController extends Controller
     /**
      * Get A Users Unsatisfieds Table.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function unsatisfieds(Request $request, $username)
@@ -1873,8 +1876,9 @@ class UserController extends Controller
     /**
      * Get A Users History Table.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function torrents(Request $request, $username)
@@ -1905,8 +1909,9 @@ class UserController extends Controller
     /**
      * Get A Users Graveyard Resurrections.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function resurrections(Request $request, $username)
@@ -1926,8 +1931,9 @@ class UserController extends Controller
     /**
      * Get A User Uploads.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function uploads(Request $request, $username)
@@ -1967,8 +1973,9 @@ class UserController extends Controller
     /**
      * Get A Users Active Table.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function active(Request $request, $username)
@@ -2002,8 +2009,9 @@ class UserController extends Controller
     /**
      * Get A Users Seeds Table.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function seeds(Request $request, $username)
@@ -2036,8 +2044,9 @@ class UserController extends Controller
     /**
      * Get A Users Bans.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getBans(Request $request, $username)
@@ -2056,8 +2065,9 @@ class UserController extends Controller
     /**
      * Download All History Torrents.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $username
+     *
      * @return \ZipArchive
      */
     public function downloadHistoryTorrents(Request $request, $username)
@@ -2073,7 +2083,7 @@ class UserController extends Controller
         $path = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (! File::isDirectory($path)) {
+        if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0755, true, true);
         }
 
@@ -2096,7 +2106,7 @@ class UserController extends Controller
                 $tmpFileName = "{$torrent->slug}.torrent";
 
                 // The Torrent File Exist?
-                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     return redirect()->back()->withErrors('Torrent File Not Found! Please Report This Torrent!');
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
@@ -2135,6 +2145,7 @@ class UserController extends Controller
      * Accept Site Rules.
      *
      * @param Request $request
+     *
      * @return void
      */
     public function acceptRules(Request $request)

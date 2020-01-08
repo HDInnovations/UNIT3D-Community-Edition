@@ -22,8 +22,8 @@ class ThankController extends Controller
     /**
      * Store A New Thank.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

@@ -23,7 +23,8 @@ class ChatBotController extends Controller
     /**
      * Display a listing of the Bots resource.
      *
-     * @param  string  $hash
+     * @param string $hash
+     *
      * @return \Illuminate\Http\Response
      */
     public function index($hash = null)
@@ -38,8 +39,8 @@ class ChatBotController extends Controller
     /**
      * Show the form for editing the specified Bot resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -57,8 +58,9 @@ class ChatBotController extends Controller
     /**
      * Update the specified Bot resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -110,7 +112,7 @@ class ChatBotController extends Controller
             $bot->save();
             $success = 'The Bot Has Been Updated';
         }
-        if (! $success) {
+        if (!$success) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -127,7 +129,8 @@ class ChatBotController extends Controller
     /**
      * Remove the specified Bot resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -142,7 +145,8 @@ class ChatBotController extends Controller
     /**
      * Disable the specified Bot resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function disable($id)
@@ -158,7 +162,8 @@ class ChatBotController extends Controller
     /**
      * Enable the specified Bot resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function enable($id)

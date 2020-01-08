@@ -70,7 +70,7 @@ class OmdbClient extends Client implements MovieTvInterface
         }
 
         $data = [
-            'imdb'         => ! empty($movie['imdbID']) ? $movie['imdbID'] : 'Not Defined',
+            'imdb'         => !empty($movie['imdbID']) ? $movie['imdbID'] : 'Not Defined',
             'title'        => $movie['Title'],
             'releaseDate'  => $movie['Released'],
             'plot'         => $movie['Plot'],
@@ -91,7 +91,7 @@ class OmdbClient extends Client implements MovieTvInterface
     private function formatLanguages($languages)
     {
         $movie_languages = [];
-        if (! empty($languages)) {
+        if (!empty($languages)) {
             $languages = explode(',', $languages);
             foreach ($languages as $language) {
                 $movie_languages[] = [
@@ -107,7 +107,7 @@ class OmdbClient extends Client implements MovieTvInterface
     private function formatGenres($genres)
     {
         $movie_genres = [];
-        if (! empty($genres)) {
+        if (!empty($genres)) {
             $genres = explode(',', $genres);
             foreach ($genres as $genre) {
                 $movie_genres[] = trim($genre);

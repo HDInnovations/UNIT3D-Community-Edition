@@ -78,47 +78,47 @@ None.
 
 (All NerdBot statistics are cached for 60 minutes)',
             'is_protected' => 1,
-            'is_nerdbot' => 1,
+            'is_nerdbot'   => 1,
         ]);
 
         //3
         Bot::create([
-            'name'       => 'CasinoBot',
-            'slug'       => 'casinobot',
-            'command'    => 'casinobot',
-            'emoji'      => '1f3b0',
-            'position'   => 3,
-            'color'      => '#f1c40f',
-            'icon'       => 'fab fa-android',
-            'help'       => 'Coming soon',
+            'name'         => 'CasinoBot',
+            'slug'         => 'casinobot',
+            'command'      => 'casinobot',
+            'emoji'        => '1f3b0',
+            'position'     => 3,
+            'color'        => '#f1c40f',
+            'icon'         => 'fab fa-android',
+            'help'         => 'Coming soon',
             'is_protected' => 1,
             'is_casinobot' => 1,
         ]);
 
         //4
         Bot::create([
-            'name'       => 'BetBot',
-            'slug'       => 'betbot',
-            'command'    => 'betbot',
-            'emoji'      => '1f3b2',
-            'position'   => 4,
-            'color'      => '#f1c40f',
-            'icon'       => 'fab fa-android',
-            'help'       => 'Coming soon',
+            'name'         => 'BetBot',
+            'slug'         => 'betbot',
+            'command'      => 'betbot',
+            'emoji'        => '1f3b2',
+            'position'     => 4,
+            'color'        => '#f1c40f',
+            'icon'         => 'fab fa-android',
+            'help'         => 'Coming soon',
             'is_protected' => 1,
-            'is_betbot' => 1,
+            'is_betbot'    => 1,
         ]);
 
         //5
         Bot::create([
-            'name'       => 'TriviaBot',
-            'slug'       => 'triviabot',
-            'command'    => 'triviabot',
-            'emoji'      => '2753',
-            'position'   => 5,
-            'color'      => '#f1c40f',
-            'icon'       => 'fab fa-android',
-            'help'       => 'Coming soon',
+            'name'         => 'TriviaBot',
+            'slug'         => 'triviabot',
+            'command'      => 'triviabot',
+            'emoji'        => '2753',
+            'position'     => 5,
+            'color'        => '#f1c40f',
+            'icon'         => 'fab fa-android',
+            'help'         => 'Coming soon',
             'is_protected' => 1,
             'is_triviabot' => 1,
         ]);

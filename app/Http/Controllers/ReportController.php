@@ -29,7 +29,7 @@ class ReportController extends Controller
     /**
      * ReportController Constructor.
      *
-     * @param Report  $report
+     * @param Report $report
      */
     public function __construct(Report $report)
     {

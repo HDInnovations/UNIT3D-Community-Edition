@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $position
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequest[] $requests
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereSlug($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $requests_count
  * @property-read int|null $torrents_count
  */

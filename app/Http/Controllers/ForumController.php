@@ -58,17 +58,17 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (! is_array($pests)) {
+        if (!is_array($pests)) {
             $pests = [];
         }
 
         $topic_neos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
-        if (! is_array($topic_neos)) {
+        if (!is_array($topic_neos)) {
             $topic_neos = [];
         }
 
         $forum_neos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
-        if (! is_array($forum_neos)) {
+        if (!is_array($forum_neos)) {
             $forum_neos = [];
         }
 
@@ -77,7 +77,7 @@ class ForumController extends Controller
             $result = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests);
         }
 
-        if (! isset($logger)) {
+        if (!isset($logger)) {
             $logger = 'forum.results_topics';
             $result = Topic::whereNotIn('topics.forum_id', $pests);
         }
@@ -193,17 +193,17 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (! is_array($pests)) {
+        if (!is_array($pests)) {
             $pests = [];
         }
 
         $topic_neos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
-        if (! is_array($topic_neos)) {
+        if (!is_array($topic_neos)) {
             $topic_neos = [];
         }
 
         $forum_neos = $user->subscriptions->where('forum_id', '>', '0')->pluck('forum_id')->toArray();
-        if (! is_array($forum_neos)) {
+        if (!is_array($forum_neos)) {
             $forum_neos = [];
         }
 
@@ -250,7 +250,7 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (! is_array($pests)) {
+        if (!is_array($pests)) {
             $pests = [];
         }
 
@@ -284,7 +284,7 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (! is_array($pests)) {
+        if (!is_array($pests)) {
             $pests = [];
         }
 

@@ -61,7 +61,7 @@ class ChatController extends Controller
     {
         $user = User::with(['echoes'])->findOrFail($this->auth->user()->id);
 
-        if (! $user->echoes || count($user->echoes->toArray()) < 1) {
+        if (!$user->echoes || count($user->echoes->toArray()) < 1) {
             $echoes = new UserEcho();
             $echoes->user_id = $this->auth->user()->id;
             $echoes->room_id = 1;
@@ -76,7 +76,7 @@ class ChatController extends Controller
     {
         $user = User::with(['audibles'])->findOrFail($this->auth->user()->id);
 
-        if (! $user->audibles || count($user->audibles->toArray()) < 1) {
+        if (!$user->audibles || count($user->audibles->toArray()) < 1) {
             $audibles = new UserAudible();
             $audibles->user_id = $this->auth->user()->id;
             $audibles->room_id = 1;
@@ -155,7 +155,7 @@ class ChatController extends Controller
 
         $bot_dirty = 0;
         $bots = cache()->get('bots');
-        if (! $bots || ! is_array($bots) || count($bots) < 1) {
+        if (!$bots || !is_array($bots) || count($bots) < 1) {
             $bots = Bot::where('active', '=', 1)->orderBy('position', 'asc')->get();
             $bot_dirty = 1;
         }
@@ -219,7 +219,7 @@ class ChatController extends Controller
             }
         }
 
-        if ($which != null && $which != 'skip' && ! $runbot) {
+        if ($which != null && $which != 'skip' && !$runbot) {
             if ($bot->is_systembot) {
                 $runbot = new SystemBot($this->chat);
             } elseif ($bot->is_nerdbot) {
@@ -238,10 +238,10 @@ class ChatController extends Controller
             $receiver_dirty = 0;
             $sender_echoes = cache()->get('user-echoes'.$user_id);
             $receiver_echoes = cache()->get('user-echoes'.$receiver_id);
-            if (! $sender_echoes || ! is_array($sender_echoes) || count($sender_echoes) < 1) {
+            if (!$sender_echoes || !is_array($sender_echoes) || count($sender_echoes) < 1) {
                 $sender_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$user_id])->get();
             }
-            if (! $receiver_echoes || ! is_array($receiver_echoes) || count($receiver_echoes) < 1) {
+            if (!$receiver_echoes || !is_array($receiver_echoes) || count($receiver_echoes) < 1) {
                 $receiver_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$receiver_id])->get();
             }
             $sender_listening = false;
@@ -250,7 +250,7 @@ class ChatController extends Controller
                     $sender_listening = true;
                 }
             }
-            if (! $sender_listening) {
+            if (!$sender_listening) {
                 $sender_port = new UserEcho();
                 $sender_port->user_id = $user_id;
                 $sender_port->target_id = $receiver_id;
@@ -264,7 +264,7 @@ class ChatController extends Controller
                     $receiver_listening = true;
                 }
             }
-            if (! $receiver_listening) {
+            if (!$receiver_listening) {
                 $receiver_port = new UserEcho();
                 $receiver_port->user_id = $receiver_id;
                 $receiver_port->target_id = $user_id;
@@ -287,10 +287,10 @@ class ChatController extends Controller
             $receiver_dirty = 0;
             $sender_audibles = cache()->get('user-audibles'.$user_id);
             $receiver_audibles = cache()->get('user-audibles'.$receiver_id);
-            if (! $sender_audibles || ! is_array($sender_audibles) || count($sender_audibles) < 1) {
+            if (!$sender_audibles || !is_array($sender_audibles) || count($sender_audibles) < 1) {
                 $sender_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$user_id])->get();
             }
-            if (! $receiver_audibles || ! is_array($receiver_audibles) || count($receiver_audibles) < 1) {
+            if (!$receiver_audibles || !is_array($receiver_audibles) || count($receiver_audibles) < 1) {
                 $receiver_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$receiver_id])->get();
             }
             $sender_listening = false;
@@ -299,7 +299,7 @@ class ChatController extends Controller
                     $sender_listening = true;
                 }
             }
-            if (! $sender_listening) {
+            if (!$sender_listening) {
                 $sender_port = new UserAudible();
                 $sender_port->user_id = $user_id;
                 $sender_port->target_id = $receiver_id;
@@ -314,7 +314,7 @@ class ChatController extends Controller
                     $receiver_listening = true;
                 }
             }
-            if (! $receiver_listening) {
+            if (!$receiver_listening) {
                 $receiver_port = new UserAudible();
                 $receiver_port->user_id = $receiver_id;
                 $receiver_port->target_id = $user_id;
@@ -349,7 +349,7 @@ class ChatController extends Controller
             $message = $this->chat->message($user_id, $room_id, $message, $receiver_id, $bot_id);
         }
 
-        if (! $save) {
+        if (!$save) {
             $message->delete();
         }
 
@@ -497,7 +497,7 @@ class ChatController extends Controller
 
         $sender_dirty = 0;
         $sender_echoes = cache()->get('user-echoes'.$id);
-        if (! $sender_echoes || ! is_array($sender_echoes) || count($sender_echoes) < 1) {
+        if (!$sender_echoes || !is_array($sender_echoes) || count($sender_echoes) < 1) {
             $sender_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$id])->get();
         }
         $sender_listening = false;
@@ -506,7 +506,7 @@ class ChatController extends Controller
                 $sender_listening = true;
             }
         }
-        if (! $sender_listening) {
+        if (!$sender_listening) {
             $sender_port = new UserEcho();
             $sender_port->user_id = $id;
             $sender_port->room_id = $room->id;

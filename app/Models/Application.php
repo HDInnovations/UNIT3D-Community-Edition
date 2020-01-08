@@ -6,6 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\User|null $moderated
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ApplicationUrlProof[] $urlProofs
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application query()
@@ -47,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereUpdatedAt($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $image_proofs_count
  * @property-read int|null $url_proofs_count
  */

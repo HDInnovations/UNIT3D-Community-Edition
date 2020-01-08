@@ -87,7 +87,7 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
         $filename = $image->image;
 
-        if (! file_exists(getcwd().'/files/img/'.$filename)) {
+        if (!file_exists(getcwd().'/files/img/'.$filename)) {
             return redirect()->route('show_album', ['id' => $image->album_id])
                 ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
@@ -101,8 +101,8 @@ class ImageController extends Controller
     /**
      * Delete A Image.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

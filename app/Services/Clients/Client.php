@@ -44,7 +44,7 @@ abstract class Client
         } catch (\Exception $e) {
         }
 
-        if (! empty($response)) {
+        if (!empty($response)) {
             $this->validateStatus($response->getStatusCode());
             $content = $response->getBody()->getContents();
 

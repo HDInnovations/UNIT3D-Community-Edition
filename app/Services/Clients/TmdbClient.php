@@ -124,14 +124,14 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         if (is_array($movie)) {
             return new Movie([
-                'imdb'         => ! empty($movie['imdb_id']) ? $movie['imdb_id'] : 'Not Defined',
+                'imdb'         => !empty($movie['imdb_id']) ? $movie['imdb_id'] : 'Not Defined',
                 'tmdb'         => $movie['id'],
                 'title'        => $movie['title'],
                 'releaseDate'  => $movie['release_date'],
                 'plot'         => $movie['overview'],
                 'aka'          => $this->formatAlternativeTitles($movie),
                 'countries'    => $this->formatCountries($movie['production_countries']),
-                'language'     => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
+                'language'     => !empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
                 'languages'    => $this->formatLanguages($movie['spoken_languages']),
                 'genres'       => $this->formatGenres($movie['genres']),
                 'videoTrailer' => $this->formatVideoTrailers($movie),
@@ -140,14 +140,14 @@ class TmdbClient extends Client implements MovieTvInterface
                 'directors'    => $this->formatCasts($movie['credits'], 'directors'),
                 'writers'      => $this->formatCasts($movie['credits'], 'writers'),
                 'producers'    => $this->formatCasts($movie['credits'], 'producers'),
-                'poster'       => ! empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
-                'posters'      => ! empty($movie['images']['posters']) ? $this->formatImages(
+                'poster'       => !empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
+                'posters'      => !empty($movie['images']['posters']) ? $this->formatImages(
                     $movie['images']['posters'],
                     $this->imagePath,
                     $movie['poster_path']
                 ) : 'https://via.placeholder.com/600x900',
-                'backdrop'  => ! empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
-                'backdrops' => ! empty($movie['images']['backdrops']) ? $this->formatImages(
+                'backdrop'  => !empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
+                'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
                     $movie['images']['backdrops'],
                     $this->imageBackdropPath,
                     $movie['backdrop_path']
@@ -164,8 +164,8 @@ class TmdbClient extends Client implements MovieTvInterface
         if (is_array($movie)) {
             return new Tv([
                 'tmdb'         => $movie['id'],
-                'imdb'         => ! empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : 'Not Defined',
-                'tvdb'         => ! empty($movie['external_ids']['tvdb_id']) ? $movie['external_ids']['tvdb_id'] : 'Not Defined',
+                'imdb'         => !empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : 'Not Defined',
+                'tvdb'         => !empty($movie['external_ids']['tvdb_id']) ? $movie['external_ids']['tvdb_id'] : 'Not Defined',
                 'title'        => $movie['name'],
                 'releaseDate'  => $movie['first_air_date'],
                 'endDate'      => ($movie['status'] == 'Ended') ? $movie['last_air_date'] : null,
@@ -177,18 +177,18 @@ class TmdbClient extends Client implements MovieTvInterface
                 'creators'     => $this->formatCasts($movie['created_by'], 'creators'),
                 'aka'          => $this->formatAlternativeTitles($movie),
                 'countries'    => $this->formatCountries($movie['origin_country'], 'tv'),
-                'language'     => ! empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
+                'language'     => !empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
                 'languages'    => $this->formatLanguages($movie['languages'], 'tv'),
                 'genres'       => $this->formatGenres($movie['genres']),
                 'videoTrailer' => $this->formatVideoTrailers($movie),
-                'poster'       => ! empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
-                'posters'      => ! empty($movie['images']['posters']) ? $this->formatImages(
+                'poster'       => !empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
+                'posters'      => !empty($movie['images']['posters']) ? $this->formatImages(
                     $movie['images']['posters'],
                     $this->imagePath,
                     $movie['poster_path']
                 ) : 'https://via.placeholder.com/600x900',
-                'backdrop'  => ! empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
-                'backdrops' => ! empty($movie['images']['backdrops']) ? $this->formatImages(
+                'backdrop'  => !empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
+                'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
                     $movie['images']['backdrops'],
                     $this->imageBackdropPath,
                     $movie['backdrop_path']
@@ -208,7 +208,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatPerson($person)
     {
         return new Person([
-            'imdb'         => ! empty($person['imdb_id']) ? $person['imdb_id'] : 'Not Defined',
+            'imdb'         => !empty($person['imdb_id']) ? $person['imdb_id'] : 'Not Defined',
             'tmdb'         => $person['id'],
             'name'         => $person['name'],
             'aka'          => $person['also_known_as'],
@@ -217,8 +217,8 @@ class TmdbClient extends Client implements MovieTvInterface
             'deathday'     => $person['deathday'] ?? null,
             'placeOfBirth' => $person['place_of_birth'] ?? null,
             'biography'    => $person['biography'] ?? null,
-            'photo'        => ! empty($person['profile_path']) ? $this->imageProfilePath.$person['profile_path'] : 'https://via.placeholder.com/100x100',
-            'photos'       => ! empty($person['images']['profiles']) ? $this->formatImages(
+            'photo'        => !empty($person['profile_path']) ? $this->imageProfilePath.$person['profile_path'] : 'https://via.placeholder.com/100x100',
+            'photos'       => !empty($person['images']['profiles']) ? $this->formatImages(
                 $person['images']['profiles'],
                 $this->imageProfilePath,
                 $person['profile_path']
@@ -232,7 +232,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $movie_countries = [];
         if ($type == 'movie') {
-            if (! is_null($countries)) {
+            if (!is_null($countries)) {
                 foreach ($countries as $country) {
                     $movie_countries[] = [
                         'code'    => $country['iso_3166_1'],
@@ -243,7 +243,7 @@ class TmdbClient extends Client implements MovieTvInterface
         }
 
         if ($type == 'tv') {
-            if (! is_null($countries)) {
+            if (!is_null($countries)) {
                 foreach ($countries as $country) {
                     $movie_countries[] = [
                         'code'    => $country,
@@ -260,7 +260,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $movie_languages = [];
         if ($type == 'movie') {
-            if (! is_null($languages)) {
+            if (!is_null($languages)) {
                 foreach ($languages as $language) {
                     $movie_languages[] = [
                         'code'     => $language['iso_639_1'],
@@ -270,7 +270,7 @@ class TmdbClient extends Client implements MovieTvInterface
             }
         }
         if ($type == 'tv') {
-            if (! is_null($languages)) {
+            if (!is_null($languages)) {
                 foreach ($languages as $language) {
                     $movie_languages[] = [
                         'code'     => $language,
@@ -286,7 +286,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatGenres($genres)
     {
         $movie_genres = [];
-        if (! is_null($genres)) {
+        if (!is_null($genres)) {
             foreach ($genres as $genre) {
                 $movie_genres[] = $genre['name'];
             }
@@ -299,25 +299,25 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $akas = [];
 
-        if (! empty($movie['original_title'])) {
+        if (!empty($movie['original_title'])) {
             if (strtolower($movie['original_title']) != strtolower($movie['title'])) {
                 $akas[] = $movie['original_title'];
             }
         }
 
-        if (! empty($movie['original_name'])) {
+        if (!empty($movie['original_name'])) {
             if (strtolower($movie['original_name']) != strtolower($movie['name'])) {
                 $akas[] = $movie['original_name'];
             }
         }
 
-        $original_title = ! empty($movie['title']) ? $movie['title'] : (! empty($movie['name']) ? $movie['name'] : null);
+        $original_title = !empty($movie['title']) ? $movie['title'] : (!empty($movie['name']) ? $movie['name'] : null);
 
         $alternative_titles = null;
-        if (! empty($movie['alternative_titles']['titles'])) {
+        if (!empty($movie['alternative_titles']['titles'])) {
             $alternative_titles = $movie['alternative_titles']['titles'];
         }
-        if (! empty($movie['alternative_titles']['results'])) {
+        if (!empty($movie['alternative_titles']['results'])) {
             $alternative_titles = $movie['alternative_titles']['results'];
         }
         if ($alternative_titles) {
@@ -339,7 +339,7 @@ class TmdbClient extends Client implements MovieTvInterface
 
     private function formatVideoTrailers($movie)
     {
-        if (! empty($trailers = $movie['videos']['results'])) {
+        if (!empty($trailers = $movie['videos']['results'])) {
             foreach ($trailers as $trailer) {
                 if ($trailer['type'] == 'Trailer' && $trailer['site'] == 'YouTube') {
                     return 'https://www.youtube-nocookie.com/embed/'.$trailer['key'];
@@ -369,7 +369,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $casts = [];
         if ($role == 'actors') {
-            if (! empty($credits['cast'])) {
+            if (!empty($credits['cast'])) {
                 foreach ($credits['cast'] as $credit) {
                     $casts[] = new Person([
                         'tmdb'      => $credit['id'],
@@ -380,7 +380,7 @@ class TmdbClient extends Client implements MovieTvInterface
                 }
             }
         } else {
-            if ($role == 'creators' && ! empty($credits)) {
+            if ($role == 'creators' && !empty($credits)) {
                 foreach ($credits as $credit) {
                     $casts[] = new Person([
                         'tmdb' => $credit['id'],
@@ -388,7 +388,7 @@ class TmdbClient extends Client implements MovieTvInterface
                     ]);
                 }
             }
-            if (! empty($credits['crew'])) {
+            if (!empty($credits['crew'])) {
                 foreach ($credits['crew'] as $credit) {
                     if ($role == 'directors' && $credit['department'] == 'Directing') {
                         $casts[] = new Person([

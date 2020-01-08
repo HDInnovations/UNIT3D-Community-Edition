@@ -53,6 +53,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read array $expected_fields
  * @property-read array $expected_groups
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification query()
@@ -156,7 +157,8 @@ class UserNotification extends Model
     /**
      * Set the base vars on object creation without touching boot.
      *
-     * @param  string  $type
+     * @param string $type
+     *
      * @return void
      */
     public function setDefaultValues($type = 'default')

@@ -30,7 +30,7 @@ class CheckIfAlreadyVoted
     public function handle($request, Closure $next)
     {
         //If user hasn't selected any options, carry on to form validation / rejection
-        if (! $request->input('option.0')) {
+        if (!$request->input('option.0')) {
             return $next($request);
         }
 

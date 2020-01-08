@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Post $post
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like query()

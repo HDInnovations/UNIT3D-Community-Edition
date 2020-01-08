@@ -93,7 +93,7 @@ class GroupController extends Controller
             'icon'     => 'required',
         ]);
 
-        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
+        if (!$request->user()->group->is_owner && $request->input('is_owner') == 1) {
             return redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to create a group with owner permissions!');
         }
@@ -123,8 +123,8 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -141,8 +141,8 @@ class GroupController extends Controller
     /**
      * Edit A Group.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -179,7 +179,7 @@ class GroupController extends Controller
             'icon'     => 'required',
         ]);
 
-        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
+        if (!$request->user()->group->is_owner && $request->input('is_owner') == 1) {
             return redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to give a group owner permissions!');
         }

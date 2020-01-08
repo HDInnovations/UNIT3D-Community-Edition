@@ -93,12 +93,13 @@ class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
-     * @return \Illuminate\Http\Response
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function showVerification()
     {
-        if (! config('auth.TwoStepEnabled')) {
+        if (!config('auth.TwoStepEnabled')) {
             abort(404);
         }
 
@@ -126,12 +127,12 @@ class TwoStepController extends Controller
         $now = new Carbon();
         $sentTimestamp = $twoStepAuth->requestDate;
 
-        if (! $twoStepAuth->authCode) {
+        if (!$twoStepAuth->authCode) {
             $twoStepAuth->authCode = $this->generateCode();
             $twoStepAuth->save();
         }
 
-        if (! $sentTimestamp) {
+        if (!$sentTimestamp) {
             $this->sendVerificationCodeNotification($twoStepAuth);
         } else {
             $timeBuffer = config('laravel2step.laravel2stepTimeResetBufferSeconds');
@@ -155,7 +156,7 @@ class TwoStepController extends Controller
      */
     public function verify(Request $request)
     {
-        if (! config('auth.TwoStepEnabled')) {
+        if (!config('auth.TwoStepEnabled')) {
             abort(404);
         }
 
@@ -202,7 +203,7 @@ class TwoStepController extends Controller
      */
     public function resend()
     {
-        if (! config('auth.TwoStepEnabled')) {
+        if (!config('auth.TwoStepEnabled')) {
             abort(404);
         }
 

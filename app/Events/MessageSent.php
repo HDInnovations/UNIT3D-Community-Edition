@@ -35,7 +35,7 @@ class MessageSent implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      *
-     * @param  Message  $message
+     * @param Message $message
      */
     public function __construct(Message $message)
     {

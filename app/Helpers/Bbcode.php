@@ -303,6 +303,7 @@ class Bbcode
      *
      * @param      $source
      * @param bool $caseInsensitive
+     *
      * @return string
      */
     public function parse($source, $caseInsensitive = false)
@@ -319,7 +320,8 @@ class Bbcode
     /**
      * Remove all BBCode.
      *
-     * @param  string $source
+     * @param string $source
+     *
      * @return string Parsed text
      */
     public function stripBBCodeTags($source)
@@ -334,9 +336,10 @@ class Bbcode
     /**
      * Searches after a specified pattern and replaces it with provided structure.
      *
-     * @param  string $pattern Search pattern
-     * @param  string $replace Replacement structure
-     * @param  string $source  Text to search in
+     * @param string $pattern Search pattern
+     * @param string $replace Replacement structure
+     * @param string $source  Text to search in
+     *
      * @return string Parsed text
      */
     protected function searchAndReplace($pattern, $replace, $source)
@@ -351,7 +354,8 @@ class Bbcode
     /**
      * Helper function to parse case sensitive.
      *
-     * @param  string $source String containing the BBCode
+     * @param string $source String containing the BBCode
+     *
      * @return string Parsed text
      */
     public function parseCaseSensitive($source)
@@ -362,7 +366,8 @@ class Bbcode
     /**
      * Helper function to parse case insensitive.
      *
-     * @param  string $source String containing the BBCode
+     * @param string $source String containing the BBCode
+     *
      * @return string Parsed text
      */
     public function parseCaseInsensitive($source)
@@ -388,6 +393,7 @@ class Bbcode
      * @param string $pattern Pattern
      * @param string $replace Replace pattern
      * @param string $content Parsed text pattern
+     *
      * @return void
      */
     public function setParser($name, $pattern, $replace, $content)

@@ -58,8 +58,8 @@ class PostController extends Controller
     /**
      * Store A New Post To A Topic.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -71,7 +71,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a post here?
-        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
+        if (!$category->getPermission()->reply_topic || ($topic->state == 'close' && !$request->user()->group->is_modo)) {
             return redirect()->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
@@ -233,8 +233,8 @@ class PostController extends Controller
     /**
      * Delete A Post.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $postId
+     * @param \Illuminate\Http\Request $request
+     * @param                          $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */

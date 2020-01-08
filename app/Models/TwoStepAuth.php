@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $requestDate
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwoStepAuth newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwoStepAuth newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwoStepAuth query()

@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Chatroom|null $room
  * @property-read \App\Models\User|null $target
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserEcho newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserEcho newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserEcho query()

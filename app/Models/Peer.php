@@ -37,6 +37,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read \App\Models\Torrent $seed
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Peer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Peer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Peer query()

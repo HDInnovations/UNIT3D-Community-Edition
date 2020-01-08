@@ -22,7 +22,8 @@ class FailedLoginListener
     /**
      * Handle the event.
      *
-     * @param  auth.failed  $event
+     * @param auth.failed $event
+     *
      * @return void
      */
     public function handle($event)

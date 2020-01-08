@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $invites
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot query()
