@@ -1256,7 +1256,7 @@ class UserController extends Controller
                 if ($request->has('large') && $request->input('large') != null) {
                     $query->orWhereRaw('(torrents.size > (1073741824 * 25) and torrents.size < (1073741824 * 100) and date_sub(peers.created_at,interval 30 minute) < now())', []);
                 }
-                if ($request->has('regular') && $request->input('regular') != null) {
+                if ($request->has('everyday') && $request->input('everyday') != null) {
                     $query->orWhereRaw('(torrents.size > (1073741824) and torrents.size < (1073741824 * 25) and date_sub(peers.created_at,interval 30 minute) < now())', []);
                 }
                 if ($request->has('participant_seeder') && $request->input('participant_seeder') != null) {
