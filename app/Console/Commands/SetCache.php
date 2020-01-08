@@ -15,7 +15,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class SetCache extends Command
+final class SetCache extends Command
 {
     /**
      * The name and signature of the console command.

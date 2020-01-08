@@ -20,7 +20,7 @@ use App\Services\Clients\OmdbClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
-class DemoSeed extends Command
+final class DemoSeed extends Command
 {
     /**
      * The console command name.

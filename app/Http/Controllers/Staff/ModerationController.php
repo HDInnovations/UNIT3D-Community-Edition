@@ -24,7 +24,7 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ModerationController extends Controller
+final class ModerationController extends Controller
 {
     /**
      * @var ChatRepository

@@ -16,7 +16,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
-class ApiSettingController extends Controller
+final class ApiSettingController extends Controller
 {
     /**
      * Display a listing of the resource.

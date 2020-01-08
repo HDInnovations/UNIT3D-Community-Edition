@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use App\Models\Group;
 use Closure;
 
-class CheckIfBanned
+final class CheckIfBanned
 {
     /**
      * Handle an incoming request.

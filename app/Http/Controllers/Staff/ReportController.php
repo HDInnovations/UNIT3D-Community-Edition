@@ -20,7 +20,7 @@ use App\Models\PrivateMessage;
 use App\Models\Report;
 use Illuminate\Http\Request;
 
-class ReportController extends Controller
+final class ReportController extends Controller
 {
     /**
      * Display All Reports.

@@ -19,7 +19,7 @@ use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class AutoHighspeedTag extends Command
+final class AutoHighspeedTag extends Command
 {
     /**
      * The name and signature of the console command.

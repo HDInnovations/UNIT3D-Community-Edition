@@ -14,7 +14,7 @@
 
 namespace App\Helpers;
 
-class Markdown
+final class Markdown
 {
     public function text($text): string
     {

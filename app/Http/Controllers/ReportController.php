@@ -20,7 +20,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ReportController extends Controller
+final class ReportController extends Controller
 {
     /**
      * @var Report

@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-class Bbcode
+final class Bbcode
 {
     /**
      * @var array

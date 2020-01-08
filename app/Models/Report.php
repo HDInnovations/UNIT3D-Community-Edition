@@ -57,7 +57,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Report whereVerdict($value)
  * @mixin \Eloquent
  */
-class Report extends Model
+final class Report extends Model
 {
     use Auditable;
 

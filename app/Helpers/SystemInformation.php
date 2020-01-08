@@ -19,7 +19,7 @@ use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class SystemInformation
+final class SystemInformation
 {
     public function avg(): float
     {

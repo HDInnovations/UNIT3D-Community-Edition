@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Option whereVotes($value)
  * @mixin \Eloquent
  */
-class Option extends Model
+final class Option extends Model
 {
     use Auditable;
 

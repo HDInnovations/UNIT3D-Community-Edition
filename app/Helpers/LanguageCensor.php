@@ -18,7 +18,7 @@ namespace App\Helpers;
  *
  * A class that can redact/replace words.
  */
-class LanguageCensor
+final class LanguageCensor
 {
     protected static function isSpecial($c): bool
     {

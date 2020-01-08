@@ -18,7 +18,7 @@ use App\Helpers\Bbcode;
 use ChristofferOK\LaravelEmojiOne\LaravelEmojiOne;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ChatMessageResource extends JsonResource
+final class ChatMessageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

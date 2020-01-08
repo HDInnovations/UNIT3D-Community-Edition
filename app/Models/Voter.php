@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Voter whereUserId($value)
  * @mixin \Eloquent
  */
-class Voter extends Model
+final class Voter extends Model
 {
     use Auditable;
 

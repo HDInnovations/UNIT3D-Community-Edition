@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationImageProof whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class ApplicationImageProof extends Model
+final class ApplicationImageProof extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.

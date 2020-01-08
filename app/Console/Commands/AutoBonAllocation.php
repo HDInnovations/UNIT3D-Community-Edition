@@ -18,7 +18,7 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class AutoBonAllocation extends Command
+final class AutoBonAllocation extends Command
 {
     /**
      * The name and signature of the console command.

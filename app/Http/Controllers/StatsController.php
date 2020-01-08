@@ -27,7 +27,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class StatsController extends Controller
+final class StatsController extends Controller
 {
     /**
      * @var Carbon|mixed

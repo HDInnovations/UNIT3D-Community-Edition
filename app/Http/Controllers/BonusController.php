@@ -31,7 +31,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class BonusController extends Controller
+final class BonusController extends Controller
 {
     /**
      * @var ChatRepository

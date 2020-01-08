@@ -21,7 +21,7 @@ use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class PageController extends Controller
+final class PageController extends Controller
 {
     /**
      * Display All Pages.

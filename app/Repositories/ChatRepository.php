@@ -27,7 +27,7 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use Illuminate\Support\Str;
 
-class ChatRepository
+final class ChatRepository
 {
     /**
      * @var Message

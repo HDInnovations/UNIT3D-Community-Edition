@@ -23,7 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 
-class AlbumController extends Controller
+final class AlbumController extends Controller
 {
     /**
      * @var OmdbClient

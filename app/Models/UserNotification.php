@@ -91,7 +91,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification whereUserId($value)
  * @mixin \Eloquent
  */
-class UserNotification extends Model
+final class UserNotification extends Model
 {
     use Auditable;
 

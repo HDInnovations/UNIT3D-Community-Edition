@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Like whereUserId($value)
  * @mixin \Eloquent
  */
-class Like extends Model
+final class Like extends Model
 {
     use Auditable;
 

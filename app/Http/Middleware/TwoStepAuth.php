@@ -17,7 +17,7 @@ use App\Traits\TwoStep;
 use Closure;
 use Illuminate\Http\Request;
 
-class TwoStepAuth
+final class TwoStepAuth
 {
     use TwoStep;
 

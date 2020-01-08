@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 use App\Models\Category;
 use App\Models\Type;
 
-class RequestFacetedRepository
+final class RequestFacetedRepository
 {
     /**
      * Return a collection of Category Name from storage.

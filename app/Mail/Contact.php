@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Contact extends Mailable
+final class Contact extends Mailable
 {
     use Queueable, SerializesModels;
 

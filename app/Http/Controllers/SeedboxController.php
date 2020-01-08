@@ -20,7 +20,7 @@ use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class SeedboxController extends Controller
+final class SeedboxController extends Controller
 {
     /**
      * Get A Users Registered Seedboxes.

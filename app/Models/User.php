@@ -185,7 +185,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+final class User extends Authenticatable
 {
     use Notifiable;
     use Achiever;

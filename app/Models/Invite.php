@@ -48,7 +48,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invite whereUserId($value)
  * @mixin \Eloquent
  */
-class Invite extends Model
+final class Invite extends Model
 {
     use Auditable;
 

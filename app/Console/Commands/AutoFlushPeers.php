@@ -18,7 +18,7 @@ use App\Models\Peer;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoFlushPeers extends Command
+final class AutoFlushPeers extends Command
 {
     /**
      * The name and signature of the console command.

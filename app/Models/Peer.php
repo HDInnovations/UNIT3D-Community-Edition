@@ -60,7 +60,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Peer whereUserId($value)
  * @mixin \Eloquent
  */
-class Peer extends Model
+final class Peer extends Model
 {
     use Sortable;
 

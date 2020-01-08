@@ -30,7 +30,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class RegisterController extends Controller
+final class RegisterController extends Controller
 {
     /**
      * @var ChatRepository

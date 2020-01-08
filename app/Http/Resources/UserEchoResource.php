@@ -16,7 +16,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserEchoResource extends JsonResource
+final class UserEchoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

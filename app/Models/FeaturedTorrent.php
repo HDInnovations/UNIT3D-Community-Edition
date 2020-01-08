@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FeaturedTorrent whereUserId($value)
  * @mixin \Eloquent
  */
-class FeaturedTorrent extends Model
+final class FeaturedTorrent extends Model
 {
     use Auditable;
 

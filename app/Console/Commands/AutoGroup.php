@@ -19,7 +19,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoGroup extends Command
+final class AutoGroup extends Command
 {
     /**
      * The name and signature of the console command.

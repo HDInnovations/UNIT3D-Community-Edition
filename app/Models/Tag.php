@@ -35,7 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read int|null $torrents_count
  */
-class Tag extends Model
+final class Tag extends Model
 {
     use Auditable;
 

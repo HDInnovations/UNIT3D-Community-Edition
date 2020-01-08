@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\JsonResponse;
 
-class ProAjaxMiddleware
+final class ProAjaxMiddleware
 {
     /**
      * All your flash names.

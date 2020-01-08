@@ -19,7 +19,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoDisableInactiveUsers extends Command
+final class AutoDisableInactiveUsers extends Command
 {
     /**
      * The name and signature of the console command.

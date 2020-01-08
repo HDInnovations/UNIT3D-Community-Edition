@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class DenyApplication extends Mailable
+final class DenyApplication extends Mailable
 {
     public $input;
     use Queueable, SerializesModels;

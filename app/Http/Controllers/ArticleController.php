@@ -17,7 +17,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use App\Models\Article;
 
-class ArticleController extends Controller
+final class ArticleController extends Controller
 {
     /**
      * Display All Articles.

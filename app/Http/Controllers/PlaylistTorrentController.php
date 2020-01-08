@@ -18,7 +18,7 @@ use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use Illuminate\Http\Request;
 
-class PlaylistTorrentController extends Controller
+final class PlaylistTorrentController extends Controller
 {
     /**
      * Attach A Torrent To A Playlist.

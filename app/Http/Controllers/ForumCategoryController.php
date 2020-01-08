@@ -19,7 +19,7 @@ use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 
-class ForumCategoryController extends Controller
+final class ForumCategoryController extends Controller
 {
     /**
      * Show The Forum Category.

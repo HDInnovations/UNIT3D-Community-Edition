@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit whereUserId($value)
  * @mixin \Eloquent
  */
-class Audit extends Model
+final class Audit extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.

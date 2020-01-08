@@ -20,7 +20,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Audit;
 use Illuminate\Http\Request;
 
-class AuditController extends Controller
+final class AuditController extends Controller
 {
     /**
      * Display All Audits.

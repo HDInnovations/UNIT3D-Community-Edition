@@ -19,7 +19,7 @@ use App\Models\Bot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ChatBotController extends Controller
+final class ChatBotController extends Controller
 {
     /**
      * Display a listing of the Bots resource.

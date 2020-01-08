@@ -15,7 +15,7 @@ namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
 
-class UserMadeUpload extends Achievement
+final class UserMadeUpload extends Achievement
 {
     /*
      * The achievement name

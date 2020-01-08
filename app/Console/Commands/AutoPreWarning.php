@@ -19,7 +19,7 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoPreWarning extends Command
+final class AutoPreWarning extends Command
 {
     /**
      * The name and signature of the console command.

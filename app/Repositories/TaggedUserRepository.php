@@ -20,7 +20,7 @@ use App\Models\User;
 use App\Notifications\NewCommentTag;
 use App\Notifications\NewPostTag;
 
-class TaggedUserRepository
+final class TaggedUserRepository
 {
     /**
      * Enables various debugging options:.

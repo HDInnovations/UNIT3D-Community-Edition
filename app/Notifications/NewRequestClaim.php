@@ -18,7 +18,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewRequestClaim extends Notification implements ShouldQueue
+final class NewRequestClaim extends Notification implements ShouldQueue
 {
     use Queueable;
 

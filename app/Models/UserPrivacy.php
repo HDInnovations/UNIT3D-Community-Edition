@@ -111,7 +111,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy whereUserId($value)
  * @mixin \Eloquent
  */
-class UserPrivacy extends Model
+final class UserPrivacy extends Model
 {
     use Auditable;
 

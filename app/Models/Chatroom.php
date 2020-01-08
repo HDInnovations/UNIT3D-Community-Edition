@@ -42,7 +42,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $notifications_count
  * @property-read int|null $users_count
  */
-class Chatroom extends Model
+final class Chatroom extends Model
 {
     use Notifiable;
     use Auditable;

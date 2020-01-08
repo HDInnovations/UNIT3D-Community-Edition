@@ -19,7 +19,7 @@ use App\Services\Data\Movie;
 use App\Services\Data\Person;
 use App\Services\Data\Tv;
 
-class TmdbClient extends Client implements MovieTvInterface
+final class TmdbClient extends Client implements MovieTvInterface
 {
     /**
      * @var string

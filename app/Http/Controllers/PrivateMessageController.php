@@ -19,7 +19,7 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class PrivateMessageController extends Controller
+final class PrivateMessageController extends Controller
 {
     /**
      * Search PM Inbox.

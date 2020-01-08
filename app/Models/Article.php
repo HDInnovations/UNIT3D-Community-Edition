@@ -48,7 +48,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read int|null $comments_count
  */
-class Article extends Model
+final class Article extends Model
 {
     use Auditable;
 

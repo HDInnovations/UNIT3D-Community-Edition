@@ -23,7 +23,7 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ForumController extends Controller
+final class ForumController extends Controller
 {
     /**
      * Display All Forums.

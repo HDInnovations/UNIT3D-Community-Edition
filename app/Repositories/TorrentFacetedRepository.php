@@ -18,7 +18,7 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Type;
 
-class TorrentFacetedRepository
+final class TorrentFacetedRepository
 {
     /**
      * Return a collection of Category Name from storage.

@@ -25,7 +25,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class AnnounceController extends Controller
+final class AnnounceController extends Controller
 {
     /**
      * Announce Code.

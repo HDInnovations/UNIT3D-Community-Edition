@@ -18,7 +18,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Invite;
 
-class InviteController extends Controller
+final class InviteController extends Controller
 {
     /**
      * Invites Log.

@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BotTransaction whereUserId($value)
  * @mixin \Eloquent
  */
-class BotTransaction extends Model
+final class BotTransaction extends Model
 {
     use Auditable;
 

@@ -46,7 +46,7 @@ use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
-class Kernel extends HttpKernel
+final class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.

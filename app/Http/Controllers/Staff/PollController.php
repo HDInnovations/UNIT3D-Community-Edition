@@ -22,7 +22,7 @@ use App\Models\Option;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
 
-class PollController extends Controller
+final class PollController extends Controller
 {
     /**
      * @var ChatRepository

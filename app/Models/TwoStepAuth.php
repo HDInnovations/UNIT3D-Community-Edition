@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwoStepAuth whereUserId($value)
  * @mixin \Eloquent
  */
-class TwoStepAuth extends Model
+final class TwoStepAuth extends Model
 {
     use Auditable;
 

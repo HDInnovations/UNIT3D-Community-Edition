@@ -23,7 +23,7 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class GroupController extends Controller
+final class GroupController extends Controller
 {
     /**
      * Display All Groups.

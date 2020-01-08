@@ -16,7 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
-class LanguageController extends Controller
+final class LanguageController extends Controller
 {
     /**
      * Set locale if it's allowed.

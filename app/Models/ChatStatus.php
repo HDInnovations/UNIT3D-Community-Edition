@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read int|null $users_count
  */
-class ChatStatus extends Model
+final class ChatStatus extends Model
 {
     use Auditable;
 

@@ -18,7 +18,7 @@ use Artisan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CommandController extends Controller
+final class CommandController extends Controller
 {
     /**
      * Display All Commands.

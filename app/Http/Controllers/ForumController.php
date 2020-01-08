@@ -22,7 +22,7 @@ use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
-class ForumController extends Controller
+final class ForumController extends Controller
 {
     /**
      * @var TaggedUserRepository

@@ -58,7 +58,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Rss withoutTrashed()
  * @mixin \Eloquent
  */
-class Rss extends Model
+final class Rss extends Model
 {
     use SoftDeletes;
     use Auditable;

@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $likes_count
  * @property-read int|null $tips_count
  */
-class Post extends Model
+final class Post extends Model
 {
     use Auditable;
 

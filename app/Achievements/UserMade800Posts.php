@@ -15,7 +15,7 @@ namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
 
-class UserMade800Posts extends Achievement
+final class UserMade800Posts extends Achievement
 {
     /*
      * The achievement name

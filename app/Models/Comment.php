@@ -54,7 +54,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment wherePlaylistId($value)
  */
-class Comment extends Model
+final class Comment extends Model
 {
     use Auditable;
 

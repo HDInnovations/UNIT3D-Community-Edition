@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestClaim whereUsername($value)
  * @mixin \Eloquent
  */
-class TorrentRequestClaim extends Model
+final class TorrentRequestClaim extends Model
 {
     use Auditable;
 

@@ -17,7 +17,7 @@ use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class NewComment extends Notification
+final class NewComment extends Notification
 {
     use Queueable;
 

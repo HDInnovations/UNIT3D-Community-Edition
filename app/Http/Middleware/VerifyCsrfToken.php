@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
-class VerifyCsrfToken extends BaseVerifier
+final class VerifyCsrfToken extends BaseVerifier
 {
     /**
      * Indicates whether the XSRF-TOKEN cookie should be set on the response.

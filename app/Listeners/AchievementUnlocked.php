@@ -18,7 +18,7 @@ use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
 use Session;
 
-class AchievementUnlocked
+final class AchievementUnlocked
 {
     /**
      * @var \App\Repositories\ChatRepository

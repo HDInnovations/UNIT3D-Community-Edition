@@ -26,7 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
-class ApplicationController extends Controller
+final class ApplicationController extends Controller
 {
     /**
      * Display All Applications.

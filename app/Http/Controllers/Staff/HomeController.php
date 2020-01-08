@@ -27,7 +27,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\SslCertificate\SslCertificate;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
     /**
      * Display Staff Dashboard.

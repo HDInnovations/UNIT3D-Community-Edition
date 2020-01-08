@@ -55,7 +55,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $image_proofs_count
  * @property-read int|null $url_proofs_count
  */
-class Application extends Model
+final class Application extends Model
 {
     use Moderatable;
     use Auditable;

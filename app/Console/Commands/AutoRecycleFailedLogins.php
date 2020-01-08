@@ -17,7 +17,7 @@ use App\Models\FailedLoginAttempt;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleFailedLogins extends Command
+final class AutoRecycleFailedLogins extends Command
 {
     /**
      * The name and signature of the console command.

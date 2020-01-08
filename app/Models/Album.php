@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read int|null $images_count
  */
-class Album extends Model
+final class Album extends Model
 {
     use Auditable;
 

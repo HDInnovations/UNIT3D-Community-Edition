@@ -21,7 +21,7 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TagController extends Controller
+final class TagController extends Controller
 {
     /**
      * Display All Tags.

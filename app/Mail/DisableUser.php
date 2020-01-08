@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class DisableUser extends Mailable
+final class DisableUser extends Mailable
 {
     use Queueable, SerializesModels;
 

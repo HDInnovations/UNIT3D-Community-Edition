@@ -24,7 +24,7 @@ use App\Models\User;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
-class RssController extends Controller
+final class RssController extends Controller
 {
     /**
      * @var TorrentFacetedRepository

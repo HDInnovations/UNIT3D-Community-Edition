@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereUserId($value)
  * @mixin \Eloquent
  */
-class TorrentRequestBounty extends Model
+final class TorrentRequestBounty extends Model
 {
     use Auditable;
 

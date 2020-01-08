@@ -16,7 +16,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Topic;
 
-class TopicLabelController extends Controller
+final class TopicLabelController extends Controller
 {
     /**
      * Apply/Remove Approved Label.

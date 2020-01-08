@@ -19,7 +19,7 @@ use App\Http\Controllers\Controller;
 use App\Models\History;
 use Illuminate\Support\Facades\DB;
 
-class CheaterController extends Controller
+final class CheaterController extends Controller
 {
     /**
      * Possible Ghost Leech Cheaters.

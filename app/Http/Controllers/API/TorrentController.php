@@ -31,7 +31,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TorrentController extends BaseController
+final class TorrentController extends BaseController
 {
     /**
      * @var ChatRepository

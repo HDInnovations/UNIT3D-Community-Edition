@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereStartTopic($value)
  * @mixin \Eloquent
  */
-class Permission extends Model
+final class Permission extends Model
 {
     use Auditable;
 

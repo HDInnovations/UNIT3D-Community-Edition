@@ -54,7 +54,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Playlist whereUserId($value)
  * @mixin \Eloquent
  */
-class Playlist extends Model
+final class Playlist extends Model
 {
     use Auditable;
 

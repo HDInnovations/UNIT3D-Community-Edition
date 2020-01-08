@@ -21,7 +21,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class ContactController extends Controller
+final class ContactController extends Controller
 {
     /**
      * Contact Form.

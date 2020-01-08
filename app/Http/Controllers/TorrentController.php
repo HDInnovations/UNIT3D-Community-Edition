@@ -53,7 +53,7 @@ use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
 
-class TorrentController extends Controller
+final class TorrentController extends Controller
 {
     /**
      * @var TorrentFacetedRepository

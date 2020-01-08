@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereUserId($value)
  * @mixin \Eloquent
  */
-class Graveyard extends Model
+final class Graveyard extends Model
 {
     use Auditable;
 

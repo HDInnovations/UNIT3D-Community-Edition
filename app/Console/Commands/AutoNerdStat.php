@@ -22,7 +22,7 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoNerdStat extends Command
+final class AutoNerdStat extends Command
 {
     /**
      * @var ChatRepository

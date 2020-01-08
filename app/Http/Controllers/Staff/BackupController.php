@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Adapter\Local;
 
-class BackupController extends Controller
+final class BackupController extends Controller
 {
     /**
      * Display All Backups.

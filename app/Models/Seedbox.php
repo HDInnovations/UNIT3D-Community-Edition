@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereUserId($value)
  * @mixin \Eloquent
  */
-class Seedbox extends Model
+final class Seedbox extends Model
 {
     use Encryptable;
     use Auditable;

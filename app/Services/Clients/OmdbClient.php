@@ -17,7 +17,7 @@ use App\Services\Contracts\MovieTvInterface;
 use App\Services\Data\Movie;
 use App\Services\Data\Tv;
 
-class OmdbClient extends Client implements MovieTvInterface
+final class OmdbClient extends Client implements MovieTvInterface
 {
     /**
      * @var string

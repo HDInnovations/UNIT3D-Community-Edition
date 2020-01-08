@@ -58,7 +58,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Warning withoutTrashed()
  * @mixin \Eloquent
  */
-class Warning extends Model
+final class Warning extends Model
 {
     use SoftDeletes;
     use Auditable;

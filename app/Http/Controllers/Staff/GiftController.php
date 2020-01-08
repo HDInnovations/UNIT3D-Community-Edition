@@ -21,7 +21,7 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class GiftController extends Controller
+final class GiftController extends Controller
 {
     /**
      * Send Gift Form.

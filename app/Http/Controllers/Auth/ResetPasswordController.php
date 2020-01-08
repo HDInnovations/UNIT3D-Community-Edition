@@ -20,7 +20,7 @@ use App\Models\UserActivation;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
 
-class ResetPasswordController extends Controller
+final class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 

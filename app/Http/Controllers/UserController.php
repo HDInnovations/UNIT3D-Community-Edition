@@ -40,7 +40,7 @@ use Illuminate\Support\Str;
 use Image;
 use ZipArchive;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     /**
      * Show A User.

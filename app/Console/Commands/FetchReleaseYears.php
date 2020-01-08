@@ -19,7 +19,7 @@ use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 use MarcReichel\IGDBLaravel\Models\Game;
 
-class FetchReleaseYears extends Command
+final class FetchReleaseYears extends Command
 {
     /**
      * The name and signature of the console command.

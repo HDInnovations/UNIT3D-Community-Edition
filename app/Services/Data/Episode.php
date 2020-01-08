@@ -16,7 +16,7 @@ namespace App\Services\Data;
 use DateTime;
 use Carbon\Carbon;
 
-class Episode
+final class Episode
 {
     public $season;
 

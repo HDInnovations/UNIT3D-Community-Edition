@@ -15,7 +15,7 @@ namespace App\Services\Clients;
 
 use App\Services\Contracts\MangaInterface;
 
-class MangaCoverClient extends Client implements MangaInterface
+final class MangaCoverClient extends Client implements MangaInterface
 {
     /**
      * @var string

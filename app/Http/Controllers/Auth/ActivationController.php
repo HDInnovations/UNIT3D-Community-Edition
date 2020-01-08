@@ -17,7 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
 
-class ActivationController extends Controller
+final class ActivationController extends Controller
 {
     /**
      * @return mixed|\Illuminate\Http\RedirectResponse

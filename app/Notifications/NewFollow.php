@@ -19,7 +19,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class NewFollow extends Notification implements ShouldQueue
+final class NewFollow extends Notification implements ShouldQueue
 {
     use Queueable;
 

@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereUserId($value)
  * @mixin \Eloquent
  */
-class Subscription extends Model
+final class Subscription extends Model
 {
     use Auditable;
 

@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PersonalFreeleech whereUserId($value)
  * @mixin \Eloquent
  */
-class PersonalFreeleech extends Model
+final class PersonalFreeleech extends Model
 {
     use Auditable;
 

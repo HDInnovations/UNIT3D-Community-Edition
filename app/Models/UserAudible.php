@@ -45,7 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserAudible whereUserId($value)
  * @mixin \Eloquent
  */
-class UserAudible extends Model
+final class UserAudible extends Model
 {
     /**
      * Indicates If The Model Should Be Timestamped.

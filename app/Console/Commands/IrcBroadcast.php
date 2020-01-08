@@ -18,7 +18,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class IrcBroadcast extends Command
+final class IrcBroadcast extends Command
 {
     /**
      * The console command name.

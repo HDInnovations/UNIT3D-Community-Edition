@@ -19,7 +19,7 @@ use App\Models\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class AutoRevokePermissions extends Command
+final class AutoRevokePermissions extends Command
 {
     /**
      * The name and signature of the console command.

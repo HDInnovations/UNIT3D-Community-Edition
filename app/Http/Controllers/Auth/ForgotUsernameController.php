@@ -21,7 +21,7 @@ use App\Models\User;
 use App\Notifications\UsernameReminder;
 use Illuminate\Http\Request;
 
-class ForgotUsernameController extends Controller
+final class ForgotUsernameController extends Controller
 {
     /**
      * Forgot Username Form.

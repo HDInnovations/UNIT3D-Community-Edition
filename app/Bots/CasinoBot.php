@@ -24,7 +24,7 @@ use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class CasinoBot
+final class CasinoBot
 {
     private $bot;
 

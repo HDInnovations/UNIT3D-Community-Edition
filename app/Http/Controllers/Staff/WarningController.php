@@ -18,7 +18,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Warning;
 
-class WarningController extends Controller
+final class WarningController extends Controller
 {
     /**
      * Warnings Log.

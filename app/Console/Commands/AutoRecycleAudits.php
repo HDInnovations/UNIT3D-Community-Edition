@@ -17,7 +17,7 @@ use App\Models\Audit;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleAudits extends Command
+final class AutoRecycleAudits extends Command
 {
     /**
      * The name and signature of the console command.

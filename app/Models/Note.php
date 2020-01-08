@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereUserId($value)
  * @mixin \Eloquent
  */
-class Note extends Model
+final class Note extends Model
 {
     use Auditable;
 

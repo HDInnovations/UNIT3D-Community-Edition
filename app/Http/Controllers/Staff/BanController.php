@@ -26,7 +26,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class BanController extends Controller
+final class BanController extends Controller
 {
     /**
      * Display All Bans.

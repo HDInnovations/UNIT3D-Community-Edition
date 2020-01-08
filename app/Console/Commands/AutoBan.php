@@ -21,7 +21,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
-class AutoBan extends Command
+final class AutoBan extends Command
 {
     /**
      * The name and signature of the console command.

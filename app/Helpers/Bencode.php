@@ -15,7 +15,7 @@ namespace App\Helpers;
 
 use function theodorejb\polycast\safe_int;
 
-class Bencode
+final class Bencode
 {
     public static function parse_integer($s, &$pos): int
     {

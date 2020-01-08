@@ -49,7 +49,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonTransactions whereTorrentId($value)
  * @mixin \Eloquent
  */
-class BonTransactions extends Model
+final class BonTransactions extends Model
 {
     use Auditable;
 

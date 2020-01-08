@@ -20,7 +20,7 @@ use App\Models\User;
 use App\Models\Wish;
 use App\Services\Clients\OmdbClient;
 
-class WishRepository implements WishInterface
+final class WishRepository implements WishInterface
 {
     /**
      * @var Wish

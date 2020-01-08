@@ -20,7 +20,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
-class Http2ServerPush
+final class Http2ServerPush
 {
     /**
      * The DomCrawler instance.

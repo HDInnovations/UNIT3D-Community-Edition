@@ -18,7 +18,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\FailedLoginAttempt;
 
-class AuthenticationController extends Controller
+final class AuthenticationController extends Controller
 {
     /**
      * Authentications Log.

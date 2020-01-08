@@ -17,7 +17,7 @@ use App\Models\FailedLoginAttempt;
 use App\Notifications\FailedLogin;
 use Illuminate\Support\Facades\Request;
 
-class FailedLoginListener
+final class FailedLoginListener
 {
     /**
      * Handle the event.

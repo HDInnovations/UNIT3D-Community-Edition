@@ -25,7 +25,7 @@ use App\Services\MovieScrapper;
 use Illuminate\Http\Request;
 use Image;
 
-class PlaylistController extends Controller
+final class PlaylistController extends Controller
 {
     /**
      * @var ChatRepository

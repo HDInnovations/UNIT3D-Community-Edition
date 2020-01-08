@@ -20,7 +20,7 @@ use App\Traits\TwoStep;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class TwoStepController extends Controller
+final class TwoStepController extends Controller
 {
     use TwoStep;
 

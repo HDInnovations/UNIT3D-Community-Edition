@@ -19,7 +19,7 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleClaimedTorrentRequests extends Command
+final class AutoRecycleClaimedTorrentRequests extends Command
 {
     /**
      * The name and signature of the console command.

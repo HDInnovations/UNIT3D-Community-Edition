@@ -17,7 +17,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Closure;
 
-class RedirectIfAuthenticated
+final class RedirectIfAuthenticated
 {
     /**
      * Handle an incoming request.

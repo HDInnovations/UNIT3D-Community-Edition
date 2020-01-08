@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserActivation whereUserId($value)
  * @mixin \Eloquent
  */
-class UserActivation extends Model
+final class UserActivation extends Model
 {
     use Auditable;
 

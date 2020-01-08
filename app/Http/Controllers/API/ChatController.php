@@ -33,7 +33,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 
-class ChatController extends Controller
+final class ChatController extends Controller
 {
     /**
      * @var ChatRepository

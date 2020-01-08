@@ -20,7 +20,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\App;
 
-class SetLanguage
+final class SetLanguage
 {
     /**
      * This function checks if language to set is an allowed lang of config.

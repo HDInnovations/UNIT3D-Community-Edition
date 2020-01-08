@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserEcho whereUserId($value)
  * @mixin \Eloquent
  */
-class UserEcho extends Model
+final class UserEcho extends Model
 {
     /**
      * Indicates If The Model Should Be Timestamped.

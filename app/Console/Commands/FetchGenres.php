@@ -19,7 +19,7 @@ use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 
-class FetchGenres extends Command
+final class FetchGenres extends Command
 {
     /**
      * The name and signature of the console command.

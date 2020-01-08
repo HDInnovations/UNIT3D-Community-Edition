@@ -20,7 +20,7 @@ use App\Models\Album;
 use App\Models\Image;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+final class ImageController extends Controller
 {
     /**
      * Show Image Create Form.

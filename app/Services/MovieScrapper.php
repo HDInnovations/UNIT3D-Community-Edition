@@ -19,7 +19,7 @@ use App\Services\Clients\TmdbClient;
 use App\Services\Data\Movie;
 use App\Services\Data\Tv;
 
-class MovieScrapper
+final class MovieScrapper
 {
     /**
      * @var \App\Services\Clients\TmdbClient

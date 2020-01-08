@@ -44,7 +44,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereUserId($value)
  * @mixin \Eloquent
  */
-class Image extends Model
+final class Image extends Model
 {
     use Auditable;
 

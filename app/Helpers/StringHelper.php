@@ -13,32 +13,32 @@
 
 namespace App\Helpers;
 
-class StringHelper
+final class StringHelper
 {
     /**
      * @var int
      */
-    const KIB = 1024;
+    private const KIB = 1024;
 
     /**
      * @var int
      */
-    const MIB = 1024 * 1024;
+    private const MIB = 1024 * 1024;
 
     /**
      * @var int
      */
-    const GIB = 1024 * 1024 * 1024;
+    private const GIB = 1024 * 1024 * 1024;
 
     /**
      * @var int
      */
-    const TIB = 1024 * 1024 * 1024 * 1024;
+    private const TIB = 1024 * 1024 * 1024 * 1024;
 
     /**
      * @var int
      */
-    const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
+    private const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
 
     public static function generateRandomString($length = 20): string
     {

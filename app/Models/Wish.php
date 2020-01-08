@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereUserId($value)
  * @mixin \Eloquent
  */
-class Wish extends Model
+final class Wish extends Model
 {
     use Auditable;
 

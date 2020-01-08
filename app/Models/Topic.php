@@ -79,7 +79,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $posts_count
  * @property-read int|null $subscriptions_count
  */
-class Topic extends Model
+final class Topic extends Model
 {
     use Auditable;
 

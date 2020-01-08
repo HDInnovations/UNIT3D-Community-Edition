@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-class LogoutListener
+final class LogoutListener
 {
     /**
      * Handle the event.

@@ -75,7 +75,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereUploaded($value)
  * @mixin \Eloquent
  */
-class Bot extends Model
+final class Bot extends Model
 {
     use Auditable;
 

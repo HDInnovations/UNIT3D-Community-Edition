@@ -17,7 +17,7 @@ use App\Models\History;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoCorrectHistory extends Command
+final class AutoCorrectHistory extends Command
 {
     /**
      * The name and signature of the console command.

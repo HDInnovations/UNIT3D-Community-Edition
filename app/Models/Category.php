@@ -58,7 +58,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereNoMeta($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereTvMeta($value)
  */
-class Category extends Model
+final class Category extends Model
 {
     use Auditable;
 

@@ -20,7 +20,7 @@ use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+final class CategoryController extends Controller
 {
     /**
      * Display All Categories.

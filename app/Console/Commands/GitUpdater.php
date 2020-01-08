@@ -20,7 +20,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class GitUpdater extends Command
+final class GitUpdater extends Command
 {
     use ConsoleTools;
 

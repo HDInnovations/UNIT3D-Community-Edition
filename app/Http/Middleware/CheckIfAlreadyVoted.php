@@ -18,7 +18,7 @@ use App\Models\Option;
 use App\Models\Voter;
 use Closure;
 
-class CheckIfAlreadyVoted
+final class CheckIfAlreadyVoted
 {
     /**
      * Handle an incoming request.

@@ -19,7 +19,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoSoftDeleteDisabledUsers extends Command
+final class AutoSoftDeleteDisabledUsers extends Command
 {
     /**
      * The name and signature of the console command.

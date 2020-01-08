@@ -15,25 +15,25 @@ namespace App\Helpers;
 
 use PhpZip\ZipFile;
 
-class BackupEncryption
+final class BackupEncryption
 {
     /**
      * @var int
      */
-    const ENCRYPTION_DEFAULT = ZipFile::ENCRYPTION_METHOD_TRADITIONAL;
+    private const ENCRYPTION_DEFAULT = ZipFile::ENCRYPTION_METHOD_TRADITIONAL;
 
     /**
      * @var int
      */
-    const ENCRYPTION_WINZIP_AES_128 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_128;
+    private const ENCRYPTION_WINZIP_AES_128 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_128;
 
     /**
      * @var int
      */
-    const ENCRYPTION_WINZIP_AES_192 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_192;
+    private const ENCRYPTION_WINZIP_AES_192 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_192;
 
     /**
      * @var int
      */
-    const ENCRYPTION_WINZIP_AES_256 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_256;
+    private const ENCRYPTION_WINZIP_AES_256 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_256;
 }

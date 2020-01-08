@@ -18,7 +18,7 @@ use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class LikeController extends Controller
+final class LikeController extends Controller
 {
     /**
      * Like A Post.

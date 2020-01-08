@@ -15,7 +15,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class ClearCache extends Command
+final class ClearCache extends Command
 {
     /**
      * The name and signature of the console command.

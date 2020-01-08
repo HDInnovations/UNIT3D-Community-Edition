@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Bug extends Mailable
+final class Bug extends Mailable
 {
     use Queueable, SerializesModels;
 

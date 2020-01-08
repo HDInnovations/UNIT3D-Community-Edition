@@ -21,7 +21,7 @@ use App\Models\Chatroom;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class ChatRoomController extends Controller
+final class ChatRoomController extends Controller
 {
     /**
      * @var ChatRepository

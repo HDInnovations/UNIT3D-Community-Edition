@@ -16,7 +16,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Closure;
 
-class CheckForModo
+final class CheckForModo
 {
     /**
      * Handle an incoming request.

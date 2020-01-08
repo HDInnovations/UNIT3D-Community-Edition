@@ -40,7 +40,7 @@ use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class NotificationController extends Controller
+final class NotificationController extends Controller
 {
     /**
      * Show All Notifications.

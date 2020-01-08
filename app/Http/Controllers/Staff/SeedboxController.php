@@ -20,7 +20,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use Illuminate\Http\Request;
 
-class SeedboxController extends Controller
+final class SeedboxController extends Controller
 {
     /**
      * Display All Registered Seedboxes.

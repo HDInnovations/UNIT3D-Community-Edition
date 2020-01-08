@@ -19,7 +19,7 @@ use App\Models\Subscription;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
-class SubscriptionController extends Controller
+final class SubscriptionController extends Controller
 {
     /**
      * Subscribe To A Topic.

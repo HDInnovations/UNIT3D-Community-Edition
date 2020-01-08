@@ -25,7 +25,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
-class InviteController extends Controller
+final class InviteController extends Controller
 {
     /**
      * Invite Tree.

@@ -16,7 +16,7 @@ namespace App\Services\Clients;
 use App\Services\Contracts\MangaInterface;
 use SimpleXMLElement;
 
-class AnnClient extends Client implements MangaInterface
+final class AnnClient extends Client implements MangaInterface
 {
     /**
      * @var string

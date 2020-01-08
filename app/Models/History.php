@@ -67,7 +67,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\History whereUserId($value)
  * @mixin \Eloquent
  */
-class History extends Model
+final class History extends Model
 {
     use Sortable;
 

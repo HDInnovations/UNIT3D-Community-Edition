@@ -34,7 +34,7 @@ use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+final class PostController extends Controller
 {
     /**
      * @var TaggedUserRepository

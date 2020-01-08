@@ -17,7 +17,7 @@ use App\Models\Invite;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRecycleInvites extends Command
+final class AutoRecycleInvites extends Command
 {
     /**
      * The name and signature of the console command.

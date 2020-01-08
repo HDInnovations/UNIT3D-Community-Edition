@@ -22,7 +22,7 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class WarningController extends Controller
+final class WarningController extends Controller
 {
     /**
      * Show A Users Warnings.

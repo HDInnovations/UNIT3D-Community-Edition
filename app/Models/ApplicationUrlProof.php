@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof whereUrl($value)
  * @mixin \Eloquent
  */
-class ApplicationUrlProof extends Model
+final class ApplicationUrlProof extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.

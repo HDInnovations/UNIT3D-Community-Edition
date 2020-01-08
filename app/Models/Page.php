@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Page whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Page extends Model
+final class Page extends Model
 {
     use Auditable;
 

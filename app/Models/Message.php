@@ -46,7 +46,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereUserId($value)
  * @mixin \Eloquent
  */
-class Message extends Model
+final class Message extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.

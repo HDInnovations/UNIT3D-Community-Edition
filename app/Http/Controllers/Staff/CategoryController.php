@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 
-class CategoryController extends Controller
+final class CategoryController extends Controller
 {
     /**
      * Display All Categories.

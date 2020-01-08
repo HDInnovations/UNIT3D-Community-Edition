@@ -25,7 +25,7 @@ use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class SystemBot
+final class SystemBot
 {
     private $bot;
 

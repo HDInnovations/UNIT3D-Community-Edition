@@ -16,7 +16,7 @@ namespace App\Services\Clients;
 use App\Services\Contracts\MangaInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
-class MangaUpdatesClient extends Client implements MangaInterface
+final class MangaUpdatesClient extends Client implements MangaInterface
 {
     /**
      * @var string

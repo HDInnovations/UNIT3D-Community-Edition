@@ -15,7 +15,7 @@ namespace App\Listeners;
 
 use Carbon\Carbon;
 
-class LoginListener
+final class LoginListener
 {
     /**
      * Handle the event.

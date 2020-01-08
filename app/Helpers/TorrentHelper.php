@@ -33,7 +33,7 @@ use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
 
-class TorrentHelper
+final class TorrentHelper
 {
     public static function approveHelper($id): void
     {

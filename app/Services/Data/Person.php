@@ -15,7 +15,7 @@ namespace App\Services\Data;
 
 use Carbon\Carbon;
 
-class Person
+final class Person
 {
     public $imdb;
 

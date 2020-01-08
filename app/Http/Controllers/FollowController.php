@@ -20,7 +20,7 @@ use App\Notifications\NewFollow;
 use App\Notifications\NewUnfollow;
 use Illuminate\Http\Request;
 
-class FollowController extends Controller
+final class FollowController extends Controller
 {
     /**
      * Follow A User.

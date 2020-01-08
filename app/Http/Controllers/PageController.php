@@ -18,7 +18,7 @@ use Illuminate\View\View;
 use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
-class PageController extends Controller
+final class PageController extends Controller
 {
     /**
      * Show A Page.

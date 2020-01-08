@@ -19,7 +19,7 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRemoveFeaturedTorrent extends Command
+final class AutoRemoveFeaturedTorrent extends Command
 {
     /**
      * @var ChatRepository

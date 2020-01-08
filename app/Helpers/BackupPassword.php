@@ -15,7 +15,7 @@ namespace App\Helpers;
 
 use PhpZip\ZipFile;
 
-class BackupPassword
+final class BackupPassword
 {
     /**
      * Path to .zip-fil.

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TorrentResource extends JsonResource
+final class TorrentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

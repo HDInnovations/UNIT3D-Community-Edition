@@ -16,7 +16,7 @@ namespace App\Services\Data;
 use DateTime;
 use Carbon\Carbon;
 
-class Tv extends Movie
+final class Tv extends Movie
 {
     /**
      * @var array

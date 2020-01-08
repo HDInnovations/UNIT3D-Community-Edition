@@ -22,7 +22,7 @@ use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 
-class AutoGraveyard extends Command
+final class AutoGraveyard extends Command
 {
     /**
      * @var ChatRepository

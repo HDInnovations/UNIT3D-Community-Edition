@@ -17,7 +17,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class DeleteUser extends Mailable
+final class DeleteUser extends Mailable
 {
     use Queueable, SerializesModels;
 

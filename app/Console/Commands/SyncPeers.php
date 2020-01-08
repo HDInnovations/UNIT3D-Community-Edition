@@ -16,7 +16,7 @@ namespace App\Console\Commands;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 
-class SyncPeers extends Command
+final class SyncPeers extends Command
 {
     /**
      * The name and signature of the console command.

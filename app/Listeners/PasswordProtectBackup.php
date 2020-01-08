@@ -16,7 +16,7 @@ namespace App\Listeners;
 use App\Helpers\BackupPassword;
 use Spatie\Backup\Events\BackupZipWasCreated;
 
-class PasswordProtectBackup
+final class PasswordProtectBackup
 {
     /**
      * Create the event listener.

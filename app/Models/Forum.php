@@ -70,7 +70,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $subscriptions_count
  * @property-read int|null $topics_count
  */
-class Forum extends Model
+final class Forum extends Model
 {
     use Auditable;
 

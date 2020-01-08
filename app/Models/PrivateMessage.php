@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class PrivateMessage extends Model
+final class PrivateMessage extends Model
 {
     use Auditable;
 

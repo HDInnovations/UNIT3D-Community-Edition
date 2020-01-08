@@ -39,7 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $requests_count
  * @property-read int|null $torrents_count
  */
-class Type extends Model
+final class Type extends Model
 {
     use Auditable;
 

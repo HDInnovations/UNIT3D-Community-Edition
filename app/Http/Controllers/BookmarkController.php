@@ -21,7 +21,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class BookmarkController extends Controller
+final class BookmarkController extends Controller
 {
     /**
      * Display All Bookmarks.

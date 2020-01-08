@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Bepsvpt\SecureHeaders\SecureHeaders;
 use Closure;
 
-class HtmlEncrypt
+final class HtmlEncrypt
 {
     /**
      * @var string

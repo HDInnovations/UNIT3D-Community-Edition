@@ -18,7 +18,7 @@ use Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 
-class HiddenCaptcha
+final class HiddenCaptcha
 {
     /**
      * Set the hidden captcha tags to put in your form.

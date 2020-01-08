@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereValue($value)
  * @mixin \Eloquent
  */
-class BonExchange extends Model
+final class BonExchange extends Model
 {
     use Auditable;
 

@@ -18,7 +18,7 @@ use Illuminate\View\View;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AchievementsController extends Controller
+final class AchievementsController extends Controller
 {
     /**
      * Display All Achievements.

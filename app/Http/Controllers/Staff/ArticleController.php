@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
 
-class ArticleController extends Controller
+final class ArticleController extends Controller
 {
     /**
      * Display All Articles.

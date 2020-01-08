@@ -86,7 +86,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereIgdb($value)
  */
-class TorrentRequest extends Model
+final class TorrentRequest extends Model
 {
     use Auditable;
 

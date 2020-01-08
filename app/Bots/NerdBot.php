@@ -28,7 +28,7 @@ use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class NerdBot
+final class NerdBot
 {
     private $bot;
 

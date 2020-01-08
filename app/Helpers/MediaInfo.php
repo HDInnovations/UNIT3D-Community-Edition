@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-class MediaInfo
+final class MediaInfo
 {
     /**
      * @var string

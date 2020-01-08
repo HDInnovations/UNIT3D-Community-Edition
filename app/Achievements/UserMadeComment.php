@@ -15,7 +15,7 @@ namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
 
-class UserMadeComment extends Achievement
+final class UserMadeComment extends Achievement
 {
     /*
      * The achievement name

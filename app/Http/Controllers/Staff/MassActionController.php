@@ -22,7 +22,7 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MassActionController extends Controller
+final class MassActionController extends Controller
 {
     /**
      * Mass PM Form.

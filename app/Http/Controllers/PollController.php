@@ -23,7 +23,7 @@ use App\Models\Voter;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class PollController extends Controller
+final class PollController extends Controller
 {
     /**
      * @var ChatRepository

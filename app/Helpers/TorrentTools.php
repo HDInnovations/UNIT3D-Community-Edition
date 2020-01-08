@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-class TorrentTools
+final class TorrentTools
 {
     /**
      * Name of the file to be saved.

@@ -22,7 +22,7 @@ use App\Models\ApplicationImageProof;
 use App\Models\ApplicationUrlProof;
 use Illuminate\Http\Request;
 
-class ApplicationController extends Controller
+final class ApplicationController extends Controller
 {
     /**
      * Application Add Form.

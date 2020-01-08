@@ -67,7 +67,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $permissions_count
  * @property-read int|null $users_count
  */
-class Group extends Model
+final class Group extends Model
 {
     use Auditable;
 

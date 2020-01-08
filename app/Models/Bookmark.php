@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bookmark whereUserId($value)
  * @mixin \Eloquent
  */
-class Bookmark extends Model
+final class Bookmark extends Model
 {
     use Auditable;
 

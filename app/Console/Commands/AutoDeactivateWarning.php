@@ -18,7 +18,7 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoDeactivateWarning extends Command
+final class AutoDeactivateWarning extends Command
 {
     /**
      * The name and signature of the console command.

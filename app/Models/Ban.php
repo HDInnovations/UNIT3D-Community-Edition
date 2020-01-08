@@ -44,7 +44,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ban whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Ban extends Model
+final class Ban extends Model
 {
     use Auditable;
 

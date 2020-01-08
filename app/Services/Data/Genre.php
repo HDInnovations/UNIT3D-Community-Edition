@@ -13,7 +13,7 @@
 
 namespace App\Services\Data;
 
-class Genre
+final class Genre
 {
     public $genres;
 

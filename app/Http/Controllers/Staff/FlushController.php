@@ -22,7 +22,7 @@ use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
-class FlushController extends Controller
+final class FlushController extends Controller
 {
     /**
      * @var ChatRepository

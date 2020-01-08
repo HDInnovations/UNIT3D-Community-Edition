@@ -21,7 +21,7 @@ use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class NoteController extends Controller
+final class NoteController extends Controller
 {
     /**
      * Display All User Notes.

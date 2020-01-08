@@ -136,7 +136,7 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereIgdb($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereReleaseYear($value)
  */
-class Torrent extends Model
+final class Torrent extends Model
 {
     use Moderatable;
     use Sortable;

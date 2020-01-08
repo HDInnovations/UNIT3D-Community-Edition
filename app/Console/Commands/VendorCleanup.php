@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class VendorCleanup extends Command
+final class VendorCleanup extends Command
 {
     /**
      * @var string

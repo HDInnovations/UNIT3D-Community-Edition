@@ -18,7 +18,7 @@ use App\Models\PrivateMessage;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class AutoRemovePersonalFreeleech extends Command
+final class AutoRemovePersonalFreeleech extends Command
 {
     /**
      * The name and signature of the console command.

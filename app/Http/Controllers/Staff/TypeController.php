@@ -21,7 +21,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TypeController extends Controller
+final class TypeController extends Controller
 {
     /**
      * Display All Types.

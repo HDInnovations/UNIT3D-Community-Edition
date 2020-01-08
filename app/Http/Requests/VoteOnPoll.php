@@ -15,7 +15,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VoteOnPoll extends FormRequest
+final class VoteOnPoll extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

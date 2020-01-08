@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FailedLoginAttempt whereUsername($value)
  * @mixin \Eloquent
  */
-class FailedLoginAttempt extends Model
+final class FailedLoginAttempt extends Model
 {
     /**
      * The Attributes That Are Mass Assignable.

@@ -16,7 +16,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Closure;
 
-class CheckForOwner
+final class CheckForOwner
 {
     /**
      * Handle an incoming request.

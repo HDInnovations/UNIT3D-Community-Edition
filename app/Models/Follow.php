@@ -42,7 +42,7 @@ use Illuminate\Notifications\Notifiable;
  *
  * @property-read int|null $notifications_count
  */
-class Follow extends Model
+final class Follow extends Model
 {
     use Notifiable;
     use Auditable;

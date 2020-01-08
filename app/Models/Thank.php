@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Thank whereUserId($value)
  * @mixin \Eloquent
  */
-class Thank extends Model
+final class Thank extends Model
 {
     use Auditable;
 

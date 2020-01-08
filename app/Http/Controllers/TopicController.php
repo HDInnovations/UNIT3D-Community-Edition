@@ -36,7 +36,7 @@ use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class TopicController extends Controller
+final class TopicController extends Controller
 {
     /**
      * @var TaggedUserRepository

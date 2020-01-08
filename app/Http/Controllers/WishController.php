@@ -21,7 +21,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class WishController extends Controller
+final class WishController extends Controller
 {
     /**
      * @var WishInterface

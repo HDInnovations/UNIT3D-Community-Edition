@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TagTorrent whereTorrentId($value)
  * @mixin \Eloquent
  */
-class TagTorrent extends Model
+final class TagTorrent extends Model
 {
     /**
      * The Database Table Used By The Model.

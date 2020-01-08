@@ -21,7 +21,7 @@ use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class ChatStatusController extends Controller
+final class ChatStatusController extends Controller
 {
     /**
      * @var ChatRepository

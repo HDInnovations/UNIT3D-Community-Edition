@@ -13,7 +13,7 @@
 
 namespace App\Bots;
 
-class IRCAnnounceBot
+final class IRCAnnounceBot
 {
     /**
      * @var mixed

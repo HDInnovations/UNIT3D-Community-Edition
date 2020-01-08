@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
     /**
      * Display Home Page.

@@ -17,7 +17,7 @@ use App\Models\Thank;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class NewThank extends Notification
+final class NewThank extends Notification
 {
     use Queueable;
 

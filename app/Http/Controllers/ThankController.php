@@ -18,7 +18,7 @@ use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
-class ThankController extends Controller
+final class ThankController extends Controller
 {
     /**
      * Store A New Thank.

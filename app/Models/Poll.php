@@ -50,7 +50,7 @@ use Illuminate\Support\Str;
  * @property-read int|null $options_count
  * @property-read int|null $voters_count
  */
-class Poll extends Model
+final class Poll extends Model
 {
     use Auditable;
 

@@ -43,7 +43,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
 
-class RequestController extends Controller
+final class RequestController extends Controller
 {
     /**
      * @var RequestFacetedRepository
