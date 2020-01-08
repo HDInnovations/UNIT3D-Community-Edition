@@ -22,10 +22,7 @@ final class InviteUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @var \App\Models\Invite
-     */
-    public $invite;
+    public \App\Models\Invite $invite;
 
     /**
      * Create a new message instance.

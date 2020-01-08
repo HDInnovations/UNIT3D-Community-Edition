@@ -23,10 +23,7 @@ use Illuminate\Support\Str;
 
 final class WishController extends Controller
 {
-    /**
-     * @var WishInterface
-     */
-    private $wish;
+    private \App\Interfaces\WishInterface $wish;
 
     /**
      * WishController Constructor.

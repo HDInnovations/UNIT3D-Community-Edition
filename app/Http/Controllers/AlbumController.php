@@ -25,10 +25,7 @@ use Image;
 
 final class AlbumController extends Controller
 {
-    /**
-     * @var OmdbClient
-     */
-    private $client;
+    private \App\Services\Clients\OmdbClient $client;
 
     /**
      * AlbumController Constructor.

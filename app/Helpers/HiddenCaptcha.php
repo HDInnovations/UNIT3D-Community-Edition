@@ -57,7 +57,7 @@ final class HiddenCaptcha
      *
      * @return bool
      */
-    public static function check(Validator $validator, int $minLimit = 0, int $maxLimit = 1200): bool
+    public static function check(Validator $validator, int $minLimit = 0, int $maxLimit = 1_200): bool
     {
         $formData = $validator->getData();
 

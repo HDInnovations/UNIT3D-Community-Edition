@@ -29,27 +29,15 @@ final class SystemBot
 {
     private $bot;
 
-    /**
-     * @var \App\Repositories\ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
-    /**
-     * @var \App\Models\User
-     */
-    private $target;
+    private \App\Models\User $target;
 
     private $type;
 
-    /**
-     * @var string
-     */
-    private $message;
+    private string $message;
 
-    /**
-     * @var int
-     */
-    private $targeted;
+    private int $targeted;
 
     private $log;
 

@@ -21,15 +21,9 @@ use App\Services\Data\Tv;
 
 final class MovieScrapper
 {
-    /**
-     * @var \App\Services\Clients\TmdbClient
-     */
-    private $tmdbClient;
+    private \App\Services\Clients\TmdbClient $tmdbClient;
 
-    /**
-     * @var \App\Services\Clients\OmdbClient
-     */
-    private $omdbClient;
+    private \App\Services\Clients\OmdbClient $omdbClient;
 
     public function __construct($tmdb_key = null, $tvdb_key = null, $omdb_key = null)
     {

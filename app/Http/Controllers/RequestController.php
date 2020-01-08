@@ -45,15 +45,9 @@ use MarcReichel\IGDBLaravel\Models\Game;
 
 final class RequestController extends Controller
 {
-    /**
-     * @var RequestFacetedRepository
-     */
-    private $faceted;
+    private \App\Repositories\RequestFacetedRepository $faceted;
 
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * RequestController Constructor.

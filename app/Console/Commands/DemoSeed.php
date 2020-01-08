@@ -118,7 +118,7 @@ final class DemoSeed extends Command
     private function search($id)
     {
         // we delay between api calls to reduce throttling
-        usleep(500000);
+        usleep(500_000);
 
         $key = config('api-keys.omdb');
 

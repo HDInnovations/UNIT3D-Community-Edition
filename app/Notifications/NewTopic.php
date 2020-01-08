@@ -23,20 +23,11 @@ final class NewTopic extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var \App\Models\User
-     */
-    public $poster;
+    public \App\Models\User $poster;
 
-    /**
-     * @var \App\Models\Topic
-     */
-    public $topic;
+    public \App\Models\Topic $topic;
 
     /**
      * Create a new notification instance.

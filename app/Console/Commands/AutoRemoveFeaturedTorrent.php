@@ -21,10 +21,7 @@ use Illuminate\Console\Command;
 
 final class AutoRemoveFeaturedTorrent extends Command
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     public function __construct(ChatRepository $chat)
     {

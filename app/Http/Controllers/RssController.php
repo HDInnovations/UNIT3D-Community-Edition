@@ -26,10 +26,7 @@ use Illuminate\Http\Request;
 
 final class RssController extends Controller
 {
-    /**
-     * @var TorrentFacetedRepository
-     */
-    private $torrent_faceted;
+    private \App\Repositories\TorrentFacetedRepository $torrent_faceted;
 
     /**
      * RssController Constructor.
@@ -117,7 +114,7 @@ final class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = array_merge($expected, $params);
+            $rss->json_torrent = [...$expected, ...$params];
             $rss->is_private = 1;
             $rss->save();
             $success = 'Private RSS Feed Created';
@@ -149,12 +146,8 @@ final class RssController extends Controller
         $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         if ($user->group->id == $banned_group[0]) {
             abort(404);

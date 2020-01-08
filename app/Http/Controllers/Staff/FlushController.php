@@ -24,10 +24,7 @@ use Carbon\Carbon;
 
 final class FlushController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * ChatController Constructor.

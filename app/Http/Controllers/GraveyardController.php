@@ -26,10 +26,7 @@ use Illuminate\Support\Str;
 
 final class GraveyardController extends Controller
 {
-    /**
-     * @var TorrentFacetedRepository
-     */
-    private $faceted;
+    private \App\Repositories\TorrentFacetedRepository $faceted;
 
     /**
      * GraveyardController Constructor.

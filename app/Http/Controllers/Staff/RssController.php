@@ -23,10 +23,7 @@ use Illuminate\Http\Request;
 
 final class RssController extends Controller
 {
-    /**
-     * @var TorrentFacetedRepository
-     */
-    private $torrent_faceted;
+    private \App\Repositories\TorrentFacetedRepository $torrent_faceted;
 
     /**
      * RssController Constructor.
@@ -107,7 +104,7 @@ final class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = array_merge($expected, $params);
+            $rss->json_torrent = [...$expected, ...$params];
             $rss->is_private = 0;
             $rss->staff_id = $user->id;
             $rss->position = (int) $request->input('position');

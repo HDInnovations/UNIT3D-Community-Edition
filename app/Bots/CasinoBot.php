@@ -28,45 +28,21 @@ final class CasinoBot
 {
     private $bot;
 
-    /**
-     * @var \App\Repositories\ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
-    /**
-     * @var \App\Models\User
-     */
-    private $target;
+    private \App\Models\User $target;
 
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
-    /**
-     * @var string
-     */
-    private $message;
+    private string $message;
 
-    /**
-     * @var int
-     */
-    private $targeted;
+    private int $targeted;
 
-    /**
-     * @var string
-     */
-    private $log;
+    private string $log;
 
-    /**
-     * @var \Carbon\Carbon
-     */
-    private $expiresAt;
+    private \Carbon\Carbon $expiresAt;
 
-    /**
-     * @var \Carbon\Carbon
-     */
-    private $current;
+    private \Carbon\Carbon $current;
 
     /**
      * NerdBot Constructor.

@@ -24,10 +24,7 @@ final class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
-    /**
-     * @var string
-     */
-    protected $redirectTo = '/';
+    protected string $redirectTo = '/';
 
     public function __construct()
     {
@@ -36,12 +33,8 @@ final class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password): void
     {
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
-        });
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
         $user->password = bcrypt($password);
         $user->remember_token = Str::random(60);
 

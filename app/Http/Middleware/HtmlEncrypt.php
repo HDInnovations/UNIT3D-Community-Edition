@@ -19,10 +19,7 @@ use Closure;
 
 final class HtmlEncrypt
 {
-    /**
-     * @var string
-     */
-    private $hex;
+    private string $hex;
 
     /**
      * HtmlEncrypt constructor.

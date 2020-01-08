@@ -23,20 +23,11 @@ final class NewPost extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var \App\Models\Post
-     */
-    public $post;
+    public \App\Models\Post $post;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var \App\Models\User
-     */
-    public $poster;
+    public \App\Models\User $poster;
 
     /**
      * Create a new notification instance.

@@ -20,7 +20,7 @@ final class Genre
     /**
      * @var string[]
      */
-    protected $movieGenres = [
+    protected array $movieGenres = [
         'Action',
         'Adventure',
         'Animation',
@@ -47,7 +47,7 @@ final class Genre
     /**
      * @var string[]
      */
-    protected $tvGenres = [
+    protected array $tvGenres = [
         'Game-Show',
         'News',
         'Reality-TV',

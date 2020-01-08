@@ -28,7 +28,7 @@ final class Ping implements ShouldBroadcastNow
     /**
      * @var mixed[]
      */
-    public $ping;
+    public array $ping;
 
     /**
      * Create a new event instance.

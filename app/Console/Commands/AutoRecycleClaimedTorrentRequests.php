@@ -35,10 +35,7 @@ final class AutoRecycleClaimedTorrentRequests extends Command
      */
     protected $description = 'Recycle Torrent Requests That Wwere Claimed But Not Filled Within 7 Days.';
 
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     public function __construct(ChatRepository $chat)
     {

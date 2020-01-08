@@ -55,15 +55,9 @@ use MarcReichel\IGDBLaravel\Models\Game;
 
 final class TorrentController extends Controller
 {
-    /**
-     * @var TorrentFacetedRepository
-     */
-    private $faceted;
+    private \App\Repositories\TorrentFacetedRepository $faceted;
 
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * RequestController Constructor.

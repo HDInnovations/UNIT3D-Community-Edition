@@ -22,15 +22,9 @@ final class NewUpload extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var \App\Models\Torrent
-     */
-    public $torrent;
+    public \App\Models\Torrent $torrent;
 
     /**
      * Create a new notification instance.

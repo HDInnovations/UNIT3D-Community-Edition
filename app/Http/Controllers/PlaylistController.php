@@ -27,10 +27,7 @@ use Image;
 
 final class PlaylistController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * PlaylistController Constructor.

@@ -22,10 +22,7 @@ use Illuminate\Http\Request;
 
 final class ReportController extends Controller
 {
-    /**
-     * @var Report
-     */
-    private $report;
+    private \App\Models\Report $report;
 
     /**
      * ReportController Constructor.

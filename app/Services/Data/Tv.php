@@ -18,45 +18,21 @@ use Carbon\Carbon;
 
 final class Tv extends Movie
 {
-    /**
-     * @var array
-     */
-    public $tvdb = [];
+    public array $tvdb = [];
 
-    /**
-     * @var array
-     */
-    public $episodes = [];
+    public array $episodes = [];
 
-    /**
-     * @var Carbon
-     */
-    public $endDate;
+    public ?\Carbon\Carbon $endDate;
 
-    /**
-     * @var bool
-     */
-    public $ended;
+    public bool $ended;
 
-    /**
-     * @var string
-     */
-    public $network;
+    public string $network;
 
-    /**
-     * @var array
-     */
-    public $creators = [];
+    public array $creators = [];
 
-    /**
-     * @var float
-     */
-    public $tvdbRating;
+    public float $tvdbRating;
 
-    /**
-     * @var int
-     */
-    public $tvdbVotes;
+    public int $tvdbVotes;
 
     public function __construct($data = [])
     {

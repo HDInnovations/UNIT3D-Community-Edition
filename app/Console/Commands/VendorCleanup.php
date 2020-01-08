@@ -24,7 +24,7 @@ final class VendorCleanup extends Command
     /**
      * @var string[]
      */
-    protected $patterns =
+    protected array $patterns =
         [
             'test',
             'tests',
@@ -68,7 +68,7 @@ final class VendorCleanup extends Command
      * @return void
      * @var string[]
      */
-    protected $excluded =
+    protected array $excluded =
         [
             /**List of  Folders*/
             'src',
@@ -146,7 +146,7 @@ final class VendorCleanup extends Command
             $directory = $dir.'/'.$file;
             if (is_dir($directory)) {
                 $directories[] = $directory;
-                $directories = array_merge($directories, $this->expandDirectoryTree($directory));
+                $directories = [...$directories, ...$this->expandDirectoryTree($directory)];
             }
         }
 

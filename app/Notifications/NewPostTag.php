@@ -22,20 +22,11 @@ final class NewPostTag extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var string
-     */
-    public $tagger;
+    public string $tagger;
 
-    /**
-     * @var \App\Models\Post
-     */
-    public $post;
+    public \App\Models\Post $post;
 
     /**
      * Create a new notification instance.

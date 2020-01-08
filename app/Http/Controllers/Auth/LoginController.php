@@ -22,23 +22,11 @@ final class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    // Upon Successful Login
-    /**
-     * @var string
-     */
-    protected $redirectTo = '/';
+    protected string $redirectTo = '/';
 
-    // Max Attempts Until Lockout
-    /**
-     * @var int
-     */
-    public $maxAttempts = 3;
+    public int $maxAttempts = 3;
 
-    // Minutes Lockout
-    /**
-     * @var int
-     */
-    public $decayMinutes = 60;
+    public int $decayMinutes = 60;
 
     /**
      * LoginController Constructor.
@@ -79,18 +67,10 @@ final class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
-        $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
 
         if ($user->active == 0 || $user->group_id == $validating_group[0]) {
             $this->guard()->logout();

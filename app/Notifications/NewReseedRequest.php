@@ -22,10 +22,7 @@ final class NewReseedRequest extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var \App\Models\Torrent
-     */
-    public $torrent;
+    public \App\Models\Torrent $torrent;
 
     /**
      * Create a new notification instance.

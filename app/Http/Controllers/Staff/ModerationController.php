@@ -26,10 +26,7 @@ use Illuminate\Http\Request;
 
 final class ModerationController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * ModerationController Constructor.

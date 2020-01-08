@@ -28,15 +28,9 @@ final class MangaUpdatesClient extends Client implements MangaInterface
      */
     protected $apiSecure = true;
 
-    /**
-     * @var string
-     */
-    protected $apiSeriesUrl = 'series.html?id=';
+    protected string $apiSeriesUrl = 'series.html?id=';
 
-    /**
-     * @var string
-     */
-    protected $apiAuthorUrl = 'authors.html?id=';
+    protected string $apiAuthorUrl = 'authors.html?id=';
 
     public function __construct()
     {

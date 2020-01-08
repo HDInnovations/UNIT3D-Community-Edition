@@ -22,20 +22,11 @@ final class NewRequestFillApprove extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var string
-     */
-    public $sender;
+    public string $sender;
 
-    /**
-     * @var \App\Models\TorrentRequest
-     */
-    public $tr;
+    public \App\Models\TorrentRequest $tr;
 
     /**
      * Create a new notification instance.

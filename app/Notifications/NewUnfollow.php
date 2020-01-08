@@ -22,20 +22,11 @@ final class NewUnfollow extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var \App\Models\User
-     */
-    public $sender;
+    public \App\Models\User $sender;
 
-    /**
-     * @var \App\Models\User
-     */
-    public $target;
+    public \App\Models\User $target;
 
     /**
      * Create a new notification instance.

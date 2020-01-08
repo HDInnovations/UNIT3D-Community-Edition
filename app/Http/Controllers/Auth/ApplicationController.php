@@ -123,14 +123,10 @@ final class ApplicationController extends Controller
         }
         $application->save();
         // Map And Save IMG Proofs
-        $imgs = collect($request->input('images'))->map(function ($value): \App\Models\ApplicationImageProof {
-            return new ApplicationImageProof(['image' => $value]);
-        });
+        $imgs = collect($request->input('images'))->map(fn($value): \App\Models\ApplicationImageProof => new ApplicationImageProof(['image' => $value]));
         $application->imageProofs()->saveMany($imgs);
         // Map And Save URL Proofs
-        $urls = collect($request->input('links'))->map(function ($value): \App\Models\ApplicationUrlProof {
-            return new ApplicationUrlProof(['url' => $value]);
-        });
+        $urls = collect($request->input('links'))->map(fn($value): \App\Models\ApplicationUrlProof => new ApplicationUrlProof(['url' => $value]));
         $application->urlProofs()->saveMany($urls);
         return redirect()->route('login')
             ->withSuccess(trans('application-submitted'));

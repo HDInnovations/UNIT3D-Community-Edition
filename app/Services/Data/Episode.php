@@ -24,10 +24,7 @@ final class Episode
 
     public $title;
 
-    /**
-     * @var \Carbon\Carbon|null
-     */
-    public $releaseDate;
+    public ?\Carbon\Carbon $releaseDate;
 
     public $plot;
 

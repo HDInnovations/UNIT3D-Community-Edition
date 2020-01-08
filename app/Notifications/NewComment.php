@@ -21,15 +21,9 @@ final class NewComment extends Notification
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var \App\Models\Comment
-     */
-    public $comment;
+    public \App\Models\Comment $comment;
 
     /**
      * Create a new notification instance.

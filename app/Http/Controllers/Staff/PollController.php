@@ -24,10 +24,7 @@ use App\Repositories\ChatRepository;
 
 final class PollController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * PollController Constructor.
@@ -88,9 +85,7 @@ final class PollController extends Controller
 
         $poll = $request->user() ? $user->polls()->create($request->all()) : Poll::create($request->all());
 
-        $options = collect($request->input('options'))->map(function ($value): \App\Models\Option {
-            return new Option(['name' => $value]);
-        });
+        $options = collect($request->input('options'))->map(fn($value): \App\Models\Option => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
 
         $poll_url = hrefPoll($poll);

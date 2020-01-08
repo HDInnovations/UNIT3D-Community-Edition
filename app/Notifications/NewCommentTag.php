@@ -22,20 +22,11 @@ final class NewCommentTag extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var string
-     */
-    public $tagger;
+    public string $tagger;
 
-    /**
-     * @var \App\Models\Comment
-     */
-    public $comment;
+    public \App\Models\Comment $comment;
 
     /**
      * Create a new notification instance.

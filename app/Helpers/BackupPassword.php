@@ -19,10 +19,8 @@ final class BackupPassword
 {
     /**
      * Path to .zip-fil.
-     *
-     * @var string
      */
-    public $path;
+    public string $path;
 
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.

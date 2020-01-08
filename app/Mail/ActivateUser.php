@@ -22,15 +22,9 @@ final class ActivateUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @var User
-     */
-    public $user;
+    public \App\Models\User $user;
 
-    /**
-     * @var string
-     */
-    public $code;
+    public string $code;
 
     /**
      * ActivateUser constructor.

@@ -25,10 +25,7 @@ use Illuminate\Http\Request;
 
 final class PollController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * PollController Constructor.

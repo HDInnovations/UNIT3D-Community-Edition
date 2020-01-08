@@ -24,10 +24,7 @@ use Illuminate\Console\Command;
 
 final class AutoNerdStat extends Command
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     public function __construct(ChatRepository $chat)
     {

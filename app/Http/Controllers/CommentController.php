@@ -39,15 +39,9 @@ use Illuminate\Http\Request;
 
 final class CommentController extends Controller
 {
-    /**
-     * @var TaggedUserRepository
-     */
-    private $tag;
+    private \App\Repositories\TaggedUserRepository $tag;
 
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * CommentController Constructor.

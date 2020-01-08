@@ -33,10 +33,7 @@ use Illuminate\Support\Facades\DB;
 
 final class BonusController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * BonusController Constructor.
@@ -600,7 +597,7 @@ final class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 100)
+            ->where('torrents.size', '>=', 1_073_741_824 * 100)
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -620,8 +617,8 @@ final class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 25)
-            ->where('torrents.size', '<', 1073741824 * 100)
+            ->where('torrents.size', '>=', 1_073_741_824 * 25)
+            ->where('torrents.size', '<', 1_073_741_824 * 100)
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -641,8 +638,8 @@ final class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824)
-            ->where('torrents.size', '<', 1073741824 * 25)
+            ->where('torrents.size', '>=', 1_073_741_824)
+            ->where('torrents.size', '<', 1_073_741_824 * 25)
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -662,8 +659,8 @@ final class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000)
-            ->where('history.seedtime', '<', 2592000 * 2)
+            ->where('history.seedtime', '>=', 2_592_000)
+            ->where('history.seedtime', '<', 2_592_000 * 2)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -683,8 +680,8 @@ final class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 2)
-            ->where('history.seedtime', '<', 2592000 * 3)
+            ->where('history.seedtime', '>=', 2_592_000 * 2)
+            ->where('history.seedtime', '<', 2_592_000 * 3)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -704,8 +701,8 @@ final class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 3)
-            ->where('history.seedtime', '<', 2592000 * 6)
+            ->where('history.seedtime', '>=', 2_592_000 * 3)
+            ->where('history.seedtime', '<', 2_592_000 * 6)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -725,8 +722,8 @@ final class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 6)
-            ->where('history.seedtime', '<', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 6)
+            ->where('history.seedtime', '<', 2_592_000 * 12)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -746,7 +743,7 @@ final class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 12)
             ->where('history.user_id', $user->id)
             ->count();
     }

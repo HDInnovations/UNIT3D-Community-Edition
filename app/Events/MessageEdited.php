@@ -27,10 +27,8 @@ final class MessageEdited implements ShouldBroadcastNow
 
     /**
      * Message details.
-     *
-     * @var Message
      */
-    public $message;
+    public \App\Http\Resources\ChatMessageResource $message;
 
     /**
      * Create a new event instance.

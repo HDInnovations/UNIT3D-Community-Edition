@@ -25,17 +25,13 @@ final class FailedLogin extends Notification implements ShouldQueue
 
     /**
      * The request IP address.
-     *
-     * @var string
      */
-    public $ip;
+    public string $ip;
 
     /**
      * The Time.
-     *
-     * @var Carbon\Carbon
      */
-    public $time;
+    public \Carbon\Carbon $time;
 
     /**
      * Create a new notification instance.

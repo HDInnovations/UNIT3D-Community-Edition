@@ -68,10 +68,7 @@ final class Markdown
         return $this;
     }
 
-    /**
-     * @var bool
-     */
-    protected $urlsLinked = true;
+    protected bool $urlsLinked = true;
 
     public function setSafeMode($safeMode): self
     {
@@ -80,15 +77,12 @@ final class Markdown
         return $this;
     }
 
-    /**
-     * @var bool
-     */
-    protected $safeMode;
+    protected bool $safeMode;
 
     /**
      * @var string[]
      */
-    protected $safeLinksWhitelist = [
+    protected array $safeLinksWhitelist = [
         'http://',
         'https://',
         'ftp://',
@@ -111,7 +105,7 @@ final class Markdown
     /**
      * @var string[][]
      */
-    protected $BlockTypes = [
+    protected array $BlockTypes = [
         '#' => ['Header'],
         '*' => ['Rule', 'List'],
         '+' => ['List'],
@@ -141,7 +135,7 @@ final class Markdown
     /**
      * @var string[]
      */
-    protected $unmarkedBlockTypes = [
+    protected array $unmarkedBlockTypes = [
         'Code',
     ];
 
@@ -957,7 +951,7 @@ final class Markdown
     /**
      * @var string[][]
      */
-    protected $InlineTypes = [
+    protected array $InlineTypes = [
         '"'  => ['SpecialCharacter'],
         '!'  => ['Image'],
         '&'  => ['SpecialCharacter'],
@@ -972,11 +966,7 @@ final class Markdown
         '\\' => ['EscapeSequence'],
     ];
 
-    // ~
-    /**
-     * @var string
-     */
-    protected $inlineMarkerList = '!"*_&[:<>`~\\';
+    protected string $inlineMarkerList = '!"*_&[:<>`~\\';
 
     //
     // ~
@@ -1536,38 +1526,38 @@ final class Markdown
         return $instance;
     }
 
-    private static $instances = [];
+    private static array $instances = [];
 
     //
     // Fields
     //
 
-    protected $DefinitionData;
+    protected array $DefinitionData;
 
     //
     // Read-Only
 
-    protected $specialCharacters = [
+    protected array $specialCharacters = [
         '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|',
     ];
 
-    protected $StrongRegex = [
+    protected array $StrongRegex = [
         '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*[*])+?)[*]{2}(?![*])/s',
         '_' => '/^__((?:\\\\_|[^_]|_[^_]*_)+?)__(?!_)/us',
     ];
 
-    protected $EmRegex = [
+    protected array $EmRegex = [
         '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
         '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
     ];
 
-    protected $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*(?:\s*=\s*(?:[^"\'=<>`\s]+|"[^"]*"|\'[^\']*\'))?';
+    protected string $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*(?:\s*=\s*(?:[^"\'=<>`\s]+|"[^"]*"|\'[^\']*\'))?';
 
-    protected $voidElements = [
+    protected array $voidElements = [
         'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source',
     ];
 
-    protected $textLevelElements = [
+    protected array $textLevelElements = [
         'a', 'br', 'bdo', 'abbr', 'blink', 'nextid', 'acronym', 'basefont',
         'b', 'em', 'big', 'cite', 'small', 'spacer', 'listing',
         'i', 'rp', 'del', 'code',          'strike', 'marquee',

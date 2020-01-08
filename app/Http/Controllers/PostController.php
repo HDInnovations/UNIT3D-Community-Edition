@@ -36,15 +36,9 @@ use Illuminate\Http\Request;
 
 final class PostController extends Controller
 {
-    /**
-     * @var TaggedUserRepository
-     */
-    private $tag;
+    private \App\Repositories\TaggedUserRepository $tag;
 
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * ForumController Constructor.

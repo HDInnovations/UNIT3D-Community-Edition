@@ -35,15 +35,9 @@ use Illuminate\Http\Request;
 
 final class ChatController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
-    /**
-     * @var AuthManager
-     */
-    private $auth;
+    private \Illuminate\Contracts\Auth\Factory $auth;
 
     public function __construct(ChatRepository $chat, Factory $auth)
     {

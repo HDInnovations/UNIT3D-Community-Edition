@@ -22,25 +22,13 @@ use App\Services\Clients\OmdbClient;
 
 final class WishRepository implements WishInterface
 {
-    /**
-     * @var Wish
-     */
-    private $wish;
+    private \App\Models\Wish $wish;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private \App\Models\User $user;
 
-    /**
-     * @var OmdbClient
-     */
-    private $client;
+    private \App\Services\Clients\OmdbClient $client;
 
-    /**
-     * @var Torrent
-     */
-    private $torrent;
+    private \App\Models\Torrent $torrent;
 
     /**
      * WishRepository constructor.

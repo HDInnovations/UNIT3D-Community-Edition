@@ -54,10 +54,8 @@ final class Seedbox extends Model
 
     /**
      * The Attributes That Are Encrypted.
-     *
-     * @var array
      */
-    protected $encryptable = [
+    protected array $encryptable = [
         'ip',
     ];
 

@@ -19,22 +19,13 @@ use GuzzleHttp\Client as GuzzleClient;
 
 abstract class Client
 {
-    /**
-     * @var GuzzleClient
-     */
-    protected $guzzle;
+    protected GuzzleClient $guzzle;
 
-    /**
-     * @var string
-     */
-    protected $apiUrl;
+    protected string $apiUrl;
 
     protected $apiKey;
 
-    /**
-     * @var bool
-     */
-    protected $apiSecure = false;
+    protected bool $apiSecure = false;
 
     public function __construct($apiUrl, $apiKey = null)
     {
@@ -87,9 +78,7 @@ abstract class Client
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            cache()->remember($key, 7 * 24 * 60, function () use ($data): string {
-                return serialize($data);
-            });
+            cache()->remember($key, 7 * 24 * 60, fn(): string => serialize($data));
         }
 
         if (cache()->has($key)) {

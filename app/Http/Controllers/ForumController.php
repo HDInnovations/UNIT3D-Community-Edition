@@ -24,15 +24,9 @@ use Illuminate\Http\Request;
 
 final class ForumController extends Controller
 {
-    /**
-     * @var TaggedUserRepository
-     */
-    private $tag;
+    private \App\Repositories\TaggedUserRepository $tag;
 
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * ForumController Constructor.
@@ -129,7 +123,7 @@ final class ForumController extends Controller
 
         if ($request->has('category')) {
             $category = (int) $request->input('category');
-            if ($category > 0 && $category < 99999999999) {
+            if ($category > 0 && $category < 99_999_999_999) {
                 $children = Forum::where('parent_id', '=', $category)->get()->toArray();
                 if (is_array($children)) {
                     $result->where(function ($query) use ($category, $children) {

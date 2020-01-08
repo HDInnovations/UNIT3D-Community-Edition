@@ -29,40 +29,19 @@ use Illuminate\Support\Str;
 
 final class ChatRepository
 {
-    /**
-     * @var Message
-     */
-    private $message;
+    private \App\Models\Message $message;
 
-    /**
-     * @var Chatroom
-     */
-    private $room;
+    private \App\Models\Chatroom $room;
 
-    /**
-     * @var ChatStatus
-     */
-    private $status;
+    private \App\Models\ChatStatus $status;
 
-    /**
-     * @var User
-     */
-    private $user;
+    private \App\Models\User $user;
 
-    /**
-     * @var Bot
-     */
-    private $bot;
+    private \App\Models\Bot $bot;
 
-    /**
-     * @var \App\Models\UserEcho
-     */
-    private $echo;
+    private \App\Models\UserEcho $echo;
 
-    /**
-     * @var \App\Models\UserAudible
-     */
-    private $audible;
+    private \App\Models\UserAudible $audible;
 
     public function __construct(Message $message, Chatroom $room, ChatStatus $status, User $user, Bot $bot, UserEcho $echo, UserAudible $audible)
     {

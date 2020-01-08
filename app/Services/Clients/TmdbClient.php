@@ -31,20 +31,11 @@ final class TmdbClient extends Client implements MovieTvInterface
      */
     protected $apiSecure = true;
 
-    /**
-     * @var string
-     */
-    private $imagePath = 'https://image.tmdb.org/t/p/w780';
+    private string $imagePath = 'https://image.tmdb.org/t/p/w780';
 
-    /**
-     * @var string
-     */
-    private $imageBackdropPath = 'https://image.tmdb.org/t/p/w1280';
+    private string $imageBackdropPath = 'https://image.tmdb.org/t/p/w1280';
 
-    /**
-     * @var string
-     */
-    private $imageProfilePath = 'https://image.tmdb.org/t/p/h632';
+    private string $imageProfilePath = 'https://image.tmdb.org/t/p/h632';
 
     public function __construct($apiKey)
     {
@@ -381,13 +372,9 @@ final class TmdbClient extends Client implements MovieTvInterface
      */
     private function formatImages($images, $path, $image): array
     {
-        $images = array_map(function ($item) use ($path): string {
-            return $path.$item['file_path'];
-        }, $images);
+        $images = array_map(fn($item): string => $path.$item['file_path'], $images);
 
-        return array_filter($images, function ($item) use ($path, $image): bool {
-            return !$item != !($path.$image);
-        });
+        return array_filter($images, fn($item): bool => !$item != !($path.$image));
     }
 
     /**

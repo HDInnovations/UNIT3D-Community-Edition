@@ -26,9 +26,8 @@ final class GitUpdater extends Command
 
     /**
      * The copy command.
-     * @var string
      */
-    protected $copy_command = 'cp -Rfp';
+    protected string $copy_command = 'cp -Rfp';
 
     /**
      * The console command signature.
@@ -355,6 +354,6 @@ final class GitUpdater extends Command
             'laravel-echo-server.json',
         ];
 
-        return array_merge($paths, $additional);
+        return [...$paths, ...$additional];
     }
 }

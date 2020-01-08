@@ -26,10 +26,8 @@ final class Chatter implements ShouldBroadcastNow
 
     /**
      * Message details.
-     *
-     * @var Message
      */
-    public $echoes;
+    public \App\Models\Message $echoes;
 
     public $target;
 

@@ -22,10 +22,8 @@ final class ProAjaxMiddleware
     /**
      * All your flash names.
      * E.g. you might have a flash message named "flash_message" for your standard bootstrap alert flash messages,.
-     *
-     * @var array
      */
-    public $flash_name = 'flash_message';
+    public string $flash_name = 'flash_message';
 
     /**
      * After the request has been made, determine if an alert should be shown,

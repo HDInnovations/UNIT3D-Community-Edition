@@ -22,20 +22,11 @@ final class NewBon extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var string
-     */
-    public $sender;
+    public string $sender;
 
-    /**
-     * @var \App\Models\BonTransactions
-     */
-    public $transaction;
+    public \App\Models\BonTransactions $transaction;
 
     /**
      * Create a new notification instance.

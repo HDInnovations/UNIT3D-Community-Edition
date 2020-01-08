@@ -18,15 +18,9 @@ use SimpleXMLElement;
 
 final class AnnClient extends Client implements MangaInterface
 {
-    /**
-     * @var string
-     */
-    protected $apiUrl = 'cdn.animenewsnetwork.com/encyclopedia/api.xml';
+    protected string $apiUrl = 'cdn.animenewsnetwork.com/encyclopedia/api.xml';
 
-    /**
-     * @var bool
-     */
-    protected $apiSecure = false;
+    protected bool $apiSecure = false;
 
     public function __construct()
     {

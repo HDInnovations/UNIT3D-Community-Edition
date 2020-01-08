@@ -23,10 +23,7 @@ use Illuminate\Http\Request;
 
 final class ChatRoomController extends Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * ChatController Constructor.

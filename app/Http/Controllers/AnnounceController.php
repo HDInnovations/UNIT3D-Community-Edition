@@ -125,15 +125,9 @@ final class AnnounceController extends Controller
         }
 
         // Caached System Required Groups
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {
@@ -461,10 +455,10 @@ final class AnnounceController extends Controller
         $torrent->save();
 
         $res = [];
-        $min = 2400; // 40 Minutes
-        $max = 3600; // 60 Minutes
+        $min = 2_400; // 40 Minutes
+        $max = 3_600; // 60 Minutes
         $res['interval'] = rand($min, $max);
-        $res['min interval'] = 1800; // 30 Minutes
+        $res['min interval'] = 1_800; // 30 Minutes
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
         $res['complete'] = $torrent->seeders;
         $res['incomplete'] = $torrent->leechers;

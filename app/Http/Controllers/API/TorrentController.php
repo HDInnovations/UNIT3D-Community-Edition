@@ -33,10 +33,7 @@ use Illuminate\Support\Str;
 
 final class TorrentController extends BaseController
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     /**
      * RequestController Constructor.

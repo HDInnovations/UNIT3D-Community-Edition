@@ -38,10 +38,7 @@ final class TwoStepController extends Controller
      */
     private $_remainingAttempts;
 
-    /**
-     * @var \Illuminate\Contracts\Auth\Authenticatable|null
-     */
-    private $_user;
+    private ?\Illuminate\Contracts\Auth\Authenticatable $_user;
 
     /**
      * Create a new controller instance.

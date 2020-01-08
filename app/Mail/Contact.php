@@ -24,7 +24,7 @@ final class Contact extends Mailable
     /**
      * @var mixed[]
      */
-    public $input;
+    public array $input;
 
     /**
      * Create a new message instance.

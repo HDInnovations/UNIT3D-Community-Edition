@@ -43,17 +43,14 @@ final class IRCAnnounceBot
     /**
      * @var mixed[]
      */
-    private $channels = [];
+    private array $channels = [];
 
     /**
      * @var null
      */
     private $username = null;
 
-    /**
-     * @var bool
-     */
-    private $registered = false;
+    private bool $registered = false;
 
     public function __construct()
     {

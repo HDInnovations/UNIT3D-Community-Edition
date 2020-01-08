@@ -15,10 +15,7 @@ namespace App\Helpers;
 
 final class Bbcode
 {
-    /**
-     * @var array
-     */
-    public $parsers = [
+    public array $parsers = [
         'h1' => [
             'pattern' => '/\[h1\](.*?)\[\/h1\]/s',
             'replace' => '<h1>$1</h1>',
@@ -288,10 +285,7 @@ final class Bbcode
         ],
     ];
 
-    /**
-     * @var array
-     */
-    protected $enabledParsers = [];
+    protected array $enabledParsers = [];
 
     public function __construct()
     {

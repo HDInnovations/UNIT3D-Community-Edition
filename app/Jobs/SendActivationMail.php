@@ -26,22 +26,14 @@ final class SendActivationMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * @var User
-     */
-    public $user;
+    public \App\Models\User $user;
 
-    /**
-     * @var string
-     */
-    public $code;
+    public string $code;
 
     /**
      * The number of times the job may be attempted.
-     *
-     * @var int
      */
-    public $tries = 3;
+    public int $tries = 3;
 
     /**
      * ActivateUser constructor.

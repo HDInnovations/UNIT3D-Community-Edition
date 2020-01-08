@@ -20,10 +20,7 @@ use Session;
 
 final class AchievementUnlocked
 {
-    /**
-     * @var \App\Repositories\ChatRepository
-     */
-    private $chat;
+    private \App\Repositories\ChatRepository $chat;
 
     public function __construct(ChatRepository $chat)
     {

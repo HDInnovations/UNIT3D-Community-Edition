@@ -22,20 +22,11 @@ final class NewPostTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var string
-     */
-    public $tipper;
+    public string $tipper;
 
-    /**
-     * @var \App\Models\Post
-     */
-    public $post;
+    public \App\Models\Post $post;
 
     public $amount;
 

@@ -21,15 +21,9 @@ final class NewThank extends Notification
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var \App\Models\Thank
-     */
-    public $thank;
+    public \App\Models\Thank $thank;
 
     /**
      * Create a new notification instance.

@@ -15,10 +15,7 @@ namespace App\Helpers;
 
 final class MediaInfo
 {
-    /**
-     * @var string
-     */
-    private $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
+    private string $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
 
     public function parse($string)
     {
@@ -454,7 +451,7 @@ final class MediaInfo
         $factors = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
 
         if (isset($factors[$size])) {
-            return (float) number_format($bytes * pow(1024, $factors[$size]), 2, '.', '');
+            return (float) number_format($bytes * pow(1_024, $factors[$size]), 2, '.', '');
         }
 
         return $bytes;

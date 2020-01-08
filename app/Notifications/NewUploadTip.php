@@ -22,20 +22,11 @@ final class NewUploadTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var string
-     */
-    public $tipper;
+    public string $tipper;
 
-    /**
-     * @var \App\Models\Torrent
-     */
-    public $torrent;
+    public \App\Models\Torrent $torrent;
 
     public $amount;
 
