@@ -56,7 +56,7 @@ class MangaUpdatesClient extends Client implements MangaInterface
             $webpage,
             $genre_block
         );
-        preg_match_all('/series\.html\?act\=genresearch\&amp\;genre\=([\w-+]+)/i', $genre_block[1], $genres);
+        preg_match_all('/series\.html\?act\=genresearch\&amp\;genre\=([\w\-+]+)/i', $genre_block[1], $genres);
         $data['genres'] = array_filter($genres[1], 'urldecode');
 
         return $data;
