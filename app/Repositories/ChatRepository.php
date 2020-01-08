@@ -287,7 +287,7 @@ class ChatRepository
     {
         $messages = $this->messages($room_id)->toArray();
         $limit = config('chat.message_limit');
-        $count = count($messages);
+        $count = is_countable($messages) ? count($messages) : 0;
 
         // Lets purge all old messages and keep the database to the limit settings
         if ($count > $limit) {

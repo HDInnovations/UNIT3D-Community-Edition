@@ -61,7 +61,7 @@ class ChatController extends Controller
     {
         $user = User::with(['echoes'])->findOrFail($this->auth->user()->id);
 
-        if (!$user->echoes || count($user->echoes->toArray()) < 1) {
+        if (!$user->echoes || (is_countable($user->echoes->toArray()) ? count($user->echoes->toArray()) : 0) < 1) {
             $echoes = new UserEcho();
             $echoes->user_id = $this->auth->user()->id;
             $echoes->room_id = 1;
@@ -76,7 +76,7 @@ class ChatController extends Controller
     {
         $user = User::with(['audibles'])->findOrFail($this->auth->user()->id);
 
-        if (!$user->audibles || count($user->audibles->toArray()) < 1) {
+        if (!$user->audibles || (is_countable($user->audibles->toArray()) ? count($user->audibles->toArray()) : 0) < 1) {
             $audibles = new UserAudible();
             $audibles->user_id = $this->auth->user()->id;
             $audibles->room_id = 1;
