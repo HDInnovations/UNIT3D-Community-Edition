@@ -19,8 +19,8 @@ use Illuminate\Queue\SerializesModels;
 
 final class TestEmail extends Mailable
 {
-    use Queueable, SerializesModels;
-
+    use Queueable;
+    use SerializesModels;
     /**
      * Create a new message instance.
      *

@@ -19,8 +19,8 @@ use Illuminate\Queue\SerializesModels;
 
 final class Bug extends Mailable
 {
-    use Queueable, SerializesModels;
-
+    use Queueable;
+    use SerializesModels;
     /**
      * @var mixed[]
      */

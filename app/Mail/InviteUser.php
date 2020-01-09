@@ -20,8 +20,8 @@ use Illuminate\Queue\SerializesModels;
 
 final class InviteUser extends Mailable
 {
-    use Queueable, SerializesModels;
-
+    use Queueable;
+    use SerializesModels;
     public \App\Models\Invite $invite;
 
     /**

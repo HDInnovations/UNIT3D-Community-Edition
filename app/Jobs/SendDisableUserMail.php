@@ -24,8 +24,10 @@ use Illuminate\Support\Facades\Mail;
 
 final class SendDisableUserMail implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
     public \App\Models\User $user;
 
     /**
