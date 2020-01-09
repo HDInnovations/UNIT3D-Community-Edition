@@ -22,12 +22,12 @@ final class OmdbClient extends Client implements MovieTvInterface
     /**
      * @var string
      */
-    protected $apiUrl = 'www.omdbapi.com';
+    protected string $apiUrl = 'www.omdbapi.com';
 
     /**
      * @var bool
      */
-    protected $apiSecure = true;
+    protected bool $apiSecure = true;
 
     public function __construct($apiKey = null)
     {
