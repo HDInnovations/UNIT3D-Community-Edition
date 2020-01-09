@@ -21,7 +21,7 @@ final class TestEmail extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    
+
     /**
      * Create a new message instance.
      *
