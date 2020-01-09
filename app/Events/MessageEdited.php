@@ -23,8 +23,9 @@ use Illuminate\Queue\SerializesModels;
 
 final class MessageEdited implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
     /**
      * Message details.
      */
