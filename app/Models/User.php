@@ -730,10 +730,10 @@ final class User extends Authenticatable
     /**
      * Get the Users accepts notification as bool.
      *
-     * @param  self  $sender
-     * @param  self  $target
-     * @param  string  $group
-     * @param  bool  $type
+     * @param self   $sender
+     * @param self   $target
+     * @param string $group
+     * @param bool   $type
      *
      * @return bool
      */
@@ -768,9 +768,9 @@ final class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param  self  $target
-     * @param  string  $group
-     * @param  bool  $type
+     * @param self   $target
+     * @param string $group
+     * @param bool   $type
      *
      * @return bool
      */
@@ -806,9 +806,9 @@ final class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param  self  $target
-     * @param  string  $group
-     * @param  bool  $type
+     * @param self   $target
+     * @param string $group
+     * @param bool   $type
      *
      * @return bool
      */
@@ -844,7 +844,7 @@ final class User extends Authenticatable
     /**
      * Does Subscription Exist.
      *
-     * @param  string  $type
+     * @param string $type
      * @param $topic_id
      *
      * @return bool

@@ -370,8 +370,9 @@ final class ChatController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $user_id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function deleteRoomEcho(Request $request, $user_id)
@@ -397,8 +398,9 @@ final class ChatController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $user_id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function deleteTargetEcho(Request $request, $user_id)
@@ -417,8 +419,9 @@ final class ChatController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $user_id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function deleteBotEcho(Request $request, $user_id)
@@ -437,8 +440,9 @@ final class ChatController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $user_id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function toggleRoomAudible(Request $request, $user_id)
@@ -458,8 +462,9 @@ final class ChatController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $user_id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function toggleTargetAudible(Request $request, $user_id)
@@ -479,8 +484,9 @@ final class ChatController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $user_id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function toggleBotAudible(Request $request, $user_id)
@@ -502,8 +508,9 @@ final class ChatController extends Controller
     /* USERS */
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function updateUserChatStatus(Request $request, $id)
@@ -525,8 +532,9 @@ final class ChatController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function updateUserRoom(Request $request, $id)
@@ -569,6 +577,7 @@ final class ChatController extends Controller
 
     /**
      * @param $id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function updateUserTarget($id)
@@ -580,6 +589,7 @@ final class ChatController extends Controller
 
     /**
      * @param $id
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function updateBotTarget($id)

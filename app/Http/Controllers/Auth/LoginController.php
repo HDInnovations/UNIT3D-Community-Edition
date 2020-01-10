@@ -63,7 +63,7 @@ final class LoginController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param $user
      *
      * @return \Illuminate\Http\RedirectResponse|mixed

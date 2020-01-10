@@ -25,7 +25,7 @@ final class BackupController extends Controller
     /**
      * Display All Backups.
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return
      */
@@ -158,7 +158,7 @@ final class BackupController extends Controller
     /**
      * Download A Backup.
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return
      */

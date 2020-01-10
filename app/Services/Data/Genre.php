@@ -83,6 +83,7 @@ final class Genre
 
     /**
      * @param $genre
+     *
      * @return string|bool
      */
     private function matchGenre($genre)

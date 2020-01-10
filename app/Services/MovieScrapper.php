@@ -33,12 +33,13 @@ final class MovieScrapper
 
     /**
      * @param $type
-     * @param  null  $imdb
-     * @param  null  $tmdb
-     * @param  null  $tvdb
+     * @param null $imdb
+     * @param null $tmdb
+     * @param null $tvdb
+     *
+     * @throws \ErrorException
      *
      * @return Movie|Tv
-     * @throws \ErrorException
      */
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {

@@ -91,7 +91,7 @@ final class Bencode
 
     /**
      * @param $s
-     * @param  int  $pos
+     * @param int $pos
      *
      * @return mixed|mixed[]
      */
@@ -212,6 +212,7 @@ final class Bencode
 
     /**
      * @param $t
+     *
      * @return mixed[]
      */
     public static function get_meta($t): array

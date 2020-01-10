@@ -42,7 +42,7 @@ final class MediaInfo
     }
 
     /**
-     * @param  array  $sections
+     * @param array $sections
      *
      * @return mixed[]
      */
@@ -66,6 +66,7 @@ final class MediaInfo
     /**
      * @param $sections
      * @param $section
+     *
      * @return mixed[]
      */
     private function parseProperty($sections, $section): array
@@ -324,6 +325,7 @@ final class MediaInfo
 
     /**
      * @param $string
+     *
      * @return string[]|string
      */
     private function parseAudioChannels($string)
@@ -343,6 +345,7 @@ final class MediaInfo
 
     /**
      * @param $data
+     *
      * @return mixed[]
      */
     private function formatOutput($data): array

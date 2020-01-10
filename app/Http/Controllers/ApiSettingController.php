@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 final class ApiSettingController extends Controller
 {
@@ -41,7 +40,7 @@ final class ApiSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request $request
      *
      * @return void
      */
@@ -53,7 +52,7 @@ final class ApiSettingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return void
      */
@@ -65,7 +64,7 @@ final class ApiSettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return void
      */
@@ -77,8 +76,8 @@ final class ApiSettingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int     $id
      *
      * @return void
      */
@@ -90,7 +89,7 @@ final class ApiSettingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return void
      */

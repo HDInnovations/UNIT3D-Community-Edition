@@ -68,10 +68,11 @@ trait TwoStep
     /**
      * Reset TwoStepAuth collection item and code.
      *
-     * @param  collection  $twoStepAuth
+     * @param collection $twoStepAuth
+     *
+     * @throws \Exception
      *
      * @return collection
-     * @throws \Exception
      */
     private function resetAuthStatus($twoStepAuth)
     {
@@ -109,10 +110,11 @@ trait TwoStep
     /**
      * Create/retreive 2step verification object.
      *
-     * @param  int  $userId
+     * @param int $userId
+     *
+     * @throws \Exception
      *
      * @return collection
-     * @throws \Exception
      */
     private function checkTwoStepAuthStatus(int $userId)
     {
@@ -163,7 +165,7 @@ trait TwoStep
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
      *
-     * @param  \datetime  $time
+     * @param \datetime $time
      *
      * @return bool
      */
@@ -179,10 +181,11 @@ trait TwoStep
     /**
      * Method to reset code and count.
      *
-     * @param  collection  $twoStepEntry
+     * @param collection $twoStepEntry
+     *
+     * @throws \Exception
      *
      * @return collection
-     * @throws \Exception
      */
     protected function resetExceededTime($twoStepEntry)
     {
@@ -196,10 +199,11 @@ trait TwoStep
     /**
      * Successful activation actions.
      *
-     * @param  collection  $twoStepAuth
+     * @param collection $twoStepAuth
+     *
+     * @throws \Exception
      *
      * @return void
-     * @throws \Exception
      */
     protected function resetActivationCountdown($twoStepAuth): void
     {
