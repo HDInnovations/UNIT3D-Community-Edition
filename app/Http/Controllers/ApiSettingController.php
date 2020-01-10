@@ -14,14 +14,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 final class ApiSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return void
      */
     public function index(): void
     {
@@ -31,7 +30,7 @@ final class ApiSettingController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return void
      */
     public function create(): void
     {
@@ -43,7 +42,7 @@ final class ApiSettingController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return void
      */
     public function store(Request $request): void
     {
@@ -55,7 +54,7 @@ final class ApiSettingController extends Controller
      *
      * @param int $id
      *
-     * @return Response
+     * @return void
      */
     public function show(int $id): void
     {
@@ -67,7 +66,7 @@ final class ApiSettingController extends Controller
      *
      * @param int $id
      *
-     * @return Response
+     * @return void
      */
     public function edit(int $id): void
     {
@@ -80,7 +79,7 @@ final class ApiSettingController extends Controller
      * @param Request $request
      * @param int     $id
      *
-     * @return Response
+     * @return void
      */
     public function update(Request $request, int $id): void
     {
@@ -92,7 +91,7 @@ final class ApiSettingController extends Controller
      *
      * @param int $id
      *
-     * @return Response
+     * @return void
      */
     public function destroy(int $id): void
     {

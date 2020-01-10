@@ -16,7 +16,6 @@ namespace App\Console\Commands;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
-use ErrorException;
 use Illuminate\Console\Command;
 
 final class FetchGenres extends Command
@@ -38,7 +37,8 @@ final class FetchGenres extends Command
     /**
      * Execute the console command.
      *
-     * @throws ErrorException
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      *
      * @return mixed
      */

@@ -22,6 +22,8 @@ final class TorrentsResource extends ResourceCollection
     }
 
     /**
+     * @param $request
+     *
      * @return string[][]
      */
     public function with($request): array

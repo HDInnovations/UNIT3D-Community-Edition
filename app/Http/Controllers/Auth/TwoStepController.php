@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Traits\TwoStep;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -101,9 +100,9 @@ final class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
-     * @throws Exception
+     * @throws \Exception
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function showVerification(): \Illuminate\View\View
     {
@@ -160,7 +159,7 @@ final class TwoStepController extends Controller
      *
      * @param Request $request
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function verify(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -207,7 +206,7 @@ final class TwoStepController extends Controller
     /**
      * Resend the validation code triggered by user.
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function resend(): \Illuminate\Http\JsonResponse
     {

@@ -42,6 +42,8 @@ final class MangaUpdatesClient extends Client implements MangaInterface
     }
 
     /**
+     * @param $id
+     *
      * @return mixed[][]|string[][]|null[][]
      */
     public function manga($id): array

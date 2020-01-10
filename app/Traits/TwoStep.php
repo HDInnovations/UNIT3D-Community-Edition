@@ -70,6 +70,8 @@ trait TwoStep
      *
      * @param collection $twoStepAuth
      *
+     * @throws \Exception
+     *
      * @return collection
      */
     private function resetAuthStatus($twoStepAuth)
@@ -109,6 +111,8 @@ trait TwoStep
      * Create/retreive 2step verification object.
      *
      * @param int $userId
+     *
+     * @throws \Exception
      *
      * @return collection
      */
@@ -161,7 +165,7 @@ trait TwoStep
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
      *
-     * @param datetime $time
+     * @param \datetime $time
      *
      * @return bool
      */
@@ -179,6 +183,8 @@ trait TwoStep
      *
      * @param collection $twoStepEntry
      *
+     * @throws \Exception
+     *
      * @return collection
      */
     protected function resetExceededTime($twoStepEntry)
@@ -194,6 +200,8 @@ trait TwoStep
      * Successful activation actions.
      *
      * @param collection $twoStepAuth
+     *
+     * @throws \Exception
      *
      * @return void
      */

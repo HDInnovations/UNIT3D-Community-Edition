@@ -1013,6 +1013,9 @@ final class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $id
      *
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
+     *
      * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function edit(Request $request, $id)

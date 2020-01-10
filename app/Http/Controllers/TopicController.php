@@ -58,6 +58,8 @@ final class TopicController extends Controller
      * Show The Topic.
      *
      * @param $id
+     * @param string $page
+     * @param string $post
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

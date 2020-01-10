@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Models\Torrent;
 use App\Services\MovieScrapper;
-use ErrorException;
 use Illuminate\Console\Command;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -38,7 +37,8 @@ final class FetchReleaseYears extends Command
     /**
      * Execute the console command.
      *
-     * @throws ErrorException
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      *
      * @return mixed
      */

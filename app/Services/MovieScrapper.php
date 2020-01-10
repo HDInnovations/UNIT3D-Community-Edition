@@ -37,8 +37,7 @@ final class MovieScrapper
      * @param null $tmdb
      * @param null $tvdb
      *
-     * @throws ErrorException
-     * @throws \HttpInvalidParamException
+     * @throws \ErrorException
      *
      * @return Movie|Tv
      */
@@ -70,6 +69,8 @@ final class MovieScrapper
     }
 
     /**
+     * @param $tmdb
+     *
      * @return mixed[]
      */
     public function person($tmdb): array

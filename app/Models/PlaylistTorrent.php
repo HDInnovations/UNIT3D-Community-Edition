@@ -15,7 +15,6 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\PlaylistTorrent.
@@ -52,7 +51,7 @@ final class PlaylistTorrent extends Model
     /**
      * Belongs To A Torrent.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -62,7 +61,7 @@ final class PlaylistTorrent extends Model
     /**
      * Belongs To A Playlist.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

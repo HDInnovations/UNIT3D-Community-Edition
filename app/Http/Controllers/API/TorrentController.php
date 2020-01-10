@@ -58,7 +58,11 @@ final class TorrentController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param Request             $request
+     * @param \App\Models\Torrent $torrent
+     *
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      *
      * @return Response
      */
@@ -234,7 +238,7 @@ final class TorrentController extends BaseController
      * @param Request $request
      * @param int     $id
      *
-     * @return Response
+     * @return void
      */
     public function update(Request $request, int $id): void
     {
@@ -246,7 +250,7 @@ final class TorrentController extends BaseController
      *
      * @param int $id
      *
-     * @return Response
+     * @return void
      */
     public function destroy(int $id): void
     {

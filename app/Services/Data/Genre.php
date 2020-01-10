@@ -62,6 +62,8 @@ final class Genre
     }
 
     /**
+     * @param $genres
+     *
      * @return mixed[]
      */
     private function parseGenres($genres): array
@@ -80,6 +82,8 @@ final class Genre
     }
 
     /**
+     * @param $genre
+     *
      * @return string|bool
      */
     private function matchGenre($genre)

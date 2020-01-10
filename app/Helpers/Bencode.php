@@ -90,6 +90,9 @@ final class Bencode
     }
 
     /**
+     * @param $s
+     * @param int $pos
+     *
      * @return mixed|mixed[]
      */
     public static function bdecode($s, &$pos = 0)
@@ -208,6 +211,8 @@ final class Bencode
     }
 
     /**
+     * @param $t
+     *
      * @return mixed[]
      */
     public static function get_meta($t): array

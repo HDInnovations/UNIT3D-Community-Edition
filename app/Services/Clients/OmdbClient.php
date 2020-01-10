@@ -35,6 +35,11 @@ final class OmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param array       $keys
+     * @param string|null $type
+     *
+     * @throws \HttpResponseException
+     *
      * @return mixed[]
      */
     public function find(array $keys, ?string $type = null): array
@@ -96,6 +101,8 @@ final class OmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $languages
+     *
      * @return string[][]|null[][]
      */
     private function formatLanguages($languages): array
@@ -115,6 +122,8 @@ final class OmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $genres
+     *
      * @return string[]
      */
     private function formatGenres($genres): array
@@ -131,6 +140,8 @@ final class OmdbClient extends Client implements MovieTvInterface
     }
 
     /**
+     * @param $poster
+     *
      * @return mixed[]|string
      */
     private function resizePoster($poster)

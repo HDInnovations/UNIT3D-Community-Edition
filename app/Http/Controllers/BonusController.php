@@ -261,7 +261,7 @@ final class BonusController extends Controller
      * @param $userID
      * @param $itemID
      *
-     * @return string
+     * @return bool
      */
     public function doItemExchange($userID, $itemID): bool
     {
