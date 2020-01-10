@@ -68,8 +68,8 @@ final class RegisterController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
-     * @param  null  $code
+     * @param \Illuminate\Http\Request $request
+     * @param null                     $code
      *
      * @return \Illuminate\Http\RedirectResponse|mixed
      */

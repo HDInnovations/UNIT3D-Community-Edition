@@ -53,7 +53,7 @@ final class Http2ServerPush
 
     /**
      * @param $key
-     * @param  bool  $default
+     * @param bool $default
      *
      * @return mixed
      */

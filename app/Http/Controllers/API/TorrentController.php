@@ -58,13 +58,13 @@ final class TorrentController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request             $request
+     * @param \App\Models\Torrent $torrent
      *
-     * @param  \App\Models\Torrent  $torrent
-     *
-     * @return Response
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
+     *
+     * @return Response
      */
     public function store(Request $request, Torrent $torrent): \Illuminate\Http\Response
     {
@@ -235,8 +235,8 @@ final class TorrentController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int     $id
      *
      * @return void
      */
@@ -248,7 +248,7 @@ final class TorrentController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return void
      */

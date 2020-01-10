@@ -22,7 +22,6 @@ use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
 
 final class AnnounceController extends Controller
@@ -30,7 +29,7 @@ final class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @param $passkey
      *
      * @return \Illuminate\Http\Response response for the torrent client

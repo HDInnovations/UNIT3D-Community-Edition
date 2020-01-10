@@ -35,8 +35,9 @@ final class AnnClient extends Client implements MangaInterface
     /**
      * @param $id
      *
-     * @return mixed[][]
      * @throws \HttpResponseException
+     *
+     * @return mixed[][]
      */
     public function manga($id): array
     {

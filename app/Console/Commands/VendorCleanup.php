@@ -194,7 +194,7 @@ final class VendorCleanup extends Command
 
     /**
      * @param $needle
-     * @param  array  $haystack
+     * @param array $haystack
      *
      * @return bool|int|string
      */
