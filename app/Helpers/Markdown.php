@@ -292,6 +292,9 @@ final class Markdown
     // Code
 
     /**
+     * @param $Line
+     * @param  null  $Block
+     *
      * @return string[][]|string[][][]
      */
     protected function blockCode($Line, $Block = null): array
@@ -348,6 +351,7 @@ final class Markdown
     // Comment
 
     /**
+     * @param $Line
      * @return mixed[]
      */
     protected function blockComment($Line): array
@@ -370,6 +374,8 @@ final class Markdown
     }
 
     /**
+     * @param $Line
+     * @param  array  $Block
      * @return mixed[]
      */
     protected function blockCommentContinue($Line, array $Block): array
@@ -391,6 +397,7 @@ final class Markdown
     // Fenced Code
 
     /**
+     * @param $Line
      * @return mixed[]
      */
     protected function blockFencedCode($Line): array
@@ -458,6 +465,7 @@ final class Markdown
     // Header
 
     /**
+     * @param $Line
      * @return string[][]
      */
     protected function blockHeader($Line): array
@@ -489,6 +497,7 @@ final class Markdown
     // List
 
     /**
+     * @param $Line
      * @return mixed[]
      */
     protected function blockList($Line): array
@@ -528,6 +537,8 @@ final class Markdown
     }
 
     /**
+     * @param $Line
+     * @param  array  $Block
      * @return mixed[]
      */
     protected function blockListContinue($Line, array $Block): array
@@ -584,6 +595,7 @@ final class Markdown
     }
 
     /**
+     * @param  array  $Block
      * @return mixed[]
      */
     protected function blockListComplete(array $Block): array
@@ -603,6 +615,7 @@ final class Markdown
     // Quote
 
     /**
+     * @param $Line
      * @return string[][]|mixed[][][]
      */
     protected function blockQuote($Line): array
@@ -619,6 +632,8 @@ final class Markdown
     }
 
     /**
+     * @param $Line
+     * @param  array  $Block
      * @return mixed[]
      */
     protected function blockQuoteContinue($Line, array $Block): array
@@ -646,6 +661,7 @@ final class Markdown
     // Rule
 
     /**
+     * @param $Line
      * @return string[][]
      */
     protected function blockRule($Line): array
@@ -663,6 +679,8 @@ final class Markdown
     // Setext
 
     /**
+     * @param $Line
+     * @param  array|null  $Block
      * @return mixed[]
      */
     protected function blockSetextHeader($Line, array $Block = null): array
@@ -682,6 +700,7 @@ final class Markdown
     // Markup
 
     /**
+     * @param $Line
      * @return mixed[]
      */
     protected function blockMarkup($Line): array
@@ -728,6 +747,8 @@ final class Markdown
     }
 
     /**
+     * @param $Line
+     * @param  array  $Block
      * @return mixed[]
      */
     protected function blockMarkupContinue($Line, array $Block): array
@@ -763,6 +784,7 @@ final class Markdown
     // Reference
 
     /**
+     * @param $Line
      * @return bool[]
      */
     protected function blockReference($Line): array
@@ -890,6 +912,8 @@ final class Markdown
     }
 
     /**
+     * @param $Line
+     * @param  array  $Block
      * @return mixed[]
      */
     protected function blockTableContinue($Line, array $Block): array
@@ -943,6 +967,7 @@ final class Markdown
     //
 
     /**
+     * @param $Line
      * @return mixed[][]
      */
     protected function paragraph($Line): array
@@ -1059,6 +1084,7 @@ final class Markdown
     //
 
     /**
+     * @param $Excerpt
      * @return mixed[][][]|int[][]
      */
     protected function inlineCode($Excerpt): array
@@ -1080,6 +1106,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[][]|int[][]
      */
     protected function inlineEmailTag($Excerpt): array
@@ -1105,6 +1132,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[][]|int[][]
      */
     protected function inlineEmphasis($Excerpt): array
@@ -1134,6 +1162,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[]
      */
     protected function inlineEscapeSequence($Excerpt): array
@@ -1147,6 +1176,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[][]|float[][]|int[][]
      */
     protected function inlineImage($Excerpt): array
@@ -1182,6 +1212,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[][]|int[][]
      */
     protected function inlineLink($Excerpt): array
@@ -1246,6 +1277,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[]
      */
     protected function inlineMarkup($Excerpt): array
@@ -1277,6 +1309,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return int[]|string[]
      */
     protected function inlineSpecialCharacter($Excerpt): array
@@ -1299,6 +1332,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[][]|int[][]
      */
     protected function inlineStrikethrough($Excerpt): array
@@ -1320,6 +1354,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[]
      */
     protected function inlineUrl($Excerpt): array
@@ -1346,6 +1381,7 @@ final class Markdown
     }
 
     /**
+     * @param $Excerpt
      * @return mixed[][]|int[][]
      */
     protected function inlineUrlTag($Excerpt): array
@@ -1369,6 +1405,7 @@ final class Markdown
     // ~
 
     /**
+     * @param $text
      * @return mixed[]|string|null
      */
     protected function unmarkedText($text)
@@ -1493,6 +1530,8 @@ final class Markdown
     }
 
     /**
+     * @param  array  $Element
+     * @param $attribute
      * @return mixed[]
      */
     protected function filterUnsafeUrlInAttribute(array $Element, $attribute): array

@@ -9,6 +9,8 @@ final class TorrentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
+     * @param $request
+     *
      * @return mixed[][]|string[][]
      */
     public function toArray($request): array

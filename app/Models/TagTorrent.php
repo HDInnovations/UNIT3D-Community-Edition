@@ -51,7 +51,7 @@ final class TagTorrent extends Model
     /**
      * Has Many Tags.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function genre(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

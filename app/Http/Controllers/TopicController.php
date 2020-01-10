@@ -59,6 +59,9 @@ final class TopicController extends Controller
      *
      * @param $id
      *
+     * @param  string  $page
+     * @param  string  $post
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function topic($id, $page = '', $post = '')

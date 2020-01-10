@@ -1010,10 +1010,12 @@ final class TorrentController extends Controller
     /**
      * Edit A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $id
      *
      * @return \Illuminate\Http\RedirectResponse|mixed
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function edit(Request $request, $id)
     {

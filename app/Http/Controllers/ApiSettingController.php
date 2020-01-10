@@ -21,7 +21,7 @@ final class ApiSettingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return void
      */
     public function index(): void
     {
@@ -31,7 +31,7 @@ final class ApiSettingController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return void
      */
     public function create(): void
     {
@@ -41,9 +41,9 @@ final class ApiSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
-     * @return Response
+     * @return void
      */
     public function store(Request $request): void
     {
@@ -53,9 +53,9 @@ final class ApiSettingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      *
-     * @return Response
+     * @return void
      */
     public function show(int $id): void
     {
@@ -65,9 +65,9 @@ final class ApiSettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      *
-     * @return Response
+     * @return void
      */
     public function edit(int $id): void
     {
@@ -77,10 +77,10 @@ final class ApiSettingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int     $id
+     * @param  Request  $request
+     * @param  int  $id
      *
-     * @return Response
+     * @return void
      */
     public function update(Request $request, int $id): void
     {
@@ -90,9 +90,9 @@ final class ApiSettingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      *
-     * @return Response
+     * @return void
      */
     public function destroy(int $id): void
     {

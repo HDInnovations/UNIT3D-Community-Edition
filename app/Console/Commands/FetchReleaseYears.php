@@ -38,9 +38,9 @@ final class FetchReleaseYears extends Command
     /**
      * Execute the console command.
      *
-     * @throws ErrorException
-     *
      * @return mixed
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function handle(): void
     {

@@ -33,14 +33,12 @@ final class MovieScrapper
 
     /**
      * @param $type
-     * @param null $imdb
-     * @param null $tmdb
-     * @param null $tvdb
-     *
-     * @throws ErrorException
-     * @throws \HttpInvalidParamException
+     * @param  null  $imdb
+     * @param  null  $tmdb
+     * @param  null  $tvdb
      *
      * @return Movie|Tv
+     * @throws \ErrorException
      */
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {
@@ -70,6 +68,8 @@ final class MovieScrapper
     }
 
     /**
+     * @param $tmdb
+     *
      * @return mixed[]
      */
     public function person($tmdb): array

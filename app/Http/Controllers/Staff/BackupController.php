@@ -25,10 +25,9 @@ final class BackupController extends Controller
     /**
      * Display All Backups.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
      * @return
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -159,10 +158,9 @@ final class BackupController extends Controller
     /**
      * Download A Backup.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
      * @return
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download(Request $request)
     {

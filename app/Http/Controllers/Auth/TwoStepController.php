@@ -101,9 +101,8 @@ final class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
-     * @throws Exception
-     *
-     * @return Response
+     * @return \Illuminate\View\View
+     * @throws \Exception
      */
     public function showVerification(): \Illuminate\View\View
     {
@@ -158,9 +157,9 @@ final class TwoStepController extends Controller
     /**
      * Verify the user code input.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function verify(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -207,7 +206,7 @@ final class TwoStepController extends Controller
     /**
      * Resend the validation code triggered by user.
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function resend(): \Illuminate\Http\JsonResponse
     {

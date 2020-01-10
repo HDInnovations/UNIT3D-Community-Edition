@@ -45,7 +45,7 @@ final class AchievementsController extends Controller
     /**
      * Show A Users Achievements.
      *
-     * @param $id
+     * @param $username
      *
      * @return Factory|View
      */
