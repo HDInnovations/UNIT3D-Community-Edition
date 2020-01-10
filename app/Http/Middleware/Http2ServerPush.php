@@ -156,7 +156,7 @@ final class Http2ServerPush
             $url = $basePath.ltrim($url, $basePath);
         }
 
-        return is_null($type) ? "" : sprintf('<%s>; rel=preload; as=%s', $url, $type);
+        return is_null($type) ? '' : sprintf('<%s>; rel=preload; as=%s', $url, $type);
     }
 
     /**
