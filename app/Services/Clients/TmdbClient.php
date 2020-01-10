@@ -24,12 +24,12 @@ final class TmdbClient extends Client implements MovieTvInterface
     /**
      * @var string
      */
-    protected $apiUrl = 'api.themoviedb.org/3/';
+    protected string $apiUrl = 'api.themoviedb.org/3/';
 
     /**
      * @var bool
      */
-    protected $apiSecure = true;
+    protected bool $apiSecure = true;
 
     private string $imagePath = 'https://image.tmdb.org/t/p/w780';
 
@@ -50,7 +50,7 @@ final class TmdbClient extends Client implements MovieTvInterface
      *
      * @return \App\Services\Data\Movie|mixed|\App\Services\Data\Tv
      */
-    public function find(array $keys, string $type = 'movie'): array
+    public function find(array $keys, ?string $type = 'movie'): array
     {
         $this->validateKeys($keys);
 

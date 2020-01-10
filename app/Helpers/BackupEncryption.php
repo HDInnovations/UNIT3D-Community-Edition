@@ -20,20 +20,20 @@ final class BackupEncryption
     /**
      * @var int
      */
-    private const ENCRYPTION_DEFAULT = ZipFile::ENCRYPTION_METHOD_TRADITIONAL;
+    const ENCRYPTION_DEFAULT = ZipFile::ENCRYPTION_METHOD_TRADITIONAL;
 
     /**
      * @var int
      */
-    private const ENCRYPTION_WINZIP_AES_128 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_128;
+    const ENCRYPTION_WINZIP_AES_128 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_128;
 
     /**
      * @var int
      */
-    private const ENCRYPTION_WINZIP_AES_192 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_192;
+    const ENCRYPTION_WINZIP_AES_192 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_192;
 
     /**
      * @var int
      */
-    private const ENCRYPTION_WINZIP_AES_256 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_256;
+    const ENCRYPTION_WINZIP_AES_256 = ZipFile::ENCRYPTION_METHOD_WINZIP_AES_256;
 }

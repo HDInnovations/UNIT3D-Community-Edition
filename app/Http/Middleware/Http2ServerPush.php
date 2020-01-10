@@ -114,7 +114,7 @@ final class Http2ServerPush
      */
     protected function getCrawler(Response $response)
     {
-        if ($this->crawler) {
+        if (isset($this->crawler) && $this->crawler) {
             return $this->crawler;
         }
 
@@ -156,7 +156,7 @@ final class Http2ServerPush
             $url = $basePath.ltrim($url, $basePath);
         }
 
-        return is_null($type) ? null : sprintf('<%s>; rel=preload; as=%s', $url, $type);
+        return is_null($type) ? '' : sprintf('<%s>; rel=preload; as=%s', $url, $type);
     }
 
     /**
