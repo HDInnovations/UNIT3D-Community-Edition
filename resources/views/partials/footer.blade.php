@@ -33,13 +33,14 @@
             </ul>
         </div>
 
-        @if ($pages)
+        @if ($footer_pages)
             <div class="col-md-2 l-footer-section">
                 <h2 class="l-footer-section-title">@lang('common.pages')</h2>
                 <ul>
-                    @foreach ($pages as $page)
+                    @foreach ($footer_pages as $page)
                         <li><a href="{{ route('pages.show', ['id' => $page->id]) }}">{{ $page->name }}</a></li>
                     @endforeach
+                    <li><a href="{{ route('pages.index') }}">[View All]</a></li>
                 </ul>
             </div>
         @endif

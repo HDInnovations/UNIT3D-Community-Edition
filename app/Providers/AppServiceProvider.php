@@ -59,13 +59,13 @@ class AppServiceProvider extends ServiceProvider
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
 
-        // Share $pages across all views
+        // Share $footer_pages across all views
         view()->composer('*', function (View $view) {
-            $pages = cache()->remember('cached-pages', 3600, function () {
+            $footer_pages = cache()->remember('cached-pages', 3600, function () {
                 return Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get();
             });
 
-            $view->with(compact('pages'));
+            $view->with(compact('footer_pages'));
         });
 
         // Hidden Captcha

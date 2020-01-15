@@ -19,6 +19,18 @@ use Illuminate\Support\Facades\DB;
 class PageController extends Controller
 {
     /**
+     * Display All Pages.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        $pages = Page::all();
+
+        return view('page.index', ['pages' => $pages]);
+    }
+
+    /**
      * Show A Page.
      *
      * @param $id

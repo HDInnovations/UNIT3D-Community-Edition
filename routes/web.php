@@ -171,6 +171,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Pages System
         Route::group(['prefix' => 'pages'], function () {
+            Route::get('/', 'PageController@index')->name('pages.index');
             Route::get('/staff', 'PageController@staff')->name('staff');
             Route::get('/internal', 'PageController@internal')->name('internal');
             Route::get('/blacklist', 'PageController@blacklist')->name('blacklist');
