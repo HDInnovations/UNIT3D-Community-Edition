@@ -31,7 +31,7 @@ class StatsController extends Controller
      */
     public function __construct()
     {
-        $this->expiresAt = Carbon::now()->addMinutes(60);
+        $this->expiresAt = Carbon::now()->addMinutes(10);
     }
 
     /**
@@ -43,9 +43,6 @@ class StatsController extends Controller
      */
     public function index()
     {
-        // Extend The Maximum Execution Time
-        set_time_limit(300);
-
         // Total Members Count (All Groups)
         $all_user = cache()->remember('all_user', $this->expiresAt, function () {
             return User::withTrashed()->count();
@@ -116,7 +113,7 @@ class StatsController extends Controller
 
         // Total Torrent Size
         $torrent_size = cache()->remember('torrent_size', $this->expiresAt, function () {
-            return Torrent::select(['size'])->sum('size');
+            return Torrent::sum('size');
         });
 
         // Total Seeders
@@ -136,22 +133,22 @@ class StatsController extends Controller
 
         //Total Upload Traffic Without Double Upload
         $actual_upload = cache()->remember('actual_upload', $this->expiresAt, function () {
-            return History::all()->sum('actual_uploaded');
+            return History::sum('actual_uploaded');
         });
 
         //Total Upload Traffic With Double Upload
         $credited_upload = cache()->remember('credited_upload', $this->expiresAt, function () {
-            return History::all()->sum('uploaded');
+            return History::sum('uploaded');
         });
 
         //Total Download Traffic Without Freeleech
         $actual_download = cache()->remember('actual_download', $this->expiresAt, function () {
-            return History::all()->sum('actual_downloaded');
+            return History::sum('actual_downloaded');
         });
 
         //Total Download Traffic With Freeleech
         $credited_download = cache()->remember('credited_download', $this->expiresAt, function () {
-            return History::all()->sum('downloaded');
+            return History::sum('downloaded');
         });
 
         //Total Up/Down Traffic without perks

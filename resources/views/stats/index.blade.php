@@ -24,7 +24,7 @@
                 <div class="content">
                     <div class="inner_content">
                         <h1>@lang('stat.nerd-stats')</h1>
-                        <p>@lang('stat.nerd-stats-desc'). <b>(Updated Every 60 Minutes!)</b></p>
+                        <p>@lang('stat.nerd-stats-desc'). <b>(Updated Every 10 Minutes!)</b></p>
     
                         <div class="inner_stats">
                             @foreach ($categories as $category)
