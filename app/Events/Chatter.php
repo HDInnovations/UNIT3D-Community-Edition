@@ -22,8 +22,9 @@ use Illuminate\Queue\SerializesModels;
 
 class Chatter implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
     /**
      * Message details.
      *

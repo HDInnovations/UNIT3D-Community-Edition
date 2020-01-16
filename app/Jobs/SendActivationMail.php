@@ -24,8 +24,10 @@ use Illuminate\Support\Facades\Mail;
 
 class SendActivationMail implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
     /**
      * @var User
      */
