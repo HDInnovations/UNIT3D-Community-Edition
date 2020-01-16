@@ -19,8 +19,8 @@ use Illuminate\Queue\SerializesModels;
 
 class DisableUser extends Mailable
 {
-    use Queueable, SerializesModels;
-
+    use Queueable;
+    use SerializesModels;
     public $email;
 
     /**

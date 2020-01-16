@@ -21,8 +21,9 @@ use Illuminate\Queue\SerializesModels;
 
 class Ping implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
     public $room;
 
     public $ping;

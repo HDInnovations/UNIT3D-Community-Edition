@@ -23,8 +23,10 @@ use Illuminate\Queue\SerializesModels;
 
 class ProcessMassPM implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
     protected $sender_id;
 
     protected $receiver_id;
