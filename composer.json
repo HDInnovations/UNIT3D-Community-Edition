@@ -8,7 +8,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.4",
+        "php": ">=7.3",
         "appstract/laravel-opcache": "^3.0",
         "arcanedev/log-viewer": "^5.0",
         "bandwidth-throttle/token-bucket": "^2.0",
