@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+let JavaScriptObfuscator = require('webpack-obfuscator')
 require('laravel-mix-sri');
 require('laravel-mix-purgecss');
 
@@ -14,6 +15,11 @@ require('laravel-mix-purgecss');
 mix.version();
 mix.options({
   processCssUrls: false
+});
+mix.webpackConfig({
+  plugins: [
+    new JavaScriptObfuscator({rotateUnicodeArray: true})
+  ]
 })
 
     /*
@@ -21,13 +27,13 @@ mix.options({
      */
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    /*.purgeCss({
+    .purgeCss({
       enabled: true,
 
       extensions: ['html', 'php', 'js', 'vue'],
 
       whitelistPatterns: [/tooltip/, /fa/, /far/, /fas/, /fal/],
-    })*/
+    })
     .generateIntegrityHash()
 
     /*
@@ -63,6 +69,7 @@ mix.options({
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
     .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/custom.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
+    .generateIntegrityHash()
 
     /*
      * Copy emojione assets

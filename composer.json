@@ -8,7 +8,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "appstract/laravel-opcache": "^3.0",
         "arcanedev/log-viewer": "^5.0",
         "bandwidth-throttle/token-bucket": "^2.0",
@@ -35,7 +35,8 @@
         "spatie/laravel-image-optimizer": "^1.5",
         "spatie/ssl-certificate": "^1.12",
         "symfony/dom-crawler": "^2.7|^3.0",
-        "theodorejb/polycast": "^1.0"
+        "theodorejb/polycast": "^1.0",
+        "voku/anti-xss": "^4.1"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
@@ -43,7 +44,8 @@
         "matt-allan/laravel-code-style": "^0.4.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^8.0",
+        "rector/rector": "^0.6.9"
     },
     "config": {
         "preferred-install": "dist",

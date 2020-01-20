@@ -14,8 +14,10 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\Comment.
@@ -33,7 +35,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\TorrentRequest|null $request
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()
@@ -47,10 +48,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
  * @mixin \Eloquent
- *
  * @property int|null $playlist_id
  * @property-read \App\Models\Playlist|null $playlist
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment wherePlaylistId($value)
  */
 class Comment extends Model
@@ -113,13 +112,15 @@ class Comment extends Model
     /**
      * Set The Comments Content After Its Been Purified.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return void
      */
     public function setContentAttribute($value)
     {
-        $this->attributes['content'] = htmlspecialchars($value);
+        $antiXss = new AntiXSS();
+
+        $this->attributes['content'] = $antiXss->xss_clean($value);
     }
 
     /**
@@ -130,7 +131,8 @@ class Comment extends Model
     public function getContentHtml()
     {
         $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-        return $bbcode->parse($this->content, true);
+        return $bbcode->parse($linkify->linky($this->content), true);
     }
 }

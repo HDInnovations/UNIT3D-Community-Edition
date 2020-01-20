@@ -14,9 +14,11 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Notifications\NewComment;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\TorrentRequest.
@@ -50,7 +52,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequestBounty[] $requestBounty
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest query()
@@ -77,11 +78,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereVotes($value)
  * @mixin \Eloquent
- *
  * @property string $igdb
  * @property-read int|null $comments_count
  * @property-read int|null $request_bounty_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereIgdb($value)
  */
 class TorrentRequest extends Model
@@ -199,13 +198,15 @@ class TorrentRequest extends Model
     /**
      * Set The Requests Description After Its Been Purified.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return void
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = htmlspecialchars($value);
+        $antiXss = new AntiXSS();
+
+        $this->attributes['description'] = $antiXss->xss_clean($value);
     }
 
     /**
@@ -216,8 +217,9 @@ class TorrentRequest extends Model
     public function getDescriptionHtml()
     {
         $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-        return $bbcode->parse($this->description, true);
+        return $bbcode->parse($linkify->linky($this->description), true);
     }
 
     /**
@@ -225,7 +227,6 @@ class TorrentRequest extends Model
      *
      * @param $type
      * @param $payload
-     *
      * @return bool
      */
     public function notifyRequester($type, $payload)

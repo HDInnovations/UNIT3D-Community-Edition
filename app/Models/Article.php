@@ -14,8 +14,10 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\Article.
@@ -30,7 +32,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()
@@ -43,7 +44,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUserId($value)
  * @mixin \Eloquent
- *
  * @property-read int|null $comments_count
  */
 class Article extends Model
@@ -110,13 +110,15 @@ class Article extends Model
     /**
      * Set The Articles Content After Its Been Purified.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return void
      */
     public function setContentAttribute($value)
     {
-        $this->attributes['content'] = htmlspecialchars($value);
+        $antiXss = new AntiXSS();
+
+        $this->attributes['content'] = $antiXss->xss_clean($value);
     }
 
     /**
@@ -127,7 +129,8 @@ class Article extends Model
     public function getContentHtml()
     {
         $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-        return $bbcode->parse($this->content, true);
+        return $bbcode->parse($linkify->linky($this->content), true);
     }
 }

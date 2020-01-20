@@ -14,8 +14,10 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\PrivateMessage.
@@ -31,7 +33,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $receiver
  * @property-read \App\Models\User $sender
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage query()
@@ -79,13 +80,15 @@ class PrivateMessage extends Model
     /**
      * Set The PM Message After Its Been Purified.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return void
      */
     public function setMessageAttribute($value)
     {
-        $this->attributes['message'] = htmlspecialchars($value);
+        $antiXss = new AntiXSS();
+
+        $this->attributes['message'] = $antiXss->xss_clean($value);
     }
 
     /**
@@ -96,7 +99,8 @@ class PrivateMessage extends Model
     public function getMessageHtml()
     {
         $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-        return $bbcode->parse($this->message, true);
+        return $bbcode->parse($linkify->linky($this->message), true);
     }
 }

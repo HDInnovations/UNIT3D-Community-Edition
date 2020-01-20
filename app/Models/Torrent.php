@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
 use App\Notifications\NewComment;
@@ -22,6 +23,7 @@ use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use voku\helper\AntiXSS;
 
 /**
  * Torrent model.
@@ -74,7 +76,6 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
  * @property-read \App\Models\User $uploader
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent query()
@@ -115,7 +116,6 @@ use Kyslik\ColumnSortable\Sortable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUserId($value)
  * @mixin \Eloquent
- *
  * @property string $igdb
  * @property string|null $release_year
  * @property-read int|null $comments_count
@@ -128,7 +128,6 @@ use Kyslik\ColumnSortable\Sortable;
  * @property-read int|null $tags_count
  * @property-read int|null $thanks_count
  * @property-read int|null $tips_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereIgdb($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereReleaseYear($value)
  */
@@ -202,6 +201,16 @@ class Torrent extends Model
     }
 
     /**
+     * Belongs To A Resolution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function resolution()
+    {
+        return $this->belongsTo(Resolution::class);
+    }
+
+    /**
      * Torrent Has Been Moderated By.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -222,6 +231,16 @@ class Torrent extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'tag_torrent', 'torrent_id', 'tag_name', 'id', 'name');
+    }
+
+    /**
+     * Has Many Keywords.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function keywords()
+    {
+        return $this->hasMany(Keyword::class);
     }
 
     /**
@@ -317,13 +336,15 @@ class Torrent extends Model
     /**
      * Set The Torrents Description After Its Been Purified.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return void
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = htmlspecialchars($value);
+        $antiXss = new AntiXSS();
+
+        $this->attributes['description'] = $antiXss->xss_clean($value);
     }
 
     /**
@@ -334,20 +355,21 @@ class Torrent extends Model
     public function getDescriptionHtml()
     {
         $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-        return $bbcode->parse($this->description, true);
+        return $bbcode->parse($linkify->linky($this->description), true);
     }
 
     /**
      * Set The Torrents MediaInfo After Its Been Purified.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return void
      */
     public function setMediaInfoAttribute($value)
     {
-        $this->attributes['mediainfo'] = htmlspecialchars($value);
+        $this->attributes['mediainfo'] = $value;
     }
 
     /**
@@ -366,9 +388,8 @@ class Torrent extends Model
     /**
      * Returns The Size In Human Format.
      *
-     * @param null $bytes
-     * @param int  $precision
-     *
+     * @param  null  $bytes
+     * @param  int  $precision
      * @return string
      */
     public function getSize($bytes = null, $precision = 2)
@@ -393,7 +414,6 @@ class Torrent extends Model
      *
      * @param $type
      * @param $payload
-     *
      * @return bool
      */
     public function notifyUploader($type, $payload)
@@ -420,9 +440,7 @@ class Torrent extends Model
 
     /**
      * Torrent Is Freeleech.
-     *
-     * @param null $user
-     *
+     * @param  null  $user
      * @return bool
      */
     public function isFreeleech($user = null)

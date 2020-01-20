@@ -14,7 +14,9 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\Message.
@@ -31,7 +33,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Chatroom $chatroom
  * @property-read \App\Models\User|null $receiver
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message query()
@@ -103,26 +104,28 @@ class Message extends Model
     /**
      * Set The Chat Message After Its Been Purified.
      *
-     * @param string $value
+     * @param  string  $value
      *
      * @return void
      */
     public function setMessageAttribute($value)
     {
-        $this->attributes['message'] = htmlspecialchars($value);
+        $antiXss = new AntiXSS();
+
+        $this->attributes['message'] = $antiXss->xss_clean($value);
     }
 
     /**
      * Parse Content And Return Valid HTML.
      *
      * @param $message
-     *
      * @return string Parsed BBCODE To HTML
      */
     public static function getMessageHtml($message)
     {
         $bbcode = new Bbcode();
+        $linkify = new Linkify();
 
-        return $bbcode->parse($message, true);
+        return $bbcode->parse($linkify->linky($message), true);
     }
 }
