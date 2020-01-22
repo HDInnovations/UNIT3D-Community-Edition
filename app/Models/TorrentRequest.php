@@ -52,6 +52,7 @@ use voku\helper\AntiXSS;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequestBounty[] $requestBounty
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest query()
@@ -78,9 +79,11 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereVotes($value)
  * @mixin \Eloquent
+ *
  * @property string $igdb
  * @property-read int|null $comments_count
  * @property-read int|null $request_bounty_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereIgdb($value)
  */
 class TorrentRequest extends Model
@@ -198,7 +201,7 @@ class TorrentRequest extends Model
     /**
      * Set The Requests Description After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
@@ -227,6 +230,7 @@ class TorrentRequest extends Model
      *
      * @param $type
      * @param $payload
+     *
      * @return bool
      */
     public function notifyRequester($type, $payload)

@@ -33,6 +33,7 @@ use voku\helper\AntiXSS;
  * @property-read \App\Models\Chatroom $chatroom
  * @property-read \App\Models\User|null $receiver
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message query()
@@ -104,7 +105,7 @@ class Message extends Model
     /**
      * Set The Chat Message After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
@@ -119,6 +120,7 @@ class Message extends Model
      * Parse Content And Return Valid HTML.
      *
      * @param $message
+     *
      * @return string Parsed BBCODE To HTML
      */
     public static function getMessageHtml($message)

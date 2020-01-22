@@ -123,6 +123,7 @@ use voku\helper\AntiXSS;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ban[] $userban
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Warning[] $userwarning
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wish[] $wishes
+ *
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -728,10 +729,11 @@ class User extends Authenticatable
     /**
      * Get the Users accepts notification as bool.
      *
-     * @param  self  $sender
-     * @param  self  $target
-     * @param  string  $group
-     * @param  bool  $type
+     * @param self   $sender
+     * @param self   $target
+     * @param string $group
+     * @param bool   $type
+     *
      * @return int
      */
     public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
@@ -746,7 +748,7 @@ class User extends Authenticatable
         if ($target->block_notifications && $target->block_notifications == 1) {
             return false;
         }
-        if ($target->notification && $type && (! $target->notification->$type)) {
+        if ($target->notification && $type && (!$target->notification->$type)) {
             return false;
         }
         if ($target->notification && $target->notification->$target_group && is_array($target->notification->$target_group['default_groups'])) {
@@ -767,9 +769,10 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param  self  $target
-     * @param  string  $group
-     * @param  bool  $type
+     * @param self   $target
+     * @param string $group
+     * @param bool   $type
+     *
      * @return int
      */
     public function isVisible(self $target, $group = 'profile', $type = false)
@@ -785,7 +788,7 @@ class User extends Authenticatable
         if ($target->hidden && $target->hidden == 1) {
             return false;
         }
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
         if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
@@ -806,9 +809,10 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param  self  $target
-     * @param  string  $group
-     * @param  bool  $type
+     * @param self   $target
+     * @param string $group
+     * @param bool   $type
+     *
      * @return int
      */
     public function isAllowed(self $target, $group = 'profile', $type = false)
@@ -824,7 +828,7 @@ class User extends Authenticatable
         if ($target->private_profile && $target->private_profile == 1) {
             return false;
         }
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
         if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
@@ -873,8 +877,10 @@ class User extends Authenticatable
 
     /**
      * Return Upload In Human Format.
-     * @param  null  $bytes
-     * @param  int  $precision
+     *
+     * @param null $bytes
+     * @param int  $precision
+     *
      * @return string
      */
     public function getUploaded($bytes = null, $precision = 2)
@@ -890,8 +896,10 @@ class User extends Authenticatable
 
     /**
      * Return Download In Human Format.
-     * @param  null  $bytes
-     * @param  int  $precision
+     *
+     * @param null $bytes
+     * @param int  $precision
+     *
      * @return string
      */
     public function getDownloaded($bytes = null, $precision = 2)
@@ -970,7 +978,7 @@ class User extends Authenticatable
     /**
      * Set The Users Signature After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
@@ -997,7 +1005,7 @@ class User extends Authenticatable
     /**
      * Set The Users About Me After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
