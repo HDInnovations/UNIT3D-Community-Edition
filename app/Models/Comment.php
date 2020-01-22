@@ -35,6 +35,7 @@ use voku\helper\AntiXSS;
  * @property-read \App\Models\TorrentRequest|null $request
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()
@@ -48,8 +49,10 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
  * @mixin \Eloquent
+ *
  * @property int|null $playlist_id
  * @property-read \App\Models\Playlist|null $playlist
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment wherePlaylistId($value)
  */
 class Comment extends Model
@@ -112,7 +115,7 @@ class Comment extends Model
     /**
      * Set The Comments Content After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */

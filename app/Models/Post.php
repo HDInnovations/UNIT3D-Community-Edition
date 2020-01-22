@@ -32,6 +32,7 @@ use voku\helper\AntiXSS;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
  * @property-read \App\Models\Topic $topic
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post query()
@@ -42,6 +43,7 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUserId($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $likes_count
  * @property-read int|null $tips_count
  */
@@ -95,7 +97,7 @@ class Post extends Model
     /**
      * Set The Posts Content After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
