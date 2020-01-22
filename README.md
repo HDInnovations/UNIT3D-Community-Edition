@@ -115,7 +115,7 @@ If you rather setup UNIT3D manually you can follow the instructions here: https:
 
 ## <a name="updating"></a> 📖 Documentation
 Repo - https://github.com/HDInnovations/UNIT3D-Docs
-Site - https://hdinnovations.github.io/UNIT3D-Docs
+Site - https://hdinnovations.github.io/UNIT3D-Docs/index.html
 
 ## <a name="docs"></a> 🖥️ Updating
 `php artisan git:update`
