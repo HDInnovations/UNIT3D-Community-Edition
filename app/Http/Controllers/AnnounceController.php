@@ -424,7 +424,7 @@ class AnnounceController extends Controller
             $history->client_uploaded = $real_uploaded;
             $history->downloaded += $mod_downloaded;
             $history->actual_downloaded += $downloaded;
-            $history->client_downloaded = $real_uploaded;
+            $history->client_downloaded = $real_downloaded;
             $history->save();
 
             // User update
