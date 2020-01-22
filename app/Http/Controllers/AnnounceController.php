@@ -26,6 +26,12 @@ use Illuminate\Http\Request;
 
 class AnnounceController extends Controller
 {
+    // Torrent Moderation Codes
+    protected const PENDING = 0;
+    protected const APPROVED = 1;
+    protected const REJECTED = 2;
+    protected const POSTPONED = 3;
+
     /**
      * Announce Code.
      *
@@ -38,6 +44,7 @@ class AnnounceController extends Controller
      */
     public function announce(Request $request, $passkey)
     {
+        // For Performance Logging Only!
         /*\DB::listen(function($sql) {
             \Log::info($sql->sql);
             \Log::info($sql->bindings);
@@ -211,19 +218,19 @@ class AnnounceController extends Controller
         }
 
         // If Torrent Is Pending Moderation Return Error to Client
-        if ($torrent->status == 0) {
+        if ($torrent->status == self::PENDING) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Pending Moderation');
             return response(Bencode::bencode(['failure reason' => 'Torrent is still pending moderation']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Torrent Is Rejected Return Error to Client
-        if ($torrent->status == 2) {
+        if ($torrent->status == self::REJECTED) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Rejected');
             return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Torrent Is Postponed Return Error to Client
-        if ($torrent->status == 2) {
+        if ($torrent->status == self::POSTPONED) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Postponed');
             return response(Bencode::bencode(['failure reason' => 'Torrent has been postponed']))->withHeaders(['Content-Type' => 'text/plain']);
         }
