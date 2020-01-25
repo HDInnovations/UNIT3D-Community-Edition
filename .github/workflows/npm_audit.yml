@@ -1,0 +1,21 @@
+name: npm audit
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  scan:
+    name: npm audit
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: install dependencies
+        run: npm ci
+      - uses: oke-py/npm-audit-action@v1.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_assignees: HDVinnie
+          issue_labels: Security Vulnerability
