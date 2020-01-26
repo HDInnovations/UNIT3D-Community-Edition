@@ -1,7 +1,7 @@
 <?php
 
 return [
-  'chatbox' => 'Janela de conversa',
+  'chatbox' => 'Janela de chat',
   'click' => 'Clique',
   'to-enable-editor' => 'para habilitar o editor',
   'featured-by' => 'Caracterizado por',
@@ -9,7 +9,7 @@ return [
   'featured-torrents-intro' => 'Pegue eles enquanto você pode!',
   'featured-until' => 'Isso é caracterizado torrent até',
   'top-torrents' => 'Top Torrents',
-  'latest-posts' => 'últimas postagens',
+  'latest-posts' => 'Últimas postagens',
   'latest-topics' => 'Tópicos mais recentes',
   'active-in-last' => 'Ativo no último',
   'users-online' => 'Usuários online',
