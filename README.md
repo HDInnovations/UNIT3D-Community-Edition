@@ -8,6 +8,7 @@
 
 <p align="center">
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-6-f4645f.svg?style=flat-square" /></a> 
+<a href="https://github.com/php-pm/php-pm"><img src="https://raw.githubusercontent.com/php-pm/ppm-badge/master/ppm-badge.png" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>	
 <a class="badge-align" href="https://www.codacy.com/manual/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HDInnovations/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
