@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Request - {{ config('other.title') }}</title>
+    <title>Request - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
 @endsection
 
 @section('breadcrumb')
