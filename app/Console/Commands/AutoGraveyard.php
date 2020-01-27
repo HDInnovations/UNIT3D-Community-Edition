@@ -82,7 +82,7 @@ class AutoGraveyard extends Command
                 $appurl = config('app.url');
 
                 $this->chat->systemMessage(
-                    "Ladies and Gents, [url={$appurl}/users/{$user->username}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]. :zombie:"
+                    "Ladies and Gents, [url={$appurl}/users/{$user->username}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->id}]{$torrent->name}[/url]. :zombie:"
                 );
 
                 // Send Private Message
