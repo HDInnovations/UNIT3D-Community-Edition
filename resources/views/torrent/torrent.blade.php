@@ -780,7 +780,7 @@
       })
     </script>
 
-    @if (isset($meta) && $torrent->category->movie_meta || $torrent->category->tv_meta && $meta->videoTrailer && $meta->title)
+    @if (isset($meta) && ($torrent->category->movie_meta || $torrent->category->tv_meta) && $meta->videoTrailer && $meta->title)
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $('.show-trailer').each(function () {
         $(this).off('click');
