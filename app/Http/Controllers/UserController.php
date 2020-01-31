@@ -1243,37 +1243,37 @@ class UserController extends Controller
 
             $history->where(function ($query) use ($request) {
                 if ($request->has('dying') && $request->input('dying') != null) {
-                    $query->orWhereRaw('(torrents.seeders = ? AND torrents.times_completed > ? AND date_sub(peers.created_at,interval 30 minute) < now())', [1, 2]);
+                    $query->orWhereRaw('(torrents.seeders = ? AND torrents.times_completed > ?)', [1, 2]);
                 }
                 if ($request->has('legendary') && $request->input('legendary') != null) {
-                    $query->orWhereRaw('(torrents.created_at < date_sub(now(), interval 12 month) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(torrents.created_at < date_sub(now(), interval 12 month))', []);
                 }
                 if ($request->has('old') && $request->input('old') != null) {
-                    $query->orWhereRaw('(torrents.created_at < date_sub(now(), Interval 6 month) and torrents.created_at > date_sub(now(), interval 12 month) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(torrents.created_at < date_sub(now(), Interval 6 month) and torrents.created_at > date_sub(now(), interval 12 month))', []);
                 }
                 if ($request->has('huge') && $request->input('huge') != null) {
-                    $query->orWhereRaw('(torrents.size > (1073741824 * 100) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(torrents.size > (1073741824 * 100))', []);
                 }
                 if ($request->has('large') && $request->input('large') != null) {
-                    $query->orWhereRaw('(torrents.size > (1073741824 * 25) and torrents.size < (1073741824 * 100) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(torrents.size > (1073741824 * 25) and torrents.size < (1073741824 * 100))', []);
                 }
                 if ($request->has('everyday') && $request->input('everyday') != null) {
-                    $query->orWhereRaw('(torrents.size > (1073741824) and torrents.size < (1073741824 * 25) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(torrents.size > (1073741824) and torrents.size < (1073741824 * 25))', []);
                 }
                 if ($request->has('participant_seeder') && $request->input('participant_seeder') != null) {
-                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000) and history.seedtime < (2592000 * 2) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000) and history.seedtime < (2592000 * 2))', []);
                 }
                 if ($request->has('teamplayer_seeder') && $request->input('teamplayer_seeder') != null) {
-                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 2) and history.seedtime < (2592000 * 3) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 2) and history.seedtime < (2592000 * 3))', []);
                 }
                 if ($request->has('committed_seeder') && $request->input('committed_seeder') != null) {
-                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 3) and history.seedtime < (2592000 * 6) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 3) and history.seedtime < (2592000 * 6))', []);
                 }
                 if ($request->has('mvp_seeder') && $request->input('mvp_seeder') != null) {
-                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 6) and history.seedtime < (2592000 * 12) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 6) and history.seedtime < (2592000 * 12))', []);
                 }
                 if ($request->has('legendary_seeder') && $request->input('legendary_seeder') != null) {
-                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 12) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 12))', []);
                 }
             });
 
