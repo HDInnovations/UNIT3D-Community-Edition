@@ -1,5 +1,5 @@
 <header id="hoe-header" hoe-color-type="header-bg5" hoe-lpanel-effect="shrink" class="hoe-minimized-lpanel">
-    <div class="hoe-left-header" hoe-position-type="fixed">
+    <div class="hoe-left-header" hoe-position-type="static">
         <a href="{{ route('home.index') }}">
             <div class="banner">
                 <i class="fal fa-rocket" style="display: inline;"></i>
