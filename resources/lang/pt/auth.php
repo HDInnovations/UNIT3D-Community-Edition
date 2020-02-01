@@ -40,7 +40,7 @@ return [
     'recover-my-password' => 'Recuperar minha senha',
     'register-thanks'     => 'Obrigado por se registrar! Por favor, verifique o seu e-mail para confirmar sua conta',
     'remember-me'         => 'Lembrar',
-    'require-rules'    	  => 'Por favor, leia e aceite as nossas regras rolando até ao final da página'.,
+    'require-rules'    	  => 'Por favor, leia e aceite as nossas regras rolando até ao final da página',
     'signup'              => 'Registre-se',
     'throttle'            => 'Demasiadas tentativas de login. Por favor, tente novamente em alguns segundos.',
     'unlock'              => 'Desbloquear',
