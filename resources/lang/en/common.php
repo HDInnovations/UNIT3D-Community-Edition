@@ -47,6 +47,7 @@ return [
     'disable'              => 'Disable',
     'doubleup_activated'   => 'Global Double Upload Mode Activated',
     'download'             => 'Download',
+    'magnet'               => 'Magnet',
     'edit'                 => 'Edit',
     'edit-your-comment'    => 'Edit your Comment',
     'email'                => 'E-mail',
