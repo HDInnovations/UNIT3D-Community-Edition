@@ -1,5 +1,5 @@
 <header id="hoe-header" hoe-color-type="header-bg5" hoe-lpanel-effect="shrink" class="hoe-minimized-lpanel">
-    <div class="hoe-left-header" hoe-position-type="static">
+    <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home.index') }}">
             <div class="banner">
                 <i class="fal fa-rocket" style="display: inline;"></i>
@@ -7,7 +7,7 @@
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
     </div>
-    <div class="hoe-right-header" hoe-position-type="fixed" hoe-color-type="header-bg5">
+    <div class="hoe-right-header" hoe-position-type="static" hoe-color-type="header-bg5">
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
