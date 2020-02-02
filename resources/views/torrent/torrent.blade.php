@@ -53,6 +53,13 @@
                                 </span>
                             </a>
                         @endif
+                        @if (config('torrent.magnet') == 1)
+                            <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="btn btn-labeled btn-success">
+                                <span class='btn-label'>
+                                    <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
+                                </span>
+                            </a>
+                        @endif
 
                         @if ($torrent->tmdb != 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-labeled btn-primary">
