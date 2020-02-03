@@ -27,7 +27,7 @@
         <a href="{{ route('articles.show', ['id' => $article->id]) }}"
            style=" float: right; margin-right: 10px;">
             @if ( ! is_null($article->image))
-                <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
+                <img src="{{ Storage::disk('images')->url($article->image) }}" alt="{{ $article->title }}">
             @else
                 <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
             @endif
@@ -72,7 +72,7 @@
                                                 <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                    class="pull-left" style="padding-right: 10px;">
                                                     @if ($comment->user->image != null)
-                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
+                                                        <img src="{{ Storage::disk('images')->url($comment->user->image) }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @else
                                                     <img src="{{ url('img/profile.png') }}"

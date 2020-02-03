@@ -27,6 +27,7 @@ use App\Models\User;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TorrentController extends BaseController
@@ -80,7 +81,7 @@ class TorrentController extends BaseController
         $infohash = Bencode::get_infohash($decodedTorrent);
         $meta = Bencode::get_meta($decodedTorrent);
         $fileName = uniqid().'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
+        Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
@@ -136,8 +137,8 @@ class TorrentController extends BaseController
         ]);
 
         if ($v->fails()) {
-            if (file_exists(getcwd().'/files/torrents/'.$fileName)) {
-                unlink(getcwd().'/files/torrents/'.$fileName);
+            if (Storage::disk('torrents')->exists($fileName)) {
+                Storage::disk('torrents')->delete($fileName);
             }
 
             return $this->sendError('Validation Error.', $v->errors());

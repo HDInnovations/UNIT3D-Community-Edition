@@ -30,7 +30,7 @@
                         <div class="item-playlist-container-playlist">
                             <a href="{{ route('playlists.show', ['id' => $playlist->id]) }}">
                                 @if(isset($playlist->cover_image))
-                                    <img src="{{ url('files/img/' . $playlist->cover_image) }}" alt="Cover Image">
+                                    <img src="{{ Storage::disk('images')->url($playlist->cover_image) }}" alt="Cover Image">
                                 @else
                                     <div class="no_image_holder w273_and_h153 playlist"></div>
                                 @endif
@@ -38,7 +38,7 @@
                             <div class="item-playlist-text-playlist">
                                 <a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
                                     @if ($playlist->user->image != null)
-                                        <img src="{{ url('files/img/' . $playlist->user->image) }}"
+                                        <img src="{{ Storage::disk('images')->url($playlist->user->image) }}"
                                             alt="{{ $playlist->user->username }}">
                                     @else
                                         <img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}">

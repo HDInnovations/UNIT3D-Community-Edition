@@ -64,7 +64,7 @@
                                         @if ($new->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $new->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $new->category->image) }}"
+                                                    <img src="{{ Storage::disk('images')->url($new->category->image) }}"
                                                         data-toggle="tooltip"
                                                         data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                         style="padding-bottom: 6px;" alt="{{ $new->category->name }}">
@@ -311,7 +311,7 @@
                                         @if ($seed->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $seed->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $seed->category->image) }}"
+                                                    <img src="{{ Storage::disk('images')->url($seed->category->image) }}"
                                                         data-toggle="tooltip"
                                                         data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                         style="padding-bottom: 6px;" alt="{{ $seed->category->name }}">
@@ -559,7 +559,7 @@
                                         @if ($leech->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $leech->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $leech->category->image) }}"
+                                                    <img src="{{ Storage::disk('images')->url($leech->category->image) }}"
                                                         data-toggle="tooltip"
                                                         data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                         style="padding-bottom: 6px;" alt="{{ $leech->category->name }}">
@@ -807,7 +807,7 @@
                                         @if ($d->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $d->category->image) }}"
+                                                    <img src="{{ Storage::disk('images')->url($d->category->image) }}"
                                                         data-toggle="tooltip"
                                                         data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                         style="padding-bottom: 6px;" alt="{{ $d->category->name }}">
@@ -1054,7 +1054,7 @@
                                         @if ($d->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $d->category->image) }}"
+                                                    <img src="{{ Storage::disk('images')->url($d->category->image) }}"
                                                         data-toggle="tooltip"
                                                         data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                         style="padding-bottom: 6px;" alt="{{ $d->category->name }}">

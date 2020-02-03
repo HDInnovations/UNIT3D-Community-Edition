@@ -44,7 +44,7 @@
                         <div class="content">
                             <div class="col-md-2">
                                 @if ($user->image != null)
-                                    <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
+                                    <img src="{{ Storage::disk('images')->url($user->image) }}" alt="{{ $user->username }}"
                                          class="img-circle">
                                 @else
                                     <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}"
@@ -486,7 +486,7 @@
                             @foreach ($followers as $f)
                                 @if ($f->user->image != null)
                                     <a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                        <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
+                                        <img src="{{ Storage::disk('images')->url($f->user->image) }}" data-toggle="tooltip"
                                              title="{{ $f->user->username }}" height="50px"
                                              data-original-title="{{ $f->user->username }}"
                                              alt="{{ $f->user->username }}">

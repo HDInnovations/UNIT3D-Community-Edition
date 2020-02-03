@@ -77,7 +77,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span>
                         @if (auth()->user()->image != null)
-                            <img src="{{ url('files/img/' . auth()->user()->image) }}" alt="{{ auth()->user()->username }}"
+                            <img src="{{ Storage::disk('images')->url(auth()->user()->image) }}" alt="{{ auth()->user()->username }}"
                                 class="img-circle">
                         @else
                             <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">

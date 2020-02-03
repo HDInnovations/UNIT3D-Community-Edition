@@ -28,7 +28,7 @@
                 @foreach ($albums as $album)
                     <div class="col-md-3 text-center">
                         <div class="thumbnail" style="min-height: 435px;">
-                            <img alt="{{ $album->name }}" src="{{ url('files/img/' . $album->cover_image) }}">
+                            <img alt="{{ $album->name }}" src="{{ Storage::disk('images')->url($album->cover_image) }}">
                             <div class="caption">
                                 <p class="text-bold">{{ $album->name }}</p>
                                 <h4>{{ $album->description }}</h4>

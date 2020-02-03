@@ -63,9 +63,34 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url'    => env('AWS_URL'),
         ],
+
         'backups' => [
             'driver' => 'local',
             'root'   => storage_path('backups'),
+        ],
+
+        'torrents' => [
+            'driver' => 'local',
+            'root'   => public_path('files/torrents'),
+            'url'    => env('APP_URL').'/files/torrents',
+        ],
+
+        'images' => [
+            'driver' => 'local',
+            'root'   => public_path('files/img'),
+            'url'    => env('APP_URL').'/files/img',
+        ],
+
+        'tmp' => [
+            'driver' => 'local',
+            'root'   => public_path('files/tmp'),
+            'url'    => env('APP_URL').'/files/tmp',
+        ],
+
+        'tmp_zip' => [
+            'driver' => 'local',
+            'root'   => public_path('files/tmp_zip'),
+            'url'    => env('APP_URL').'/files/tmp_zip',
         ],
     ],
 

@@ -692,7 +692,7 @@
                                                 <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                    class="pull-left" style="padding-right: 10px">
                                                     @if ($comment->user->image != null)
-                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
+                                                        <img src="{{ Storage::disk('images')->url($comment->user->image) }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @else
                                                     <img src="{{ url('img/profile.png') }}"

@@ -57,7 +57,7 @@
                                         <tr>
                                             <td class="user-image hidden-xs hidden-sm">
                                                 @if ($user->image != null)
-                                                    <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
+                                                    <img src="{{ Storage::disk('images')->url($user->image) }}" alt="{{ $user->username }}"
                                                     class="img-circle"> @else
                                                     <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}"
                                                     class="img-circle"> @endif
@@ -104,7 +104,7 @@
                                         <tr>
                                             <td class="user-image hidden-xs hidden-sm">
                                                 @if ($uploader->image != null)
-                                                    <img src="{{ url('files/img/' . $uploader->image) }}"
+                                                    <img src="{{ Storage::disk('images')->url($uploader->image) }}"
                                                     alt="{{ $uploader->username }}" class="img-circle"> @else
                                                     <img src="{{ url('img/profile.png') }}" alt="{{ $uploader->username }}"
                                                     class="img-circle"> @endif
@@ -149,7 +149,7 @@
                                         <tr>
                                             <td class="user-image hidden-xs hidden-sm">
                                                 @if ($mod->image != null)
-                                                    <img src="{{ url('files/img/' . $mod->image) }}" alt="{{ $mod->username }}"
+                                                    <img src="{{ Storage::disk('images')->url($mod->image) }}" alt="{{ $mod->username }}"
                                                     class="img-circle"> @else
                                                     <img src="{{ url('img/profile.png') }}" alt="{{ $mod->username }}"
                                                     class="img-circle"> @endif
@@ -194,7 +194,7 @@
                                         <tr>
                                             <td class="user-image hidden-xs hidden-sm">
                                                 @if ($admin->image != null)
-                                                    <img src="{{ url('files/img/' . $admin->image) }}" alt="{{ $admin->username }}"
+                                                    <img src="{{ Storage::disk('images')->url($admin->image) }}" alt="{{ $admin->username }}"
                                                     class="img-circle"> @else
                                                     <img src="{{ url('img/profile.png') }}" alt="{{ $admin->username }}"
                                                     class="img-circle"> @endif
@@ -238,7 +238,7 @@
                                         <tr>
                                             <td class="user-image hidden-xs hidden-sm">
                                                 @if ($coder->image != null)
-                                                    <img src="{{ url('files/img/' . $coder->image) }}" alt="{{ $coder->username }}"
+                                                    <img src="{{ Storage::disk('images')->url($coder->image) }}" alt="{{ $coder->username }}"
                                                     class="img-circle"> @else
                                                     <img src="{{ url('img/profile.png') }}" alt="{{ $coder->username }}"
                                                     class="img-circle"> @endif

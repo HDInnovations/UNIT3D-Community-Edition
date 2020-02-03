@@ -53,7 +53,7 @@
                                 <tr>
                                     <td class="user-image hidden-xs hidden-sm">
                                         @if ($user->image != null)
-                                            <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
+                                            <img src="{{ Storage::disk('images')->url($user->image) }}" alt="{{ $user->username }}"
                                             class="img-circle"> @else
                                             <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}" class="img-circle">
                                         @endif

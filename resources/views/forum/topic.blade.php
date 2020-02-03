@@ -59,7 +59,7 @@
                             </div>
                             <aside class="col-md-2 post-info">
                                 @if ($p->user->image != null)
-                                    <img src="{{ url('files/img/' . $p->user->image) }}" alt="{{ $p->user->username }}"
+                                    <img src="{{ Storage::disk('images')->url($p->user->image) }}" alt="{{ $p->user->username }}"
                                         class="img-thumbnail post-info-image">
                                 @else
                                     <img src="{{ url('img/profile.png') }}" alt="{{ $p->user->username }}"

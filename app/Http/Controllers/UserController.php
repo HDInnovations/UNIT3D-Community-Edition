@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Image;
 use ZipArchive;
 
@@ -189,7 +190,7 @@ class UserController extends Controller
                             'image' => 'dimensions:ratio=1/1',
                         ]);
                         if ($v->passes()) {
-                            $image->move(public_path('/files/img/'), $filename);
+                            Storage::disk('images')->put($filename, $image);
                         } else {
                             return redirect()->route('users.show', ['username' => $user->username])
                                 ->withErrors('Because you are uploading a GIF, your avatar must be square!');

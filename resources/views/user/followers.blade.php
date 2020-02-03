@@ -60,7 +60,7 @@
                                 <tr>
                                     @if ($f->user->image != null)
                                         <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
-                                                <img src="{{ url('files/img/' . $f->user->image) }}" alt="avatar" data-toggle="tooltip"
+                                                <img src="{{ Storage::disk('images')->url($f->user->image) }}" alt="avatar" data-toggle="tooltip"
                                                     title="{{ $f->user->username }}" height="50px"
                                                     data-original-title="{{ $f->user->username }}">
                                             </a></td>

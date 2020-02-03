@@ -26,7 +26,7 @@
         <div class="block">
             <div class="well">
                 <img class="media-object pull-left" alt="{{ $album->name }}"
-                    src="{{ url('files/img/' . $album->cover_image) }}" height="175px" width="auto"
+                    src="{{ Storage::disk('images')->url($album->cover_image) }}" height="175px" width="auto"
                     style="margin-right: 20px;">
                 <div class="media-body">
                     <h2 class="media-heading">Album @lang('common.name'):</h2>
@@ -52,9 +52,9 @@
                 @foreach ($album->images as $photo)
                     <div class="col-lg-3">
                         <div class="thumbnail" style="max-height: 450px; min-height: 400px;">
-                            <img alt="{{ $album->name }}" src="{{ url('files/img/' . $photo->image) }}"
+                            <img alt="{{ $album->name }}" src="{{ Storage::disk('images')->url($photo->image) }}"
                                 style="max-height: 300px; min-height: 300px; border: 6px solid rgb(128,128,128); border-radius: 5px;"
-                                data-image='<img src="{{ url('files/img/' . $photo->image) }}" alt="Poster" style="height: 1000px;">'
+                                data-image='<img src="{{ Storage::disk('images')->url($photo->image) }}" alt="Poster" style="height: 1000px;">'
                                 class="show-image">
                             <div class="caption text-center">
                                 <h4 class="label label-success">{{ $photo->type }}</h4>

@@ -109,7 +109,7 @@ config('api-keys.omdb')) @endphp
                         @if ($torrent->category->image != null)
                             <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                 <div class="text-center">
-                                    <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                    <img src="{{ Storage::disk('images')->url($torrent->category->image) }}" data-toggle="tooltip"
                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                         style="padding-bottom: 10px;" alt="{{ $torrent->category->name }}">
                                 </div>

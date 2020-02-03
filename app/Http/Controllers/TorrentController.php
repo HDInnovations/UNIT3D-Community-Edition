@@ -43,6 +43,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
@@ -1299,7 +1300,7 @@ class TorrentController extends Controller
         $infohash = Bencode::get_infohash($decodedTorrent);
         $meta = Bencode::get_meta($decodedTorrent);
         $fileName = uniqid().'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
+        Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
@@ -1355,8 +1356,8 @@ class TorrentController extends Controller
         ]);
 
         if ($v->fails()) {
-            if (file_exists(getcwd().'/files/torrents/'.$fileName)) {
-                unlink(getcwd().'/files/torrents/'.$fileName);
+            if (Storage::disk('torrents')->exists($fileName)) {
+                Storage::disk('torrents')->delete($fileName);
             }
 
             return redirect()->route('upload_form')
@@ -1490,7 +1491,7 @@ class TorrentController extends Controller
         $tmpFileName = str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']'.$torrent->name.'.torrent');
 
         // The torrent file exist ?
-        if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+        if (! Storage::disk('torrents')->missing($torrent->file_name)) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         } else {
@@ -1500,7 +1501,7 @@ class TorrentController extends Controller
             }
         }
         // Get the content of the torrent
-        $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
+        $dict = Bencode::bdecode(Storage::disk('torrents')->get($torrent->file_name));
         if ($request->user() || ($rsskey && $user)) {
             // Set the announce key and add the user passkey
             $dict['announce'] = route('announce', ['passkey' => $user->passkey]);

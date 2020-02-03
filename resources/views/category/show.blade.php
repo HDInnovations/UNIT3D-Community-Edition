@@ -87,7 +87,7 @@
                                     @if ($torrent->category->image != null)
                                         <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                             <div class="text-center">
-                                                <img src="{{ url('files/img/' . $torrent->category->image) }}"
+                                                <img src="{{ Storage::disk('images')->url($torrent->category->image) }}"
                                                     alt="{{ $torrent->category->name }}" data-toggle="tooltip"
                                                     data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                                     style="padding-bottom: 6px;">

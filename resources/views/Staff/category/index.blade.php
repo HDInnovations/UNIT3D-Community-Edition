@@ -49,7 +49,7 @@
                             </td>
                             <td>
                                 @if ($category->image != null)
-                                    <img alt="{{ $category->name }}" src="{{ url('files/img/' . $category->image) }}">
+                                    <img alt="{{ $category->name }}" src="{{ Storage::disk('images')->url($category->image) }}">
                                 @else
                                     <span>N/A</span>
                                 @endif
