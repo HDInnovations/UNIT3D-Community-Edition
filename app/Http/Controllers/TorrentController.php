@@ -1491,7 +1491,7 @@ class TorrentController extends Controller
         $tmpFileName = str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']'.$torrent->name.'.torrent');
 
         // The torrent file exist ?
-        if (! Storage::disk('torrents')->missing($torrent->file_name)) {
+        if (!Storage::disk('torrents')->missing($torrent->file_name)) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         } else {
