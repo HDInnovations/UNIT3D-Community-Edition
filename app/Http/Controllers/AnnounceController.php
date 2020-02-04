@@ -294,11 +294,7 @@ class AnnounceController extends Controller
             $mod_downloaded = $downloaded;
         }
 
-        if (config('other.doubleup') == 1 || $torrent->doubleup == 1) {
-            $mod_uploaded = $uploaded * 2;
-        } else {
-            $mod_uploaded = $uploaded;
-        }
+        $mod_uploaded = config('other.doubleup') == 1 || $torrent->doubleup == 1 ? $uploaded * 2 : $uploaded;
 
         if ($event == 'started') {
             // Peer Update
