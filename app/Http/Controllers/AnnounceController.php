@@ -212,7 +212,7 @@ class AnnounceController extends Controller
             ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
-        if (!$torrent || $torrent->id < 0) {
+        if (!$torrent) {
             //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
             return response(Bencode::bencode(['failure reason' => 'Torrent not found']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -235,9 +235,10 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Torrent has been postponed']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
+        // Get Torrents Eager Loaded Peers
         $peers = $torrent->peers->where('info_hash', '=', $info_hash)->take(100)->toArray();
 
-        // Pull Count On Users Peers Per Torrent
+        // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = $torrent->peers->where('user_id', '=', $user->id)->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
@@ -247,25 +248,26 @@ class AnnounceController extends Controller
         }
 
         // Get The Current Peer
-        $client = $torrent->peers->where('md5_peer_id', $md5_peer_id)->where('user_id', '=', $user->id)->first();
+        $peer = $torrent->peers->where('md5_peer_id', $md5_peer_id)->where('user_id', '=', $user->id)->first();
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
 
-        // Creates a new client if not existing
-        if (!$client && $event == 'completed') {
+        // Creates a new peer if not existing
+        if (!$peer && $event == 'completed') {
             return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
-        } elseif (!$client) {
+        } elseif (!$peer) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
                 $event = 'started';
             }
-            $client = new Peer();
+            $peer = new Peer();
         }
 
         // Get history information
         $history = History::where('info_hash', '=', $info_hash)->where('user_id', '=', $user->id)->first();
 
+        // If no History record found then create one
         if (!$history) {
             $history = new History();
             $history->user_id = $user->id;
@@ -276,13 +278,13 @@ class AnnounceController extends Controller
             $uploaded = ($real_uploaded >= $history->client_uploaded) ? ($real_uploaded - $history->client_uploaded) : 0;
             $downloaded = ($real_downloaded >= $history->client_downloaded) ? ($real_downloaded - $history->client_downloaded) : 0;
         } else {
-            $uploaded = ($real_uploaded >= $client->uploaded) ? ($real_uploaded - $client->uploaded) : 0;
-            $downloaded = ($real_downloaded >= $client->downloaded) ? ($real_downloaded - $client->downloaded) : 0;
+            $uploaded = ($real_uploaded >= $peer->uploaded) ? ($real_uploaded - $peer->uploaded) : 0;
+            $downloaded = ($real_downloaded >= $peer->downloaded) ? ($real_downloaded - $peer->downloaded) : 0;
         }
 
-        $old_update = $client->updated_at ? $client->updated_at->timestamp : Carbon::now()->timestamp;
+        $old_update = $peer->updated_at ? $peer->updated_at->timestamp : Carbon::now()->timestamp;
 
-        // Modification of upload and Download
+        // Modification of Upload and Download
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
 
@@ -299,7 +301,23 @@ class AnnounceController extends Controller
         }
 
         if ($event == 'started') {
-            // Set the torrent data
+            // Peer Update
+            $peer->peer_id = $peer_id;
+            $peer->md5_peer_id = $md5_peer_id;
+            $peer->info_hash = $info_hash;
+            $peer->ip = $request->ip();
+            $peer->port = $port;
+            $peer->agent = $agent;
+            $peer->uploaded = $real_uploaded;
+            $peer->downloaded = $real_downloaded;
+            $peer->seeder = ($left == 0) ? true : false;
+            $peer->left = $left;
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->save();
+            // End Peer Update
+
+            // History Update
             $history->agent = $agent;
             $history->active = 1;
             $history->seeder = ($left == 0) ? true : false;
@@ -311,27 +329,28 @@ class AnnounceController extends Controller
             $history->actual_downloaded += 0;
             $history->client_downloaded = $real_downloaded;
             $history->save();
+            // End History Update
 
-            // Never to push stats to user on start event
+            // Never push stats to users account on start event
 
-            //Peer update
-            $client->peer_id = $peer_id;
-            $client->md5_peer_id = $md5_peer_id;
-            $client->info_hash = $info_hash;
-            $client->ip = $request->ip();
-            $client->port = $port;
-            $client->agent = $agent;
-            $client->uploaded = $real_uploaded;
-            $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
-            $client->left = $left;
-            $client->torrent_id = $torrent->id;
-            $client->user_id = $user->id;
-            //End Peer update
-
-            $client->save();
         } elseif ($event == 'completed') {
-            // Set the torrent data
+            // Peer Update
+            $peer->peer_id = $peer_id;
+            $peer->md5_peer_id = $md5_peer_id;
+            $peer->info_hash = $info_hash;
+            $peer->ip = $request->ip();
+            $peer->port = $port;
+            $peer->agent = $agent;
+            $peer->uploaded = $real_uploaded;
+            $peer->downloaded = $real_downloaded;
+            $peer->seeder = 1;
+            $peer->left = 0;
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->save();
+            // End Peer Update
+
+            // History Update
             $history->agent = $agent;
             $history->active = 1;
             $history->seeder = ($left == 0) ? true : false;
@@ -343,40 +362,43 @@ class AnnounceController extends Controller
             $history->actual_downloaded += $downloaded;
             $history->client_downloaded = $real_downloaded;
             $history->completed_at = Carbon::now();
-            $history->save();
+            // Seedtime Allocation
+            if ($left == 0) {
+                $new_update = $peer->updated_at->timestamp;
+                $diff = $new_update - $old_update;
+                $history->seedtime += $diff;
+                $history->save();
+            }
+            // End History Update
 
-            // User update
+            // User Update
             $user->uploaded += $mod_uploaded;
             $user->downloaded += $mod_downloaded;
             $user->save();
-            // End User update
+            // End User Update
 
-            //Peer update
-            $client->peer_id = $peer_id;
-            $client->md5_peer_id = $md5_peer_id;
-            $client->info_hash = $info_hash;
-            $client->ip = $request->ip();
-            $client->port = $port;
-            $client->agent = $agent;
-            $client->uploaded = $real_uploaded;
-            $client->downloaded = $real_downloaded;
-            $client->seeder = 1;
-            $client->left = 0;
-            $client->torrent_id = $torrent->id;
-            $client->user_id = $user->id;
-            $client->save();
-            //End Peer update
-
-            // Torrent completed update
+            // Torrent Completed Update
             $torrent->times_completed++;
+            // End Torrent Completed Update
 
-            // Seedtime allocation
-            $new_update = $client->updated_at->timestamp;
-            $diff = $new_update - $old_update;
-            $history->seedtime += $diff;
-            $history->save();
         } elseif ($event == 'stopped') {
-            // Set the torrent data
+            //Peer Update
+            $peer->peer_id = $peer_id;
+            $peer->md5_peer_id = $md5_peer_id;
+            $peer->info_hash = $info_hash;
+            $peer->ip = $request->ip();
+            $peer->port = $port;
+            $peer->agent = $agent;
+            $peer->uploaded = $real_uploaded;
+            $peer->downloaded = $real_downloaded;
+            $peer->seeder = ($left == 0) ? true : false;
+            $peer->left = $left;
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->save();
+            //End Peer Update
+
+            // History Update
             $history->agent = $agent;
             $history->active = 0;
             $history->seeder = ($left == 0) ? true : false;
@@ -387,42 +409,41 @@ class AnnounceController extends Controller
             $history->downloaded += $mod_downloaded;
             $history->actual_downloaded += $downloaded;
             $history->client_downloaded = 0;
-            $history->save();
-
-            // User update
-            $user->uploaded += $mod_uploaded;
-            $user->downloaded += $mod_downloaded;
-            $user->save();
-            // End User update
-
-            //Peer update
-            $client->peer_id = $peer_id;
-            $client->md5_peer_id = $md5_peer_id;
-            $client->info_hash = $info_hash;
-            $client->ip = $request->ip();
-            $client->port = $port;
-            $client->agent = $agent;
-            $client->uploaded = $real_uploaded;
-            $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
-            $client->left = $left;
-            $client->torrent_id = $torrent->id;
-            $client->user_id = $user->id;
-            //End Peer update
-
-            $client->save();
-
             // Seedtime allocation
             if ($left == 0) {
-                $new_update = $client->updated_at->timestamp;
+                $new_update = $peer->updated_at->timestamp;
                 $diff = $new_update - $old_update;
                 $history->seedtime += $diff;
                 $history->save();
             }
+            $history->save();
+            // End History Update
 
-            $client->delete();
+            // User Update
+            $user->uploaded += $mod_uploaded;
+            $user->downloaded += $mod_downloaded;
+            $user->save();
+            // End User Update
+
+            $peer->delete();
         } else {
-            // Set the torrent data
+            // Peer Update
+            $peer->peer_id = $peer_id;
+            $peer->md5_peer_id = $md5_peer_id;
+            $peer->info_hash = $info_hash;
+            $peer->ip = $request->ip();
+            $peer->port = $port;
+            $peer->agent = $agent;
+            $peer->uploaded = $real_uploaded;
+            $peer->downloaded = $real_downloaded;
+            $peer->seeder = ($left == 0) ? true : false;
+            $peer->left = $left;
+            $peer->torrent_id = $torrent->id;
+            $peer->user_id = $user->id;
+            $peer->save();
+            // End Peer Update
+
+            // History Update
             $history->agent = $agent;
             $history->active = 1;
             $history->seeder = ($left == 0) ? true : false;
@@ -432,44 +453,30 @@ class AnnounceController extends Controller
             $history->downloaded += $mod_downloaded;
             $history->actual_downloaded += $downloaded;
             $history->client_downloaded = $real_downloaded;
-            $history->save();
-
-            // User update
-            $user->uploaded += $mod_uploaded;
-            $user->downloaded += $mod_downloaded;
-            $user->save();
-            // End User update
-
-            //Peer update
-            $client->peer_id = $peer_id;
-            $client->md5_peer_id = $md5_peer_id;
-            $client->info_hash = $info_hash;
-            $client->ip = $request->ip();
-            $client->port = $port;
-            $client->agent = $agent;
-            $client->uploaded = $real_uploaded;
-            $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
-            $client->left = $left;
-            $client->torrent_id = $torrent->id;
-            $client->user_id = $user->id;
-            //End Peer update
-
-            $client->save();
-
             // Seedtime allocation
             if ($left == 0) {
-                $new_update = $client->updated_at->timestamp;
+                $new_update = $peer->updated_at->timestamp;
                 $diff = $new_update - $old_update;
                 $history->seedtime += $diff;
                 $history->save();
             }
+            $history->save();
+            // End History Update
+
+            // User Update
+            $user->uploaded += $mod_uploaded;
+            $user->downloaded += $mod_downloaded;
+            $user->save();
+            // End User Update
         }
 
+        // Torrent Update
         $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)->where('left', '=', '0')->count();
         $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)->where('left', '>', '0')->count();
         $torrent->save();
+        // End Torrent Update
 
+        // Build Response For Bittorrent Client
         $res = [];
         $min = 2400; // 40 Minutes
         $max = 3600; // 60 Minutes
@@ -482,6 +489,7 @@ class AnnounceController extends Controller
         $res['peers6'] = $this->givePeers6($peers, $compact, $no_peer_id);
 
         return response(Bencode::bencode($res))->withHeaders(['Content-Type' => 'text/plain']);
+        // End Build Response For Bittorrent Client
     }
 
     /**
