@@ -419,13 +419,16 @@ class AnnounceController extends Controller
             $history->save();
             // End History Update
 
+            // Peer Delete (Now that history is updated)
+            $peer->delete();
+            // End Peer Delete
+
             // User Update
             $user->uploaded += $mod_uploaded;
             $user->downloaded += $mod_downloaded;
             $user->save();
             // End User Update
 
-            $peer->delete();
         } else {
             // Peer Update
             $peer->peer_id = $peer_id;
