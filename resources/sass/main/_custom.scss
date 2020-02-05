@@ -9432,6 +9432,9 @@ pre {
     border-radius: 0;
 }
 
+.page-content code {
+    word-break: normal;
+
 .page-content>pre>code {
     border: none;
 }
