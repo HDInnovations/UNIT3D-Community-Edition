@@ -375,8 +375,8 @@ class AnnounceController extends Controller
                 $new_update = $peer->updated_at->timestamp;
                 $diff = $new_update - $old_update;
                 $history->seedtime += $diff;
-                $history->save();
             }
+            $history->save();
             // End History Update
 
             // User Update
@@ -421,7 +421,6 @@ class AnnounceController extends Controller
                 $new_update = $peer->updated_at->timestamp;
                 $diff = $new_update - $old_update;
                 $history->seedtime += $diff;
-                $history->save();
             }
             $history->save();
             // End History Update
@@ -467,7 +466,6 @@ class AnnounceController extends Controller
                 $new_update = $peer->updated_at->timestamp;
                 $diff = $new_update - $old_update;
                 $history->seedtime += $diff;
-                $history->save();
             }
             $history->save();
             // End History Update
