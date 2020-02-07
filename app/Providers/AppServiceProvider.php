@@ -13,13 +13,13 @@
 
 namespace App\Providers;
 
-use App\Models\User;
-use App\Models\Torrent;
 use App\Helpers\HiddenCaptcha;
-use App\Observers\UserObserver;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
+use App\Models\Torrent;
+use App\Models\User;
 use App\Observers\TorrentObserver;
+use App\Observers\UserObserver;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
 use Illuminate\Support\Facades\Blade;

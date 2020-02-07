@@ -244,12 +244,12 @@ class AnnounceController extends Controller
         }
 
         // Get Torrents Peers
-        $peers = Cache::remember("peers.{$torrent->id}", 1800, function () use($torrent) {
+        $peers = Cache::remember("peers.{$torrent->id}", 1800, function () use ($torrent) {
             return Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
         });
 
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = Cache::remember("user_connections.{$torrent->id}", 1800, function () use($torrent, $user) {
+        $connections = Cache::remember("user_connections.{$torrent->id}", 1800, function () use ($torrent, $user) {
             return  Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
         });
 
@@ -338,10 +338,9 @@ class AnnounceController extends Controller
             $history->actual_downloaded += 0;
             $history->client_downloaded = $real_downloaded;
             $history->save();
-            // End History Update
+        // End History Update
 
             // Never push stats to users account on start event
-
         } elseif ($event == 'completed') {
             // Peer Update
             $peer->peer_id = $peer_id;
@@ -388,8 +387,7 @@ class AnnounceController extends Controller
 
             // Torrent Completed Update
             $torrent->times_completed++;
-            // End Torrent Completed Update
-
+        // End Torrent Completed Update
         } elseif ($event == 'stopped') {
             //Peer Update
             $peer->peer_id = $peer_id;
@@ -436,8 +434,7 @@ class AnnounceController extends Controller
             $user->uploaded += $mod_uploaded;
             $user->downloaded += $mod_downloaded;
             $user->save();
-            // End User Update
-
+        // End User Update
         } else {
             // Peer Update
             $peer->peer_id = $peer_id;
