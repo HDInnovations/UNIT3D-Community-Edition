@@ -23,6 +23,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class AnnounceController extends Controller
 {
@@ -121,11 +122,15 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Missing download']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
-        // Check Passkey Against Users Table
-        $user = User::with(['group'])->where('passkey', '=', $passkey)->first();
+        // Check Passkey Against Cache or Users Table
+        if (Cache::has("user.{$passkey}")) {
+            $user = Cache::get("user.{$passkey}");
+        } else {
+            $user = User::where('passkey', '=', $passkey)->first();
+        }
 
         // If Passkey Doesn't Exist Return Error to Client
-        if (!$user) {
+        if ($user === null) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -204,15 +209,18 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
-        // Check Info Hash Against Torrents Table
-        $torrent = Torrent::select(['id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers'])
-            ->with('peers')
-            ->withAnyStatus()
-            ->where('info_hash', '=', $info_hash)
-            ->first();
+        // Check Info Hash Against Cache or Torrents Table
+        if (Cache::has("torrent.{$info_hash}")) {
+            $torrent = Cache::get("torrent.{$info_hash}");
+        } else {
+            $torrent = Torrent::select(['id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers'])
+                ->withAnyStatus()
+                ->where('info_hash', '=', $info_hash)
+                ->first();
+        }
 
         // If Torrent Doesnt Exsist Return Error to Client
-        if (!$torrent) {
+        if ($torrent === null) {
             //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
             return response(Bencode::bencode(['failure reason' => 'Torrent not found']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -235,11 +243,15 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Torrent has been postponed']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
-        // Get Torrents Eager Loaded Peers
-        $peers = $torrent->peers->where('info_hash', '=', $info_hash)->take(100)->toArray();
+        // Get Torrents Peers
+        $peers = Cache::remember("peers.{$torrent->id}", 1800, function () use($torrent) {
+            return Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
+        });
 
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = $torrent->peers->where('user_id', '=', $user->id)->count();
+        $connections = Cache::remember("user_connections.{$torrent->id}", 1800, function () use($torrent, $user) {
+            return  Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
+        });
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
         if ($connections > config('announce.rate_limit')) {
@@ -248,15 +260,15 @@ class AnnounceController extends Controller
         }
 
         // Get The Current Peer
-        $peer = $torrent->peers->where('md5_peer_id', $md5_peer_id)->where('user_id', '=', $user->id)->first();
+        $peer = Peer::where('torrent_id', '=', $torrent->id)->where('md5_peer_id', $md5_peer_id)->where('user_id', '=', $user->id)->first();
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
 
         // Creates a new peer if not existing
-        if (!$peer && $event == 'completed') {
+        if ($peer === null && $event == 'completed') {
             return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
-        } elseif (!$peer) {
+        } elseif ($peer === null) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
                 $event = 'started';
@@ -268,7 +280,7 @@ class AnnounceController extends Controller
         $history = History::where('info_hash', '=', $info_hash)->where('user_id', '=', $user->id)->first();
 
         // If no History record found then create one
-        if (!$history) {
+        if ($history === null) {
             $history = new History();
             $history->user_id = $user->id;
             $history->info_hash = $info_hash;
@@ -287,8 +299,9 @@ class AnnounceController extends Controller
         // Modification of Upload and Download
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+        $group = Group::whereId($user->group_id)->first();
 
-        if (config('other.freeleech') == 1 || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token) {
+        if (config('other.freeleech') == 1 || $torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
             $mod_downloaded = 0;
         } else {
             $mod_downloaded = $downloaded;

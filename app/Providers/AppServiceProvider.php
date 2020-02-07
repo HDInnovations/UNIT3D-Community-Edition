@@ -13,9 +13,13 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Models\Torrent;
 use App\Helpers\HiddenCaptcha;
+use App\Observers\UserObserver;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
+use App\Observers\TorrentObserver;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
 use Illuminate\Support\Facades\Blade;
@@ -56,6 +60,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // User Observer For Cache
+        User::observe(UserObserver::class);
+
+        // Torrent Observer For Cache
+        Torrent::observe(TorrentObserver::class);
+
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
 
