@@ -405,7 +405,7 @@ class TorrentController extends BaseController
             $torrent->where('torrents.seeders', '=', $dead);
         }
 
-	if ($request->has('reseed') && $request->input('reseed') != null) {
+        if ($request->has('reseed') && $request->input('reseed') != null) {
             $torrent->where('torrents.seeders', '=', 0)->where('torrents.leechers', '>=', 1);
         }
 
