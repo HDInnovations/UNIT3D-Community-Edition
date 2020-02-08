@@ -244,9 +244,7 @@ class AnnounceController extends Controller
         }
 
         // Get Torrents Peers
-        $peers = Cache::remember("peers.{$torrent->id}", 1800, function () use ($torrent) {
-            return Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
-        });
+        $peers = Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
 
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = Cache::remember("user_connections.{$torrent->id}", 1800, function () use ($torrent, $user) {
@@ -492,8 +490,8 @@ class AnnounceController extends Controller
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
         $res['complete'] = $torrent->seeders;
         $res['incomplete'] = $torrent->leechers;
-        $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id);
-        $res['peers6'] = $this->givePeers6($peers, $compact, $no_peer_id);
+        $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id, FILTER_FLAG_IPV4);
+        $res['peers6'] = $this->givePeers($peers, $compact, $no_peer_id, FILTER_FLAG_IPV6);
 
         return response(Bencode::bencode($res))->withHeaders(['Content-Type' => 'text/plain']);
         // End Build Response For Bittorrent Client
@@ -503,50 +501,17 @@ class AnnounceController extends Controller
      * @param $peers
      * @param $compact
      * @param $no_peer_id
+     * @param $filter_flag
      *
      * @return string
      */
-    private function givePeers($peers, $compact, $no_peer_id)
+    private function givePeers($peers, $compact, $no_peer_id, $filter_flag = FILTER_FLAG_IPV4)
     {
         if ($compact) {
             $pcomp = '';
             foreach ($peers as &$p) {
                 if (isset($p['ip']) && isset($p['port'])) {
-                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                        $pcomp .= inet_pton($p['ip']);
-                        $pcomp .= pack('n', (int) $p['port']);
-                    }
-                }
-            }
-
-            return $pcomp;
-        } elseif ($no_peer_id) {
-            foreach ($peers as &$p) {
-                unset($p['peer_id']);
-            }
-
-            return $peers;
-        } else {
-            return $peers;
-        }
-
-        return $peers;
-    }
-
-    /**
-     * @param $peers
-     * @param $compact
-     * @param $no_peer_id
-     *
-     * @return string
-     */
-    private function givePeers6($peers, $compact, $no_peer_id)
-    {
-        if ($compact) {
-            $pcomp = '';
-            foreach ($peers as &$p) {
-                if (isset($p['ip']) && isset($p['port'])) {
-                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
                         $pcomp .= inet_pton($p['ip']);
                         $pcomp .= pack('n', (int) $p['port']);
                     }
