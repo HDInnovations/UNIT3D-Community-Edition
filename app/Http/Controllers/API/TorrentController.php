@@ -405,6 +405,10 @@ class TorrentController extends BaseController
             $torrent->where('torrents.seeders', '=', $dead);
         }
 
+	if ($request->has('reseed') && $request->input('reseed') != null) {
+            $torrent->where('torrents.seeders', '=', 0)->where('torrents.leechers', '>=', 1);
+        }
+
         if (!empty($torrent)) {
             return new TorrentsResource($torrent->paginate(25));
         } else {
