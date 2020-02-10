@@ -39,7 +39,7 @@ class TorrentObserver
      */
     public function retrieved(Torrent $torrent)
     {
-        Cache::add("torrent.{$torrent->info_hash}", $torrent);
+        Cache::put("torrent.{$torrent->info_hash}", $torrent);
     }
 
     /**

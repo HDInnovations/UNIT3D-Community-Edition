@@ -39,7 +39,7 @@ class UserObserver
      */
     public function retrieved(User $user)
     {
-        Cache::add("user.{$user->passkey}", $user);
+        Cache::put("user.{$user->passkey}", $user);
     }
 
     /**
