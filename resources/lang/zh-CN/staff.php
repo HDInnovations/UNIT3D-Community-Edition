@@ -41,7 +41,7 @@ return [
     'reports-log'             => '报告日志',
     'rooms'                   => '聊天室',
     'rss'                     => 'RSS',
-    'staff-dashboard'         => '工作人员控制台',
+    'staff-dashboard'         => '站务人员控制台',
     'statuses'                => '编辑聊天状态样式',
     'torrent-categories'      => '种子类别',
     'torrent-moderation'      => '种子审批',

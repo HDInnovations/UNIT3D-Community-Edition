@@ -141,7 +141,7 @@ return [
     'invite-tree'               => '邀请树',
     'invites'                   => '邀请',
     'invites-banned'            => '错误：您的邀请权利已被禁用',
-    'invites-banned-desc'       => '如有异议，请联系工作人员',
+    'invites-banned-desc'       => '如有异议，请联系站务人员',
     'invites-count'             => '你有 :count 个邀请码',
     'invites-disabled'          => '注意：目前开放注册，邀请机制暂时停用！',
     'invites-disabled-desc'     => '稍后再来！',
@@ -293,7 +293,7 @@ return [
     'settings'                  => '设定',
     'show-passkey'              => '显示Passkey',
     'soft-deleted-warnings'     => '隐藏的警告',
-    'staff-noted'               => '工作人员注记用户',
+    'staff-noted'               => '站务人员注记用户',
     'statistics'                => '统计',
     'subscription-notification' => '订阅的通知设定',
     'subscription-notification-forum' => '当订阅的论坛有新主题时，发出一个通知',
@@ -353,22 +353,22 @@ return [
     'user-id'                   => '用户ID',
     'username-seedbox'          => '用户名Seedbox',
     'visible-to-achievement'    => '成就能让以下用户组浏览',
-    'visible-to-achievement-help'           => '只有工作人员或以下所勾选的组别才能浏览你的成就。
+    'visible-to-achievement-help'           => '只有站务人员或以下所勾选的组别才能浏览你的成就。
     若你启动了<strong>私密模式</strong>，以下设定将会无效。',
     'visible-to-follower'       => '关注者清单能让以下用户组浏览',
-    'visible-to-follower-help'  => '只有工作人员或以下所勾选的组别才能浏览你的关注者清单。
+    'visible-to-follower-help'  => '只有站务人员或以下所勾选的组别才能浏览你的关注者清单。
     若你启动了<strong>私密模式</strong>，以下设定将会无效。',
     'visible-to-forum'          => '论坛记录能让以下用户组浏览',
-    'visible-to-forum-help'     => '只有工作人员或以下所勾选的组别才能浏览你的论坛记录。
+    'visible-to-forum-help'     => '只有站务人员或以下所勾选的组别才能浏览你的论坛记录。
     若你启动了<strong>私密模式</strong>，以下设定将会无效。',
     'visible-to-other'          => '其他信息可见性',
-    'visible-to-other-help'     => '只有工作人员或以下所勾选的组别才能浏览你的其他信息。若你启动了<strong>私密模式</strong>或选择<strong>隐身</strong>，以下设定将会无效。',
+    'visible-to-other-help'     => '只有站务人员或以下所勾选的组别才能浏览你的其他信息。若你启动了<strong>私密模式</strong>或选择<strong>隐身</strong>，以下设定将会无效。',
     'visible-to-profile'        => '个人资料能让以下用户组浏览',
-    'visible-to-profile-help'   => '只有工作人员或以下所勾选的组别才能浏览你的个人资料。若你启动了<strong>私密模式</strong>，以下设定将会无效。',
+    'visible-to-profile-help'   => '只有站务人员或以下所勾选的组别才能浏览你的个人资料。若你启动了<strong>私密模式</strong>，以下设定将会无效。',
     'visible-to-request'        => '悬赏信息可见性',
-    'visible-to-request-help'   => '只有工作人员或以下所勾选的组别才能浏览你的悬赏信息。若你启动了<strong>私密模式</strong>，以下设定将会无效。',
+    'visible-to-request-help'   => '只有站务人员或以下所勾选的组别才能浏览你的悬赏信息。若你启动了<strong>私密模式</strong>，以下设定将会无效。',
     'visible-to-torrent'        => '资源记录能让以下用户组浏览',
-    'visible-to-torrent-help'   => '只有工作人员或以下所勾选的组别才能浏览你的资源记录。若你启动了<strong>私密模式</strong>，以下设定将会无效。',
+    'visible-to-torrent-help'   => '只有站务人员或以下所勾选的组别才能浏览你的资源记录。若你启动了<strong>私密模式</strong>，以下设定将会无效。',
     'warned-by'                 => '警告者',
     'warned-on'                 => '警告',
     'warning'                   => '警告',
