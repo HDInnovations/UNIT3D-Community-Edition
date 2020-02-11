@@ -25,7 +25,7 @@ return [
     'current'            => '目前',
     'delete-topic'       => '删除该主题',
     'denied'             => '禁止',
-    'dislike-post'       => '吐嘈这个帖子',
+    'dislike-post'       => '吐槽这个帖子',
     'display-forum'      => '展示标题于',
     'edit-post'          => '编辑帖子',
     'edit-topic'         => '编辑主题',
