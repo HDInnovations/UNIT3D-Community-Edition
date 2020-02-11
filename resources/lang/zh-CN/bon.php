@@ -2,7 +2,7 @@
 
 return [
     'activated'        => 'Activated',
-    'active'           => 'Activated!',
+    'active'           => 'Activated！',
     'amount'           => '数量',
     'bon'              => '魔力',
     'bonus'            => '额外奖赏',
@@ -11,7 +11,7 @@ return [
     'earning-rate'     => '按率推算...',
     'earnings'         => '收入',
     'exchange'         => '交易',
-    'exchange-warning' => '注意，所涉及的魔力交易是不可退回的!',
+    'exchange-warning' => '注意，所涉及的魔力交易是不可退回的！',
     'extended-stats'   => '显示更多',
     'gift'             => '礼物',
     'gift-bonus'       => '要赠送的魔力值',
@@ -34,8 +34,8 @@ return [
     'store'            => '商店',
     'tips'             => '打赏记录',
     'total'            => '总计收入',
-    'total-gifts'       => '',
-    'total-tips'       => '',
+    'total-gifts'      => '全部魔力值礼物',
+    'total-tips'       => '全部魔力值打赏',
     'you-have-received-gifts' => '你总共收到魔力值礼物',
     'you-have-sent-gifts'   => '你总共送出魔力值礼物',
     'you-have-received-tips' => '你总共收到魔力值打赏',

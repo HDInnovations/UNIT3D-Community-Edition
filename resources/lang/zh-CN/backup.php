@@ -12,7 +12,7 @@ return [
     'create_error_message'           => '备份文件不能建立。',
     'create_error_title'             => '备份错误',
     'create_warning_message'         => '您的备份可能尚未建立。详情请查看日志文件。',
-    'create_warning_title'           => '不知明错误',
+    'create_warning_title'           => '未知错误',
     'date'                           => '日期',
     'delete'                         => '删除',
     'delete_cancel_message'          => '备份文件尚未删除。',

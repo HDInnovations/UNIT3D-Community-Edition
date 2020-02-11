@@ -7,14 +7,14 @@ return [
     'accepted-at'               => '审核于',
     'accepted-by'               => '审核者',
     'account-notification'      => '帐户通知设定',
-    'account-notification-follow' => '当有用户关注我时,向我发送通知',
-    'account-notification-unfollow' => '当有用户取消关注我时,向我发送通知',
+    'account-notification-follow' => '当有用户关注我时,向我发送一个通知',
+    'account-notification-unfollow' => '当有用户取消关注我时,向我发送一个通知',
     'account-notification-help' => '调整通知的触发条件.
     若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
     'account-settings'          => '帐户设定',
     'achievement-privacy'       => '成就设定',
     'achievement-privacy-list'  => '允许其他用户阅览你的成就',
-    'achievement-help'          => '调整能阅览你的成就的用户组.
+    'achievement-help'          => '调整能阅览你的成就的用户组。
     若不勾选任何触发用户组,或你已启动<strong>私密模式</strong>,以下设定将会无效。',
     'achievements'              => '成就',
     'active'                    => '活跃',
@@ -36,7 +36,7 @@ return [
     'bon'                       => '魔力',
     'bon-notification'          => '魔力通知设定',
     'bon-notification-gift'     => '当其他用户赠予我魔力时,请通知我',
-    'bon-notification-help'     => '调整有关魔力交易的通知设定.
+    'bon-notification-help'     => '调整有关魔力交易的通知设定。
     若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
     'bookmarks'                 => '收藏',
     'bounty-given'              => '已赠出魔力',
@@ -50,9 +50,9 @@ return [
     'certified-banker'          => '认证的壕',
     'certified-banker-desc'     => '拥有超过50,000魔力',
     'certified-downloader'      => '认证的下载者',
-    'certified-downloader-desc' => '下载等于或大过100个资源!',
+    'certified-downloader-desc' => '下载等于或大过100个资源！',
     'certified-seeder'          => '认证的做种者',
-    'certified-seeder-desc'     => '做种数量等于或大过150!',
+    'certified-seeder-desc'     => '做种数量等于或大于150!',
     'change-email'              => '更改邮箱',
     'change-email-help'         => '更改邮箱后, 你必须再次验证邮箱。',
     'change-password'           => '更改密码',
@@ -90,21 +90,21 @@ return [
     'follow'                    => '关注',
     'follower-privacy'          => '关注者设定',
     'follower-privacy-list'     => '允许其他用户浏览谁在关注你',
-    'follower-help'             => '调整有关其他用户能否浏览你的个人资料.
-    若不勾选任何触发用户组,或你已使用<strong>私密模式</strong>,以下设定将会无效。',
+    'follower-help'             => '调整有关其他用户能否浏览你的个人资料。
+    若不勾选任何触发用户组,或你已使用<strong>私密模式</strong>, 以下设定将会无效。',
     'followers'                 => '追踪者',
     'following-notification'    => '追踪者通知设定',
     'following-notification-upload' => '当你所追踪的人发布了资源,发出一个通知',
-    'following-notification-help'      => '调整你所追踪的人相关的通知设定.
+    'following-notification-help'      => '调整你所追踪的人相关的通知设定。
     若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
     'formats-are-supported'     => '支援:formats',
     'forum-notification'        => '论坛通知设定',
-    'forum-notification-topic'  => '当你建立的标题有回复时,发出一个通知',
-    'forum-notification-help'   => '调整论坛相关的通知设定.
-    若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
+    'forum-notification-topic'  => '当你建立的标题有回复时, 发出一个通知',
+    'forum-notification-help'   => '调整论坛相关的通知设定。
+    若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知, 以下设定将会无效。',
     'forum-privacy'             => '论坛记录设定',
-    'forum-privacy-post'        => '允许其他用户查列你的贴子',
-    'forum-privacy-topic'       => '允许其他用户查列你建立的标题',
+    'forum-privacy-post'        => '允许其他用户查看你的帖子',
+    'forum-privacy-topic'       => '允许其他用户查看你建立的标题',
     'forum-help'                => '调整其他用户能否阅览你的论坛数据.
     若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
     'forum-signature'           => '论坛签名',
@@ -130,7 +130,7 @@ return [
     'invite-tree'               => '邀请树',
     'invites'                   => '邀请',
     'invites-banned'            => '错误：您的邀请权利已被禁用',
-    'invites-banned-desc'       => '如果有异议，请联系Staff',
+    'invites-banned-desc'       => '如有异议，请联系Staff',
     'invites-count'             => '你有 :count 邀请码',
     'invites-disabled'          => '注意: 目前开放注册，邀请机制暂时停用!',
     'invites-disabled-desc'     => '稍后再来!',
@@ -146,7 +146,7 @@ return [
     'mention-notification-article-comment' => '当你在公告里被at时(@mentioned)，发出一个通知',
     'mention-notification-torrent-comment' => '当你在评论里被at时(@mentioned)，发出一个通知',
     'mention-notification-request-comment' => '当你在评论里被at时(@mentioned)，发出一个通知',
-    'mention-notification-forum-post' => '当你在论坛贴子里被at时(@mentioned)，发出一个通知',
+    'mention-notification-forum-post' => '当你在论坛帖子里被at时(@mentioned)，发出一个通知',
     'mention-notification-help' => '调整有关被at时(@mentions)的通知设定.
     若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
     'moderated-by'              => '由 :mod 审核于',
@@ -211,12 +211,12 @@ return [
     'passkey-warning'           => 'Passkey就像你的个人密码一样, 你必须好好保管,不能让别人知道!',
     'pending-achievements'      => '等待中的成就',
     'per-torrent'               => '每个种子',
-    'posts'                     => '贴子',
-    'posts-posted'              => '已发布的贴子',
+    'posts'                     => '帖子',
+    'posts-posted'              => '已发布的帖子',
     'privacy'                   => '隐私',
     'privacy-settings'          => '隐私设定',
     'private-info'              => '隐私资讯',
-    'private-forum-profile'     => '注意: 这用户的标题及贴子记录已设定为私密!',
+    'private-forum-profile'     => '注意: 这用户的标题及帖子记录已设定为私密!',
     'private-profile'           => '注意: 个人资料已设定为私密!',
     'profile'                   => '个人资料',
     'profile-desc'              => ' :title 用户 :user 的个人资料',
@@ -225,7 +225,7 @@ return [
     'profile-privacy-torrent-ratio'        => '分享你的上/下载比率',
     'profile-privacy-torrent-seed'        => '分享你的做种时间(总及平均)',
     'profile-privacy-title'     => '分享你的个人资料',
-    'profile-privacy-about'     => '分享你的个人资料(关于人)',
+    'profile-privacy-about'     => '分享你的个人资料(自我介绍)',
     'profile-privacy-bon-extra' => '分享你的魔力数据',
     'profile-privacy-comment-extra'       => '分享你的评论数据',
     'profile-privacy-forum-extra'       => '分享你的论坛数据',
@@ -235,7 +235,7 @@ return [
     'profile-privacy-achievement' => '分享你近期的成就',
     'profile-privacy-follower'  => '分享你近期关注的用户',
     'profile-privacy-warning'   => '分享你的H&R下完就溜警告',
-    'profile-privacy-help'      => '调整显示在你的个人资料内容.
+    'profile-privacy-help'      => '调整显示在你的个人资料内容。
     若你没有勾选任何用户组或启动了<strong>私密模式</strong>,以下设定将会无效。',
     'public-info'               => '公开资料',
     'reason-ban'                => '禁止原因',
@@ -258,13 +258,13 @@ return [
     'request-notification-fill-reject' => '当悬赏被拒绝时,发出一个通知',
     'request-notification-claim' => '当有人应征时,发出一个通知',
     'request-notification-unclaim' => '当应征被取消时,发出一个通知',
-    'request-notification-help' => '调整有关悬赏的通知设定.
+    'request-notification-help' => '调整有关悬赏的通知设定。
     若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
     'request-privacy'           => '悬赏设定',
     'request-privacy-requested' => '允许其他用户查看你的悬赏清单',
     'reset-passkey'             => '重设Passkey',
-    'reset-passkey-help'        => '重设Passkey,你必须重新下载资源档,以使新的PID,才能继续上传或下载',
-    'reset-rss'                 => '重设Rsskey)',
+    'reset-passkey-help'        => '重设Passkey后,你必须重新下载资源档,以使新的PID,才能继续上传或下载',
+    'reset-rss'                 => '重设Rsskey',
     'reset-rss-help'            => '重设Rsskey后,你必须更新所有活跃中的RSS订阅',
     'restore'                   => '回复',
     'resurrections'             => '救活',
@@ -284,7 +284,7 @@ return [
     'statistics'                => '统计',
     'subscription-notification' => '订阅的通知设定',
     'subscription-notification-forum' => '当订阅的论坛有新标题时,发出一个通知',
-    'subscription-notification-topic' => '当订阅的标题有新贴子时,发出一个通知',
+    'subscription-notification-topic' => '当订阅的标题有新帖子时,发出一个通知',
     'subscription-notification-help'      => '调整订阅的通知设定.
     若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
     'thanks-given'              => '送出的感谢',
@@ -294,8 +294,8 @@ return [
     'title'                     => '头衔',
     'top-bankers'               => '顶级壕',
     'top-downloaders-data'      => '顶级下载者(流量)',
-    'top-leechers'              => '顶级吸血鬼',
-    'top-leechers-count'        => '顶级吸血鬼 (下载数量)',
+    'top-leechers'              => '顶级吸血者',
+    'top-leechers-count'        => '顶级吸血者 (下载数量)',
     'top-seeders'               => '顶级保种者',
     'top-seeders-count'         => '顶级保种者 (做种数量)',
     'top-seeding-size'          => '顶级保种者 (做种体积)',
@@ -305,14 +305,14 @@ return [
     'topics'                    => '主题',
     'topics-started'            => '已发表的主题',
     'torrent-comments'          => '种子被评论',
-    'torrent-help'              => '调整有关特定种子的统计数据的隐私设定.
+    'torrent-help'              => '调整有关特定种子的统计数据的隐私设定。
     若你启动了<strong>私密模式</strong>,以下设定将会无效。',
     'torrent-notification'      => '种子的通知设定',
     'torrent-notification-comment' => '当发布的种子有评论时，发出一个通知',
     'torrent-notification-thank' => '当发布的种子有表扬时，发出一个通知',
     'torrent-notification-tip'  => '当发布的种子有打赏时，发出一个通知',
-    'torrent-notification-help' => '调整种子有关的通知设定.
-    若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知,以下设定将会无效。',
+    'torrent-notification-help' => '调整种子有关的通知设定。
+    若不勾选任何触发用户组,或你已<strong>取消全局性</strong>通知, 以下设定将会无效。',
     'torrent-privacy'           => '种子记录设定',
     'torrent-privacy-download'  => '允许其他用户查看你的下载清单',
     'torrent-privacy-upload'    => '允许其他用户查看你的上传清单',

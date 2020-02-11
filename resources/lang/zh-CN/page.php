@@ -2,7 +2,7 @@
 
 return [
     'aboutus-advantage'     => '优势',
-    'aboutus-advantage1'    => '我们拥有经验丰富高清影音经验的Staff和会员。',
+    'aboutus-advantage1'    => '我们拥有丰富高清影音经验的Staff和会员。',
     'aboutus-advantage2'    => '我们保持着对影音世界的热忱, 尽力提供最优秀的影视资源。特别感谢FANRES网站的支持。',
     'aboutus-advantage3'    => '虽然我们需要捐款以保持网站的正常运行，但站内不会出现任何烦人的PM或横幅广告。我们真的不接广告。',
     'aboutus-advantage4'    => '我们拥有良好发展的社区。我们一直在向Staff和用户们提供帮助。确保你在 :title 上的体验是我们的荣幸。',

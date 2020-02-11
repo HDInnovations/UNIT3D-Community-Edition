@@ -27,7 +27,7 @@ return [
     'login'               => '登录',
     'login-now-on'        => '立即登录',
     'logout'              => '登出',
-    'lost-password'       => '忘了密码?',
+    'lost-password'       => '忘了密码？',
     'lost-username'       => '忘了用户名？',
     'need-invite'         => '开放注册已关闭，请从已注册用户处获得邀请码!',
     'newbie'              => '小萌新',
@@ -39,23 +39,23 @@ return [
     'proof-min'           => '(最少2, 建议3)',
     'recover-my-password' => '重设密码',
     'register-thanks'     => '感谢注册，请检查邮箱。',
-    'remember-me'         => '自动登录',
+    'remember-me'         => '记住我的登录状态',
     'require-rules'    	  => '请阅读页底的条款并接受。',
     'signup'              => '注册',
-    'throttle'            => '登录次数过多。请 :seconds 秒後再试。',
+    'throttle'            => '登录次数过多。请 :seconds 秒后再试。',
     'unlock'              => '解锁',
     'user-icon'           => '用户头像',
     'username'            => '用户名',
     'veteran'             => '老司机',
-    'welcome'             => '欢迎回来!',
-    'welcome-restore'     => '欢迎回来!你的帐户已解封!',
+    'welcome'             => '欢迎回来！',
+    'welcome-restore'     => '欢迎回来！你的帐户已获解封！',
 
     /*
     |--------------------------------------------------------------------------
     | Two Step Authentication Language Lines
     |--------------------------------------------------------------------------
     */
-    'subtitle'                      => '电邮制作中-需时数分钟-注意大小写',
+    'subtitle'                      => '电子邮件制作中-需耗时数分钟-注意大小写',
     'title'                         => '两步验证(Email形式)',
     'titleFailed'                   => '验证失败',
     'titlePassed'                   => '验证成功!',
@@ -79,11 +79,11 @@ return [
     'verificationEmailMessage'      => '账户的两步验证码为:',
     'verificationEmailSubject'      => '要求验证',
 
-    'verificationEmailSentMsg'      => '验证邮件已发送!',
-    'verificationEmailSuccess'      => '成功!',
+    'verificationEmailSentMsg'      => '验证邮件已发送！',
+    'verificationEmailSuccess'      => '成功！',
 
     'verificationWarningMessage'    => '你的账户将被锁定 :hours 小时，这是你最后的一次尝试机会',
-    'verificationWarningTitle'      => '警告!',
+    'verificationWarningTitle'      => '警告！',
 
     'verificationLockedMessage'     => '账户被锁定!',
     'verificationLockedTitle'       => '不妙!',

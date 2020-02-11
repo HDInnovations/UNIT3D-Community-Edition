@@ -15,7 +15,7 @@ return [
     'contact-name'     => '人名',
     'fail-login-greeting' => '账户登录失败!',
     'fail-login-line1' => '检测到一次账户登录失败。',
-    'fail-login-line2' => '该登录来自 :ip  ( :host ) , 于 :time',
+    'fail-login-line2' => '该登录发生于 :time ，來自 :ip  ( :host ) 。',
     'fail-login-subject' => '登录失败提示',
     'footer-link'      => '如点击 :actionText 按钮遇到困难, 请把以下链接复制到浏览器地址栏，也许要在Chrome安装GooReplacer插件才能看到验证码。',
     'invite-header'    => '邀请',
