@@ -76,7 +76,7 @@ return [
     'have-not-completed'       => '未完成',
     'have-not-downloaded'      => '未下载',
     'health'                   => '活跃度',
-    'history'                  => '纪录',
+    'history'                  => '记录',
     'hitrun'                   => 'H&R',
     'hit-and-runs'             => 'H&R次数',
     'immune'                   => '豁免',

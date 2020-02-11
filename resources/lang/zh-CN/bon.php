@@ -32,7 +32,7 @@ return [
     'send-gift'        => '赠送礼物',
     'sender'           => '送出者',
     'store'            => '商店',
-    'tips'             => '打赏纪录',
+    'tips'             => '打赏记录',
     'total'            => '总计收入',
     'total-gifts'       => '',
     'total-tips'       => '',
