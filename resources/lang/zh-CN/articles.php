@@ -2,7 +2,7 @@
 
 return [
     'articles'      => '公告',
-    'meta-articles' => '伺服器及用户群相关的公告',
-    'published-at'  => '刊登於',
+    'meta-articles' => '服务器及用户组相关的公告',
+    'published-at'  => '发布于',
     'read-more'     => '更多',
 ];
