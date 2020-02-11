@@ -8,22 +8,24 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.statuses.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Chat Statuses</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.chat') @lang('staff.statuses')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>@lang('common.user') Chat Statuses</h2>
+        <h2>@lang('common.user') @lang('staff.chat') @lang('staff.statuses')</h2>
     
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addChatStatus">Add New Chat Status</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addChatStatus">
+            @lang('common.add') @lang('staff.chat') @lang('staff.status')
+        </button>
         <div id="addChatStatus" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dark">
                 <div class="modal-content">
     
                     <div class="modal-header" style="text-align: center;">
-                        <h3>Add Chat Status</h3>
+                        <h3>@lang('common.add') @lang('staff.chat') @lang('staff.status')</h3>
                     </div>
     
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.statuses.store') }}">
@@ -33,10 +35,10 @@
                             <label for="chatstatus_name"> @lang('common.name'):</label> <label for="name"></label><input
                                 style="margin:0 auto; width:300px;" type="text" class="form-control" name="name" id="name"
                                 placeholder="Enter @lang('common.name') Here..." required>
-                            <label for="chatstatus_color"> Color:</label> <label for="color"></label><input
+                            <label for="chatstatus_color"> @lang('common.color'):</label> <label for="color"></label><input
                                 style="margin:0 auto; width:300px;" type="text" class="form-control" name="color" id="color"
                                 placeholder="Enter Hex Color Code Here..." required>
-                            <label for="chatstatus_icon"> Icon:</label> <label for="icon"></label><input
+                            <label for="chatstatus_icon"> @lang('common.icon'):</label> <label for="icon"></label><input
                                 style="margin:0 auto; width:300px;" type="text" class="form-control" name="icon" id="icon"
                                 placeholder="Enter Font Awesome Code Here..." required>
                         </div>
