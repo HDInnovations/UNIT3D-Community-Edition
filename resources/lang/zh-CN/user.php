@@ -39,7 +39,7 @@ return [
     'avatar'                    => '头像',
     'avg-seedtime'              => '平均做种时间',
     'badges'                    => '徽章',
-    'ban'                       => '禁止用户',
+    'ban'                       => '封禁',
     'bans'                      => '罪名',
     'ban-log'                   => '禁止日志',
     'become-hidden'             => '隐身',
