@@ -47,7 +47,7 @@ return [
     'no-privileges'       => '错误：悬赏已被禁用',
     'no-privileges-desc'  => '如果您认为这是错误的，请联系站务人员',
     'no-refunds'          => '注意，所涉及的魔力交易是不可退回的！',
-    'pending'             => '等待中',
+    'pending'             => '等待批准',
     'reason'              => '原因',
     'reject'              => '拒绝',
     'report'              => '报告',

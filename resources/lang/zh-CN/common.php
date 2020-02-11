@@ -185,6 +185,8 @@ return [
     'subscriptions'        => '订阅',
     'teams'                => '团队',
     'terms'                => '使用条款',
+    'the'                  => '这',
+    'this'                 => '该',
     'times'                => '人',
     'title'                => '标题',
     'top-bountied'         => '慈善家',

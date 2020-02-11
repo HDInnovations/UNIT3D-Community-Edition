@@ -12,7 +12,12 @@
  */
 
 return [
+    'application'            => '入站申请',
     'applications'            => '入站申请',
+    'application-type'        => '申请类型',
+    'application-image-proofs'=> '图片证明',
+    'application-referrer'    => '申请书',
+    'articles'                => '公告',
     'article-content'         => '公告内容',
     'audit-log'               => '活动日志',
     'bans-log'                => '封禁日志',
@@ -32,7 +37,8 @@ return [
     'groups'                  => '组别',
     'invites-log'             => '邀请日志',
     'laravel-log'             => 'Laravel日志',
-    'links'                   => '连接',
+    'link'                    => '链接',
+    'links'                   => '链接',
     'logs'                    => '日志',
     'mass-pm'                 => '批量发送私信',
     'mass-validate-users'     => '批量验证用户',
