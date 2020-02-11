@@ -22,7 +22,7 @@ return [
     'category'            => '类别',
     'claim'               => '应征',
     'claim-anon-choose'   => '请慎重选择',
-    'claim-as-anon'       => '你想以匿名身份应征吗?',
+    'claim-as-anon'       => '你想以匿名身份应征吗？',
     'claim-now'           => '马上应征',
     'claimed'             => '已应征',
     'current'             => '现在',

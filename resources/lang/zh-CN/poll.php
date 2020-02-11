@@ -13,7 +13,7 @@
 
 return [
     'add-option'           => '添加选项',
-    'create-poll'          => '建立投票',
+    'create-poll'          => '创建投票',
     'current'              => '目前投票',
     'delete-option'        => '删除选项',
     'ip-checking'          => '启用重复IP检查机制',
