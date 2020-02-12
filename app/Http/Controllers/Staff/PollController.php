@@ -132,11 +132,9 @@ class PollController extends Controller
         $poll->title = $request->input('title');
 
         // Remove the deleted options in poll
-
         $oldOptionIds = collect($poll->options)->map(function ($option) {
             return $option->id;
         })->all();
-
 
         $existingOldOptionIds = collect($request->input('option-id'))->map(function ($id) {
             return intval($id);
@@ -150,7 +148,6 @@ class PollController extends Controller
         }
 
         // Update existing options
-
         $existingOldOptionContents = collect($request->input('option-content'))->map(function ($content) {
             return strval($content);
         })->all();
@@ -165,7 +162,6 @@ class PollController extends Controller
         }
 
         // Insert new options
-
         $newOptions = collect($request->input('new-option-content'))->map(function ($content) {
             return new Option(['name' => $content]);
         });
@@ -173,7 +169,6 @@ class PollController extends Controller
         $poll->options()->saveMany($newOptions);
 
         // Last work from store()
-
         $poll_url = hrefPoll($poll);
 
         $this->chat->systemMessage(
@@ -201,6 +196,4 @@ class PollController extends Controller
         return redirect()->route('staff.polls.index')
             ->withSuccess('Poll has successfully been deleted');
     }
-
-
 }
