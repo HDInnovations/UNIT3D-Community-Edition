@@ -6,8 +6,13 @@
 
 @section('breadcrumb')
     <li>
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.staff-dashboard')</span>
+        </a>
+    </li>
+    <li>
         <a href="{{ route('staff.polls.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Polls</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.polls')</span>
         </a>
     </li>
 @endsection
@@ -15,13 +20,17 @@
 @section('content')
     <div class="container box">
         <h2>Manage Polls</h2>
-        <a href="{{ route('staff.polls.create') }}" class="btn btn-primary">Add New Poll</a>
+        <a href="{{ route('staff.polls.create') }}" class="btn btn-primary">
+            @lang('common.add')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('poll.poll')
+        </a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Date</th>
+                        <th>@lang('poll.title')</th>
+                        <th>@lang('common.date')</th>
                         <th>@lang('common.action')</th>
                     </tr>
                 </thead>
