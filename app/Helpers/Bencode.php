@@ -45,8 +45,6 @@ class Bencode
 
         if (safe_int($result)) {
             return (int) $result;
-        } else {
-            return;
         }
     }
 
@@ -101,7 +99,8 @@ class Bencode
         $c = $s[$pos];
         if ($c == 'i') {
             return self::parse_integer($s, $pos);
-        } elseif (is_numeric($c)) {
+        }
+        if (is_numeric($c)) {
             return self::parse_string($s, $pos);
         } elseif ($c == 'd') {
             $dict = [];
@@ -163,13 +162,11 @@ class Bencode
                 $is_dict = (bool) $d['isDct'];
                 unset($d['isDct']);
             }
-
             if ($is_dict) {
                 $ret = 'd';
                 // this is required by the specs, and BitTornado actualy chokes on unsorted dictionaries
                 ksort($d, SORT_STRING);
             }
-
             foreach ($d as $key => $value) {
                 if ($is_dict) {
                     $ret .= strlen($key).':'.$key;
@@ -185,7 +182,8 @@ class Bencode
             }
 
             return $ret.'e';
-        } elseif (is_string($d)) {
+        }
+        if (is_string($d)) {
             return strlen($d).':'.$d;
         } elseif (is_int($d) || is_float($d)) {
             return sprintf('i%de', $d);

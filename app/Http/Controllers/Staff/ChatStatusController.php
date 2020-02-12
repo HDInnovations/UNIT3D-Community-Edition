@@ -72,12 +72,11 @@ class ChatStatusController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
-        } else {
-            $chatstatus->save();
-
-            return redirect()->route('staff.statuses.index')
-                ->withSuccess('Chat Status Successfully Added');
         }
+        $chatstatus->save();
+
+        return redirect()->route('staff.statuses.index')
+            ->withSuccess('Chat Status Successfully Added');
     }
 
     /**
@@ -104,12 +103,11 @@ class ChatStatusController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
-        } else {
-            $chatstatus->save();
-
-            return redirect()->route('staff.statuses.index')
-                ->withSuccess('Chat Status Successfully Modified');
         }
+        $chatstatus->save();
+
+        return redirect()->route('staff.statuses.index')
+            ->withSuccess('Chat Status Successfully Modified');
     }
 
     /**

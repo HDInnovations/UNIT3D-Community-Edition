@@ -103,10 +103,10 @@ class PrivateMessageController extends Controller
             }
 
             return view('pm.message', ['pm' => $pm, 'user' => $user]);
-        } else {
-            return redirect()->route('inbox')
-                ->withErrors('What Are You Trying To Do Here!');
         }
+
+        return redirect()->route('inbox')
+            ->withErrors('What Are You Trying To Do Here!');
     }
 
     /**
@@ -171,16 +171,15 @@ class PrivateMessageController extends Controller
 
             return redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
                 ->withErrors($v->errors());
-        } else {
-            $pm->save();
-            if ($dest == 'profile') {
-                return redirect()->route('users.show', ['username' => $recipient->username])
-                    ->withSuccess('Your PM Was Sent Successfully!');
-            }
-
-            return redirect()->route('inbox')
+        }
+        $pm->save();
+        if ($dest == 'profile') {
+            return redirect()->route('users.show', ['username' => $recipient->username])
                 ->withSuccess('Your PM Was Sent Successfully!');
         }
+
+        return redirect()->route('inbox')
+            ->withSuccess('Your PM Was Sent Successfully!');
     }
 
     /**
@@ -221,12 +220,11 @@ class PrivateMessageController extends Controller
         if ($v->fails()) {
             return redirect()->route('inbox')
                 ->withErrors($v->errors());
-        } else {
-            $pm->save();
-
-            return redirect()->route('inbox')
-                ->withSuccess('Your PM Was Sent Successfully!');
         }
+        $pm->save();
+
+        return redirect()->route('inbox')
+            ->withSuccess('Your PM Was Sent Successfully!');
     }
 
     /**
@@ -252,10 +250,10 @@ class PrivateMessageController extends Controller
 
             if ($dest == 'outbox') {
                 return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
-            } else {
-                return redirect()->route('inbox')
-                    ->withSuccess('PM Was Deleted Successfully!');
             }
+
+            return redirect()->route('inbox')
+                ->withSuccess('PM Was Deleted Successfully!');
         } else {
             return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');

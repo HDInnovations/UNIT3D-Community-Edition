@@ -43,9 +43,9 @@ class ActivationController extends Controller
 
             return redirect()->route('login')
                 ->withSuccess(trans('auth.activation-success'));
-        } else {
-            return redirect()->route('login')
-                ->withErrors(trans('auth.activation-error'));
         }
+
+        return redirect()->route('login')
+            ->withErrors(trans('auth.activation-error'));
     }
 }

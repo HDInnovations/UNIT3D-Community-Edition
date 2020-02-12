@@ -64,14 +64,15 @@ class NewCommentTag extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         $appurl = config('app.url');
-
         if ($this->type == 'torrent') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Torrent Comment',
                 'body'  => $this->tagger.' has tagged you in a Comment for Torrent '.$this->comment->torrent->name,
                 'url'   => "/torrents/{$this->comment->torrent->id}",
             ];
-        } elseif ($this->type == 'request') {
+        }
+
+        if ($this->type == 'request') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Request Comment',
                 'body'  => $this->tagger.' has tagged you in a Comment for Request '.$this->comment->request->name,

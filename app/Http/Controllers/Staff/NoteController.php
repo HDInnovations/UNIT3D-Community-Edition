@@ -59,12 +59,11 @@ class NoteController extends Controller
         if ($v->fails()) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
-        } else {
-            $note->save();
-
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess('Note Has Successfully Posted');
         }
+        $note->save();
+
+        return redirect()->route('users.show', ['username' => $user->username])
+            ->withSuccess('Note Has Successfully Posted');
     }
 
     /**

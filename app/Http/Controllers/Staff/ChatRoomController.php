@@ -68,12 +68,11 @@ class ChatRoomController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
-        } else {
-            $chatroom->save();
-
-            return redirect()->route('staff.rooms.index')
-                ->withSuccess('Chatroom Successfully Added');
         }
+        $chatroom->save();
+
+        return redirect()->route('staff.rooms.index')
+            ->withSuccess('Chatroom Successfully Added');
     }
 
     /**
@@ -96,12 +95,11 @@ class ChatRoomController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
-        } else {
-            $chatroom->save();
-
-            return redirect()->route('staff.rooms.index')
-                ->withSuccess('Chatroom Successfully Modified');
         }
+        $chatroom->save();
+
+        return redirect()->route('staff.rooms.index')
+            ->withSuccess('Chatroom Successfully Modified');
     }
 
     /**

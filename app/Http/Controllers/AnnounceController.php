@@ -251,11 +251,12 @@ class AnnounceController extends Controller
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
-
-        // Creates a new peer if not existing
         if ($peer === null && $event == 'completed') {
             return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
-        } elseif ($peer === null) {
+        }
+
+        // Creates a new peer if not existing
+        if ($peer === null) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
                 $event = 'started';
@@ -508,7 +509,8 @@ class AnnounceController extends Controller
             }
 
             return $pcomp;
-        } elseif ($no_peer_id) {
+        }
+        if ($no_peer_id) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);
             }

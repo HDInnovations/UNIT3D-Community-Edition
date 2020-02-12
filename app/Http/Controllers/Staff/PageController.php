@@ -65,12 +65,11 @@ class PageController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
-        } else {
-            $page->save();
-
-            return redirect()->route('staff.pages.index')
-                ->withSuccess('Page has been created successfully');
         }
+        $page->save();
+
+        return redirect()->route('staff.pages.index')
+            ->withSuccess('Page has been created successfully');
     }
 
     /**
@@ -111,12 +110,11 @@ class PageController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
-        } else {
-            $page->save();
-
-            return redirect()->route('staff.pages.index')
-                ->withSuccess('Page has been edited successfully');
         }
+        $page->save();
+
+        return redirect()->route('staff.pages.index')
+            ->withSuccess('Page has been edited successfully');
     }
 
     /**

@@ -60,12 +60,11 @@ class BookmarkController extends Controller
         if ($request->user()->isBookmarked($torrent->id)) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent has already been bookmarked.');
-        } else {
-            $request->user()->bookmarks()->attach($torrent->id);
-
-            return redirect()->route('torrent', ['id' => $torrent->id])
-                ->withSuccess('Torrent Has Been Bookmarked Successfully!');
         }
+        $request->user()->bookmarks()->attach($torrent->id);
+
+        return redirect()->route('torrent', ['id' => $torrent->id])
+            ->withSuccess('Torrent Has Been Bookmarked Successfully!');
     }
 
     /**

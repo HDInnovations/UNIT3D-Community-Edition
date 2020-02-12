@@ -57,21 +57,20 @@ class ReportController extends Controller
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $id])
                 ->withErrors($v->errors());
-        } else {
-            $this->report->create([
-                'type'          => 'Request',
-                'request_id'    => $torrentRequest->id,
-                'torrent_id'    => 0,
-                'reporter_id'   => $reported_by->id,
-                'reported_user' => $reported_user->id,
-                'title'         => $torrentRequest->name,
-                'message'       => $request->get('message'),
-                'solved'        => 0,
-            ]);
-
-            return redirect()->route('request', ['id' => $id])
-                ->withSuccess('Your report has been successfully sent');
         }
+        $this->report->create([
+            'type'          => 'Request',
+            'request_id'    => $torrentRequest->id,
+            'torrent_id'    => 0,
+            'reporter_id'   => $reported_by->id,
+            'reported_user' => $reported_user->id,
+            'title'         => $torrentRequest->name,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
+        ]);
+
+        return redirect()->route('request', ['id' => $id])
+            ->withSuccess('Your report has been successfully sent');
     }
 
     /**
@@ -95,21 +94,20 @@ class ReportController extends Controller
         if ($v->fails()) {
             return redirect()->route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
-        } else {
-            $this->report->create([
-                'type'          => 'Torrent',
-                'torrent_id'    => $torrent->id,
-                'request_id'    => 0,
-                'reporter_id'   => $reported_by->id,
-                'reported_user' => $reported_user->id,
-                'title'         => $torrent->name,
-                'message'       => $request->get('message'),
-                'solved'        => 0,
-            ]);
-
-            return redirect()->route('torrent', ['id' => $id])
-                ->withSuccess('Your report has been successfully sent');
         }
+        $this->report->create([
+            'type'          => 'Torrent',
+            'torrent_id'    => $torrent->id,
+            'request_id'    => 0,
+            'reporter_id'   => $reported_by->id,
+            'reported_user' => $reported_user->id,
+            'title'         => $torrent->name,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
+        ]);
+
+        return redirect()->route('torrent', ['id' => $id])
+            ->withSuccess('Your report has been successfully sent');
     }
 
     /**
@@ -133,20 +131,19 @@ class ReportController extends Controller
         if ($v->fails()) {
             return redirect()->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
-        } else {
-            $this->report->create([
-                'type'          => 'User',
-                'torrent_id'    => 0,
-                'request_id'    => 0,
-                'reporter_id'   => $reported_by->id,
-                'reported_user' => $reported_user->id,
-                'title'         => $reported_user->username,
-                'message'       => $request->get('message'),
-                'solved'        => 0,
-            ]);
-
-            return redirect()->route('users.show', ['username' => $username])
-                ->withSuccess('Your report has been successfully sent');
         }
+        $this->report->create([
+            'type'          => 'User',
+            'torrent_id'    => 0,
+            'request_id'    => 0,
+            'reporter_id'   => $reported_by->id,
+            'reported_user' => $reported_user->id,
+            'title'         => $reported_user->username,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
+        ]);
+
+        return redirect()->route('users.show', ['username' => $username])
+            ->withSuccess('Your report has been successfully sent');
     }
 }

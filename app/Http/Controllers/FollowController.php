@@ -49,10 +49,10 @@ class FollowController extends Controller
 
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are now following '.$user->username);
-        } else {
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('You are already following this user');
         }
+
+        return redirect()->route('users.show', ['username' => $user->username])
+            ->withErrors('You are already following this user');
     }
 
     /**
@@ -76,9 +76,9 @@ class FollowController extends Controller
 
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are no longer following '.$user->username);
-        } else {
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('You are not following this user to begin with');
         }
+
+        return redirect()->route('users.show', ['username' => $user->username])
+            ->withErrors('You are not following this user to begin with');
     }
 }

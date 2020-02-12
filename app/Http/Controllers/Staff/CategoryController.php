@@ -88,12 +88,11 @@ class CategoryController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
-        } else {
-            $category->save();
-
-            return redirect()->route('staff.categories.index')
-                ->withSuccess('Category Successfully Added');
         }
+        $category->save();
+
+        return redirect()->route('staff.categories.index')
+            ->withSuccess('Category Successfully Added');
     }
 
     /**
@@ -154,12 +153,11 @@ class CategoryController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
-        } else {
-            $category->save();
-
-            return redirect()->route('staff.categories.index')
-                ->withSuccess('Category Successfully Modified');
         }
+        $category->save();
+
+        return redirect()->route('staff.categories.index')
+            ->withSuccess('Category Successfully Modified');
     }
 
     /**
