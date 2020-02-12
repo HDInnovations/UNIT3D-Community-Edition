@@ -102,6 +102,7 @@ class AlbumController extends Controller
                 ->withErrors($v->errors());
         }
         $album->save();
+
         return redirect()->route('albums.show', ['id' => $album->id])
             ->withSuccess('Your album has successfully published!');
     }

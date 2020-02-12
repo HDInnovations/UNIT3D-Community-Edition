@@ -62,6 +62,7 @@ class BookmarkController extends Controller
                 ->withErrors('Torrent has already been bookmarked.');
         }
         $request->user()->bookmarks()->attach($torrent->id);
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Bookmarked Successfully!');
     }

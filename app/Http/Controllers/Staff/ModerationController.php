@@ -92,6 +92,7 @@ class ModerationController extends Controller
             return redirect()->route('staff.moderation.index')
                 ->withSuccess('Torrent Approved');
         }
+
         return redirect()->route('staff.moderation.index')
             ->withErrors('Torrent Already Approved');
     }
@@ -124,6 +125,7 @@ class ModerationController extends Controller
         $pm->subject = "Your upload, {$torrent->name} ,has been postponed by {$user->username}";
         $pm->message = "Greetings, \n\n Your upload, {$torrent->name} ,has been postponed. Please see below the message from the staff member. \n\n{$request->input('message')}";
         $pm->save();
+
         return redirect()->route('staff.moderation.index')
             ->withSuccess('Torrent Postponed');
     }
@@ -156,6 +158,7 @@ class ModerationController extends Controller
         $pm->subject = "Your upload, {$torrent->name} ,has been rejected by {$user->username}";
         $pm->message = "Greetings, \n\n Your upload {$torrent->name} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}";
         $pm->save();
+
         return redirect()->route('staff.moderation.index')
             ->withSuccess('Torrent Rejected');
     }

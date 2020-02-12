@@ -46,7 +46,6 @@ class Bencode
         if (safe_int($result)) {
             return (int) $result;
         }
-        return;
     }
 
     public static function parse_string($s, &$pos)
@@ -181,6 +180,7 @@ class Bencode
                     $ret .= self::bencode($value);
                 }
             }
+
             return $ret.'e';
         }
         if (is_string($d)) {

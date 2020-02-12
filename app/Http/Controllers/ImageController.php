@@ -69,6 +69,7 @@ class ImageController extends Controller
                 ->withErrors($v->errors());
         }
         $image->save();
+
         return redirect()->route('albums.show', ['id' => $request->input('album_id')])
             ->withSuccess('Your image has successfully published!');
     }

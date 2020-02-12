@@ -191,7 +191,7 @@ class TorrentController extends BaseController
             $anon = $torrent->anon;
 
             // Announce To Shoutbox
-                if ($anon == 0) {
+            if ($anon == 0) {
                 $this->chat->systemMessage(
                     "User [url={$appurl}/users/".$username.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
@@ -203,6 +203,7 @@ class TorrentController extends BaseController
 
             TorrentHelper::approveHelper($torrent->id);
         }
+
         return $this->sendResponse(route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
     }
 
@@ -405,6 +406,7 @@ class TorrentController extends BaseController
         if (!empty($torrent)) {
             return new TorrentsResource($torrent->paginate(25));
         }
+
         return $this->sendResponse('404', 'No Torrents Found');
     }
 

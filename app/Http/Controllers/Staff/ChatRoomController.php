@@ -70,6 +70,7 @@ class ChatRoomController extends Controller
                 ->withErrors($v->errors());
         }
         $chatroom->save();
+
         return redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Added');
     }
@@ -96,6 +97,7 @@ class ChatRoomController extends Controller
                 ->withErrors($v->errors());
         }
         $chatroom->save();
+
         return redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Modified');
     }

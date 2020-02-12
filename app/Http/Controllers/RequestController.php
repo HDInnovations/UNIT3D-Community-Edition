@@ -361,6 +361,7 @@ class RequestController extends Controller
                 "An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
             );
         }
+
         return redirect()->route('requests')
             ->withSuccess('Request Added.');
     }
@@ -440,6 +441,7 @@ class RequestController extends Controller
                 ->withErrors($v->errors());
         }
         $torrentRequest->save();
+
         return redirect()->route('requests', ['id' => $torrentRequest->id])
             ->withSuccess('Request Edited Successfully.');
     }
@@ -507,6 +509,7 @@ class RequestController extends Controller
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
             $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
         }
+
         return redirect()->route('request', ['id' => $request->input('request_id')])
             ->withSuccess('Your bonus has been successfully added.');
     }
@@ -557,6 +560,7 @@ class RequestController extends Controller
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
             $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
         }
+
         return redirect()->route('request', ['id' => $request->input('request_id')])
             ->withSuccess('Your request fill is pending approval by the Requester.');
     }
@@ -629,6 +633,7 @@ class RequestController extends Controller
                 return redirect()->route('request', ['id' => $id])
                     ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}");
             }
+
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to a anonymous user");
         } else {
@@ -670,6 +675,7 @@ class RequestController extends Controller
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('This request has been reset.');
         }
+
         return redirect()->route('request', ['id' => $id])
             ->withSuccess("You don't have access to approve this request");
     }
@@ -694,6 +700,7 @@ class RequestController extends Controller
             return redirect()->route('requests')
                 ->withSuccess("You have deleted {$name}");
         }
+
         return redirect()->route('request', ['id' => $id])
             ->withErrors("You don't have access to delete this request.");
     }
@@ -735,6 +742,7 @@ class RequestController extends Controller
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Claimed');
         }
+
         return redirect()->route('request', ['id' => $id])
             ->withErrors('Someone else has already claimed this request buddy.');
     }
@@ -777,6 +785,7 @@ class RequestController extends Controller
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Un-Claimed');
         }
+
         return redirect()->route('request', ['id' => $id])
             ->withErrors('Nothing To Unclaim.');
     }

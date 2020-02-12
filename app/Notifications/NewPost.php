@@ -73,6 +73,7 @@ class NewPost extends Notification implements ShouldQueue
                 'url'   => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         }
+
         return [
             'title' => $this->poster->username.' Has Posted In A Topic You Started',
             'body'  => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,

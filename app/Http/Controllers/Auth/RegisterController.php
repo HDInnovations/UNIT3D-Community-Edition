@@ -150,7 +150,7 @@ class RegisterController extends Controller
         $notification->save();
         if ($key) {
             // Update The Invite Record
-                $key->accepted_by = $user->id;
+            $key->accepted_by = $user->id;
             $key->accepted_at = new Carbon();
             $key->save();
         }
@@ -183,6 +183,7 @@ class RegisterController extends Controller
         $pm->subject = config('welcomepm.subject');
         $pm->message = config('welcomepm.message');
         $pm->save();
+
         return redirect()->route('login')
             ->withSuccess(trans('auth.register-thanks'));
     }

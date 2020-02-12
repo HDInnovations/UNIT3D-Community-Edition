@@ -1305,6 +1305,7 @@ class Markdown
             return preg_replace('/[ ]*\n/', "<br />\n", $text);
         }
         $text = preg_replace('/(?:[ ][ ]+|[ ]*\\\\)\n/', "<br />\n", $text);
+
         return str_replace(" \n", "\n", $text);
     }
 
@@ -1452,6 +1453,7 @@ class Markdown
         if ($len > strlen($string)) {
             return false;
         }
+
         return strtolower(substr($string, 0, $len)) === strtolower($needle);
     }
 

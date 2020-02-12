@@ -133,6 +133,7 @@ class InviteController extends Controller
         $invite->save();
         $user->invites -= 1;
         $user->save();
+
         return redirect()->route('invites.create')
             ->withSuccess('Invite was sent successfully!');
     }

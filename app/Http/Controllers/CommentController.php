@@ -150,6 +150,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('articles.show', ['id' => $article->id])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -244,6 +245,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('playlists.show', ['id' => $playlist->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -342,6 +344,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('torrent', ['id' => $torrent->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -440,6 +443,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade700Comments(), 1);
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
+
         return redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
             ->withSuccess('Your Comment Has Been Added!');
     }
@@ -520,6 +524,7 @@ class CommentController extends Controller
         $this->chat->systemMessage(
             "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
         );
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Comment Has Been Added!');
     }

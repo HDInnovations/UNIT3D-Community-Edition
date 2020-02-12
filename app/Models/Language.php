@@ -85,6 +85,7 @@ class Language
         if (config('language.allowed')) {
             return self::names(array_merge(config('language.allowed'), [config('app.locale')]));
         }
+
         return self::names([config('app.locale')]);
     }
 

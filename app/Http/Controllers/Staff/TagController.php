@@ -65,6 +65,7 @@ class TagController extends Controller
                 ->withErrors($v->errors());
         }
         $tag->save();
+
         return redirect()->route('staff.tags.index')
             ->withSuccess('Tag Successfully Added');
     }
@@ -107,6 +108,7 @@ class TagController extends Controller
                 ->withErrors($v->errors());
         }
         $tag->save();
+
         return redirect()->route('staff.tags.index')
             ->withSuccess('Tag Successfully Modified');
     }

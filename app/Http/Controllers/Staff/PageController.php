@@ -67,6 +67,7 @@ class PageController extends Controller
                 ->withErrors($v->errors());
         }
         $page->save();
+
         return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been created successfully');
     }
@@ -111,6 +112,7 @@ class PageController extends Controller
                 ->withErrors($v->errors());
         }
         $page->save();
+
         return redirect()->route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
     }

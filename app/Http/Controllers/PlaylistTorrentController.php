@@ -47,6 +47,7 @@ class PlaylistTorrentController extends Controller
                 ->withErrors($v->errors());
         }
         $playlist_torrent->save();
+
         return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Torrent Has Successfully Been Attached To Your Playlist.');
     }

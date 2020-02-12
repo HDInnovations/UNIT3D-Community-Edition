@@ -102,6 +102,7 @@ class ApplicationController extends Controller
             Mail::to($application->email)->send(new InviteUser($invite));
             $invite->save();
             $application->markApproved();
+
             return redirect()->route('staff.applications.index')
                 ->withSuccess('Application Approved');
         } else {
@@ -134,6 +135,7 @@ class ApplicationController extends Controller
             return redirect()->route('staff.applications.index')
                 ->withSuccess('Application Rejected');
         }
+
         return redirect()->route('staff.applications.index')
             ->withErrors('Application Already Rejected');
     }
