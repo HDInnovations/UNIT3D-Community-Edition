@@ -8,7 +8,6 @@
  * @project    UNIT3D Community Edition
  *
  * @author     HDVinnie <hdinnovations@protonmail.com>
- *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 define('LARAVEL_START', microtime(true));
