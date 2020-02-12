@@ -24,10 +24,10 @@ return [
     'option'               => '选项',
     'poll'                 => '投票',
     'polls'                => '投票',
-    'results'              => '投票结果',
+    'results'              => '结果',
     'title'                => '标题',
     'total'                => '目前总投票数',
-    'vote'                 => '投票',
+    'vote'                 => '票',
     'vote-now'             => '马上投票吧！',
-    'votes'                => '投票',
+    'votes'                => '票',
 ];
