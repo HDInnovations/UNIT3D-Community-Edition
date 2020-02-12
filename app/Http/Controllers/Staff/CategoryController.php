@@ -90,6 +90,7 @@ class CategoryController extends Controller
                 ->withErrors($v->errors());
         }
         $category->save();
+
         return redirect()->route('staff.categories.index')
             ->withSuccess('Category Successfully Added');
     }
@@ -154,6 +155,7 @@ class CategoryController extends Controller
                 ->withErrors($v->errors());
         }
         $category->save();
+
         return redirect()->route('staff.categories.index')
             ->withSuccess('Category Successfully Modified');
     }

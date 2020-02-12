@@ -1116,6 +1116,7 @@ class TorrentController extends Controller
                 $tag->save();
             }
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Successfully Edited!');
     }
@@ -1406,7 +1407,7 @@ class TorrentController extends Controller
             $anon = $torrent->anon;
 
             // Announce To Shoutbox
-                if ($anon == 0) {
+            if ($anon == 0) {
                 $this->chat->systemMessage(
                     "User [url={$appurl}/users/".$username.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
@@ -1418,6 +1419,7 @@ class TorrentController extends Controller
 
             TorrentHelper::approveHelper($torrent->id);
         }
+
         return redirect()->route('download_check', ['id' => $torrent->id])
             ->withSuccess('Your torrent file is ready to be downloaded and seeded!');
     }
@@ -1637,6 +1639,7 @@ class TorrentController extends Controller
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withErrors('Torrent Is Already Featured!');
     }
@@ -1706,6 +1709,7 @@ class TorrentController extends Controller
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withErrors('This torrent doesnt meet the rules for a reseed request.');
     }
@@ -1736,6 +1740,7 @@ class TorrentController extends Controller
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
         }
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }

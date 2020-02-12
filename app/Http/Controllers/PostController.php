@@ -165,6 +165,7 @@ class PostController extends Controller
         $user->addProgress(new UserMade700Posts(), 1);
         $user->addProgress(new UserMade800Posts(), 1);
         $user->addProgress(new UserMade900Posts(), 1);
+
         return redirect()->to($realUrl)
             ->withSuccess('Post Successfully Posted');
     }

@@ -284,6 +284,7 @@ class UserController extends Controller
             return redirect()->route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
+
         return redirect()->route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
     }

@@ -50,6 +50,7 @@ class FollowController extends Controller
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are now following '.$user->username);
         }
+
         return redirect()->route('users.show', ['username' => $user->username])
             ->withErrors('You are already following this user');
     }
@@ -76,6 +77,7 @@ class FollowController extends Controller
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are no longer following '.$user->username);
         }
+
         return redirect()->route('users.show', ['username' => $user->username])
             ->withErrors('You are not following this user to begin with');
     }

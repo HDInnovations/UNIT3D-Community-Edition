@@ -206,14 +206,14 @@ class TopicController extends Controller
             $forum->notifySubscribers($user, $topic);
 
             // Post To ShoutBox
-                $appurl = config('app.url');
+            $appurl = config('app.url');
             $topicUrl = "{$appurl}/forums/topics/{$topic->id}";
             $profileUrl = "{$appurl}/users/{$user->username}";
 
             $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
 
             //Achievements
-                $user->unlock(new UserMadeFirstPost(), 1);
+            $user->unlock(new UserMadeFirstPost(), 1);
             $user->addProgress(new UserMade25Posts(), 1);
             $user->addProgress(new UserMade50Posts(), 1);
             $user->addProgress(new UserMade100Posts(), 1);

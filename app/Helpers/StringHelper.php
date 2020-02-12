@@ -177,6 +177,7 @@ class StringHelper
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
             return $number.'th';
         }
+
         return $number.$ends[$number % 10];
     }
 }

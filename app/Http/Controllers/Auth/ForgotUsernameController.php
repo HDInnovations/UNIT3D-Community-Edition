@@ -63,6 +63,7 @@ class ForgotUsernameController extends Controller
         }
         //send username reminder notification
         $user->notify(new UsernameReminder());
+
         return redirect()->route('login')
             ->withSuccess(trans('email.username-sent'));
     }

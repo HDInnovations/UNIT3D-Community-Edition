@@ -67,6 +67,7 @@ class TypeController extends Controller
                 ->withErrors($v->errors());
         }
         $type->save();
+
         return redirect()->route('staff.types.index')
             ->withSuccess('Type Successfully Added');
     }
@@ -111,6 +112,7 @@ class TypeController extends Controller
                 ->withErrors($v->errors());
         }
         $type->save();
+
         return redirect()->route('staff.types.index')
             ->withSuccess('Type Successfully Modified');
     }

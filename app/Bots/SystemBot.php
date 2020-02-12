@@ -261,6 +261,7 @@ class SystemBot
                 $message = $this->chat->privateMessage($target->id, $room_id, $message, 1, $this->bot->id);
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
+
             return response('success');
         }
 
@@ -269,6 +270,7 @@ class SystemBot
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
+
             return response('success');
         } elseif ($type == 'public') {
             if ($txt != '') {

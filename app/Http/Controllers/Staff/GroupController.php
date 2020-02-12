@@ -113,6 +113,7 @@ class GroupController extends Controller
             $permission->start_topic = 1;
             $permission->save();
         }
+
         return redirect()->route('staff.groups.index')
             ->withSuccess('Group Was Created Successfully!');
     }
@@ -186,6 +187,7 @@ class GroupController extends Controller
                 ->withErrors($v->errors());
         }
         $group->save();
+
         return redirect()->route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');
     }

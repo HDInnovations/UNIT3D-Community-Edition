@@ -131,6 +131,7 @@ class ApplicationController extends Controller
             return new ApplicationUrlProof(['url' => $value]);
         });
         $application->urlProofs()->saveMany($urls);
+
         return redirect()->route('login')
             ->withSuccess(trans('application-submitted'));
     }

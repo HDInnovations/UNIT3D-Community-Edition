@@ -104,6 +104,7 @@ class PrivateMessageController extends Controller
 
             return view('pm.message', ['pm' => $pm, 'user' => $user]);
         }
+
         return redirect()->route('inbox')
             ->withErrors('What Are You Trying To Do Here!');
     }
@@ -176,6 +177,7 @@ class PrivateMessageController extends Controller
             return redirect()->route('users.show', ['username' => $recipient->username])
                 ->withSuccess('Your PM Was Sent Successfully!');
         }
+
         return redirect()->route('inbox')
             ->withSuccess('Your PM Was Sent Successfully!');
     }
@@ -220,6 +222,7 @@ class PrivateMessageController extends Controller
                 ->withErrors($v->errors());
         }
         $pm->save();
+
         return redirect()->route('inbox')
             ->withSuccess('Your PM Was Sent Successfully!');
     }
@@ -248,6 +251,7 @@ class PrivateMessageController extends Controller
             if ($dest == 'outbox') {
                 return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
             }
+
             return redirect()->route('inbox')
                 ->withSuccess('PM Was Deleted Successfully!');
         } else {

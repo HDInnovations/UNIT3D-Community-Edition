@@ -507,12 +507,14 @@ class AnnounceController extends Controller
                     }
                 }
             }
+
             return $pcomp;
         }
         if ($no_peer_id) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);
             }
+
             return $peers;
         } else {
             return $peers;

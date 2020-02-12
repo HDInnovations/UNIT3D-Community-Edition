@@ -178,6 +178,7 @@ class GraveyardController extends Controller
                 ->withErrors($v->errors());
         }
         $resurrection->save();
+
         return redirect()->route('graveyard.index')
             ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
     }

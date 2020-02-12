@@ -759,6 +759,7 @@ class User extends Authenticatable
 
                 return false;
             }
+
             return true;
         }
 
@@ -798,6 +799,7 @@ class User extends Authenticatable
 
                 return false;
             }
+
             return true;
         }
 
@@ -837,6 +839,7 @@ class User extends Authenticatable
 
                 return false;
             }
+
             return true;
         }
 
@@ -929,6 +932,7 @@ class User extends Authenticatable
         if (is_infinite($ratio)) {
             return '∞';
         }
+
         return (string) $ratio;
     }
 
@@ -954,6 +958,7 @@ class User extends Authenticatable
         if (is_infinite($ratio)) {
             return '∞';
         }
+
         return (string) $ratio;
     }
 
@@ -1023,6 +1028,7 @@ class User extends Authenticatable
         }
         $bbcode = new Bbcode();
         $linkify = new Linkify();
+
         return $bbcode->parse($linkify->linky($this->about), true);
     }
 

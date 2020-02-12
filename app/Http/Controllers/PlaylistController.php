@@ -108,6 +108,7 @@ class PlaylistController extends Controller
                 "User [url={$appurl}/".$user->username.'.'.$user->id.']'.$user->username."[/url] has created a new playlist [url={$appurl}/playlists/".$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
             );
         }
+
         return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Your Playlist Was Created Successfully!');
     }
@@ -212,6 +213,7 @@ class PlaylistController extends Controller
                 ->withErrors($v->errors());
         }
         $playlist->save();
+
         return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Your Playlist Has Successfully Been Updated!');
     }

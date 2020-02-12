@@ -58,6 +58,7 @@ class MassActionController extends Controller
         foreach ($users as $user) {
             $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
         }
+
         return redirect()->route('staff.mass-pm.create')
             ->withSuccess('MassPM Sent');
     }

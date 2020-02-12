@@ -68,6 +68,7 @@ class ReportController extends Controller
             'message'       => $request->get('message'),
             'solved'        => 0,
         ]);
+
         return redirect()->route('request', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
@@ -104,6 +105,7 @@ class ReportController extends Controller
             'message'       => $request->get('message'),
             'solved'        => 0,
         ]);
+
         return redirect()->route('torrent', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
@@ -140,6 +142,7 @@ class ReportController extends Controller
             'message'       => $request->get('message'),
             'solved'        => 0,
         ]);
+
         return redirect()->route('users.show', ['username' => $username])
             ->withSuccess('Your report has been successfully sent');
     }

@@ -74,6 +74,7 @@ class GiftController extends Controller
         $pm->message = "We just wanted to let you know that staff member, {$staff->username}, has credited your account with {$seedbonus} Bonus Points, {$invites} Invites and {$fl_tokens} Freeleech Tokens.
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
         $pm->save();
+
         return redirect()->route('staff.gifts.index')
             ->withSuccess('Gift Sent');
     }

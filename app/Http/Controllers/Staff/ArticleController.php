@@ -81,6 +81,7 @@ class ArticleController extends Controller
                 ->withErrors($v->errors());
         }
         $article->save();
+
         return redirect()->route('staff.articles.index')
             ->withSuccess('Your article has successfully published!');
     }
@@ -136,6 +137,7 @@ class ArticleController extends Controller
                 ->withErrors($v->errors());
         }
         $article->save();
+
         return redirect()->route('staff.articles.index')
             ->withSuccess('Your article changes have successfully published!');
     }
