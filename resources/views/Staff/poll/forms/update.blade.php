@@ -41,14 +41,16 @@
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="ip_checking" value="1">@lang('poll.ip-checking') <span
-                    class="text-red">({{ strtoupper(trans('poll.ip-checking-warrning')) }})</span>
+            <input type="checkbox" name="ip_checking" <?php if($poll->ip_checking) echo "checked" ?> >
+                @lang('poll.ip-checking')
+            <span class="text-red">({{ strtoupper(trans('poll.ip-checking-warrning')) }})</span>
         </label>
     </div>
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="multiple_choice" value="1">@lang('poll.multiple-choice')
+            <input type="checkbox" name="multiple_choice" <?php if($poll->multiple_choice) echo "checked" ?> >
+                @lang('poll.multiple-choice')
         </label>
     </div>
 
