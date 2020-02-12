@@ -310,7 +310,7 @@ class BonusController extends Controller
 
         $bon_transactions->itemID = $item['id'];
         $bon_transactions->name = $item['description'];
-        $bon_transactions->cost = $item['cost'];
+        $bon_transactions->cost = $item['value'];
         $bon_transactions->sender = $userID;
         $bon_transactions->comment = $item['description'];
         $bon_transactions->torrent_id = null;
