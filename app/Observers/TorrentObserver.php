@@ -31,18 +31,6 @@ class TorrentObserver
     }
 
     /**
-     * Handle the Torrent "retrieved" event.
-     *
-     * @param \App\Models\Torrent $torrent
-     *
-     * @return void
-     */
-    public function retrieved(Torrent $torrent)
-    {
-        Cache::put("torrent.{$torrent->info_hash}", $torrent);
-    }
-
-    /**
      * Handle the Torrent "updated" event.
      *
      * @param \App\Models\Torrent $torrent

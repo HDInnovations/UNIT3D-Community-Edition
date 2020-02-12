@@ -31,18 +31,6 @@ class UserObserver
     }
 
     /**
-     * Handle the User "retrieved" event.
-     *
-     * @param \App\Models\User $user
-     *
-     * @return void
-     */
-    public function retrieved(User $user)
-    {
-        Cache::put("user.{$user->passkey}", $user);
-    }
-
-    /**
      * Handle the User "updated" event.
      *
      * @param \App\Models\User $user
