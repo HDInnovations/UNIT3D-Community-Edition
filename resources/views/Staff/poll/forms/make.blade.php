@@ -12,7 +12,7 @@
     @csrf
 
     <div class="form-group">
-        <label for="stitle">@lang('poll.title'):</label>
+        <label for="stitle">@lang('common.title'):</label>
         <label>
             <input type="text" name="title" class="form-control" value="" required>
         </label>
@@ -62,21 +62,22 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         var options = 2;
-    
-        $('#add').on('click', function(e) {
+        var langOption = "<?php echo __('poll.option') ?> "
+
+        $('#add').on('click', function (e) {
             e.preventDefault();
             options = options + 1;
-            var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">@lang('
-            poll.option ') ' + options +
-                ':</label><input type="text" name="options[]" class="form-control" value="" required></div>';
+            var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">' + langOption
+                + options
+                + ':</label><input type="text" name="options[]" class="form-control" value="" required></div>';
             $('.more-options').append(optionHTML);
         });
-    
-        $('#del').on('click', function(e) {
+
+        $('#del').on('click', function (e) {
             e.preventDefault();
             options = (options > 2) ? options - 1 : 2;
             $('.extra-option').last().remove();
         });
-    
+
     </script>
 @endsection
