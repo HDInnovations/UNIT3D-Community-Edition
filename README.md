@@ -2,7 +2,7 @@
     <img src="https://i.imgur.com/PKv7tSA.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 <p align="center">
-    🎉<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and <a href="#sponsors">Sponsors</a></b>🎉
+    🎉<b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="#sponsors">Sponsors</a></b>🎉
 </p>
 <hr>
 
@@ -34,7 +34,7 @@
 10. [License](#license)
 11. [Demo](#demo)
 12. [Sponsoring](#sponsor)
-13. [Contributors](#contributors)
+13. [Collaborators](#collaborators)
 14. [Special Thanks](#thanks)
 15. [Sponsors](#sponsors)
 
@@ -156,13 +156,13 @@ UNIT3D is open-sourced software licensed under the [GNU Affero General Public Li
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 ```
 
@@ -257,13 +257,13 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 
 <h5>Thank you to all out Tier 1, Tier 2 and Tier 3 Sponsors as well. While your not mentioned in the README I do appreciate your sponsorship!</h5>
 
-## <a name="contributors"></a> ✍️ Contributors
+## <a name="collaborators"></a> ✍️ Collaborators
 
-Thanks goes to these wonderful people:
+Thanks goes to these wonderful people who have contributed alot of code:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="50px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Documentation">📖</a></td><td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="50px;" alt="Everett (Mike) Wiley"/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=poppabear8883" title="Code">💻</a></td><td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="50px;" alt="singularity43"/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=singularity43" title="Code">💻</a></td><td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="50px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td><td align="center"><a href="https://github.com/artyuum"><img src="https://avatars0.githubusercontent.com/u/17199757?v=4" width="50px;" alt="Artyum"/><br /><sub><b>Artyuum</b></sub></a><br /><a href="#design-artyuum" title="Design">🎨</a></td><td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="50px;" alt="Morgan Wong"/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td></tr></table>
+<table><tr><td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="50px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie" title="Documentation">📖</a></td><td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="50px;" alt="Everett (Mike) Wiley"/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=poppabear8883" title="Code">💻</a></td><td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="50px;" alt="singularity43"/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D/commits?author=singularity43" title="Code">💻</a></td><td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="50px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td><td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="50px;" alt="Morgan Wong"/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
