@@ -46,6 +46,7 @@ class UserObserver
      * Handle the User "retrieved" event.
      *
      * @param \App\Models\User $user
+     *
      * @return void
      */
     public function retrieved(User $user)
