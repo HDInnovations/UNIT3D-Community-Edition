@@ -31,10 +31,7 @@
             <div class="col-md-12">
                 <div class="panel panel-chat">
                     <div class="panel-heading">
-                        @lang('common.edit')
-                        @lang(trans_choice('common.a-an-art',false))
-                        @lang('poll.poll')
-                        {{$poll->title}}
+                        @lang('poll.edit-poll') {{$poll->title}}
                     </div>
                     <div class="panel-body">
                         @include('Staff.poll.forms.update')
