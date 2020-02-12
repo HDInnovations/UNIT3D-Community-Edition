@@ -103,4 +103,104 @@ class PollController extends Controller
         return redirect()->route('staff.polls.index')
             ->withSuccess('Your poll has been created.');
     }
+
+    /**
+     * Poll Edit Form.
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $poll = Poll::findOrFail($id);
+
+        return view('Staff.poll.edit', ['poll' => $poll]);
+    }
+
+    /**
+     * Update A New Poll.
+     *
+     * @param StorePoll $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function update(StorePoll $request, $id)
+    {
+        $poll = Poll::findOrFail($id);
+
+        $poll->title = $request->input('title');
+
+        // Remove the deleted options in poll
+
+        $oldOptionIds = collect($poll->options)->map(function ($option) {
+            return $option->id;
+        })->all();
+
+
+        $existingOldOptionIds = collect($request->input('option-id'))->map(function ($id) {
+            return intval($id);
+        })->all();
+
+        $idsOfOptionToBeRemove = array_diff($oldOptionIds, $existingOldOptionIds);
+
+        foreach ($idsOfOptionToBeRemove as $id) {
+            $option = Option::findOrFail($id);
+            $option->delete();
+        }
+
+        // Update existing options
+
+        $existingOldOptionContents = collect($request->input('option-content'))->map(function ($content) {
+            return strval($content);
+        })->all();
+
+        if (count($existingOldOptionContents) === count($existingOldOptionIds)) {
+            $len = count($existingOldOptionContents);
+            for ($i = 0; $i < $len; $i++) {
+                $option = Option::findOrFail($existingOldOptionIds[$i]);
+                $option->name = $existingOldOptionContents[$i];
+                $option->save();
+            }
+        }
+
+        // Insert new options
+
+        $newOptions = collect($request->input('new-option-content'))->map(function ($content) {
+            return new Option(['name' => $content]);
+        });
+
+        $poll->options()->saveMany($newOptions);
+
+        // Last work from store()
+
+        $poll_url = hrefPoll($poll);
+
+        $this->chat->systemMessage(
+            "A poll has been updated [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+        );
+
+        $poll->save();
+
+        return redirect()->route('staff.polls.index')
+            ->withSuccess('Your poll has been edited.');
+    }
+
+    /**
+     * Delete A Poll.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $poll = Poll::findOrFail($id);
+        $poll->delete();
+
+        return redirect()->route('staff.polls.index')
+            ->withSuccess('Poll has successfully been deleted');
+    }
+
+
 }

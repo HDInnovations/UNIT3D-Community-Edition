@@ -31,8 +31,17 @@
                             <td><a href="{{ url('/dashboard/polls/' . $poll->id) }}">{{ $poll->title }}</a></td>
                             <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
                             <td>
-                                <a href="#" class="btn btn-warning">@lang('common.edit')</a>
-                                <a href="#" class="btn btn-danger">@lang('common.delete')</a>
+{{--                                <a href="#" class="btn btn-warning">@lang('common.edit')</a>--}}
+{{--                                <a href="#" class="btn btn-danger">@lang('common.delete')</a>--}}
+
+                                <form action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}"
+                                       class="btn btn-warning">@lang('common.edit')</a>
+                                    <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                                </form>
+
                             </td>
                         </tr>
                     @endforeach
