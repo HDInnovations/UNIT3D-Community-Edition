@@ -5,6 +5,7 @@ return [
     'create-poll'          => '建立投票',
     'current'              => '目前投票',
     'delete-option'        => '删除选项',
+    'edit-poll'            => '编辑投票',
     'ip-checking'          => '启用重复IP检查机制',
     'ip-checking'          => '此投票有重复IP检查。你的IP只能投一次。',
     'ip-checking-warrning' => '若网站在公开模式，才需要该选项',

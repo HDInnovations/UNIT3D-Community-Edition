@@ -5,6 +5,7 @@ return [
     'create-poll'          => 'Create Poll',
     'current'              => 'Current Poll(s)',
     'delete-option'        => 'Delete Option',
+    'edit-poll'            => 'Edit Poll',
     'ip-checking'          => 'Enable Duplicate IP Checking',
     'ip-checking'          => 'This poll has duplicate vote checking. You can only vote once.',
     'ip-checking-warrning' => 'Only needed if site is in public mode',

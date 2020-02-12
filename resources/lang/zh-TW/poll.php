@@ -5,6 +5,7 @@ return [
     'create-poll'          => '建立投票',
     'current'              => '目前投票',
     'delete-option'        => '刪除選項',
+    'edit-poll'            => '編輯投票',
     'ip-checking'          => '啟動重複IP檢查機制',
     'ip-checking'          => '此投票有重復的投票檢查。你只能投一次。',
     'ip-checking-warrning' => '若網站在公開模式，才需此選項',
