@@ -43,6 +43,7 @@ return [
     'mass-pm'                 => '批量发送私信',
     'mass-validate-users'     => '批量验证用户',
     'moderation'              => '审批',
+    'page'                    => '规则页',
     'pages'                   => '站内规则',
     'please-moderate'         => '请审批此资源！',
     'polls'                   => '投票',

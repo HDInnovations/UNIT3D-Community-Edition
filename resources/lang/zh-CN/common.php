@@ -12,6 +12,7 @@
  */
 
 return [
+    'a-an-art'             => '{0}|[1,*]',    // 冠词 article , a an 占位用
     'abbrev-days'          => '日',
     'abbrev-hours'         => '时',
     'abbrev-minutes'       => '分',
@@ -51,12 +52,14 @@ return [
     'comment'              => '评论',
     'comments'             => '评论',
     'community'            => '社群',
+    'content'              => '内容',
     'connected'            => '已连接',
     'contact'              => '联络',
     'contact-desc'         => '发消息给站长，Ta会尽快回复您',
     'contact-header'       => '你好',
     'create'               => '创建',
     'created_at'           => '创建于',
+    'date'                 => '日期',
     'day'                  => '日',
     'delete'               => '删除',
     'delete-your-comment'  => '删除你的评论',
@@ -129,6 +132,7 @@ return [
     'name'                 => '名称',
     'navigation'           => '导航',
     'new'                  => 'New! ',
+    'new-adj'              => '新的',    // adj 形容词
     'news'                 => '公告',
     'next'                 => '下一个',
     'no'                   => 'No',
