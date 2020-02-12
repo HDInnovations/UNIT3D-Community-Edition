@@ -6,20 +6,39 @@ We accept contributions via Pull Requests on [Github](https://github.com/HDInnov
 
 **Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)\
 
-
-## Pull Requests / Commits
+## Commits
 
 **Commit Title Standard**
+
+Please use the following title schema. 
+- prefix: Title
+
+Examples:
+- update: French Translations
+- fix: French Translations
+- security fix: French Translations
+- remove: French Translations
+- add: French Translations
+- revert: French Translations
+- refactor: French Translations
+
+https://www.conventionalcommits.org/en/v1.0.0/
+
+## Pull Requests
+
+**PR Title Standard**
 
 Please use the following title schema. 
 - (PREFIX) Title
 
 Examples:
-- (Update) French Translations :rocket:
-- (Fix) French Translations :bug:
-- (Security Fix) French Translations :closed_lock_with_key:
-- (Remove) French Translations :recycle:
-- (Add) French Translations :new:
+- (Update) French Translations
+- (Fix) French Translations
+- (Security Fix) French Translations
+- (Remove) French Translations
+- (Add) French Translations
+- (Revert) French Translations
+- (Refactor) French Translations
 
 **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** 
 - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
