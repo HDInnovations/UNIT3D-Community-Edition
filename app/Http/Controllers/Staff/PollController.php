@@ -131,13 +131,13 @@ class PollController extends Controller
 
         $poll->title = $request->input('title');
 
-        if($request->input('ip_checking')) {
+        if ($request->input('ip_checking')) {
             $poll->ip_checking = true;
         } else {
             $poll->ip_checking = false;
         }
 
-        if($request->input('multiple_choice')) {
+        if ($request->input('multiple_choice')) {
             $poll->multiple_choice = true;
         } else {
             $poll->multiple_choice = false;

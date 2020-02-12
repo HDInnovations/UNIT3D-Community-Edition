@@ -72,7 +72,6 @@
                 + langOption
                 + options
                 + ':</label>'
-                // + '<input readonly type="number" name="new-option-id[]" style="visibility: hidden" value="'+(-options)+'">'
                 + '<input type="text" name="new-option-content[]" class="form-control" value="" required></div>';
             $('.more-options').append(optionHTML);
         });
