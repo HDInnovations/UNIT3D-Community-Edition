@@ -34,7 +34,7 @@
 10. [License](#license)
 11. [Demo](#demo)
 12. [Sponsoring](#sponsor)
-13. [Contributors](#contributors)
+13. [Collaborators](#collaborators)
 14. [Special Thanks](#thanks)
 15. [Sponsors](#sponsors)
 
