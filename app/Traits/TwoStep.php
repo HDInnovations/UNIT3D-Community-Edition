@@ -31,10 +31,9 @@ trait TwoStep
             $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
             if ($twoStepAuthStatus->authStatus !== true) {
                 return false;
-            } else {
-                if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
-                    return false;
-                }
+            }
+            if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
+                return false;
             }
 
             return true;

@@ -185,10 +185,9 @@ class Markdown
                     $CurrentBlock = $Block;
 
                     continue;
-                } else {
-                    if ($this->isBlockCompletable($CurrentBlock['type'])) {
-                        $CurrentBlock = $this->{'block'.$CurrentBlock['type'].'Complete'}($CurrentBlock);
-                    }
+                }
+                if ($this->isBlockCompletable($CurrentBlock['type'])) {
+                    $CurrentBlock = $this->{'block'.$CurrentBlock['type'].'Complete'}($CurrentBlock);
                 }
             }
 
@@ -1303,13 +1302,10 @@ class Markdown
     protected function unmarkedText($text)
     {
         if ($this->breaksEnabled) {
-            $text = preg_replace('/[ ]*\n/', "<br />\n", $text);
-        } else {
-            $text = preg_replace('/(?:[ ][ ]+|[ ]*\\\\)\n/', "<br />\n", $text);
-            $text = str_replace(" \n", "\n", $text);
+            return preg_replace('/[ ]*\n/', "<br />\n", $text);
         }
-
-        return $text;
+        $text = preg_replace('/(?:[ ][ ]+|[ ]*\\\\)\n/', "<br />\n", $text);
+        return str_replace(" \n", "\n", $text);
     }
 
     //
@@ -1455,9 +1451,8 @@ class Markdown
 
         if ($len > strlen($string)) {
             return false;
-        } else {
-            return strtolower(substr($string, 0, $len)) === strtolower($needle);
         }
+        return strtolower(substr($string, 0, $len)) === strtolower($needle);
     }
 
     public static function instance($name = 'default')

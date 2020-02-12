@@ -207,7 +207,6 @@ class SystemBot
         if ($targeted) {
             // future holder
         }
-
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = cache()->get('user-echoes'.$target->id);
@@ -257,20 +256,19 @@ class SystemBot
                 cache()->put('user-audibles'.$target->id, $receiver_audibles, $expiresAt);
                 event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
             }
-
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->privateMessage($target->id, $room_id, $message, 1, $this->bot->id);
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
-
             return response('success');
-        } elseif ($type == 'echo') {
+        }
+
+        if ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
-
             return response('success');
         } elseif ($type == 'public') {
             if ($txt != '') {

@@ -101,23 +101,20 @@ class GroupController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
-        } else {
-            $group->save();
-
-            foreach (Forum::all()->pluck('id') as $forum_id) {
-                $permission = new Permission();
-                $permission->forum_id = $forum_id;
-                $permission->group_id = $group->id;
-                $permission->show_forum = 1;
-                $permission->read_topic = 1;
-                $permission->reply_topic = 1;
-                $permission->start_topic = 1;
-                $permission->save();
-            }
-
-            return redirect()->route('staff.groups.index')
-                ->withSuccess('Group Was Created Successfully!');
         }
+        $group->save();
+        foreach (Forum::all()->pluck('id') as $forum_id) {
+            $permission = new Permission();
+            $permission->forum_id = $forum_id;
+            $permission->group_id = $group->id;
+            $permission->show_forum = 1;
+            $permission->read_topic = 1;
+            $permission->reply_topic = 1;
+            $permission->start_topic = 1;
+            $permission->save();
+        }
+        return redirect()->route('staff.groups.index')
+            ->withSuccess('Group Was Created Successfully!');
     }
 
     /**
@@ -187,11 +184,9 @@ class GroupController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
-        } else {
-            $group->save();
-
-            return redirect()->route('staff.groups.index')
-                ->withSuccess('Group Was Updated Successfully!');
         }
+        $group->save();
+        return redirect()->route('staff.groups.index')
+            ->withSuccess('Group Was Updated Successfully!');
     }
 }

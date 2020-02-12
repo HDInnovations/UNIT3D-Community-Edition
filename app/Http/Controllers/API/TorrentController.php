@@ -67,10 +67,11 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
-
         if ($request->hasFile('torrent') == false) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
-        } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+        }
+
+        if ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
@@ -141,76 +142,68 @@ class TorrentController extends BaseController
             }
 
             return $this->sendError('Validation Error.', $v->errors());
-        } else {
-            // Save The Torrent
-            $torrent->save();
-
-            // Count and save the torrent number in this category
-            $category->num_torrent = $category->torrents_count;
-            $category->save();
-
-            // Backup the files contained in the torrent
-            $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
-            foreach ($fileList as $file) {
-                $f = new TorrentFile();
-                $f->name = $file['name'];
-                $f->size = $file['size'];
-                $f->torrent_id = $torrent->id;
-                $f->save();
-                unset($f);
-            }
-
-            $meta = null;
-
-            // Torrent Tags System
-            if ($torrent->category->tv_meta) {
-                if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('tv', null, $torrent->tmdb);
-                } else {
-                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
-                }
-            }
-            if ($torrent->category->movie_meta) {
-                if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('movie', null, $torrent->tmdb);
-                } else {
-                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
-                }
-            }
-
-            if (isset($meta) && $meta->genres) {
-                foreach ($meta->genres as $genre) {
-                    $tag = new TagTorrent();
-                    $tag->torrent_id = $torrent->id;
-                    $tag->tag_name = $genre;
-                    $tag->save();
-                }
-            }
-
-            // check for trusted user and update torrent
-            if ($user->group->is_trusted) {
-                $appurl = config('app.url');
-                $user = $torrent->user;
-                $user_id = $user->id;
-                $username = $user->username;
-                $anon = $torrent->anon;
-
-                // Announce To Shoutbox
-                if ($anon == 0) {
-                    $this->chat->systemMessage(
-                        "User [url={$appurl}/users/".$username.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
-                    );
-                } else {
-                    $this->chat->systemMessage(
-                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
-                    );
-                }
-
-                TorrentHelper::approveHelper($torrent->id);
-            }
-
-            return $this->sendResponse(route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
         }
+        // Save The Torrent
+        $torrent->save();
+        // Count and save the torrent number in this category
+        $category->num_torrent = $category->torrents_count;
+        $category->save();
+        // Backup the files contained in the torrent
+        $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
+        foreach ($fileList as $file) {
+            $f = new TorrentFile();
+            $f->name = $file['name'];
+            $f->size = $file['size'];
+            $f->torrent_id = $torrent->id;
+            $f->save();
+            unset($f);
+        }
+        $meta = null;
+        // Torrent Tags System
+        if ($torrent->category->tv_meta) {
+            if ($torrent->tmdb && $torrent->tmdb != 0) {
+                $meta = $client->scrape('tv', null, $torrent->tmdb);
+            } else {
+                $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
+            }
+        }
+        if ($torrent->category->movie_meta) {
+            if ($torrent->tmdb && $torrent->tmdb != 0) {
+                $meta = $client->scrape('movie', null, $torrent->tmdb);
+            } else {
+                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+            }
+        }
+        if (isset($meta) && $meta->genres) {
+            foreach ($meta->genres as $genre) {
+                $tag = new TagTorrent();
+                $tag->torrent_id = $torrent->id;
+                $tag->tag_name = $genre;
+                $tag->save();
+            }
+        }
+        // check for trusted user and update torrent
+        if ($user->group->is_trusted) {
+            $appurl = config('app.url');
+            $user = $torrent->user;
+            $user_id = $user->id;
+            $username = $user->username;
+            $anon = $torrent->anon;
+
+            // Announce To Shoutbox
+                if ($anon == 0) {
+                $this->chat->systemMessage(
+                    "User [url={$appurl}/users/".$username.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                );
+            } else {
+                $this->chat->systemMessage(
+                    "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                );
+            }
+
+            TorrentHelper::approveHelper($torrent->id);
+        }
+        return $this->sendResponse(route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
     }
 
     /**
@@ -411,9 +404,8 @@ class TorrentController extends BaseController
 
         if (!empty($torrent)) {
             return new TorrentsResource($torrent->paginate(25));
-        } else {
-            return $this->sendResponse('404', 'No Torrents Found');
         }
+        return $this->sendResponse('404', 'No Torrents Found');
     }
 
     /**

@@ -67,12 +67,10 @@ class ImageController extends Controller
         if ($v->fails()) {
             return redirect()->route('images.create', ['id' => $request->input('album_id')])
                 ->withErrors($v->errors());
-        } else {
-            $image->save();
-
-            return redirect()->route('albums.show', ['id' => $request->input('album_id')])
-                ->withSuccess('Your image has successfully published!');
         }
+        $image->save();
+        return redirect()->route('albums.show', ['id' => $request->input('album_id')])
+            ->withSuccess('Your image has successfully published!');
     }
 
     /**

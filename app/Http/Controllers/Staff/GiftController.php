@@ -56,30 +56,25 @@ class GiftController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.gifts.index')
                 ->withErrors($v->errors());
-        } else {
-            $recipient = User::where('username', '=', $username)->first();
-
-            if (!$recipient) {
-                return redirect()->route('staff.gifts.index')
-                    ->withErrors('Unable To Find Specified User');
-            }
-
-            $recipient->seedbonus += $seedbonus;
-            $recipient->invites += $invites;
-            $recipient->fl_tokens += $fl_tokens;
-            $recipient->save();
-
-            // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $recipient->id;
-            $pm->subject = 'You Have Received A System Generated Gift';
-            $pm->message = "We just wanted to let you know that staff member, {$staff->username}, has credited your account with {$seedbonus} Bonus Points, {$invites} Invites and {$fl_tokens} Freeleech Tokens.
-                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
-            $pm->save();
-
-            return redirect()->route('staff.gifts.index')
-                ->withSuccess('Gift Sent');
         }
+        $recipient = User::where('username', '=', $username)->first();
+        if (!$recipient) {
+            return redirect()->route('staff.gifts.index')
+                ->withErrors('Unable To Find Specified User');
+        }
+        $recipient->seedbonus += $seedbonus;
+        $recipient->invites += $invites;
+        $recipient->fl_tokens += $fl_tokens;
+        $recipient->save();
+        // Send Private Message
+        $pm = new PrivateMessage();
+        $pm->sender_id = 1;
+        $pm->receiver_id = $recipient->id;
+        $pm->subject = 'You Have Received A System Generated Gift';
+        $pm->message = "We just wanted to let you know that staff member, {$staff->username}, has credited your account with {$seedbonus} Bonus Points, {$invites} Invites and {$fl_tokens} Freeleech Tokens.
+                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+        $pm->save();
+        return redirect()->route('staff.gifts.index')
+            ->withSuccess('Gift Sent');
     }
 }

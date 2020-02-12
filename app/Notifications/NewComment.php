@@ -66,13 +66,12 @@ class NewComment extends Notification
                     'body'  => $this->comment->user->username.' has left you a comment on Torrent '.$this->comment->torrent->name,
                     'url'   => '/torrents/'.$this->comment->torrent->id,
                 ];
-            } else {
-                return [
-                    'title' => 'New Torrent Comment Received',
-                    'body'  => 'Anonymous has left you a comment on Torrent '.$this->comment->torrent->name,
-                    'url'   => '/torrents/'.$this->comment->torrent->id,
-                ];
             }
+            return [
+                'title' => 'New Torrent Comment Received',
+                'body'  => 'Anonymous has left you a comment on Torrent '.$this->comment->torrent->name,
+                'url'   => '/torrents/'.$this->comment->torrent->id,
+            ];
         }
         if ($this->comment->anon == 0) {
             return [
@@ -80,12 +79,11 @@ class NewComment extends Notification
                 'body'  => $this->comment->user->username.' has left you a comment on Torrent Request '.$this->comment->request->name,
                 'url'   => '/requests/'.$this->comment->request->id,
             ];
-        } else {
-            return [
-                'title' => 'New Request Comment Received',
-                'body'  => 'Anonymous has left you a comment on Torrent Request '.$this->comment->request->name,
-                'url'   => '/requests/'.$this->comment->request->id,
-            ];
         }
+        return [
+            'title' => 'New Request Comment Received',
+            'body'  => 'Anonymous has left you a comment on Torrent Request '.$this->comment->request->name,
+            'url'   => '/requests/'.$this->comment->request->id,
+        ];
     }
 }

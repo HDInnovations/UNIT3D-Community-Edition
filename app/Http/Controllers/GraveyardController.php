@@ -176,12 +176,10 @@ class GraveyardController extends Controller
         if ($v->fails()) {
             return redirect()->route('graveyard.index')
                 ->withErrors($v->errors());
-        } else {
-            $resurrection->save();
-
-            return redirect()->route('graveyard.index')
-                ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
         }
+        $resurrection->save();
+        return redirect()->route('graveyard.index')
+            ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
     }
 
     /**

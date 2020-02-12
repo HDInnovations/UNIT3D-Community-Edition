@@ -386,27 +386,25 @@ class BonusController extends Controller
 
             return redirect()->route('bonus_gift')
                 ->withSuccess('Gift Sent');
-        } else {
-            $v = validator($request->all(), [
-                'to_username' => 'required|exists:users,username|max:180',
-            ]);
+        }
+        $v = validator($request->all(), [
+            'to_username' => 'required|exists:users,username|max:180',
+        ]);
+        if ($v->passes()) {
+            $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
-            if ($v->passes()) {
-                $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
+            if (!$recipient || $recipient->id == $user->id) {
+                return redirect()->route('bonus_store')
+                    ->withErrors('Unable to find specified user');
+            }
 
-                if (!$recipient || $recipient->id == $user->id) {
-                    return redirect()->route('bonus_store')
-                        ->withErrors('Unable to find specified user');
-                }
-
-                if ($dest == 'profile') {
-                    return redirect()->route('users.show', ['username' => $recipient->username])
-                        ->withErrors('You Must Enter An Amount And Message!');
-                }
-
-                return redirect()->route('bonus_gift')
+            if ($dest == 'profile') {
+                return redirect()->route('users.show', ['username' => $recipient->username])
                     ->withErrors('You Must Enter An Amount And Message!');
             }
+
+            return redirect()->route('bonus_gift')
+                ->withErrors('You Must Enter An Amount And Message!');
         }
 
         return redirect()->route('bonus_store')

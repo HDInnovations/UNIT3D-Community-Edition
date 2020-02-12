@@ -36,12 +36,9 @@ class CheckIfAlreadyVoted
 
         $poll = Option::findOrFail($request->input('option.0'))->poll;
 
-        //if we already have this user's IP stored and linked to the poll they are trying to vote on
-        if ($poll->ip_checking == 1) {
-            if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
-                return redirect('poll/'.$poll->slug.'/result')
-                    ->withErrors('There is already a vote on this poll from your IP. Your vote has not been counted.');
-            }
+        if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
+            return redirect('poll/'.$poll->slug.'/result')
+                ->withErrors('There is already a vote on this poll from your IP. Your vote has not been counted.');
         }
 
         return $next($request);

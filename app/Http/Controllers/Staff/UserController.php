@@ -283,9 +283,8 @@ class UserController extends Controller
         if ($user->delete()) {
             return redirect()->route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
-        } else {
-            return redirect()->route('staff.dashboard.index')
-                ->withErrors('Something Went Wrong!');
         }
+        return redirect()->route('staff.dashboard.index')
+            ->withErrors('Something Went Wrong!');
     }
 }

@@ -35,11 +35,12 @@ class LikeController extends Controller
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
-
         if ($like || $dislike) {
             return redirect()->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
-        } elseif ($user->id == $post->user_id) {
+        }
+
+        if ($user->id == $post->user_id) {
             return redirect()->to($postUrl)
                 ->withErrors('You cannot like your own post!');
         } else {
@@ -70,11 +71,12 @@ class LikeController extends Controller
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
-
         if ($like || $dislike) {
             return redirect()->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
-        } elseif ($user->id == $post->user_id) {
+        }
+
+        if ($user->id == $post->user_id) {
             return redirect()->to($postUrl)
                 ->withErrors('You cannot dislike your own post!');
         } else {

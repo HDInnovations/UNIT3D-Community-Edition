@@ -75,16 +75,13 @@ class BanController extends Controller
         if ($v->fails()) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
-        } else {
-            $user->save();
-            $ban->save();
-
-            // Send Email
-            Mail::to($user->email)->send(new BanUser($user->email, $ban));
-
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess('User Is Now Banned!');
         }
+        $user->save();
+        $ban->save();
+        // Send Email
+        Mail::to($user->email)->send(new BanUser($user->email, $ban));
+        return redirect()->route('users.show', ['username' => $user->username])
+            ->withSuccess('User Is Now Banned!');
     }
 
     /**
@@ -124,15 +121,12 @@ class BanController extends Controller
         if ($v->fails()) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
-        } else {
-            $user->save();
-            $ban->save();
-
-            // Send Email
-            Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
-
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess('User Is Now Relieved Of His Ban!');
         }
+        $user->save();
+        $ban->save();
+        // Send Email
+        Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
+        return redirect()->route('users.show', ['username' => $user->username])
+            ->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

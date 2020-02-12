@@ -62,12 +62,10 @@ class SeedboxController extends Controller
         if ($v->fails()) {
             return redirect()->route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
-        } else {
-            $seedbox->save();
-
-            return redirect()->route('seedboxes.index', ['username' => $user->username])
-                ->withSuccess('Seedbox Has Been Successfully Added!');
         }
+        $seedbox->save();
+        return redirect()->route('seedboxes.index', ['username' => $user->username])
+            ->withSuccess('Seedbox Has Been Successfully Added!');
     }
 
     /**

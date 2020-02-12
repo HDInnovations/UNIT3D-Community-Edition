@@ -758,9 +758,8 @@ class User extends Authenticatable
                 }
 
                 return false;
-            } else {
-                return true;
             }
+            return true;
         }
 
         return true;
@@ -798,9 +797,8 @@ class User extends Authenticatable
                 }
 
                 return false;
-            } else {
-                return true;
             }
+            return true;
         }
 
         return true;
@@ -838,9 +836,8 @@ class User extends Authenticatable
                 }
 
                 return false;
-            } else {
-                return true;
             }
+            return true;
         }
 
         return true;
@@ -931,9 +928,8 @@ class User extends Authenticatable
         $ratio = $this->getRatio();
         if (is_infinite($ratio)) {
             return '∞';
-        } else {
-            return (string) $ratio;
         }
+        return (string) $ratio;
     }
 
     // Return the ratio after $size bytes would be downloaded.
@@ -957,9 +953,8 @@ class User extends Authenticatable
         $ratio = $this->ratioAfterSize($size);
         if (is_infinite($ratio)) {
             return '∞';
-        } else {
-            return (string) $ratio;
         }
+        return (string) $ratio;
     }
 
     // Return the size (pretty formated) which can be safely downloaded
@@ -1025,12 +1020,10 @@ class User extends Authenticatable
     {
         if (empty($this->about)) {
             return 'N/A';
-        } else {
-            $bbcode = new Bbcode();
-            $linkify = new Linkify();
-
-            return $bbcode->parse($linkify->linky($this->about), true);
         }
+        $bbcode = new Bbcode();
+        $linkify = new Linkify();
+        return $bbcode->parse($linkify->linky($this->about), true);
     }
 
     /**

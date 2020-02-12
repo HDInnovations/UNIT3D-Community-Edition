@@ -21,8 +21,7 @@ class Linkify
 
         if (preg_match($reg_exUrl, $text, $url)) {
             return preg_replace($reg_exUrl, "<a href='{$url[0]}'>{$url[0]}</a> ", $text);
-        } else {
-            return $text;
         }
+        return $text;
     }
 }

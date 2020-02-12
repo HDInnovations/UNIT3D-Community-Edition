@@ -55,19 +55,15 @@ class ForgotUsernameController extends Controller
         if ($v->fails()) {
             return redirect()->route('username.request')
                 ->withErrors($v->errors());
-        } else {
-            $user = User::where('email', '=', $email)->first();
-
-            if (empty($user)) {
-                return redirect()->route('username.request')
-                    ->withErrors(trans('email.no-email-found'));
-            }
-
-            //send username reminder notification
-            $user->notify(new UsernameReminder());
-
-            return redirect()->route('login')
-                ->withSuccess(trans('email.username-sent'));
         }
+        $user = User::where('email', '=', $email)->first();
+        if (empty($user)) {
+            return redirect()->route('username.request')
+                ->withErrors(trans('email.no-email-found'));
+        }
+        //send username reminder notification
+        $user->notify(new UsernameReminder());
+        return redirect()->route('login')
+            ->withSuccess(trans('email.username-sent'));
     }
 }
