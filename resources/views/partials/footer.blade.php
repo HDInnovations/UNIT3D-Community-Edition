@@ -73,18 +73,6 @@
     </div>
 </div>
 
-<div class="subfooter text-center" style="background-color: #2e2e2e;">
-    <div class="container">
-        <div class="subfooter-inner">
-            <div class="row">
-                <div class="col-md-12">
-                    <span>This page took {{ microtime(true) - LARAVEL_START }} seconds to render.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
     <i class="{{ config('other.font-awesome') }} fa-arrow-square-up"></i>
 </a>
