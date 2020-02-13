@@ -189,15 +189,13 @@ class TorrentController extends Controller
     public function filtered(Request $request)
     {
         $user = $request->user();
-        if ($user) {
-            if ($request->has('force')) {
-                if ($request->input('force') == 1) {
-                    $user->torrent_filters = 0;
-                    $user->save();
-                } elseif ($request->input('force') == 2) {
-                    $user->torrent_filters = 1;
-                    $user->save();
-                }
+        if ($user && $request->has('force')) {
+            if ($request->input('force') == 1) {
+                $user->torrent_filters = 0;
+                $user->save();
+            } elseif ($request->input('force') == 2) {
+                $user->torrent_filters = 1;
+                $user->save();
             }
         }
     }

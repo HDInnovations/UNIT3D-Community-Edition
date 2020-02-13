@@ -125,10 +125,8 @@ class SystemBot
             $transaction->torrent_id = null;
             $transaction->save();
 
-            if ($this->target->id != $recipient->id) {
-                if ($recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
-                    $recipient->notify(new NewBon('gift', $this->target->username, $transaction));
-                }
+            if ($this->target->id != $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
+                $recipient->notify(new NewBon('gift', $this->target->username, $transaction));
             }
 
             $profile_url = hrefProfile($this->target);
