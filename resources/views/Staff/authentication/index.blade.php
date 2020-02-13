@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.authentications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Authentications Log</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.failed-login-log')</span>
         </a>
     </li>
 @endsection
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>Failed Login Attempts Log</h2>
+            <h2>@lang('staff.failed-login-log')</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
@@ -33,11 +33,11 @@
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>@lang('common.user') ID</th>
-                                    <th>Username</th>
-                                    <th>IP Address</th>
-                                    <th>Created On</th>
+                                    <th>@lang('common.no')</th>
+                                    <th>@lang('user.user-id')</th>
+                                    <th>@lang('common.username')</th>
+                                    <th>@lang('common.ip')</th>
+                                    <th>@lang('user.created-on')</th>
                                 </tr>
                             </thead>
                             <tbody>
