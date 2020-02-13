@@ -17,7 +17,7 @@
             <a class="forum-category-childs-forum col-md-4">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="option[]" value="{{ $option->id }}">
+                        <input type="checkbox" name="option-id[]" value="{{ $option->id }}">
                         <span class="badge-user">{{ $option->name }}</span>
                     </label>
                 </div>
@@ -28,7 +28,7 @@
             <a class="forum-category-childs-forum col-md-4">
                 <div class="radio">
                     <label>
-                        <input type="radio" name="option[]" value="{{ $option->id }}" required>
+                        <input type="radio" name="option-id[]" value="{{ $option->id }}" required>
                         <span class="badge-user">{{ $option->name }}</span>
                     </label>
                 </div>

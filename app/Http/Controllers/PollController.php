@@ -90,8 +90,8 @@ class PollController extends Controller
         }
 
         // Operate options after validation
-        foreach ($request->input('option') as $option) {
-            Option::findOrFail($option)->increment('votes');
+        foreach ($request->input('option-id') as $id) {
+            Option::findOrFail($id)->increment('votes');
         }
 
         // Make voter after option operation completed
