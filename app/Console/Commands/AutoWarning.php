@@ -72,12 +72,12 @@ class AutoWarning extends Command
                         $warning->save();
 
                         // Add +1 To Users Warnings Count In Users Table
-                            $hr->hitrun = 1;
+                        $hr->hitrun = 1;
                         $hr->user->hitandruns++;
                         $hr->user->save();
 
                         // Send Private Message
-                            $pm = new PrivateMessage();
+                        $pm = new PrivateMessage();
                         $pm->sender_id = 1;
                         $pm->receiver_id = $hr->user->id;
                         $pm->subject = 'Hit and Run Warning Received';

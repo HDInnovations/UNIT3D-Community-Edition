@@ -53,6 +53,7 @@ class TmdbClient extends Client implements MovieTvInterface
             if (isset($results['movie_results'][0]['id'])) {
                 return $this->movie($results['movie_results'][0]['id']);
             }
+            
             return new Movie();
         }
 

@@ -269,7 +269,7 @@ class Markdown
 
         // ~
 
-        return $markup . "\n";
+        return $markup."\n";
     }
 
     protected function isBlockContinuable($Type)
@@ -994,7 +994,7 @@ class Markdown
             $text = substr($text, $markerPosition + 1);
         }
 
-        return $markup . $this->unmarkedText($text);
+        return $markup.$this->unmarkedText($text);
     }
 
     //
@@ -1339,7 +1339,7 @@ class Markdown
             $markup .= "\n".$this->element($Element);
         }
 
-        return $markup . "\n";
+        return $markup."\n";
     }
 
     // ~
