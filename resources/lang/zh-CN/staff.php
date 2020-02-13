@@ -28,7 +28,7 @@ return [
     'chat-tools'              => '聊天工具',
     'config-manager'          => '系统设定',
     'dashboard'               => '仪表板',
-    'failed-login-log'        => '登号失败日志',
+    'failed-login-log'        => '登录失败日志',
     'flush-chat'              => '清空聊天室',
     'flush-ghost-peers'       => '清空幽灵Peers',
     'forums'                  => '论坛',
