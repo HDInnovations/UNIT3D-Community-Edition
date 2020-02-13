@@ -106,7 +106,7 @@ class GitUpdater extends Command
     {
         $updating = $this->checkForUpdates();
 
-        if (count($updating) > 0) {
+        if ((is_countable($updating) ? count($updating) : 0) > 0) {
             $this->alertDanger('Found Updates');
 
             $this->cyan('Files that need updated:');
