@@ -16,7 +16,7 @@
     </li>
     <li>
         <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Search</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') @lang('common.search')</span>
         </a>
     </li>
 @endsection
@@ -30,7 +30,7 @@
                         <label for="username"></label><input type="text" name="username" id="username" size="25"
                             placeholder="@lang('user.search')" class="form-control">
                         <button type="submit" class="btn btn-success">
-                            <i class="{{ config('other.font-awesome') }} fa-search"></i> Search
+                            <i class="{{ config('other.font-awesome') }} fa-search"></i> @lang('common.search')
                         </button>
                     </form>
                     <ul class="nav nav-tabs">
@@ -46,10 +46,10 @@
                                 <thead>
                                     <tr>
                                         <th class="hidden-xs hidden-sm"></th>
-                                        <th>@lang('common.name') and Role</th>
+                                        <th>@lang('common.name') /  @lang('common.group')</th>
                                         <th class="hidden-xs hidden-sm">E-Mail</th>
                                         <th>ID</th>
-                                        <th>Settings</th>
+                                        <th>@lang('user.settings')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,7 +74,7 @@
                                                 <td class="action-links">
                                                     <a href="{{ route('user_setting', ['username' => $user->username]) }}"
                                                         class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                        @lang('common.edit') Profile
+                                                        @lang('common.edit') @lang('user.profile')
                                                     </a>
                                                 </td>
                                             @endif
@@ -93,10 +93,10 @@
                                 <thead>
                                     <tr>
                                         <th class="hidden-xs hidden-sm"></th>
-                                        <th>@lang('common.name') and Role</th>
+                                        <th>@lang('common.name')  /  @lang('common.group')</th>
                                         <th class="hidden-xs hidden-sm">E-Mail</th>
                                         <th>ID</th>
-                                        <th>Settings</th>
+                                        <th>@lang('user.settings')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,7 +124,7 @@
                                                 <td class="action-links">
                                                     <a href="{{ route('user_setting', ['username' => $uploader->username, 'id' => $uploader->id]) }}"
                                                         class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                        @lang('common.edit') Profile
+                                                        @lang('common.edit') @lang('user.profile')
                                                     </a>
                                                 </td>
                                             @endif
@@ -138,10 +138,10 @@
                                 <thead>
                                     <tr>
                                         <th class="hidden-xs hidden-sm"></th>
-                                        <th>@lang('common.name') and Role</th>
+                                        <th>@lang('common.name')  /  @lang('common.group')</th>
                                         <th class="hidden-xs hidden-sm">E-Mail</th>
                                         <th>ID</th>
-                                        <th>Settings</th>
+                                        <th>@lang('user.settings')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -169,7 +169,7 @@
                                                 <td class="action-links">
                                                     <a href="{{ route('user_setting', ['username' => $mod->username, 'id' => $mod->id]) }}"
                                                         class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                        @lang('common.edit') Profile
+                                                        @lang('common.edit') @lang('user.profile')
                                                     </a>
                                                 </td>
                                             @endif
@@ -183,10 +183,10 @@
                                 <thead>
                                     <tr>
                                         <th class="hidden-xs hidden-sm"></th>
-                                        <th>@lang('common.name') and Role</th>
+                                        <th>@lang('common.name')  /  @lang('common.group')</th>
                                         <th class="hidden-xs hidden-sm">E-Mail</th>
                                         <th>ID</th>
-                                        <th>Settings</th>
+                                        <th>@lang('user.settings')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -213,7 +213,7 @@
                                                 <td class="action-links">
                                                     <a href="{{ route('user_setting', ['username' => $admin->username, 'id' => $admin->id]) }}"
                                                         class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                        @lang('common.edit') Profile
+                                                        @lang('common.edit') @lang('user.profile')
                                                     </a>
                                                 </td>
                                             @endif
@@ -227,10 +227,10 @@
                                 <thead>
                                     <tr>
                                         <th class="hidden-xs hidden-sm"></th>
-                                        <th>@lang('common.name') and Role</th>
+                                        <th>@lang('common.name')  /  @lang('common.group')</th>
                                         <th class="hidden-xs hidden-sm">E-Mail</th>
                                         <th>ID</th>
-                                        <th>Settings</th>
+                                        <th>@lang('user.settings')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -255,7 +255,7 @@
                                                 <td class="action-links">
                                                     <a href="{{ route('user_setting', ['username' => $coder->username, 'id' => $coder->id]) }}"
                                                         class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                                        @lang('common.edit') Profile
+                                                        @lang('common.edit') @lang('user.profile')
                                                     </a>
                                                 </td>
                                             @endif
