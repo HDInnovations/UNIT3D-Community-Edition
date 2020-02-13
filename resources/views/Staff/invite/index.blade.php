@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.invites.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Invites Log</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.invites-log')</span>
         </a>
     </li>
 @endsection
@@ -24,24 +24,23 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <h2>Invites Log</h2>
+            <h2>@lang('staff.invites-log')</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Invites Sent <span class="text-blue"><strong><i
-                                    class="{{ config('other.font-awesome') }} fa-note"></i> {{ $invitecount }}
-                            </strong></span></h2>
+                    <h2><span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i>
+                        {{ $invitecount }} </strong></span>@lang('user.invites-send') </h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Sender</th>
-                                    <th>Email</th>
-                                    <th>Code</th>
-                                    <th>Created On</th>
-                                    <th>Expires On</th>
-                                    <th>Accepted By</th>
-                                    <th>Accepted At</th>
+                                    <th>@lang('user.sender')</th>
+                                    <th>@lang('common.email')</th>
+                                    <th>Token</th>
+                                    <th>@lang('user.created-on')</th>
+                                    <th>@lang('user.expires-on')</th>
+                                    <th>@lang('user.accepted-by')</th>
+                                    <th>@lang('user.accepted-at')</th>
                                 </tr>
                             </thead>
                             <tbody>
