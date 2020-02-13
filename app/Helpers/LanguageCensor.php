@@ -37,7 +37,7 @@ class LanguageCensor
             $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
             $last = ($pos + $length) < $string_length ? $string[$pos + $length] : ' ';
             if (self::isSpecial($prev) && self::isSpecial($last)) {
-                array_push($result, $pos);
+                $result[] = $pos;
             }
             $pos = stripos($string, $word, $pos + $length);
         }
