@@ -165,6 +165,7 @@ return [
   'topics' => 'موضوعات',
   'tracker-codes' => 'کدهای ردیاب',
   'type' => 'تایپ کنید',
+  'type-verb' => 'تایپ کنید',
   'types' => 'انواع',
   'genre' => 'ژانر',
   'genres' => 'ژانرها',

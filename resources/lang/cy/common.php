@@ -165,6 +165,7 @@ return [
   'topics' => 'Pynciau',
   'tracker-codes' => 'Codau olrhain',
   'type' => 'Math',
+  'type-verb' => 'Math',
   'types' => 'Mathau',
   'genre' => 'Genre',
   'genres' => 'Genres',

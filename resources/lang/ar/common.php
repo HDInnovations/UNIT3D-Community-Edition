@@ -165,6 +165,7 @@ return [
   'topics' => 'المواضيع',
   'tracker-codes' => 'رموز تعقب',
   'type' => 'نوع',
+  'type-verb' => 'نوع',
   'types' => 'أنواع',
   'genre' => 'نوع أدبي',
   'genres' => 'الجنس الأدبي',

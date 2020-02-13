@@ -165,6 +165,7 @@ return [
   'topics' => 'Temi',
   'tracker-codes' => 'Codici di monitoraggio',
   'type' => 'genere',
+  'type-verb' => 'genere',
   'types' => 'tipi',
   'genre' => 'Genere',
   'genres' => 'generi',

@@ -179,6 +179,7 @@ return [
     'topics'               => 'Topics',
     'tracker-codes'        => 'Tracker Codes',
     'type'                 => 'Type',
+    'type-verb'            => 'Type',
     'types'                => 'Types',
     'genre'                => 'Genre',
     'genres'               => 'Genres',

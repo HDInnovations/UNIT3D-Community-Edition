@@ -165,6 +165,7 @@ return [
   'topics' => 'Chủ đề',
   'tracker-codes' => 'Mã theo dõi',
   'type' => 'Kiểu',
+  'type-verb' => 'Kiểu',
   'types' => 'Các loại',
   'genre' => 'Thể loại',
   'genres' => 'Thể loại',

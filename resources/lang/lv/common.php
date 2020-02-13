@@ -165,6 +165,7 @@ return [
   'topics' => 'Tēmas',
   'tracker-codes' => 'Tracker kodi',
   'type' => 'Tips',
+  'type-verb' => 'Tips',
   'types' => 'Veidi',
   'genre' => 'Žanrs',
   'genres' => 'Žanri',

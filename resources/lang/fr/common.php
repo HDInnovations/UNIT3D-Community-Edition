@@ -165,6 +165,7 @@ return [
   'topics' => 'Sujets',
   'tracker-codes' => 'Codes de suivi',
   'type' => 'Type',
+  'type-verb' => 'Type',
   'types' => 'Types',
   'genre' => 'Genre',
   'genres' => 'Genres',

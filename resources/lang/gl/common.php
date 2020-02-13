@@ -165,6 +165,7 @@ return [
   'topics' => 'Temas',
   'tracker-codes' => 'Códigos de seguimento',
   'type' => 'Escriba',
+  'type-verb' => 'Escriba',
   'types' => 'Tipos',
   'genre' => 'Xénero',
   'genres' => 'Xéneros',

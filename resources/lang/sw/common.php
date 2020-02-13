@@ -165,6 +165,7 @@ return [
   'topics' => 'Mada',
   'tracker-codes' => 'Nambari za Tracker',
   'type' => 'Weka',
+  'type-verb' => 'Weka',
   'types' => 'Aina',
   'genre' => 'Aina',
   'genres' => 'Mitindo',

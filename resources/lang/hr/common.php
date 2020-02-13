@@ -165,6 +165,7 @@ return [
   'topics' => 'Teme',
   'tracker-codes' => 'Kodovi za praćenje',
   'type' => 'Tip',
+  'type-verb' => 'Tip',
   'types' => 'vrste',
   'genre' => 'Žanr',
   'genres' => 'Žanrovi',

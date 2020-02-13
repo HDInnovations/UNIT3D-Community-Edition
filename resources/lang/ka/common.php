@@ -165,6 +165,7 @@ return [
   'topics' => 'თემები',
   'tracker-codes' => 'ტრეკერის კოდები',
   'type' => 'ტიპი',
+  'type-verb' => 'ტიპი',
   'types' => 'სახეები',
   'genre' => 'ჟანრი',
   'genres' => 'ჟანრები',

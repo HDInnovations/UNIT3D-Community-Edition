@@ -165,6 +165,7 @@ return [
   'topics' => 'Témata',
   'tracker-codes' => 'Kódy kódů',
   'type' => 'Typ',
+  'type-verb' => 'Typ',
   'types' => 'Typy',
   'genre' => 'Žánr',
   'genres' => 'Žánry',

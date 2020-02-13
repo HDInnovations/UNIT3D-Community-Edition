@@ -165,6 +165,7 @@ return [
   'topics' => 'Теми',
   'tracker-codes' => 'Коди трекерів',
   'type' => 'Тип',
+  'type-verb' => 'Тип',
   'types' => 'Типи',
   'genre' => 'Жанр',
   'genres' => 'Жанри',

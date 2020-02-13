@@ -165,6 +165,7 @@ return [
   'topics' => 'Mövzular',
   'tracker-codes' => 'Tracker kodları',
   'type' => 'Tipi',
+  'type-verb' => 'Tipi',
   'types' => 'Türləri',
   'genre' => 'Janr',
   'genres' => 'Janrlar',

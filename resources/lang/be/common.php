@@ -165,6 +165,7 @@ return [
   'topics' => 'тэмы',
   'tracker-codes' => 'Tracker коды',
   'type' => 'тып',
+  'type-verb' => 'тып',
   'types' => 'тыпы',
   'genre' => 'жанр',
   'genres' => 'жанры',

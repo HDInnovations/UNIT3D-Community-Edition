@@ -165,6 +165,7 @@ return [
   'topics' => 'Мавзӯъҳо',
   'tracker-codes' => 'Рамзҳои Tracker',
   'type' => 'Намуди',
+  'type-verb' => 'Намуди',
   'types' => 'Намудҳо',
   'genre' => 'Ҷаннат',
   'genres' => 'Забҳо',

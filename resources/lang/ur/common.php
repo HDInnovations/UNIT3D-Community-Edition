@@ -165,6 +165,7 @@ return [
   'topics' => 'عنوانات',
   'tracker-codes' => 'ٹریکر کوڈ',
   'type' => 'ٹائپ کریں',
+  'type-verb' => 'ٹائپ کریں',
   'types' => 'اقسام',
   'genre' => 'نوع',
   'genres' => 'جینیں',

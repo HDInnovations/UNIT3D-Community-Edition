@@ -165,6 +165,7 @@ return [
   'topics' => 'Başlıklar',
   'tracker-codes' => 'İzleyici kodları',
   'type' => 'tip',
+  'type-verb' => 'tip',
   'types' => 'Türleri',
   'genre' => 'Tür',
   'genres' => 'Türler',

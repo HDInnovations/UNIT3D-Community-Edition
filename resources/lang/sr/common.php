@@ -165,6 +165,7 @@ return [
   'topics' => 'Теме',
   'tracker-codes' => 'Трацкер цодес',
   'type' => 'Тип',
+  'type-verb' => 'Тип',
   'types' => 'Врсте',
   'genre' => 'Генре',
   'genres' => 'Жанрови',

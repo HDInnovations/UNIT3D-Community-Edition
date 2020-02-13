@@ -165,6 +165,7 @@ return [
   'topics' => 'aiheista',
   'tracker-codes' => 'Tracker-koodit',
   'type' => 'Tyyppi',
+  'type-verb' => 'Tyyppi',
   'types' => 'Tyypit',
   'genre' => 'laji',
   'genres' => 'tyylilajit',

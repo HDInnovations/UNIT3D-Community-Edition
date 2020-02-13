@@ -165,6 +165,7 @@ return [
   'topics' => 'টপিক',
   'tracker-codes' => 'ট্র্যাকার কোড',
   'type' => 'আদর্শ',
+  'type-verb' => 'আদর্শ',
   'types' => 'প্রকারভেদ',
   'genre' => 'রীতি',
   'genres' => 'জেনার',

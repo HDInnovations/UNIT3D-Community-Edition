@@ -165,6 +165,7 @@ return [
   'topics' => 'Themen',
   'tracker-codes' => 'Tracker-Codes',
   'type' => 'Art',
+  'type-verb' => 'Art',
   'types' => 'Typen',
   'genre' => 'Genre',
   'genres' => 'Genres',

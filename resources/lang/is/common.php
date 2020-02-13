@@ -165,6 +165,7 @@ return [
   'topics' => 'Topics',
   'tracker-codes' => 'Tracker númer',
   'type' => 'Tegund',
+  'type-verb' => 'Tegund',
   'types' => 'Tegundir',
   'genre' => 'Tegund',
   'genres' => 'Tegundir',

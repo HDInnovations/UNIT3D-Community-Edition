@@ -165,6 +165,7 @@ return [
   'topics' => 'Mavzular',
   'tracker-codes' => 'Kuzatuvchi kodlari',
   'type' => 'Turi',
+  'type-verb' => 'Turi',
   'types' => 'Turlari',
   'genre' => 'Janr',
   'genres' => 'Janrlar',

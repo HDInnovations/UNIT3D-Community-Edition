@@ -165,6 +165,7 @@ return [
   'topics' => 'Subiecte',
   'tracker-codes' => 'Coduri de urmărire',
   'type' => 'Tip',
+  'type-verb' => 'Tip',
   'types' => 'Tipuri',
   'genre' => 'gen literar',
   'genres' => 'genuri',

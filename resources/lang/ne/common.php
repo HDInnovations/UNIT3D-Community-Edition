@@ -165,6 +165,7 @@ return [
   'topics' => 'विषयहरू',
   'tracker-codes' => 'ट्रयाक कोडहरू',
   'type' => 'टाइप गर्नुहोस्',
+  'type-verb' => 'टाइप गर्नुहोस्',
   'types' => 'प्रकारहरू',
   'genre' => 'शैली',
   'genres' => 'Genres',

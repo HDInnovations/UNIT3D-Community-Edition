@@ -165,6 +165,7 @@ return [
   'topics' => 'Temos',
   'tracker-codes' => '„Tracker“ kodai',
   'type' => 'Tipas',
+  'type-verb' => 'Tipas',
   'types' => 'Tipai',
   'genre' => 'Žanras',
   'genres' => 'Žanrai',

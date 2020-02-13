@@ -176,6 +176,7 @@ return [
   'topics' => 'Tópicos',
   'tracker-codes' => 'Códigos do rastreador',
   'type' => 'Tipo',
+  'type-verb' => 'Tipo',
   'types' => 'Tipos',
   'genre' => 'Gênero',
   'genres' => 'Gêneros',

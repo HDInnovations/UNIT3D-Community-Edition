@@ -165,6 +165,7 @@ return [
   'topics' => 'Тақырыптар',
   'tracker-codes' => 'Tracker кодтары',
   'type' => 'Түрі',
+  'type-verb' => 'Түрі',
   'types' => 'Түрлері',
   'genre' => 'Жанр',
   'genres' => 'Жанрлар',

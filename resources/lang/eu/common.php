@@ -165,6 +165,7 @@ return [
   'topics' => 'Gaiak',
   'tracker-codes' => 'Tracker kodeak',
   'type' => 'Mota',
+  'type-verb' => 'Mota',
   'types' => 'motak',
   'genre' => 'generoa',
   'genres' => 'generoak',

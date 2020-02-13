@@ -165,6 +165,7 @@ return [
   'topics' => 'Témakörök',
   'tracker-codes' => 'Tracker kódok',
   'type' => 'típus',
+  'type-verb' => 'típus',
   'types' => 'típusai',
   'genre' => 'Műfaj',
   'genres' => 'Műfajok',

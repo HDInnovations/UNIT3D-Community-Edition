@@ -165,6 +165,7 @@ return [
   'topics' => 'Topik',
   'tracker-codes' => 'Kode pelacak',
   'type' => 'Mengetik',
+  'type-verb' => 'Mengetik',
   'types' => 'Jenis',
   'genre' => 'Aliran',
   'genres' => 'Genre',

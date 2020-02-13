@@ -165,6 +165,7 @@ return [
   'topics' => 'หัวข้อ',
   'tracker-codes' => 'รหัสติดตาม',
   'type' => 'ชนิด',
+  'type-verb' => 'ชนิด',
   'types' => 'ประเภท',
   'genre' => 'ประเภท',
   'genres' => 'ประเภท',

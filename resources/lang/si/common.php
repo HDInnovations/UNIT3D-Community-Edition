@@ -165,6 +165,7 @@ return [
   'topics' => 'මාතෘකා',
   'tracker-codes' => 'ට්රැකර් කේත',
   'type' => 'වර්ගය',
+  'type-verb' => 'වර්ගය',
   'types' => 'වර්ග',
   'genre' => 'රංගනය',
   'genres' => 'ජනප්රියයි',

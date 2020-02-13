@@ -165,6 +165,7 @@ return [
   'topics' => 'Teemad',
   'tracker-codes' => 'Jälgija koodid',
   'type' => 'Tüüp',
+  'type-verb' => 'Tüüp',
   'types' => 'Tüübid',
   'genre' => 'Žanr',
   'genres' => 'Žanrid',

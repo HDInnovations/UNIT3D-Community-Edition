@@ -165,6 +165,7 @@ return [
   'topics' => 'Mga Paksa',
   'tracker-codes' => 'Mga code ng tracker',
   'type' => 'Uri',
+  'type-verb' => 'Uri',
   'types' => 'Mga Uri',
   'genre' => 'Genre',
   'genres' => 'Genres',

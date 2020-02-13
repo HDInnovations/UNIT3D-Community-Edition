@@ -165,6 +165,7 @@ return [
   'topics' => 'Tematy',
   'tracker-codes' => 'Kody śledzenia',
   'type' => 'Rodzaj',
+  'type-verb' => 'Rodzaj',
   'types' => 'Typy',
   'genre' => 'Gatunek muzyczny',
   'genres' => 'Gatunki',

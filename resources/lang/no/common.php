@@ -167,6 +167,7 @@ return [
   'topics' => 'Emner',
   'tracker-codes' => 'Tracker-koder',
   'type' => 'Type',
+  'type-verb' => 'Type',
   'types' => 'Typer',
   'genre' => 'Sjanger',
   'genres' => 'Sjangere',

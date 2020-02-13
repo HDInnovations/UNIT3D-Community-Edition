@@ -165,6 +165,7 @@ return [
   'topics' => 'Teme',
   'tracker-codes' => 'Kode sledenja',
   'type' => 'Vrsta',
+  'type-verb' => 'Vrsta',
   'types' => 'Vrste',
   'genre' => 'Žanr',
   'genres' => 'Žanri',

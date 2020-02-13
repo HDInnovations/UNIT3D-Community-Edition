@@ -165,6 +165,7 @@ return [
   'topics' => 'Теми',
   'tracker-codes' => 'Кодове за проследяване',
   'type' => 'Тип',
+  'type-verb' => 'Тип',
   'types' => 'Видове',
   'genre' => 'жанр',
   'genres' => 'Жанрове',

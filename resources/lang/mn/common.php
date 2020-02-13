@@ -165,6 +165,7 @@ return [
   'topics' => 'Сэдэвүүд',
   'tracker-codes' => 'Tracker код',
   'type' => 'Төрөл',
+  'type-verb' => 'Төрөл',
   'types' => 'Төрөл',
   'genre' => 'Төрөл',
   'genres' => 'Genres',

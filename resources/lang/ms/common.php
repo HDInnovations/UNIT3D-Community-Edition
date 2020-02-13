@@ -165,6 +165,7 @@ return [
   'topics' => 'Topik',
   'tracker-codes' => 'Kod Tracker',
   'type' => 'Taipkan',
+  'type-verb' => 'Taipkan',
   'types' => 'Jenis',
   'genre' => 'Genre',
   'genres' => 'Genre',

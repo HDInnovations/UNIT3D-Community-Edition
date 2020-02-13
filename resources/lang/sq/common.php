@@ -165,6 +165,7 @@ return [
   'topics' => 'Temat',
   'tracker-codes' => 'Kodet Tracker',
   'type' => 'lloj',
+  'type-verb' => 'lloj',
   'types' => 'Llojet',
   'genre' => 'gjini',
   'genres' => 'zhanret',

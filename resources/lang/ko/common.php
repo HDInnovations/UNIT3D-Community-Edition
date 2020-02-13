@@ -165,6 +165,7 @@ return [
   'topics' => '토픽',
   'tracker-codes' => '추적 코드',
   'type' => '유형',
+  'type-verb' => '유형',
   'types' => '유형',
   'genre' => '유형',
   'genres' => '장르',

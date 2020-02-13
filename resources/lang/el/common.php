@@ -165,6 +165,7 @@ return [
   'topics' => 'Θέματα',
   'tracker-codes' => 'Κωδικοί παρακολούθησης',
   'type' => 'Τύπος',
+  'type-verb' => 'Τύπος',
   'types' => 'Τύποι',
   'genre' => 'Είδος',
   'genres' => 'Genres',

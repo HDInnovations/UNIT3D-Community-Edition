@@ -165,6 +165,7 @@ return [
   'topics' => 'トピック',
   'tracker-codes' => 'トラッカーコード',
   'type' => 'タイプ',
+  'type-verb' => 'タイプ',
   'types' => 'タイプ',
   'genre' => 'ジャンル',
   'genres' => 'ジャンル',

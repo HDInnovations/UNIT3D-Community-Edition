@@ -165,6 +165,7 @@ return [
   'topics' => 'Temas',
   'tracker-codes' => 'Códigos de seguimiento',
   'type' => 'Tipo',
+  'type-verb' => 'Tipo',
   'types' => 'Tipos',
   'genre' => 'Género',
   'genres' => 'Géneros',

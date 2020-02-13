@@ -165,6 +165,7 @@ return [
   'topics' => 'विषय',
   'tracker-codes' => 'ट्रैकर कोड',
   'type' => 'प्रकार',
+  'type-verb' => 'प्रकार',
   'types' => 'प्रकार',
   'genre' => 'शैली',
   'genres' => 'शैलियां',

@@ -165,6 +165,7 @@ return [
   'topics' => 'ប្រធានបទ',
   'tracker-codes' => 'លេខកូដតាមដាន',
   'type' => 'វាយ',
+  'type-verb' => 'វាយ',
   'types' => 'ប្រភេទ',
   'genre' => 'ប្រភេទ',
   'genres' => 'ប្រភេទ',
