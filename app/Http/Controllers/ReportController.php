@@ -121,7 +121,7 @@ class ReportController extends Controller
      */
     public function user(Request $request, $username)
     {
-        $reported_user = User::where('username','=',$username)->firstOrFail();
+        $reported_user = User::where('username', '=', $username)->firstOrFail();
         $reported_by = $request->user();
 
         $v = validator($request->all(), [
