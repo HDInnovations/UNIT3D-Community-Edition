@@ -303,9 +303,8 @@ class MediaInfo
     private function parseBitRate($string)
     {
         $string = str_replace(' ', '', strtolower($string));
-        $string = str_replace('kbps', ' kbps', $string);
 
-        return $string;
+        return str_replace('kbps', ' kbps', $string);
     }
 
     private function parseWidthHeight($string)

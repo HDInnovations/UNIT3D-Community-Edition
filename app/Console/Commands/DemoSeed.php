@@ -121,9 +121,7 @@ class DemoSeed extends Command
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
-        $meta = $client->scrape('movie', null, $id);
-
-        return $meta;
+        return $client->scrape('movie', null, $id);
     }
 
     private function ids()

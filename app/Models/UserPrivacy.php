@@ -167,9 +167,7 @@ class UserPrivacy extends Model
      */
     public function getExpectedGroupsAttribute()
     {
-        $expected_groups = ['default_groups' => ['1' => 0]];
-
-        return $expected_groups;
+        return ['default_groups' => ['1' => 0]];
     }
 
     /**
@@ -179,9 +177,7 @@ class UserPrivacy extends Model
      */
     public function getExpectedFieldsAttribute()
     {
-        $expected_fields = [];
-
-        return $expected_fields;
+        return [];
     }
 
     /**

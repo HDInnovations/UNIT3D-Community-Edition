@@ -36,15 +36,13 @@ class OmdbClient extends Client implements MovieTvInterface
 
         $result = $this->toArray($this->request($url));
         if (isset($result['Response']) && $result['Response'] == 'True') {
-            $result = array_map(function ($value) {
+            return array_map(function ($value) {
                 if ($value == 'N/A') {
                     return;
                 }
 
                 return $value;
             }, $result);
-
-            return $result;
         }
     }
 
