@@ -65,7 +65,7 @@ class AutoPreWarning extends Command
                         $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
 
                         // Send Private Message
-                            $pm = new PrivateMessage();
+                        $pm = new PrivateMessage();
                         $pm->sender_id = 1;
                         $pm->receiver_id = $pre->user->id;
                         $pm->subject = 'Hit and Run Warning Incoming';
@@ -75,7 +75,7 @@ class AutoPreWarning extends Command
                         $pm->save();
 
                         // Set History Prewarn
-                            $pre->prewarn = 1;
+                        $pre->prewarn = 1;
                         $pre->save();
                     }
                 }
