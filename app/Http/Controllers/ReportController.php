@@ -119,9 +119,9 @@ class ReportController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function user(Request $request, $username, int $id)
+    public function user(Request $request, $username)
     {
-        $reported_user = User::findOrFail($id);
+        $reported_user = User::where('username','=',$username)->firstOrFail();
         $reported_by = $request->user();
 
         $v = validator($request->all(), [
