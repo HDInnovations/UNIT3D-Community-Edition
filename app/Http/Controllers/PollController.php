@@ -64,7 +64,7 @@ class PollController extends Controller
         $user_has_voted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
-            return redirect('polls/' . $poll->slug . '/result')
+            return redirect('polls/'.$poll->slug.'/result')
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
 
@@ -85,7 +85,7 @@ class PollController extends Controller
 
         // Extract the logic to function validateVoter()
         if (!$this->validateVoter($request, $user, $poll)) {
-            return redirect('polls/' . $poll->slug . '/result')
+            return redirect('polls/'.$poll->slug.'/result')
                 ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
         }
 
@@ -108,7 +108,7 @@ class PollController extends Controller
             "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
         );
 
-        return redirect('polls/' . $poll->slug . '/result')
+        return redirect('polls/'.$poll->slug.'/result')
             ->withSuccess('Your vote has been counted.');
     }
 
@@ -123,7 +123,7 @@ class PollController extends Controller
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
         $map = [
-            'poll' => $poll,
+            'poll'        => $poll,
             'total_votes' => $poll->totalVotes(),
         ];
 
@@ -131,10 +131,9 @@ class PollController extends Controller
     }
 
     /**
-     * Check If Voter Validated
+     * Check If Voter Validated.
      *
      * @param VoteOnPoll $request
-     *
      * @param $user
      * @param Poll $poll
      *
