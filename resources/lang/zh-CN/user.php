@@ -14,7 +14,6 @@
 return [
     'about'                     => '关于',
     'about-me'                  => '自我介绍（不超过500字符！）',
-    'about-me'                  => '关于',
     'accepted-at'               => '审核于',
     'accepted-by'               => '审核者',
     'account-notification'      => '帐户通知设定',

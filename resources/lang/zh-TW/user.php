@@ -14,7 +14,6 @@
 return [
     'about'                     => '關於',
     'about-me'                  => '自我簡介 (上限500字元!)',
-    'about-me'                  => '關於',
     'accepted-at'               => '批核於',
     'accepted-by'               => '批核者',
     'account-notification'      => '帳戶通知設定',
