@@ -196,7 +196,7 @@ return [
     'top-dying'                => '急需保种',
     'top-leeched'              => '吸血排名',
     'top-seeded'               => '最健康',
-    'torrent'                  => '资源',
+    'torrent'                  => '种子',
     'torrent-request'          => '悬赏',
     'torrent-tips'             => '总共奖给了 <span class="text-red text-bold">:total</span> 魔力, 其中 <span class="text-red text-bold">:user</span> 由你打赏',
     'torrent-tips-desc'        => '你的魔力将被扣除',
