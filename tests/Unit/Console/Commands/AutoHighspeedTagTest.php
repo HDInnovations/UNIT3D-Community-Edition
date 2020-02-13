@@ -3,8 +3,6 @@
 namespace Tests\Unit\Console\Commands;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * @see \App\Console\Commands\AutoHighspeedTag
@@ -25,4 +23,3 @@ class AutoHighspeedTagTest extends TestCase
         // TODO: perform additional assertions to ensure the command behaved as expected
     }
 }
-
