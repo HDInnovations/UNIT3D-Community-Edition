@@ -38,7 +38,7 @@ return [
     'pages'                   => '站內規則',
     'please-moderate'         => '請審批此資源!',
     'polls'                   => '投票',
-    'reports-log'             => '報告日誌',
+    'reports-log'             => '舉報日誌',
     'rss'                     => 'RSS',
     'staff-dashboard'         => '工作人員控制台',
     'torrent-categories'      => '資源類別',

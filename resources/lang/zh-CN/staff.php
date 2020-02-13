@@ -49,7 +49,7 @@ return [
     'please-moderate'         => '请审批此资源！',
     'polls'                   => '投票',
     'possible-leech-cheaters' => '作弊嫌疑者',
-    'reports-log'             => '报告日志',
+    'reports-log'             => '举报日志',
     'rooms'                   => '聊天室',
     'rss'                     => 'RSS',
     'seedboxes'               => '登记盒子',
