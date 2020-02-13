@@ -7304,6 +7304,44 @@
             "time": "2016-01-20T08:20:44+00:00"
         },
         {
+            "name": "jasonmccreary/laravel-test-assertions",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
+                "reference": "a53b94e8d43dfcd913756427c937e03b99b5de12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/a53b94e8d43dfcd913756427c937e03b99b5de12",
+                "reference": "a53b94e8d43dfcd913756427c937e03b99b5de12",
+                "shasum": ""
+            },
+            "require": {
+                "mockery/mockery": "^1.0",
+                "php": ">=7.2",
+                "phpunit/phpunit": "^7.5|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JMac\\Testing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason McCreary",
+                    "email": "jason@pureconcepts.net"
+                }
+            ],
+            "description": "A set of helpful assertions when testing Laravel applications.",
+            "time": "2020-01-03T14:22:22+00:00"
+        },
+        {
             "name": "jean85/pretty-package-versions",
             "version": "1.2",
             "source": {
@@ -7477,6 +7515,52 @@
                 "testing"
             ],
             "time": "2019-12-26T09:49:15+00:00"
+        },
+        {
+            "name": "mpociot/laravel-test-factory-helper",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpociot/laravel-test-factory-helper.git",
+                "reference": "cae981ca2be738e964d3f1f66bad178dcebdb9f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpociot/laravel-test-factory-helper/zipball/cae981ca2be738e964d3f1f66bad178dcebdb9f4",
+                "reference": "cae981ca2be738e964d3f1f66bad178dcebdb9f4",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "~2.3",
+                "illuminate/console": "^5.5|^6.0",
+                "illuminate/filesystem": "^5.5|^6.0",
+                "illuminate/support": "^5.5|^6.0",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mpociot\\LaravelTestFactoryHelper\\TestFactoryHelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mpociot\\LaravelTestFactoryHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generate Laravel test factories from your existing models",
+            "keywords": [
+                "factory",
+                "laravel",
+                "tests"
+            ],
+            "time": "2019-12-02T13:47:48+00:00"
         },
         {
             "name": "myclabs/deep-copy",
