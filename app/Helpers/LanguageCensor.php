@@ -63,7 +63,7 @@ class LanguageCensor
             $indexes = self::matchWordIndexes($source, $word);
             $ignore = 0;
             for ($i = 0; $i < $length; $i++) {
-                if (count($indexes) > 0 && $indexes[0] == $i) {
+                if ((is_countable($indexes) ? count($indexes) : 0) > 0 && $indexes[0] == $i) {
                     $match = substr($source, $indexes[0], $word_length);
                     $result .= "<span class='censor'>{$match}</span>";
                     $ignore = $word_length - 1;
