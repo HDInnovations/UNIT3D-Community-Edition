@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Om oss',
   'account' => 'Konto',
   'achievement-title' => 'Rått',
@@ -105,6 +106,7 @@ return [
   'name' => 'Navn',
   'navigation' => 'Navigasjon',
   'new' => 'Ny!',
+  'new-adj' => 'Ny',
   'news' => 'Nyheter',
   'next' => 'Neste',
   'no' => 'Nei',
@@ -167,6 +169,7 @@ return [
   'topics' => 'Emner',
   'tracker-codes' => 'Tracker-koder',
   'type' => 'Type',
+  'type-verb' => 'Type',
   'types' => 'Typer',
   'genre' => 'Sjanger',
   'genres' => 'Sjangere',

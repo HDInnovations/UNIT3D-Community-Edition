@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Бидний тухай',
   'account' => 'Данс',
   'achievement-title' => 'Гайхалтай',
@@ -105,6 +106,7 @@ return [
   'name' => 'Нэр',
   'navigation' => 'Хөтөч',
   'new' => 'Шинэ!',
+  'new-adj' => 'Шинэ',
   'news' => 'Мэдээ мэдээлэл',
   'next' => 'Дараачийн',
   'no' => 'Үгүй',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Сэдэвүүд',
   'tracker-codes' => 'Tracker код',
   'type' => 'Төрөл',
+  'type-verb' => 'Төрөл',
   'types' => 'Төрөл',
   'genre' => 'Төрөл',
   'genres' => 'Genres',

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Σχετικά με εμάς',
   'account' => 'λογαριασμός',
   'achievement-title' => 'Φοβερός',
@@ -105,6 +106,7 @@ return [
   'name' => 'Ονομα',
   'navigation' => 'Πλοήγηση',
   'new' => 'Νέος!',
+  'new-adj' => 'Νέος',
   'news' => 'Νέα',
   'next' => 'Επόμενο',
   'no' => 'Οχι',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Θέματα',
   'tracker-codes' => 'Κωδικοί παρακολούθησης',
   'type' => 'Τύπος',
+  'type-verb' => 'Τύπος',
   'types' => 'Τύποι',
   'genre' => 'Είδος',
   'genres' => 'Genres',

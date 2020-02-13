@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Пра нас',
   'account' => 'рахункі',
   'achievement-title' => 'страшэнны',
@@ -105,6 +106,7 @@ return [
   'name' => 'імя',
   'navigation' => 'рух',
   'new' => 'Новы!',
+  'new-adj' => 'Новы',
   'news' => 'навіны',
   'next' => 'наступны',
   'no' => 'няма',
@@ -165,6 +167,7 @@ return [
   'topics' => 'тэмы',
   'tracker-codes' => 'Tracker коды',
   'type' => 'тып',
+  'type-verb' => 'тып',
   'types' => 'тыпы',
   'genre' => 'жанр',
   'genres' => 'жанры',

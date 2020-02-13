@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Дар бораи мо',
   'account' => 'Ҳисоб',
   'achievement-title' => 'Хушбахтона',
@@ -105,6 +106,7 @@ return [
   'name' => 'Ном',
   'navigation' => 'Навигатсия',
   'new' => 'Нав!',
+  'new-adj' => 'Нав',
   'news' => 'Хабарҳо',
   'next' => 'Баъдӣ',
   'no' => 'Не',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Мавзӯъҳо',
   'tracker-codes' => 'Рамзҳои Tracker',
   'type' => 'Намуди',
+  'type-verb' => 'Намуди',
   'types' => 'Намудҳо',
   'genre' => 'Ҷаннат',
   'genres' => 'Забҳо',

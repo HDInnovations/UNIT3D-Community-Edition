@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Về chúng tôi',
   'account' => 'Tài khoản',
   'achievement-title' => 'Tuyệt vời',
@@ -105,6 +106,7 @@ return [
   'name' => 'Tên',
   'navigation' => 'dẫn đường',
   'new' => 'Mới!',
+  'new-adj' => 'Mới',
   'news' => 'Tin tức',
   'next' => 'Kế tiếp',
   'no' => 'Không',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Chủ đề',
   'tracker-codes' => 'Mã theo dõi',
   'type' => 'Kiểu',
+  'type-verb' => 'Kiểu',
   'types' => 'Các loại',
   'genre' => 'Thể loại',
   'genres' => 'Thể loại',

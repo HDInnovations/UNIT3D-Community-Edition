@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Guri buruz',
   'account' => 'Kontu-',
   'achievement-title' => 'awesome',
@@ -105,6 +106,7 @@ return [
   'name' => 'izena',
   'navigation' => 'Itsasketa',
   'new' => 'New!',
+  'new-adj' => 'New',
   'news' => 'Berriak',
   'next' => 'hurrengo',
   'no' => 'Ez',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Gaiak',
   'tracker-codes' => 'Tracker kodeak',
   'type' => 'Mota',
+  'type-verb' => 'Mota',
   'types' => 'motak',
   'genre' => 'generoa',
   'genres' => 'generoak',

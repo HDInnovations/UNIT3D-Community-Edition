@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Meistä',
   'account' => 'Tili',
   'achievement-title' => 'Mahtava',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nimi',
   'navigation' => 'suunnistus',
   'new' => 'Uusi!',
+  'new-adj' => 'Uusi',
   'news' => 'Uutiset',
   'next' => 'Seuraava',
   'no' => 'Ei',
@@ -165,6 +167,7 @@ return [
   'topics' => 'aiheista',
   'tracker-codes' => 'Tracker-koodit',
   'type' => 'Tyyppi',
+  'type-verb' => 'Tyyppi',
   'types' => 'Tyypit',
   'genre' => 'laji',
   'genres' => 'tyylilajit',

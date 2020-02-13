@@ -16,7 +16,11 @@
 @section('content')
     <div class="container box">
         <h2>@lang('common.types')</h2>
-        <a href="{{ route('staff.types.create') }}" class="btn btn-primary">Add A Torrent Type</a>
+        <a href="{{ route('staff.types.create') }}" class="btn btn-primary">
+            @lang('common.add')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('common.type')
+        </a>
     
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">

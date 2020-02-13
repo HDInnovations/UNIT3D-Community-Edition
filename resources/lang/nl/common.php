@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Over ons',
   'account' => 'Account',
   'achievement-title' => 'Geweldig',
@@ -105,6 +106,7 @@ return [
   'name' => 'Naam',
   'navigation' => 'Navigatie',
   'new' => 'Nieuwe!',
+  'new-adj' => 'Nieuwe',
   'news' => 'Nieuws',
   'next' => 'volgende',
   'no' => 'Nee',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Onderwerpen',
   'tracker-codes' => 'Trackercodes',
   'type' => 'Type',
+  'type-verb' => 'Type',
   'types' => 'Types',
   'genre' => 'Genre',
   'genres' => 'Genres',

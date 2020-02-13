@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Tentang kita',
   'account' => 'Akaun',
   'achievement-title' => 'Awesome',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nama',
   'navigation' => 'Navigasi',
   'new' => 'Baru!',
+  'new-adj' => 'Baru',
   'news' => 'Berita',
   'next' => 'Seterusnya',
   'no' => 'Tidak',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Topik',
   'tracker-codes' => 'Kod Tracker',
   'type' => 'Taipkan',
+  'type-verb' => 'Taipkan',
   'types' => 'Jenis',
   'genre' => 'Genre',
   'genres' => 'Genre',

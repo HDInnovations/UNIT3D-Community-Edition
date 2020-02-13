@@ -12,7 +12,7 @@
     </li>
     <li>
         <a href="{{ route('poll', ['slug' => $poll->slug]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.poll')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $poll->slug }}</span>
         </a>
     </li>
 @endsection

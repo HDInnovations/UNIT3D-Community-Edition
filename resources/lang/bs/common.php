@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'O nama',
   'account' => 'Račun',
   'achievement-title' => 'Awesome',
@@ -105,6 +106,7 @@ return [
   'name' => 'Ime',
   'navigation' => 'Navigacija',
   'new' => 'Novo!',
+  'new-adj' => 'Novo',
   'news' => 'Novosti',
   'next' => 'Sledeće',
   'no' => 'Ne',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Teme',
   'tracker-codes' => 'Tracker kodovi',
   'type' => 'Tip',
+  'type-verb' => 'Tip',
   'types' => 'Vrste',
   'genre' => 'Žanr',
   'genres' => 'Žanrovi',

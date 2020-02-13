@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.bans.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Bans</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.bans-log')</span>
         </a>
     </li>
 @endsection
@@ -24,22 +24,24 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>@lang('common.user') Bans</h2>
+            <h2>@lang('common.user') @lang('user.bans')</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-ban"></i> Bans</strong></p>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-ban"></i>
+                        @lang('user.bans')
+                        </strong></p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>@lang('common.user')</th>
-                                    <th>Judge</th>
-                                    <th>Ban Reason</th>
-                                    <th>Unban Reason</th>
-                                    <th>Created</th>
-                                    <th>Removed</th>
+                                    <th>@lang('user.judge')</th>
+                                    <th>@lang('user.reason-ban')</th>
+                                    <th>@lang('user.reason-unban')</th>
+                                    <th>@lang('user.created')</th>
+                                    <th>@lang('user.removed')</th>
                                 </tr>
                             </thead>
                             <tbody>

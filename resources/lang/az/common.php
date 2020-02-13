@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Bizim haqqımızda',
   'account' => 'Hesab',
   'achievement-title' => 'Awesome',
@@ -105,6 +106,7 @@ return [
   'name' => 'Adı',
   'navigation' => 'Naviqasiya',
   'new' => 'Yeni!',
+  'new-adj' => 'Yeni',
   'news' => 'Xəbərlər',
   'next' => 'İrəli',
   'no' => 'Yox',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Mövzular',
   'tracker-codes' => 'Tracker kodları',
   'type' => 'Tipi',
+  'type-verb' => 'Tipi',
   'types' => 'Türləri',
   'genre' => 'Janr',
   'genres' => 'Janrlar',

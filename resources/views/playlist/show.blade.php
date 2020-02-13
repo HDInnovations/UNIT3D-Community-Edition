@@ -273,8 +273,8 @@
 					<form role="form" method="POST" action="{{ route('comment_playlist', ['id' => $playlist->id]) }}">
 						@csrf
 						<div class="form-group">
-							<label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')
-                        <strong>:</strong> @lang('common.for') emoji</span> <span
+							<label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type-verb')
+                        <strong>":"</strong> @lang('common.for') emoji</span> <span
 									class="badge-extra">BBCode @lang('common.is-allowed')</span>
 							<textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
 						</div>

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Meist',
   'account' => 'Konto',
   'achievement-title' => 'Vinge',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nimi',
   'navigation' => 'Navigeerimine',
   'new' => 'Uus!',
+  'new-adj' => 'Uus',
   'news' => 'Uudised',
   'next' => 'Järgmine',
   'no' => 'Ei',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Teemad',
   'tracker-codes' => 'Jälgija koodid',
   'type' => 'Tüüp',
+  'type-verb' => 'Tüüp',
   'types' => 'Tüübid',
   'genre' => 'Žanr',
   'genres' => 'Žanrid',

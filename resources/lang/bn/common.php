@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'আমাদের সম্পর্কে',
   'account' => 'হিসাব',
   'achievement-title' => 'অসাধারণ',
@@ -105,6 +106,7 @@ return [
   'name' => 'নাম',
   'navigation' => 'ন্যাভিগেশন',
   'new' => 'নতুন',
+  'new-adj' => 'নতুন',
   'news' => 'খবর',
   'next' => 'পরবর্তী',
   'no' => 'না',
@@ -165,6 +167,7 @@ return [
   'topics' => 'টপিক',
   'tracker-codes' => 'ট্র্যাকার কোড',
   'type' => 'আদর্শ',
+  'type-verb' => 'আদর্শ',
   'types' => 'প্রকারভেদ',
   'genre' => 'রীতি',
   'genres' => 'জেনার',

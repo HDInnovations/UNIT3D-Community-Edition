@@ -8,22 +8,24 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.rooms.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Chat Rooms</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.chat-rooms')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Chat Rooms</h2>
+        <h2>@lang('common.chat-rooms')</h2>
     
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addChatroom">Add New Chatroom</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addChatroom">
+            @lang('common.add') @lang('common.chat-room')
+        </button>
         <div id="addChatroom" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dark">
                 <div class="modal-content">
     
                     <div class="modal-header" style="text-align: center;">
-                        <h3>Add Chatroom</h3>
+                        <h3>@lang('common.add') @lang('common.chat-room')</h3>
                     </div>
     
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.rooms.store') }}">

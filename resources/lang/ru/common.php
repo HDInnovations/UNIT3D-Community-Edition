@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Насчет нас',
   'account' => 'учетная запись',
   'achievement-title' => 'Потрясающие',
@@ -105,6 +106,7 @@ return [
   'name' => 'название',
   'navigation' => 'навигация',
   'new' => 'Новый!',
+  'new-adj' => 'Новый',
   'news' => 'Новости',
   'next' => 'следующий',
   'no' => 'нет',
@@ -165,6 +167,7 @@ return [
   'topics' => 'темы',
   'tracker-codes' => 'Коды трекера',
   'type' => 'Тип',
+  'type-verb' => 'Тип',
   'types' => 'Типы',
   'genre' => 'Жанр',
   'genres' => 'Жанры',

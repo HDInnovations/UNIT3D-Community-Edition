@@ -16,13 +16,13 @@
     </li>
     <li>
         <a href="{{ route('staff.applications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Applications</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.applications')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.applications.show', ['id' => $application->id]) }}" itemprop="url"
             class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Application</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.applications')</span>
         </a>
     </li>
 @endsection
@@ -35,7 +35,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <strong>Email</strong>
+                                <strong>@lang('common.email')</strong>
                             </td>
                             <td>
                                 {{ $application->email }}
@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>Type</strong>
+                                <strong>@lang('staff.application-type')</strong>
                             </td>
                             <td>
                                 {{ $application->type }}
@@ -51,7 +51,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>Created On</strong>
+                                <strong>@lang('common.created_at')</strong>
                             </td>
                             <td>
                                 {{ $application->created_at->toDayDateTimeString() }}
@@ -60,28 +60,28 @@
                         </tr>
                         <tr>
                             <td class="col-md-2">
-                                <strong>Profile Images<br>(Click For Preview)</strong>
+                                <strong>@lang('staff.application-image-proofs')</strong>
                             </td>
                             <td>
                                 @foreach($application->imageProofs as $key => $img_proof)
                                     <a href="{{ $img_proof->image }}" target="_blank"><button type="button"
-                                            class="btn btn-sm btn-info">Profile Image {{ ++$key }}</button></a>
+                                            class="btn btn-sm btn-info">@lang('staff.application-image-proofs') {{ ++$key }}</button></a>
                                 @endforeach
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>Profile Links<br>(Click For Popup)</strong>
+                                <strong>@lang('user.profile') @lang('staff.links')</strong>
                             </td>
                             <td>
                                 @foreach($application->urlProofs as $key => $url_proof)
-                                    <li><a href="{{ $url_proof->url }}" target="_blank">Profile Link {{ ++$key }}</a></li>
+                                    <li><a href="{{ $url_proof->url }}" target="_blank">@lang('user.profile') @lang('staff.links') {{ ++$key }}</a></li>
                                 @endforeach
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <strong>Referrer</strong>
+                                <strong>@lang('staff.application-referrer')</strong>
                             </td>
                             <td>
                                 <div class="form-group">
@@ -94,22 +94,22 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>Status</strong>
+                                <strong>@lang('common.status')</strong>
                             </td>
                             <td>
                                 @if ($application->status == 0)
-                                    <span class="text-warning">PENDING</span>
+                                    <span class="text-warning">@lang('request.pending')</span>
                                 @elseif ($application->status == 1)
-                                    <span class="text-success">APPROVED</span>
+                                    <span class="text-success">@lang('request.approve')</span>
                                 @else
-                                    <span class="text-danger">REJECTED</span>
+                                    <span class="text-danger">@lang('request.reject')</span>
                                 @endif
                             </td>
                         </tr>
                         @if($application->status != 0)
                             <tr>
                                 <td>
-                                    <strong>Moderated By</strong>
+                                    <strong>@lang('common.moderated-by')</strong>
                                 </td>
                                 <td>{{ $application->moderated->username }}</td>
                             </tr>
@@ -121,8 +121,8 @@
                                 <td>
                                     <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
                                         data-target="#approve-application"><i
-                                            class="{{ config('other.font-awesome') }} fa-check"></i> Approve</button>
-        
+                                            class="{{ config('other.font-awesome') }} fa-check"></i> @lang('request.approve')</button>
+
                                     <div id="approve-application" class="modal fade" role="dialog">
                                         <form method="POST"
                                             action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
@@ -132,7 +132,11 @@
                                                     <div class="modal-header">
                                                         <button type="button" class="close"
                                                             data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title">Approve This Application</h4>
+                                                        <h4 class="modal-title">
+                                                            @lang('request.approve')
+                                                            @lang('common.this')
+                                                            @lang('staff.application')
+                                                        </h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <input id="email" name="email" type="hidden"
@@ -141,24 +145,26 @@
                                                             <label for="message">@lang('common.message')</label>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="approve"></label><textarea class="form-control" rows="5"
-                                                                cols="50" name="approve" id="approve"></textarea>
+                                                            <label for="approve"></label><textarea class="form-control"
+                                                                   rows="5" cols="50" name="approve" id="approve">
+                                                            </textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-success" type="submit">
-                                                            <i class="{{ config('other.font-awesome') }} fa-check"></i> Approve
+                                                            <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                                                            @lang('request.approve')
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
-        
+
                                     <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
                                         data-target="#deny-application"><i
-                                            class="{{ config('other.font-awesome') }} fa-times"></i> Reject</button>
-        
+                                            class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.reject')</button>
+
                                     <div id="deny-application" class="modal fade" role="dialog">
                                         <form method="POST"
                                             action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
@@ -168,7 +174,11 @@
                                                     <div class="modal-header">
                                                         <button type="button" class="close"
                                                             data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title">Deny This Application</h4>
+                                                        <h4 class="modal-title">
+                                                            @lang('request.reject')
+                                                            @lang('common.this')
+                                                            @lang('staff.application')
+                                                        </h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <input id="email" name="email" type="hidden"
@@ -183,14 +193,15 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-danger" type="submit">
-                                                            <i class="{{ config('other.font-awesome') }} fa-times"></i> Reject
+                                                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                                                            @lang('request.reject')
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
-        
+
                                 </td>
                             </tr>
                         @endif

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'ہمارے بارے میں',
   'account' => 'اکاؤنٹ',
   'achievement-title' => 'خوفناک',
@@ -105,6 +106,7 @@ return [
   'name' => 'نام',
   'navigation' => 'سمت شناسی',
   'new' => 'نئی!',
+  'new-adj' => 'نئی',
   'news' => 'خبریں',
   'next' => 'اگلے',
   'no' => 'نہیں',
@@ -165,6 +167,7 @@ return [
   'topics' => 'عنوانات',
   'tracker-codes' => 'ٹریکر کوڈ',
   'type' => 'ٹائپ کریں',
+  'type-verb' => 'ٹائپ کریں',
   'types' => 'اقسام',
   'genre' => 'نوع',
   'genres' => 'جینیں',

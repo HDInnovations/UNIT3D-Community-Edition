@@ -12,15 +12,17 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.articles.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Articles</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.articles')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Articles</h2>
-        <a href="{{ route('staff.articles.create') }}" class="btn btn-primary">Add An Article</a>
+        <h2>@lang('staff.articles')</h2>
+        <a href="{{ route('staff.articles.create') }}" class="btn btn-primary">
+            @lang('common.add') @lang('staff.articles')
+        </a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>

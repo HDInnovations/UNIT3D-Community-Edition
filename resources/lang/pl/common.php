@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'O nas',
   'account' => 'Konto',
   'achievement-title' => 'Niesamowite',
@@ -105,6 +106,7 @@ return [
   'name' => 'Imię',
   'navigation' => 'Nawigacja',
   'new' => 'Nowy!',
+  'new-adj' => 'Nowy',
   'news' => 'Wiadomości',
   'next' => 'Kolejny',
   'no' => 'Nie',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Tematy',
   'tracker-codes' => 'Kody śledzenia',
   'type' => 'Rodzaj',
+  'type-verb' => 'Rodzaj',
   'types' => 'Typy',
   'genre' => 'Gatunek muzyczny',
   'genres' => 'Gatunki',

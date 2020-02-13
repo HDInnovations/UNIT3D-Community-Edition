@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Hakkımızda',
   'account' => 'hesap',
   'achievement-title' => 'müthiş',
@@ -105,6 +106,7 @@ return [
   'name' => 'isim',
   'navigation' => 'navigasyon',
   'new' => 'Yeni!',
+  'new-adj' => 'Yeni',
   'news' => 'Haber',
   'next' => 'Sonraki',
   'no' => 'Yok hayır',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Başlıklar',
   'tracker-codes' => 'İzleyici kodları',
   'type' => 'tip',
+  'type-verb' => 'tip',
   'types' => 'Türleri',
   'genre' => 'Tür',
   'genres' => 'Türler',

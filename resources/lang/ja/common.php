@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => '私たちに関しては',
   'account' => 'アカウント',
   'achievement-title' => '驚くばかり',
@@ -105,6 +106,7 @@ return [
   'name' => '名',
   'navigation' => 'ナビゲーション',
   'new' => '新しい！',
+  'new-adj' => '新しい',
   'news' => 'ニュース',
   'next' => '次',
   'no' => 'いいえ',
@@ -165,6 +167,7 @@ return [
   'topics' => 'トピック',
   'tracker-codes' => 'トラッカーコード',
   'type' => 'タイプ',
+  'type-verb' => 'タイプ',
   'types' => 'タイプ',
   'genre' => 'ジャンル',
   'genres' => 'ジャンル',

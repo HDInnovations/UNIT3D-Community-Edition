@@ -23,9 +23,9 @@
                         <tr>
                             <th>@lang('common.name')</th>
                             <th>@lang('common.position')</th>
-                            <th>Icon</th>
-                            <th>Command</th>
-                            <th>Status</th>
+                            <th>@lang('common.icon')</th>
+                            <th>@lang('common.command')</th>
+                            <th>@lang('common.status')</th>
                             <th>@lang('common.action')</th>
                         </tr>
                     </thead>

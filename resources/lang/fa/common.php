@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'دربارهی ما',
   'account' => 'حساب',
   'achievement-title' => 'عالی',
@@ -105,6 +106,7 @@ return [
   'name' => 'نام',
   'navigation' => 'جهت یابی',
   'new' => 'جدید!',
+  'new-adj' => 'جدید',
   'news' => 'اخبار',
   'next' => 'بعد',
   'no' => 'نه',
@@ -165,6 +167,7 @@ return [
   'topics' => 'موضوعات',
   'tracker-codes' => 'کدهای ردیاب',
   'type' => 'تایپ کنید',
+  'type-verb' => 'تایپ کنید',
   'types' => 'انواع',
   'genre' => 'ژانر',
   'genres' => 'ژانرها',

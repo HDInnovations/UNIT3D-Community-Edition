@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'අපි ගැන',
   'account' => 'ගිණුම',
   'achievement-title' => 'පුදුමයි',
@@ -105,6 +106,7 @@ return [
   'name' => 'නම',
   'navigation' => 'යාත්රා කිරීම',
   'new' => 'අලුත්!',
+  'new-adj' => 'අලුත්',
   'news' => 'පුවත්',
   'next' => 'ඊළඟ',
   'no' => 'නොමැත',
@@ -165,6 +167,7 @@ return [
   'topics' => 'මාතෘකා',
   'tracker-codes' => 'ට්රැකර් කේත',
   'type' => 'වර්ගය',
+  'type-verb' => 'වර්ගය',
   'types' => 'වර්ග',
   'genre' => 'රංගනය',
   'genres' => 'ජනප්රියයි',

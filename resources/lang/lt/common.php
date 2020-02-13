@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Apie mus',
   'account' => 'Paskyra',
   'achievement-title' => 'Nuostabu',
@@ -105,6 +106,7 @@ return [
   'name' => 'vardas',
   'navigation' => 'Navigacija',
   'new' => 'Nauja!',
+  'new-adj' => 'Nauja',
   'news' => 'žinios',
   'next' => 'Kitas',
   'no' => 'Ne',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Temos',
   'tracker-codes' => '„Tracker“ kodai',
   'type' => 'Tipas',
+  'type-verb' => 'Tipas',
   'types' => 'Tipai',
   'genre' => 'Žanras',
   'genres' => 'Žanrai',

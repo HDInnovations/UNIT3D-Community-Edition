@@ -14,14 +14,22 @@
     <li class="active">
         <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}" itemprop="url"
             class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Category</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.edit')
+                @lang('torrent.torrent')
+                @lang('torrent.category')
+            </span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>@lang('common.edit') A Category</h2>
+        <h2>
+            @lang('common.edit')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('torrent.category')
+        </h2>
         <form role="form" method="POST" action="{{ route('staff.categories.update', ['id' => $category->id]) }}"
             enctype="multipart/form-data">
             @method('PATCH')
@@ -39,13 +47,18 @@
                 </label>
             </div>
             <div class="form-group">
-                <label for="name">Icon (FontAwesome)</label>
+                <label for="name">@lang('common.icon') (FontAwesome)</label>
                 <label>
                     <input type="text" class="form-control" name="icon" value="{{ $category->icon }}">
                 </label>
             </div>
             <div class="form-group">
-                <label for="image">Select an Image If Not Using A FontAwesome Icon</label>
+                <label for="image">
+                    @lang('common.select')
+                    @lang(trans_choice('common.a-an-art',false))
+                    @lang('common.image')
+                    (If Not Using A FontAwesome Icon)
+                </label>
                 <input type="file" name="image">
             </div>
     

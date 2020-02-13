@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Um okkur',
   'account' => 'Reikningur',
   'achievement-title' => 'Æðislegur',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nafn',
   'navigation' => 'Siglingar',
   'new' => 'Nýtt!',
+  'new-adj' => 'Nýtt',
   'news' => 'Fréttir',
   'next' => 'Næst',
   'no' => 'Nr',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Topics',
   'tracker-codes' => 'Tracker númer',
   'type' => 'Tegund',
+  'type-verb' => 'Tegund',
   'types' => 'Tegundir',
   'genre' => 'Tegund',
   'genres' => 'Tegundir',

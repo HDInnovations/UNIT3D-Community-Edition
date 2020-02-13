@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Despre noi',
   'account' => 'Cont',
   'achievement-title' => 'Minunat',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nume',
   'navigation' => 'Navigare',
   'new' => 'Nou!',
+  'new-adj' => 'Nou',
   'news' => 'Știri',
   'next' => 'Următor →',
   'no' => 'Nu',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Subiecte',
   'tracker-codes' => 'Coduri de urmărire',
   'type' => 'Tip',
+  'type-verb' => 'Tip',
   'types' => 'Tipuri',
   'genre' => 'gen literar',
   'genres' => 'genuri',

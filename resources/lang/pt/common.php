@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'abbrev-days'          => 'D ',
   'abbrev-hours'         => 'h ',
   'abbrev-minutes'       => 'm ',
@@ -115,6 +116,7 @@ return [
   'name' => 'Nome',
   'navigation' => 'Navegação',
   'new' => 'Novo!',
+  'new-adj' => 'Novo',
   'news' => 'Notícia',
   'next' => 'Próximo',
   'no' => 'Não',
@@ -176,6 +178,7 @@ return [
   'topics' => 'Tópicos',
   'tracker-codes' => 'Códigos do rastreador',
   'type' => 'Tipo',
+  'type-verb' => 'Tipo',
   'types' => 'Tipos',
   'genre' => 'Gênero',
   'genres' => 'Gêneros',

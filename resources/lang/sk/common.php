@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'O nás',
   'account' => 'účet',
   'achievement-title' => 'Úžasné',
@@ -105,6 +106,7 @@ return [
   'name' => 'názov',
   'navigation' => 'navigácia',
   'new' => 'Nový!',
+  'new-adj' => 'Nový',
   'news' => 'správy',
   'next' => 'Ďalšie',
   'no' => 'žiadny',
@@ -165,6 +167,7 @@ return [
   'topics' => 'témy',
   'tracker-codes' => 'Kódy kódov',
   'type' => 'typ',
+  'type-verb' => 'typ',
   'types' => 'druhy',
   'genre' => 'štýl',
   'genres' => 'Žánre',

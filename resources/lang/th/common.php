@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'เกี่ยวกับเรา',
   'account' => 'บัญชี',
   'achievement-title' => 'น่ากลัว',
@@ -105,6 +106,7 @@ return [
   'name' => 'ชื่อ',
   'navigation' => 'การเดินเรือ',
   'new' => 'ใหม่!',
+  'new-adj' => 'ใหม่',
   'news' => 'ข่าว',
   'next' => 'ต่อไป',
   'no' => 'ไม่',
@@ -165,6 +167,7 @@ return [
   'topics' => 'หัวข้อ',
   'tracker-codes' => 'รหัสติดตาม',
   'type' => 'ชนิด',
+  'type-verb' => 'ชนิด',
   'types' => 'ประเภท',
   'genre' => 'ประเภท',
   'genres' => 'ประเภท',

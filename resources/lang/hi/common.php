@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'हमारे बारे में',
   'account' => 'लेखा',
   'achievement-title' => 'बहुत बढ़िया',
@@ -105,6 +106,7 @@ return [
   'name' => 'नाम',
   'navigation' => 'पथ प्रदर्शन',
   'new' => 'नया!',
+  'new-adj' => 'नया',
   'news' => 'समाचार',
   'next' => 'आगामी',
   'no' => 'नहीं',
@@ -165,6 +167,7 @@ return [
   'topics' => 'विषय',
   'tracker-codes' => 'ट्रैकर कोड',
   'type' => 'प्रकार',
+  'type-verb' => 'प्रकार',
   'types' => 'प्रकार',
   'genre' => 'शैली',
   'genres' => 'शैलियां',

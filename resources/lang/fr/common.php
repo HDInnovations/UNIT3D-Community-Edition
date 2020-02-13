@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'À propos de nous',
   'account' => 'Compte',
   'achievement-title' => 'Titre de la réalisation',
@@ -105,6 +106,7 @@ return [
   'name' => 'prénom',
   'navigation' => 'Navigation',
   'new' => 'Nouveau!',
+  'new-adj' => 'Nouveau',
   'news' => 'Nouvelles',
   'next' => 'Suivant',
   'no' => 'Non',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Sujets',
   'tracker-codes' => 'Codes de suivi',
   'type' => 'Type',
+  'type-verb' => 'Type',
   'types' => 'Types',
   'genre' => 'Genre',
   'genres' => 'Genres',

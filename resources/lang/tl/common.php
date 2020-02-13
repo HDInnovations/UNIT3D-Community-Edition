@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Tungkol sa atin',
   'account' => 'Account',
   'achievement-title' => 'Kahanga-hanga',
@@ -105,6 +106,7 @@ return [
   'name' => 'Pangalan',
   'navigation' => 'Nabigasyon',
   'new' => 'Bago!',
+  'new-adj' => 'Bago',
   'news' => 'Balita',
   'next' => 'Susunod',
   'no' => 'Hindi',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Mga Paksa',
   'tracker-codes' => 'Mga code ng tracker',
   'type' => 'Uri',
+  'type-verb' => 'Uri',
   'types' => 'Mga Uri',
   'genre' => 'Genre',
   'genres' => 'Genres',

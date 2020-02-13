@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Біз туралы',
   'account' => 'Шот',
   'achievement-title' => 'Тамаша',
@@ -105,6 +106,7 @@ return [
   'name' => 'Атауы',
   'navigation' => 'Навигация',
   'new' => 'Жаңа!',
+  'new-adj' => 'Жаңа',
   'news' => 'Жаңалықтар',
   'next' => 'Келесі',
   'no' => 'Жоқ',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Тақырыптар',
   'tracker-codes' => 'Tracker кодтары',
   'type' => 'Түрі',
+  'type-verb' => 'Түрі',
   'types' => 'Түрлері',
   'genre' => 'Жанр',
   'genres' => 'Жанрлар',

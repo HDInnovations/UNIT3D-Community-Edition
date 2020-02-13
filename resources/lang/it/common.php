@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Riguardo a noi',
   'account' => 'account',
   'achievement-title' => 'Eccezionale',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nome',
   'navigation' => 'Navigazione',
   'new' => 'Nuovo!',
+  'new-adj' => 'Nuovo',
   'news' => 'notizia',
   'next' => 'Il prossimo',
   'no' => 'No',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Temi',
   'tracker-codes' => 'Codici di monitoraggio',
   'type' => 'genere',
+  'type-verb' => 'genere',
   'types' => 'tipi',
   'genre' => 'Genere',
   'genres' => 'generi',

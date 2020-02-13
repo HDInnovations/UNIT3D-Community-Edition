@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Par mums',
   'account' => 'Konts',
   'achievement-title' => 'Satriecošs',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nosaukums',
   'navigation' => 'Navigācija',
   'new' => 'Jaunums!',
+  'new-adj' => 'Jaunums',
   'news' => 'Ziņas',
   'next' => 'Nākamais',
   'no' => 'Nē',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Tēmas',
   'tracker-codes' => 'Tracker kodi',
   'type' => 'Tips',
+  'type-verb' => 'Tips',
   'types' => 'Veidi',
   'genre' => 'Žanrs',
   'genres' => 'Žanri',

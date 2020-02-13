@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Tentang kami',
   'account' => 'Rekening',
   'achievement-title' => 'Luar biasa',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nama',
   'navigation' => 'Navigasi',
   'new' => 'Baru!',
+  'new-adj' => 'Baru',
   'news' => 'Berita',
   'next' => 'Berikutnya',
   'no' => 'Tidak',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Topik',
   'tracker-codes' => 'Kode pelacak',
   'type' => 'Mengetik',
+  'type-verb' => 'Mengetik',
   'types' => 'Jenis',
   'genre' => 'Aliran',
   'genres' => 'Genre',

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'معلومات عنا',
   'account' => 'الحساب',
   'achievement-title' => 'رائع',
@@ -105,6 +106,7 @@ return [
   'name' => 'اسم',
   'navigation' => 'التنقل',
   'new' => 'الجديد!',
+  'new-adj' => 'الجديد',
   'news' => 'أخبار',
   'next' => 'التالى',
   'no' => 'لا',
@@ -165,6 +167,7 @@ return [
   'topics' => 'المواضيع',
   'tracker-codes' => 'رموز تعقب',
   'type' => 'نوع',
+  'type-verb' => 'نوع',
   'types' => 'أنواع',
   'genre' => 'نوع أدبي',
   'genres' => 'الجنس الأدبي',

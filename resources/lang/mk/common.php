@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'За нас',
   'account' => 'Сметка',
   'achievement-title' => 'Прекрасно',
@@ -105,6 +106,7 @@ return [
   'name' => 'Име',
   'navigation' => 'Навигација',
   'new' => 'Ново!',
+  'new-adj' => 'Ново',
   'news' => 'Вести',
   'next' => 'Следно',
   'no' => 'Не',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Теми',
   'tracker-codes' => 'Кодови за Tracker',
   'type' => 'Тип',
+  'type-verb' => 'Тип',
   'types' => 'Видови',
   'genre' => 'Жанр',
   'genres' => 'Жанрови',

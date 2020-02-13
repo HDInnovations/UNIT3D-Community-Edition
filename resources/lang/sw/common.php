@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Kuhusu sisi',
   'account' => 'Akaunti',
   'achievement-title' => 'Awesome',
@@ -105,6 +106,7 @@ return [
   'name' => 'Jina',
   'navigation' => 'Navigation',
   'new' => 'Mpya!',
+  'new-adj' => 'Mpya',
   'news' => 'Habari',
   'next' => 'Ifuatayo',
   'no' => 'Hapana',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Mada',
   'tracker-codes' => 'Nambari za Tracker',
   'type' => 'Weka',
+  'type-verb' => 'Weka',
   'types' => 'Aina',
   'genre' => 'Aina',
   'genres' => 'Mitindo',

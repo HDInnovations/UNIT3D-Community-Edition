@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Rólunk',
   'account' => 'számla',
   'achievement-title' => 'Fantasztikus',
@@ -105,6 +106,7 @@ return [
   'name' => 'Név',
   'navigation' => 'Navigáció',
   'new' => 'Új!',
+  'new-adj' => 'Új',
   'news' => 'hírek',
   'next' => 'Következő',
   'no' => 'Nem',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Témakörök',
   'tracker-codes' => 'Tracker kódok',
   'type' => 'típus',
+  'type-verb' => 'típus',
   'types' => 'típusai',
   'genre' => 'Műfaj',
   'genres' => 'Műfajok',

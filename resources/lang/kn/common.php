@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'ನಮ್ಮ ಬಗ್ಗೆ',
   'account' => 'ಖಾತೆ',
   'achievement-title' => 'ನಾಡಿದು',
@@ -105,6 +106,7 @@ return [
   'name' => 'ಹೆಸರು',
   'navigation' => 'ನ್ಯಾವಿಗೇಶನ್',
   'new' => 'ಹೊಸತು!',
+  'new-adj' => 'ಹೊಸತು',
   'news' => 'ಸುದ್ದಿ',
   'next' => 'ಮುಂದೆ',
   'no' => 'ಇಲ್ಲ',
@@ -165,6 +167,7 @@ return [
   'topics' => 'ವಿಷಯಗಳು',
   'tracker-codes' => 'ಟ್ರ್ಯಾಕರ್ ಕೋಡ್ಗಳು',
   'type' => 'ಮಾದರಿ',
+  'type-verb' => 'ಮಾದರಿ',
   'types' => 'ರೀತಿಯ',
   'genre' => 'ಪ್ರಕಾರ',
   'genres' => 'ಪ್ರಕಾರಗಳು',

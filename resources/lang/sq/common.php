@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Rreth nesh',
   'account' => 'llogari',
   'achievement-title' => 'Mbresëlënës',
@@ -105,6 +106,7 @@ return [
   'name' => 'emër',
   'navigation' => 'lundrim',
   'new' => 'I ri!',
+  'new-adj' => 'I ri',
   'news' => 'Lajme',
   'next' => 'tjetër',
   'no' => 'jo',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Temat',
   'tracker-codes' => 'Kodet Tracker',
   'type' => 'lloj',
+  'type-verb' => 'lloj',
   'types' => 'Llojet',
   'genre' => 'gjini',
   'genres' => 'zhanret',

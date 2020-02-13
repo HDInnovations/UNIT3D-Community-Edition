@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => '회사 소개',
   'account' => '계정',
   'achievement-title' => '타이틀',
@@ -105,6 +106,7 @@ return [
   'name' => '이름',
   'navigation' => '네비게이션',
   'new' => '새로운!',
+  'new-adj' => '새로운',
   'news' => '뉴스',
   'next' => '다음',
   'no' => 'NO',
@@ -165,6 +167,7 @@ return [
   'topics' => '토픽',
   'tracker-codes' => '추적 코드',
   'type' => '유형',
+  'type-verb' => '유형',
   'types' => '유형',
   'genre' => '유형',
   'genres' => '장르',

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Sobre nós',
   'account' => 'Conta',
   'achievement-title' => 'Impresionante',
@@ -105,6 +106,7 @@ return [
   'name' => 'Nome',
   'navigation' => 'Navegación',
   'new' => 'Novo!',
+  'new-adj' => 'Novo',
   'news' => 'Novas',
   'next' => 'Seguinte',
   'no' => 'Non',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Temas',
   'tracker-codes' => 'Códigos de seguimento',
   'type' => 'Escriba',
+  'type-verb' => 'Escriba',
   'types' => 'Tipos',
   'genre' => 'Xénero',
   'genres' => 'Xéneros',

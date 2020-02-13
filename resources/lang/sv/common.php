@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Om oss',
   'account' => 'konto',
   'achievement-title' => 'Grymt bra',
@@ -105,6 +106,7 @@ return [
   'name' => 'namn',
   'navigation' => 'Navigering',
   'new' => 'Ny!',
+  'new-adj' => 'Ny',
   'news' => 'Nyheter',
   'next' => 'Nästa',
   'no' => 'Nej',
@@ -165,6 +167,7 @@ return [
   'topics' => 'ämnen',
   'tracker-codes' => 'Tracker-koder',
   'type' => 'Typ',
+  'type-verb' => 'Typ',
   'types' => 'typer',
   'genre' => 'Genre',
   'genres' => 'genrer',

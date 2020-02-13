@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.warnings.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Warnings Log</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.warnings-log')</span>
         </a>
     </li>
 @endsection
@@ -24,12 +24,12 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>Warnings Log</h2>
+            <h2>@lang('staff.warnings-log')</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
                     <h2>
-                        <span class="text-blue"> Warnings
+                        <span class="text-blue"> @lang('common.warnings')
                             <strong><i class="{{ config('other.font-awesome') }} fa-note"></i> {{ $warningcount }} </strong>
                         </span>
                     </h2>
@@ -38,12 +38,12 @@
                             <thead>
                                 <tr>
                                     <th>@lang('common.user')</th>
-                                    <th>Warned By</th>
-                                    <th>Torrent</th>
-                                    <th>Reason</th>
-                                    <th>Created On</th>
-                                    <th>Expires On</th>
-                                    <th>Active</th>
+                                    <th>@lang('user.warned-by')</th>
+                                    <th>@lang('torrent.torrent')</th>
+                                    <th>@lang('common.reason')</th>
+                                    <th>@lang('user.created-on')</th>
+                                    <th>@lang('user.expires-on')</th>
+                                    <th>@lang('common.active')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,7 +83,7 @@
                                                 @if ($warning->active == 1)
                                                     <span class='label label-success'>@lang('common.yes')</span>
                                                 @else
-                                                    <span class='label label-danger'>Expired</span>
+                                                    <span class='label label-danger'>@lang('common.expired')</span>
                                                 @endif
                                             </td>
                                         </tr>

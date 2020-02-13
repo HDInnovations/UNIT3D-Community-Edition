@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Amdanom ni',
   'account' => 'Cyfrif',
   'achievement-title' => 'Yn anhygoel',
@@ -105,6 +106,7 @@ return [
   'name' => 'Enw',
   'navigation' => 'Llywio',
   'new' => 'Newydd!',
+  'new-adj' => 'Newydd',
   'news' => 'Newyddion',
   'next' => 'Nesaf',
   'no' => 'Na',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Pynciau',
   'tracker-codes' => 'Codau olrhain',
   'type' => 'Math',
+  'type-verb' => 'Math',
   'types' => 'Mathau',
   'genre' => 'Genre',
   'genres' => 'Genres',

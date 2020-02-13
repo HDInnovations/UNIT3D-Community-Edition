@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'អំពី​ពួក​យើង',
   'account' => 'គណនី',
   'achievement-title' => 'ល្អមែនទែន',
@@ -105,6 +106,7 @@ return [
   'name' => 'ឈ្មោះ',
   'navigation' => 'ការរុករក',
   'new' => 'ថ្មី!',
+  'new-adj' => 'ថ្មី',
   'news' => 'ព័ត៌មាន',
   'next' => 'បន្ទាប់',
   'no' => 'ទេ',
@@ -165,6 +167,7 @@ return [
   'topics' => 'ប្រធានបទ',
   'tracker-codes' => 'លេខកូដតាមដាន',
   'type' => 'វាយ',
+  'type-verb' => 'វាយ',
   'types' => 'ប្រភេទ',
   'genre' => 'ប្រភេទ',
   'genres' => 'ប្រភេទ',

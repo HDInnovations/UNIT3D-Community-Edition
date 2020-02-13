@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Biz haqimizda',
   'account' => 'Hisob',
   'achievement-title' => 'Ajoyib',
@@ -105,6 +106,7 @@ return [
   'name' => 'Ism',
   'navigation' => 'Navigatsiya',
   'new' => 'Yangi!',
+  'new-adj' => 'Yangi',
   'news' => 'Yangiliklar',
   'next' => 'Keyingi',
   'no' => 'Yo q',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Mavzular',
   'tracker-codes' => 'Kuzatuvchi kodlari',
   'type' => 'Turi',
+  'type-verb' => 'Turi',
   'types' => 'Turlari',
   'genre' => 'Janr',
   'genres' => 'Janrlar',

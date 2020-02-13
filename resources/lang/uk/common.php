@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Про нас',
   'account' => 'Рахунок',
   'achievement-title' => 'Високий',
@@ -105,6 +106,7 @@ return [
   'name' => 'Ім я',
   'navigation' => 'Навігація',
   'new' => 'Нове!',
+  'new-adj' => 'Нове',
   'news' => 'Новини',
   'next' => 'Далі',
   'no' => 'Ні',
@@ -165,6 +167,7 @@ return [
   'topics' => 'Теми',
   'tracker-codes' => 'Коди трекерів',
   'type' => 'Тип',
+  'type-verb' => 'Тип',
   'types' => 'Типи',
   'genre' => 'Жанр',
   'genres' => 'Жанри',
