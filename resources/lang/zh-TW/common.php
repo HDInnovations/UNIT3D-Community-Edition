@@ -149,7 +149,7 @@ return [
     'ratio'                => '比率',
     'reason'               => '原因',
     'remove'               => '移除',
-    'report'               => '報告',
+    'report'               => '舉報',
     'resend'               => '重發',
     'reporter'             => '舉報者',
     'required'             => '必須',

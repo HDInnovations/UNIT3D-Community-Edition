@@ -164,7 +164,7 @@ return [
     'ratio'                => '分享率',
     'reason'               => '原因',
     'remove'               => '移除',
-    'report'               => '报告',
+    'report'               => '举报',
     'reporter'             => '举报者',
     'required'             => '必须',
     'resend'               => '重发',
