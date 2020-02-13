@@ -14,8 +14,8 @@
 return [
     'about'                     => '关于',
     'about-me'                  => '自我介绍（不超过500字符！）',
-    'accepted-at'               => '审核于',
-    'accepted-by'               => '审核者',
+    'accepted-at'               => '接受于',
+    'accepted-by'               => '接受者',
     'account-notification'      => '帐户通知设定',
     'account-notification-follow' => '当有用户关注我时，向我发送一个通知',
     'account-notification-unfollow' => '当有用户取消关注我时，向我发送一个通知',

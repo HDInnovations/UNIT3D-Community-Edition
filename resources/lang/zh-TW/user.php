@@ -14,8 +14,8 @@
 return [
     'about'                     => '關於',
     'about-me'                  => '自我簡介 (上限500字元!)',
-    'accepted-at'               => '批核於',
-    'accepted-by'               => '批核者',
+    'accepted-at'               => '接受於',
+    'accepted-by'               => '接受者',
     'account-notification'      => '帳戶通知設定',
     'account-notification-follow' => '當有用戶追踨我時,給我一個通知',
     'account-notification-unfollow' => '當有用戶取消追踨我時,給我一個通知',
