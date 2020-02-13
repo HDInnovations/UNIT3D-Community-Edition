@@ -335,11 +335,7 @@ class ChatController extends Controller
             }
 
             $room_id = 0;
-            if ($bot_id > 0 && $receiver_id == 1) {
-                $ignore = true;
-            } else {
-                $ignore = null;
-            }
+            $ignore = $bot_id > 0 && $receiver_id == 1 ? true : null;
             $save = true;
             $echo = true;
             $message = $this->chat->privateMessage($user_id, $room_id, $message, $receiver_id, null, $ignore);
