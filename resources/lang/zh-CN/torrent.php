@@ -74,7 +74,7 @@ return [
     'genre'                    => '题材',
     'genre-tags'               => '标签',
     'global-double-upload'     => '全站双倍上传收益',
-    'global-freelech'          => '全站免费',
+    'global-freeleech'          => '全站免费',
     'grant'                    => '授予',
     'greater-than'             => '大于',
     'grouping'                 => '分组',
