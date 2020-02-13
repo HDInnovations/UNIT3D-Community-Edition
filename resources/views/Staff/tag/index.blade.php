@@ -8,15 +8,25 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.tags.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Tags</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('torrent.torrent') @lang('torrent.genre-tags') (@lang('torrent.genre'))
+            </span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Tags (Genres)</h2>
-        <a href="{{ route('staff.tags.create') }}" class="btn btn-primary">Add A Torrent Tag</a>
+        <h2>
+            @lang('torrent.genre-tags') (@lang('torrent.genre'))
+        </h2>
+        <a href="{{ route('staff.tags.create') }}" class="btn btn-primary">
+            @lang('common.add')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('torrent.torrent')
+            @lang('torrent.genre-tags')
+            (@lang('torrent.genre'))
+        </a>
     
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
