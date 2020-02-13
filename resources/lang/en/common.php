@@ -13,7 +13,7 @@
 
 return [
     'a-an-art' => '',
-  'abbrev-days'          => 'D ',
+    'abbrev-days'          => 'D ',
     'abbrev-hours'         => 'h ',
     'abbrev-minutes'       => 'm ',
     'abbrev-months'        => 'M ',
@@ -118,7 +118,7 @@ return [
     'name'                 => 'Name',
     'navigation'           => 'Navigation',
     'new'                  => 'New!',
-    'new-adj'                  => 'New',
+    'new-adj'              => 'New',
     'news'                 => 'News',
     'next'                 => 'Next',
     'no'                   => 'No',
