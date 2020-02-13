@@ -55,40 +55,37 @@ class AutoWarning extends Command
                 ->get();
 
             foreach ($hitrun as $hr) {
-                if (!$hr->user->group->is_immune) {
-                    if ($hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
-                        $exsist = Warning::withTrashed()
-                            ->where('torrent', '=', $hr->torrent->id)
-                            ->where('user_id', '=', $hr->user->id)
-                            ->first();
+                if (!$hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
+                    $exsist = Warning::withTrashed()
+                        ->where('torrent', '=', $hr->torrent->id)
+                        ->where('user_id', '=', $hr->user->id)
+                        ->first();
+                    // Insert Warning Into Warnings Table if doesnt already exsist
+                    if (!$exsist) {
+                        $warning = new Warning();
+                        $warning->user_id = $hr->user->id;
+                        $warning->warned_by = '1';
+                        $warning->torrent = $hr->torrent->id;
+                        $warning->reason = "Hit and Run Warning For Torrent {$hr->torrent->name}";
+                        $warning->expires_on = $current->copy()->addDays(config('hitrun.expire'));
+                        $warning->active = '1';
+                        $warning->save();
 
-                        // Insert Warning Into Warnings Table if doesnt already exsist
-                        if (!$exsist) {
-                            $warning = new Warning();
-                            $warning->user_id = $hr->user->id;
-                            $warning->warned_by = '1';
-                            $warning->torrent = $hr->torrent->id;
-                            $warning->reason = "Hit and Run Warning For Torrent {$hr->torrent->name}";
-                            $warning->expires_on = $current->copy()->addDays(config('hitrun.expire'));
-                            $warning->active = '1';
-                            $warning->save();
+                        // Add +1 To Users Warnings Count In Users Table
+                        $hr->hitrun = 1;
+                        $hr->user->hitandruns++;
+                        $hr->user->save();
 
-                            // Add +1 To Users Warnings Count In Users Table
-                            $hr->hitrun = 1;
-                            $hr->user->hitandruns++;
-                            $hr->user->save();
-
-                            // Send Private Message
-                            $pm = new PrivateMessage();
-                            $pm->sender_id = 1;
-                            $pm->receiver_id = $hr->user->id;
-                            $pm->subject = 'Hit and Run Warning Received';
-                            $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent '.$hr->torrent->name.'[/b]
+                        // Send Private Message
+                        $pm = new PrivateMessage();
+                        $pm->sender_id = 1;
+                        $pm->receiver_id = $hr->user->id;
+                        $pm->subject = 'Hit and Run Warning Received';
+                        $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent '.$hr->torrent->name.'[/b]
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                            $pm->save();
+                        $pm->save();
 
-                            $hr->save();
-                        }
+                        $hr->save();
                     }
                 }
             }

@@ -47,17 +47,14 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys($keys);
 
-        if ($type == 'movie') {
-            if (isset($keys['imdb'])) {
-                $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
-                $results = $this->toArray($this->request($url));
-
-                if (isset($results['movie_results'][0]['id'])) {
-                    return $this->movie($results['movie_results'][0]['id']);
-                }
-
-                return new Movie();
+        if ($type == 'movie' && isset($keys['imdb'])) {
+            $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
+            $results = $this->toArray($this->request($url));
+            if (isset($results['movie_results'][0]['id'])) {
+                return $this->movie($results['movie_results'][0]['id']);
             }
+
+            return new Movie();
         }
 
         if ($type == 'tv') {
@@ -231,25 +228,21 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatCountries($countries, $type = 'movie')
     {
         $movie_countries = [];
-        if ($type == 'movie') {
-            if (!is_null($countries)) {
-                foreach ($countries as $country) {
-                    $movie_countries[] = [
-                        'code'    => $country['iso_3166_1'],
-                        'country' => $country['name'],
-                    ];
-                }
+        if ($type == 'movie' && !is_null($countries)) {
+            foreach ($countries as $country) {
+                $movie_countries[] = [
+                    'code'    => $country['iso_3166_1'],
+                    'country' => $country['name'],
+                ];
             }
         }
 
-        if ($type == 'tv') {
-            if (!is_null($countries)) {
-                foreach ($countries as $country) {
-                    $movie_countries[] = [
-                        'code'    => $country,
-                        'country' => null,
-                    ];
-                }
+        if ($type == 'tv' && !is_null($countries)) {
+            foreach ($countries as $country) {
+                $movie_countries[] = [
+                    'code'    => $country,
+                    'country' => null,
+                ];
             }
         }
 
@@ -259,24 +252,20 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatLanguages($languages, $type = 'movie')
     {
         $movie_languages = [];
-        if ($type == 'movie') {
-            if (!is_null($languages)) {
-                foreach ($languages as $language) {
-                    $movie_languages[] = [
-                        'code'     => $language['iso_639_1'],
-                        'language' => $language['name'],
-                    ];
-                }
+        if ($type == 'movie' && !is_null($languages)) {
+            foreach ($languages as $language) {
+                $movie_languages[] = [
+                    'code'     => $language['iso_639_1'],
+                    'language' => $language['name'],
+                ];
             }
         }
-        if ($type == 'tv') {
-            if (!is_null($languages)) {
-                foreach ($languages as $language) {
-                    $movie_languages[] = [
-                        'code'     => $language,
-                        'language' => null,
-                    ];
-                }
+        if ($type == 'tv' && !is_null($languages)) {
+            foreach ($languages as $language) {
+                $movie_languages[] = [
+                    'code'     => $language,
+                    'language' => null,
+                ];
             }
         }
 
@@ -299,16 +288,12 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $akas = [];
 
-        if (!empty($movie['original_title'])) {
-            if (strtolower($movie['original_title']) != strtolower($movie['title'])) {
-                $akas[] = $movie['original_title'];
-            }
+        if (!empty($movie['original_title']) && strtolower($movie['original_title']) != strtolower($movie['title'])) {
+            $akas[] = $movie['original_title'];
         }
 
-        if (!empty($movie['original_name'])) {
-            if (strtolower($movie['original_name']) != strtolower($movie['name'])) {
-                $akas[] = $movie['original_name'];
-            }
+        if (!empty($movie['original_name']) && strtolower($movie['original_name']) != strtolower($movie['name'])) {
+            $akas[] = $movie['original_name'];
         }
 
         $original_title = !empty($movie['title']) ? $movie['title'] : (!empty($movie['name']) ? $movie['name'] : null);

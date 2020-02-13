@@ -366,10 +366,8 @@ class BonusController extends Controller
             $transaction->torrent_id = null;
             $transaction->save();
 
-            if ($user->id != $recipient->id) {
-                if ($recipient->acceptsNotification($request->user(), $recipient, 'bon', 'show_bon_gift')) {
-                    $recipient->notify(new NewBon('gift', $user->username, $transaction));
-                }
+            if ($user->id != $recipient->id && $recipient->acceptsNotification($request->user(), $recipient, 'bon', 'show_bon_gift')) {
+                $recipient->notify(new NewBon('gift', $user->username, $transaction));
             }
 
             $profile_url = hrefProfile($user);

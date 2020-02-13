@@ -500,11 +500,9 @@ class AnnounceController extends Controller
         if ($compact) {
             $pcomp = '';
             foreach ($peers as &$p) {
-                if (isset($p['ip']) && isset($p['port'])) {
-                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
-                        $pcomp .= inet_pton($p['ip']);
-                        $pcomp .= pack('n', (int) $p['port']);
-                    }
+                if (isset($p['ip']) && isset($p['port']) && filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
+                    $pcomp .= inet_pton($p['ip']);
+                    $pcomp .= pack('n', (int) $p['port']);
                 }
             }
 
