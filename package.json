@@ -14,7 +14,7 @@
     "axios": "^0.19",
     "bootstrap-sass": "^3.4.1",
     "clean-webpack-plugin": "^3.0.0",
-    "cross-env": "^6.0",
+    "cross-env": "^7.0",
     "emojione-assets": "^4.5.0",
     "jquery": "^3.4.1",
     "jquery-textcomplete": "^1.8.5",
@@ -30,15 +30,15 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "spin.js": "^4.1.0",
-    "sweetalert2": "^9.6.0",
-    "v-tooltip": "^2.0.2",
+    "sweetalert2": "^9.7.2",
+    "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
-    "webpack-obfuscator": "^0.23.2"
+    "webpack-obfuscator": "^0.24.6"
   },
   "dependencies": {
     "laravel-mix-sri": "0.0.4",
-    "ncu": "^0.2.1",
+    "n": "^6.2.0",
     "npm-check-updates": "^4.0.1"
   }
 }
