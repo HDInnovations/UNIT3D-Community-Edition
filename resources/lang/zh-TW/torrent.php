@@ -71,7 +71,7 @@ return [
     'freeleech-token'          => '免費令',
     'general'                  => 'General',
     'genre'                    => '題材',
-    'genre-tags'               => '題材標記',
+    'genre-tags'               => '題材',
     'global-double-upload'     => '全站雙倍上傳收益',
     'global-freelech'          => '全站免費',
     'grant'                    => '授予',
