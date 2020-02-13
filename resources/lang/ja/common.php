@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => '私たちに関しては',
   'account' => 'アカウント',
   'achievement-title' => '驚くばかり',

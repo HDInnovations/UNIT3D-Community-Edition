@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Om oss',
   'account' => 'konto',
   'achievement-title' => 'Grymt bra',

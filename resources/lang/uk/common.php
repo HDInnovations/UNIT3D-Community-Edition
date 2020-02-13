@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Про нас',
   'account' => 'Рахунок',
   'achievement-title' => 'Високий',

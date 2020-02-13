@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Rólunk',
   'account' => 'számla',
   'achievement-title' => 'Fantasztikus',

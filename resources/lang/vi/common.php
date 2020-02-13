@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Về chúng tôi',
   'account' => 'Tài khoản',
   'achievement-title' => 'Tuyệt vời',

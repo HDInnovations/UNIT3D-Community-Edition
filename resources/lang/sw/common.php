@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Kuhusu sisi',
   'account' => 'Akaunti',
   'achievement-title' => 'Awesome',

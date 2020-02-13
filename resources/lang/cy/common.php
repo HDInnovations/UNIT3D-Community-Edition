@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Amdanom ni',
   'account' => 'Cyfrif',
   'achievement-title' => 'Yn anhygoel',

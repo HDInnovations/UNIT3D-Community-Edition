@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Over ons',
   'account' => 'Account',
   'achievement-title' => 'Geweldig',

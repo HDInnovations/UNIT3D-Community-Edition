@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Meistä',
   'account' => 'Tili',
   'achievement-title' => 'Mahtava',

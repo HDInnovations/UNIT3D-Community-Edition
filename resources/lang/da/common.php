@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Om os',
   'account' => 'Konto',
   'achievement-title' => 'fantastisk',

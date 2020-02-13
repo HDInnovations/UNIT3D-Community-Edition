@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Ჩვენს შესახებ',
   'account' => 'ანგარიში',
   'achievement-title' => 'გასაოცარია',

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => '회사 소개',
   'account' => '계정',
   'achievement-title' => '타이틀',

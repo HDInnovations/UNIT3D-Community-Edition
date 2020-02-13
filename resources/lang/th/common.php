@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'เกี่ยวกับเรา',
   'account' => 'บัญชี',
   'achievement-title' => 'น่ากลัว',

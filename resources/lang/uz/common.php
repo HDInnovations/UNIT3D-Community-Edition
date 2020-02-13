@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Biz haqimizda',
   'account' => 'Hisob',
   'achievement-title' => 'Ajoyib',

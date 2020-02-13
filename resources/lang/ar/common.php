@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'معلومات عنا',
   'account' => 'الحساب',
   'achievement-title' => 'رائع',

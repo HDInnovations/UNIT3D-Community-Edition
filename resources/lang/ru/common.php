@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Насчет нас',
   'account' => 'учетная запись',
   'achievement-title' => 'Потрясающие',

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Rreth nesh',
   'account' => 'llogari',
   'achievement-title' => 'Mbresëlënës',

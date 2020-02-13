@@ -12,6 +12,7 @@
  */
 
 return [
+    'a-an-art'             => '',
     'abbrev-days'          => '日',
     'abbrev-hours'         => '時',
     'abbrev-minutes'       => '分',

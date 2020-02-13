@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'За нас',
   'account' => 'Сметка',
   'achievement-title' => 'Прекрасно',

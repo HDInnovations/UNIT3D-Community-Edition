@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'អំពី​ពួក​យើង',
   'account' => 'គណនី',
   'achievement-title' => 'ល្អមែនទែន',

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Tungkol sa atin',
   'account' => 'Account',
   'achievement-title' => 'Kahanga-hanga',

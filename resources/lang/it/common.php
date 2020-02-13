@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Riguardo a noi',
   'account' => 'account',
   'achievement-title' => 'Eccezionale',

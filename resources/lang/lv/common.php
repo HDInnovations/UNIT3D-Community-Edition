@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Par mums',
   'account' => 'Konts',
   'achievement-title' => 'Satriecošs',

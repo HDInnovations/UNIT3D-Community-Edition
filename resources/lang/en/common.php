@@ -12,7 +12,8 @@
  */
 
 return [
-    'abbrev-days'          => 'D ',
+    'a-an-art' => '',
+  'abbrev-days'          => 'D ',
     'abbrev-hours'         => 'h ',
     'abbrev-minutes'       => 'm ',
     'abbrev-months'        => 'M ',

@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'O nas',
   'account' => 'račun',
   'achievement-title' => 'Super',

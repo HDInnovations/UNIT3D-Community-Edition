@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Um okkur',
   'account' => 'Reikningur',
   'achievement-title' => 'Æðislegur',

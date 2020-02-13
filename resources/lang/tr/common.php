@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Hakkımızda',
   'account' => 'hesap',
   'achievement-title' => 'müthiş',

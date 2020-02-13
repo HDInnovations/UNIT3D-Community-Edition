@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Σχετικά με εμάς',
   'account' => 'λογαριασμός',
   'achievement-title' => 'Φοβερός',

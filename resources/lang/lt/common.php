@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Apie mus',
   'account' => 'Paskyra',
   'achievement-title' => 'Nuostabu',

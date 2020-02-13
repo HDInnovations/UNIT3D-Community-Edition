@@ -12,6 +12,7 @@
  */
 
 return [
+  'a-an-art' => '',
   'about' => 'Бидний тухай',
   'account' => 'Данс',
   'achievement-title' => 'Гайхалтай',
