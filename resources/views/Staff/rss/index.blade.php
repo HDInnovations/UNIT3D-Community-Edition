@@ -16,20 +16,20 @@
 @section('content')
     <div class="container box">
         <div class="block">
-            <h2>Public RSS Feeds</h2>
-            <a href="{{ route('staff.rss.create') }}" class="btn btn-primary">Create RSS Feed</a>
+            <h2>@lang('rss.public') @lang('rss.rss-feed')</h2>
+            <a href="{{ route('staff.rss.create') }}" class="btn btn-primary">@lang('common.create') @lang('rss.rss-feedc')</a>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>@lang('common.name')</th>
                             <th>@lang('common.position')</th>
-                            <th>Categories</th>
+                            <th>@lang('common.categories')</th>
                             <th>@lang('common.types')</th>
-                            <th>Genres</th>
-                            <th>Discounts</th>
-                            <th>Special</th>
-                            <th>Health</th>
+                            <th>@lang('common.genres')</th>
+                            <th>@lang('torrent.discounts')</th>
+                            <th>@lang('common.special')</th>
+                            <th>@lang('torrent.health')</th>
                             <th>@lang('common.action')</th>
                         </tr>
                     </thead>

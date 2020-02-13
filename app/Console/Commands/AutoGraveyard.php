@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
@@ -82,7 +82,7 @@ class AutoGraveyard extends Command
                 $appurl = config('app.url');
 
                 $this->chat->systemMessage(
-                    "Ladies and Gents, [url={$appurl}/users/{$user->username}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]. :zombie:"
+                    "Ladies and Gents, [url={$appurl}/users/{$user->username}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->id}]{$torrent->name}[/url]. :zombie:"
                 );
 
                 // Send Private Message

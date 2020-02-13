@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Models;
@@ -758,9 +758,9 @@ class User extends Authenticatable
                 }
 
                 return false;
-            } else {
-                return true;
             }
+
+            return true;
         }
 
         return true;
@@ -798,9 +798,9 @@ class User extends Authenticatable
                 }
 
                 return false;
-            } else {
-                return true;
             }
+
+            return true;
         }
 
         return true;
@@ -838,9 +838,9 @@ class User extends Authenticatable
                 }
 
                 return false;
-            } else {
-                return true;
             }
+
+            return true;
         }
 
         return true;
@@ -931,9 +931,9 @@ class User extends Authenticatable
         $ratio = $this->getRatio();
         if (is_infinite($ratio)) {
             return '∞';
-        } else {
-            return (string) $ratio;
         }
+
+        return (string) $ratio;
     }
 
     // Return the ratio after $size bytes would be downloaded.
@@ -957,9 +957,9 @@ class User extends Authenticatable
         $ratio = $this->ratioAfterSize($size);
         if (is_infinite($ratio)) {
             return '∞';
-        } else {
-            return (string) $ratio;
         }
+
+        return (string) $ratio;
     }
 
     // Return the size (pretty formated) which can be safely downloaded
@@ -1025,12 +1025,11 @@ class User extends Authenticatable
     {
         if (empty($this->about)) {
             return 'N/A';
-        } else {
-            $bbcode = new Bbcode();
-            $linkify = new Linkify();
-
-            return $bbcode->parse($linkify->linky($this->about), true);
         }
+        $bbcode = new Bbcode();
+        $linkify = new Linkify();
+
+        return $bbcode->parse($linkify->linky($this->about), true);
     }
 
     /**

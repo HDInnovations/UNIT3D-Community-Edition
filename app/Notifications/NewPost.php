@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie, singularity43
  */
 
 namespace App\Notifications;
@@ -72,12 +72,12 @@ class NewPost extends Notification implements ShouldQueue
                 'body'  => $this->poster->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
                 'url'   => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
-        } else {
-            return [
-                'title' => $this->poster->username.' Has Posted In A Topic You Started',
-                'body'  => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,
-                'url'   => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
-            ];
         }
+
+        return [
+            'title' => $this->poster->username.' Has Posted In A Topic You Started',
+            'body'  => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,
+            'url'   => "/forums/topics/{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+        ];
     }
 }

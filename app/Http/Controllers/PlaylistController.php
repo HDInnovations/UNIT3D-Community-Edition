@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -99,20 +99,18 @@ class PlaylistController extends Controller
             return redirect()->route('playlists.create')
                 ->withInput()
                 ->withErrors($v->errors());
-        } else {
-            $playlist->save();
-
-            // Announce To Shoutbox
-            $appurl = config('app.url');
-            if ($playlist->is_private != 1) {
-                $this->chat->systemMessage(
-                    "User [url={$appurl}/".$user->username.'.'.$user->id.']'.$user->username."[/url] has created a new playlist [url={$appurl}/playlists/".$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
-                );
-            }
-
-            return redirect()->route('playlists.show', ['id' => $playlist->id])
-                ->withSuccess('Your Playlist Was Created Successfully!');
         }
+        $playlist->save();
+        // Announce To Shoutbox
+        $appurl = config('app.url');
+        if ($playlist->is_private != 1) {
+            $this->chat->systemMessage(
+                "User [url={$appurl}/".$user->username.'.'.$user->id.']'.$user->username."[/url] has created a new playlist [url={$appurl}/playlists/".$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
+            );
+        }
+
+        return redirect()->route('playlists.show', ['id' => $playlist->id])
+            ->withSuccess('Your Playlist Was Created Successfully!');
     }
 
     /**
@@ -213,12 +211,11 @@ class PlaylistController extends Controller
             return redirect()->route('playlists.edit', ['id' => $playlist->id])
                 ->withInput()
                 ->withErrors($v->errors());
-        } else {
-            $playlist->save();
-
-            return redirect()->route('playlists.show', ['id' => $playlist->id])
-                ->withSuccess('Your Playlist Has Successfully Been Updated!');
         }
+        $playlist->save();
+
+        return redirect()->route('playlists.show', ['id' => $playlist->id])
+            ->withSuccess('Your Playlist Has Successfully Been Updated!');
     }
 
     /**

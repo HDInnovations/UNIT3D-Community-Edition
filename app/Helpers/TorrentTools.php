@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Helpers;
@@ -72,8 +72,8 @@ class TorrentTools
     public static function getFileCount($decodedTorrent)
     {
         // Multiple file torrent ?
-        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
-            return count($decodedTorrent['info']['files']);
+        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
+            return is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;
@@ -89,11 +89,11 @@ class TorrentTools
     public static function getTorrentSize($decodedTorrent)
     {
         $size = 0;
-        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
+        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
                 $size += $file['length'];
-                $count = count($file['path']);
+                $count = is_countable($file['path']) ? count($file['path']) : 0;
             }
         } else {
             $size = $decodedTorrent['info']['length'];
@@ -112,10 +112,10 @@ class TorrentTools
      */
     public static function getTorrentFiles($decodedTorrent)
     {
-        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
+        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
-                $count = count($file['path']);
+                $count = is_countable($file['path']) ? count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
                     if (($i + 1) == $count) {
                         $fname = $dir.$file['path'][$i];
@@ -157,7 +157,7 @@ class TorrentTools
     public static function getTorrentFileCount($decodedTorrent)
     {
         if (array_key_exists('files', $decodedTorrent['info'])) {
-            return count($decodedTorrent['info']['files']);
+            return is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;

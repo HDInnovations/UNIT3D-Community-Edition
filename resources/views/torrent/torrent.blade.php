@@ -53,6 +53,13 @@
                                 </span>
                             </a>
                         @endif
+                        @if (config('torrent.magnet') == 1)
+                            <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="btn btn-labeled btn-success">
+                                <span class='btn-label'>
+                                    <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
+                                </span>
+                            </a>
+                        @endif
 
                         @if ($torrent->tmdb != 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-labeled btn-primary">
@@ -738,8 +745,8 @@
                       action="{{ route('comment_torrent', ['id' => $torrent->id]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')
-                        <strong>:</strong> @lang('common.for') emoji</span> <span
+                        <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type-verb')
+                        <strong>":"</strong> @lang('common.for') emoji</span> <span
                                 class="badge-extra">BBCode @lang('common.is-allowed')</span>
                         <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
@@ -780,7 +787,7 @@
       })
     </script>
 
-    @if (isset($meta) && $torrent->category->movie_meta || $torrent->category->tv_meta && $meta->videoTrailer && $meta->title)
+    @if (isset($meta) && ($torrent->category->movie_meta || $torrent->category->tv_meta) && $meta->videoTrailer && $meta->title)
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $('.show-trailer').each(function () {
         $(this).off('click');

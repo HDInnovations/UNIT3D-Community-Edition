@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.reports.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Reports</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.reports-log')</span>
         </a>
     </li>
 @endsection
@@ -24,11 +24,12 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>Reports</h2>
+            <h2>@lang('staff.reports-log')</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-list"></i> Reports</strong>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-list"></i>
+                            @lang('common.report')</strong>
                     </p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
@@ -36,12 +37,12 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Type</th>
-                                    <th>Title</th>
+                                    <th>@lang('common.title')</th>
                                     <th>Reported</th>
-                                    <th>Reporter</th>
-                                    <th class="col-md-2">Created</th>
-                                    <th>Judge</th>
-                                    <th>Solved</th>
+                                    <th>@lang('common.reporter')</th>
+                                    <th class="col-md-2">@lang('user.created-on')</th>
+                                    <th>@lang('user.judge')</th>
+                                    <th>@lang('forum.solved')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,11 +85,11 @@
                                             <td>
                                                 @if ($report->solved == 0)
                                                     <span class="text-red">
-                                                        <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> NO</strong>
+                                                        <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.no')</strong>
                                                     </span>
                                                 @else
                                                     <span class="text-green">
-                                                        <strong><i class="{{ config('other.font-awesome') }} fa-check"></i> YES</strong>
+                                                        <strong><i class="{{ config('other.font-awesome') }} fa-check"></i> @lang('common.yes')</strong>
                                                     </span>
                                                 @endif
                                             </td>

@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -57,21 +57,20 @@ class ReportController extends Controller
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $id])
                 ->withErrors($v->errors());
-        } else {
-            $this->report->create([
-                'type'          => 'Request',
-                'request_id'    => $torrentRequest->id,
-                'torrent_id'    => 0,
-                'reporter_id'   => $reported_by->id,
-                'reported_user' => $reported_user->id,
-                'title'         => $torrentRequest->name,
-                'message'       => $request->get('message'),
-                'solved'        => 0,
-            ]);
-
-            return redirect()->route('request', ['id' => $id])
-                ->withSuccess('Your report has been successfully sent');
         }
+        $this->report->create([
+            'type'          => 'Request',
+            'request_id'    => $torrentRequest->id,
+            'torrent_id'    => 0,
+            'reporter_id'   => $reported_by->id,
+            'reported_user' => $reported_user->id,
+            'title'         => $torrentRequest->name,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
+        ]);
+
+        return redirect()->route('request', ['id' => $id])
+            ->withSuccess('Your report has been successfully sent');
     }
 
     /**
@@ -95,21 +94,20 @@ class ReportController extends Controller
         if ($v->fails()) {
             return redirect()->route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
-        } else {
-            $this->report->create([
-                'type'          => 'Torrent',
-                'torrent_id'    => $torrent->id,
-                'request_id'    => 0,
-                'reporter_id'   => $reported_by->id,
-                'reported_user' => $reported_user->id,
-                'title'         => $torrent->name,
-                'message'       => $request->get('message'),
-                'solved'        => 0,
-            ]);
-
-            return redirect()->route('torrent', ['id' => $id])
-                ->withSuccess('Your report has been successfully sent');
         }
+        $this->report->create([
+            'type'          => 'Torrent',
+            'torrent_id'    => $torrent->id,
+            'request_id'    => 0,
+            'reporter_id'   => $reported_by->id,
+            'reported_user' => $reported_user->id,
+            'title'         => $torrent->name,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
+        ]);
+
+        return redirect()->route('torrent', ['id' => $id])
+            ->withSuccess('Your report has been successfully sent');
     }
 
     /**
@@ -121,9 +119,9 @@ class ReportController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function user(Request $request, $username, int $id)
+    public function user(Request $request, $username)
     {
-        $reported_user = User::findOrFail($id);
+        $reported_user = User::where('username', '=', $username)->firstOrFail();
         $reported_by = $request->user();
 
         $v = validator($request->all(), [
@@ -133,20 +131,19 @@ class ReportController extends Controller
         if ($v->fails()) {
             return redirect()->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
-        } else {
-            $this->report->create([
-                'type'          => 'User',
-                'torrent_id'    => 0,
-                'request_id'    => 0,
-                'reporter_id'   => $reported_by->id,
-                'reported_user' => $reported_user->id,
-                'title'         => $reported_user->username,
-                'message'       => $request->get('message'),
-                'solved'        => 0,
-            ]);
-
-            return redirect()->route('users.show', ['username' => $username])
-                ->withSuccess('Your report has been successfully sent');
         }
+        $this->report->create([
+            'type'          => 'User',
+            'torrent_id'    => 0,
+            'request_id'    => 0,
+            'reporter_id'   => $reported_by->id,
+            'reported_user' => $reported_user->id,
+            'title'         => $reported_user->username,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
+        ]);
+
+        return redirect()->route('users.show', ['username' => $username])
+            ->withSuccess('Your report has been successfully sent');
     }
 }

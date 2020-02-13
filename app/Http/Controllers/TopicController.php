@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -175,63 +175,59 @@ class TopicController extends Controller
         if ($v->fails()) {
             return redirect()->route('forums.index')
                 ->withErrors($v->errors());
+        }
+        $topic->save();
+        $post = new Post();
+        $post->content = $request->input('content');
+        $post->user_id = $user->id;
+        $post->topic_id = $topic->id;
+        $v = validator($post->toArray(), [
+            'content'  => 'required',
+            'user_id'  => 'required',
+            'topic_id' => 'required',
+        ]);
+        if ($v->fails()) {
+            return redirect()->route('forums.index')
+                ->withErrors($v->errors());
         } else {
+            $post->save();
+            $topic->num_post = 1;
+            $topic->last_reply_at = $post->created_at;
             $topic->save();
+            $forum->num_topic = $forum->getTopicCount($forum->id);
+            $forum->num_post = $forum->getPostCount($forum->id);
+            $forum->last_topic_id = $topic->id;
+            $forum->last_topic_name = $topic->name;
+            $forum->last_topic_slug = $topic->slug;
+            $forum->last_post_user_id = $user->id;
+            $forum->last_post_user_username = $user->username;
+            $forum->save();
 
-            $post = new Post();
-            $post->content = $request->input('content');
-            $post->user_id = $user->id;
-            $post->topic_id = $topic->id;
+            $forum->notifySubscribers($user, $topic);
 
-            $v = validator($post->toArray(), [
-                'content'  => 'required',
-                'user_id'  => 'required',
-                'topic_id' => 'required',
-            ]);
+            // Post To ShoutBox
+            $appurl = config('app.url');
+            $topicUrl = "{$appurl}/forums/topics/{$topic->id}";
+            $profileUrl = "{$appurl}/users/{$user->username}";
 
-            if ($v->fails()) {
-                return redirect()->route('forums.index')
-                    ->withErrors($v->errors());
-            } else {
-                $post->save();
-                $topic->num_post = 1;
-                $topic->last_reply_at = $post->created_at;
-                $topic->save();
-                $forum->num_topic = $forum->getTopicCount($forum->id);
-                $forum->num_post = $forum->getPostCount($forum->id);
-                $forum->last_topic_id = $topic->id;
-                $forum->last_topic_name = $topic->name;
-                $forum->last_topic_slug = $topic->slug;
-                $forum->last_post_user_id = $user->id;
-                $forum->last_post_user_username = $user->username;
-                $forum->save();
+            $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
 
-                $forum->notifySubscribers($user, $topic);
+            //Achievements
+            $user->unlock(new UserMadeFirstPost(), 1);
+            $user->addProgress(new UserMade25Posts(), 1);
+            $user->addProgress(new UserMade50Posts(), 1);
+            $user->addProgress(new UserMade100Posts(), 1);
+            $user->addProgress(new UserMade200Posts(), 1);
+            $user->addProgress(new UserMade300Posts(), 1);
+            $user->addProgress(new UserMade400Posts(), 1);
+            $user->addProgress(new UserMade500Posts(), 1);
+            $user->addProgress(new UserMade600Posts(), 1);
+            $user->addProgress(new UserMade700Posts(), 1);
+            $user->addProgress(new UserMade800Posts(), 1);
+            $user->addProgress(new UserMade900Posts(), 1);
 
-                // Post To ShoutBox
-                $appurl = config('app.url');
-                $topicUrl = "{$appurl}/forums/topics/{$topic->id}";
-                $profileUrl = "{$appurl}/users/{$user->username}";
-
-                $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
-
-                //Achievements
-                $user->unlock(new UserMadeFirstPost(), 1);
-                $user->addProgress(new UserMade25Posts(), 1);
-                $user->addProgress(new UserMade50Posts(), 1);
-                $user->addProgress(new UserMade100Posts(), 1);
-                $user->addProgress(new UserMade200Posts(), 1);
-                $user->addProgress(new UserMade300Posts(), 1);
-                $user->addProgress(new UserMade400Posts(), 1);
-                $user->addProgress(new UserMade500Posts(), 1);
-                $user->addProgress(new UserMade600Posts(), 1);
-                $user->addProgress(new UserMade700Posts(), 1);
-                $user->addProgress(new UserMade800Posts(), 1);
-                $user->addProgress(new UserMade900Posts(), 1);
-
-                return redirect()->route('forum_topic', ['id' => $topic->id])
-                    ->withSuccess('Topic Created Successfully!');
-            }
+            return redirect()->route('forum_topic', ['id' => $topic->id])
+                ->withSuccess('Topic Created Successfully!');
         }
     }
 

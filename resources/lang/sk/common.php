@@ -1,6 +1,18 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
+  'a-an-art' => '',
   'about' => 'O nás',
   'account' => 'účet',
   'achievement-title' => 'Úžasné',
@@ -94,6 +106,7 @@ return [
   'name' => 'názov',
   'navigation' => 'navigácia',
   'new' => 'Nový!',
+  'new-adj' => 'Nový',
   'news' => 'správy',
   'next' => 'Ďalšie',
   'no' => 'žiadny',
@@ -154,6 +167,7 @@ return [
   'topics' => 'témy',
   'tracker-codes' => 'Kódy kódov',
   'type' => 'typ',
+  'type-verb' => 'typ',
   'types' => 'druhy',
   'genre' => 'štýl',
   'genres' => 'Žánre',

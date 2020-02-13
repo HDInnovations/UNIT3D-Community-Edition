@@ -1,6 +1,18 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
+    'a-an-art'             => '',
     'abbrev-days'          => '日',
     'abbrev-hours'         => '時',
     'abbrev-minutes'       => '分',
@@ -105,6 +117,7 @@ return [
     'name'                 => '名稱',
     'navigation'           => '導灠',
     'new'                  => '新!',
+    'new-adj'              => '新的',
     'news'                 => '公告',
     'next'                 => '下一個',
     'no'                   => 'No',
@@ -136,7 +149,7 @@ return [
     'ratio'                => '比率',
     'reason'               => '原因',
     'remove'               => '移除',
-    'report'               => '報告',
+    'report'               => '舉報',
     'resend'               => '重發',
     'reporter'             => '舉報者',
     'required'             => '必須',
@@ -165,12 +178,13 @@ return [
     'top-bountied'         => 'Top Bountied',
     'topics'               => '名稱',
     'tracker-codes'        => '伺服器回報碼',
-    'type'                 => '鍵入',
+    'type'                 => 'Type',
+    'type-verb'            => '鍵入',
     'types'                => 'Types',
     'genre'                => '風格',
     'genres'               => '風格',
-    'action'               => '動作',
-    'actions'              => '動作',
+    'action'               => '操作',
+    'actions'              => '操作',
     'unknown'              => '不知明',
     'unlocked-achievement' => '你已解鎖 :achievement 成就',
     'upload'               => '上傳',

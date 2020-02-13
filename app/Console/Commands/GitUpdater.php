@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
  */
 
 namespace App\Console\Commands;
@@ -106,7 +106,7 @@ class GitUpdater extends Command
     {
         $updating = $this->checkForUpdates();
 
-        if (count($updating) > 0) {
+        if ((is_countable($updating) ? count($updating) : 0) > 0) {
             $this->alertDanger('Found Updates');
 
             $this->cyan('Files that need updated:');

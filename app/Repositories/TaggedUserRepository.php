@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
  */
 
 namespace App\Repositories;
@@ -109,10 +109,8 @@ class TaggedUserRepository
             $users = is_array($users) ? collect($users)->unique() : $users->unique();
 
             foreach ($users as $user) {
-                if ($this->validate($user)) {
-                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_comment')) {
-                        $user->notify(new NewCommentTag($type, $alias, $comment));
-                    }
+                if ($this->validate($user) && $user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_comment')) {
+                    $user->notify(new NewCommentTag($type, $alias, $comment));
                 }
             }
 
@@ -121,10 +119,8 @@ class TaggedUserRepository
 
         // A single User object
 
-        if ($this->validate($users)) {
-            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_comment')) {
-                $users->notify(new NewCommentTag($type, $alias, $comment));
-            }
+        if ($this->validate($users) && $users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_comment')) {
+            $users->notify(new NewCommentTag($type, $alias, $comment));
         }
 
         return true;
@@ -148,10 +144,8 @@ class TaggedUserRepository
             $users = is_array($users) ? collect($users)->unique() : $users->unique();
 
             foreach ($users as $user) {
-                if ($this->validate($user)) {
-                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_post')) {
-                        $user->notify(new NewPostTag($type, $alias, $post));
-                    }
+                if ($this->validate($user) && $user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_post')) {
+                    $user->notify(new NewPostTag($type, $alias, $post));
                 }
             }
 
@@ -159,10 +153,8 @@ class TaggedUserRepository
         }
 
         // A single User object
-        if ($this->validate($users)) {
-            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_post')) {
-                $users->notify(new NewPostTag($type, $alias, $post));
-            }
+        if ($this->validate($users) && $users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_post')) {
+            $users->notify(new NewPostTag($type, $alias, $post));
         }
 
         return true;

@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.notes.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Notes</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.user-notes')</span>
         </a>
     </li>
 @endsection
@@ -24,11 +24,11 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>@lang('common.user') Notes Log</h2>
+            <h2>@lang('staff.user-notes')</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Notes <span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i>
+                    <h2>@lang('user.note') <span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i>
                                 {{ $notes->count() }} </strong></span>
                     </h2>
                     <div class="table-responsive">
@@ -36,9 +36,9 @@
                             <thead>
                                 <tr>
                                     <th>@lang('common.user')</th>
-                                    <th>Staff</th>
-                                    <th>Message</th>
-                                    <th>Created On</th>
+                                    <th>@lang('common.staff')</th>
+                                    <th>@lang('common.message')</th>
+                                    <th>@lang('user.created-on')</th>
                                     <th>@lang('common.delete')</th>
                                 </tr>
                             </thead>

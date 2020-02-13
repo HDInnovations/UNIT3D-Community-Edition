@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
   'action' => 'Açao',
@@ -14,7 +25,7 @@ return [
   'current' => 'Atual',
   'delete-topic' => 'Excluir este tópico',
   'denied' => 'Negado',
-  'dislike-post' => 'Não gosto deste post',
+  'dislike-post' => 'Não gostei deste post',
   'display-forum' => 'Mostrar tópicos em',
   'edit-post' => 'Editar post',
   'edit-topic' => 'Editar tópico',
@@ -28,7 +39,7 @@ return [
   'last-message' => 'Última mensagem',
   'last-post-info' => 'Última Informação',
   'latest' => 'Mais recentes',
-  'like-post' => 'Gosto deste post',
+  'like-post' => 'Gostei deste post',
   'meta-category' => 'Lista de fóruns na categoria',
   'moderation' => 'Moderação',
   'name' => 'Nome',
@@ -36,7 +47,7 @@ return [
   'not-subscribed' => 'Não inscrito',
   'open' => 'Abrir',
   'open-topic' => 'Abrir este tópico',
-  'permalink' => 'Permalink',
+  'permalink' => 'Link permanente',
   'pin' => 'PIN',
   'post' => 'Postar',
   'post-quick-search' => 'Pesquisa rápida de corpo de postagem',
@@ -59,5 +70,5 @@ return [
   'topics' => 'Tópicos',
   'unpin' => 'Soltar',
   'view-all' => 'Ver todos os tópicos',
-  'views' => 'Views',
+  'views' => 'Visualizações',
 ];

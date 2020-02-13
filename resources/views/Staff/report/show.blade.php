@@ -15,12 +15,12 @@
     </li>
     <li>
         <a href="{{ route('staff.reports.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Reports</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.reports-log')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.reports.show', ['id' => $report->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Report</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.report')</span>
         </a>
     </li>
 @endsection
@@ -44,13 +44,13 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>Reported User:</h3>
+                    <h3>Reported @lang('common.user'):</h3>
                     <p class="well well-sm">
                         <a href="{{ route('users.show', ['username' => $report->reported->username]) }}">
                             {{ $report->reported->username }}
                         </a>
                     </p>
-                    <h3>Reported By:</h3>
+                    <h3>@lang('common.reporter'):</h3>
                     <p class="well well-sm">
                         <a href="{{ route('users.show', ['username' => $report->reporter->username]) }}">
                             {{ $report->reporter->username }}
@@ -58,7 +58,7 @@
                     </p>
     
                     @if ($report->torrent)
-                        <h3>@lang('torrent.torrent') Title:</h3>
+                        <h3>@lang('torrent.torrent') @lang('torrent.title'):</h3>
                         <p class="well well-sm">
                             <a href="{{ route('torrent', ['id' => $report->torrent->id]) }}">
                                 {{ $report->title }}
@@ -67,7 +67,7 @@
                     @endif
     
                     @if ($report->request)
-                        <h3>@lang('torrent.torrent-request') Title:</h3>
+                        <h3>@lang('torrent.torrent-request') @lang('request.title'):</h3>
                         <p class="well well-sm">
                             <a href="{{ route('request', ['id' => $report->request->id]) }}">
                                 {{ $report->title }}
@@ -75,7 +75,7 @@
                         </p>
                     @endif
     
-                    <h3>Message:</h3>
+                    <h3>@lang('common.message'):</h3>
                     <p class="well well-lg">
                         {{ $report->message }}
                     </p>
@@ -91,7 +91,7 @@
                 </div>
             </div>
     
-            <h2>Resolve Report</h2>
+            <h2>Resolve @lang('common.report')</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
@@ -104,7 +104,7 @@
                                     <textarea name="verdict" class="form-control"></textarea>
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                         @else
                             <div class="form-group">
                                 <h3>Verdict</h3>

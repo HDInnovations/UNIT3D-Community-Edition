@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
     'add-request'         => '添加',
@@ -9,24 +20,24 @@ return [
     'bounty-claimed'      => '赏金获得',
     'bounty-unclaimed'    => '赏金无人认领',
     'category'            => '类别',
-    'claim'               => '应微',
-    'claim-anon-choose'   => '请明智选择',
-    'claim-as-anon'       => '你想以匿名身份应微吗?',
-    'claim-now'           => '现在应微',
-    'claimed'             => '已应微',
+    'claim'               => '应征',
+    'claim-anon-choose'   => '请慎重选择',
+    'claim-as-anon'       => '你想以匿名身份应征吗？',
+    'claim-now'           => '马上应征',
+    'claimed'             => '已应征',
     'current'             => '现在',
     'delete'              => '删除',
     'delete-confirmation' => '您确定要删除此悬赏吗？',
-    'delete-filled'       => '只有未被达成时,才能被删除',
+    'delete-filled'       => '只有未被达成时，才能被删除',
     'description'         => '描述',
     'dont-have-bps'       => '你没有足够的奖金',
     'edit-request'        => '编辑',
-    'enter-bp'            => '填写赏金 (下限为 100)',
-    'enter-hash'          => '填写所上传的torrent档校验码',
+    'enter-bp'            => '填写赏金（下限为 100）',
+    'enter-hash'          => '填写所上传的torrent文件的校验码',
     'fill'                => '达成',
     'fill-request'        => '达成此请求',
     'filled'              => '已达成',
-    'filled-by'           => '达成於',
+    'filled-by'           => '达成于',
     'for'                 => '对于',
     'fulfill'             => '证明',
     'last-vote'           => '最后的投票',
@@ -34,9 +45,9 @@ return [
     'no'                  => 'No,',
     'no-imdb-id'          => '必须有IMDB ID',
     'no-privileges'       => '错误：悬赏已被禁用',
-    'no-privileges-desc'  => '如果您认为这是错误的，请联系工作人员',
-    'no-refunds'          => '注意，所涉及的魔力交易是不可退回的!',
-    'pending'             => '等待中',
+    'no-privileges-desc'  => '如果您认为这是错误的，请联系站务人员',
+    'no-refunds'          => '注意，所涉及的魔力交易是不可退回的！',
+    'pending'             => '等待批准',
     'reason'              => '原因',
     'reject'              => '拒绝',
     'report'              => '报告',

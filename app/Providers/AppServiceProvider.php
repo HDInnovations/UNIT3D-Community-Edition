@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Providers;
@@ -16,6 +16,10 @@ namespace App\Providers;
 use App\Helpers\HiddenCaptcha;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
+use App\Models\Torrent;
+use App\Models\User;
+use App\Observers\TorrentObserver;
+use App\Observers\UserObserver;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
 use Illuminate\Support\Facades\Blade;
@@ -56,6 +60,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // User Observer For Cache
+        User::observe(UserObserver::class);
+
+        // Torrent Observer For Cache
+        Torrent::observe(TorrentObserver::class);
+
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
 

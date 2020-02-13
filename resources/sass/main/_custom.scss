@@ -7050,9 +7050,6 @@ body.tvshow .movie-poster {
     text-align: center;
 }
 
-.torrent .torrent-description {
-}
-
 .torrent .torrent-data {
     text-align: center;
 }
@@ -7219,9 +7216,6 @@ time {
     word-wrap: break-word;
     line-height: 1.75em;
     color: #212121;
-}
-
-.topic .topic-posts .post article.post-content span {
 }
 
 .topic .topic-posts .post article.post-content span span {
@@ -8907,10 +8901,6 @@ section.tall_categories div.category.movie span {
     padding: 14px 17px;
 }
 
-.card.is-torrent .body_grouping:hover {
-
-}
-
 .card.is-torrent .footer_network:before {
     content: '-';
     padding: 0 5px;
@@ -9412,6 +9402,11 @@ section.recommendations div.scroller div.item span.glyphicons {
     font-size: 1.2em;
 }
 
+.page-content p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
 .page-content>blockquote {
     color: #555;
     border-color: #555;
@@ -9425,6 +9420,10 @@ pre {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 0;
+}
+
+.page-content code {
+    word-break: normal;
 }
 
 .page-content>pre>code {

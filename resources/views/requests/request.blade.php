@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Request - {{ config('other.title') }}</title>
+    <title>Request - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -431,8 +431,8 @@
                             @csrf
                             <div class="form-group">
                                 <label for="content">@lang('common.your-comment'):</label><span
-                                        class="badge-extra">@lang('common.type')
-                                    <strong>:</strong> {{ strtolower(trans('common.for')) }} emoji</span> <span
+                                        class="badge-extra">@lang('common.type-verb')
+                                    <strong>":"</strong> {{ strtolower(trans('common.for')) }} emoji</span> <span
                                         class="badge-extra">BBCode {{ strtolower(trans('common.is-allowed')) }}</span>
                                 <textarea id="content" name="content" cols="30" rows="5"
                                           class="form-control"></textarea>

@@ -15,8 +15,12 @@
 
 @section('content')
     <div class="container box">
-        <h2>Categories</h2>
-        <a href="{{ route('staff.categories.create') }}" class="btn btn-primary">Add A Category</a>
+        <h2>@lang('torrent.categories')</h2>
+        <a href="{{ route('staff.categories.create') }}" class="btn btn-primary">
+            @lang('common.add')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('torrent.category')
+        </a>
     
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
@@ -24,8 +28,8 @@
                     <tr>
                         <th>@lang('common.position')</th>
                         <th>@lang('common.name')</th>
-                        <th>Icon</th>
-                        <th>Image</th>
+                        <th>@lang('common.icon')</th>
+                        <th>@lang('common.image')</th>
                         <th>Movie Meta</th>
                         <th>TV Meta</th>
                         <th>Game Meta</th>

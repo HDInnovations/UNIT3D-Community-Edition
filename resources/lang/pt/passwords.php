@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
     /*
@@ -12,9 +23,9 @@ return [
     |
     */
 
-    'password' => 'A palavra-passe deverá conter pelo menos seis carateres e ser igual à confirmação.',
-    'reset'    => 'A palavra-passe foi redefinida!',
-    'sent'     => 'O lembrete para a palavra-passe foi enviado!',
-    'token'    => 'Este código de recuperação da palavra-passe é inválido.',
-    'user'     => 'Não existe nenhum utilizador com o endereço de correio eletrónico indicado.',
+    'password' => 'As senhas devem ter pelo menos seis caracteres e coincidir com a confirmação.',
+    'reset'    => 'A sua senha foi redefinida!',
+    'sent'     => 'Enviamos por e-mail o link para redefinir a sua senha!',
+    'token'    => 'Este código de redefinição de senha é inválido.',
+    'user'     => 'Não existe nenhum usuário com o endereço de e-mail indicado.',
 ];
