@@ -19,7 +19,7 @@
 
 @section('content')
     <div class="container box">
-        <h2>Manage Polls</h2>
+        <h2>@lang('poll.poll')</h2>
         <a href="{{ route('staff.polls.create') }}" class="btn btn-primary">
             @lang('common.add')
             @lang(trans_choice('common.a-an-art',false))
