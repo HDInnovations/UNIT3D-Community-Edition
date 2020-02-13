@@ -64,7 +64,7 @@ class PollController extends Controller
         $user_has_voted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
-            return redirect('polls/'.$poll->slug.'/result')
+            return redirect('polls/' . $poll->slug . '/result')
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
 
@@ -83,22 +83,23 @@ class PollController extends Controller
         $user = $request->user();
         $poll = Option::findOrFail($request->input('option.0'))->poll;
 
+        // Extract the logic to function validateVoter()
+        if (!$this->validateVoter($request, $user, $poll)) {
+            return redirect('polls/' . $poll->slug . '/result')
+                ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
+        }
+
+        // Operate options after validation
         foreach ($request->input('option') as $option) {
             Option::findOrFail($option)->increment('votes');
         }
 
-        if (Voter::where('user_id', '=', $user->id)->where('poll_id', '=', $poll->id)->exists()) {
-            return redirect('polls/'.$poll->slug.'/result')
-                ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
-        }
-
-        if ($poll->ip_checking == 1) {
-            $vote = new Voter();
-            $vote->poll_id = $poll->id;
-            $vote->user_id = $user->id;
-            $vote->ip_address = $request->ip();
-            $vote->save();
-        }
+        // Make voter after option operation completed
+        $vote = new Voter();
+        $vote->poll_id = $poll->id;
+        $vote->user_id = $user->id;
+        $vote->ip_address = $request->ip();
+        $vote->save();
 
         $poll_url = hrefPoll($poll);
         $profile_url = hrefProfile($user);
@@ -107,7 +108,7 @@ class PollController extends Controller
             "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
         );
 
-        return redirect('polls/'.$poll->slug.'/result')
+        return redirect('polls/' . $poll->slug . '/result')
             ->withSuccess('Your vote has been counted.');
     }
 
@@ -122,10 +123,41 @@ class PollController extends Controller
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
         $map = [
-            'poll'        => $poll,
+            'poll' => $poll,
             'total_votes' => $poll->totalVotes(),
         ];
 
         return view('poll.result', $map);
+    }
+
+    /**
+     * Check If Voter Validated
+     *
+     * @param VoteOnPoll $request
+     *
+     * @param $user
+     * @param Poll $poll
+     *
+     * @return bool
+     */
+    private function validateVoter(VoteOnPoll $request, $user, Poll $poll): bool
+    {
+        // Expect for simplifying the logic below while remain semantic.
+        return !(
+            // One user should never vote on one poll twice.
+            (
+            Voter::where('user_id', '=', $user->id)
+                ->where('poll_id', '=', $poll->id)
+                ->exists()
+            ) ||
+            // If ip_checking is set, further examine request's IP.
+            (
+                $poll->ip_checking == 1
+                &&
+                Voter::where('user_id', '=', $user->id)
+                    ->where('ip_address', '=', $request->ip())
+                    ->exists()
+            )
+        );
     }
 }
