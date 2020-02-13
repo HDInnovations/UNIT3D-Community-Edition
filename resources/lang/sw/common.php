@@ -106,6 +106,7 @@ return [
   'name' => 'Jina',
   'navigation' => 'Navigation',
   'new' => 'Mpya!',
+  'new-adj' => 'Mpya',
   'news' => 'Habari',
   'next' => 'Ifuatayo',
   'no' => 'Hapana',

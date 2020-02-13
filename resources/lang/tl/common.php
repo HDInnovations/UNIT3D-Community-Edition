@@ -106,6 +106,7 @@ return [
   'name' => 'Pangalan',
   'navigation' => 'Nabigasyon',
   'new' => 'Bago!',
+  'new-adj' => 'Bago',
   'news' => 'Balita',
   'next' => 'Susunod',
   'no' => 'Hindi',

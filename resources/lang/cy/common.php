@@ -106,6 +106,7 @@ return [
   'name' => 'Enw',
   'navigation' => 'Llywio',
   'new' => 'Newydd!',
+  'new-adj' => 'Newydd',
   'news' => 'Newyddion',
   'next' => 'Nesaf',
   'no' => 'Na',

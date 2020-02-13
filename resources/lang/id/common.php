@@ -106,6 +106,7 @@ return [
   'name' => 'Nama',
   'navigation' => 'Navigasi',
   'new' => 'Baru!',
+  'new-adj' => 'Baru',
   'news' => 'Berita',
   'next' => 'Berikutnya',
   'no' => 'Tidak',

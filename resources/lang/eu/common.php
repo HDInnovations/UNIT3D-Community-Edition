@@ -106,6 +106,7 @@ return [
   'name' => 'izena',
   'navigation' => 'Itsasketa',
   'new' => 'New!',
+  'new-adj' => 'New',
   'news' => 'Berriak',
   'next' => 'hurrengo',
   'no' => 'Ez',

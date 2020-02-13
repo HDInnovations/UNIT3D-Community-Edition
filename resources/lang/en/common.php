@@ -118,6 +118,7 @@ return [
     'name'                 => 'Name',
     'navigation'           => 'Navigation',
     'new'                  => 'New!',
+    'new-adj'                  => 'New',
     'news'                 => 'News',
     'next'                 => 'Next',
     'no'                   => 'No',

@@ -106,6 +106,7 @@ return [
   'name' => 'názov',
   'navigation' => 'navigácia',
   'new' => 'Nový!',
+  'new-adj' => 'Nový',
   'news' => 'správy',
   'next' => 'Ďalšie',
   'no' => 'žiadny',

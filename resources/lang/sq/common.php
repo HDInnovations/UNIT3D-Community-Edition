@@ -106,6 +106,7 @@ return [
   'name' => 'emër',
   'navigation' => 'lundrim',
   'new' => 'I ri!',
+  'new-adj' => 'I ri',
   'news' => 'Lajme',
   'next' => 'tjetër',
   'no' => 'jo',

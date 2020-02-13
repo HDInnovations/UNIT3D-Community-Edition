@@ -106,6 +106,7 @@ return [
   'name' => 'Adı',
   'navigation' => 'Naviqasiya',
   'new' => 'Yeni!',
+  'new-adj' => 'Yeni',
   'news' => 'Xəbərlər',
   'next' => 'İrəli',
   'no' => 'Yox',

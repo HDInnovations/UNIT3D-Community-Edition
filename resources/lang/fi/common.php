@@ -106,6 +106,7 @@ return [
   'name' => 'Nimi',
   'navigation' => 'suunnistus',
   'new' => 'Uusi!',
+  'new-adj' => 'Uusi',
   'news' => 'Uutiset',
   'next' => 'Seuraava',
   'no' => 'Ei',

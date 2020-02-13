@@ -106,6 +106,7 @@ return [
   'name' => 'Ism',
   'navigation' => 'Navigatsiya',
   'new' => 'Yangi!',
+  'new-adj' => 'Yangi',
   'news' => 'Yangiliklar',
   'next' => 'Keyingi',
   'no' => 'Yo q',

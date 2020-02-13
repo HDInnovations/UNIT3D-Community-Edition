@@ -117,6 +117,7 @@ return [
     'name'                 => '名稱',
     'navigation'           => '導灠',
     'new'                  => '新!',
+    'new-adj'              => '新的',
     'news'                 => '公告',
     'next'                 => '下一個',
     'no'                   => 'No',

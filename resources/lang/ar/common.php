@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * NOTICE OF LICENSE.
  *
@@ -106,6 +106,7 @@ return [
   'name' => 'اسم',
   'navigation' => 'التنقل',
   'new' => 'الجديد!',
+  'new-adj' => 'الجديد',
   'news' => 'أخبار',
   'next' => 'التالى',
   'no' => 'لا',

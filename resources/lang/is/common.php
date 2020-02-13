@@ -106,6 +106,7 @@ return [
   'name' => 'Nafn',
   'navigation' => 'Siglingar',
   'new' => 'Nýtt!',
+  'new-adj' => 'Nýtt',
   'news' => 'Fréttir',
   'next' => 'Næst',
   'no' => 'Nr',

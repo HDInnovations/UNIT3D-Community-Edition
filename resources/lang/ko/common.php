@@ -106,6 +106,7 @@ return [
   'name' => '이름',
   'navigation' => '네비게이션',
   'new' => '새로운!',
+  'new-adj' => '새로운',
   'news' => '뉴스',
   'next' => '다음',
   'no' => 'NO',

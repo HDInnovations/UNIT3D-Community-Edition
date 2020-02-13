@@ -106,6 +106,7 @@ return [
   'name' => 'Név',
   'navigation' => 'Navigáció',
   'new' => 'Új!',
+  'new-adj' => 'Új',
   'news' => 'hírek',
   'next' => 'Következő',
   'no' => 'Nem',

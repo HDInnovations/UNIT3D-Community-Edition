@@ -106,6 +106,7 @@ return [
   'name' => 'Nosaukums',
   'navigation' => 'Navigācija',
   'new' => 'Jaunums!',
+  'new-adj' => 'Jaunums',
   'news' => 'Ziņas',
   'next' => 'Nākamais',
   'no' => 'Nē',

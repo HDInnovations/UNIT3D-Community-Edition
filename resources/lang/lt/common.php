@@ -106,6 +106,7 @@ return [
   'name' => 'vardas',
   'navigation' => 'Navigacija',
   'new' => 'Nauja!',
+  'new-adj' => 'Nauja',
   'news' => 'žinios',
   'next' => 'Kitas',
   'no' => 'Ne',

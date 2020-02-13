@@ -106,6 +106,7 @@ return [
   'name' => 'Tên',
   'navigation' => 'dẫn đường',
   'new' => 'Mới!',
+  'new-adj' => 'Mới',
   'news' => 'Tin tức',
   'next' => 'Kế tiếp',
   'no' => 'Không',
