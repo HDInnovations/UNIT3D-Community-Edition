@@ -12,7 +12,7 @@
  */
 
 return [
-    'a-an-art' => '',
+    'a-an-art'             => '{0}a|[1,*]an',
     'abbrev-days'          => 'D ',
     'abbrev-hours'         => 'h ',
     'abbrev-minutes'       => 'm ',
