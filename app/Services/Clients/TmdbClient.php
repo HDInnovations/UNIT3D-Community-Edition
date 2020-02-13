@@ -354,15 +354,13 @@ class TmdbClient extends Client implements MovieTvInterface
             return $path.$item['file_path'];
         }, $images);
 
-        $images = array_filter($images, function ($item) use ($path, $image) {
+        return array_filter($images, function ($item) use ($path, $image) {
             if ($item == $path.$image) {
                 return false;
             }
 
             return true;
         });
-
-        return $images;
     }
 
     private function formatCasts($credits, $role)

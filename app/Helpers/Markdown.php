@@ -267,11 +267,9 @@ class Markdown
             $markup .= isset($Block['markup']) ? $Block['markup'] : $this->element($Block['element']);
         }
 
-        $markup .= "\n";
-
         // ~
 
-        return $markup;
+        return $markup . "\n";
     }
 
     protected function isBlockContinuable($Type)
@@ -296,7 +294,7 @@ class Markdown
         if ($Line['indent'] >= 4) {
             $text = substr($Line['body'], 4);
 
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'pre',
                     'handler' => 'element',
@@ -306,8 +304,6 @@ class Markdown
                     ],
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -395,7 +391,7 @@ class Markdown
                 ];
             }
 
-            $Block = [
+            return [
                 'char'    => $Line['text'][0],
                 'element' => [
                     'name'    => 'pre',
@@ -403,8 +399,6 @@ class Markdown
                     'text'    => $Element,
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -460,15 +454,13 @@ class Markdown
 
             $text = trim($Line['text'], '# ');
 
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'h'.min(6, $level),
                     'text'    => $text,
                     'handler' => 'line',
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -583,15 +575,13 @@ class Markdown
     protected function blockQuote($Line)
     {
         if (preg_match('/^>[ ]?(.*)/', $Line['text'], $matches)) {
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'blockquote',
                     'handler' => 'lines',
                     'text'    => (array) $matches[1],
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -622,13 +612,11 @@ class Markdown
     protected function blockRule($Line)
     {
         if (preg_match('/^(['.$Line['text'][0].'])([ ]*\1){2,}[ ]*$/', $Line['text'])) {
-            $Block = [
+            return [
                 'element' => [
                     'name' => 'hr',
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -742,11 +730,9 @@ class Markdown
 
             $this->DefinitionData['Reference'][$id] = $Data;
 
-            $Block = [
+            return [
                 'hidden' => true,
             ];
-
-            return $Block;
         }
     }
 
@@ -904,15 +890,13 @@ class Markdown
 
     protected function paragraph($Line)
     {
-        $Block = [
+        return [
             'element' => [
                 'name'    => 'p',
                 'text'    => $Line['text'],
                 'handler' => 'line',
             ],
         ];
-
-        return $Block;
     }
 
     //
@@ -1010,9 +994,7 @@ class Markdown
             $text = substr($text, $markerPosition + 1);
         }
 
-        $markup .= $this->unmarkedText($text);
-
-        return $markup;
+        return $markup . $this->unmarkedText($text);
     }
 
     //
@@ -1262,7 +1244,7 @@ class Markdown
         if (preg_match('/\bhttps?:[\/]{2}[^\s<]+\b\/*/ui', $Excerpt['context'], $matches, PREG_OFFSET_CAPTURE)) {
             $url = $matches[0][0];
 
-            $Inline = [
+            return [
                 'extent'   => strlen($matches[0][0]),
                 'position' => $matches[0][1],
                 'element'  => [
@@ -1273,8 +1255,6 @@ class Markdown
                     ],
                 ],
             ];
-
-            return $Inline;
         }
     }
 
@@ -1359,9 +1339,7 @@ class Markdown
             $markup .= "\n".$this->element($Element);
         }
 
-        $markup .= "\n";
-
-        return $markup;
+        return $markup . "\n";
     }
 
     // ~
@@ -1390,9 +1368,7 @@ class Markdown
 
     public function parse($text)
     {
-        $markup = $this->text($text);
-
-        return $markup;
+        return $this->text($text);
     }
 
     protected function sanitiseElement(array $Element)

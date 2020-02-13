@@ -114,7 +114,7 @@ trait TwoStep
      */
     private function checkTwoStepAuthStatus(int $userId)
     {
-        $twoStepAuth = TwoStepAuth::firstOrCreate(
+        return TwoStepAuth::firstOrCreate(
             [
                 'userId' => $userId,
             ],
@@ -124,8 +124,6 @@ trait TwoStep
                 'authCount' => 0,
             ]
         );
-
-        return $twoStepAuth;
     }
 
     /**
