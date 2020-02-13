@@ -127,7 +127,7 @@ class Bencode
             while ($pos < $len && $s[$pos] != 'e') {
                 $next = self::bdecode($s, $pos);
                 if (!is_null($next)) {
-                    array_push($list, $next);
+                    $list[] = $next;
                 } else {
                     return;
                 }
