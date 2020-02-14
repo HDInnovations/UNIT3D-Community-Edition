@@ -181,11 +181,11 @@ class AnnounceController extends Controller
 
         //Extra Information Fields
         $tracker_id = $request->has('trackerid') ? bin2hex($request->input('tracker_id')) : null;
-        $compact = ($request->has('compact') && $request->input('compact') == 1) ? true : false;
+        $compact = $request->has('compact') && $request->input('compact') == 1;
         $key = $request->has('key') ? bin2hex($request->input('key')) : null;
         $corrupt = $request->has('corrupt') ? $request->input('corrupt') : null;
         $ipv6 = $request->has('ipv6') ? bin2hex($request->input('ipv6')) : null;
-        $no_peer_id = ($request->has('no_peer_id') && $request->input('no_peer_id') == 1) ? true : false;
+        $no_peer_id = $request->has('no_peer_id') && $request->input('no_peer_id') == 1;
 
         // If User Download Rights Are Disabled Return Error to Client
         if ($user->can_download == 0 && $left != 0) {
@@ -307,7 +307,7 @@ class AnnounceController extends Controller
             $peer->agent = $agent;
             $peer->uploaded = $real_uploaded;
             $peer->downloaded = $real_downloaded;
-            $peer->seeder = ($left == 0) ? true : false;
+            $peer->seeder = $left == 0;
             $peer->left = $left;
             $peer->torrent_id = $torrent->id;
             $peer->user_id = $user->id;
@@ -317,8 +317,8 @@ class AnnounceController extends Controller
             // History Update
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? true : false;
-            $history->immune = ($user->group->is_immune == 1) ? true : false;
+            $history->seeder = $left == 0;
+            $history->immune = $user->group->is_immune == 1;
             $history->uploaded += 0;
             $history->actual_uploaded += 0;
             $history->client_uploaded = $real_uploaded;
@@ -349,8 +349,8 @@ class AnnounceController extends Controller
             // History Update
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? true : false;
-            $history->immune = ($user->group->is_immune == 1) ? true : false;
+            $history->seeder = $left == 0;
+            $history->immune = $user->group->is_immune == 1;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
@@ -386,7 +386,7 @@ class AnnounceController extends Controller
             $peer->agent = $agent;
             $peer->uploaded = $real_uploaded;
             $peer->downloaded = $real_downloaded;
-            $peer->seeder = ($left == 0) ? true : false;
+            $peer->seeder = $left == 0;
             $peer->left = $left;
             $peer->torrent_id = $torrent->id;
             $peer->user_id = $user->id;
@@ -396,8 +396,8 @@ class AnnounceController extends Controller
             // History Update
             $history->agent = $agent;
             $history->active = 0;
-            $history->seeder = ($left == 0) ? true : false;
-            $history->immune = ($user->group->is_immune == 1) ? true : false;
+            $history->seeder = $left == 0;
+            $history->immune = $user->group->is_immune == 1;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = 0;
@@ -432,7 +432,7 @@ class AnnounceController extends Controller
             $peer->agent = $agent;
             $peer->uploaded = $real_uploaded;
             $peer->downloaded = $real_downloaded;
-            $peer->seeder = ($left == 0) ? true : false;
+            $peer->seeder = $left == 0;
             $peer->left = $left;
             $peer->torrent_id = $torrent->id;
             $peer->user_id = $user->id;
@@ -442,7 +442,7 @@ class AnnounceController extends Controller
             // History Update
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? true : false;
+            $history->seeder = $left == 0;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
