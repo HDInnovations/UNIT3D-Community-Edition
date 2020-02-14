@@ -9,10 +9,10 @@ $factory->define(App\Models\TorrentRequestBounty::class, function (Faker $faker)
         'user_id' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
-        'seedbonus' => $faker->randomFloat(),
+        'seedbonus'   => $faker->randomFloat(),
         'requests_id' => $faker->randomNumber(),
-        'anon' => $faker->boolean,
-        'request_id' => function () {
+        'anon'        => $faker->boolean,
+        'request_id'  => function () {
             return factory(App\Models\TorrentRequest::class)->create()->id;
         },
     ];

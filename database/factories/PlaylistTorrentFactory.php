@@ -6,7 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\PlaylistTorrent::class, function (Faker $faker) {
     return [
-        'position' => $faker->randomNumber(),
+        'position'    => $faker->randomNumber(),
         'playlist_id' => function () {
             return factory(App\Models\Playlist::class)->create()->id;
         },

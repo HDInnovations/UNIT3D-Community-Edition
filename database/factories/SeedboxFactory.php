@@ -10,6 +10,6 @@ $factory->define(App\Models\Seedbox::class, function (Faker $faker) {
             return factory(App\Models\User::class)->create()->id;
         },
         'name' => $faker->name,
-        'ip' => $faker->word,
+        'ip'   => $faker->word,
     ];
 });

@@ -13,7 +13,7 @@ $factory->define(App\Models\Like::class, function (Faker $faker) {
             return factory(App\Models\Post::class)->create()->id;
         },
         'subtitle_id' => $faker->randomNumber(),
-        'like' => $faker->boolean,
-        'dislike' => $faker->boolean,
+        'like'        => $faker->boolean,
+        'dislike'     => $faker->boolean,
     ];
 });
