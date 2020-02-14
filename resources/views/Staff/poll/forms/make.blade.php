@@ -43,13 +43,6 @@
 
     <div class="checkbox">
         <label>
-            <input type="checkbox" name="ip_checking" value="1">@lang('poll.ip-checking') <span
-                class="text-red">({{ strtoupper(trans('poll.ip-checking-warrning')) }})</span>
-        </label>
-    </div>
-
-    <div class="checkbox">
-        <label>
             <input type="checkbox" name="multiple_choice" value="1">@lang('poll.multiple-choice')
         </label>
     </div>
