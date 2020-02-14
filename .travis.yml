@@ -1,0 +1,28 @@
+language: php
+
+php:
+  - '7.3'
+
+addons:
+  mariadb: '10.3'
+
+sudo: false
+
+before_script:
+- composer install --prefer-source --no-interaction
+- php artisan key:generate --env testing
+- npm install
+- npm run prod
+
+before_install:
+- mysql -e 'CREATE DATABASE unit3d_test;'
+- mysql -e "CREATE USER 'homestead'@'%' IDENTIFIED BY 'secret';"
+- mysql --user=root -e "GRANT ALL PRIVILEGES ON unit3d_test.* TO 'homestead'@'%' WITH GRANT OPTION;"
+- mysql --user=root -e 'FLUSH PRIVILEGES;'
+
+services:
+- mysql
+
+notifications:
+  email:
+    on_failure: change
