@@ -2,14 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
- * @credit     erusev
  */
 
 namespace App\Helpers;
@@ -166,7 +165,7 @@ class Markdown
 
             $indent = 0;
 
-            while (isset($line[$indent]) and $line[$indent] === ' ') {
+            while (isset($line[$indent]) && $line[$indent] === ' ') {
                 $indent++;
             }
 
@@ -185,10 +184,9 @@ class Markdown
                     $CurrentBlock = $Block;
 
                     continue;
-                } else {
-                    if ($this->isBlockCompletable($CurrentBlock['type'])) {
-                        $CurrentBlock = $this->{'block'.$CurrentBlock['type'].'Complete'}($CurrentBlock);
-                    }
+                }
+                if ($this->isBlockCompletable($CurrentBlock['type'])) {
+                    $CurrentBlock = $this->{'block'.$CurrentBlock['type'].'Complete'}($CurrentBlock);
                 }
             }
 
@@ -233,7 +231,7 @@ class Markdown
 
             // ~
 
-            if (isset($CurrentBlock) and !isset($CurrentBlock['type']) and !isset($CurrentBlock['interrupted'])) {
+            if (isset($CurrentBlock) && !isset($CurrentBlock['type']) && !isset($CurrentBlock['interrupted'])) {
                 $CurrentBlock['element']['text'] .= "\n".$text;
             } else {
                 $Blocks[] = $CurrentBlock;
@@ -246,7 +244,7 @@ class Markdown
 
         // ~
 
-        if (isset($CurrentBlock['continuable']) and $this->isBlockCompletable($CurrentBlock['type'])) {
+        if (isset($CurrentBlock['continuable']) && $this->isBlockCompletable($CurrentBlock['type'])) {
             $CurrentBlock = $this->{'block'.$CurrentBlock['type'].'Complete'}($CurrentBlock);
         }
 
@@ -269,11 +267,9 @@ class Markdown
             $markup .= isset($Block['markup']) ? $Block['markup'] : $this->element($Block['element']);
         }
 
-        $markup .= "\n";
-
         // ~
 
-        return $markup;
+        return $markup."\n";
     }
 
     protected function isBlockContinuable($Type)
@@ -291,14 +287,14 @@ class Markdown
 
     protected function blockCode($Line, $Block = null)
     {
-        if (isset($Block) and !isset($Block['type']) and !isset($Block['interrupted'])) {
+        if (isset($Block) && !isset($Block['type']) && !isset($Block['interrupted'])) {
             return;
         }
 
         if ($Line['indent'] >= 4) {
             $text = substr($Line['body'], 4);
 
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'pre',
                     'handler' => 'element',
@@ -308,8 +304,6 @@ class Markdown
                     ],
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -346,11 +340,11 @@ class Markdown
 
     protected function blockComment($Line)
     {
-        if ($this->markupEscaped or $this->safeMode) {
+        if ($this->markupEscaped || $this->safeMode) {
             return;
         }
 
-        if (isset($Line['text'][3]) and $Line['text'][3] === '-' and $Line['text'][2] === '-' and $Line['text'][1] === '!') {
+        if (isset($Line['text'][3]) && $Line['text'][3] === '-' && $Line['text'][2] === '-' && $Line['text'][1] === '!') {
             $Block = [
                 'markup' => $Line['body'],
             ];
@@ -397,7 +391,7 @@ class Markdown
                 ];
             }
 
-            $Block = [
+            return [
                 'char'    => $Line['text'][0],
                 'element' => [
                     'name'    => 'pre',
@@ -405,8 +399,6 @@ class Markdown
                     'text'    => $Element,
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -452,7 +444,7 @@ class Markdown
         if (isset($Line['text'][1])) {
             $level = 1;
 
-            while (isset($Line['text'][$level]) and $Line['text'][$level] === '#') {
+            while (isset($Line['text'][$level]) && $Line['text'][$level] === '#') {
                 $level++;
             }
 
@@ -462,15 +454,13 @@ class Markdown
 
             $text = trim($Line['text'], '# ');
 
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'h'.min(6, $level),
                     'text'    => $text,
                     'handler' => 'line',
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -515,7 +505,7 @@ class Markdown
 
     protected function blockListContinue($Line, array $Block)
     {
-        if ($Block['indent'] === $Line['indent'] and preg_match('/^'.$Block['pattern'].'(?:[ ]+(.*)|$)/', $Line['text'], $matches)) {
+        if ($Block['indent'] === $Line['indent'] && preg_match('/^'.$Block['pattern'].'(?:[ ]+(.*)|$)/', $Line['text'], $matches)) {
             if (isset($Block['interrupted'])) {
                 $Block['li']['text'][] = '';
 
@@ -541,7 +531,7 @@ class Markdown
             return $Block;
         }
 
-        if ($Line['text'][0] === '[' and $this->blockReference($Line)) {
+        if ($Line['text'][0] === '[' && $this->blockReference($Line)) {
             return $Block;
         }
 
@@ -585,21 +575,19 @@ class Markdown
     protected function blockQuote($Line)
     {
         if (preg_match('/^>[ ]?(.*)/', $Line['text'], $matches)) {
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'blockquote',
                     'handler' => 'lines',
                     'text'    => (array) $matches[1],
                 ],
             ];
-
-            return $Block;
         }
     }
 
     protected function blockQuoteContinue($Line, array $Block)
     {
-        if ($Line['text'][0] === '>' and preg_match('/^>[ ]?(.*)/', $Line['text'], $matches)) {
+        if ($Line['text'][0] === '>' && preg_match('/^>[ ]?(.*)/', $Line['text'], $matches)) {
             if (isset($Block['interrupted'])) {
                 $Block['element']['text'][] = '';
 
@@ -624,13 +612,11 @@ class Markdown
     protected function blockRule($Line)
     {
         if (preg_match('/^(['.$Line['text'][0].'])([ ]*\1){2,}[ ]*$/', $Line['text'])) {
-            $Block = [
+            return [
                 'element' => [
                     'name' => 'hr',
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -639,7 +625,7 @@ class Markdown
 
     protected function blockSetextHeader($Line, array $Block = null)
     {
-        if (!isset($Block) or isset($Block['type']) or isset($Block['interrupted'])) {
+        if (!isset($Block) || isset($Block['type']) || isset($Block['interrupted'])) {
             return;
         }
 
@@ -655,7 +641,7 @@ class Markdown
 
     protected function blockMarkup($Line)
     {
-        if ($this->markupEscaped or $this->safeMode) {
+        if ($this->markupEscaped || $this->safeMode) {
             return;
         }
 
@@ -677,13 +663,13 @@ class Markdown
             $remainder = substr($Line['text'], $length);
 
             if (trim($remainder) === '') {
-                if (isset($matches[2]) or in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || in_array($matches[1], $this->voidElements)) {
                     $Block['closed'] = true;
 
                     $Block['void'] = true;
                 }
             } else {
-                if (isset($matches[2]) or in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || in_array($matches[1], $this->voidElements)) {
                     return;
                 }
 
@@ -744,11 +730,9 @@ class Markdown
 
             $this->DefinitionData['Reference'][$id] = $Data;
 
-            $Block = [
+            return [
                 'hidden' => true,
             ];
-
-            return $Block;
         }
     }
 
@@ -757,11 +741,11 @@ class Markdown
 
     protected function blockTable($Line, array $Block = null)
     {
-        if (!isset($Block) or isset($Block['type']) or isset($Block['interrupted'])) {
+        if (!isset($Block) || isset($Block['type']) || isset($Block['interrupted'])) {
             return;
         }
 
-        if (strpos($Block['element']['text'], '|') !== false and rtrim($Line['text'], ' -:|') === '') {
+        if (strpos($Block['element']['text'], '|') !== false && rtrim($Line['text'], ' -:|') === '') {
             $alignments = [];
 
             $divider = $Line['text'];
@@ -860,7 +844,7 @@ class Markdown
             return;
         }
 
-        if ($Line['text'][0] === '|' or strpos($Line['text'], '|')) {
+        if ($Line['text'][0] === '|' || strpos($Line['text'], '|')) {
             $Elements = [];
 
             $row = $Line['text'];
@@ -906,15 +890,13 @@ class Markdown
 
     protected function paragraph($Line)
     {
-        $Block = [
+        return [
             'element' => [
                 'name'    => 'p',
                 'text'    => $Line['text'],
                 'handler' => 'line',
             ],
         ];
-
-        return $Block;
     }
 
     //
@@ -960,7 +942,7 @@ class Markdown
             foreach ($this->InlineTypes[$marker] as $inlineType) {
                 // check to see if the current inline type is nestable in the current context
 
-                if (!empty($nonNestables) and in_array($inlineType, $nonNestables)) {
+                if (!empty($nonNestables) && in_array($inlineType, $nonNestables)) {
                     continue;
                 }
 
@@ -972,7 +954,7 @@ class Markdown
 
                 // makes sure that the inline belongs to "our" marker
 
-                if (isset($Inline['position']) and $Inline['position'] > $markerPosition) {
+                if (isset($Inline['position']) && $Inline['position'] > $markerPosition) {
                     continue;
                 }
 
@@ -1012,9 +994,7 @@ class Markdown
             $text = substr($text, $markerPosition + 1);
         }
 
-        $markup .= $this->unmarkedText($text);
-
-        return $markup;
+        return $markup.$this->unmarkedText($text);
     }
 
     //
@@ -1041,7 +1021,7 @@ class Markdown
 
     protected function inlineEmailTag($Excerpt)
     {
-        if (strpos($Excerpt['text'], '>') !== false and preg_match('/^<((mailto:)?\S+?@\S+?)>/i', $Excerpt['text'], $matches)) {
+        if (strpos($Excerpt['text'], '>') !== false && preg_match('/^<((mailto:)?\S+?@\S+?)>/i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             if (!isset($matches[2])) {
@@ -1069,7 +1049,7 @@ class Markdown
 
         $marker = $Excerpt['text'][0];
 
-        if ($Excerpt['text'][1] === $marker and preg_match($this->StrongRegex[$marker], $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] === $marker && preg_match($this->StrongRegex[$marker], $Excerpt['text'], $matches)) {
             $emphasis = 'strong';
         } elseif (preg_match($this->EmRegex[$marker], $Excerpt['text'], $matches)) {
             $emphasis = 'em';
@@ -1089,7 +1069,7 @@ class Markdown
 
     protected function inlineEscapeSequence($Excerpt)
     {
-        if (isset($Excerpt['text'][1]) and in_array($Excerpt['text'][1], $this->specialCharacters)) {
+        if (isset($Excerpt['text'][1]) && in_array($Excerpt['text'][1], $this->specialCharacters)) {
             return [
                 'markup' => $Excerpt['text'][1],
                 'extent' => 2,
@@ -1099,7 +1079,7 @@ class Markdown
 
     protected function inlineImage($Excerpt)
     {
-        if (!isset($Excerpt['text'][1]) or $Excerpt['text'][1] !== '[') {
+        if (!isset($Excerpt['text'][1]) || $Excerpt['text'][1] !== '[') {
             return;
         }
 
@@ -1192,25 +1172,25 @@ class Markdown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped or $this->safeMode or strpos($Excerpt['text'], '>') === false) {
+        if ($this->markupEscaped || $this->safeMode || strpos($Excerpt['text'], '>') === false) {
             return;
         }
 
-        if ($Excerpt['text'][1] === '/' and preg_match('/^<\/\w[\w-]*[ ]*>/s', $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] === '/' && preg_match('/^<\/\w[\w-]*[ ]*>/s', $Excerpt['text'], $matches)) {
             return [
                 'markup' => $matches[0],
                 'extent' => strlen($matches[0]),
             ];
         }
 
-        if ($Excerpt['text'][1] === '!' and preg_match('/^<!---?[^>-](?:-?[^-])*-->/s', $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] === '!' && preg_match('/^<!---?[^>-](?:-?[^-])*-->/s', $Excerpt['text'], $matches)) {
             return [
                 'markup' => $matches[0],
                 'extent' => strlen($matches[0]),
             ];
         }
 
-        if ($Excerpt['text'][1] !== ' ' and preg_match('/^<\w[\w-]*(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*\/?>/s', $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] !== ' ' && preg_match('/^<\w[\w-]*(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*\/?>/s', $Excerpt['text'], $matches)) {
             return [
                 'markup' => $matches[0],
                 'extent' => strlen($matches[0]),
@@ -1220,7 +1200,7 @@ class Markdown
 
     protected function inlineSpecialCharacter($Excerpt)
     {
-        if ($Excerpt['text'][0] === '&' and !preg_match('/^&#?\w+;/', $Excerpt['text'])) {
+        if ($Excerpt['text'][0] === '&' && !preg_match('/^&#?\w+;/', $Excerpt['text'])) {
             return [
                 'markup' => '&amp;',
                 'extent' => 1,
@@ -1243,7 +1223,7 @@ class Markdown
             return;
         }
 
-        if ($Excerpt['text'][1] === '~' and preg_match('/^~~(?=\S)(.+?)(?<=\S)~~/', $Excerpt['text'], $matches)) {
+        if ($Excerpt['text'][1] === '~' && preg_match('/^~~(?=\S)(.+?)(?<=\S)~~/', $Excerpt['text'], $matches)) {
             return [
                 'extent'  => strlen($matches[0]),
                 'element' => [
@@ -1257,14 +1237,14 @@ class Markdown
 
     protected function inlineUrl($Excerpt)
     {
-        if ($this->urlsLinked !== true or !isset($Excerpt['text'][2]) or $Excerpt['text'][2] !== '/') {
+        if ($this->urlsLinked !== true || !isset($Excerpt['text'][2]) || $Excerpt['text'][2] !== '/') {
             return;
         }
 
         if (preg_match('/\bhttps?:[\/]{2}[^\s<]+\b\/*/ui', $Excerpt['context'], $matches, PREG_OFFSET_CAPTURE)) {
             $url = $matches[0][0];
 
-            $Inline = [
+            return [
                 'extent'   => strlen($matches[0][0]),
                 'position' => $matches[0][1],
                 'element'  => [
@@ -1275,14 +1255,12 @@ class Markdown
                     ],
                 ],
             ];
-
-            return $Inline;
         }
     }
 
     protected function inlineUrlTag($Excerpt)
     {
-        if (strpos($Excerpt['text'], '>') !== false and preg_match('/^<(\w+:\/{2}[^ >]+)>/i', $Excerpt['text'], $matches)) {
+        if (strpos($Excerpt['text'], '>') !== false && preg_match('/^<(\w+:\/{2}[^ >]+)>/i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             return [
@@ -1303,13 +1281,11 @@ class Markdown
     protected function unmarkedText($text)
     {
         if ($this->breaksEnabled) {
-            $text = preg_replace('/[ ]*\n/', "<br />\n", $text);
-        } else {
-            $text = preg_replace('/(?:[ ][ ]+|[ ]*\\\\)\n/', "<br />\n", $text);
-            $text = str_replace(" \n", "\n", $text);
+            return preg_replace('/[ ]*\n/', "<br />\n", $text);
         }
+        $text = preg_replace('/(?:[ ][ ]+|[ ]*\\\\)\n/', "<br />\n", $text);
 
-        return $text;
+        return str_replace(" \n", "\n", $text);
     }
 
     //
@@ -1363,9 +1339,7 @@ class Markdown
             $markup .= "\n".$this->element($Element);
         }
 
-        $markup .= "\n";
-
-        return $markup;
+        return $markup."\n";
     }
 
     // ~
@@ -1376,7 +1350,7 @@ class Markdown
 
         $trimmedMarkup = trim($markup);
 
-        if (!in_array('', $lines) and substr($trimmedMarkup, 0, 3) === '<p>') {
+        if (!in_array('', $lines) && substr($trimmedMarkup, 0, 3) === '<p>') {
             $markup = $trimmedMarkup;
             $markup = substr($markup, 3);
 
@@ -1394,9 +1368,7 @@ class Markdown
 
     public function parse($text)
     {
-        $markup = $this->text($text);
-
-        return $markup;
+        return $this->text($text);
     }
 
     protected function sanitiseElement(array $Element)
@@ -1455,9 +1427,9 @@ class Markdown
 
         if ($len > strlen($string)) {
             return false;
-        } else {
-            return strtolower(substr($string, 0, $len)) === strtolower($needle);
         }
+
+        return strtolower(substr($string, 0, $len)) === strtolower($needle);
     }
 
     public static function instance($name = 'default')

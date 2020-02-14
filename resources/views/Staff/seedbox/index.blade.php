@@ -34,8 +34,8 @@
                         <tr>
                             <th>@lang('common.no')</th>
                             <th>@lang('common.user')</th>
-                            <th>IP</th>
-                            <th>Created On</th>
+                            <th>@lang('common.ip')</th>
+                            <th>@lang('user.created-on')</th>
                             <th>@lang('common.action')</th>
                         </tr>
                     </thead>

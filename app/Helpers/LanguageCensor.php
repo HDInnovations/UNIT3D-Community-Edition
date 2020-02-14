@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Helpers;
@@ -37,7 +37,7 @@ class LanguageCensor
             $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
             $last = ($pos + $length) < $string_length ? $string[$pos + $length] : ' ';
             if (self::isSpecial($prev) && self::isSpecial($last)) {
-                array_push($result, $pos);
+                $result[] = $pos;
             }
             $pos = stripos($string, $word, $pos + $length);
         }
@@ -63,7 +63,7 @@ class LanguageCensor
             $indexes = self::matchWordIndexes($source, $word);
             $ignore = 0;
             for ($i = 0; $i < $length; $i++) {
-                if (count($indexes) > 0 && $indexes[0] == $i) {
+                if ((is_countable($indexes) ? count($indexes) : 0) > 0 && $indexes[0] == $i) {
                     $match = substr($source, $indexes[0], $word_length);
                     $result .= "<span class='censor'>{$match}</span>";
                     $ignore = $word_length - 1;

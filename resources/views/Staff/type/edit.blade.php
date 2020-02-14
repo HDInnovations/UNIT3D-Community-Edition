@@ -13,14 +13,23 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.edit') Torrent Type</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.edit')
+                @lang('torrent.torrent')
+                @lang('common.type')
+            </span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>@lang('common.edit') A Torrent Type</h2>
+        <h2>
+            @lang('common.edit')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('torrent.torrent')
+            @lang('common.type')
+        </h2>
         <form role="form" method="POST" action="{{ route('staff.types.update', ['id' => $type->id]) }}">
             @method('PATCH')
             @csrf

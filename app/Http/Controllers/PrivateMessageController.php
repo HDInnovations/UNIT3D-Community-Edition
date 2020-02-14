@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -103,10 +103,10 @@ class PrivateMessageController extends Controller
             }
 
             return view('pm.message', ['pm' => $pm, 'user' => $user]);
-        } else {
-            return redirect()->route('inbox')
-                ->withErrors('What Are You Trying To Do Here!');
         }
+
+        return redirect()->route('inbox')
+            ->withErrors('What Are You Trying To Do Here!');
     }
 
     /**
@@ -171,16 +171,15 @@ class PrivateMessageController extends Controller
 
             return redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
                 ->withErrors($v->errors());
-        } else {
-            $pm->save();
-            if ($dest == 'profile') {
-                return redirect()->route('users.show', ['username' => $recipient->username])
-                    ->withSuccess('Your PM Was Sent Successfully!');
-            }
-
-            return redirect()->route('inbox')
+        }
+        $pm->save();
+        if ($dest == 'profile') {
+            return redirect()->route('users.show', ['username' => $recipient->username])
                 ->withSuccess('Your PM Was Sent Successfully!');
         }
+
+        return redirect()->route('inbox')
+            ->withSuccess('Your PM Was Sent Successfully!');
     }
 
     /**
@@ -199,11 +198,7 @@ class PrivateMessageController extends Controller
 
         $pm = new PrivateMessage();
         $pm->sender_id = $user->id;
-        if ($message->sender_id == $user->id) {
-            $pm->receiver_id = $message->receiver_id;
-        } else {
-            $pm->receiver_id = $message->sender_id;
-        }
+        $pm->receiver_id = $message->sender_id == $user->id ? $message->receiver_id : $message->sender_id;
         $pm->subject = $message->subject;
         $pm->message = $request->input('message');
         $pm->related_to = $message->id;
@@ -221,12 +216,11 @@ class PrivateMessageController extends Controller
         if ($v->fails()) {
             return redirect()->route('inbox')
                 ->withErrors($v->errors());
-        } else {
-            $pm->save();
-
-            return redirect()->route('inbox')
-                ->withSuccess('Your PM Was Sent Successfully!');
         }
+        $pm->save();
+
+        return redirect()->route('inbox')
+            ->withSuccess('Your PM Was Sent Successfully!');
     }
 
     /**
@@ -252,10 +246,10 @@ class PrivateMessageController extends Controller
 
             if ($dest == 'outbox') {
                 return redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
-            } else {
-                return redirect()->route('inbox')
-                    ->withSuccess('PM Was Deleted Successfully!');
             }
+
+            return redirect()->route('inbox')
+                ->withSuccess('PM Was Deleted Successfully!');
         } else {
             return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');

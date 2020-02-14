@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
  */
 
 namespace App\Http\Controllers\API;
@@ -61,7 +61,7 @@ class ChatController extends Controller
     {
         $user = User::with(['echoes'])->findOrFail($this->auth->user()->id);
 
-        if (!$user->echoes || count($user->echoes->toArray()) < 1) {
+        if (!$user->echoes || (is_countable($user->echoes->toArray()) ? count($user->echoes->toArray()) : 0) < 1) {
             $echoes = new UserEcho();
             $echoes->user_id = $this->auth->user()->id;
             $echoes->room_id = 1;
@@ -76,7 +76,7 @@ class ChatController extends Controller
     {
         $user = User::with(['audibles'])->findOrFail($this->auth->user()->id);
 
-        if (!$user->audibles || count($user->audibles->toArray()) < 1) {
+        if (!$user->audibles || (is_countable($user->audibles->toArray()) ? count($user->audibles->toArray()) : 0) < 1) {
             $audibles = new UserAudible();
             $audibles->user_id = $this->auth->user()->id;
             $audibles->room_id = 1;
@@ -335,11 +335,7 @@ class ChatController extends Controller
             }
 
             $room_id = 0;
-            if ($bot_id > 0 && $receiver_id == 1) {
-                $ignore = true;
-            } else {
-                $ignore = null;
-            }
+            $ignore = $bot_id > 0 && $receiver_id == 1 ? true : null;
             $save = true;
             $echo = true;
             $message = $this->chat->privateMessage($user_id, $room_id, $message, $receiver_id, null, $ignore);

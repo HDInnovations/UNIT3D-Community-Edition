@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
     'add-request'         => '添加',
@@ -11,7 +22,7 @@ return [
     'category'            => '类别',
     'claim'               => '应征',
     'claim-anon-choose'   => '请慎重选择',
-    'claim-as-anon'       => '你想以匿名身份应征吗?',
+    'claim-as-anon'       => '你想以匿名身份应征吗？',
     'claim-now'           => '马上应征',
     'claimed'             => '已应征',
     'current'             => '现在',
@@ -34,9 +45,9 @@ return [
     'no'                  => 'No,',
     'no-imdb-id'          => '必须有IMDB ID',
     'no-privileges'       => '错误：悬赏已被禁用',
-    'no-privileges-desc'  => '如果您认为这是错误的，请联系工作人员',
+    'no-privileges-desc'  => '如果您认为这是错误的，请联系站务人员',
     'no-refunds'          => '注意，所涉及的魔力交易是不可退回的！',
-    'pending'             => '等待中',
+    'pending'             => '等待批准',
     'reason'              => '原因',
     'reject'              => '拒绝',
     'report'              => '报告',

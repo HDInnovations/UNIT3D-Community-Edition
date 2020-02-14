@@ -1,9 +1,20 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
     'activate-account' => '激活帐户',
     'ban-reason'       => '原因',
-    'banned-footer'    => '这是因为你没有遵守规则',
+    'banned-footer'    => '这是你没有遵守规则所得到的惩罚',
     'banned-header'    => '你的账户已被封禁',
     'bug-description'  => 'Bug',
     'bug-footer'       => '解决这个Bug',
@@ -13,9 +24,9 @@ return [
     'contact-header'   => '来自新联系人邮件',
     'contact-message'  => '信息',
     'contact-name'     => '人名',
-    'fail-login-greeting' => '账户登录失败!',
+    'fail-login-greeting' => '账户登录失败！',
     'fail-login-line1' => '检测到一次账户登录失败。',
-    'fail-login-line2' => '该登录发生于 :time ，來自 :ip  ( :host ) 。',
+    'fail-login-line2' => '该登录发生于 :time，來自 :ip  ( :host ) 。',
     'fail-login-subject' => '登录失败提示',
     'footer-link'      => '如点击 :actionText 按钮遇到困难, 请把以下链接复制到浏览器地址栏，也许要在Chrome安装GooReplacer插件才能看到验证码。',
     'invite-header'    => '邀请',

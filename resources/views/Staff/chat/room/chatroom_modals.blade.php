@@ -3,7 +3,7 @@
         <div class="modal-content">
 
             <div class="modal-header" style="text-align: center;">
-                <h3>@lang('common.edit') Chatroom ({{ $chatroom->name }})</h3>
+                <h3>@lang('common.edit') @lang('common.chat-room') ({{ $chatroom->name }})</h3>
             </div>
 
             <form class="form-horizontal" role="form" method="POST"

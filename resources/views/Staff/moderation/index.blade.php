@@ -12,7 +12,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.moderation.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Moderation</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.torrent-moderation')</span>
         </a>
     </li>
 @endsection
@@ -23,15 +23,15 @@
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Since</th>
+                    <th>@lang('staff.moderation-since')</th>
                     <th>@lang('common.name')</th>
-                    <th>Category</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th>Uploader</th>
-                    <th>Approve</th>
-                    <th>Postpone</th>
-                    <th>Reject</th>
+                    <th>@lang('common.category')</th>
+                    <th>@lang('common.type')</th>
+                    <th>@lang('torrent.size')</th>
+                    <th>@lang('torrent.uploader')</th>
+                    <th>@lang('common.moderation-approve')</th>
+                    <th>@lang('common.moderation-postpone')</th>
+                    <th>@lang('common.moderation-reject')</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,12 +50,17 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $p->user->username }}
                                     ({{ $p->user->group->name }})</span></a></td>
-                        <td><a href="{{ route('staff.moderation.approve', ['id' => $p->id]) }}"
-                               role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
+                        <td><a href="{{ route('staff.moderation.approve', ['id' => $p->id]) }}" role='button'
+                               class='btn btn-labeled btn-success'>
+                                <span class="btn-label">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
+                                </span>
+                                @lang('common.moderation-approve')
+                            </a></td>
                         <td>
                             <button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
-                                <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span> Postpone
+                                <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span>
+                                @lang('common.moderation-postpone')
                             </button>
 
                             <div class="modal fade" id="pendpostpone-{{ $p->id }}" tabindex="-1" role="dialog"
@@ -68,7 +73,9 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Postpone Torrent: {{ $p->name }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    @lang('common.moderation-postpone') @lang('torrent.torrent'): {{ $p->name }}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -85,7 +92,9 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-10 col-sm-offset-2">
-                                                        <button class="btn btn-danger" type="submit">Postpone</button>
+                                                        <button class="btn btn-danger" type="submit">
+                                                            @lang('common.moderation-postpone')
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,9 +108,11 @@
                             </div>
                         </td>
                         <td>
-                            <button data-target="#pendreject-{{ $p->id }}" data-toggle="modal"
-                                    class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Reject
+                            <button data-target="#pendreject-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
+                                <span class="btn-label">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
+                                </span>
+                                @lang('common.moderation-reject')
                             </button>
                             <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                 <form method="POST" action="{{ route("staff.moderation.reject") }}">
@@ -112,7 +123,9 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Reject Torrent: {{ $p->name }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    @lang('common.moderation-reject') @lang('torrent.torrent'): {{ $p->name }}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -120,7 +133,7 @@
                                                            value="@lang('torrent.torrent')">
                                                     <input id="id" type="hidden" name="id" value="{{ $p->id }}">
                                                     <input id="slug" type="hidden" name="slug" value="{{ $p->slug }}">
-                                                    <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+                                                    <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                                                     <div class="col-sm-10">
                                                         <label id="title" name="title" type="hidden">{{ $p->name }}</label>
                                                         <p class="form-control-static">{{ $p->name }}</p>
@@ -136,7 +149,9 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-10 col-sm-offset-2">
-                                                        <button class="btn btn-danger" type="submit">Reject</button>
+                                                        <button class="btn btn-danger" type="submit">
+                                                            @lang('common.moderation-reject')
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,14 +177,14 @@
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Since</th>
+                    <th>@lang('staff.moderation-since')</th>
                     <th>@lang('common.name')</th>
-                    <th>Category</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th>Uploader</th>
-                    <th>Staff</th>
-                    <th>Approve</th>
+                    <th>@lang('common.category')</th>
+                    <th>@lang('common.type')</th>
+                    <th>@lang('torrent.size')</th>
+                    <th>@lang('torrent.uploader')</th>
+                    <th>@lang('common.staff')</th>
+                    <th>@lang('common.moderation-approve')</th>
                     <th>@lang('common.edit')</th>
                     <th>@lang('common.delete')</th>
                 </tr>
@@ -196,9 +211,13 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->moderated->username }}
                                     ({{ $post->moderated->group->name }})</span></a></td>
-                        <td><a href="{{ route('staff.moderation.approve', ['id' => $post->id]) }}"
-                               role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
+                        <td><a href="{{ route('staff.moderation.approve', ['id' => $post->id]) }}" role='button'
+                               class='btn btn-labeled btn-success'>
+                                <span class="btn-label">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
+                                </span>
+                                @lang('common.moderation-approve')
+                            </a></td>
                         <td><a href="{{ route('edit', ['id' => $post->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-pencil"></i></span>@lang('common.edit')</a></td>
@@ -218,7 +237,9 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">@lang('common.delete') Torrent: {{ $post->name }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    @lang('common.delete') @lang('torrent.torrent'): {{ $post->name }}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -269,15 +290,15 @@
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Since</th>
+                    <th>@lang('staff.moderation-since')</th>
                     <th>@lang('common.name')</th>
-                    <th>Category</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th>Uploader</th>
-                    <th>Staff</th>
-                    <th>Approve</th>
-                    <th>Postpone</th>
+                    <th>@lang('common.category')</th>
+                    <th>@lang('common.type')</th>
+                    <th>@lang('torrent.size')</th>
+                    <th>@lang('torrent.uploader')</th>
+                    <th>@lang('common.staff')</th>
+                    <th>@lang('common.moderation-approve')</th>
+                    <th>@lang('common.moderation-postpone')</th>
                     <th>@lang('common.edit')</th>
                     <th>@lang('common.delete')</th>
                 </tr>
@@ -304,12 +325,17 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }}
                                     ({{ $reject->moderated->group->name }})</span></a></td>
-                        <td><a href="{{ route('staff.moderation.approve', ['id' => $reject->id]) }}"
-                               role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
+                        <td><a href="{{ route('staff.moderation.approve', ['id' => $reject->id]) }}" role='button'
+                               class='btn btn-labeled btn-success'>
+                                <span class="btn-label">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
+                                </span>
+                                @lang('common.moderation-approve')
+                            </a></td>
                         <td>
                             <button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
-                                    <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span> Postpone
+                                    <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span>
+                                @lang('common.moderation-postpone')
                             </button>
 
                             <div class="modal fade" id="rejectpost-{{ $reject->id }}" tabindex="-1" role="dialog"
@@ -322,7 +348,9 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Postpone Torrent: {{ $reject->name }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    @lang('common.moderation-postpone') @lang('torrent.torrent'): {{ $reject->name }}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -339,7 +367,9 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-10 col-sm-offset-2">
-                                                        <button class="btn btn-danger" type="submit">Postpone</button>
+                                                        <button class="btn btn-danger" type="submit">
+                                                            @lang('common.moderation-postpone')
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -371,7 +401,9 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">@lang('common.delete') Torrent: {{ $reject->name }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    @lang('common.delete') @lang('torrent.torrent'): {{ $reject->name }}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
 

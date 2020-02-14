@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
     /*
@@ -125,6 +136,9 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+
+    'email_list' => '很抱歉，你无法使用此邮箱进行注册。请参见邮箱白名单。',
+    'recaptcha' => '请完成人机验证。',
 
     'custom' => [
         'attribute-name' => [

@@ -1,6 +1,18 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
+    'a-an-art'             => '{0}a|[1,*]an',
     'abbrev-days'          => 'D ',
     'abbrev-hours'         => 'h ',
     'abbrev-minutes'       => 'm ',
@@ -28,16 +40,23 @@ return [
     'cancel'               => 'Cancel',
     'category'             => 'Category',
     'categories'           => 'Categories',
+    'chat'                 => 'Chat',
+    'chat-room'            => 'Chatroom',
+    'chat-rooms'           => 'Chatrooms',
     'close'                => 'Close',
+    'color'                => 'Color',
+    'command'              => 'Command',
     'comment'              => 'Comment',
     'comments'             => 'Comments',
     'community'            => 'Community',
+    'content'              => 'Content',
     'connected'            => 'Connected',
     'contact'              => 'Contact',
     'contact-desc'         => 'This contact request will be sent to the owner and will get back to you as soon as possible',
     'contact-header'       => 'Hello',
     'create'               => 'Create',
     'created_at'           => 'Created at',
+    'date'                 => 'Date',
     'day'                  => 'Day',
     'delete'               => 'Delete',
     'delete-your-comment'  => 'Delete your Comment',
@@ -78,6 +97,8 @@ return [
     'hot'                  => 'Hot!',
     'hour'                 => 'Hour',
     'huge'                 => 'Huge',
+    'icon'                 => 'Icon',
+    'image'                => 'Image',
     'info'                 => 'Info',
     'internal'             => 'Internal',
     'ip'                   => 'IP',
@@ -106,6 +127,7 @@ return [
     'name'                 => 'Name',
     'navigation'           => 'Navigation',
     'new'                  => 'New!',
+    'new-adj'              => 'New',
     'news'                 => 'News',
     'next'                 => 'Next',
     'no'                   => 'No',
@@ -162,12 +184,15 @@ return [
     'subscriptions'        => 'Subscriptions',
     'teams'                => 'Teams',
     'terms'                => 'Terms of Use',
+    'the'                  => 'the',
+    'this'                 => 'this',
     'times'                => 'Times',
     'title'                => 'Title',
     'top-bountied'         => 'Top Bountied',
     'topics'               => 'Topics',
     'tracker-codes'        => 'Tracker Codes',
     'type'                 => 'Type',
+    'type-verb'            => 'Type',
     'types'                => 'Types',
     'genre'                => 'Genre',
     'genres'               => 'Genres',

@@ -1,5 +1,5 @@
 {
-  "projectName": "UNIT3D",
+  "projectName": "UNIT3D-Community-Edition",
   "projectOwner": "HDInnovations",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -48,15 +48,6 @@
       ]
     },
     {
-      "login": "Artyum",
-      "name": "Artyum",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/10715547?v=4",
-      "profile": "https://github.com/Artyum",
-      "contributions": [
-        "design"
-      ]
-    },
-    {
       "login": "pbodq2",
       "name": "Morgan Wong",
       "avatar_url": "https://avatars0.githubusercontent.com/u/25418300?v=4",
@@ -64,7 +55,17 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "gyakkun",
+      "name": "Gyakkun",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5460071?v=4",
+      "profile": "https://nyamori.moe",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }

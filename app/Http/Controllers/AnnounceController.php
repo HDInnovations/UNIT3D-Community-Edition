@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
@@ -251,11 +251,12 @@ class AnnounceController extends Controller
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
-
-        // Creates a new peer if not existing
         if ($peer === null && $event == 'completed') {
             return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
-        } elseif ($peer === null) {
+        }
+
+        // Creates a new peer if not existing
+        if ($peer === null) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
                 $event = 'started';
@@ -499,16 +500,15 @@ class AnnounceController extends Controller
         if ($compact) {
             $pcomp = '';
             foreach ($peers as &$p) {
-                if (isset($p['ip']) && isset($p['port'])) {
-                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
-                        $pcomp .= inet_pton($p['ip']);
-                        $pcomp .= pack('n', (int) $p['port']);
-                    }
+                if (isset($p['ip']) && isset($p['port']) && filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
+                    $pcomp .= inet_pton($p['ip']);
+                    $pcomp .= pack('n', (int) $p['port']);
                 }
             }
 
             return $pcomp;
-        } elseif ($no_peer_id) {
+        }
+        if ($no_peer_id) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);
             }

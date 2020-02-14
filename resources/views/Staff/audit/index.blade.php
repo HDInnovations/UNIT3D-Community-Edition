@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.audits.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Audits Log</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.audit-log')</span>
         </a>
     </li>
 @endsection
@@ -24,19 +24,19 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <h2><i class="{{ config('other.font-awesome') }} fa-list"></i> Audits Log</h2>
+            <h2><i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('staff.audit-log')</h2>
             <hr>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>@lang('common.no')</th>
-                            <th>Action</th>
+                            <th>@lang('common.action')</th>
                             <th>Model</th>
                             <th>Model ID</th>
                             <th>By</th>
                             <th>Changes</th>
-                            <th>Created On</th>
+                            <th>@lang('user.created-on')</th>
                             <th>@lang('common.action')</th>
                         </tr>
                     </thead>

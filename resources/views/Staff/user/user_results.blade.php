@@ -16,12 +16,14 @@
     </li>
     <li>
         <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Search</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') @lang('common.search')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('user_results') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.user') Search Results</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.user') @lang('common.search') @lang('common.results')
+            </span>
         </a>
     </li>
 @endsection
@@ -42,10 +44,10 @@
                         <thead>
                             <tr>
                                 <th class="hidden-xs hidden-sm"></th>
-                                <th>@lang('common.name') and Role</th>
+                                <th>@lang('common.name') /  @lang('common.group')</th>
                                 <th class="hidden-xs hidden-sm">E-Mail</th>
                                 <th>ID</th>
-                                <th>Settings</th>
+                                <th>@lang('user.settings')</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,9 +69,9 @@
                                             {{ $user->id }}
                                         </td>
                                         <td class="action-links">
-                                            <a href="{{ route('user_setting', ['username' => $user->username]) }}" class="edit"> <i
-                                                    class="{{ config('other.font-awesome') }} fa-pencil"></i> @lang('common.edit')
-                                                Profile
+                                            <a href="{{ route('user_setting', ['username' => $user->username]) }}" class="edit">
+                                                <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                                @lang('common.edit') @lang('user.profile')
                                             </a>
                                         </td>
                                     @endif

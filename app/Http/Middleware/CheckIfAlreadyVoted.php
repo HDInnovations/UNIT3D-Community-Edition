@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Middleware;
@@ -36,12 +36,9 @@ class CheckIfAlreadyVoted
 
         $poll = Option::findOrFail($request->input('option.0'))->poll;
 
-        //if we already have this user's IP stored and linked to the poll they are trying to vote on
-        if ($poll->ip_checking == 1) {
-            if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
-                return redirect('poll/'.$poll->slug.'/result')
-                    ->withErrors('There is already a vote on this poll from your IP. Your vote has not been counted.');
-            }
+        if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
+            return redirect('poll/'.$poll->slug.'/result')
+                ->withErrors('There is already a vote on this poll from your IP. Your vote has not been counted.');
         }
 
         return $next($request);

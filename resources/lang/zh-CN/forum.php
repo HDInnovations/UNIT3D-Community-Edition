@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
     'action'             => '操作',
@@ -14,7 +25,7 @@ return [
     'current'            => '目前',
     'delete-topic'       => '删除该主题',
     'denied'             => '禁止',
-    'dislike-post'       => '吐嘈这个帖子',
+    'dislike-post'       => '吐槽这个帖子',
     'display-forum'      => '展示标题于',
     'edit-post'          => '编辑帖子',
     'edit-topic'         => '编辑主题',
@@ -32,7 +43,7 @@ return [
     'meta-category'      => '这类别内的论坛条目',
     'moderation'         => '审批',
     'name'               => '名字',
-    'not-connected'      => '你必须连接上 (?)',
+    'not-connected'      => '你必须处于已连接状态',
     'not-subscribed'     => '没有订阅',
     'open'               => '打开',
     'open-topic'         => '打开该主题',
@@ -46,13 +57,13 @@ return [
     'replies'            => '回应',
     'send-new-topic'     => '保存该主题',
     'solved'             => '已解决',
-    'state'              => '状态(?) (State)',
+    'state'              => '状态',
     'stats'              => '统计',
     'subscribed'         => '已订阅',
     'subscription-quick-search' => '快速搜索主题 (在订阅清单内)',
     'suggestion'         => '建议',
     'topic'              => '主题',
-    'topic-closed'       => '这主题已被关闭',
+    'topic-closed'       => '此主题已被关闭',
     'topic-name'         => '主题',
     'topic-quick-search' => '快速搜索主题',
     'topic-title'        => '标题',

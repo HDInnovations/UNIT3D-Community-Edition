@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
@@ -331,45 +331,39 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('requests')
                 ->withErrors($v->errors())->withInput();
-        } else {
-            $tr->save();
-
-            $requestsBounty = new TorrentRequestBounty();
-            $requestsBounty->user_id = $user->id;
-            $requestsBounty->seedbonus = $request->input('bounty');
-            $requestsBounty->requests_id = $tr->id;
-            $requestsBounty->anon = $request->input('anon');
-            $requestsBounty->save();
-
-            $BonTransactions = new BonTransactions();
-            $BonTransactions->itemID = 0;
-            $BonTransactions->name = 'request';
-            $BonTransactions->cost = $request->input('bounty');
-            $BonTransactions->sender = $user->id;
-            $BonTransactions->receiver = 0;
-            $BonTransactions->comment = "new request - {$request->input('name')}";
-            $BonTransactions->save();
-
-            $user->seedbonus -= $request->input('bounty');
-            $user->save();
-
-            $tr_url = hrefRequest($tr);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($tr->anon == 0) {
-                $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
-                );
-            } else {
-                $this->chat->systemMessage(
-                    "An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
-                );
-            }
-
-            return redirect()->route('requests')
-                ->withSuccess('Request Added.');
         }
+        $tr->save();
+        $requestsBounty = new TorrentRequestBounty();
+        $requestsBounty->user_id = $user->id;
+        $requestsBounty->seedbonus = $request->input('bounty');
+        $requestsBounty->requests_id = $tr->id;
+        $requestsBounty->anon = $request->input('anon');
+        $requestsBounty->save();
+        $BonTransactions = new BonTransactions();
+        $BonTransactions->itemID = 0;
+        $BonTransactions->name = 'request';
+        $BonTransactions->cost = $request->input('bounty');
+        $BonTransactions->sender = $user->id;
+        $BonTransactions->receiver = 0;
+        $BonTransactions->comment = "new request - {$request->input('name')}";
+        $BonTransactions->save();
+        $user->seedbonus -= $request->input('bounty');
+        $user->save();
+        $tr_url = hrefRequest($tr);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($tr->anon == 0) {
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
+            );
+        } else {
+            $this->chat->systemMessage(
+                "An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
+            );
+        }
+
+        return redirect()->route('requests')
+            ->withSuccess('Request Added.');
     }
 
     /**
@@ -445,12 +439,11 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('requests')
                 ->withErrors($v->errors());
-        } else {
-            $torrentRequest->save();
-
-            return redirect()->route('requests', ['id' => $torrentRequest->id])
-                ->withSuccess('Request Edited Successfully.');
         }
+        $torrentRequest->save();
+
+        return redirect()->route('requests', ['id' => $torrentRequest->id])
+            ->withSuccess('Request Edited Successfully.');
     }
 
     /**
@@ -477,56 +470,44 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $tr->id])
                 ->withErrors($v->errors());
-        } else {
-            $tr->save();
-
-            $requestsBounty = new TorrentRequestBounty();
-            $requestsBounty->user_id = $user->id;
-            $requestsBounty->seedbonus = $request->input('bonus_value');
-            $requestsBounty->requests_id = $tr->id;
-            $requestsBounty->anon = $request->input('anon');
-            $requestsBounty->save();
-
-            $BonTransactions = new BonTransactions();
-            $BonTransactions->itemID = 0;
-            $BonTransactions->name = 'request';
-            $BonTransactions->cost = $request->input('bonus_value');
-            $BonTransactions->sender = $user->id;
-            $BonTransactions->receiver = 0;
-            $BonTransactions->comment = "adding bonus to {$tr->name}";
-            $BonTransactions->save();
-
-            $user->seedbonus -= $request->input('bonus_value');
-            $user->save();
-
-            $tr_url = hrefRequest($tr);
-            $profile_url = hrefProfile($user);
-
-            // Auto Shout
-            if ($requestsBounty->anon == 0) {
-                $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
-                );
-            } else {
-                $this->chat->systemMessage(
-                    "An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
-                );
-            }
-
-            if ($request->input('anon') == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
-
-            $requester = $tr->user;
-            if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
-                $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
-            }
-
-            return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withSuccess('Your bonus has been successfully added.');
         }
+        $tr->save();
+        $requestsBounty = new TorrentRequestBounty();
+        $requestsBounty->user_id = $user->id;
+        $requestsBounty->seedbonus = $request->input('bonus_value');
+        $requestsBounty->requests_id = $tr->id;
+        $requestsBounty->anon = $request->input('anon');
+        $requestsBounty->save();
+        $BonTransactions = new BonTransactions();
+        $BonTransactions->itemID = 0;
+        $BonTransactions->name = 'request';
+        $BonTransactions->cost = $request->input('bonus_value');
+        $BonTransactions->sender = $user->id;
+        $BonTransactions->receiver = 0;
+        $BonTransactions->comment = "adding bonus to {$tr->name}";
+        $BonTransactions->save();
+        $user->seedbonus -= $request->input('bonus_value');
+        $user->save();
+        $tr_url = hrefRequest($tr);
+        $profile_url = hrefProfile($user);
+        // Auto Shout
+        if ($requestsBounty->anon == 0) {
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$user->username}[/url] has added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+            );
+        } else {
+            $this->chat->systemMessage(
+                "An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+            );
+        }
+        $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
+        $requester = $tr->user;
+        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
+            $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
+        }
+
+        return redirect()->route('request', ['id' => $request->input('request_id')])
+            ->withSuccess('Your bonus has been successfully added.');
     }
 
     /**
@@ -562,26 +543,18 @@ class RequestController extends Controller
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors($v->errors());
-        } else {
-            $torrentRequest->save();
-
-            // Send Private Message
-            $appurl = config('app.url');
-
-            if ($request->input('filled_anon') == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
-
-            $requester = $torrentRequest->user;
-            if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
-                $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
-            }
-
-            return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withSuccess('Your request fill is pending approval by the Requester.');
         }
+        $torrentRequest->save();
+        // Send Private Message
+        $appurl = config('app.url');
+        $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
+        $requester = $torrentRequest->user;
+        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
+            $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
+        }
+
+        return redirect()->route('request', ['id' => $request->input('request_id')])
+            ->withSuccess('Your request fill is pending approval by the Requester.');
     }
 
     /**
@@ -651,10 +624,10 @@ class RequestController extends Controller
             if ($tr->filled_anon == 0) {
                 return redirect()->route('request', ['id' => $id])
                     ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}");
-            } else {
-                return redirect()->route('request', ['id' => $id])
-                    ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to a anonymous user");
             }
+
+            return redirect()->route('request', ['id' => $id])
+                ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to a anonymous user");
         } else {
             return redirect()->route('request', ['id' => $id])
                 ->withErrors("You don't have access to approve this request");
@@ -693,10 +666,10 @@ class RequestController extends Controller
 
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('This request has been reset.');
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->withSuccess("You don't have access to approve this request");
         }
+
+        return redirect()->route('request', ['id' => $id])
+            ->withSuccess("You don't have access to approve this request");
     }
 
     /**
@@ -718,10 +691,10 @@ class RequestController extends Controller
 
             return redirect()->route('requests')
                 ->withSuccess("You have deleted {$name}");
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to delete this request.");
         }
+
+        return redirect()->route('request', ['id' => $id])
+            ->withErrors("You don't have access to delete this request.");
     }
 
     /**
@@ -747,11 +720,7 @@ class RequestController extends Controller
             $torrentRequest->claimed = 1;
             $torrentRequest->save();
 
-            if ($request->input('anon') == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
@@ -760,10 +729,10 @@ class RequestController extends Controller
 
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Claimed');
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->withErrors('Someone else has already claimed this request buddy.');
         }
+
+        return redirect()->route('request', ['id' => $id])
+            ->withErrors('Someone else has already claimed this request buddy.');
     }
 
     /**
@@ -790,11 +759,7 @@ class RequestController extends Controller
             $torrentRequest->claimed = null;
             $torrentRequest->save();
 
-            if ($isAnon == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $isAnon == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
@@ -803,10 +768,10 @@ class RequestController extends Controller
 
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess('Request Successfully Un-Claimed');
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->withErrors('Nothing To Unclaim.');
         }
+
+        return redirect()->route('request', ['id' => $id])
+            ->withErrors('Nothing To Unclaim.');
     }
 
     /**

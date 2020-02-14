@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Auth;
@@ -138,62 +138,53 @@ class RegisterController extends Controller
         if ($v->fails()) {
             return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
-        } else {
-            $user->save();
-
-            $privacy = new UserPrivacy();
-            $privacy->setDefaultValues();
-            $privacy->user_id = $user->id;
-            $privacy->save();
-
-            $notification = new UserNotification();
-            $notification->setDefaultValues();
-            $notification->user_id = $user->id;
-            $notification->save();
-
-            if ($key) {
-                // Update The Invite Record
-                $key->accepted_by = $user->id;
-                $key->accepted_at = new Carbon();
-                $key->save();
-            }
-
-            // Handle The Activation System
-            $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
-            $activation = new UserActivation();
-            $activation->user_id = $user->id;
-            $activation->token = $token;
-            $activation->save();
-            $this->dispatch(new SendActivationMail($user, $token));
-
-            // Select A Random Welcome Message
-            $profile_url = hrefProfile($user);
-
-            $welcomeArray = [
-                "[url={$profile_url}]{$user->username}[/url], Welcome to ".config('other.title').'! Hope you enjoy the community :rocket:',
-                "[url={$profile_url}]{$user->username}[/url], We've been expecting you :space_invader:",
-                "[url={$profile_url}]{$user->username}[/url] has arrived. Party's over. :cry:",
-                "It's a bird! It's a plane! Nevermind, it's just [url={$profile_url}]{$user->username}[/url].",
-                "Ready player [url={$profile_url}]{$user->username}[/url].",
-                "A wild [url={$profile_url}]{$user->username}[/url] appeared.",
-                'Welcome to '.config('other.title')." [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)",
-            ];
-            $selected = mt_rand(0, count($welcomeArray) - 1);
-
-            $this->chat->systemMessage(
-                "{$welcomeArray[$selected]}"
-            );
-
-            // Send Welcome PM
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $user->id;
-            $pm->subject = config('welcomepm.subject');
-            $pm->message = config('welcomepm.message');
-            $pm->save();
-
-            return redirect()->route('login')
-                ->withSuccess(trans('auth.register-thanks'));
         }
+        $user->save();
+        $privacy = new UserPrivacy();
+        $privacy->setDefaultValues();
+        $privacy->user_id = $user->id;
+        $privacy->save();
+        $notification = new UserNotification();
+        $notification->setDefaultValues();
+        $notification->user_id = $user->id;
+        $notification->save();
+        if ($key) {
+            // Update The Invite Record
+            $key->accepted_by = $user->id;
+            $key->accepted_at = new Carbon();
+            $key->save();
+        }
+        // Handle The Activation System
+        $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
+        $activation = new UserActivation();
+        $activation->user_id = $user->id;
+        $activation->token = $token;
+        $activation->save();
+        $this->dispatch(new SendActivationMail($user, $token));
+        // Select A Random Welcome Message
+        $profile_url = hrefProfile($user);
+        $welcomeArray = [
+            "[url={$profile_url}]{$user->username}[/url], Welcome to ".config('other.title').'! Hope you enjoy the community :rocket:',
+            "[url={$profile_url}]{$user->username}[/url], We've been expecting you :space_invader:",
+            "[url={$profile_url}]{$user->username}[/url] has arrived. Party's over. :cry:",
+            "It's a bird! It's a plane! Nevermind, it's just [url={$profile_url}]{$user->username}[/url].",
+            "Ready player [url={$profile_url}]{$user->username}[/url].",
+            "A wild [url={$profile_url}]{$user->username}[/url] appeared.",
+            'Welcome to '.config('other.title')." [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)",
+        ];
+        $selected = mt_rand(0, count($welcomeArray) - 1);
+        $this->chat->systemMessage(
+            "{$welcomeArray[$selected]}"
+        );
+        // Send Welcome PM
+        $pm = new PrivateMessage();
+        $pm->sender_id = 1;
+        $pm->receiver_id = $user->id;
+        $pm->subject = config('welcomepm.subject');
+        $pm->message = config('welcomepm.message');
+        $pm->save();
+
+        return redirect()->route('login')
+            ->withSuccess(trans('auth.register-thanks'));
     }
 }

@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -49,10 +49,10 @@ class FollowController extends Controller
 
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are now following '.$user->username);
-        } else {
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('You are already following this user');
         }
+
+        return redirect()->route('users.show', ['username' => $user->username])
+            ->withErrors('You are already following this user');
     }
 
     /**
@@ -76,9 +76,9 @@ class FollowController extends Controller
 
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withSuccess('You are no longer following '.$user->username);
-        } else {
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors('You are not following this user to begin with');
         }
+
+        return redirect()->route('users.show', ['username' => $user->username])
+            ->withErrors('You are not following this user to begin with');
     }
 }

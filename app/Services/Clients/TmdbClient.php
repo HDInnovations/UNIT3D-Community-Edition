@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Services\Clients;
@@ -47,17 +47,14 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys($keys);
 
-        if ($type == 'movie') {
-            if (isset($keys['imdb'])) {
-                $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
-                $results = $this->toArray($this->request($url));
-
-                if (isset($results['movie_results'][0]['id'])) {
-                    return $this->movie($results['movie_results'][0]['id']);
-                }
-
-                return new Movie();
+        if ($type == 'movie' && isset($keys['imdb'])) {
+            $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
+            $results = $this->toArray($this->request($url));
+            if (isset($results['movie_results'][0]['id'])) {
+                return $this->movie($results['movie_results'][0]['id']);
             }
+
+            return new Movie();
         }
 
         if ($type == 'tv') {
@@ -231,25 +228,21 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatCountries($countries, $type = 'movie')
     {
         $movie_countries = [];
-        if ($type == 'movie') {
-            if (!is_null($countries)) {
-                foreach ($countries as $country) {
-                    $movie_countries[] = [
-                        'code'    => $country['iso_3166_1'],
-                        'country' => $country['name'],
-                    ];
-                }
+        if ($type == 'movie' && !is_null($countries)) {
+            foreach ($countries as $country) {
+                $movie_countries[] = [
+                    'code'    => $country['iso_3166_1'],
+                    'country' => $country['name'],
+                ];
             }
         }
 
-        if ($type == 'tv') {
-            if (!is_null($countries)) {
-                foreach ($countries as $country) {
-                    $movie_countries[] = [
-                        'code'    => $country,
-                        'country' => null,
-                    ];
-                }
+        if ($type == 'tv' && !is_null($countries)) {
+            foreach ($countries as $country) {
+                $movie_countries[] = [
+                    'code'    => $country,
+                    'country' => null,
+                ];
             }
         }
 
@@ -259,24 +252,20 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatLanguages($languages, $type = 'movie')
     {
         $movie_languages = [];
-        if ($type == 'movie') {
-            if (!is_null($languages)) {
-                foreach ($languages as $language) {
-                    $movie_languages[] = [
-                        'code'     => $language['iso_639_1'],
-                        'language' => $language['name'],
-                    ];
-                }
+        if ($type == 'movie' && !is_null($languages)) {
+            foreach ($languages as $language) {
+                $movie_languages[] = [
+                    'code'     => $language['iso_639_1'],
+                    'language' => $language['name'],
+                ];
             }
         }
-        if ($type == 'tv') {
-            if (!is_null($languages)) {
-                foreach ($languages as $language) {
-                    $movie_languages[] = [
-                        'code'     => $language,
-                        'language' => null,
-                    ];
-                }
+        if ($type == 'tv' && !is_null($languages)) {
+            foreach ($languages as $language) {
+                $movie_languages[] = [
+                    'code'     => $language,
+                    'language' => null,
+                ];
             }
         }
 
@@ -299,16 +288,12 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $akas = [];
 
-        if (!empty($movie['original_title'])) {
-            if (strtolower($movie['original_title']) != strtolower($movie['title'])) {
-                $akas[] = $movie['original_title'];
-            }
+        if (!empty($movie['original_title']) && strtolower($movie['original_title']) != strtolower($movie['title'])) {
+            $akas[] = $movie['original_title'];
         }
 
-        if (!empty($movie['original_name'])) {
-            if (strtolower($movie['original_name']) != strtolower($movie['name'])) {
-                $akas[] = $movie['original_name'];
-            }
+        if (!empty($movie['original_name']) && strtolower($movie['original_name']) != strtolower($movie['name'])) {
+            $akas[] = $movie['original_name'];
         }
 
         $original_title = !empty($movie['title']) ? $movie['title'] : (!empty($movie['name']) ? $movie['name'] : null);
@@ -354,15 +339,13 @@ class TmdbClient extends Client implements MovieTvInterface
             return $path.$item['file_path'];
         }, $images);
 
-        $images = array_filter($images, function ($item) use ($path, $image) {
+        return array_filter($images, function ($item) use ($path, $image) {
             if ($item == $path.$image) {
                 return false;
             }
 
             return true;
         });
-
-        return $images;
     }
 
     private function formatCasts($credits, $role)

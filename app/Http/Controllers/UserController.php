@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -253,9 +253,8 @@ class UserController extends Controller
         if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
-        } else {
-            $user->custom_css = $css_url;
         }
+        $user->custom_css = $css_url;
         $user->nav = $request->input('sidenav');
 
         // Torrent Settings
@@ -329,10 +328,10 @@ class UserController extends Controller
                 $user->save();
 
                 return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
-            } else {
-                return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                    ->withErrors('Your Password Was Incorrect!');
             }
+
+            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+                ->withErrors('Your Password Was Incorrect!');
         } else {
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your New Password Is To Weak!');
@@ -370,13 +369,12 @@ class UserController extends Controller
         if ($v->fails()) {
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withErrors($v->errors());
-        } else {
-            $user->email = $request->input('email');
-            $user->save();
-
-            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
-                ->withSuccess('Your Email Was Updated Successfully!');
         }
+        $user->email = $request->input('email');
+        $user->save();
+
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
+            ->withSuccess('Your Email Was Updated Successfully!');
     }
 
     /**
@@ -550,11 +548,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_other_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
@@ -588,11 +582,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_request_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
@@ -626,11 +616,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_achievement_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
@@ -664,11 +650,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_forum_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_topic = ($request->input('show_topic') && $request->input('show_topic') == 1 ? 1 : 0);
@@ -703,11 +685,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_follower_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
@@ -741,11 +719,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_torrent_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
@@ -785,11 +759,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_account_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_account_follow = ($request->input('show_account_follow') && $request->input('show_account_follow') == 1 ? 1 : 0);
@@ -825,11 +795,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_following_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
@@ -864,11 +830,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_bon_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
@@ -903,11 +865,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_subscription_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_subscription_forum = ($request->input('show_subscription_forum') && $request->input('show_subscription_forum') == 1 ? 1 : 0);
@@ -943,11 +901,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_request_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_request_comment = ($request->input('show_request_comment') && $request->input('show_request_comment') == 1 ? 1 : 0);
@@ -988,11 +942,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_torrent_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_torrent_comment = ($request->input('show_torrent_comment') && $request->input('show_torrent_comment') == 1 ? 1 : 0);
@@ -1029,11 +979,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_mention_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_mention_torrent_comment = ($request->input('show_mention_torrent_comment') && $request->input('show_mention_torrent_comment') == 1 ? 1 : 0);
@@ -1072,11 +1018,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_forum_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
@@ -1111,11 +1053,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            if (is_array($approved) && in_array($group->id, $approved)) {
-                $tomerge[$group->id] = 1;
-            } else {
-                $tomerge[$group->id] = 0;
-            }
+            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_profile_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_profile_torrent_count = ($request->input('show_profile_torrent_count') && $request->input('show_profile_torrent_count') == 1 ? 1 : 0);
@@ -1231,16 +1169,13 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
 
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-
         if ($request->has('view') && $request->input('view') == 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?', [$user->id, 1])
                 ->where('peers.seeder', '=', 1)->groupBy('torrents.info_hash');
-
             $order = null;
             $sorting = null;
-
             $history->where(function ($query) use ($request) {
                 if ($request->has('dying') && $request->input('dying') != null) {
                     $query->orWhereRaw('(torrents.seeders = ? AND torrents.times_completed > ?)', [1, 2]);
@@ -1276,7 +1211,6 @@ class UserController extends Controller
                     $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 12))', []);
                 }
             });
-
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
             }
@@ -1291,12 +1225,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
-
+            $direction = $order == 'asc' ? 1 : 2;
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'seedtime') {
                     $table = $history->orderBy($sorting, $order)->paginate(50);
@@ -1313,12 +1242,12 @@ class UserController extends Controller
                 'user'  => $user,
                 'seeds' => $table,
             ])->render();
-        } elseif ($request->has('view') && $request->input('view') == 'requests') {
-            $torrentRequests = TorrentRequest::with(['user', 'category']);
+        }
 
+        if ($request->has('view') && $request->input('view') == 'requests') {
+            $torrentRequests = TorrentRequest::with(['user', 'category']);
             $order = null;
             $sorting = null;
-
             if ($request->has('name') && $request->input('name') != null) {
                 $torrentRequests->where('name', 'like', '%'.$request->input('name').'%');
             }
@@ -1344,7 +1273,6 @@ class UserController extends Controller
                     $query->whereNull('filled_by')->orWhereNull('filled_hash')->orWhereNull('approved_by');
                 });
             }
-
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
@@ -1356,12 +1284,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
-
+            $direction = $order == 'asc' ? 1 : 2;
             if ($sorting == 'date') {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy('created_at', $order)->paginate(25);
             } else {
@@ -1398,11 +1321,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'goal') {
@@ -1446,11 +1365,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 $table = $history->where('peers.user_id', '=', $user->id)->orderBy('peers.'.$sorting, $order)->paginate(50);
@@ -1493,11 +1408,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('error') && $request->input('error') != null) {
                 $history->where('seeder', '=', 0);
@@ -1556,11 +1467,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('completed') && $request->input('completed') != null) {
                 $history->where('completed_at', '>', 0);
@@ -1641,11 +1548,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($sorting == 'tipped' || $sorting == 'thanked') {
                 $table = $history->orderBy($sorting.'_total', $order)->paginate(50);
@@ -1675,11 +1578,7 @@ class UserController extends Controller
                 $order = 'desc';
                 // $order = 'asc';
             }
-            if ($order == 'asc') {
-                $direction = 1;
-            } else {
-                $direction = 2;
-            }
+            $direction = $order == 'asc' ? 1 : 2;
 
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
@@ -1763,32 +1662,30 @@ class UserController extends Controller
                 'his_downl'     => $his_downl,
                 'his_downl_cre' => $his_downl_cre,
             ]);
-        } else {
-            $logger = 'user.downloads';
-
-            if (config('hitrun.enabled') == true) {
-                $downloads = History::with(['torrent' => function ($query) {
-                    $query->withAnyStatus();
-                }])->selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
-                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
-                    ->where('history.user_id', '=', $user->id)
-                    ->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
-                    ->paginate(50);
-            } else {
-                $downloads = History::with(['torrent' => function ($query) {
-                    $query->withAnyStatus();
-                }])->selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
-                    ->where('history.user_id', '=', $user->id)
-                    ->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
-                    ->paginate(50);
-            }
-
-            return view($logger, [
-                'route'        => 'downloads',
-                'user'         => $user,
-                'downloads'    => $downloads,
-            ]);
         }
+        $logger = 'user.downloads';
+        if (config('hitrun.enabled') == true) {
+            $downloads = History::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                ->where('history.user_id', '=', $user->id)
+                ->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
+                ->paginate(50);
+        } else {
+            $downloads = History::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+                ->where('history.user_id', '=', $user->id)
+                ->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
+                ->paginate(50);
+        }
+
+        return view($logger, [
+            'route'        => 'downloads',
+            'user'         => $user,
+            'downloads'    => $downloads,
+        ]);
     }
 
     /**
@@ -1812,17 +1709,15 @@ class UserController extends Controller
                 'user'            => $user,
                 'torrentRequests' => $torrentRequests,
             ]);
-        } else {
-            $logger = 'user.requests';
-
-            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
-
-            return view($logger, [
-                'route'           => 'requests',
-                'user'            => $user,
-                'torrentRequests' => $torrentRequests,
-            ]);
         }
+        $logger = 'user.requests';
+        $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
+
+        return view($logger, [
+            'route'           => 'requests',
+            'user'            => $user,
+            'torrentRequests' => $torrentRequests,
+        ]);
     }
 
     /**
@@ -1958,16 +1853,15 @@ class UserController extends Controller
                 'his_downl'     => $his_downl,
                 'his_downl_cre' => $his_downl_cre,
             ]);
-        } else {
-            $logger = 'user.uploads';
-            $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
-
-            return view($logger, [
-                'route'       => 'uploads',
-                'user'        => $user,
-                'uploads'     => $uploads,
-            ]);
         }
+        $logger = 'user.uploads';
+        $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
+
+        return view($logger, [
+            'route'       => 'uploads',
+            'user'        => $user,
+            'uploads'     => $uploads,
+        ]);
     }
 
     /**
@@ -2108,11 +2002,10 @@ class UserController extends Controller
                 // The Torrent File Exist?
                 if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     return redirect()->back()->withErrors('Torrent File Not Found! Please Report This Torrent!');
-                } else {
-                    // Delete The Last Torrent Tmp File If Exist
-                    if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
-                        unlink(getcwd().'/files/tmp/'.$tmpFileName);
-                    }
+                }
+                // Delete The Last Torrent Tmp File If Exist
+                if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
+                    unlink(getcwd().'/files/tmp/'.$tmpFileName);
                 }
 
                 // Get The Content Of The Torrent
@@ -2136,9 +2029,9 @@ class UserController extends Controller
 
         if (file_exists($zip_file)) {
             return response()->download($zip_file)->deleteFileAfterSend(true);
-        } else {
-            return redirect()->back()->withErrors('Something Went Wrong!');
         }
+
+        return redirect()->back()->withErrors('Something Went Wrong!');
     }
 
     /**

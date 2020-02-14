@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
@@ -129,11 +129,7 @@ class ForumController extends Controller
         $forum->position = $request->input('position');
         $forum->slug = Str::slug($request->input('title'));
         $forum->description = $request->input('description');
-        if ($request->input('forum_type') == 'category') {
-            $forum->parent_id = 0;
-        } else {
-            $forum->parent_id = $request->input('parent_id');
-        }
+        $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
         $forum->save();
 
         // Permissions

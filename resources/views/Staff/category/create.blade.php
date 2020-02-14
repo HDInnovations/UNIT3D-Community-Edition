@@ -13,14 +13,22 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.categories.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Add Torrent Category</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.add')
+                @lang('torrent.torrent')
+                @lang('torrent.category')
+            </span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Add A Category</h2>
+        <h2>
+            @lang('common.add')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('torrent.category')
+        </h2>
         <form role="form" method="POST" action="{{ route('staff.categories.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -43,7 +51,12 @@
                 </label>
             </div>
             <div class="form-group">
-                <label for="image">Select an Image If Not Using A FontAwesome Icon</label>
+                <label for="image">
+                    @lang('common.select')
+                    @lang(trans_choice('common.a-an-art',false))
+                    @lang('common.image')
+                    (If Not Using A FontAwesome Icon)
+                </label>
                 <input type="file" name="image">
             </div>
     

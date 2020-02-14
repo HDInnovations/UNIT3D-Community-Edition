@@ -1,24 +1,35 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
-    'activated'        => 'Activated',
-    'active'           => 'Activated！',
+    'activated'        => '激活',
+    'active'           => '激活！',
     'amount'           => '数量',
     'bon'              => '魔力',
     'bonus'            => '额外奖赏',
     'date'             => '日期',
     'earning'          => '收入',
-    'earning-rate'     => '按率推算...',
+    'earning-rate'     => '按率推算……',
     'earnings'         => '收入',
     'exchange'         => '交易',
-    'exchange-warning' => '注意，所涉及的魔力交易是不可退回的！',
+    'exchange-warning' => '注意，所涉及的魔力交易是不可退回的！请三思！',
     'extended-stats'   => '显示更多',
     'gift'             => '礼物',
     'gift-bonus'       => '要赠送的魔力值',
     'gift-to'          => '把魔力值送给',
     'gifts'            => '礼物',
     'item'             => '物品',
-    'no-refund'        => '不能退款!!',
+    'no-refund'        => '不能退款！！',
     'per-day'          => '每日点数',
     'per-hour'         => '每小时点数',
     'per-minute'       => '每分钟点数',
