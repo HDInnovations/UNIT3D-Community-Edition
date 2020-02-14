@@ -9,5 +9,6 @@ $factory->define(App\Models\ApplicationImageProof::class, function (Faker $faker
         'application_id' => function () {
             return factory(App\Models\Application::class)->create()->id;
         },
+        'image' => $faker->word,
     ];
 });

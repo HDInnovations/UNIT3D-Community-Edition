@@ -4,10 +4,10 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Page::class, function (Faker $faker) {
+$factory->define(App\Models\Type::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'slug' => $faker->slug,
-        'content' => $faker->text,
+        'position' => $faker->randomNumber(),
     ];
 });

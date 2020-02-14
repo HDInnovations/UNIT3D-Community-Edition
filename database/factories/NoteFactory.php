@@ -12,5 +12,6 @@ $factory->define(App\Models\Note::class, function (Faker $faker) {
         'staff_id' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
+        'message' => $faker->text,
     ];
 });
