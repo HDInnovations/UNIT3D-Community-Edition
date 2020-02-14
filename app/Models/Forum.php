@@ -243,11 +243,7 @@ class Forum extends Model
      */
     public function getPermission()
     {
-        if (auth()->check()) {
-            $group = auth()->user()->group;
-        } else {
-            $group = Group::find(2);
-        }
+        $group = auth()->check() ? auth()->user()->group : Group::find(2);
 
         return $group->permissions->where('forum_id', $this->id)->first();
     }

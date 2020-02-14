@@ -155,11 +155,7 @@ class SystemBot
     public function process($type, User $target, $message = '', $targeted = 0)
     {
         $this->target = $target;
-        if ($type == 'message') {
-            $x = 0;
-        } else {
-            $x = 1;
-        }
+        $x = $type == 'message' ? 0 : 1;
 
         $y = $x + 1;
         $z = $y + 1;

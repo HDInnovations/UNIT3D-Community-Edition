@@ -500,11 +500,7 @@ class RequestController extends Controller
                 "An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
             );
         }
-        if ($request->input('anon') == 1) {
-            $sender = 'Anonymous';
-        } else {
-            $sender = $user->username;
-        }
+        $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $tr->user;
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
             $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
@@ -551,11 +547,7 @@ class RequestController extends Controller
         $torrentRequest->save();
         // Send Private Message
         $appurl = config('app.url');
-        if ($request->input('filled_anon') == 1) {
-            $sender = 'Anonymous';
-        } else {
-            $sender = $user->username;
-        }
+        $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $torrentRequest->user;
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
             $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
@@ -728,11 +720,7 @@ class RequestController extends Controller
             $torrentRequest->claimed = 1;
             $torrentRequest->save();
 
-            if ($request->input('anon') == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
@@ -771,11 +759,7 @@ class RequestController extends Controller
             $torrentRequest->claimed = null;
             $torrentRequest->save();
 
-            if ($isAnon == 1) {
-                $sender = 'Anonymous';
-            } else {
-                $sender = $user->username;
-            }
+            $sender = $isAnon == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
