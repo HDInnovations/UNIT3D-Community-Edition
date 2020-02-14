@@ -75,10 +75,10 @@ class ForumController extends Controller
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
+                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
+                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
+                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
                 $perm->show_forum = false;
                 $perm->read_topic = false;
@@ -141,10 +141,10 @@ class ForumController extends Controller
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
+                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
+                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
+                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
                 $perm->show_forum = false;
                 $perm->read_topic = false;

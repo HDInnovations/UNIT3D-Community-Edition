@@ -105,10 +105,10 @@ class WishRepository implements WishInterface
      */
     public function exists($uid, $id)
     {
-        return $this->user->find($uid)
+        return (bool) $this->user->find($uid)
             ->wishes()
             ->where('imdb', '=', $id)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**
@@ -120,11 +120,11 @@ class WishRepository implements WishInterface
     {
         $id = str_replace('tt', '', $id);
 
-        return $this->torrent
+        return (bool) $this->torrent
             ->where('imdb', '=', $id)
             ->where('seeders', '>', 0)
             ->where('status', '=', 1)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**
