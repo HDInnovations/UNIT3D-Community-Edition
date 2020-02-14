@@ -181,11 +181,11 @@ class AnnounceController extends Controller
 
         //Extra Information Fields
         $tracker_id = $request->has('trackerid') ? bin2hex($request->input('tracker_id')) : null;
-        $compact = $request->has('compact') && $request->input('compact') == 1;
+        $compact = $request->input('compact') == 1;
         $key = $request->has('key') ? bin2hex($request->input('key')) : null;
         $corrupt = $request->has('corrupt') ? $request->input('corrupt') : null;
         $ipv6 = $request->has('ipv6') ? bin2hex($request->input('ipv6')) : null;
-        $no_peer_id = $request->has('no_peer_id') && $request->input('no_peer_id') == 1;
+        $no_peer_id = $request->input('no_peer_id') == 1;
 
         // If User Download Rights Are Disabled Return Error to Client
         if ($user->can_download == 0 && $left != 0) {
