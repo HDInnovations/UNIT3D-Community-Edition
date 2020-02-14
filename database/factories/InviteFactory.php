@@ -9,13 +9,13 @@ $factory->define(App\Models\Invite::class, function (Faker $faker) {
         'user_id' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
-        'email' => $faker->safeEmail,
-        'code' => $faker->word,
-        'expires_on' => $faker->dateTime(),
+        'email'       => $faker->safeEmail,
+        'code'        => $faker->word,
+        'expires_on'  => $faker->dateTime(),
         'accepted_by' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
         'accepted_at' => $faker->dateTime(),
-        'custom' => $faker->text,
+        'custom'      => $faker->text,
     ];
 });

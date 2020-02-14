@@ -9,7 +9,7 @@ $factory->define(App\Models\Option::class, function (Faker $faker) {
         'poll_id' => function () {
             return factory(App\Models\Poll::class)->create()->id;
         },
-        'name' => $faker->name,
+        'name'  => $faker->name,
         'votes' => $faker->randomNumber(),
     ];
 });

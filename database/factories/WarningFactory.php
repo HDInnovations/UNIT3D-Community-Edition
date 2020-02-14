@@ -15,9 +15,9 @@ $factory->define(App\Models\Warning::class, function (Faker $faker) {
         'torrent' => function () {
             return factory(App\Models\Torrent::class)->create()->id;
         },
-        'reason' => $faker->text,
+        'reason'     => $faker->text,
         'expires_on' => $faker->dateTime(),
-        'active' => $faker->boolean,
+        'active'     => $faker->boolean,
         'deleted_by' => function () {
             return factory(App\Models\User::class)->create()->id;
         },

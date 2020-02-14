@@ -6,8 +6,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Page::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'slug' => $faker->slug,
+        'name'    => $faker->name,
+        'slug'    => $faker->slug,
         'content' => $faker->text,
     ];
 });

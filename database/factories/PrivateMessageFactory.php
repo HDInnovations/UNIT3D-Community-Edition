@@ -12,9 +12,9 @@ $factory->define(App\Models\PrivateMessage::class, function (Faker $faker) {
         'receiver_id' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
-        'subject' => $faker->word,
-        'message' => $faker->text,
-        'read' => $faker->boolean,
+        'subject'    => $faker->word,
+        'message'    => $faker->text,
+        'read'       => $faker->boolean,
         'related_to' => $faker->randomNumber(),
     ];
 });

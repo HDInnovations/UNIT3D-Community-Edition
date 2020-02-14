@@ -6,8 +6,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Type::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'slug' => $faker->slug,
+        'name'     => $faker->name,
+        'slug'     => $faker->slug,
         'position' => $faker->randomNumber(),
     ];
 });

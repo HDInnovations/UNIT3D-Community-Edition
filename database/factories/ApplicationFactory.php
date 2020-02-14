@@ -6,16 +6,16 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Application::class, function (Faker $faker) {
     return [
-        'type' => $faker->word,
-        'email' => $faker->safeEmail,
-        'referrer' => $faker->text,
-        'status' => $faker->boolean,
+        'type'         => $faker->word,
+        'email'        => $faker->safeEmail,
+        'referrer'     => $faker->text,
+        'status'       => $faker->boolean,
         'moderated_at' => $faker->dateTime(),
         'moderated_by' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
         'accepted_by' => $faker->randomNumber(),
-        'user_id' => function () {
+        'user_id'     => function () {
             return factory(App\Models\User::class)->create()->id;
         },
     ];

@@ -12,8 +12,8 @@ $factory->define(App\Models\Permission::class, function (Faker $faker) {
         'group_id' => function () {
             return factory(App\Models\Group::class)->create()->id;
         },
-        'show_forum' => $faker->boolean,
-        'read_topic' => $faker->boolean,
+        'show_forum'  => $faker->boolean,
+        'read_topic'  => $faker->boolean,
         'reply_topic' => $faker->boolean,
         'start_topic' => $faker->boolean,
     ];
