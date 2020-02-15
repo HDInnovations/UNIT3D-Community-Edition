@@ -16,8 +16,6 @@ return [
   'create-poll' => 'Izradite anketu',
   'current' => 'Trenutna anketa',
   'delete-option' => 'Izbriši opciju',
-  'ip-checking' => 'Ova anketa ima dvostruku provjeru glasova. Možete glasati samo jednom.',
-  'ip-checking-warrning' => 'Potrebno je samo ako je web-lokacija u javnom načinu',
   'multiple-choice' => 'Ovo je anketa s višestrukim izborom. Odaberite onoliko odgovora koliko želite.',
   'option' => 'Opcija',
   'poll' => 'Anketa',
