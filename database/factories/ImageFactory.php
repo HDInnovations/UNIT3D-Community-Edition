@@ -9,5 +9,10 @@ $factory->define(App\Models\Image::class, function (Faker $faker) {
         'user_id' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
+        'album_id'    => $faker->randomNumber(),
+        'image'       => $faker->word,
+        'description' => $faker->text,
+        'type'        => $faker->word,
+        'downloads'   => $faker->randomNumber(),
     ];
 });

@@ -6,5 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\GitUpdate::class, function (Faker $faker) {
     return [
+        'name' => $faker->name,
+        'hash' => $faker->word,
     ];
 });

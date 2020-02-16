@@ -9,5 +9,9 @@ $factory->define(App\Models\Album::class, function (Faker $faker) {
         'user_id' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
+        'name'        => $faker->name,
+        'description' => $faker->text,
+        'imdb'        => $faker->word,
+        'cover_image' => $faker->word,
     ];
 });
