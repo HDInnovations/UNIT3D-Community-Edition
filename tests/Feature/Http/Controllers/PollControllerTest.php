@@ -37,7 +37,7 @@ class PollControllerTest extends TestCase
         $poll = factory(\App\Models\Poll::class)->create();
         $user = factory(\App\Models\User::class)->create();
 
-        $response = $this->actingAs($user)->get(route('poll_results', ['slug' => $poll->slug]));
+        $response = $this->actingAs($user)->get(route('poll_results', ['id' => $poll->id]));
 
         $response->assertOk();
         $response->assertViewIs('poll.result');
@@ -55,7 +55,7 @@ class PollControllerTest extends TestCase
         $poll = factory(\App\Models\Poll::class)->create();
         $user = factory(\App\Models\User::class)->create();
 
-        $response = $this->actingAs($user)->get(route('poll', ['slug' => $poll->slug]));
+        $response = $this->actingAs($user)->get(route('poll', ['id' => $poll->id]));
 
         $response->assertRedirect(withInfo('You have already vote on this poll. Here are the results.'));
 

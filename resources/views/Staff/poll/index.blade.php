@@ -37,7 +37,7 @@
                 <tbody>
                     @foreach ($polls as $poll)
                         <tr>
-                            <td><a href="{{ url('/dashboard/polls/' . $poll->id) }}">{{ $poll->title }}</a></td>
+                            <td><a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">{{ $poll->title }}</a></td>
                             <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
                             <td>
                                 <form action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}" method="POST">

@@ -17,7 +17,7 @@
     </li>
     <li>
         <a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $poll->slug }} @lang('poll.results')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $poll->title }} @lang('poll.results')</span>
         </a>
     </li>
 @endsection
