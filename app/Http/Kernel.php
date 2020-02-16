@@ -76,7 +76,6 @@ class Kernel extends HttpKernel
         'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'check_ip'      => \App\Http\Middleware\CheckIfAlreadyVoted::class,
         'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
         'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'language'      => \App\Http\Middleware\SetLanguage::class,

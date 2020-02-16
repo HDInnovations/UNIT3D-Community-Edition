@@ -21,7 +21,7 @@
         </div>
         <div class="blocks">
             @foreach ($polls as $poll)
-                <a href="{{ url('/polls/' . $poll->slug) }}" style="padding: 0 2px;">
+                <a href="{{ route('poll', ['id' => $poll->id]) }}" style="padding: 0 2px;">
                     <div class="general media_blocks">
                         <h2 style="font-size: 20px;"><i class="{{ config('other.font-awesome') }} fa-pie-chart"></i>
                             {{ $poll->title }}</h2>

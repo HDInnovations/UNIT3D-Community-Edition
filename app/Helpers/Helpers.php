@@ -58,7 +58,7 @@ if (!function_exists('hrefPoll')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/polls/{$poll->slug}";
+        return "{$appurl}/polls/{$poll->id}";
     }
 }
 
