@@ -47,7 +47,7 @@ class CreateBotTransactionsTable extends Migration
     public function down()
     {
         Schema::table('bot_transactions', function (Blueprint $table) {
-            //
+            $table->dropIfExists('bot_transactions');
         });
     }
 }
