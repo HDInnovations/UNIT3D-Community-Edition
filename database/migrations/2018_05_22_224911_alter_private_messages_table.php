@@ -36,7 +36,7 @@ class AlterPrivateMessagesTable extends Migration
     public function down()
     {
         Schema::table('private_messages', function ($table) {
-            $table->renameColumn('reciever_id', 'receiver_id');
+            $table->renameColumn('receiver_id', 'reciever_id');
         });
     }
 }

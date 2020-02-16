@@ -33,6 +33,6 @@ class RenameBanTable extends Migration
      */
     public function down()
     {
-        Schema::rename('ban', 'bans');
+        Schema::rename('bans', 'ban');
     }
 }

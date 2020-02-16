@@ -37,7 +37,7 @@ class AddReleaseYearToTorrentsTable extends Migration
     public function down()
     {
         Schema::table('torrents', function (Blueprint $table) {
-            $table->year('release_year')->nullable()->index();
+            $table->dropColumn('release_year');
         });
     }
 }
