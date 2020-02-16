@@ -31,9 +31,6 @@
                         @if ($poll->multiple_choice)
                             <span class="badge-user text-bold text-red">@lang('poll.multiple-choice')</span>
                         @endif
-                        @if ($poll->ip_checking)
-                            <span class="badge-user text-bold text-red">@lang('poll.ip-checking')</span>
-                        @endif
                     </div>
                 </div>
             </div>

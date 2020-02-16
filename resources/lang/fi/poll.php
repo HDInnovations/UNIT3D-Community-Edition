@@ -16,8 +16,6 @@ return [
   'create-poll' => 'Luo kysely',
   'current' => 'Nykyinen kysely (t)',
   'delete-option' => 'Poista vaihtoehto',
-  'ip-checking' => 'Tällä kyselyllä on kaksinkertainen äänestys. Voit äänestää vain kerran.',
-  'ip-checking-warrning' => 'Tarvitaan vain, jos sivusto on julkisessa tilassa',
   'multiple-choice' => 'Tämä on monivalintakysely. Valitse niin monta vastausta kuin haluat.',
   'option' => 'Vaihtoehto',
   'poll' => 'äänestys',
