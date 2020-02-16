@@ -16,8 +16,6 @@ return [
   'create-poll' => 'Sukurti apklausą',
   'current' => 'Dabartinis apklausa',
   'delete-option' => 'Ištrinti parinktį',
-  'ip-checking' => 'Šis apklausa turi dvigubą balsų patikrinimą. Galite balsuoti tik vieną kartą.',
-  'ip-checking-warrning' => 'Reikalinga tik tada, kai svetainė yra viešame režime',
   'multiple-choice' => 'Tai yra daugkartinio pasirinkimo apklausa. Pasirinkite kuo daugiau atsakymų.',
   'option' => 'Galimybė',
   'poll' => 'Apklausa',

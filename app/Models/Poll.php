@@ -24,7 +24,6 @@ use Illuminate\Support\Str;
  * @property int $user_id
  * @property string $title
  * @property string $slug
- * @property int $ip_checking
  * @property int $multiple_choice
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -37,7 +36,6 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereIpChecking($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereMultipleChoice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereTitle($value)
@@ -60,7 +58,6 @@ class Poll extends Model
     protected $fillable = [
         'title',
         'slug',
-        'ip_checking',
         'multiple_choice',
     ];
 

@@ -16,8 +16,6 @@ return [
   'create-poll' => 'Crea sondaggio',
   'current' => 'Sondaggio (i) corrente',
   'delete-option' => 'Elimina l opzione',
-  'ip-checking' => 'Questo sondaggio ha un doppio controllo dei voti. Puoi votare solo una volta.',
-  'ip-checking-warrning' => 'Serve solo se il sito è in modalità pubblica',
   'multiple-choice' => 'Questo è un sondaggio a scelta multipla. Seleziona tutte le risposte che vuoi.',
   'option' => 'Opzione',
   'poll' => 'Sondaggio',

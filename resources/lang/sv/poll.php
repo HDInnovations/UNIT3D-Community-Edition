@@ -16,8 +16,6 @@ return [
   'create-poll' => 'Skapa undersökning',
   'current' => 'Nuvarande omröstning (er)',
   'delete-option' => 'Radera alternativet',
-  'ip-checking' => 'Denna undersökning har dubbla röstkontroll. Du kan bara rösta en gång.',
-  'ip-checking-warrning' => 'Endast behövs om webbplatsen är i det offentliga läget',
   'multiple-choice' => 'Detta är en multipelval omröstning. Välj så många svar som du vill.',
   'option' => 'Alternativ',
   'poll' => 'Opinionsundersökning',

@@ -16,8 +16,6 @@ return [
   'create-poll' => 'Loo küsitlus',
   'current' => 'Praegune küsitlus',
   'delete-option' => 'Kustuta valik',
-  'ip-checking' => 'Sellel küsitlusel on kahekordne hääletuskontroll. Te saate hääletada ainult üks kord.',
-  'ip-checking-warrning' => 'Vajalik ainult siis, kui sait on avalikus režiimis',
   'multiple-choice' => 'See on mitme valiku küsitlus. Valige nii palju vastuseid kui soovite.',
   'option' => 'Võimalus',
   'poll' => 'Küsitlus',

@@ -16,8 +16,6 @@ return [
   'create-poll' => 'Buat pengundian',
   'current' => 'Pungutan Semasa',
   'delete-option' => 'Padam pilihan',
-  'ip-checking' => 'Undian ini mempunyai pemeriksaan undi pendua. Anda hanya boleh mengundi sekali.',
-  'ip-checking-warrning' => 'Hanya diperlukan jika tapak dalam mod awam',
   'multiple-choice' => 'Ini adalah pilihan pelbagai pilihan. Pilih seberapa banyak jawapan yang anda suka.',
   'option' => 'Pilihan',
   'poll' => 'Undian',
