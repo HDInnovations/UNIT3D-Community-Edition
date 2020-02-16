@@ -52,6 +52,7 @@ class AlterRssTable extends Migration
             $table->integer('userID')->index('userID');
             $table->string('category')->nullable();
             $table->timestamps();
+            $table->foreign('userID', 'rss_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 }
