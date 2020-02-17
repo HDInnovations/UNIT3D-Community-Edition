@@ -28,7 +28,7 @@ class Language
      **/
     public static function flag($code = 'default')
     {
-        if ($code == 'default') {
+        if ($code === 'default') {
             $code = app()->getLocale();
         }
 
@@ -47,7 +47,7 @@ class Language
      **/
     public static function country($locale = 'default')
     {
-        if ($locale == 'default') {
+        if ($locale === 'default') {
             $locale = app()->getLocale();
         }
 
@@ -188,7 +188,7 @@ class Language
      **/
     public static function getCode($name = 'default')
     {
-        if ($name == 'default') {
+        if ($name === 'default') {
             $name = self::getName();
         }
 
@@ -204,7 +204,7 @@ class Language
      **/
     public static function getLongCode($short = 'default')
     {
-        if ($short == 'default') {
+        if ($short === 'default') {
             $short = app()->getLocale();
         }
 
@@ -233,7 +233,7 @@ class Language
      **/
     public static function getShortCode($long = 'default')
     {
-        if ($long == 'default') {
+        if ($long === 'default') {
             $long = app()->getLocale();
         }
 
@@ -262,7 +262,7 @@ class Language
      **/
     public static function getName($code = 'default')
     {
-        if ($code == 'default') {
+        if ($code === 'default') {
             $code = app()->getLocale();
         }
 

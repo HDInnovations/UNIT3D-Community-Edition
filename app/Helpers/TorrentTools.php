@@ -117,7 +117,7 @@ class TorrentTools
                 $dir = '';
                 $count = is_countable($file['path']) ? count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
-                    if (($i + 1) == $count) {
+                    if ($i + 1 === $count) {
                         $fname = $dir.$file['path'][$i];
                         $files[$k]['name'] = $fname;
                     } else {

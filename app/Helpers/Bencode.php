@@ -20,7 +20,7 @@ class Bencode
     public static function parse_integer($s, &$pos)
     {
         $len = strlen($s);
-        if ($len == 0 || $s[$pos] != 'i') {
+        if ($len === 0 || $s[$pos] != 'i') {
             return;
         }
         $pos++;

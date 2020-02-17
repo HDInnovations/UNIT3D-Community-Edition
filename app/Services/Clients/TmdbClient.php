@@ -47,7 +47,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys($keys);
 
-        if ($type == 'movie' && isset($keys['imdb'])) {
+        if ($type === 'movie' && isset($keys['imdb'])) {
             $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
             $results = $this->toArray($this->request($url));
             if (isset($results['movie_results'][0]['id'])) {
@@ -57,7 +57,7 @@ class TmdbClient extends Client implements MovieTvInterface
             return new Movie();
         }
 
-        if ($type == 'tv') {
+        if ($type === 'tv') {
             $url = null;
             if (isset($keys['imdb'])) {
                 $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id';
@@ -91,7 +91,7 @@ class TmdbClient extends Client implements MovieTvInterface
         $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
         $movie = $this->toArray($this->request($url));
 
-        if ($type == 'tv') {
+        if ($type === 'tv') {
             return $this->formatTv($movie);
         }
 
@@ -288,11 +288,11 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $akas = [];
 
-        if (!empty($movie['original_title']) && strtolower($movie['original_title']) != strtolower($movie['title'])) {
+        if (!empty($movie['original_title']) && strtolower($movie['original_title']) !== strtolower($movie['title'])) {
             $akas[] = $movie['original_title'];
         }
 
-        if (!empty($movie['original_name']) && strtolower($movie['original_name']) != strtolower($movie['name'])) {
+        if (!empty($movie['original_name']) && strtolower($movie['original_name']) !== strtolower($movie['name'])) {
             $akas[] = $movie['original_name'];
         }
 

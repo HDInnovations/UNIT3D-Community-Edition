@@ -103,7 +103,7 @@ class Poll extends Model
      */
     public function setTitleAttribute($title)
     {
-        if (substr($title, -1) != '?') {
+        if (substr($title, -1) !== '?') {
             return $this->attributes['title'] = $title.'?';
         }
 

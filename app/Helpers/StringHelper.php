@@ -106,12 +106,12 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
         $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
@@ -160,12 +160,12 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
         $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;

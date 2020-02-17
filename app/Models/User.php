@@ -739,7 +739,7 @@ class User extends Authenticatable
     public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
     {
         $target_group = 'json_'.$group.'_groups';
-        if ($sender->id == $target->id) {
+        if ($sender->id === $target->id) {
             return false;
         }
         if ($sender->group->is_modo || $sender->group->is_admin) {
@@ -856,7 +856,7 @@ class User extends Authenticatable
      */
     public function isSubscribed(string $type, $topic_id)
     {
-        if ($type == 'topic') {
+        if ($type === 'topic') {
             return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
         }
 
@@ -918,7 +918,7 @@ class User extends Authenticatable
      */
     public function getRatio()
     {
-        if ($this->downloaded == 0) {
+        if ($this->downloaded === 0) {
             return INF;
         }
 

@@ -67,11 +67,11 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
-        if ($request->hasFile('torrent') == false) {
+        if ($request->hasFile('torrent') === false) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
         }
 
-        if ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+        if ($requestFile->getError() !== 0 && $requestFile->getClientOriginalExtension() !== 'torrent') {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
