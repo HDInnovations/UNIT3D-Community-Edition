@@ -340,11 +340,7 @@ class TmdbClient extends Client implements MovieTvInterface
         }, $images);
 
         return array_filter($images, function ($item) use ($path, $image) {
-            if ($item == $path.$image) {
-                return false;
-            }
-
-            return true;
+            return !($item == $path.$image);
         });
     }
 

@@ -178,10 +178,6 @@ class TaggedUserRepository
 
     protected function validate($user)
     {
-        if (is_object($user)) {
-            return true;
-        }
-
-        return false;
+        return is_object($user);
     }
 }
