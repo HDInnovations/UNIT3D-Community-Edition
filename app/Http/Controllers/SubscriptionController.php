@@ -31,7 +31,7 @@ class SubscriptionController extends Controller
      */
     public function subscribeTopic(Request $request, string $route, Topic $topic)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }
@@ -65,7 +65,7 @@ class SubscriptionController extends Controller
      */
     public function unsubscribeTopic(Request $request, string $route, Topic $topic)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }
@@ -97,7 +97,7 @@ class SubscriptionController extends Controller
      */
     public function subscribeForum(Request $request, string $route, Forum $forum)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }
@@ -131,7 +131,7 @@ class SubscriptionController extends Controller
      */
     public function unsubscribeForum(Request $request, string $route, Forum $forum)
     {
-        if ($route == 'subscriptions') {
+        if ($route === 'subscriptions') {
             $logger = 'forum_subscriptions';
             $params = [];
         }

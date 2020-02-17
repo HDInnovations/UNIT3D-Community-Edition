@@ -683,7 +683,7 @@ class TorrentController extends Controller
         $attributes = [];
         $links = null;
         if ($collection == 1) {
-            if ($logger == null) {
+            if ($logger === null) {
                 $logger = 'torrent.results_groupings';
             }
 
@@ -1245,7 +1245,7 @@ class TorrentController extends Controller
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $requestFile = $request->file('torrent');
-        if ($request->hasFile('torrent') == false) {
+        if ($request->hasFile('torrent') === false) {
             return view('torrent.upload', [
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),
@@ -1253,7 +1253,7 @@ class TorrentController extends Controller
                 ->withErrors('You Must Provide A Torrent File For Upload!');
         }
 
-        if ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+        if ($requestFile->getError() !== 0 && $requestFile->getClientOriginalExtension() !== 'torrent') {
             return view('torrent.upload', [
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),

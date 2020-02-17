@@ -77,7 +77,7 @@ class PlaylistController extends Controller
         $playlist->description = $request->input('description');
         $playlist->cover_image = null;
 
-        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() == 0) {
+        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
             $image = $request->file('cover_image');
             $filename = 'playlist-cover_'.uniqid().'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
@@ -190,7 +190,7 @@ class PlaylistController extends Controller
         $playlist->description = $request->input('description');
         $playlist->cover_image = null;
 
-        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() == 0) {
+        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
             $image = $request->file('cover_image');
             $filename = 'playlist-cover_'.uniqid().'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);

@@ -176,13 +176,13 @@ class UserController extends Controller
 
         // Avatar
         $max_upload = config('image.max_upload_size');
-        if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
+        if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
             if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', $image->getMimeType())) {
                 if ($max_upload >= $image->getSize()) {
                     $filename = $user->username.'.'.$image->getClientOriginalExtension();
                     $path = public_path('/files/img/'.$filename);
-                    if ($image->getClientOriginalExtension() != 'gif') {
+                    if ($image->getClientOriginalExtension() !== 'gif') {
                         Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
                     } else {
                         $v = validator($request->all(), [
