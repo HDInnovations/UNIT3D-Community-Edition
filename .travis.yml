@@ -23,6 +23,13 @@ before_install:
 services:
 - mysql
 
+script:
+  - mkdir -p build/logs
+  - phpdbg -qrr vendor/bin/phpunit tests --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls
+
 notifications:
   email:
     on_failure: change
