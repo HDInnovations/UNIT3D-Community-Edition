@@ -82,11 +82,11 @@ class ReportController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $report->reporter_id;
         $pm->subject = 'Your Report Has A New Verdict';
-        $pm->message = "[b]REPORT TITLE:[/b] {$report->title}
+        $pm->message = sprintf('[b]REPORT TITLE:[/b] %s
         
-                        [b]ORIGINAL MESSAGE:[/b] {$report->message}
+                        [b]ORIGINAL MESSAGE:[/b] %s
                         
-                        [b]VERDICT:[/b] {$report->verdict}";
+                        [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $pm->save();
 
         return redirect()->route('staff.reports.index')

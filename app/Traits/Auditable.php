@@ -78,7 +78,7 @@ trait Auditable
         $data = [];
         switch ($action) {
             default:
-                throw new \InvalidArgumentException("Unknown action `{$action}`.");
+                throw new \InvalidArgumentException(sprintf('Unknown action `%s`.', $action));
                 break;
             case 'create':
                 // Expect new data to be filled

@@ -34,8 +34,8 @@ class IRCAnnounceBot
         $this->joinchannels = config('irc-bot.joinchannels');
         $this->socket = fsockopen($this->server, $this->port);
 
-        $this->send_data("NICK {$this->username}");
-        $this->send_data("USER {$this->username} {$this->hostname} {$this->server} {$this->username}");
+        $this->send_data(sprintf('NICK %s', $this->username));
+        $this->send_data(sprintf('USER %s %s %s %s', $this->username, $this->hostname, $this->server, $this->username));
 
         $this->connect();
     }
@@ -56,7 +56,7 @@ class IRCAnnounceBot
             if ($ex[0] == 'PING') {
                 $this->send_data('PONG '.$ex[1]);
                 if ($this->nickservpass) {
-                    $this->send_data("NICKSERV IDENTIFY {$this->nickservpass}");
+                    $this->send_data(sprintf('NICKSERV IDENTIFY %s', $this->nickservpass));
                 }
 
                 return;
@@ -66,17 +66,18 @@ class IRCAnnounceBot
 
     private function send_data($data)
     {
-        fwrite($this->socket, "$data\r\n");
+        fwrite($this->socket, sprintf('%s
+', $data));
     }
 
     private function say($channel, $string)
     {
-        $this->send_data("PRIVMSG $channel $string");
+        $this->send_data(sprintf('PRIVMSG %s %s', $channel, $string));
     }
 
     private function join($channel)
     {
-        $this->send_data("JOIN $channel");
+        $this->send_data(sprintf('JOIN %s', $channel));
     }
 
     public function message($channel, $message)

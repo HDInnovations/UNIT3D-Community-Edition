@@ -207,10 +207,10 @@ class TopicController extends Controller
 
             // Post To ShoutBox
             $appurl = config('app.url');
-            $topicUrl = "{$appurl}/forums/topics/{$topic->id}";
-            $profileUrl = "{$appurl}/users/{$user->username}";
+            $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
+            $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
 
-            $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
+            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
 
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);

@@ -118,8 +118,8 @@ class ProAjaxMiddleware
     {
         $session = $request->session();
 
-        $flash_message['type'] = $session->get("{$this->flash_name}.type");
-        $flash_message['message'] = $session->get("{$this->flash_name}.message");
+        $flash_message['type'] = $session->get(sprintf('%s.type', $this->flash_name));
+        $flash_message['message'] = $session->get(sprintf('%s.message', $this->flash_name));
 
         return $flash_message;
     }

@@ -139,7 +139,7 @@ class ForumController extends Controller
 
         if ($request->has('body') && $request->input('body') != '') {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "posts.{$request->input('sorting')}";
+                $sorting = sprintf('posts.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'posts.id';
@@ -148,7 +148,7 @@ class ForumController extends Controller
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "topics.{$request->input('sorting')}";
+                $sorting = sprintf('topics.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'topics.last_reply_at';

@@ -22,7 +22,7 @@ if (!function_exists('hrefProfile')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/users/{$user->username}";
+        return sprintf('%s/users/%s', $appurl, $user->username);
     }
 }
 
@@ -31,7 +31,7 @@ if (!function_exists('hrefArticle')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/articles/{$article->id}";
+        return sprintf('%s/articles/%s', $appurl, $article->id);
     }
 }
 
@@ -40,7 +40,7 @@ if (!function_exists('hrefTorrent')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/torrents/{$torrent->id}";
+        return sprintf('%s/torrents/%s', $appurl, $torrent->id);
     }
 }
 
@@ -49,7 +49,7 @@ if (!function_exists('hrefRequest')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/requests/{$torrentRequest->id}";
+        return sprintf('%s/requests/%s', $appurl, $torrentRequest->id);
     }
 }
 
@@ -58,7 +58,7 @@ if (!function_exists('hrefPoll')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/polls/{$poll->id}";
+        return sprintf('%s/polls/%s', $appurl, $poll->id);
     }
 }
 
@@ -67,6 +67,6 @@ if (!function_exists('hrefPlaylist')) {
     {
         $appurl = appurl();
 
-        return "{$appurl}/playlists/{$playlist->id}";
+        return sprintf('%s/playlists/%s', $appurl, $playlist->id);
     }
 }

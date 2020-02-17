@@ -80,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Hidden Captcha
         Blade::directive('hiddencaptcha', function ($mustBeEmptyField = '_username') {
-            return "<?= App\Helpers\HiddenCaptcha::render($mustBeEmptyField); ?>";
+            return sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField);
         });
 
         $this->app['validator']->extendImplicit(

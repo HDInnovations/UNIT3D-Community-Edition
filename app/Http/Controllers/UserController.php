@@ -1982,7 +1982,7 @@ class UserController extends Controller
         }
 
         // Zip File Name
-        $zipFileName = "{$user->username}.zip";
+        $zipFileName = sprintf('%s.zip', $user->username);
 
         // Create ZipArchive Obj
         $zip = new ZipArchive();
@@ -1997,7 +1997,7 @@ class UserController extends Controller
                 $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
 
                 // Define The Torrent Filename
-                $tmpFileName = "{$torrent->slug}.torrent";
+                $tmpFileName = sprintf('%s.torrent', $torrent->slug);
 
                 // The Torrent File Exist?
                 if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {

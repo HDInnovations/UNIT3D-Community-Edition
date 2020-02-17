@@ -93,7 +93,7 @@ class PollController extends Controller
         $poll_url = hrefPoll($poll);
 
         $this->chat->systemMessage(
-            "A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
         );
 
         return redirect()->route('staff.polls.index')
@@ -174,7 +174,7 @@ class PollController extends Controller
         $poll_url = hrefPoll($poll);
 
         $this->chat->systemMessage(
-            "A poll has been updated [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+            sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
         );
 
         $poll->save();
