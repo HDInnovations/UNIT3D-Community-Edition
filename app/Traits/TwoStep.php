@@ -32,6 +32,7 @@ trait TwoStep
             if ($twoStepAuthStatus->authStatus !== true) {
                 return false;
             }
+
             return !$this->checkTimeSinceVerified($twoStepAuthStatus);
         }
 
@@ -166,6 +167,7 @@ trait TwoStep
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
         $expired = $now->gt($expire);
+
         return (bool) $expired;
     }
 
