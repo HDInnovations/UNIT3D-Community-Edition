@@ -27,32 +27,32 @@ trait ConsoleTools
 
     private function cyan($line)
     {
-        $this->io->writeln("\n<fg=cyan>$line</>");
+        $this->io->writeln(sprintf('<fg=cyan>%s</>', $line));
     }
 
     private function white($line)
     {
-        $this->io->writeln("\n$line");
+        $this->io->writeln(PHP_EOL.$line);
     }
 
     private function magenta($line)
     {
-        $this->io->writeln("\n<fg=magenta>$line</>");
+        $this->io->writeln(sprintf('<fg=magenta>%s</>', $line));
     }
 
     private function green($line)
     {
-        $this->io->writeln("\n<fg=green>$line</>");
+        $this->io->writeln(sprintf('<fg=green>%s</>', $line));
     }
 
     private function red($line)
     {
-        $this->io->writeln("\n<fg=red>$line</>");
+        $this->io->writeln(sprintf('<fg=red>%s</>', $line));
     }
 
     private function blue($line)
     {
-        $this->io->writeln("\n<fg=blue>$line</>");
+        $this->io->writeln(sprintf('<fg=blue>%s</>', $line));
     }
 
     private function done()
@@ -69,22 +69,22 @@ trait ConsoleTools
 
     private function alertSuccess($line)
     {
-        $this->io->writeln("\n<fg=white>[</><fg=green> !! $line !! </><fg=white>]</>");
+        $this->io->writeln(sprintf('<fg=white>[</><fg=green> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertDanger($line)
     {
-        $this->io->writeln("\n<fg=white>[</><fg=red> !! $line !! </><fg=white>]</>");
+        $this->io->writeln(sprintf('<fg=white>[</><fg=red> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertInfo($line)
     {
-        $this->io->writeln("\n<fg=white>[</><fg=cyan> !! $line !! </><fg=white>]</>");
+        $this->io->writeln(sprintf('<fg=white>[</><fg=cyan> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertWarning($line)
     {
-        $this->io->writeln("\n<fg=white>[</><fg=yellow> !! $line !! </><fg=white>]</>");
+        $this->io->writeln(sprintf('<fg=white>[</><fg=yellow> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function commands(array $commands, $silent = false)
@@ -114,7 +114,7 @@ trait ConsoleTools
             try {
                 $process->checkTimeout();
             } catch (ProcessTimedOutException $e) {
-                $this->red("'{$command}' timed out.!");
+                $this->red(sprintf('\'%s\' timed out.!', $command));
             }
 
             if (!$silent) {

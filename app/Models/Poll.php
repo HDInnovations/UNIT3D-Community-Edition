@@ -122,7 +122,7 @@ class Poll extends Model
         $slug = strlen($title) > 20 ? substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', "%$slug%")->count();
 
-        return $count ? "{$slug}-{$count}" : $slug;
+        return $count ? sprintf('%s-%s', $slug, $count) : $slug;
     }
 
     /**

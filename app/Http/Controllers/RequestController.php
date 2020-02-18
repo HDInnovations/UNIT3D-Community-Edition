@@ -324,7 +324,7 @@ class RequestController extends Controller
             'category_id' => 'required|exists:categories,id',
             'type'        => 'required',
             'description' => 'required|string',
-            'bounty'      => "required|numeric|min:0|max:{$user->seedbonus}",
+            'bounty'      => sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
             'anon'        => 'required',
         ]);
 
@@ -345,7 +345,7 @@ class RequestController extends Controller
         $BonTransactions->cost = $request->input('bounty');
         $BonTransactions->sender = $user->id;
         $BonTransactions->receiver = 0;
-        $BonTransactions->comment = "new request - {$request->input('name')}";
+        $BonTransactions->comment = sprintf('new request - %s', $request->input('name'));
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bounty');
         $user->save();
@@ -354,11 +354,11 @@ class RequestController extends Controller
         // Auto Shout
         if ($tr->anon == 0) {
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
             );
         } else {
             $this->chat->systemMessage(
-                "An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $tr->name)
             );
         }
 
@@ -464,7 +464,7 @@ class RequestController extends Controller
         $tr->created_at = Carbon::now();
 
         $v = validator($request->all(), [
-            'bonus_value' => "required|numeric|min:100|max:{$user->seedbonus}",
+            'bonus_value' => sprintf('required|numeric|min:100|max:%s', $user->seedbonus),
         ]);
 
         if ($v->fails()) {
@@ -484,7 +484,7 @@ class RequestController extends Controller
         $BonTransactions->cost = $request->input('bonus_value');
         $BonTransactions->sender = $user->id;
         $BonTransactions->receiver = 0;
-        $BonTransactions->comment = "adding bonus to {$tr->name}";
+        $BonTransactions->comment = sprintf('adding bonus to %s', $tr->name);
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bonus_value');
         $user->save();
@@ -493,11 +493,11 @@ class RequestController extends Controller
         // Auto Shout
         if ($requestsBounty->anon == 0) {
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profile_url, $user->username, $request->input('bonus_value'), $tr_url, $tr->name)
             );
         } else {
             $this->chat->systemMessage(
-                "An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $tr_url, $tr->name)
             );
         }
         $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
@@ -590,7 +590,7 @@ class RequestController extends Controller
             $BonTransactions->cost = $fill_amount;
             $BonTransactions->sender = 0;
             $BonTransactions->receiver = $fill_user->id;
-            $BonTransactions->comment = "{$fill_user->username} has filled {$tr->name} and has been awarded {$fill_amount} BONUS.";
+            $BonTransactions->comment = sprintf('%s has filled %s and has been awarded %s BONUS.', $fill_user->username, $tr->name, $fill_amount);
             $BonTransactions->save();
 
             $fill_user->seedbonus += $fill_amount;
@@ -608,11 +608,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($tr->filled_anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$fill_user->username}[/url] has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profile_url, $fill_user->username, $tr_url, $tr->name)
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                    sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $tr_url, $tr->name)
                 );
             }
 
@@ -623,11 +623,11 @@ class RequestController extends Controller
 
             if ($tr->filled_anon == 0) {
                 return redirect()->route('request', ['id' => $id])
-                    ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}");
+                    ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
             }
 
             return redirect()->route('request', ['id' => $id])
-                ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to a anonymous user");
+                ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
         } else {
             return redirect()->route('request', ['id' => $id])
                 ->withErrors("You don't have access to approve this request");
@@ -690,7 +690,7 @@ class RequestController extends Controller
             $torrentRequest->delete();
 
             return redirect()->route('requests')
-                ->withSuccess("You have deleted {$name}");
+                ->withSuccess(sprintf('You have deleted %s', $name));
         }
 
         return redirect()->route('request', ['id' => $id])

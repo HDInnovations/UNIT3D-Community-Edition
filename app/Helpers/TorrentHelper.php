@@ -47,7 +47,7 @@ class TorrentHelper
         $wishes = Wish::where('imdb', '=', 'tt'.$torrent->imdb)->whereNull('source')->get();
         if ($wishes) {
             foreach ($wishes as $wish) {
-                $wish->source = "{$appurl}/torrents/{$torrent->id}";
+                $wish->source = sprintf('%s/torrents/%s', $appurl, $torrent->id);
                 $wish->save();
 
                 // Send Private Message
@@ -55,7 +55,7 @@ class TorrentHelper
                 $pm->sender_id = 1;
                 $pm->receiver_id = $wish->user_id;
                 $pm->subject = 'Wish List Notice!';
-                $pm->message = "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/".$torrent->id.'] HERE [/url]
+                $pm->message = sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }
@@ -100,11 +100,11 @@ class TorrentHelper
             if ($anon == 0) {
                 $bot->message(config('irc-bot.channels'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
                 $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
-                $bot->message(config('irc-bot.channels'), "[Link: {$appurl}/torrents/".$id.']');
+                $bot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
             } else {
                 $bot->message(config('irc-bot.channels'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
                 $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size: '.$torrent->getSize().']');
-                $bot->message(config('irc-bot.channels'), "[Link: {$appurl}/torrents/".$id.']');
+                $bot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
             }
         }
     }

@@ -105,7 +105,7 @@ class PlaylistController extends Controller
         $appurl = config('app.url');
         if ($playlist->is_private != 1) {
             $this->chat->systemMessage(
-                "User [url={$appurl}/".$user->username.'.'.$user->id.']'.$user->username."[/url] has created a new playlist [url={$appurl}/playlists/".$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
+                sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
             );
         }
 

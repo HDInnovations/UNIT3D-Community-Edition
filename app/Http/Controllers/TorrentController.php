@@ -1117,10 +1117,10 @@ class TorrentController extends Controller
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
-                    $pmuser->subject = "Torrent Deleted! - {$torrent->name}";
-                    $pmuser->message = "[b]Attention:[/b] Torrent {$torrent->name} has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-                                        [b]Removal Reason:[/b] {$request->message}
-                                        [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                    $pmuser->subject = sprintf('Torrent Deleted! - %s', $torrent->name);
+                    $pmuser->message = sprintf('[b]Attention:[/b] Torrent %s has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                                        [b]Removal Reason:[/b] %s
+                                        [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $torrent->name, $request->message);
                     $pmuser->save();
                 }
 
@@ -1156,7 +1156,9 @@ class TorrentController extends Controller
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error."\n";
             }
-            \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
+            \Log::notice(sprintf('Deletion of torrent failed due to: 
+
+%s', $errors));
 
             return redirect()->route('home.index')
                 ->withErrors('Unable to delete Torrent');
@@ -1379,11 +1381,11 @@ class TorrentController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chat->systemMessage(
-                    "User [url={$appurl}/users/".$username.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             }
 
@@ -1497,7 +1499,7 @@ class TorrentController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            "Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to the top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
+            sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrent_url, $torrent->name, $profile_url, $user->username)
         );
 
         // Announce To IRC
@@ -1506,7 +1508,7 @@ class TorrentController extends Controller
             $bot = new IRCAnnounceBot();
             $bot->message('#announce', '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
             $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
-            $bot->message('#announce', "[Link: $torrent_url]");
+            $bot->message('#announce', sprintf('[Link: %s]', $torrent_url));
         }
 
         return redirect()->route('torrent', ['id' => $torrent->id])
@@ -1554,13 +1556,13 @@ class TorrentController extends Controller
             $torrent->free = '1';
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
             );
         } else {
             $torrent->free = '0';
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its 100% FreeLeech! :poop:', $torrent_url, $torrent->name)
             );
         }
 
@@ -1599,7 +1601,7 @@ class TorrentController extends Controller
             $torrent_url = hrefTorrent($torrent);
             $profile_url = hrefProfile($user);
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrent_url, $torrent->name, $profile_url, $user->username)
             );
 
             return redirect()->route('torrent', ['id' => $torrent->id])
@@ -1630,12 +1632,12 @@ class TorrentController extends Controller
             $torrent->doubleup = '1';
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
             );
         } else {
             $torrent->doubleup = '0';
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrent_url, $torrent->name)
             );
         }
         $torrent->save();
@@ -1669,7 +1671,7 @@ class TorrentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
+                sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrent_url, $torrent->name)
             );
 
             return redirect()->route('torrent', ['id' => $torrent->id])

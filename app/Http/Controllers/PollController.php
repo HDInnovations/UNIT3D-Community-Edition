@@ -105,7 +105,7 @@ class PollController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
+            sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)
         );
 
         return redirect()->route('poll_results', ['id' => $poll->id])

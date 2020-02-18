@@ -27,7 +27,7 @@ class TorrentObserver
      */
     public function created(Torrent $torrent)
     {
-        Cache::put("torrent.{$torrent->info_hash}", $torrent);
+        Cache::put(sprintf('torrent.%s', $torrent->info_hash), $torrent);
     }
 
     /**
@@ -39,7 +39,7 @@ class TorrentObserver
      */
     public function updated(Torrent $torrent)
     {
-        Cache::put("torrent.{$torrent->info_hash}", $torrent);
+        Cache::put(sprintf('torrent.%s', $torrent->info_hash), $torrent);
     }
 
     /**
@@ -51,7 +51,7 @@ class TorrentObserver
      */
     public function retrieved(Torrent $torrent)
     {
-        Cache::add("torrent.{$torrent->info_hash}", $torrent);
+        Cache::add(sprintf('torrent.%s', $torrent->info_hash), $torrent);
     }
 
     /**
@@ -63,7 +63,7 @@ class TorrentObserver
      */
     public function deleted(Torrent $torrent)
     {
-        Cache::forget("torrent.{$torrent->info_hash}");
+        Cache::forget(sprintf('torrent.%s', $torrent->info_hash));
     }
 
     /**
@@ -75,6 +75,6 @@ class TorrentObserver
      */
     public function restored(Torrent $torrent)
     {
-        Cache::put("torrent.{$torrent->info_hash}", $torrent);
+        Cache::put(sprintf('torrent.%s', $torrent->info_hash), $torrent);
     }
 }

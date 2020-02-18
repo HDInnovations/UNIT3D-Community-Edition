@@ -82,7 +82,7 @@ class AutoGraveyard extends Command
                 $appurl = config('app.url');
 
                 $this->chat->systemMessage(
-                    "Ladies and Gents, [url={$appurl}/users/{$user->username}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->id}]{$torrent->name}[/url]. :zombie:"
+                    sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
                 );
 
                 // Send Private Message
@@ -90,7 +90,7 @@ class AutoGraveyard extends Command
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user->id;
                 $pm->subject = 'Successful Graveyard Resurrection';
-                $pm->message = "You have successfully resurrected [url={$appurl}/torrents/".$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
+                $pm->message = sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }

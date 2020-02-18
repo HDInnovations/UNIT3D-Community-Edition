@@ -294,7 +294,7 @@ class BonusController extends Controller
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user_acc->id;
                 $pm->subject = 'Personal 24 Hour Freeleech Activated';
-                $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on {$current->addDays(1)->toDayDateTimeString()} [b]".config('app.timezone').'[/b]! 
+                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             } else {
@@ -332,7 +332,7 @@ class BonusController extends Controller
 
         $v = validator($request->all(), [
             'to_username'   => 'required|exists:users,username|max:180',
-            'bonus_points'  => "required|numeric|min:1|max:{$user->seedbonus}",
+            'bonus_points'  => sprintf('required|numeric|min:1|max:%s', $user->seedbonus),
             'bonus_message' => 'required|string',
         ]);
 
@@ -374,7 +374,7 @@ class BonusController extends Controller
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)
             );
 
             if ($dest == 'profile') {

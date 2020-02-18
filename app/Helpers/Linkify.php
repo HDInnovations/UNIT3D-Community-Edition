@@ -20,7 +20,7 @@ class Linkify
         $reg_exUrl = "/^(?!\[url=)(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)/";
 
         if (preg_match($reg_exUrl, $text, $url)) {
-            return preg_replace($reg_exUrl, "<a href='{$url[0]}'>{$url[0]}</a> ", $text);
+            return preg_replace($reg_exUrl, sprintf('<a href=\'%s\'>%s</a> ', $url[0], $url[0]), $text);
         }
 
         return $text;
