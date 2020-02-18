@@ -27,7 +27,7 @@ class CreateBotsTable extends Migration
         Schema::create('bots', function (Blueprint $table) {
             $table->integer('id', true);
             $table->integer('position');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('name');
             $table->string('command');
             $table->string('color')->nullable();

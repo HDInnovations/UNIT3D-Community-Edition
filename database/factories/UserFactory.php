@@ -51,7 +51,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'stat_hidden'         => $faker->boolean,
         'twostep'             => $faker->boolean,
         'remember_token'      => Str::random(10),
-        'api_token'           => $faker->word,
+        'api_token'           => $faker->uuid,
         'last_login'          => $faker->dateTime(),
         'last_action'         => $faker->dateTime(),
         'disabled_at'         => $faker->dateTime(),

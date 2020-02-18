@@ -48,7 +48,7 @@ class SystemBot
      */
     public function __construct(ChatRepository $chat)
     {
-        $bot = Bot::where('id', '=', '1')->firstOrFail();
+        $bot = Bot::where('slug', '=', 'systembot')->firstOrFail();
         $this->chat = $chat;
         $this->bot = $bot;
     }
