@@ -25,7 +25,7 @@ services:
 
 script:
   - mkdir -p build/logs
-  - phpdbg -qrr vendor/bin/phpunit tests --coverage-clover build/logs/clover.xml
+  - phpdbg -qrr vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_success:
   - travis_retry php vendor/bin/php-coveralls

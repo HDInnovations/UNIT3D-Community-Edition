@@ -183,4 +183,6 @@ return [
 
     ],
 
+    'pristine-db-file' => env('PRISTINE_DB_FILE'),
+
 ];
