@@ -47,4 +47,5 @@ class CreateRequestClaimsTable extends Migration
     {
         Schema::dropIfExists('request_claims');
     }
+
 }

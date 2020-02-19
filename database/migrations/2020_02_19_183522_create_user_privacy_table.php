@@ -101,4 +101,5 @@ class CreateUserPrivacyTable extends Migration
     {
         Schema::dropIfExists('user_privacy');
     }
+
 }

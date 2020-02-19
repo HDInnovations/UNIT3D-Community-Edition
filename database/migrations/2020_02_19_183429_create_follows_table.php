@@ -46,4 +46,5 @@ class CreateFollowsTable extends Migration
     {
         Schema::dropIfExists('follows');
     }
+
 }

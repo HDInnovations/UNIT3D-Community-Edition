@@ -42,4 +42,5 @@ class CreatePagesTable extends Migration
     {
         Schema::dropIfExists('pages');
     }
+
 }

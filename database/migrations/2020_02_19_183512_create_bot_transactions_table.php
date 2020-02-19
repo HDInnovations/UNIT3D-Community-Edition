@@ -57,4 +57,5 @@ class CreateBotTransactionsTable extends Migration
     {
         Schema::dropIfExists('bot_transactions');
     }
+
 }

@@ -46,4 +46,5 @@ class CreateGitUpdatesTable extends Migration
     {
         Schema::dropIfExists('git_updates');
     }
+
 }

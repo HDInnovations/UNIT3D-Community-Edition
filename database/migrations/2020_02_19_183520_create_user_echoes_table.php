@@ -52,4 +52,5 @@ class CreateUserEchoesTable extends Migration
     {
         Schema::dropIfExists('user_echoes');
     }
+
 }

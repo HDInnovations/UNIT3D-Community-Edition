@@ -47,4 +47,5 @@ class CreateChatStatusesTable extends Migration
     {
         Schema::dropIfExists('chat_statuses');
     }
+
 }

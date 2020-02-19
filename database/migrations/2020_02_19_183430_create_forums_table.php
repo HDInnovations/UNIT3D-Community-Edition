@@ -51,4 +51,5 @@ class CreateForumsTable extends Migration
     {
         Schema::dropIfExists('forums');
     }
+
 }

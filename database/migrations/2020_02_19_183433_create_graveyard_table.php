@@ -48,4 +48,5 @@ class CreateGraveyardTable extends Migration
     {
         Schema::dropIfExists('graveyard');
     }
+
 }

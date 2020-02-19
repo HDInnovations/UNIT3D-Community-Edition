@@ -51,4 +51,5 @@ class CreateRssTable extends Migration
     {
         Schema::dropIfExists('rss');
     }
+
 }

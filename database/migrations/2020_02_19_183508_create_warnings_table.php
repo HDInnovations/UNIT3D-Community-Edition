@@ -57,4 +57,5 @@ class CreateWarningsTable extends Migration
     {
         Schema::dropIfExists('warnings');
     }
+
 }

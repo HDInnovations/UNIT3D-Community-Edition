@@ -49,4 +49,5 @@ class CreateTwostepAuthTable extends Migration
     {
         Schema::dropIfExists('twostep_auth');
     }
+
 }

@@ -45,4 +45,5 @@ class CreateTagTorrentTable extends Migration
     {
         Schema::dropIfExists('tag_torrent');
     }
+
 }

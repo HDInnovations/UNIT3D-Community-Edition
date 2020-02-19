@@ -62,4 +62,5 @@ class CreateTopicsTable extends Migration
     {
         Schema::dropIfExists('topics');
     }
+
 }

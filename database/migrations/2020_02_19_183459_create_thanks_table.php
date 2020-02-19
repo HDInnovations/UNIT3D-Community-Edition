@@ -46,4 +46,5 @@ class CreateThanksTable extends Migration
     {
         Schema::dropIfExists('thanks');
     }
+
 }

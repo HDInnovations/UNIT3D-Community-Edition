@@ -54,4 +54,5 @@ class CreateUserAudiblesTable extends Migration
     {
         Schema::dropIfExists('user_audibles');
     }
+
 }

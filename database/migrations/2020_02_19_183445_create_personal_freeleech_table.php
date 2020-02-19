@@ -44,4 +44,5 @@ class CreatePersonalFreeleechTable extends Migration
     {
         Schema::dropIfExists('personal_freeleech');
     }
+
 }

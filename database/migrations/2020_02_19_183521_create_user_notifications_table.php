@@ -87,4 +87,5 @@ class CreateUserNotificationsTable extends Migration
     {
         Schema::dropIfExists('user_notifications');
     }
+
 }
