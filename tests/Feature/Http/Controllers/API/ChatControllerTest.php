@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers\API;
 use App\Models\Bot;
 use App\Models\User;
 use App\Models\UserAudible;
+use App\Models\UserEcho;
 use BotsTableSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -31,6 +32,8 @@ class ChatControllerTest extends TestCase
         $response = $this->actingAs($audible->user)->get('api/chat/audibles');
 
         $response->assertOk();
+
+        // TODO: perform additional assertions
     }
 
     /**
@@ -47,6 +50,8 @@ class ChatControllerTest extends TestCase
         $response = $this->actingAs($user)->get('api/chat/bot/'.$bot->id);
 
         $response->assertOk();
+
+        // TODO: perform additional assertions
     }
 
     /**
@@ -59,6 +64,8 @@ class ChatControllerTest extends TestCase
         $response = $this->actingAs($user)->get('api/chat/bots');
 
         $response->assertOk();
+
+        // TODO: perform additional assertions
     }
 
     /**
@@ -71,14 +78,20 @@ class ChatControllerTest extends TestCase
         $response = $this->actingAs($user)->get('api/chat/config');
 
         $response->assertOk();
+
+        // TODO: perform additional assertions
     }
 
+    /** @test */
     public function create_message_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->post('api/chat/messages', [
-            // TODO: send request data
+            'receiver_id' => 1,
+            'chatroom_id' => 1,
+            'bot_id'      => 1,
+            'message'     => sprintf('/msg %s hi', $user->username),
         ]);
 
         $response->assertOk();
@@ -86,13 +99,22 @@ class ChatControllerTest extends TestCase
         // TODO: perform additional assertions
     }
 
+    /** @test */
     public function delete_bot_echo_returns_an_ok_response()
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->post('api/chat/echoes/{user_id}/delete/bot', [
-            // TODO: send request data
+        $bot = factory(Bot::class)->create();
+
+        factory(UserEcho::class)->create([
+            'user_id' => $user->id,
+            'bot_id'  => $bot->id,
         ]);
+
+        $response = $this->actingAs($user)
+            ->post(sprintf('api/chat/echoes/%s/delete/bot', $user->id), [
+                'bot_id' => $bot->id,
+            ]);
 
         $response->assertOk();
 
