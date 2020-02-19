@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
  */
 
 namespace App\Repositories;
@@ -105,10 +105,10 @@ class WishRepository implements WishInterface
      */
     public function exists($uid, $id)
     {
-        return $this->user->find($uid)
+        return (bool) $this->user->find($uid)
             ->wishes()
             ->where('imdb', '=', $id)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**
@@ -120,11 +120,11 @@ class WishRepository implements WishInterface
     {
         $id = str_replace('tt', '', $id);
 
-        return $this->torrent
+        return (bool) $this->torrent
             ->where('imdb', '=', $id)
             ->where('seeders', '>', 0)
             ->where('status', '=', 1)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**

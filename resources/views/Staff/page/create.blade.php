@@ -8,34 +8,44 @@
     </li>
     <li>
         <a href="{{ route('staff.pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Pages</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.pages')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.types.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Add New Page</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('common.add')
+                @lang(trans_choice('common.a-an-art',false))
+                @lang('common.new-adj')
+                @lang('staff.page')
+            </span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-        <h2>Add a new page</h2>
+        <h2>
+            @lang('common.add')
+            @lang(trans_choice('common.a-an-art',false))
+            @lang('common.new-adj')
+            @lang('staff.page')
+        </h2>
         <form role="form" method="POST" action="{{ route('staff.pages.store') }}">
             @csrf
             <div class="form-group">
-                <label for="name">Page @lang('common.name')</label>
+                <label for="name">@lang('staff.page') @lang('common.name')</label>
                 <label>
                     <input type="text" name="name" class="form-control">
                 </label>
             </div>
     
             <div class="form-group">
-                <label for="content">Content</label>
+                <label for="content">@lang('common.content')</label>
                 <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
             </div>
     
-            <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>
 @endsection

@@ -1,12 +1,21 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
   'add-option' => 'إضافة خيار',
   'create-poll' => 'إنشاء استطلاع',
   'current' => 'الاستطلاع الحالي',
   'delete-option' => 'حذف الخيار',
-  'ip-checking' => 'هذا الاستطلاع مكررة التحقق من التصويت. يمكنك التصويت مرة واحدة فقط.',
-  'ip-checking-warrning' => 'هناك حاجة فقط إذا كان الموقع في الوضع العام',
   'multiple-choice' => 'هذا استطلاع متعدد الاختيارات. حدد العديد من الإجابات التي تريدها.',
   'option' => 'اختيار',
   'poll' => 'تصويت',

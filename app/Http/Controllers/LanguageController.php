@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -71,7 +71,7 @@ class LanguageController extends Controller
         $session = $request->session();
         if (config('language.url')) {
             $previous_url = substr(str_replace(env('APP_URL'), '', $session->previousUrl()), 7);
-            if (strlen($previous_url) == 3) {
+            if (strlen($previous_url) === 3) {
                 $previous_url = substr($previous_url, 3);
             } else {
                 $previous_url = substr($previous_url, strrpos($previous_url, '/') + 1);

@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
  */
 
 namespace App\Console\Commands;
@@ -106,7 +106,7 @@ class GitUpdater extends Command
     {
         $updating = $this->checkForUpdates();
 
-        if (count($updating) > 0) {
+        if ((is_countable($updating) ? count($updating) : 0) > 0) {
             $this->alertDanger('Found Updates');
 
             $this->cyan('Files that need updated:');
@@ -191,7 +191,7 @@ class GitUpdater extends Command
         $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
 
         foreach ($updating as $file) {
-            if ($this->io->confirm("Update $file", true)) {
+            if ($this->io->confirm(sprintf('Update %s', $file), true)) {
                 $this->updateFile($file);
             }
         }
@@ -201,7 +201,7 @@ class GitUpdater extends Command
 
     private function updateFile($file)
     {
-        $this->process("git checkout origin/master -- $file");
+        $this->process(sprintf('git checkout origin/master -- %s', $file));
     }
 
     private function backup(array $paths)
@@ -235,7 +235,7 @@ class GitUpdater extends Command
                 $from .= '/*';
             }
 
-            $this->process("$this->copy_command $from $to");
+            $this->process(sprintf('%s %s %s', $this->copy_command, $from, $to));
         }
 
         $this->commands([
@@ -308,7 +308,7 @@ class GitUpdater extends Command
     private function validatePath($path)
     {
         if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
-            $this->red("The path '$path' is invalid");
+            $this->red(sprintf('The path \'%s\' is invalid', $path));
             //$this->call('up');
             //die();
         }
@@ -316,12 +316,12 @@ class GitUpdater extends Command
 
     private function createBackupPath($path)
     {
-        if (!is_dir(storage_path("gitupdate/$path")) && !is_file(base_path($path))) {
-            mkdir(storage_path("gitupdate/$path"), 0775, true);
+        if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !is_file(base_path($path))) {
+            mkdir(storage_path(sprintf('gitupdate/%s', $path)), 0775, true);
         } elseif (is_file(base_path($path)) && dirname($path) !== '.') {
             $path = dirname($path);
-            if (!is_dir(storage_path("gitupdate/$path"))) {
-                mkdir(storage_path("gitupdate/$path"), 0775, true);
+            if (!is_dir(storage_path(sprintf('gitupdate/%s', $path)))) {
+                mkdir(storage_path(sprintf('gitupdate/%s', $path)), 0775, true);
             }
         }
     }

@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Models;
@@ -24,7 +24,6 @@ use Illuminate\Support\Str;
  * @property int $user_id
  * @property string $title
  * @property string $slug
- * @property int $ip_checking
  * @property int $multiple_choice
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -37,7 +36,6 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereIpChecking($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereMultipleChoice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereTitle($value)
@@ -60,7 +58,6 @@ class Poll extends Model
     protected $fillable = [
         'title',
         'slug',
-        'ip_checking',
         'multiple_choice',
     ];
 
@@ -106,7 +103,7 @@ class Poll extends Model
      */
     public function setTitleAttribute($title)
     {
-        if (substr($title, -1) != '?') {
+        if (substr($title, -1) !== '?') {
             return $this->attributes['title'] = $title.'?';
         }
 
@@ -125,7 +122,7 @@ class Poll extends Model
         $slug = strlen($title) > 20 ? substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', "%$slug%")->count();
 
-        return $count ? "{$slug}-{$count}" : $slug;
+        return $count ? sprintf('%s-%s', $slug, $count) : $slug;
     }
 
     /**

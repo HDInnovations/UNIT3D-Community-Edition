@@ -11,12 +11,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('poll', ['slug' => $poll->slug]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.poll')</span>
+        <a href="{{ route('poll', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $poll->title }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('poll_results', ['slug' => $poll->slug]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('poll_results', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.results')</span>
         </a>
     </li>
@@ -40,7 +40,12 @@
                             $vote_value = round($vote_value, 2);
                             @endphp
                             <strong>{{ $option->name }}</strong><span class="pull-right">{{ $option->votes }}
-                                @lang('poll.votes')</span>
+                                @if ($option->votes == 1)
+                                    @lang('poll.vote')
+                                @else
+                                    @lang('poll.votes')
+                                @endif
+                            </span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped active" role="progressbar"
                                     aria-valuenow="{{ $vote_value }}" aria-valuemin="0" aria-valuemax="100"

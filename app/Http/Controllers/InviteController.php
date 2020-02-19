@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -128,16 +128,14 @@ class InviteController extends Controller
         if ($v->fails()) {
             return redirect()->route('invites.create')
                 ->withErrors($v->errors());
-        } else {
-            Mail::to($request->input('email'))->send(new InviteUser($invite));
-            $invite->save();
-
-            $user->invites -= 1;
-            $user->save();
-
-            return redirect()->route('invites.create')
-                ->withSuccess('Invite was sent successfully!');
         }
+        Mail::to($request->input('email'))->send(new InviteUser($invite));
+        $invite->save();
+        $user->invites -= 1;
+        $user->save();
+
+        return redirect()->route('invites.create')
+            ->withSuccess('Invite was sent successfully!');
     }
 
     /**

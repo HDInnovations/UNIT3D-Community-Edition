@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
@@ -82,11 +82,11 @@ class ReportController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $report->reporter_id;
         $pm->subject = 'Your Report Has A New Verdict';
-        $pm->message = "[b]REPORT TITLE:[/b] {$report->title}
+        $pm->message = sprintf('[b]REPORT TITLE:[/b] %s
         
-                        [b]ORIGINAL MESSAGE:[/b] {$report->message}
+                        [b]ORIGINAL MESSAGE:[/b] %s
                         
-                        [b]VERDICT:[/b] {$report->verdict}";
+                        [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $pm->save();
 
         return redirect()->route('staff.reports.index')

@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
@@ -132,7 +132,7 @@ class UserController extends Controller
 
         // Hard coded until group change.
 
-        if ($target >= $sender || ($sender == 0 && ($sendto == 6 || $sendto == 4 || $sendto == 10)) || ($sender == 1 && ($sendto == 4 || $sendto == 10))) {
+        if ($target >= $sender || ($sender == 0 && ($sendto === 6 || $sendto === 4 || $sendto === 10)) || ($sender == 1 && ($sendto === 4 || $sendto === 10))) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
@@ -283,9 +283,9 @@ class UserController extends Controller
         if ($user->delete()) {
             return redirect()->route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
-        } else {
-            return redirect()->route('staff.dashboard.index')
-                ->withErrors('Something Went Wrong!');
         }
+
+        return redirect()->route('staff.dashboard.index')
+            ->withErrors('Something Went Wrong!');
     }
 }

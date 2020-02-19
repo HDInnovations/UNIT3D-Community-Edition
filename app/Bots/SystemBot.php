@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     singularity43
  */
 
 namespace App\Bots;
@@ -48,7 +48,7 @@ class SystemBot
      */
     public function __construct(ChatRepository $chat)
     {
-        $bot = Bot::where('id', '=', '1')->firstOrFail();
+        $bot = Bot::where('slug', '=', 'systembot')->firstOrFail();
         $this->chat = $chat;
         $this->bot = $bot;
     }
@@ -98,7 +98,7 @@ class SystemBot
         $output = implode(' ', $note);
         $v = validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
             'receiver'   => 'required|string|exists:users,username',
-            'amount'     => "required|numeric|min:1|max:{$this->target->seedbonus}",
+            'amount'     => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'       => 'required|string',
         ]);
         if ($v->passes()) {
@@ -125,17 +125,15 @@ class SystemBot
             $transaction->torrent_id = null;
             $transaction->save();
 
-            if ($this->target->id != $recipient->id) {
-                if ($recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
-                    $recipient->notify(new NewBon('gift', $this->target->username, $transaction));
-                }
+            if ($this->target->id != $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
+                $recipient->notify(new NewBon('gift', $this->target->username, $transaction));
             }
 
             $profile_url = hrefProfile($this->target);
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$this->target->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $this->target->username, $value, $recipient_url, $recipient->username)
             );
 
             return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';
@@ -157,16 +155,12 @@ class SystemBot
     public function process($type, User $target, $message = '', $targeted = 0)
     {
         $this->target = $target;
-        if ($type == 'message') {
-            $x = 0;
-        } else {
-            $x = 1;
-        }
+        $x = $type == 'message' ? 0 : 1;
 
         $y = $x + 1;
         $z = $y + 1;
 
-        if ($message == '') {
+        if ($message === '') {
             $log = '';
         } else {
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
@@ -207,7 +201,6 @@ class SystemBot
         if ($targeted) {
             // future holder
         }
-
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = cache()->get('user-echoes'.$target->id);
@@ -257,7 +250,6 @@ class SystemBot
                 cache()->put('user-audibles'.$target->id, $receiver_audibles, $expiresAt);
                 event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
             }
-
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->privateMessage($target->id, $room_id, $message, 1, $this->bot->id);
@@ -265,7 +257,9 @@ class SystemBot
             }
 
             return response('success');
-        } elseif ($type == 'echo') {
+        }
+
+        if ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);

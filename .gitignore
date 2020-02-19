@@ -13,8 +13,12 @@
 /public/js
 /public/mix-manifest.json
 /public/tmp
+/public/fonts/bootstrap
+/public/fonts/font-awesome
+/public/fonts/wysibb
 /public/fonts/fa-*
 /public/img/emojione
+/public/img/joypixels
 /public/images
 /storage/backups
 /storage/gitupdate
@@ -34,6 +38,7 @@ laravel-echo-server.json
 /.idea
 /.vscode
 /nbproject
+.phpunit.result.cache
 
 # Vim
 .*.swp

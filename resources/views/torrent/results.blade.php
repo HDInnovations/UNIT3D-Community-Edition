@@ -151,6 +151,14 @@ config('api-keys.omdb')) @endphp
                                 </button>
                             </a>
                         @endif
+                        @if (config('torrent.magnet') == 1)
+                            <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
+                                <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
+                                    data-original-title="@lang('common.magnet')">
+                                    <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
+                                </button>
+                            </a>
+                        @endif
     
                         <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $torrent->id }}"
                             torrent="{{ $torrent->id }}"

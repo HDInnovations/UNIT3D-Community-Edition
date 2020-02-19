@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -139,7 +139,7 @@ class ForumController extends Controller
 
         if ($request->has('body') && $request->input('body') != '') {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "posts.{$request->input('sorting')}";
+                $sorting = sprintf('posts.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'posts.id';
@@ -148,7 +148,7 @@ class ForumController extends Controller
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
-                $sorting = "topics.{$request->input('sorting')}";
+                $sorting = sprintf('topics.%s', $request->input('sorting'));
                 $direction = $request->input('direction');
             } else {
                 $sorting = 'topics.last_reply_at';

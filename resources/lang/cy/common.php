@@ -1,6 +1,18 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
+  'a-an-art' => '',
   'about' => 'Amdanom ni',
   'account' => 'Cyfrif',
   'achievement-title' => 'Yn anhygoel',
@@ -94,6 +106,7 @@ return [
   'name' => 'Enw',
   'navigation' => 'Llywio',
   'new' => 'Newydd!',
+  'new-adj' => 'Newydd',
   'news' => 'Newyddion',
   'next' => 'Nesaf',
   'no' => 'Na',
@@ -154,6 +167,7 @@ return [
   'topics' => 'Pynciau',
   'tracker-codes' => 'Codau olrhain',
   'type' => 'Math',
+  'type-verb' => 'Math',
   'types' => 'Mathau',
   'genre' => 'Genre',
   'genres' => 'Genres',

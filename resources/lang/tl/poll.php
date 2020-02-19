@@ -1,12 +1,21 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
   'add-option' => 'Magdagdag ng opsyon',
   'create-poll' => 'Lumikha ng poll',
   'current' => 'Kasalukuyang (mga) Poll',
   'delete-option' => 'Tanggalin ang pagpipilian',
-  'ip-checking' => 'Ang poll na ito ay mayroong duplicate vote checking. Maaari ka lamang bumoto nang isang beses.',
-  'ip-checking-warrning' => 'Kailangan lamang kung ang site sa pampublikong mode',
   'multiple-choice' => 'Ito ay isang maramihang pagpipilian pinili. Pumili ng maraming mga sagot hangga t gusto mo.',
   'option' => 'Pagpipilian',
   'poll' => 'Poll',

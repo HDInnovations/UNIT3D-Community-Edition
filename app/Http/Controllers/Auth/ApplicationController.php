@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Auth;
@@ -119,23 +119,20 @@ class ApplicationController extends Controller
         if ($v->fails()) {
             return redirect()->route('application.create')
                 ->withErrors($v->errors());
-        } else {
-            $application->save();
-
-            // Map And Save IMG Proofs
-            $imgs = collect($request->input('images'))->map(function ($value) {
-                return new ApplicationImageProof(['image' => $value]);
-            });
-            $application->imageProofs()->saveMany($imgs);
-
-            // Map And Save URL Proofs
-            $urls = collect($request->input('links'))->map(function ($value) {
-                return new ApplicationUrlProof(['url' => $value]);
-            });
-            $application->urlProofs()->saveMany($urls);
-
-            return redirect()->route('login')
-                ->withSuccess(trans('application-submitted'));
         }
+        $application->save();
+        // Map And Save IMG Proofs
+        $imgs = collect($request->input('images'))->map(function ($value) {
+            return new ApplicationImageProof(['image' => $value]);
+        });
+        $application->imageProofs()->saveMany($imgs);
+        // Map And Save URL Proofs
+        $urls = collect($request->input('links'))->map(function ($value) {
+            return new ApplicationUrlProof(['url' => $value]);
+        });
+        $application->urlProofs()->saveMany($urls);
+
+        return redirect()->route('login')
+            ->withSuccess(trans('application-submitted'));
     }
 }

@@ -1,12 +1,21 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 return [
   'add-option' => 'Pridať možnosť',
   'create-poll' => 'Vytvorte anketu',
   'current' => 'Aktuálne ankety',
   'delete-option' => 'Vymazať možnosť',
-  'ip-checking' => 'Táto anketa má kontrolu duplicitného hlasovania. Hlasovať môžete len raz.',
-  'ip-checking-warrning' => 'Potrebné je len v prípade, ak je stránka vo verejnom režime',
   'multiple-choice' => 'Toto je anketa s viacerými možnosťami. Vyberte čo najviac odpovedí.',
   'option' => 'voľba',
   'poll' => 'hlasovanie',

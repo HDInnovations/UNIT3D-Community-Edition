@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.applications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Applications</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.applications')</span>
         </a>
     </li>
 @endsection
@@ -24,22 +24,27 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <h2>Applications</h2>
+            <h2>@lang('staff.applications')</h2>
             <hr>
-            <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-list"></i> Applications</strong></p>
+            <p class="text-red">
+                <strong>
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i>
+                    @lang('staff.applications')
+                </strong>
+            </p>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>@lang('common.no')</th>
                             <th>@lang('common.user')</th>
-                            <th>Email</th>
-                            <th>Type</th>
-                            <th>Image Proofs</th>
-                            <th>Profile Links</th>
-                            <th>Created On</th>
-                            <th>Status</th>
-                            <th>Moderated By</th>
+                            <th>@lang('common.email')</th>
+                            <th>@lang('staff.application-type')</th>
+                            <th>@lang('staff.application-image-proofs')</th>
+                            <th>@lang('user.profile') @lang('staff.links')</th>
+                            <th>@lang('common.created_at')</th>
+                            <th>@lang('common.status')</th>
+                            <th>@lang('common.moderated-by')</th>
                             <th>@lang('common.action')</th>
                         </tr>
                     </thead>

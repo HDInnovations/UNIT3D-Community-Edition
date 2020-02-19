@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Helpers;
@@ -47,7 +47,7 @@ class MediaInfo
         foreach ($sections as $key => $section) {
             $key_section = strtolower(explode(' ', $key)[0]);
             if (!empty($section)) {
-                if ($key_section == 'general') {
+                if ($key_section === 'general') {
                     $output[$key_section] = $this->parseProperty($section, $key_section);
                 } else {
                     $output[$key_section][] = $this->parseProperty($section, $key_section);
@@ -303,9 +303,8 @@ class MediaInfo
     private function parseBitRate($string)
     {
         $string = str_replace(' ', '', strtolower($string));
-        $string = str_replace('kbps', ' kbps', $string);
 
-        return $string;
+        return str_replace('kbps', ' kbps', $string);
     }
 
     private function parseWidthHeight($string)
@@ -413,7 +412,7 @@ class MediaInfo
                         $temp_text_output[] = $text_element[$property];
                     }
                 }
-                if (isset($text_element['forced']) && strtolower($text_element['forced']) == 'yes') {
+                if (isset($text_element['forced']) && strtolower($text_element['forced']) === 'yes') {
                     $temp_text_output[] = 'Forced';
                 }
 

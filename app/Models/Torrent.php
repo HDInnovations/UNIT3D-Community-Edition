@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Models;
@@ -204,16 +204,6 @@ class Torrent extends Model
     }
 
     /**
-     * Belongs To A Resolution.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function resolution()
-    {
-        return $this->belongsTo(Resolution::class);
-    }
-
-    /**
      * Torrent Has Been Moderated By.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -383,9 +373,8 @@ class Torrent extends Model
     public function getMediaInfo()
     {
         $parser = new MediaInfo();
-        $parsed = $parser->parse($this->mediaInfo);
 
-        return $parsed;
+        return $parser->parse($this->mediaInfo);
     }
 
     /**
@@ -408,9 +397,9 @@ class Torrent extends Model
      */
     public function bookmarked()
     {
-        return Bookmark::where('user_id', '=', auth()->user()->id)
+        return (bool) Bookmark::where('user_id', '=', auth()->user()->id)
             ->where('torrent_id', '=', $this->id)
-            ->first() ? true : false;
+            ->first();
     }
 
     /**

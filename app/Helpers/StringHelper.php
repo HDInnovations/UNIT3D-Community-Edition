@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Helpers;
@@ -106,12 +106,12 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
         $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
@@ -160,12 +160,12 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months == 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks == 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days == 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours == 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes == 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
         $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
@@ -176,8 +176,8 @@ class StringHelper
         $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
             return $number.'th';
-        } else {
-            return $number.$ends[$number % 10];
         }
+
+        return $number.$ends[$number % 10];
     }
 }

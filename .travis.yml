@@ -1,0 +1,43 @@
+language: php
+
+php:
+  - '7.3'
+
+addons:
+  mariadb: '10.3'
+
+sudo: false
+
+before_script:
+- composer install --prefer-source --no-interaction
+- php artisan key:generate --env testing
+- npm install
+- npm run prod
+
+before_install:
+- mysql -e 'CREATE DATABASE unit3d_test;'
+- mysql -e "CREATE USER 'homestead'@'%' IDENTIFIED BY 'secret';"
+- mysql --user=root -e "GRANT ALL PRIVILEGES ON unit3d_test.* TO 'homestead'@'%' WITH GRANT OPTION;"
+- mysql --user=root -e 'FLUSH PRIVILEGES;'
+
+services:
+- mysql
+
+script:
+  - mkdir -p build/logs
+  - phpdbg -qrr vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL
+
+notifications:
+  email:
+    on_failure: change

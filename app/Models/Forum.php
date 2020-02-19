@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Models;
@@ -243,11 +243,7 @@ class Forum extends Model
      */
     public function getPermission()
     {
-        if (auth()->check()) {
-            $group = auth()->user()->group;
-        } else {
-            $group = Group::find(2);
-        }
+        $group = auth()->check() ? auth()->user()->group : Group::find(2);
 
         return $group->permissions->where('forum_id', $this->id)->first();
     }

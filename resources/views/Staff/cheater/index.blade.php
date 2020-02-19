@@ -16,7 +16,7 @@
     </li>
     <li class="active">
         <a href="{{ route('staff.cheaters.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Possible Leech Cheaters</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.possible-leech-cheaters')</span>
         </a>
     </li>
 @endsection
@@ -24,20 +24,21 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>Possible Cheaters (Ghost Leechers)</h2>
+            <h2>@lang('staff.possible-leech-cheaters') (Ghost Leechers)</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-question"></i> Possible
-                            Leech Cheaters</strong></p>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-question"></i>
+                            @lang('staff.possible-leech-cheaters')
+                        </strong></p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>@lang('common.user')</th>
-                                    <th>Group</th>
-                                    <th>Joined</th>
-                                    <th>Last Login</th>
+                                    <th>@lang('common.group')</th>
+                                    <th>@lang('user.member-since')</th>
+                                    <th>@lang('user.last-login')</th>
                                 </tr>
                             </thead>
                             <tbody>

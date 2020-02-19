@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Models;
@@ -28,7 +28,7 @@ class Language
      **/
     public static function flag($code = 'default')
     {
-        if ($code == 'default') {
+        if ($code === 'default') {
             $code = app()->getLocale();
         }
 
@@ -47,17 +47,15 @@ class Language
      **/
     public static function country($locale = 'default')
     {
-        if ($locale == 'default') {
+        if ($locale === 'default') {
             $locale = app()->getLocale();
         }
 
         if (config('language.mode.code', 'short') == 'short') {
-            $code = strtolower(substr(self::getLongCode($locale), 3));
-        } else {
-            $code = strtolower(substr($locale, 3));
+            return strtolower(substr(self::getLongCode($locale), 3));
         }
 
-        return $code;
+        return strtolower(substr($locale, 3));
     }
 
     /**
@@ -86,9 +84,9 @@ class Language
 
         if (config('language.allowed')) {
             return self::names(array_merge(config('language.allowed'), [config('app.locale')]));
-        } else {
-            return self::names([config('app.locale')]);
         }
+
+        return self::names([config('app.locale')]);
     }
 
     /**
@@ -190,7 +188,7 @@ class Language
      **/
     public static function getCode($name = 'default')
     {
-        if ($name == 'default') {
+        if ($name === 'default') {
             $name = self::getName();
         }
 
@@ -206,7 +204,7 @@ class Language
      **/
     public static function getLongCode($short = 'default')
     {
-        if ($short == 'default') {
+        if ($short === 'default') {
             $short = app()->getLocale();
         }
 
@@ -235,7 +233,7 @@ class Language
      **/
     public static function getShortCode($long = 'default')
     {
-        if ($long == 'default') {
+        if ($long === 'default') {
             $long = app()->getLocale();
         }
 
@@ -264,7 +262,7 @@ class Language
      **/
     public static function getName($code = 'default')
     {
-        if ($code == 'default') {
+        if ($code === 'default') {
             $code = app()->getLocale();
         }
 

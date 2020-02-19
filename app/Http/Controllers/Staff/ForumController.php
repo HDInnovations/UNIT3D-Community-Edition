@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
@@ -75,10 +75,10 @@ class ForumController extends Controller
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
+                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
+                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
+                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
                 $perm->show_forum = false;
                 $perm->read_topic = false;
@@ -129,11 +129,7 @@ class ForumController extends Controller
         $forum->position = $request->input('position');
         $forum->slug = Str::slug($request->input('title'));
         $forum->description = $request->input('description');
-        if ($request->input('forum_type') == 'category') {
-            $forum->parent_id = 0;
-        } else {
-            $forum->parent_id = $request->input('parent_id');
-        }
+        $forum->parent_id = $request->input('forum_type') == 'category' ? 0 : $request->input('parent_id');
         $forum->save();
 
         // Permissions
@@ -145,10 +141,10 @@ class ForumController extends Controller
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
             if (array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
+                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
+                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
+                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
                 $perm->show_forum = false;
                 $perm->read_topic = false;

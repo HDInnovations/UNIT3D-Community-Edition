@@ -2,13 +2,13 @@
 /**
  * NOTICE OF LICENSE.
  *
- * UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
- * @project    UNIT3D
+ * @project    UNIT3D Community Edition
  *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
@@ -30,16 +30,17 @@ class LikeController extends Controller
     public function store(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
-
         if ($like || $dislike) {
             return redirect()->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
-        } elseif ($user->id == $post->user_id) {
+        }
+
+        if ($user->id == $post->user_id) {
             return redirect()->to($postUrl)
                 ->withErrors('You cannot like your own post!');
         } else {
@@ -65,16 +66,17 @@ class LikeController extends Controller
     public function destroy(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = "forums/topics/{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
+        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
-
         if ($like || $dislike) {
             return redirect()->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
-        } elseif ($user->id == $post->user_id) {
+        }
+
+        if ($user->id == $post->user_id) {
             return redirect()->to($postUrl)
                 ->withErrors('You cannot dislike your own post!');
         } else {
