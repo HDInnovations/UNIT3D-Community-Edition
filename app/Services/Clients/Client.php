@@ -67,9 +67,7 @@ abstract class Client
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            cache()->remember($key, 7 * 24 * 60, function () use ($data) {
-                return serialize($data);
-            });
+            cache()->remember($key, 7 * 24 * 60, fn() => serialize($data));
         }
 
         if (cache()->has($key)) {
