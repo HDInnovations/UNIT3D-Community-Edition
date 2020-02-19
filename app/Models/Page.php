@@ -13,9 +13,9 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use App\Helpers\Markdown;
 use App\Helpers\BBCodeConverter;
+use App\Helpers\Markdown;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -44,7 +44,7 @@ class Page extends Model
     /**
      * Set The Pages Content After Its Been Purified.
      *
-     * @param  string  $value
+     * @param string $value
      *
      * @return void
      */
@@ -64,6 +64,7 @@ class Page extends Model
         $content = $converter->toMarkdown();
 
         $parser = new Markdown();
+
         return $parser->text($content);
     }
 }
