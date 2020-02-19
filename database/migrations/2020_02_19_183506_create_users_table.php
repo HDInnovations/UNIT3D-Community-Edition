@@ -25,12 +25,12 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('username');
             $table->string('email');
             $table->string('password');
             $table->string('passkey');
-            $table->integer('group_id');
+            $table->unsignedBigInteger('group_id');
             $table->boolean('active')->default(0);
             $table->unsignedBigInteger('uploaded')->default(0);
             $table->unsignedBigInteger('downloaded')->default(0);
@@ -71,7 +71,7 @@ class CreateUsersTable extends Migration
             $table->dateTime('last_login')->nullable();
             $table->dateTime('last_action')->nullable();
             $table->dateTime('disabled_at')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->unsignedBigInteger('deleted_by')->nullable();
             $table->nullableTimestamps();
             $table->string('locale')->default('en');
             $table->unsignedInteger('chat_status_id')->default(1);

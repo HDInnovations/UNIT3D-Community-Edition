@@ -25,7 +25,7 @@ class CreateBotsTable extends Migration
     public function up()
     {
         Schema::create('bots', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('position');
             $table->string('slug');
             $table->string('name');

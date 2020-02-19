@@ -25,7 +25,7 @@ class CreateVotersTable extends Migration
     public function up()
     {
         Schema::create('voters', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedInteger('poll_id');
             $table->unsignedInteger('user_id')->default(0);
             $table->nullableTimestamps();

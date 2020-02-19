@@ -25,7 +25,7 @@ class CreateTopicsTable extends Migration
     public function up()
     {
         Schema::create('topics', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
             $table->string('state')->nullable();
@@ -38,14 +38,14 @@ class CreateTopicsTable extends Migration
             $table->boolean('suggestion')->default(0);
             $table->boolean('implemented')->default(0);
             $table->integer('num_post')->nullable();
-            $table->integer('first_post_user_id')->nullable();
-            $table->integer('last_post_user_id')->nullable();
+            $table->unsignedBigInteger('first_post_user_id')->nullable();
+            $table->unsignedBigInteger('last_post_user_id')->nullable();
             $table->string('first_post_user_username')->nullable();
             $table->string('last_post_user_username')->nullable();
             $table->dateTime('last_reply_at')->nullable();
             $table->integer('views')->nullable();
             $table->nullableTimestamps();
-            $table->integer('forum_id');
+            $table->unsignedBigInteger('forum_id');
         });
 
         Schema::table('topics', function (Blueprint $table) {

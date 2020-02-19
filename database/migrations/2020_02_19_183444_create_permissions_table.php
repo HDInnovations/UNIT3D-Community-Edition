@@ -25,9 +25,9 @@ class CreatePermissionsTable extends Migration
     public function up()
     {
         Schema::create('permissions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('forum_id');
-            $table->integer('group_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('forum_id');
+            $table->unsignedBigInteger('group_id');
             $table->boolean('show_forum');
             $table->boolean('read_topic');
             $table->boolean('reply_topic');

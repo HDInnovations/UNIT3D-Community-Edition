@@ -25,8 +25,8 @@ class CreateRequestClaimsTable extends Migration
     public function up()
     {
         Schema::create('request_claims', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('request_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('request_id');
             $table->string('username')->nullable();
             $table->smallInteger('anon')->default(0);
             $table->nullableTimestamps();

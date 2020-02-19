@@ -25,10 +25,10 @@ class CreateSubscriptionsTable extends Migration
     public function up()
     {
         Schema::create('subscriptions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('forum_id')->nullable();
-            $table->integer('topic_id')->nullable();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('forum_id')->nullable();
+            $table->unsignedBigInteger('topic_id')->nullable();
             $table->nullableTimestamps();
         });
 

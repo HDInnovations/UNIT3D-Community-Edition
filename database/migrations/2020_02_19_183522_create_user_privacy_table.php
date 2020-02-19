@@ -25,8 +25,8 @@ class CreateUserPrivacyTable extends Migration
     public function up()
     {
         Schema::create('user_privacy', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->boolean('show_achievement')->default(1);
             $table->boolean('show_bon')->default(1);
             $table->boolean('show_comment')->default(1);

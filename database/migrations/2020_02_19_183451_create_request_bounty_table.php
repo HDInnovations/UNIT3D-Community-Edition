@@ -25,10 +25,10 @@ class CreateRequestBountyTable extends Migration
     public function up()
     {
         Schema::create('request_bounty', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->float('seedbonus', 12, 2)->default(0.00);
-            $table->integer('requests_id');
+            $table->unsignedBigInteger('requests_id');
             $table->boolean('anon')->default(0);
             $table->nullableTimestamps();
         });

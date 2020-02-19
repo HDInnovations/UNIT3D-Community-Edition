@@ -25,7 +25,7 @@ class CreateChatStatusesTable extends Migration
     public function up()
     {
         Schema::create('chat_statuses', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('color');
             $table->string('icon')->nullable();

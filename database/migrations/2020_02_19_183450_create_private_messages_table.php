@@ -25,13 +25,13 @@ class CreatePrivateMessagesTable extends Migration
     public function up()
     {
         Schema::create('private_messages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('sender_id');
-            $table->unsignedInteger('receiver_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('sender_id');
+            $table->unsignedBigInteger('receiver_id');
             $table->string('subject');
             $table->text('message');
             $table->boolean('read')->default(0);
-            $table->integer('related_to')->nullable();
+            $table->unsignedBigInteger('related_to')->nullable();
             $table->nullableTimestamps();
         });
 

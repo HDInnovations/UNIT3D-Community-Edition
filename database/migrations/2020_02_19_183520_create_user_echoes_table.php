@@ -25,11 +25,11 @@ class CreateUserEchoesTable extends Migration
     public function up()
     {
         Schema::create('user_echoes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('room_id')->nullable();
-            $table->integer('target_id')->nullable();
-            $table->integer('bot_id')->nullable();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('room_id')->nullable();
+            $table->unsignedBigInteger('target_id')->nullable();
+            $table->unsignedBigInteger('bot_id')->nullable();
             $table->nullableTimestamps();
         });
 

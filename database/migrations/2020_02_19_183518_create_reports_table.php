@@ -25,18 +25,18 @@ class CreateReportsTable extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('type');
-            $table->integer('reporter_id');
-            $table->integer('staff_id')->nullable();
+            $table->unsignedBigInteger('reporter_id');
+            $table->unsignedBigInteger('staff_id')->nullable();
             $table->string('title');
             $table->text('message');
             $table->integer('solved');
             $table->text('verdict')->nullable();
             $table->nullableTimestamps();
-            $table->unsignedInteger('reported_user');
-            $table->unsignedInteger('torrent_id')->default(0);
-            $table->unsignedInteger('request_id')->default(0);
+            $table->unsignedBigInteger('reported_user');
+            $table->unsignedBigInteger('torrent_id')->default(0);
+            $table->unsignedBigInteger('request_id')->default(0);
         });
 
         Schema::table('reports', function (Blueprint $table) {

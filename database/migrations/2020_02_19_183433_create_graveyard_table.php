@@ -25,9 +25,9 @@ class CreateGraveyardTable extends Migration
     public function up()
     {
         Schema::create('graveyard', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('torrent_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('torrent_id');
             $table->unsignedBigInteger('seedtime');
             $table->boolean('rewarded')->default(0);
             $table->nullableTimestamps();

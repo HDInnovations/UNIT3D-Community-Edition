@@ -25,11 +25,11 @@ class CreateRssTable extends Migration
     public function up()
     {
         Schema::create('rss', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('position')->default(0);
             $table->string('name')->default('Default');
-            $table->integer('user_id')->default(1);
-            $table->integer('staff_id')->default(0);
+            $table->unsignedBigInteger('user_id')->default(1);
+            $table->unsignedBigInteger('staff_id')->default(0);
             $table->boolean('is_private')->default(0);
             $table->boolean('is_torrent')->default(0);
             $table->softDeletes();

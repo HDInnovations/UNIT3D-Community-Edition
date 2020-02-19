@@ -25,7 +25,7 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
             $table->string('image')->nullable();
@@ -36,7 +36,7 @@ class CreateCategoriesTable extends Migration
             $table->boolean('game_meta')->default(0);
             $table->boolean('tv_meta')->default(0);
             $table->boolean('movie_meta')->default(0);
-            $table->integer('num_torrent')->default(0);
+            $table->unsignedBigInteger('num_torrent')->default(0);
         });
     }
 

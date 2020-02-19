@@ -38,7 +38,7 @@ class CreatePeersTable extends Migration
             $table->boolean('seeder')->nullable();
             $table->nullableTimestamps();
             $table->unsignedBigInteger('torrent_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
         });
 
         Schema::table('peers', function (Blueprint $table) {

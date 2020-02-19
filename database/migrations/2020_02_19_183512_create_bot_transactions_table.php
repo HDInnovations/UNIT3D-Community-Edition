@@ -25,11 +25,11 @@ class CreateBotTransactionsTable extends Migration
     public function up()
     {
         Schema::create('bot_transactions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('type')->nullable()->default('');
             $table->float('cost', 22, 2)->default(0.00);
-            $table->integer('user_id')->default(0);
-            $table->integer('bot_id')->default(0);
+            $table->unsignedBigInteger('user_id')->default(0);
+            $table->unsignedBigInteger('bot_id')->default(0);
             $table->boolean('to_user')->default(0);
             $table->boolean('to_bot')->default(0);
             $table->text('comment');

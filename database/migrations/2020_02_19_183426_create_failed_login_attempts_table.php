@@ -25,7 +25,7 @@ class CreateFailedLoginAttemptsTable extends Migration
     public function up()
     {
         Schema::create('failed_login_attempts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->string('username');
             $table->string('ip_address');

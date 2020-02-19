@@ -25,8 +25,8 @@ class CreatePersonalFreeleechTable extends Migration
     public function up()
     {
         Schema::create('personal_freeleech', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->nullableTimestamps();
         });
 

@@ -25,14 +25,14 @@ class CreateApplicationsTable extends Migration
     public function up()
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('type');
             $table->string('email');
             $table->longText('referrer')->nullable();
             $table->boolean('status')->default(0);
             $table->dateTime('moderated_at')->nullable();
-            $table->integer('moderated_by')->nullable();
-            $table->integer('accepted_by')->nullable();
+            $table->unsignedBigInteger('moderated_by')->nullable();
+            $table->unsignedBigInteger('accepted_by')->nullable();
             $table->nullableTimestamps();
         });
 

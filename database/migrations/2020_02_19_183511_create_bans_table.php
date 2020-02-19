@@ -25,9 +25,9 @@ class CreateBansTable extends Migration
     public function up()
     {
         Schema::create('bans', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('owned_by');
-            $table->integer('created_by')->nullable();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('owned_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->text('ban_reason')->nullable();
             $table->text('unban_reason')->nullable();
             $table->dateTime('removed_at')->nullable();

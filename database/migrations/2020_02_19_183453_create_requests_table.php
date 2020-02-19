@@ -25,9 +25,9 @@ class CreateRequestsTable extends Migration
     public function up()
     {
         Schema::create('requests', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('category_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('type');
             $table->string('imdb')->nullable();
             $table->string('tvdb')->nullable();
@@ -35,17 +35,17 @@ class CreateRequestsTable extends Migration
             $table->string('mal')->nullable();
             $table->string('igdb')->default('0');
             $table->text('description');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->float('bounty', 22, 2);
             $table->integer('votes')->default(0);
             $table->boolean('claimed')->nullable();
             $table->boolean('anon')->default(0);
             $table->nullableTimestamps();
-            $table->integer('filled_by')->nullable();
+            $table->unsignedBigInteger('filled_by')->nullable();
             $table->string('filled_hash')->nullable();
             $table->dateTime('filled_when')->nullable();
             $table->boolean('filled_anon')->default(0);
-            $table->integer('approved_by')->nullable();
+            $table->unsignedBigInteger('approved_by')->nullable();
             $table->dateTime('approved_when')->nullable();
         });
 

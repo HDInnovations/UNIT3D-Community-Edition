@@ -25,7 +25,7 @@ class CreateBookmarksTable extends Migration
     public function up()
     {
         Schema::create('bookmarks', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('torrent_id');
             $table->nullableTimestamps();

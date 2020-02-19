@@ -25,8 +25,8 @@ class CreateApplicationUrlProofsTable extends Migration
     public function up()
     {
         Schema::create('application_url_proofs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('application_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('application_id');
             $table->string('url');
             $table->nullableTimestamps();
         });

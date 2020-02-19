@@ -25,13 +25,13 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title');
             $table->string('slug');
             $table->string('image')->nullable();
             $table->text('content');
             $table->nullableTimestamps();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
         });
 
         Schema::table('articles', function (Blueprint $table) {

@@ -25,14 +25,14 @@ class CreateWarningsTable extends Migration
     public function up()
     {
         Schema::create('warnings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('warned_by');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('warned_by');
             $table->unsignedBigInteger('torrent');
             $table->text('reason');
             $table->dateTime('expires_on')->nullable();
             $table->boolean('active')->default(0);
-            $table->integer('deleted_by')->nullable();
+            $table->unsignedBigInteger('deleted_by')->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
         });

@@ -25,8 +25,8 @@ class CreateUserNotificationsTable extends Migration
     public function up()
     {
         Schema::create('user_notifications', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->boolean('show_bon_gift')->default(1);
             $table->boolean('show_mention_forum_post')->default(1);
             $table->boolean('show_mention_article_comment')->default(1);

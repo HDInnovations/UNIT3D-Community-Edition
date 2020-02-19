@@ -25,14 +25,14 @@ class CreateBonTransactionsTable extends Migration
     public function up()
     {
         Schema::create('bon_transactions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('itemID')->default(0);
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('itemID')->default(0);
             $table->string('name')->default('');
             $table->float('cost', 22, 2)->default(0.00);
-            $table->unsignedInteger('sender')->default(0);
-            $table->unsignedInteger('receiver')->default(0);
-            $table->integer('torrent_id')->nullable();
-            $table->integer('post_id')->nullable();
+            $table->unsignedBigInteger('sender')->default(0);
+            $table->unsignedBigInteger('receiver')->default(0);
+            $table->unsignedBigInteger('torrent_id')->nullable();
+            $table->unsignedBigInteger('post_id')->nullable();
             $table->text('comment');
             $table->timestamp('date_actioned')->useCurrent();
         });

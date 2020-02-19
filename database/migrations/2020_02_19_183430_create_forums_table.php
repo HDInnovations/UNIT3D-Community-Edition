@@ -25,19 +25,19 @@ class CreateForumsTable extends Migration
     public function up()
     {
         Schema::create('forums', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('position')->nullable();
-            $table->integer('num_topic')->nullable();
-            $table->integer('num_post')->nullable();
-            $table->integer('last_topic_id')->nullable();
+            $table->unsignedBigInteger('num_topic')->nullable();
+            $table->unsignedBigInteger('num_post')->nullable();
+            $table->unsignedBigInteger('last_topic_id')->nullable();
             $table->string('last_topic_name')->nullable();
             $table->string('last_topic_slug')->nullable();
-            $table->integer('last_post_user_id')->nullable();
+            $table->unsignedBigInteger('last_post_user_id')->nullable();
             $table->string('last_post_user_username')->nullable();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->text('description')->nullable();
-            $table->integer('parent_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->nullableTimestamps();
         });
     }

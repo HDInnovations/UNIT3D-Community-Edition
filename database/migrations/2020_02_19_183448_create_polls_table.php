@@ -25,7 +25,7 @@ class CreatePollsTable extends Migration
     public function up()
     {
         Schema::create('polls', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedInteger('user_id')->default(0);
             $table->string('title');
             $table->string('slug');

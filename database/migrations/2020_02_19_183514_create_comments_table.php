@@ -25,14 +25,14 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->text('content');
             $table->smallInteger('anon')->default(0);
             $table->unsignedBigInteger('torrent_id')->nullable();
-            $table->integer('article_id')->nullable();
-            $table->integer('requests_id')->nullable();
-            $table->integer('playlist_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('article_id')->nullable();
+            $table->unsignedBigInteger('requests_id')->nullable();
+            $table->unsignedBigInteger('playlist_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->nullableTimestamps();
         });
 

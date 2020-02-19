@@ -38,9 +38,9 @@ class CreateTorrentsTable extends Migration
             $table->integer('leechers')->default(0);
             $table->integer('seeders')->default(0);
             $table->integer('times_completed')->default(0);
-            $table->integer('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('announce');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('imdb')->default('0');
             $table->string('tvdb')->default('0');
             $table->string('tmdb')->default('0');
@@ -54,7 +54,7 @@ class CreateTorrentsTable extends Migration
             $table->boolean('featured')->default(0);
             $table->smallInteger('status')->default(0);
             $table->dateTime('moderated_at')->nullable();
-            $table->integer('moderated_by')->nullable();
+            $table->unsignedBigInteger('moderated_by')->nullable();
             $table->smallInteger('anon')->default(0);
             $table->smallInteger('sticky')->default(0);
             $table->boolean('sd')->default(0);

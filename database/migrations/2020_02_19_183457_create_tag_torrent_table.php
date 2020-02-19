@@ -25,7 +25,7 @@ class CreateTagTorrentTable extends Migration
     public function up()
     {
         Schema::create('tag_torrent', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedInteger('torrent_id');
             $table->string('tag_name');
         });

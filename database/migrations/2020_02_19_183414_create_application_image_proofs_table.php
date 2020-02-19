@@ -25,8 +25,8 @@ class CreateApplicationImageProofsTable extends Migration
     public function up()
     {
         Schema::create('application_image_proofs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('application_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('application_id');
             $table->string('image');
             $table->nullableTimestamps();
         });
