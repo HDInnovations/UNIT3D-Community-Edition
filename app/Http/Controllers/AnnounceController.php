@@ -132,9 +132,9 @@ class AnnounceController extends Controller
         }
 
         // Caached System Required Groups
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {
@@ -230,7 +230,7 @@ class AnnounceController extends Controller
         $peers = Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
 
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = Cache::remember(sprintf('user_connections.%s', $torrent->id), 1800, fn() => Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count());
+        $connections = Cache::remember(sprintf('user_connections.%s', $torrent->id), 1800, fn () => Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count());
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
         if ($connections > config('announce.rate_limit')) {
