@@ -52,5 +52,4 @@ class CreateApplicationsTable extends Migration
     {
         Schema::dropIfExists('applications');
     }
-
 }

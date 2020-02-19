@@ -72,5 +72,4 @@ class CreateRequestsTable extends Migration
     {
         Schema::dropIfExists('requests');
     }
-
 }

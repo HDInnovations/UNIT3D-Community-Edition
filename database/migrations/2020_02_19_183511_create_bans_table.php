@@ -52,5 +52,4 @@ class CreateBansTable extends Migration
     {
         Schema::dropIfExists('bans');
     }
-
 }

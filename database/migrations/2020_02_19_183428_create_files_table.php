@@ -45,5 +45,4 @@ class CreateFilesTable extends Migration
     {
         Schema::dropIfExists('files');
     }
-
 }

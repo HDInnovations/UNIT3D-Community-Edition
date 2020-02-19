@@ -66,5 +66,4 @@ class CreateHistoryTable extends Migration
     {
         Schema::dropIfExists('history');
     }
-
 }

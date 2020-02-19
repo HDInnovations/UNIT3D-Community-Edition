@@ -90,5 +90,4 @@ class CreateTorrentsTable extends Migration
     {
         Schema::dropIfExists('torrents');
     }
-
 }

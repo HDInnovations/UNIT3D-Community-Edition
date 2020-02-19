@@ -47,5 +47,4 @@ class CreateVotersTable extends Migration
     {
         Schema::dropIfExists('voters');
     }
-
 }

@@ -44,5 +44,4 @@ class CreateAlbumsTable extends Migration
     {
         Schema::dropIfExists('albums');
     }
-
 }

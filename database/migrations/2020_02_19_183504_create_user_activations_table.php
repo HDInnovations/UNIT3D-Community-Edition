@@ -41,5 +41,4 @@ class CreateUserActivationsTable extends Migration
     {
         Schema::dropIfExists('user_activations');
     }
-
 }

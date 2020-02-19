@@ -51,5 +51,4 @@ class CreateBonTransactionsTable extends Migration
     {
         Schema::dropIfExists('bon_transactions');
     }
-
 }

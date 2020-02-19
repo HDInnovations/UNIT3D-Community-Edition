@@ -44,5 +44,4 @@ class CreateWishesTable extends Migration
     {
         Schema::dropIfExists('wishes');
     }
-
 }

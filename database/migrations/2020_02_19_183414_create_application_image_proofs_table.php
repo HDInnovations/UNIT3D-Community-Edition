@@ -45,5 +45,4 @@ class CreateApplicationImageProofsTable extends Migration
     {
         Schema::dropIfExists('application_image_proofs');
     }
-
 }

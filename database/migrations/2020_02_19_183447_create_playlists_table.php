@@ -54,5 +54,4 @@ class CreatePlaylistsTable extends Migration
     {
         Schema::dropIfExists('playlists');
     }
-
 }

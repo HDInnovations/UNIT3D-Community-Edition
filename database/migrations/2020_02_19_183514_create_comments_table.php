@@ -56,5 +56,4 @@ class CreateCommentsTable extends Migration
     {
         Schema::dropIfExists('comments');
     }
-
 }

@@ -44,5 +44,4 @@ class CreateChatroomsTable extends Migration
     {
         Schema::dropIfExists('chatrooms');
     }
-
 }

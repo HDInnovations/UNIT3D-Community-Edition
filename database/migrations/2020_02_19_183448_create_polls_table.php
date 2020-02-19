@@ -43,5 +43,4 @@ class CreatePollsTable extends Migration
     {
         Schema::dropIfExists('polls');
     }
-
 }

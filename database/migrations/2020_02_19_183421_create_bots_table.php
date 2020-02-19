@@ -71,5 +71,4 @@ class CreateBotsTable extends Migration
     {
         Schema::dropIfExists('bots');
     }
-
 }

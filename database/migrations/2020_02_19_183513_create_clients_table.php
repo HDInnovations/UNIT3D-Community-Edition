@@ -50,5 +50,4 @@ class CreateClientsTable extends Migration
     {
         Schema::dropIfExists('clients');
     }
-
 }

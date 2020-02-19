@@ -49,5 +49,4 @@ class CreatePlaylistTorrentsTable extends Migration
     {
         Schema::dropIfExists('playlist_torrents');
     }
-
 }

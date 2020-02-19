@@ -57,5 +57,4 @@ class CreateReportsTable extends Migration
     {
         Schema::dropIfExists('reports');
     }
-
 }

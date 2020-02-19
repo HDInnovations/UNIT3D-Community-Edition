@@ -47,5 +47,4 @@ class CreateUserNotesTable extends Migration
     {
         Schema::dropIfExists('user_notes');
     }
-
 }

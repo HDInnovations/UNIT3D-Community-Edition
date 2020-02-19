@@ -55,5 +55,4 @@ class CreateGroupsTable extends Migration
     {
         Schema::dropIfExists('groups');
     }
-
 }

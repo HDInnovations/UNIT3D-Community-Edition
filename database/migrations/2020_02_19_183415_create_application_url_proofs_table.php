@@ -45,5 +45,4 @@ class CreateApplicationUrlProofsTable extends Migration
     {
         Schema::dropIfExists('application_url_proofs');
     }
-
 }

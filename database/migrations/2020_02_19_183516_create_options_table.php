@@ -48,5 +48,4 @@ class CreateOptionsTable extends Migration
     {
         Schema::dropIfExists('options');
     }
-
 }

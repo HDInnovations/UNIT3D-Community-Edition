@@ -41,5 +41,4 @@ class CreateBookmarksTable extends Migration
     {
         Schema::dropIfExists('bookmarks');
     }
-
 }
