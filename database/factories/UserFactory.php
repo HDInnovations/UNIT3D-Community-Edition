@@ -6,14 +6,14 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
-        'username' => $faker->userName,
-        'email'    => $faker->safeEmail,
-        'password' => bcrypt($faker->password),
+        'username' => $faker->unique()->userName,
+        'email'    => $faker->unique()->safeEmail,
+        'password' => bcrypt('secret'),
         'passkey'  => $faker->word,
         'group_id' => function () {
             return factory(App\Models\Group::class)->create()->id;
         },
-        'active'      => $faker->boolean,
+        'active'      => true,
         'uploaded'    => $faker->randomNumber(),
         'downloaded'  => $faker->randomNumber(),
         'image'       => $faker->word,
@@ -49,13 +49,13 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'private_profile'     => $faker->boolean,
         'block_notifications' => $faker->boolean,
         'stat_hidden'         => $faker->boolean,
-        'twostep'             => $faker->boolean,
+        'twostep'             => false,
         'remember_token'      => Str::random(10),
         'api_token'           => $faker->uuid,
-        'last_login'          => $faker->dateTime(),
+        #'last_login'          => $faker->dateTime(),
         'last_action'         => $faker->dateTime(),
-        'disabled_at'         => $faker->dateTime(),
-        'deleted_by'          => $faker->randomNumber(),
+        #'disabled_at'         => $faker->dateTime(),
+        #'deleted_by'          => $faker->randomNumber(),
         'locale'              => $faker->word,
         'chat_status_id'      => function () {
             return factory(App\Models\ChatStatus::class)->create()->id;
