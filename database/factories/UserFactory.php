@@ -52,10 +52,10 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'twostep'             => false,
         'remember_token'      => Str::random(10),
         'api_token'           => $faker->uuid,
-        #'last_login'          => $faker->dateTime(),
+        //'last_login'          => $faker->dateTime(),
         'last_action'         => $faker->dateTime(),
-        #'disabled_at'         => $faker->dateTime(),
-        #'deleted_by'          => $faker->randomNumber(),
+        //'disabled_at'         => $faker->dateTime(),
+        //'deleted_by'          => $faker->randomNumber(),
         'locale'              => $faker->word,
         'chat_status_id'      => function () {
             return factory(App\Models\ChatStatus::class)->create()->id;

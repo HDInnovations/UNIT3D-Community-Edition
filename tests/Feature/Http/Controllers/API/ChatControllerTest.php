@@ -51,9 +51,9 @@ class ChatControllerTest extends TestCase
         $systemUser = User::where('username', 'System')->firstOrFail();
 
         factory(Message::class)->create([
-            'user_id' => $user->id,
+            'user_id'     => $user->id,
             'receiver_id' => $systemUser->id,
-            'bot_id' => $bot->id,
+            'bot_id'      => $bot->id,
         ]);
 
         $response = $this->actingAs($user)->get(sprintf('api/chat/bot/%s', $bot->id));
@@ -101,8 +101,8 @@ class ChatControllerTest extends TestCase
         $response->assertOk()
             ->assertJson([
                 'system_chatroom' => 'General',
-                'message_limit' => 100,
-                'nerd_bot' => true,
+                'message_limit'   => 100,
+                'nerd_bot'        => true,
             ]);
     }
 
@@ -129,7 +129,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson(['data' => [
-                'user' => ['id' => $user->id],
+                'user'     => ['id' => $user->id],
                 'receiver' => ['id' => $user->id],
             ]]);
     }
@@ -150,7 +150,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -183,7 +183,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id' => $userEcho['room_id'],
+                'id'       => $userEcho['room_id'],
                 'username' => $user->username,
             ]);
     }
@@ -198,12 +198,12 @@ class ChatControllerTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->post(sprintf('api/chat/echoes/%s/delete/target', $user->id), [
-            'target_id' => $userEcho['target_id']
+            'target_id' => $userEcho['target_id'],
         ]);
 
         $response->assertOk()
             ->assertJson([
-                'id' => $user->id,
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
@@ -218,10 +218,10 @@ class ChatControllerTest extends TestCase
         $response->assertOk()
             ->assertJson(['data' => [[
                 'user_id' => $user->id,
-                'user' => [
-                    'id' => $user->id,
+                'user'    => [
+                    'id'       => $user->id,
                     'username' => $user->username,
-                ]
+                ],
             ]]]);
     }
 
