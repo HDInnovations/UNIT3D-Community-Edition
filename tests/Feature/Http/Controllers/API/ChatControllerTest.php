@@ -183,7 +183,7 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson([
-                'id'       => $userEcho['room_id'],
+                'id'       => $user->id,
                 'username' => $user->username,
             ]);
     }
