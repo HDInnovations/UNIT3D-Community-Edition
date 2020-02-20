@@ -132,7 +132,9 @@ class ChatController extends Controller
 
     public function createMessage(Request $request)
     {
-        $user_id = (int) $request->input('user_id');
+        $user = $this->auth->user();
+
+        $user_id = $user->id;
         $receiver_id = $request->input('receiver_id');
         $room_id = $request->input('chatroom_id');
         $bot_id = $request->input('bot_id');
@@ -140,11 +142,7 @@ class ChatController extends Controller
         $targeted = $request->input('targeted');
         $save = $request->get('save');
 
-        if ($this->auth->user()->id !== $user_id) {
-            return response('error', 401);
-        }
-
-        if ($this->auth->user()->can_chat === 0) {
+        if ($user->can_chat === 0) {
             return response('error', 401);
         }
 
