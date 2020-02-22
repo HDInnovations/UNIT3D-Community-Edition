@@ -19,11 +19,11 @@ class HomeControllerTest extends TestCase
     }
 
     /** @test */
-    public function whenNotAuthenticatedHomepageReturns302()
+    public function whenNotAuthenticatedHomepageRedirectsToLogin()
     {
         $response = $this->get('/');
 
-        $response->assertStatus(302);
+        $response->assertRedirect(route('login'));
     }
 
     /** @test */
@@ -53,5 +53,17 @@ class HomeControllerTest extends TestCase
             ->assertViewHas('past_uploaders')
             ->assertViewHas('freeleech_tokens')
             ->assertViewHas('bookmarks');
+    }
+
+    /** @test */
+    public function whenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep()
+    {
+        $user = factory(User::class)->create([
+            'twostep' => true,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('home.index'))
+            ->assertRedirect(route('verificationNeeded'));
     }
 }

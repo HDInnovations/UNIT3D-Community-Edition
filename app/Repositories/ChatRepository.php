@@ -251,6 +251,8 @@ class ChatRepository
 
     public function botMessages($sender_id, $bot_id)
     {
+        $systemUserId = User::where('username', 'System')->firstOrFail()->id;
+
         return $this->message->with([
             'bot',
             'user.group',
@@ -258,8 +260,8 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($sender_id, $bot_id) {
-            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, 1])->orWhereRaw('(user_id = ? and receiver_id = ?)', [1, $sender_id]);
+        ])->where(function ($query) use ($sender_id, $bot_id, $systemUserId) {
+            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $sender_id]);
         })->where('bot_id', '=', $bot_id)
             ->orderBy('id', 'desc')
             ->limit(config('chat.message_limit'))
