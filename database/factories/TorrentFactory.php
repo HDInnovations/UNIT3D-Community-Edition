@@ -10,7 +10,6 @@ $factory->define(App\Models\Torrent::class, function (Faker $faker) {
         'slug'            => $faker->slug,
         'description'     => $faker->text,
         'mediainfo'       => $faker->text,
-        'bdinfo'          => $faker->text,
         'info_hash'       => $faker->word,
         'file_name'       => $faker->word,
         'num_file'        => $faker->randomNumber(),
@@ -26,34 +25,26 @@ $factory->define(App\Models\Torrent::class, function (Faker $faker) {
         'user_id'  => function () {
             return factory(App\Models\User::class)->create()->id;
         },
-        'imdb'         => $faker->word,
-        'tvdb'         => $faker->word,
-        'tmdb'         => $faker->word,
-        'mal'          => $faker->word,
-        'igdb'         => $faker->word,
+        'imdb'         => $faker->randomNumber(),
+        'tvdb'         => $faker->randomNumber(),
+        'tmdb'         => $faker->randomNumber(),
+        'mal'          => $faker->randomNumber(),
+        'igdb'         => $faker->randomNumber(),
         'type'         => $faker->word,
-        'resolution'   => $faker->randomNumber(),
         'stream'       => $faker->boolean,
         'free'         => $faker->boolean,
         'doubleup'     => $faker->boolean,
         'highspeed'    => $faker->boolean,
         'featured'     => $faker->boolean,
-        'status'       => $faker->randomNumber(),
+        'status'       => (int) $faker->boolean,
         'moderated_at' => $faker->dateTime(),
         'moderated_by' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
-        'anon'         => $faker->randomNumber(),
-        'sticky'       => $faker->randomNumber(),
+        'anon'         => $faker->randomNumber(4),
+        'sticky'       => $faker->randomNumber(4),
         'sd'           => $faker->boolean,
         'internal'     => $faker->boolean,
-        'release_year' => $faker->date(),
-        'deleted_at'   => $faker->dateTime(),
-        'uploader_id'  => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'type_id' => function () {
-            return factory(App\Models\Type::class)->create()->id;
-        },
+        'release_year' => $faker->date('Y'),
     ];
 });

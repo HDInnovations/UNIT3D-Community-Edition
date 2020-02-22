@@ -308,10 +308,14 @@ class ChatRepository
 
     public function systemMessage($message, $bot = null)
     {
+        $systemUserId = User::where('username', 'System')->first()->id;
+
         if ($bot) {
-            $this->message(1, $this->systemChatroom(), $message, null, $bot);
+            $this->message($systemUserId, $this->systemChatroom(), $message, null, $bot);
         } else {
-            $this->message(1, $this->systemChatroom(), $message, null, 1);
+            $systemBotId = Bot::where('slug', 'systembot')->first()->id;
+
+            $this->message($systemUserId, $this->systemChatroom(), $message, null, $systemBotId);
         }
 
         return $this;
