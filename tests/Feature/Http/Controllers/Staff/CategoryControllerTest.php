@@ -33,7 +33,7 @@ class CategoryControllerTest extends TestCase
             },
         ]);
     }
-    
+
     /**
      * @test
      */
