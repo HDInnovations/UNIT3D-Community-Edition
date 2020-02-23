@@ -14,9 +14,9 @@ $factory->define(App\Models\Group::class, function (Faker $faker) {
         'icon'         => $faker->word,
         'effect'       => $faker->word,
         'is_internal'  => $faker->boolean,
-        'is_owner'     => true, // For Staff Tests
-        'is_admin'     => true, // For Staff Tests
-        'is_modo'      => true, // For Staff Tests
+        'is_owner'     => $faker->boolean,
+        'is_admin'     => $faker->boolean,
+        'is_modo'      => $faker->boolean,
         'is_trusted'   => $faker->boolean,
         'is_immune'    => $faker->boolean,
         'is_freeleech' => $faker->boolean,

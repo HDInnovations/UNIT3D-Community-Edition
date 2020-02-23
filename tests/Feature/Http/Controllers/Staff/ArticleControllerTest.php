@@ -3,8 +3,8 @@
 namespace Tests\Feature\Http\Controllers\Staff;
 
 use App\Models\Article;
-use App\Models\User;
 use App\Models\Group;
+use App\Models\User;
 use GroupsTableSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -28,7 +28,7 @@ class ArticleControllerTest extends TestCase
                 return factory(Group::class)->create([
                     'is_owner' => true,
                     'is_admin' => true,
-                    'is_modo' => true,
+                    'is_modo'  => true,
                 ])->id;
             },
         ]);
