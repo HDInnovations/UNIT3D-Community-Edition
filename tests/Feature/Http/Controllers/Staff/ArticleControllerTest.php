@@ -15,6 +15,11 @@ class ArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
+
     /**
      * @test
      */
