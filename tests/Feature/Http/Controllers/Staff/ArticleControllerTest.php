@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 
 use App\Models\Article;
 use App\Models\User;
+use App\Models\Group;
 use GroupsTableSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -20,6 +21,19 @@ class ArticleControllerTest extends TestCase
         parent::setUp();
     }
 
+    protected function createStaffUser()
+    {
+        return factory(User::class)->create([
+            'group_id' => function () {
+                return factory(Group::class)->create([
+                    'is_owner' => true,
+                    'is_admin' => true,
+                    'is_modo' => true,
+                ])->id;
+            },
+        ]);
+    }
+
     /**
      * @test
      */
@@ -27,7 +41,7 @@ class ArticleControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = $this->createStaffUser();
 
         $response = $this->actingAs($user)->get(route('staff.articles.create'));
 
@@ -42,7 +56,7 @@ class ArticleControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = $this->createStaffUser();
         $article = factory(Article::class)->create();
 
         $response = $this->actingAs($user)->delete(route('staff.articles.destroy', ['id' => $article->id]));
@@ -56,8 +70,8 @@ class ArticleControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
+        $user = $this->createStaffUser();
         $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->get(route('staff.articles.edit', ['id' => $article->id]));
 
@@ -73,7 +87,7 @@ class ArticleControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = $this->createStaffUser();
 
         $response = $this->actingAs($user)->get(route('staff.articles.index'));
 
@@ -89,7 +103,7 @@ class ArticleControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = $this->createStaffUser();
         $article = factory(Article::class)->create();
 
         $response = $this->actingAs($user)->post(route('staff.articles.store'), [
@@ -109,8 +123,8 @@ class ArticleControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
+        $user = $this->createStaffUser();
         $article = factory(Article::class)->create();
-        $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->post(route('staff.articles.update', ['id' => $article->id]), [
             'title'   => $article->title,
