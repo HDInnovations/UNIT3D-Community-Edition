@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use App\Models\Category;
 use App\Models\User;
 use GroupsTableSeeder;
-use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -21,7 +21,7 @@ class CategoryControllerTest extends TestCase
     public function create_returns_an_ok_response()
     {
         $this->seed(GroupsTableSeeder::class);
-        
+
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->get(route('staff.categories.create'));
@@ -36,7 +36,7 @@ class CategoryControllerTest extends TestCase
     public function destroy_returns_an_ok_response()
     {
         $this->seed(GroupsTableSeeder::class);
-        
+
         $category = factory(Category::class)->create();
         $user = factory(User::class)->create();
 
@@ -68,7 +68,7 @@ class CategoryControllerTest extends TestCase
     public function index_returns_an_ok_response()
     {
         $this->seed(GroupsTableSeeder::class);
-        
+
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->get(route('staff.categories.index'));
@@ -129,5 +129,4 @@ class CategoryControllerTest extends TestCase
 
         $response->assertRedirect(route('staff.categories.index'));
     }
-
 }

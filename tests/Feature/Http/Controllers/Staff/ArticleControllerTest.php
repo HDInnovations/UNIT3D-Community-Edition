@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use App\Models\Article;
 use App\Models\User;
 use GroupsTableSeeder;
-use App\Models\Article;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -116,5 +116,4 @@ class ArticleControllerTest extends TestCase
 
         $response->assertRedirect(route('staff.articles.index'));
     }
-
 }
