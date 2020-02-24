@@ -271,10 +271,6 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function rooms_returns_an_ok_response()
     {
-        $this->markTestIncomplete(
-            'This test fails on Travis-CI, despite passing everywhere else, so skipping until the cause is determined.'
-        );
-
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->get('api/chat/rooms');
@@ -291,10 +287,6 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function statuses_returns_an_ok_response()
     {
-        $this->markTestIncomplete(
-            'This test fails on Travis-CI, despite passing everywhere else, so skipping until the cause is determined.'
-        );
-
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->get('api/chat/statuses');
@@ -373,10 +365,6 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function update_user_chat_status_returns_an_ok_response()
     {
-        $this->markTestIncomplete(
-            'This test fails on Travis-CI, despite passing everywhere else, so skipping until the cause is determined.'
-        );
-
         $this->seed(UsersTableSeeder::class);
 
         $user = factory(User::class)->create();
@@ -395,10 +383,6 @@ class ChatControllerTest extends TestCase
     /** @test */
     public function update_user_room_returns_an_ok_response()
     {
-        $this->markTestIncomplete(
-            'This test fails on Travis-CI, despite passing everywhere else, so skipping until the cause is determined.'
-        );
-
         $user = factory(User::class)->create();
 
         $response = $this->actingAs($user)->post(sprintf('api/chat/user/%s/chatroom', $user->id), [
