@@ -103,7 +103,6 @@ class ChatBotControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $bot = factory(Bot::class)->create();
 
         $response = $this->actingAs($user)->get(route('staff.bots.index'));
 

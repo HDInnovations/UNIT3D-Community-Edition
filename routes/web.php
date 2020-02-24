@@ -636,7 +636,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/rooms', 'ChatRoomController@index')->name('index');
                 Route::post('/rooms/store', 'ChatRoomController@store')->name('store');
                 Route::post('/rooms/{id}/update', 'ChatRoomController@update')->name('update');
-                Route::delete('/rooms/{id]/destroy', 'ChatRoomController@destroy')->name('destroy');
+                Route::delete('/rooms/{id}/destroy', 'ChatRoomController@destroy')->name('destroy');
             });
         });
 
@@ -645,7 +645,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::name('staff.statuses.')->group(function () {
                 Route::get('/statuses', 'ChatStatusController@index')->name('index');
                 Route::post('/statuses/store', 'ChatStatusController@store')->name('store');
-                Route::post('/statuses/{id]/update', 'ChatStatusController@update')->name('update');
+                Route::post('/statuses/{id}/update', 'ChatStatusController@update')->name('update');
                 Route::delete('/statuses/{id}/destroy', 'ChatStatusController@destroy')->name('destroy');
             });
         });
