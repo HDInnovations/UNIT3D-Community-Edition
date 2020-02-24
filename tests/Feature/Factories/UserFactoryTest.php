@@ -15,10 +15,6 @@ class UserFactoryTest extends TestCase
     /** @test */
     public function factoryReturnsCorrectValuesWhenCreated()
     {
-        $this->markTestIncomplete(
-            'This test fails on Travis-CI, despite passing everywhere else, so skipping until the cause is determined.'
-        );
-
         $user = factory(User::class)->create();
 
         $this->assertInstanceOf(User::class, $user);
