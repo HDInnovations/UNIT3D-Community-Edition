@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Group;
 use App\Models\User;
 use GroupsTableSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -14,8 +13,6 @@ use Tests\TestCase;
  */
 class CategoryControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -105,7 +102,7 @@ class CategoryControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $category = factory(Category::class)->create();
+        $category = factory(Category::class)->make();
 
         $response = $this->actingAs($user)->post(route('staff.categories.store'), [
             'name'       => $category->name,

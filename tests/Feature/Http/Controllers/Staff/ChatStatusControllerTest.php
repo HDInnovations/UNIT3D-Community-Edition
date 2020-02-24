@@ -6,7 +6,6 @@ use App\Models\ChatStatus;
 use App\Models\Group;
 use App\Models\User;
 use GroupsTableSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -14,8 +13,6 @@ use Tests\TestCase;
  */
 class ChatStatusControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -72,7 +69,7 @@ class ChatStatusControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chat_status = factory(ChatStatus::class)->create();
+        $chat_status = factory(ChatStatus::class)->make();
 
         $response = $this->actingAs($user)->post(route('staff.statuses.store'), [
             'name'  => $chat_status->name,

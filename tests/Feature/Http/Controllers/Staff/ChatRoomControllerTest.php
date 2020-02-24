@@ -6,7 +6,6 @@ use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
 use GroupsTableSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -14,8 +13,6 @@ use Tests\TestCase;
  */
 class ChatRoomControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -73,7 +70,7 @@ class ChatRoomControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chatroom = factory(Chatroom::class)->create();
+        $chatroom = factory(Chatroom::class)->make();
 
         $response = $this->actingAs($user)->post(route('staff.rooms.store'), [
             'name' => $chatroom->name,

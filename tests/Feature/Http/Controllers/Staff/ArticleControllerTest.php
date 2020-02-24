@@ -6,7 +6,6 @@ use App\Models\Article;
 use App\Models\Group;
 use App\Models\User;
 use GroupsTableSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -14,8 +13,6 @@ use Tests\TestCase;
  */
 class ArticleControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -104,7 +101,7 @@ class ArticleControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $article = factory(Article::class)->create();
+        $article = factory(Article::class)->make();
 
         $response = $this->actingAs($user)->post(route('staff.articles.store'), [
             'title'   => $article->title,
