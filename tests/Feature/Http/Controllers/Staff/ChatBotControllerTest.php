@@ -6,7 +6,6 @@ use App\Models\Bot;
 use App\Models\Group;
 use App\Models\User;
 use GroupsTableSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -14,8 +13,6 @@ use Tests\TestCase;
  */
 class ChatBotControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -103,7 +100,6 @@ class ChatBotControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $bot = factory(Bot::class)->create();
 
         $response = $this->actingAs($user)->get(route('staff.bots.index'));
 
