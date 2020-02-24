@@ -26,7 +26,9 @@ use App\Models\TorrentFile;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TorrentController extends BaseController
@@ -79,15 +81,21 @@ class TorrentController extends BaseController
         // Deplace and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
-        $meta = Bencode::get_meta($decodedTorrent);
-        $fileName = uniqid().'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
+
+        try {
+            $meta = Bencode::get_meta($decodedTorrent);
+        } catch (\Exception $e) {
+            return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
+        }
+
+        $fileName = sprintf('%s.torrent', uniqid()); // Generate a unique name
+        Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
 
         // Create the torrent (DB)
-        $torrent = new Torrent();
+        $torrent = app()->make(Torrent::class);
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
@@ -111,7 +119,7 @@ class TorrentController extends BaseController
         $torrent->sd = $request->input('sd');
         $torrent->internal = $request->input('internal');
         $torrent->moderated_at = Carbon::now();
-        $torrent->moderated_by = 1; //System ID
+        $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
         // Validation
         $v = validator($torrent->toArray(), [
@@ -137,8 +145,8 @@ class TorrentController extends BaseController
         ]);
 
         if ($v->fails()) {
-            if (file_exists(getcwd().'/files/torrents/'.$fileName)) {
-                unlink(getcwd().'/files/torrents/'.$fileName);
+            if (Storage::disk('torrent')->exists($fileName)) {
+                Storage::disk('torrent')->delete($fileName);
             }
 
             return $this->sendError('Validation Error.', $v->errors());

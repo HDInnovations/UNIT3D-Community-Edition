@@ -74,9 +74,15 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url'    => env('AWS_URL'),
         ],
+
         'backups' => [
             'driver' => 'local',
             'root'   => storage_path('backups'),
+        ],
+
+        'torrents' => [
+            'driver' => 'local',
+            'root'   => public_path('files/torrents'),
         ],
     ],
 
