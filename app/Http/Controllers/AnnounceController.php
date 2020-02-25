@@ -236,9 +236,7 @@ class AnnounceController extends Controller
         $peers = Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
 
         // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = Cache::remember(sprintf('user_connections.%s', $torrent->id), 1800, function () use ($torrent, $user) {
-            return Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
-        });
+        $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
         if ($connections > config('announce.rate_limit')) {
