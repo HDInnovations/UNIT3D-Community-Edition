@@ -57,5 +57,6 @@ class AutoDeactivateWarning extends Command
             $pm->message = 'The [b]WARNING[/b] you received relating to Torrent '.$warning->torrenttitle->name.' has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
             $pm->save();
         }
+        $this->comment('Automated Warning Deativation Command Complete');
     }
 }

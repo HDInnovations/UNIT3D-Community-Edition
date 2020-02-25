@@ -105,5 +105,6 @@ class AutoGroup extends Command
                 $user->save();
             }
         }
+        $this->comment('Automated User Group Command Complete');
     }
 }

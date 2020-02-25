@@ -75,5 +75,6 @@ class AutoRemoveFeaturedTorrent extends Command
             // Delete The Record From DB
             $featured_torrent->delete();
         }
+        $this->comment('Automated Removal Featured Torrents Command Complete');
     }
 }

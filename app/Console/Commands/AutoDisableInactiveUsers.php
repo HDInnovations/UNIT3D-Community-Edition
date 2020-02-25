@@ -72,5 +72,6 @@ class AutoDisableInactiveUsers extends Command
                 }
             }
         }
+        $this->comment('Automated User Disable Command Complete');
     }
 }

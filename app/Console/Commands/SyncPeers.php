@@ -59,5 +59,6 @@ class SyncPeers extends Command
             $torrent->leechers = $torrent->peers->where('left', '>', '0')->count();
             $torrent->save();
         }
+        $this->comment('Torrent Peer Syncing Command Complete');
     }
 }

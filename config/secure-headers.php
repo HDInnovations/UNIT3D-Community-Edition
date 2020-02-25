@@ -121,7 +121,7 @@ return [
      */
 
     'hsts' => [
-        'enable' => true,
+        'enable' => false,
 
         'max-age' => 15552000,
 
@@ -463,7 +463,7 @@ return [
      * Note: custom-csp does not support report-only.
      */
 
-    'custom-csp' => null,
+    'custom-csp' => '',
 
     'csp' => [
         'report-only' => false,

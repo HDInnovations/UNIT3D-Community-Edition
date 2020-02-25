@@ -126,5 +126,6 @@ class FetchReleaseYears extends Command
             // sleep for 1 second
             sleep(1);
         }
+        $this->comment('Torrent Release Year Command Complete');
     }
 }

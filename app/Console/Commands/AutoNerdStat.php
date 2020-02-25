@@ -143,5 +143,6 @@ class AutoNerdStat extends Command
             // Auto Shout Nerd Stat
             $this->chat->systemMessage(sprintf('%s', $statArray[$selected]), 2);
         }
+        $this->comment('Automated Nerd Stat Command Complete');
     }
 }

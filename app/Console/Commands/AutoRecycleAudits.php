@@ -46,5 +46,6 @@ class AutoRecycleAudits extends Command
         foreach ($audits as $audit) {
             $audit->delete();
         }
+        $this->comment('Automated Purge Old Audits Command Complete');
     }
 }

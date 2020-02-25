@@ -263,5 +263,6 @@ class AutoBonAllocation extends Command
             $user->seedbonus += $value;
             $user->save();
         }
+        $this->comment('Automated BON Allocation Command Complete');
     }
 }
