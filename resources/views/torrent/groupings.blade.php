@@ -280,7 +280,7 @@
                                             </div>
                                             <div class="body_grouping" style="width: 100%;">
                                                 <h3 class="description_title">
-                                                    {{ ($t->meta->title ? $t->meta->title : $t->name) }}
+                                                    {{ ($t->meta ? $t->meta->title : $t->name) }}
                                                     @if($t->meta && $t->meta->releaseYear)
                                                         <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
                                                     @endif
