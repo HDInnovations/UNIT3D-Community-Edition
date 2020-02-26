@@ -40,7 +40,7 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        $application = new Application();
+        $application = resolve(Application::class);
         $application->type = $request->input('type');
         $application->email = $request->input('email');
         $application->referrer = $request->input('referrer');
