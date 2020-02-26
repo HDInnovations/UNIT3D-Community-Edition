@@ -41,8 +41,8 @@ $factory->define(App\Models\Torrent::class, function (Faker $faker) {
         'moderated_by' => function () {
             return factory(App\Models\User::class)->create()->id;
         },
-        'anon'         => $faker->randomNumber(4),
-        'sticky'       => $faker->randomNumber(4),
+        'anon'         => $faker->boolean,
+        'sticky'       => $faker->boolean,
         'sd'           => $faker->boolean,
         'internal'     => $faker->boolean,
         'release_year' => $faker->date('Y'),

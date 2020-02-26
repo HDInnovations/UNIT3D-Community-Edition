@@ -77,5 +77,6 @@ class FetchGenres extends Command
             // sleep for 1 second
             sleep(1);
         }
+        $this->comment('Torrent Genres Command Complete');
     }
 }

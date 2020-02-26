@@ -76,5 +76,6 @@ class AutoRecycleClaimedTorrentRequests extends Command
                 $torrentRequest->save();
             }
         }
+        $this->comment('Automated Request Claim Reset Command Complete');
     }
 }

@@ -71,5 +71,6 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->delete();
             }
         }
+        $this->comment('Automated Soft Delete Disabled Users Command Complete');
     }
 }

@@ -70,5 +70,6 @@ class AutoRevokePermissions extends Command
                 $deny->warneduser->save();
             }
         }
+        $this->comment('Automated User Permissions Revoke Command Complete');
     }
 }
