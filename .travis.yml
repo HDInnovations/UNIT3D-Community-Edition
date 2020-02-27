@@ -28,6 +28,7 @@ script:
   - vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_success:
+  - bash <(curl -s https://codecov.io/bash)
   - travis_retry php vendor/bin/php-coveralls
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
