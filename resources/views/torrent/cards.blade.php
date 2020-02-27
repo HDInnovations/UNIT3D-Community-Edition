@@ -309,8 +309,7 @@
                                     </div>
                                     <div class="card_body">
                                         <div class="body_poster">
-                                            @if (($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) &&
-                                                $t->meta->poster && $t->meta->title)
+                                            @if ($t->category->movie_meta || $t->category->tv_meta)
                                                 <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}"
                                                     class="show-poster"
                                                     data-name='<i style="color: #a5a5a5;">{{ $t->meta->title ?? 'N/A' }}</i>'
@@ -329,7 +328,7 @@
                                                 class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                             @endif
         
-                                            @if ($t->category->no_meta || $t->category->music_meta || ! $t->meta)
+                                            @if ($t->category->no_meta || $t->category->music_meta)
                                                 <img src="https://via.placeholder.com/600x900" class="show-poster"
                                                     data-name='<i style="color: #a5a5a5;">N/A</i>'
                                                     data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('
@@ -340,9 +339,8 @@
                                         <div class="body_description">
                                             <h3 class="description_title">
                                                 <a href="{{ route('torrent', ['id' => $t->id]) }}">{{ $t->name }}
-                                                    @if(($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) &&
-                                                        $t->meta->releaseYear)
-                                                        <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
+                                                    @if($t->category->movie_meta || $t->category->tv_meta)
+                                                        <span class="text-bold text-pink"> {{ $t->meta->releaseYear ?? ''}}</span>
                                                     @endif
                                                     @if($t->category->game_meta && isset($t->meta) &&
                                                         $t->meta->first_release_date)
@@ -367,9 +365,8 @@
                                                 @endforeach
                                             @endif
                                             <p class="description_plot">
-                                                @if(($t->category->movie_meta || $t->category->tv_meta) && $t->meta &&
-                                                    $t->meta->plot)
-                                                    {{ $t->meta->plot }}
+                                                @if($t->category->movie_meta || $t->category->tv_meta)
+                                                    {{ $t->meta->plot ?? '' }}
                                                 @endif
                                             </p>
                                         </div>
@@ -398,12 +395,10 @@
                                         </div>
                                         <span class="badge-user text-bold" style="float: right;">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                                            @if($t->meta && ($t->meta->imdbRating || $t->meta->tmdbVotes))
-                                                @if ($user->ratings == 1)
-                                                    {{ $t->meta->imdbRating }}/10 ({{ $t->meta->imdbVotes }} @lang('torrent.votes'))
-                                                @else
-                                                    {{ $t->meta->tmdbRating }}/10 ({{ $t->meta->tmdbVotes }} @lang('torrent.votes'))
-                                                @endif
+                                            @if ($user->ratings == 1)
+                                                {{ $t->meta->imdbRating ?? '0' }}/10 ({{ $t->meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
+                                            @else
+                                                {{ $t->meta->tmdbRating ?? '0' }}/10 ({{ $t->meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
                                             @endif
                                         </span>
                                     </div>
