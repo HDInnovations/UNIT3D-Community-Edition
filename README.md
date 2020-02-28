@@ -12,7 +12,9 @@
 <a href="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition?utm_medium=notification&utm_source=github_status"><img src="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition.svg?branch=master" /></a> 
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>	
 <a class="badge-align" href="https://www.codacy.com/manual/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HDInnovations/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
-<a href='https://coveralls.io/github/HDInnovations/UNIT3D-Community-Edition?branch=master'><img src='https://coveralls.io/repos/github/HDInnovations/UNIT3D-Community-Edition/badge.svg?branch=master' alt='Coverage Status' /></a>
+<a href="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition">
+  <img src="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition/branch/master/graph/badge.svg" />
+</a>
 <a href="https://discord.gg/ntnPxzG"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
