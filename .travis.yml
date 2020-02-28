@@ -29,7 +29,6 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - travis_retry php vendor/bin/php-coveralls
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
