@@ -227,14 +227,14 @@ class BonusController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function exchange(Request $request, $id)
     {
         $user = $request->user();
         $userbon = $user->seedbonus;
 
-        $BonExchange = new BonExchange();
+        $BonExchange = resolve(BonExchange::class);
         $itemCost = $BonExchange->getItemCost($id);
 
         if ($userbon >= $itemCost) {
@@ -271,7 +271,7 @@ class BonusController extends Controller
 
         $user_acc = User::findOrFail($userID);
         $activefl = PersonalFreeleech::where('user_id', '=', $user_acc->id)->first();
-        $bon_transactions = new BonTransactions();
+        $bon_transactions = resolve(BonTransactions::class);
 
         if ($item['upload'] == true) {
             $user_acc->uploaded += $item['value'];
@@ -324,7 +324,7 @@ class BonusController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function sendGift(Request $request)
     {
@@ -415,7 +415,7 @@ class BonusController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function tipUploader(Request $request, $id)
     {
@@ -465,15 +465,14 @@ class BonusController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function tipPoster(Request $request)
+    public function tipPoster(Request $request, $id)
     {
         $user = $request->user();
 
         if ($request->has('post') && $request->input('post') > 0) {
-            $p = (int) $request->input('post');
-            $post = Post::with('topic')->findOrFail($p);
+            $post = Post::with('topic')->findOrFail($id);
             $poster = User::where('id', '=', $post->user_id)->firstOrFail();
         } else {
             abort(404);
