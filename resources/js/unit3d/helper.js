@@ -30,40 +30,24 @@ class uploadExtensionBuilder {
         let name = document.querySelector('#title');
         let torrent = document.querySelector('#torrent');
         if (!name.value) {
-            let fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
-            let allowed = ['1.0', '2.0', '5.1', '6.1', '7.1', 'H.264'];
-            var newValue = '';
-            var preValue = torrent.value;
+            const fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
+            let newValue = torrent.value;
+            // strip path
+            newValue = newValue.split('\\').pop().split('/').pop();
+            // remove file endings
             fileEndings.forEach(function (e) {
-                preValue = preValue.replace(e, '');
+                newValue = newValue.replace(e, '');
             });
-            var recursion = preValue.split('\\').pop().split('/').pop();
-            for(var i=0; i<recursion.length; i++) {
-                var prev = false;
-                var next = false;
-                if(recursion[i] == '.') {
-                    var joined = false;
-                    for(var j=0; j<allowed.length; j++) {
-                        var tmp = allowed[j].split('.');
-                        if(tmp[0] == 'H') {
-                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == '2' && recursion[i + 2] != undefined && recursion[i + 2] == '6' && recursion[i + 3] != undefined && recursion[i + 3] =='4') {
-                                joined = true;
-                            }
-                        } else {
-                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == tmp[1]) {
-                                joined = true;
-                            }
-                        }
-                    }
-                    if(joined == false) { newValue=newValue+' '; }
-                    else {
-                        newValue = newValue+'.';
-                    }
-                }
-                else {
-                    newValue = newValue + recursion[i];
-                }
-            }
+            // replace dots with spaces that are between:
+            // 1) letter and letter
+            // 2) number and letter
+            // 3) . 4 numbers (.year)
+            // 4) 4 numbers and 3 or 4 numbers followed by i or p (year and resolution, 2020.1080p)
+            // 5) S . 2 numbers . 3 or 4 numbers followed by i or p (season and resolution, S01.720p)
+            // 6) 2 letters . number . number (DD.2.0 or AAC.2.0 or DD+.2.0 or DTS-X.7.1)
+            // each of the cases is separated by a vertical bar | (aka "OR") in the regex
+            // letter here means any non-digit
+            newValue = newValue.replace(/(?<=[\D])\.(?=[\D])|(?<=\d)\.(?=[\D])|\.(?=[\d]{4})|(?<=\d{4})\.(?=\d{3,4}[ip])|(?<=S\d{2})\.(?=\d{3,4}[ip])|(?<=[\D]{2})\.(?=\d\.\d)/g, " ")
             name.value = newValue;
         }
     }
