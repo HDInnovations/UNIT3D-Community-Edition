@@ -36,8 +36,5 @@ $factory->define(App\Models\TorrentRequest::class, function (Faker $faker) {
             return factory(App\Models\User::class)->create()->id;
         },
         'approved_when' => $faker->dateTime(),
-        'type_id'       => function () {
-            return factory(App\Models\Type::class)->create()->id;
-        },
     ];
 });
