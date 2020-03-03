@@ -76,7 +76,7 @@ class MassActionController extends Controller
         $member_group = cache()->rememberForever('member_group', function () {
             return Group::where('slug', '=', 'user')->pluck('id');
         });
-        $users = User::where('active', '=', 0)->where('group_id', '=', $validating_group[0])->get();
+        $users = User::where('group_id', '=', $validating_group[0])->get();
 
         foreach ($users as $user) {
             $user->group_id = $member_group[0];
