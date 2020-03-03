@@ -259,8 +259,7 @@ break;
                                 break;
                         }
                         if (remainingAttempts === 0) {
-                            $('#verification_status_title').html('<h3>{{ trans('
-                                auth.titleFailed ') }}</h3>');
+                            $('#verification_status_title').html('<h3>{{ trans('auth.titleFailed ') }}</h3>');
                             varificationForm.fadeOut(100, function() {
                                 $('#failed_login_alert').show();
                                 setTimeout(function() {
