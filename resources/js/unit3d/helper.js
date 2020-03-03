@@ -38,16 +38,23 @@ class uploadExtensionBuilder {
             fileEndings.forEach(function (e) {
                 newValue = newValue.replace(e, '');
             });
-            // replace dots with spaces that are between:
-            // 1) letter and letter
-            // 2) number and letter
-            // 3) . 4 numbers (.year)
-            // 4) 4 numbers and 3 or 4 numbers followed by i or p (year and resolution, 2020.1080p)
-            // 5) S . 2 numbers . 3 or 4 numbers followed by i or p (season and resolution, S01.720p)
-            // 6) 2 letters . number . number (DD.2.0 or AAC.2.0 or DD+.2.0 or DTS-X.7.1)
-            // each of the cases is separated by a vertical bar | (aka "OR") in the regex
-            // letter here means any non-digit
-            newValue = newValue.replace(/(?<=[\D])\.(?=[\D])|(?<=\d)\.(?=[\D])|\.(?=[\d]{4})|(?<=\d{4})\.(?=\d{3,4}[ip])|(?<=S\d{2})\.(?=\d{3,4}[ip])|(?<=[\D]{2})\.(?=\d\.\d)/g, " ")
+            // replace dots with spaces
+            // use separate capture groups instead of negative look-behind (which is unsupported on most browsers)
+            newValue = (function (str) {
+                // 1) letter and letter
+                str = str.replace(/([\D])\.(?=[\D])/g, "$1 ")
+                // 2) number and letter
+                str = str.replace(/([\d])\.(?=[\D])/g, "$1 ")
+                // 3) . 4 numbers (.year)
+                str = str.replace(/\.(?=[\d]{4})/g, " ")
+                // 4) 4 numbers and 3 or 4 numbers followed by i or p (year and resolution, 2020.1080p)
+                str = str.replace(/(\d{4})\.(?=\d{3,4}[ip])/g, "$1 ")
+                // 5) S . 2 numbers . 3 or 4 numbers followed by i or p (season and resolution, S01.720p)
+                str = str.replace(/(S\d{2})\.(?=\d{3,4}[ip])/g, "$1 ")
+                // 6) 2 letters . number . number (DD.2.0 or AAC.2.0 or DD+.2.0 or DTS-X.7.1)
+                str = str.replace(/([\D]{2})\.(?=\d\.\d)/g, "$1 ")
+                return str
+            })(newValue);
             name.value = newValue;
         }
     }
