@@ -48,7 +48,7 @@ class FollowController extends Controller
             }
 
             return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess('You are now following '.$user->username);
+                ->withSuccess(sprintf('You are now following %s', $user->username));
         }
 
         return redirect()->route('users.show', ['username' => $user->username])
@@ -75,7 +75,7 @@ class FollowController extends Controller
             }
 
             return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess('You are no longer following '.$user->username);
+                ->withSuccess(sprintf('You are no longer following %s', $user->username));
         }
 
         return redirect()->route('users.show', ['username' => $user->username])
