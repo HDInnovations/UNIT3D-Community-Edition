@@ -40,7 +40,7 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         // Fetch owner account
-        $user = User::where('id', '=', 3)->first();
+        $user = User::where('username', config('unit3d.owner-username'))->first();
 
         $input = $request->all();
         Mail::to($user->email, $user->username)->send(new Contact($input));
