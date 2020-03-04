@@ -55,5 +55,4 @@ class Authentication extends Model
     {
         return $this->belongsTo(Device::class);
     }
-
 }

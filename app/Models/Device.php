@@ -64,5 +64,4 @@ class Device extends Model
 
         return $relation;
     }
-
 }
