@@ -86,7 +86,7 @@
                                         <td>
                                             <strong>@lang('common.huge') @lang('torrent.torrents')</strong><br>
                                             <small>@lang('torrent.torrent') @lang('torrent.size')<span
-                                                    class="text-bold">></span> 100GB
+                                                    class="text-bold">></span> 100GiB
                                             </small>
                                         </td>
                                         <td><strong>{{ $huge }} x 0.75</strong></td>
@@ -103,8 +103,8 @@
                                         <td>
                                             <strong>@lang('common.large') @lang('torrent.torrents')</strong><br>
                                             <small>@lang('torrent.torrent') @lang('torrent.size')<span
-                                                    class="text-bold">>=</span> 25GB {{ strtolower(trans('common.but')) }}
-                                                < 100GB </small> </td> <td><strong>{{ $large }} x 0.50</strong></td>
+                                                    class="text-bold">>=</span> 25GiB {{ strtolower(trans('common.but')) }}
+                                                < 100GiB </small> </td> <td><strong>{{ $large }} x 0.50</strong></td>
                                         <td>
                                             {{ $large * 0.5 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">
@@ -118,8 +118,8 @@
                                         <td>
                                             <strong>@lang('common.everyday') @lang('torrent.torrents')</strong><br>
                                             <small>@lang('torrent.torrent') @lang('torrent.size')<span class="text-bold">
-                                                    >=</span> 1GB {{ strtolower(trans('common.but')) }}
-                                                < 25GB </small> </td> <td><strong>{{ $regular }} x 0.25</strong></td>
+                                                    >=</span> 1GiB {{ strtolower(trans('common.but')) }}
+                                                < 25GiB </small> </td> <td><strong>{{ $regular }} x 0.25</strong></td>
                                         <td>
                                             {{ $regular * 0.25 }} @lang('bon.per-hour')<br />
                                             <span class="bonExtension" style="display: none;">

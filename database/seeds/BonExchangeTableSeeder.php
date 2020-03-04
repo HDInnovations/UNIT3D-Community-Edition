@@ -27,7 +27,7 @@ class BonExchangeTableSeeder extends Seeder
         \DB::table('bon_exchange')->insert([
             0 => [
                 'id'                 => 1,
-                'description'        => '2 GB Upload',
+                'description'        => '2 GiB Upload',
                 'value'              => 2147483648,
                 'cost'               => 500,
                 'upload'             => 1,
@@ -37,7 +37,7 @@ class BonExchangeTableSeeder extends Seeder
             ],
             1 => [
                 'id'                 => 2,
-                'description'        => '10 GB Upload',
+                'description'        => '10 GiB Upload',
                 'value'              => 10737418240,
                 'cost'               => 1000,
                 'upload'             => 1,
@@ -47,7 +47,7 @@ class BonExchangeTableSeeder extends Seeder
             ],
             2 => [
                 'id'                 => 3,
-                'description'        => '25 GB Upload',
+                'description'        => '25 GiB Upload',
                 'value'              => 26843545600,
                 'cost'               => 2000,
                 'upload'             => 1,
@@ -57,7 +57,7 @@ class BonExchangeTableSeeder extends Seeder
             ],
             3 => [
                 'id'                 => 4,
-                'description'        => '100 GB Upload',
+                'description'        => '100 GiB Upload',
                 'value'              => 107374182400,
                 'cost'               => 5000,
                 'upload'             => 1,
