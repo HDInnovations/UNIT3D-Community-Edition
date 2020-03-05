@@ -115,5 +115,5 @@ class Preloader
         \Illuminate\Http\Testing\File::class,
         \Illuminate\Http\UploadedFile::class,
         \Illuminate\Support\Carbon::class,
-        )
+    )
     ->load();
