@@ -66,8 +66,9 @@ class MassActionController extends Controller
     /**
      * Mass Validate Unvalidated Users.
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update()
     {

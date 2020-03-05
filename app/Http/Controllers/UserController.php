@@ -1162,8 +1162,9 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return array
      * @throws \Throwable
+     *
+     * @return array
      */
     public function myFilter(Request $request, $username)
     {

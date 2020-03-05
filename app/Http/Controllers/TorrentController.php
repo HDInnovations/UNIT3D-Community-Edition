@@ -1011,9 +1011,10 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $id)
     {
@@ -1098,8 +1099,9 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTorrent(Request $request)
     {

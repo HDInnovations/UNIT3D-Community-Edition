@@ -142,7 +142,7 @@ class InviteController extends Controller
      * Resend Invite.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Invite      $id
+     * @param \App\Models\Invite       $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

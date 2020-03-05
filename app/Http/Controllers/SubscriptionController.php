@@ -24,8 +24,8 @@ class SubscriptionController extends Controller
      * Subscribe To A Topic.
      *
      * @param \Illuminate\Http\Request $request
-     * @param string  $route
-     * @param Topic   $topic
+     * @param string                   $route
+     * @param Topic                    $topic
      *
      * @return \Illuminate\Http\RedirectResponse
      */
