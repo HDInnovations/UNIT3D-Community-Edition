@@ -464,7 +464,7 @@ class BonusController extends Controller
      * Tip Points To A Poster.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Post         $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

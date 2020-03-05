@@ -23,7 +23,7 @@ class SeedboxController extends Controller
      * Get A Users Registered Seedboxes.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

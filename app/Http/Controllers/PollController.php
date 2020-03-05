@@ -53,7 +53,7 @@ class PollController extends Controller
      * Show A Poll.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Poll         $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

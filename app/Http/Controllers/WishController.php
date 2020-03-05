@@ -39,7 +39,7 @@ class WishController extends Controller
      * Get A Users Wishlist.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

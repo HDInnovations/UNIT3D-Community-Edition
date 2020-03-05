@@ -25,7 +25,7 @@ class WarningController extends Controller
      * Show A Users Warnings.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $username
+     * @param \App\Models\User         $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -83,7 +83,7 @@ class WarningController extends Controller
      * Deactivate All Warnings.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -148,7 +148,7 @@ class WarningController extends Controller
      * Delete All Warnings.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */

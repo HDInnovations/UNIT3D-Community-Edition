@@ -224,7 +224,7 @@ class PostController extends Controller
      * Delete A Post.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $postId
+     * @param \App\Models\Post         $postId
      *
      * @throws \Exception
      *
