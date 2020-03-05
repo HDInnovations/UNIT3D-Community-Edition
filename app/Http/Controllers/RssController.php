@@ -141,8 +141,9 @@ class RssController extends Controller
      * @param int    $id
      * @param string $rsskey
      *
-     * @return \Illuminate\Http\Response
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function show($id, $rsskey)
     {

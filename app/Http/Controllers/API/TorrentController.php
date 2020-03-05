@@ -62,13 +62,13 @@ class TorrentController extends BaseController
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     *
      * @param \App\Models\Torrent      $torrent
      *
-     * @return \Illuminate\Http\Response
      * @throws \ErrorException
      * @throws \HttpInvalidParamException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Torrent $torrent)
     {

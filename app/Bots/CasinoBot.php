@@ -87,8 +87,9 @@ class CasinoBot
      * @param int    $amount
      * @param string $note
      *
-     * @return string
      * @throws \Exception
+     *
+     * @return string
      */
     public function putDonate($amount = 0, $note = '')
     {
@@ -129,8 +130,9 @@ class CasinoBot
      *
      * @param string $duration
      *
-     * @return string
      * @throws \Exception
+     *
+     * @return string
      */
     public function getDonations($duration = 'default')
     {

@@ -24,8 +24,9 @@ class ChatMessageResource extends JsonResource
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return array
      */
     public function toArray($request)
     {

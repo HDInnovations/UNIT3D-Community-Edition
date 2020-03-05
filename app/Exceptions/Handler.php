@@ -48,8 +48,9 @@ class Handler extends ExceptionHandler
      *
      * @param \Exception $exception
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function report(Exception $exception)
     {
@@ -62,8 +63,9 @@ class Handler extends ExceptionHandler
      * @param \Illuminate\Http\Request $request
      * @param \Exception               $exception
      *
-     * @return \Illuminate\Http\Response
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {

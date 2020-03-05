@@ -39,7 +39,7 @@ class ReportController extends Controller
     /**
      * Create A Request Report.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
      * @return \Illuminate\Http\RedirectResponse

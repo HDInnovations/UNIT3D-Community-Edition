@@ -183,8 +183,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function uploaded()
     {
@@ -210,8 +211,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function downloaded()
     {
@@ -276,8 +278,9 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Users.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bankers()
     {

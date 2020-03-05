@@ -61,7 +61,6 @@ class TopicController extends Controller
      * Show The Topic.
      *
      * @param \App\Models\Topic $id
-     *
      * @param string            $page
      * @param string            $post
      *

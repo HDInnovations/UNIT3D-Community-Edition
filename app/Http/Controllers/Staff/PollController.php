@@ -118,7 +118,6 @@ class PollController extends Controller
      * Update A New Poll.
      *
      * @param StorePoll $request
-     *
      * @param           $id
      *
      * @return \Illuminate\Http\RedirectResponse
