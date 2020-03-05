@@ -23,11 +23,11 @@ class SubscriptionController extends Controller
     /**
      * Subscribe To A Topic.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param string  $route
      * @param Topic   $topic
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function subscribeTopic(Request $request, string $route, Topic $topic)
     {
@@ -61,7 +61,7 @@ class SubscriptionController extends Controller
      * @param string                   $route
      * @param Topic                    $topic
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function unsubscribeTopic(Request $request, string $route, Topic $topic)
     {
@@ -93,7 +93,7 @@ class SubscriptionController extends Controller
      * @param string                   $route
      * @param Forum                    $forum
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function subscribeForum(Request $request, string $route, Forum $forum)
     {
@@ -127,7 +127,7 @@ class SubscriptionController extends Controller
      * @param string                   $route
      * @param Forum                    $forum
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function unsubscribeForum(Request $request, string $route, Forum $forum)
     {

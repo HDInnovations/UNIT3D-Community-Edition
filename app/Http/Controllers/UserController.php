@@ -43,7 +43,7 @@ class UserController extends Controller
     /**
      * Show A User.
      *
-     * @param $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -89,7 +89,7 @@ class UserController extends Controller
     /**
      * User Followers.
      *
-     * @param $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -108,7 +108,7 @@ class UserController extends Controller
     /**
      * User Topics.
      *
-     * @param $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -127,7 +127,7 @@ class UserController extends Controller
     /**
      * User Posts.
      *
-     * @param $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -166,7 +166,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function editProfile(Request $request, $username)
     {
@@ -235,7 +235,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changeSettings(Request $request, $username)
     {
@@ -289,7 +289,7 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeTwoStep(Request $request)
     {
@@ -309,7 +309,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changePassword(Request $request, $username)
     {
@@ -342,9 +342,9 @@ class UserController extends Controller
      * User Email Change.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeEmail(Request $request, $username)
     {
@@ -381,9 +381,9 @@ class UserController extends Controller
      * Change User Privacy Level.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makePrivate(Request $request, $username)
     {
@@ -402,9 +402,9 @@ class UserController extends Controller
      * Change User Privacy Level.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makePublic(Request $request, $username)
     {
@@ -423,9 +423,9 @@ class UserController extends Controller
      * Change User Notification Setting.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function disableNotifications(Request $request, $username)
     {
@@ -444,9 +444,9 @@ class UserController extends Controller
      * Change User Notification Setting.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function enableNotifications(Request $request, $username)
     {
@@ -465,9 +465,9 @@ class UserController extends Controller
      * Change User Hidden Value.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makeHidden(Request $request, $username)
     {
@@ -486,9 +486,9 @@ class UserController extends Controller
      * Change User Hidden Value.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function makeVisible(Request $request, $username)
     {
@@ -507,9 +507,9 @@ class UserController extends Controller
      * Change User PID.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changePID(Request $request, $username)
     {
@@ -530,7 +530,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeOther(Request $request, $username)
     {
@@ -564,7 +564,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeRequest(Request $request, $username)
     {
@@ -598,7 +598,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeAchievement(Request $request, $username)
     {
@@ -632,7 +632,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeForum(Request $request, $username)
     {
@@ -667,7 +667,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeFollower(Request $request, $username)
     {
@@ -701,7 +701,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeTorrent(Request $request, $username)
     {
@@ -740,7 +740,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeAccountNotification(Request $request, $username)
     {
@@ -776,7 +776,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeFollowingNotification(Request $request, $username)
     {
@@ -811,7 +811,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeBonNotification(Request $request, $username)
     {
@@ -846,7 +846,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeSubscriptionNotification(Request $request, $username)
     {
@@ -882,7 +882,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeRequestNotification(Request $request, $username)
     {
@@ -923,7 +923,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeTorrentNotification(Request $request, $username)
     {
@@ -960,7 +960,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeMentionNotification(Request $request, $username)
     {
@@ -999,7 +999,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeForumNotification(Request $request, $username)
     {
@@ -1034,7 +1034,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function changeProfile(Request $request, $username)
     {
@@ -1082,7 +1082,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changeRID(Request $request, $username)
     {
@@ -1103,7 +1103,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changeApiToken(Request $request, $username)
     {
@@ -1121,7 +1121,7 @@ class UserController extends Controller
     /**
      * User Privacy Settings.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1140,7 +1140,7 @@ class UserController extends Controller
     /**
      * User Notification Settings.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1160,9 +1160,10 @@ class UserController extends Controller
      * Uses Input's To Put Together A Filtered View.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param                          $username
      *
      * @return array
+     * @throws \Throwable
      */
     public function myFilter(Request $request, $username)
     {
@@ -1622,7 +1623,7 @@ class UserController extends Controller
     /**
      * Get A Users Downloads (Fully Downloaded) Table.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1691,7 +1692,7 @@ class UserController extends Controller
     /**
      * Get A Users Requested Table.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1723,7 +1724,7 @@ class UserController extends Controller
     /**
      * Get A Users Unsatisfieds Table.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1771,7 +1772,7 @@ class UserController extends Controller
     /**
      * Get A Users History Table.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1804,7 +1805,7 @@ class UserController extends Controller
     /**
      * Get A Users Graveyard Resurrections.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1826,7 +1827,7 @@ class UserController extends Controller
     /**
      * Get A User Uploads.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1867,7 +1868,7 @@ class UserController extends Controller
     /**
      * Get A Users Active Table.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1903,7 +1904,7 @@ class UserController extends Controller
     /**
      * Get A Users Seeds Table.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1938,7 +1939,7 @@ class UserController extends Controller
     /**
      * Get A Users Bans.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -1959,7 +1960,7 @@ class UserController extends Controller
     /**
      * Download All History Torrents.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \ZipArchive
@@ -2037,7 +2038,7 @@ class UserController extends Controller
     /**
      * Accept Site Rules.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return void
      */

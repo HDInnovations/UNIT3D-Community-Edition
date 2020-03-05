@@ -22,7 +22,7 @@ class ForumCategoryController extends Controller
     /**
      * Show The Forum Category.
      *
-     * @param $id
+     * @param \App\Models\Forum $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

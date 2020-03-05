@@ -41,7 +41,8 @@ class FlushController extends Controller
     /**
      * Flsuh All Old Peers From Database.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function peers()
     {
@@ -64,7 +65,8 @@ class FlushController extends Controller
     /**
      * Flush All Chat Messages.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function chat()
     {

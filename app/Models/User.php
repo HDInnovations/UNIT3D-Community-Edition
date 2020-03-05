@@ -264,7 +264,7 @@ class User extends Authenticatable
     /**
      * Belongs To Many Bookmarks.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function bookmarks()
     {
@@ -369,7 +369,7 @@ class User extends Authenticatable
     /**
      * Has Many Thanks Received.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function thanksReceived()
     {

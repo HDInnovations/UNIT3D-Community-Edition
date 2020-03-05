@@ -225,7 +225,7 @@ class BonusController extends Controller
      * Exchange Points For A Item.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\BonExchange  $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -259,8 +259,8 @@ class BonusController extends Controller
     /**
      * Do Item Exchange.
      *
-     * @param $userID
-     * @param $itemID
+     * @param \App\Models\User        $userID
+     * @param \App\Models\BonExchange $itemID
      *
      * @return string
      */
@@ -413,7 +413,7 @@ class BonusController extends Controller
      * Tip Points To A Uploader.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Torrent      $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -464,6 +464,8 @@ class BonusController extends Controller
      * Tip Points To A Poster.
      *
      * @param \Illuminate\Http\Request $request
+     *
+     * @param                          $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

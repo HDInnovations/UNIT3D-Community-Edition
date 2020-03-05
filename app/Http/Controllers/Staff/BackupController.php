@@ -27,7 +27,7 @@ class BackupController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -160,7 +160,7 @@ class BackupController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
     public function download(Request $request)
     {

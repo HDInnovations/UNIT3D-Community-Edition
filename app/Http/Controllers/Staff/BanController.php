@@ -41,9 +41,10 @@ class BanController extends Controller
      * Ban A User (current_group -> banned).
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function store(Request $request, $username)
     {
@@ -89,9 +90,9 @@ class BanController extends Controller
      * Unban A User (banned -> new_group).
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $username)
     {

@@ -36,8 +36,8 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
-     * @param Request $request
-     * @param $passkey
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User         $passkey
      *
      * @throws \Exception
      *

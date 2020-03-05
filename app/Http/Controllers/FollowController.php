@@ -27,7 +27,7 @@ class FollowController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $username)
     {
@@ -61,7 +61,7 @@ class FollowController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $username)
     {

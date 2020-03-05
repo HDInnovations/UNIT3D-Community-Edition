@@ -33,9 +33,9 @@ class ContactController extends Controller
     /**
      * Send A Contact Email To Owner/First User.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {

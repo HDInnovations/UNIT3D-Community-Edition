@@ -53,7 +53,7 @@ class PollController extends Controller
      * Show A Poll.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $slug
+     * @param                          $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -76,7 +76,7 @@ class PollController extends Controller
      *
      * @param VoteOnPoll $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function vote(VoteOnPoll $request)
     {
@@ -115,7 +115,7 @@ class PollController extends Controller
     /**
      * Show A Polls Results.
      *
-     * @param $slug
+     * @param \App\Models\Poll $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

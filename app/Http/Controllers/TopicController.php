@@ -60,7 +60,10 @@ class TopicController extends Controller
     /**
      * Show The Topic.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
+     *
+     * @param string            $page
+     * @param string            $post
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -105,7 +108,7 @@ class TopicController extends Controller
      * Topic Add Form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Forum        $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -131,9 +134,9 @@ class TopicController extends Controller
      * Create A New Topic In The Forum.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Forum        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function newTopic(Request $request, $id)
     {
@@ -236,7 +239,7 @@ class TopicController extends Controller
     /**
      * Topic Edit Form.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -252,9 +255,9 @@ class TopicController extends Controller
      * Edit Topic In The Forum.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Topic        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function editTopic(Request $request, $id)
     {
@@ -276,9 +279,9 @@ class TopicController extends Controller
      * Close The Topic.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Topic        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function closeTopic(Request $request, $id)
     {
@@ -297,9 +300,9 @@ class TopicController extends Controller
      * Open The Topic.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Topic        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function openTopic(Request $request, $id)
     {
@@ -318,9 +321,9 @@ class TopicController extends Controller
      * Delete The Topic and The Posts.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Topic        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTopic(Request $request, $id)
     {
@@ -339,9 +342,9 @@ class TopicController extends Controller
     /**
      * Pin The Topic.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function pinTopic($id)
     {
@@ -356,9 +359,9 @@ class TopicController extends Controller
     /**
      * Unpin The Topic.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function unpinTopic($id)
     {

@@ -36,7 +36,7 @@ class MassActionController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -66,7 +66,8 @@ class MassActionController extends Controller
     /**
      * Mass Validate Unvalidated Users.
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function update()
     {

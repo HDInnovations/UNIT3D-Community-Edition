@@ -22,7 +22,7 @@ class ImageController extends Controller
     /**
      * Show Image Create Form.
      *
-     * @param $id
+     * @param \App\Models\Album $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -38,7 +38,7 @@ class ImageController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -77,9 +77,9 @@ class ImageController extends Controller
     /**
      * Download A Image.
      *
-     * @param $id
+     * @param \App\Models\Image $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function download($id)
     {
@@ -101,9 +101,9 @@ class ImageController extends Controller
      * Delete A Image.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Image        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
     {

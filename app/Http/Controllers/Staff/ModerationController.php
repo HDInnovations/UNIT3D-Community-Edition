@@ -61,9 +61,9 @@ class ModerationController extends Controller
     /**
      * Approve A Torrent.
      *
-     * @param $id
+     * @param \App\Models\Torrent $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function approve($id)
     {
@@ -102,7 +102,7 @@ class ModerationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postpone(Request $request)
     {
@@ -139,7 +139,7 @@ class ModerationController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request)
     {

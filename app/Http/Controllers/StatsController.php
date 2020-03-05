@@ -184,6 +184,7 @@ class StatsController extends Controller
      * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function uploaded()
     {
@@ -210,6 +211,7 @@ class StatsController extends Controller
      * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function downloaded()
     {
@@ -275,6 +277,7 @@ class StatsController extends Controller
      * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
     public function bankers()
     {
@@ -417,7 +420,7 @@ class StatsController extends Controller
     /**
      * Show Extra-Stats Groups.
      *
-     * @param $id
+     * @param \App\Models\Group $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

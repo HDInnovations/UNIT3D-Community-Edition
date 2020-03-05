@@ -38,7 +38,7 @@ class WishController extends Controller
     /**
      * Get A Users Wishlist.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -102,7 +102,7 @@ class WishController extends Controller
      * Delete A Wish.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Wish         $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

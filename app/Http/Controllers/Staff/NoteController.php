@@ -36,9 +36,9 @@ class NoteController extends Controller
      * Store A New User Note.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $username)
     {
@@ -69,9 +69,9 @@ class NoteController extends Controller
     /**
      * Delete A User Note.
      *
-     * @param $id
+     * @param \App\Models\Note $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

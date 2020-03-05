@@ -26,6 +26,7 @@ class CheckIfBanned
      * @param string|null              $guard
      *
      * @return mixed
+     * @throws \Exception
      */
     public function handle($request, Closure $next, $guard = null)
     {

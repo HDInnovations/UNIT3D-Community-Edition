@@ -333,7 +333,7 @@ class ForumController extends Controller
     /**
      * Show Forums And Topics Inside.
      *
-     * @param $id
+     * @param \App\Models\Forum $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

@@ -43,7 +43,7 @@ class ApplicationController extends Controller
     /**
      * Get A Application.
      *
-     * @param  $id
+     * @param \App\Models\Application $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -58,9 +58,10 @@ class ApplicationController extends Controller
      * Approve A Application.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param \App\Models\Application  $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function approve(Request $request, $id)
     {
@@ -115,9 +116,9 @@ class ApplicationController extends Controller
      * Reject A Application.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param \App\Models\Application  $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request, $id)
     {

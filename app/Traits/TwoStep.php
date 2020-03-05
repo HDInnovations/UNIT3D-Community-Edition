@@ -68,6 +68,7 @@ trait TwoStep
      * @param collection $twoStepAuth
      *
      * @return collection
+     * @throws \Exception
      */
     private function resetAuthStatus($twoStepAuth)
     {
@@ -108,6 +109,7 @@ trait TwoStep
      * @param int $userId
      *
      * @return collection
+     * @throws \Exception
      */
     private function checkTwoStepAuthStatus(int $userId)
     {
@@ -177,6 +179,7 @@ trait TwoStep
      * @param collection $twoStepEntry
      *
      * @return collection
+     * @throws \Exception
      */
     protected function resetExceededTime($twoStepEntry)
     {
@@ -193,6 +196,7 @@ trait TwoStep
      * @param collection $twoStepAuth
      *
      * @return void
+     * @throws \Exception
      */
     protected function resetActivationCountdown($twoStepAuth)
     {

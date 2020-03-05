@@ -229,7 +229,7 @@ class Torrent extends Model
     /**
      * Has Many Keywords.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function keywords()
     {

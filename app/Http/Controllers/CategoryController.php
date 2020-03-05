@@ -36,7 +36,7 @@ class CategoryController extends Controller
      * Show A Category.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Category     $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

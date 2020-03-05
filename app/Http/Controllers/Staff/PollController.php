@@ -51,7 +51,7 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
-     * @param $id
+     * @param \App\Models\Poll $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -77,7 +77,7 @@ class PollController extends Controller
      *
      * @param StorePoll $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StorePoll $request)
     {
@@ -103,7 +103,7 @@ class PollController extends Controller
     /**
      * Poll Edit Form.
      *
-     * @param $id
+     * @param \App\Models\Poll $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -119,7 +119,9 @@ class PollController extends Controller
      *
      * @param StorePoll $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @param           $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StorePoll $request, $id)
     {
@@ -186,9 +188,9 @@ class PollController extends Controller
     /**
      * Delete A Poll.
      *
-     * @param $id
+     * @param \App\Models\Poll $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
