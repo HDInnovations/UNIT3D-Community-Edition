@@ -172,6 +172,27 @@ class Forum extends Model
     }
 
     /**
+     * Notify Staffers When New Staff Topic Is Made.
+     *
+     * @param $poster
+     * @param $topic
+     *
+     * @return string
+     */
+    public function notifyStaffers($poster, $topic)
+    {
+        $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
+            ->select('users.id')
+            ->where('users.id', '<>', $poster->id)
+            ->where('groups.is_modo', 1)
+            ->get();
+
+        foreach ($staffers as $staffer) {
+            $staffer->notify(new NewTopic('staff', $poster, $topic));
+        }
+    }
+
+    /**
      * Returns A Table With The Forums In The Category.
      *
      * @return string

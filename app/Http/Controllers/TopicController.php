@@ -203,15 +203,17 @@ class TopicController extends Controller
             $forum->last_post_user_username = $user->username;
             $forum->save();
 
-            $forum->notifySubscribers($user, $topic);
-
             // Post To ShoutBox
             $appurl = config('app.url');
             $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
             $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
 
-            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
-
+            if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
+                $forum->notifyStaffers($user, $topic);
+            } else {
+                $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+                $forum->notifySubscribers($user, $topic);
+            }
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);
             $user->addProgress(new UserMade25Posts(), 1);

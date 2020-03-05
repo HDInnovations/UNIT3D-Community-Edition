@@ -147,6 +147,28 @@ class Topic extends Model
     }
 
     /**
+     * Notify Staffers When New Staff Post Is Made.
+     *
+     * @param $poster
+     * @param $topic
+     * @param $post
+     *
+     * @return string
+     */
+    public function notifyStaffers($poster, $topic, $post)
+    {
+        $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
+            ->select('users.id')
+            ->where('users.id', '<>', $poster->id)
+            ->where('groups.is_modo', 1)
+            ->get();
+
+        foreach ($staffers as $staffer) {
+            $staffer->notify(new NewPost('staff', $poster, $post));
+        }
+    }
+
+    /**
      * Does User Have Permission To View Topic.
      *
      * @return string
