@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ByteUnits;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
@@ -36,12 +37,24 @@ class BonusController extends Controller
     private $chat;
 
     /**
+     * The library used for parsing byte units.
+     *
+     * @var ByteUnits
+     */
+    protected $byteUnits;
+
+    /**
      * BonusController Constructor.
      *
+     * @param ByteUnits      $byteUnits
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
-    {
+    public function __construct(
+        ByteUnits $byteUnits,
+        ChatRepository $chat
+    ) {
+        $this->byteUnits = $byteUnits;
+
         $this->chat = $chat;
     }
 
@@ -593,7 +606,7 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 100)
+            ->where('torrents.size', '>=', $this->byteUnits->bytesFromUnit('100GiB'))
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -613,8 +626,8 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 25)
-            ->where('torrents.size', '<', 1073741824 * 100)
+            ->where('torrents.size', '>=', $this->byteUnits->bytesFromUnit('25GiB'))
+            ->where('torrents.size', '<', $this->byteUnits->bytesFromUnit('100GiB'))
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -634,8 +647,8 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824)
-            ->where('torrents.size', '<', 1073741824 * 25)
+            ->where('torrents.size', '>=', $this->byteUnits->bytesFromUnit('1GiB'))
+            ->where('torrents.size', '<', $this->byteUnits->bytesFromUnit('25GiB'))
             ->where('peers.user_id', $user->id)
             ->count();
     }

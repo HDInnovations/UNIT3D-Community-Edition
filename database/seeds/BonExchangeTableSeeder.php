@@ -11,10 +11,24 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
+use App\Helpers\ByteUnits;
 use Illuminate\Database\Seeder;
 
 class BonExchangeTableSeeder extends Seeder
 {
+    /**
+     * The library used for parsing byte units.
+     *
+     * @var Parser
+     */
+    protected $byteUnits;
+
+    public function __construct(
+        ByteUnits $byteUnits
+    ) {
+        $this->byteUnits = $byteUnits;
+    }
+
     /**
      * Auto generated seed file.
      *
@@ -28,7 +42,7 @@ class BonExchangeTableSeeder extends Seeder
             0 => [
                 'id'                 => 1,
                 'description'        => '2 GiB Upload',
-                'value'              => 2147483648,
+                'value'              => $this->byteUnits->bytesFromUnit('2GiB'),
                 'cost'               => 500,
                 'upload'             => 1,
                 'download'           => 0,
@@ -38,7 +52,7 @@ class BonExchangeTableSeeder extends Seeder
             1 => [
                 'id'                 => 2,
                 'description'        => '10 GiB Upload',
-                'value'              => 10737418240,
+                'value'              => $this->byteUnits->bytesFromUnit('10GiB'),
                 'cost'               => 1000,
                 'upload'             => 1,
                 'download'           => 0,
@@ -48,7 +62,7 @@ class BonExchangeTableSeeder extends Seeder
             2 => [
                 'id'                 => 3,
                 'description'        => '25 GiB Upload',
-                'value'              => 26843545600,
+                'value'              => $this->byteUnits->bytesFromUnit('25GiB'),
                 'cost'               => 2000,
                 'upload'             => 1,
                 'download'           => 0,
@@ -58,7 +72,7 @@ class BonExchangeTableSeeder extends Seeder
             3 => [
                 'id'                 => 4,
                 'description'        => '100 GiB Upload',
-                'value'              => 107374182400,
+                'value'              => $this->byteUnits->bytesFromUnit('100GiB'),
                 'cost'               => 5000,
                 'upload'             => 1,
                 'download'           => 0,
