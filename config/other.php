@@ -137,7 +137,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This will be the upload and download given to new members. (In Bytes!)
-    | Default: 50GB Upload and 1GB Download
+    | Default: 50GiB Upload and 1GiB Download
     */
     'default_upload'   => '53687091200',
     'default_download' => '1073741824',

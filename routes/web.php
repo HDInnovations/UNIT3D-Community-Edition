@@ -485,7 +485,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/subscriptions', 'ForumController@subscriptions')->name('forum_subscriptions');
         Route::get('/latest/topics', 'ForumController@latestTopics')->name('forum_latest_topics');
         Route::get('/latest/posts', 'ForumController@latestPosts')->name('forum_latest_posts');
-        Route::get('/search', 'ForumController@search')->name('forum_search');
         Route::get('/search', 'ForumController@search')->name('forum_search_form');
 
         Route::group(['prefix' => 'topics'], function () {

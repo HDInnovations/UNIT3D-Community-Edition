@@ -13,7 +13,9 @@
 
 namespace App\Providers;
 
+use App\Helpers\ByteUnits;
 use App\Helpers\HiddenCaptcha;
+use App\Interfaces\ByteUnitsInterface;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
 use App\Models\Torrent;
@@ -51,6 +53,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Hidden Captcha
         $this->app->bind('hiddencaptcha', 'App\Helpers\HiddenCaptcha');
+
+        $this->app->bind(ByteUnitsInterface::class, ByteUnits::class);
     }
 
     /**
