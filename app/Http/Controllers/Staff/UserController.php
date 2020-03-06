@@ -34,6 +34,14 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
+     * @var string[]
+     */
+    private const WEIGHTS = [
+        'is_modo',
+        'is_admin',
+    ];
+
+    /**
      * Users List.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -107,14 +115,9 @@ class UserController extends Controller
 
         $sendto = (int) $request->input('group_id');
 
-        $weights = [
-            'is_modo',
-            'is_admin',
-        ];
-
         $sender = -1;
         $target = -1;
-        foreach ($weights as $pos => $weight) {
+        foreach (self::WEIGHTS as $pos => $weight) {
             if ($user->group->$weight && $user->group->$weight == 1) {
                 $target = $pos;
             }

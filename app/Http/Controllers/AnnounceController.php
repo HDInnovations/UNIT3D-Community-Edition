@@ -33,6 +33,10 @@ class AnnounceController extends Controller
     protected const REJECTED = 2;
     protected const POSTPONED = 3;
 
+    // Announce Intervals
+    private const MIN = 2400;
+    private const MAX = 3600;
+
     /**
      * Announce Code.
      *
@@ -471,10 +475,8 @@ class AnnounceController extends Controller
 
         // Build Response For Bittorrent Client
         $res = [];
-        $min = 2400; // 40 Minutes
-        $max = 3600; // 60 Minutes
-        $res['interval'] = rand($min, $max);
-        $res['min interval'] = 1800; // 30 Minutes
+        $res['interval'] = rand(self::MIN, self::MAX);
+        $res['min interval'] = self::MIN;
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
         $res['complete'] = $torrent->seeders;
         $res['incomplete'] = $torrent->leechers;

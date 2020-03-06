@@ -206,8 +206,6 @@ class ForumController extends Controller
         if (!is_array($forum_neos)) {
             $forum_neos = [];
         }
-
-        $logger = 'forum.subscriptions';
         $result = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos, $forum_neos) {
             $query->whereIn('topics.id', $topic_neos)->orWhereIn('forums.id', $forum_neos);
         })->groupBy('forums.id');
@@ -224,7 +222,7 @@ class ForumController extends Controller
 
         $params = $request->all();
 
-        return view($logger, [
+        return view('forum.subscriptions', [
             'results'    => $results,
             'user'       => $user,
             'name'       => $request->input('name'),

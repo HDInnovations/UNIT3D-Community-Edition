@@ -15,6 +15,11 @@ namespace App\Helpers;
 
 class Markdown
 {
+    /**
+     * @var string[]
+     */
+    private const SPECIAL_CHARACTER = ['>' => 'gt', '<' => 'lt', '"' => 'quot'];
+
     public function text($text)
     {
         // make sure no definitions are set
@@ -1207,11 +1212,9 @@ class Markdown
             ];
         }
 
-        $SpecialCharacter = ['>' => 'gt', '<' => 'lt', '"' => 'quot'];
-
-        if (isset($SpecialCharacter[$Excerpt['text'][0]])) {
+        if (isset(self::SPECIAL_CHARACTER[$Excerpt['text'][0]])) {
             return [
-                'markup' => '&'.$SpecialCharacter[$Excerpt['text'][0]].';',
+                'markup' => '&'.self::SPECIAL_CHARACTER[$Excerpt['text'][0]].';',
                 'extent' => 1,
             ];
         }
