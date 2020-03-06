@@ -24,11 +24,11 @@ class TmdbClient extends Client implements MovieTvInterface
 
     protected $apiSecure = true;
 
-    private $imagePath = 'https://image.tmdb.org/t/p/w780';
+    private const IMAGE_PATH = 'https://image.tmdb.org/t/p/w780';
 
-    private $imageBackdropPath = 'https://image.tmdb.org/t/p/w1280';
+    private const IMAGE_BACKDROP_PATH = 'https://image.tmdb.org/t/p/w1280';
 
-    private $imageProfilePath = 'https://image.tmdb.org/t/p/h632';
+    private const IMAGE_PROFILE_PATH = 'https://image.tmdb.org/t/p/h632';
 
     public function __construct($apiKey)
     {
@@ -137,16 +137,16 @@ class TmdbClient extends Client implements MovieTvInterface
                 'directors'    => $this->formatCasts($movie['credits'], 'directors'),
                 'writers'      => $this->formatCasts($movie['credits'], 'writers'),
                 'producers'    => $this->formatCasts($movie['credits'], 'producers'),
-                'poster'       => !empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
+                'poster'       => !empty($movie['poster_path']) ? self::IMAGE_PATH.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
                 'posters'      => !empty($movie['images']['posters']) ? $this->formatImages(
                     $movie['images']['posters'],
-                    $this->imagePath,
+                    self::IMAGE_PATH,
                     $movie['poster_path']
                 ) : 'https://via.placeholder.com/600x900',
-                'backdrop'  => !empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
+                'backdrop'  => !empty($movie['backdrop_path']) ? self::IMAGE_BACKDROP_PATH.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
                 'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
                     $movie['images']['backdrops'],
-                    $this->imageBackdropPath,
+                    self::IMAGE_BACKDROP_PATH,
                     $movie['backdrop_path']
                 ) : 'https://via.placeholder.com/1400x800',
                 'tmdbRating'      => $movie['vote_average'],
@@ -178,16 +178,16 @@ class TmdbClient extends Client implements MovieTvInterface
                 'languages'    => $this->formatLanguages($movie['languages'], 'tv'),
                 'genres'       => $this->formatGenres($movie['genres']),
                 'videoTrailer' => $this->formatVideoTrailers($movie),
-                'poster'       => !empty($movie['poster_path']) ? $this->imagePath.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
+                'poster'       => !empty($movie['poster_path']) ? self::IMAGE_PATH.$movie['poster_path'] : 'https://via.placeholder.com/600x900',
                 'posters'      => !empty($movie['images']['posters']) ? $this->formatImages(
                     $movie['images']['posters'],
-                    $this->imagePath,
+                    self::IMAGE_PATH,
                     $movie['poster_path']
                 ) : 'https://via.placeholder.com/600x900',
-                'backdrop'  => !empty($movie['backdrop_path']) ? $this->imageBackdropPath.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
+                'backdrop'  => !empty($movie['backdrop_path']) ? self::IMAGE_BACKDROP_PATH.$movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
                 'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
                     $movie['images']['backdrops'],
-                    $this->imageBackdropPath,
+                    self::IMAGE_BACKDROP_PATH,
                     $movie['backdrop_path']
                 ) : 'https://via.placeholder.com/1400x800',
                 'tmdbRating'      => $movie['vote_average'],
@@ -214,10 +214,10 @@ class TmdbClient extends Client implements MovieTvInterface
             'deathday'     => $person['deathday'] ?? null,
             'placeOfBirth' => $person['place_of_birth'] ?? null,
             'biography'    => $person['biography'] ?? null,
-            'photo'        => !empty($person['profile_path']) ? $this->imageProfilePath.$person['profile_path'] : 'https://via.placeholder.com/100x100',
+            'photo'        => !empty($person['profile_path']) ? self::IMAGE_PROFILE_PATH.$person['profile_path'] : 'https://via.placeholder.com/100x100',
             'photos'       => !empty($person['images']['profiles']) ? $this->formatImages(
                 $person['images']['profiles'],
-                $this->imageProfilePath,
+                self::IMAGE_PROFILE_PATH,
                 $person['profile_path']
             ) : null,
             'moviecredits' => $person['movie_credits'],

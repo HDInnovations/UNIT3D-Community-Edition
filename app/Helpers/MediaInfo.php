@@ -15,7 +15,7 @@ namespace App\Helpers;
 
 class MediaInfo
 {
-    private $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
+    private const REGEX_SECTION = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
 
     public function parse($string)
     {
@@ -25,7 +25,7 @@ class MediaInfo
         $output = [];
         foreach ($lines as $line) {
             $line = trim($line); // removed strtolower, unnecessary with the i-switch in the regexp (caseless) and adds problems with values; added it in the required places instead.
-            if (preg_match($this->regex_section, $line)) {
+            if (preg_match(self::REGEX_SECTION, $line)) {
                 $section = $line;
                 $output[$section] = [];
             }
