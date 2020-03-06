@@ -73,6 +73,7 @@ class SystemInformation
         // Uncomment one of the following alternatives
         // $bytes /= pow(1024, $pow);
         $bytes /= (1 << (10 * $pow));
+
         return round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
@@ -116,6 +117,7 @@ class SystemInformation
             return 'Unkown';
         }
         $results = DB::select(DB::raw('select version()'));
+
         return $results[0]->{'version()'};
     }
 

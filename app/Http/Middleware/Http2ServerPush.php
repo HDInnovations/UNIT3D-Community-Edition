@@ -161,6 +161,7 @@ class Http2ServerPush
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);
         }
+
         return is_null($type) ? null : sprintf('<%s>; rel=preload; as=%s', $url, $type);
     }
 

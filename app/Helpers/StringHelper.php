@@ -41,6 +41,7 @@ class StringHelper
         for ($i = 0; $i < $length; $i++) {
             $string .= self::CHARACTERS[rand(0, strlen(self::CHARACTERS) - 1)];
         }
+
         return $string;
     }
 
@@ -184,6 +185,7 @@ class StringHelper
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
             return $number.'th';
         }
+
         return $number.self::ENDS[$number % 10];
     }
 }
