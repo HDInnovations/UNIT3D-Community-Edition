@@ -225,6 +225,11 @@ class User extends Authenticatable
         return $this->hasMany(Authentication::class);
     }
 
+    public function hasDevices()
+    {
+        return $this->devices()->get()->isNotEmpty();
+    }
+
     /**
      * Has Many Devices.
      *
