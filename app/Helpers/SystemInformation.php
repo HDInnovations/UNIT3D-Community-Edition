@@ -21,7 +21,7 @@ class SystemInformation
     /**
      * @var string[]
      */
-    private const UNITS = ['B', 'KB', 'MB', 'GB', 'TB'];
+    private const UNITS = ['B', 'KiB', 'MiB', 'GiB', 'TiB'];
 
     /**
      * @var string[]
@@ -71,8 +71,8 @@ class SystemInformation
         $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
         $pow = min($pow, count(self::UNITS) - 1);
         // Uncomment one of the following alternatives
-        // $bytes /= pow(1024, $pow);
-        $bytes /= (1 << (10 * $pow));
+        $bytes /= pow(1024, $pow);
+        // $bytes /= (1 << (10 * $pow));
 
         return round($bytes, $precision).' '.self::UNITS[$pow];
     }
