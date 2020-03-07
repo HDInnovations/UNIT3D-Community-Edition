@@ -3,8 +3,6 @@ name: npm audit
 on:
   pull_request:
   push:
-    branches:
-      - master
 
 jobs:
   scan:
