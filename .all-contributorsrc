@@ -64,6 +64,16 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "cbj4074",
+      "name": "Ben Johnson",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1236883?v=4",
+      "profile": "https://indiehd.com",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
