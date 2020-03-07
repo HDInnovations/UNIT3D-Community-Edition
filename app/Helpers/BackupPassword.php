@@ -28,6 +28,8 @@ class BackupPassword
      * Read the .zip, apply password and encryption, then rewrite the file.
      *
      * @param string $path the path to the .zip-file
+     *
+     * @throws \PhpZip\Exception\ZipException
      */
     public function __construct(string $path)
     {

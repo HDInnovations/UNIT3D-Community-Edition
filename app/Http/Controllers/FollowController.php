@@ -25,9 +25,9 @@ class FollowController extends Controller
      * Follow A User.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $username)
     {
@@ -48,7 +48,7 @@ class FollowController extends Controller
             }
 
             return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess('You are now following '.$user->username);
+                ->withSuccess(sprintf('You are now following %s', $user->username));
         }
 
         return redirect()->route('users.show', ['username' => $user->username])
@@ -59,9 +59,9 @@ class FollowController extends Controller
      * Un Follow A User.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $username)
     {
@@ -75,7 +75,7 @@ class FollowController extends Controller
             }
 
             return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess('You are no longer following '.$user->username);
+                ->withSuccess(sprintf('You are no longer following %s', $user->username));
         }
 
         return redirect()->route('users.show', ['username' => $user->username])

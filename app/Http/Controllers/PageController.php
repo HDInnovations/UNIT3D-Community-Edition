@@ -33,7 +33,7 @@ class PageController extends Controller
     /**
      * Show A Page.
      *
-     * @param $id
+     * @param \App\Models\Page $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

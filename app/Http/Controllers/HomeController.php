@@ -36,6 +36,8 @@ class HomeController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)

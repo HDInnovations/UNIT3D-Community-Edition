@@ -18,7 +18,7 @@ return [
     | Powered By
     |--------------------------------------------------------------------------
     |
-    | Name of Codebase
+    | A string that describes the core software that powers the application
     |
     */
 
@@ -45,5 +45,18 @@ return [
     */
 
     'version' => 'v2.2.7',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Owner Account Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Various settings related to the Owner account configuration
+    |
+    */
+
+    'owner-username'         => env('DEFAULT_OWNER_NAME', 'UNIT3D'),
+    'default-owner-email'    => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
+    'default-owner-password' => env('DEFAULT_OWNER_PASSWORD', 'UNIT3D'),
 
 ];

@@ -191,7 +191,7 @@ select option {
 }
 
 .form-control {
-    background-color: rgba(255, 255, 255, 0.16);
+    background-color: #2b2b2b;
     color: #fff;
     border: 2px solid rgba(0, 0, 0, 0.56);
 }
@@ -242,11 +242,14 @@ a.text-bright:hover {
 
 .text-purple,
 .text-orange,
-.text-danger,
 .text-success,
 .text-pink,
 .fa-coins {
     color: var(--color-400);
+}
+
+.text-danger {
+    color: #996666;
 }
 
 .alert-danger,

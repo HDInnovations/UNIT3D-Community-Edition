@@ -48,7 +48,7 @@ class ArticleController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -89,7 +89,7 @@ class ArticleController extends Controller
     /**
      * Article Edit Form.
      *
-     * @param $id
+     * @param \App\Models\Article $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -104,9 +104,9 @@ class ArticleController extends Controller
      * Edit A Article.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Article      $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -145,9 +145,9 @@ class ArticleController extends Controller
     /**
      * Delete A Article.
      *
-     * @param $id
+     * @param \App\Models\Article $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

@@ -33,14 +33,14 @@ class ContactController extends Controller
     /**
      * Send A Contact Email To Owner/First User.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         // Fetch owner account
-        $user = User::where('id', '=', 3)->first();
+        $user = User::where('username', config('unit3d.owner-username'))->first();
 
         $input = $request->all();
         Mail::to($user->email, $user->username)->send(new Contact($input));

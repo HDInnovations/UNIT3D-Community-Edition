@@ -42,7 +42,7 @@
                             <div class="header gradient blue">
                                 <div class="inner_content">
                                     <h1>
-                                        Application
+                                        @lang('auth.application')
                                     </h1>
                                 </div>
                             </div>
@@ -51,10 +51,10 @@
                                     {{ config('other.title') }} @lang('auth.appl-intro')
                                 </div>
                                 <hr>
-    
+
                                 <form role="form" method="POST" action="{{ route('application.store') }}">
                                     @csrf
-    
+
                                     <label for="type" class="control-label">@lang('auth.are-you')</label>
                                     <br>
                                     <div class="radio-inline">
@@ -69,62 +69,77 @@
                                             @lang('auth.veteran')
                                         </label>
                                     </div>
-    
+
                                     <hr>
-    
+
                                     <div class="form-group">
                                         <label for="email" class="control-label">@lang('auth.email')</label>
                                         <input id="email" type="email" class="form-control" name="email" required>
+                                       @if (config('email-white-blacklist.enabled') == 'block')
+                                            <br>
+                                            <a target="_blank" rel="noopener noreferrer" href="{{ route('public.email') }}">
+                                                @lang('common.email-blacklist')
+                                            </a>
+                                       @elseif (config('email-white-blacklist.enabled') == 'allow')
+                                            <br>
+                                            <a target="_blank" rel="noopener noreferrer" href="{{ route('public.email') }}">
+                                                @lang('common.email-whitelist')
+                                            </a>
+                                       @endif
                                     </div>
-    
+
                                     <hr>
-    
+
                                     <div class="form-group">
-                                        <label for="image1">@lang('auth.proof-image') 1: @lang('auth.proof-min')</label>
+                                        <strong>@lang('auth.proof-image-title')</strong><br>
+                                        @lang('auth.proof-min')<br>
+                                        <label for="image1">@lang('auth.proof-image') 1:</label>
                                         <label>
                                             <input type="text" name="images[]" class="form-control" value="">
                                         </label>
                                     </div>
-    
+
                                     <div class="form-group">
                                         <label for="image2">@lang('auth.proof-image') 2:</label>
                                         <label>
                                             <input type="text" name="images[]" class="form-control" value="">
                                         </label>
                                     </div>
-    
+
                                     <div class="more-images"></div>
-    
+
                                     <div class="form-group">
                                         <button id="addImg" class="btn btn-primary">@lang('auth.add-image')</button>
                                         <button id="delImg" class="btn btn-primary">@lang('auth.delete-image')</button>
                                     </div>
-    
+
                                     <hr>
-    
+
                                     <div class="form-group">
-                                        <label for="link1">@lang('auth.proof-profile') 1: @lang('auth.proof-min')</label>
+                                        <strong>@lang('auth.proof-profile-title')</strong><br>
+                                        @lang('auth.proof-min')<br>
+                                        <label for="link1">@lang('auth.proof-profile') 1:</label>
                                         <label>
                                             <input type="text" name="links[]" class="form-control" value="">
                                         </label>
                                     </div>
-    
+
                                     <div class="form-group">
                                         <label for="link2">@lang('auth.proof-profile') 2:</label>
                                         <label>
                                             <input type="text" name="links[]" class="form-control" value="">
                                         </label>
                                     </div>
-    
+
                                     <div class="more-links"></div>
-    
+
                                     <div class="form-group">
                                         <button id="addLink" class="btn btn-primary">@lang('auth.add-profile')</button>
                                         <button id="delLink" class="btn btn-primary">@lang('auth.delete-profile')</button>
                                     </div>
-    
+
                                     <hr>
-    
+
                                     <div class="form-group">
                                         <label for="referrer">@lang('auth.appl-reason',['sitename' =>
                                             config('other.title')])<span class="badge-extra">BBCode
@@ -134,11 +149,11 @@
                                                 class="form-control"></textarea>
                                         </label>
                                     </div>
-    
+
                                     @if (config('captcha.enabled') == true)
                                         @hiddencaptcha
                                     @endif
-    
+
                                     <div class="form-group">
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">
@@ -154,13 +169,13 @@
             </div>
         </div>
         <br>
-    
+
         <script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}"
             crossorigin="anonymous"></script>
-    
+
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
             var images = 2;
-    
+
             $('#addImg').on('click', function(e) {
                 e.preventDefault();
                 images = images + 1;
@@ -169,18 +184,18 @@
                     ':</label><input type="text" name="images[]" class="form-control" value="" required></div>';
                 $('.more-images').append(imageHTML);
             });
-    
+
             $('#delImg').on('click', function(e) {
                 e.preventDefault();
                 images = (images > 2) ? images - 1 : 2;
                 $('.extra-image').last().remove();
             });
-    
+
         </script>
-    
+
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
             var links = 2;
-    
+
             $('#addLink').on('click', function(e) {
                 e.preventDefault();
                 links = links + 1;
@@ -189,15 +204,15 @@
                     ':</label><input type="text" name="links[]" class="form-control" value="" required></div>';
                 $('.more-links').append(linkHTML);
             });
-    
+
             $('#delLink').on('click', function(e) {
                 e.preventDefault();
                 links = (links > 2) ? links - 1 : 2;
                 $('.extra-link').last().remove();
             });
-    
+
         </script>
-    
+
         @foreach (['warning', 'success', 'info'] as $key)
             @if (Session::has($key))
                 <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
@@ -207,12 +222,12 @@
                         showConfirmButton: false,
                         timer: 3000
                     });
-            
+
                     Toast.fire({
                         icon: '{{ $key }}',
                         title: '{{ Session::get($key) }}'
                     })
-            
+
                 </script>
             @endif
         @endforeach
@@ -228,7 +243,7 @@
 
             </script>
         @endif
-    
+
     @else
         <div class="container">
             <div class="jumbotron shadowed">

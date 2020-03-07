@@ -65,7 +65,7 @@ class PlaylistController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -177,7 +177,7 @@ class PlaylistController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Playlist            $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -223,7 +223,7 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

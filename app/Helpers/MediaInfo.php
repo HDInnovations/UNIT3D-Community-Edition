@@ -15,7 +15,25 @@ namespace App\Helpers;
 
 class MediaInfo
 {
-    private $regex_section = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
+    private const REGEX_SECTION = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
+
+    /**
+     * @var string[]
+     */
+    private const REPLACE = [
+        ' '        => '',
+        'channels' => 'ch',
+        'channel'  => 'ch',
+        '1ch'      => '1.0ch',
+        '7ch'      => '6.1ch',
+        '6ch'      => '5.1ch',
+        '2ch'      => '2.0ch',
+    ];
+
+    /**
+     * @var int[]
+     */
+    private const FACTORS = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
 
     public function parse($string)
     {
@@ -25,7 +43,7 @@ class MediaInfo
         $output = [];
         foreach ($lines as $line) {
             $line = trim($line); // removed strtolower, unnecessary with the i-switch in the regexp (caseless) and adds problems with values; added it in the required places instead.
-            if (preg_match($this->regex_section, $line)) {
+            if (preg_match(self::REGEX_SECTION, $line)) {
                 $section = $line;
                 $output[$section] = [];
             }
@@ -314,17 +332,7 @@ class MediaInfo
 
     private function parseAudioChannels($string)
     {
-        $replace = [
-            ' '        => '',
-            'channels' => 'ch',
-            'channel'  => 'ch',
-            '1ch'      => '1.0ch',
-            '7ch'      => '6.1ch',
-            '6ch'      => '5.1ch',
-            '2ch'      => '2.0ch',
-        ];
-
-        return str_ireplace(array_keys($replace), $replace, $string);
+        return str_ireplace(array_keys(self::REPLACE), self::REPLACE, $string);
     }
 
     private function formatOutput($data)
@@ -436,10 +444,8 @@ class MediaInfo
         $bytes = (float) $number;
         $size = strtolower($size);
 
-        $factors = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
-
-        if (isset($factors[$size])) {
-            return (float) number_format($bytes * pow(1024, $factors[$size]), 2, '.', '');
+        if (isset(self::FACTORS[$size])) {
+            return (float) number_format($bytes * pow(1024, self::FACTORS[$size]), 2, '.', '');
         }
 
         return $bytes;

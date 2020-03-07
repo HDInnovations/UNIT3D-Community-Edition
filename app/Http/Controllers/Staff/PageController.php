@@ -47,7 +47,7 @@ class PageController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -75,7 +75,7 @@ class PageController extends Controller
     /**
      * Page Edit Form.
      *
-     * @param $id
+     * @param \App\Models\Page $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -90,9 +90,9 @@ class PageController extends Controller
      * Edit A Page.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Page         $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -120,9 +120,9 @@ class PageController extends Controller
     /**
      * Delete A Page.
      *
-     * @param $id
+     * @param \App\Models\Page $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

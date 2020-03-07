@@ -16,7 +16,7 @@
                             <h4 class="text-center">
                                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                     href="#collapse4" style="color:#ffffff;">
-                                    @lang('blocks.check-news')
+                                    @lang('blocks.check-news') {{ $article->created_at->diffForHumans() }}
                                 </a>
                             </h4>
                         </div>
@@ -32,22 +32,22 @@
                                         <img src="{{ url('img/missing-image.png') }}" alt="{{ $article->title }}">
                                     @endif
                                 </a>
-    
+
                                 <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
-    
+
                                 <p class="text-muted">
                                     <em>@lang('articles.published-at')
                                         {{ $article->created_at->toDayDateTimeString() }}</em>
                                 </p>
-    
+
                                 <p style="margin-top: 20px;">
                                     @emojione(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content), 150))...
                                 </p>
-    
+
                                 <a href="{{ route('articles.show', ['id' => $article->id]) }}" class="btn btn-success">
                                     @lang('articles.read-more')
                                 </a>
-    
+
                                 <div class="pull-right">
                                     <a href="{{ route('articles.index') }}" class="btn btn-primary">
                                         @lang('common.view-all')

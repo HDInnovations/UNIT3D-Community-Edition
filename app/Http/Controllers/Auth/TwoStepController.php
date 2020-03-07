@@ -150,7 +150,7 @@ class TwoStepController extends Controller
     /**
      * Verify the user code input.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */

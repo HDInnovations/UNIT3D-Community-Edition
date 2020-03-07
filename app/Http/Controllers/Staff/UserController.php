@@ -34,6 +34,14 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
+     * @var string[]
+     */
+    private const WEIGHTS = [
+        'is_modo',
+        'is_admin',
+    ];
+
+    /**
      * Users List.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -58,7 +66,7 @@ class UserController extends Controller
     /**
      * Search For A User.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -75,7 +83,7 @@ class UserController extends Controller
     /**
      * User Edit Form.
      *
-     * @param $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -96,9 +104,9 @@ class UserController extends Controller
      * Edit A User.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $username)
     {
@@ -107,14 +115,9 @@ class UserController extends Controller
 
         $sendto = (int) $request->input('group_id');
 
-        $weights = [
-            'is_modo',
-            'is_admin',
-        ];
-
         $sender = -1;
         $target = -1;
-        foreach ($weights as $pos => $weight) {
+        foreach (self::WEIGHTS as $pos => $weight) {
             if ($user->group->$weight && $user->group->$weight == 1) {
                 $target = $pos;
             }
@@ -154,9 +157,9 @@ class UserController extends Controller
      * Edit A Users Permissions.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function permissions(Request $request, $username)
     {
@@ -179,9 +182,9 @@ class UserController extends Controller
      * Edit A Users Password.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function password(Request $request, $username)
     {
@@ -199,9 +202,9 @@ class UserController extends Controller
     /**
      * Delete A User.
      *
-     * @param $username
+     * @param \App\Models\User $username
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function destroy($username)
     {

@@ -24,7 +24,7 @@ class BookmarkController extends Controller
      * Display All Bookmarks.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $username
+     * @param \App\Models\User         $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -49,9 +49,9 @@ class BookmarkController extends Controller
      * Store A New Bookmark.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param \App\Models\Torrent      $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $id)
     {
@@ -71,9 +71,9 @@ class BookmarkController extends Controller
      * Delete A Bookmark.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param \App\Models\Torrent      $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
     {

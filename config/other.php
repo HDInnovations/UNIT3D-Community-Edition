@@ -137,7 +137,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This will be the upload and download given to new members. (In Bytes!)
-    | Default: 50GB Upload and 1GB Download
+    | Default: 50GiB Upload and 1GiB Download
     */
     'default_upload'   => '53687091200',
     'default_download' => '1073741824',
@@ -200,4 +200,24 @@ return [
     | Example: 4
     */
     'upload-guide_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/4',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hide Staff Area Forum Posts From Chat
+    |--------------------------------------------------------------------------
+    | 1 = Enabled
+    | 0 = Disabled
+    | If enabled, Staff members get notifications instead of posting being announced in chat.
+    */
+    'staff-forum-notify' => '0',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Staff Forum Id
+    |--------------------------------------------------------------------------
+    | Example: 2
+    | The ID value of staff forum area. Should be the main / parent ID.
+    */
+    'staff-forum-id' => '',
+
 ];

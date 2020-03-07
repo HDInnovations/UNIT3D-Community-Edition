@@ -64,7 +64,7 @@ class AlbumController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -110,7 +110,7 @@ class AlbumController extends Controller
     /**
      * Show A Album.
      *
-     * @param $id
+     * @param \App\Models\Album $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -126,9 +126,9 @@ class AlbumController extends Controller
      * Delete A Album.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Album        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
     {

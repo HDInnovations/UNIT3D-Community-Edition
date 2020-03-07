@@ -54,7 +54,7 @@ class ChatRoomController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -79,9 +79,9 @@ class ChatRoomController extends Controller
      * Update A Chatroom.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param \App\Models\Chatroom     $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -105,9 +105,9 @@ class ChatRoomController extends Controller
     /**
      * Delete A Chatroom.
      *
-     * @param $id
+     * @param \App\Models\Chatroom $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

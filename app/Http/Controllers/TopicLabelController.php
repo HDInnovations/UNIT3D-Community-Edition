@@ -20,9 +20,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Approved Label.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function approve($id)
     {
@@ -37,9 +37,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Denied Label.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deny($id)
     {
@@ -54,9 +54,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Solved Label.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function solve($id)
     {
@@ -71,9 +71,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Invalid Label.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function invalid($id)
     {
@@ -88,9 +88,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Bug Label.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function bug($id)
     {
@@ -105,9 +105,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Suggestion Label.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function suggest($id)
     {
@@ -122,9 +122,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Implemented Label.
      *
-     * @param $id
+     * @param \App\Models\Topic $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function implement($id)
     {

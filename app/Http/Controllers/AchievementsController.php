@@ -43,7 +43,7 @@ class AchievementsController extends Controller
     /**
      * Show A Users Achievements.
      *
-     * @param $id
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

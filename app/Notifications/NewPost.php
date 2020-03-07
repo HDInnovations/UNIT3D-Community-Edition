@@ -74,6 +74,14 @@ class NewPost extends Notification implements ShouldQueue
             ];
         }
 
+        if ($this->type == 'staff') {
+            return [
+                'title' => $this->poster->username.' Has Posted In A Staff Forum Topic',
+                'body'  => $this->poster->username.' has left a new post in Staff Topic '.$this->post->topic->name,
+                'url'   => sprintf('%s?page=%s#post-%s', route('forum_topic', ['id' => $this->post->topic->id]), $this->post->getPageNumber(), $this->post->id),
+            ];
+        }
+
         return [
             'title' => $this->poster->username.' Has Posted In A Topic You Started',
             'body'  => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,

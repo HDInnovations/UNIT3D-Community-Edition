@@ -86,8 +86,8 @@ class PrivateMessageController extends Controller
     /**
      * View A Message.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \Illuminate\Http\Request   $request
+     * @param \App\Models\PrivateMessage $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -130,7 +130,7 @@ class PrivateMessageController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function sendPrivateMessage(Request $request)
     {
@@ -185,10 +185,10 @@ class PrivateMessageController extends Controller
     /**
      * Reply To A Message.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param $id
+     * @param \Illuminate\Http\Request   $request
+     * @param \App\Models\PrivateMessage $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function replyPrivateMessage(Request $request, $id)
     {
@@ -226,10 +226,10 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \Illuminate\Http\Request   $request
+     * @param \App\Models\PrivateMessage $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deletePrivateMessage(Request $request, $id)
     {
@@ -261,7 +261,7 @@ class PrivateMessageController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function markAllAsRead(Request $request)
     {

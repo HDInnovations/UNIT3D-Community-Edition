@@ -90,6 +90,8 @@ class NerdBot
      *
      * @param string $duration
      *
+     * @throws \Exception
+     *
      * @return string
      */
     public function getBanker($duration = 'default')
@@ -107,6 +109,8 @@ class NerdBot
      * Get Snatched.
      *
      * @param string $duration
+     *
+     * @throws \Exception
      *
      * @return string
      */
@@ -126,6 +130,8 @@ class NerdBot
      *
      * @param string $duration
      *
+     * @throws \Exception
+     *
      * @return string
      */
     public function getLeeched($duration = 'default')
@@ -143,6 +149,8 @@ class NerdBot
      * Get Seeded.
      *
      * @param string $duration
+     *
+     * @throws \Exception
      *
      * @return string
      */
@@ -162,6 +170,8 @@ class NerdBot
      *
      * @param string $duration
      *
+     * @throws \Exception
+     *
      * @return string
      */
     public function getFreeleech($duration = 'default')
@@ -179,6 +189,8 @@ class NerdBot
      * Get DU.
      *
      * @param string $duration
+     *
+     * @throws \Exception
      *
      * @return string
      */
@@ -198,6 +210,8 @@ class NerdBot
      *
      * @param string $duration
      *
+     * @throws \Exception
+     *
      * @return string
      */
     public function getPeers($duration = 'default')
@@ -215,6 +229,8 @@ class NerdBot
      * Get Bans.
      *
      * @param string $duration
+     *
+     * @throws \Exception
      *
      * @return string
      */
@@ -234,6 +250,8 @@ class NerdBot
      *
      * @param string $duration
      *
+     * @throws \Exception
+     *
      * @return string
      */
     public function getWarnings($duration = 'default')
@@ -251,6 +269,8 @@ class NerdBot
      * Get Uploads.
      *
      * @param string $duration
+     *
+     * @throws \Exception
      *
      * @return string
      */
@@ -270,6 +290,8 @@ class NerdBot
      *
      * @param string $duration
      *
+     * @throws \Exception
+     *
      * @return string
      */
     public function getLogins($duration = 'default')
@@ -288,23 +310,27 @@ class NerdBot
      *
      * @param string $duration
      *
+     * @throws \Exception
+     *
      * @return string
      */
     public function getRegistrations($duration = 'default')
     {
         $registrations = cache()->get('nerdbot-users');
         if (!$registrations || $registrations == null) {
-            $users = User::where('created_at', '>', $this->current->subDay())->count();
-            cache()->put('nerdbot-users', $users, $this->expiresAt);
+            $registrations = User::where('created_at', '>', $this->current->subDay())->count();
+            cache()->put('nerdbot-users', $registrations, $this->expiresAt);
         }
 
-        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $users).config('other.title').'!';
+        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $registrations).config('other.title').'!';
     }
 
     /**
      * Get Bot Donations.
      *
      * @param string $duration
+     *
+     * @throws \Exception
      *
      * @return string
      */
@@ -346,6 +372,8 @@ class NerdBot
      *
      * @param int    $amount
      * @param string $note
+     *
+     * @throws \Exception
      *
      * @return string
      */

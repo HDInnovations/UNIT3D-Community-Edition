@@ -29,6 +29,14 @@ class Http2ServerPush
     protected $crawler;
 
     /**
+     * @var string[]
+     */
+    private const LINK_TYPE_MAP = [
+        '.CSS'  => 'style',
+        '.JS'   => 'script',
+    ];
+
+    /**
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
@@ -146,15 +154,9 @@ class Http2ServerPush
      */
     private function buildLinkHeaderString($url)
     {
-        $linkTypeMap = [
-            '.CSS'  => 'style',
-            '.JS'   => 'script',
-        ];
-
-        $type = collect($linkTypeMap)->first(function ($type, $extension) use ($url) {
+        $type = collect(self::LINK_TYPE_MAP)->first(function ($type, $extension) use ($url) {
             return Str::contains(strtoupper($url), $extension);
         });
-
         if (!preg_match('%^https?://%i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);

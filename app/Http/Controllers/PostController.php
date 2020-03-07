@@ -59,9 +59,9 @@ class PostController extends Controller
      * Store A New Post To A Topic.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Topic        $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reply(Request $request, $id)
     {
@@ -146,12 +146,17 @@ class PostController extends Controller
         $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
         $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
         $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
-        $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
-        // Notify All Subscribers Of New Reply
-        if ($topic->first_user_poster_id != $user->id) {
-            $topic->notifyStarter($user, $topic, $post);
+
+        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
+            $topic->notifyStaffers($user, $topic, $post);
+        } else {
+            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            // Notify All Subscribers Of New Reply
+            if ($topic->first_user_poster_id != $user->id) {
+                $topic->notifyStarter($user, $topic, $post);
+            }
+            $topic->notifySubscribers($user, $topic, $post);
         }
-        $topic->notifySubscribers($user, $topic, $post);
         //Achievements
         $user->unlock(new UserMadeFirstPost(), 1);
         $user->addProgress(new UserMade25Posts(), 1);
@@ -173,8 +178,8 @@ class PostController extends Controller
     /**
      * Edit Post Form.
      *
-     * @param $id
-     * @param $postId
+     * @param \App\Models\Topic $id
+     * @param \App\Models\Post  $postId
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -197,9 +202,9 @@ class PostController extends Controller
      * Edit A Post In A Topic.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $postId
+     * @param \App\Models\Post         $postId
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postEdit(Request $request, $postId)
     {
@@ -219,9 +224,11 @@ class PostController extends Controller
      * Delete A Post.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $postId
+     * @param \App\Models\Post         $postId
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postDelete(Request $request, $postId)
     {

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ByteUnits;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
@@ -36,12 +37,24 @@ class BonusController extends Controller
     private $chat;
 
     /**
+     * The library used for parsing byte units.
+     *
+     * @var ByteUnits
+     */
+    protected $byteUnits;
+
+    /**
      * BonusController Constructor.
      *
+     * @param ByteUnits      $byteUnits
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
-    {
+    public function __construct(
+        ByteUnits $byteUnits,
+        ChatRepository $chat
+    ) {
+        $this->byteUnits = $byteUnits;
+
         $this->chat = $chat;
     }
 
@@ -225,7 +238,7 @@ class BonusController extends Controller
      * Exchange Points For A Item.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\BonExchange  $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -259,8 +272,8 @@ class BonusController extends Controller
     /**
      * Do Item Exchange.
      *
-     * @param $userID
-     * @param $itemID
+     * @param \App\Models\User        $userID
+     * @param \App\Models\BonExchange $itemID
      *
      * @return string
      */
@@ -413,7 +426,7 @@ class BonusController extends Controller
      * Tip Points To A Uploader.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param \App\Models\Torrent      $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -464,6 +477,7 @@ class BonusController extends Controller
      * Tip Points To A Poster.
      *
      * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Post         $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -592,7 +606,7 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 100)
+            ->where('torrents.size', '>=', $this->byteUnits->bytesFromUnit('100GiB'))
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -612,8 +626,8 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 25)
-            ->where('torrents.size', '<', 1073741824 * 100)
+            ->where('torrents.size', '>=', $this->byteUnits->bytesFromUnit('25GiB'))
+            ->where('torrents.size', '<', $this->byteUnits->bytesFromUnit('100GiB'))
             ->where('peers.user_id', $user->id)
             ->count();
     }
@@ -633,8 +647,8 @@ class BonusController extends Controller
             ->select('peers.hash')->distinct()
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824)
-            ->where('torrents.size', '<', 1073741824 * 25)
+            ->where('torrents.size', '>=', $this->byteUnits->bytesFromUnit('1GiB'))
+            ->where('torrents.size', '<', $this->byteUnits->bytesFromUnit('25GiB'))
             ->where('peers.user_id', $user->id)
             ->count();
     }

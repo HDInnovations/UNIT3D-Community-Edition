@@ -32,7 +32,7 @@ class ArticleController extends Controller
     /**
      * Show A Article.
      *
-     * @param $id
+     * @param \App\Models\Article $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

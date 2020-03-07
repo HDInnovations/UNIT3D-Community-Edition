@@ -18,6 +18,7 @@
         "elhebert/laravel-sri": "^2.0",
         "emojione/assets": "^4.5",
         "fideloper/proxy": "^4.0",
+        "gabrielelana/byte-units": "^0.5.0",
         "gstt/laravel-achievements": "^1.0",
         "guzzlehttp/guzzle": "6.*",
         "hootlex/laravel-moderation": "^1.0",

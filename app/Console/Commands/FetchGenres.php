@@ -38,6 +38,7 @@ class FetchGenres extends Command
      * Execute the console command.
      *
      * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      *
      * @return mixed
      */

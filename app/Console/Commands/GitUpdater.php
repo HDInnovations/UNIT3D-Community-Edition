@@ -44,6 +44,14 @@ class GitUpdater extends Command
     protected $description = 'Executes The Commands Necessary To Update Your Website Using Git';
 
     /**
+     * @var string[]
+     */
+    private const ADDITIONAL = [
+        '.env',
+        'laravel-echo-server.json',
+    ];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -346,11 +354,6 @@ class GitUpdater extends Command
         $p = $this->process('git diff master --name-only');
         $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
 
-        $additional = [
-            '.env',
-            'laravel-echo-server.json',
-        ];
-
-        return array_merge($paths, $additional);
+        return array_merge($paths, self::ADDITIONAL);
     }
 }
