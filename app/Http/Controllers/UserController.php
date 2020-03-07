@@ -1739,7 +1739,6 @@ class UserController extends Controller
         $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
         $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
         $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
-        $logger = 'user.private.unsatisfieds';
 
         if (config('hitrun.enabled') == true) {
             $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
@@ -1759,7 +1758,7 @@ class UserController extends Controller
                 ->paginate(50);
         }
 
-        return view($logger, [
+        return view('user.private.unsatisfieds', [
             'route'         => 'unsatisfieds',
             'user'          => $user,
             'downloads'     => $downloads,

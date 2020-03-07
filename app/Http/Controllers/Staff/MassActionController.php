@@ -22,6 +22,11 @@ use Illuminate\Http\Request;
 class MassActionController extends Controller
 {
     /**
+     * @var int
+     */
+    private const SENDER_ID = 1;
+
+    /**
      * Mass PM Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -41,8 +46,6 @@ class MassActionController extends Controller
     public function store(Request $request)
     {
         $users = User::all();
-
-        $sender_id = 1;
         $subject = $request->input('subject');
         $message = $request->input('message');
 
@@ -56,7 +59,7 @@ class MassActionController extends Controller
                 ->withErrors($v->errors());
         }
         foreach ($users as $user) {
-            $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
+            $this->dispatch(new ProcessMassPM(self::SENDER_ID, $user->id, $subject, $message));
         }
 
         return redirect()->route('staff.mass-pm.create')

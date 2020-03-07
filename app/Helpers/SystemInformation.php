@@ -18,6 +18,21 @@ use Illuminate\Support\Facades\DB;
 
 class SystemInformation
 {
+    /**
+     * @var string[]
+     */
+    private const UNITS = ['B', 'KiB', 'MiB', 'GiB', 'TiB'];
+
+    /**
+     * @var string[]
+     */
+    private const KNOWN_DATABASES = [
+        'sqlite',
+        'mysql',
+        'pgsql',
+        'sqlsrv',
+    ];
+
     public function avg()
     {
         if (is_readable('/proc/loadavg')) {
@@ -52,17 +67,14 @@ class SystemInformation
 
     protected function formatBytes($bytes, $precision = 2)
     {
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-
         $bytes = max($bytes, 0);
         $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-
+        $pow = min($pow, count(self::UNITS) - 1);
         // Uncomment one of the following alternatives
-        // $bytes /= pow(1024, $pow);
-        $bytes /= (1 << (10 * $pow));
+        $bytes /= pow(1024, $pow);
+        // $bytes /= (1 << (10 * $pow));
 
-        return round($bytes, $precision).' '.$units[$pow];
+        return round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
     public function disk()
@@ -101,13 +113,7 @@ class SystemInformation
 
     private function getDatabase()
     {
-        $knownDatabases = [
-            'sqlite',
-            'mysql',
-            'pgsql',
-            'sqlsrv',
-        ];
-        if (!in_array(config('database.default'), $knownDatabases)) {
+        if (!in_array(config('database.default'), self::KNOWN_DATABASES)) {
             return 'Unkown';
         }
         $results = DB::select(DB::raw('select version()'));

@@ -13,7 +13,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\BonTransactions;
+use App\Helpers\ByteUnits;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +39,7 @@ class AutoBonAllocation extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(ByteUnits $byteUnits)
     {
         $dying_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
@@ -77,7 +77,7 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 100)
+            ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('100GiB'))
             ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
             ->groupBy('peers.user_id')
             ->get()
@@ -87,8 +87,8 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824 * 25)
-            ->where('torrents.size', '<', 1073741824 * 100)
+            ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('25GiB'))
+            ->where('torrents.size', '<', $byteUnits->bytesFromUnit('100GiB'))
             ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
             ->groupBy('peers.user_id')
             ->get()
@@ -98,8 +98,8 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
-            ->where('torrents.size', '>=', 1073741824)
-            ->where('torrents.size', '<', 1073741824 * 25)
+            ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('1GiB'))
+            ->where('torrents.size', '<', $byteUnits->bytesFromUnit('25GiB'))
             ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
             ->groupBy('peers.user_id')
             ->get()

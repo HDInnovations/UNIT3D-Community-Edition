@@ -25,12 +25,21 @@ class StringHelper
 
     const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
 
+    /**
+     * @var string
+     */
+    private const CHARACTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
+
+    /**
+     * @var string[]
+     */
+    private const ENDS = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+
     public static function generateRandomString($length = 20)
     {
-        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
         $string = '';
         for ($i = 0; $i < $length; $i++) {
-            $string .= $characters[rand(0, strlen($characters) - 1)];
+            $string .= self::CHARACTERS[rand(0, strlen(self::CHARACTERS) - 1)];
         }
 
         return $string;
@@ -173,11 +182,10 @@ class StringHelper
 
     public static function ordinal($number)
     {
-        $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
             return $number.'th';
         }
 
-        return $number.$ends[$number % 10];
+        return $number.self::ENDS[$number % 10];
     }
 }
