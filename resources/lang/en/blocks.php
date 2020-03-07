@@ -37,7 +37,7 @@ return [
     'users-online'   => 'Users Online',
 
     // News/Articles
-    'check-news' => 'News (check daily)',
+    'check-news' => 'Latest News',
     'new-news'   => 'New News',
 
     // Top Torrents
