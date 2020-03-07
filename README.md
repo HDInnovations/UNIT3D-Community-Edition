@@ -10,7 +10,8 @@
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-6-f4645f.svg?style=flat-square" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
 <a href="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition?utm_medium=notification&utm_source=github_status"><img src="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition.svg?branch=master" /></a> 
-<a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>	
+<a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
+<img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/workflows/npm%20audit/badge.svg" alt="NPM-Audit">
 <a class="badge-align" href="https://www.codacy.com/manual/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HDInnovations/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
 <a href="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition">
   <img src="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition/branch/master/graph/badge.svg" />
@@ -275,6 +276,7 @@ Thanks goes to these wonderful people who have contributed alot of code:
     <td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt=""/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="100px;" alt=""/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td>
     <td align="center"><a href="https://nyamori.moe"><img src="https://avatars1.githubusercontent.com/u/5460071?v=4" width="100px;" alt=""/><br /><sub><b>Gyakkun</b></sub></a><br /><a href="#translation-gyakkun" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://indiehd.com"><img src="https://avatars2.githubusercontent.com/u/1236883?v=4" width="100px;" alt=""/><br /><sub><b>Ben Johnson</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Tests">⚠️</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Code">💻</a></td>
   </tr>
 </table>
 
