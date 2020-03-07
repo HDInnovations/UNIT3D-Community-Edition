@@ -275,6 +275,7 @@ Thanks goes to these wonderful people who have contributed alot of code:
     <td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt=""/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="100px;" alt=""/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td>
     <td align="center"><a href="https://nyamori.moe"><img src="https://avatars1.githubusercontent.com/u/5460071?v=4" width="100px;" alt=""/><br /><sub><b>Gyakkun</b></sub></a><br /><a href="#translation-gyakkun" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://indiehd.com"><img src="https://avatars2.githubusercontent.com/u/1236883?v=4" width="100px;" alt=""/><br /><sub><b>Ben Johnson</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Tests">⚠️</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Code">💻</a></td>
   </tr>
 </table>
 
