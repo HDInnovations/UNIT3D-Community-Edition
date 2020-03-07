@@ -187,4 +187,17 @@ class RegisterController extends Controller
         return redirect()->route('login')
             ->withSuccess(trans('auth.register-thanks'));
     }
+
+    /**
+     * Show Email Whitelist / Blacklist when not authenticated.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function publicEmailList()
+    {
+        $whitelist = config('email-white-blacklist.allow', []);
+        $blacklist = config('email-white-blacklist.block', []);
+
+        return view('auth.public-emaillist', ['whitelist' => $whitelist, 'blacklist' => $blacklist]);
+    }
 }

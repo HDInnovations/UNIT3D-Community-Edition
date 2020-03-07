@@ -54,6 +54,9 @@ Route::group(['middleware' => 'language'], function () {
         // Registration
         Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
         Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
+
+        // Public email white/blacklists
+        Route::get('emaildomains', 'Auth\RegisterController@publicEmailList')->name('public.email');
     });
 
     /*
