@@ -61,7 +61,7 @@
                             </a>
                         @endif
 
-                        @if ($torrent->tmdb != 0)
+                        @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-labeled btn-primary">
                                 <span class='btn-label'>
                                     <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('torrent.similar')
