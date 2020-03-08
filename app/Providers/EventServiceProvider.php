@@ -29,9 +29,6 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Login' => [
             \App\Listeners\LoginListener::class,
         ],
-        'Illuminate\Auth\Events\Failed' => [
-            \App\Listeners\FailedLoginListener::class,
-        ],
         'Gstt\Achievements\Event\Unlocked' => [
             \App\Listeners\AchievementUnlocked::class,
         ],
