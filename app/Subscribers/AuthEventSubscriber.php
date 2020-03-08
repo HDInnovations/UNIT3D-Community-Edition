@@ -24,7 +24,7 @@ class AuthEventSubscriber
     /**
      * Register The Listeners For The Subscriber.
      *
-     * @param  \Illuminate\Events\Dispatcher  $events
+     * @param \Illuminate\Events\Dispatcher $events
      */
     public function subscribe($events)
     {
@@ -37,9 +37,10 @@ class AuthEventSubscriber
     /**
      * Handle User Login Events.
      *
-     * @param  \Illuminate\Auth\Events\Login  $event
+     * @param \Illuminate\Auth\Events\Login $event
      */
-    public function onUserLogin(Login $event) {
+    public function onUserLogin(Login $event)
+    {
         $user = $event->user;
 
         $newAuth = new AuthChecker();
@@ -49,9 +50,10 @@ class AuthEventSubscriber
     /**
      * Handle User Login Failed Events.
      *
-     * @param  \Illuminate\Auth\Events\Failed  $event
+     * @param \Illuminate\Auth\Events\Failed $event
      */
-    public function onUserLoginFailed(Failed $event) {
+    public function onUserLoginFailed(Failed $event)
+    {
         $user = $event->user;
 
         $newAuth = new AuthChecker();
@@ -61,9 +63,10 @@ class AuthEventSubscriber
     /**
      * Handle User Lockout Events.
      *
-     * @param  \Illuminate\Auth\Events\Lockout  $event
+     * @param \Illuminate\Auth\Events\Lockout $event
      */
-    public function onUserLoginLockout(Lockout $event) {
+    public function onUserLoginLockout(Lockout $event)
+    {
         $user = $event->user;
 
         $newAuth = new AuthChecker();
@@ -73,9 +76,10 @@ class AuthEventSubscriber
     /**
      * Handle User Logout Events.
      *
-     * @param  \Illuminate\Auth\Events\Logout  $event
+     * @param \Illuminate\Auth\Events\Logout $event
      */
-    public function onUserLogout(Logout $event) {
+    public function onUserLogout(Logout $event)
+    {
         // $user = $event->user;
     }
 }
