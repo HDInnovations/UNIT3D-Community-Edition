@@ -24,9 +24,9 @@
 
 @section('content')
     <div class="topic container-fluid">
-    
+
         <h2>{{ $topic->name }}</h2>
-    
+
         <div class="topic-info">
             @lang('forum.author') <a
                 href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">{{ $topic->first_post_user_username }}</a>,
@@ -45,8 +45,7 @@
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
         <br>
-        <div class="topic-posts" id="forumTip" route="{{ route('tip_poster', ['id' => $topic->id]) }}"
-            leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
+        <div class="topic-posts">
             @foreach ($posts as $k => $p)
                 <div class="post" id="post-{{ $p->id }}">
                     <div class="block">
@@ -83,7 +82,7 @@
                                         </a>
                                     </span>
                                 </p>
-        
+
                                 <p><span class="badge-user text-bold"
                                         style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
                                             class="{{ $p->user->group->icon }}" data-toggle="tooltip"
@@ -93,7 +92,7 @@
                                 <p class="pre">{{ $p->user->title }}</p>
                                 <p>@lang('user.member-since')
                                     : {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
-        
+
                                 <p>
                                     @if($p->user->topics && $p->user->topics->count() > 0)
                                         <span class="badge-user text-bold">
@@ -108,8 +107,8 @@
                                         </span>
                                     @endauth
                                 </p>
-        
-        
+
+
                                 <span class="inline">
                                     @if ($topic->state == 'open')
                                         <button id="quote" class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
@@ -125,23 +124,25 @@
                                     @endauth
                                 </span>
                             </aside>
-        
+
                             <article class="col-md-9 post-content">
                                 @emojione($p->getContentHtml())
-        
+
                             </article>
-        
+
                             <div class="post-signature col-md-12 some-margin post-tips">
                                 <div id="forumTip{{ $p->id }}" class="text-center">
                                     @if($p->tips && $p->tips->sum('cost') > 0)
-                                        <div class="some-padding">This Post Has Been Tipped A Total Of {{ $p->tips->sum('cost') }}
+                                        <div class="some-padding">@lang('forum.tip-post-total') {{ $p->tips->sum('cost') }}
                                             BON</div>
                                     @endauth
-                                    <div class="some-padding"><a class="forumTip" href="#/" post="{{ $p->id }}"
-                                            user="{{ $p->user->id }}">Tip This Poster</a></div>
+                                    <div class="some-padding" id="forumTip" route="{{ route('tip_poster', ['id' => $p->id]) }}"
+                                            leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
+                                        <a class="forumTip" href="#/" post="{{ $p->id }}"
+                                            user="{{ $p->user->id }}">@lang('forum.tip-this-post')</a></div>
                                 </div>
                             </div>
-        
+
                             @php $likes = DB::table('likes')->where('post_id', '=', $p->id)->where('like', '=', 1)->count();
                             @endphp
                             @php $dislikes = DB::table('likes')->where('post_id', '=', $p->id)->where('dislike', '=',
@@ -173,15 +174,15 @@
                                     @endauth
                                 </span>
                             </div>
-        
-        
-        
+
+
+
                             <div class="post-signature col-md-12">
                                 @if ($p->user->signature != null)
                                     {!! $p->user->getSignature() !!}
                                 @endauth
                             </div>
-        
+
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -217,7 +218,7 @@
                             <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                         </form>
                     @endif
-    
+
                     <div class="text-center">
                         @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
                             <h3>@lang('forum.moderation')</h3>
@@ -244,9 +245,9 @@
                                     class="btn btn-default">@lang('forum.unpin') {{ strtolower(trans('forum.topic')) }}</a>
                             @endif
                         @endif
-    
+
                         <br>
-    
+
                         @if (auth()->user()->group->is_modo)
                             <h3>@lang('forum.label-system')</h3>
                             @if ($topic->approved == "0")
@@ -313,7 +314,7 @@
                             @endif
                         @endif
                     </div>
-    
+
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -333,23 +334,23 @@
                     }
                 }
             };
-    
+
             let editor = $("#topic-response").wysibb(wbbOpt);
-    
+
             // Initialize emojis
             emoji.textcomplete();
-    
+
             $('.profil').on('click', 'button#quote', function() {
                 let author = $(this).closest('.post-info').find('.badge-user').first().text();
                 let text = $(this).closest('.profil').find('.post-content').first().text().replace('@here',
                     '');
-    
+
                 editor.execCommand('quote', {
                     author: '@' + author + ' ',
                     seltext: text
                 });
             });
         });
-    
+
     </script>
 @endsection

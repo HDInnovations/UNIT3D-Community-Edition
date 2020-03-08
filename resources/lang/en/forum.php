@@ -62,6 +62,8 @@ return [
     'subscribed'         => 'Subscribed',
     'subscription-quick-search' => 'Topic Name Quick Search (within subscriptions)',
     'suggestion'         => 'Suggestion',
+    'tip-post-total'     => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'      => 'Tip This Poster',
     'topic'              => 'Topic',
     'topic-closed'       => 'This Topic is Closed',
     'topic-name'         => 'Topic Name',
