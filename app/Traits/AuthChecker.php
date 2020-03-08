@@ -13,14 +13,14 @@
 
 namespace App\Traits;
 
+use App\Models\Authentication;
+use App\Models\Device;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Jenssegers\Agent\Agent;
-use App\Models\Device;
-use App\Models\Authentication;
-use App\Models\User;
-use Illuminate\Contracts\Auth\Authenticatable;
 
 class AuthChecker
 {
@@ -101,13 +101,15 @@ class AuthChecker
             $login_value = $payload->get('username');
 
             $user = User::where('username', '=', $login_value)->first();
+
             return $user;
         }
 
         return null;
     }
 
-    public function createUserLoginForDevice(Authenticatable $user, Device $device, string $type = Authentication::TYPE_LOGIN): Authentication {
+    public function createUserLoginForDevice(Authenticatable $user, Device $device, string $type = Authentication::TYPE_LOGIN): Authentication
+    {
         $ipAddress = request()->ip();
 
         $login = new Authentication();
