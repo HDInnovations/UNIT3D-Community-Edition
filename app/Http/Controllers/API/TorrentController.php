@@ -122,7 +122,11 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
-        $torrent->internal = $request->input('internal');
+        if ($user->group->is_internal) {
+            $torrent->internal = $request->input('internal');
+        } else {
+            $torrent->internal = 0;
+        }
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
@@ -147,6 +151,7 @@ class TorrentController extends BaseController
             'anon'        => 'required',
             'stream'      => 'required',
             'sd'          => 'required',
+            'internal'    => 'required',
         ]);
 
         if ($v->fails()) {
