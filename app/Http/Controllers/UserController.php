@@ -54,7 +54,7 @@ class UserController extends Controller
         $groups = Group::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
         $history = $user->history;
-        $warnings = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->where('active', '=', 1)->take(3)->get();
+        $warnings = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->where('active', '=', 1)->take(config('hitrun.max_warnings'))->get();
         $hitrun = Warning::where('user_id', '=', $user->id)->latest()->paginate(10);
 
         $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
