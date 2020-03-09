@@ -67,7 +67,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->can_invite = 0;
                 $user->can_request = 0;
                 $user->can_chat = 0;
-                $user->group = $pruned_group[0];
+                $user->group_id = $pruned_group[0];
                 $user->deleted_by = 1;
                 $user->save();
                 $user->delete();
