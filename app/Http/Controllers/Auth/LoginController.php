@@ -78,6 +78,9 @@ class LoginController extends Controller
         $disabled_group = cache()->rememberForever('disabled_group', function () {
             return Group::where('slug', '=', 'disabled')->pluck('id');
         });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
         $member_group = cache()->rememberForever('member_group', function () {
             return Group::where('slug', '=', 'user')->pluck('id');
         });
@@ -96,6 +99,14 @@ class LoginController extends Controller
 
             return redirect()->route('login')
                 ->withErrors(trans('auth.banned'));
+        }
+
+        if ($user->group_id == $pruned_group[0]) {
+            $this->guard()->logout();
+            $request->session()->invalidate();
+
+            return redirect()->route('login')
+                ->withErrors(trans('auth.pruned'));
         }
 
         if ($user->group_id == $disabled_group[0]) {

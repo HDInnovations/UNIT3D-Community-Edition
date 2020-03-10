@@ -24,12 +24,16 @@ class ActivationController extends Controller
         $banned_group = cache()->rememberForever('banned_group', function () {
             return Group::where('slug', '=', 'banned')->pluck('id');
         });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
         $member_group = cache()->rememberForever('member_group', function () {
             return Group::where('slug', '=', 'user')->pluck('id');
         });
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
-        if ($activation->user->id && $activation->user->group->id != $banned_group[0]) {
+        if ($activation->user->id && $activation->user->group->id != $banned_group[0] &&
+        $activation->user->group->id != $pruned_group[0]) {
             $activation->user->active = 1;
             $activation->user->can_upload = 1;
             $activation->user->can_download = 1;

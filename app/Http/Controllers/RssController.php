@@ -155,11 +155,17 @@ class RssController extends Controller
         $disabled_group = cache()->rememberForever('disabled_group', function () {
             return Group::where('slug', '=', 'disabled')->pluck('id');
         });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
 
         if ($user->group->id == $banned_group[0]) {
             abort(404);
         }
         if ($user->group->id == $disabled_group[0]) {
+            abort(404);
+        }
+        if ($user->group->id == $pruned_group[0]) {
             abort(404);
         }
         if ($user->active == 0) {

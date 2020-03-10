@@ -145,6 +145,9 @@ class AnnounceController extends Controller
         $disabled_group = cache()->rememberForever('disabled_group', function () {
             return Group::where('slug', '=', 'disabled')->pluck('id');
         });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
 
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {
@@ -156,6 +159,10 @@ class AnnounceController extends Controller
         if ($user->group_id == $disabled_group[0]) {
             //info('A Disabled User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']))->withHeaders(['Content-Type' => 'text/plain']);
+        }
+        // If User Is Pruned Return Error to Client
+        if ($user->group_id == $pruned_group[0]) {
+            return response(Bencode::bencode(['failure reason' => 'Your account has been pruned.']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If User Account Is Unactivated Return Error to Client

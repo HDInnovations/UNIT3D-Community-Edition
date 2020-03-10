@@ -51,6 +51,7 @@ return [
     'proof-profile'       => 'Profile Link URL',
     'proof-profile-title' => 'Links to your profiles',
     'proof-min'           => '(Minimum 2, Recommended 3)',
+    'pruned'              => 'This account has been pruned due to inactivity.',
     'recover-my-password' => 'Recover My Password',
     'register-thanks'     => 'Thanks for signing up! Please check your email to Validate your account',
     'remember-me'         => 'Remember Me',

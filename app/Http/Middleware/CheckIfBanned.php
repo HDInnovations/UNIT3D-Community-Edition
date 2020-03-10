@@ -35,6 +35,9 @@ class CheckIfBanned
         $banned_group = cache()->rememberForever('banned_group', function () {
             return Group::where('slug', '=', 'banned')->pluck('id');
         });
+        $pruned_group = cache()->rememberForever('pruned_group', function () {
+            return Group::where('slug', '=', 'pruned')->pluck('id');
+        });
 
         if ($user && $user->group_id == $banned_group[0]) {
             auth()->logout();
@@ -42,6 +45,14 @@ class CheckIfBanned
 
             return redirect()->route('login')
                 ->withErrors('This account is Banned!');
+        }
+
+        if ($user && $user->group_id == $pruned_group[0]) {
+            auth()->logout();
+            $request->session()->flush();
+
+            return redirect()->route('login')
+                ->withErrors('This account is Pruned!');
         }
 
         return $next($request);

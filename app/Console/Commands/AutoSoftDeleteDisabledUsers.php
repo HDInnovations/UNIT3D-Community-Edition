@@ -70,7 +70,12 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->group_id = $pruned_group[0];
                 $user->deleted_by = 1;
                 $user->save();
-                $user->delete();
+                if ($user->posts()->count() === 0 && $user->topics()->count() === 0 &&
+                $user->history()->count() === 0 && $user->requests()->count() === 0 &&
+                $user->sentInvite()->count() === 0 && $user->comments()->count() === 0 &&
+                $user->notes()->count() === 0) {
+                    $user->delete();
+                }
             }
         }
         $this->comment('Automated Soft Delete Disabled Users Command Complete');

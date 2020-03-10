@@ -81,7 +81,7 @@ class StatsController extends Controller
                 return Group::where('slug', '=', 'pruned')->pluck('id');
             });
 
-            return User::onlyTrashed()->where('group_id', '=', $pruned_group[0])->count();
+            return User::withTrashed()->where('group_id', '=', $pruned_group[0])->count();
         });
 
         // Total Banned Members Count
