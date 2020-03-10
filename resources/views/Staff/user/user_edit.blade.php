@@ -38,7 +38,7 @@
             <li role="presentation" class=""><a href="#password" aria-controls="notes" role="tab" data-toggle="tab"
                     aria-expanded="false">@lang('user.change-password')</a></li>
         </ul>
-    
+
         <div class="tab-content block block-titled">
             <div role="tabpanel" class="tab-pane active" id="account">
                 <h3>@lang('common.account')</h3>
@@ -51,28 +51,28 @@
                             <input name="username" type="text" value="{{ $user->username }}" class="form-control">
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="email">@lang('common.email')</label>
                         <label>
                             <input name="email" type="email" value="{{ $user->email }}" class="form-control">
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="uploaded">@lang('user.total-upload') (Bytes)</label>
                         <label>
                             <input name="uploaded" type="number" value="{{ $user->uploaded }}" class="form-control">
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="downloaded">@lang('user.total-download') (Bytes)</label>
                         <label>
                             <input name="downloaded" type="number" value="{{ $user->downloaded }}" class="form-control">
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="join-date">@lang('user.member-since')</label>
                         <label>
@@ -80,21 +80,21 @@
                                 value="{{ date('d/m/Y', strtotime($user->created_at)) }}" class="form-control">
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="downloaded">@lang('user.title')</label>
                         <label>
                             <input name="title" type="text" value="{{ $user->title }}" class="form-control">
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="about">@lang('user.about-me')</label>
                         <label>
                             <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="about">@lang('common.group')</label>
                         <label>
@@ -106,17 +106,17 @@
                             </select>
                         </label>
                     </div>
-    
+
                     <button type="submit" class="btn btn-default">@lang('common.save')</button>
                 </form>
             </div>
-    
+
             <div role="tabpanel" class="tab-pane" id="permissions">
                 <h3>@lang('user.id-permissions')</h3>
                 <hr>
                 <form role="form" method="POST" action="{{ route('user_permissions', ['username' => $user->username]) }}">
                     @csrf
-                    <label for="hidden" class="control-label">@lang('user.can-download')?</label>
+                    <label for="hidden" class="control-label">@lang('user.can-upload')?</label>
                     <div class="radio-inline">
                     <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif
                             value="1">@lang('common.yes')</label>
@@ -186,7 +186,7 @@
                     </div>
                 </form>
             </div>
-    
+
             <div role="tabpanel" class="tab-pane" id="notes">
                 <h3>@lang('common.add') @lang('staff.user-notes')</h3>
                 <hr>
@@ -246,7 +246,7 @@
                     </tbody>
                 </table>
             </div>
-    
+
             <div role="tabpanel" class="tab-pane" id="password">
                 <h3>@lang('user.change-password')</h3>
                 <hr>
