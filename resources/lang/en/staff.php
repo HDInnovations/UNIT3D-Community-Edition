@@ -14,6 +14,7 @@
 return [
     'audit-log'            => 'Audit Log',
     'articles'                => 'Articles',
+    'application'             => 'Application',
     'applications'            => 'Applications',
     'application-type'        => 'Type',
     'application-image-proofs'=> 'Image Proofs',
@@ -39,6 +40,7 @@ return [
     'mass-pm'                 => 'Mass PM',
     'mass-validate-users'     => 'Mass Validate Users',
     'moderation'              => 'Moderation',
+    'moderation-since'        => 'Moderated at',
     'page'                    => 'Page',
     'pages'                   => 'Pages',
     'please-moderate'         => 'Please Moderate This Torrent!',

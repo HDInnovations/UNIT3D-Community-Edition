@@ -22,13 +22,13 @@
             @lang('common.new-adj')
             @lang('staff.page')
         </a>
-    
+
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>@lang('common.title')</th>
-                        <th>@lang('common.date.date')</th>
+                        <th>@lang('common.date')</th>
                         <th>@lang('common.action')</th>
                     </tr>
                 </thead>
