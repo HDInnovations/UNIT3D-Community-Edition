@@ -501,7 +501,7 @@ Route::group(['middleware' => 'language'], function () {
             // Open Topic
             Route::get('/{id}/open', 'TopicController@openTopic')->name('forum_open');
             //
-            Route::post('/posts/{id}/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
+            Route::post('/posts/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
 
             // Edit Topic
             Route::get('/{id}/edit', 'TopicController@editForm')->name('forum_edit_topic_form');

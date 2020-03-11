@@ -477,16 +477,15 @@ class BonusController extends Controller
      * Tip Points To A Poster.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Post         $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tipPoster(Request $request, $id)
+    public function tipPoster(Request $request)
     {
         $user = $request->user();
 
         if ($request->has('post') && $request->input('post') > 0) {
-            $post = Post::with('topic')->findOrFail($id);
+            $post = Post::with('topic')->findOrFail($request->input('post'));
             $poster = User::where('id', '=', $post->user_id)->firstOrFail();
         } else {
             abort(404);
