@@ -24,7 +24,7 @@ parameters:
             - fix
             - wip
         - scopes: []
-      # max_body_width: 72
+      max_body_width: 0
       max_subject_width: 72
       case_insensitive: false
       multiline: true

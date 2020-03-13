@@ -136,7 +136,7 @@
                                         <div class="some-padding">@lang('forum.tip-post-total') {{ $p->tips->sum('cost') }}
                                             BON</div>
                                     @endauth
-                                    <div class="some-padding" id="forumTip" route="{{ route('tip_poster', ['id' => $p->id]) }}"
+                                    <div class="some-padding" id="forumTip" route="{{ route('tip_poster') }}"
                                             leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
                                         <a class="forumTip" href="#/" post="{{ $p->id }}"
                                             user="{{ $p->user->id }}">@lang('forum.tip-this-post')</a></div>
