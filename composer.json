@@ -50,7 +50,7 @@
         "php-coveralls/php-coveralls": "^2.2",
         "phpro/grumphp": "^0.17.2",
         "phpunit/phpunit": "^8.0",
-        "rector/rector": "^0.6.14"
+        "rector/rector": "^0.7.3"
     },
     "config": {
         "preferred-install": "dist",
