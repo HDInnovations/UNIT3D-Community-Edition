@@ -1,15 +1,4 @@
 <?php
-/**
- * NOTICE OF LICENSE.
- *
- * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D Community Edition
- *
- * @author     HDVinnie <hdinnovations@protonmail.com>
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- */
 
 return [
 
@@ -25,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard'     => 'web',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -48,13 +37,14 @@ return [
 
     'guards' => [
         'web' => [
-            'driver'   => 'session',
+            'driver' => 'session',
             'provider' => 'users',
         ],
 
         'api' => [
-            'driver'   => 'token',
+            'driver' => 'token',
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
@@ -78,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model'  => App\Models\User::class,
+            'model' => App\User::class,
         ],
 
         // 'users' => [
@@ -105,37 +95,23 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table'    => 'password_resets',
-            'expire'   => 60,
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
         ],
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Verification Authentication Enabled
+    | Password Confirmation Timeout
     |--------------------------------------------------------------------------
+    |
+    | Here you may define the amount of seconds before a password confirmation
+    | times out and the user is prompted to re-enter their password via the
+    | confirmation screen. By default, the timeout lasts for three hours.
+    |
     */
 
-    'TwoStepEnabled' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Verification Email Settings
-    |--------------------------------------------------------------------------
-    */
-
-    'verificationEmailFrom'     => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
-    'verificationEmailFromName' => ' 2-Step Verification',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Verification Timings Settings
-    |--------------------------------------------------------------------------
-    */
-
-    'TwoStepExceededCount'             => 3,
-    'TwoStepExceededCountdownMinutes'  => 60 * 24,
-    'TwoStepVerifiedLifetimeMinutes'   => 6 * 60,
-    'TwoStepTimeResetBufferSeconds'    => 6 * 60,
+    'password_timeout' => 10800,
 
 ];
