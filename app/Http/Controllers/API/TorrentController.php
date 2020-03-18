@@ -251,7 +251,7 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($anon == 0 || $featured == 1) {
+            if ($anon == 0 && $featured == 1) {
                 $this->chat->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
                 );
