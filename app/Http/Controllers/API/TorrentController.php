@@ -20,6 +20,7 @@ use App\Helpers\TorrentTools;
 use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
+use App\Models\FeaturedTorrent;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
@@ -127,6 +128,34 @@ class TorrentController extends BaseController
         } else {
             $torrent->internal = 0;
         }
+        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured') == 1) {
+            $torrent->free = 1;
+            $torrent->doubleup = 1;
+            $torrent->featured = 1;
+            $featured = new FeaturedTorrent();
+            $featured->user_id = $user->id;
+            $featured->torrent_id = $torrent->id;
+            $featured->save();
+        } else {
+            $torrent->free = 0;
+            $torrent->doubleup = 0;
+            $torrent->featured = 0;
+        }
+        if ($user->group->is_modo || $user->group->is_internal) {
+            $torrent->doubleup = $request->input('doubleup');
+        } else {
+            $torrent->doubleup = 0;
+        }
+        if ($user->group->is_modo || $user->group->is_internal) {
+            $torrent->free = $request->input('free');
+        } else {
+            $torrent->free = 0;
+        }
+        if ($user->group->is_modo || $user->group->is_internal) {
+            $torrent->sticky = $request->input('sticky');
+        } else {
+            $torrent->sticky = 0;
+        }
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
@@ -207,6 +236,9 @@ class TorrentController extends BaseController
             $user_id = $user->id;
             $username = $user->username;
             $anon = $torrent->anon;
+            $featured = $torrent->internal;
+            $free = $torrent->free;
+            $doubleup = $torrent->doubleup;
 
             // Announce To Shoutbox
             if ($anon == 0) {
@@ -216,6 +248,28 @@ class TorrentController extends BaseController
             } else {
                 $this->chat->systemMessage(
                     sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                );
+            }
+
+            if ($anon == 0 || $featured == 1) {
+                $this->chat->systemMessage(
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
+                );
+            } else {
+                $this->chat->systemMessage(
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can! :fire:'
+                );
+            }
+
+            if ($free == 1) {
+                $this->chat->systemMessage(
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
+                );
+            }
+
+            if ($doubleup == 1) {
+                $this->chat->systemMessage(
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                 );
             }
 
