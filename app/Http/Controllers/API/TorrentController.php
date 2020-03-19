@@ -123,22 +123,14 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
-        if ($user->group->is_internal) {
+        if ($user->group->is_modo || $user->group->is_internal) {
             $torrent->internal = $request->input('internal');
         } else {
             $torrent->internal = 0;
         }
-        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured') == 1) {
-            $torrent->free = 1;
-            $torrent->doubleup = 1;
-            $torrent->featured = 1;
-            $featured = new FeaturedTorrent();
-            $featured->user_id = $user->id;
-            $featured->torrent_id = $torrent->id;
-            $featured->save();
+        if ($user->group->is_modo || $user->group->is_internal) {
+            $torrent->featured = $request->input('featured');
         } else {
-            $torrent->free = 0;
-            $torrent->doubleup = 0;
             $torrent->featured = 0;
         }
         if ($user->group->is_modo || $user->group->is_internal) {
@@ -181,6 +173,10 @@ class TorrentController extends BaseController
             'stream'      => 'required',
             'sd'          => 'required',
             'internal'    => 'required',
+			'featured'    => 'required',
+			'free'        => 'required',
+			'doubleup'    => 'required',
+			'sticky'      => 'required',
         ]);
 
         if ($v->fails()) {
@@ -192,6 +188,13 @@ class TorrentController extends BaseController
         }
         // Save The Torrent
         $torrent->save();
+        // Set torrent to featured
+		if ($torrent->featured == 1) {
+            $feature = new FeaturedTorrent();
+            $feature->user_id = $user->id;
+            $feature->torrent_id = $torrent->id;
+            $feature->save();
+        }
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
@@ -236,7 +239,7 @@ class TorrentController extends BaseController
             $user_id = $user->id;
             $username = $user->username;
             $anon = $torrent->anon;
-            $featured = $torrent->internal;
+            $featured = $torrent->featured;
             $free = $torrent->free;
             $doubleup = $torrent->doubleup;
 
@@ -251,23 +254,23 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($anon == 0 && $featured == 1) {
-                $this->chat->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
-                );
-            } else {
+            if ($anon == 1 && $featured == 1) {
                 $this->chat->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can! :fire:'
                 );
+            } elseif ($anon == 0 && $featured == 1) {
+                $this->chat->systemMessage(
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
+                );
             }
 
-            if ($free == 1) {
+            if ($free == 1 && $featured == 0) {
                 $this->chat->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
                 );
             }
 
-            if ($doubleup == 1) {
+            if ($doubleup == 1 && $featured == 0) {
                 $this->chat->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                 );
