@@ -189,7 +189,7 @@ class TorrentController extends BaseController
         // Save The Torrent
         $torrent->save();
         // Set torrent to featured
-		if ($torrent->featured == 1) {
+        if ($torrent->featured == 1) {
             $feature = new FeaturedTorrent();
             $feature->user_id = $user->id;
             $feature->torrent_id = $torrent->id;
