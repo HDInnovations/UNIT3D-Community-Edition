@@ -173,10 +173,10 @@ class TorrentController extends BaseController
             'stream'      => 'required',
             'sd'          => 'required',
             'internal'    => 'required',
-			'featured'    => 'required',
-			'free'        => 'required',
-			'doubleup'    => 'required',
-			'sticky'      => 'required',
+            'featured'    => 'required',
+            'free'        => 'required',
+            'doubleup'    => 'required',
+            'sticky'      => 'required',
         ]);
 
         if ($v->fails()) {
