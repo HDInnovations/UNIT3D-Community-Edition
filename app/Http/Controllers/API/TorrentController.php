@@ -245,7 +245,7 @@ class TorrentController extends BaseController
      * Edit the specified resource.
      *
      * @param Request $request
-     * @param int $id
+     * @param int     $id
      *
      * @return TorrentResource
      */
