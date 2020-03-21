@@ -242,6 +242,70 @@ class TorrentController extends BaseController
     }
 
     /**
+     * Edit the specified resource.
+     *
+     * @param Request $request
+     * @param int $id
+     *
+     * @return TorrentResource
+     */
+    public function edit(Request $request, $id)
+    {
+        $user = $request->user();
+        if ($user->group->is_owner) {
+            $torrent = Torrent::findOrFail($id);
+            if ($request->filled('name')) {
+                $torrent->name = $request->input('name');
+            }
+            if ($request->filled('description')) {
+                $torrent->name = $request->input('description');
+            }
+            if ($request->filled('mediainfo')) {
+                $torrent->name = $request->input('mediainfo');
+            }
+            if ($request->filled('category_id')) {
+                $torrent->name = $request->input('category_id');
+            }
+            if ($request->filled('imdb')) {
+                $torrent->name = $request->input('imdb');
+            }
+            if ($request->filled('tvdb')) {
+                $torrent->name = $request->input('tvdb');
+            }
+            if ($request->filled('tmdb')) {
+                $torrent->name = $request->input('tmdb');
+            }
+            if ($request->filled('mal')) {
+                $torrent->name = $request->input('mal');
+            }
+            if ($request->filled('igdb')) {
+                $torrent->name = $request->input('igdb');
+            }
+            if ($request->filled('type')) {
+                $torrent->name = $request->input('type');
+            }
+            if ($request->filled('anon')) {
+                $torrent->name = $request->input('anon');
+            }
+            if ($request->filled('stream')) {
+                $torrent->name = $request->input('stream');
+            }
+            if ($request->filled('sd')) {
+                $torrent->name = $request->input('sd');
+            }
+            if ($request->filled('internal')) {
+                $torrent->name = $request->input('internal');
+            }
+            $torrent->save();
+            TorrentResource::withoutWrapping();
+
+            return new TorrentResource($torrent);
+        } else {
+            return $this->sendError('Access denied.', 'You do not have permission to access this route.', 401);
+        }
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request

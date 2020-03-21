@@ -27,4 +27,5 @@ Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents', 'namespace' =>
     Route::get('/filter', 'TorrentController@filter');
     Route::get('/{id}', 'TorrentController@show')->where('id', '[0-9]+');
     Route::post('/upload', 'TorrentController@store');
+    Route::post('/edit/{id}', 'TorrentController@edit')->where('id', '[0-9]+');
 });
