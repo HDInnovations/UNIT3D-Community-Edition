@@ -75,7 +75,7 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
-        if ($request->hasFile('torrent') === false) {
+        if (!$request->hasFile('torrent')) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
         }
 
@@ -123,31 +123,11 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent->internal = $request->input('internal');
-        } else {
-            $torrent->internal = 0;
-        }
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent->featured = $request->input('featured');
-        } else {
-            $torrent->featured = 0;
-        }
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent->doubleup = $request->input('doubleup');
-        } else {
-            $torrent->doubleup = 0;
-        }
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent->free = $request->input('free');
-        } else {
-            $torrent->free = 0;
-        }
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent->sticky = $request->input('sticky');
-        } else {
-            $torrent->sticky = 0;
-        }
+        $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
+        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
+        $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
+        $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
+        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? $request->input('sticky') : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
