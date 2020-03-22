@@ -132,6 +132,10 @@ class TorrentControllerTest extends TestCase
             'stream'      => $torrent->stream,
             'sd'          => $torrent->sd,
             'internal'    => $torrent->internal,
+            'featured'    => false,
+            'doubleup'    => $torrent->doubleup,
+            'free'        => $torrent->free,
+            'sticky'      => $torrent->sticky,
         ]);
 
         $response->assertOk()
