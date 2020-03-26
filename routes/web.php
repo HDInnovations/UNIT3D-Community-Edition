@@ -724,6 +724,18 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/mass-pm/store', 'MassActionController@store')->name('staff.mass-pm.store');
         });
 
+        // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
+        Route::group(['prefix' => 'media-languages'], function () {
+            Route::name('staff.media_languages.')->group(function () {
+                Route::get('/', 'MediaLanguage@index')->name('index');
+                Route::get('/create', 'MediaLanguage@create')->name('create');
+                Route::post('/store', 'MediaLanguage@store')->name('store');
+                Route::get('/{id}/edit', 'MediaLanguage@edit')->name('edit');
+                Route::post('/{id}/update', 'MediaLanguage@update')->name('update');
+                Route::delete('/{id}/delete', 'MediaLanguage@destroy')->name('destroy');
+            });
+        });
+
         // Moderation System
         Route::group(['prefix' => 'moderation'], function () {
             Route::name('staff.moderation.')->group(function () {
