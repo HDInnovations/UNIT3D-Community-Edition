@@ -55,6 +55,11 @@
         integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}"
         integrity="{{ Sri::hash('css/themes/dark-yellow.css') }}" crossorigin="anonymous">
+@elseif (auth()->user()->style == 9)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}"
+          integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/cosmic-void.css') }}"
+          integrity="{{ Sri::hash('css/themes/cosmic-void.css') }}" crossorigin="anonymous">
 @endif
 
 @if (isset(auth()->user()->custom_css))
