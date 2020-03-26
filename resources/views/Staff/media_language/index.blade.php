@@ -17,10 +17,9 @@
 
 @section('content')
     <div class="container box">
-        <h2>
-            Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
-        </h2>
-        <a href="{{ route('staff.tags.create') }}" class="btn btn-primary">
+        <h2>Media Lanuages</h2> <p>(Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)</p>
+
+        <a href="{{ route('staff.media_languages.create') }}" class="btn btn-primary">
             @lang('common.add')
             @lang(trans_choice('common.a-an-art',false))
             Media Language
