@@ -28,6 +28,7 @@ class CreateSubtitlesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('file_name');
+            $table->float('file_size', 10, 0);
             $table->integer('language_id')->index();
             $table->string('extension');
             $table->text('note')->nullable();
