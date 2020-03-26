@@ -902,7 +902,7 @@ class TorrentController extends Controller
      */
     public function torrent(Request $request, $id)
     {
-        $torrent = Torrent::withAnyStatus()->with(['comments', 'category'])->findOrFail($id);
+        $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'subtitles'])->findOrFail($id);
         $uploader = $torrent->user;
         $user = $request->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
