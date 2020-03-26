@@ -26,6 +26,18 @@ class CreateSubtitlesTable extends Migration
     {
         Schema::create('subtitles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
+            $table->string('file_name');
+            $table->integer('language_id')->index();
+            $table->string('extension');
+            $table->text('note')->nullable();
+            $table->integer('downloads')->nullable();
+            $table->boolean('verified')->default(0)->index();
+            $table->integer('user_id')->index();
+            $table->integer('torrent_id')->index();
+            $table->smallInteger('status')->default(0);
+            $table->dateTime('moderated_at')->nullable();
+            $table->integer('moderated_by')->nullable()->index();
             $table->timestamps();
         });
     }
