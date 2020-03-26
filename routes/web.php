@@ -727,12 +727,12 @@ Route::group(['middleware' => 'language'], function () {
         // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
         Route::group(['prefix' => 'media-languages'], function () {
             Route::name('staff.media_languages.')->group(function () {
-                Route::get('/', 'MediaLanguage@index')->name('index');
-                Route::get('/create', 'MediaLanguage@create')->name('create');
-                Route::post('/store', 'MediaLanguage@store')->name('store');
-                Route::get('/{id}/edit', 'MediaLanguage@edit')->name('edit');
-                Route::post('/{id}/update', 'MediaLanguage@update')->name('update');
-                Route::delete('/{id}/delete', 'MediaLanguage@destroy')->name('destroy');
+                Route::get('/', 'MediaLanguageController@index')->name('index');
+                Route::get('/create', 'MediaLanguageController@create')->name('create');
+                Route::post('/store', 'MediaLanguageController@store')->name('store');
+                Route::get('/{id}/edit', 'MediaLanguageController@edit')->name('edit');
+                Route::post('/{id}/update', 'MediaLanguageController@update')->name('update');
+                Route::delete('/{id}/delete', 'MediaLanguageController@destroy')->name('destroy');
             });
         });
 
