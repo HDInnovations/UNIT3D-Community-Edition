@@ -17,5 +17,36 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subtitle extends Model
 {
-    //
+    /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id'       => '1',
+        ]);
+    }
+
+    /**
+     * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function torrent()
+    {
+        return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs To A Media Language.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function language()
+    {
+        return $this->belongsTo(MediaLanguage::class);
+    }
 }
