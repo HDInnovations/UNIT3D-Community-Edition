@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Helpers\StringHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Subtitle extends Model
@@ -48,5 +49,20 @@ class Subtitle extends Model
     public function language()
     {
         return $this->belongsTo(MediaLanguage::class);
+    }
+
+    /**
+     * Returns The Size In Human Format.
+     *
+     * @param null $bytes
+     * @param int  $precision
+     *
+     * @return string
+     */
+    public function getSize($bytes = null, $precision = 2)
+    {
+        $bytes = $this->file_size;
+
+        return StringHelper::formatBytes($bytes, 2);
     }
 }
