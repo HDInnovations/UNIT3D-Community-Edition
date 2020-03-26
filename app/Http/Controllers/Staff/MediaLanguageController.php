@@ -76,7 +76,7 @@ class MediaLanguageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(MediaLanguage $id)
+    public function edit($id)
     {
         $media_language = MediaLanguage::findOrFail($id);
 
@@ -91,7 +91,7 @@ class MediaLanguageController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, MediaLanguage $id)
+    public function update(Request $request, $id)
     {
         $media_language = MediaLanguage::findOrFail($id);
         $media_language->name = $request->input('name');
@@ -119,7 +119,7 @@ class MediaLanguageController extends Controller
      *                                           
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(MediaLanguage $id)
+    public function destroy($id)
     {
         $media_language = MediaLanguage::findOrFail($id);
         $media_language->delete();
