@@ -607,6 +607,51 @@
 
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
+                <h4>
+                    <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> Subtitles
+                    <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary" style="float: right;" title="Add subtitle">Add Subtitle</a>
+                </h4>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-condensed table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Language</th>
+                        <th>Download</th>
+                        <th>Size</th>
+                        <th>Downloads</th>
+                        <th>Uploaded</th>
+                        <th>Uploader</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($torrent->subtitles as $subtitle)
+                        <tr>
+                            <td>
+                                {{ $subtitle->language->name }}
+                                <i class="{{ config("other.font-awesome") }} fa-closed-captioning" data-toggle="tooltip" data-title="{{ $subtitle->note }}"></i>
+                            </td>
+                            <td>
+                                <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}" class="btn btn-xs btn-warning">Download</a>
+                            </td>
+                            <td>{{ $subtitle->getSize() }}</td>
+                            <td>{{ $subtitle->downloads }}</td>
+                            <td>{{ $subtitle->created_at->diffForHumans() }}</td>
+                            <td>
+                                <span class="badge-user group-uploader">
+                                    <a href="#" title="">{{ $subtitle->user->username }}</a>
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-chat shoutbox">
+            <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-coins"></i> @lang('torrent.tip-jar')</h4>
             </div>
             <div class="table-responsive">
