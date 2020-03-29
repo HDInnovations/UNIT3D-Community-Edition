@@ -42,11 +42,14 @@ laravel-echo-server.json
 
 # Vim
 .*.swp
-composer.lock
-composer.lock
-package-lock.json
-config/other.php
-config/secure-headers.php
-config/session.php
-config/torrent.php
-package-lock.json
+
+#composer
+/composer.lock
+/package-lock.json
+
+#app settings
+/config/*
+/config/other.php
+/config/secure-headers.php
+/config/session.php
+/config/torrent.php
