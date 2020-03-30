@@ -44,7 +44,7 @@ class MediaLanguageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -72,7 +72,7 @@ class MediaLanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MediaLanguage  $id
+     * @param \App\Models\MediaLanguage $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -86,8 +86,8 @@ class MediaLanguageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request   $request
-     * @param  \App\Models\MediaLanguage  $id
+     * @param \Illuminate\Http\Request  $request
+     * @param \App\Models\MediaLanguage $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -115,8 +115,8 @@ class MediaLanguageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MediaLanguage  $id
-     *                                           
+     * @param \App\Models\MediaLanguage $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)

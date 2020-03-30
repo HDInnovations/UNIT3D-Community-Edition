@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Torrent;
-use App\Models\Subtitle;
-use Illuminate\Http\Request;
 use App\Models\MediaLanguage;
+use App\Models\Subtitle;
+use App\Models\Torrent;
+use Illuminate\Http\Request;
 
 class SubtitleController extends Controller
 {
@@ -33,7 +33,7 @@ class SubtitleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\Models\Torrent  $torrent_id
+     * @param \App\Models\Torrent $torrent_id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -48,7 +48,7 @@ class SubtitleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -64,7 +64,7 @@ class SubtitleController extends Controller
         $subtitle->file_size = $subtitle_file->getSize();
         $subtitle->extension = $subtitle_file->getClientOriginalExtension();
         $subtitle->language_id = $request->input('language_id');
-        $subtitle->note =$request->input('note');
+        $subtitle->note = $request->input('note');
         $subtitle->downloads = 0;
         $subtitle->verified = 0;
         $subtitle->user_id = $user->id;
@@ -98,8 +98,8 @@ class SubtitleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subtitle      $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Subtitle     $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -111,7 +111,7 @@ class SubtitleController extends Controller
         abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
 
         $subtitle->language_id = $request->input('language_id');
-        $subtitle->note =$request->input('note');
+        $subtitle->note = $request->input('note');
 
         $v = validator($subtitle->toArray(), [
             'language_id' => 'required',
