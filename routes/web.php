@@ -449,7 +449,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', 'SubtitleController@index')->name('index');
                 Route::get('/create/{torrent_id}', 'SubtitleController@create')->where('id', '[0-9]+')->name('create');
                 Route::post('/store', 'SubtitleController@store')->name('store');
-                Route::get('/{id}/edit', 'SubtitleController@edit')->name('edit');
                 Route::post('/{id}/update', 'SubtitleController@update')->name('update');
                 Route::delete('/{id}/delete', 'SubtitleController@destroy')->name('destroy');
                 Route::get('/{id}/download', 'SubtitleController@download')->name('download');
