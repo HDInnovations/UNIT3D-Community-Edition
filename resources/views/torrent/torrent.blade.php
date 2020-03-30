@@ -640,8 +640,14 @@
                             <td>{{ $subtitle->created_at->diffForHumans() }}</td>
                             <td>
                                 <span class="badge-user group-uploader">
-                                    <a href="#" title="">{{ $subtitle->user->username }}</a>
+                                    <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}" title="">{{ $subtitle->user->username }}</a>
                                 </span>
+                                @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
+                                <div class="align-right" style="display: inline-block;">
+                                    <a data-toggle="modal" data-target="#modal_edit_subtitle" title="Edit Subtitle"><i class="fa fa-edit text-green"></i></a>
+                                    <a data-toggle="modal" data-target="#modal_delete_subtitle" title="Delete Subtitle"><i class="fa fa-trash text-red"></i></a>
+                                </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
