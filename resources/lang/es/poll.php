@@ -16,6 +16,7 @@ return [
   'create-poll' => 'Crear encuesta',
   'current' => 'Encuesta(s) actual(es)',
   'delete-option' => 'Opción de eliminar',
+  'edit-poll'            => 'Editar encuesta',
   'multiple-choice' => 'Esta es una encuesta de opción múltiple. Selecciona tantas respuestas como quieras.',
   'option' => 'Opción',
   'poll' => 'Encuesta',

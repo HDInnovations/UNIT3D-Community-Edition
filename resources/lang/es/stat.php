@@ -12,13 +12,17 @@
  */
 
 return [
+  'all-time'                => 'Desde siempre',
   'by-count' => 'Por cantidad',
   'by-data' => 'Por datos',
   'by-volume' => 'Por volumen',
   'group' => 'Grupo',
   'groups' => 'Grupos',
+  'last30days'              => 'Últimos 30 días',
   'nerd-stats' => 'Estadísticas para nerds',
   'nerd-stats-desc' => 'A todos nos encantan las estadísticas. Aquí hay algunas que nos parecen importantes.',
+  'languages'               => 'Idiomas',
+  'place'                   => 'Lugar',
   'registration-date' => 'Fecha de Registro',
   'request-fulfilled' => 'Solicitud completada',
   'request-not-fulfilled' => 'Solicitud no completada',
@@ -27,7 +31,7 @@ return [
   'site-stats' => 'Estadísticas del sitio',
   'stats' => 'Estadísticas',
   'stats-format' => 'Todas las estadísticas se muestran en formato Top 100',
-  'top-bankers' => 'Los mejores banqueros',
+  'top-bankers' => 'Los que más BON tienen',
   'top-bountied' => 'Top Recompensas',
   'top-completed' => 'Top Completado',
   'top-dead' => 'Top Muertos',

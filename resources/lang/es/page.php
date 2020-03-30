@@ -24,7 +24,7 @@ return [
   'aboutus-rules2' => '¡Leer las reglas en su totalidad y, por favor, respétalas!',
   'aboutus-rules3' => '¡Hacer sugerencias! Nos estamos esforzando para hacer :title mejor cada día. No estamos diciendo que se utilizarán todas las sugerencias, pero nunca está de más ver nuevas ideas.',
   'aboutus-welcome' => 'Unas palabras sobre',
-  'aboutus-welcome-desc' => ':title es una base de datos de Películas/Series/FanRes. Todos los datos han sido agregados por nuestra increíble comunidad desde 2017.: los títulos se <em>centran principalmente</em> en el contenido en HD, una base de usuarios proactiva, una plataforma asombrosa / segura y un equipo de personal amable y servicial.',
+  'aboutus-welcome-desc' => ':title es una base de datos de Películas/Series/FanRes. Todos los datos han sido agregados por nuestra increíble comunidad desde 2017. Los :titles se <em>centran principalmente</em> en el contenido en HD, una base de usuarios proactiva, una plataforma asombrosa / segura y un equipo de personal amable y servicial.',
   'blacklist-browsers' => 'Navegadores',
   'blacklist-btclient' => 'Cliente BitTorrent',
   'blacklist-clients' => 'Clientes',
