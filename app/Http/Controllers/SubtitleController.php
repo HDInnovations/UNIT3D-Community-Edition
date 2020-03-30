@@ -117,19 +117,24 @@ class SubtitleController extends Controller
         $subtitle->save();
 
         return redirect()->route('torrent', ['id' => $request->input('torrent_id')])
-            ->withSuccess('Subtitle Successfully Added');
+            ->withSuccess('Subtitle Successfully Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subtitle  $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Subtitle     $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $subtitle = Subtitle::findOrFail($id);
+        $subtitle->delete();
+
+        return redirect()->route('torrent', ['id' => $request->input('torrent_id')])
+            ->withSuccess('Subtitle Successfully Deleted');
     }
 
     /**
@@ -137,10 +142,26 @@ class SubtitleController extends Controller
      *
      * @param  \App\Models\Subtitle  $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download($id)
     {
-        //
+        $subtitle = Subtitle::findOrFail($id);
+
+        // Grab the subtitle file
+        $subtitle_file = file_get_contents(public_path().'/files/subtitles/'.$subtitle->file_name);
+
+        // Define the filename for the download
+        $temp_filename = '['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.'.srt';
+
+        // Delete the last torrent tmp file
+        if (file_exists(public_path().'/files/tmp/'.$temp_filename)) {
+            unlink(public_path().'/files/tmp/'.$temp_filename);
+        }
+
+        // Place temp file
+        file_put_contents(public_path().'/files/tmp/'.$temp_filename, $subtitle_file);
+
+        return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
     }
 }
