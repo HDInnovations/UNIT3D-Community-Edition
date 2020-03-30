@@ -655,6 +655,23 @@
                     </tbody>
                 </table>
             </div>
+            <div class="panel-footer text-center">
+                <p>This torrent already includes the following subtitles muxed in:</p>
+                @if ($text_crumbs !== null)
+                    @foreach ($text_crumbs as $key => $s)
+                        <span class="text-bold badge-extra">
+                            <em>
+                                @foreach ($s as $crumb)
+                                    {{ $crumb }}
+                                    @if (!$loop->last)
+                                        /
+                                    @endif
+                                @endforeach
+                            </em>
+                        </span>
+                    @endforeach
+                @endif
+            </div>
         </div>
 
         <div class="panel panel-chat shoutbox">
