@@ -644,8 +644,9 @@
                                 </span>
                                 @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
                                 <div class="align-right" style="display: inline-block;">
-                                    <a data-toggle="modal" data-target="#modal_edit_subtitle" title="Edit Subtitle"><i class="fa fa-edit text-green"></i></a>
-                                    <a data-toggle="modal" data-target="#modal_delete_subtitle" title="Delete Subtitle"><i class="fa fa-trash text-red"></i></a>
+                                    @include('subtitle.modals', ['subtitle' => $subtitle, 'torrent' => $torrent, 'media_languages' => App\Models\MediaLanguage::all()->sortBy('name')])
+                                    <a data-toggle="modal" data-target="#modal_edit_subtitle-{{ $subtitle->id }}" title="Edit Subtitle"><i class="fa fa-edit text-green"></i></a>
+                                    <a data-toggle="modal" data-target="#modal_delete_subtitle-{{ $subtitle->id }}" title="Delete Subtitle"><i class="fa fa-trash text-red"></i></a>
                                 </div>
                                 @endif
                             </td>
