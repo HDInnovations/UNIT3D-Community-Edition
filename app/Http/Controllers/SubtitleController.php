@@ -162,6 +162,10 @@ class SubtitleController extends Controller
         // Place temp file
         file_put_contents(public_path().'/files/tmp/'.$temp_filename, $subtitle_file);
 
+        // Increment doownloads count
+        $subtitle->downloads = ++$subtitle->downloads;
+        $subtitle->save();
+
         return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
     }
 }
