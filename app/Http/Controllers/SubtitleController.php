@@ -69,6 +69,9 @@ class SubtitleController extends Controller
         $subtitle->verified = 0;
         $subtitle->user_id = $user->id;
         $subtitle->torrent_id = $request->input('torrent_id');
+        $subtitle->status = 1;
+        $subtitle->moderated_at = now();
+        $subtitle->moderated_by = 1;
 
         $v = validator($subtitle->toArray(), [
             'title'       => 'required',
@@ -103,6 +106,10 @@ class SubtitleController extends Controller
     public function update(Request $request, $id)
     {
         $subtitle = Subtitle::findOrFail($id);
+
+        $user = $request->user();
+        abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
+
         $subtitle->language_id = $request->input('language_id');
         $subtitle->note =$request->input('note');
 
@@ -131,6 +138,10 @@ class SubtitleController extends Controller
     public function destroy(Request $request, $id)
     {
         $subtitle = Subtitle::findOrFail($id);
+
+        $user = $request->user();
+        abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
+
         $subtitle->delete();
 
         return redirect()->route('torrent', ['id' => $request->input('torrent_id')])
@@ -140,13 +151,21 @@ class SubtitleController extends Controller
     /**
      * Download the specified resource from storage.
      *
-     * @param  \App\Models\Subtitle  $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Subtitle     $id
      *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download($id)
+    public function download(Request $request, $id)
     {
         $subtitle = Subtitle::findOrFail($id);
+        $user = $request->user();
+
+        // User's download rights are revoked
+        if ($user->can_download == 0 && $subtitle->user_id != $user->id) {
+            return redirect()->route('torrent', ['id' => $subtitle->torrent->id])
+                ->withErrors('Your Download Rights Have Been Revoked!');
+        }
 
         // Grab the subtitle file
         $subtitle_file = file_get_contents(public_path().'/files/subtitles/'.$subtitle->file_name);
