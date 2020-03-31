@@ -62,6 +62,8 @@ return [
   'subscribed' => 'Suscrito',
   'subscription-quick-search' => 'Búsqueda rápida del nombre del hilo (dentro de las suscripciones)',
   'suggestion' => 'Sugerencia',
+  'tip-post-total'     => 'Este post ha recibido de propina: ',
+  'tip-this-post'      => 'Dale una propina a este autor',
   'topic' => 'Hilo',
   'topic-closed' => 'Este hilo está cerrado',
   'topic-name' => 'Nombre del hilo',
