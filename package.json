@@ -20,7 +20,7 @@
     "jquery-textcomplete": "^1.8.5",
     "ladda": "^2.0.1",
     "laravel-echo": "^1.6.1",
-    "laravel-mix": "^5.0.1",
+    "laravel-mix": "^5.0.4",
     "laravel-mix-purgecss": "^4.2.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
@@ -30,15 +30,15 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "spin.js": "^4.1.0",
-    "sweetalert2": "^9.10.1",
+    "sweetalert2": "^9.10.7",
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
-    "webpack-obfuscator": "^0.26.0"
+    "webpack-obfuscator": "^0.27.2"
   },
   "dependencies": {
     "laravel-mix-sri": "0.0.4",
     "n": "^6.4.0",
-    "npm-check-updates": "^4.0.4"
+    "npm-check-updates": "^4.1.0"
   }
 }
