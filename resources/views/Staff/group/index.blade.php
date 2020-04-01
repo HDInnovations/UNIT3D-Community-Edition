@@ -35,6 +35,7 @@
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
+                        <th>Double Upload</th>
                         <th>Incognito</th>
                         <th>Upload</th>
                         <th>Autogroup</th>
@@ -77,6 +78,9 @@
                             <td>@if ($group->is_freeleech == 0)<i
                                     class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
+                            <td>@if ($group->is_double_upload == 0)<i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                             <td>@if ($group->is_incognito == 0)<i
                                     class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>

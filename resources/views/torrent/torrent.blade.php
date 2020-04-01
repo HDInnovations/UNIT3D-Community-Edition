@@ -156,6 +156,12 @@
                                         </span>
                                     @endif
 
+                                    @if ($user->group->is_double_upload == '1')
+                                        <span class="badge-extra text-bold">
+                                            <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> @lang('common.special') @lang('torrent.double-upload')
+                                        </span>
+                                    @endif
+
                                     @if ($torrent->free == '1')
                                         <span class="badge-extra text-bold">
                                             <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i> 100% @lang('common.free')
