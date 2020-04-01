@@ -36,7 +36,7 @@
             @include('torrent.partials.game_meta')
         @endif
 
-        <div class="table-responsive">
+        <div class="table-responsive" id="vue">
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
                     <span class="badge-user" style=" width: 100%; background-color: rgba(0, 0, 0, 0.19);">
