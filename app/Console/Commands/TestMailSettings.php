@@ -41,7 +41,7 @@ class TestMailSettings extends Command
      */
     public function handle()
     {
-        $owner = User::where('id', '=', 3)->pluck('email');
+        $owner = env('DEFAULT_OWNER_EMAIL');
 
         $this->info('Sending Test Email To '.$owner);
         sleep(5);
