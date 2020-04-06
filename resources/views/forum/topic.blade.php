@@ -337,9 +337,6 @@
 
             let editor = $("#topic-response").wysibb(wbbOpt);
 
-            // Initialize emojis
-            emoji.textcomplete();
-
             $('.profil').on('click', 'button#quote', function() {
                 let author = $(this).closest('.post-info').find('.badge-user').first().text();
                 let text = $(this).closest('.profil').find('.post-content').first().text().replace('@here',

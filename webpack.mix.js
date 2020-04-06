@@ -1,5 +1,4 @@
 let mix = require('laravel-mix');
-let JavaScriptObfuscator = require('webpack-obfuscator')
 require('laravel-mix-sri');
 require('laravel-mix-purgecss');
 
@@ -15,11 +14,6 @@ require('laravel-mix-purgecss');
 mix.version();
 mix.options({
   processCssUrls: false
-});
-mix.webpackConfig({
-  plugins: [
-    new JavaScriptObfuscator({rotateUnicodeArray: true})
-  ]
 })
 
     /*

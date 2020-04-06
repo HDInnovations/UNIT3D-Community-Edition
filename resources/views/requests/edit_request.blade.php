@@ -144,7 +144,6 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(document).ready(function() {
             $('#request-form-description').wysibb({});
-            emoji.textcomplete()
         })
     
     </script>

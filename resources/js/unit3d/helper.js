@@ -1038,7 +1038,6 @@ $(document).ajaxComplete(function () {
 $(document).ready(function () {
     if (document.getElementById('request-form-description')) {
         $('#request-form-description').wysibb({});
-        emoji.textcomplete()
     }
     if($('#comments').length > 0) {
         if (window.location.hash && window.location.hash.substring) {
@@ -1050,7 +1049,6 @@ $(document).ready(function () {
     }
     if($('#upload-form-description').length > 0) {
         $('#upload-form-description').wysibb({});
-        emoji.textcomplete()
     }
     if(document.getElementById('facetedSearch')) {
         var facetedType = document.getElementById('facetedSearch').getAttribute('type');

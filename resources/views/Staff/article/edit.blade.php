@@ -56,7 +56,6 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(document).ready(function() {
             $('#content').wysibb({});
-            emoji.textcomplete()
         })
     
     </script>
