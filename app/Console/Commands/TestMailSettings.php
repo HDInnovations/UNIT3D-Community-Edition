@@ -14,7 +14,6 @@
 namespace App\Console\Commands;
 
 use App\Mail\TestEmail;
-use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -41,7 +40,7 @@ class TestMailSettings extends Command
      */
     public function handle()
     {
-        $owner = User::where('id', '=', 3)->pluck('email');
+        $owner = config('other.email');
 
         $this->info('Sending Test Email To '.$owner);
         sleep(5);
