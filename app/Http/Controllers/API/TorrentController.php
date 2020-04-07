@@ -315,6 +315,9 @@ class TorrentController extends BaseController
     {
         $search = $request->input('name');
         $description = $request->input('description');
+        $size = $request->input('size');
+        $info_hash = $request->input('info_hash');
+        $file_name = $request->input('file_name');
         $uploader = $request->input('uploader');
         $imdb = $request->input('imdb');
         $tvdb = $request->input('tvdb');
@@ -366,6 +369,20 @@ class TorrentController extends BaseController
         if ($request->has('description') && $request->input('description') != null) {
             $torrent->where(function ($query) use ($description) {
                 $query->where('torrents.description', 'like', $description)->orWhere('mediainfo', 'like', $description);
+            });
+        }
+
+        if ($request->has('size') && $request->input('size') != null) {
+            $torrent->where('torrents.size', '=', $size);
+        }
+
+        if ($request->has('info_hash') && $request->input('info_hash') != null) {
+            $torrent->where('torrents.info_hash', '=', $info_hash);
+        }
+
+        if ($request->has('file_name') && $request->input('file_name') != null) {
+            $torrent = $torrent->whereHas('files', function($q) use($file_name) {
+                $q->where('name', $file_name);
             });
         }
 

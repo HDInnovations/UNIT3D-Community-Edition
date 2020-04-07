@@ -34,6 +34,7 @@ class TorrentResource extends JsonResource
                 'release_year'    => $this->release_year,
                 'category'        => $this->category->name,
                 'type'            => $this->type,
+                'size'            => $this->getSize(),
                 'seeders'         => $this->seeders,
                 'leechers'        => $this->leechers,
                 'times_completed' => $this->times_completed,
