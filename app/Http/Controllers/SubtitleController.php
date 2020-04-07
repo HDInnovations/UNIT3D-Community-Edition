@@ -13,13 +13,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Achievements\UserUploadedFirstSubtitle;
+use App\Achievements\UserUploaded25Subtitles;
+use App\Achievements\UserUploaded50Subtitles;
+use App\Achievements\UserUploaded100Subtitles;
+use App\Achievements\UserUploaded200Subtitles;
+use App\Achievements\UserUploaded300Subtitles;
+use App\Achievements\UserUploaded400Subtitles;
+use App\Achievements\UserUploaded500Subtitles;
+use App\Achievements\UserUploaded600Subtitles;
+use App\Achievements\UserUploaded700Subtitles;
+use App\Achievements\UserUploaded800Subtitles;
+use App\Achievements\UserUploaded900Subtitles;
+use App\Achievements\UserUploaded1000Subtitles;
 use App\Models\MediaLanguage;
 use App\Models\Subtitle;
 use App\Models\Torrent;
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 class SubtitleController extends Controller
 {
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    /**
+     * SubtitleController Constructor.
+     *
+     * @param ChatRepository  $chat
+     */
+    public function __construct(ChatRepository $chat)
+    {
+        $this->chat = $chat;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -68,6 +97,7 @@ class SubtitleController extends Controller
         $subtitle->downloads = 0;
         $subtitle->verified = 0;
         $subtitle->user_id = $user->id;
+        $subtitle->anon = $request->input('anonymous');
         $subtitle->torrent_id = $request->input('torrent_id');
         $subtitle->status = 1;
         $subtitle->moderated_at = now();
@@ -87,9 +117,38 @@ class SubtitleController extends Controller
             return redirect()->route('subtitles.create', ['torrent_id' => $request->input('torrent_id')])
                 ->withErrors($v->errors());
         }
+
+        // Save Subtitle
+        file_put_contents(getcwd().'/files/subtitles/'.$filename, $subtitle_file);
         $subtitle->save();
 
-        file_put_contents(getcwd().'/files/subtitles/'.$filename, $subtitle_file);
+        // Announce To Shoutbox
+        $torrent_url = hrefTorrent($subtitle->torrent);
+        $profile_url = hrefProfile($user);
+        if ($subtitle->anon === false) {
+            $this->chat->systemMessage(
+                sprintf('[url=%s]%s[/url] has uploaded a new subtitle for [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $subtitle->torrent->name)
+            );
+        } else {
+            $this->chat->systemMessage(
+                sprintf('An anonymous user has uploaded a new subtitle for [url=%s]%s[/url]', $torrent_url, $subtitle->torrent->name)
+            );
+        }
+
+        // Achievements
+        $user->unlock(new UserUploadedFirstSubtitle(), 1);
+        $user->addProgress(new UserUploaded25Subtitles(), 1);
+        $user->addProgress(new UserUploaded50Subtitles(), 1);
+        $user->addProgress(new UserUploaded100Subtitles(), 1);
+        $user->addProgress(new UserUploaded200Subtitles(), 1);
+        $user->addProgress(new UserUploaded300Subtitles(), 1);
+        $user->addProgress(new UserUploaded400Subtitles(), 1);
+        $user->addProgress(new UserUploaded500Subtitles(), 1);
+        $user->addProgress(new UserUploaded600Subtitles(), 1);
+        $user->addProgress(new UserUploaded700Subtitles(), 1);
+        $user->addProgress(new UserUploaded800Subtitles(), 1);
+        $user->addProgress(new UserUploaded900Subtitles(), 1);
+        $user->addProgress(new UserUploaded1000Subtitles(), 1);
 
         return redirect()->route('torrent', ['id' => $request->input('torrent_id')])
             ->withSuccess('Subtitle Successfully Added');
@@ -141,6 +200,8 @@ class SubtitleController extends Controller
 
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
+
+        unlink(public_path().'/files/subtitles/'.$subtitle->file_name);
 
         $subtitle->delete();
 
