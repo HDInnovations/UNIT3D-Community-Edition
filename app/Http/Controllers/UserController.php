@@ -1994,6 +1994,7 @@ class UserController extends Controller
         if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
             $failCSV = "\"Name\",\"URL\",\"ID\",\"info_hash\"\r\n";
+            $failCount = 0;
             foreach ($historyTorrents as $historyTorrent) {
                 // Get Torrent
                 $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
@@ -2004,6 +2005,7 @@ class UserController extends Controller
                 // The Torrent File Exist?
                 if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent."\"\r\n";
+                    $failCount++;
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
                     if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
@@ -2024,9 +2026,11 @@ class UserController extends Controller
                     $zip->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
                 }
             }
-            $CSVtmpName = sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
-            file_put_contents(getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
-            $zip->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
+            if ($failCount > 0) {
+                $CSVtmpName = sprintf('%s.zip', $user->username) . '-missingTorrentFiles.CSV';
+                file_put_contents(getcwd() . '/files/tmp/' . $CSVtmpName, $failCSV);
+                $zip->addFile(getcwd() . '/files/tmp/' . $CSVtmpName, 'missingTorrentFiles.CSV');
+            }
             // Close ZipArchive
             $zip->close();
         }
