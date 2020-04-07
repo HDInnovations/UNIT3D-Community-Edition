@@ -127,11 +127,11 @@ class SubtitleController extends Controller
         $profile_url = hrefProfile($user);
         if ($subtitle->anon == false) {
             $this->chat->systemMessage(
-                sprintf('[url=%s]%s[/url] has uploaded a new subtitle for [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $subtitle->torrent->name)
+                sprintf('[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]', $profile_url, $user->username, $subtitle->language->name, $torrent_url, $subtitle->torrent->name)
             );
         } else {
             $this->chat->systemMessage(
-                sprintf('An anonymous user has uploaded a new subtitle for [url=%s]%s[/url]', $torrent_url, $subtitle->torrent->name)
+                sprintf('An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]', $subtitle->language->name, $torrent_url, $subtitle->torrent->name)
             );
         }
 
