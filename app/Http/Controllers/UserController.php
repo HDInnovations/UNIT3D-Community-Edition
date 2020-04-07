@@ -2003,25 +2003,25 @@ class UserController extends Controller
 
                 // The Torrent File Exist?
                 if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $failCSV .= "\"".$torrent->name . "\",\"". route('torrent', ['id' => $torrent->id]) . "\",\"" . $torrent->id . "\",\"" . $historyTorrent ."\"\r\n" ;
+                    $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent."\"\r\n";
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
-                    if (file_exists(getcwd() . '/files/tmp/' . $tmpFileName)) {
-                        unlink(getcwd() . '/files/tmp/' . $tmpFileName);
+                    if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
+                        unlink(getcwd().'/files/tmp/'.$tmpFileName);
                     }
 
                     // Get The Content Of The Torrent
-                    $dict = Bencode::bdecode(file_get_contents(getcwd() . '/files/torrents/' . $torrent->file_name));
+                    $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
                     // Set the announce key and add the user passkey
                     $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
                     // Remove Other announce url
                     unset($dict['announce-list']);
 
                     $fileToDownload = Bencode::bencode($dict);
-                    file_put_contents(getcwd() . '/files/tmp/' . $tmpFileName, $fileToDownload);
+                    file_put_contents(getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
 
                     // Add Files To ZipArchive
-                    $zip->addFile(getcwd() . '/files/tmp/' . $tmpFileName, $tmpFileName);
+                    $zip->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
                 }
             }
             $CSVtmpName = sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
