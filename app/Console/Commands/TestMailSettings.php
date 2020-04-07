@@ -40,7 +40,7 @@ class TestMailSettings extends Command
      */
     public function handle()
     {
-        $owner = env('DEFAULT_OWNER_EMAIL');
+        $owner = config('other.email');
 
         $this->info('Sending Test Email To '.$owner);
         sleep(5);
