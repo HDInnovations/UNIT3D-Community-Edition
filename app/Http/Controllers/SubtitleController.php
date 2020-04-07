@@ -13,19 +13,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Achievements\UserUploadedFirstSubtitle;
-use App\Achievements\UserUploaded25Subtitles;
-use App\Achievements\UserUploaded50Subtitles;
+use App\Achievements\UserUploaded1000Subtitles;
 use App\Achievements\UserUploaded100Subtitles;
 use App\Achievements\UserUploaded200Subtitles;
+use App\Achievements\UserUploaded25Subtitles;
 use App\Achievements\UserUploaded300Subtitles;
 use App\Achievements\UserUploaded400Subtitles;
 use App\Achievements\UserUploaded500Subtitles;
+use App\Achievements\UserUploaded50Subtitles;
 use App\Achievements\UserUploaded600Subtitles;
 use App\Achievements\UserUploaded700Subtitles;
 use App\Achievements\UserUploaded800Subtitles;
 use App\Achievements\UserUploaded900Subtitles;
-use App\Achievements\UserUploaded1000Subtitles;
+use App\Achievements\UserUploadedFirstSubtitle;
 use App\Models\MediaLanguage;
 use App\Models\Subtitle;
 use App\Models\Torrent;
@@ -42,7 +42,7 @@ class SubtitleController extends Controller
     /**
      * SubtitleController Constructor.
      *
-     * @param ChatRepository  $chat
+     * @param ChatRepository $chat
      */
     public function __construct(ChatRepository $chat)
     {
