@@ -36,6 +36,7 @@ class CreateSubtitlesTable extends Migration
             $table->boolean('verified')->default(0)->index();
             $table->integer('user_id')->index();
             $table->integer('torrent_id')->index();
+            $table->boolean('anon')->default(0);
             $table->smallInteger('status')->default(0);
             $table->dateTime('moderated_at')->nullable();
             $table->integer('moderated_by')->nullable()->index();
