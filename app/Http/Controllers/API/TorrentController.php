@@ -381,7 +381,7 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('file_name') && $request->input('file_name') != null) {
-            $torrent = $torrent->whereHas('files', function($q) use($file_name) {
+            $torrent = $torrent->whereHas('files', function ($q) use ($file_name) {
                 $q->where('name', $file_name);
             });
         }
