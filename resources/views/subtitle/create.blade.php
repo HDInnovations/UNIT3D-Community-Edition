@@ -70,6 +70,19 @@
                         <span class="help-block">Extra Info for this subtitle</span>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="anonymous" class="col-sm-2 control-label">@lang('common.anonymous')?</label>
+                    <div class="col-sm-9">
+                        <div class="radio-inline">
+                            <input type="radio" name="anonymous" value="1">@lang('common.yes')
+                        </div>
+                        <div class="radio-inline">
+                            <input type="radio" name="anonymous" checked="checked" value="0">@lang('common.no')
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-sm-9 col-sm-offset-2">
                         <input class="btn btn-primary" type="submit" value="Upload">
