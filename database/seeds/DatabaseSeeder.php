@@ -36,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ChatStatusSeeder::class);
         $this->call(TagsTableSeeder::class);
         $this->call(BotsTableSeeder::class);
+        $this->call(MediaLanguagesSeeder::class);
     }
 }
