@@ -2027,9 +2027,9 @@ class UserController extends Controller
                 }
             }
             if ($failCount > 0) {
-                $CSVtmpName = sprintf('%s.zip', $user->username) . '-missingTorrentFiles.CSV';
-                file_put_contents(getcwd() . '/files/tmp/' . $CSVtmpName, $failCSV);
-                $zip->addFile(getcwd() . '/files/tmp/' . $CSVtmpName, 'missingTorrentFiles.CSV');
+                $CSVtmpName = sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
+                file_put_contents(getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
+                $zip->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
             }
             // Close ZipArchive
             $zip->close();
