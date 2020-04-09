@@ -28,14 +28,14 @@
                 <li>Only proper subtitles are allowed to be uploaded (Correct frame rate. translation, spelling, timing).</li>
                 <li>No google translated / machine translated / incorrect subtitles allowed.</li>
                 <li>Subtitle must be in sync with the video.</li>
-                <li>.srt only allowed.</li>
+                <li>.srt, .ico and .zip only allowed. .zip is only allowed when bundeling subtitles of the same language for a TV Season Pack.</li>
                 <li>Repeated uploads of junk sub will constitute a violation and subject to disciplinary action.</li>
                 <li>Keep the note of the subtitle short. NO urls/links are allowed.</li>
                 <li>All Subtitles must be confirmed, verified, timed correctly for the specific Torrent/Video.</li>
             </ul>
         </div>
         <div class="block">
-            <form method="POST" action="{{ route('subtitles.store') }}" accept-charset="UTF-8" id="form_upload_subtitle" class="form-horizontal" role="form" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('subtitles.store') }}" id="form_upload_subtitle" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
                 <input name="torrent_id" type="hidden" value="{{ $torrent->id }}">
                 <div class="form-group">
@@ -49,8 +49,8 @@
                 <div class="form-group">
                     <label for="subtitle_file" class="col-sm-2 control-label">Subtitle File</label>
                     <div class="col-sm-9">
-                        <input class="form-control" accept=".srt" name="subtitle_file" type="file" id="subtitle_file">
-                        <span class="help-block">Accepted files are SRT</span>
+                        <input class="form-control" name="subtitle_file" accept=".srt,.ico,.zip"  type="file" id="subtitle_file">
+                        <span class="help-block">Accepted files are ICO, SRT and ZIP</span>
                     </div>
                 </div>
                 <div class="form-group">
