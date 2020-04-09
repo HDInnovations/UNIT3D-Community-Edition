@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Achievements\UserUploaded1000Subtitles;
 use App\Achievements\UserUploaded100Subtitles;
 use App\Achievements\UserUploaded200Subtitles;
@@ -85,13 +86,13 @@ class SubtitleController extends Controller
     {
         $user = $request->user();
         $subtitle_file = $request->file('subtitle_file');
-        $filename = uniqid().'.srt';
+        $filename = uniqid().'.'.$subtitle_file->getClientOriginalExtension();
 
         $subtitle = new Subtitle();
         $subtitle->title = $subtitle_file->getClientOriginalName();
         $subtitle->file_name = $filename;
         $subtitle->file_size = $subtitle_file->getSize();
-        $subtitle->extension = $subtitle_file->getClientOriginalExtension();
+        $subtitle->extension = '.'.$subtitle_file->getClientOriginalExtension();
         $subtitle->language_id = $request->input('language_id');
         $subtitle->note = $request->input('note');
         $subtitle->downloads = 0;
@@ -119,7 +120,7 @@ class SubtitleController extends Controller
         }
 
         // Save Subtitle
-        file_put_contents(getcwd().'/files/subtitles/'.$filename, $subtitle_file);
+        Storage::disk('subtitles')->put($filename, file_get_contents($subtitle_file));
         $subtitle->save();
 
         // Announce To Shoutbox
@@ -228,24 +229,27 @@ class SubtitleController extends Controller
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
 
-        // Grab the subtitle file
-        $subtitle_file = file_get_contents(public_path().'/files/subtitles/'.$subtitle->file_name);
-
         // Define the filename for the download
-        $temp_filename = '['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.'.srt';
+        $temp_filename = '['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.$subtitle->extension;
 
         // Delete the last torrent tmp file
         if (file_exists(public_path().'/files/tmp/'.$temp_filename)) {
             unlink(public_path().'/files/tmp/'.$temp_filename);
         }
 
-        // Place temp file
-        file_put_contents(public_path().'/files/tmp/'.$temp_filename, $subtitle_file);
+        // Grab the subtitle file
+        Storage::copy(public_path().'/files/subtitles/'.$subtitle->file_name, public_path().'/files/tmp/'.$temp_filename);
 
-        // Increment doownloads count
+        // Increment downloads count
         $subtitle->downloads = ++$subtitle->downloads;
         $subtitle->save();
 
-        return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
+        $headers = ['Content-Type: application/zip'];
+
+        if ($subtitle->extension === '.zip') {
+            return response()->download(public_path('files/tmp/'.$temp_filename), $temp_filename, $headers)->deleteFileAfterSend(true);
+        } else {
+            return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
+        }
     }
 }
