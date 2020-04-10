@@ -171,11 +171,11 @@ class BBCodeConverter
             $columns = trim($columns);
 
             $cells = preg_replace_callback('%\[td?\](?P<cells>[\W\w\s]*?)\[/td\]%iu', function ($matches) {
-                return $matches['cells'] . ' | ';
+                return $matches['cells'].' | ';
             }, $columns);
 
             if ($cells !== '') {
-                $cells = '| ' . $cells;
+                $cells = '| '.$cells;
             }
 
             return trim($cells);
@@ -188,29 +188,28 @@ class BBCodeConverter
                 $headers = array_map($replaceRow, $headerMatches);
             }
 
-
             preg_match_all('%\[tr?\](?P<columns>[\W\w\s]*?)\[/tr\]%iu', $tableMatches['rows'], $contentMatches, PREG_SET_ORDER);
             $rows = [];
             if (count($contentMatches) !== 0) {
                 $rows = array_map($replaceRow, $contentMatches);
             }
-            
+
             $headerSeparator = '';
             if (count($rows) > 0) {
                 $columnCount = substr_count($rows[0], '|');
 
                 if (count($headers) === 0) {
-                    $headers[] = join(' ', array_fill(0, $columnCount, '|'));
+                    $headers[] = implode(' ', array_fill(0, $columnCount, '|'));
                 }
 
-                $headerSeparator = join(' --- ', array_fill(0, $columnCount, '|'));
+                $headerSeparator = implode(' --- ', array_fill(0, $columnCount, '|'));
             } else {
                 return $tableMatches['rows'];
             }
-            
+
             $headers[] = $headerSeparator;
 
-            return join("\n", array_merge($headers, $rows)) . "\n";
+            return implode("\n", array_merge($headers, $rows))."\n";
         }, $this->text);
     }
 
