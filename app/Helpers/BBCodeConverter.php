@@ -162,6 +162,59 @@ class BBCodeConverter
     }
 
     /**
+     * @brief Replaces BBCode tables.
+     */
+    protected function replaceTables()
+    {
+        $replaceRow = function ($matches) {
+            $columns = $matches['columns'];
+            $columns = trim($columns);
+
+            $cells = preg_replace_callback('%\[td?\](?P<cells>[\W\w\s]*?)\[/td\]%iu', function ($matches) {
+                return $matches['cells'] . ' | ';
+            }, $columns);
+
+            if ($cells !== '') {
+                $cells = '| ' . $cells;
+            }
+
+            return trim($cells);
+        };
+
+        $this->text = preg_replace_callback('%\[table?\](?P<rows>[\W\w\s]*?)\[/table\]%iu', function ($tableMatches) use ($replaceRow) {
+            preg_match_all('%\[th?\](?P<columns>[\W\w\s]*?)\[/th\]%iu', $tableMatches['rows'], $headerMatches, PREG_SET_ORDER);
+            $headers = [];
+            if (count($headerMatches) !== 0) {
+                $headers = array_map($replaceRow, $headerMatches);
+            }
+
+
+            preg_match_all('%\[tr?\](?P<columns>[\W\w\s]*?)\[/tr\]%iu', $tableMatches['rows'], $contentMatches, PREG_SET_ORDER);
+            $rows = [];
+            if (count($contentMatches) !== 0) {
+                $rows = array_map($replaceRow, $contentMatches);
+            }
+            
+            $headerSeparator = '';
+            if (count($rows) > 0) {
+                $columnCount = substr_count($rows[0], '|');
+
+                if (count($headers) === 0) {
+                    $headers[] = join(' ', array_fill(0, $columnCount, '|'));
+                }
+
+                $headerSeparator = join(' --- ', array_fill(0, $columnCount, '|'));
+            } else {
+                return $tableMatches['rows'];
+            }
+            
+            $headers[] = $headerSeparator;
+
+            return join("\n", array_merge($headers, $rows)) . "\n";
+        }, $this->text);
+    }
+
+    /**
      * @brief Replaces BBCode urls.
      */
     protected function replaceUrls()
@@ -380,6 +433,7 @@ class BBCodeConverter
         $this->replaceUnderline();
         $this->replaceStrikethrough();
         $this->replaceLists();
+        $this->replaceTables();
         $this->replaceUrls();
         $this->replaceImage();
         $this->replaceImages();
