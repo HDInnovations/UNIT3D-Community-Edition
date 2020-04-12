@@ -1,5 +1,4 @@
 let mix = require('laravel-mix');
-let JavaScriptObfuscator = require('webpack-obfuscator')
 require('laravel-mix-sri');
 require('laravel-mix-purgecss');
 
@@ -15,11 +14,6 @@ require('laravel-mix-purgecss');
 mix.version();
 mix.options({
   processCssUrls: false
-});
-mix.webpackConfig({
-  plugins: [
-    new JavaScriptObfuscator({rotateUnicodeArray: true})
-  ]
 })
 
     /*
@@ -50,6 +44,7 @@ mix.webpackConfig({
     .sass('resources/sass/themes/dark-red.scss', 'public/css/themes/dark-red.css')
     .sass('resources/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
     .sass('resources/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
+    .sass('resources/sass/themes/cosmic-void.scss', 'public/css/themes/cosmic-void.css')
     .generateIntegrityHash()
 
     /*

@@ -32,7 +32,7 @@
             @include('partials.dashboardmenu')
     
             <div class="col-sm-5 col-lg-5">
-                <div class="block">
+                <div class="block" id="vue">
                     <div class="panel-body">
                         <h2 class="text-bold text-center text-green">
                             <i class="{{ config('other.font-awesome') }} fa-terminal"></i> Codebase
@@ -55,9 +55,9 @@
                                 {{ config('app.url') }}
                             </h3>
                             <div class="text-center" style="padding-top: 15px;">
-                                <span class="text-red">Issued By: {{ $certificate->getIssuer() }}</span>
+                                <span class="text-red">Issued By: {{ (gettype($certificate) !== 'string') ? $certificate->getIssuer() : "No Certificate Info Found" }}</span>
                                 <br>
-                                <span class="text-red">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
+                                <span class="text-red">Expires: {{ (gettype($certificate) !== 'string') ? $certificate->expirationDate()->diffForHumans() : "No Certificate Info Found" }}</span>
                             </div>
                         @else
                             <h2 class="text-bold text-center text-red">
@@ -67,7 +67,7 @@
                                 {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
                             </h3>
                             <div style="padding-top: 15px;">
-                                <span class="text-red text-left">Issued By: N/A}</span>
+                                <span class="text-red text-left">Issued By: N/A</span>
                                 <span class="text-red" style="float: right;">Expires: N/A</span>
                             </div>
                         @endif

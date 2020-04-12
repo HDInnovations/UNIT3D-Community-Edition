@@ -31,6 +31,6 @@ class ApplicationControllerTest extends TestCase
 
         $this->post(route('application.store'), $application->toArray())
             ->assertRedirect(route('login'))
-            ->assertSessionHas('success', trans('application-submitted'));
+            ->assertSessionHas('success', trans('auth.application-submitted'));
     }
 }

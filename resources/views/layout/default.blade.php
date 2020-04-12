@@ -24,16 +24,14 @@
                     @if (Session::has('achievement'))
                         @include('partials.achievement_modal')
                     @endif
-                    <div id="app">
-                        @if ($errors->any())
-                            <div id="ERROR_COPY" style="display: none;">
-                                @foreach ($errors->all() as $error)
-                                    {{ $error }}<br>
-                                @endforeach
-                            </div>
-                        @endif
-                        @yield('content')
-                    </div>
+                    @if ($errors->any())
+                        <div id="ERROR_COPY" style="display: none;">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}<br>
+                            @endforeach
+                        </div>
+                    @endif
+                    @yield('content')
                     @include('partials.footer')
                 </section>
             </div>

@@ -34,7 +34,7 @@
 					</span>
 
                     <span class="text-muted">
-                        {{ pm.created_at | fromNow }}
+                        {{ pm.created_at | diffForHumans }}
                     </span>
 
                 </h4>
@@ -49,7 +49,8 @@
     </div>
 </template>
 <script>
-  import moment from 'moment'
+  import dayjs from 'dayjs';
+  import relativeTime from 'dayjs/plugin/relativeTime';
 
   export default {
     props: {
@@ -81,13 +82,18 @@
         return `color: ${user.group.color};`
       }
     },
-    filters: {
-      fromNow (dt) {
-        return moment(String(dt)).fromNow()
-      }
-    },
     created () {
+      dayjs.extend(relativeTime)
       this.interval = setInterval(() => this.$forceUpdate(), 30000)
+    },
+    filters: {
+      diffForHumans: (date) => {
+        if (!date){
+          return null;
+        }
+
+        return dayjs(date).fromNow();
+      }
     },
     beforeDestroy () {
       clearInterval(this.interval)

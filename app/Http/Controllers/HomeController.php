@@ -111,14 +111,16 @@ class HomeController extends Controller
         });
 
         // Online Block
-        $users = User::with('group', 'privacy')
-            ->withCount([
-                'warnings' => function (Builder $query) {
-                    $query->whereNotNull('torrent')->where('active', '1');
-                },
-            ])
-            ->where('last_action', '>', now()->subMinutes(5))
-            ->get();
+        $users = cache()->remember('online_users', $expiresAt, function () {
+            return User::with('group', 'privacy')
+                ->withCount([
+                    'warnings' => function (Builder $query) {
+                        $query->whereNotNull('torrent')->where('active', '1');
+                    },
+                ])
+                ->where('last_action', '>', now()->subMinutes(5))
+                ->get();
+        });
 
         $groups = cache()->remember('user-groups', $expiresAt, function () {
             return Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();

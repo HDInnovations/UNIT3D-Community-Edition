@@ -61,8 +61,6 @@
             });
     
             $('#new-thread-content').wysibb({});
-    
-            emoji.textcomplete()
         })
     
     </script>

@@ -36,7 +36,7 @@
             @include('torrent.partials.game_meta')
         @endif
 
-        <div class="table-responsive">
+        <div class="table-responsive" id="vue">
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
                     <span class="badge-user" style=" width: 100%; background-color: rgba(0, 0, 0, 0.19);">
@@ -61,7 +61,7 @@
                             </a>
                         @endif
 
-                        @if ($torrent->tmdb != 0)
+                        @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-labeled btn-primary">
                                 <span class='btn-label'>
                                     <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('torrent.similar')
@@ -153,6 +153,12 @@
                                     @if ($torrent->doubleup == '1')
                                         <span class="badge-extra text-bold">
                                             <i class="{{ config('other.font-awesome') }} fa-gem text-green"></i> @lang('torrent.double-upload')
+                                        </span>
+                                    @endif
+
+                                    @if ($user->group->is_double_upload == '1')
+                                        <span class="badge-extra text-bold">
+                                            <i class="{{ config('other.font-awesome') }} fa-trophy text-purple"></i> @lang('common.special') @lang('torrent.double-upload')
                                         </span>
                                     @endif
 
@@ -605,6 +611,9 @@
             </div>
         </div>
 
+        {{-- Subtitles Block --}}
+        @include('torrent.partials.subtitles')
+
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-coins"></i> @lang('torrent.tip-jar')</h4>
@@ -770,7 +779,6 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#content').wysibb({});
-        emoji.textcomplete()
       })
     </script>
 

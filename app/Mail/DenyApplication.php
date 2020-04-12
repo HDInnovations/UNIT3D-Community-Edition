@@ -30,7 +30,7 @@ class DenyApplication extends Mailable
      */
     public function __construct($denied_message)
     {
-        $this->input = $denied_message;
+        $this->denied_message = $denied_message;
     }
 
     /**

@@ -133,6 +133,6 @@ class ApplicationController extends Controller
         $application->urlProofs()->saveMany($urls);
 
         return redirect()->route('login')
-            ->withSuccess(trans('application-submitted'));
+            ->withSuccess(trans('auth.application-submitted'));
     }
 }

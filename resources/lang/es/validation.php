@@ -137,12 +137,18 @@ return [
     |
     */
 
+    'email_list' => 'Lo sentimos, no aceptamos ese dominio de correos eléctronicos. Aceptamos los que publicamos en nuestra lista blanca.',
+    'recaptcha' => 'Verifica que no eres un robot rellenando el Captcha.',
+
     'custom' => [
         'password' => [
             'min' => 'La :attribute debe contener más de :min caracteres',
         ],
         'email'    => [
             'unique' => 'El :attribute ya existe en nuestra base de datos.',
+        ],
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
         ],
     ],
 

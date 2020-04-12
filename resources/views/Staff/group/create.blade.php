@@ -41,6 +41,7 @@
                                 <th>Trusted</th>
                                 <th>Immune</th>
                                 <th>Freeleech</th>
+                                <th>Double Upload</th>
                                 <th>Incognito</th>
                                 <th>Upload</th>
                                 <th>Autogroup</th>
@@ -124,6 +125,12 @@
                                     <input type="hidden" name="is_freeleech" value="0">
                                     <label>
                                         <input type="checkbox" name="is_freeleech" value="1">
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="is_double_upload" value="0">
+                                    <label>
+                                        <input type="checkbox" name="is_double_upload" value="1">
                                     </label>
                                 </td>
                                 <td>

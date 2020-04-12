@@ -67,7 +67,7 @@
                         <i class="fas fa-gift pointee"></i>
                     </a>
                     <span v-if="message.user.id !== 1" class="text-muted">
-                        {{ message.created_at | fromNow }}
+                        {{ message.created_at | diffForHumans }}
                     </span>
 
                 </h4>
@@ -88,7 +88,8 @@
     }
 </style>
 <script>
-  import moment from 'moment'
+  import dayjs from 'dayjs';
+  import relativeTime from 'dayjs/plugin/relativeTime';
   import pmMethods from './mixins/pmMethods'
 
   export default {
@@ -149,16 +150,22 @@
             return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
         }
     },
-      filters: {
-          fromNow (dt) {
-              return moment(String(dt)).fromNow()
-          }
-      },
-      created () {
-          this.interval = setInterval(() => this.$forceUpdate(), 30000)
-      },
-      beforeDestroy () {
-          clearInterval(this.interval)
+    created () {
+      dayjs.extend(relativeTime)
+      this.interval = setInterval(() => this.$forceUpdate(), 30000)
+    },
+
+    filters: {
+      diffForHumans: (date) => {
+        if (!date){
+          return null;
+        }
+
+        return dayjs(date).fromNow();
       }
+    },
+    beforeDestroy () {
+      clearInterval(this.interval)
+    }
   }
 </script>

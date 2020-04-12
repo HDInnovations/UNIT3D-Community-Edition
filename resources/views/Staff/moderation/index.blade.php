@@ -23,7 +23,7 @@
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>@lang('staff.moderation-since')</th>
+                    <th>@lang('torrent.uploaded')</th>
                     <th>@lang('common.name')</th>
                     <th>@lang('common.category')</th>
                     <th>@lang('common.type')</th>
@@ -306,7 +306,7 @@
                 <tbody>
                 @foreach ($rejected as $reject)
                     <tr>
-                        <td><span class="text-red text-red">{{ $reject->created_at->diffForHumans() }}</span></td>
+                        <td><span class="text-red text-red">{{ $reject->moderated_at->diffForHumans() }}</span></td>
                         <td><a href="{{ route('torrent', ['id' => $reject->id]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->name }}</span></a>
