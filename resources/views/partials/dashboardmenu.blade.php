@@ -118,6 +118,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('staff.media_languages.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> Media Languages
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('staff.flush.peers') }}">
                     <i class="fab fa-snapchat-ghost"></i> @lang('staff.flush-ghost-peers')
                 </a>

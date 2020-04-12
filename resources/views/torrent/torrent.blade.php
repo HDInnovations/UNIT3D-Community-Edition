@@ -611,6 +611,9 @@
             </div>
         </div>
 
+        {{-- Subtitles Block --}}
+        @include('torrent.partials.subtitles')
+
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-coins"></i> @lang('torrent.tip-jar')</h4>

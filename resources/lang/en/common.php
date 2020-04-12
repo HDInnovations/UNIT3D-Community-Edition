@@ -23,7 +23,7 @@ return [
     'about'                => 'About Us',
     'account'              => 'Account',
     'achievement-title'    => 'Awesome',
-    'achievement-unlocked' => 'You unlocked ":name" achievement',
+    'achievement-unlocked' => 'You unlocked <span class="badge-extra">:name</span> achievement',
     'active'               => 'Active',
     'active-warning'       => 'Active Warning',
     'add'                  => 'Add',
