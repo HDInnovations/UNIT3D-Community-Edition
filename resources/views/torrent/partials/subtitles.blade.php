@@ -12,6 +12,7 @@
             <tr>
                 <th>Language</th>
                 <th>Download</th>
+                <th>Extension</th>
                 <th>Size</th>
                 <th>Downloads</th>
                 <th>Uploaded</th>
@@ -28,6 +29,7 @@
                     <td>
                         <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}" class="btn btn-xs btn-warning">Download</a>
                     </td>
+                    <td>{{ $subtitle->extension }}</td>
                     <td>{{ $subtitle->getSize() }}</td>
                     <td>{{ $subtitle->downloads }}</td>
                     <td>{{ $subtitle->created_at->diffForHumans() }}</td>
