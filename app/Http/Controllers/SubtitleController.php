@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
 use App\Achievements\UserUploaded1000Subtitles;
 use App\Achievements\UserUploaded100Subtitles;
 use App\Achievements\UserUploaded200Subtitles;
@@ -32,6 +31,7 @@ use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubtitleController extends Controller
 {
