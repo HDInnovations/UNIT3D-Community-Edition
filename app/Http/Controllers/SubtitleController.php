@@ -238,7 +238,7 @@ class SubtitleController extends Controller
         }
 
         // Grab the subtitle file
-        Storage::copy(public_path().'/files/subtitles/'.$subtitle->file_name, public_path().'/files/tmp/'.$temp_filename);
+        copy(public_path().'/files/subtitles/'.$subtitle->file_name, public_path().'/files/tmp/'.$temp_filename);
 
         // Increment downloads count
         $subtitle->downloads = ++$subtitle->downloads;
