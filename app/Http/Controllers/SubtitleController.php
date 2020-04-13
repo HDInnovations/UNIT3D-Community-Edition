@@ -202,7 +202,9 @@ class SubtitleController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
 
-        unlink(public_path().'/files/subtitles/'.$subtitle->file_name);
+        if (file_exists(public_path().'/files/subtitles/'.$subtitle->file_name)) {
+            unlink(public_path().'/files/subtitles/'.$subtitle->file_name);
+        }
 
         $subtitle->delete();
 
