@@ -144,7 +144,7 @@ class TorrentController extends Controller
             ->latest()
             ->get();
 
-        if (!$torrents || $torrents->count() < 1) {
+        if (! $torrents || $torrents->count() < 1) {
             abort(404, 'No Similar Torrents Found');
         }
 
@@ -249,7 +249,7 @@ class TorrentController extends Controller
 
         $prelauncher = $torrent->orderBy('s'.self::SORTING, self::ORDER)->pluck('imdb')->toArray();
 
-        if (!is_array($prelauncher)) {
+        if (! is_array($prelauncher)) {
             $prelauncher = [];
         }
         $links = new Paginator($prelauncher, count($prelauncher), self::QTY);
@@ -264,14 +264,14 @@ class TorrentController extends Controller
         $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
         foreach ($launcher->cursor() as $chunk) {
             if ($chunk->imdb) {
-                $totals[$chunk->imdb] = !array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
-                if (!array_key_exists('imdb'.$chunk->imdb, $cache)) {
+                $totals[$chunk->imdb] = ! array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
+                if (! array_key_exists('imdb'.$chunk->imdb, $cache)) {
                     $cache['imdb'.$chunk->imdb] = [];
                 }
-                if (!array_key_exists('imdb'.$chunk->imdb, $counts)) {
+                if (! array_key_exists('imdb'.$chunk->imdb, $counts)) {
                     $counts['imdb'.$chunk->imdb] = 0;
                 }
-                if (!array_key_exists('imdb'.$chunk->imdb, $attributes)) {
+                if (! array_key_exists('imdb'.$chunk->imdb, $attributes)) {
                     $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
                     $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
                     $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
@@ -282,10 +282,10 @@ class TorrentController extends Controller
                 $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
                 $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
                 $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                if (!array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
+                if (! array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
                     $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
                 }
-                if (!array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
+                if (! array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
                     $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
                 }
                 $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
@@ -451,7 +451,7 @@ class TorrentController extends Controller
         if ($request->has('direction') && $request->input('direction') != null) {
             $order = $request->input('direction');
         }
-        if (!$sorting || $sorting == null || !$order || $order == null) {
+        if (! $sorting || $sorting == null || ! $order || $order == null) {
             $sorting = 'created_at';
             $order = 'desc';
             // $order = 'asc';
@@ -564,7 +564,7 @@ class TorrentController extends Controller
             }
         } elseif ($nohistory == 1) {
             $history = History::select(['torrents.id'])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('history.user_id', '=', $user->id)->get()->toArray();
-            if (!$history || !is_array($history)) {
+            if (! $history || ! is_array($history)) {
                 $history = [];
             }
             $torrent = $torrent->with(['user', 'category', 'tags'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
@@ -708,7 +708,7 @@ class TorrentController extends Controller
 
             $prelauncher = $torrent->orderBy('s'.$sorting, $order)->pluck('imdb')->toArray();
 
-            if (!is_array($prelauncher)) {
+            if (! is_array($prelauncher)) {
                 $prelauncher = [];
             }
             $links = new Paginator($prelauncher, count($prelauncher), $qty);
@@ -726,14 +726,14 @@ class TorrentController extends Controller
             $launcher = Torrent::with(['user', 'category', 'tags'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $chunk) {
                 if ($chunk->imdb) {
-                    $totals[$chunk->imdb] = !array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
-                    if (!array_key_exists('imdb'.$chunk->imdb, $cache)) {
+                    $totals[$chunk->imdb] = ! array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
+                    if (! array_key_exists('imdb'.$chunk->imdb, $cache)) {
                         $cache['imdb'.$chunk->imdb] = [];
                     }
-                    if (!array_key_exists('imdb'.$chunk->imdb, $counts)) {
+                    if (! array_key_exists('imdb'.$chunk->imdb, $counts)) {
                         $counts['imdb'.$chunk->imdb] = 0;
                     }
-                    if (!array_key_exists('imdb'.$chunk->imdb, $attributes)) {
+                    if (! array_key_exists('imdb'.$chunk->imdb, $attributes)) {
                         $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
                         $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
                         $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
@@ -744,10 +744,10 @@ class TorrentController extends Controller
                     $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
                     $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
                     $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                    if (!array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
+                    if (! array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
                         $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
                     }
-                    if (!array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
+                    if (! array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
                         $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
                     }
                     $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
@@ -766,7 +766,7 @@ class TorrentController extends Controller
         } elseif ($history == 1) {
             $prelauncher = $torrent->orderBy('torrents.sticky', 'desc')->orderBy('torrents.'.$sorting, $order)->pluck('id')->toArray();
 
-            if (!is_array($prelauncher)) {
+            if (! is_array($prelauncher)) {
                 $prelauncher = [];
             }
 
@@ -1448,7 +1448,7 @@ class TorrentController extends Controller
     public function download(Request $request, $id, $rsskey = null)
     {
         $user = $request->user();
-        if (!$user && $rsskey) {
+        if (! $user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         }
 
@@ -1476,7 +1476,7 @@ class TorrentController extends Controller
         $tmpFileName = str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']'.$torrent->name.'.torrent');
 
         // The torrent file exist ?
-        if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+        if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         }
@@ -1720,7 +1720,7 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $active_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
 
-        if ($user->fl_tokens >= 1 && !$active_token) {
+        if ($user->fl_tokens >= 1 && ! $active_token) {
             $token = new FreeleechToken();
             $token->user_id = $user->id;
             $token->torrent_id = $torrent->id;

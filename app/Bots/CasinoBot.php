@@ -137,7 +137,7 @@ class CasinoBot
     public function getDonations($duration = 'default')
     {
         $donations = cache()->get('casinobot-donations');
-        if (!$donations || $donations == null) {
+        if (! $donations || $donations == null) {
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             cache()->put('casinobot-donations', $donations, $this->expiresAt);
         }
@@ -236,7 +236,7 @@ class CasinoBot
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = cache()->get('user-echoes'.$target->id);
-            if (!$receiver_echoes || !is_array($receiver_echoes) || count($receiver_echoes) < 1) {
+            if (! $receiver_echoes || ! is_array($receiver_echoes) || count($receiver_echoes) < 1) {
                 $receiver_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -245,7 +245,7 @@ class CasinoBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new UserEcho();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;
@@ -260,7 +260,7 @@ class CasinoBot
             }
             $receiver_dirty = 0;
             $receiver_audibles = cache()->get('user-audibles'.$target->id);
-            if (!$receiver_audibles || !is_array($receiver_audibles) || count($receiver_audibles) < 1) {
+            if (! $receiver_audibles || ! is_array($receiver_audibles) || count($receiver_audibles) < 1) {
                 $receiver_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -269,7 +269,7 @@ class CasinoBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new UserAudible();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;

@@ -124,21 +124,21 @@ class BBCodeConverter
                 if (isset($matches['type']) && $matches['type'] == '=1') { // ordered list
                     // We start from 1 to discard the first string, in fact, it's empty.
                     for ($i = 1; $i < $counter; $i++) {
-                        if (!empty($items[$i])) {
+                        if (! empty($items[$i])) {
                             $buffer .= (string) ($i).'. '.trim($items[$i]).PHP_EOL;
                         }
                     }
                 } else { // unordered list
                     // We start from 1 to discard the first string, in fact, it's empty.
                     for ($i = 1; $i < $counter; $i++) {
-                        if (!empty($items[$i])) {
+                        if (! empty($items[$i])) {
                             $buffer .= '- '.trim($items[$i]).PHP_EOL;
                         }
                     }
                 }
 
                 // We need a like break above the list and another one below.
-                if (!empty($buffer)) {
+                if (! empty($buffer)) {
                     $buffer = PHP_EOL.$buffer.PHP_EOL;
                 }
 

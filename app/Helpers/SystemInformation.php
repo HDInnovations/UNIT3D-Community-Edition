@@ -113,7 +113,7 @@ class SystemInformation
 
     private function getDatabase()
     {
-        if (!in_array(config('database.default'), self::KNOWN_DATABASES)) {
+        if (! in_array(config('database.default'), self::KNOWN_DATABASES)) {
             return 'Unkown';
         }
         $results = DB::select(DB::raw('select version()'));

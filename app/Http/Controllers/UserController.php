@@ -539,7 +539,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -573,7 +573,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -607,7 +607,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -641,7 +641,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -676,7 +676,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -710,7 +710,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -749,7 +749,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -785,7 +785,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -820,7 +820,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -855,7 +855,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -891,7 +891,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -932,7 +932,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -969,7 +969,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -1008,7 +1008,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -1043,7 +1043,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -1222,7 +1222,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1281,7 +1281,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1318,7 +1318,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1362,7 +1362,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1405,7 +1405,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1464,7 +1464,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1545,7 +1545,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1575,7 +1575,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1978,7 +1978,7 @@ class UserController extends Controller
         $path = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (!File::isDirectory($path)) {
+        if (! File::isDirectory($path)) {
             File::makeDirectory($path, 0755, true, true);
         }
 
@@ -2003,7 +2003,7 @@ class UserController extends Controller
                 $tmpFileName = sprintf('%s.torrent', $torrent->slug);
 
                 // The Torrent File Exist?
-                if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent."\"\r\n";
                     $failCount++;
                 } else {

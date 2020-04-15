@@ -103,7 +103,7 @@ class VendorCleanup extends Command
 
                 $files = glob($directory.'/'.$casePattern, GLOB_BRACE);
 
-                if (!$files) {
+                if (! $files) {
                     continue;
                 }
 
@@ -120,12 +120,12 @@ class VendorCleanup extends Command
                 foreach ($files as $file) {
                     if (is_dir($file)) {
                         $this->out('DELETING DIR: '.$file);
-                        if (!$isDry) {
+                        if (! $isDry) {
                             $this->delTree($file);
                         }
                     } else {
                         $this->out('DELETING FILE: '.$file);
-                        if (!$isDry) {
+                        if (! $isDry) {
                             @unlink($file);
                         }
                     }
@@ -166,7 +166,7 @@ class VendorCleanup extends Command
      */
     protected function delTree($dir)
     {
-        if (!file_exists($dir) || !is_dir($dir)) {
+        if (! file_exists($dir) || ! is_dir($dir)) {
             return false;
         }
         $iterator = new RecursiveIteratorIterator(

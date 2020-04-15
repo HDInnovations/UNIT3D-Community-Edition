@@ -75,7 +75,7 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
-        if (!$request->hasFile('torrent')) {
+        if (! $request->hasFile('torrent')) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
         }
 
@@ -475,7 +475,7 @@ class TorrentController extends BaseController
             $torrent->where('torrents.seeders', '=', 0)->where('torrents.leechers', '>=', 1);
         }
 
-        if (!empty($torrent)) {
+        if (! empty($torrent)) {
             return new TorrentsResource($torrent->paginate(25));
         }
 

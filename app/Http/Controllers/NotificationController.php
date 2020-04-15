@@ -161,7 +161,7 @@ class NotificationController extends Controller
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
 
-        if (!$notification) {
+        if (! $notification) {
             return redirect()->route('notifications.index')
                 ->withErrors('Notification Does Not Exist!');
         }

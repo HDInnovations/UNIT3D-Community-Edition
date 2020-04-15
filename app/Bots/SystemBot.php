@@ -104,7 +104,7 @@ class SystemBot
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $receiver)->first();
 
-            if (!$recipient || $recipient->id == $this->target->id) {
+            if (! $recipient || $recipient->id == $this->target->id) {
                 return 'Your BON gift could not be sent.';
             }
 
@@ -204,7 +204,7 @@ class SystemBot
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = cache()->get('user-echoes'.$target->id);
-            if (!$receiver_echoes || !is_array($receiver_echoes) || count($receiver_echoes) < 1) {
+            if (! $receiver_echoes || ! is_array($receiver_echoes) || count($receiver_echoes) < 1) {
                 $receiver_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -213,7 +213,7 @@ class SystemBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new UserEcho();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;
@@ -228,7 +228,7 @@ class SystemBot
             }
             $receiver_dirty = 0;
             $receiver_audibles = cache()->get('user-audibles'.$target->id);
-            if (!$receiver_audibles || !is_array($receiver_audibles) || count($receiver_audibles) < 1) {
+            if (! $receiver_audibles || ! is_array($receiver_audibles) || count($receiver_audibles) < 1) {
                 $receiver_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -237,7 +237,7 @@ class SystemBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new UserAudible();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;

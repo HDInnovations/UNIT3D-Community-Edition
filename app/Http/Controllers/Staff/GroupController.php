@@ -94,7 +94,7 @@ class GroupController extends Controller
             'icon'     => 'required',
         ]);
 
-        if (!$request->user()->group->is_owner && $request->input('is_owner') == 1) {
+        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
             return redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to create a group with owner permissions!');
         }
@@ -179,7 +179,7 @@ class GroupController extends Controller
             'icon'     => 'required',
         ]);
 
-        if (!$request->user()->group->is_owner && $request->input('is_owner') == 1) {
+        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
             return redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to give a group owner permissions!');
         }

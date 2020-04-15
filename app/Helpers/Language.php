@@ -10,7 +10,7 @@
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-if (!function_exists('language')) {
+if (! function_exists('language')) {
     /**
      * Get the language instance.
      *

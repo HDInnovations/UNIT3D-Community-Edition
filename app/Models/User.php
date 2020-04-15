@@ -748,7 +748,7 @@ class User extends Authenticatable
         if ($target->block_notifications && $target->block_notifications == 1) {
             return false;
         }
-        if ($target->notification && $type && (!$target->notification->$type)) {
+        if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
         if ($target->notification && $target->notification->$target_group && is_array($target->notification->$target_group['default_groups'])) {
@@ -784,7 +784,7 @@ class User extends Authenticatable
         if ($target->hidden && $target->hidden == 1) {
             return false;
         }
-        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
         if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
@@ -820,7 +820,7 @@ class User extends Authenticatable
         if ($target->private_profile && $target->private_profile == 1) {
             return false;
         }
-        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
         if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {

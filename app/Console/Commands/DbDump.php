@@ -43,7 +43,7 @@ class DbDump extends Command
         $user = config('database.connections.mysql.username');
         $password = config('database.connections.mysql.password');
 
-        if (!$outfile) {
+        if (! $outfile) {
             $this->error('The dump file location is not set in the configuration. If you\'ve tried to set it, you may need to call "php artisan cache:clear" and/or specify the environment when calling Artisan, e.g., "php artisan --env=testing db:dump".');
 
             return;
