@@ -97,7 +97,7 @@ class Http2ServerPush
             })
             ->take($limit);
 
-        $sizeLimit = $sizeLimit ?? max(1, intval($this->getConfig('size_limit', 32 * 1_024)));
+        $sizeLimit ??= max(1, intval($this->getConfig('size_limit', 32 * 1_024)));
         $headersText = trim($headers->implode(','));
         while (strlen($headersText) > $sizeLimit) {
             $headers->pop();
