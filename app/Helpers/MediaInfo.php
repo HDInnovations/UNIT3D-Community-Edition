@@ -445,7 +445,7 @@ class MediaInfo
         $size = strtolower($size);
 
         if (isset(self::FACTORS[$size])) {
-            return (float) number_format($bytes * pow(1024, self::FACTORS[$size]), 2, '.', '');
+            return (float) number_format($bytes * pow(1_024, self::FACTORS[$size]), 2, '.', '');
         }
 
         return $bytes;

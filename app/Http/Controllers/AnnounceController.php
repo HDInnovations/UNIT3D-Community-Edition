@@ -34,8 +34,8 @@ class AnnounceController extends Controller
     protected const POSTPONED = 3;
 
     // Announce Intervals
-    private const MIN = 2400;
-    private const MAX = 3600;
+    private const MIN = 2_400;
+    private const MAX = 3_600;
 
     /**
      * Announce Code.

@@ -45,9 +45,9 @@ class SystemInformation
         if (is_readable('/proc/meminfo')) {
             $content = file_get_contents('/proc/meminfo');
             preg_match('/^MemTotal: \s*(\d*)/m', $content, $matches);
-            $total = $matches[1] * 1024;
+            $total = $matches[1] * 1_024;
             preg_match('/^MemFree: \s*(\d*)/m', $content, $matches);
-            $free = $matches[1] * 1024;
+            $free = $matches[1] * 1_024;
             //preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
             //$used = $this->formatBytes($matches[1] * 1024);
 
@@ -68,10 +68,10 @@ class SystemInformation
     protected function formatBytes($bytes, $precision = 2)
     {
         $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1_024));
         $pow = min($pow, count(self::UNITS) - 1);
         // Uncomment one of the following alternatives
-        $bytes /= pow(1024, $pow);
+        $bytes /= pow(1_024, $pow);
         // $bytes /= (1 << (10 * $pow));
 
         return round($bytes, $precision).' '.self::UNITS[$pow];

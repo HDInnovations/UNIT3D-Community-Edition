@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Share $footer_pages across all views
         view()->composer('*', function (View $view) {
-            $footer_pages = cache()->remember('cached-pages', 3600, function () {
+            $footer_pages = cache()->remember('cached-pages', 3_600, function () {
                 return Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get();
             });
 
@@ -91,7 +91,7 @@ class AppServiceProvider extends ServiceProvider
             'hiddencaptcha',
             function ($attribute, $value, $parameters, $validator) {
                 $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
-                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1200;
+                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
                 if (!HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {
                     $validator->setCustomMessages(['hiddencaptcha' => 'Captcha error']);
 

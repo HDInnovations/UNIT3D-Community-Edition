@@ -107,7 +107,7 @@ trait ConsoleTools
         }
 
         $process = new Process($command);
-        $process->setTimeout(3600);
+        $process->setTimeout(3_600);
         $process->start();
 
         while ($process->isRunning()) {
@@ -121,7 +121,7 @@ trait ConsoleTools
                 $bar->advance();
             }
 
-            usleep(200000);
+            usleep(200_000);
         }
 
         if (!$silent) {

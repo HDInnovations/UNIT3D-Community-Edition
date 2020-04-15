@@ -215,7 +215,7 @@ class Movie
         if (strlen($title) > 4) {
             $might_be_year_one = str_replace(substr($title, 0, -6), '', $title);
             $might_be_year = str_replace(['(', ')'], '', $might_be_year_one);
-            if ($might_be_year > 1900 && $might_be_year < (date('Y') + 100)) {
+            if ($might_be_year > 1_900 && $might_be_year < (date('Y') + 100)) {
                 $title = trim(str_replace($might_be_year_one, '', $title));
             }
         }
