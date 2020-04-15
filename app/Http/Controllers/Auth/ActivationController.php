@@ -21,12 +21,8 @@ class ActivationController extends Controller
 {
     public function activate($token)
     {
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $member_group = cache()->rememberForever('member_group', fn() => Group::where('slug', '=', 'user')->pluck('id'));
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $banned_group[0]) {

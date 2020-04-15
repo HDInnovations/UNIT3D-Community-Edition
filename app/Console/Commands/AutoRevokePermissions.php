@@ -44,21 +44,11 @@ class AutoRevokePermissions extends Command
      */
     public function handle()
     {
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $leech_group = cache()->rememberForever('leech_group', function () {
-            return Group::where('slug', '=', 'leech')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
-        $pruned_group = cache()->rememberForever('pruned_group', function () {
-            return Group::where('slug', '=', 'pruned')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn() => Group::where('slug', '=', 'validating')->pluck('id'));
+        $leech_group = cache()->rememberForever('leech_group', fn() => Group::where('slug', '=', 'leech')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = cache()->rememberForever('pruned_group', fn() => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         User::whereNotIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '1', 'can_request' => '1']);
         User::whereIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '0', 'can_request' => '0']);

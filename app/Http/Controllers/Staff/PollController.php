@@ -85,9 +85,7 @@ class PollController extends Controller
 
         $poll = $request->user() ? $user->polls()->create($request->all()) : Poll::create($request->all());
 
-        $options = collect($request->input('options'))->map(function ($value) {
-            return new Option(['name' => $value]);
-        });
+        $options = collect($request->input('options'))->map(fn($value) => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
 
         $poll_url = hrefPoll($poll);
@@ -135,13 +133,9 @@ class PollController extends Controller
         }
 
         // Remove the deleted options in poll
-        $oldOptionIds = collect($poll->options)->map(function ($option) {
-            return $option->id;
-        })->all();
+        $oldOptionIds = collect($poll->options)->map(fn($option) => $option->id)->all();
 
-        $existingOldOptionIds = collect($request->input('option-id'))->map(function ($id) {
-            return intval($id);
-        })->all();
+        $existingOldOptionIds = collect($request->input('option-id'))->map(fn($id) => intval($id))->all();
 
         $idsOfOptionToBeRemove = array_diff($oldOptionIds, $existingOldOptionIds);
 
@@ -151,9 +145,7 @@ class PollController extends Controller
         }
 
         // Update existing options
-        $existingOldOptionContents = collect($request->input('option-content'))->map(function ($content) {
-            return strval($content);
-        })->all();
+        $existingOldOptionContents = collect($request->input('option-content'))->map(fn($content) => strval($content))->all();
 
         if (count($existingOldOptionContents) === count($existingOldOptionIds)) {
             $len = count($existingOldOptionContents);
@@ -165,9 +157,7 @@ class PollController extends Controller
         }
 
         // Insert new options
-        $newOptions = collect($request->input('new-option-content'))->map(function ($content) {
-            return new Option(['name' => $content]);
-        });
+        $newOptions = collect($request->input('new-option-content'))->map(fn($content) => new Option(['name' => $content]));
 
         $poll->options()->saveMany($newOptions);
 
