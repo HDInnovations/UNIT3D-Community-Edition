@@ -26,8 +26,9 @@
                         <div class="form-group">
                             <label for="users">@lang('common.username')</label>
                             <label>
-                                <input name="receiver_id" class="form-control" placeholder="@lang('common.username')"
-                                    required>
+                                <label>
+                                <input name="receiver_id" class="form-control" placeholder="@lang('common.username')" {{request()->has('username') ? 'readonly' : 'required'}} value="{{request()->has('username') ? request()->get('username') : '' }}">    
+                            </label>
                             </label>
                         </div>
     
