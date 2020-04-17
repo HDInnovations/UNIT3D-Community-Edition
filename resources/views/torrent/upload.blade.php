@@ -136,17 +136,13 @@
                     <div class="form-group">
                         <label for="description">@lang('torrent.description')</label>
                         <label for="upload-form-description"></label><textarea id="upload-form-description" name="description"
-                            cols="30" rows="10" class="form-control">
-                        {{ old('description') }}
-                        </textarea>
+                            cols="30" rows="10" class="form-control">{{ old('description') }}</textarea>
                     </div>
         
                     <div class="form-group">
                         <label for="mediainfo">@lang('torrent.media-info-parser')</label>
                         <label for="upload-form-description"></label><textarea id="upload-form-description" name="mediainfo"
-                            cols="30" rows="10" class="form-control" placeholder="@lang('torrent.media-info-paste')">
-                        {{ old('mediainfo') }}
-                        </textarea>
+                            cols="30" rows="10" maxlength=60000 class="form-control" placeholder="@lang('torrent.media-info-paste')">{{ old('mediainfo') }}</textarea>
                     </div>
         
                     <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
