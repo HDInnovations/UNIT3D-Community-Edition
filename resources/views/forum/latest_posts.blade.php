@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_latest_topics') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('forum_latest_posts') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.latest-posts')</span>
         </a>
     </li>
