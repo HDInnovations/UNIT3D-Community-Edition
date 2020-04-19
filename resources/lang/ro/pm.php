@@ -36,4 +36,5 @@ return [
   'subject' => 'Subiect',
   'to' => 'La',
   'unread' => 'necitită',
+    'empty-inbox'   => 'Cutie poștală goală',
 ];

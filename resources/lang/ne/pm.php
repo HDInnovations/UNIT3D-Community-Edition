@@ -36,4 +36,5 @@ return [
   'subject' => 'विषय',
   'to' => 'लाई',
   'unread' => 'नपढिएको',
+    'empty-inbox'   => 'खाली ईनबक्स',
 ];

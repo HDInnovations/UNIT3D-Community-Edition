@@ -36,6 +36,12 @@
                                         data-original-title="@lang('pm.refresh')"><i
                                             class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
                                 </a>
+                                <a href="{{ route('empty-inbox') }}">
+                                    <button type="button" id="btn_refresh" class="btn btn-danger dropdown-toggle"
+                                        data-toggle="tooltip" data-placement="top"
+                                        data-original-title="@lang('pm.empty-inbox')"><i
+                                            class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('pm.empty-inbox')</button>
+                                </a>
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-7">

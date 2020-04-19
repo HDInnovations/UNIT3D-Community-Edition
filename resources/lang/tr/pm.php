@@ -36,4 +36,5 @@ return [
   'subject' => 'konu',
   'to' => 'için',
   'unread' => 'Okunmamış',
+    'empty-inbox'   => 'Boş gelen kutusu',
 ];

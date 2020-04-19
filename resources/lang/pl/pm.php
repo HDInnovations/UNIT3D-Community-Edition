@@ -36,4 +36,5 @@ return [
   'subject' => 'Temat',
   'to' => 'Dla',
   'unread' => 'Nieprzeczytane',
+    'empty-inbox'   => 'Pusta skrzynka pocztowa',
 ];

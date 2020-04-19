@@ -36,4 +36,5 @@ return [
   'subject' => 'Mavzu',
   'to' => 'To',
   'unread' => 'O qilmagan',
+    'empty-inbox'   => 'Bo\'sh pochta qutisi',
 ];

@@ -36,4 +36,5 @@ return [
   'subject' => 'විෂය',
   'to' => 'වෙත',
   'unread' => 'නොකියවූ',
+    'empty-inbox'   => 'Empty Inbox',
 ];
