@@ -354,6 +354,14 @@ config('api-keys.omdb')) @endphp
                                 </span>
                             @endif
 
+                                        @if ($user->group->is_double_upload == 1)
+                                            <span class='badge-extra text-bold'>
+                                                <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
+                                                   data-toggle='tooltip' title='' data-original-title='@lang('
+                                                    torrent.special-double_upload')'></i> @lang('torrent.special-double_upload')
+                                            </span>
+                                        @endif
+
                             @if ($torrent->leechers >= 5)
                                 <span class='badge-extra text-bold'>
                                     <i class='{{ config('other.font-awesome') }} fa-fire text-orange' data-toggle='tooltip'

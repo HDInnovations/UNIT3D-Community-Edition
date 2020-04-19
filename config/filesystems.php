@@ -84,6 +84,11 @@ return [
             'driver' => 'local',
             'root'   => public_path('files/torrents'),
         ],
+
+        'subtitles' => [
+            'driver' => 'local',
+            'root'   => public_path('files/subtitles'),
+        ],
     ],
 
 ];

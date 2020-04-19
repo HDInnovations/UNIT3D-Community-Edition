@@ -24,5 +24,5 @@ Vue.component('chatbox', require('./components/chat/Chatbox').default);
 Vue.component('bookmark', require('./components/BookmarkButton').default);
 
 const app = new Vue({
-    el: '#app',
+    el: '#vue',
 });

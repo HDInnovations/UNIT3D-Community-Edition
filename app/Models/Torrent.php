@@ -237,6 +237,16 @@ class Torrent extends Model
     }
 
     /**
+     * Has Many Subtitles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subtitles()
+    {
+        return $this->hasMany(Subtitle::class);
+    }
+
+    /**
      * Has Many History.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

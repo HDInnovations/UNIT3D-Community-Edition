@@ -26,7 +26,7 @@ return [
   'contact-name' => 'Nombre',
   'fail-login-greeting' => 'Error de inicio de sesión de cuenta!',
   'fail-login-line1' => 'Se detectó un inicio de sesión fallido para su cuenta.',
-  'fail-login-line2' => 'Esta solicitud se originó desde: ip (: host) en: tiempo',
+  'fail-login-line2' => 'Esta solicitud se originó desde: ip ( :host ) en :time',
   'fail-login-subject' => 'Notificación de inicio de sesión fallida',
   'footer-link' => 'Si tiene problemas para hacer clic en el botón: actionText, copie y pegue la URL a continuación en su navegador web:',
   'invite-header' => 'Invitación a',

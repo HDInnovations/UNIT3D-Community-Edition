@@ -145,12 +145,7 @@
         },
         mounted () {
             this.editor = $('#chat-message').wysibb()
-
-            // Initialize emojis
-            emoji.textcomplete()
-
             this.input = $('.wysibb-body')
-
             this.input.keyup(this.keyup)
             this.input.keydown(this.keydown)
 

@@ -329,7 +329,7 @@
                 allButtons: {
                     quote: {
                         transform: {
-                            '<div class="wbbquote"><cite><b>{AUTHOR}</b> wrote:</cite> <br /> <br />{SELTEXT}</div>': '[quote={AUTHOR}]{SELTEXT}[/quote]'
+                            '<div class="wbbquote"><cite><b>{AUTHOR}</b> wrote:</cite> <br /> <br />{SELTEXT}<br /><br /></div>': '[quote={AUTHOR}]{SELTEXT}[/quote]'
                         }
                     }
                 }
@@ -337,16 +337,13 @@
 
             let editor = $("#topic-response").wysibb(wbbOpt);
 
-            // Initialize emojis
-            emoji.textcomplete();
-
             $('.profil').on('click', 'button#quote', function() {
-                let author = $(this).closest('.post-info').find('.badge-user').first().text();
-                let text = $(this).closest('.profil').find('.post-content').first().text().replace('@here',
-                    '');
+                let author = $(this).closest('.post-info').find('.badge-user').first().text().trim();
+                let text = $(this).closest('.profil').find('.post-content').first().html().replace('@here',
+                    '').trim();
 
                 editor.execCommand('quote', {
-                    author: '@' + author + ' ',
+                    author: '@' + author,
                     seltext: text
                 });
             });

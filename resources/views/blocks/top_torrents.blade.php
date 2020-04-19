@@ -227,6 +227,14 @@
                                                     torrent.global-double-upload')'></i> @lang('torrent.global-double-upload')
                                             </span>
                                         @endif
+
+                                        @if ($user->group->is_double_upload == 1)
+                                            <span class='badge-extra text-bold'>
+                                                <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
+                                                   data-toggle='tooltip' title='' data-original-title='@lang('
+                                                    torrent.special-double_upload')'></i> @lang('torrent.special-double_upload')
+                                            </span>
+                                        @endif
     
                                         @if ($new->leechers >= 5)
                                             <span class='badge-extra text-bold'>
@@ -472,6 +480,14 @@
                                                 <i class='{{ config('other.font-awesome') }} fa-globe text-green'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('
                                                     torrent.global-double-upload')'></i> @lang('torrent.global-double-upload')
+                                            </span>
+                                        @endif
+
+                                        @if ($user->group->is_double_upload == 1)
+                                            <span class='badge-extra text-bold'>
+                                                <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
+                                                   data-toggle='tooltip' title='' data-original-title='@lang('
+                                                    torrent.special-double_upload')'></i> @lang('torrent.special-double_upload')
                                             </span>
                                         @endif
     
@@ -722,6 +738,14 @@
                                                     torrent.global-double-upload')'></i> @lang('torrent.global-double-upload')
                                             </span>
                                         @endif
+
+                                        @if ($user->group->is_double_upload == 1)
+                                            <span class='badge-extra text-bold'>
+                                                <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
+                                                   data-toggle='tooltip' title='' data-original-title='@lang('
+                                                    torrent.special-double_upload')'></i> @lang('torrent.special-double_upload')
+                                            </span>
+                                        @endif
     
                                         @if ($leech->leechers >= 5)
                                             <span class='badge-extra text-bold'>
@@ -970,6 +994,14 @@
                                                     torrent.global-double-upload')'></i> @lang('torrent.global-double-upload')
                                             </span>
                                         @endif
+
+                                        @if ($user->group->is_double_upload == 1)
+                                            <span class='badge-extra text-bold'>
+                                                <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
+                                                   data-toggle='tooltip' title='' data-original-title='@lang('
+                                                    torrent.special-double_upload')'></i> @lang('torrent.special-double_upload')
+                                            </span>
+                                        @endif
     
                                         @if ($d->leechers >= 5)
                                             <span class='badge-extra text-bold'>
@@ -1215,6 +1247,14 @@
                                                 <i class='{{ config('other.font-awesome') }} fa-globe text-green'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('
                                                     torrent.global-double-upload')'></i> @lang('torrent.global-double-upload')
+                                            </span>
+                                        @endif
+
+                                        @if ($user->group->is_double_upload == 1)
+                                            <span class='badge-extra text-bold'>
+                                                <i class='{{ config('other.font-awesome') }} fa-trophy text-purple'
+                                                   data-toggle='tooltip' title='' data-original-title='@lang('
+                                                    torrent.special-double_upload')'></i> @lang('torrent.special-double_upload')
                                             </span>
                                         @endif
     
