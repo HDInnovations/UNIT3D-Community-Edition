@@ -43,16 +43,15 @@ class LikeController extends Controller
         if ($user->id == $post->user_id) {
             return redirect()->to($postUrl)
                 ->withErrors('You cannot like your own post!');
-        } else {
-            $new = new Like();
-            $new->user_id = $user->id;
-            $new->post_id = $post->id;
-            $new->like = 1;
-            $new->save();
-
-            return redirect()->to($postUrl)
-                ->withSuccess('Like Successfully Applied!');
         }
+        $new = new Like();
+        $new->user_id = $user->id;
+        $new->post_id = $post->id;
+        $new->like = 1;
+        $new->save();
+
+        return redirect()->to($postUrl)
+                ->withSuccess('Like Successfully Applied!');
     }
 
     /**
@@ -79,15 +78,14 @@ class LikeController extends Controller
         if ($user->id == $post->user_id) {
             return redirect()->to($postUrl)
                 ->withErrors('You cannot dislike your own post!');
-        } else {
-            $new = new Like();
-            $new->user_id = $user->id;
-            $new->post_id = $post->id;
-            $new->dislike = 1;
-            $new->save();
-
-            return redirect()->to($postUrl)
-                ->withSuccess('Dislike Successfully Applied!');
         }
+        $new = new Like();
+        $new->user_id = $user->id;
+        $new->post_id = $post->id;
+        $new->dislike = 1;
+        $new->save();
+
+        return redirect()->to($postUrl)
+                ->withSuccess('Dislike Successfully Applied!');
     }
 }

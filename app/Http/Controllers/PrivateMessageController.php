@@ -250,10 +250,10 @@ class PrivateMessageController extends Controller
 
             return redirect()->route('inbox')
                 ->withSuccess('PM Was Deleted Successfully!');
-        } else {
-            return redirect()->route('inbox')
-                ->withErrors('What Are You Trying To Do Here!');
         }
+
+        return redirect()->route('inbox')
+                ->withErrors('What Are You Trying To Do Here!');
     }
 
     /**

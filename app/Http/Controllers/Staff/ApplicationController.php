@@ -107,10 +107,10 @@ class ApplicationController extends Controller
 
             return redirect()->route('staff.applications.index')
                 ->withSuccess('Application Approved');
-        } else {
-            return redirect()->route('staff.applications.index')
-                ->withErrors('Application Already Approved');
         }
+
+        return redirect()->route('staff.applications.index')
+                ->withErrors('Application Already Approved');
     }
 
     /**

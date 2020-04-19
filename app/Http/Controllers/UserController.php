@@ -332,10 +332,10 @@ class UserController extends Controller
 
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your Password Was Incorrect!');
-        } else {
-            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                ->withErrors('Your New Password Is To Weak!');
         }
+
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+                ->withErrors('Your New Password Is To Weak!');
     }
 
     /**

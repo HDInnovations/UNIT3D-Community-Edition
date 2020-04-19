@@ -191,48 +191,47 @@ class TopicController extends Controller
         if ($v->fails()) {
             return redirect()->route('forums.index')
                 ->withErrors($v->errors());
-        } else {
-            $post->save();
-            $topic->num_post = 1;
-            $topic->last_reply_at = $post->created_at;
-            $topic->save();
-            $forum->num_topic = $forum->getTopicCount($forum->id);
-            $forum->num_post = $forum->getPostCount($forum->id);
-            $forum->last_topic_id = $topic->id;
-            $forum->last_topic_name = $topic->name;
-            $forum->last_topic_slug = $topic->slug;
-            $forum->last_post_user_id = $user->id;
-            $forum->last_post_user_username = $user->username;
-            $forum->save();
-
-            // Post To ShoutBox
-            $appurl = config('app.url');
-            $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
-            $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
-
-            if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
-                $forum->notifyStaffers($user, $topic);
-            } else {
-                $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
-                $forum->notifySubscribers($user, $topic);
-            }
-            //Achievements
-            $user->unlock(new UserMadeFirstPost(), 1);
-            $user->addProgress(new UserMade25Posts(), 1);
-            $user->addProgress(new UserMade50Posts(), 1);
-            $user->addProgress(new UserMade100Posts(), 1);
-            $user->addProgress(new UserMade200Posts(), 1);
-            $user->addProgress(new UserMade300Posts(), 1);
-            $user->addProgress(new UserMade400Posts(), 1);
-            $user->addProgress(new UserMade500Posts(), 1);
-            $user->addProgress(new UserMade600Posts(), 1);
-            $user->addProgress(new UserMade700Posts(), 1);
-            $user->addProgress(new UserMade800Posts(), 1);
-            $user->addProgress(new UserMade900Posts(), 1);
-
-            return redirect()->route('forum_topic', ['id' => $topic->id])
-                ->withSuccess('Topic Created Successfully!');
         }
+        $post->save();
+        $topic->num_post = 1;
+        $topic->last_reply_at = $post->created_at;
+        $topic->save();
+        $forum->num_topic = $forum->getTopicCount($forum->id);
+        $forum->num_post = $forum->getPostCount($forum->id);
+        $forum->last_topic_id = $topic->id;
+        $forum->last_topic_name = $topic->name;
+        $forum->last_topic_slug = $topic->slug;
+        $forum->last_post_user_id = $user->id;
+        $forum->last_post_user_username = $user->username;
+        $forum->save();
+
+        // Post To ShoutBox
+        $appurl = config('app.url');
+        $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
+        $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
+
+        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
+            $forum->notifyStaffers($user, $topic);
+        } else {
+            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+            $forum->notifySubscribers($user, $topic);
+        }
+        //Achievements
+        $user->unlock(new UserMadeFirstPost(), 1);
+        $user->addProgress(new UserMade25Posts(), 1);
+        $user->addProgress(new UserMade50Posts(), 1);
+        $user->addProgress(new UserMade100Posts(), 1);
+        $user->addProgress(new UserMade200Posts(), 1);
+        $user->addProgress(new UserMade300Posts(), 1);
+        $user->addProgress(new UserMade400Posts(), 1);
+        $user->addProgress(new UserMade500Posts(), 1);
+        $user->addProgress(new UserMade600Posts(), 1);
+        $user->addProgress(new UserMade700Posts(), 1);
+        $user->addProgress(new UserMade800Posts(), 1);
+        $user->addProgress(new UserMade900Posts(), 1);
+
+        return redirect()->route('forum_topic', ['id' => $topic->id])
+                ->withSuccess('Topic Created Successfully!');
     }
 
     /**
