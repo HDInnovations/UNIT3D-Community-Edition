@@ -255,6 +255,7 @@ class PrivateMessageController extends Controller
         return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');
     }
+
     /**
      * Empty Private Message Inbox.
      *
