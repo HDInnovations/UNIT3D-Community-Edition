@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v2.2.7',
+    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v2.3.0',
 
     /*
     |--------------------------------------------------------------------------
