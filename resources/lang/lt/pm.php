@@ -36,4 +36,5 @@ return [
   'subject' => 'Tema',
   'to' => 'Į',
   'unread' => 'Neskaityta',
+    'empty-inbox'   => 'Posta in arrivo vuota',
 ];

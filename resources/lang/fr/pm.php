@@ -36,4 +36,5 @@ return [
   'subject' => 'Sujet',
   'to' => 'A',
   'unread' => 'Non lu',
+    'empty-inbox'   => 'Boîte de réception vide',
 ];

@@ -36,4 +36,5 @@ return [
   'subject' => 'predmet',
   'to' => 'na',
   'unread' => 'neprečítaný',
+    'empty-inbox'   => 'Prázdna poštová schránka',
 ];

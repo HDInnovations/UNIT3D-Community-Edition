@@ -36,4 +36,5 @@ return [
   'subject' => 'subjekt',
   'to' => 'në',
   'unread' => 'i palexuar',
+    'empty-inbox'   => 'Inbox bosh',
 ];

@@ -36,4 +36,5 @@ return [
   'subject' => 'Gegenstand',
   'to' => 'Zu',
   'unread' => 'Ungelesen',
+    'empty-inbox'   => 'Posteingang leeren',
 ];

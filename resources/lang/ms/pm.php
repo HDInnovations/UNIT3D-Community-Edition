@@ -36,4 +36,5 @@ return [
   'subject' => 'Subjek',
   'to' => 'Untuk',
   'unread' => 'Belum dibaca',
+    'empty-inbox'   => 'Kosongkan peti masuk',
 ];
