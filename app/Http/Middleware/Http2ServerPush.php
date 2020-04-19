@@ -51,7 +51,7 @@ class Http2ServerPush
     {
         $response = $next($request);
 
-        if ($response->isRedirection() || !$response instanceof Response || $request->isJson()) {
+        if ($response->isRedirection() || ! $response instanceof Response || $request->isJson()) {
             return $response;
         }
 
@@ -62,7 +62,7 @@ class Http2ServerPush
 
     public function getConfig($key, $default = false)
     {
-        if (!function_exists('config')) { // for tests..
+        if (! function_exists('config')) { // for tests..
             return $default;
         }
 
@@ -82,33 +82,29 @@ class Http2ServerPush
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
             ->flatten(1)
-            ->map(function ($url) {
-                return $this->buildLinkHeaderString($url);
-            })
+            ->map(fn ($url) => $this->buildLinkHeaderString($url))
             ->unique()
             ->filter(function ($value, $key) use ($excludeKeywords) {
-                if (!$value) {
+                if (! $value) {
                     return false;
                 }
-                $exclude_keywords = collect($excludeKeywords)->map(function ($keyword) {
-                    return preg_quote($keyword);
-                });
+                $exclude_keywords = collect($excludeKeywords)->map(fn ($keyword) => preg_quote($keyword));
                 if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
 
-                return !preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
+                return ! preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
             })
             ->take($limit);
 
-        $sizeLimit = $sizeLimit ?? max(1, intval($this->getConfig('size_limit', 32 * 1024)));
+        $sizeLimit ??= max(1, intval($this->getConfig('size_limit', 32 * 1_024)));
         $headersText = trim($headers->implode(','));
         while (strlen($headersText) > $sizeLimit) {
             $headers->pop();
             $headersText = trim($headers->implode(','));
         }
 
-        if (!empty($headersText)) {
+        if (! empty($headersText)) {
             $this->addLinkHeader($response, $headersText);
         }
 
@@ -154,10 +150,8 @@ class Http2ServerPush
      */
     private function buildLinkHeaderString($url)
     {
-        $type = collect(self::LINK_TYPE_MAP)->first(function ($type, $extension) use ($url) {
-            return Str::contains(strtoupper($url), $extension);
-        });
-        if (!preg_match('%^https?://%i', $url)) {
+        $type = collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(strtoupper($url), $extension));
+        if (! preg_match('%^https?://%i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);
         }

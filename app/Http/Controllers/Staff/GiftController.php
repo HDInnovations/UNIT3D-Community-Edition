@@ -58,7 +58,7 @@ class GiftController extends Controller
                 ->withErrors($v->errors());
         }
         $recipient = User::where('username', '=', $username)->first();
-        if (!$recipient) {
+        if (! $recipient) {
             return redirect()->route('staff.gifts.index')
                 ->withErrors('Unable To Find Specified User');
         }

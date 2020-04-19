@@ -121,7 +121,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Created';
         }
-        if (!$success) {
+        if (! $success) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -149,12 +149,8 @@ class RssController extends Controller
     {
         $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
 
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         if ($user->group->id == $banned_group[0]) {
             abort(404);
@@ -370,7 +366,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Private RSS Feed Updated';
         }
-        if (!$success) {
+        if (! $success) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();

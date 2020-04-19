@@ -73,14 +73,12 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
+        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors(trans('auth.invalid-key'));
         }
 
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');

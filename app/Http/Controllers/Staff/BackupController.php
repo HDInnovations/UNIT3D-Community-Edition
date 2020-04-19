@@ -34,7 +34,7 @@ class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        if (!(is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0)) {
+        if (! (is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0)) {
             dd(trans('backup.no_disks_configured'));
         }
 

@@ -35,7 +35,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function refreshTestDatabase()
     {
-        if (!RefreshDatabaseState::$migrated) {
+        if (! RefreshDatabaseState::$migrated) {
             if (config('database.pristine-db-file')) {
                 // If a flat file is defined, load it.
 

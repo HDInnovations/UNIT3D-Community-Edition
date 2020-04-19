@@ -535,7 +535,7 @@ class RequestController extends Controller
         ]);
 
         $torrent = Torrent::where('info_hash', '=', $torrentRequest->filled_hash)->first();
-        if ($torrent && !$torrent->isApproved()) {
+        if ($torrent && ! $torrent->isApproved()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
                 ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
         }
@@ -628,10 +628,10 @@ class RequestController extends Controller
 
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to approve this request");
         }
+
+        return redirect()->route('request', ['id' => $id])
+                ->withErrors("You don't have access to approve this request");
     }
 
     /**

@@ -61,7 +61,7 @@ class InviteController extends Controller
             return redirect()->route('home.index')
             ->withErrors('Your Invite Rights Have Been Revoked!');
         }
-        if (config('other.invites_restriced') == true && !in_array($user->group->name, config('other.invite_groups'))) {
+        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
@@ -83,7 +83,7 @@ class InviteController extends Controller
         $current = new Carbon();
         $user = $request->user();
 
-        if (config('other.invites_restriced') == true && !in_array($user->group->name, config('other.invite_groups'))) {
+        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }

@@ -58,17 +58,17 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (!is_array($pests)) {
+        if (! is_array($pests)) {
             $pests = [];
         }
 
         $topic_neos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
-        if (!is_array($topic_neos)) {
+        if (! is_array($topic_neos)) {
             $topic_neos = [];
         }
 
         $forum_neos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
-        if (!is_array($forum_neos)) {
+        if (! is_array($forum_neos)) {
             $forum_neos = [];
         }
 
@@ -77,7 +77,7 @@ class ForumController extends Controller
             $result = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests);
         }
 
-        if (!isset($logger)) {
+        if (! isset($logger)) {
             $logger = 'forum.results_topics';
             $result = Topic::whereNotIn('topics.forum_id', $pests);
         }
@@ -127,7 +127,7 @@ class ForumController extends Controller
 
         if ($request->has('category')) {
             $category = (int) $request->input('category');
-            if ($category > 0 && $category < 99999999999) {
+            if ($category > 0 && $category < 99_999_999_999) {
                 $children = Forum::where('parent_id', '=', $category)->get()->toArray();
                 if (is_array($children)) {
                     $result->where(function ($query) use ($category, $children) {
@@ -193,17 +193,17 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (!is_array($pests)) {
+        if (! is_array($pests)) {
             $pests = [];
         }
 
         $topic_neos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
-        if (!is_array($topic_neos)) {
+        if (! is_array($topic_neos)) {
             $topic_neos = [];
         }
 
         $forum_neos = $user->subscriptions->where('forum_id', '>', '0')->pluck('forum_id')->toArray();
-        if (!is_array($forum_neos)) {
+        if (! is_array($forum_neos)) {
             $forum_neos = [];
         }
         $result = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos, $forum_neos) {
@@ -248,7 +248,7 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (!is_array($pests)) {
+        if (! is_array($pests)) {
             $pests = [];
         }
 
@@ -282,7 +282,7 @@ class ForumController extends Controller
         $user = $request->user();
 
         $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
-        if (!is_array($pests)) {
+        if (! is_array($pests)) {
             $pests = [];
         }
 

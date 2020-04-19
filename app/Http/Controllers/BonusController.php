@@ -253,7 +253,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if (!$flag) {
+            if (! $flag) {
                 return redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }
@@ -297,7 +297,7 @@ class BonusController extends Controller
                 return false;
             }
         } elseif ($item['personal_freeleech'] == true) {
-            if (!$activefl) {
+            if (! $activefl) {
                 $personal_freeleech = new PersonalFreeleech();
                 $personal_freeleech->user_id = $user_acc->id;
                 $personal_freeleech->save();
@@ -357,7 +357,7 @@ class BonusController extends Controller
         if ($v->passes()) {
             $recipient = User::where('username', '=', $request->input('to_username'))->first();
 
-            if (!$recipient || $recipient->id == $user->id) {
+            if (! $recipient || $recipient->id == $user->id) {
                 return redirect()->route('bonus_store')
                     ->withErrors('Unable to find specified user');
             }
@@ -404,7 +404,7 @@ class BonusController extends Controller
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
-            if (!$recipient || $recipient->id == $user->id) {
+            if (! $recipient || $recipient->id == $user->id) {
                 return redirect()->route('bonus_store')
                     ->withErrors('Unable to find specified user');
             }
@@ -667,8 +667,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000)
-            ->where('history.seedtime', '<', 2592000 * 2)
+            ->where('history.seedtime', '>=', 2_592_000)
+            ->where('history.seedtime', '<', 2_592_000 * 2)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -688,8 +688,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 2)
-            ->where('history.seedtime', '<', 2592000 * 3)
+            ->where('history.seedtime', '>=', 2_592_000 * 2)
+            ->where('history.seedtime', '<', 2_592_000 * 3)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -709,8 +709,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 3)
-            ->where('history.seedtime', '<', 2592000 * 6)
+            ->where('history.seedtime', '>=', 2_592_000 * 3)
+            ->where('history.seedtime', '<', 2_592_000 * 6)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -730,8 +730,8 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 6)
-            ->where('history.seedtime', '<', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 6)
+            ->where('history.seedtime', '<', 2_592_000 * 12)
             ->where('history.user_id', $user->id)
             ->count();
     }
@@ -751,7 +751,7 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 12)
             ->where('history.user_id', $user->id)
             ->count();
     }
