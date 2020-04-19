@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
+use function _HumbugBox3ab8cff0fda0\iter\all;
 
 class PrivateMessageController extends Controller
 {
@@ -254,6 +255,21 @@ class PrivateMessageController extends Controller
             return redirect()->route('inbox')
                 ->withErrors('What Are You Trying To Do Here!');
         }
+    }
+    /**
+     * Empty Private Message Inbox.
+     *
+     * @param \Illuminate\Http\Request   $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function emptyInbox(Request $request)
+    {
+        $user = $request->user();
+        $pms = PrivateMessage::where('receiver_id', '=', $user->id )->delete();
+
+        return redirect()->route('inbox')
+                ->withSuccess('PM Was Deleted Successfully!');
     }
 
     /**
