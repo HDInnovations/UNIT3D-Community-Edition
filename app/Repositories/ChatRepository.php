@@ -313,7 +313,7 @@ class ChatRepository
         if ($bot) {
             $this->message($systemUserId, $this->systemChatroom(), $message, null, $bot);
         } else {
-            $systemBotId = Bot::where('slug', 'systembot')->first()->id;
+            $systemBotId = Bot::where('command', 'systembot')->first()->id;
 
             $this->message($systemUserId, $this->systemChatroom(), $message, null, $systemBotId);
         }
