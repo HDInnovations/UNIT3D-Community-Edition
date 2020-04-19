@@ -269,7 +269,7 @@ class Markdown
             }
 
             $markup .= "\n";
-            $markup .= isset($Block['markup']) ? $Block['markup'] : $this->element($Block['element']);
+            $markup .= $Block['markup'] ?? $this->element($Block['element']);
         }
 
         // ~
@@ -521,7 +521,7 @@ class Markdown
 
             unset($Block['li']);
 
-            $text = isset($matches[1]) ? $matches[1] : '';
+            $text = $matches[1] ?? '';
 
             $Block['li'] = [
                 'name'    => 'li',
@@ -982,7 +982,7 @@ class Markdown
                 $markup .= $this->unmarkedText($unmarkedText);
 
                 // compile the inline
-                $markup .= isset($Inline['markup']) ? $Inline['markup'] : $this->element($Inline['element']);
+                $markup .= $Inline['markup'] ?? $this->element($Inline['element']);
 
                 // remove the examined text
                 $text = substr($text, $Inline['position'] + $Inline['extent']);
