@@ -36,4 +36,5 @@ return [
   'subject' => 'Onderwerpen',
   'to' => 'Naar',
   'unread' => 'Ongelezen',
+    'empty-inbox'   => 'Lege brievenbus',
 ];

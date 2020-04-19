@@ -36,4 +36,5 @@ return [
   'subject' => 'Somo',
   'to' => 'Kwa',
   'unread' => 'Haijasomwa',
+    'empty-inbox'   => 'Toa kikasha',
 ];

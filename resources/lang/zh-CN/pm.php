@@ -36,4 +36,5 @@ return [
     'subject'       => '标题',
     'to'            => '收件人',
     'unread'        => '未读',
+    'empty-inbox'   => '空收件箱',
 ];

@@ -225,6 +225,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
             Route::get('/create', 'PrivateMessageController@makePrivateMessage')->name('create');
             Route::get('/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
+            Route::get('/empty-inbox', 'PrivateMessageController@emptyInbox')->name('empty-inbox');
             Route::post('/send', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
             Route::post('/{id}/reply', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
             Route::post('/{id}/destroy', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');

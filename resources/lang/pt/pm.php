@@ -36,4 +36,5 @@ return [
   'subject' => 'Sujeito',
   'to' => 'Para',
   'unread' => 'Não lida',
+    'empty-inbox'   => 'Caixa de Correio Vazia',
 ];

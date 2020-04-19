@@ -36,4 +36,5 @@ return [
   'subject' => 'aihe',
   'to' => 'jotta',
   'unread' => 'Lukemattomat',
+    'empty-inbox'   => 'Tyhjä postilaatikko',
 ];

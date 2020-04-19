@@ -36,4 +36,5 @@ return [
   'subject' => 'Paksa',
   'to' => 'Upang',
   'unread' => 'Hindi pa nababasa',
+    'empty-inbox'   => 'Empty Inbox',
 ];
