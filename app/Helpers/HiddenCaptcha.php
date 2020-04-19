@@ -61,7 +61,7 @@ class HiddenCaptcha
         $formData = $validator->getData();
 
         // Check post values
-        if (! isset($formData['_captcha']) || !($token = self::getToken($formData['_captcha']))) {
+        if (! isset($formData['_captcha']) || ! ($token = self::getToken($formData['_captcha']))) {
             return false;
         }
 

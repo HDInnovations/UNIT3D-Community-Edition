@@ -250,8 +250,8 @@ class SubtitleController extends Controller
 
         if ($subtitle->extension === '.zip') {
             return response()->download(public_path('files/tmp/'.$temp_filename), $temp_filename, $headers)->deleteFileAfterSend(true);
-        } else {
-            return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
         }
+
+        return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
     }
 }

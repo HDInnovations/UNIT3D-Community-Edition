@@ -628,10 +628,10 @@ class RequestController extends Controller
 
             return redirect()->route('request', ['id' => $id])
                 ->withSuccess(sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to approve this request");
         }
+
+        return redirect()->route('request', ['id' => $id])
+                ->withErrors("You don't have access to approve this request");
     }
 
     /**

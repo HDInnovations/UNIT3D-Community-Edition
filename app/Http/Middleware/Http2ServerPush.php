@@ -82,13 +82,13 @@ class Http2ServerPush
         $excludeKeywords ?? $this->getConfig('exclude_keywords', []);
         $headers = $this->fetchLinkableNodes($response)
             ->flatten(1)
-            ->map(fn($url) => $this->buildLinkHeaderString($url))
+            ->map(fn ($url) => $this->buildLinkHeaderString($url))
             ->unique()
             ->filter(function ($value, $key) use ($excludeKeywords) {
                 if (! $value) {
                     return false;
                 }
-                $exclude_keywords = collect($excludeKeywords)->map(fn($keyword) => preg_quote($keyword));
+                $exclude_keywords = collect($excludeKeywords)->map(fn ($keyword) => preg_quote($keyword));
                 if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
@@ -150,7 +150,7 @@ class Http2ServerPush
      */
     private function buildLinkHeaderString($url)
     {
-        $type = collect(self::LINK_TYPE_MAP)->first(fn($type, $extension) => Str::contains(strtoupper($url), $extension));
+        $type = collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(strtoupper($url), $extension));
         if (! preg_match('%^https?://%i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);

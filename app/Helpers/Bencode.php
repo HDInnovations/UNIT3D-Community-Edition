@@ -140,8 +140,6 @@ class Bencode
             $pos++;
 
             return $list;
-        } else {
-            return;
         }
     }
 
@@ -187,8 +185,6 @@ class Bencode
             return strlen($d).':'.$d;
         } elseif (is_int($d) || is_float($d)) {
             return sprintf('i%de', $d);
-        } else {
-            return;
         }
     }
 

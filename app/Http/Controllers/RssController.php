@@ -149,8 +149,8 @@ class RssController extends Controller
     {
         $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
 
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         if ($user->group->id == $banned_group[0]) {
             abort(404);
