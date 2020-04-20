@@ -60,8 +60,8 @@
                                         <i class="{{ config('other.font-awesome') }} fa-circle text-red" data-toggle="tooltip" title=""
                                            data-original-title="@lang('user.offline')"></i>
                                     @endif
-                                    <a href="#modal_user_pm" data-toggle="modal"
-                                       data-target="#modal_user_pm"><i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
+                                    <a href="{{ route('create', ['receiver_id' => $user->id, 'username' => $user->username]) }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                                     </a>
                                     <a href="#modal_user_gift" data-toggle="modal"
                                             data-target="#modal_user_gift"><i
