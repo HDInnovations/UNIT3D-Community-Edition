@@ -145,8 +145,7 @@
                                             config('other.title')])<span class="badge-extra">BBCode
                                                 @lang('common.is-allowed')</span></label>
                                         <label>
-                                            <textarea name="referrer" cols="30" rows="10" maxlength="500"
-                                                class="form-control"></textarea>
+                                            <textarea name="referrer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
                                         </label>
                                     </div>
 

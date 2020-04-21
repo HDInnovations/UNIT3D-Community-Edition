@@ -187,8 +187,8 @@
                     <div class="form-group">
                         <label for="report_reason" class="col-sm-2 control-label">@lang('request.reason')</label>
                         <div class="col-sm-10">
-                            <label for="message"></label><textarea class="form-control" rows="5" name="message"
-                                cols="50" id="message"></textarea>
+                            <label for="message"></label>
+                            <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                         </div>
                     </div>
                     <div class="form-group">

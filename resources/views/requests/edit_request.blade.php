@@ -109,8 +109,8 @@
         
                     <div class="form-group">
                         <label for="description">@lang('request.description')</label>
-                        <label for="request-form-description"></label><textarea id="request-form-description" name="description"
-                            cols="30" rows="10" class="form-control">{{ $torrentRequest->description }}</textarea>
+                        <label for="request-form-description"></label>
+                        <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control">{{ $torrentRequest->description }}</textarea>
                     </div>
         
                     <br>
