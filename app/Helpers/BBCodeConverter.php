@@ -332,7 +332,7 @@ class BBCodeConverter
     {
         $this->text = preg_replace_callback('%\[color=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/color\]%iu',
 
-            fn ($matches) => '<span style="color: '.trim($matches[1], '').';">'.trim($matches[1], '').'</span>',
+            fn ($matches) => '<span style="color: '.trim($matches[1], '').';">'.trim($matches[2], '').'</span>',
 
             $this->text
         );
