@@ -40,8 +40,7 @@
                 <div class="form-group">
                     <label for="description">Album Description</label>
                     <label>
-                        <textarea name="description" type="text" class="form-control"
-                            placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
+                        <textarea name="description" type="text" class="form-control" placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
                     </label>
                 </div>
                 <div class="form-group">

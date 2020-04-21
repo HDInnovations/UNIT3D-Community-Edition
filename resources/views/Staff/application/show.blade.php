@@ -86,8 +86,7 @@
                             <td>
                                 <div class="form-group">
                                     <label>
-                                        <textarea name="referrer" cols="30" rows="10" class="form-control"
-                                            disabled="">{{ $application->referrer }}</textarea>
+                                        <textarea name="referrer" cols="30" rows="10" class="form-control" disabled="">{{ $application->referrer }}</textarea>
                                     </label>
                                 </div>
                             </td>
@@ -145,9 +144,8 @@
                                                             <label for="message">@lang('common.message')</label>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="approve"></label><textarea class="form-control"
-                                                                   rows="5" cols="50" name="approve" id="approve">
-                                                            </textarea>
+                                                            <label for="approve"></label>
+                                                            <textarea class="form-control" rows="5" cols="50" name="approve" id="approve"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -187,8 +185,8 @@
                                                             <label for="message">@lang('common.message')</label>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="deny"></label><textarea class="form-control" rows="5"
-                                                                cols="50" name="deny" id="deny"></textarea>
+                                                            <label for="deny"></label>
+                                                            <textarea class="form-control" rows="5" cols="50" name="deny" id="deny"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

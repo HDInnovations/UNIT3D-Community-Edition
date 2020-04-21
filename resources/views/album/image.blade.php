@@ -42,8 +42,7 @@
                     <div class="form-group">
                         <label for="description">Image Description</label>
                         <label>
-                            <textarea name="description" type="text" class="form-control"
-                                placeholder="Hi-Res Sleeve / Disc Art"></textarea>
+                            <textarea name="description" type="text" class="form-control" placeholder="Hi-Res Sleeve / Disc Art"></textarea>
                         </label>
                     </div>
                     <div class="form-group">

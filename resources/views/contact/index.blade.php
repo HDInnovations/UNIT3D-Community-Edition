@@ -38,8 +38,7 @@
     
                     <div class="form-group">
                         <label>
-                            <textarea name="message" placeholder="@lang('common.message')" class="form-control" cols="30"
-                                rows="10"></textarea>
+                            <textarea name="message" placeholder="@lang('common.message')" class="form-control" cols="30" rows="10"></textarea>
                         </label>
                     </div>
     

@@ -54,8 +54,7 @@
                                         <label for="bonus_message">@lang('pm.message')</label>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="bonus_message" cols="50" rows="10"
-                                            id="bonus_message"></textarea>
+                                        <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message"></textarea>
                                     </div>
     
                                     <div class="form-group">

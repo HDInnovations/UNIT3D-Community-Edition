@@ -16,12 +16,7 @@ export default {
         html:
             '<div class="text-left">'+
             '<input type="hidden" id="receiver-id" name="receiver-id" value="'+user.id+'">\n' +
-            '<textarea id="chat-message-pm"\n' +
-            '        name="message-pm"\n' +
-            '        placeholder="Write your message..."\n' +
-            '        cols="30"\n' +
-            '        rows="5">\n' +
-            '</textarea>'+
+            '<textarea id="chat-message-pm" name="message-pm" placeholder="Write your message..." cols="30" rows="5"></textarea>'+
             '</div>',
         showCancelButton: true,
         confirmButtonText: 'Send',

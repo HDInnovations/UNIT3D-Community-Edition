@@ -41,8 +41,8 @@
     
                         <div class="form-group">
                             <label for="">@lang('pm.message')</label>
-                            <label for="message"></label><textarea id="message" name="message" cols="30" rows="10"
-                                class="form-control"></textarea>
+                            <label for="message"></label>
+                            <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
                         </div>
     
                         <button class="btn btn-primary">

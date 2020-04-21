@@ -434,8 +434,7 @@
                                         class="badge-extra">@lang('common.type-verb')
                                     <strong>":"</strong> {{ strtolower(trans('common.for')) }} emoji</span> <span
                                         class="badge-extra">BBCode {{ strtolower(trans('common.is-allowed')) }}</span>
-                                <textarea id="content" name="content" cols="30" rows="5"
-                                          class="form-control"></textarea>
+                                <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                             </div>
                             <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
                             <label class="radio-inline"><strong>@lang('common.anonymous') {{ strtolower(trans('common.comment')) }}

@@ -56,12 +56,7 @@
         </div>
         <div class="row" style="margin: auto;">
             <div class="col-md-12">
-                                    <textarea id="chat-message"
-                                              name="message"
-                                              placeholder="Write your message..."
-                                              cols="30"
-                                              rows="5" send="true">
-                                    </textarea>
+                <textarea id="chat-message" name="message" placeholder="Write your message..." cols="30" rows="5" send="true"></textarea>
             </div>
         </div>
     </div>

@@ -87,16 +87,14 @@
     
                     <div class="form-group">
                         <label for="description">@lang('common.description')</label>
-                        <label for="upload-form-description"></label><textarea id="upload-form-description"
-                            name="description" cols="30" rows="10"
-                            class="form-control">{{ $torrent->description }}</textarea>
+                        <label for="upload-form-description"></label>
+                        <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control">{{ $torrent->description }}</textarea>
                     </div>
     
                     <div class="form-group">
                         <label for="description">@lang('torrent.media-info')</label>
                         <label>
-                            <textarea name="mediainfo" cols="30" rows="10"
-                                class="form-control">{{ $torrent->mediainfo }}</textarea>
+                            <textarea name="mediainfo" cols="30" rows="10" class="form-control">{{ $torrent->mediainfo }}</textarea>
                         </label>
                     </div>
     

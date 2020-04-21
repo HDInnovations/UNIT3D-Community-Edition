@@ -38,8 +38,8 @@
                 </div>
     
                 <div class="form-group">
-                    <label for="new-thread-content"></label><textarea id="new-thread-content" name="content" cols="30"
-                        rows="10" class="form-control"></textarea>
+                    <label for="new-thread-content"></label>
+                    <textarea id="new-thread-content" name="content" cols="30" rows="10" class="form-control"></textarea>
                 </div>
     
                 <button type="submit" class="btn btn-primary">@lang('forum.send-new-topic')</button>
