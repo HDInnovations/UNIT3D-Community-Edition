@@ -37,10 +37,11 @@
 9. [Contributing](#contributing)
 10. [License](#license)
 11. [Demo](#demo)
-12. [Sponsoring](#sponsor)
-13. [Collaborators](#collaborators)
-14. [Special Thanks](#thanks)
-15. [Sponsors](#sponsors)
+12. [Support/Chat](#chat)
+13. [Sponsoring](#sponsor)
+14. [Collaborators](#collaborators)
+15. [Special Thanks](#thanks)
+16. [Sponsors](#sponsors)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
@@ -187,6 +188,10 @@ Username: UNIT3D
 Password: UNIT3D
 
 Demo is reset every 48 hours!
+
+## <a name="chat"></a>  💬 Chat With Us
+
+URL: https://discord.gg/ntnPxzG
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
