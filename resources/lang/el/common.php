@@ -13,8 +13,8 @@
 
 return [
   'a-an-art' => '',
-  'about' => 'Σχετικά με εμάς',
-  'account' => 'λογαριασμός',
+  'about' => 'Σχετικά με μάς',
+  'account' => 'Lογαριασμός',
   'achievement-title' => 'Φοβερός',
   'achievement-unlocked' => 'Ξεκλειδώσατε το επίτευγμα &quot;name: name&quot;',
   'active' => 'Ενεργός',
