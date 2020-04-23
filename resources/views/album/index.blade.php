@@ -32,7 +32,7 @@
                             <div class="caption">
                                 <p class="text-bold">{{ $album->name }}</p>
                                 <h4>{{ $album->description }}</h4>
-                                <h4><span class="label label-default">{{ $album->images_count }} @lang('common.images')</span></h4>
+                                <h4><span class="label label-default">{{ $album->images_count }} @lang('gallery.images')</span></h4>
                                 <a href="{{ route('albums.show', ['id' => $album->id]) }}" class="btn btn-md btn-primary">@lang('common.view')
                                     @lang('common.album')</a>
                                 <br>
