@@ -119,7 +119,7 @@
 
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('common.general')</h4>
+                <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')</h4>
             </div>
             <div class="table-responsive">
                 <table class="table table-condensed table-bordered table-striped">
