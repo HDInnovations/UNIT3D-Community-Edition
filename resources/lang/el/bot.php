@@ -14,7 +14,7 @@
 return [
   'about' => 'Σχετικά με',
   'bot' => 'Bot',
-  'bots' => 'Μποτς',
+  'bots' => 'Μπότς',
   'color' => 'Χρώμα',
   'command' => 'Εντολή',
   'edit-bot' => 'Επεξεργασία Bot',
