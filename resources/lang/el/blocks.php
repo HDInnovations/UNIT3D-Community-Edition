@@ -14,7 +14,7 @@
 return [
   'chatbox' => 'Κουτί συνομιλίας',
   'click' => 'Κάντε κλικ',
-  'to-enable-editor' => 'για να ενεργοποιήσετε την επεξεργασία κειμένου',
+  'to-enable-editor' => 'για να ενεργοποιήσετε τon επεξεργαστή κειμένου',
   'featured-by' => 'Προτεινόμενα από',
   'featured-torrents' => 'Προτεινόμενα Torrents',
   'featured-torrents-intro' => 'Κατεβάσε τα, όσο μπορείτε!',
