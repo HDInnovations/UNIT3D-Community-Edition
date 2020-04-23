@@ -84,9 +84,9 @@ class AlbumController extends Controller
     /**
      * Add A Album.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
     {
@@ -122,12 +122,12 @@ class AlbumController extends Controller
             return redirect()->route('create_album_form')
                 ->withInput()
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
-        } else {
-            $album->save();
-
-            return redirect()->route('show_album', ['id' => $album->id])
-                ->with($this->toastr->success('Your album has successfully published!', 'Yay!', ['options']));
         }
+
+        $album->save();
+
+        return redirect()->route('show_album', ['id' => $album->id])
+            ->with($this->toastr->success('Your album has successfully published!', 'Yay!', ['options']));
     }
 
     /**
@@ -135,14 +135,14 @@ class AlbumController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $user = auth()->user();
         $album = Album::findOrFail($id);
 
-        abort_unless($user->group->is_modo || $user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay()), 403);
+        abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
         $album->delete();
 
         return redirect()->route('home')
