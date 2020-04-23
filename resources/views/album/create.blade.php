@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Create Album - {{ config('other.title') }}</title>
+    <title>@lang('common.create') @lang('common.album') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Create Album">
+    <meta name="description" content="@lang('common.create') @lang('common.album')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Gallery</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.gallery')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('albums.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Create Album</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.create') @lang('common.album')</span>
         </a>
     </li>
 @endsection
@@ -26,10 +26,9 @@
         <div class="block">
             <form name="createnewalbum" method="POST" action="{{ route('albums.store') }}" enctype="multipart/form-data">
                 @csrf
-                <h2 class="text-center">Create An Album</h2>
+                <h2 class="text-center">@lang('gallery.create-an-album')</h2>
                 <h4 class="text-red text-center">
-                    IMDB Number Will Pull Album @lang('common.name') For You!
-                    Please Use A Nice Cover Image For Your Album Creation!
+                    @lang('gallery.create-an-album-tip')
                 </h4>
                 <div class="form-group">
                     <label for="name">IMDB</label>
@@ -38,13 +37,13 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="description">Album Description</label>
+                    <label for="description">@lang('common.album') @lang('common.description')</label>
                     <label>
                         <textarea name="description" type="text" class="form-control" placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="cover_image">Select A Cover Image</label>
+                    <label for="cover_image">@lang('gallery.select-cover')</label>
                     <input type="file" name="cover_image">
                 </div>
                 <div class="text-center">

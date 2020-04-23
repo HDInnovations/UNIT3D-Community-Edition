@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Gallery - {{ config('other.title') }}</title>
+    <title>@lang('common.gallery') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Gallery">
+    <meta name="description" content="@lang('common.gallery')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('albums.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Gallery</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.gallery')</span>
         </a>
     </li>
 @endsection
@@ -20,9 +20,9 @@
     <div class="container">
         <div class="block">
             <div class="well text-center">
-                <h2>Welcome To The Gallery</h2>
-                <h4>Here you will find albums that contain hi-res images of cover sleeves and disc art. Enjoy!</h4>
-                <a href="{{ route('albums.create') }}" class="btn btn-md btn-success">Create New Album</a>
+                <h2>@lang('gallery.welcome-title')</h2>
+                <h4>@lang('gallery.welcome-text')</h4>
+                <a href="{{ route('albums.create') }}" class="btn btn-md btn-success">@lang('gallery.create-new-album')</a>
             </div>
             <div class="row">
                 @foreach ($albums as $album)
@@ -32,13 +32,13 @@
                             <div class="caption">
                                 <p class="text-bold">{{ $album->name }}</p>
                                 <h4>{{ $album->description }}</h4>
-                                <h4><span class="label label-default">{{ $album->images_count }} image(s)</span></h4>
-                                <a href="{{ route('albums.show', ['id' => $album->id]) }}" class="btn btn-md btn-primary">View
-                                    Album</a>
+                                <h4><span class="label label-default">{{ $album->images_count }} @lang('common.images')</span></h4>
+                                <a href="{{ route('albums.show', ['id' => $album->id]) }}" class="btn btn-md btn-primary">@lang('common.view')
+                                    @lang('common.album')</a>
                                 <br>
-                                <small>Created: {{ $album->created_at->toDayDateTimeString() }}</small>
+                                <small>@lang('gallery.created'): {{ $album->created_at->toDayDateTimeString() }}</small>
                                 <br>
-                                <small>By: {{ $album->user->username }}</small>
+                                <small>@lang('gallery.created-by'): {{ $album->user->username }}</small>
                             </div>
                         </div>
                     </div>
