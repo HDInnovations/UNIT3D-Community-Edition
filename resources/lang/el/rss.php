@@ -12,10 +12,10 @@
  */
 
 return [
-  'create' => 'Δημιουργώ',
+  'create' => 'Δημιουργία',
   'create-private-feed' => 'Δημιουργία ιδιωτικής ροής RSS',
   'create-public-feed' => 'Δημιουργία κοινής ροής RSS',
-  'delete' => 'Διαγράφω',
+  'delete' => 'Διαγραφή',
   'edit' => 'Επεξεργασία',
   'edit-private-feed' => 'Επεξεργασία ιδιωτικής ροής RSS',
   'edit-public-feed' => 'Επεξεργασία δημόσιας ροής RSS',
@@ -23,8 +23,8 @@ return [
   'feeds' => 'Τροφοδοσίες',
   'name' => 'Ονομα',
   'public' => 'Δημόσιο',
-  'private' => 'Ιδιωτικός',
+  'private' => 'Ιδιωτικό',
   'rss' => 'RSS',
-  'rss-feed' => 'RSS Feed',
+  'rss-feed' => 'Ροή RSS',
   'type' => 'Τύπος',
 ];
