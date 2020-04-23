@@ -6,6 +6,12 @@
 
 @section('breadcrumb')
     <li>
+        <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</s
+pan>
+        </a>
+    </li>
+    <li>
         <a href="{{ route('categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.categories')</span>
         </a>
