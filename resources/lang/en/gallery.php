@@ -13,7 +13,7 @@
 
 return [
     'welcome-title'               => 'Welcome To The Gallery',
-    'welcome-desc'                => 'Here you will find albums that contain hi-res images of cover sleeves and disc art. Enjoy!',
+    'welcome-text'                => 'Here you will find albums that contain hi-res images of cover sleeves and disc art. Enjoy!',
     'create-new-album'            => 'Create New Album',
     'images'                      => 'image(s)',
     'created'                     => 'Created',

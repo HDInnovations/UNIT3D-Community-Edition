@@ -13,7 +13,7 @@
 
 return [
     'welcome-title'               => '欢迎来到图库',
-    'welcome-desc'                => '你可以在这里找到高清的封面图和碟面图，尽情享受吧！',
+    'welcome-text'                => '你可以在这里找到高清的封面图和碟面图，尽情享受吧！',
     'create-new-album'            => '创建新相册',
     'images'                      => '张图片',
     'created'                     => '创建于',
