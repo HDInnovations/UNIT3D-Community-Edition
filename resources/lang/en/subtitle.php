@@ -12,6 +12,8 @@
  */
 
 return [
+    'downloads'                   => 'Downloads',
+    'extension'                   => 'Extension',
     'delete-confirm'              => 'Are You Sure You Want To Delete This?',
     'note'                        => 'Note',
     'note-help'                   => 'Extra Info for this subtitle',
@@ -25,6 +27,9 @@ return [
                                         <li>Keep the note of the subtitle short. NO urls/links are allowed.</li>
                                         <li>All Subtitles must be confirmed, verified, timed correctly for the specific Torrent/Video.</li>
                                       </ul>',
+    'size'                        => 'Size',
     'subtitle-file'               => 'Subtitle File',
     'subtitle-file-types'         => 'Accepted files are ICO, SRT and ZIP',
+    'uploaded'                    => 'Uploaded',
+    'uploader'                    => 'Uploader',
 ];

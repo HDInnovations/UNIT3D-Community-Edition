@@ -12,6 +12,8 @@
  */
 
 return [
+    'downloads'                   => '下载次数',
+    'extension'                   => '扩展名',
     'delete-confirm'              => '你确定要删除吗？',
     'note'                        => '简介',
     'note-help'                   => '字幕额外信息',
@@ -25,6 +27,9 @@ return [
                                         <li>尽量使用简短的字幕介绍，不允许使用链接/URL</li>
                                         <li>所有字幕必须经过校对，确保和种子/视频保持同步</li>
                                       </ul>',
+    'size'                        => '大小',
     'subtitle-file'               => '字幕文件',
     'subtitle-file-types'         => '仅允许上传 .srt .ico .zip 文件',
+    'uploaded'                    => '上传于',
+    'uploader'                    => '上传者',
 ];
