@@ -39,6 +39,7 @@ return [
     'logs'                    => 'Logs',
     'mass-pm'                 => 'Mass PM',
     'mass-validate-users'     => 'Mass Validate Users',
+    'media-languages-desc'    => '(Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)',
     'moderation'              => 'Moderation',
     'moderation-since'        => 'Moderated at',
     'page'                    => 'Page',
