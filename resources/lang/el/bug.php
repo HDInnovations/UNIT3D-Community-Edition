@@ -13,7 +13,7 @@
 
 return [
   'bug-report' => 'Έκθεση σφαλμάτων',
-  'bug-report-description' => 'Αναφέρετε ένα σφάλμα ιστοτόπου',
+  'bug-report-description' => 'Αναφέρετε ένα σφάλμα ιστοσελίδας',
   'enter-description' => 'Περιγράψτε το πρόβλημα όσο το δυνατόν καλύτερα',
   'enter-email' => 'Παρακαλώ εισάγετε το e-mail σας',
   'enter-title' => 'Επιλέξτε έναν σωστό τίτλο',
