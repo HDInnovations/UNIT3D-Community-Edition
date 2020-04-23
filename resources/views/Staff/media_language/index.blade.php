@@ -9,7 +9,7 @@
     <li class="active">
         <a href="{{ route('staff.media_languages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                Media Languages
+                @lang('common.media-languages')
             </span>
         </a>
     </li>
