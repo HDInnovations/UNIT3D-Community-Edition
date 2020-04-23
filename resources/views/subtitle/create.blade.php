@@ -77,7 +77,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-9 col-sm-offset-2">
-                        <input class="btn btn-primary" type="submit" value="Upload">
+                        <input class="btn btn-primary" type="submit" value="@lang('common.upload')">
                     </div>
                 </div>
             </form>
