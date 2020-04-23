@@ -12,9 +12,9 @@
  */
 
 return [
-  'by-count' => 'Με την καταμέτρηση',
-  'by-data' => 'Με Δεδομένα',
-  'by-volume' => 'Με τόνο',
+  'by-count' => 'Ανά καταμέτρηση',
+  'by-data' => 'Ανά Δεδομένα',
+  'by-volume' => 'Ανά όγκο',
   'group' => 'Ομάδα',
   'groups' => 'Ομάδες',
   'nerd-stats' => 'Nerd stats',
