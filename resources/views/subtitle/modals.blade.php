@@ -6,14 +6,14 @@
 					@csrf
 					<input id="torrent_id" name="torrent_id" type="hidden" value="{{ $torrent->id }}">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')">
 							<span aria-hidden="true">×</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">Edit Subtitle For - {{ $torrent->name }}</h4>
+						<h4 class="modal-title" id="myModalLabel">@lang('common.edit') @lang('common.subtitle') - {{ $torrent->name }}</h4>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="language_id" class="col-sm-2 control-label">Language</label>
+							<label for="language_id" class="col-sm-2 control-label">@lang('common.language')</label>
 							<div class="col-sm-9">
 								<select class="form-control" id="language_id" name="language_id">
 									<option value="{{ $subtitle->language_id }}" selected>{{ $subtitle->language->name }}
@@ -26,18 +26,18 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="description" class="col-sm-2 control-label">Note</label>
+							<label for="description" class="col-sm-2 control-label">@lang('subtitle.note')</label>
 							<div class="col-sm-9">
 								<input class="form-control" name="note" type="text" id="note" value="{{ $subtitle->note }}">
-								<span class="help-block">Extra Info for this subtitle</span>
+								<span class="help-block">@lang('subtitle.note-help')</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<input class="btn btn-primary" type="submit" value="Save">
+							<input class="btn btn-primary" type="submit" value="@lang('common.save')">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
 					</div>
 				</form>
 			</div>
@@ -54,18 +54,18 @@
 					@method('DELETE')
 					<input id="torrent_id" name="torrent_id" type="hidden" value="{{ $torrent->id }}">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')">
 							<span aria-hidden="true">×</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">Are You Sure You Want To Delete This?</h4>
+						<h4 class="modal-title" id="myModalLabel">@lang('subtitle.delete-confirm')</h4>
 					</div>
 					<div class="modal-body text-center">
 						<div class="form-group">
-							<input class="btn btn-primary" type="submit" value="Delete - {{ $subtitle->language->name }} Subtitle">
+							<input class="btn btn-primary" type="submit" value="@lang('common.delete') - {{ $subtitle->language->name }} @lang('common.subtitle')">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
 					</div>
 				</form>
 			</div>
