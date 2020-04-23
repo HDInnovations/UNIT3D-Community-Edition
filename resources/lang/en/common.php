@@ -184,6 +184,7 @@ return [
     'submit'               => 'Submit',
     'subscriptions'        => 'Subscriptions',
     'subtitle'             => 'Subtitle',
+    'subtitles'            => 'Subtitles',
     'teams'                => 'Teams',
     'terms'                => 'Terms of Use',
     'the'                  => 'the',

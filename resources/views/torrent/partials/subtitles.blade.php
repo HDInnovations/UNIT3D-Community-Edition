@@ -1,8 +1,8 @@
 <div class="panel panel-chat shoutbox">
     <div class="panel-heading">
         <h4>
-            <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> Subtitles
-            <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary" style="float: right;" title="Add subtitle">Add Subtitle</a>
+            <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> @lang('common.subtitles')
+            <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary" style="float: right;" title="@lang('common.add') @lang('common.subtitle')">@lang('common.add') @lang('common.subtitle')</a>
         </h4>
     </div>
 
