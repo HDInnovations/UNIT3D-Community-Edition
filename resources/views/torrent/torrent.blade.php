@@ -119,7 +119,7 @@
 
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> General</h4>
+                <h4><i class="{{ config("other.font-awesome") }} fa-info"></i> @lang('torrent.general')</h4>
             </div>
             <div class="table-responsive">
                 <table class="table table-condensed table-bordered table-striped">
@@ -275,7 +275,7 @@
 
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <tr>
-                            <td class="col-sm-2"><strong>Staff Tools</strong></td>
+                            <td class="col-sm-2"><strong>@lang('common.staff-tools')</strong></td>
                             <td>
                                 @if ($torrent->free == 0)
                                     <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
@@ -594,7 +594,7 @@
 
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> Description</h4>
+                <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> @lang('common.description')</h4>
             </div>
             <div class="table-responsive">
                 <table class="table table-condensed table-bordered table-striped">
@@ -629,7 +629,7 @@
                                       class="form-inline">
                                     @csrf
                                     <div class="form-group">
-                                        <span class="text-green text-bold">Define A Tip Amount</span>
+                                        <span class="text-green text-bold">@lang('torrent.define-tip-amount')</span>
                                         <label>
                                             <input type="number" name="tip" value="0" placeholder="0" class="form-control"
                                                    style="width: 80%">

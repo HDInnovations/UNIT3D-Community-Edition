@@ -119,7 +119,7 @@
             </li>
             <li>
                 <a href="{{ route('staff.media_languages.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> Media Languages
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('common.media-languages')
                 </a>
             </li>
             <li>

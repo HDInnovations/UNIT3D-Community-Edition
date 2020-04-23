@@ -42,6 +42,7 @@ return [
     'logs'                    => '日志',
     'mass-pm'                 => '批量发送私信',
     'mass-validate-users'     => '批量验证用户',
+    'media-languages-desc'    => '（用于填充字幕/音轨等语言下拉选择菜单的语言选项）',
     'moderation'              => '审批',
     'moderation-since'        => '提交时间',
     'page'                    => '规则页',
