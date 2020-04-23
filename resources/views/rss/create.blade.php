@@ -45,13 +45,13 @@
                     </div>
     
                     <div class="form-group">
-                        <label for="imdb">ID</label>
+                        <label for="imdb">IMDB ID</label>
                         <input type="text" class="form-control" id="imdb" name="imdb" placeholder="IMDB #">
-                        <label for="tvdb"></label><input type="text" class="form-control" id="tvdb" name="tvdb"
+                        <label for="tvdb">TVDB ID</label><input type="text" class="form-control" id="tvdb" name="tvdb"
                             placeholder="TVDB #">
-                        <label for="tmdb"></label><input type="text" class="form-control" id="tmdb" name="tmdb"
+                        <label for="tmdb">TMDB ID</label><input type="text" class="form-control" id="tmdb" name="tmdb"
                             placeholder="TMDB #">
-                        <label for="mal"></label><input type="text" class="form-control" id="mal" name="mal"
+                        <label for="mal">MAL ID</label><input type="text" class="form-control" id="mal" name="mal"
                             placeholder="MAL #">
                     </div>
     
