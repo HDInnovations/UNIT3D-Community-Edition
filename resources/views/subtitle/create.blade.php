@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Upload Subtitle - {{ config('other.title') }}</title>
+    <title>@lang('common.upload') @lang('common.subtitle') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
     </li>
     <li>
         <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.upload') Subtitle</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.upload') @lang('common.subtitle')</span>
         </a>
     </li>
 @endsection
@@ -20,26 +20,18 @@
 @section('content')
     <div class="container">
         <h2 class="upload-title">
-            Upload Subtitle for - {{ $torrent->name }}
+            @lang('common.upload') @lang('common.subtitle') - {{ $torrent->name }}
         </h2>
         <div class="well">
-            <h2 class="text-center">Subtitle Rules!</h2>
-            <ul>
-                <li>Only proper subtitles are allowed to be uploaded (Correct frame rate. translation, spelling, timing).</li>
-                <li>No google translated / machine translated / incorrect subtitles allowed.</li>
-                <li>Subtitle must be in sync with the video.</li>
-                <li>.srt, .ico and .zip only allowed. <b>(.zip is only allowed when bundeling subtitles of the same language for a TV Season Pack.)</b></li>
-                <li>Repeated uploads of junk sub will constitute a violation and subject to disciplinary action.</li>
-                <li>Keep the note of the subtitle short. NO urls/links are allowed.</li>
-                <li>All Subtitles must be confirmed, verified, timed correctly for the specific Torrent/Video.</li>
-            </ul>
+            <h2 class="text-center">@lang('subtitle.rules-title')</h2>
+            @lang('subtitle.rules')
         </div>
         <div class="block">
             <form method="POST" action="{{ route('subtitles.store') }}" id="form_upload_subtitle" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
                 <input name="torrent_id" type="hidden" value="{{ $torrent->id }}">
                 <div class="form-group">
-                    <label for="torrent_id" class="col-sm-2 control-label">Torrent</label>
+                    <label for="torrent_id" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                     <div class="col-sm-9">
                         <p class="form-control-static">
                             <a href="{{ route('torrent', ['id' => $torrent->id]) }}" title="{{ $torrent->name }}">{{ $torrent->name }}</a>
@@ -47,14 +39,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="subtitle_file" class="col-sm-2 control-label">Subtitle File</label>
+                    <label for="subtitle_file" class="col-sm-2 control-label">@lang('subtitle.subtitle-file')</label>
                     <div class="col-sm-9">
                         <input class="form-control" name="subtitle_file" accept=".srt,.ico,.zip"  type="file" id="subtitle_file">
-                        <span class="help-block">Accepted files are ICO, SRT and ZIP</span>
+                        <span class="help-block">@lang('subtitle.subtitle-file-types')</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="language_id" class="col-sm-2 control-label">Language</label>
+                    <label for="language_id" class="col-sm-2 control-label">@lang('common.language')</label>
                     <div class="col-sm-9">
                         <select class="form-control" id="language_id" name="language_id">
                             @foreach ($media_languages as $media_language)
@@ -64,10 +56,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="description" class="col-sm-2 control-label">Note</label>
+                    <label for="description" class="col-sm-2 control-label">@lang('subtitle.note')</label>
                     <div class="col-sm-9">
                         <input class="form-control" name="note" type="text" id="note">
-                        <span class="help-block">Extra Info for this subtitle</span>
+                        <span class="help-block">@lang('subtitle.note-help')</span>
                     </div>
                 </div>
 
