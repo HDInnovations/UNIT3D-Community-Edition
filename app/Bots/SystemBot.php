@@ -167,7 +167,7 @@ class SystemBot
         }
         $command = @explode(' ', $message);
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'gift' && array_key_exists($y, $command) && array_key_exists($z, $command) && array_key_exists($z + 1, $command)) {
+            if ($command[$x] === 'gift' && array_key_exists($y, $command) && array_key_exists($z, $command) && array_key_exists($z + 1, $command)) {
                 $clone = $command;
                 array_shift($clone);
                 array_shift($clone);
@@ -175,7 +175,7 @@ class SystemBot
                 array_shift($clone);
                 $log = $this->putGift($command[$y], $command[$z], $clone);
             }
-            if ($command[$x] == 'help') {
+            if ($command[$x] === 'help') {
                 $log = $this->getHelp();
             }
         }

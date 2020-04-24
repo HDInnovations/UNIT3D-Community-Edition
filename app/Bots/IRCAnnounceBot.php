@@ -53,7 +53,7 @@ class IRCAnnounceBot
             flush();
             $ex = explode(' ', $data);
 
-            if ($ex[0] == 'PING') {
+            if ($ex[0] === 'PING') {
                 $this->send_data('PONG '.$ex[1]);
                 if ($this->nickservpass) {
                     $this->send_data(sprintf('NICKSERV IDENTIFY %s', $this->nickservpass));

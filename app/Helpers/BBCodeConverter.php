@@ -276,29 +276,29 @@ class BBCodeConverter
                 if (isset($matches['snippet'])) {
                     $language = strtolower($matches['language']);
 
-                    if ($language == 'html4strict' or $language == 'div') {
+                    if ($language === 'html4strict' or $language === 'div') {
                         $language = 'html';
-                    } elseif ($language == 'shell' or $language == 'dos' or $language == 'batch') {
+                    } elseif ($language === 'shell' or $language === 'dos' or $language === 'batch') {
                         $language = 'sh';
-                    } elseif ($language == 'xul' or $language == 'wpf') {
+                    } elseif ($language === 'xul' or $language === 'wpf') {
                         $language = 'xml';
-                    } elseif ($language == 'asm') {
+                    } elseif ($language === 'asm') {
                         $language = 'nasm';
-                    } elseif ($language == 'vb' or $language == 'visualbasic' or $language == 'vba') {
+                    } elseif ($language === 'vb' or $language === 'visualbasic' or $language === 'vba') {
                         $language = 'vb.net';
-                    } elseif ($language == 'asp') {
+                    } elseif ($language === 'asp') {
                         $language = 'aspx-vb';
-                    } elseif ($language == 'xaml') {
+                    } elseif ($language === 'xaml') {
                         $language = 'xml';
-                    } elseif ($language == 'cplusplus') {
+                    } elseif ($language === 'cplusplus') {
                         $language = 'cpp';
-                    } elseif ($language == 'txt' or $language == 'gettext') {
+                    } elseif ($language === 'txt' or $language === 'gettext') {
                         $language = 'text';
-                    } elseif ($language == 'basic') {
+                    } elseif ($language === 'basic') {
                         $language = 'cbmbas';
-                    } elseif ($language == 'lisp') {
+                    } elseif ($language === 'lisp') {
                         $language = 'clojure';
-                    } elseif ($language == 'aspnet') {
+                    } elseif ($language === 'aspnet') {
                         $language = 'aspx-vb';
                     }
 

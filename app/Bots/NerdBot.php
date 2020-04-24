@@ -456,52 +456,52 @@ class NerdBot
         }
 
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'banker') {
+            if ($command[$x] === 'banker') {
                 $log = $this->getBanker($params);
             }
-            if ($command[$x] == 'bans') {
+            if ($command[$x] === 'bans') {
                 $log = $this->getBans($params);
             }
-            if ($command[$x] == 'donations') {
+            if ($command[$x] === 'donations') {
                 $log = $this->getDonations($params);
             }
-            if ($command[$x] == 'donate') {
+            if ($command[$x] === 'donate') {
                 $log = $this->putDonate($params, $wildcard);
             }
-            if ($command[$x] == 'doubleupload') {
+            if ($command[$x] === 'doubleupload') {
                 $log = $this->getDoubleUpload($params);
             }
-            if ($command[$x] == 'freeleech') {
+            if ($command[$x] === 'freeleech') {
                 $log = $this->getFreeleech($params);
             }
-            if ($command[$x] == 'help') {
+            if ($command[$x] === 'help') {
                 $log = $this->getHelp();
             }
-            if ($command[$x] == 'king') {
+            if ($command[$x] === 'king') {
                 $log = $this->getKing();
             }
-            if ($command[$x] == 'logins') {
+            if ($command[$x] === 'logins') {
                 $log = $this->getLogins($params);
             }
-            if ($command[$x] == 'peers') {
+            if ($command[$x] === 'peers') {
                 $log = $this->getPeers($params);
             }
-            if ($command[$x] == 'registrations') {
+            if ($command[$x] === 'registrations') {
                 $log = $this->getRegistrations($params);
             }
-            if ($command[$x] == 'uploads') {
+            if ($command[$x] === 'uploads') {
                 $log = $this->getUploads($params);
             }
-            if ($command[$x] == 'warnings') {
+            if ($command[$x] === 'warnings') {
                 $log = $this->getWarnings($params);
             }
-            if ($command[$x] == 'seeded') {
+            if ($command[$x] === 'seeded') {
                 $log = $this->getSeeded($params);
             }
-            if ($command[$x] == 'leeched') {
+            if ($command[$x] === 'leeched') {
                 $log = $this->getLeeched($params);
             }
-            if ($command[$x] == 'snatched') {
+            if ($command[$x] === 'snatched') {
                 $log = $this->getSnatched($params);
             }
         }
