@@ -154,8 +154,10 @@ class TopicController extends Controller
         $topic->name = $request->input('title');
         $topic->slug = Str::slug($request->input('title'));
         $topic->state = 'open';
-        $topic->first_post_user_id = $topic->last_post_user_id = $user->id;
-        $topic->first_post_user_username = $topic->last_post_user_username = $user->username;
+        $topic->first_post_user_id = $user->id;
+        $topic->last_post_user_id = $user->id;
+        $topic->first_post_user_username = $user->username;
+        $topic->last_post_user_username = $user->username;
         $topic->views = 0;
         $topic->pinned = false;
         $topic->forum_id = $forum->id;
