@@ -129,8 +129,8 @@ class SystemBot
                 $recipient->notify(new NewBon('gift', $this->target->username, $transaction));
             }
 
-            $profile_url = hrefProfile($this->target);
-            $recipient_url = hrefProfile($recipient);
+            $profile_url = href_profile($this->target);
+            $recipient_url = href_profile($recipient);
 
             $this->chat->systemMessage(
                 sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $this->target->username, $value, $recipient_url, $recipient->username)

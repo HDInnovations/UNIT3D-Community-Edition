@@ -96,8 +96,8 @@ class CommentController extends Controller
                 ->withErrors($v->errors());
         }
         $comment->save();
-        $article_url = hrefArticle($article);
-        $profile_url = hrefProfile($user);
+        $article_url = href_article($article);
+        $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chat->systemMessage(
@@ -187,8 +187,8 @@ class CommentController extends Controller
                 ->withErrors($v->errors());
         }
         $comment->save();
-        $playlist_url = hrefPlaylist($playlist);
-        $profile_url = hrefProfile($user);
+        $playlist_url = href_playlist($playlist);
+        $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chat->systemMessage(
@@ -282,8 +282,8 @@ class CommentController extends Controller
         if ($user->id != $torrent->user_id) {
             $torrent->notifyUploader('comment', $comment);
         }
-        $torrent_url = hrefTorrent($torrent);
-        $profile_url = hrefProfile($user);
+        $torrent_url = href_torrent($torrent);
+        $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chat->systemMessage(
@@ -373,8 +373,8 @@ class CommentController extends Controller
                 ->withErrors($v->errors());
         }
         $comment->save();
-        $tr_url = hrefRequest($tr);
-        $profile_url = hrefProfile($user);
+        $tr_url = href_request($tr);
+        $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chat->systemMessage(
@@ -460,7 +460,7 @@ class CommentController extends Controller
             ];
         } else {
             $uploader = User::where('id', '=', $torrent->user_id)->first();
-            $uploader_url = hrefProfile($uploader);
+            $uploader_url = href_profile($uploader);
 
             $thankArray = [
                 sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploader_url, $uploader->group->color, $uploader->username),
@@ -503,8 +503,8 @@ class CommentController extends Controller
             User::find($torrent->user_id)->notify(new NewComment('torrent', $comment));
         }
         // Auto Shout
-        $torrent_url = hrefTorrent($torrent);
-        $profile_url = hrefProfile($user);
+        $torrent_url = href_torrent($torrent);
+        $profile_url = href_profile($user);
         $this->chat->systemMessage(
             sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
         );

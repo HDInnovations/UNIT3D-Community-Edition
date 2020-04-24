@@ -349,8 +349,8 @@ class RequestController extends Controller
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bounty');
         $user->save();
-        $tr_url = hrefRequest($tr);
-        $profile_url = hrefProfile($user);
+        $tr_url = href_request($tr);
+        $profile_url = href_profile($user);
         // Auto Shout
         if ($tr->anon == 0) {
             $this->chat->systemMessage(
@@ -488,8 +488,8 @@ class RequestController extends Controller
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bonus_value');
         $user->save();
-        $tr_url = hrefRequest($tr);
-        $profile_url = hrefProfile($user);
+        $tr_url = href_request($tr);
+        $profile_url = href_profile($user);
         // Auto Shout
         if ($requestsBounty->anon == 0) {
             $this->chat->systemMessage(
@@ -602,8 +602,8 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled75Requests(), 1);
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
-            $tr_url = hrefRequest($tr);
-            $profile_url = hrefProfile($fill_user);
+            $tr_url = href_request($tr);
+            $profile_url = href_profile($fill_user);
 
             // Auto Shout
             if ($tr->filled_anon == 0) {

@@ -1519,8 +1519,8 @@ class TorrentController extends Controller
         $torrent->save();
 
         // Announce To Chat
-        $torrent_url = hrefTorrent($torrent);
-        $profile_url = hrefProfile($user);
+        $torrent_url = href_torrent($torrent);
+        $profile_url = href_profile($user);
 
         $this->chat->systemMessage(
             sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrent_url, $torrent->name, $profile_url, $user->username)
@@ -1574,7 +1574,7 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $torrent_url = hrefTorrent($torrent);
+        $torrent_url = href_torrent($torrent);
 
         if ($torrent->free == 0) {
             $torrent->free = '1';
@@ -1622,8 +1622,8 @@ class TorrentController extends Controller
             $featured->torrent_id = $torrent->id;
             $featured->save();
 
-            $torrent_url = hrefTorrent($torrent);
-            $profile_url = hrefProfile($user);
+            $torrent_url = href_torrent($torrent);
+            $profile_url = href_profile($user);
             $this->chat->systemMessage(
                 sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrent_url, $torrent->name, $profile_url, $user->username)
             );
@@ -1650,7 +1650,7 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $torrent_url = hrefTorrent($torrent);
+        $torrent_url = href_torrent($torrent);
 
         if ($torrent->doubleup == 0) {
             $torrent->doubleup = '1';
@@ -1691,8 +1691,8 @@ class TorrentController extends Controller
                 User::find($r->user_id)->notify(new NewReseedRequest($torrent));
             }
 
-            $torrent_url = hrefTorrent($torrent);
-            $profile_url = hrefProfile($user);
+            $torrent_url = href_torrent($torrent);
+            $profile_url = href_profile($user);
 
             $this->chat->systemMessage(
                 sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrent_url, $torrent->name)

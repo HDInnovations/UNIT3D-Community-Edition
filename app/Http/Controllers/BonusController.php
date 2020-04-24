@@ -383,8 +383,8 @@ class BonusController extends Controller
                 $recipient->notify(new NewBon('gift', $user->username, $transaction));
             }
 
-            $profile_url = hrefProfile($user);
-            $recipient_url = hrefProfile($recipient);
+            $profile_url = href_profile($user);
+            $recipient_url = href_profile($recipient);
 
             $this->chat->systemMessage(
                 sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)

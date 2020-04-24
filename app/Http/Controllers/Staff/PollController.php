@@ -88,7 +88,7 @@ class PollController extends Controller
         $options = collect($request->input('options'))->map(fn ($value) => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
 
-        $poll_url = hrefPoll($poll);
+        $poll_url = href_poll($poll);
 
         $this->chat->systemMessage(
             sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
@@ -162,7 +162,7 @@ class PollController extends Controller
         $poll->options()->saveMany($newOptions);
 
         // Last work from store()
-        $poll_url = hrefPoll($poll);
+        $poll_url = href_poll($poll);
 
         $this->chat->systemMessage(
             sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)

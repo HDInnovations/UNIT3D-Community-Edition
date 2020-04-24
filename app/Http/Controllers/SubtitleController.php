@@ -124,8 +124,8 @@ class SubtitleController extends Controller
         $subtitle->save();
 
         // Announce To Shoutbox
-        $torrent_url = hrefTorrent($subtitle->torrent);
-        $profile_url = hrefProfile($user);
+        $torrent_url = href_torrent($subtitle->torrent);
+        $profile_url = href_profile($user);
         if ($subtitle->anon == false) {
             $this->chat->systemMessage(
                 sprintf('[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]', $profile_url, $user->username, $subtitle->language->name, $torrent_url, $subtitle->torrent->name)

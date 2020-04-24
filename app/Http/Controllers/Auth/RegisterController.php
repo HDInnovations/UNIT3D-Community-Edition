@@ -160,7 +160,7 @@ class RegisterController extends Controller
         $activation->save();
         $this->dispatch(new SendActivationMail($user, $token));
         // Select A Random Welcome Message
-        $profile_url = hrefProfile($user);
+        $profile_url = href_profile($user);
         $welcomeArray = [
             sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
             sprintf('[url=%s]%s[/url], We\'ve been expecting you :space_invader:', $profile_url, $user->username),
