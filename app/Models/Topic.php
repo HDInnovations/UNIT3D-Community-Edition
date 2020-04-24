@@ -212,7 +212,7 @@ class Topic extends Model
     {
         $count = 0;
         foreach ($this->posts as $post) {
-            ++$count;
+            $count++;
             if ($searchId == $post->id) {
                 break;
             }
