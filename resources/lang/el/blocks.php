@@ -20,7 +20,7 @@ return [
   'featured-torrents-intro' => 'Κατεβάσε τα, όσο μπορείτε!',
   'featured-until' => 'Αυτό εμφανίζεται προτεινόμενο torrent μέχρι',
   'top-torrents' => 'Κορυφάια Torrents',
-  'latest-posts' => 'τελευταίες δημοσιεύσεις',
+  'latest-posts' => 'Tελευταίες δημοσιεύσεις',
   'latest-topics' => 'Τελευταία θέματα',
   'active-in-last' => 'Ενεργός τελευταίος',
   'users-online' => 'Χρήστες Online',

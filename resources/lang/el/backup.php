@@ -29,7 +29,7 @@ return [
   'delete_cancel_message' => 'Το αρχείο αντιγράφου ασφαλείας ΔΕΝ έχει διαγραφεί.',
   'delete_cancel_title' => 'Είναι εντάξει',
   'delete_confirm' => 'Σίγουρα θέλετε να διαγράψετε αυτό το αρχείο αντιγράφων ασφαλείας;',
-  'delete_confirmation_message' => 'Το αρχείο αντιγράφων ασφαλείας διαγράφηκε.',
+  'delete_confirmation_message' => 'Το αρχείο αντιγράφου ασφαλείας διαγράφηκε.',
   'delete_confirmation_title' => 'Εγινε',
   'delete_error_message' => 'Το αρχείο αντιγράφου ασφαλείας ΔΕΝ έχει διαγραφtεί.',
   'delete_error_title' => 'Λάθος',
@@ -37,7 +37,7 @@ return [
   'existing_backups' => 'Υπάρχοντα αντίγραφα ασφαλείας',
   'file_size' => 'Μέγεθος αρχείου',
   'location' => 'Τοποθεσία',
-  'manager' => 'Διευθυντής',
+  'manager' => 'Κέντρο Ελέγχου',
   'no_disks_configured' => 'Δεν υπάρχουν διαμορφωμένοι δίσκοι δημιουργίας αντιγράφων στο config / backup.php',
   'only_local_downloads_supported' => 'Λαμβάνονται μόνο λήψεις από το Τοπικό σύστημα αρχείων.',
 ];
