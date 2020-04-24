@@ -250,7 +250,7 @@ class UserController extends Controller
         // Style Settings
         $user->style = (int) $request->input('theme');
         $css_url = $request->input('custom_css');
-        if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
+        if (isset($css_url) && !filter_var($css_url, FILTER_VALIDATE_URL)) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }

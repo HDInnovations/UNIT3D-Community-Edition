@@ -1271,7 +1271,7 @@ class TorrentController extends Controller
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $requestFile = $request->file('torrent');
-        if ($request->hasFile('torrent') === false) {
+        if (!$request->hasFile('torrent')) {
             return view('torrent.upload', [
                 'categories' => Category::all()->sortBy('position'),
                 'types'      => Type::all()->sortBy('position'),

@@ -71,7 +71,7 @@ class AlbumController extends Controller
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
-        if ($omdb === null || $omdb === false) {
+        if ($omdb === null || !$omdb) {
             return redirect()->route('albums.create')
                 ->withErrors('Bad IMDB Request!');
         }
