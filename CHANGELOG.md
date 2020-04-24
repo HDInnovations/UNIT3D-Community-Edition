@@ -1,5 +1,28 @@
 <!-- changelog-linker -->
 
+<!-- dumped content start -->
+
+## Unreleased
+
+- [#1299] (Localization) Add localizations for gallery and media languages, Thanks to [@howardlau1999]
+- [#1298] (Localization) Add zh-CN translation for cookies consent, Thanks to [@howardlau1999]
+- [#1295] (Localization) Add localization for subtitle feature, Thanks to [@howardlau1999]
+- [#1287] (Add) Empty Inbox button to the Private Message inbox, Thanks to [@clandestine8]
+- [#1276] (Refactor) Multiple PHP Refactors, Thanks to [@HDVinnie]
+- [#1277] Update send.blade.php, Thanks to [@innocente205]
+- [#1278] Update topic.blade.php, Thanks to [@innocente205]
+- [#1279] (Update) upload.blade.php, Thanks to [@innocente205]
+- [#1281] Update latest_posts.blade.php, Thanks to [@innocente205]
+- [#1284] Update ChatRepository.php, Thanks to [@innocente205]
+- [#1285] (Update) profile.blade.php, Thanks to [@innocente205]
+- [#1291] (Update) create.blade.php, Thanks to [@innocente205]
+- [#1292] (Update) category view breadcrumb, Thanks to [@innocente205]
+- [#1296] (Update) Greek Localization, Thanks to [@nikosuk]
+- [#1283] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1282] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1288] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1289] (Fix) Textareas, Thanks to [@HDVinnie]
+
 ## [v2.3.0]
 
 - [#1091] add p margins to pages, Thanks to [@HVRVKVT]
@@ -1359,3 +1382,23 @@
 [@HD4Free-Gizmo3D]: https://github.com/HD4Free-Gizmo3D
 [@HA5HBANG]: https://github.com/HA5HBANG
 [@Drytak]: https://github.com/Drytak
+[#1299]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1299
+[#1298]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1298
+[#1296]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1296
+[#1295]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1295
+[#1292]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1292
+[#1291]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1291
+[#1289]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1289
+[#1288]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1288
+[#1287]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1287
+[#1285]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1285
+[#1284]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1284
+[#1283]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1283
+[#1282]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1282
+[#1281]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1281
+[#1279]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1279
+[#1278]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1278
+[#1277]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1277
+[#1276]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1276
+[#1271]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1271
+[@nikosuk]: https://github.com/nikosuk
