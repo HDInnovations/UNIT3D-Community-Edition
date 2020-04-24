@@ -46,7 +46,7 @@
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 6, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 6, MySQL Strict Mode Compliant and PHP 7.4 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -71,7 +71,7 @@ UNIT3D currently offers the following features:
 ## <a name="requirements"></a> ☑️ Requirements
 
 - A Web server (NGINX is recommended)
-- PHP 7.1.3 + is required (7.2 for Argon2 Support)
+- PHP 7.4 + is required
 - Dependencies for PHP,
   -   php-curl -> This is specifically needed for the various APIs we have running.
   -   php-intl -> This is required for the Spatie\SslCertificate.
@@ -114,7 +114,7 @@ sudo ./install.sh
 Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
 Video Tutorial Can Be Seen Here:
-https://www.youtube.com/watch?v=f2tiMWZ3KbA
+https://www.youtube.com/watch?v=tbIZpsz093o
 
 ### <a name="manual-install"></a> Manual Install
 If you rather setup UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Docs/manual_install.html
@@ -141,7 +141,8 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 2.x.x       |  Active Support :rocket: | >= 7.3
+ 2.3.x       |  Active Support :rocket: | >= 7.4
+ 2.0.0 to 2.2.7|  Active Support :rocket: | >= 7.3
  1.0 to 1.9.4|  End Of Life :skull:     | >= 7.1.3
 
 ## <a name="security"></a> 🔐 Security
