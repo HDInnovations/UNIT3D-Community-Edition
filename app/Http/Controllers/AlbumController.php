@@ -17,7 +17,6 @@ use App\Models\Album;
 use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Image;
 
@@ -136,7 +135,7 @@ class AlbumController extends Controller
         $user = $request->user();
         $album = Album::findOrFail($id);
 
-        abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), Response::HTTP_FORBIDDEN);
+        abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
         $album->delete();
 
         return redirect()->route('albums.index')
