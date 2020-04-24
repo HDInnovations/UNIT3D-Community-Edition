@@ -459,7 +459,7 @@ class RequestController extends Controller
         $user = $request->user();
 
         $tr = TorrentRequest::with('user')->findOrFail($id);
-        $tr->votes += 1;
+        ++$tr->votes;
         $tr->bounty += $request->input('bonus_value');
         $tr->created_at = Carbon::now();
 
