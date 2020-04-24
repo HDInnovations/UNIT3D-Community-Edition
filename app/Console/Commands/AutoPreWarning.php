@@ -63,7 +63,7 @@ class AutoPreWarning extends Command
                         ->where('user_id', '=', $pre->user->id)
                         ->first();
                     // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
-                    if (! $exsist) {
+                    if ($exsist === null) {
                         $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
 
                         // Send Private Message

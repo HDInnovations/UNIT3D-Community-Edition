@@ -112,7 +112,7 @@ class ChatBotController extends Controller
             $bot->save();
             $success = 'The Bot Has Been Updated';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
