@@ -1993,7 +1993,8 @@ class UserController extends Controller
 
         if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
-            $failCSV = "\"Name\",\"URL\",\"ID\",\"info_hash\"\r\n";
+            $failCSV = '"Name","URL","ID","info_hash"
+';
             $failCount = 0;
             foreach ($historyTorrents as $historyTorrent) {
                 // Get Torrent
@@ -2004,7 +2005,8 @@ class UserController extends Controller
 
                 // The Torrent File Exist?
                 if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent."\"\r\n";
+                    $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent.'"
+';
                     $failCount++;
                 } else {
                     // Delete The Last Torrent Tmp File If Exist

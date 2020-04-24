@@ -114,7 +114,7 @@ trait ConsoleTools
             try {
                 $process->checkTimeout();
             } catch (ProcessTimedOutException $e) {
-                $this->red(sprintf('\'%s\' timed out.!', $command));
+                $this->red(sprintf("'%s' timed out.!", $command));
             }
 
             if (! $silent) {
