@@ -99,7 +99,7 @@ class VendorCleanup extends Command
 
         foreach ($directories as $directory) {
             foreach ($patterns as $pattern) {
-                $casePattern = preg_replace_callback('/([a-z])/i', [$this, 'prepareWord'], $pattern);
+                $casePattern = preg_replace_callback('#([a-z])#i', [$this, 'prepareWord'], $pattern);
 
                 $files = glob($directory.'/'.$casePattern, GLOB_BRACE);
 

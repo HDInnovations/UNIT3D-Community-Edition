@@ -83,7 +83,7 @@ class IRCAnnounceBot
     public function message($channel, $message)
     {
         // Messages an specific IRC Channel
-        if ($this->joinchannels && preg_match('/#(\w*[a-zA-Z_0-9]+\w*)/', $channel)) {
+        if ($this->joinchannels && preg_match('##(\w*[a-zA-Z_0-9]+\w*)#', $channel)) {
             $this->join($channel);
         }
 

@@ -151,7 +151,7 @@ class Http2ServerPush
     private function buildLinkHeaderString($url)
     {
         $type = collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(strtoupper($url), $extension));
-        if (! preg_match('%^https?://%i', $url)) {
+        if (! preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);
         }
