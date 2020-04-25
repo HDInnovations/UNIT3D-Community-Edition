@@ -61,7 +61,7 @@ class AnnounceController extends Controller
         if (! $request->isMethod('get')) {
             info('Announce Request Method Was Not GET');
 
-            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']);
         }
 
         // Request Agent Information
@@ -80,50 +80,50 @@ class AnnounceController extends Controller
             $blockedClients = config('client-blacklist.clients');
             if (in_array($agent, $blockedClients)) {
                 //info('Blacklist Client Attempted To Connect To Announce');
-                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']))->withHeaders(['Content-Type' => 'text/plain']);
+                return response()->torrentClient(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']);
             }
         }
 
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey == null) {
             //info('Client Attempted To Connect To Announce Without A Passkey');
-            return response(Bencode::bencode(['failure reason' => 'Please Call Passkey']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Please Call Passkey']);
         }
 
         // If Infohash Is Not Provided Return Error to Client
         if (! $request->has('info_hash')) {
             //info('Client Attempted To Connect To Announce Without A Infohash');
-            return response(Bencode::bencode(['failure reason' => 'Missing info_hash']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Missing info_hash']);
         }
 
         // If Peerid Is Not Provided Return Error to Client
         if (! $request->has('peer_id')) {
             //info('Client Attempted To Connect To Announce Without A Peerid');
-            return response(Bencode::bencode(['failure reason' => 'Missing peer_id']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Missing peer_id']);
         }
 
         // If Port Is Not Provided Return Error to Client
         if (! $request->has('port')) {
             //info('Client Attempted To Connect To Announce Without A Specified Port');
-            return response(Bencode::bencode(['failure reason' => 'Missing port']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Missing port']);
         }
 
         // If "Left" Is Not Provided Return Error to Client
         if (! $request->has('left')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Left" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing left']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Missing left']);
         }
 
         // If "Upload" Is Not Provided Return Error to Client
         if (! $request->has('uploaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Upload" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing upload']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Missing upload']);
         }
 
         // If "Download" Is Not Provided Return Error to Client
         if (! $request->has('downloaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Download" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing download']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Missing download']);
         }
 
         // Check Passkey Against Cache or Users Table
@@ -132,7 +132,7 @@ class AnnounceController extends Controller
         // If Passkey Doesn't Exist Return Error to Client
         if ($user === null) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
-            return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Passkey is invalid']);
         }
 
         // Caached System Required Groups
@@ -143,25 +143,25 @@ class AnnounceController extends Controller
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {
             //info('A Banned User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'You are no longer welcome here']);
         }
 
         // If User Is Disabled Return Error to Client
         if ($user->group_id == $disabled_group[0]) {
             //info('A Disabled User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Your account is disabled. Please login.']);
         }
 
         // If User Account Is Unactivated Return Error to Client
         if ($user->active == 0) {
             //info('A Unactivated User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is not activated']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Your account is not activated']);
         }
 
         // If User Is Validating Return Error to Client
         if ($user->group_id == $validating_group[0]) {
             //info('A Validating User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is still validating']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Your account is still validating']);
         }
 
         // Standard Information Fields
@@ -188,19 +188,19 @@ class AnnounceController extends Controller
         // If User Download Rights Are Disabled Return Error to Client
         if ($user->can_download == 0 && $left != 0) {
             //info('A User With Revoked Download Privileges Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your download privileges are Revoked']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Your download privileges are Revoked']);
         }
 
         // If User Client Is Sending Negative Values Return Error to Client
         if ($uploaded < 0 || $downloaded < 0 || $left < 0) {
             //info('Client Attempted To Send Data With A Negative Value');
-            return response(Bencode::bencode(['failure reason' => 'Data from client is a negative value']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Data from client is a negative value']);
         }
 
         // If User Client Does Not Support Compact Return Error to Client
         if (! $compact) {
             //info('Client Attempted To Connect To Announce But Doesn't Support Compact');
-            return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => "Your client doesn't support compact, please update your client"]);
         }
 
         // Check Info Hash Against Cache or Torrents Table
@@ -209,25 +209,25 @@ class AnnounceController extends Controller
         // If Torrent Doesnt Exsist Return Error to Client
         if ($torrent === null) {
             //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
-            return response(Bencode::bencode(['failure reason' => 'Torrent not found']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Torrent not found']);
         }
 
         // If Torrent Is Pending Moderation Return Error to Client
         if ($torrent->status == self::PENDING) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Pending Moderation');
-            return response(Bencode::bencode(['failure reason' => 'Torrent is still pending moderation']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Torrent is still pending moderation']);
         }
 
         // If Torrent Is Rejected Return Error to Client
         if ($torrent->status == self::REJECTED) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Rejected');
-            return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Torrent has been rejected']);
         }
 
         // If Torrent Is Postponed Return Error to Client
         if ($torrent->status == self::POSTPONED) {
             //info('Client Attempted To Connect To Announce But The Torrent Is Postponed');
-            return response(Bencode::bencode(['failure reason' => 'Torrent has been postponed']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Torrent has been postponed']);
         }
 
         // Get Torrents Peers
@@ -239,7 +239,7 @@ class AnnounceController extends Controller
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
         if ($connections > config('announce.rate_limit')) {
             //info('Client Attempted To Connect To Announce But Has Hit Rate Limits');
-            return response(Bencode::bencode(['failure reason' => 'You have reached the rate limit']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'You have reached the rate limit']);
         }
 
         // Get The Current Peer
@@ -248,7 +248,7 @@ class AnnounceController extends Controller
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
         if ($peer === null && $event == 'completed') {
-            return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
+            return response()->torrentClient(['failure reason' => 'Torrent is complete but no record found.']);
         }
 
         // Creates a new peer if not existing
@@ -481,7 +481,7 @@ class AnnounceController extends Controller
         $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id, FILTER_FLAG_IPV4);
         $res['peers6'] = $this->givePeers($peers, $compact, $no_peer_id, FILTER_FLAG_IPV6);
 
-        return response(Bencode::bencode($res))->withHeaders(['Content-Type' => 'text/plain']);
+        return response()->torrentClient($res);
         // End Build Response For Bittorrent Client
     }
 
@@ -513,8 +513,6 @@ class AnnounceController extends Controller
 
             return $peers;
         }
-
-        return $peers;
 
         return $peers;
     }
