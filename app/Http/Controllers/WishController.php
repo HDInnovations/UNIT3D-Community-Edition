@@ -72,14 +72,14 @@ class WishController extends Controller
 
         if ($this->wish->exists($user->id, $imdb)) {
             return redirect()
-                ->route('wishes.index', ['id' => $uid])
+                ->route('wishes.index', ['username' => $user->username])
                 ->withErrors('Wish already exists!');
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
         if ($omdb === null || $omdb === false) {
             return redirect()
-                ->route('wishes.index', ['id' => $uid])
+                ->route('wishes.index', ['username' => $user->username])
                 ->withErrors('IMDB Bad Request!');
         }
 
