@@ -4,6 +4,17 @@
 
 ## Unreleased
 
+- [#1310] (Refactoring) Announce Controller: add new method for response torren…, Thanks to [@VictoRD11]
+- [#1308] (Translation) Greek Translation improvements, Thanks to [@nikosuk]
+- [#1307] (Refactor) Multiple Code Style Changes, Thanks to [@HDVinnie]
+- [#1306] (Translation) Minor Translation Improvements, Thanks to [@nikosuk]
+- [#1305] Update AutoHighspeedTag.php, Thanks to [@innocente205]
+- [#1303] Update downloads.blade.php, Thanks to [@innocente205]
+- [#1302] (Refactor) Album Controller : Operations priority might differ from w…, Thanks to [@VictoRD11]
+- [#1315] (Refactoring) Topic Controller: fix query n + 1 problem, Thanks to [@VictoRD11]
+- [#1314] (Refactoring) Forum Controller: fix query n + 1 problem, Thanks to [@VictoRD11]
+- [#1311] (Fix) WishController.php, Thanks to [@innocente205]
+- [#1309] (Fix) Wish Controller: Redirect after store with validation error., Thanks to [@VictoRD11]
 - [#1299] (Localization) Add localizations for gallery and media languages, Thanks to [@howardlau1999]
 - [#1298] (Localization) Add zh-CN translation for cookies consent, Thanks to [@howardlau1999]
 - [#1295] (Localization) Add localization for subtitle feature, Thanks to [@howardlau1999]
@@ -1402,3 +1413,15 @@
 [#1276]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1276
 [#1271]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1271
 [@nikosuk]: https://github.com/nikosuk
+[#1315]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1315
+[#1314]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1314
+[#1311]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1311
+[#1310]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1310
+[#1309]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1309
+[#1308]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1308
+[#1307]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1307
+[#1306]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1306
+[#1305]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1305
+[#1303]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1303
+[#1302]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1302
+[@VictoRD11]: https://github.com/VictoRD11
