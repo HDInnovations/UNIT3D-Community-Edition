@@ -515,7 +515,5 @@ class AnnounceController extends Controller
         }
 
         return $peers;
-
-        return $peers;
     }
 }
