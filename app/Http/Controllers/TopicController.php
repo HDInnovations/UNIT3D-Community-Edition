@@ -30,6 +30,7 @@ use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -78,7 +79,12 @@ class TopicController extends Controller
         $category = $forum->getCategory();
 
         // Get all posts
-        $posts = $topic->posts()->with(['user', 'tips'])->paginate(25);
+        $posts = $topic->posts()->with(['user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips'])
+            ->withCount(['likes' => function (Builder $query) {
+                $query->where('like', '=', 1);
+            }, 'likes as dislikes_count' => function (Builder $query) {
+                $query->where('dislike', '=', 1);
+            }])->paginate(25);
 
         // First post
         $firstPost = Post::with('tips')->where('topic_id', '=', $topic->id)->first();
