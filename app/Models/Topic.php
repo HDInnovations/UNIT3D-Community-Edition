@@ -81,6 +81,10 @@ class Topic extends Model
 {
     use Auditable;
 
+    protected $casts = [
+        'last_reply_at' => 'datetime',
+    ];
+
     /**
      * Belongs To A Forum.
      *

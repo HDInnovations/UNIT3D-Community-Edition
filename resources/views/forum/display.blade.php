@@ -126,14 +126,12 @@
                                 {{ $t->num_post - 1 }} @lang('forum.replies')
                                 \ {{ $t->views }} @lang('forum.views')
                             </td>
-                            @php $last_post = DB::table('posts')->where('topic_id', '=', $t->id)->orderBy('id',
-                            'desc')->first(); @endphp
                             <td class="f-display-topic-last-post">
                                 <a
                                     href="{{ route('users.show', ['username' => $t->last_post_user_username]) }}">{{ $t->last_post_user_username }}</a>
                                 on
-                                <time datetime="{{ date('M d Y', strtotime($last_post->created_at ?? 'UNKNOWN')) }}">
-                                    {{ date('M d Y', strtotime($last_post->created_at ?? 'UNKNOWN')) }}
+                                <time datetime="{{ optional($t->last_reply_at)->format('M d Y') ?? 'UNKNOWN' }}">
+                                    {{ optional($t->last_reply_at)->format('M d Y') ?? 'UNKNOWN' }}
                                 </time>
                             </td>
                         </tr>

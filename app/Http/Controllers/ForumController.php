@@ -252,7 +252,7 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $results = Topic::whereNotIn('topics.forum_id', $pests)->latest()->paginate(25);
+        $results = Topic::with(['forum'])->whereNotIn('topics.forum_id', $pests)->latest()->paginate(25);
 
         // Total Forums Count
         $num_forums = Forum::count();
@@ -286,7 +286,7 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests)->orderBy('posts.created_at', 'desc')->paginate(25);
+        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user', 'topic.forum'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         // Total Forums Count
         $num_forums = Forum::count();
