@@ -10,30 +10,30 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "ajv": "^6.12.0",
+    "ajv": "^6.12.2",
     "axios": "^0.19",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^7.0",
     "emojione-assets": "^4.5.0",
-    "jquery": "^3.4.1",
-    "laravel-echo": "^1.6.1",
+    "jquery": "^3.5.0",
+    "laravel-echo": "^1.7.0",
     "laravel-mix": "^5.0.4",
     "laravel-mix-purgecss": "^4.2.0",
     "lodash": "^4.17.15",
     "resolve-url-loader": "3.1.1",
-    "sass": "^1.26.3",
+    "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "sweetalert2": "^9.10.7",
+    "sweetalert2": "^9.10.12",
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "dayjs": "^1.8.23",
+    "dayjs": "^1.8.25",
     "laravel-mix-sri": "0.0.4",
-    "n": "^6.4.0",
-    "npm-check-updates": "^4.1.0"
+    "n": "^6.5.1",
+    "npm-check-updates": "^4.1.2"
   }
 }
