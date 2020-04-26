@@ -68,6 +68,12 @@ class WishController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
+        if ($request->get('imdb') == 0) {
+            return redirect()
+                ->route('wishes.index', ['username' => $user->username])
+                ->withErrors('IMDB Entry Required');
+        }
+
         $imdb = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
 
         if ($this->wish->exists($user->id, $imdb)) {
