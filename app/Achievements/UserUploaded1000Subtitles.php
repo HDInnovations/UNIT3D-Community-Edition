@@ -19,5 +19,5 @@ class UserUploaded1000Subtitles extends Achievement
     /*
     * The amount of "points" this user need to obtain in order to complete this achievement
     */
-    public $points = 1000;
+    public $points = 1_000;
 }

@@ -72,8 +72,8 @@
                                 <div class="form-group"><input class="form-control" name="email" type="email" id="email"
                                         size="10" required></div>
                                 <div class="form-group"><label for="message">@lang('common.message')</label></div>
-                                <div class="form-group"><textarea class="form-control" name="message" cols="50" rows="10"
-                                        id="message"></textarea></div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea></div>
                                 <div class="form-group"><button type="submit"
                                         class="btn btn-primary">@lang('common.submit')</button></div>
                             </form>

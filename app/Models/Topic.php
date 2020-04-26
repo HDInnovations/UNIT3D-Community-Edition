@@ -81,6 +81,10 @@ class Topic extends Model
 {
     use Auditable;
 
+    protected $casts = [
+        'last_reply_at' => 'datetime',
+    ];
+
     /**
      * Belongs To A Forum.
      *
@@ -212,7 +216,7 @@ class Topic extends Model
     {
         $count = 0;
         foreach ($this->posts as $post) {
-            $count += 1;
+            $count++;
             if ($searchId == $post->id) {
                 break;
             }

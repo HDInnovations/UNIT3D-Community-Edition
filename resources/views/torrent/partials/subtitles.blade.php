@@ -1,8 +1,8 @@
 <div class="panel panel-chat shoutbox">
     <div class="panel-heading">
         <h4>
-            <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> Subtitles
-            <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary" style="float: right;" title="Add subtitle">Add Subtitle</a>
+            <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> @lang('common.subtitles')
+            <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary" style="float: right;" title="@lang('common.add') @lang('common.subtitle')">@lang('common.add') @lang('common.subtitle')</a>
         </h4>
     </div>
 
@@ -10,13 +10,13 @@
         <table class="table table-condensed table-bordered table-striped">
             <thead>
             <tr>
-                <th>Language</th>
-                <th>Download</th>
-                <th>Extension</th>
-                <th>Size</th>
-                <th>Downloads</th>
-                <th>Uploaded</th>
-                <th>Uploader</th>
+                <th>@lang('common.language')</th>
+                <th>@lang('common.download')</th>
+                <th>@lang('subtitle.extension')</th>
+                <th>@lang('subtitle.size')</th>
+                <th>@lang('subtitle.downloads')</th>
+                <th>@lang('subtitle.uploaded')</th>
+                <th>@lang('subtitle.uploader')</th>
             </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
                         <i class="{{ config("other.font-awesome") }} fa-closed-captioning" data-toggle="tooltip" data-title="{{ $subtitle->note }}"></i>
                     </td>
                     <td>
-                        <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}" class="btn btn-xs btn-warning">Download</a>
+                        <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}" class="btn btn-xs btn-warning">@lang('common.download')</a>
                     </td>
                     <td>{{ $subtitle->extension }}</td>
                     <td>{{ $subtitle->getSize() }}</td>
@@ -53,8 +53,8 @@
                         @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
                             <div class="align-right" style="display: inline-block;">
                                 @include('subtitle.modals', ['subtitle' => $subtitle, 'torrent' => $torrent, 'media_languages' => App\Models\MediaLanguage::all()->sortBy('name')])
-                                <a data-toggle="modal" data-target="#modal_edit_subtitle-{{ $subtitle->id }}" title="Edit Subtitle"><i class="fa fa-edit text-green"></i></a>
-                                <a data-toggle="modal" data-target="#modal_delete_subtitle-{{ $subtitle->id }}" title="Delete Subtitle"><i class="fa fa-trash text-red"></i></a>
+                                <a data-toggle="modal" data-target="#modal_edit_subtitle-{{ $subtitle->id }}" title="@lang('common.edit') @lang('common.subtitle')"><i class="fa fa-edit text-green"></i></a>
+                                <a data-toggle="modal" data-target="#modal_delete_subtitle-{{ $subtitle->id }}" title="@lang('common.delete') @lang('common.subtitle')"><i class="fa fa-trash text-red"></i></a>
                             </div>
                         @endif
                     </td>

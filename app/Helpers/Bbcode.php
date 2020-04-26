@@ -291,7 +291,7 @@ class Bbcode
     /**
      * @var array
      */
-    protected $enabledParsers;
+    protected $enabledParsers = [];
 
     public function __construct()
     {

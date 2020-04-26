@@ -92,7 +92,7 @@ trait ConsoleTools
         foreach ($commands as $command) {
             $process = $this->process($command, $silent);
 
-            if (!$silent) {
+            if (! $silent) {
                 echo "\n\n";
                 $this->warn($process->getOutput());
             }
@@ -101,36 +101,36 @@ trait ConsoleTools
 
     private function process($command, $silent = false)
     {
-        if (!$silent) {
+        if (! $silent) {
             $this->cyan($command);
             $bar = $this->progressStart();
         }
 
         $process = new Process($command);
-        $process->setTimeout(3600);
+        $process->setTimeout(3_600);
         $process->start();
 
         while ($process->isRunning()) {
             try {
                 $process->checkTimeout();
             } catch (ProcessTimedOutException $e) {
-                $this->red(sprintf('\'%s\' timed out.!', $command));
+                $this->red(sprintf("'%s' timed out.!", $command));
             }
 
-            if (!$silent) {
+            if (! $silent) {
                 $bar->advance();
             }
 
-            usleep(200000);
+            usleep(200_000);
         }
 
-        if (!$silent) {
+        if (! $silent) {
             $this->progressStop($bar);
         }
 
         $process->stop();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             $this->red($process->getErrorOutput());
             //die();
         }

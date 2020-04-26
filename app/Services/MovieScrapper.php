@@ -43,7 +43,7 @@ class MovieScrapper
      */
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {
-        if (!$imdb && !$tmdb && !$tvdb) {
+        if (! $imdb && ! $tmdb && ! $tvdb) {
             throw new \ErrorException('Either $imdb, $tmdb or $tvdb is required');
         }
 

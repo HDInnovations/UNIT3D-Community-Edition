@@ -313,7 +313,7 @@ class ChatRepository
         if ($bot) {
             $this->message($systemUserId, $this->systemChatroom(), $message, null, $bot);
         } else {
-            $systemBotId = Bot::where('slug', 'systembot')->first()->id;
+            $systemBotId = Bot::where('command', 'systembot')->first()->id;
 
             $this->message($systemUserId, $this->systemChatroom(), $message, null, $systemBotId);
         }
@@ -376,7 +376,7 @@ class ChatRepository
     {
         foreach (config('censor.redact') as $word) {
             if (preg_match(sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), $message)) {
-                $message = str_replace($word, sprintf('<span class=\'censor\'>%s</span>', $word), $message);
+                $message = str_replace($word, sprintf("<span class='censor'>%s</span>", $word), $message);
             }
         }
 

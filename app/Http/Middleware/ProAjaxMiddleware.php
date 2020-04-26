@@ -44,9 +44,9 @@ class ProAjaxMiddleware
         // If the request is not an ajax request or,
         // If there is already a JSON response,
         // We do not need to do anything, just skip and continue
-        //dd(!$response->isSuccessful());
-        //if ($response instanceof JsonResponse || !$this->isAjaxRequest($request) || $response->isSuccessful()) {
-        if ($response instanceof JsonResponse || !$this->isAjaxRequest($request) || $response->isServerError() || $response->isSuccessful()) {
+        //dd(! $response->isSuccessful());
+        //if ($response instanceof JsonResponse || ! $this->isAjaxRequest($request) || $response->isSuccessful()) {
+        if ($response instanceof JsonResponse || ! $this->isAjaxRequest($request) || $response->isServerError() || $response->isSuccessful()) {
             return $response;
         }
 
@@ -135,7 +135,7 @@ class ProAjaxMiddleware
     public function shouldRedirectRequest($request, $response)
     {
         // If there is no target URL, we know that it is not a redirect request
-        if (!method_exists($response, 'getTargetUrl')) {
+        if (! method_exists($response, 'getTargetUrl')) {
             return false;
         }
 

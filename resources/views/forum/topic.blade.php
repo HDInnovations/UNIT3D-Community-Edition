@@ -143,39 +143,33 @@
                                 </div>
                             </div>
 
-                            @php $likes = DB::table('likes')->where('post_id', '=', $p->id)->where('like', '=', 1)->count();
-                            @endphp
-                            @php $dislikes = DB::table('likes')->where('post_id', '=', $p->id)->where('dislike', '=',
-                            1)->count(); @endphp
                             <div class="likes">
                                 <span class="badge-extra">
                                     @if (auth()->user()->likes()->where('post_id', '=', $p->id)->where('like', '=', 1)->first())
                                         <a href="{{ route('like', ['postId' => $p->id]) }}" class="text-green" data-toggle="tooltip"
                                             style="margin-right: 16px;" data-original-title="@lang('forum.like-post')"><i
                                                 class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x fa-beat"></i>
-                                            <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
+                                            <span class="count" style="font-size: 20px;">{{ $p->likes_count }}</span></a>
                                     @else
                                         <a href="{{ route('like', ['postId' => $p->id]) }}" class="text-green" data-toggle="tooltip"
                                             style="margin-right: 16px;" data-original-title="@lang('forum.like-post')"><i
                                                 class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x"></i>
-                                            <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
+                                            <span class="count" style="font-size: 20px;">{{ $p->likes_count }}</span></a>
                                     @endauth
                                     @if (auth()->user()->likes()->where('post_id', '=', $p->id)->where('dislike', '=',
                                         1)->first())
                                         <a href="{{ route('dislike', ['postId' => $p->id]) }}" class="text-red"
                                             data-toggle="tooltip" data-original-title="@lang('forum.dislike-post')"><i
                                                 class="icon-dislike {{ config('other.font-awesome') }} fa-thumbs-down fa-2x fa-beat"></i>
-                                            <span class="count" style="font-size: 20px;">{{ $dislikes }}</span></a>
+                                            <span class="count" style="font-size: 20px;">{{ $p->dislikes_count }}</span></a>
                                     @else
                                         <a href="{{ route('dislike', ['postId' => $p->id]) }}" class="text-red"
                                             data-toggle="tooltip" data-original-title="@lang('forum.dislike-post')"><i
                                                 class="icon-dislike {{ config('other.font-awesome') }} fa-thumbs-down fa-2x"></i>
-                                            <span class="count" style="font-size: 20px;">{{ $dislikes }}</span></a>
+                                            <span class="count" style="font-size: 20px;">{{ $p->dislikes_count }}</span></a>
                                     @endauth
                                 </span>
                             </div>
-
-
 
                             <div class="post-signature col-md-12">
                                 @if ($p->user->signature != null)
@@ -201,8 +195,8 @@
                                 being {{ auth()->user()->group->name }}.
                             </div>
                             <div class="from-group">
-                                <label for="topic-response"></label><textarea name="content" id="topic-response" cols="30"
-                                    rows="10"></textarea>
+                                <label for="topic-response"></label>
+                                <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                         </form>
@@ -212,8 +206,8 @@
                         <form role="form" method="POST" action="{{ route('forum_reply', ['id' => $topic->id]) }}">
                             @csrf
                             <div class="from-group">
-                                <label for="topic-response"></label><textarea name="content" id="topic-response" cols="30"
-                                    rows="10"></textarea>
+                                <label for="topic-response"></label>
+                                <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                         </form>
@@ -329,7 +323,7 @@
                 allButtons: {
                     quote: {
                         transform: {
-                            '<div class="wbbquote"><cite><b>{AUTHOR}</b> wrote:</cite> <br /> <br />{SELTEXT}</div>': '[quote={AUTHOR}]{SELTEXT}[/quote]'
+                            '<div class="wbbquote"><cite><b>{AUTHOR}</b> wrote:</cite> <br /> <br />{SELTEXT}<br /><br /></div>': '[quote={AUTHOR}]{SELTEXT}[/quote]'
                         }
                     }
                 }
@@ -338,12 +332,12 @@
             let editor = $("#topic-response").wysibb(wbbOpt);
 
             $('.profil').on('click', 'button#quote', function() {
-                let author = $(this).closest('.post-info').find('.badge-user').first().text();
-                let text = $(this).closest('.profil').find('.post-content').first().text().replace('@here',
-                    '');
+                let author = $(this).closest('.post-info').find('.badge-user').first().text().trim();
+                let text = $(this).closest('.profil').find('.post-content').first().html().replace('@here',
+                    '').trim();
 
                 editor.execCommand('quote', {
-                    author: '@' + author + ' ',
+                    author: '@' + author,
                     seltext: text
                 });
             });

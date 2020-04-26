@@ -68,7 +68,7 @@ class LanguageCensor
             for ($i = 0; $i < $length; $i++) {
                 if ((is_countable($indexes) ? count($indexes) : 0) > 0 && $indexes[0] == $i) {
                     $match = substr($source, $indexes[0], $word_length);
-                    $result .= sprintf('<span class=\'censor\'>%s</span>', $match);
+                    $result .= sprintf("<span class='censor'>%s</span>", $match);
                     $ignore = $word_length - 1;
                 } elseif ($ignore > 0) {
                     $ignore--;

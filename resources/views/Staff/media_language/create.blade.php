@@ -9,14 +9,14 @@
     <li>
         <a href="{{ route('staff.media_languages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                Media Languages
+                @lang('common.media-languages')
             </span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('staff.media_languages.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                @lang('common.add') Media Language
+                @lang('common.add') @lang('common.media-language')
             </span>
         </a>
     </li>
@@ -25,7 +25,7 @@
 @section('content')
     <div class="container box">
         <h2>
-            @lang('common.add') Media Lanuage (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
+            @lang('common.add') @lang('common.media-language') @lang('staff.media-languages-desc')
         </h2>
         <form role="form" method="POST" action="{{ route('staff.media_languages.store') }}">
             @csrf
@@ -38,7 +38,7 @@
             </div>
 
             <div class="form-group">
-                <label for="name">Code</label>
+                <label for="name">@lang('common.code')</label>
                 <label>
                     <input type="text" class="form-control" name="code">
                 </label>

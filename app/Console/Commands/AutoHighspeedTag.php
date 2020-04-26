@@ -51,8 +51,10 @@ class AutoHighspeedTag extends Command
 
             foreach ($torid as $id) {
                 $torrent = Torrent::where('id', '=', $id)->first();
-                $torrent->highspeed = 1;
-                $torrent->save();
+                if (isset($torrent)) {
+                    $torrent->highspeed = 1;
+                    $torrent->save();
+                }
 
                 unset($torrent);
             }

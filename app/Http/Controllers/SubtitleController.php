@@ -124,8 +124,8 @@ class SubtitleController extends Controller
         $subtitle->save();
 
         // Announce To Shoutbox
-        $torrent_url = hrefTorrent($subtitle->torrent);
-        $profile_url = hrefProfile($user);
+        $torrent_url = href_torrent($subtitle->torrent);
+        $profile_url = href_profile($user);
         if ($subtitle->anon == false) {
             $this->chat->systemMessage(
                 sprintf('[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]', $profile_url, $user->username, $subtitle->language->name, $torrent_url, $subtitle->torrent->name)
@@ -202,7 +202,9 @@ class SubtitleController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
 
-        unlink(public_path().'/files/subtitles/'.$subtitle->file_name);
+        if (file_exists(public_path().'/files/subtitles/'.$subtitle->file_name)) {
+            unlink(public_path().'/files/subtitles/'.$subtitle->file_name);
+        }
 
         $subtitle->delete();
 
@@ -238,7 +240,7 @@ class SubtitleController extends Controller
         }
 
         // Grab the subtitle file
-        Storage::copy(public_path().'/files/subtitles/'.$subtitle->file_name, public_path().'/files/tmp/'.$temp_filename);
+        copy(public_path().'/files/subtitles/'.$subtitle->file_name, public_path().'/files/tmp/'.$temp_filename);
 
         // Increment downloads count
         $subtitle->downloads = ++$subtitle->downloads;
@@ -248,8 +250,8 @@ class SubtitleController extends Controller
 
         if ($subtitle->extension === '.zip') {
             return response()->download(public_path('files/tmp/'.$temp_filename), $temp_filename, $headers)->deleteFileAfterSend(true);
-        } else {
-            return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
         }
+
+        return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
     }
 }

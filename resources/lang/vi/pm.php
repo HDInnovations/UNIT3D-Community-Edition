@@ -36,4 +36,5 @@ return [
   'subject' => 'Môn học',
   'to' => 'Đến',
   'unread' => 'Chưa đọc',
+    'empty-inbox'   => 'Làm trống hộp thư',
 ];

@@ -10,15 +10,15 @@
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-if (!function_exists('appurl')) {
+if (! function_exists('appurl')) {
     function appurl()
     {
         return config('app.url');
     }
 }
 
-if (!function_exists('hrefProfile')) {
-    function hrefProfile($user)
+if (! function_exists('hrefProfile')) {
+    function href_profile($user)
     {
         $appurl = appurl();
 
@@ -26,8 +26,8 @@ if (!function_exists('hrefProfile')) {
     }
 }
 
-if (!function_exists('hrefArticle')) {
-    function hrefArticle($article)
+if (! function_exists('hrefArticle')) {
+    function href_article($article)
     {
         $appurl = appurl();
 
@@ -35,8 +35,8 @@ if (!function_exists('hrefArticle')) {
     }
 }
 
-if (!function_exists('hrefTorrent')) {
-    function hrefTorrent($torrent)
+if (! function_exists('hrefTorrent')) {
+    function href_torrent($torrent)
     {
         $appurl = appurl();
 
@@ -44,8 +44,8 @@ if (!function_exists('hrefTorrent')) {
     }
 }
 
-if (!function_exists('hrefRequest')) {
-    function hrefRequest($torrentRequest)
+if (! function_exists('hrefRequest')) {
+    function href_request($torrentRequest)
     {
         $appurl = appurl();
 
@@ -53,8 +53,8 @@ if (!function_exists('hrefRequest')) {
     }
 }
 
-if (!function_exists('hrefPoll')) {
-    function hrefPoll($poll)
+if (! function_exists('hrefPoll')) {
+    function href_poll($poll)
     {
         $appurl = appurl();
 
@@ -62,8 +62,8 @@ if (!function_exists('hrefPoll')) {
     }
 }
 
-if (!function_exists('hrefPlaylist')) {
-    function hrefPlaylist($playlist)
+if (! function_exists('hrefPlaylist')) {
+    function href_playlist($playlist)
     {
         $appurl = appurl();
 

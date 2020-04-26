@@ -44,7 +44,7 @@ abstract class Client
         } catch (\Exception $e) {
         }
 
-        if (!empty($response)) {
+        if (! empty($response)) {
             $this->validateStatus($response->getStatusCode());
             $content = $response->getBody()->getContents();
 
@@ -67,9 +67,7 @@ abstract class Client
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            cache()->remember($key, 7 * 24 * 60, function () use ($data) {
-                return serialize($data);
-            });
+            cache()->remember($key, 7 * 24 * 60, fn () => serialize($data));
         }
 
         if (cache()->has($key)) {
@@ -81,20 +79,20 @@ abstract class Client
 
     protected function validateKeys($keys)
     {
-        /*if (!empty($keys['imdb'])) {
-            if (!preg_match('/tt\\d{7}/', $keys['imdb'])) {
+        /*if (! empty($keys['imdb'])) {
+            if (! preg_match('/tt\\d{7}/', $keys['imdb'])) {
                 throw new \InvalidArgumentException('Invalid IMDB ID');
             }
         }
 
-        if (!empty($keys['tmdb'])) {
-            if (!is_numeric($keys['tmdb'])) {
+        if (! empty($keys['tmdb'])) {
+            if (! is_numeric($keys['tmdb'])) {
                 throw new \InvalidArgumentException('Invalid TMDB ID');
             }
         }
 
-        if (!empty($keys['tvdb'])) {
-            if (!is_numeric($keys['tvdb'])) {
+        if (! empty($keys['tvdb'])) {
+            if (! is_numeric($keys['tvdb'])) {
                 throw new \InvalidArgumentException('Invalid TVDB ID');
             }
         }*/

@@ -53,7 +53,7 @@ class IRCAnnounceBot
             flush();
             $ex = explode(' ', $data);
 
-            if ($ex[0] == 'PING') {
+            if ($ex[0] === 'PING') {
                 $this->send_data('PONG '.$ex[1]);
                 if ($this->nickservpass) {
                     $this->send_data(sprintf('NICKSERV IDENTIFY %s', $this->nickservpass));
@@ -83,7 +83,7 @@ class IRCAnnounceBot
     public function message($channel, $message)
     {
         // Messages an specific IRC Channel
-        if ($this->joinchannels && preg_match('/#(\w*[a-zA-Z_0-9]+\w*)/', $channel)) {
+        if ($this->joinchannels && preg_match('##(\w*[a-zA-Z_0-9]+\w*)#', $channel)) {
             $this->join($channel);
         }
 

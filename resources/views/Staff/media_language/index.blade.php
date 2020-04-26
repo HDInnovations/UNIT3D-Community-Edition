@@ -9,7 +9,7 @@
     <li class="active">
         <a href="{{ route('staff.media_languages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                Media Languages
+                @lang('common.media-languages')
             </span>
         </a>
     </li>
@@ -17,12 +17,12 @@
 
 @section('content')
     <div class="container box">
-        <h2>Media Lanuages</h2> <p>(Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)</p>
+        <h2>@lang('common.media-languages')</h2> <p>@lang('staff.media-languages-desc')</p>
 
         <a href="{{ route('staff.media_languages.create') }}" class="btn btn-primary">
             @lang('common.add')
             @lang(trans_choice('common.a-an-art',false))
-            Media Language
+            @lang('common.media-language')
         </a>
     
         <div class="table-responsive">
@@ -30,7 +30,7 @@
                 <thead>
                     <tr>
                         <th>@lang('common.name')</th>
-                        <th>Code</th>
+                        <th>@lang('common.code')</th>
                         <th>@lang('common.action')</th>
                     </tr>
                 </thead>

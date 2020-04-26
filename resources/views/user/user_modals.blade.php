@@ -25,57 +25,10 @@
                             <label for="bonus_message">@lang('pm.message')</label>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="bonus_message" cols="50" rows="10"
-                                id="bonus_message"></textarea>
+                            <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message"></textarea>
                         </div>
                         <div class="form-group">
                             <input class="btn btn-small btn-primary" type="submit" value="@lang('bon.gift')">
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal_user_pm" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header mx-auto">
-                <div class="text-center">
-                    <p style="font-size: 27px;">@lang('pm.send-to'): {{ $user->username }}</p>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="py-3">
-                    <form role="form" method="POST" action="{{ route('send-pm') }}">
-                        @csrf
-                        <input type="hidden" name="dest" value="profile" />
-                        <input type="hidden" name="receiver_id" value="{{ $user->username }}" />
-                        <div class="form-group">
-                            <label for="">@lang('pm.subject')</label>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                <input name="subject" class="form-control" placeholder="@lang('pm.enter-subject')"
-                                    required>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="">@lang('pm.message')</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="message"></label><textarea id="message" name="message" cols="30" rows="10"
-                                class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input class="btn btn-small btn-primary" type="submit" value="@lang('pm.send')">
                         </div>
                     </form>
                 </div>
@@ -144,8 +97,8 @@
                             <label for="report_reason">Reason</label>
                         </div>
                         <div class="form-group">
-                            <label for="ban_reason"></label><textarea class="form-control" rows="5" name="ban_reason"
-                                cols="50" id="ban_reason"></textarea>
+                            <label for="ban_reason"></label>
+                            <textarea class="form-control" rows="5" name="ban_reason" cols="50" id="ban_reason"></textarea>
                         </div>
                         <div class="form-group">
                             <input class="btn btn-danger" type="submit" value="Ban">
@@ -180,8 +133,8 @@
                             <label for="report_reason">UnBan Reason</label>
                         </div>
                         <div class="form-group">
-                            <label for="unban_reason"></label><textarea class="form-control" rows="5"
-                                name="unban_reason" cols="50" id="unban_reason"></textarea>
+                            <label for="unban_reason"></label>
+                            <textarea class="form-control" rows="5" name="unban_reason" cols="50" id="unban_reason"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="report_reason">New Group</label>
@@ -229,8 +182,8 @@
                             <label for="report_reason">Reason</label>
                         </div>
                         <div class="form-group">
-                            <label for="message"></label><textarea class="form-control" rows="5" name="message"
-                                cols="50" id="message"></textarea>
+                            <label for="message"></label>
+                            <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                         </div>
                         <div class="form-group">
                             <input class="btn btn-danger" type="submit" value="Report">

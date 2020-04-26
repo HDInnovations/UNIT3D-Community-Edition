@@ -35,7 +35,7 @@ class Movie
     /**
      * @var array
      */
-    public $aka;
+    public $aka = [];
 
     /**
      * @var Carbon
@@ -55,7 +55,7 @@ class Movie
     /**
      * @var array
      */
-    public $countries;
+    public $countries = [];
 
     /**
      * @var string
@@ -65,12 +65,12 @@ class Movie
     /**
      * @var array
      */
-    public $languages;
+    public $languages = [];
 
     /**
      * @var array
      */
-    public $genres;
+    public $genres = [];
 
     /**
      * @var int
@@ -80,22 +80,22 @@ class Movie
     /**
      * @var array
      */
-    public $actors;
+    public $actors = [];
 
     /**
      * @var array
      */
-    public $directors;
+    public $directors = [];
 
     /**
      * @var array
      */
-    public $writers;
+    public $writers = [];
 
     /**
      * @var array
      */
-    public $producers;
+    public $producers = [];
 
     /**
      * @var string
@@ -105,7 +105,7 @@ class Movie
     /**
      * @var array
      */
-    public $posters;
+    public $posters = [];
 
     /**
      * @var string
@@ -115,7 +115,7 @@ class Movie
     /**
      * @var array
      */
-    public $backdrops;
+    public $backdrops = [];
 
     /**
      * @var string
@@ -161,7 +161,7 @@ class Movie
     {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
-                if (is_array($value) && !count($value)) {
+                if (is_array($value) && ! count($value)) {
                     $value = null;
                 }
                 $this->$key = $value;
@@ -178,7 +178,7 @@ class Movie
 
         $this->title = $this->cleanTitle($this->title);
 
-        $this->genres = !empty($this->genres) ? $this->cleanGenres($this->genres) : null;
+        $this->genres = ! empty($this->genres) ? $this->cleanGenres($this->genres) : null;
     }
 
     public function merge(self $data, self $data2 = null)
@@ -191,7 +191,7 @@ class Movie
                     $this->aka[] = $movie_value;
                 }
 
-                if ($movie_key == 'genres' && !empty($movie_value)) {
+                if ($movie_key == 'genres' && ! empty($movie_value)) {
                     $this->genreMerge($movie_value);
                 }
 
@@ -201,7 +201,7 @@ class Movie
             }
         }
 
-        if (!empty($this->aka)) {
+        if (! empty($this->aka)) {
             $this->aka = $this->removeSimilar($this->aka, $this->title, 90);
         }
 
@@ -215,7 +215,7 @@ class Movie
         if (strlen($title) > 4) {
             $might_be_year_one = str_replace(substr($title, 0, -6), '', $title);
             $might_be_year = str_replace(['(', ')'], '', $might_be_year_one);
-            if ($might_be_year > 1900 && $might_be_year < (date('Y') + 100)) {
+            if ($might_be_year > 1_900 && $might_be_year < (date('Y') + 100)) {
                 $title = trim(str_replace($might_be_year_one, '', $title));
             }
         }

@@ -109,8 +109,8 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000)
-            ->where('history.seedtime', '<', 2592000 * 2)
+            ->where('history.seedtime', '>=', 2_592_000)
+            ->where('history.seedtime', '<', 2_592_000 * 2)
             ->groupBy('history.user_id')
             ->get()
             ->toArray();
@@ -119,8 +119,8 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 2)
-            ->where('history.seedtime', '<', 2592000 * 3)
+            ->where('history.seedtime', '>=', 2_592_000 * 2)
+            ->where('history.seedtime', '<', 2_592_000 * 3)
             ->groupBy('history.user_id')
             ->get()
             ->toArray();
@@ -129,8 +129,8 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 3)
-            ->where('history.seedtime', '<', 2592000 * 6)
+            ->where('history.seedtime', '>=', 2_592_000 * 3)
+            ->where('history.seedtime', '<', 2_592_000 * 6)
             ->groupBy('history.user_id')
             ->get()
             ->toArray();
@@ -139,8 +139,8 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 6)
-            ->where('history.seedtime', '<', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 6)
+            ->where('history.seedtime', '<', 2_592_000 * 12)
             ->groupBy('history.user_id')
             ->get()
             ->toArray();
@@ -149,7 +149,7 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 12)
+            ->where('history.seedtime', '>=', 2_592_000 * 12)
             ->groupBy('history.user_id')
             ->get()
             ->toArray();

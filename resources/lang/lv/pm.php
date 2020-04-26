@@ -36,4 +36,5 @@ return [
   'subject' => 'Temats',
   'to' => 'Uz',
   'unread' => 'Nelasīta',
+    'empty-inbox'   => 'Iztukšojiet iesūtni',
 ];

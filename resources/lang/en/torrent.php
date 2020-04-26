@@ -47,6 +47,7 @@ return [
     'date'                     => 'Date',
     'dead-torrent'             => 'Dead Torrent',
     'dead-torrents'            => 'Dead Torrents',
+    'define-tip-amount'        => 'Define A Tip Amount',
     'delete-bookmark'          => 'Delete This Bookmark',
     'description'              => 'Description',
     'discounts'                => 'Discounts',

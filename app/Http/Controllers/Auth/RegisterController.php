@@ -73,14 +73,12 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
+        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors(trans('auth.invalid-key'));
         }
 
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');
@@ -162,12 +160,12 @@ class RegisterController extends Controller
         $activation->save();
         $this->dispatch(new SendActivationMail($user, $token));
         // Select A Random Welcome Message
-        $profile_url = hrefProfile($user);
+        $profile_url = href_profile($user);
         $welcomeArray = [
             sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
-            sprintf('[url=%s]%s[/url], We\'ve been expecting you :space_invader:', $profile_url, $user->username),
-            sprintf('[url=%s]%s[/url] has arrived. Party\'s over. :cry:', $profile_url, $user->username),
-            sprintf('It\'s a bird! It\'s a plane! Nevermind, it\'s just [url=%s]%s[/url].', $profile_url, $user->username),
+            sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profile_url, $user->username),
+            sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profile_url, $user->username),
+            sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profile_url, $user->username),
             sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
             sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
             'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),

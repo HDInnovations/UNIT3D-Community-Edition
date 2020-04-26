@@ -36,4 +36,5 @@ return [
   'subject' => 'Emne',
   'to' => 'Til',
   'unread' => 'ulest',
+    'empty-inbox'   => 'Tom postkasse',
 ];

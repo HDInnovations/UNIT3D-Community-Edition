@@ -36,4 +36,5 @@ return [
   'subject' => 'Predmet',
   'to' => 'Za',
   'unread' => 'Neprebrano',
+    'empty-inbox'   => 'Prazen nabiralnik',
 ];

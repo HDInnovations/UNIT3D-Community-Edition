@@ -38,7 +38,7 @@ class FollowController extends Controller
                 ->withErrors('Nice try, but sadly you can not follow yourself.');
         }
 
-        if (!$request->user()->isFollowing($user->id)) {
+        if (! $request->user()->isFollowing($user->id)) {
             $follow = new Follow();
             $follow->user_id = $request->user()->id;
             $follow->target_id = $user->id;
