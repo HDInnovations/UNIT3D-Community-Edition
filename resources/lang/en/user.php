@@ -36,6 +36,7 @@ return [
     'add-seedbox'               => 'Add Seedbox',
     'all-torrents'              => 'All Torrents',
     'article-comments'          => 'Article Comments Made',
+    'auth-manager'              => 'Authentications Manager',
     'avatar'                    => 'Avatar',
     'avg-seedtime'              => 'Average Seedtime',
     'badges'                    => 'Badges',
