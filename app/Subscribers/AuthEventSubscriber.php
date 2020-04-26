@@ -21,6 +21,8 @@ use Illuminate\Auth\Events\Logout;
 
 class AuthEventSubscriber
 {
+    use AuthChecker;
+
     /**
      * Register The Listeners For The Subscriber.
      *
@@ -43,8 +45,9 @@ class AuthEventSubscriber
     {
         $user = $event->user;
 
-        $newAuth = new AuthChecker();
-        $newAuth->handleLogin($user);
+        if (! is_null($user)) {
+            $this->handleLogin($user);
+        }
     }
 
     /**
@@ -56,8 +59,9 @@ class AuthEventSubscriber
     {
         $user = $event->user;
 
-        $newAuth = new AuthChecker();
-        $newAuth->handleFailed($user);
+        if (! is_null($user)) {
+            $this->handleFailed($user);
+        }
     }
 
     /**
@@ -67,10 +71,11 @@ class AuthEventSubscriber
      */
     public function onUserLoginLockout(Lockout $event)
     {
-        $user = $event->user;
+        $payload = $event->request->all();
 
-        $newAuth = new AuthChecker();
-        $newAuth->handleLockout($user);
+        if (! empty($payload)) {
+            $this->handleLockout($payload);
+        }
     }
 
     /**

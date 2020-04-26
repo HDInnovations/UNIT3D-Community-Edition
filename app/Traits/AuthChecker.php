@@ -18,11 +18,10 @@ use App\Models\Device;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Jenssegers\Agent\Agent;
 
-class AuthChecker
+trait AuthChecker
 {
     public function handleLogin(Authenticatable $user): void
     {
@@ -65,7 +64,7 @@ class AuthChecker
 
     public function findUserDeviceByAgent(Authenticatable $user, Agent $agent): ?Device
     {
-        if (!$user->hasDevices()) {
+        if (! $user->hasDevices()) {
             return null;
         }
 
@@ -127,7 +126,7 @@ class AuthChecker
 
     public function findDeviceForUser(Authenticatable $user, Agent $agent): ?Device
     {
-        if (!$user->hasDevices()) {
+        if (! $user->hasDevices()) {
             return false;
         }
 
