@@ -376,7 +376,7 @@ class ChatRepository
     {
         foreach (config('censor.redact') as $word) {
             if (preg_match(sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), $message)) {
-                $message = str_replace($word, sprintf('<span class=\'censor\'>%s</span>', $word), $message);
+                $message = str_replace($word, sprintf("<span class='censor'>%s</span>", $word), $message);
             }
         }
 

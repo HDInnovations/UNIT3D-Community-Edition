@@ -20,12 +20,12 @@ class Tv extends Movie
     /**
      * @var array
      */
-    public $tvdb;
+    public $tvdb = [];
 
     /**
      * @var array
      */
-    public $episodes;
+    public $episodes = [];
 
     /**
      * @var Carbon
@@ -45,7 +45,7 @@ class Tv extends Movie
     /**
      * @var array
      */
-    public $creators;
+    public $creators = [];
 
     /**
      * @var float

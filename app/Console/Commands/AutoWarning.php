@@ -63,7 +63,7 @@ class AutoWarning extends Command
                         ->where('user_id', '=', $hr->user->id)
                         ->first();
                     // Insert Warning Into Warnings Table if doesnt already exsist
-                    if (! $exsist) {
+                    if ($exsist === null) {
                         $warning = new Warning();
                         $warning->user_id = $hr->user->id;
                         $warning->warned_by = '1';

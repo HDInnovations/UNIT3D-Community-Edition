@@ -101,8 +101,8 @@ class PollController extends Controller
         $vote->user_id = $user->id;
         $vote->save();
 
-        $poll_url = hrefPoll($poll);
-        $profile_url = hrefProfile($user);
+        $poll_url = href_poll($poll);
+        $profile_url = href_profile($user);
 
         $this->chat->systemMessage(
             sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)

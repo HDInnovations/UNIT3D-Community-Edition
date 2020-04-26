@@ -131,7 +131,7 @@ class InviteController extends Controller
         }
         Mail::to($request->input('email'))->send(new InviteUser($invite));
         $invite->save();
-        $user->invites -= 1;
+        $user->invites--;
         $user->save();
 
         return redirect()->route('invites.create')

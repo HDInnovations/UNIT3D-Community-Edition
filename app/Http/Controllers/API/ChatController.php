@@ -226,7 +226,7 @@ class ChatController extends Controller
                 $runbot = new CasinoBot($this->chat);
             }
         }
-        if ($runbot) {
+        if ($runbot !== null) {
             return $runbot->process($which, $this->auth->user(), $message, 0);
         }
 

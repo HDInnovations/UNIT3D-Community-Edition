@@ -41,7 +41,7 @@ class AchievementUnlocked
         Session::flash('achievement', $event->progress->details->name);
 
         if ($user->private_profile == 0) {
-            $profile_url = hrefProfile($user);
+            $profile_url = href_profile($user);
 
             $this->chat->systemMessage(
                 sprintf('User [url=%s]%s[/url] has unlocked the %s achievement :medal:', $profile_url, $user->username, $event->progress->details->name)

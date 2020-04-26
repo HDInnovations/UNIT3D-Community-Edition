@@ -115,7 +115,7 @@ class Forum extends Model
      */
     public function subscription_topics()
     {
-        if (auth()->user()) {
+        if (auth()->user() !== null) {
             $id = $this->id;
             $subscriptions = auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
 

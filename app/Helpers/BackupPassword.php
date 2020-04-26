@@ -33,7 +33,7 @@ class BackupPassword
      */
     public function __construct(string $path)
     {
-        consoleOutput()->info('Applying password and encryption to zip...');
+        console_output()->info('Applying password and encryption to zip...');
 
         // Create a new zip, add the zip from spatie/backup, encrypt and resave/overwrite
         $zipFile = new ZipFile();
@@ -42,7 +42,7 @@ class BackupPassword
         $zipFile->saveAsFile($path);
         $zipFile->close();
 
-        consoleOutput()->info('Successfully applied password and encryption to zip.');
+        console_output()->info('Successfully applied password and encryption to zip.');
 
         $this->path = $path;
     }

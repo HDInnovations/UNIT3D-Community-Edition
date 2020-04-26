@@ -316,7 +316,7 @@ class GitUpdater extends Command
     private function validatePath($path)
     {
         if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
-            $this->red(sprintf('The path \'%s\' is invalid', $path));
+            $this->red(sprintf("The path '%s' is invalid", $path));
             //$this->call('up');
             //die();
         }

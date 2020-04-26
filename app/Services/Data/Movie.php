@@ -35,7 +35,7 @@ class Movie
     /**
      * @var array
      */
-    public $aka;
+    public $aka = [];
 
     /**
      * @var Carbon
@@ -55,7 +55,7 @@ class Movie
     /**
      * @var array
      */
-    public $countries;
+    public $countries = [];
 
     /**
      * @var string
@@ -65,12 +65,12 @@ class Movie
     /**
      * @var array
      */
-    public $languages;
+    public $languages = [];
 
     /**
      * @var array
      */
-    public $genres;
+    public $genres = [];
 
     /**
      * @var int
@@ -80,22 +80,22 @@ class Movie
     /**
      * @var array
      */
-    public $actors;
+    public $actors = [];
 
     /**
      * @var array
      */
-    public $directors;
+    public $directors = [];
 
     /**
      * @var array
      */
-    public $writers;
+    public $writers = [];
 
     /**
      * @var array
      */
-    public $producers;
+    public $producers = [];
 
     /**
      * @var string
@@ -105,7 +105,7 @@ class Movie
     /**
      * @var array
      */
-    public $posters;
+    public $posters = [];
 
     /**
      * @var string
@@ -115,7 +115,7 @@ class Movie
     /**
      * @var array
      */
-    public $backdrops;
+    public $backdrops = [];
 
     /**
      * @var string

@@ -204,10 +204,10 @@ class CasinoBot
         }
 
         if (array_key_exists($x, $command)) {
-            if ($command[$x] == 'donations') {
+            if ($command[$x] === 'donations') {
                 $log = $this->getDonations($params);
             }
-            if ($command[$x] == 'donate') {
+            if ($command[$x] === 'donate') {
                 $log = $this->putDonate($params, $wildcard);
             }
         }

@@ -29,7 +29,7 @@ class SetCache extends Command
      *
      * @var string
      */
-    protected $description = 'Sets Several Common Cache\'s ...';
+    protected $description = "Sets Several Common Cache's ...";
 
     /**
      * Create a new command instance.
@@ -48,7 +48,7 @@ class SetCache extends Command
      */
     public function handle()
     {
-        $this->comment('Setting several common cache\'s ...');
+        $this->comment("Setting several common cache's ...");
         $this->call('view:cache');
         $this->call('route:cache');
         $this->call('config:cache');

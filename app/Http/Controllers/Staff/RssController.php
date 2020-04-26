@@ -113,7 +113,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Public RSS Feed Created';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
@@ -190,7 +190,7 @@ class RssController extends Controller
             $rss->save();
             $success = 'Public RSS Feed Updated';
         }
-        if (! $success) {
+        if ($success === null) {
             $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();

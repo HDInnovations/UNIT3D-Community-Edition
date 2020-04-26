@@ -74,7 +74,7 @@ class TwoStepController extends Controller
      */
     private function invalidCodeReturnData($errors = null)
     {
-        $this->_authCount = $this->_twoStepAuth->authCount += 1;
+        $this->_authCount = ++$this->_twoStepAuth->authCount;
         $this->_twoStepAuth->save();
 
         $returnData = [

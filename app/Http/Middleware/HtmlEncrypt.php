@@ -64,14 +64,14 @@ class HtmlEncrypt
             $this->addHexValue('%'.$a);
         });
 
-        $script = sprintf('<script type=\'text/javascript\' nonce=\'%s\'>document.writeln(unescape(\'%s\'));</script>', $nonce, $this->hex);
+        $script = sprintf("<script type='text/javascript' nonce='%s'>document.writeln(unescape('%s'));</script>", $nonce, $this->hex);
 
         if (config('html-encrypt.disable_right_click')) {
-            $script .= sprintf('<script type=\'text/javascript\' nonce=\'%s\'>let body = document.getElementsByTagName(\'body\')[0];var att = document.createAttribute(\'oncontextmenu\');att.value = \'return false\'\';body.setAttributeNode(att);</script>', $nonce);
+            $script .= sprintf("<script type='text/javascript' nonce='%s'>let body = document.getElementsByTagName('body')[0];var att = document.createAttribute('oncontextmenu');att.value = 'return false'';body.setAttributeNode(att);</script>", $nonce);
         }
 
         if (config('html-encrypt.disable_ctrl_and_F12_key')) {
-            $script .= sprintf('<script type=\'text/javascript\' nonce=\'%s\'>document.onkeydown=function(e){if(e.ctrlKey || e.keyCode == 123){return false}}</script>', $nonce);
+            $script .= sprintf("<script type='text/javascript' nonce='%s'>document.onkeydown=function(e){if(e.ctrlKey || e.keyCode == 123){return false}}</script>", $nonce);
         }
 
         return $script;

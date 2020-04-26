@@ -118,10 +118,10 @@ class AutoNerdStat extends Command
             cache()->put('nerdbot-warnings', $warnings, $expiresAt);
 
             // URL Helpers
-            $banker_url = hrefProfile($banker);
-            $seeded_url = hrefTorrent($seeded);
-            $leeched_url = hrefTorrent($leeched);
-            $snatched_url = hrefTorrent($snatched);
+            $banker_url = href_profile($banker);
+            $seeded_url = href_torrent($seeded);
+            $leeched_url = href_torrent($leeched);
+            $snatched_url = href_torrent($snatched);
 
             // Select A Random Nerd Stat
             $statArray = [

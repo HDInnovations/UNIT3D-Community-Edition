@@ -310,7 +310,7 @@ class MediaInfo
     private function parseFileSize($string)
     {
         $number = (float) $string;
-        preg_match('/[KMGTPEZ]/i', $string, $size);
+        preg_match('#[KMGTPEZ]#i', $string, $size);
         if (! empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
         }

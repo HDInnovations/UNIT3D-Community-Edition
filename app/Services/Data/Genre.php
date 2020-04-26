@@ -72,11 +72,8 @@ class Genre
 
     private function matchGenre($genre)
     {
-        switch ($genre) {
-            case 'Sci-Fi':
-                return 'Science Fiction';
-
-                break;
+        if ($genre == 'Sci-Fi') {
+            return 'Science Fiction';
         }
 
         return false;
