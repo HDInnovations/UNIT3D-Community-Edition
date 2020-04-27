@@ -947,12 +947,6 @@
                         this.state.connecting = false
                         this.users = users
                     })
-                    .joining(user => {
-                        // this.createMessage(`${user.username} has JOINED the chat ...`)
-                    })
-                    .leaving(user => {
-                        // this.createMessage(`${user.username} has LEFT the chat ...`)
-                    })
                     .listen('.new.message', e => {
                         if(this.activeTab.substring(0,4) != 'room') return false;
                         this.messages.push(e.message);
