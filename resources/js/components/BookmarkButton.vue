@@ -47,7 +47,7 @@ export default {
 
         unBookmark(id) {
             axios
-                .delete('/bookmarks/' + id + '/destroy')
+                .post('/bookmarks/' + id + '/destroy', {_method: 'delete'})
                 .then(response => {
                     this.bookmarked = false;
 
