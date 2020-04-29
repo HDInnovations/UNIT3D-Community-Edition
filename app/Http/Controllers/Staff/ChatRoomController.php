@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\Chatroom;
 use App\Repositories\ChatRepository;
@@ -112,6 +113,12 @@ class ChatRoomController extends Controller
     public function destroy($id)
     {
         $chatroom = Chatroom::findOrFail($id);
+        $users = User::where('chatroom_id', '=', $id)->get();
+        $default = Chatroom::where('name', '=', config('chat.system_chatroom'))->pluck('id');
+        foreach ($users as $user) {
+            $user->chatroom_id = $default[0];
+            $user->save();
+        }
         $chatroom->delete();
 
         return redirect()->route('staff.rooms.index')
