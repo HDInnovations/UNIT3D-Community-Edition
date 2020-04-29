@@ -108,12 +108,9 @@
 
                     <div class="row cast-list">
                         @if (isset($meta->actors))
-                            @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'),
-                            config('api-keys.omdb')); @endphp
                             @foreach (array_slice($meta->actors, 0,6) as $actor)
-                                @php $person = $client->person($actor->tmdb); @endphp
                                 <div class="col-xs-4 col-md-2 text-center">
-                                    <img class="img-people" src="{{ $person->photo }}" alt="{{ $actor->name }}">
+                                    <img class="img-people" src="{{ $actor->photo }}" alt="{{ $actor->name }}">
                                     <a href="https://www.themoviedb.org/person/{{ $actor->tmdb }}" title="TheMovieDatabase"
                                        target="_blank">
                                         <span class="badge-user" style="white-space:normal;">

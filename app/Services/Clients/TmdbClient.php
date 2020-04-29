@@ -346,12 +346,15 @@ class TmdbClient extends Client implements MovieTvInterface
         if ($role == 'actors') {
             if (! empty($credits['cast'])) {
                 foreach ($credits['cast'] as $credit) {
-                    $casts[] = new Person([
-                        'tmdb'      => $credit['id'],
-                        'name'      => $credit['name'],
-                        'character' => $credit['character'],
-                        'order'     => $credit['order'],
-                    ]);
+                    if ($credit['profile_path'] !== null) {
+                        $casts[] = new Person([
+                            'tmdb' => $credit['id'],
+                            'name' => $credit['name'],
+                            'character' => $credit['character'],
+                            'order' => $credit['order'],
+                            'photo' => 'https://image.tmdb.org/t/p/w138_and_h175_face' . $credit['profile_path']
+                        ]);
+                    }
                 }
             }
         } else {
