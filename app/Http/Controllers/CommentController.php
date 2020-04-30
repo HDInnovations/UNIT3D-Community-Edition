@@ -542,7 +542,6 @@ class CommentController extends Controller
         $comment->save();
 
         return redirect()->back()->withSuccess('Comment Has Been Edited.');
-
     }
 
     /**
