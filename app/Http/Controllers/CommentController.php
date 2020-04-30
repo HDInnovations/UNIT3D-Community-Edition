@@ -538,11 +538,11 @@ class CommentController extends Controller
             return redirect()->back()
                 ->withErrors($v->errors());
         }
-        
+
         $comment->save();
-        
+
         return redirect()->back()->withSuccess('Comment Has Been Edited.');
-        }
+
     }
 
     /**
