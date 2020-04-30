@@ -1,6 +1,6 @@
 @foreach ($articles as $article)
     <div class="col-md-10 col-sm-10 col-md-offset-1">
-        @if ($article->new_news)
+        @if ($article->newNews)
                 <div class="panel panel-danger">
                     <div class="panel-heading">
                         <h4 class="text-center">
@@ -21,7 +21,7 @@
                             </h4>
                         </div>
                     @endif
-                    <div id="collapse4" class="panel-collapse collapse {{ ($article->new_news ? 'in' : '') }}" style="height: 0;">
+                    <div id="collapse4" class="panel-collapse collapse {{ ($article->newNews ? 'in' : '') }}" style="height: 0;">
                         <div class="panel-body no-padding">
                             <div class="news-blocks">
                                 <a href="{{ route('articles.show', ['id' => $article->id]) }}"
