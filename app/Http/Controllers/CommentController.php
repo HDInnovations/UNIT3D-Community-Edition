@@ -529,7 +529,7 @@ class CommentController extends Controller
         abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $content = $request->input('comment-edit');
         $comment->content = $content;
-        
+
         $v = validator($comment->toArray(), [
             'content'    => 'required',
         ]);
@@ -537,8 +537,10 @@ class CommentController extends Controller
         if ($v->fails()) {
             return redirect()->back()
                 ->withErrors($v->errors());
-        } else {
+        }
+        
         $comment->save();
+        
         return redirect()->back()->withSuccess('Comment Has Been Edited.');
         }
     }
