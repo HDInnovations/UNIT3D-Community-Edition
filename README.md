@@ -295,4 +295,5 @@ Thanks goes to these wonderful people who have contributed alot of code:
 <a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png" width="50px;"></a>
 <a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png" width="50px;"></a>
 <a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" width="50px;"></a>
+<a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" width="50px;"></a>
 
