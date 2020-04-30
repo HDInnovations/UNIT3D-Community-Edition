@@ -51,6 +51,9 @@ class HomeController extends Controller
 
         // Latest Articles/News Block
         $articles = cache()->remember('latest_article', $expiresAt, fn () => Article::latest()->take(1)->get());
+        foreach ($articles as $article) {
+            $article->newNews = ($user->updated_at->subDays(3)->getTimestamp() < $article->created_at->getTimestamp()) ? 1 : 0;
+        }
 
         // Latest Torrents Block
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
