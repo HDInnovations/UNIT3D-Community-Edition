@@ -63,8 +63,7 @@ config('api-keys.omdb')) @endphp
                 @endif
                 @if ($torrent->category->game_meta)
                     @if ($torrent->igdb || $torrent->igdb != 0)
-                        @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url',
-                        'image_id']])->find($torrent->igdb); @endphp
+                        @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url','image_id'], 'genres' => ['name']])->find($torrent->igdb); @endphp
                     @endif
                 @endif
 
@@ -255,7 +254,7 @@ config('api-keys.omdb')) @endphp
                                         <span class="text-gold movie-rating-stars">
                                             <i class="{{ config('other.font-awesome') }} fa-star"></i>
                                         </span>
-                                        {{ $meta->rating }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
+                                        {{ $meta->rating ?? '0' }}/100 ({{ $meta->rating_count }} @lang('torrent.votes'))
                                     </span>
                                 </a>
                             @endif
@@ -399,12 +398,25 @@ config('api-keys.omdb')) @endphp
 
                                 <br>
 
+                            @if ($torrent->category->game_meta)
+                                @if (isset($meta) && $meta->genres)
+                                    @foreach ($meta->genres as $genre)
+                                        <span class="badge-extra text-bold">
+                                            <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
+                                                data-original-title='@lang('torrent.genre')'></i> {{ $genre->name }}
+                                        </span>
+                                    @endforeach
+                                @endif
+                            @endif
+
+                            @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                                 @foreach($torrent->tags as $tag)
                                     <span class="badge-extra text-bold">
                                         <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
                                             data-original-title='@lang('torrent.genre')'></i> {{ $tag->name }}
                                     </span>
                                 @endforeach
+                            @endif
                     </td>
 
                     <td>

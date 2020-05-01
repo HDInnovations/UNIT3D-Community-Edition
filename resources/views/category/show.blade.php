@@ -11,8 +11,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</s
-pan>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</span>
         </a>
     </li>
     <li>
@@ -28,8 +27,6 @@ pan>
 @endsection
 
 @section('content')
-    @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') ,
-    config('api-keys.omdb')) @endphp
     <div class="container-fluid">
         <div class="block">
             <div class="header gradient green">
@@ -58,31 +55,54 @@ pan>
     
                     <tbody>
                         @foreach ($torrents as $torrent)
+                            @php $meta = null; @endphp
                             @if ($torrent->category->tv_meta)
                                 @if ($torrent->tmdb || $torrent->tmdb != 0)
                                     @php $meta = $client->scrape('tv', null, $torrent->tmdb); @endphp
                                 @else
                                     @php $meta = $client->scrape('tv', 'tt'. $torrent->imdb); @endphp
                                 @endif
-                            @else
+                            @endif
+                            @if ($torrent->category->movie_meta)
                                 @if ($torrent->tmdb || $torrent->tmdb != 0)
                                     @php $meta = $client->scrape('movie', null, $torrent->tmdb); @endphp
                                 @else
                                     @php $meta = $client->scrape('movie', 'tt'. $torrent->imdb); @endphp
                                 @endif
                             @endif
+                            @if ($torrent->category->game_meta)
+                                @if ($torrent->igdb || $torrent->igdb != 0)
+                                    @php $meta = MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url','image_id'], 'genres' => ['name']])->find($torrent->igdb); @endphp
+                                @endif
+                            @endif
         
                             @if ($torrent->sticky == 1)
-                                <tr class="success">
-                                @else
-                                <tr>
-                                @endif
-                                <td>
+                            <tr class="success">
+                            @else
+                            <tr>
+                            @endif
+                                <td style="width: 1%;">
                                     @if ($user->show_poster == 1)
                                         <div class="torrent-poster pull-left">
-                                            <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
-                                                data-poster-mid="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
-                                                class="img-tor-poster torrent-poster-img-small" alt="Poster">
+                                            @if (($torrent->category->movie_meta || $torrent->category->tv_meta) && isset($meta) &&$meta->poster && $meta->title)
+                                                <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
+                                                     data-name='<i style="color: #a5a5a5;">{{ $meta->title ?? 'N/A' }}</i>'
+                                                     data-image='<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                            @endif
+
+                                            @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
+                                                <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
+                                                     data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>'
+                                                     data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                            @endif
+
+                                            @if ($torrent->category->no_meta || $torrent->category->music_meta || ! $meta)
+                                                <img src="https://via.placeholder.com/600x900" data-name='<i style="color: #a5a5a5;">N/A</i>'
+                                                     data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')"style="height: 1000px;">'
+                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                            @endif
                                         </div>
                                     @else
                                         <div class="torrent-poster pull-left"></div>
@@ -265,8 +285,7 @@ pan>
                                             </span>
                                         @endif
         
-                                        @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=',
-                                        $user->id)->where('torrent_id', '=', $torrent->id)->first(); @endphp
+                                        @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first(); @endphp
                                         @if ($freeleech_token)
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-star text-bold'
@@ -341,6 +360,28 @@ pan>
                                                         data-toggle='tooltip' title='' data-original-title='SD Content!'></i> SD
                                                     Content
                                                 </span>
+                                            @endif
+
+                                        <br>
+
+                                                    @if ($torrent->category->game_meta)
+                                                        @if (isset($meta) && $meta->genres)
+                                                            @foreach ($meta->genres as $genre)
+                                                                <span class="badge-extra text-bold">
+                                            <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
+                                               data-original-title='@lang('torrent.genre')'></i> {{ $genre->name }}
+                                        </span>
+                                                            @endforeach
+                                                        @endif
+                                                    @endif
+
+                                                    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
+                                                        @foreach($torrent->tags as $tag)
+                                                            <span class="badge-extra text-bold">
+                                        <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
+                                           data-original-title='@lang('torrent.genre')'></i> {{ $tag->name }}
+                                    </span>
+                                                @endforeach
                                             @endif
                                 </td>
         
