@@ -931,7 +931,7 @@ class TorrentController extends Controller
 
         if (isset($meta) && $meta->recommendations) {
             $meta->recommendations['results'] = array_map(function ($recomentaion) {
-                $recomentaion['exists'] = Torrent::where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
+                $recomentaion['exists'] = Torrent::select('tmdb')->where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
 
                 return $recomentaion;
             }, $meta->recommendations['results']);
