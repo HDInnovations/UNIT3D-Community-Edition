@@ -15,7 +15,7 @@
 <a href="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition">
   <img src="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition/branch/master/graph/badge.svg" />
 </a>
-<a href="https://discord.gg/ntnPxzG"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
+<a href="https://discord.gg/Bf47vws"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
 </p>
