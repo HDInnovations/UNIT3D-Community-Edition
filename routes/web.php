@@ -453,6 +453,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/update', 'SubtitleController@update')->name('update');
                 Route::delete('/{id}/delete', 'SubtitleController@destroy')->name('destroy');
                 Route::get('/{id}/download', 'SubtitleController@download')->name('download');
+                Route::get('/filter', 'SubtitleController@faceted');
             });
         });
     });

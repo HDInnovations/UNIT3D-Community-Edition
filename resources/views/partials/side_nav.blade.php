@@ -45,6 +45,13 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('subtitles.index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-closed-captioning" style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">@lang('common.subtitles')</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('graveyard.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-skull" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('graveyard.graveyard')</span>
