@@ -53,7 +53,7 @@
                             <label for="about">@lang('user.about-me') <span class="badge-extra">BBCode
                                     @lang('common.is-allowed')</span></label>
                             <label>
-                                <textarea name="about" cols="30" rows="10" maxlength="500" class="form-control">{{ $user->about }}</textarea>
+                                <textarea name="about" cols="30" rows="10" maxlength="496" class="form-control">{{ $user->about }}</textarea>
                             </label>
                         </div>
     
