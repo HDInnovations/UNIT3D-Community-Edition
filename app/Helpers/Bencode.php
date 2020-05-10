@@ -27,7 +27,7 @@ class Bencode
 
         $result = '';
         while ($pos < $len && $s[$pos] != 'e') {
-            if (is_numeric($s[$pos])) {
+            if (is_numeric($s[$pos]) || $s[$pos] = '-') {
                 $result .= $s[$pos];
             } else {
                 // We have an invalid character in the string.
