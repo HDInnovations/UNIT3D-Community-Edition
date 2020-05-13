@@ -171,10 +171,10 @@ class AnnounceController extends Controller
         $md5_peer_id = md5($peer_id);
         $ip = $request->ip();
         $port = (int) $request->input('port');
-        $left = (float) $request->input('left');
-        $uploaded = (float) $request->input('uploaded');
+        $left = (int) $request->input('left');
+        $uploaded = (int) $request->input('uploaded');
         $real_uploaded = $uploaded;
-        $downloaded = (float) $request->input('downloaded');
+        $downloaded = (int) $request->input('downloaded');
         $real_downloaded = $downloaded;
 
         //Extra Information Fields
