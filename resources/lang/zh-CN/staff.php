@@ -12,7 +12,7 @@
  */
 
 return [
-    'application'            => '入站申请',
+    'application'             => '入站申请',
     'applications'            => '入站申请',
     'application-type'        => '申请类型',
     'application-image-proofs'=> '图片证明',
