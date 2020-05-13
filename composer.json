@@ -38,7 +38,8 @@
         "symfony/dom-crawler": "^2.7|^3.0",
         "theodorejb/polycast": "^1.0",
         "voku/anti-xss": "^4.1",
-        "ext-zip": "*"
+        "ext-zip": "*",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
