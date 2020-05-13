@@ -20,7 +20,7 @@
     </div>
 
     @foreach($poll->options as $key=>$option)
-        <div class="form-group <?php echo (++$key) >= 3 ? 'extra-option' : '' ?>" )>
+        <div class="form-group <?php echo(++$key) >= 3 ? 'extra-option' : '' ?>" )>
             <label for={{"option" . $key}}>@lang('poll.option') {{$key}}:</label>
             <label>
                 <input readonly type="number" name="option-id[]" style="visibility: hidden" value="{{$option->id}}">
