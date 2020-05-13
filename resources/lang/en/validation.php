@@ -138,7 +138,7 @@ return [
     */
 
     'email_list' => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
-    'recaptcha' => 'Please Complete The ReCaptcha.',
+    'recaptcha'  => 'Please Complete The ReCaptcha.',
 
     'custom' => [
         'attribute-name' => [

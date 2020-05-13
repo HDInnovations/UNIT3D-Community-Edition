@@ -138,7 +138,7 @@ return [
     */
 
     'email_list' => 'Lo sentimos, no aceptamos ese dominio de correos eléctronicos. Aceptamos los que publicamos en nuestra lista blanca.',
-    'recaptcha' => 'Verifica que no eres un robot rellenando el Captcha.',
+    'recaptcha'  => 'Verifica que no eres un robot rellenando el Captcha.',
 
     'custom' => [
         'password' => [
