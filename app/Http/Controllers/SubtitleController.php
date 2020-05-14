@@ -120,7 +120,7 @@ class SubtitleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('subtitles.create', ['torrent_id' => $request->input('torrent_id')])
+            return redirect()->route('subtitle.create', ['torrent_id' => $request->input('torrent_id')])
                 ->withErrors($v->errors());
         }
 
@@ -207,8 +207,8 @@ class SubtitleController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
 
-        if (file_exists(public_path().'/files/subtitles/'.$subtitle->file_name)) {
-            unlink(public_path().'/files/subtitles/'.$subtitle->file_name);
+        if (Storage::disk('subtitles')->exists($subtitle->file_name)) {
+            Storage::disk('subtitles')->delete($subtitle->file_name);
         }
 
         $subtitle->delete();
@@ -239,25 +239,13 @@ class SubtitleController extends Controller
         // Define the filename for the download
         $temp_filename = '['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.$subtitle->extension;
 
-        // Delete the last torrent tmp file
-        if (file_exists(public_path().'/files/tmp/'.$temp_filename)) {
-            unlink(public_path().'/files/tmp/'.$temp_filename);
-        }
-
-        // Grab the subtitle file
-        copy(public_path().'/files/subtitles/'.$subtitle->file_name, public_path().'/files/tmp/'.$temp_filename);
-
         // Increment downloads count
         $subtitle->downloads = ++$subtitle->downloads;
         $subtitle->save();
 
-        $headers = ['Content-Type: application/zip'];
+        $headers = ['Content-Type: '.Storage::disk('subtitles')->mimeType($subtitle->file_name)];
 
-        if ($subtitle->extension === '.zip') {
-            return response()->download(public_path('files/tmp/'.$temp_filename), $temp_filename, $headers)->deleteFileAfterSend(true);
-        }
-
-        return response()->download(public_path('files/tmp/'.$temp_filename))->deleteFileAfterSend(true);
+        return Storage::disk('subtitles')->download($subtitle->file_name, $temp_filename, $headers);
     }
 
     /**
