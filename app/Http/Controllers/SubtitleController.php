@@ -120,7 +120,7 @@ class SubtitleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('subtitle.create', ['torrent_id' => $request->input('torrent_id')])
+            return redirect()->route('subtitles.create', ['torrent_id' => $request->input('torrent_id')])
                 ->withErrors($v->errors());
         }
 
