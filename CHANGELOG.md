@@ -4,6 +4,19 @@
 
 ## Unreleased
 
+- [#1322] Revert "(Refactoring) Announce Controller: add new method for response torren…", Thanks to [@HDVinnie]
+- [#1342] (Refactor) Bonus System, Thanks to [@fionera]
+- [#1341] (Update) Subtitles System, Thanks to [@PyR8zdl]
+- [#1321] (Update) New news block, Thanks to [@innocente205]
+- [#1339] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1338] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1337] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1336] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1331] (Fix) Bencode.php, Thanks to [@innocente205]
+- [#1330] (Fix) About field length, Thanks to [@innocente205]
+- [#1329] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1323] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1319] (Fix) CommentController.php, Thanks to [@innocente205]
 - [#1310] (Refactoring) Announce Controller: add new method for response torren…, Thanks to [@VictoRD11]
 - [#1308] (Translation) Greek Translation improvements, Thanks to [@nikosuk]
 - [#1307] (Refactor) Multiple Code Style Changes, Thanks to [@HDVinnie]
@@ -1425,3 +1438,16 @@
 [#1303]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1303
 [#1302]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1302
 [@VictoRD11]: https://github.com/VictoRD11
+[#1342]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1342
+[#1341]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1341
+[#1339]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1339
+[#1338]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1338
+[#1337]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1337
+[#1336]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1336
+[#1331]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1331
+[#1330]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1330
+[#1329]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1329
+[#1323]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1323
+[#1322]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1322
+[#1321]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1321
+[#1319]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1319
