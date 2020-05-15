@@ -192,7 +192,6 @@ class BonusControllerTest extends TestCase
 
         $response->assertOk()
             ->assertViewIs('bonus.store')
-            ->assertViewHas('users')
             ->assertViewHas('userbon')
             ->assertViewHas('activefl')
             ->assertViewHas('bontransactions')
