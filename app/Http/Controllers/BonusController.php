@@ -122,7 +122,6 @@ class BonusController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        $users = User::oldest('username')->get();
         $userbon = $user->getSeedbonus();
         $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $BonExchange = new BonExchange();
@@ -133,7 +132,6 @@ class BonusController extends Controller
         $invite = $BonExchange->getInviteOption();
 
         return view('bonus.store', [
-            'users'             => $users,
             'userbon'           => $userbon,
             'activefl'          => $activefl,
             'bontransactions'   => $bontransactions,
