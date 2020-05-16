@@ -149,7 +149,7 @@ class PlaylistController extends Controller
             }
         }
 
-        $torrents = PlaylistTorrent::with(['torrent'])->where('playlist_id', '=', $playlist->id)->get()->sortBy('name');
+        $torrents = PlaylistTorrent::with(['torrent'])->where('playlist_id', '=', $playlist->id)->paginate(26);
 
         return view('playlist.show', ['playlist' => $playlist, 'meta' => $meta, 'torrents' => $torrents]);
     }

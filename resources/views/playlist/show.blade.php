@@ -144,7 +144,7 @@
 									<h3 class="description_title">
 										<a href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
 											@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && isset($t->torrent->meta) && $meta->releaseYear)
-												<span class="text-bold text-pink"> {{ $meta->releaseYear }}</span>
+												<span class="text-bold text-pink"> {{ $meta->releaseYear ?? '' }}</span>
 											@endif
 											@if($t->torrent->category->game_meta && isset($meta) && $meta->first_release_date)
 												<span class="text-bold text-pink"> {{ date('Y', strtotime( $meta->first_release_date)) }}</span>
@@ -168,7 +168,7 @@
 									@endif
 									<p class="description_plot">
 										@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && $meta && $meta->plot)
-											{{ $meta->plot }}
+											{{ $meta->plot ?? '' }}
 										@endif
 									</p>
 								</div>
@@ -207,6 +207,7 @@
 					</div>
 				@endforeach
 			</div>
+			<div class="text-center">{{ $torrents->links() }}</div>
 		</div>
 
 		<div class="block" id="comments">
