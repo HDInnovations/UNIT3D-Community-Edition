@@ -12,32 +12,42 @@
  */
 
 return [
-    'actions'                        => 'acţiuni',
-    'backup'                         => 'Backup',
-    'backup_doesnt_exist'            => 'Fișierul de backup nu există.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the backup system.
+    | You are free to change them to anything you want to customize your views to better match your application.
+    |
+    */
+
+    'backup'                         => 'Copii de siguranță',
     'create_a_new_backup'            => 'Creați copie de siguranță completă',
     'create_a_new_files_backup'      => 'Creați copii de rezervă',
     'create_a_new_db_backup'         => 'Creați Backup de baze de date',
-    'create_confirmation_message'    => 'Reîncărcați pagina în 3 secunde.',
-    'create_confirmation_title'      => 'Backup-ul a fost finalizat',
-    'create_error_message'           => 'Fișierul de backup nu poate fi creat.',
-    'create_error_title'             => 'Eroare de rezervă',
-    'create_warning_message'         => 'Este posibil ca backup-ul dvs. NU să fi fost creat. Vă rugăm să verificați fișierele jurnal pentru detalii.',
-    'create_warning_title'           => 'Eroare necunoscută',
+    'existing_backups'               => 'Copii existente',
     'date'                           => 'Data',
+    'file_size'                      => 'Mărimea fișierului',
+    'actions'                        => 'Acțiuni',
+    'download'                       => 'Descarcă',
     'delete'                         => 'Șterge',
-    'delete_cancel_message'          => 'Fișierul de rezervă NU a fost șters.',
-    'delete_cancel_title'            => 'E bine',
-    'delete_confirm'                 => 'Sigur doriți să ștergeți acest fișier de rezervă?',
-    'delete_confirmation_message'    => 'Fișierul de rezervă a fost șters.',
-    'delete_confirmation_title'      => 'Terminat',
-    'delete_error_message'           => 'Fișierul de rezervă NU a fost șters.',
+    'delete_confirm'                 => 'Ești sigur că vrei să ștergi copia de siguranță?',
+    'delete_confirmation_title'      => 'Operațiune reușită',
+    'delete_confirmation_message'    => 'Copia de siguranță a fost ștearsă.',
     'delete_error_title'             => 'Eroare',
-    'download'                       => 'Descarca',
-    'existing_backups'               => 'Backup-uri existente',
-    'file_size'                      => 'Mărime fișier',
+    'delete_error_message'           => 'Copia de siguranță NU a fost ștearsă.',
+    'delete_cancel_title'            => 'Este în regulă',
+    'delete_cancel_message'          => 'Copia de siguranță NU a fost ștearsă.',
+    'create_confirmation_title'      => 'Am început procesul de creare copie de siguranță',
+    'create_confirmation_message'    => 'Vă rugăm așteptați câteva minute, apoi reîncărcați pagina.',
+    'create_error_title'             => 'Eroare',
+    'create_error_message'           => 'Copia de siguranță NU a putut fi creată.',
+    'create_warning_title'           => 'Eroare necunoscută',
+    'create_warning_message'         => 'Copia de siguranță e posibil să NU fi fost creată. Verificați fișierele de log pentru detalii.',
     'location'                       => 'Locație',
-    'manager'                        => 'Administrator',
-    'no_disks_configured'            => 'Nu există discuri de rezervă configurate în config / backup.php',
-    'only_local_downloads_supported' => 'Se acceptă numai descărcări de la sistemul de fișiere local.',
+    'no_disks_configured'            => 'Nu există niciun disc in config/backups.php',
+    'backup_doesnt_exist'            => 'Fișierul de backup nu există.',
+    'only_local_downloads_supported' => 'Doar descarcările din sistemul de fișiere local sunt suportate.',
 ];

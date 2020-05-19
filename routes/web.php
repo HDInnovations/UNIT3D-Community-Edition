@@ -609,7 +609,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/files', 'BackupController@files')->name('files');
                 Route::post('/database', 'BackupController@database')->name('database');
                 Route::get('/download/{file_name?}', 'BackupController@download')->name('download');
-                Route::delete('/destroy', 'BackupController@destroy')->name('destroy');
+                Route::delete('/destroy/{file_name?}', 'BackupController@destroy')->where('file_name', '(.*)')->name('destroy');
             });
         });
 

@@ -12,32 +12,42 @@
  */
 
 return [
-    'actions'                        => 'أفعال',
-    'backup'                         => 'دعم',
-    'backup_doesnt_exist'            => 'ملف النسخ الاحتياطي غير موجود.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the backup system.
+    | You are free to change them to anything you want to customize your views to better match your application.
+    |
+    */
+
+    'backup'                         => 'نسخة احتياطية',
     'create_a_new_backup'            => 'إنشاء النسخ الاحتياطي الكامل',
     'create_a_new_files_backup'      => 'إنشاء ملفات النسخ الاحتياطي',
     'create_a_new_db_backup'         => 'إنشاء قاعدة بيانات النسخ الاحتياطي',
-    'create_confirmation_message'    => 'إعادة تحميل الصفحة في 3 ثوان.',
-    'create_confirmation_title'      => 'اكتمل النسخ الاحتياطي',
-    'create_error_message'           => 'لا يمكن إنشاء ملف النسخ الاحتياطي.',
-    'create_error_title'             => 'خطأ النسخ الاحتياطي',
-    'create_warning_message'         => 'ربما لم يتم إنشاء النسخة الاحتياطية الخاصة بك. يرجى التحقق من ملفات السجل للحصول على التفاصيل.',
-    'create_warning_title'           => 'خطأ غير معروف',
-    'date'                           => 'تاريخ',
-    'delete'                         => 'حذف',
-    'delete_cancel_message'          => 'لم يتم حذف ملف النسخ الاحتياطي.',
-    'delete_cancel_title'            => 'موافق',
-    'delete_confirm'                 => 'هل تريد بالتأكيد حذف ملف النسخ الاحتياطي هذا؟',
-    'delete_confirmation_message'    => 'تم حذف ملف النسخ الاحتياطي.',
-    'delete_confirmation_title'      => 'فعله',
-    'delete_error_message'           => 'لم يتم حذف ملف النسخ الاحتياطي.',
-    'delete_error_title'             => 'خطأ',
-    'download'                       => 'تحميل',
-    'existing_backups'               => 'النسخ الاحتياطي الحالية',
+    'existing_backups'               => 'النسخ الاحتياطية الموجودة',
+    'date'                           => 'التاريخ',
     'file_size'                      => 'حجم الملف',
-    'location'                       => 'موقعك',
-    'manager'                        => 'مدير',
-    'no_disks_configured'            => 'لا توجد أقراص احتياطية مكونة في config / backup.php',
-    'only_local_downloads_supported' => 'يتم دعم التنزيلات فقط من نظام الملفات المحلي.',
+    'actions'                        => 'اجراءات',
+    'download'                       => 'تحميل',
+    'delete'                         => 'حذف',
+    'delete_confirm'                 => 'هل انت متأكد من حذف النسخة الاحتياطية؟',
+    'delete_confirmation_title'      => 'تم بالنجاح',
+    'delete_confirmation_message'    => 'تم حذف ملف النسخة الاحتياطية',
+    'delete_error_title'             => 'هناك خطأ',
+    'delete_error_message'           => 'ملف النسخة الاحتياطية لم يتم حذفه.',
+    'delete_cancel_title'            => 'كل شيئ على مايرام.',
+    'delete_cancel_message'          => 'ملف النسخة الاحتياطية لم يتم حذفه.',
+    'create_confirmation_title'      => 'تم عمل النسخ الاحتياطية بالنجاح',
+    'create_confirmation_message'    => 'سيتم اعادة اعادة تحميل الصفحة خلال 3 ثواني.',
+    'create_error_title'             => 'هناك خطأ في النسخة الاحتياطية',
+    'create_error_message'           => 'لا يمكن إنشاء ملف النسخة الاحتياطية.',
+    'create_warning_title'           => 'هناك خطأ غير معروف',
+    'create_warning_message'         => 'ربما لم يتم إنشاء النسخة الاحتياطية. يرجى التحقق من ملفات السجل للحصول على التفاصيل.',
+    'location'                       => 'الموقع',
+    'no_disks_configured'            => 'لايوجد أقراص تم تحددها في ملف config/backup.php',
+    'backup_doesnt_exist'            => 'ملف النسخ الاحتياطي غير موجود.',
+    'only_local_downloads_supported' => 'لايمكن تحميل النسخة الاحتياطية الا من القرص المحلي.',
 ];

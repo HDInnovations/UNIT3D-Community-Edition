@@ -12,32 +12,42 @@
  */
 
 return [
-    'actions'                        => 'Действия',
-    'backup'                         => 'Резервное копирование',
-    'backup_doesnt_exist'            => 'Файл резервной копии не существует.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the backup system.
+    | You are free to change them to anything you want to customize your views to better match your application.
+    |
+    */
+
+    'backup'                         => 'Резервирование',
     'create_a_new_backup'            => 'Создать полную резервную копию',
     'create_a_new_files_backup'      => 'Создать резервную копию файлов',
     'create_a_new_db_backup'         => 'Создать резервную копию базы данных',
-    'create_confirmation_message'    => 'Перезагрузка страницы за 3 секунды.',
-    'create_confirmation_title'      => 'Создание резервной копии завершено',
-    'create_error_message'           => 'Резервный файл не может быть создан.',
-    'create_error_title'             => 'Ошибка резервного копирования',
-    'create_warning_message'         => 'Возможно, ваша резервная копия НЕ была создана. Пожалуйста, проверьте файлы журнала для деталей.',
-    'create_warning_title'           => 'Неизвестная ошибка',
+    'existing_backups'               => 'Существующие копии',
     'date'                           => 'Дата',
-    'delete'                         => 'Удалить',
-    'delete_cancel_message'          => 'Файл резервной копии НЕ был удален.',
-    'delete_cancel_title'            => 'Все нормально',
-    'delete_confirm'                 => 'Вы уверены, что хотите удалить этот файл резервной копии?',
-    'delete_confirmation_message'    => 'Файл резервной копии был удален.',
-    'delete_confirmation_title'      => 'Готово',
-    'delete_error_message'           => 'Файл резервной копии НЕ был удален.',
-    'delete_error_title'             => 'Ошибка',
-    'download'                       => 'Скачать',
-    'existing_backups'               => 'Существующие резервные копии',
     'file_size'                      => 'Размер файла',
-    'location'                       => 'Место нахождения',
-    'manager'                        => 'Менеджер',
-    'no_disks_configured'            => 'В config / backup.php не настроены резервные диски',
-    'only_local_downloads_supported' => 'Поддерживаются только загрузки из локальной файловой системы.',
+    'actions'                        => 'Действия',
+    'download'                       => 'Выгрузить',
+    'delete'                         => 'Удалить',
+    'delete_confirm'                 => 'Удалить эту резервную копию?',
+    'delete_confirmation_title'      => 'Успешно',
+    'delete_confirmation_message'    => 'Резервная копия удалена.',
+    'delete_error_title'             => 'Ошибка',
+    'delete_error_message'           => 'Резервная копия не удалена.',
+    'delete_cancel_title'            => 'Без ошибок',
+    'delete_cancel_message'          => 'Резервная копия не удалена.',
+    'create_confirmation_title'      => 'Процесс резервирования запущен',
+    'create_confirmation_message'    => 'Пожалуйста, подождите несколько минут до его завершения, затем обновите страницу.',
+    'create_error_title'             => 'Ошибка резервирования',
+    'create_error_message'           => 'Не удалось создать резервную копию.',
+    'create_warning_title'           => 'Неизвестная ошибка',
+    'create_warning_message'         => 'Возможно резервная копия не создана. Пожалуйста, проверьте лог-файлы для подтверждения.',
+    'location'                       => 'Назначение',
+    'no_disks_configured'            => 'Настройте диск в конфигурационном файле config/backup.php',
+    'backup_doesnt_exist'            => 'Резервная копия не существует.',
+    'only_local_downloads_supported' => 'Выгрузка поддерживается только для локальных файловых систем.',
 ];
