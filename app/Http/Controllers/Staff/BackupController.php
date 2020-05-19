@@ -16,8 +16,8 @@ namespace App\Http\Controllers\Staff;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Adapter\Local;
 
@@ -92,11 +92,11 @@ class BackupController extends Controller
             $output = Artisan::output();
             if (strpos($output, 'Backup failed because')) {
                 preg_match('Backup failed because(.*?)$/ms', $output, $match);
-                $message = "BackupManager process failed because ";
-                $message .= isset($match[1]) ? $match[1] : '';
+                $message = 'BackupManager process failed because ';
+                $message .= $match[1] ?? '';
                 Log::error($message.PHP_EOL.$output);
             } else {
-                Log::info("BackupManager process has started");
+                Log::info('BackupManager process has started');
             }
         } catch (Exception $e) {
             Log::error($e);
@@ -128,11 +128,11 @@ class BackupController extends Controller
             $output = Artisan::output();
             if (strpos($output, 'Backup failed because')) {
                 preg_match('Backup failed because(.*?)$/ms', $output, $match);
-                $message = "BackupManager process failed because ";
-                $message .= isset($match[1]) ? $match[1] : '';
+                $message = 'BackupManager process failed because ';
+                $message .= $match[1] ?? '';
                 Log::error($message.PHP_EOL.$output);
             } else {
-                Log::info("BackupManager process has started");
+                Log::info('BackupManager process has started');
             }
         } catch (Exception $e) {
             Log::error($e);
@@ -164,11 +164,11 @@ class BackupController extends Controller
             $output = Artisan::output();
             if (strpos($output, 'Backup failed because')) {
                 preg_match('Backup failed because(.*?)$/ms', $output, $match);
-                $message = "BackupManager process failed because ";
-                $message .= isset($match[1]) ? $match[1] : '';
+                $message = 'BackupManager process failed because ';
+                $message .= $match[1] ?? '';
                 Log::error($message.PHP_EOL.$output);
             } else {
-                Log::info("BackupManager process has started");
+                Log::info('BackupManager process has started');
             }
         } catch (Exception $e) {
             Log::error($e);
