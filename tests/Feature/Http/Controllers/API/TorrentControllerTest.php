@@ -127,7 +127,7 @@ class TorrentControllerTest extends TestCase
             'tmdb'        => $torrent->tmdb,
             'mal'         => $torrent->mal,
             'igdb'        => $torrent->igdb,
-            'type'        => $torrent->type,
+            'type_id'        => $torrent->type,
             'anonymous'   => $torrent->anon,
             'stream'      => $torrent->stream,
             'sd'          => $torrent->sd,
