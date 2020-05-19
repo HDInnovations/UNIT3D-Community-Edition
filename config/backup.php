@@ -232,8 +232,8 @@ return [
     ],
 
     'security' => [
-        'password' => env('APP_KEY'),
-        'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT
+        'password'   => env('APP_KEY'),
+        'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT,
 
         // Available encryption methods:
         // \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT (PHP < 7.2: PKWARE/ZipCrypto, PHP >= 7.2: AES 128)
