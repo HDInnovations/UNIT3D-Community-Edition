@@ -191,7 +191,7 @@ Demo is reset every 48 hours!
 
 ## <a name="chat"></a>  💬 Chat With Us
 
-URL: https://discord.gg/ntnPxzG
+URL: https://discord.gg/Bf47vws
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
