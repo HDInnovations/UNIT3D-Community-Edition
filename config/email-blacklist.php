@@ -24,10 +24,9 @@ return [
     | enabled: true|false
     |
     | source: string|null
-    |         You may specify the preferred URL or file path to update the
-    |         blacklist.
+    |         You may specify the preferred URL or file path to update the blacklist.
     |         Keep null if you don't want to use a remote source.
-    |         Default: "https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json"
+    |         Default: "https://cdn.jsdelivr.net/gh/andreis/disposable-email-domains@master/domains.json"
     |
     | cache-key: string|null
     |         You may change the cache key for the sourced blacklist.
@@ -36,7 +35,7 @@ return [
     | auto-update: true|false
     |         Specify if should automatically get source when cache is empty.
     |         ADVICE: This may slow down the first request upon validation.
-    |         Default: false
+    |         Default: true
     |
     | append: string|null
     |         You may a string of pipe | separated domains list.
@@ -45,7 +44,7 @@ return [
     |
     */
     'enabled'     => true,
-    'source'      => 'https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json',
+    'source'      => 'https://cdn.jsdelivr.net/gh/andreis/disposable-email-domains@master/domains.json',
     'cache-key'   => 'email.domains.blacklist',
     'auto-update' => true,
     'append'      => null,
