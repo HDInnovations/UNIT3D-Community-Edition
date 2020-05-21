@@ -4,6 +4,17 @@
 
 ## Unreleased
 
+<!-- dumped content end -->
+
+<!-- dumped content start -->
+
+## [v2.4.0]
+
+- [#1351] (Enhancement) Email Blacklist System, Thanks to [@HDVinnie]
+- [#1352] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1350] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1346] Fix those annoying dots, Thanks to [@werrpy]
+- [#1345] Apply fixes from StyleCI, Thanks to [@HDVinnie]
 - [#1322] Revert "(Refactoring) Announce Controller: add new method for response torren…", Thanks to [@HDVinnie]
 - [#1342] (Refactor) Bonus System, Thanks to [@fionera]
 - [#1341] (Update) Subtitles System, Thanks to [@PyR8zdl]
@@ -1451,3 +1462,8 @@
 [#1322]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1322
 [#1321]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1321
 [#1319]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1319
+[#1352]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1352
+[#1351]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1351
+[#1350]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1350
+[#1346]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1346
+[#1345]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1345
