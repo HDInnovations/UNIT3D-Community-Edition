@@ -29,6 +29,7 @@ use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
+use App\Models\Subtitle;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
@@ -1167,6 +1168,7 @@ class TorrentController extends Controller
                 Warning::where('id', '=', $id)->delete();
                 TorrentFile::where('torrent_id', '=', $id)->delete();
                 PlaylistTorrent::where('torrent_id', '=', $id)->delete();
+                Subtitle::where('torrent_id', '=', $id)->delete();
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
