@@ -57,6 +57,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:recycle_claimed_torrent_requests')->daily();
         $schedule->command('auto:correct_history')->daily();
         $schedule->command('auto:sync_peers')->daily();
+        $schedule->command('auto:email-blacklist-update')->monthly();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run')->daily();
     }

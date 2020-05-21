@@ -13,27 +13,86 @@
 
 namespace App\Validators;
 
-class EmailValidator
+use App\Helpers\EmailBlacklistUpdater;
+use Illuminate\Support\Str;
+use Psr\SimpleCache\InvalidArgumentException;
+
+class EmailBlacklistValidator
 {
-    public function validateEmailList($attribute, $value, $parameters, $validator)
+    /**
+     * Array of blacklisted domains
+     */
+    private $domains = [];
+
+    /**
+     * Generate the error message on validation failure
+     * @param $message
+     * @param $attribute
+     * @param $rule
+     * @param $parameters
+     * @return string
+     */
+    public function message($message, $attribute, $rule, $parameters)
     {
-        $domain = substr(strrchr($value, '@'), 1);
-        switch ($parameters[0]) {
-            case 'block':
-                $domain_list = config('email-white-blacklist.block');
+        return "{$attribute} domain is not allowed. Throwaway email providers are blacklisted.";
+    }
 
-                return ! in_array($domain, $domain_list);
+    /**
+     * Execute the validation routine.
+     *
+     * @param string $attribute
+     * @param string $value
+     * @param array  $parameters
+     *
+     * @return bool.
+     *
+     * @throws \Exception
+     */
+    public function validate($attribute, $value, $parameters)
+    {
+        // Load blacklisted domains
+        $this->refresh();
 
-                break;
-            case 'allow':
-                $domain_list = config('email-white-blacklist.allow');
+        // Extract domain from supplied email address
+        $domain = Str::after(strtolower($value), "@");
 
-                return in_array($domain, $domain_list);
+        // Run validation check
+        return ! in_array($domain, $this->domains);
+    }
 
-                break;
-            default:
-                // code...
-                break;
+    /**
+     * Retrive latest selection of blacklisted domains and cache them
+     *
+     * @param null
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function refresh()
+    {
+        $this->shouldUpdate();
+        $this->domains = cache()->get(config('email-blacklist.cache-key'));
+        $this->appendCustomDomains();
+    }
+
+    protected function shouldUpdate()
+    {
+        $autoupdate = config('email-blacklist.auto-update');
+        try {
+            if ($autoupdate && ! cache()->has(config('email-blacklist.cache-key'))) {
+                EmailBlacklistUpdater::update();
+            }
+        } catch (InvalidArgumentException $e) {
         }
+    }
+
+    protected function appendCustomDomains()
+    {
+        $append_list = config('email-blacklist.append');
+        if ($append_list === null) {
+            return;
+        }
+        $append_domains = explode('|', strtolower($append_list));
+        $this->domains = array_merge($this->domains, $append_domains);
     }
 }

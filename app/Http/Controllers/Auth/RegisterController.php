@@ -92,45 +92,36 @@ class RegisterController extends Controller
         $user->locale = config('app.locale');
         $user->group_id = $validating_group[0];
 
-        if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
-            $v = validator($request->all(), [
-                'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email'                => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
-                'password'             => 'required|min:8',
-                'captcha'              => 'hiddencaptcha',
-            ]);
-        } elseif (config('email-white-blacklist.enabled') === 'allow') {
-            $v = validator($request->all(), [
-                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email'    => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
-                'password' => 'required|min:8',
-            ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block' && config('captcha.enabled') == true) {
-            $v = validator($request->all(), [
-                'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email'                => 'required|email|max:255|unique:users|email_list:block', // Blacklist
-                'password'             => 'required|min:8',
-                'captcha'              => 'hiddencaptcha',
-            ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($request->all(), [
-                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email'    => 'required|email|max:255|unique:users|email_list:block', // Blacklist
-                'password' => 'required|min:8',
-            ]);
-        } elseif (config('captcha.enabled') == true) {
-            $v = validator($request->all(), [
-                'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email'                => 'required|email|max:255|unique:users',
-                'password'             => 'required|min:8',
-                'captcha'              => 'hiddencaptcha',
-            ]);
+        if (config('email-blacklist.enabled') == true) {
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'username' => 'required|alpha_dash|string|between:3,25|unique:users',
+                    'password' => 'required|string|between:8,16',
+                    'email' => 'required|string|email|max:70|blacklist|unique:users'
+                ]);
+            } else {
+                $v = validator($request->all(), [
+                    'username' => 'required|alpha_dash|string|between:3,25|unique:users',
+                    'password' => 'required|string|between:8,16',
+                    'email' => 'required|string|email|max:70|blacklist|unique:users',
+                    'captcha'  => 'hiddencaptcha',
+                ]);
+            }
         } else {
-            $v = validator($request->all(), [
-                'username' => 'required|alpha_dash|min:3|max:20|unique:users', //Default
-                'email'    => 'required|email|max:255|unique:users',
-                'password' => 'required|min:8',
-            ]);
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'username' => 'required|alpha_dash|string|between:3,25|unique:users',
+                    'password' => 'required|string|between:8,16',
+                    'email' => 'required|string|email|max:70|unique:users'
+                ]);
+            } else {
+                $v = validator($request->all(), [
+                    'username' => 'required|alpha_dash|string|between:3,25|unique:users',
+                    'password' => 'required|string|between:6,16',
+                    'email' => 'required|string|email|max:70|unique:users',
+                    'captcha' => 'hiddencaptcha',
+                ]);
+            }
         }
 
         if ($v->fails()) {
@@ -184,18 +175,5 @@ class RegisterController extends Controller
 
         return redirect()->route('login')
             ->withSuccess(trans('auth.register-thanks'));
-    }
-
-    /**
-     * Show Email Whitelist / Blacklist when not authenticated.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function publicEmailList()
-    {
-        $whitelist = config('email-white-blacklist.allow', []);
-        $blacklist = config('email-white-blacklist.block', []);
-
-        return view('auth.public-emaillist', ['whitelist' => $whitelist, 'blacklist' => $blacklist]);
     }
 }

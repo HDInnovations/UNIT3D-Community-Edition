@@ -352,17 +352,13 @@ class UserController extends Controller
 
         abort_unless($request->user()->id == $user->id, 403);
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        if (config('email-blacklist.enabled') == true) {
             $v = validator($request->all(), [
-                'email' => 'required|email|unique:users|email_list:allow', // Whitelist
-            ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($request->all(), [
-                'email' => 'required|email|unique:users|email_list:block', // Blacklist
+                'email' => 'required|string|email|max:70|blacklist|unique:users'
             ]);
         } else {
             $v = validator($request->all(), [
-                'email' => 'required|email|unique:users', // Default
+                'email' => 'required|string|email|max:70|unique:users'
             ]);
         }
 
