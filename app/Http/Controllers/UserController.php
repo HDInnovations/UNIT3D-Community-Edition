@@ -354,11 +354,11 @@ class UserController extends Controller
 
         if (config('email-blacklist.enabled') == true) {
             $v = validator($request->all(), [
-                'email' => 'required|string|email|max:70|blacklist|unique:users'
+                'email' => 'required|string|email|max:70|blacklist|unique:users',
             ]);
         } else {
             $v = validator($request->all(), [
-                'email' => 'required|string|email|max:70|unique:users'
+                'email' => 'required|string|email|max:70|unique:users',
             ]);
         }
 

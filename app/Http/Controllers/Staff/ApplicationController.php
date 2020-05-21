@@ -82,12 +82,12 @@ class ApplicationController extends Controller
 
             if (config('email-blacklist.enabled') == true) {
                 $v = validator($request->all(), [
-                    'email' => 'required|string|email|max:70|blacklist|unique:users|unique:invites',
+                    'email'   => 'required|string|email|max:70|blacklist|unique:users|unique:invites',
                     'approve' => 'required',
                 ]);
             } else {
                 $v = validator($request->all(), [
-                    'email' => 'required|string|email|max:70|unique:users|unique:invites',
+                    'email'   => 'required|string|email|max:70|unique:users|unique:invites',
                     'approve' => 'required',
                 ]);
             }

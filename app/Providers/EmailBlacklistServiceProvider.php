@@ -36,9 +36,9 @@ class EmailBlacklistServiceProvider extends ServiceProvider
     public function boot()
     {
         // Add custom validation rules
-        Validator::extend("blacklist", "App\Validators\EmailBlacklistValidator@validate");
+        Validator::extend('blacklist', "App\Validators\EmailBlacklistValidator@validate");
 
         // Add custom validation messages
-        Validator::replacer("blacklist", "App\Validators\EmailBlacklistValidator@message");
+        Validator::replacer('blacklist', "App\Validators\EmailBlacklistValidator@message");
     }
 }

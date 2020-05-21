@@ -44,9 +44,9 @@ return [
     |         Example: "example.com|example.net|foobar.com".
     |
     */
-    'enabled' => true,
-    'source' => 'https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json',
-    'cache-key' => 'email.domains.blacklist',
+    'enabled'     => true,
+    'source'      => 'https://raw.githubusercontent.com/ivolo/disposable-email-domains/master/index.json',
+    'cache-key'   => 'email.domains.blacklist',
     'auto-update' => true,
-    'append' => null,
+    'append'      => null,
 ];

@@ -17,19 +17,21 @@ use App\Helpers\EmailBlacklistUpdater;
 use Illuminate\Support\Str;
 use Psr\SimpleCache\InvalidArgumentException;
 
-class EmailBlacklistValidator
+class EmailValidator
 {
     /**
-     * Array of blacklisted domains
+     * Array of blacklisted domains.
      */
     private $domains = [];
 
     /**
-     * Generate the error message on validation failure
+     * Generate the error message on validation failure.
+     *
      * @param $message
      * @param $attribute
      * @param $rule
      * @param $parameters
+     *
      * @return string
      */
     public function message($message, $attribute, $rule, $parameters)
@@ -44,9 +46,9 @@ class EmailBlacklistValidator
      * @param string $value
      * @param array  $parameters
      *
-     * @return bool.
-     *
      * @throws \Exception
+     *
+     * @return bool.
      */
     public function validate($attribute, $value, $parameters)
     {
@@ -54,19 +56,20 @@ class EmailBlacklistValidator
         $this->refresh();
 
         // Extract domain from supplied email address
-        $domain = Str::after(strtolower($value), "@");
+        $domain = Str::after(strtolower($value), '@');
 
         // Run validation check
         return ! in_array($domain, $this->domains);
     }
 
     /**
-     * Retrive latest selection of blacklisted domains and cache them
+     * Retrive latest selection of blacklisted domains and cache them.
      *
      * @param null
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function refresh()
     {
@@ -78,6 +81,7 @@ class EmailBlacklistValidator
     protected function shouldUpdate()
     {
         $autoupdate = config('email-blacklist.auto-update');
+
         try {
             if ($autoupdate && ! cache()->has(config('email-blacklist.cache-key'))) {
                 EmailBlacklistUpdater::update();
