@@ -53,10 +53,12 @@ class EmailBlacklistUpdate extends Command
 
         if ($count === false) {
             $this->warn('No domains retrieved. Check the email.blacklist.source key for validation config.');
+
             return;
         }
         if ($count === 0) {
             $this->info('Advice: Blacklist was retrieved from source but 0 domains were listed.');
+
             return;
         }
         $this->info("{$count} domains retrieved. Cache updated. You are good to go.");
