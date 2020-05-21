@@ -17,7 +17,7 @@ use App\Helpers\EmailBlacklistUpdater;
 use Illuminate\Support\Str;
 use Psr\SimpleCache\InvalidArgumentException;
 
-class EmailValidator
+class EmailBlacklistValidator
 {
     /**
      * Array of blacklisted domains.
