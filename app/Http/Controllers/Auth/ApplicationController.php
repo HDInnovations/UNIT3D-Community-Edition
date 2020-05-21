@@ -45,11 +45,11 @@ class ApplicationController extends Controller
         $application->email = $request->input('email');
         $application->referrer = $request->input('referrer');
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        if (config('email-blacklist.enabled') == true) {
             if (config('captcha.enabled') == false) {
                 $v = validator($request->all(), [
                     'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
+                    'email'    => 'required|string|email|max:70|blacklist|unique:invites|unique:users|unique:applications',
                     'referrer' => 'required',
                     'images.*' => 'filled',
                     'images'   => 'min:2',
@@ -59,30 +59,7 @@ class ApplicationController extends Controller
             } else {
                 $v = validator($request->all(), [
                     'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
-                    'referrer' => 'required',
-                    'images.*' => 'filled',
-                    'images'   => 'min:2',
-                    'links.*'  => 'filled',
-                    'links'    => 'min:2',
-                    'captcha'  => 'hiddencaptcha',
-                ]);
-            }
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
-            if (config('captcha.enabled') == false) {
-                $v = validator($request->all(), [
-                    'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
-                    'referrer' => 'required',
-                    'images.*' => 'filled',
-                    'images'   => 'min:2',
-                    'links.*'  => 'filled',
-                    'links'    => 'min:2',
-                ]);
-            } else {
-                $v = validator($request->all(), [
-                    'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
+                    'email'    => 'required|string|email|max:70|blacklist|unique:invites|unique:users|unique:applications',
                     'referrer' => 'required',
                     'images.*' => 'filled',
                     'images'   => 'min:2',
@@ -95,7 +72,7 @@ class ApplicationController extends Controller
             if (config('captcha.enabled') == false) {
                 $v = validator($request->all(), [
                     'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications',
+                    'email'    => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
                     'referrer' => 'required',
                     'images.*' => 'filled',
                     'images'   => 'min:2',
@@ -105,7 +82,7 @@ class ApplicationController extends Controller
             } else {
                 $v = validator($request->all(), [
                     'type'     => 'required',
-                    'email'    => 'required|email|unique:invites|unique:users|unique:applications',
+                    'email'    => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
                     'referrer' => 'required',
                     'images.*' => 'filled',
                     'images'   => 'min:2',

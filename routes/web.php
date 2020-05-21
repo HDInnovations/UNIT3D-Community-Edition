@@ -54,9 +54,6 @@ Route::group(['middleware' => 'language'], function () {
         // Registration
         Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
         Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
-
-        // Public email white/blacklists
-        Route::get('emaildomains', 'Auth\RegisterController@publicEmailList')->name('public.email');
     });
 
     /*
@@ -179,7 +176,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/internal', 'PageController@internal')->name('internal');
             Route::get('/blacklist', 'PageController@blacklist')->name('blacklist');
             Route::get('/aboutus', 'PageController@about')->name('about');
-            Route::get('/emaillist', 'PageController@emailList')->name('emaillist');
             Route::get('/{id}', 'PageController@show')->where('id', '[0-9]+')->name('pages.show');
         });
 
