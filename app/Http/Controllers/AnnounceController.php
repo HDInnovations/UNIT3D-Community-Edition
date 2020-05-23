@@ -231,7 +231,7 @@ class AnnounceController extends Controller
         }
 
         // Get Torrents Peers
-        $peers = Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
+        $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take(50)->get()->toArray();
 
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
