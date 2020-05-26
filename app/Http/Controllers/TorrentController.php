@@ -1052,7 +1052,7 @@ class TorrentController extends Controller
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
-        $torrent->type = $request->input('type_id');
+        $torrent->type_id = $request->input('type_id');
         $torrent->mediainfo = $request->input('mediainfo');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
@@ -1318,7 +1318,7 @@ class TorrentController extends Controller
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
-        $torrent->type = $request->input('type_id');
+        $torrent->type_id = $request->input('type_id');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -1343,7 +1343,7 @@ class TorrentController extends Controller
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
             'igdb'        => 'required|numeric',
-            'type_id'        => 'required',
+            'type_id'     => 'required',
             'anon'        => 'required',
             'stream'      => 'required',
             'sd'          => 'required',
@@ -1533,7 +1533,7 @@ class TorrentController extends Controller
             $appname = config('app.name');
             $bot = new IRCAnnounceBot();
             $bot->message('#announce', '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
-            $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
+            $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
             $bot->message('#announce', sprintf('[Link: %s]', $torrent_url));
         }
 

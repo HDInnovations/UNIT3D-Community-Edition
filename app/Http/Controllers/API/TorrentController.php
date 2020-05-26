@@ -119,7 +119,7 @@ class TorrentController extends BaseController
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
-        $torrent->type = $request->input('type_id');
+        $torrent->type_id = $request->input('type_id');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
