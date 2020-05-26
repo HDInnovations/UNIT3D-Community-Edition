@@ -79,7 +79,7 @@ class RequestController extends Controller
         $claimed_bounty = TorrentRequest::whereNotNull('filled_by')->sum('bounty');
         $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
 
-        $torrentRequests = TorrentRequest::with(['user', 'category'])->paginate(25);
+        $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
         $repository = $this->faceted;
 
         return view('requests.requests', [
@@ -125,7 +125,7 @@ class RequestController extends Controller
             $search .= '%'.$term.'%';
         }
 
-        $torrentRequest = $torrentRequest->with(['user', 'category']);
+        $torrentRequest = $torrentRequest->with(['user', 'category', 'type']);
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrentRequest->where('name', 'like', $search);
@@ -156,7 +156,7 @@ class RequestController extends Controller
         }
 
         if ($request->has('types') && $request->input('types') != null) {
-            $torrentRequest->whereIn('type', $types);
+            $torrentRequest->whereIn('type_id', $types);
         }
 
         if ($request->has('unfilled') && $request->input('unfilled') != null) {
@@ -309,7 +309,7 @@ class RequestController extends Controller
         $tr->tmdb = $request->input('tmdb');
         $tr->mal = $request->input('mal');
         $tr->igdb = $request->input('igdb');
-        $tr->type = $request->input('type');
+        $tr->type = $request->input('type_id');
         $tr->bounty = $request->input('bounty');
         $tr->votes = 1;
         $tr->anon = $request->input('anon');
@@ -408,7 +408,7 @@ class RequestController extends Controller
         $mal = $request->input('mal');
         $igdb = $request->input('igdb');
         $category = $request->input('category_id');
-        $type = $request->input('type');
+        $type = $request->input('type_id');
         $description = $request->input('description');
         $anon = $request->input('anon');
 

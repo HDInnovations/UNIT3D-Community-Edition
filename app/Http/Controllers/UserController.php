@@ -1247,7 +1247,7 @@ class UserController extends Controller
         }
 
         if ($request->has('view') && $request->input('view') == 'requests') {
-            $torrentRequests = TorrentRequest::with(['user', 'category']);
+            $torrentRequests = TorrentRequest::with(['user', 'category', 'type']);
             $order = null;
             $sorting = null;
             if ($request->has('name') && $request->input('name') != null) {
@@ -1704,7 +1704,7 @@ class UserController extends Controller
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
             $logger = 'user.private.requests';
 
-            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->latest()->paginate(25);
+            $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->latest()->paginate(25);
 
             return view($logger, [
                 'route'           => 'requests',
@@ -1713,7 +1713,7 @@ class UserController extends Controller
             ]);
         }
         $logger = 'user.requests';
-        $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
+        $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
         return view($logger, [
             'route'           => 'requests',
