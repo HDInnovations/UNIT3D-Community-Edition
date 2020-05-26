@@ -26,45 +26,155 @@ class uploadExtensionBuilder {
     constructor() {
         // Empty for now
     }
+    // https://stackoverflow.com/a/10710400
+    // get all indexes of ch in str
+    getAllIndexes(str, ch) {
+        var indices = [];
+        for (var i = 0; i < str.length; i++) {
+            if (str[i] === ch) indices.push(i);
+        }
+        return indices;
+    }
+    // is index in range of str?
+    inRange(str, index) {
+        return (index >= 0 && index < str.length);
+    }
+    // https://stackoverflow.com/a/8935675
+    is_numeric(str) {
+        return /^\d+$/.test(str)
+    }
+    // https://www.geeksforgeeks.org/how-to-replace-a-character-at-a-particular-index-in-javascript/
+    replaceChar(origString, replaceChar, index) {
+        let firstPart = origString.substr(0, index);
+        let lastPart = origString.substr(index + 1);
+        
+        let newString = firstPart + replaceChar + lastPart;
+        return newString;
+    }
+    removeDots(title) {
+        // replace dots with spaces that are between:
+        // 1) letter and letter
+        // 2) number and letter
+        // 3) . 4 numbers (.year)
+        // 4) 4 numbers and 3 numbers followed by i or p (year and resolution, 2020.720p)
+        // 5) 4 numbers and 4 numbers followed by i or p (year and resolution, 2020.1080p)
+        // 6) S 2 numbers . 3 numbers followed by i or p (season and resolution, S01.720p)
+        // 7) S 2 numbers . 4 numbers followed by i or p (season and resolution, S01.1080p)
+        // 8) 2 letters . number . number (DD.2.0 or AAC.2.0 or DD+.2.0 or DTS-X.7.1)
+        
+        let newTitle = title;
+        
+        // array of indexes of each dot location
+        const indexes = this.getAllIndexes(title, ".")
+        
+        // for each dot dot location
+        for (const i of indexes) {            
+            if (this.inRange(title, i - 1) && this.inRange(title, i + 1)) {
+                // characters before and after dot
+                const before = title[i - 1]
+                const after = title[i + 1]
+                
+                if (!this.is_numeric(before) && !this.is_numeric(after)) {
+                    // Case 1: letter and letter
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                } else if (this.is_numeric(before) && !this.is_numeric(after)) {
+                    // Case 2: number and letter
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                }
+            }
+            
+            // Case 3: . 4 numbers (.year)
+            if (this.inRange(title, i + 5)) {
+                const after = title.substring(i + 1, i + 5)
+                if (this.is_numeric(after)) {
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                }
+            }
+            
+            // Case 4: 4 numbers and 3 numbers followed by i or p (year and resolution, 2020.720p)
+            if (this.inRange(title, i - 4) && this.inRange(title, i + 4)) {
+                const beforeNum = title.substring(i - 4, i) // ex. 1987
+                const afterNum = title.substring(i + 1, i + 4) // ex. 480, 576 or 720
+                const afterResolution = title.charAt(i + 4).toLowerCase() // i or p
+                
+                if (this.is_numeric(beforeNum) && this.is_numeric(afterNum) && (afterResolution == "i" || afterResolution == "p")) {
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                }
+            }
+            
+            // Case 5: 4 numbers and 4 numbers followed by i or p (year and resolution, 2020.1080p)
+            if (this.inRange(title, i - 4) && this.inRange(title, i + 5)) {
+                const beforeNum = title.substring(i - 4, i) // ex. 1987
+                const afterNum = title.substring(i + 1, i + 5) // ex. 1080 or 2160
+                const afterResolution = title.charAt(i + 5).toLowerCase() // i or p
+                
+                if (this.is_numeric(beforeNum) && this.is_numeric(afterNum) && (afterResolution == "i" || afterResolution == "p")) {
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                }
+            }
+            
+            // Case 6: S 2 numbers . 3 numbers followed by i or p (season and resolution, S01.720p)
+            if (this.inRange(title, i - 3) && this.inRange(i + 4)) {
+                const beforeNum = title.substring(i - 3, i - 2).toLowerCase() // ex. S
+                const seasonNum = title.substring(i - 2, i).toLowerCase() // ex. 01
+                
+                const afterNum = title.substring(i + 1, i + 4) // ex. 480, 576 or 720
+                const afterResolution = title.charAt(i + 4).toLowerCase() // i or p
+                
+                if (beforeNum == "s" && this.is_numeric(seasonNum) && (afterResolution == "i" || afterResolution == "p")) {
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                }
+            }
+            
+            // Case 7: S 2 numbers . 4 numbers followed by i or p (season and resolution, S01.720p)
+            if (this.inRange(title, i - 3) && this.inRange(i + 5)) {
+                const beforeNum = title.substring(i - 3, i - 2).toLowerCase() // ex. S
+                const seasonNum = title.substring(i - 2, i).toLowerCase() // ex. 01
+                
+                const afterNum = title.substring(i + 1, i + 5) // ex. 1080 or 2160
+                const afterResolution = title.charAt(i + 5).toLowerCase() // i or p
+                
+                if (beforeNum == "s" && this.is_numeric(seasonNum) && (afterResolution == "i" || afterResolution == "p")) {
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                }
+            }
+            
+            // Case 8: 2 letters . number (DD.2.0 or AAC.2.0 or DD+.2.0 or DTS-X.7.1)
+            // looking at it from the first dot only
+            if (this.inRange(title, i - 1) && this.inRange(title, i + 1)) {
+                const before = title.substring(i - 1, i).toLowerCase() // ex. DD or AC or D+ or -X
+                const after = title.charAt(i + 1) // number
+                
+                if (!this.is_numeric(before) && this.is_numeric(after)) {
+                    newTitle = this.replaceChar(newTitle, " ", i)
+                    continue;
+                }
+            }
+        }
+        
+        return newTitle;
+    }
     hook() {
         let name = document.querySelector('#title');
         let torrent = document.querySelector('#torrent');
         if (!name.value) {
-            let fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
-            let allowed = ['1.0', '2.0', '5.1', '6.1', '7.1', 'H.264'];
-            var newValue = '';
-            var preValue = torrent.value;
+            const fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
+            var newValue = torrent.value;
+            // strip path
+            newValue = newValue.split('\\').pop().split('/').pop();
+            // remove file endings
             fileEndings.forEach(function (e) {
-                preValue = preValue.replace(e, '');
+                newValue = newValue.replace(e, '');
             });
-            var recursion = preValue.split('\\').pop().split('/').pop();
-            for(var i=0; i<recursion.length; i++) {
-                var prev = false;
-                var next = false;
-                if(recursion[i] == '.') {
-                    var joined = false;
-                    for(var j=0; j<allowed.length; j++) {
-                        var tmp = allowed[j].split('.');
-                        if(tmp[0] == 'H') {
-                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == '2' && recursion[i + 2] != undefined && recursion[i + 2] == '6' && recursion[i + 3] != undefined && recursion[i + 3] =='4') {
-                                joined = true;
-                            }
-                        } else {
-                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == tmp[1]) {
-                                joined = true;
-                            }
-                        }
-                    }
-                    if(joined == false) { newValue=newValue+' '; }
-                    else {
-                        newValue = newValue+'.';
-                    }
-                }
-                else {
-                    newValue = newValue + recursion[i];
-                }
-            }
-            name.value = newValue;
+            // replace dots with spaces
+            name.value = this.removeDots(newValue);
         }
     }
 }

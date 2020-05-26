@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\Staff;
+namespace Tests\Todo\Feature\Http\Controllers\Staff;
 
 use Tests\TestCase;
 

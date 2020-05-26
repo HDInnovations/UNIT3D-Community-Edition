@@ -70,9 +70,6 @@ class AppServiceProvider extends ServiceProvider
         // Torrent Observer For Cache
         Torrent::observe(TorrentObserver::class);
 
-        // Custom validation for the email whitelist/blacklist
-        validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
-
         // Share $footer_pages across all views
         view()->composer('*', function (View $view) {
             $footer_pages = cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
