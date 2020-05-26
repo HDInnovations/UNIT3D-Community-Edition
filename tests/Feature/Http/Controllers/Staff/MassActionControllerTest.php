@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class MassActionControllerTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
