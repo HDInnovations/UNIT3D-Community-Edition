@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <label for="type">@lang('torrent.type')</label>
                         <label>
-                            <select name="type" class="form-control">
+                            <select name="type_id" class="form-control">
                                 <option value="{{ $torrent->type->id }}" selected>{{ $torrent->type->name }}
                                     (@lang('torrent.current'))
                                 </option>

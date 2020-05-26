@@ -89,7 +89,7 @@
                     <div class="form-group">
                         <label for="type">@lang('torrent.type')</label>
                         <label>
-                            <select name="type" id="autotype" class="form-control">
+                            <select name="type_id" id="autotype" class="form-control">
                                 @foreach ($types as $type)
                                     <option value="{{ $type->name }}" @if (old('type')==$type->name) selected="selected"
                                         @endif>{{ $type->name }}</option>
