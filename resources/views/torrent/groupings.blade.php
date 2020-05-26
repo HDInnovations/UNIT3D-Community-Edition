@@ -118,7 +118,7 @@
                             @foreach ($repository->types() as $id => $type)
                                 <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" trigger="click" id="{{ $type }}" value="{{ $type }}" class="type facetedSearch"> {{ $type }}
+                                    <input type="checkbox" trigger="click" id="{{ $type }}" value="{{ $id }}" class="type facetedSearch"> {{ $type }}
                                 </label>
                             </span>
                             @endforeach
@@ -356,7 +356,7 @@
                                                                                 @endif
                                                                                 <div class="text-center">
                                                             <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
-                                                                {{ $current->type }}
+                                                                {{ $current->type->name }}
                                                             </span>
                                                                                 </div>
                                                                             </td>

@@ -91,10 +91,10 @@
                         <span class="badge-user">
                             <label class="inline">
                                 @if(is_array($rss->object_torrent->types) && in_array($type,$rss->object_torrent->types))
-                                    <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $type }}" class="type" CHECKED>
+                                    <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type" CHECKED>
                                     {{ $type }}
                                 @else
-                                    <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $type }}" class="type">
+                                    <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type">
                                     {{ $type }}
                                 @endif
                         </span>

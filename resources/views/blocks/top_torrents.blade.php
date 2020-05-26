@@ -82,7 +82,7 @@
                                         <div class="text-center">
                                             <span class="label label-success" data-toggle="tooltip"
                                                 data-original-title="Type">
-                                                {{ $new->type }}
+                                                {{ $new->type->name }}
                                             </span>
                                         </div>
                                     </td>
@@ -337,7 +337,7 @@
                                         <div class="text-center">
                                             <span class="label label-success" data-toggle="tooltip"
                                                 data-original-title="Type">
-                                                {{ $seed->type }}
+                                                {{ $seed->type->name }}
                                             </span>
                                         </div>
                                     </td>
@@ -593,7 +593,7 @@
                                         <div class="text-center">
                                             <span class="label label-success" data-toggle="tooltip"
                                                 data-original-title="Type">
-                                                {{ $leech->type }}
+                                                {{ $leech->type->name }}
                                             </span>
                                         </div>
                                     </td>
@@ -849,7 +849,7 @@
                                         <div class="text-center">
                                             <span class="label label-success" data-toggle="tooltip"
                                                 data-original-title="Type">
-                                                {{ $d->type }}
+                                                {{ $d->type->name }}
                                             </span>
                                         </div>
                                     </td>
@@ -1104,7 +1104,7 @@
                                         <div class="text-center">
                                             <span class="label label-success" data-toggle="tooltip"
                                                 data-original-title="Type">
-                                                {{ $d->type }}
+                                                {{ $d->type->name }}
                                             </span>
                                         </div>
                                     </td>

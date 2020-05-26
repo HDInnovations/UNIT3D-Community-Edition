@@ -57,7 +57,7 @@
                                 data-image='<img src="{{ url('files/img/' . $photo->image) }}" alt="Poster" style="height: 1000px;">'
                                 class="show-image">
                             <div class="caption text-center">
-                                <h4 class="label label-success">{{ $photo->type }}</h4>
+                                <h4 class="label label-success">{{ $photo->type->name }}</h4>
                                 <br>
                                 <h4 class="badge badge-user"> @lang('gallery.uploaded-by'): {{ $photo->user->username }}</h4>
                                 <br>

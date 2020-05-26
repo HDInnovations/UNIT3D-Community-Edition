@@ -99,7 +99,7 @@
                                 <strong>@lang('torrent.type')</strong>
                             </td>
                             <td>
-                                {{ $torrentRequest->type }}
+                                {{ $torrentRequest->type->name }}
                             </td>
                         </tr>
                         <tr>
