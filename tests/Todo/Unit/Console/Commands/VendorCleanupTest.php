@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Console\Commands;
+namespace Tests\Todo\Unit\Console\Commands;
 
 use Tests\TestCase;
 
