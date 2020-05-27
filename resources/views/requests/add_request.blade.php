@@ -100,7 +100,7 @@
                         </div>
         
                         <div class="form-group">
-                            <label for="type">@lang('request.type')</label>
+                            <label for="type_id">@lang('request.type')</label>
                             <label>
                                 <select name="type_id" class="form-control">
                                     @foreach ($types as $type)

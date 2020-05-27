@@ -423,7 +423,7 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('types') && $request->input('types') != null) {
-            $torrent->whereIn('torrents.type', $types);
+            $torrent->whereIn('torrents.type_id', $types);
         }
 
         if ($request->has('genres') && $request->input('genres') != null) {

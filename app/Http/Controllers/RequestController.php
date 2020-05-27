@@ -309,7 +309,7 @@ class RequestController extends Controller
         $tr->tmdb = $request->input('tmdb');
         $tr->mal = $request->input('mal');
         $tr->igdb = $request->input('igdb');
-        $tr->type = $request->input('type_id');
+        $tr->type_id = $request->input('type_id');
         $tr->bounty = $request->input('bounty');
         $tr->votes = 1;
         $tr->anon = $request->input('anon');
@@ -322,7 +322,7 @@ class RequestController extends Controller
             'mal'         => 'required|numeric',
             'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'type'        => 'required',
+            'type_id'     => 'required|exists:types,id',
             'description' => 'required|string',
             'bounty'      => sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
             'anon'        => 'required',
@@ -419,7 +419,7 @@ class RequestController extends Controller
         $torrentRequest->mal = $mal;
         $torrentRequest->igdb = $igdb;
         $torrentRequest->category_id = $category;
-        $torrentRequest->type = $type;
+        $torrentRequest->type_id = $type;
         $torrentRequest->description = $description;
         $torrentRequest->anon = $anon;
 
@@ -431,7 +431,7 @@ class RequestController extends Controller
             'mal'         => 'required|numeric',
             'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'type'        => 'required',
+            'type_id'     => 'required|exists:types,id',
             'description' => 'required|string',
             'anon'        => 'required',
         ]);
