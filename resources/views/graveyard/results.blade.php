@@ -29,7 +29,7 @@
                                 <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
                                     {{ $torrent->name }}
                                 </a>
-                                <span class="label label-success">{{ $torrent->type }}</span>
+                                <span class="label label-success">{{ $torrent->type->name }}</span>
                             </div>
                         </div>
                     </td>

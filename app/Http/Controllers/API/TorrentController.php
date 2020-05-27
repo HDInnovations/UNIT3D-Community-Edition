@@ -56,7 +56,7 @@ class TorrentController extends BaseController
      */
     public function index()
     {
-        return new TorrentsResource(Torrent::with(['category', 'tags'])->latest()->paginate());
+        return new TorrentsResource(Torrent::with(['category', 'type', 'tags'])->latest()->paginate());
     }
 
     /**
@@ -119,7 +119,7 @@ class TorrentController extends BaseController
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
-        $torrent->type = $request->input('type');
+        $torrent->type_id = $request->input('type_id');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -148,7 +148,7 @@ class TorrentController extends BaseController
             'tmdb'        => 'required|numeric',
             'mal'         => 'required|numeric',
             'igdb'        => 'required|numeric',
-            'type'        => 'required',
+            'type_id'     => 'required',
             'anon'        => 'required',
             'stream'      => 'required',
             'sd'          => 'required',
@@ -423,7 +423,7 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('types') && $request->input('types') != null) {
-            $torrent->whereIn('torrents.type', $types);
+            $torrent->whereIn('torrents.type_id', $types);
         }
 
         if ($request->has('genres') && $request->input('genres') != null) {

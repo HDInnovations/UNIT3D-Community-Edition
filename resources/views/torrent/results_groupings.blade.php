@@ -120,7 +120,7 @@
                                                         @endif
                                                         <div class="text-center">
                                                             <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
-                                                                {{ $current->type }}
+                                                                {{ $current->type->name }}
                                                             </span>
                                                         </div>
                                                     </td>

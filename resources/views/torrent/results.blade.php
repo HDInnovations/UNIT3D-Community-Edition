@@ -125,7 +125,7 @@ config('api-keys.omdb')) @endphp
                         <div class="text-center" style="padding-top: 5px;">
                             <span class="label label-success" data-toggle="tooltip"
                                 data-original-title="@lang('torrent.type')">
-                                {{ $torrent->type }}
+                                {{ $torrent->type->name }}
                             </span>
                         </div>
                     </td>

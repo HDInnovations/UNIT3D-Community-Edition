@@ -117,7 +117,7 @@
                                     <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->torrent->times_completed }}
                                 </span>&nbsp;
 								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->torrent->getSize() }}</span>&nbsp;
-								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->torrent->type }}</span>&nbsp;
+								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->torrent->type->name }}</span>&nbsp;
 								<span class="badge-user text-bold text-blue" style="float:right;">{{ $t->torrent->category->name }}</span>&nbsp;
 							</div>
 							<div class="card_body">

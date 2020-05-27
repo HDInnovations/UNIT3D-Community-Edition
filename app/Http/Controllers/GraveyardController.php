@@ -48,7 +48,7 @@ class GraveyardController extends Controller
     {
         $current = Carbon::now();
         $user = $request->user();
-        $torrents = Torrent::with('category')->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->paginate(25);
+        $torrents = Torrent::with('category', 'type')->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->paginate(25);
         $repository = $this->faceted;
         $deadcount = Torrent::where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
 
@@ -89,7 +89,7 @@ class GraveyardController extends Controller
             $search .= '%'.$term.'%';
         }
 
-        $torrent = $torrent->with('category')->where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
+        $torrent = $torrent->with('category', 'type')->where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrent->where('name', 'like', $search);
@@ -116,7 +116,7 @@ class GraveyardController extends Controller
         }
 
         if ($request->has('types') && $request->input('types') != null) {
-            $torrent->whereIn('type', $types);
+            $torrent->whereIn('type_id', $types);
         }
 
         if ($request->has('sorting') && $request->input('sorting') != null) {

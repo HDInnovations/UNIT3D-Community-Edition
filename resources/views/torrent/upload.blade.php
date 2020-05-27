@@ -88,12 +88,12 @@
                     </div>
         
                     <div class="form-group">
-                        <label for="type">@lang('torrent.type')</label>
+                        <label for="type_id">@lang('torrent.type')</label>
                         <label>
-                            <select name="type" id="autotype" class="form-control" required>
+                            <select name="type_id" id="autotype" class="form-control" required>
                                 <option hidden="" disabled="disabled" selected="selected" value="">Select one</option>
                                 @foreach ($types as $type)
-                                    <option value="{{ $type->name }}" @if (old('type')==$type->name) selected="selected"
+                                    <option value="{{ $type->id }}" @if (old('type')==$type->id) selected="selected"
                                         @endif>{{ $type->name }}</option>
                                 @endforeach
                             </select>

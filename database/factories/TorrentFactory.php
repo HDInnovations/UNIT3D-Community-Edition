@@ -30,7 +30,9 @@ $factory->define(App\Models\Torrent::class, function (Faker $faker) {
         'tmdb'         => $faker->randomNumber(),
         'mal'          => $faker->randomNumber(),
         'igdb'         => $faker->randomNumber(),
-        'type'         => $faker->word,
+        'type_id'      => function () {
+            return factory(App\Models\Type::class)->create()->id;
+        },
         'stream'       => $faker->boolean,
         'free'         => $faker->boolean,
         'doubleup'     => $faker->boolean,

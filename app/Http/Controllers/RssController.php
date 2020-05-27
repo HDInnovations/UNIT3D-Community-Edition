@@ -206,7 +206,7 @@ class RssController extends Controller
                 $description .= '%'.$keyword.'%';
             }
 
-            $torrent = Torrent::with(['user', 'category']);
+            $torrent = Torrent::with(['user', 'category', 'type']);
 
             if ($rss->object_torrent->search) {
                 $torrent->where(function ($query) use ($search) {
@@ -249,7 +249,7 @@ class RssController extends Controller
             }
 
             if ($rss->object_torrent->types && is_array($rss->object_torrent->types)) {
-                $torrent->whereIn('type', $types);
+                $torrent->whereIn('type_id', $types);
             }
 
             if ($rss->object_torrent->genres && is_array($rss->object_torrent->genres)) {

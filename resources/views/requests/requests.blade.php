@@ -82,7 +82,7 @@
                         @foreach ($repository->types() as $id => $type)
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="{{ $type }}" value="{{ $type }}" class="type"> {{ $type }}
+                                    <input type="checkbox" id="{{ $type }}" value="{{ $id }}" class="type"> {{ $type }}
                                 </label>
                             </span>
                         @endforeach

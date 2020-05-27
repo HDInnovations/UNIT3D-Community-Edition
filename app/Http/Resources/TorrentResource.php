@@ -33,7 +33,7 @@ class TorrentResource extends JsonResource
                 'name'            => $this->name,
                 'release_year'    => $this->release_year,
                 'category'        => $this->category->name,
-                'type'            => $this->type,
+                'type'            => $this->type->name,
                 'size'            => $this->getSize(),
                 'freeleech'       => $this->free ? 'Yes' : 'No',
                 'double_upload'   => $this->doubleup ? 'Yes' : 'No',
