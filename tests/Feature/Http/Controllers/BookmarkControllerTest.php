@@ -12,7 +12,7 @@ use Tests\TestCase;
  */
 class BookmarkControllerTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

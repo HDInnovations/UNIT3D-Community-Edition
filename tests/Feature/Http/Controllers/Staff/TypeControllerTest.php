@@ -13,7 +13,7 @@ use Tests\TestCase;
  */
 class TypeControllerTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
