@@ -77,7 +77,8 @@
                     <div class="form-group">
                         <label for="category_id">@lang('torrent.category')</label>
                         <label>
-                            <select name="category_id" class="form-control">
+                            <select name="category_id" class="form-control" required>
+                                <option hidden="" disabled="disabled" selected="selected" value="">Select one</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" @if (old('category_id')==$category->id) selected="selected"
                                         @endif>{{ $category->name }}</option>
@@ -89,7 +90,8 @@
                     <div class="form-group">
                         <label for="type_id">@lang('torrent.type')</label>
                         <label>
-                            <select name="type_id" id="autotype" class="form-control">
+                            <select name="type_id" id="autotype" class="form-control" required>
+                                <option hidden="" disabled="disabled" selected="selected" value="">Select one</option>
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}" @if (old('type')==$type->id) selected="selected"
                                         @endif>{{ $type->name }}</option>
