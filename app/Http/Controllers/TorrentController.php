@@ -24,6 +24,7 @@ use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
+use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
@@ -1169,6 +1170,7 @@ class TorrentController extends Controller
                 TorrentFile::where('torrent_id', '=', $id)->delete();
                 PlaylistTorrent::where('torrent_id', '=', $id)->delete();
                 Subtitle::where('torrent_id', '=', $id)->delete();
+                Graveyard::where('torrent_id', '=', $id)->delete();
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
