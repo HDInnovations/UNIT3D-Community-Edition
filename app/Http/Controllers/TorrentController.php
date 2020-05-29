@@ -284,8 +284,8 @@ class TorrentController extends Controller
                 $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
                 $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
                 $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                if (! array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
-                    $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
+                if (! array_key_exists($chunk->type_id, $attributes['imdb'.$chunk->imdb])) {
+                    $attributes['imdb'.$chunk->imdb]['types'][$chunk->type_id] = $chunk->type_id;
                 }
                 if (! array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
                     $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
@@ -746,8 +746,8 @@ class TorrentController extends Controller
                     $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
                     $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
                     $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                    if (! array_key_exists($chunk->type, $attributes['imdb'.$chunk->imdb])) {
-                        $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
+                    if (! array_key_exists($chunk->type_id, $attributes['imdb'.$chunk->imdb])) {
+                        $attributes['imdb'.$chunk->imdb]['types'][$chunk->type_id] = $chunk->type_id;
                     }
                     if (! array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
                         $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;

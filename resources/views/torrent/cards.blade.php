@@ -129,8 +129,8 @@
                                     @foreach ($repository->types() as $id => $type)
                                         <span class="badge-user">
                                             <label class="inline">
-                                                <input type="checkbox" trigger="click" id="{{ $id}}" value="{{ $type }}"
-                                                    class="type facetedSearch"> {{ $type->name }}
+                                                <input type="checkbox" trigger="click" id="{{ $type }}" value="{{ $id }}"
+                                                    class="type facetedSearch"> {{ $type }}
                                             </label>
                                         </span>
                                     @endforeach
