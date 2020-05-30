@@ -190,6 +190,18 @@
                     @else
                         <input type="hidden" name="internal" value="0">
                     @endif
+                    
+                    @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                        <label for="freeleech" class="control-label">@lang('torrent.freeleech')?</label>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="free" value="1">@lang('common.yes')</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="free" checked="checked" value="0">@lang('common.no')</label>
+                        </div>
+                    @else
+                        <input type="hidden" name="free" value="0">
+                    @endif
         
                     <div class="text-center">
                         <button type="submit" name="preview" value="true" id="preview"
