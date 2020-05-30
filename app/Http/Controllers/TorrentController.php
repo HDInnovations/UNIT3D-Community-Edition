@@ -1327,6 +1327,7 @@ class TorrentController extends Controller
         $torrent->internal = $request->input('internal');
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = 1; //System ID
+        $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
 
         // Validation
         $v = validator($torrent->toArray(), [
