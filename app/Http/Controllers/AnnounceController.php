@@ -14,16 +14,16 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Bencode;
-use App\Models\FreeleechToken;
 use App\Models\Group;
-use App\Models\History;
 use App\Models\Peer;
-use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use App\Exceptions\TrackerException;
+use App\Jobs\ProcessBasicAnnounceRequest;
+use App\Jobs\ProcessCompletedAnnounceRequest;
+use App\Jobs\ProcessStartedAnnounceRequest;
+use App\Jobs\ProcessStoppedAnnounceRequest;
 
 class AnnounceController extends Controller
 {
@@ -37,452 +37,370 @@ class AnnounceController extends Controller
     private const MIN = 2_400;
     private const MAX = 3_600;
 
+    // Port Blacklist
+    private const BLACK_PORTS = [
+        22,  // SSH Port
+        53,  // DNS queries
+        80, 81, 8080, 8081,  // Hyper Text Transfer Protocol (HTTP) - port used for web traffic
+        411, 412, 413,  // 	Direct Connect Hub (unofficial)
+        443,  // HTTPS / SSL - encrypted web traffic, also used for VPN tunnels over HTTPS.
+        1214,  // Kazaa - peer-to-peer file sharing, some known vulnerabilities, and at least one worm (Benjamin) targeting it.
+        3389,  // IANA registered for Microsoft WBT Server, used for Windows Remote Desktop and Remote Assistance connections
+        4662,  // eDonkey 2000 P2P file sharing service. http://www.edonkey2000.com/
+        6346, 6347,  // Gnutella (FrostWire, Limewire, Shareaza, etc.), BearShare file sharing app
+        6699,  // Port used by p2p software, such as WinMX, Napster.
+        6881, 6882, 6883, 6884, 6885, 6886, 6887, // BitTorrent part of full range of ports used most often (unofficial)
+    ];
+
     /**
      * Announce Code.
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $passkey
      *
-     * @throws \Exception
-     *
-     * @return Bencode response for the torrent client
+     * @return string
      */
-    public function announce(Request $request, $passkey)
+    public function index(Request $request, $passkey)
     {
-        // For Performance Logging Only!
-        /*\DB::listen(function($sql) {
-            \Log::info($sql->sql);
-            \Log::info($sql->bindings);
-            \Log::info($sql->time);
-        });*/
+        try {
+            /**
+             * Check client.
+             */
+            $this->checkClient($request);
 
-        // Check Announce Request Method
-        $method = $request->method();
-        if (! $request->isMethod('get')) {
-            info('Announce Request Method Was Not GET');
+            /**
+             * Check passkey.
+             */
+            $this->checkPasskey($passkey);
 
-            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']))->withHeaders(['Content-Type' => 'text/plain']);
+            /**
+             * Check user via supplied passkey.
+             */
+            $user = $this->checkUser($passkey);
+
+            /**
+             * Check and then get Announce queries.
+             */
+            $queries = $this->checkAnnounceFields($request);
+
+            /**
+             * Get Torrent Info Array from queries and judge if user can reach it.
+             */
+            $torrent = $this->checkTorrent($queries['info_hash']);
+
+            /**
+             * Generate A Response For The Torrent Clent
+             */
+            $rep_dict = $this->generateSuccessAnnounceResponse($queries, $torrent);
+
+            /**
+             * Dispatch The Specfic Annnounce Event Job
+             */
+            //$this->sendAnnounceJob($queries, $user, $torrent);
+        } catch (TrackerException $exception) {
+            $rep_dict = $this->generateFailedAnnounceResponse($exception);
+        } finally {
+            return $this->sendFinalAnnounceResponse($rep_dict);
+        }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return void
+     * @throws \App\Exceptions\TrackerException
+     */
+    protected function checkClient(Request $request)
+    {
+        // Miss Header User-Agent is not allowed.
+        if (! $request->header('User-Agent')) {
+            throw new TrackerException(120);
         }
 
-        // Request Agent Information
-        $agent = $request->server('HTTP_USER_AGENT');
+        // Block Other Browser, Crawler (, May Cheater or Faker Client) by check Requests headers
+        if ($request->header('accept-language') || $request->header('referer')
+            || $request->header('accept-charset')
 
-        // Blacklist
-        if (config('client-blacklist.enabled') == true) {
-            // Check If Browser Is Blacklisted
-            $blockedBrowsers = config('client-blacklist.browsers');
-            if (in_array($agent, $blockedBrowsers)) {
-                abort(405, 'What Are You Trying To Do?');
-                die();
-            }
+            /**
+             * This header check may block Non-bittorrent client `Aria2` to access tracker,
+             * Because they always add this header which other clients don't have.
+             *
+             * @see https://blog.rhilip.info/archives/1010/ ( in Chinese )
+             */
+            || $request->header('want-digest')
 
-            // Check If Client Is Blacklisted
-            $blockedClients = config('client-blacklist.clients');
-            if (in_array($agent, $blockedClients)) {
-                //info('Blacklist Client Attempted To Connect To Announce');
-                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']))->withHeaders(['Content-Type' => 'text/plain']);
-            }
+            /**
+             * If your tracker is behind the Cloudflare or other CDN (proxy) Server,
+             * Comment this line to avoid unexpected Block ,
+             * Because They may add the Cookie header ,
+             * Otherwise you should enabled this header check
+             *
+             * For example :
+             *
+             * The Cloudflare will add `__cfduid` Cookies to identify individual clients behind a shared IP address
+             * and apply security settings on a per-client basis.
+             *
+             * @see https://support.cloudflare.com/hc/en-us/articles/200170156
+             *
+             */
+            || $request->header('cookie')
+        ) {
+            throw new TrackerException(122);
         }
 
+        $user_agent = $request->header('User-Agent');
+
+        // Should also Block those too long User-Agent. ( For Database reason
+        if (strlen($user_agent) > 64) {
+            throw new TrackerException(123);
+        }
+
+        // Block Browser by check it's User-Agent
+        if (preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $user_agent)) {
+            throw new TrackerException(121);
+        }
+    }
+
+    /** Check Passkey Exist and Valid.
+     *
+     * @param $passkey
+     *
+     * @return void
+     * @throws \App\Exceptions\TrackerException
+     */
+    protected function checkPasskey($passkey)
+    {
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey == null) {
-            //info('Client Attempted To Connect To Announce Without A Passkey');
-            return response(Bencode::bencode(['failure reason' => 'Please Call Passkey']))->withHeaders(['Content-Type' => 'text/plain']);
+            throw new TrackerException(130, [':attribute' => 'passkey']);
         }
 
-        // If Infohash Is Not Provided Return Error to Client
-        if (! $request->has('info_hash')) {
-            //info('Client Attempted To Connect To Announce Without A Infohash');
-            return response(Bencode::bencode(['failure reason' => 'Missing info_hash']))->withHeaders(['Content-Type' => 'text/plain']);
+        // If Passkey Lenght Is Wrong
+        if (strlen($passkey) != 32) {
+            throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
         }
 
-        // If Peerid Is Not Provided Return Error to Client
-        if (! $request->has('peer_id')) {
-            //info('Client Attempted To Connect To Announce Without A Peerid');
-            return response(Bencode::bencode(['failure reason' => 'Missing peer_id']))->withHeaders(['Content-Type' => 'text/plain']);
+        // If Passkey Format Is Wrong
+        if (strspn(strtolower($passkey), 'abcdef0123456789') != 32) {  // MD5 char limit
+            throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']);
         }
+    }
 
-        // If Port Is Not Provided Return Error to Client
-        if (! $request->has('port')) {
-            //info('Client Attempted To Connect To Announce Without A Specified Port');
-            return response(Bencode::bencode(['failure reason' => 'Missing port']))->withHeaders(['Content-Type' => 'text/plain']);
-        }
-
-        // If "Left" Is Not Provided Return Error to Client
-        if (! $request->has('left')) {
-            //info('Client Attempted To Connect To Announce Without Supplying Any "Left" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing left']))->withHeaders(['Content-Type' => 'text/plain']);
-        }
-
-        // If "Upload" Is Not Provided Return Error to Client
-        if (! $request->has('uploaded')) {
-            //info('Client Attempted To Connect To Announce Without Supplying Any "Upload" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing upload']))->withHeaders(['Content-Type' => 'text/plain']);
-        }
-
-        // If "Download" Is Not Provided Return Error to Client
-        if (! $request->has('downloaded')) {
-            //info('Client Attempted To Connect To Announce Without Supplying Any "Download" Information');
-            return response(Bencode::bencode(['failure reason' => 'Missing download']))->withHeaders(['Content-Type' => 'text/plain']);
-        }
-
-        // Check Passkey Against Cache or Users Table
-        $user = Cache::get(sprintf('user.%s', $passkey)) ?? User::where('passkey', '=', $passkey)->first();
-
-        // If Passkey Doesn't Exist Return Error to Client
-        if ($user === null) {
-            //info('Client Attempted To Connect To Announce With A Invalid Passkey');
-            return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']))->withHeaders(['Content-Type' => 'text/plain']);
-        }
-
+    /** Get User Via Validated Passkey
+     *
+     * @param $passkey
+     *
+     * @return object
+     * @throws \App\Exceptions\TrackerException
+     */
+    protected function checkUser($passkey) : object
+    {
         // Caached System Required Groups
         $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
+        // Check Passkey Against Users Table
+        $user = User::where('passkey', '=', $passkey)->first();
+
+        // If User Doesn't Exist Return Error to Client
+        if ($user === null) {
+            throw new TrackerException(140);
+        }
+
+        // If User Account Is Unactivated/Validating Return Error to Client
+        if ($user->active == 0 || $user->group_id == $validating_group[0]) {
+            throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
+        }
+
+        // If User Download Rights Are Disabled Return Error to Client
+        if ($user->can_download == 0 && $left != 0) {
+            throw new TrackerException(142);
+        }
+
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {
-            //info('A Banned User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']))->withHeaders(['Content-Type' => 'text/plain']);
+            throw new TrackerException(143);
         }
 
         // If User Is Disabled Return Error to Client
         if ($user->group_id == $disabled_group[0]) {
-            //info('A Disabled User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']))->withHeaders(['Content-Type' => 'text/plain']);
+            throw new TrackerException(144);
         }
 
-        // If User Account Is Unactivated Return Error to Client
-        if ($user->active == 0) {
-            //info('A Unactivated User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is not activated']))->withHeaders(['Content-Type' => 'text/plain']);
+        return $user;
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkAnnounceFields(Request $request) : array
+    {
+        $queries = [
+            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT')
+        ];
+
+        // Part.1 check Announce **Need** Fields
+        foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
+            $item_data = $request->query->get($item);
+            if (!is_null($item_data)) {
+                $queries[$item] = $item_data;
+            } else {
+                throw new TrackerException(130, [':attribute' => $item]);
+            }
         }
 
-        // If User Is Validating Return Error to Client
-        if ($user->group_id == $validating_group[0]) {
-            //info('A Validating User (' . $user->username . ') Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your account is still validating']))->withHeaders(['Content-Type' => 'text/plain']);
+        foreach (['info_hash', 'peer_id'] as $item) {
+            if (strlen($queries[$item]) != 20) {
+                throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
+            }
         }
 
-        // Standard Information Fields
-        $event = $request->input('event');
-        $info_hash = bin2hex($request->input('info_hash'));
-        $peer_id = bin2hex($request->input('peer_id'));
-        $md5_peer_id = md5($peer_id);
-        $ip = $request->ip();
-        $port = (int) $request->input('port');
-        $left = (int) $request->input('left');
-        $uploaded = (int) $request->input('uploaded');
-        $real_uploaded = $uploaded;
-        $downloaded = (int) $request->input('downloaded');
-        $real_downloaded = $downloaded;
-
-        //Extra Information Fields
-        $tracker_id = $request->has('trackerid') ? bin2hex($request->input('tracker_id')) : null;
-        $compact = $request->input('compact') == 1;
-        $key = $request->has('key') ? bin2hex($request->input('key')) : null;
-        $corrupt = $request->has('corrupt') ? $request->input('corrupt') : null;
-        $ipv6 = $request->has('ipv6') ? bin2hex($request->input('ipv6')) : null;
-        $no_peer_id = $request->input('no_peer_id') == 1;
-
-        // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download == 0 && $left != 0) {
-            //info('A User With Revoked Download Privileges Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'Your download privileges are Revoked']))->withHeaders(['Content-Type' => 'text/plain']);
+        foreach (['uploaded', 'downloaded', 'left'] as $item) {
+            $item_data = $queries[$item];
+            if (!is_numeric($item_data) || $item_data < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
+            }
         }
 
-        // If User Client Is Sending Negative Values Return Error to Client
-        if ($uploaded < 0 || $downloaded < 0 || $left < 0) {
-            //info('Client Attempted To Send Data With A Negative Value');
-            return response(Bencode::bencode(['failure reason' => 'Data from client is a negative value']))->withHeaders(['Content-Type' => 'text/plain']);
+        // Part.2 check Announce **Option** Fields
+        foreach (['event' => '', 'no_peer_id' => 1, 'compact' => 0, 'numwant' => 50, 'corrupt' => 0, 'key' => '',] as $item => $value) {
+            $queries[$item] = $request->query->get($item, $value);
         }
 
-        // If User Client Does Not Support Compact Return Error to Client
-        if (! $compact) {
-            //info('Client Attempted To Connect To Announce But Doesn't Support Compact');
-            return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]))->withHeaders(['Content-Type' => 'text/plain']);
+        foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
+            if (!is_numeric($queries[$item]) || $queries[$item] < 0) {
+                throw new TrackerException(134, [":attribute" => $item]);
+            }
         }
 
-        // Check Info Hash Against Cache or Torrents Table
-        $torrent = Cache::get(sprintf('torrent.%s', $info_hash)) ?? Torrent::select(['id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers'])->withAnyStatus()->where('info_hash', '=', $info_hash)->first();
+        if (!in_array(strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
+            throw new TrackerException(136, [":event" => strtolower($queries['event'])]);
+        }
+
+        // Part.3 check Port is Valid and Allowed
+        /**
+         * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
+         * However, in some case , When `&event=stopped` the port may set to 0.
+         */
+        if ($queries['port'] == 0 && strtolower($queries['event']) != 'stopped') {
+            throw new TrackerException(137, [':event' => strtolower($queries['event'])]);
+        } elseif (!is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || in_array($queries['port'], self::BLACK_PORTS)) {
+            throw new TrackerException(135, [':port' => $queries['port']]);
+        }
+
+        // Part.4 Get User Ip Address
+        $queries['ip-address'] = $request->getClientIp();
+
+        // Part.5 Get Users Agent
+        $queries['user-agent'] = $request->headers->get('user-agent');
+
+        return $queries;
+    }
+
+    /**
+     * @param $info_hash
+     *
+     * @return object
+     * @throws \App\Exceptions\TrackerException
+     */
+    protected function checkTorrent($info_hash) : object
+    {
+        $bin2hex_hash = bin2hex($info_hash);
+
+        // Check Info Hash Against Torrents Table
+        $torrent = Torrent::withAnyStatus()
+            ->where('info_hash', '=', $bin2hex_hash)
+            ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
         if ($torrent === null) {
-            //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
-            return response(Bencode::bencode(['failure reason' => 'Torrent not found']))->withHeaders(['Content-Type' => 'text/plain']);
+            throw new TrackerException(150);
         }
 
         // If Torrent Is Pending Moderation Return Error to Client
         if ($torrent->status == self::PENDING) {
-            //info('Client Attempted To Connect To Announce But The Torrent Is Pending Moderation');
-            return response(Bencode::bencode(['failure reason' => 'Torrent is still pending moderation']))->withHeaders(['Content-Type' => 'text/plain']);
+            throw new TrackerException(151, [':status' => 'PENDING Moderation']);
         }
 
         // If Torrent Is Rejected Return Error to Client
         if ($torrent->status == self::REJECTED) {
-            //info('Client Attempted To Connect To Announce But The Torrent Is Rejected');
-            return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']))->withHeaders(['Content-Type' => 'text/plain']);
+            throw new TrackerException(151, [':status' => 'REJECTED Moderation']);
         }
 
         // If Torrent Is Postponed Return Error to Client
         if ($torrent->status == self::POSTPONED) {
-            //info('Client Attempted To Connect To Announce But The Torrent Is Postponed');
-            return response(Bencode::bencode(['failure reason' => 'Torrent has been postponed']))->withHeaders(['Content-Type' => 'text/plain']);
+            throw new TrackerException(151, [':status' => 'POSTPONED Moderation']);
         }
 
-        // Get Torrents Peers
-        $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take(50)->get()->toArray();
-
-        // Pull Count On Users Peers Per Torrent For Rate Limiting
-        $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
-
-        // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
-        if ($connections > config('announce.rate_limit')) {
-            //info('Client Attempted To Connect To Announce But Has Hit Rate Limits');
-            return response(Bencode::bencode(['failure reason' => 'You have reached the rate limit']))->withHeaders(['Content-Type' => 'text/plain']);
-        }
-
-        // Get The Current Peer
-        $peer = Peer::where('torrent_id', '=', $torrent->id)->where('md5_peer_id', $md5_peer_id)->where('user_id', '=', $user->id)->first();
-
-        // Flag is tripped if new session is created but client reports up/down > 0
-        $ghost = false;
-        if ($peer === null && $event == 'completed') {
-            return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']))->withHeaders(['Content-Type' => 'text/plain']);
-        }
-
-        // Creates a new peer if not existing
-        if ($peer === null) {
-            if ($uploaded > 0 || $downloaded > 0) {
-                $ghost = true;
-                $event = 'started';
-            }
-            $peer = new Peer();
-        }
-
-        // Get history information
-        $history = History::where('info_hash', '=', $info_hash)->where('user_id', '=', $user->id)->first();
-
-        // If no History record found then create one
-        if ($history === null) {
-            $history = new History();
-            $history->user_id = $user->id;
-            $history->info_hash = $info_hash;
-        }
-
-        if ($ghost) {
-            $uploaded = ($real_uploaded >= $history->client_uploaded) ? ($real_uploaded - $history->client_uploaded) : 0;
-            $downloaded = ($real_downloaded >= $history->client_downloaded) ? ($real_downloaded - $history->client_downloaded) : 0;
-        } else {
-            $uploaded = ($real_uploaded >= $peer->uploaded) ? ($real_uploaded - $peer->uploaded) : 0;
-            $downloaded = ($real_downloaded >= $peer->downloaded) ? ($real_downloaded - $peer->downloaded) : 0;
-        }
-
-        $old_update = $peer->updated_at ? $peer->updated_at->timestamp : Carbon::now()->timestamp;
-
-        // Modification of Upload and Download
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
-        $group = Group::whereId($user->group_id)->first();
-
-        if (config('other.freeleech') == 1 || $torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
-            $mod_downloaded = 0;
-        } else {
-            $mod_downloaded = $downloaded;
-        }
-
-        if (config('other.doubleup') == 1 || $torrent->doubleup == 1 || $group->is_double_upload == 1) {
-            $mod_uploaded = $uploaded * 2;
-        } else {
-            $mod_uploaded = $uploaded;
-        }
-
-        if ($event == 'started') {
-            // Peer Update
-            $peer->peer_id = $peer_id;
-            $peer->md5_peer_id = $md5_peer_id;
-            $peer->info_hash = $info_hash;
-            $peer->ip = $request->ip();
-            $peer->port = $port;
-            $peer->agent = $agent;
-            $peer->uploaded = $real_uploaded;
-            $peer->downloaded = $real_downloaded;
-            $peer->seeder = $left == 0;
-            $peer->left = $left;
-            $peer->torrent_id = $torrent->id;
-            $peer->user_id = $user->id;
-            $peer->save();
-            // End Peer Update
-
-            // History Update
-            $history->agent = $agent;
-            $history->active = 1;
-            $history->seeder = $left == 0;
-            $history->immune = $user->group->is_immune == 1;
-            $history->uploaded += 0;
-            $history->actual_uploaded += 0;
-            $history->client_uploaded = $real_uploaded;
-            $history->downloaded += 0;
-            $history->actual_downloaded += 0;
-            $history->client_downloaded = $real_downloaded;
-            $history->save();
-        // End History Update
-
-            // Never push stats to users account on start event
-        } elseif ($event == 'completed') {
-            // Peer Update
-            $peer->peer_id = $peer_id;
-            $peer->md5_peer_id = $md5_peer_id;
-            $peer->info_hash = $info_hash;
-            $peer->ip = $request->ip();
-            $peer->port = $port;
-            $peer->agent = $agent;
-            $peer->uploaded = $real_uploaded;
-            $peer->downloaded = $real_downloaded;
-            $peer->seeder = 1;
-            $peer->left = 0;
-            $peer->torrent_id = $torrent->id;
-            $peer->user_id = $user->id;
-            $peer->save();
-            // End Peer Update
-
-            // History Update
-            $history->agent = $agent;
-            $history->active = 1;
-            $history->seeder = $left == 0;
-            $history->immune = $user->group->is_immune == 1;
-            $history->uploaded += $mod_uploaded;
-            $history->actual_uploaded += $uploaded;
-            $history->client_uploaded = $real_uploaded;
-            $history->downloaded += $mod_downloaded;
-            $history->actual_downloaded += $downloaded;
-            $history->client_downloaded = $real_downloaded;
-            $history->completed_at = Carbon::now();
-            // Seedtime Allocation
-            if ($left == 0) {
-                $new_update = $peer->updated_at->timestamp;
-                $diff = $new_update - $old_update;
-                $history->seedtime += $diff;
-            }
-            $history->save();
-            // End History Update
-
-            // User Update
-            $user->uploaded += $mod_uploaded;
-            $user->downloaded += $mod_downloaded;
-            $user->save();
-            // End User Update
-
-            // Torrent Completed Update
-            $torrent->times_completed++;
-        // End Torrent Completed Update
-        } elseif ($event == 'stopped') {
-            //Peer Update
-            $peer->peer_id = $peer_id;
-            $peer->md5_peer_id = $md5_peer_id;
-            $peer->info_hash = $info_hash;
-            $peer->ip = $request->ip();
-            $peer->port = $port;
-            $peer->agent = $agent;
-            $peer->uploaded = $real_uploaded;
-            $peer->downloaded = $real_downloaded;
-            $peer->seeder = $left == 0;
-            $peer->left = $left;
-            $peer->torrent_id = $torrent->id;
-            $peer->user_id = $user->id;
-            $peer->save();
-            //End Peer Update
-
-            // History Update
-            $history->agent = $agent;
-            $history->active = 0;
-            $history->seeder = $left == 0;
-            $history->immune = $user->group->is_immune == 1;
-            $history->uploaded += $mod_uploaded;
-            $history->actual_uploaded += $uploaded;
-            $history->client_uploaded = 0;
-            $history->downloaded += $mod_downloaded;
-            $history->actual_downloaded += $downloaded;
-            $history->client_downloaded = 0;
-            // Seedtime allocation
-            if ($left == 0) {
-                $new_update = $peer->updated_at->timestamp;
-                $diff = $new_update - $old_update;
-                $history->seedtime += $diff;
-            }
-            $history->save();
-            // End History Update
-
-            // Peer Delete (Now that history is updated)
-            $peer->delete();
-            // End Peer Delete
-
-            // User Update
-            $user->uploaded += $mod_uploaded;
-            $user->downloaded += $mod_downloaded;
-            $user->save();
-        // End User Update
-        } else {
-            // Peer Update
-            $peer->peer_id = $peer_id;
-            $peer->md5_peer_id = $md5_peer_id;
-            $peer->info_hash = $info_hash;
-            $peer->ip = $request->ip();
-            $peer->port = $port;
-            $peer->agent = $agent;
-            $peer->uploaded = $real_uploaded;
-            $peer->downloaded = $real_downloaded;
-            $peer->seeder = $left == 0;
-            $peer->left = $left;
-            $peer->torrent_id = $torrent->id;
-            $peer->user_id = $user->id;
-            $peer->save();
-            // End Peer Update
-
-            // History Update
-            $history->agent = $agent;
-            $history->active = 1;
-            $history->seeder = $left == 0;
-            $history->uploaded += $mod_uploaded;
-            $history->actual_uploaded += $uploaded;
-            $history->client_uploaded = $real_uploaded;
-            $history->downloaded += $mod_downloaded;
-            $history->actual_downloaded += $downloaded;
-            $history->client_downloaded = $real_downloaded;
-            // Seedtime allocation
-            if ($left == 0) {
-                $new_update = $peer->updated_at->timestamp;
-                $diff = $new_update - $old_update;
-                $history->seedtime += $diff;
-            }
-            $history->save();
-            // End History Update
-
-            // User Update
-            $user->uploaded += $mod_uploaded;
-            $user->downloaded += $mod_downloaded;
-            $user->save();
-            // End User Update
-        }
-
-        // Torrent Update
+        // Sync Seeders / Leechers Count
         $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)->where('left', '=', '0')->count();
         $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)->where('left', '>', '0')->count();
         $torrent->save();
-        // End Torrent Update
 
+        return $torrent;
+    }
+
+    /**
+     * @param $queries
+     * @param $user
+     * @param $torrent
+     *
+     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html)
+     */
+    private function sendAnnounceJob($queries, $user, $torrent)
+    {
+        if(strtolower($queries['event']) == 'started') {
+            ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        }
+
+        if(strtolower($queries['event']) == 'completed') {
+            ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        }
+
+        if(strtolower($queries['event']) == 'stopped') {
+            ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        }
+
+        if(strtolower($queries['event']) == '') {
+            ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        }
+    }
+
+    /**
+     * @param $queries
+     * @param $torrent
+     *
+     * @return array
+     */
+    private function generateSuccessAnnounceResponse($queries, $torrent)
+    {
         // Build Response For Bittorrent Client
-        $res = [];
-        $res['interval'] = rand(self::MIN, self::MAX);
-        $res['min interval'] = self::MIN;
-        $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
-        $res['complete'] = $torrent->seeders;
-        $res['incomplete'] = $torrent->leechers;
-        $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id, FILTER_FLAG_IPV4);
-        $res['peers6'] = $this->givePeers($peers, $compact, $no_peer_id, FILTER_FLAG_IPV6);
+        $rep_dict = [
+            'interval' => rand(self::MIN, self::MAX),
+            'min interval' => self::MIN,
+            'complete' => (int) $torrent->seeders,
+            'incomplete' => (int) $torrent->leechers,
+        ];
 
-        return response(Bencode::bencode($res))->withHeaders(['Content-Type' => 'text/plain']);
-        // End Build Response For Bittorrent Client
+        /**
+         * For non `stopped` event only
+         * We query peers from database and send peerlist, otherwise just quick return
+         */
+        if ($queries['event'] != 'stopped') {
+            $limit = (int) ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
+
+            // Get Torrents Peers
+            $peers = Peer::where('torrent_id', '=', $torrent->id)->take($limit)->get()->toArray();
+
+            $rep_dict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV4);
+            $rep_dict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
+        }
+
+        return $rep_dict;
     }
 
     /**
@@ -515,5 +433,43 @@ class AnnounceController extends Controller
         }
 
         return $peers;
+    }
+
+    /**
+     * @param $exception
+     *
+     * @return array
+     */
+    protected function generateFailedAnnounceResponse(TrackerException $exception)
+    {
+        return [
+            'failure reason' => $exception->getMessage(),
+            'min interval' => self::MIN
+            /**
+             * BEP 31: Failure Retry Extension
+             *
+             * However most bittorrent client don't support it, so this feature is disabled default
+             *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
+             *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
+             *  - libtransmission (e.g. Transmission )
+             *    This library will ignore any other key if failed
+             *
+             * @see http://www.bittorrent.org/beps/bep_0031.html
+             */
+            //'retry in' => self::MIN
+        ];
+    }
+
+    /**
+     * @param $rep_dict
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    protected function sendFinalAnnounceResponse($rep_dict)
+    {
+        return response(Bencode::bencode($rep_dict))
+            ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
+            ->withHeaders(['Connection' => 'close'])
+            ->withHeaders(['Pragma' => 'no-cache']);
     }
 }
