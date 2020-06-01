@@ -97,6 +97,7 @@
                                     <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type">
                                     {{ $type }}
                                 @endif
+                            </label>
                         </span>
                     @endforeach
                 </div>
@@ -114,6 +115,7 @@
                                     <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}" class="genre">
                                     {{ $genre }}
                                 @endif
+                            </label>
                         </span>
                     @endforeach
                 </div>

@@ -592,7 +592,9 @@
         </div>
 
         {{-- Subtitles Block --}}
-        @include('torrent.partials.subtitles')
+        @if($torrent->category->movie_meta || $torrent->category->tv_meta)
+            @include('torrent.partials.subtitles')
+        @endif
 
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">

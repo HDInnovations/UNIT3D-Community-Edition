@@ -1227,23 +1227,25 @@ class TorrentController extends Controller
      * Torrent Upload Form.
      *
      * @param \Illuminate\Http\Request $request
+     * @param int                      $category_id
      * @param string                   $title
      * @param int                      $imdb
      * @param int                      $tmdb
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploadForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
+    public function uploadForm(Request $request, $category_id = 0, $title = '', $imdb = 0, $tmdb = 0)
     {
         $user = $request->user();
 
         return view('torrent.upload', [
-            'categories' => Category::all()->sortBy('position'),
-            'types'      => Type::all()->sortBy('position'),
-            'user'       => $user,
-            'title'      => $title,
-            'imdb'       => str_replace('tt', '', $imdb),
-            'tmdb'       => $tmdb,
+            'categories'  => Category::all()->sortBy('position'),
+            'types'       => Type::all()->sortBy('position'),
+            'user'        => $user,
+            'category_id' => $category_id,
+            'title'       => $title,
+            'imdb'        => str_replace('tt', '', $imdb),
+            'tmdb'        => $tmdb,
         ]);
     }
 
@@ -1261,13 +1263,16 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
+        // Find the right category
+        $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
+
         // Preview The Upload
         $previewContent = null;
         if ($request->get('preview') == true) {
             $bbcode = new Bbcode();
             $previewContent = $bbcode->parse($request->input('description'), true);
 
-            return redirect()->route('upload_form')
+            return redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withInput()
                 ->with(['previewContent' => $previewContent])
                 ->withWarning('Torrent Description Preview Loaded!');
@@ -1275,20 +1280,13 @@ class TorrentController extends Controller
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $requestFile = $request->file('torrent');
-        if (! $request->hasFile('torrent')) {
-            return view('torrent.upload', [
-                'categories' => Category::all()->sortBy('position'),
-                'types'      => Type::all()->sortBy('position'),
-                'user'       => $user, ])
-                ->withErrors('You Must Provide A Torrent File For Upload!');
+        if ($request->hasFile('torrent') == false) {
+            return redirect()->route('upload_form', ['category_id' => $category->id])
+                ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
-
-        if ($requestFile->getError() !== 0 && $requestFile->getClientOriginalExtension() !== 'torrent') {
-            return view('torrent.upload', [
-                'categories' => Category::all()->sortBy('position'),
-                'types'      => Type::all()->sortBy('position'),
-                'user'       => $user, ])
-                ->withErrors('A Error Has Occurred!');
+        if ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+            return redirect()->route('upload_form', ['category_id' => $category->id])
+                ->withErrors('An Unknown Error Has Occurred!')->withInput();
         }
 
         // Deplace and decode the torrent temporarily
@@ -1297,9 +1295,6 @@ class TorrentController extends Controller
         $meta = Bencode::get_meta($decodedTorrent);
         $fileName = uniqid().'.torrent'; // Generate a unique name
         file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
-
-        // Find the right category
-        $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
 
         // Create the torrent (DB)
         $torrent = new Torrent();
@@ -1357,7 +1352,7 @@ class TorrentController extends Controller
                 unlink(getcwd().'/files/torrents/'.$fileName);
             }
 
-            return redirect()->route('upload_form')
+            return redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors($v->errors())->withInput();
         }
         // Save The Torrent
