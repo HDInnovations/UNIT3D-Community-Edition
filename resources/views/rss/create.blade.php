@@ -75,7 +75,7 @@
                                 <span class="badge-user">
                                     <label class="inline">
                                         <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type">
-                                        {{ $type->name }}
+                                        {{ $type }}
                                     </label>
                                 </span>
                             @endforeach
