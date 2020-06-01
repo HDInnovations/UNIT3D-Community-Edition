@@ -63,7 +63,7 @@ mix.options({
      *
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
-    .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/custom.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
+    .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/custom.js', 'resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
     .generateIntegrityHash()
 
     /*

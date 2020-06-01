@@ -158,12 +158,13 @@ class uploadExtensionBuilder {
                 }
             }
         }
-        
+
         return newTitle;
     }
     hook() {
         let name = document.querySelector('#title');
         let torrent = document.querySelector('#torrent');
+        let release;
         if (!name.value) {
             const fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
             var newValue = torrent.value;
@@ -175,6 +176,114 @@ class uploadExtensionBuilder {
             });
             // replace dots with spaces
             name.value = this.removeDots(newValue);
+        }
+
+        /* PARSING */
+        release = title_parser.parse(name.value, {
+            strict: true, // if no main tags found, will throw an exception
+            flagged: true, // add flags to generated relese name (like STV, REMASTERED, READNFO)
+            erase: [], // add expressions to erase before parsing
+            defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
+        });
+
+        let matcher = name.value.toLowerCase();
+
+        // Torrent Category
+        if (release.type === "Movie") {
+            $("#autocat").val(1);
+        } else if (release.type === "TV Show") {
+            $("#autocat").val(2);
+        }
+
+        // Torrent Type
+        if (matcher.indexOf("bd50") > 0 || matcher.indexOf("bd25") > 0 || matcher.indexOf("untouched") > 0 || matcher.indexOf("dvd5") > 0 || matcher.indexOf("dvd9") > 0 || matcher.indexOf("mpeg-2") > 0 || matcher.indexOf("avc") > 0 || matcher.indexOf("vc-1") > 0) {
+            $("#autotype").val(1);
+        }
+        if (matcher.indexOf("remux") > 0) {
+            $("#autotype").val(2);
+        }
+        if (matcher.indexOf("x264") > 0) {
+            $("#autotype").val(3);
+        }
+        if (matcher.indexOf("x265") > 0) {
+            $("#autotype").val(3);
+        }
+        if (matcher.indexOf("webdl") > 0 || matcher.indexOf("web-dl") > 0) {
+            $("#autotype").val(4);
+        }
+        if (matcher.indexOf("web-rip") > 0 || matcher.indexOf("webrip") > 0) {
+            $("#autotype").val(5);
+        }
+        if (matcher.indexOf("hdtv") > 0) {
+            $("#autotype").val(6);
+        }
+
+        // Torrent Resolution
+        //$("#autores").val(release.resolution);
+
+        // Torrent TMDB ID
+        if (release.type === "Movie") {
+            theMovieDb.search.getMovie({ "query": release.title }, successCB, errorCB);
+        } else if (release.type === "TV Show") {
+            theMovieDb.search.getTv({ "query": release.title }, successCB, errorCB);
+        }
+
+        function successCB(data) {
+            data = JSON.parse(data);
+            if (release.type === "Movie") {
+                if (data.results && data.results.length > 0) {
+                    $("#autotmdb").val(data.results[0].id);
+                    $("#apimatch").val('Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')');
+                    theMovieDb.movies.getKeywords({ "id": data.results[0].id }, success, error);
+                    theMovieDb.movies.getExternalIds({ "id": data.results[0].id }, s, e);
+                }
+            } else if (release.type === "TV Show") {
+                if (data.results && data.results.length > 0) {
+                    $("#autotmdb").val(data.results[0].id);
+                    $("#apimatch").val('Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')');
+                    theMovieDb.tv.getKeywords({ "id": data.results[0].id }, success, error);
+                    theMovieDb.tv.getExternalIds({ "id": data.results[0].id }, s, e);
+                }
+            }
+        }
+        function errorCB(data) {
+            console.log("Error callback: " + data);
+        }
+
+        //Torrent Keywords
+        function success(data) {
+            data = JSON.parse(data);
+            if (release.type === "Movie") {
+                let tags = data.keywords.map(({ name }) => name).join(', ');
+                $("#autokeywords").val(tags);
+            } else if (release.type === "TV Show") {
+                let tags = data.results.map(({ name }) => name).join(', ');
+                $("#autokeywords").val(tags);
+            }
+        }
+        function error(data) {
+            console.log("Error callback: " + data);
+        }
+
+        //Torrent External IDs
+        function s(data) {
+            data = JSON.parse(data);
+            let imdb = data.imdb_id;
+            imdb = imdb.substring(2);
+            if (release.type === "Movie") {
+                $("#autoimdb").val(imdb);
+            } else if (release.type === "TV Show") {
+                $("#autoimdb").val(imdb);
+                $("#autotvdb").val(data.tvdb_id);
+            }
+        }
+        function e(data) {
+            console.log("Error callback: " + data);
+        }
+
+        // Torrent Stream Optimized?
+        if (release.container === "MP4" && release.audio === "AAC") {
+            document.getElementById("stream").checked = true;
         }
     }
 }
