@@ -50,7 +50,7 @@ class BonusController extends Controller
      * @param ChatRepository $chat
      */
     public function __construct(
-        ByteUnits $byteUnits,
+        \App\Interfaces\ByteUnitsInterface $byteUnits,
         ChatRepository $chat
     ) {
         $this->byteUnits = $byteUnits;
@@ -251,7 +251,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if (! $flag) {
+            if ($flag === '') {
                 return redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }

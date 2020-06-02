@@ -1372,14 +1372,14 @@ class TorrentController extends Controller
         }
         $meta = null;
         // Torrent Tags System
-        if ($torrent->category->tv_meta) {
+        if ($torrent->category->tv_meta !== 0) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = $client->scrape('tv', null, $torrent->tmdb);
             } else {
                 $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
             }
         }
-        if ($torrent->category->movie_meta) {
+        if ($torrent->category->movie_meta !== 0) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = $client->scrape('movie', null, $torrent->tmdb);
             } else {

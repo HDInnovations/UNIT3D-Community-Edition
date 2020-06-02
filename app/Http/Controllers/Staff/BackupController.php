@@ -37,7 +37,7 @@ class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        if (! (is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0)) {
+        if ((is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0) === 0) {
             dd(trans('backup.no_disks_configured'));
         }
 
@@ -58,7 +58,7 @@ class BackupController extends Controller
                         'file_size'     => $disk->size($f),
                         'last_modified' => $disk->lastModified($f),
                         'disk'          => $disk_name,
-                        'download'      => ($adapter instanceof Local) ? true : false,
+                        'download'      => $adapter instanceof Local,
                     ];
                 }
             }

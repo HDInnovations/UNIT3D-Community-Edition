@@ -64,7 +64,7 @@ class DemoSeed extends Command
             // Users
             $this->info('Creating User Account');
 
-            $uid = factory(User::class)->create()->id;
+            $uid = factory()->create()->id;
 
             // random boolean
             if ([false, true][rand(0, 1)]) {
@@ -74,7 +74,7 @@ class DemoSeed extends Command
                 $this->info('Creating Movie Torrents for Account ID #'.$uid);
 
                 try {
-                    factory(Torrent::class)->create([
+                    factory()->create([
                         'user_id'     => $uid,
                         'tmdb'        => $id,
                         'name'        => $r->title.' ('.$r->releaseYear.')',
