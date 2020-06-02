@@ -337,7 +337,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $images = array_map(fn ($item) => $path.$item['file_path'], $images);
 
-        return array_filter($images, fn ($item) => !$item != !($path.$image));
+        return array_filter($images, fn ($item) => ! $item != ! ($path.$image));
     }
 
     private function formatCasts($credits, $role)
