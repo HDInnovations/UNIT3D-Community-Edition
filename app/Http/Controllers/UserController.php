@@ -1418,17 +1418,15 @@ class UserController extends Controller
 
             if ($sorting != 'name' && $sorting != 'satisfied_at' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
-            } else {
-                if ($sorting == 'satisfied_at') {
-                    if ($order == 'desc') {
-                        $order = 'asc';
-                    } elseif ($order == 'asc') {
-                        $order = 'desc';
-                    }
-                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
-                } else {
-                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+            } elseif ($sorting == 'satisfied_at') {
+                if ($order == 'desc') {
+                    $order = 'asc';
+                } elseif ($order == 'asc') {
+                    $order = 'desc';
                 }
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+            } else {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
             }
 
             return view('user.filters.unsatisfieds', [

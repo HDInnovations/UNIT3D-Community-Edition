@@ -143,7 +143,7 @@ class AutoNerdStat extends Command
             $selected = mt_rand(0, count($statArray) - 1);
 
             // Auto Shout Nerd Stat
-            $this->chat->systemMessage(sprintf('%s', $statArray[$selected]), 2);
+            $this->chat->systemMessage($statArray[$selected], 2);
         }
         $this->comment('Automated Nerd Stat Command Complete');
     }
