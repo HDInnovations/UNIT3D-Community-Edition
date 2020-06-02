@@ -35,7 +35,7 @@ class AnnounceControllerTest extends TestCase
             'passkey'    => $user->passkey,
             'info_hash'  => $infoHash,
             'peer_id'    => bin2hex(random_bytes(10)),
-            'port'       => 443,
+            'port'       => 7022,
             'left'       => 1,
             'uploaded'   => 1,
             'downloaded' => 1,
