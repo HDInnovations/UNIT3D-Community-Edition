@@ -30,6 +30,7 @@ class StatsController extends Controller
      * @var \Carbon\Carbon|mixed
      */
     public $expiresAt;
+
     /**
      * StatsController Constructor.
      */

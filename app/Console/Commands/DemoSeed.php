@@ -13,8 +13,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Torrent;
-use App\Models\User;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;

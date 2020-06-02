@@ -20,6 +20,7 @@ class BBCodeConverter
      */
     public $text;
     public $id;
+
     /**
      * @brief Constructor.
      *
