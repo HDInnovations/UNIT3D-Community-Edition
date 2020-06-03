@@ -96,7 +96,7 @@ class AnnounceController extends Controller
             /**
              * Dispatch The Specfic Annnounce Event Job
              */
-            //$this->sendAnnounceJob($queries, $user, $torrent);
+            $this->sendAnnounceJob($queries, $user, $torrent);
         } catch (TrackerException $exception) {
             $rep_dict = $this->generateFailedAnnounceResponse($exception);
         } finally {
@@ -353,19 +353,13 @@ class AnnounceController extends Controller
      */
     private function sendAnnounceJob($queries, $user, $torrent)
     {
-        if(strtolower($queries['event']) == 'started') {
+        if (strtolower($queries['event']) == 'started') {
             ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        }
-
-        if(strtolower($queries['event']) == 'completed') {
+        } elseif (strtolower($queries['event']) == 'completed') {
             ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        }
-
-        if(strtolower($queries['event']) == 'stopped') {
+        } elseif (strtolower($queries['event']) == 'stopped') {
             ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        }
-
-        if(strtolower($queries['event']) == '') {
+        } else {
             ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
         }
     }
