@@ -17,13 +17,14 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\FreeleechToken
+ * App\Models\FreeleechToken.
  *
  * @property int $id
  * @property int $user_id
  * @property int $torrent_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken query()

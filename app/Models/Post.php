@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\Post
+ * App\Models\Post.
  *
  * @property int $id
  * @property string $content
@@ -34,6 +34,7 @@ use voku\helper\AntiXSS;
  * @property-read int|null $tips_count
  * @property-read \App\Models\Topic $topic
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post query()

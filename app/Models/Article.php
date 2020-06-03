@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\Article
+ * App\Models\Article.
  *
  * @property int $id
  * @property string $title
@@ -33,6 +33,7 @@ use voku\helper\AntiXSS;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read int|null $comments_count
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()

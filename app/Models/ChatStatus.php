@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\ChatStatus
+ * App\Models\ChatStatus.
  *
  * @property int $id
  * @property string $name
@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatStatus newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatStatus newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatStatus query()

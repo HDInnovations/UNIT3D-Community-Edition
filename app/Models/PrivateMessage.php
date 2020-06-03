@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\PrivateMessage
+ * App\Models\PrivateMessage.
  *
  * @property int $id
  * @property int $sender_id
@@ -33,6 +33,7 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $receiver
  * @property-read \App\Models\User $sender
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage query()

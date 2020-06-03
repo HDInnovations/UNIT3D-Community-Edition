@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Forum
+ * App\Models\Forum.
  *
  * @property int $id
  * @property int|null $position
@@ -47,6 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $subscriptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $topics
  * @property-read int|null $topics_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum query()

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * App\Models\Follow
+ * App\Models\Follow.
  *
  * @property int $id
  * @property int $user_id
@@ -29,6 +29,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $notifications_count
  * @property-read \App\Models\User $target
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow query()

@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Rss
+ * App\Models\Rss.
  *
  * @property int $id
  * @property int $position
@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read string $object_torrent
  * @property-read \App\Models\User $staff
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss newQuery()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Rss onlyTrashed()

@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\TorrentRequest
+ * App\Models\TorrentRequest.
  *
  * @property int $id
  * @property string $name
@@ -56,6 +56,7 @@ use voku\helper\AntiXSS;
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\Type $type
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest query()

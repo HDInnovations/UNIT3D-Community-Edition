@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Report
+ * App\Models\Report.
  *
  * @property int $id
  * @property string $type
@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\TorrentRequest $request
  * @property-read \App\Models\User|null $staff
  * @property-read \App\Models\Torrent $torrent
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Report newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Report newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Report query()

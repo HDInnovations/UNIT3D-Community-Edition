@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\Comment
+ * App\Models\Comment.
  *
  * @property int $id
  * @property string $content
@@ -37,6 +37,7 @@ use voku\helper\AntiXSS;
  * @property-read \App\Models\TorrentRequest|null $request
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()

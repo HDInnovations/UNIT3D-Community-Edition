@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Wish
+ * App\Models\Wish.
  *
  * @property int $id
  * @property int $user_id
@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish query()

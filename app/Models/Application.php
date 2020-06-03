@@ -18,7 +18,7 @@ use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Application
+ * App\Models\Application.
  *
  * @property int $id
  * @property string $type
@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ApplicationUrlProof[] $urlProofs
  * @property-read int|null $url_proofs_count
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application query()
