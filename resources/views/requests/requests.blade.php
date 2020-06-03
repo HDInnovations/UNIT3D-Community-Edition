@@ -187,9 +187,9 @@
         <div class="container-fluid">
             <div class="block">
                 <span class="badge-user" style="float: right;">
-                    <strong>@lang('request.requests'):</strong> {{ $num_req }} |
-                    <strong>@lang('request.filled'):</strong> {{ $num_fil }} |
-                    <strong>@lang('request.unfilled'):</strong> {{ $num_unfil }} |
+                    <strong>@lang('request.requests'):</strong> {{ $requests->total }} |
+                    <strong>@lang('request.filled'):</strong> {{ $requests->filled }} |
+                    <strong>@lang('request.unfilled'):</strong> {{ $requests->unfilled }} |
                     <strong>@lang('request.total-bounty'):</strong> {{ $total_bounty }} @lang('bon.bon') |
                     <strong>@lang('request.bounty-claimed'):</strong> {{ $claimed_bounty }} @lang('bon.bon') |
                     <strong>@lang('request.bounty-unclaimed'):</strong> {{ $unclaimed_bounty }} @lang('bon.bon')
