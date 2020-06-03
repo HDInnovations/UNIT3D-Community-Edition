@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Permission.
+ * App\Models\Permission
  *
  * @property int $id
  * @property int $forum_id
@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $start_topic
  * @property-read \App\Models\Forum $forum
  * @property-read \App\Models\Group $group
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()

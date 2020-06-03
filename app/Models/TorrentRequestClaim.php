@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TorrentRequestClaim.
+ * App\Models\TorrentRequestClaim
  *
  * @property int $id
  * @property int $request_id
@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestClaim newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestClaim newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestClaim query()

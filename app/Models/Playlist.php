@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Playlist.
+ * App\Models\Playlist
  *
  * @property int $id
  * @property int $user_id
@@ -35,7 +35,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PlaylistTorrent[] $torrents
  * @property-read int|null $torrents_count
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Playlist newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Playlist newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Playlist query()

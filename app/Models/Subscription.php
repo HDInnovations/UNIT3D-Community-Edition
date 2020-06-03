@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Subscription.
+ * App\Models\Subscription
  *
  * @property int $id
  * @property int $user_id
@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Forum|null $forum
  * @property-read \App\Models\Topic|null $topic
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription query()

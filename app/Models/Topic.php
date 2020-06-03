@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Topic.
+ * App\Models\Topic
  *
  * @property int $id
  * @property string $name
@@ -37,16 +37,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $last_post_user_id
  * @property string|null $first_post_user_username
  * @property string|null $last_post_user_username
- * @property string|null $last_reply_at
+ * @property \Illuminate\Support\Carbon|null $last_reply_at
  * @property int|null $views
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $forum_id
  * @property-read \App\Models\Forum $forum
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
+ * @property-read int|null $posts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $subscriptions
+ * @property-read int|null $subscriptions_count
  * @property-read \App\Models\User|null $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic query()
@@ -73,9 +74,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic whereViews($value)
  * @mixin \Eloquent
- *
- * @property-read int|null $posts_count
- * @property-read int|null $subscriptions_count
  */
 class Topic extends Model
 {

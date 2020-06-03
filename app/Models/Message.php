@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\Message.
+ * App\Models\Message
  *
  * @property int $id
  * @property int $user_id
@@ -33,7 +33,6 @@ use voku\helper\AntiXSS;
  * @property-read \App\Models\Chatroom $chatroom
  * @property-read \App\Models\User|null $receiver
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message query()

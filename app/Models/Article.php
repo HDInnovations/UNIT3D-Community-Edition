@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\Article.
+ * App\Models\Article
  *
  * @property int $id
  * @property string $title
@@ -31,8 +31,8 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()
@@ -45,8 +45,6 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUserId($value)
  * @mixin \Eloquent
- *
- * @property-read int|null $comments_count
  */
 class Article extends Model
 {

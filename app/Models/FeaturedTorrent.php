@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\FeaturedTorrent.
+ * App\Models\FeaturedTorrent
  *
  * @property int $id
  * @property int $user_id
@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Torrent $torrent
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FeaturedTorrent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FeaturedTorrent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FeaturedTorrent query()

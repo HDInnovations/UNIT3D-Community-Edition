@@ -16,7 +16,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\ApplicationUrlProof.
+ * App\Models\ApplicationUrlProof
  *
  * @property int $id
  * @property int $application_id
@@ -24,7 +24,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Application $application
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ApplicationUrlProof query()

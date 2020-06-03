@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Voter.
+ * App\Models\Voter
  *
  * @property int $id
  * @property int $poll_id
@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Poll $poll
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Voter newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Voter newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Voter query()

@@ -16,7 +16,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Audit.
+ * App\Models\Audit
  *
  * @property int $id
  * @property int|null $user_id
@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User|null $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit query()

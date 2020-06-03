@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Forum.
+ * App\Models\Forum
  *
  * @property int $id
  * @property int|null $position
@@ -36,12 +36,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Forum[] $forums
+ * @property-read int|null $forums_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $sub_topics
+ * @property-read int|null $sub_topics_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $subscription_topics
+ * @property-read int|null $subscription_topics_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $subscriptions
+ * @property-read int|null $subscriptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Topic[] $topics
- *
+ * @property-read int|null $topics_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum query()
@@ -61,13 +66,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Forum whereUpdatedAt($value)
  * @mixin \Eloquent
- *
- * @property-read int|null $forums_count
- * @property-read int|null $permissions_count
- * @property-read int|null $sub_topics_count
- * @property-read int|null $subscription_topics_count
- * @property-read int|null $subscriptions_count
- * @property-read int|null $topics_count
  */
 class Forum extends Model
 {

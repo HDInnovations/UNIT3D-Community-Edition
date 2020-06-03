@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\UserActivation.
+ * App\Models\UserActivation
  *
  * @property int $id
  * @property int $user_id
@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserActivation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserActivation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserActivation query()

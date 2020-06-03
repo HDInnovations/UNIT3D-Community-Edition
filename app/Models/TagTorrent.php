@@ -16,13 +16,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TagTorrent.
+ * App\Models\TagTorrent
  *
  * @property int $id
  * @property int $torrent_id
  * @property string $tag_name
  * @property-read \App\Models\Tag $genre
- *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TagTorrent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TagTorrent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TagTorrent query()
