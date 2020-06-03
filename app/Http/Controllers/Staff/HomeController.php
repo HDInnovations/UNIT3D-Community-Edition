@@ -45,26 +45,26 @@ class HomeController extends Controller
         // Torrent Info
         $torrents = DB::table('torrents')
             ->selectRaw('count(*) as total')
-            ->selectRaw("count(case when status = 0 then 1 end) as pending")
-            ->selectRaw("count(case when status = 2 then 1 end) as rejected")
-            ->selectRaw("count(case when status = 3 then 1 end) as postponed")
+            ->selectRaw('count(case when status = 0 then 1 end) as pending')
+            ->selectRaw('count(case when status = 2 then 1 end) as rejected')
+            ->selectRaw('count(case when status = 3 then 1 end) as postponed')
             ->first();
 
         // Peers Info
         $peers = DB::table('peers')
             ->selectRaw('count(*) as total')
-            ->selectRaw("count(case when seeder = 0 then 1 end) as leechers")
-            ->selectRaw("count(case when seeder = 1 then 1 end) as seeders")
+            ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
+            ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
             ->first();
 
         // Reports Info
         $reports = DB::table('reports')
-            ->selectRaw("count(case when solved = 0 then 1 end) as unsolved")
+            ->selectRaw('count(case when solved = 0 then 1 end) as unsolved')
             ->first();
 
         // Pending Applications Count
         $apps = DB::table('applications')
-            ->selectRaw("count(case when status = 0 then 1 end) as pending")
+            ->selectRaw('count(case when status = 0 then 1 end) as pending')
             ->first();
 
         // SSL Info
