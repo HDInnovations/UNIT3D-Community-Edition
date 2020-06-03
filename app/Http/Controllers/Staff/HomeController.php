@@ -15,13 +15,9 @@ namespace App\Http\Controllers\Staff;
 
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
-use App\Models\Application;
 use App\Models\Group;
-use App\Models\Peer;
-use App\Models\Report;
-use App\Models\Torrent;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
 
 class HomeController extends Controller
@@ -40,22 +36,36 @@ class HomeController extends Controller
         // User Info
         $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $num_user = User::count();
-        $banned = User::where('group_id', '=', $banned_group[0])->count();
-        $validating = User::where('group_id', '=', $validating_group[0])->count();
+        $users = DB::table('users')
+            ->selectRaw('count(*) as total')
+            ->selectRaw("count(case when group_id = $banned_group[0] then 1 end) as banned")
+            ->selectRaw("count(case when group_id = $validating_group[0] then 1 end) as validating")
+            ->first();
 
         // Torrent Info
-        $num_torrent = Torrent::count();
-        $pending = Torrent::pending()->count();
-        $rejected = Torrent::rejected()->count();
+        $torrents = DB::table('torrents')
+            ->selectRaw('count(*) as total')
+            ->selectRaw("count(case when status = 0 then 1 end) as pending")
+            ->selectRaw("count(case when status = 2 then 1 end) as rejected")
+            ->selectRaw("count(case when status = 3 then 1 end) as postponed")
+            ->first();
 
         // Peers Info
-        $peers = Peer::count();
-        $seeders = Peer::where('seeder', '=', 1)->count();
-        $leechers = Peer::where('seeder', '=', 0)->count();
+        $peers = DB::table('peers')
+            ->selectRaw('count(*) as total')
+            ->selectRaw("count(case when seeder = 0 then 1 end) as leechers")
+            ->selectRaw("count(case when seeder = 1 then 1 end) as seeders")
+            ->first();
 
         // Reports Info
-        $reports_count = Report::where('solved', '=', 0)->count();
+        $reports = DB::table('reports')
+            ->selectRaw("count(case when solved = 0 then 1 end) as unsolved")
+            ->first();
+
+        // Pending Applications Count
+        $apps = DB::table('applications')
+            ->selectRaw("count(case when status = 0 then 1 end) as pending")
+            ->first();
 
         // SSL Info
         try {
@@ -75,20 +85,12 @@ class HomeController extends Controller
         // Directory Permissions
         $file_permissions = $sys->directoryPermissions();
 
-        // Pending Applications Count
-        $app_count = Application::pending()->count();
-
         return view('Staff.dashboard.index', [
-            'num_user'           => $num_user,
-            'banned'             => $banned,
-            'validating'         => $validating,
-            'num_torrent'        => $num_torrent,
-            'pending'            => $pending,
-            'rejected'           => $rejected,
+            'users'              => $users,
+            'torrents'           => $torrents,
             'peers'              => $peers,
-            'seeders'            => $seeders,
-            'leechers'           => $leechers,
-            'reports_count'      => $reports_count,
+            'reports'            => $reports,
+            'apps'               => $apps,
             'certificate'        => $certificate,
             'uptime'             => $uptime,
             'ram'                => $ram,
@@ -96,7 +98,6 @@ class HomeController extends Controller
             'avg'                => $avg,
             'basic'              => $basic,
             'file_permissions'   => $file_permissions,
-            'app_count'          => $app_count,
         ]);
     }
 }

@@ -88,10 +88,10 @@
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Torrents</h1>
-                                    <span class="badge-user">Total: {{ $num_torrent }}</span>
+                                    <span class="badge-user">Total: {{ $torrents->total }}</span>
                                     <br>
-                                    <span class="badge-user">Pending: {{ $pending }}</span>
-                                    <span class="badge-user">Rejected: {{ $rejected }}</span>
+                                    <span class="badge-user">Pending: {{ $torrents->pending }}</span>
+                                    <span class="badge-user">Rejected: {{ $torrents->rejected }}</span>
                                     <i class="fal fa-magnet black-icon text-green"></i>
                                 </div>
                             </div>
@@ -99,10 +99,10 @@
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Peers</h1>
-                                    <span class="badge-user">Total: {{ $peers }}</span>
+                                    <span class="badge-user">Total: {{ $peers->total }}</span>
                                     <br>
-                                    <span class="badge-user">Seeders: {{ $seeders }}</span>
-                                    <span class="badge-user">Leechers: {{ $leechers }}</span>
+                                    <span class="badge-user">Seeders: {{ $peers->seeders }}</span>
+                                    <span class="badge-user">Leechers: {{ $peers->leechers }}</span>
                                     <i class="fal fa-wifi black-icon text-green"></i>
                                 </div>
                             </div>
@@ -110,10 +110,10 @@
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1 style=" color: #ffffff;">Users</h1>
-                                    <span class="badge-user">Total: {{ $num_user }}</span>
+                                    <span class="badge-user">Total: {{ $users->total }}</span>
                                     <br>
-                                    <span class="badge-user">Validating: {{ $validating }}</span>
-                                    <span class="badge-user">Banned: {{ $banned }}</span>
+                                    <span class="badge-user">Validating: {{ $users->validating }}</span>
+                                    <span class="badge-user">Banned: {{ $users->banned }}</span>
                                     <i class="fal fa-users black-icon text-green"></i>
                                 </div>
                             </div>
