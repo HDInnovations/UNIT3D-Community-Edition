@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * App\Models\Chatroom
+ * App\Models\Chatroom.
  *
  * @property int $id
  * @property string $name
@@ -30,6 +30,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom query()

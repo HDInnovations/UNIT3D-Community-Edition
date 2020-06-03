@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * App\Models\Poll
+ * App\Models\Poll.
  *
  * @property int $id
  * @property int $user_id
@@ -32,6 +32,7 @@ use Illuminate\Support\Str;
  * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Voter[] $voters
  * @property-read int|null $voters_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll query()

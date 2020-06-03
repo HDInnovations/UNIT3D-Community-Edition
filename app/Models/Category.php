@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Category
+ * App\Models\Category.
  *
  * @property int $id
  * @property string $name
@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $requests_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents
  * @property-read int|null $torrents_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category query()

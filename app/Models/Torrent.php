@@ -26,7 +26,7 @@ use Kyslik\ColumnSortable\Sortable;
 use voku\helper\AntiXSS;
 
 /**
- * App\Models\Torrent
+ * App\Models\Torrent.
  *
  * @property int $id
  * @property string $name
@@ -91,6 +91,7 @@ use voku\helper\AntiXSS;
  * @property-read \App\Models\Type $type
  * @property-read \App\Models\User $uploader
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent query()

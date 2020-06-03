@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Warning
+ * App\Models\Warning.
  *
  * @property int $id
  * @property int $user_id
@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\User $staffuser
  * @property-read \App\Models\Torrent $torrenttitle
  * @property-read \App\Models\User $warneduser
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning newQuery()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Warning onlyTrashed()

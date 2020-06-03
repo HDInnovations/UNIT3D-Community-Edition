@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Topic
+ * App\Models\Topic.
  *
  * @property int $id
  * @property string $name
@@ -48,6 +48,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subscription[] $subscriptions
  * @property-read int|null $subscriptions_count
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic query()

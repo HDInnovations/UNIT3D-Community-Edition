@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\BonExchange
+ * App\Models\BonExchange.
  *
  * @property int $id
  * @property string|null $description
@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $download
  * @property bool $personal_freeleech
  * @property bool $invite
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange query()

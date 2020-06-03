@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\TorrentRequestBounty
+ * App\Models\TorrentRequestBounty.
  *
  * @property int $id
  * @property int $user_id
@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\TorrentRequest $request
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty query()

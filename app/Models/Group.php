@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Group
+ * App\Models\Group.
  *
  * @property int $id
  * @property string $name
@@ -42,6 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group query()

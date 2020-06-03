@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\PlaylistTorrent
+ * App\Models\PlaylistTorrent.
  *
  * @property int $id
  * @property int|null $position
@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $tmdb_id
  * @property-read \App\Models\Playlist $playlist
  * @property-read \App\Models\Torrent $torrent
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent query()

@@ -18,7 +18,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Subtitle
+ * App\Models\Subtitle.
  *
  * @property int $id
  * @property string $title
@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\MediaLanguage $language
  * @property-read \App\Models\Torrent $torrent
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subtitle newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subtitle newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subtitle query()

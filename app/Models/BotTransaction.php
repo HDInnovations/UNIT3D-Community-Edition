@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\BotTransaction
+ * App\Models\BotTransaction.
  *
  * @property int $id
  * @property string|null $type
@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Bot $bot
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BotTransaction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BotTransaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BotTransaction query()

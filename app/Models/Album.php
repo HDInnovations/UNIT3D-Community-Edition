@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Album
+ * App\Models\Album.
  *
  * @property int $id
  * @property int $user_id
@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Image[] $images
  * @property-read int|null $images_count
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Album newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Album newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Album query()

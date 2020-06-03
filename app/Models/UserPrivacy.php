@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\UserPrivacy
+ * App\Models\UserPrivacy.
  *
  * @property int $id
  * @property int $user_id
@@ -63,6 +63,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read array $expected_fields
  * @property-read array $expected_groups
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy query()

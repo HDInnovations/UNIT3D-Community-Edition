@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Graveyard
+ * App\Models\Graveyard.
  *
  * @property int $id
  * @property int $user_id
@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Torrent $torrent
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard query()

@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\UserNotification
+ * App\Models\UserNotification.
  *
  * @property int $id
  * @property int $user_id
@@ -53,6 +53,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read array $expected_fields
  * @property-read array $expected_groups
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification query()
