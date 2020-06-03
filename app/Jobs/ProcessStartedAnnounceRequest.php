@@ -70,6 +70,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
     public function handle()
     {
         $bin2hex_hash = bin2hex($this->queries['info_hash']);
+        $bin2hex_peer_id = bin2hex($this->queries['peer_id']);
 
         if ($this->attempts() > 2) {
             $this->delay(min(30 * $this->attempts(), 300));
@@ -77,7 +78,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
 
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
-            ->where('peer_id', $this->queries['peer_id'])
+            ->where('peer_id', $bin2hex_peer_id)
             ->where('user_id', '=', $this->user->id)
             ->first();
 
@@ -103,7 +104,7 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         $real_downloaded = $this->queries['downloaded'];
 
         // Peer Update
-        $peer->peer_id = $this->queries['peer_id'];
+        $peer->peer_id = $bin2hex_peer_id;
         $peer->md5_peer_id = md5($this->queries['peer_id']);
         $peer->info_hash = $bin2hex_hash;
         $peer->ip = $this->queries['ip-address'];
