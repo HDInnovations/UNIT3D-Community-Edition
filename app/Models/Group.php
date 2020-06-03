@@ -34,11 +34,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $is_trusted
  * @property int $is_immune
  * @property int $is_freeleech
+ * @property int $is_double_upload
  * @property int $can_upload
  * @property int $is_incognito
  * @property int $autogroup
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group newQuery()
@@ -50,6 +53,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereIcon($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereIsAdmin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereIsDoubleUpload($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereIsFreeleech($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereIsImmune($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereIsIncognito($value)
@@ -62,9 +66,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereSlug($value)
  * @mixin \Eloquent
- *
- * @property-read int|null $permissions_count
- * @property-read int|null $users_count
  */
 class Group extends Model
 {

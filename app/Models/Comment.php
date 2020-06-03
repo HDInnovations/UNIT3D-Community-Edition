@@ -28,10 +28,12 @@ use voku\helper\AntiXSS;
  * @property int|null $torrent_id
  * @property int|null $article_id
  * @property int|null $requests_id
+ * @property int|null $playlist_id
  * @property int|null $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Article|null $article
+ * @property-read \App\Models\Playlist|null $playlist
  * @property-read \App\Models\TorrentRequest|null $request
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user
@@ -44,16 +46,12 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment wherePlaylistId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereRequestsId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereTorrentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
  * @mixin \Eloquent
- *
- * @property int|null $playlist_id
- * @property-read \App\Models\Playlist|null $playlist
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment wherePlaylistId($value)
  */
 class Comment extends Model
 {

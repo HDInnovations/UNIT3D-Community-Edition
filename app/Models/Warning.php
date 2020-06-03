@@ -36,12 +36,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Torrent $torrenttitle
  * @property-read \App\Models\User $warneduser
  *
- * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning newQuery()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Warning onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning query()
- * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warning whereDeletedAt($value)
