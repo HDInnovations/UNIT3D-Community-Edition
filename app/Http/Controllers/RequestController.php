@@ -73,14 +73,17 @@ class RequestController extends Controller
     public function requests(Request $request)
     {
         $user = $request->user();
+
         $requests = DB::table('requests')
             ->selectRaw('count(*) as total')
-            ->selectRaw("count(case when filled_by != null then 1 end) as filled")
-            ->selectRaw("count(case when filled_by = null then 1 end) as unfilled")
+            ->selectRaw('count(case when filled_by != null then 1 end) as filled')
+            ->selectRaw('count(case when filled_by = null then 1 end) as unfilled')
             ->first();
-        $total_bounty = TorrentRequest::all()->sum('bounty');
-        $claimed_bounty = TorrentRequest::whereNotNull('filled_by')->sum('bounty');
-        $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
+        $bounties = DB::table('requests')
+            ->selectRaw('coalesce(sum(bounty), 0) as total')
+            ->selectRaw('coalesce(sum(case when filled_by != null then 1 end), 0) as claimed')
+            ->selectRaw('coalesce(sum(case when filled_by = null then 1 end), 0) as unclaimed')
+            ->first();
 
         $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
         $repository = $this->faceted;
@@ -90,9 +93,7 @@ class RequestController extends Controller
             'repository'       => $repository,
             'user'             => $user,
             'requests'         => $requests,
-            'total_bounty'     => $total_bounty,
-            'claimed_bounty'   => $claimed_bounty,
-            'unclaimed_bounty' => $unclaimed_bounty,
+            'bounties'         => $bounties,
         ]);
     }
 
