@@ -66,7 +66,6 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws \Exception
      */
     public function handle()
     {
@@ -85,7 +84,6 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         // Creates a new peer if not existing
         if ($peer === null) {
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
-                $ghost = true;
                 $this->queries['event'] = 'started';
             }
             $peer = new Peer();
