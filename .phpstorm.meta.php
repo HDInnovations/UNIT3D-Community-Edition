@@ -5,13 +5,14 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2019-11-11 23:38:00.
+    * Generated on 2020-06-03 02:11:53.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
     */
     override(new \Illuminate\Contracts\Container\Container, map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -29,6 +30,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -59,6 +61,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -133,6 +136,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -163,7 +167,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -187,6 +190,7 @@ namespace PHPSTORM_META {
     ]));
     override(\Illuminate\Container\Container::makeWith(0), map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -204,6 +208,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -234,6 +239,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -308,6 +314,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -338,7 +345,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -362,6 +368,7 @@ namespace PHPSTORM_META {
     ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -379,6 +386,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -409,6 +417,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -483,6 +492,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -513,7 +523,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -537,6 +546,7 @@ namespace PHPSTORM_META {
     ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -554,6 +564,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -584,6 +595,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -658,6 +670,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -688,7 +701,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -712,6 +724,7 @@ namespace PHPSTORM_META {
     ]));
     override(\App::make(0), map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -729,6 +742,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -759,6 +773,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -833,6 +848,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -863,7 +879,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -887,6 +902,7 @@ namespace PHPSTORM_META {
     ]));
     override(\App::makeWith(0), map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -904,6 +920,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -934,6 +951,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -1008,6 +1026,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -1038,7 +1057,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -1062,6 +1080,7 @@ namespace PHPSTORM_META {
     ]));
     override(\app(0), map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -1079,6 +1098,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -1109,6 +1129,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -1183,6 +1204,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -1213,7 +1235,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -1237,6 +1258,7 @@ namespace PHPSTORM_META {
     ]));
     override(\resolve(0), map([
         '' => '@',
+        'App\Interfaces\ByteUnitsInterface' => \App\Helpers\ByteUnits::class,
         'App\Interfaces\WishInterface' => \App\Repositories\WishRepository::class,
         'App\Services\Clients\OmdbClient' => \App\Services\Clients\OmdbClient::class,
         'Arcanedev\LogViewer\Contracts\LogViewer' => \Arcanedev\LogViewer\LogViewer::class,
@@ -1254,6 +1276,7 @@ namespace PHPSTORM_META {
         'Facade\Ignition\IgnitionConfig' => \Facade\Ignition\IgnitionConfig::class,
         'Facade\Ignition\LogRecorder\LogRecorder' => \Facade\Ignition\LogRecorder\LogRecorder::class,
         'Facade\Ignition\QueryRecorder\QueryRecorder' => \Facade\Ignition\QueryRecorder\QueryRecorder::class,
+        'Illuminate\Auth\Middleware\RequirePassword' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'Illuminate\Broadcasting\BroadcastManager' => \Illuminate\Broadcasting\BroadcastManager::class,
         'Illuminate\Bus\Dispatcher' => \Illuminate\Bus\Dispatcher::class,
         'Illuminate\Console\Scheduling\Schedule' => \Illuminate\Console\Scheduling\Schedule::class,
@@ -1284,6 +1307,7 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'cache' => \Illuminate\Cache\CacheManager::class,
+        'cache.psr6' => \Symfony\Component\Cache\Adapter\Psr16Adapter::class,
         'cache.store' => \Illuminate\Cache\Repository::class,
         'command.auth.resets.clear' => \Illuminate\Auth\Console\ClearResetsCommand::class,
         'command.backup:clean' => \Spatie\Backup\Commands\CleanupCommand::class,
@@ -1358,6 +1382,7 @@ namespace PHPSTORM_META {
         'command.serve' => \Illuminate\Foundation\Console\ServeCommand::class,
         'command.session.table' => \Illuminate\Session\Console\SessionTableCommand::class,
         'command.storage.link' => \Illuminate\Foundation\Console\StorageLinkCommand::class,
+        'command.test-factory-helper.generate' => \Mpociot\LaravelTestFactoryHelper\Console\GenerateCommand::class,
         'command.test.make' => \Illuminate\Foundation\Console\TestMakeCommand::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
         'command.up' => \Illuminate\Foundation\Console\UpCommand::class,
@@ -1388,7 +1413,6 @@ namespace PHPSTORM_META {
         'migration.creator' => \Illuminate\Database\Migrations\MigrationCreator::class,
         'migration.repository' => \Illuminate\Database\Migrations\DatabaseMigrationRepository::class,
         'migrator' => \Illuminate\Database\Migrations\Migrator::class,
-        'purifier' => \Mews\Purifier\Purifier::class,
         'queue' => \Illuminate\Queue\QueueManager::class,
         'queue.connection' => \Illuminate\Queue\RedisQueue::class,
         'queue.failer' => \Illuminate\Queue\Failed\DatabaseFailedJobProvider::class,
@@ -1410,6 +1434,7 @@ namespace PHPSTORM_META {
         'view.engine.resolver' => \Illuminate\View\Engines\EngineResolver::class,
         'view.finder' => \Illuminate\View\FileViewFinder::class,
     ]));
+
 
     override(\Illuminate\Support\Arr::add(0), type(0));
     override(\Illuminate\Support\Arr::except(0), type(0));
