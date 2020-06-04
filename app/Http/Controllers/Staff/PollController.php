@@ -126,16 +126,12 @@ class PollController extends Controller
 
         $poll->title = $request->input('title');
 
-        if ($request->input('multiple_choice')) {
-            $poll->multiple_choice = true;
-        } else {
-            $poll->multiple_choice = false;
-        }
+        $poll->multiple_choice = (bool) $request->input('multiple_choice');
 
         // Remove the deleted options in poll
         $oldOptionIds = collect($poll->options)->map(fn ($option) => $option->id)->all();
 
-        $existingOldOptionIds = collect($request->input('option-id'))->map(fn ($id) => intval($id))->all();
+        $existingOldOptionIds = collect($request->input('option-id'))->map(fn ($id) => (int) $id)->all();
 
         $idsOfOptionToBeRemove = array_diff($oldOptionIds, $existingOldOptionIds);
 

@@ -36,12 +36,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\User $staff
  * @property-read \App\Models\User $user
  *
- * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss newQuery()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Rss onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss query()
- * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Rss whereId($value)

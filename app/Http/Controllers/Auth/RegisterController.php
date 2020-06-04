@@ -107,21 +107,19 @@ class RegisterController extends Controller
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }
+        } elseif (config('captcha.enabled') == false) {
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|string|between:3,25|unique:users',
+                'password' => 'required|string|between:8,16',
+                'email'    => 'required|string|email|max:70|unique:users',
+            ]);
         } else {
-            if (config('captcha.enabled') == false) {
-                $v = validator($request->all(), [
-                    'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                    'password' => 'required|string|between:8,16',
-                    'email'    => 'required|string|email|max:70|unique:users',
-                ]);
-            } else {
-                $v = validator($request->all(), [
-                    'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                    'password' => 'required|string|between:6,16',
-                    'email'    => 'required|string|email|max:70|unique:users',
-                    'captcha'  => 'hiddencaptcha',
-                ]);
-            }
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|string|between:3,25|unique:users',
+                'password' => 'required|string|between:6,16',
+                'email'    => 'required|string|email|max:70|unique:users',
+                'captcha'  => 'hiddencaptcha',
+            ]);
         }
 
         if ($v->fails()) {
@@ -163,7 +161,7 @@ class RegisterController extends Controller
         ];
         $selected = mt_rand(0, count($welcomeArray) - 1);
         $this->chat->systemMessage(
-            sprintf('%s', $welcomeArray[$selected])
+            $welcomeArray[$selected]
         );
         // Send Welcome PM
         $pm = new PrivateMessage();

@@ -110,7 +110,11 @@ class TorrentController extends Controller
         $user = $request->user();
         $repository = $this->faceted;
 
-        $torrents = Torrent::with(['user', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->orderBy('sticky', 'desc')->orderBy('created_at', 'desc')->paginate(25);
+        $torrents = Torrent::with(['user:id,username', 'category', 'type', 'tags'])
+            ->withCount(['thanks', 'comments'])
+            ->orderBy('sticky', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
@@ -139,7 +143,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user', 'category', 'type'])
+        $torrents = Torrent::with(['user:id,username', 'category', 'type'])
             ->withCount(['thanks', 'comments'])
             ->where('category_id', '=', $category_id)
             ->where('tmdb', '=', $tmdb)
@@ -171,7 +175,7 @@ class TorrentController extends Controller
     public function cardLayout(Request $request)
     {
         $user = $request->user();
-        $torrents = Torrent::with(['user', 'category', 'type'])->latest()->paginate(33);
+        $torrents = Torrent::with(['user:id,username', 'category', 'type'])->latest()->paginate(33);
         $repository = $this->faceted;
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
@@ -263,7 +267,7 @@ class TorrentController extends Controller
         }
         $totals = [];
         $counts = [];
-        $launcher = Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
+        $launcher = Torrent::with(['user:id,username', 'category', 'type'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
         foreach ($launcher->cursor() as $chunk) {
             if ($chunk->imdb) {
                 $totals[$chunk->imdb] = ! array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
@@ -569,7 +573,7 @@ class TorrentController extends Controller
             if (! $history || ! is_array($history)) {
                 $history = [];
             }
-            $torrent = $torrent->with(['user', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
+            $torrent = $torrent->with(['user:id,username', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
         } elseif ($history == 1) {
             $torrent = History::where('history.user_id', '=', $user->id);
             $torrent->where(function ($query) use ($user, $seedling, $downloaded, $leeching, $idling) {
@@ -598,7 +602,7 @@ class TorrentController extends Controller
                 $join->on('history.info_hash', '=', 'torrents.info_hash');
             })->groupBy('torrents.id');
         } else {
-            $torrent = $torrent->with(['user', 'category', 'type', 'tags'])->withCount(['thanks', 'comments']);
+            $torrent = $torrent->with(['user:id,username', 'category', 'type', 'tags'])->withCount(['thanks', 'comments']);
         }
         if ($collection != 1) {
             if ($request->has('search') && $request->input('search') != null) {
@@ -725,7 +729,7 @@ class TorrentController extends Controller
             }
             $totals = [];
             $counts = [];
-            $launcher = Torrent::with(['user', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
+            $launcher = Torrent::with(['user:id,username', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $chunk) {
                 if ($chunk->imdb) {
                     $totals[$chunk->imdb] = ! array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
@@ -782,7 +786,7 @@ class TorrentController extends Controller
             if (is_array($hungry) && array_key_exists($page - 1, $hungry)) {
                 $fed = $hungry[$page - 1];
             }
-            $torrents = Torrent::with(['user', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->whereIn('id', $fed)->orderBy($sorting, $order)->get();
+            $torrents = Torrent::with(['user:id,username', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->whereIn('id', $fed)->orderBy($sorting, $order)->get();
         } else {
             $torrents = $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order)->paginate($qty);
         }
@@ -929,14 +933,6 @@ class TorrentController extends Controller
             } else {
                 $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
             }
-        }
-
-        if (isset($meta) && $meta->recommendations) {
-            $meta->recommendations['results'] = array_map(function ($recomentaion) {
-                $recomentaion['exists'] = Torrent::select('tmdb')->where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
-
-                return $recomentaion;
-            }, $meta->recommendations['results']);
         }
 
         $characters = null;
@@ -1322,6 +1318,7 @@ class TorrentController extends Controller
         $torrent->internal = $request->input('internal');
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = 1; //System ID
+        $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
 
         // Validation
         $v = validator($torrent->toArray(), [
@@ -1371,14 +1368,14 @@ class TorrentController extends Controller
         }
         $meta = null;
         // Torrent Tags System
-        if ($torrent->category->tv_meta) {
+        if ($torrent->category->tv_meta !== 0) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = $client->scrape('tv', null, $torrent->tmdb);
             } else {
                 $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
             }
         }
-        if ($torrent->category->movie_meta) {
+        if ($torrent->category->movie_meta !== 0) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = $client->scrape('movie', null, $torrent->tmdb);
             } else {

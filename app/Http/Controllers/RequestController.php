@@ -35,6 +35,7 @@ use App\Repositories\ChatRepository;
 use App\Repositories\RequestFacetedRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -63,7 +64,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Displays Torrent List View.
+     * Displays Requests List View.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -72,12 +73,17 @@ class RequestController extends Controller
     public function requests(Request $request)
     {
         $user = $request->user();
-        $num_req = TorrentRequest::count();
-        $num_fil = TorrentRequest::whereNotNull('filled_by')->count();
-        $num_unfil = TorrentRequest::whereNull('filled_by')->count();
-        $total_bounty = TorrentRequest::all()->sum('bounty');
-        $claimed_bounty = TorrentRequest::whereNotNull('filled_by')->sum('bounty');
-        $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
+
+        $requests = DB::table('requests')
+            ->selectRaw('count(*) as total')
+            ->selectRaw('count(case when filled_by != null then 1 end) as filled')
+            ->selectRaw('count(case when filled_by = null then 1 end) as unfilled')
+            ->first();
+        $bounties = DB::table('requests')
+            ->selectRaw('coalesce(sum(bounty), 0) as total')
+            ->selectRaw('coalesce(sum(case when filled_by != null then 1 end), 0) as claimed')
+            ->selectRaw('coalesce(sum(case when filled_by = null then 1 end), 0) as unclaimed')
+            ->first();
 
         $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
         $repository = $this->faceted;
@@ -86,12 +92,8 @@ class RequestController extends Controller
             'torrentRequests'  => $torrentRequests,
             'repository'       => $repository,
             'user'             => $user,
-            'num_req'          => $num_req,
-            'num_fil'          => $num_fil,
-            'num_unfil'        => $num_unfil,
-            'total_bounty'     => $total_bounty,
-            'claimed_bounty'   => $claimed_bounty,
-            'unclaimed_bounty' => $unclaimed_bounty,
+            'requests'         => $requests,
+            'bounties'         => $bounties,
         ]);
     }
 

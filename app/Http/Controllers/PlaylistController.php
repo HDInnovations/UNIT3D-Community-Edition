@@ -140,12 +140,10 @@ class PlaylistController extends Controller
                 } else {
                     $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
+            } elseif ($torrent->tmdb || $torrent->tmdb != 0) {
+                $meta = $client->scrape('movie', null, $torrent->tmdb);
             } else {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = $client->scrape('movie', null, $torrent->tmdb);
-                } else {
-                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
-                }
+                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
             }
         }
 

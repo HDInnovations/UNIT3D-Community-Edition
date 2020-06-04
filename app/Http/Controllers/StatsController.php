@@ -27,6 +27,11 @@ use Illuminate\Support\Facades\DB;
 class StatsController extends Controller
 {
     /**
+     * @var \Carbon\Carbon|mixed
+     */
+    public $expiresAt;
+
+    /**
      * StatsController Constructor.
      */
     public function __construct()

@@ -15,6 +15,26 @@ namespace App\Bots;
 
 class IRCAnnounceBot
 {
+    /**
+     * @var mixed
+     */
+    public $server;
+    /**
+     * @var mixed
+     */
+    public $port;
+    /**
+     * @var mixed
+     */
+    public $hostname;
+    /**
+     * @var mixed
+     */
+    public $nickservpass;
+    /**
+     * @var mixed
+     */
+    public $joinchannels;
     protected $socket = null;
 
     private $channels = [];

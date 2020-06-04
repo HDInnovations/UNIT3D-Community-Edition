@@ -16,6 +16,12 @@ namespace App\Helpers;
 class BBCodeConverter
 {
     /**
+     * @var string|mixed|mixed[]|null
+     */
+    public $text;
+    public $id;
+
+    /**
      * @brief Constructor.
      *
      * @param string $text The text to be converted.

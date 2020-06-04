@@ -47,7 +47,7 @@ class TwoStepAuth
             default:
                 session(['nextUri' => $nextUri]);
 
-                if (config('auth.TwoStepEnabled') && $user->twostep == 1 && $this->twoStepVerification($request) !== true) {
+                if (config('auth.TwoStepEnabled') && $user->twostep == 1 && ! $this->twoStepVerification()) {
                     return redirect()->route('verificationNeeded');
                 }
 
