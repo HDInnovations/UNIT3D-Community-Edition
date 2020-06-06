@@ -102,6 +102,20 @@
                         </label>
                     </div>
 
+                    <div class="form-group">
+                        <label for="type">@lang('torrent.resolution')</label>
+                        <label>
+                            <select name="resolution" id="autores" class="form-control">
+                                <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>
+                                @foreach ($resolutions as $resolution)
+                                    <option value="{{ $resolution->id }}" @if (old('resolution')==$resolution->name) selected="selected" @endif>
+                                        {{ $resolution->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
+
                     @php $data = App\Models\Category::where('id', '=', isset($category_id) ? $category_id : old('category_id'))->first();@endphp
                     @if ($data->movie_meta || $data->tv_meta)
                         <div class="form-group">
