@@ -798,6 +798,18 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
+        // Resolutions
+        Route::group(['prefix' => 'resolutions'], function () {
+            Route::name('staff.resolutions.')->group(function () {
+                Route::get('/', 'ResolutionController@index')->name('index');
+                Route::get('/create', 'ResolutionController@create')->name('create');
+                Route::post('/store', 'ResolutionController@store')->name('store');
+                Route::get('/{id}/edit', 'ResolutionController@edit')->name('edit');
+                Route::patch('/{id}/update', 'ResolutionController@update')->name('update');
+                Route::delete('/{id}/destroy', 'ResolutionController@destroy')->name('destroy');
+            });
+        });
+
         // RSS System
         Route::group(['prefix' => 'rss'], function () {
             Route::name('staff.rss.')->group(function () {
