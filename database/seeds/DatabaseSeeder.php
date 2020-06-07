@@ -37,5 +37,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TagsTableSeeder::class);
         $this->call(BotsTableSeeder::class);
         $this->call(MediaLanguagesSeeder::class);
+        $this->call(ResolutionsTableSeeder::class);
     }
 }
