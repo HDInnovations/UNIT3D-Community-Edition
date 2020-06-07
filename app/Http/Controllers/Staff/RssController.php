@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Resolution;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
 use App\Repositories\TorrentFacetedRepository;

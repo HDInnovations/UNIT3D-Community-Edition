@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Resolution;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
@@ -31,6 +30,7 @@ use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
+use App\Models\Resolution;
 use App\Models\Subtitle;
 use App\Models\TagTorrent;
 use App\Models\Torrent;

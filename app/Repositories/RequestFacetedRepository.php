@@ -14,8 +14,8 @@
 namespace App\Repositories;
 
 use App\Models\Category;
-use App\Models\Type;
 use App\Models\Resolution;
+use App\Models\Type;
 
 class RequestFacetedRepository
 {

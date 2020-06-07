@@ -65,12 +65,11 @@ class ResolutionController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.resolutions.index')
                 ->withErrors($v->errors());
-        } else {
-            $resolution->save();
-
-            return redirect()->route('staff.resolutions.index')
-                ->withSuccess('Resolution Successfully Added');
         }
+        $resolution->save();
+
+        return redirect()->route('staff.resolutions.index')
+                ->withSuccess('Resolution Successfully Added');
     }
 
     /**
@@ -90,8 +89,8 @@ class ResolutionController extends Controller
     /**
      * Edit A Resolution.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param                            $id
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -111,12 +110,11 @@ class ResolutionController extends Controller
         if ($v->fails()) {
             return redirect()->route('staff.resolutions.index')
                 ->withErrors($v->errors());
-        } else {
-            $resolution->save();
-
-            return redirect()->route('staff.resolutions.index')
-                ->withSuccess('Resolution Successfully Modified');
         }
+        $resolution->save();
+
+        return redirect()->route('staff.resolutions.index')
+                ->withSuccess('Resolution Successfully Modified');
     }
 
     /**
@@ -124,8 +122,9 @@ class ResolutionController extends Controller
      *
      * @param $id
      *
-     * @return Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
