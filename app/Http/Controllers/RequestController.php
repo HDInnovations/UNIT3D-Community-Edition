@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resolution;
 use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
@@ -119,6 +120,7 @@ class RequestController extends Controller
         $igdb = $request->input('igdb');
         $categories = $request->input('categories');
         $types = $request->input('types');
+        $resolutions = $request->input('resolutions');
         $myrequests = $request->input('myrequests');
 
         $terms = explode(' ', $search);
@@ -159,6 +161,10 @@ class RequestController extends Controller
 
         if ($request->has('types') && $request->input('types') != null) {
             $torrentRequest->whereIn('type_id', $types);
+        }
+
+        if ($request->has('resolutions') && $request->input('resolutions') != null) {
+            $torrentRequest->whereIn('resolution_id', $resolutions);
         }
 
         if ($request->has('unfilled') && $request->input('unfilled') != null) {
@@ -280,12 +286,13 @@ class RequestController extends Controller
         $user = $request->user();
 
         return view('requests.add_request', [
-            'categories' => Category::all()->sortBy('position'),
-            'types'      => Type::all()->sortBy('position'),
-            'user'       => $user,
-            'title'      => $title,
-            'imdb'       => str_replace('tt', '', $imdb),
-            'tmdb'       => $tmdb,
+            'categories'  => Category::all()->sortBy('position'),
+            'types'       => Type::all()->sortBy('position'),
+            'resolutions' => Resolution::all()->sortBy('position'),
+            'user'        => $user,
+            'title'       => $title,
+            'imdb'        => str_replace('tt', '', $imdb),
+            'tmdb'        => $tmdb,
         ]);
     }
 
@@ -312,22 +319,24 @@ class RequestController extends Controller
         $tr->mal = $request->input('mal');
         $tr->igdb = $request->input('igdb');
         $tr->type_id = $request->input('type_id');
+        $tr->resolution_id = $request->input('resolution_id');
         $tr->bounty = $request->input('bounty');
         $tr->votes = 1;
         $tr->anon = $request->input('anon');
 
         $v = validator($tr->toArray(), [
-            'name'        => 'required|max:180',
-            'imdb'        => 'required|numeric',
-            'tvdb'        => 'required|numeric',
-            'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'type_id'     => 'required|exists:types,id',
-            'description' => 'required|string',
-            'bounty'      => sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
-            'anon'        => 'required',
+            'name'          => 'required|max:180',
+            'imdb'          => 'required|numeric',
+            'tvdb'          => 'required|numeric',
+            'tmdb'          => 'required|numeric',
+            'mal'           => 'required|numeric',
+            'igdb'          => 'required|numeric',
+            'category_id'   => 'required|exists:categories,id',
+            'type_id'       => 'required|exists:types,id',
+            'resolution_id' => 'required|exists:resolutions,id',
+            'description'   => 'required|string',
+            'bounty'        => sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
+            'anon'          => 'required',
         ]);
 
         if ($v->fails()) {
@@ -384,6 +393,7 @@ class RequestController extends Controller
         return view('requests.edit_request', [
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
+            'resolutions'    => Resolution::all()->sortBy('position'),
             'user'           => $user,
             'torrentRequest' => $torrentRequest, ]);
     }
@@ -411,6 +421,7 @@ class RequestController extends Controller
         $igdb = $request->input('igdb');
         $category = $request->input('category_id');
         $type = $request->input('type_id');
+        $resolution = $request->input('resolution_id');
         $description = $request->input('description');
         $anon = $request->input('anon');
 
@@ -422,20 +433,22 @@ class RequestController extends Controller
         $torrentRequest->igdb = $igdb;
         $torrentRequest->category_id = $category;
         $torrentRequest->type_id = $type;
+        $torrentRequest->resolution_id = $resolution;
         $torrentRequest->description = $description;
         $torrentRequest->anon = $anon;
 
         $v = validator($torrentRequest->toArray(), [
-            'name'        => 'required|max:180',
-            'imdb'        => 'required|numeric',
-            'tvdb'        => 'required|numeric',
-            'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'type_id'     => 'required|exists:types,id',
-            'description' => 'required|string',
-            'anon'        => 'required',
+            'name'          => 'required|max:180',
+            'imdb'          => 'required|numeric',
+            'tvdb'          => 'required|numeric',
+            'tmdb'          => 'required|numeric',
+            'mal'           => 'required|numeric',
+            'igdb'          => 'required|numeric',
+            'category_id'   => 'required|exists:categories,id',
+            'type_id'       => 'required|exists:types,id',
+            'resolution_id' => 'required|exists:resolutions,id',
+            'description'   => 'required|string',
+            'anon'          => 'required',
         ]);
 
         if ($v->fails()) {
@@ -681,6 +694,7 @@ class RequestController extends Controller
      * @param \App\Models\TorrentRequest $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function deleteRequest(Request $request, $id)
     {
@@ -744,6 +758,7 @@ class RequestController extends Controller
      * @param \App\Models\TorrentRequest $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function unclaimRequest(Request $request, $id)
     {
