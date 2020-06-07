@@ -16,6 +16,7 @@ namespace App\Repositories;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Type;
+use App\Models\Resolution;
 
 class TorrentFacetedRepository
 {
@@ -37,6 +38,16 @@ class TorrentFacetedRepository
     public function types()
     {
         return Type::all()->sortBy('position')->pluck('name', 'id');
+    }
+
+    /**
+     * Return a collection of Resolution Name from storage.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function resolutions()
+    {
+        return Resolution::all()->sortBy('position')->pluck('name', 'id');
     }
 
     /**
