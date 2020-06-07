@@ -8,6 +8,7 @@ use App\Models\Type;
 use App\Models\User;
 use BotsTableSeeder;
 use ChatroomTableSeeder;
+use App\Models\Resolution;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use UsersTableSeeder;
@@ -113,6 +114,7 @@ class TorrentControllerTest extends TestCase
 
         $category = factory(Category::class)->create();
         $type = factory(Type::class)->create();
+        $resolution = factory(Resolution::class)->create();
 
         $torrent = factory(Torrent::class)->make();
 
@@ -121,23 +123,24 @@ class TorrentControllerTest extends TestCase
                 base_path('tests/Resources/Pony Music - Mind Fragments (2014).torrent'),
                 'Pony Music - Mind Fragments (2014).torrent'
             ),
-            'category_id' => $category->id,
-            'name'        => 'Pony Music - Mind Fragments (2014)',
-            'description' => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
-            'imdb'        => $torrent->imdb,
-            'tvdb'        => $torrent->tvdb,
-            'tmdb'        => $torrent->tmdb,
-            'mal'         => $torrent->mal,
-            'igdb'        => $torrent->igdb,
-            'type_id'     => $type->id,
-            'anonymous'   => $torrent->anon,
-            'stream'      => $torrent->stream,
-            'sd'          => $torrent->sd,
-            'internal'    => $torrent->internal,
-            'featured'    => false,
-            'doubleup'    => $torrent->doubleup,
-            'free'        => $torrent->free,
-            'sticky'      => $torrent->sticky,
+            'category_id'   => $category->id,
+            'name'          => 'Pony Music - Mind Fragments (2014)',
+            'description'   => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
+            'imdb'          => $torrent->imdb,
+            'tvdb'          => $torrent->tvdb,
+            'tmdb'          => $torrent->tmdb,
+            'mal'           => $torrent->mal,
+            'igdb'          => $torrent->igdb,
+            'type_id'       => $type->id,
+            'resolution_id' => $resolution->id,
+            'anonymous'     => $torrent->anon,
+            'stream'        => $torrent->stream,
+            'sd'            => $torrent->sd,
+            'internal'      => $torrent->internal,
+            'featured'      => false,
+            'doubleup'      => $torrent->doubleup,
+            'free'          => $torrent->free,
+            'sticky'        => $torrent->sticky,
         ]);
 
         $response->assertOk()
