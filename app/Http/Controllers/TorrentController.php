@@ -1344,7 +1344,7 @@ class TorrentController extends Controller
             'announce'       => 'required',
             'size'           => 'required',
             'category_id'    => 'required|exists:categories,id',
-            'type_id'        => 'required|exists:types,name',
+            'type_id'        => 'required|exists:types,id',
             'resolution_id'  => 'exists:resolutions,id',
             'user_id'        => 'required|exists:users,id',
             'imdb'           => 'required|numeric',
