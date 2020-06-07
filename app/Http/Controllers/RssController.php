@@ -15,12 +15,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Group;
+use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
-use App\Models\Resolution;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
@@ -144,8 +144,9 @@ class RssController extends Controller
      * @param int    $id
      * @param string $rsskey
      *
-     * @return \Illuminate\Http\Response
      * @throws \Psr\SimpleCache\InvalidArgumentException
+     *
+     * @return \Illuminate\Http\Response
      */
     public function show($id, $rsskey)
     {
@@ -394,8 +395,9 @@ class RssController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {

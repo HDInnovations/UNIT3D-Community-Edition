@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $position
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequest[] $requests
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution query()
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Resolution whereSlug($value)
  * @mixin \Eloquent
+ *
  * @property-read int|null $requests_count
  * @property-read int|null $torrents_count
  */

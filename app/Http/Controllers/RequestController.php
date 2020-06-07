@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Resolution;
 use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
 use App\Models\BonTransactions;
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
@@ -693,8 +693,9 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteRequest(Request $request, $id)
     {
@@ -757,8 +758,9 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function unclaimRequest(Request $request, $id)
     {

@@ -14,9 +14,9 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Tag;
 use App\Models\Type;
-use App\Models\Resolution;
 
 class TorrentFacetedRepository
 {
