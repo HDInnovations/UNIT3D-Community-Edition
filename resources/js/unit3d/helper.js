@@ -219,7 +219,7 @@ class uploadExtensionBuilder {
         }
 
         // Torrent Resolution
-        //$("#autores").val(release.resolution);
+        $("#autores").val(release.resolution);
 
         // Torrent TMDB ID
         if (release.type === "Movie") {
