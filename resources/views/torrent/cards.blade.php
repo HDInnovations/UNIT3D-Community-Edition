@@ -318,6 +318,8 @@
                                         <span class="badge-user text-bold text-blue"
                                             style="float:right;">{{ $t->getSize() }}</span>&nbsp;
                                         <span class="badge-user text-bold text-blue"
+                                              style="float:right;">{{ $t->resolution->name }}</span>
+                                        <span class="badge-user text-bold text-blue"
                                             style="float:right;">{{ $t->type->name }}</span>&nbsp;
                                         <span class="badge-user text-bold text-blue"
                                             style="float:right;">{{ $t->category->name }}</span>&nbsp;
