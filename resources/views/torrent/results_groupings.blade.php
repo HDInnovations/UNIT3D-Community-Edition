@@ -123,6 +123,12 @@
                                                                 {{ $current->type->name }}
                                                             </span>
                                                         </div>
+                                                        <div class="text-center">
+                                                            <span class="label label-success" data-toggle="tooltip"
+                                                                  data-original-title="@lang('torrent.resolution')">
+                                                                {{ $current->resolution->name }}
+                                                            </span>
+                                                        </div>
                                                     </td>
                                                     <td>
                                                         <a class="view-torrent" href="{{ route('torrent', ['id' => $current->id]) }}">
