@@ -82,6 +82,19 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="resolution">@lang('torrent.resolution')</label>
+                        <div>
+                            @foreach ($torrent_repository->resolutions() as $id => $resolution)
+                                <span class="badge-user">
+                                    <label class="inline">
+                                        <input type="checkbox" id="{{ $resolution }}" value="{{ $id }}" class="resolution" name="resolutions[]">
+                                        {{ $resolution }}
+                                    </label>
+                                </span>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="genre">@lang('torrent.genre')</label>
                         <div>
                             @foreach ($torrent_repository->tags() as $id => $genre)
