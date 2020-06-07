@@ -3,12 +3,12 @@
 namespace Tests\Feature\Http\Controllers\API;
 
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
 use BotsTableSeeder;
 use ChatroomTableSeeder;
-use App\Models\Resolution;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use UsersTableSeeder;
