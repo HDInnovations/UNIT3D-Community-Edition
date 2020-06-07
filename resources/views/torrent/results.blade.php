@@ -18,7 +18,8 @@ config('api-keys.omdb')) @endphp
                 @else
                     <th></th>
                 @endif
-                <th>@lang('torrent.category')/@lang('torrent.type')</th>
+                <th>@lang('torrent.category')</th>
+                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                 <th style="white-space: nowrap !important;">@sortablelink('name', trans('common.name'), '',
                     ['id'=>'name','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting
                     == "name" ? $direction : 0)])</th>
@@ -124,13 +125,22 @@ config('api-keys.omdb')) @endphp
                                 </div>
                             </a>
                         @endif
-                        <div class="text-center" style="padding-top: 5px;">
+                    </td>
+
+                        <td style="width: 1%;">
+                            <div class="text-center" style="padding-top: 15px;">
                             <span class="label label-success" data-toggle="tooltip"
-                                data-original-title="@lang('torrent.type')">
+                                  data-original-title="@lang('torrent.type')">
                                 {{ $torrent->type->name }}
                             </span>
-                        </div>
-                    </td>
+                            </div>
+                            <div class="text-center" style="padding-top: 8px;">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('torrent.resolution')">
+                                {{ $torrent->resolution->name }}
+                            </span>
+                            </div>
+                        </td>
 
                     <td>
                         <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
