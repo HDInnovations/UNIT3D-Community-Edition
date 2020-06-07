@@ -103,9 +103,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="type">@lang('torrent.resolution')</label>
+                        <label for="resolution_ids">@lang('torrent.resolution')</label>
                         <label>
-                            <select name="resolution" id="autores" class="form-control">
+                            <select name="resolution_id" id="autores" class="form-control">
                                 <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>
                                 @foreach ($resolutions as $resolution)
                                     <option value="{{ $resolution->id }}" @if (old('resolution')==$resolution->name) selected="selected" @endif>

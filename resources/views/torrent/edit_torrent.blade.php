@@ -86,9 +86,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="resolution">@lang('torrent.resolution')</label>
+                        <label for="resolution_id">@lang('torrent.resolution')</label>
                         <label>
-                            <select name="resolution" class="form-control">
+                            <select name="resolution_id" class="form-control">
                                 <option value="{{ $torrent->resolution->id }}" selected>{{ $torrent->resolution->name }}
                                     (@lang('torrent.current'))
                                 </option>
