@@ -651,6 +651,7 @@ class facetedSearchBuilder {
         var end_year = $("#end_year").val();
         var categories = [];
         var types = [];
+        var resolutions = [];
         var genres = [];
         var qty = $("#qty").val();
         var notdownloaded = (function () {
@@ -733,6 +734,9 @@ class facetedSearchBuilder {
         });
         $(".type:checked").each(function () {
             types.push($(this).val());
+        });
+        $(".resolution:checked").each(function () {
+            resolutions.push($(this).val());
         });
         $(".genre:checked").each(function () {
             genres.push($(this).val());
@@ -818,6 +822,7 @@ class facetedSearchBuilder {
                 end_year: end_year,
                 categories: categories,
                 types: types,
+                resolutions: resolutions,
                 genres: genres,
                 freeleech: freeleech,
                 doubleupload: doubleupload,
