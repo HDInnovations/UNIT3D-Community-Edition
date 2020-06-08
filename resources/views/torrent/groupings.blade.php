@@ -596,8 +596,11 @@
                                             <div style="float: right;">
                                                 @if($attributes && is_array($attributes))
                                                 @php $cats = $repository->categories()->toArray(); @endphp
+                                                @php $types = $repository->types()->toArray(); @endphp
                                                 @foreach($attributes[$k]['types'] as $a => $attr)
-                                                    <span class="badge-user text-bold text-blue" style="float:right;">{{ $attr }}</span>&nbsp;
+                                                    @if(array_key_exists($attr,$types))
+                                                        <span class="badge-user text-bold text-blue" style="float:right;">{{ $types[$attr] }}</span>
+                                                     @endif
                                                 @endforeach
                                                 @foreach($attributes[$k]['categories'] as $a => $attr)
                                                     @if(array_key_exists($attr,$cats))
