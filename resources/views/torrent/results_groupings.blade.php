@@ -68,6 +68,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>@lang('torrent.category')</th>
+                                                    <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                                                     <th>@lang('torrent.name')</th>
                                                     <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                                                     <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
@@ -100,33 +101,35 @@
                                             @else
                                                 <tr class="{{ $class }}" style="{{ $hidden }}" torrent="{{ $attr }}">
                                                     @endif
-                                                    <td>
+                                                    <td style="width: 1%;">
                                                         @if ($current->category->image != null)
                                                             <a href="{{ route('categories.show', ['id' => $current->category->id]) }}">
                                                                 <div class="text-center">
                                                                     <img src="{{ url('files/img/' . $current->category->image) }}" data-toggle="tooltip"
                                                                          data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                                         style="padding-bottom: 6px;" alt="{{ $current->category->name }}">
+                                                                         alt="{{ $current->category->name }}">
                                                                 </div>
                                                             </a>
                                                         @else
                                                             <a href="{{ route('categories.show', ['id' => $current->category->id]) }}">
                                                                 <div class="text-center">
                                                                     <i class="{{ $current->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                                       data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                                       style="padding-bottom: 6px;"></i>
+                                                                       data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}""></i>
                                                                 </div>
                                                             </a>
                                                         @endif
-                                                        <div class="text-center">
-                                                            <span class="label label-success" data-toggle="tooltip" data-original-title="@lang('torrent.type')">
-                                                                {{ $current->type->name }}
+                                                    </td>
+                                                    <td style="width: 1%;">
+                                                        <div class="text-center" style="padding-top: 4px;">
+                                                            <span class="label label-success" data-toggle="tooltip"
+                                                                    data-original-title="@lang('torrent.type')">
+                                                                    {{ $current->type->name }}
                                                             </span>
                                                         </div>
-                                                        <div class="text-center">
+                                                        <div class="text-center" style="padding-top: 8px;">
                                                             <span class="label label-success" data-toggle="tooltip"
                                                                   data-original-title="@lang('torrent.resolution')">
-                                                                {{ $current->resolution->name }}
+                                                                    {{ $current->resolution->name }}
                                                             </span>
                                                         </div>
                                                     </td>

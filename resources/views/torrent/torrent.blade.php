@@ -389,15 +389,19 @@
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.category')</strong></td>
                         <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small"
-                               data-toggle="tooltip"
-
-                               data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i> {{ $torrent->category->name }}
+                               data-toggle="tooltip" data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i>
+                            {{ $torrent->category->name }}
                         </td>
                     </tr>
 
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.type')</strong></td>
                         <td>{{ $torrent->type->name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
+                        <td>{{ $torrent->resolution->name }}</td>
                     </tr>
 
                     <tr>

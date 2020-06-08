@@ -107,25 +107,25 @@ config('api-keys.omdb')) @endphp
                         @endif
                     </td>
 
-                    <td style="width: 1%;">
-                        @if ($torrent->category->image != null)
-                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                <div class="text-center">
-                                    <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
-                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 10px;" alt="{{ $torrent->category->name }}">
-                                </div>
-                            </a>
-                        @else
-                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                <div class="text-center">
-                                    <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 10px;"></i>
-                                </div>
-                            </a>
-                        @endif
-                    </td>
+                        <td style="width: 1%;">
+                            @if ($torrent->category->image != null)
+                                <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <div class="text-center">
+                                        <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                             data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                             style="padding-top: 10px;" alt="{{ $torrent->category->name }}">
+                                    </div>
+                                </a>
+                            @else
+                                <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <div class="text-center">
+                                        <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
+                                           data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                           style="padding-top: 10px;"></i>
+                                    </div>
+                                </a>
+                            @endif
+                        </td>
 
                         <td style="width: 1%;">
                             <div class="text-center" style="padding-top: 15px;">
