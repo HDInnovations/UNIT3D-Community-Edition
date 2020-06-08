@@ -151,7 +151,7 @@
                         <input type="hidden" name="tvdb" value="0">
                     @endif
 
-                    @if ($data->movie_meta || $data->tv_meta || $data->no_meta)
+                    @if ($data->movie_meta || $data->tv_meta)
                         <div class="form-group">
                             <label for="name">MAL ID (@lang('request.required') For Anime)</label>
                             <label>
