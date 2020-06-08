@@ -9,7 +9,6 @@
     "type": "project",
     "require": {
         "php": ">=7.4",
-        "ext-zip": "*",
         "appstract/laravel-opcache": "^3.0",
         "arcanedev/log-viewer": "^7.0",
         "bandwidth-throttle/token-bucket": "^2.0",
@@ -27,7 +26,7 @@
         "kyslik/column-sortable": "^6.0",
         "laravel/framework": "^7.11",
         "laravel/tinker": "^2.0",
-        "marcreichel/igdb-laravel": "^0.10.0",
+        "marcreichel/igdb-laravel": "^1.0",
         "nelexa/zip": "^3.1",
         "paragonie/constant_time_encoding": "^2.0",
         "predis/predis": "^1.1",
