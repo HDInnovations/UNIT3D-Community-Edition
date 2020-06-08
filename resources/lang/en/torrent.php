@@ -153,6 +153,7 @@ return [
     'request-reseed'           => 'Request Reseed',
     'requires-reseed'          => 'Requires Reseed',
     'resolution'               => 'Resolution',
+    'resolutions'              => 'Resolutions',
     'resurrections'            => 'Resurrections',
     'revoke'                   => 'Revoke',
     'rss'                      => 'RSS',
