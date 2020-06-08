@@ -13,7 +13,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->times_completed }}
                     </span>&nbsp;
                         <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->getSize() }}</span>&nbsp;
-                        <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->type }}</span>&nbsp;
+                        <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->type->name }}</span>&nbsp;
                         <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->category->name }}</span>&nbsp;
                     </div>
                     <div class="card_body">

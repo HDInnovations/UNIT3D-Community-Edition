@@ -54,9 +54,6 @@ Route::group(['middleware' => 'language'], function () {
         // Registration
         Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
         Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
-
-        // Public email white/blacklists
-        Route::get('emaildomains', 'Auth\RegisterController@publicEmailList')->name('public.email');
     });
 
     /*
@@ -186,7 +183,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/internal', 'PageController@internal')->name('internal');
             Route::get('/blacklist', 'PageController@blacklist')->name('blacklist');
             Route::get('/aboutus', 'PageController@about')->name('about');
-            Route::get('/emaillist', 'PageController@emailList')->name('emaillist');
             Route::get('/{id}', 'PageController@show')->where('id', '[0-9]+')->name('pages.show');
         });
 
@@ -259,7 +255,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Torrents System
         Route::group(['prefix' => 'upload'], function () {
-            Route::get('/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
+            Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
             Route::post('/', 'TorrentController@upload')->name('upload');
         });
 
@@ -460,6 +456,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/{id}/update', 'SubtitleController@update')->name('update');
                 Route::delete('/{id}/delete', 'SubtitleController@destroy')->name('destroy');
                 Route::get('/{id}/download', 'SubtitleController@download')->name('download');
+                Route::get('/filter', 'SubtitleController@faceted');
             });
         });
     });
@@ -615,7 +612,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::post('/files', 'BackupController@files')->name('files');
                 Route::post('/database', 'BackupController@database')->name('database');
                 Route::get('/download/{file_name?}', 'BackupController@download')->name('download');
-                Route::delete('/destroy', 'BackupController@destroy')->name('destroy');
+                Route::delete('/destroy/{file_name?}', 'BackupController@destroy')->where('file_name', '(.*)')->name('destroy');
             });
         });
 

@@ -44,7 +44,7 @@ class HiddenCaptcha
         // Encrypt the token
         $token = Crypt::encrypt(serialize($token));
 
-        return (string) view('partials.captcha', compact('mustBeEmptyField', 'ts', 'random', 'token'));
+        return (string) view('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
     }
 
     /**

@@ -31,8 +31,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ApplicationImageProof[] $imageProofs
+ * @property-read int|null $image_proofs_count
  * @property-read \App\Models\User|null $moderated
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ApplicationUrlProof[] $urlProofs
+ * @property-read int|null $url_proofs_count
  * @property-read \App\Models\User $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application newModelQuery()
@@ -49,9 +51,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereUpdatedAt($value)
  * @mixin \Eloquent
- *
- * @property-read int|null $image_proofs_count
- * @property-read int|null $url_proofs_count
  */
 class Application extends Model
 {

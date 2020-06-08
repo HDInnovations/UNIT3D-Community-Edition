@@ -51,12 +51,6 @@
                 <li><a href="{{ route('staff') }}">@lang('common.staff')</a></li>
                 <li><a href="{{ route('internal') }}">@lang('common.internal')</a></li>
                 <li><a href="{{ route('blacklist') }}">@lang('common.blacklist')</a></li>
-                @if (config('email-white-blacklist.enabled') == 'allow')
-                    <li><a href="{{ route('emaillist') }}">@lang('common.email-whitelist')</a></li>
-                @endif
-                @if (config('email-white-blacklist.enabled') == 'block')
-                    <li><a href="{{ route('emaillist') }}">@lang('common.email-blacklist')</a></li>
-                @endif
                 <li><a href="{{ route('about') }}">@lang('common.about')</a></li>
             </ul>
         </div>

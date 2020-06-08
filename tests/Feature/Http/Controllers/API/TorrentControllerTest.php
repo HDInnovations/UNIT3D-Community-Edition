@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers\API;
 
 use App\Models\Category;
 use App\Models\Torrent;
+use App\Models\Type;
 use App\Models\User;
 use BotsTableSeeder;
 use ChatroomTableSeeder;
@@ -111,6 +112,7 @@ class TorrentControllerTest extends TestCase
         $user = factory(User::class)->create();
 
         $category = factory(Category::class)->create();
+        $type = factory(Type::class)->create();
 
         $torrent = factory(Torrent::class)->make();
 
@@ -127,7 +129,7 @@ class TorrentControllerTest extends TestCase
             'tmdb'        => $torrent->tmdb,
             'mal'         => $torrent->mal,
             'igdb'        => $torrent->igdb,
-            'type'        => $torrent->type,
+            'type_id'     => $type->id,
             'anonymous'   => $torrent->anon,
             'stream'      => $torrent->stream,
             'sd'          => $torrent->sd,

@@ -138,7 +138,7 @@ return [
     */
 
     'email_list' => '很抱歉，你无法使用此邮箱进行注册。请参见邮箱白名单。',
-    'recaptcha' => '请完成人机验证。',
+    'recaptcha'  => '请完成人机验证。',
 
     'custom' => [
         'attribute-name' => [

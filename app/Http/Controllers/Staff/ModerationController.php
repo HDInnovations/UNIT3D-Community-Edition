@@ -46,9 +46,9 @@ class ModerationController extends Controller
     public function index()
     {
         $current = Carbon::now();
-        $pending = Torrent::with(['user', 'category'])->pending()->get();
-        $postponed = Torrent::with(['user', 'category'])->postponed()->get();
-        $rejected = Torrent::with(['user', 'category'])->rejected()->get();
+        $pending = Torrent::with(['user', 'category', 'type'])->pending()->get();
+        $postponed = Torrent::with(['user', 'category', 'type'])->postponed()->get();
+        $rejected = Torrent::with(['user', 'category', 'type'])->rejected()->get();
 
         return view('Staff.moderation.index', [
             'current'   => $current,

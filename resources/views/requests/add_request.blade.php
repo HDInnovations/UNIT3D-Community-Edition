@@ -91,7 +91,8 @@
                         <div class="form-group">
                             <label for="category_id">@lang('request.category')</label>
                             <label>
-                                <select name="category_id" class="form-control">
+                                <select name="category_id" class="form-control" required>
+                                <option hidden="" disabled="disabled" selected="selected" value="">Select one</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -100,11 +101,12 @@
                         </div>
         
                         <div class="form-group">
-                            <label for="type">@lang('request.type')</label>
+                            <label for="type_id">@lang('request.type')</label>
                             <label>
-                                <select name="type" class="form-control">
+                                <select name="type_id" class="form-control" required>
+                                <option hidden="" disabled="disabled" selected="selected" value="">Select one</option>
                                     @foreach ($types as $type)
-                                        <option value="{{ $type->name }}">{{ $type->name }}</option>
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </select>
                             </label>

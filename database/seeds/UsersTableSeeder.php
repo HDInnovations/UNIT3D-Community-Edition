@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
         $users = [
             [
                 'username'  => 'System',
-                'email'     => 'system@none.com',
+                'email'     => config('unit3d.default-owner-email'),
                 'group_id'  => 9,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),
@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'username'  => 'Bot',
-                'email'     => 'bot@none.com',
+                'email'     => config('unit3d.default-owner-email'),
                 'group_id'  => 9,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),

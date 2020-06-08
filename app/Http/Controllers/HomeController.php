@@ -51,29 +51,32 @@ class HomeController extends Controller
 
         // Latest Articles/News Block
         $articles = cache()->remember('latest_article', $expiresAt, fn () => Article::latest()->take(1)->get());
+        foreach ($articles as $article) {
+            $article->newNews = ($user->updated_at->subDays(3)->getTimestamp() < $article->created_at->getTimestamp()) ? 1 : 0;
+        }
 
         // Latest Torrents Block
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
-        $newest = cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category'])
+        $newest = cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
             ->withCount(['thanks', 'comments'])
             ->latest()
             ->take(5)
             ->get());
 
-        $seeded = cache()->remember('seeded_torrents', $expiresAt, fn () => Torrent::with(['user', 'category'])
+        $seeded = cache()->remember('seeded_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
             ->withCount(['thanks', 'comments'])
             ->latest('seeders')
             ->take(5)
             ->get());
 
-        $leeched = cache()->remember('leeched_torrents', $expiresAt, fn () => Torrent::with(['user', 'category'])
+        $leeched = cache()->remember('leeched_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
             ->withCount(['thanks', 'comments'])
             ->latest('leechers')
             ->take(5)
             ->get());
 
-        $dying = cache()->remember('dying_torrents', $expiresAt, fn () => Torrent::with(['user', 'category'])
+        $dying = cache()->remember('dying_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
             ->withCount(['thanks', 'comments'])
             ->where('seeders', '=', 1)
             ->where('times_completed', '>=', 1)
@@ -81,7 +84,7 @@ class HomeController extends Controller
             ->take(5)
             ->get());
 
-        $dead = cache()->remember('dead_torrents', $expiresAt, fn () => Torrent::with(['user', 'category'])
+        $dead = cache()->remember('dead_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
             ->withCount(['thanks', 'comments'])
             ->where('seeders', '=', 0)
             ->latest('leechers')

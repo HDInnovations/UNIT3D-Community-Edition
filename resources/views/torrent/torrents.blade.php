@@ -117,7 +117,7 @@
                                     @foreach ($repository->categories() as $id => $category)
                                         <span class="badge-user">
                                             <label class="inline">
-                                                <input type="checkbox" id="{{ $category }}" value="{{ $id }}"
+                                                <input type="checkbox" value="{{ $id }}"
                                                     class="category facetedSearch" trigger="click"> {{ $category }}
                                             </label>
                                         </span>
@@ -132,7 +132,7 @@
                                     @foreach ($repository->types() as $id => $type)
                                         <span class="badge-user">
                                             <label class="inline">
-                                                <input type="checkbox" id="{{ $type }}" value="{{ $type }}"
+                                                <input type="checkbox" value="{{ $id }}"
                                                     class="type facetedSearch" trigger="click"> {{ $type }}
                                             </label>
                                         </span>
@@ -147,7 +147,7 @@
                                     @foreach ($repository->tags() as $id => $genre)
                                         <span class="badge-user">
                                             <label class="inline">
-                                                <input type="checkbox" id="{{ $genre }}" value="{{ $genre }}"
+                                                <input type="checkbox" value="{{ $genre }}"
                                                     class="genre facetedSearch" trigger="click"> {{ $genre }}
                                             </label>
                                         </span>

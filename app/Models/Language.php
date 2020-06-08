@@ -79,7 +79,7 @@ class Language
     public static function allowed($locale = null)
     {
         if ($locale) {
-            return in_array($locale, array_keys(self::allowed()));
+            return array_key_exists($locale, self::allowed());
         }
 
         if (config('language.allowed')) {

@@ -29,7 +29,9 @@ use voku\helper\AntiXSS;
  * @property int $user_id
  * @property int $topic_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
+ * @property-read int|null $likes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
+ * @property-read int|null $tips_count
  * @property-read \App\Models\Topic $topic
  * @property-read \App\Models\User $user
  *
@@ -43,9 +45,6 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUserId($value)
  * @mixin \Eloquent
- *
- * @property-read int|null $likes_count
- * @property-read int|null $tips_count
  */
 class Post extends Model
 {

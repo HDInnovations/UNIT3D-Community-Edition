@@ -41,76 +41,56 @@
                 <div class="text-center">
                     <span class="badge-user" style=" width: 100%; background-color: rgba(0, 0, 0, 0.19);">
                         @if (config('torrent.download_check_page') == 1)
-                            <a href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-success">
-                                <span class='btn-label'>
-                                    <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
-                                </span>
+                            <a href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-success">
+                                <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
                             </a>
                         @else
-                            <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-success">
-                                <span class='btn-label'>
-                                    <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
-                                </span>
+                            <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-success">
+                                <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
                             </a>
                         @endif
                         @if (config('torrent.magnet') == 1)
-                            <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="btn btn-labeled btn-success">
-                                <span class='btn-label'>
-                                    <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
-                                </span>
+                            <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="btn btn-sm btn-success">
+                                <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
                             </a>
                         @endif
 
                         @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
-                            <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-labeled btn-primary">
-                                <span class='btn-label'>
-                                    <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('torrent.similar')
-                                </span>
+                            <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
+                                <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('torrent.similar')
                             </a>
                         @endif
 
                         @if ($torrent->nfo != null)
-                            <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
-                                <span class='btn-label'>
-                                    <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('common.view') NFO
-                                </span>
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-10">
+                                <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('common.view') NFO
                             </button>
                         @endif
 
-                        <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-primary">
-                            <span class='btn-label'>
-                                <i class='{{ config("other.font-awesome") }} fa-heart'></i> @lang('torrent.quick-comment')
-                            </span>
+                        <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-primary">
+                            <i class='{{ config("other.font-awesome") }} fa-heart'></i> @lang('torrent.quick-comment')
                         </a>
 
-                        <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
-                            <span class='btn-label'>
-                                <i class='{{ config("other.font-awesome") }} fa-file'></i>  @lang('torrent.show-files')
-                            </span>
+                        <a data-toggle="modal" href="#myModal" role="button" class="btn btn-sm btn-primary">
+                            <i class='{{ config("other.font-awesome") }} fa-file'></i>  @lang('torrent.show-files')
                         </a>
 
                         <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
 
                         @if ($playlists->count() > 0)
-                        <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
-                            <span class="btn-label">
-                                <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> Add To Playlist
-                            </span>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
+                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> Add To Playlist
                         </button>
                         @endif
 
                         @if ($torrent->seeders <= 2)
-                        <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-labeled btn-warning">
-                            <span class='btn-label'>
-                                <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
-                            </span>
+                        <a href="{{ route('reseed', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-warning">
+                            <i class='{{ config("other.font-awesome") }} fa-envelope'></i> @lang('torrent.request-reseed')
                         </a>
                         @endif
 
-                        <button class="btn btn-labeled btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
-                            <span class="btn-label">
-                                <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i> @lang('common.report') @lang('torrent.torrent')
-                            </span>
+                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
+                            <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i> @lang('common.report') @lang('torrent.torrent')
                         </button>
                     </span>
                 </div>
@@ -417,7 +397,7 @@
 
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.type')</strong></td>
-                        <td>{{ $torrent->type }}</td>
+                        <td>{{ $torrent->type->name }}</td>
                     </tr>
 
                     <tr>
@@ -612,7 +592,9 @@
         </div>
 
         {{-- Subtitles Block --}}
-        @include('torrent.partials.subtitles')
+        @if($torrent->category->movie_meta || $torrent->category->tv_meta)
+            @include('torrent.partials.subtitles')
+        @endif
 
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
@@ -670,10 +652,6 @@
             </div>
         </div>
     </div>
-
-    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-        @include('torrent.partials.movie_tv_recommendations')
-    @endif
 
     <div class="torrent box container" id="comments">
         <div class="clearfix"></div>

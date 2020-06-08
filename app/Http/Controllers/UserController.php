@@ -352,17 +352,13 @@ class UserController extends Controller
 
         abort_unless($request->user()->id == $user->id, 403);
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        if (config('email-blacklist.enabled') == true) {
             $v = validator($request->all(), [
-                'email' => 'required|email|unique:users|email_list:allow', // Whitelist
-            ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($request->all(), [
-                'email' => 'required|email|unique:users|email_list:block', // Blacklist
+                'email' => 'required|string|email|max:70|blacklist|unique:users',
             ]);
         } else {
             $v = validator($request->all(), [
-                'email' => 'required|email|unique:users', // Default
+                'email' => 'required|string|email|max:70|unique:users',
             ]);
         }
 
@@ -1247,7 +1243,7 @@ class UserController extends Controller
         }
 
         if ($request->has('view') && $request->input('view') == 'requests') {
-            $torrentRequests = TorrentRequest::with(['user', 'category']);
+            $torrentRequests = TorrentRequest::with(['user', 'category', 'type']);
             $order = null;
             $sorting = null;
             if ($request->has('name') && $request->input('name') != null) {
@@ -1422,17 +1418,15 @@ class UserController extends Controller
 
             if ($sorting != 'name' && $sorting != 'satisfied_at' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
-            } else {
-                if ($sorting == 'satisfied_at') {
-                    if ($order == 'desc') {
-                        $order = 'asc';
-                    } elseif ($order == 'asc') {
-                        $order = 'desc';
-                    }
-                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
-                } else {
-                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+            } elseif ($sorting == 'satisfied_at') {
+                if ($order == 'desc') {
+                    $order = 'asc';
+                } elseif ($order == 'asc') {
+                    $order = 'desc';
                 }
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+            } else {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
             }
 
             return view('user.filters.unsatisfieds', [
@@ -1704,7 +1698,7 @@ class UserController extends Controller
         if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
             $logger = 'user.private.requests';
 
-            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->latest()->paginate(25);
+            $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->latest()->paginate(25);
 
             return view($logger, [
                 'route'           => 'requests',
@@ -1713,7 +1707,7 @@ class UserController extends Controller
             ]);
         }
         $logger = 'user.requests';
-        $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
+        $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
         return view($logger, [
             'route'           => 'requests',

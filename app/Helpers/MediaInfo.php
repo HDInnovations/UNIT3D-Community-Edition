@@ -52,7 +52,7 @@ class MediaInfo
             }
         }
 
-        if (count($output)) {
+        if (count($output) > 0) {
             $output = $this->parseSections($output);
         }
 

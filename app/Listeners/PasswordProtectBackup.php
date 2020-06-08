@@ -33,10 +33,12 @@ class PasswordProtectBackup
      *
      * @param \Spatie\Backup\Events\BackupZipWasCreated $event
      *
+     * @throws \PhpZip\Exception\ZipException
+     *
      * @return string
      */
-    public function handle(BackupZipWasCreated $event)
+    public function handle(BackupZipWasCreated $event): string
     {
-        return (new BackupPassword($event->pathToZip))->path;
+        return (new BackupPassword(new \App\Helpers\BackupEncryption(), $event->pathToZip))->path;
     }
 }

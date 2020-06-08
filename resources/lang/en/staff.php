@@ -12,7 +12,7 @@
  */
 
 return [
-    'audit-log'            => 'Audit Log',
+    'audit-log'               => 'Audit Log',
     'articles'                => 'Articles',
     'application'             => 'Application',
     'applications'            => 'Applications',

@@ -64,7 +64,7 @@
             <li>
                 <a href="{{ route('staff.applications.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('staff.applications')
-                    <span class="badge badge-danger"> {{ $app_count }} </span>
+                    <span class="badge badge-danger"> {{ $apps->pending }} </span>
                 </a>
             </li>
             @if (auth()->user()->group->is_admin)
@@ -201,7 +201,7 @@
             <li>
                 <a href="{{ route('staff.reports.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.reports-log')
-                    <span class="badge badge-danger"> {{ $reports_count }} </span>
+                    <span class="badge badge-danger"> {{ $reports->unsolved }} </span>
                 </a>
             </li>
             <li>

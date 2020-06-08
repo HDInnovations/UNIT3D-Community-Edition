@@ -1,12 +1,12 @@
 @foreach ($articles as $article)
     <div class="col-md-10 col-sm-10 col-md-offset-1">
-        @if (auth()->user()->updated_at->getTimestamp() < $article->created_at->getTimestamp())
+        @if ($article->newNews)
                 <div class="panel panel-danger">
                     <div class="panel-heading">
                         <h4 class="text-center">
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                 href="#collapse4" style="color:#ffffff;">
-                                @emojione(':rotating_light:') @lang('blocks.new-news') @emojione(':rotating_light:')
+                                @emojione(':rotating_light:') @lang('blocks.new-news') {{ $article->created_at->diffForHumans() }} @emojione(':rotating_light:')
                             </a>
                         </h4>
                     </div>
@@ -21,7 +21,7 @@
                             </h4>
                         </div>
                     @endif
-                    <div id="collapse4" class="panel-collapse collapse" style="height: 0;">
+                    <div id="collapse4" class="panel-collapse collapse {{ ($article->newNews ? 'in' : '') }}" style="height: 0;">
                         <div class="panel-body no-padding">
                             <div class="news-blocks">
                                 <a href="{{ route('articles.show', ['id' => $article->id]) }}"

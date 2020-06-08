@@ -26,11 +26,11 @@ use voku\helper\AntiXSS;
  * @property int $id
  * @property string $name
  * @property int $category_id
- * @property \App\Models\Type $type
  * @property string|null $imdb
  * @property string|null $tvdb
  * @property string|null $tmdb
  * @property string|null $mal
+ * @property string $igdb
  * @property string $description
  * @property int $user_id
  * @property float $bounty
@@ -45,12 +45,16 @@ use voku\helper\AntiXSS;
  * @property int $filled_anon
  * @property int|null $approved_by
  * @property \Illuminate\Support\Carbon|null $approved_when
+ * @property int $type_id
  * @property-read \App\Models\User|null $FillUser
  * @property-read \App\Models\User|null $approveUser
  * @property-read \App\Models\Category $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequestBounty[] $requestBounty
+ * @property-read int|null $request_bounty_count
  * @property-read \App\Models\Torrent|null $torrent
+ * @property-read \App\Models\Type $type
  * @property-read \App\Models\User $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest newModelQuery()
@@ -69,22 +73,17 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereFilledHash($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereFilledWhen($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereIgdb($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereImdb($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereMal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereTmdb($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereTvdb($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereVotes($value)
  * @mixin \Eloquent
- *
- * @property string $igdb
- * @property-read int|null $comments_count
- * @property-read int|null $request_bounty_count
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereIgdb($value)
  */
 class TorrentRequest extends Model
 {

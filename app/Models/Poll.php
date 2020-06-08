@@ -28,8 +28,10 @@ use Illuminate\Support\Str;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $options
+ * @property-read int|null $options_count
  * @property-read \App\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Voter[] $voters
+ * @property-read int|null $voters_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll newQuery()
@@ -42,9 +44,6 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereUserId($value)
  * @mixin \Eloquent
- *
- * @property-read int|null $options_count
- * @property-read int|null $voters_count
  */
 class Poll extends Model
 {

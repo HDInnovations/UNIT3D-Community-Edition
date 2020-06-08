@@ -17,11 +17,14 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Adapter\Local;
 
 class BackupController extends Controller
 {
+    private const MESSAGE = 'success';
+
     /**
      * Display All Backups.
      *
@@ -34,7 +37,7 @@ class BackupController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_owner, 403);
 
-        if (! (is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0)) {
+        if ((is_countable(config('backup.backup.destination.disks')) ? count(config('backup.backup.destination.disks')) : 0) === 0) {
             dd(trans('backup.no_disks_configured'));
         }
 
@@ -82,19 +85,26 @@ class BackupController extends Controller
 
         try {
             ini_set('max_execution_time', 900);
+
             // start the backup process
+            Log::info('BackupManager called from staff dashboard');
             Artisan::call('backup:run');
             $output = Artisan::output();
-
-            // log the results
-            info('A new backup was initiated from the staff dashboard '.$output);
-            // return the results as a response to the ajax call
-            echo $output;
+            if (strpos($output, 'Backup failed because')) {
+                preg_match('Backup failed because(.*?)$/ms', $output, $match);
+                $message = 'BackupManager process failed because ';
+                $message .= $match[1] ?? '';
+                Log::error($message.PHP_EOL.$output);
+            } else {
+                Log::info('BackupManager process has started');
+            }
         } catch (Exception $e) {
+            Log::error($e);
+
             response($e->getMessage(), 500);
         }
 
-        return 'success';
+        return self::MESSAGE;
     }
 
     /**
@@ -111,19 +121,26 @@ class BackupController extends Controller
 
         try {
             ini_set('max_execution_time', 900);
+
             // start the backup process
+            Log::info('BackupManager called from staff dashboard');
             Artisan::call('backup:run --only-files');
             $output = Artisan::output();
-
-            // log the results
-            info('A new backup was initiated from the staff dashboard '.$output);
-            // return the results as a response to the ajax call
-            echo $output;
+            if (strpos($output, 'Backup failed because')) {
+                preg_match('Backup failed because(.*?)$/ms', $output, $match);
+                $message = 'BackupManager process failed because ';
+                $message .= $match[1] ?? '';
+                Log::error($message.PHP_EOL.$output);
+            } else {
+                Log::info('BackupManager process has started');
+            }
         } catch (Exception $e) {
+            Log::error($e);
+
             response($e->getMessage(), 500);
         }
 
-        return 'success';
+        return self::MESSAGE;
     }
 
     /**
@@ -140,19 +157,26 @@ class BackupController extends Controller
 
         try {
             ini_set('max_execution_time', 900);
+
             // start the backup process
+            Log::info('BackupManager called from staff dashboard');
             Artisan::call('backup:run --only-db');
             $output = Artisan::output();
-
-            // log the results
-            info('A new backup was initiated from the staff dashboard '.$output);
-            // return the results as a response to the ajax call
-            echo $output;
+            if (strpos($output, 'Backup failed because')) {
+                preg_match('Backup failed because(.*?)$/ms', $output, $match);
+                $message = 'BackupManager process failed because ';
+                $message .= $match[1] ?? '';
+                Log::error($message.PHP_EOL.$output);
+            } else {
+                Log::info('BackupManager process has started');
+            }
         } catch (Exception $e) {
+            Log::error($e);
+
             response($e->getMessage(), 500);
         }
 
-        return 'success';
+        return self::MESSAGE;
     }
 
     /**
@@ -204,7 +228,7 @@ class BackupController extends Controller
             if ($disk->exists($file_name)) {
                 $disk->delete($file_name);
 
-                return 'success';
+                return self::MESSAGE;
             }
 
             return abort(404, trans('backup.backup_doesnt_exist'));

@@ -82,7 +82,7 @@
                         @foreach ($repository->types() as $id => $type)
                             <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" id="{{ $type }}" value="{{ $type }}" class="type"> {{ $type }}
+                                    <input type="checkbox" id="{{ $type }}" value="{{ $id }}" class="type"> {{ $type }}
                                 </label>
                             </span>
                         @endforeach
@@ -187,12 +187,12 @@
         <div class="container-fluid">
             <div class="block">
                 <span class="badge-user" style="float: right;">
-                    <strong>@lang('request.requests'):</strong> {{ $num_req }} |
-                    <strong>@lang('request.filled'):</strong> {{ $num_fil }} |
-                    <strong>@lang('request.unfilled'):</strong> {{ $num_unfil }} |
-                    <strong>@lang('request.total-bounty'):</strong> {{ $total_bounty }} @lang('bon.bon') |
-                    <strong>@lang('request.bounty-claimed'):</strong> {{ $claimed_bounty }} @lang('bon.bon') |
-                    <strong>@lang('request.bounty-unclaimed'):</strong> {{ $unclaimed_bounty }} @lang('bon.bon')
+                    <strong>@lang('request.requests'):</strong> {{ $requests->total }} |
+                    <strong>@lang('request.filled'):</strong> {{ $requests->filled }} |
+                    <strong>@lang('request.unfilled'):</strong> {{ $requests->unfilled }} |
+                    <strong>@lang('request.total-bounty'):</strong> {{ $bounties->total }} @lang('bon.bon') |
+                    <strong>@lang('request.bounty-claimed'):</strong> {{ $bounties->claimed }} @lang('bon.bon') |
+                    <strong>@lang('request.bounty-unclaimed'):</strong> {{ $bounties->unclaimed }} @lang('bon.bon')
                 </span>
                 <a href="{{ route('add_request') }}" role="button" data-toggle="tooltip"
                     data-original-title="@lang('request.add-request')!" class="btn btn btn-success">

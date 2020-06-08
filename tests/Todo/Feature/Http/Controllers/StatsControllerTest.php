@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers;
+namespace Tests\Todo\Feature\Http\Controllers;
 
 use Tests\TestCase;
 

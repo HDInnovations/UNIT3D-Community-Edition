@@ -40,6 +40,8 @@ Examples:
 - (Revert) French Translations
 - (Refactor) French Translations
 
+## Code Style
+
 **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** 
 - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
 
@@ -71,16 +73,41 @@ Config | snake_case | google_calendar.php | ~~googleCalendar.php, google-calenda
 Contract (interface) | adjective or noun | Authenticatable | ~~AuthenticationInterface, IAuthentication~~
 Trait | adjective | Notifiable | ~~NotificationTrait~~
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
-
-- **Create feature branches** - Don't ask us to pull from your master branch.
-
-- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
+**StyleCI Settings**
+```
+preset: recommended
+risky: true
+enabled:
+  - method_argument_space
+  - braces
+  - not_operator_with_successor_space
+  - no_useless_else
+  - ternary_to_null_coalescing
+disabled:
+  - method_argument_space_strict
+  - psr12_braces
+finder:
+  exclude:
+    - node_modules
+    - storage
+    - vendor
+    - .github
+    - resources
+  not-name:
+    - index.php
+    - server.php
+```
 
 - **Use Laravel helpers when possible and not facades** - auth(), info(), cache(), response(), ext. [Laravel Helpers](https://laravel.com/docs/5.6/helpers)
 
 - **Use shortened syntax when possible** - Example: `[]` and not `array()`.
 
+## Other
 
+- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+
+- **Create feature branches** - Don't ask us to pull from your master branch.
+
+- **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
 
 **Happy coding**!

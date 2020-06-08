@@ -35,6 +35,7 @@ use App\Repositories\ChatRepository;
 use App\Repositories\RequestFacetedRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -63,7 +64,7 @@ class RequestController extends Controller
     }
 
     /**
-     * Displays Torrent List View.
+     * Displays Requests List View.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -72,26 +73,27 @@ class RequestController extends Controller
     public function requests(Request $request)
     {
         $user = $request->user();
-        $num_req = TorrentRequest::count();
-        $num_fil = TorrentRequest::whereNotNull('filled_by')->count();
-        $num_unfil = TorrentRequest::whereNull('filled_by')->count();
-        $total_bounty = TorrentRequest::all()->sum('bounty');
-        $claimed_bounty = TorrentRequest::whereNotNull('filled_by')->sum('bounty');
-        $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
 
-        $torrentRequests = TorrentRequest::with(['user', 'category'])->paginate(25);
+        $requests = DB::table('requests')
+            ->selectRaw('count(*) as total')
+            ->selectRaw('count(case when filled_by != null then 1 end) as filled')
+            ->selectRaw('count(case when filled_by = null then 1 end) as unfilled')
+            ->first();
+        $bounties = DB::table('requests')
+            ->selectRaw('coalesce(sum(bounty), 0) as total')
+            ->selectRaw('coalesce(sum(case when filled_by != null then 1 end), 0) as claimed')
+            ->selectRaw('coalesce(sum(case when filled_by = null then 1 end), 0) as unclaimed')
+            ->first();
+
+        $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
         $repository = $this->faceted;
 
         return view('requests.requests', [
             'torrentRequests'  => $torrentRequests,
             'repository'       => $repository,
             'user'             => $user,
-            'num_req'          => $num_req,
-            'num_fil'          => $num_fil,
-            'num_unfil'        => $num_unfil,
-            'total_bounty'     => $total_bounty,
-            'claimed_bounty'   => $claimed_bounty,
-            'unclaimed_bounty' => $unclaimed_bounty,
+            'requests'         => $requests,
+            'bounties'         => $bounties,
         ]);
     }
 
@@ -125,7 +127,7 @@ class RequestController extends Controller
             $search .= '%'.$term.'%';
         }
 
-        $torrentRequest = $torrentRequest->with(['user', 'category']);
+        $torrentRequest = $torrentRequest->with(['user', 'category', 'type']);
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrentRequest->where('name', 'like', $search);
@@ -156,7 +158,7 @@ class RequestController extends Controller
         }
 
         if ($request->has('types') && $request->input('types') != null) {
-            $torrentRequest->whereIn('type', $types);
+            $torrentRequest->whereIn('type_id', $types);
         }
 
         if ($request->has('unfilled') && $request->input('unfilled') != null) {
@@ -309,7 +311,7 @@ class RequestController extends Controller
         $tr->tmdb = $request->input('tmdb');
         $tr->mal = $request->input('mal');
         $tr->igdb = $request->input('igdb');
-        $tr->type = $request->input('type');
+        $tr->type_id = $request->input('type_id');
         $tr->bounty = $request->input('bounty');
         $tr->votes = 1;
         $tr->anon = $request->input('anon');
@@ -322,7 +324,7 @@ class RequestController extends Controller
             'mal'         => 'required|numeric',
             'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'type'        => 'required',
+            'type_id'     => 'required|exists:types,id',
             'description' => 'required|string',
             'bounty'      => sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
             'anon'        => 'required',
@@ -408,7 +410,7 @@ class RequestController extends Controller
         $mal = $request->input('mal');
         $igdb = $request->input('igdb');
         $category = $request->input('category_id');
-        $type = $request->input('type');
+        $type = $request->input('type_id');
         $description = $request->input('description');
         $anon = $request->input('anon');
 
@@ -419,7 +421,7 @@ class RequestController extends Controller
         $torrentRequest->mal = $mal;
         $torrentRequest->igdb = $igdb;
         $torrentRequest->category_id = $category;
-        $torrentRequest->type = $type;
+        $torrentRequest->type_id = $type;
         $torrentRequest->description = $description;
         $torrentRequest->anon = $anon;
 
@@ -431,7 +433,7 @@ class RequestController extends Controller
             'mal'         => 'required|numeric',
             'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'type'        => 'required',
+            'type_id'     => 'required|exists:types,id',
             'description' => 'required|string',
             'anon'        => 'required',
         ]);
