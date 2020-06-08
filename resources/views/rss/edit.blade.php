@@ -87,12 +87,13 @@
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->types) &&
                                             in_array($type,$rss->object_torrent->types))
-                                            <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $type }}" class="type"
+                                            <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type"
                                                 CHECKED> {{ $type }}
                                         @else
-                                            <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $type }}" class="type">
+                                            <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type">
                                             {{ $type }}
                                         @endif
+                                    </label>
                                 </span>
                             @endforeach
                         </div>
@@ -111,6 +112,7 @@
                                             <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}"
                                                 class="genre"> {{ $genre }}
                                         @endif
+                                    </label>
                                 </span>
                             @endforeach
                         </div>

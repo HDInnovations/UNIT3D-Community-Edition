@@ -74,7 +74,7 @@
                             @foreach ($torrent_repository->types() as $id => $type)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $type }}" class="type">
+                                        <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type">
                                         {{ $type }}
                                     </label>
                                 </span>

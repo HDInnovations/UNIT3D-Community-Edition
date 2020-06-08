@@ -50,7 +50,7 @@ class BonusController extends Controller
      * @param ChatRepository $chat
      */
     public function __construct(
-        ByteUnits $byteUnits,
+        \App\Interfaces\ByteUnitsInterface $byteUnits,
         ChatRepository $chat
     ) {
         $this->byteUnits = $byteUnits;
@@ -122,7 +122,6 @@ class BonusController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        $users = User::oldest('username')->get();
         $userbon = $user->getSeedbonus();
         $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $BonExchange = new BonExchange();
@@ -133,7 +132,6 @@ class BonusController extends Controller
         $invite = $BonExchange->getInviteOption();
 
         return view('bonus.store', [
-            'users'             => $users,
             'userbon'           => $userbon,
             'activefl'          => $activefl,
             'bontransactions'   => $bontransactions,
@@ -253,7 +251,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if (! $flag) {
+            if ($flag === '') {
                 return redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }

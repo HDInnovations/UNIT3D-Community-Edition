@@ -74,12 +74,12 @@
                     <div class="form-group">
                         <label for="type">@lang('torrent.type')</label>
                         <label>
-                            <select name="type" class="form-control">
-                                <option value="{{ $torrent->type }}" selected>{{ $torrent->type }}
+                            <select name="type_id" class="form-control">
+                                <option value="{{ $torrent->type->id }}" selected>{{ $torrent->type->name }}
                                     (@lang('torrent.current'))
                                 </option>
                                 @foreach ($types as $type)
-                                    <option value="{{ $type->name }}">{{ $type->name }}</option>
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
                         </label>

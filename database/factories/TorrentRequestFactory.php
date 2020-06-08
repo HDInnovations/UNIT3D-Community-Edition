@@ -10,7 +10,9 @@ $factory->define(App\Models\TorrentRequest::class, function (Faker $faker) {
         'category_id' => function () {
             return factory(App\Models\Category::class)->create()->id;
         },
-        'type'        => $faker->word,
+        'type_id' => function () {
+            return factory(App\Models\Type::class)->create()->id;
+        },
         'imdb'        => $faker->word,
         'tvdb'        => $faker->word,
         'tmdb'        => $faker->word,

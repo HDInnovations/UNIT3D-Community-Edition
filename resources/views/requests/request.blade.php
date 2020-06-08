@@ -99,7 +99,7 @@
                                 <strong>@lang('torrent.type')</strong>
                             </td>
                             <td>
-                                {{ $torrentRequest->type }}
+                                {{ $torrentRequest->type->name }}
                             </td>
                         </tr>
                         <tr>
@@ -161,7 +161,7 @@
                                         </i> @lang('request.claim')
                                     </button>
                                     @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
-                                        <a href="{{ route('upload_form', ['title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
+                                        <a href="{{ route('upload_form', ['category_id' => $torrentRequest->category_id, 'title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
                                            class="btn btn-xs btn-success"> @lang('common.upload') {{ $meta->title ?? ''}}
                                         </a>
                                     @endif
@@ -199,7 +199,7 @@
                                                 <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('request.unclaim')
                                             </span>
                                         </a>
-                                        <a href="{{ route('upload_form', ['title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
+                                        <a href="{{ route('upload_form', ['category_id' => $torrentRequest->category_id, 'title' => $meta->title ?? ' ', 'imdb' => $meta->imdb ?? 0, 'tmdb' => $meta->tmdb ?? 0]) }}"
                                            class="btn btn-xs btn-success"> @lang('common.upload') {{ $meta->title ?? ''}}
                                         </a>
                                     @endif

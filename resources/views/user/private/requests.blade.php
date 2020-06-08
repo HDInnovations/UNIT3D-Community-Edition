@@ -127,7 +127,7 @@
                                     </td>
                                     <td>
                                         <span class="label label-success">
-                                            {{ $torrentRequest->type }}
+                                            {{ $torrentRequest->type->name }}
                                         </span>
                                     </td>
                                     <td>

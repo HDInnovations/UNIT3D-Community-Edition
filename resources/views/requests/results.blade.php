@@ -37,7 +37,7 @@
                     </td>
                     <td style="vertical-align: middle;">
                         <span class="label label-success">
-                            {{ $torrentRequest->type }}
+                            {{ $torrentRequest->type->name }}
                         </span>
                     </td>
                     <td style="vertical-align: middle;">

@@ -44,7 +44,7 @@ class ChatController extends Controller
      */
     private $auth;
 
-    public function __construct(ChatRepository $chat, AuthManager $auth)
+    public function __construct(ChatRepository $chat, \Illuminate\Contracts\Auth\Factory $auth)
     {
         $this->chat = $chat;
         $this->auth = $auth;
@@ -347,7 +347,7 @@ class ChatController extends Controller
             $message->delete();
         }
 
-        if ($save && $echo !== false) {
+        if ($save && $echo) {
             return new ChatMessageResource($message);
         }
 

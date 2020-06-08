@@ -397,7 +397,7 @@
 
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.type')</strong></td>
-                        <td>{{ $torrent->type }}</td>
+                        <td>{{ $torrent->type->name }}</td>
                     </tr>
 
                     <tr>
@@ -592,7 +592,9 @@
         </div>
 
         {{-- Subtitles Block --}}
-        @include('torrent.partials.subtitles')
+        @if($torrent->category->movie_meta || $torrent->category->tv_meta)
+            @include('torrent.partials.subtitles')
+        @endif
 
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
@@ -650,10 +652,6 @@
             </div>
         </div>
     </div>
-
-    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-        @include('torrent.partials.movie_tv_recommendations')
-    @endif
 
     <div class="torrent box container" id="comments">
         <div class="clearfix"></div>

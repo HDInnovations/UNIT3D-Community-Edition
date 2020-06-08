@@ -12,32 +12,44 @@
  */
 
 return [
-    'actions'                        => 'Actions',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the backup system.
+    | You are free to change them to anything you want to customize your views to better match your application.
+    |
+    */
+
     'backup'                         => 'Backup',
-    'backup_doesnt_exist'            => 'The backup file does NOT exist.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Create Full Backup',
     'create_a_new_files_backup'      => 'Create Files Backup',
     'create_a_new_db_backup'         => 'Create Database Backup',
-    'create_confirmation_message'    => 'Reloading the page in 3 seconds.',
-    'create_confirmation_title'      => 'Backup Completed',
-    'create_error_message'           => 'The backup file could NOT be created.',
-    'create_error_title'             => 'Backup Error',
-    'create_warning_message'         => 'Your backup may NOT have been created. Please check log files for details.',
-    'create_warning_title'           => 'Unknown Error',
+    'existing_backups'               => 'Existing backups',
     'date'                           => 'Date',
-    'delete'                         => 'Delete',
-    'delete_cancel_message'          => 'The backup file has NOT been deleted.',
-    'delete_cancel_title'            => 'It\'s ok',
-    'delete_confirm'                 => 'Are your sure you want to delete this backup file?',
-    'delete_confirmation_message'    => 'The backup file was deleted.',
-    'delete_confirmation_title'      => 'Done',
-    'delete_error_message'           => 'The backup file has NOT been deleted.',
-    'delete_error_title'             => 'Error',
+    'file_size'                      => 'File size',
+    'actions'                        => 'Actions',
     'download'                       => 'Download',
-    'existing_backups'               => 'Existing Backups',
-    'file_size'                      => 'File Size',
+    'delete'                         => 'Delete',
+    'delete_confirm'                 => 'Are your sure you want to delete this backup file?',
+    'delete_confirmation_title'      => 'Done',
+    'delete_confirmation_message'    => 'The backup file was deleted.',
+    'delete_error_title'             => 'Error',
+    'delete_error_message'           => 'The backup file has NOT been deleted.',
+    'delete_cancel_title'            => "It's ok",
+    'delete_cancel_message'          => 'The backup file has NOT been deleted.',
+    'create_confirmation_title'      => 'Backup process started',
+    'create_confirmation_message'    => 'Please wait a few minutes for it to complete, then refresh the page.',
+    'create_error_title'             => 'Backup error',
+    'create_error_message'           => 'The backup file could NOT be created.',
+    'create_warning_title'           => 'Unknown error',
+    'create_warning_message'         => 'Your backup may NOT have been created. Please check log files for details.',
     'location'                       => 'Location',
     'manager'                        => 'Manager',
     'no_disks_configured'            => 'No backup disks configured in config/backup.php',
+    'backup_doesnt_exist'            => "The backup file doesn't exist.",
     'only_local_downloads_supported' => 'Only downloads from the Local filesystem are supported.',
 ];

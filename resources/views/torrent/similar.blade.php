@@ -88,7 +88,7 @@
                         <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>@lang('torrent.torrents'):
                             </strong> {{ $torrents->count() }}</li>
                         <li>
-                            <a href="{{ route('upload_form', ['title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
+                            <a href="{{ route('upload_form', ['category_id' => $torrents->first()->category_id, 'title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
                                 class="btn btn-xs btn-danger">
                                 @lang('common.upload') {{ $meta->title }}
                             </a>
@@ -127,7 +127,7 @@
                                     <div class="text-center">
                                         <span class="label label-success" data-toggle="tooltip"
                                             data-original-title="@lang('torrent.type')">
-                                            {{ $torrent->type }}
+                                            {{ $torrent->type->name }}
                                         </span>
                                     </div>
                                 </td>

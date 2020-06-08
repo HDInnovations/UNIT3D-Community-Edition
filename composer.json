@@ -8,7 +8,8 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
+        "ext-zip": "*",
         "appstract/laravel-opcache": "^3.0",
         "arcanedev/log-viewer": "^7.0",
         "bandwidth-throttle/token-bucket": "^2.0",
@@ -27,7 +28,6 @@
         "laravel/framework": "^7.11",
         "laravel/tinker": "^2.0",
         "marcreichel/igdb-laravel": "^0.10.0",
-        "mews/purifier": "^3.0",
         "nelexa/zip": "^3.1",
         "paragonie/constant_time_encoding": "^2.0",
         "predis/predis": "^1.1",
@@ -45,13 +45,13 @@
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.4",
-        "jasonmccreary/laravel-test-assertions": "^0.5",
+        "jasonmccreary/laravel-test-assertions": "^1.0",
         "mockery/mockery": "^1.3.1",
         "mpociot/laravel-test-factory-helper": "^2.1",
         "nunomaduro/collision": "^4.1",
         "php-coveralls/php-coveralls": "^2.2",
         "phpro/grumphp": "^0.17.2",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^9.0"
     },
     "config": {
         "preferred-install": "dist",

@@ -1151,7 +1151,7 @@ class Markdown
             $extent += strlen($matches[0]);
         } else {
             if (preg_match('#^\s*\[(.*?)\]#', $remainder, $matches)) {
-                $definition = strlen($matches[1]) ? $matches[1] : $Element['text'];
+                $definition = strlen($matches[1]) !== 0 ? $matches[1] : $Element['text'];
                 $definition = strtolower($definition);
 
                 $extent += strlen($matches[0]);
@@ -1387,7 +1387,7 @@ class Markdown
         }
 
         if (! empty($Element['attributes'])) {
-            foreach ($Element['attributes'] as $att => $val) {
+            foreach (array_keys($Element['attributes']) as $att) {
                 // filter out badly parsed attribute
                 if (! preg_match($goodAttribute, $att)) {
                     unset($Element['attributes'][$att]);

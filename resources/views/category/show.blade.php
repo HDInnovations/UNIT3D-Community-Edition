@@ -130,7 +130,7 @@
                                     @endif
                                     <div class="text-center">
                                         <span class="label label-success" data-toggle="tooltip" data-original-title="Type">
-                                            {{ $torrent->type }}
+                                            {{ $torrent->type->names }}
                                         </span>
                                     </div>
                                 </td>

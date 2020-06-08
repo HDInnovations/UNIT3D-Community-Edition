@@ -56,7 +56,7 @@
                                         </a>
                                         <div class="text-center">
                                             <span class="label label-success" data-toggle="tooltip" data-original-title="Type">
-                                                {{ $bookmark->type }}
+                                                {{ $bookmark->type->name }}
                                             </span>
                                         </div>
                                     </td>

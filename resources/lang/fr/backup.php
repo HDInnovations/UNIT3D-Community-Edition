@@ -12,32 +12,42 @@
  */
 
 return [
-  'actions' => 'actes',
-  'backup' => 'Sauvegarde',
-  'backup_doesnt_exist' => 'Le fichier de sauvegarde n existe pas.',
-  'create_a_new_backup' => 'Créer une sauvegarde complète',
-  'create_a_new_files_backup' => 'Créer des fichiers de sauvegarde',
-  'create_a_new_db_backup' => 'Créer une sauvegarde de base de données',
-  'create_confirmation_message' => 'Rechargement de la page en 3 secondes.',
-  'create_confirmation_title' => 'Sauvegarde terminée',
-  'create_error_message' => 'Le fichier de sauvegarde n a pas pu être créé.',
-  'create_error_title' => 'Erreur de sauvegarde',
-  'create_warning_message' => 'Votre sauvegarde n a peut-être pas été créée. S il vous plaît vérifier les fichiers journaux pour plus de détails.',
-  'create_warning_title' => 'Erreur inconnue',
-  'date' => 'Rendez-vous amoureux',
-  'delete' => 'Effacer',
-  'delete_cancel_message' => 'Le fichier de sauvegarde n a PAS été supprimé.',
-  'delete_cancel_title' => 'C est bon',
-  'delete_confirm' => 'Êtes-vous sûr de vouloir supprimer ce fichier de sauvegarde?',
-  'delete_confirmation_message' => 'Le fichier de sauvegarde a été supprimé.',
-  'delete_confirmation_title' => 'Terminé',
-  'delete_error_message' => 'Le fichier de sauvegarde n a pas été supprimé.',
-  'delete_error_title' => 'Erreur',
-  'download' => 'Télécharger',
-  'existing_backups' => 'Sauvegardes existantes',
-  'file_size' => 'Taille du fichier',
-  'location' => 'Emplacement',
-  'manager' => 'Directeur',
-  'no_disks_configured' => 'Aucun disque de sauvegarde configuré dans config / backup.php',
-  'only_local_downloads_supported' => 'Seuls les téléchargements du système de fichiers local sont pris en charge.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the backup system.
+    | You are free to change them to anything you want to customize your views to better match your application.
+    |
+    */
+
+    'backup'                         => 'Sauvegarde',
+    'create_a_new_backup'            => 'Créer une nouvelle sauvegarde',
+    'create_a_new_files_backup'      => 'Créer des fichiers de sauvegarde',
+    'create_a_new_db_backup'         => 'Créer une sauvegarde de base de données',
+    'existing_backups'               => 'Sauvegardes existantes',
+    'date'                           => 'Date',
+    'file_size'                      => 'Taille de fichier',
+    'actions'                        => 'Actions',
+    'download'                       => 'Télécharger',
+    'delete'                         => 'Supprimer',
+    'delete_confirm'                 => 'Etes-vous certain de vouloir supprimer ce fichier ?',
+    'delete_confirmation_title'      => 'Fait',
+    'delete_confirmation_message'    => 'Le fichier de sauvegarde a été supprimmé.',
+    'delete_error_title'             => 'Erreur',
+    'delete_error_message'           => 'Le fichier de sauvegarde n\'a PAS été supprimmé.',
+    'delete_cancel_title'            => "C'est ok",
+    'delete_cancel_message'          => 'Le fichier de sauvegarde n\'a PAS été supprimmé.',
+    'create_confirmation_title'      => 'Sauvegarde terminée',
+    'create_confirmation_message'    => 'Rechargement de cette page dans 3 secondes.',
+    'create_error_title'             => 'Erreur de sauvegarde',
+    'create_error_message'           => 'Le fichier de sauvegarde n\'a PAS pu être créer.',
+    'create_warning_title'           => 'Erreur inconnue',
+    'create_warning_message'         => 'Votre fichier de sauvegarde n\'a sans doute pas pu être créé. Regardez les logs pour plus de details.',
+    'location'                       => 'Emplacement',
+    'no_disks_configured'            => 'Aucun "backup disks" de configuré dans config/backup.php',
+    'backup_doesnt_exist'            => "Le fichier de sauvegarde n'existe pas.",
+    'only_local_downloads_supported' => 'Seuls les téléchargments à partir du système de fichier local sont supportés.',
 ];

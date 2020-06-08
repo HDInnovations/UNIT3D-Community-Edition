@@ -16,7 +16,7 @@
                 <a href="{{ route('inbox') }}" class="dropdown-toggle icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-blue"></i>
                     @if ($pm > 0)
-                        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                        <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
                     @endif
                 </a>
             </li>
@@ -25,7 +25,7 @@
                 <a href="{{ route('notifications.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
                     @if (auth()->user()->unreadNotifications->count() > 0)
-                        <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                        <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
                     @endif
                 </a>
             </li>
@@ -42,7 +42,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>
                     @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
                         @if ($modder > 0)
-                            <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                            <div class="notify"><span class="heartbit"></span><span class="point fa-beat"></span></div>
                         @endif
                     </a>
                 </li>

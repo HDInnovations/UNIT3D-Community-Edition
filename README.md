@@ -140,8 +140,9 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
+ 2.4.x       |  Active Support :rocket: | >= 7.4
  2.3.x       |  Active Support :rocket: | >= 7.4
- 2.0.0 to 2.2.7|  Active Support :rocket: | >= 7.3
+ 2.0.0 to 2.2.7|  End Of Life :skull: | >= 7.3
  1.0 to 1.9.4|  End Of Life :skull:     | >= 7.1.3
 
 ## <a name="security"></a> 🔐 Security
@@ -191,7 +192,7 @@ Demo is reset every 48 hours!
 
 ## <a name="chat"></a>  💬 Chat With Us
 
-URL: https://discord.gg/ntnPxzG
+URL: https://discord.gg/Bf47vws
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 

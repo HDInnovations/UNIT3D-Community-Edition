@@ -17,7 +17,7 @@ use UsersTableSeeder;
  */
 class BonusControllerTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -192,7 +192,6 @@ class BonusControllerTest extends TestCase
 
         $response->assertOk()
             ->assertViewIs('bonus.store')
-            ->assertViewHas('users')
             ->assertViewHas('userbon')
             ->assertViewHas('activefl')
             ->assertViewHas('bontransactions')

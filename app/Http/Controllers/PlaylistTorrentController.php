@@ -38,8 +38,8 @@ class PlaylistTorrentController extends Controller
         $playlist_torrent->torrent_id = $request->input('torrent_id');
 
         $v = validator($playlist_torrent->toArray(), [
-            'playlist_id'    => 'required|numeric|exists:playlists,id',
-            'torrent_id'     => 'required|numeric|exists:torrents,id',
+            'playlist_id'    => 'required|numeric|exists:playlists,id|unique:playlist_torrents,playlist_id,NULL,NULL,torrent_id,'.$request->input('torrent_id'),
+            'torrent_id'     => 'required|numeric|exists:torrents,id|unique:playlist_torrents,torrent_id,NULL,NULL,playlist_id,'.$request->input('playlist_id'),
         ]);
 
         if ($v->fails()) {
