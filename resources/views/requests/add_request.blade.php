@@ -92,7 +92,7 @@
                             <label for="category_id">@lang('request.category')</label>
                             <label>
                                 <select name="category_id" class="form-control" required>
-                                <option hidden="" disabled="disabled" selected="selected" value="">Select one</option>
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Category--</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -104,9 +104,21 @@
                             <label for="type_id">@lang('request.type')</label>
                             <label>
                                 <select name="type_id" class="form-control" required>
-                                <option hidden="" disabled="disabled" selected="selected" value="">Select one</option>
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Type--</option>
                                     @foreach ($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="resolution_id">@lang('request.resolution')</label>
+                            <label>
+                                <select name="resolution_id" class="form-control" required>
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>
+                                    @foreach ($resolutions as $resolution)
+                                        <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
                                     @endforeach
                                 </select>
                             </label>
