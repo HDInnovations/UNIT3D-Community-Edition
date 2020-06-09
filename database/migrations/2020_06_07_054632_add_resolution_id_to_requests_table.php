@@ -25,7 +25,7 @@ class AddResolutionIdToRequestsTable extends Migration
     public function up()
     {
         Schema::table('requests', function (Blueprint $table) {
-            $table->integer('resolution_id')->index();
+            $table->integer('resolution_id')->nullable()->index();
         });
     }
 

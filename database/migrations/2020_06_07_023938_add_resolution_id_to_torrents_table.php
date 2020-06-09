@@ -27,7 +27,7 @@ class AddResolutionIdToTorrentsTable extends Migration
     public function up()
     {
         Schema::table('torrents', function (Blueprint $table) {
-            $table->integer('resolution_id')->index();
+            $table->integer('resolution_id')->nullable()->index();
         });
 
         if (Schema::hasColumn('torrents', 'resolution')) {
