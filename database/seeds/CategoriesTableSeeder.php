@@ -72,7 +72,7 @@ class CategoriesTableSeeder extends Seeder
                 'name'        => 'Game',
                 'slug'        => 'game',
                 'position'    => 3,
-                'icon'        => config('other.font-awesome').' fa-game-pad',
+                'icon'        => config('other.font-awesome').' fa-gamepad',
                 'num_torrent' => 0,
                 'image'       => null,
                 'movie_meta'  => 0,
