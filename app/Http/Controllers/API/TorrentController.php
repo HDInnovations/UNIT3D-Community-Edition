@@ -113,13 +113,14 @@ class TorrentController extends BaseController
         $torrent->size = $meta['size'];
         $torrent->nfo = ($request->hasFile('nfo')) ? TorrentTools::getNfo($request->file('nfo')) : '';
         $torrent->category_id = $category->id;
+        $torrent->type_id = $request->input('type_id');
+        $torrent->resolution_id = $request->input('resolution_id');
         $torrent->user_id = $user->id;
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
-        $torrent->type_id = $request->input('type_id');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -133,30 +134,31 @@ class TorrentController extends BaseController
 
         // Validation
         $v = validator($torrent->toArray(), [
-            'name'        => 'required|unique:torrents',
-            'slug'        => 'required',
-            'description' => 'required',
-            'info_hash'   => 'required|unique:torrents',
-            'file_name'   => 'required',
-            'num_file'    => 'required|numeric',
-            'announce'    => 'required',
-            'size'        => 'required',
-            'category_id' => 'required',
-            'user_id'     => 'required',
-            'imdb'        => 'required|numeric',
-            'tvdb'        => 'required|numeric',
-            'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
-            'type_id'     => 'required',
-            'anon'        => 'required',
-            'stream'      => 'required',
-            'sd'          => 'required',
-            'internal'    => 'required',
-            'featured'    => 'required',
-            'free'        => 'required',
-            'doubleup'    => 'required',
-            'sticky'      => 'required',
+            'name'           => 'required|unique:torrents',
+            'slug'           => 'required',
+            'description'    => 'required',
+            'info_hash'      => 'required|unique:torrents',
+            'file_name'      => 'required',
+            'num_file'       => 'required|numeric',
+            'announce'       => 'required',
+            'size'           => 'required',
+            'category_id'    => 'required|exists:categories,id',
+            'type_id'        => 'required|exists:types,id',
+            'resolution_id'  => 'exists:resolutions,id',
+            'user_id'        => 'required|exists:users,id',
+            'imdb'           => 'required|numeric',
+            'tvdb'           => 'required|numeric',
+            'tmdb'           => 'required|numeric',
+            'mal'            => 'required|numeric',
+            'igdb'           => 'required|numeric',
+            'anon'           => 'required',
+            'stream'         => 'required',
+            'sd'             => 'required',
+            'internal'       => 'required',
+            'featured'       => 'required',
+            'free'           => 'required',
+            'doubleup'       => 'required',
+            'sticky'         => 'required',
         ]);
 
         if ($v->fails()) {
@@ -328,6 +330,7 @@ class TorrentController extends BaseController
         $end_year = $request->input('end_year');
         $categories = $request->input('categories');
         $types = $request->input('types');
+        $resolutions = $request->input('resolutions');
         $genres = $request->input('genres');
         $freeleech = $request->input('freeleech');
         $doubleupload = $request->input('doubleupload');
@@ -424,6 +427,10 @@ class TorrentController extends BaseController
 
         if ($request->has('types') && $request->input('types') != null) {
             $torrent->whereIn('torrents.type_id', $types);
+        }
+
+        if ($request->has('resolutions') && $request->input('resolutions') != null) {
+            $torrent->whereIn('torrents.resolution_id', $resolutions);
         }
 
         if ($request->has('genres') && $request->input('genres') != null) {

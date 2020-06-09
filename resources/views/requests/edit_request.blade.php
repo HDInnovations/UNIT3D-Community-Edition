@@ -106,6 +106,20 @@
                             </select>
                         </label>
                     </div>
+
+                    <div class="form-group">
+                        <label for="resolution_id">@lang('request.resolution')</label>
+                        <label>
+                            <select name="resolution_id" class="form-control">
+                                <option value="{{ $torrentRequest->resolution->id }}" selected>{{ $torrentRequest->resolution->name }}
+                                    (@lang('request.current'))
+                                </option>
+                                @foreach ($resolutions as $resolution)
+                                    <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
         
                     <div class="form-group">
                         <label for="description">@lang('request.description')</label>

@@ -103,6 +103,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="col-sm-2">
+                                <strong>@lang('torrent.resolution')</strong>
+                            </td>
+                            <td>
+                                {{ $torrentRequest->resolution->name }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <strong>@lang('bon.bon')</strong>
                             </td>
