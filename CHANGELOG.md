@@ -2,7 +2,23 @@
 
 <!-- dumped content start -->
 
-## Unreleased
+## [v2.5.0]
+
+- [#1365] (Update) Add set freeleech to torrent upload page, Thanks to [@innocente205]
+- [#1360] (Refactor) Types System, Thanks to [@HDVinnie]
+- [#1354] (Update) Announce Controller, Thanks to [@PyR8zdl]
+- [#1356] PHPUnit 9 Shift, Thanks to [@HDVinnie]
+- [#1357] (Update) upload.blade.php, Thanks to [@innocente205]
+- [#1358] (Update) add_request.blade.php, Thanks to [@innocente205]
+- [#1359] (Update) Composer v2 Compatibility, Thanks to [@HDVinnie]
+- [#1379] (Feature) Resolutions System, Thanks to [@HDVinnie]
+- [#1368] (Enhancement) Upload Parser, Thanks to [@HDVinnie]
+- [#1371] (Refactor) Code Quality Changes, Thanks to [@HDVinnie]
+- [#1374] (Update) Model Doc Blocks, Thanks to [@HDVinnie]
+- [#1376] (Refactor) Count and Sum Queries, Thanks to [@HDVinnie]
+- [#1378] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1372] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1375] Apply fixes from StyleCI, Thanks to [@HDVinnie]
 
 <!-- dumped content end -->
 
@@ -1467,3 +1483,20 @@
 [#1350]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1350
 [#1346]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1346
 [#1345]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1345
+[#1379]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1379
+[#1378]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1378
+[#1376]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1376
+[#1375]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1375
+[#1374]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1374
+[#1372]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1372
+[#1371]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1371
+[#1368]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1368
+[#1365]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1365
+[#1360]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1360
+[#1359]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1359
+[#1358]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1358
+[#1357]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1357
+[#1356]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1356
+[#1354]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1354
+[v2.4.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.3.0...v2.4.0
+[v2.5.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.4.0...v2.5.0
