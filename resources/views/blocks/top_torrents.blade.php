@@ -90,7 +90,7 @@
                                         <div class="text-center" style="padding-top: 8px;">
                                             <span class="label label-success" data-toggle="tooltip"
                                                   data-original-title="@lang('torrent.resolution')">
-                                                {{ $new->resolution->name }}
+                                                {{ $new->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -353,7 +353,7 @@
                                         <div class="text-center" style="padding-top: 8px;">
                                             <span class="label label-success" data-toggle="tooltip"
                                                   data-original-title="@lang('torrent.resolution')">
-                                                {{ $seed->resolution->name }}
+                                                {{ $seed->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -617,7 +617,7 @@
                                         <div class="text-center" style="padding-top: 8px;">
                                             <span class="label label-success" data-toggle="tooltip"
                                                   data-original-title="@lang('torrent.resolution')">
-                                                {{ $leech->resolution->name }}
+                                                {{ $leech->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -882,7 +882,7 @@
                                         <div class="text-center" style="padding-top: 8px;">
                                             <span class="label label-success" data-toggle="tooltip"
                                                   data-original-title="@lang('torrent.resolution')">
-                                                {{ $d->resolution->name }}
+                                                {{ $d->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -1146,7 +1146,7 @@
                                         <div class="text-center" style="padding-top: 8px;">
                                             <span class="label label-success" data-toggle="tooltip"
                                                   data-original-title="@lang('torrent.resolution')">
-                                                {{ $d->resolution->name }}
+                                                {{ $d->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>

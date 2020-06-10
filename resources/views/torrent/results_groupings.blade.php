@@ -129,7 +129,7 @@
                                                         <div class="text-center" style="padding-top: 8px;">
                                                             <span class="label label-success" data-toggle="tooltip"
                                                                   data-original-title="@lang('torrent.resolution')">
-                                                                    {{ $current->resolution->name }}
+                                                                    {{ $current->resolution->name ?? 'No Res' }}
                                                             </span>
                                                         </div>
                                                     </td>

@@ -45,7 +45,7 @@
                         <div class="text-center" style="padding-top: 8px;">
                             <span class="label label-success" data-toggle="tooltip"
                                   data-original-title="@lang('request.resolution')">
-                                {{ $torrentRequest->resolution->name }}
+                                {{ $torrentRequest->resolution->name ?? 'No Res' }}
                             </span>
                         </div>
                     </td>

@@ -401,7 +401,7 @@
 
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
-                        <td>{{ $torrent->resolution->name }}</td>
+                        <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
                     </tr>
 
                     <tr>

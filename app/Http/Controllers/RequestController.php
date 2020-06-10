@@ -333,7 +333,7 @@ class RequestController extends Controller
             'igdb'          => 'required|numeric',
             'category_id'   => 'required|exists:categories,id',
             'type_id'       => 'required|exists:types,id',
-            'resolution_id' => 'required|exists:resolutions,id',
+            'resolution_id' => 'nullable|exists:resolutions,id',
             'description'   => 'required|string',
             'bounty'        => sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
             'anon'          => 'required',
@@ -446,7 +446,7 @@ class RequestController extends Controller
             'igdb'          => 'required|numeric',
             'category_id'   => 'required|exists:categories,id',
             'type_id'       => 'required|exists:types,id',
-            'resolution_id' => 'required|exists:resolutions,id',
+            'resolution_id' => 'nullable|exists:resolutions,id',
             'description'   => 'required|string',
             'anon'          => 'required',
         ]);

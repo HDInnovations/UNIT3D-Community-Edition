@@ -21,41 +21,60 @@
                             <input type="text" class="form-control" name="name" value="{{ $torrent->name }}" required>
                         </label>
                     </div>
-    
+                    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">
-                        <label for="name">IMDB ID <b>(@lang('common.required'))</b></label>
-                        <label>
-                            <input type="number" name="imdb" value="{{ $torrent->imdb }}" class="form-control" required>
-                        </label>
-                    </div>
-    
-                    <div class="form-group">
-                        <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="name">TMDB ID <b>(@lang('common.required'))</b></label>
                         <label>
                             <input type="number" name="tmdb" value="{{ $torrent->tmdb }}" class="form-control" required>
                         </label>
                     </div>
-    
+                    @else
+                        <input type="hidden" name="tmdb" value="0">
+                    @endif
+
+                    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">
-                        <label for="name">TVDB ID (Optional)</label>
+                        <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
+                        <label>
+                            <input type="number" name="imdb" value="{{ $torrent->imdb }}" class="form-control" required>
+                        </label>
+                    </div>
+                    @else
+                        <input type="hidden" name="imdb" value="0">
+                    @endif
+
+                    @if ($torrent->category->tv_meta)
+                    <div class="form-group">
+                        <label for="name">TVDB ID <b>(@lang('torrent.optional'))</b></label>
                         <label>
                             <input type="number" name="tvdb" value="{{ $torrent->tvdb }}" class="form-control" required>
                         </label>
                     </div>
-    
+                    @else
+                        <input type="hidden" name="tvdb" value="0">
+                    @endif
+
+                    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">
-                        <label for="name">MAL ID (Optional)</label>
+                        <label for="name">MAL ID <b>(@lang('request.required') For Anime)</b></label>
                         <label>
                             <input type="number" name="mal" value="{{ $torrent->mal }}" class="form-control" required>
                         </label>
                     </div>
-    
+                    @else
+                        <input type="hidden" name="mal" value="0">
+                    @endif
+
+                    @if ($torrent->category->game_meta)
                     <div class="form-group">
-                        <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="name">IGDB ID <b>@lang('request.required') For Games)</b></label>
                         <label>
                             <input type="number" name="igdb" value="{{ $torrent->igdb }}" class="form-control" required>
                         </label>
                     </div>
+                    @else
+                        <input type="hidden" name="igdb" value="0">
+                    @endif
     
                     <div class="form-group">
                         <label for="category_id">@lang('torrent.category')</label>
@@ -85,6 +104,7 @@
                         </label>
                     </div>
 
+                    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">
                         <label for="resolution_id">@lang('torrent.resolution')</label>
                         <label>
@@ -98,6 +118,7 @@
                             </select>
                         </label>
                     </div>
+                    @endif
     
                     <div class="form-group">
                         <label for="description">@lang('common.description')</label>

@@ -52,43 +52,6 @@
                         </div>
         
                         <div class="form-group">
-                            <label for="name">IMDB ID <b>(@lang('request.required'))</b></label>
-                            <label>
-                                <input type="number" name="imdb" value="0" class="form-control"
-                                    value="{{ old('imdb') ?? $imdb }}" required>
-                            </label>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
-                            <label>
-                                <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}"
-                                    required>
-                            </label>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="name">TVDB ID (Optional)</label>
-                            <label>
-                                <input type="number" name="tvdb" value="0" class="form-control" required>
-                            </label>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="name">MAL ID (Optional)</label>
-                            <label>
-                                <input type="number" name="mal" value="0" class="form-control" required>
-                            </label>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
-                            <label>
-                                <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
-                            </label>
-                        </div>
-        
-                        <div class="form-group">
                             <label for="category_id">@lang('request.category')</label>
                             <label>
                                 <select name="category_id" class="form-control" required>
@@ -115,12 +78,48 @@
                         <div class="form-group">
                             <label for="resolution_id">@lang('request.resolution')</label>
                             <label>
-                                <select name="resolution_id" class="form-control" required>
+                                <select name="resolution_id" class="form-control">
                                     <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>
                                     @foreach ($resolutions as $resolution)
                                         <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
                                     @endforeach
                                 </select>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
+                            <label>
+                                <input type="number" name="tmdb" id="autotmdb" class="form-control" value="{{ $tmdb ?? old('tmdb') }}" required>
+                            </label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
+                            <label>
+                                <input type="number" name="imdb" id="autoimdb" class="form-control" value="{{ $imdb ?? old('imdb') }}" required>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">TVDB ID (@lang('torrent.optional'))</label>
+                            <label>
+                                <input type="number" name="tvdb" id="autotvdb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">MAL ID (@lang('request.required') For Anime)</label>
+                            <label>
+                                <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">IGDB ID <b>(@lang('request.required') For Games)</b></label>
+                            <label>
+                                <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
                             </label>
                         </div>
         

@@ -144,7 +144,7 @@ class TorrentController extends BaseController
             'size'           => 'required',
             'category_id'    => 'required|exists:categories,id',
             'type_id'        => 'required|exists:types,id',
-            'resolution_id'  => 'exists:resolutions,id',
+            'resolution_id'  => 'nullable|exists:resolutions,id',
             'user_id'        => 'required|exists:users,id',
             'imdb'           => 'required|numeric',
             'tvdb'           => 'required|numeric',

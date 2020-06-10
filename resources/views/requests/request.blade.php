@@ -107,7 +107,7 @@
                                 <strong>@lang('torrent.resolution')</strong>
                             </td>
                             <td>
-                                {{ $torrentRequest->resolution->name }}
+                                {{ $torrentRequest->resolution->name ?? 'No Res' }}
                             </td>
                         </tr>
                         <tr>
