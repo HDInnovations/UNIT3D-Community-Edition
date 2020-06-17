@@ -36,8 +36,7 @@ html {
 }
 
 body {
-    font-family: $default-font-family;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.46666667;
     color: #696969;
 }
@@ -2350,7 +2349,6 @@ a.label:hover {
 
 .popover,
 .tooltip {
-    font-family: $default-font-family;
     letter-spacing: normal;
     line-break: auto;
     text-shadow: none;
@@ -4076,7 +4074,6 @@ pre {
     width: 20px;
     height: 20px;
     line-height: 1;
-    font-family: $default-font-family;
 }
 
 .carousel-control .icon-prev:before {
@@ -5809,7 +5806,6 @@ a.sort {
     width: 350px;
     border: 1px solid #2a3133;
     background-color: #5a686c;
-    font-family: $default-font-family;
     font-size: 14px;
 }
 
@@ -6410,7 +6406,6 @@ a.view-torrent:hover {
     margin-bottom: 10px;
     margin-top: 12px;
     line-height: 1.2;
-    font-family: $default-font-family;
 }
 
 .movie-heading span.movie,
@@ -7922,7 +7917,6 @@ h3 {
 .lightbluebg {
     background: #418bca;
     color: #fff;
-    font-family: $default-font-family;
     margin: 10px 0;
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0 rgba(0, 0, 0, 0.12),
         0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -7931,7 +7925,6 @@ h3 {
 .redbg {
     background: #ef6f6c;
     color: #fff;
-    font-family: $default-font-family;
     margin: 10px 0;
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0 rgba(0, 0, 0, 0.12),
         0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -7940,7 +7933,6 @@ h3 {
 .goldbg {
     background: #f89a14;
     color: #fff;
-    font-family: $default-font-family;
     margin: 10px 0;
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0 rgba(0, 0, 0, 0.12),
         0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -7949,7 +7941,6 @@ h3 {
 .purplebg {
     background: #9b59b6;
     color: #fff;
-    font-family: $default-font-family;
     margin: 10px 0;
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0 rgba(0, 0, 0, 0.12),
         0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -7958,7 +7949,6 @@ h3 {
 .yellowbg {
     background: #f1c40f;
     color: #fff;
-    font-family: $default-font-family;
     margin: 10px 0;
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0 rgba(0, 0, 0, 0.12),
         0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -7967,7 +7957,6 @@ h3 {
 .palebluecolorbg {
     background: #00bc8c;
     color: #fff;
-    font-family: $default-font-family;
     margin: 10px 0;
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0 rgba(0, 0, 0, 0.12),
         0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -8348,6 +8337,7 @@ div.header div.inner_content h1 {
     opacity: 0.5;
 }
 
+/*! purgecss start ignore */
 // Top Navigation Notification Style
 .notify {
     position: absolute;
@@ -8387,7 +8377,6 @@ div.header div.inner_content h1 {
     top: -18px;
 }
 
-/*! purgecss start ignore */
 @-moz-keyframes heartbit {
     0% {
         -moz-transform: scale(0);
@@ -8433,7 +8422,6 @@ div.header div.inner_content h1 {
         opacity: 0;
     }
 }
-/*! purgecss end ignore */
 
 @-ms-keyframes heartbit {
     0%,
@@ -8492,6 +8480,7 @@ div.header div.inner_content h1 {
         transform: scale(1);
     }
 }
+/*! purgecss end ignore */
 
 // Caterories / Polls Design
 div.blocks {
@@ -8609,7 +8598,7 @@ section.tall_categories div.category {
 }
 
 section.tall_categories div.category {
-    width: 300px;
+    width: 250px;
     height: 500px;
 }
 
@@ -8670,6 +8659,19 @@ section.tall_categories div.category.movie {
     }
 }
 
+section.tall_categories div.category.anime {
+    background-image: url('/img/anime.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+@media only screen and (min-resolution: 2dppx) {
+    section.tall_categories div.category.anime {
+        background-image: url('/img/anime.png');
+    }
+}
+
 section.tall_categories div.category p {
     width: 100%;
     text-align: center;
@@ -8709,6 +8711,10 @@ section.tall_categories div.category.trailer span {
 
 section.tall_categories div.category.movie span {
     background-color: #e08b00;
+}
+
+section.tall_categories div.category.anime span {
+    background-color: #dc3ee0;
 }
 
 // Torrent Cards Design
@@ -8935,8 +8941,8 @@ section.tall_categories div.category.movie span {
 .img-people {
     border-radius: 5px;
     margin-top: 0;
-    width: 75px;
-    height: 112.5px;
+    max-width: 94px;
+    height: 140px;
 }
 
 // Footer Style
