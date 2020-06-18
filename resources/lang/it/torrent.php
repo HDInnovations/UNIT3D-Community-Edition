@@ -17,7 +17,7 @@ return [
     'agent'                    => 'Agente',
     'alive'                    => 'Vivo',
     'announce-url'             => 'Annunciare l URL',
-    'announce-url-desc'        => 'Si prega di utilizzare l URL di annuncio sopra quando si crea un nuovo torrent. Se vuoi usare il tuo torrent senza scaricarlo dal sito, devi impostare la bandiera privata e l origine su: source',
+    'announce-url-desc' => 'Devi utilizzare l URL di annuncio che vedi qui sopra quando crei un nuovo torrent. <br><strong> I torrents Audio e Video vanno caricati decompressi, e non compressi in un archivio.<br>Obbligatorio inserire oltre al formato la risoluzione, oppure inserire la voce generica OTHER </strong>',
     'announce-url-desc-url'    => 'Avere problemi? Vedi la nostra guida <a href=":url">QUI</a>',
     'announce-url-desc2'       => 'TMDB e IMDB sono necessari per tutti i caricamenti! È usato per afferrare Poster / Fondali e ExtraInfo',
     'approved'                 => 'Approvato',
