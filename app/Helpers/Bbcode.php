@@ -277,13 +277,13 @@ class Bbcode
 
         'spoiler' => [
             'pattern' => '/\[spoiler\](.*?)\[\/spoiler\]/s',
-            'replace' => '<details class="label label-primary"><summary>Spoiler</summary><pre><code>$1</code></pre></details>',
+            'replace' => '<details class="label label-primary"><summary>Spoiler</summary><pre><code><div style="text-align:left;">$1</div></code></pre></details>',
             'content' => '$1',
         ],
 
         'named-spoiler' => [
             'pattern' => '/\[spoiler\=(.*?)\](.*?)\[\/spoiler\]/s',
-            'replace' => '<details class="label label-primary"><summary>$1</summary><pre><code>$2</code></pre></details>',
+            'replace' => '<details class="label label-primary"><summary>$1</summary><pre><code><div style="text-align:left;">$2</div></code></pre></details>',
             'content' => '$1',
         ],
     ];
