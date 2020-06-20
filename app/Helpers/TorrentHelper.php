@@ -32,6 +32,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
+use Carbon\Carbon;
 
 class TorrentHelper
 {
@@ -42,6 +43,9 @@ class TorrentHelper
 
         Torrent::approve($id);
         $torrent = Torrent::with('uploader')->withAnyStatus()->where('id', '=', $id)->first();
+        $torrent->created_at = Carbon::now();
+        $torrent->save();
+
         $uploader = $torrent->uploader;
 
         $wishes = Wish::where('imdb', '=', 'tt'.$torrent->imdb)->whereNull('source')->get();
