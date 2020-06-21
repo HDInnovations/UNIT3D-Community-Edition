@@ -270,7 +270,7 @@ return [
     'top-seeding-size'                     => 'Top Seeding (dimensioni)',
     'top-seedtime'                         => 'Top Seedtime',
     'top-uploaders-data'                   => 'Principali uploader (dati)',
-    'top-uploaders-count'                  => 'Caricatori principali (conteggio)',
+    'top-uploaders-count'                  => 'Migliori Uploaders (conteggio)',
     'topics'                               => 'Temi',
     'topics-started'                       => 'Argomenti del forum avviati',
     'torrent-comments'                     => 'Commenti Torrent Made',
