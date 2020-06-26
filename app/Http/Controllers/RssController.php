@@ -57,10 +57,10 @@ class RssController extends Controller
         $private_rss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return view('rss.index', [
-            'hash' => $hash,
-            'public_rss' => $public_rss,
+            'hash'        => $hash,
+            'public_rss'  => $public_rss,
             'private_rss' => $private_rss,
-            'user' => $user,
+            'user'        => $user,
         ]);
     }
 
@@ -78,10 +78,10 @@ class RssController extends Controller
 
         return view('rss.create', [
             'torrent_repository' => $torrent_repository,
-            'categories' => Category::all()->sortBy('position'),
-            'types' => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
-            'user' => $user,
+            'categories'         => Category::all()->sortBy('position'),
+            'types'              => Type::all()->sortBy('position'),
+            'resolutions'        => Resolution::all()->sortBy('position'),
+            'user'               => $user,
         ]);
     }
 
@@ -97,15 +97,15 @@ class RssController extends Controller
         $user = $request->user();
 
         $v = validator($request->all(), [
-            'name' => 'required|min:3|max:255',
-            'search' => 'max:255',
+            'name'        => 'required|min:3|max:255',
+            'search'      => 'max:255',
             'description' => 'max:255',
-            'uploader' => 'max:255',
-            'categories' => 'sometimes|array|max:999',
-            'types' => 'sometimes|array|max:999',
+            'uploader'    => 'max:255',
+            'categories'  => 'sometimes|array|max:999',
+            'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres' => 'sometimes|array|max:999',
-            'position' => 'sometimes|integer|max:9999',
+            'genres'      => 'sometimes|array|max:999',
+            'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -166,15 +166,16 @@ class RssController extends Controller
      * @param int    $id
      * @param string $rsskey
      *
-     * @return \Illuminate\Http\Response
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function show($id, $rsskey)
     {
-        $user = User::where('rsskey', '=', (string)$rsskey)->firstOrFail();
+        $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
 
-        $banned_group = cache()->rememberForever('banned_group', fn() => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn() => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         if ($user->group->id == $banned_group[0]) {
             abort(404);
@@ -186,7 +187,7 @@ class RssController extends Controller
             abort(404);
         }
 
-        $rss = Rss::where('id', '=', (int)$id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
+        $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
         $search = $rss->object_torrent->search;
         $description = $rss->object_torrent->description;
@@ -344,11 +345,11 @@ class RssController extends Controller
 
         return view('rss.edit', [
             'torrent_repository' => $torrent_repository,
-            'categories' => Category::all()->sortBy('position'),
-            'types' => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
-            'user' => $user,
-            'rss' => $rss,
+            'categories'         => Category::all()->sortBy('position'),
+            'types'              => Type::all()->sortBy('position'),
+            'resolutions'        => Resolution::all()->sortBy('position'),
+            'user'               => $user,
+            'rss'                => $rss,
         ]);
     }
 
@@ -365,14 +366,14 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
         $v = validator($request->all(), [
-            'search' => 'max:255',
+            'search'      => 'max:255',
             'description' => 'max:255',
-            'uploader' => 'max:255',
-            'categories' => 'sometimes|array|max:999',
-            'types' => 'sometimes|array|max:999',
+            'uploader'    => 'max:255',
+            'categories'  => 'sometimes|array|max:999',
+            'types'       => 'sometimes|array|max:999',
             'resolutions' => 'sometimes|array|max:999',
-            'genres' => 'sometimes|array|max:999',
-            'position' => 'sometimes|integer|max:9999',
+            'genres'      => 'sometimes|array|max:999',
+            'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only([
@@ -429,9 +430,9 @@ class RssController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
      * @throws \Exception
      *
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
