@@ -82,7 +82,8 @@ class BackupEncryption
     {
         if ($engine == 'ZipArchive' && isset($this->zipArchiveOptions[$type])) {
             return $this->zipArchiveOptions[$type];
-        } elseif ($engine == 'ZipFile' && isset($this->zipFileOptions[$type])) {
+        }
+        if ($engine == 'ZipFile' && isset($this->zipFileOptions[$type])) {
             return $this->zipFileOptions[$type];
         }
 
