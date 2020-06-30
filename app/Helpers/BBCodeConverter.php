@@ -282,15 +282,15 @@ class BBCodeConverter
                 if (isset($matches['snippet'])) {
                     $language = strtolower($matches['language']);
 
-                    if ($language === 'html4strict' or $language === 'div') {
+                    if ($language === 'html4strict' || $language === 'div') {
                         $language = 'html';
-                    } elseif ($language === 'shell' or $language === 'dos' or $language === 'batch') {
+                    } elseif ($language === 'shell' || $language === 'dos' || $language === 'batch') {
                         $language = 'sh';
-                    } elseif ($language === 'xul' or $language === 'wpf') {
+                    } elseif ($language === 'xul' || $language === 'wpf') {
                         $language = 'xml';
                     } elseif ($language === 'asm') {
                         $language = 'nasm';
-                    } elseif ($language === 'vb' or $language === 'visualbasic' or $language === 'vba') {
+                    } elseif ($language === 'vb' || $language === 'visualbasic' || $language === 'vba') {
                         $language = 'vb.net';
                     } elseif ($language === 'asp') {
                         $language = 'aspx-vb';
@@ -298,7 +298,7 @@ class BBCodeConverter
                         $language = 'xml';
                     } elseif ($language === 'cplusplus') {
                         $language = 'cpp';
-                    } elseif ($language === 'txt' or $language === 'gettext') {
+                    } elseif ($language === 'txt' || $language === 'gettext') {
                         $language = 'text';
                     } elseif ($language === 'basic') {
                         $language = 'cbmbas';
