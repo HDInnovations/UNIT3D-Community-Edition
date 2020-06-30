@@ -13,17 +13,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
+use App\Jobs\ProcessBasicAnnounceRequest;
+use App\Jobs\ProcessCompletedAnnounceRequest;
+use App\Jobs\ProcessStartedAnnounceRequest;
+use App\Jobs\ProcessStoppedAnnounceRequest;
 use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Exceptions\TrackerException;
-use App\Jobs\ProcessBasicAnnounceRequest;
-use App\Jobs\ProcessCompletedAnnounceRequest;
-use App\Jobs\ProcessStartedAnnounceRequest;
-use App\Jobs\ProcessStoppedAnnounceRequest;
 
 class AnnounceController extends Controller
 {
@@ -89,12 +89,12 @@ class AnnounceController extends Controller
             $torrent = $this->checkTorrent($queries['info_hash']);
 
             /**
-             * Generate A Response For The Torrent Clent
+             * Generate A Response For The Torrent Clent.
              */
             $rep_dict = $this->generateSuccessAnnounceResponse($queries, $torrent);
 
             /**
-             * Dispatch The Specfic Annnounce Event Job
+             * Dispatch The Specfic Annnounce Event Job.
              */
             $this->sendAnnounceJob($queries, $user, $torrent);
         } catch (TrackerException $exception) {
@@ -107,8 +107,9 @@ class AnnounceController extends Controller
     /**
      * @param Request $request
      *
-     * @return void
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return void
      */
     protected function checkClient(Request $request)
     {
@@ -133,7 +134,7 @@ class AnnounceController extends Controller
              * If your tracker is behind the Cloudflare or other CDN (proxy) Server,
              * Comment this line to avoid unexpected Block ,
              * Because They may add the Cookie header ,
-             * Otherwise you should enabled this header check
+             * Otherwise you should enabled this header check.
              *
              * For example :
              *
@@ -141,7 +142,6 @@ class AnnounceController extends Controller
              * and apply security settings on a per-client basis.
              *
              * @see https://support.cloudflare.com/hc/en-us/articles/200170156
-             *
              */
             || $request->header('cookie')
         ) {
@@ -165,8 +165,9 @@ class AnnounceController extends Controller
      *
      * @param $passkey
      *
-     * @return void
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return void
      */
     protected function checkPasskey($passkey)
     {
@@ -186,14 +187,15 @@ class AnnounceController extends Controller
         }
     }
 
-    /** Get User Via Validated Passkey
+    /** Get User Via Validated Passkey.
      *
      * @param $passkey
      *
-     * @return object
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
      */
-    protected function checkUser($passkey) : object
+    protected function checkUser($passkey): object
     {
         // Caached System Required Groups
         $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
@@ -234,19 +236,20 @@ class AnnounceController extends Controller
     /**
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return array
      */
-    private function checkAnnounceFields(Request $request) : array
+    private function checkAnnounceFields(Request $request): array
     {
         $queries = [
-            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT')
+            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
         ];
 
         // Part.1 check Announce **Need** Fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
             $item_data = $request->query->get($item);
-            if (!is_null($item_data)) {
+            if (! is_null($item_data)) {
                 $queries[$item] = $item_data;
             } else {
                 throw new TrackerException(130, [':attribute' => $item]);
@@ -261,24 +264,24 @@ class AnnounceController extends Controller
 
         foreach (['uploaded', 'downloaded', 'left'] as $item) {
             $item_data = $queries[$item];
-            if (!is_numeric($item_data) || $item_data < 0) {
+            if (! is_numeric($item_data) || $item_data < 0) {
                 throw new TrackerException(134, [':attribute' => $item]);
             }
         }
 
         // Part.2 check Announce **Option** Fields
-        foreach (['event' => '', 'no_peer_id' => 1, 'compact' => 0, 'numwant' => 50, 'corrupt' => 0, 'key' => '',] as $item => $value) {
+        foreach (['event' => '', 'no_peer_id' => 1, 'compact' => 0, 'numwant' => 50, 'corrupt' => 0, 'key' => ''] as $item => $value) {
             $queries[$item] = $request->query->get($item, $value);
         }
 
         foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
-            if (!is_numeric($queries[$item]) || $queries[$item] < 0) {
-                throw new TrackerException(134, [":attribute" => $item]);
+            if (! is_numeric($queries[$item]) || $queries[$item] < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
             }
         }
 
-        if (!in_array(strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
-            throw new TrackerException(136, [":event" => strtolower($queries['event'])]);
+        if (! in_array(strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
+            throw new TrackerException(136, [':event' => strtolower($queries['event'])]);
         }
 
         // Part.3 check Port is Valid and Allowed
@@ -288,7 +291,7 @@ class AnnounceController extends Controller
          */
         if ($queries['port'] == 0 && strtolower($queries['event']) != 'stopped') {
             throw new TrackerException(137, [':event' => strtolower($queries['event'])]);
-        } elseif (!is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || in_array($queries['port'], self::BLACK_PORTS)) {
+        } elseif (! is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || in_array($queries['port'], self::BLACK_PORTS)) {
             throw new TrackerException(135, [':port' => $queries['port']]);
         }
 
@@ -304,10 +307,11 @@ class AnnounceController extends Controller
     /**
      * @param $info_hash
      *
-     * @return object
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
      */
-    protected function checkTorrent($info_hash) : object
+    protected function checkTorrent($info_hash): object
     {
         $bin2hex_hash = bin2hex($info_hash);
 
@@ -374,15 +378,15 @@ class AnnounceController extends Controller
     {
         // Build Response For Bittorrent Client
         $rep_dict = [
-            'interval' => rand(self::MIN, self::MAX),
+            'interval'     => rand(self::MIN, self::MAX),
             'min interval' => self::MIN,
-            'complete' => (int) $torrent->seeders,
-            'incomplete' => (int) $torrent->leechers,
+            'complete'     => (int) $torrent->seeders,
+            'incomplete'   => (int) $torrent->leechers,
         ];
 
         /**
          * For non `stopped` event only
-         * We query peers from database and send peerlist, otherwise just quick return
+         * We query peers from database and send peerlist, otherwise just quick return.
          */
         if ($queries['event'] != 'stopped') {
             $limit = (int) ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
@@ -438,9 +442,9 @@ class AnnounceController extends Controller
     {
         return [
             'failure reason' => $exception->getMessage(),
-            'min interval' => self::MIN
+            'min interval'   => self::MIN,
             /**
-             * BEP 31: Failure Retry Extension
+             * BEP 31: Failure Retry Extension.
              *
              * However most bittorrent client don't support it, so this feature is disabled default
              *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )

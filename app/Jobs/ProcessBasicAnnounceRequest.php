@@ -13,16 +13,16 @@
 
 namespace App\Jobs;
 
-use Carbon\Carbon;
-use App\Models\Peer;
-use App\Models\User;
+use App\Exceptions\TrackerException;
+use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
-use App\Models\Torrent;
-use Illuminate\Bus\Queueable;
-use App\Models\FreeleechToken;
+use App\Models\Peer;
 use App\Models\PersonalFreeleech;
-use App\Exceptions\TrackerException;
+use App\Models\Torrent;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -65,8 +65,9 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return void
      */
     public function handle()
     {
