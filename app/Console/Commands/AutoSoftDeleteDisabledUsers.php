@@ -13,20 +13,20 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Post;
-use App\Models\Note;
-use App\Models\Like;
-use App\Models\Peer;
-use App\Models\Topic;
-use App\Models\Thank;
-use App\Models\Follow;
-use App\Models\Invite;
-use App\Models\Torrent;
-use App\Models\Comment;
-use App\Models\Message;
-use App\Models\PrivateMessage;
 use App\Jobs\SendDeleteUserMail;
+use App\Models\Comment;
+use App\Models\Follow;
 use App\Models\Group;
+use App\Models\Invite;
+use App\Models\Like;
+use App\Models\Message;
+use App\Models\Note;
+use App\Models\Peer;
+use App\Models\Post;
+use App\Models\PrivateMessage;
+use App\Models\Thank;
+use App\Models\Topic;
+use App\Models\Torrent;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
