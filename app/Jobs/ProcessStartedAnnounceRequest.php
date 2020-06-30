@@ -13,16 +13,11 @@
 
 namespace App\Jobs;
 
-use Carbon\Carbon;
-use App\Models\Peer;
-use App\Models\User;
-use App\Models\Group;
 use App\Models\History;
+use App\Models\Peer;
 use App\Models\Torrent;
-use App\Helpers\Bencode;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use App\Models\FreeleechToken;
-use App\Models\PersonalFreeleech;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -120,9 +115,9 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         // End Peer Update
 
         // History Update
-        $history->agent =  $this->queries['user-agent'];
+        $history->agent = $this->queries['user-agent'];
         $history->active = 1;
-        $history->seeder =  $this->queries['left'] == 0;
+        $history->seeder = $this->queries['left'] == 0;
         $history->immune = $this->user->group->is_immune == 1;
         $history->uploaded += 0;
         $history->actual_uploaded += 0;
