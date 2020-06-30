@@ -53,7 +53,7 @@ class AutoDisableInactiveUsers extends Command
 
             $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
                 ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
-                ->all();
+                ->get();
 
             foreach ($users as $user) {
                 if ($user->getSeeding() === 0) {
