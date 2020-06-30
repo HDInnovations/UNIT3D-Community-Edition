@@ -4,9 +4,7 @@
 <rss version="2.0"
      xmlns:atom="http://www.w3.org/2005/Atom"
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
-     xmlns:webfeeds="http://webfeeds.org/rss/1.0"
-     xmlns:media="http://search.yahoo.com/mrss/"
-     xmlns:torrent="http://xmlns.ezrss.it/0.1/">
+     xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <title>{{ config('other.title') }} @lang('rss.rss-feed') ({{ config('unit3d.powered-by') }})</title>
         <link>{{ config('app.url') }}</link>
@@ -15,15 +13,8 @@
         </description>
         <atom:link href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => $user->rsskey]) }}" type="application/rss+xml" rel="self"></atom:link>
         <copyright>{{ config('other.title') }} {{ now()->year }}</copyright>
-        <webfeeds:icon>{{ config('app.url') }}/favicon.ico</webfeeds:icon>
-        <webfeeds:logo>{{ config('app.url') }}/favicon.ico</webfeeds:logo>
-        <image>
-            <url>{{ config('app.url') }}/favicon.ico</url>
-            <title>{{ config('other.title') }} @lang('rss.rss-feed') ({{ config('unit3d.powered-by') }})</title>
-            <link>{{ config('app.url') }}</link>
-        </image>
         <language>en</language>
-        <lastBuildDate>{{ now() }}</lastBuildDate>
+        <lastBuildDate>{{ now()->toRssString() }}</lastBuildDate>
         <ttl>600</ttl>
         @if($torrents)
             @foreach($torrents as $data)
@@ -46,9 +37,8 @@
                             @else
                                 @lang('common.anonymous') @lang('torrent.uploader')
                             @endif<br>
-                            IMDB Link:
                             @if (($data->category->movie_meta || $data->category->tv_meta) && $data->imdb != 0)
-                                <a href="https://anon.to?http://www.imdb.com/title/tt{{ $data->imdb }}" target="_blank">tt{{ $data->imdb }}</a><br>
+                                IMDB Link:<a href="https://anon.to?http://www.imdb.com/title/tt{{ $data->imdb }}" target="_blank">tt{{ $data->imdb }}</a><br>
                             @endif
                             @if ($data->category->movie_meta && $data->tmdb != 0)
                                 TMDB Link: <a href="https://anon.to?https://www.themoviedb.org/movie/{{ $data->tmdb }}" target="_blank">{{ $data->tmdb }}</a><br>
@@ -70,17 +60,6 @@
                             type="application/x-bittorrent"
                             length="39399"
                     />
-                    <torrent>
-                        <fileName>{{ $data->name }}</fileName>
-                        <contentLength>{{ $data->size }}</contentLength>
-                        <infoHash>{{ $data->info_hash }}</infoHash>
-                        <trackers>
-                            <group order="ordered">
-                                <tracker seeds="{{ $data->seeders }}" peers="{{ $data->seeders + $data->leechers }}">{{ route('announce', ['passkey' => $user->passkey]) }}</tracker>
-                            </group>
-                        </trackers>
-                    </torrent>
-                    <media:hash algo="sha1">{{ $data->info_hash }}</media:hash>
                 </item>
             @endforeach
         @endif
