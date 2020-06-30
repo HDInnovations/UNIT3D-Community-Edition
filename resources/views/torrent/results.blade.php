@@ -169,7 +169,7 @@ config('api-keys.omdb')) @endphp
                                 </button>
                             @endif
 
-                            @if ($current->seeder == 0 && $current->active == 0 && $current->completed_at != null)
+                            @if ($current->seeder == 1 && $current->active == 0 && $current->completed_at != null)
                                 <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
                                     data-original-title="@lang('torrent.completed-not-seeding')!">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
