@@ -27,7 +27,7 @@
                             <strong>Name</strong>: {{ $data->name }}<br>
                             <strong>Category</strong>: {{ $data->category->name }}<br>
                             <strong>Type</strong>: {{ $data->type->name }}<br>
-                            <strong>Resolution</strong>: {{ $data->resolution->name }}<br>
+                            <strong>Resolution</strong>: {{ $data->resolution->name ?? 'No Res' }}<br>
                             <strong>Size</strong>: {{ $data->getSize() }}<br>
                             <strong>Uploaded</strong>: {{ $data->created_at->diffForHumans() }}<br>
                             <strong>Seeders</strong>: {{ $data->seeders }} | <strong>Leechers</strong>: {{ $data->leechers }} | <strong>Completed</strong>: {{ $data->times_completed }}<br>
