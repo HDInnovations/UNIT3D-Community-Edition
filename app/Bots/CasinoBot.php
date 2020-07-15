@@ -295,6 +295,7 @@ class CasinoBot
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
+
             return response('success');
         }
 
@@ -303,6 +304,7 @@ class CasinoBot
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
+
             return response('success');
         }
 

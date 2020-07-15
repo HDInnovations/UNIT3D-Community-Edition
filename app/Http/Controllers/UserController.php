@@ -1287,6 +1287,7 @@ class UserController extends Controller
             } else {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(25);
             }
+
             return view('user.filters.requests', [
                 'user'            => $user,
                 'torrentRequests' => $table,
@@ -1327,6 +1328,7 @@ class UserController extends Controller
             } else {
                 $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
             }
+
             return view('user.filters.resurrections', [
                 'user'          => $user,
                 'resurrections' => $table,
