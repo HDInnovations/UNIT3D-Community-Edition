@@ -119,6 +119,7 @@ class Bencode
                 return;
             }
             $pos++;
+
             return $dict;
         } elseif ($c == 'l') {
             $list = [];
