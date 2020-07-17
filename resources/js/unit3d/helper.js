@@ -17,15 +17,11 @@
  * facetedSearchBuilder - To add filters for search / Used: Torrents
  * forumTipBuilder - To add tip buttons for forum / Used: Topics
  * userExtensionBuilder - To add toggle capabilities to BON / Used: BON
- * configExtensionBuilder - To add Swal to config manager / Used: Admin Config Manager
  *
  * After classes, event attachments then globals.
 */
 
 class uploadExtensionBuilder {
-    constructor() {
-        // Empty for now
-    }
     // https://stackoverflow.com/a/10710400
     // get all indexes of ch in str
     getAllIndexes(str, ch) {
@@ -47,7 +43,7 @@ class uploadExtensionBuilder {
     replaceChar(origString, replaceChar, index) {
         let firstPart = origString.substr(0, index);
         let lastPart = origString.substr(index + 1);
-        
+
         let newString = firstPart + replaceChar + lastPart;
         return newString;
     }
@@ -61,19 +57,19 @@ class uploadExtensionBuilder {
         // 6) S 2 numbers . 3 numbers followed by i or p (season and resolution, S01.720p)
         // 7) S 2 numbers . 4 numbers followed by i or p (season and resolution, S01.1080p)
         // 8) 2 letters . number . number (DD.2.0 or AAC.2.0 or DD+.2.0 or DTS-X.7.1)
-        
+
         let newTitle = title;
-        
+
         // array of indexes of each dot location
         const indexes = this.getAllIndexes(title, ".")
-        
+
         // for each dot dot location
-        for (const i of indexes) {            
+        for (const i of indexes) {
             if (this.inRange(title, i - 1) && this.inRange(title, i + 1)) {
                 // characters before and after dot
                 const before = title[i - 1]
                 const after = title[i + 1]
-                
+
                 if (!this.is_numeric(before) && !this.is_numeric(after)) {
                     // Case 1: letter and letter
                     newTitle = this.replaceChar(newTitle, " ", i)
@@ -84,7 +80,7 @@ class uploadExtensionBuilder {
                     continue;
                 }
             }
-            
+
             // Case 3: . 4 numbers (.year)
             if (this.inRange(title, i + 5)) {
                 const after = title.substring(i + 1, i + 5)
@@ -93,65 +89,65 @@ class uploadExtensionBuilder {
                     continue;
                 }
             }
-            
+
             // Case 4: 4 numbers and 3 numbers followed by i or p (year and resolution, 2020.720p)
             if (this.inRange(title, i - 4) && this.inRange(title, i + 4)) {
                 const beforeNum = title.substring(i - 4, i) // ex. 1987
                 const afterNum = title.substring(i + 1, i + 4) // ex. 480, 576 or 720
                 const afterResolution = title.charAt(i + 4).toLowerCase() // i or p
-                
+
                 if (this.is_numeric(beforeNum) && this.is_numeric(afterNum) && (afterResolution == "i" || afterResolution == "p")) {
                     newTitle = this.replaceChar(newTitle, " ", i)
                     continue;
                 }
             }
-            
+
             // Case 5: 4 numbers and 4 numbers followed by i or p (year and resolution, 2020.1080p)
             if (this.inRange(title, i - 4) && this.inRange(title, i + 5)) {
                 const beforeNum = title.substring(i - 4, i) // ex. 1987
                 const afterNum = title.substring(i + 1, i + 5) // ex. 1080 or 2160
                 const afterResolution = title.charAt(i + 5).toLowerCase() // i or p
-                
+
                 if (this.is_numeric(beforeNum) && this.is_numeric(afterNum) && (afterResolution == "i" || afterResolution == "p")) {
                     newTitle = this.replaceChar(newTitle, " ", i)
                     continue;
                 }
             }
-            
+
             // Case 6: S 2 numbers . 3 numbers followed by i or p (season and resolution, S01.720p)
             if (this.inRange(title, i - 3) && this.inRange(i + 4)) {
                 const beforeNum = title.substring(i - 3, i - 2).toLowerCase() // ex. S
                 const seasonNum = title.substring(i - 2, i).toLowerCase() // ex. 01
-                
+
                 const afterNum = title.substring(i + 1, i + 4) // ex. 480, 576 or 720
                 const afterResolution = title.charAt(i + 4).toLowerCase() // i or p
-                
+
                 if (beforeNum == "s" && this.is_numeric(seasonNum) && (afterResolution == "i" || afterResolution == "p")) {
                     newTitle = this.replaceChar(newTitle, " ", i)
                     continue;
                 }
             }
-            
+
             // Case 7: S 2 numbers . 4 numbers followed by i or p (season and resolution, S01.720p)
             if (this.inRange(title, i - 3) && this.inRange(i + 5)) {
                 const beforeNum = title.substring(i - 3, i - 2).toLowerCase() // ex. S
                 const seasonNum = title.substring(i - 2, i).toLowerCase() // ex. 01
-                
+
                 const afterNum = title.substring(i + 1, i + 5) // ex. 1080 or 2160
                 const afterResolution = title.charAt(i + 5).toLowerCase() // i or p
-                
+
                 if (beforeNum == "s" && this.is_numeric(seasonNum) && (afterResolution == "i" || afterResolution == "p")) {
                     newTitle = this.replaceChar(newTitle, " ", i)
                     continue;
                 }
             }
-            
+
             // Case 8: 2 letters . number (DD.2.0 or AAC.2.0 or DD+.2.0 or DTS-X.7.1)
             // looking at it from the first dot only
             if (this.inRange(title, i - 1) && this.inRange(title, i + 1)) {
                 const before = title.substring(i - 1, i).toLowerCase() // ex. DD or AC or D+ or -X
                 const after = title.charAt(i + 1) // number
-                
+
                 if (!this.is_numeric(before) && this.is_numeric(after)) {
                     newTitle = this.replaceChar(newTitle, " ", i)
                     continue;
@@ -185,6 +181,8 @@ class uploadExtensionBuilder {
             erase: [], // add expressions to erase before parsing
             defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
         });
+
+        console.log(release);
 
         let matcher = name.value.toLowerCase();
 
@@ -221,9 +219,15 @@ class uploadExtensionBuilder {
         // Torrent Resolution
         $("#autores").val(release.resolution);
 
+        // Torrent Season (TV Only)
+        $("#season_number").val(release.season);
+
+        // Torrent Episode (TV Only)
+        $("#episode_number").val(release.episode);
+
         // Torrent TMDB ID
         if (release.type === "Movie") {
-            theMovieDb.search.getMovie({ "query": release.title }, successCB, errorCB);
+            theMovieDb.search.getMovie({ "query": release.title, "year": release.year }, successCB, errorCB);
         } else if (release.type === "TV Show") {
             theMovieDb.search.getTv({ "query": release.title }, successCB, errorCB);
         }
@@ -641,6 +645,7 @@ class facetedSearchBuilder {
             var search = $("#search").val();
         }
         var description = $("#description").val();
+        var keywords = $("#keywords").val();
         var uploader = $("#uploader").val();
         var imdb = $("#imdb").val();
         var tvdb = $("#tvdb").val();
@@ -806,6 +811,7 @@ class facetedSearchBuilder {
                 _token: this.csrf,
                 search: search,
                 description: description,
+                keywords: keywords,
                 uploader: uploader,
                 imdb: imdb,
                 tvdb: tvdb,
@@ -1059,86 +1065,6 @@ class forumTipBuilder {
         });
     }
 }
-class configExtensionBuilder {
-    constructor() {
-        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-    }
-    handle(keyv,val) {
-        this.keyv = keyv;
-        this.val = val;
-        this.input = val.replace(/['"]/g,'');
-        Swal.fire({
-            title: 'Change Value',
-            width: '800px',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            html:
-                '<div class="text-left">'+
-                '<input type="text" size="30" id="val_'+configExtension.keyv+'" class="form-control" name="val" value="'+this.input+'" />' +
-                '</div>',
-            showCancelButton: true,
-            confirmButtonText: 'Save',
-            showLoaderOnConfirm: true,
-            preConfirm: () => {
-                this.val = $('#val_'+configExtension.keyv).val();
-                $.ajax({
-                    url: this.update,
-                    data: {
-                        'filePath' : configExtension.path,
-                        'key' : configExtension.keyv,
-                        'value' : ''+String(configExtension.val)+'',
-                    },
-                    beforeSend: function (request){
-                        request.setRequestHeader("X-CSRF-TOKEN", configExtension.csrf);
-                    },
-                    type: 'PUT',
-                    success: function(result) {
-                        $('#key_val_'+configExtension.keyv).html(configExtension.val);
-                        $('#button_'+configExtension.keyv).attr('val',configExtension.val);
-                    }
-                });
-            },
-            allowOutsideClick: false
-        }).then(result => {
-            if (result.value) {
-                Swal.fire({
-                    title: 'Value Has Been Changed',
-                    timer: 1500,
-                    onOpen: () => {
-                        swal.showLoading();
-                    }
-                })
-            }
-        });
-    }
-    init() {
-        $('#configBox').hide();
-        this.view = $('#configExtension').attr('view');
-        this.index = $('#configExtension').attr('index');
-        this.update = $('#configExtension').attr('update');
-        this.file = $('#configExtension').attr('file');
-        this.path = $('#configExtension').attr('path');
-        $('.file-select').off('change');
-        $('.file-select').on('change', function(){
-            var file = $(this).val();
-            if (file) {
-                window.location.href = configExtension.view+"/"+$(this).val();
-            } else {
-                window.location.href = configExtension.index;
-            }
-        });
-        if(this.file == 'yes') {
-            $('.edit').each(function () {
-                $(this).off('click');
-                $(this).on('click', function (e) {
-                    e.preventDefault();
-                    configExtension.handle($(this).attr('keyv'),$(this).attr('val'));
-                });
-            });
-        }
-    }
-}
 class torrentBookmarkBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -1349,7 +1275,6 @@ const torrentBookmark = new torrentBookmarkBuilder();
 const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();
 const userExtension = new userExtensionBuilder();
-const configExtension = new configExtensionBuilder();
 const uploadExtension = new uploadExtensionBuilder();
 var userFilterXHR = null;
 var facetedSearchXHR = null;
