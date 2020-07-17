@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <style>
+    <style nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('style') }}">
         @media only screen and (max-width: 600px) {
             .inner-body {
                 width: 100% !important;

@@ -182,7 +182,7 @@
     </div>
 @endsection
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(window).on("load", function() {
             loadTab();
         });

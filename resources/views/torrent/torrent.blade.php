@@ -758,13 +758,13 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
         $('#content').wysibb({});
       })
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
 
         $('.slidingDiv').hide();
@@ -778,7 +778,7 @@
     </script>
 
     @if (isset($meta) && ($torrent->category->movie_meta || $torrent->category->tv_meta) && $meta->videoTrailer && $meta->title)
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       $('.show-trailer').each(function () {
         $(this).off('click');
         $(this).on('click', function (e) {
@@ -798,7 +798,7 @@
     @endif
 
     @if (isset($meta) && $torrent->category->game_meta && $meta->videos && $meta->name)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
           $('.show-trailer').each(function () {
             $(this).off('click');
             $(this).on('click', function (e) {
