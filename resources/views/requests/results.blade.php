@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th class="torrents-icon">@lang('torrent.category')</th>
-                <th>@lang('torrent.type')</th>
+                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                 <th class="torrents-filename col-sm-6">@lang('request.request')</th>
                 <th>@lang('common.author')</th>
                 <th>@lang('request.votes')</th>
@@ -35,10 +35,19 @@
                             </a>
                         @endif
                     </td>
-                    <td style="vertical-align: middle;">
-                        <span class="label label-success">
-                            {{ $torrentRequest->type->name }}
-                        </span>
+                    <td style="width: 1%; vertical-align: middle;" >
+                        <div class="text-center">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('request.type')">
+                                {{ $torrentRequest->type->name }}
+                            </span>
+                        </div>
+                        <div class="text-center" style="padding-top: 8px;">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('request.resolution')">
+                                {{ $torrentRequest->resolution->name ?? 'No Res' }}
+                            </span>
+                        </div>
                     </td>
                     <td style="vertical-align: middle;">
                         <a class="view-torrent" href="{{ route('request', ['id' => $torrentRequest->id]) }}">

@@ -1241,7 +1241,6 @@ class UserController extends Controller
                 'seeds' => $table,
             ])->render();
         }
-
         if ($request->has('view') && $request->input('view') == 'requests') {
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type']);
             $order = null;
@@ -1293,12 +1292,12 @@ class UserController extends Controller
                 'user'            => $user,
                 'torrentRequests' => $table,
             ])->render();
-        } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
-            $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
+        }
 
+        if ($request->has('view') && $request->input('view') == 'resurrections') {
+            $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
             $order = null;
             $sorting = null;
-
             if ($request->has('rewarded') && $request->input('rewarded') != null) {
                 $history->where('graveyard.rewarded', '=', 1);
             }
@@ -1320,7 +1319,6 @@ class UserController extends Controller
                 // $order = 'asc';
             }
             $direction = $order == 'asc' ? 1 : 2;
-
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'goal') {
                     $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('graveyard.seedtime', $order)->paginate(50);

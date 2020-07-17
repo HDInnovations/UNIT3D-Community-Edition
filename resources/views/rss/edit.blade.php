@@ -86,7 +86,7 @@
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->types) &&
-                                            in_array($type,$rss->object_torrent->types))
+                                            in_array($id,$rss->object_torrent->types))
                                             <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type"
                                                 CHECKED> {{ $type }}
                                         @else
@@ -95,6 +95,24 @@
                                         @endif
                                     </label>
                                 </span>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="resolution">@lang('torrent.resolution')</label>
+                        <div>
+                            @foreach ($torrent_repository->resolutions() as $id => $resolution)
+                                <span class="badge-user">
+                            <label class="inline">
+                                @if(is_array($rss->object_torrent->resolutions) && in_array($id,$rss->object_torrent->resolutions))
+                                    <input type="checkbox" id="{{ $resolution }}" name="resolutions[]" value="{{ $id }}" class="resolution" CHECKED>
+                                    {{ $resolution }}
+                                @else
+                                    <input type="checkbox" id="{{ $resolution }}" name="resolutions[]" value="{{ $id }}" class="resolution">
+                                    {{ $resolution }}
+                                @endif
+                            </label>
+                        </span>
                             @endforeach
                         </div>
                     </div>

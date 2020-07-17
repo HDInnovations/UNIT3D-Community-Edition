@@ -27,6 +27,7 @@
                     <th>@lang('common.name')</th>
                     <th>@lang('common.category')</th>
                     <th>@lang('common.type')</th>
+                    <th>@lang('common.resolution')</th>
                     <th>@lang('torrent.size')</th>
                     <th>@lang('torrent.uploader')</th>
                     <th>@lang('common.moderation-approve')</th>
@@ -45,6 +46,7 @@
                         <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $p->category->name }} Torrent"></i></td>
                         <td>{{ $p->type->name }}</td>
+                        <td>{{ $p->resolution->name ?? 'No Res' }}</td>
                         <td>{{ $p->getSize() }}</td>
                         <td><a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
@@ -181,6 +183,7 @@
                     <th>@lang('common.name')</th>
                     <th>@lang('common.category')</th>
                     <th>@lang('common.type')</th>
+                    <th>@lang('common.resolution')</th>
                     <th>@lang('torrent.size')</th>
                     <th>@lang('torrent.uploader')</th>
                     <th>@lang('common.staff')</th>
@@ -200,6 +203,7 @@
                         <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $post->category->name }} Torrent"></i></td>
                         <td>{{ $post->type->name }}</td>
+                        <td>{{ $post->resolution->name ?? 'No Res' }}</td>
                         <td>{{ $post->getSize() }}</td>
                         <td>
                             <a href="{{ route('users.show', ['username' => $post->user->username]) }}"
@@ -294,6 +298,7 @@
                     <th>@lang('common.name')</th>
                     <th>@lang('common.category')</th>
                     <th>@lang('common.type')</th>
+                    <th>@lang('common.resolution')</th>
                     <th>@lang('torrent.size')</th>
                     <th>@lang('torrent.uploader')</th>
                     <th>@lang('common.staff')</th>
@@ -314,6 +319,7 @@
                         <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $reject->category->name }} Torrent"></i></td>
                         <td>{{ $reject->type->name }}</td>
+                        <td>{{ $reject->resolution->name ?? 'No Res' }}</td>
                         <td>{{ $reject->getSize() }}</td>
                         <td>@if ($reject->user) <a
                                     href="{{ route('users.show', ['username' => $reject->user->username]) }}"

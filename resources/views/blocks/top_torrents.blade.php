@@ -48,7 +48,8 @@
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="torrents-icon"></th>
+                                <th>@lang('torrent.category')</th>
+                                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                                 <th class="torrents-filename">@lang('torrent.name')</th>
                                 <th>@lang('torrent.age')</th>
                                 <th>@lang('torrent.size')</th>
@@ -60,29 +61,36 @@
                         <tbody>
                             @foreach ($newest as $new)
                                 <tr>
-                                    <td>
+                                    <td style="width: 1%;">
                                         @if ($new->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $new->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $new->category->image) }}"
-                                                        data-toggle="tooltip"
-                                                        data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;" alt="{{ $new->category->name }}">
+                                                    <img src="{{ url('files/img/' . $new->category->image) }}" data-toggle="tooltip"
+                                                         data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                          alt="{{ $new->category->name }}">
                                                 </div>
                                             </a>
                                         @else
                                             <a href="{{ route('categories.show', ['id' => $new->category->id]) }}">
                                                 <div class="text-center">
                                                     <i class="{{ $new->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                        data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;"></i>
+                                                       data-original-title="{{ $new->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
                                                 </div>
                                             </a>
                                         @endif
-                                        <div class="text-center">
+                                    </td>
+
+                                    <td style="width: 1%;">
+                                        <div class="text-center" style="padding-top: 5px;">
                                             <span class="label label-success" data-toggle="tooltip"
-                                                data-original-title="Type">
+                                                  data-original-title="@lang('torrent.type')">
                                                 {{ $new->type->name }}
+                                            </span>
+                                        </div>
+                                        <div class="text-center" style="padding-top: 8px;">
+                                            <span class="label label-success" data-toggle="tooltip"
+                                                  data-original-title="@lang('torrent.resolution')">
+                                                {{ $new->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -303,7 +311,8 @@
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="torrents-icon"></th>
+                                <th>@lang('torrent.category')</th>
+                                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                                 <th class="torrents-filename">@lang('torrent.name')</th>
                                 <th>@lang('torrent.age')</th>
                                 <th>@lang('torrent.size')</th>
@@ -315,29 +324,36 @@
                         <tbody>
                             @foreach ($seeded as $seed)
                                 <tr>
-                                    <td>
+                                    <td style="width: 1%;">
                                         @if ($seed->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $seed->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $seed->category->image) }}"
-                                                        data-toggle="tooltip"
-                                                        data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;" alt="{{ $seed->category->name }}">
+                                                    <img src="{{ url('files/img/' . $seed->category->image) }}" data-toggle="tooltip"
+                                                         data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                          alt="{{ $seed->category->name }}">
                                                 </div>
                                             </a>
                                         @else
                                             <a href="{{ route('categories.show', ['id' => $seed->category->id]) }}">
                                                 <div class="text-center">
                                                     <i class="{{ $seed->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                        data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;"></i>
+                                                       data-original-title="{{ $seed->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
                                                 </div>
                                             </a>
                                         @endif
-                                        <div class="text-center">
+                                    </td>
+
+                                    <td style="width: 1%;">
+                                        <div class="text-center" style="padding-top: 5px;">
                                             <span class="label label-success" data-toggle="tooltip"
-                                                data-original-title="Type">
+                                                  data-original-title="@lang('torrent.type')">
                                                 {{ $seed->type->name }}
+                                            </span>
+                                        </div>
+                                        <div class="text-center" style="padding-top: 8px;">
+                                            <span class="label label-success" data-toggle="tooltip"
+                                                  data-original-title="@lang('torrent.resolution')">
+                                                {{ $seed->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -559,7 +575,8 @@
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="torrents-icon"></th>
+                                <th>@lang('torrent.category')</th>
+                                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                                 <th class="torrents-filename">@lang('torrent.name')</th>
                                 <th>@lang('torrent.age')</th>
                                 <th>@lang('torrent.size')</th>
@@ -571,29 +588,36 @@
                         <tbody>
                             @foreach ($leeched as $leech)
                                 <tr>
-                                    <td>
+                                    <td style="width: 1%;">
                                         @if ($leech->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $leech->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $leech->category->image) }}"
-                                                        data-toggle="tooltip"
-                                                        data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;" alt="{{ $leech->category->name }}">
+                                                    <img src="{{ url('files/img/' . $leech->category->image) }}" data-toggle="tooltip"
+                                                         data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                          alt="{{ $leech->category->name }}">
                                                 </div>
                                             </a>
                                         @else
                                             <a href="{{ route('categories.show', ['id' => $leech->category->id]) }}">
                                                 <div class="text-center">
                                                     <i class="{{ $leech->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                        data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;"></i>
+                                                       data-original-title="{{ $leech->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
                                                 </div>
                                             </a>
                                         @endif
-                                        <div class="text-center">
+                                    </td>
+
+                                    <td style="width: 1%;">
+                                        <div class="text-center" style="padding-top: 5px;">
                                             <span class="label label-success" data-toggle="tooltip"
-                                                data-original-title="Type">
+                                                  data-original-title="@lang('torrent.type')">
                                                 {{ $leech->type->name }}
+                                        </span>
+                                        </div>
+                                        <div class="text-center" style="padding-top: 8px;">
+                                            <span class="label label-success" data-toggle="tooltip"
+                                                  data-original-title="@lang('torrent.resolution')">
+                                                {{ $leech->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -815,7 +839,8 @@
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="torrents-icon"></th>
+                                <th>@lang('torrent.category')</th>
+                                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                                 <th class="torrents-filename">@lang('torrent.name')</th>
                                 <th>@lang('torrent.age')</th>
                                 <th>@lang('torrent.size')</th>
@@ -827,29 +852,37 @@
                         <tbody>
                             @foreach ($dying as $d)
                                 <tr>
-                                    <td>
+                                    <td style="width: 1%;">
                                         @if ($d->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $d->category->image) }}"
-                                                        data-toggle="tooltip"
-                                                        data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;" alt="{{ $d->category->name }}">
+                                                    <img src="{{ url('files/img/' . $d->category->image) }}" data-toggle="tooltip"
+                                                         data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                          alt="{{ $d->category->name }}">
                                                 </div>
                                             </a>
                                         @else
                                             <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                                 <div class="text-center">
                                                     <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                        data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;"></i>
+                                                       data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                       ></i>
                                                 </div>
                                             </a>
                                         @endif
-                                        <div class="text-center">
+                                    </td>
+
+                                    <td style="width: 1%;">
+                                        <div class="text-center" style="padding-top: 5px;">
                                             <span class="label label-success" data-toggle="tooltip"
-                                                data-original-title="Type">
+                                                  data-original-title="@lang('torrent.type')">
                                                 {{ $d->type->name }}
+                                            </span>
+                                        </div>
+                                        <div class="text-center" style="padding-top: 8px;">
+                                            <span class="label label-success" data-toggle="tooltip"
+                                                  data-original-title="@lang('torrent.resolution')">
+                                                {{ $d->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>
@@ -1070,7 +1103,8 @@
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th class="torrents-icon"></th>
+                                <th>@lang('torrent.category')</th>
+                                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                                 <th class="torrents-filename">@lang('torrent.name')</th>
                                 <th>@lang('torrent.age')</th>
                                 <th>@lang('torrent.size')</th>
@@ -1082,29 +1116,37 @@
                         <tbody>
                             @foreach ($dead as $d)
                                 <tr>
-                                    <td>
+                                    <td style="width: 1%;">
                                         @if ($d->category->image != null)
                                             <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                                 <div class="text-center">
-                                                    <img src="{{ url('files/img/' . $d->category->image) }}"
-                                                        data-toggle="tooltip"
-                                                        data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;" alt="{{ $d->category->name }}">
+                                                    <img src="{{ url('files/img/' . $d->category->image) }}" data-toggle="tooltip"
+                                                         data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                          alt="{{ $d->category->name }}">
                                                 </div>
                                             </a>
                                         @else
                                             <a href="{{ route('categories.show', ['id' => $d->category->id]) }}">
                                                 <div class="text-center">
                                                     <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                        data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                        style="padding-bottom: 6px;"></i>
+                                                       data-original-title="{{ $d->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                       ></i>
                                                 </div>
                                             </a>
                                         @endif
-                                        <div class="text-center">
+                                    </td>
+
+                                    <td style="width: 1%;">
+                                        <div class="text-center" style="padding-top: 5px;">
                                             <span class="label label-success" data-toggle="tooltip"
-                                                data-original-title="Type">
+                                                  data-original-title="@lang('torrent.type')">
                                                 {{ $d->type->name }}
+                                            </span>
+                                        </div>
+                                        <div class="text-center" style="padding-top: 8px;">
+                                            <span class="label label-success" data-toggle="tooltip"
+                                                  data-original-title="@lang('torrent.resolution')">
+                                                {{ $d->resolution->name ?? 'No Res' }}
                                             </span>
                                         </div>
                                     </td>

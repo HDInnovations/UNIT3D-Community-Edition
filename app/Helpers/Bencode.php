@@ -102,7 +102,8 @@ class Bencode
         }
         if (is_numeric($c)) {
             return self::parse_string($s, $pos);
-        } elseif ($c == 'd') {
+        }
+        if ($c == 'd') {
             $dict = [];
             $pos++;
             while ($pos < $len && $s[$pos] != 'e') {
@@ -113,7 +114,6 @@ class Bencode
                 }
                 $dict[$key] = $value;
             }
-
             if ($pos >= $len) {
                 // We need a end marker here
                 return;
@@ -183,7 +183,8 @@ class Bencode
         }
         if (is_string($d)) {
             return strlen($d).':'.$d;
-        } elseif (is_int($d) || is_float($d)) {
+        }
+        if (is_int($d) || is_float($d)) {
             return sprintf('i%de', $d);
         }
     }

@@ -53,7 +53,7 @@
 </form>
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         var options = 2;
         var langOption = "<?php echo __('poll.option') ?> "
 

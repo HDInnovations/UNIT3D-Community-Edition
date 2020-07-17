@@ -1,4 +1,4 @@
-parameters:
+grumphp:
   tasks:
     git_commit_message:
       allow_empty_message: false

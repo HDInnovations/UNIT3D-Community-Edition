@@ -104,6 +104,22 @@
 
                     @php $data = App\Models\Category::where('id', '=', isset($category_id) ? $category_id : old('category_id'))->first();@endphp
                     @if ($data->movie_meta || $data->tv_meta)
+                    <div class="form-group">
+                        <label for="resolution_ids">@lang('torrent.resolution')</label>
+                        <label>
+                            <select name="resolution_id" id="autores" class="form-control">
+                                <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>
+                                @foreach ($resolutions as $resolution)
+                                    <option value="{{ $resolution->id }}" @if (old('resolution')==$resolution->name) selected="selected" @endif>
+                                        {{ $resolution->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
+                    @endif
+
+                    @if ($data->movie_meta || $data->tv_meta)
                         <div class="form-group">
                             <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
                             <label>
@@ -137,7 +153,7 @@
                         <input type="hidden" name="tvdb" value="0">
                     @endif
 
-                    @if ($data->movie_meta || $data->tv_meta || $data->no_meta)
+                    @if ($data->movie_meta || $data->tv_meta)
                         <div class="form-group">
                             <label for="name">MAL ID (@lang('request.required') For Anime)</label>
                             <label>

@@ -167,6 +167,8 @@ return [
     'remove'               => 'Remove',
     'report'               => 'Report',
     'resend'               => 'Resend',
+    'resolution'           => 'Resolution',
+    'resolutions'          => 'Resolutions',
     'reporter'             => 'Reporter',
     'required'             => 'Required',
     'results'              => 'Results',

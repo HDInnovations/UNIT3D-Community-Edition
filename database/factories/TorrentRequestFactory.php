@@ -13,6 +13,9 @@ $factory->define(App\Models\TorrentRequest::class, function (Faker $faker) {
         'type_id' => function () {
             return factory(App\Models\Type::class)->create()->id;
         },
+        'resolution_id'      => function () {
+            return factory(App\Models\Resolution::class)->create()->id;
+        },
         'imdb'        => $faker->word,
         'tvdb'        => $faker->word,
         'tmdb'        => $faker->word,

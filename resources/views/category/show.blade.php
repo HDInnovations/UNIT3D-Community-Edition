@@ -43,7 +43,8 @@
                             @else
                                 <th></th>
                             @endif
-                            <th>Category/Type</th>
+                            <th>@lang('torrent.category')</th>
+                            <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                             <th>@lang('common.name')</th>
                             <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                             <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
@@ -108,29 +109,38 @@
                                         <div class="torrent-poster pull-left"></div>
                                     @endif
                                 </td>
-        
-                                <td>
+
+                                <td style="width: 1%;">
                                     @if ($torrent->category->image != null)
                                         <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                             <div class="text-center">
-                                                <img src="{{ url('files/img/' . $torrent->category->image) }}"
-                                                    alt="{{ $torrent->category->name }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                    style="padding-bottom: 6px;">
+                                                <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                                     data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                     style="padding-top: 10px;" alt="{{ $torrent->category->name }}">
                                             </div>
                                         </a>
                                     @else
                                         <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                             <div class="text-center">
                                                 <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                    data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                                    style="padding-bottom: 6px;"></i>
+                                                   data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                                   style="padding-top: 10px;"></i>
                                             </div>
                                         </a>
                                     @endif
-                                    <div class="text-center">
-                                        <span class="label label-success" data-toggle="tooltip" data-original-title="Type">
-                                            {{ $torrent->type->names }}
+                                </td>
+
+                                <td style="width: 1%;">
+                                    <div class="text-center" style="padding-top: 15px;">
+                                        <span class="label label-success" data-toggle="tooltip"
+                                              data-original-title="@lang('torrent.type')">
+                                            {{ $torrent->type->name }}
+                                        </span>
+                                    </div>
+                                    <div class="text-center" style="padding-top: 8px;">
+                                        <span class="label label-success" data-toggle="tooltip"
+                                              data-original-title="@lang('torrent.resolution')">
+                                            {{ $torrent->resolution->name ?? 'No Res' }}
                                         </span>
                                     </div>
                                 </td>

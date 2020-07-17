@@ -1,7 +1,7 @@
 @if ($cookieConsentConfig['enabled'] && !$alreadyConsentedWithCookies)
     @include('cookieConsent::dialogContents')
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       laravelCookieConsent = (function () {
 
         let COOKIE_VALUE = 1;

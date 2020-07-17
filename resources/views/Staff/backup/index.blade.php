@@ -80,7 +80,7 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         jQuery(document).ready(function($) {
             const Toast = Swal.mixin({
                 toast: true,

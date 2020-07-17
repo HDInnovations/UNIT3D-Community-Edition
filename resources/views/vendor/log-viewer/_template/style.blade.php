@@ -1,4 +1,4 @@
-<style>
+<style nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('style') }}">
     html {
         position: relative;
         min-height: 100%;
