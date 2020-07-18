@@ -121,7 +121,7 @@
 
         @yield('javascripts')
         @yield('scripts')
-        @livewireScripts(['nonce' => '{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}'])
+        @livewireScripts(['nonce' => Bepsvpt\SecureHeaders\SecureHeaders::nonce()])
     </body>
 
 </html>
