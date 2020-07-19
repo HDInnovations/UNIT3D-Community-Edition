@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WishInterface::class, WishRepository::class);
 
         // Hidden Captcha
-        $this->app->bind('hiddencaptcha', 'App\Helpers\HiddenCaptcha');
+        $this->app->bind('hiddencaptcha', \App\Helpers\HiddenCaptcha::class);
 
         $this->app->bind(ByteUnitsInterface::class, ByteUnits::class);
     }
