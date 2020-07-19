@@ -121,7 +121,7 @@ return [
      */
 
     'hsts' => [
-        'enable' => true,
+        'enable' => false,
 
         'max-age' => 31536000,
 
@@ -330,7 +330,7 @@ return [
      */
 
     'csp' => [
-        'enable' => true,
+        'enable' => false,
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
         'report-only' => false,

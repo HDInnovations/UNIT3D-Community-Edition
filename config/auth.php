@@ -114,4 +114,32 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Authentication Enabled
+    |--------------------------------------------------------------------------
+    */
+
+    'TwoStepEnabled' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Email Settings
+    |--------------------------------------------------------------------------
+    */
+
+    'verificationEmailFrom'     => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
+    'verificationEmailFromName' => ' 2-Step Verification',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Timings Settings
+    |--------------------------------------------------------------------------
+    */
+
+    'TwoStepExceededCount'             => 3,
+    'TwoStepExceededCountdownMinutes'  => 60 * 24,
+    'TwoStepVerifiedLifetimeMinutes'   => 6 * 60,
+    'TwoStepTimeResetBufferSeconds'    => 6 * 60,
+
 ];

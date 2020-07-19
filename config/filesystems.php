@@ -65,6 +65,21 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'backups' => [
+            'driver' => 'local',
+            'root'   => storage_path('backups'),
+        ],
+
+        'torrents' => [
+            'driver' => 'local',
+            'root'   => public_path('files/torrents'),
+        ],
+
+        'subtitles' => [
+            'driver' => 'local',
+            'root'   => public_path('files/subtitles'),
+        ],
+
     ],
 
     /*
