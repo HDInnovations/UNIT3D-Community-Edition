@@ -50,7 +50,8 @@
         "mpociot/laravel-test-factory-helper": "^2.1",
         "nunomaduro/collision": "^4.1",
         "php-coveralls/php-coveralls": "^2.2",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "symplify/changelog-linker": "^8.1"
     },
     "config": {
         "preferred-install": "dist",
