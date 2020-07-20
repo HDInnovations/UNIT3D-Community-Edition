@@ -72,7 +72,8 @@ class DeviceAuthorization extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -83,16 +84,17 @@ class DeviceAuthorization extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('New Device Confirmation')
             ->line('You recently attempted to sign into your account from a new device. As a security measure, we require additional confirmation before allowing access to your account:')
-            ->line(new HtmlString('<strong>IP Address: ' . $this->ipAddress . '</strong>'))
-            ->line(new HtmlString('<strong>Browser: ' . $this->browser . '(' . $this->platform . ')</strong>'))
+            ->line(new HtmlString('<strong>IP Address: '.$this->ipAddress.'</strong>'))
+            ->line(new HtmlString('<strong>Browser: '.$this->browser.'('.$this->platform.')</strong>'))
             ->line('Note thate you will need to do this on the same device and in the same browser as you were using.')
             ->action('Verify Device', route('device.verify', [$this->verifyToken]))
             ->line('Thanks for helping us to keep your account secure!');
@@ -101,16 +103,17 @@ class DeviceAuthorization extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)
     {
         return [
-            'message' => 'You requested to authenticate a new device.',
-            'url' => route('device.verify', [$this->verifyToken]),
-            'ip' => $this->ipAddress,
-            'browser' => $this->browser,
+            'message'  => 'You requested to authenticate a new device.',
+            'url'      => route('device.verify', [$this->verifyToken]),
+            'ip'       => $this->ipAddress,
+            'browser'  => $this->browser,
             'platform' => $this->platform,
         ];
     }
