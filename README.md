@@ -140,6 +140,7 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
+ 2.5.x       |  Active Support :rocket: | >= 7.4
  2.4.x       |  Active Support :rocket: | >= 7.4
  2.3.x       |  Active Support :rocket: | >= 7.4
  2.0.0 to 2.2.7|  End Of Life :skull: | >= 7.3
@@ -292,8 +293,8 @@ Thanks goes to these wonderful people who have contributed alot of code:
 
 ## <a name="thanks"></a> 🎉 Special Thanks
 
-<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png" width="50px;"></a>
-<a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png" width="50px;"></a>
-<a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" width="50px;"></a>
-<a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" width="50px;"></a>
+<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>
+<a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" height="50px;"></a>
+<a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" height="50px;"></a>
+<a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>
 

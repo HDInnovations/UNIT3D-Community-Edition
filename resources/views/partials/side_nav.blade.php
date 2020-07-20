@@ -1,4 +1,4 @@
-<aside id="hoe-left-panel" hoe-position-type="fixed" hoe-position-type="absolute">
+<aside id="hoe-left-panel" hoe-position-type="static" hoe-position-type="absolute">
     <ul class="nav panel-list">
         <li class="nav-level">@lang('common.navigation')</li>
         <li>

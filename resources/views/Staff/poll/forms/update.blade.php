@@ -52,7 +52,7 @@
 </form>
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
 
         var options = parseInt("<?php echo count($poll->options); ?>"); // Get the size of options passing in
         var langOption = "<?php echo __('poll.option') ?> "

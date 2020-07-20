@@ -389,15 +389,19 @@
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.category')</strong></td>
                         <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small"
-                               data-toggle="tooltip"
-
-                               data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i> {{ $torrent->category->name }}
+                               data-toggle="tooltip" data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i>
+                            {{ $torrent->category->name }}
                         </td>
                     </tr>
 
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.type')</strong></td>
                         <td>{{ $torrent->type->name }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-sm-2"><strong>@lang('torrent.resolution')</strong></td>
+                        <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
                     </tr>
 
                     <tr>
@@ -754,13 +758,13 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
         $('#content').wysibb({});
       })
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       $(document).ready(function () {
 
         $('.slidingDiv').hide();
@@ -774,7 +778,7 @@
     </script>
 
     @if (isset($meta) && ($torrent->category->movie_meta || $torrent->category->tv_meta) && $meta->videoTrailer && $meta->title)
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       $('.show-trailer').each(function () {
         $(this).off('click');
         $(this).on('click', function (e) {
@@ -794,7 +798,7 @@
     @endif
 
     @if (isset($meta) && $torrent->category->game_meta && $meta->videos && $meta->name)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
           $('.show-trailer').each(function () {
             $(this).off('click');
             $(this).on('click', function (e) {

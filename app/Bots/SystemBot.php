@@ -258,7 +258,6 @@ class SystemBot
 
             return response('success');
         }
-
         if ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
@@ -266,7 +265,9 @@ class SystemBot
             }
 
             return response('success');
-        } elseif ($type == 'public') {
+        }
+
+        if ($type == 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);

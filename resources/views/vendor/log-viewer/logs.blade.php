@@ -96,7 +96,7 @@
 @endsection
 
 @section('scripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(function () {
             var deleteLogModal = $('div#delete-log-modal'),
                 deleteLogForm  = $('form#delete-log-form'),

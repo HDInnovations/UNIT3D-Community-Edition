@@ -113,6 +113,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('staff.resolutions.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-resolutions')
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('staff.tags.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('torrent.genre-tags')
                 </a>

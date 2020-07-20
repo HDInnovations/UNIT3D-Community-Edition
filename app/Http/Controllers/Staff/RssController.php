@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
 use App\Repositories\TorrentFacetedRepository;
@@ -42,7 +43,7 @@ class RssController extends Controller
      *
      * @param string $hash
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index($hash = null)
     {
@@ -59,7 +60,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -70,6 +71,7 @@ class RssController extends Controller
             'torrent_repository' => $torrent_repository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
+            'resolutions'        => Resolution::all()->sortBy('position'),
             'user'               => $user, ]);
     }
 
@@ -78,7 +80,7 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -91,12 +93,13 @@ class RssController extends Controller
             'uploader'    => 'max:255',
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
+            'resolutions' => 'sometimes|array|max:999',
             'genres'      => 'sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['type', 'name', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
+            'types', 'resolutions', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
@@ -133,7 +136,7 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Request $request, $id)
     {
@@ -145,6 +148,7 @@ class RssController extends Controller
             'torrent_repository' => $torrent_repository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
+            'resolutions'        => Resolution::all()->sortBy('position'),
             'user'               => $user,
             'rss'                => $rss,
         ]);
@@ -156,7 +160,7 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -169,12 +173,13 @@ class RssController extends Controller
             'uploader'    => 'max:255',
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
+            'resolutions' => 'sometimes|array|max:999',
             'genres'      => 'sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['type', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
+            'types', 'resolutions', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
@@ -208,6 +213,8 @@ class RssController extends Controller
      * Remove the specified RSS resource from storage.
      *
      * @param int $id
+     *
+     * @throws \Exception
      *
      * @return \Illuminate\Http\Response
      */

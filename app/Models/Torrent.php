@@ -205,6 +205,16 @@ class Torrent extends Model
     }
 
     /**
+     * Belongs To A Resolution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function resolution()
+    {
+        return $this->belongsTo(Resolution::class);
+    }
+
+    /**
      * Torrent Has Been Moderated By.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

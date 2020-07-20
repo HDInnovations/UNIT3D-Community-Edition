@@ -158,7 +158,7 @@ break;
 @endsection
 
 @section('javascripts')
-    <script type="text/javascript" nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
         $(function() {
             // Check for on keypress
             $("input").on("keyup", function(event) {
@@ -203,7 +203,7 @@ break;
     
     </script>
     
-    <script type="text/javascript" nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
         $('.code-inputs').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e) {
             $('.code-inputs').delay(200).removeClass('invalid-shake');
         });
@@ -281,7 +281,7 @@ break;
     
     </script>
     
-    <script type="text/javascript" nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
         $("#resend_code_trigger").click(function(event) {
             event.preventDefault();
             $.ajaxSetup({

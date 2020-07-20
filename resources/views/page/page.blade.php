@@ -27,7 +27,7 @@
 
 @section('javascripts')
     @if(request()->url() === config('other.rules_url') && auth()->user()->read_rules == 0)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
             window.onscroll = function() {
                 let scrollHeight, totalHeight;
                 scrollHeight = document.body.scrollHeight;
