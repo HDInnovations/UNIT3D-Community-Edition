@@ -140,9 +140,10 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 2.5.x       |  Active Support :rocket: | >= 7.4
- 2.4.x       |  Active Support :rocket: | >= 7.4
- 2.3.x       |  Active Support :rocket: | >= 7.4
+ 2.6.x       |  Active Support :rocket: | >= 7.4
+ 2.5.x       |  End Of Life :skull: | >= 7.4
+ 2.4.x       |  End Of Life :skull: | >= 7.4
+ 2.3.x       |  End Of Life :skull: | >= 7.4
  2.0.0 to 2.2.7|  End Of Life :skull: | >= 7.3
  1.0 to 1.9.4|  End Of Life :skull:     | >= 7.1.3
 
@@ -297,4 +298,5 @@ Thanks goes to these wonderful people who have contributed alot of code:
 <a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" height="50px;"></a>
 <a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" height="50px;"></a>
 <a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>
+<a href="https://laravel-livewire.com"><img src="https://i.postimg.cc/jjsNyBbh/Livewire.png" height="50px;"></a>
 
