@@ -106,7 +106,7 @@ trait ConsoleTools
             $bar = $this->progressStart();
         }
 
-        $process = new Process($command);
+        $process = Process::fromShellCommandline($command);
         $process->setTimeout(3_600);
         $process->start();
 
