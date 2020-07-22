@@ -299,4 +299,5 @@ Thanks goes to these wonderful people who have contributed alot of code:
 <a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" height="50px;"></a>
 <a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>
 <a href="https://laravel-livewire.com"><img src="https://i.postimg.cc/jjsNyBbh/Livewire.png" height="50px;"></a>
-
+<a href="https://styleci.io"><img src="https://i.postimg.cc/0y4XN4yW/og.png" height="50px;"></a>
+<a href="https://travis-ci.org"><img src="https://i.postimg.cc/Wz96HDDW/travis-ci-logo-png-transparent.png" height="50px;"></a>
