@@ -125,8 +125,9 @@ class TypeController extends Controller
      *
      * @param \App\Models\Type $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

@@ -49,8 +49,9 @@ class Handler extends ExceptionHandler
      *
      * @param \Throwable $throwable
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function report(Throwable $throwable)
     {
@@ -62,8 +63,10 @@ class Handler extends ExceptionHandler
      *
      * @param \Illuminate\Http\Request $request
      * @param \Throwable               $throwable
-     * @return \Illuminate\Http\Response
+     *
      * @throws \Throwable
+     *
+     * @return \Illuminate\Http\Response
      */
     public function render($request, Throwable $throwable)
     {

@@ -166,8 +166,9 @@ class ForumController extends Controller
      *
      * @param \App\Models\Forum $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

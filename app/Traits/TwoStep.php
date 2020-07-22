@@ -22,8 +22,9 @@ trait TwoStep
     /**
      * Check if the user is authorized.
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     private function twoStepVerification()
     {
@@ -45,8 +46,9 @@ trait TwoStep
      *
      * @param collection $twoStepAuth
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     private function checkTimeSinceVerified($twoStepAuth)
     {
@@ -111,8 +113,9 @@ trait TwoStep
      *
      * @param int $userId
      *
-     * @return \App\Models\TwoStepAuth|\Illuminate\Database\Eloquent\Model
      * @throws \Exception
+     *
+     * @return \App\Models\TwoStepAuth|\Illuminate\Database\Eloquent\Model
      */
     private function checkTwoStepAuthStatus(int $userId)
     {

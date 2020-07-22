@@ -134,8 +134,9 @@ class ChatBotController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {

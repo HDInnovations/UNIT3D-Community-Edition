@@ -74,8 +74,9 @@ class NoteController extends Controller
      *
      * @param \App\Models\Note $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

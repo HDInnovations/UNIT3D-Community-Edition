@@ -78,8 +78,9 @@ class SeedboxController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Seedbox      $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function destroy(Request $request, $id)
     {

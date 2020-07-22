@@ -122,8 +122,9 @@ class WarningController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Warning      $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteWarning(Request $request, $id)
     {

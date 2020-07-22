@@ -96,8 +96,9 @@ class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showVerification()
     {
@@ -154,8 +155,9 @@ class TwoStepController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function verify(Request $request)
     {

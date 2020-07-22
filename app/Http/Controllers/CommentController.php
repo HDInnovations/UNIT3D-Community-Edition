@@ -553,8 +553,9 @@ class CommentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param                          $comment_id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteComment(Request $request, $comment_id)
     {

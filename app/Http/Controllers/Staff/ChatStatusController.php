@@ -118,8 +118,9 @@ class ChatStatusController extends Controller
      *
      * @param \App\Models\ChatStatus $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

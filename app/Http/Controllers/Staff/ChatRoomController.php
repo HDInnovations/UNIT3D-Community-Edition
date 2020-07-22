@@ -111,8 +111,9 @@ class ChatRoomController extends Controller
      *
      * @param \App\Models\Chatroom $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

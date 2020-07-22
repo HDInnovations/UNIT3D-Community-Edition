@@ -121,8 +121,9 @@ class PollController extends Controller
      * @param \App\Http\Requests\StorePoll $storePoll
      * @param                              $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StorePoll $storePoll, $id)
     {
@@ -179,8 +180,9 @@ class PollController extends Controller
      *
      * @param \App\Models\Poll $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

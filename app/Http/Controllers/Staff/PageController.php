@@ -125,8 +125,9 @@ class PageController extends Controller
      *
      * @param \App\Models\Page $id
      *
-     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
