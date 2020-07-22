@@ -25,6 +25,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\AnnounceControllerTest
+ */
 class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
@@ -43,9 +46,8 @@ class AnnounceController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $passkey
      *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response response for the torrent client
      * @throws \Exception
-     *
-     * @return Bencode response for the torrent client
      */
     public function announce(Request $request, $passkey)
     {

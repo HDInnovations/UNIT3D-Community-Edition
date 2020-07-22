@@ -17,6 +17,9 @@ use App\Models\History;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoCorrectHistoryTest
+ */
 class AutoCorrectHistory extends Command
 {
     /**

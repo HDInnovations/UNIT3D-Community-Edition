@@ -20,6 +20,9 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
+ */
 class GroupController extends Controller
 {
     /**

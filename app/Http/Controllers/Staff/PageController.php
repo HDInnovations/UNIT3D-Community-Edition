@@ -18,6 +18,9 @@ use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
+ */
 class PageController extends Controller
 {
     /**
@@ -123,6 +126,7 @@ class PageController extends Controller
      * @param \App\Models\Page $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

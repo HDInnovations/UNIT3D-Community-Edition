@@ -32,6 +32,9 @@ use Carbon\Carbon;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\API\ChatControllerTest
+ */
 class ChatController extends Controller
 {
     /**

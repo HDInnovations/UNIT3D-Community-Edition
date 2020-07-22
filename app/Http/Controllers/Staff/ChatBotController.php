@@ -18,6 +18,9 @@ use App\Models\Bot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\ChatBotControllerTest
+ */
 class ChatBotController extends Controller
 {
     /**
@@ -25,7 +28,7 @@ class ChatBotController extends Controller
      *
      * @param string $hash
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($hash = null)
     {
@@ -42,7 +45,7 @@ class ChatBotController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Request $request, $id)
     {
@@ -132,6 +135,7 @@ class ChatBotController extends Controller
      * @param int $id
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy($id)
     {

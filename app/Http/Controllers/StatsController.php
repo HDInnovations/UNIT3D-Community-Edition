@@ -24,6 +24,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\StatsControllerTest
+ */
 class StatsController extends Controller
 {
     /**

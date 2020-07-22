@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest
+ */
 class SeedboxController extends Controller
 {
     /**
@@ -38,6 +41,7 @@ class SeedboxController extends Controller
      * @param \App\Models\Seedbox      $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {

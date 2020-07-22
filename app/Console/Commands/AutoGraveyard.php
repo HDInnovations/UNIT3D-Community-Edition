@@ -22,6 +22,9 @@ use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoGraveyardTest
+ */
 class AutoGraveyard extends Command
 {
     /**

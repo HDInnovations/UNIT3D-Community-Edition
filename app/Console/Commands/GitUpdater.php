@@ -20,6 +20,9 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\GitUpdaterTest
+ */
 class GitUpdater extends Command
 {
     use ConsoleTools;

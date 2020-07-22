@@ -19,6 +19,9 @@ use App\Models\Option;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
+ */
 class PollController extends Controller
 {
     /**
@@ -29,7 +32,7 @@ class PollController extends Controller
     /**
      * PollController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {
@@ -75,7 +78,7 @@ class PollController extends Controller
     /**
      * Store A New Poll.
      *
-     * @param StorePoll $request
+     * @param \App\Http\Requests\StorePoll $storePoll
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -115,10 +118,11 @@ class PollController extends Controller
     /**
      * Update A New Poll.
      *
-     * @param StorePoll $request
-     * @param           $id
+     * @param \App\Http\Requests\StorePoll $storePoll
+     * @param                              $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function update(StorePoll $storePoll, $id)
     {
@@ -176,6 +180,7 @@ class PollController extends Controller
      * @param \App\Models\Poll $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

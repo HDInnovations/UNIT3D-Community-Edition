@@ -17,6 +17,9 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\PrivateMessageControllerTest
+ */
 class PrivateMessageController extends Controller
 {
     /**
@@ -230,6 +233,7 @@ class PrivateMessageController extends Controller
      * @param \App\Models\PrivateMessage $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function deletePrivateMessage(Request $request, $id)
     {

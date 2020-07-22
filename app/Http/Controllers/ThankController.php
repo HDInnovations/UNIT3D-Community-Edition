@@ -17,6 +17,9 @@ use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\ThankControllerTest
+ */
 class ThankController extends Controller
 {
     /**

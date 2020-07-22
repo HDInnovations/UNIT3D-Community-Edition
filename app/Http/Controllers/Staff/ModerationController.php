@@ -21,6 +21,9 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\ModerationControllerTest
+ */
 class ModerationController extends Controller
 {
     /**
@@ -31,7 +34,7 @@ class ModerationController extends Controller
     /**
      * ModerationController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {

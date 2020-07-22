@@ -29,6 +29,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\BonusControllerTest
+ */
 class BonusController extends Controller
 {
     /**
@@ -46,8 +49,8 @@ class BonusController extends Controller
     /**
      * BonusController Constructor.
      *
-     * @param ByteUnits      $byteUnits
-     * @param ChatRepository $chat
+     * @param \App\Interfaces\ByteUnitsInterface $byteUnits
+     * @param \App\Repositories\ChatRepository   $chatRepository
      */
     public function __construct(
         \App\Interfaces\ByteUnitsInterface $byteUnits,

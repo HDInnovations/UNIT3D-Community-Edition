@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Audit;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\AuditControllerTest
+ */
 class AuditController extends Controller
 {
     /**
@@ -38,6 +41,7 @@ class AuditController extends Controller
      * @param \App\Models\Audit        $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {

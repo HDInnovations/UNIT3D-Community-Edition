@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\FailedLoginAttempt;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\AuthenticationControllerTest
+ */
 class AuthenticationController extends Controller
 {
     /**

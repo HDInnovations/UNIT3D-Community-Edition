@@ -23,6 +23,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
+ */
 class BanController extends Controller
 {
     /**

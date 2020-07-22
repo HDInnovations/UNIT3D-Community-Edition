@@ -19,6 +19,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\CategoryControllerTest
+ */
 class CategoryController extends Controller
 {
     /**
@@ -166,6 +169,7 @@ class CategoryController extends Controller
      * @param \App\Models\Category $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

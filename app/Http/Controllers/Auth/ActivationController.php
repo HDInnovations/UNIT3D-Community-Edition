@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Auth\ActivationControllerTest
+ */
 class ActivationController extends Controller
 {
     public function activate($token)

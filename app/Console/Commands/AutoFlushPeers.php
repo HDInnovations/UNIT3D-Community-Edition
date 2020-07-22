@@ -18,6 +18,9 @@ use App\Models\Peer;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoFlushPeersTest
+ */
 class AutoFlushPeers extends Command
 {
     /**

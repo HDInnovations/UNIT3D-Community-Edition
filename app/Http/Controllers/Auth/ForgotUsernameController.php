@@ -18,6 +18,9 @@ use App\Models\User;
 use App\Notifications\UsernameReminder;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Auth\ForgotUsernameControllerTest
+ */
 class ForgotUsernameController extends Controller
 {
     /**

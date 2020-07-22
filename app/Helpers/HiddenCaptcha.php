@@ -13,9 +13,9 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Crypt;
 
 class HiddenCaptcha
 {

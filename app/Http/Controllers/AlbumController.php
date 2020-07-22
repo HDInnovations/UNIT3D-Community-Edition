@@ -20,6 +20,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\AlbumControllerTest
+ */
 class AlbumController extends Controller
 {
     /**
@@ -30,7 +33,7 @@ class AlbumController extends Controller
     /**
      * AlbumController Constructor.
      *
-     * @param OmdbClient $client
+     * @param \App\Services\Clients\OmdbClient $omdbClient
      */
     public function __construct(OmdbClient $omdbClient)
     {
@@ -129,6 +132,7 @@ class AlbumController extends Controller
      * @param \App\Models\Album        $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {

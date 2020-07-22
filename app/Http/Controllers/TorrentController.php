@@ -39,6 +39,7 @@ use App\Models\TorrentRequest;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Warning;
+use Illuminate\Support\Facades\Log;
 use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
@@ -46,11 +47,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
+ */
 class TorrentController extends Controller
 {
     /**
@@ -91,8 +94,8 @@ class TorrentController extends Controller
     /**
      * RequestController Constructor.
      *
-     * @param TorrentFacetedRepository $faceted
-     * @param ChatRepository           $chat
+     * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
+     * @param \App\Repositories\ChatRepository           $chatRepository
      */
     public function __construct(TorrentFacetedRepository $torrentFacetedRepository, ChatRepository $chatRepository)
     {

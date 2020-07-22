@@ -18,6 +18,9 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\BookmarkControllerTest
+ */
 class BookmarkController extends Controller
 {
     /**

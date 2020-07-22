@@ -19,6 +19,9 @@ use App\Models\ApplicationImageProof;
 use App\Models\ApplicationUrlProof;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\ApplicationControllerTest
+ */
 class ApplicationController extends Controller
 {
     /**

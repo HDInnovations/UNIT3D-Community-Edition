@@ -15,6 +15,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\ArticleControllerTest
+ */
 class ArticleController extends Controller
 {
     /**

@@ -19,6 +19,9 @@ use App\Notifications\NewFollow;
 use App\Notifications\NewUnfollow;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\FollowControllerTest
+ */
 class FollowController extends Controller
 {
     /**

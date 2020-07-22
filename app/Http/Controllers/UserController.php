@@ -38,6 +38,9 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use ZipArchive;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
+ */
 class UserController extends Controller
 {
     /**
@@ -1955,7 +1958,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $username
      *
-     * @return \ZipArchive
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadHistoryTorrents(Request $request, $username)
     {

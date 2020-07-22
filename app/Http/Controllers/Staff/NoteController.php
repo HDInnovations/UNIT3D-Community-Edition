@@ -18,6 +18,9 @@ use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\NoteControllerTest
+ */
 class NoteController extends Controller
 {
     /**
@@ -72,6 +75,7 @@ class NoteController extends Controller
      * @param \App\Models\Note $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

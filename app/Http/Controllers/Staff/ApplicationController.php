@@ -23,6 +23,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\ApplicationControllerTest
+ */
 class ApplicationController extends Controller
 {
     /**

@@ -19,6 +19,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoDisableInactiveUsersTest
+ */
 class AutoDisableInactiveUsers extends Command
 {
     /**

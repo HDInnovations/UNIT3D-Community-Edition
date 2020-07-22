@@ -17,6 +17,9 @@ use App\Models\Album;
 use App\Models\Image;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\ImageControllerTest
+ */
 class ImageController extends Controller
 {
     /**
@@ -104,6 +107,7 @@ class ImageController extends Controller
      * @param \App\Models\Image        $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {

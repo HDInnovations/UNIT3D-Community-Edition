@@ -19,6 +19,9 @@ use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\ChatRoomControllerTest
+ */
 class ChatRoomController extends Controller
 {
     /**
@@ -29,7 +32,7 @@ class ChatRoomController extends Controller
     /**
      * ChatController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {
@@ -109,6 +112,7 @@ class ChatRoomController extends Controller
      * @param \App\Models\Chatroom $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

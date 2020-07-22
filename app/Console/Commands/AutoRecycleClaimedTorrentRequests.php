@@ -19,6 +19,9 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoRecycleClaimedTorrentRequestsTest
+ */
 class AutoRecycleClaimedTorrentRequests extends Command
 {
     /**
@@ -51,6 +54,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws \Exception
      */
     public function handle()
     {

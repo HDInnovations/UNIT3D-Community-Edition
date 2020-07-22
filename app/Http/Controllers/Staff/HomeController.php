@@ -20,6 +20,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
+ */
 class HomeController extends Controller
 {
     /**

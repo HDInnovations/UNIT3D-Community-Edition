@@ -18,6 +18,9 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\GiftControllerTest
+ */
 class GiftController extends Controller
 {
     /**

@@ -34,6 +34,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\TopicControllerTest
+ */
 class TopicController extends Controller
 {
     /**
@@ -49,8 +52,8 @@ class TopicController extends Controller
     /**
      * ForumController Constructor.
      *
-     * @param TaggedUserRepository $tag
-     * @param ChatRepository       $chat
+     * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
+     * @param \App\Repositories\ChatRepository       $chatRepository
      */
     public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
     {
@@ -330,6 +333,7 @@ class TopicController extends Controller
      * @param \App\Models\Topic        $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function deleteTopic(Request $request, $id)
     {

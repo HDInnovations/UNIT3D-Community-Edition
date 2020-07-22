@@ -17,6 +17,9 @@ use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\PlaylistTorrentControllerTest
+ */
 class PlaylistTorrentController extends Controller
 {
     /**
@@ -58,6 +61,7 @@ class PlaylistTorrentController extends Controller
      * @param int $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

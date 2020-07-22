@@ -18,6 +18,9 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\TypeControllerTest
+ */
 class TypeController extends Controller
 {
     /**
@@ -123,6 +126,7 @@ class TypeController extends Controller
      * @param \App\Models\Type $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

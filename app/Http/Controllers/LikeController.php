@@ -17,6 +17,9 @@ use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\LikeControllerTest
+ */
 class LikeController extends Controller
 {
     /**

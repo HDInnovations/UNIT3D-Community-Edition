@@ -31,6 +31,9 @@ use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\PostControllerTest
+ */
 class PostController extends Controller
 {
     /**
@@ -46,8 +49,8 @@ class PostController extends Controller
     /**
      * ForumController Constructor.
      *
-     * @param TaggedUserRepository $tag
-     * @param ChatRepository       $chat
+     * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
+     * @param \App\Repositories\ChatRepository       $chatRepository
      */
     public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
     {

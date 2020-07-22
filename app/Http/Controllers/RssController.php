@@ -24,6 +24,9 @@ use App\Models\User;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
+ */
 class RssController extends Controller
 {
     /**
@@ -34,7 +37,7 @@ class RssController extends Controller
     /**
      * RssController Constructor.
      *
-     * @param TorrentFacetedRepository $torrent_faceted
+     * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      */
     public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
     {

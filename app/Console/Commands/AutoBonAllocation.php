@@ -18,6 +18,9 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoBonAllocationTest
+ */
 class AutoBonAllocation extends Command
 {
     /**
@@ -36,6 +39,8 @@ class AutoBonAllocation extends Command
 
     /**
      * Execute the console command.
+     *
+     * @param \App\Helpers\ByteUnits $byteUnits
      *
      * @return mixed
      */

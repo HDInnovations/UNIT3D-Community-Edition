@@ -17,6 +17,9 @@ use App\Models\FailedLoginAttempt;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoRecycleFailedLoginsTest
+ */
 class AutoRecycleFailedLogins extends Command
 {
     /**

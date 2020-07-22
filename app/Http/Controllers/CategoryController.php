@@ -18,6 +18,9 @@ use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\CategoryControllerTest
+ */
 class CategoryController extends Controller
 {
     /**

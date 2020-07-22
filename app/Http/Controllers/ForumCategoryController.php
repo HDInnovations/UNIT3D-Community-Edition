@@ -17,6 +17,9 @@ use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\ForumCategoryControllerTest
+ */
 class ForumCategoryController extends Controller
 {
     /**

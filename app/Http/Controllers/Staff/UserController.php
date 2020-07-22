@@ -31,6 +31,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
+ */
 class UserController extends Controller
 {
     /**

@@ -20,6 +20,9 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\ForumControllerTest
+ */
 class ForumController extends Controller
 {
     /**
@@ -164,6 +167,7 @@ class ForumController extends Controller
      * @param \App\Models\Forum $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

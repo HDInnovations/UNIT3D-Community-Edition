@@ -16,6 +16,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\AchievementsControllerTest
+ */
 class AchievementsController extends Controller
 {
     /**

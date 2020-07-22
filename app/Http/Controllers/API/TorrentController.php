@@ -32,6 +32,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
+ */
 class TorrentController extends BaseController
 {
     /**
@@ -42,7 +45,7 @@ class TorrentController extends BaseController
     /**
      * RequestController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {

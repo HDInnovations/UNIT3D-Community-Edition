@@ -19,6 +19,9 @@ use App\Models\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\AutoRevokePermissionsTest
+ */
 class AutoRevokePermissions extends Command
 {
     /**

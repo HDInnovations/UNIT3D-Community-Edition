@@ -16,6 +16,9 @@ namespace App\Http\Controllers;
 use App\Models\Language;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\LanguageControllerTest
+ */
 class LanguageController extends Controller
 {
     /**

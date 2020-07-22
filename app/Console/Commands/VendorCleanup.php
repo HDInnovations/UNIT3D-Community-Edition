@@ -18,6 +18,9 @@ use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\VendorCleanupTest
+ */
 class VendorCleanup extends Command
 {
     protected $signature = 'vendor:cleanup {--check : Runs in dry mode without deleting files.}';

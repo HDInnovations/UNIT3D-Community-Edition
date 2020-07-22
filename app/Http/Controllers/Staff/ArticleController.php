@@ -19,6 +19,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\ArticleControllerTest
+ */
 class ArticleController extends Controller
 {
     /**
@@ -148,6 +151,7 @@ class ArticleController extends Controller
      * @param \App\Models\Article $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

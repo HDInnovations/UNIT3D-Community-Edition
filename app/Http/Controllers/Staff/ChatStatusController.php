@@ -18,6 +18,9 @@ use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\ChatStatusControllerTest
+ */
 class ChatStatusController extends Controller
 {
     /**
@@ -28,7 +31,7 @@ class ChatStatusController extends Controller
     /**
      * ChatController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {
@@ -116,6 +119,7 @@ class ChatStatusController extends Controller
      * @param \App\Models\ChatStatus $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

@@ -18,6 +18,9 @@ use App\Traits\TwoStep;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Auth\TwoStepControllerTest
+ */
 class TwoStepController extends Controller
 {
     use TwoStep;
@@ -93,9 +96,8 @@ class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\Response
      */
     public function showVerification()
     {
@@ -152,7 +154,8 @@ class TwoStepController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function verify(Request $request)
     {
@@ -198,7 +201,7 @@ class TwoStepController extends Controller
     /**
      * Resend the validation code triggered by user.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function resend()
     {

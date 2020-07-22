@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\CommandControllerTest
+ */
 class CommandController extends Controller
 {
     /**

@@ -19,6 +19,9 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoRemoveFeaturedTorrentTest
+ */
 class AutoRemoveFeaturedTorrent extends Command
 {
     /**

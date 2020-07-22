@@ -17,6 +17,9 @@ use App\Mail\TestEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\TestMailSettingsTest
+ */
 class TestMailSettings extends Command
 {
     /**

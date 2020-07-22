@@ -16,6 +16,9 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
+ */
 class PageController extends Controller
 {
     /**

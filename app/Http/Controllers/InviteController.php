@@ -21,6 +21,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\InviteControllerTest
+ */
 class InviteController extends Controller
 {
     /**

@@ -17,6 +17,9 @@ use App\Models\Audit;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoRecycleAuditsTest
+ */
 class AutoRecycleAudits extends Command
 {
     /**

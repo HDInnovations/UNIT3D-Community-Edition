@@ -18,6 +18,9 @@ use App\Models\Torrent;
 use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\FetchGenresTest
+ */
 class FetchGenres extends Command
 {
     /**

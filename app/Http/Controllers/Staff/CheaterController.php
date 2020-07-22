@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use App\Models\History;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\CheaterControllerTest
+ */
 class CheaterController extends Controller
 {
     /**

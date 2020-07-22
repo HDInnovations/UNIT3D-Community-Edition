@@ -15,6 +15,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Topic;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\TopicLabelControllerTest
+ */
 class TopicLabelController extends Controller
 {
     /**

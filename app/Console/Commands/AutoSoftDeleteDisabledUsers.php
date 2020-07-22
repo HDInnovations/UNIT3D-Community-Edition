@@ -31,6 +31,9 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoSoftDeleteDisabledUsersTest
+ */
 class AutoSoftDeleteDisabledUsers extends Command
 {
     /**

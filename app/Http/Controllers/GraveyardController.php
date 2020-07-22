@@ -20,6 +20,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\GraveyardControllerTest
+ */
 class GraveyardController extends Controller
 {
     /**
@@ -30,7 +33,7 @@ class GraveyardController extends Controller
     /**
      * GraveyardController Constructor.
      *
-     * @param TorrentFacetedRepository $faceted
+     * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      */
     public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
     {
@@ -190,6 +193,7 @@ class GraveyardController extends Controller
      * @param int                      $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {

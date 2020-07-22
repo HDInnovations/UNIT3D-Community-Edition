@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\VersionControllerTest
+ */
 class VersionController extends Controller
 {
     /**

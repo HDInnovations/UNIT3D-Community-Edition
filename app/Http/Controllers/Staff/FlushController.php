@@ -21,6 +21,9 @@ use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest
+ */
 class FlushController extends Controller
 {
     /**
@@ -31,7 +34,7 @@ class FlushController extends Controller
     /**
      * ChatController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {

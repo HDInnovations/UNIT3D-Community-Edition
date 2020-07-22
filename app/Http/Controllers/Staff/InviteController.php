@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Invite;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\InviteControllerTest
+ */
 class InviteController extends Controller
 {
     /**

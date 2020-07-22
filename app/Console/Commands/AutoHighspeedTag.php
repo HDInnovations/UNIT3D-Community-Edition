@@ -19,6 +19,9 @@ use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoHighspeedTagTest
+ */
 class AutoHighspeedTag extends Command
 {
     /**

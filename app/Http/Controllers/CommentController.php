@@ -36,6 +36,9 @@ use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\CommentControllerTest
+ */
 class CommentController extends Controller
 {
     /**
@@ -51,8 +54,8 @@ class CommentController extends Controller
     /**
      * CommentController Constructor.
      *
-     * @param TaggedUserRepository $tag
-     * @param ChatRepository       $chat
+     * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
+     * @param \App\Repositories\ChatRepository       $chatRepository
      */
     public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
     {
@@ -548,9 +551,10 @@ class CommentController extends Controller
      * Delete A Comment.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $comment_id
+     * @param                          $comment_id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function deleteComment(Request $request, $comment_id)
     {

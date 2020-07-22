@@ -20,6 +20,9 @@ use App\Models\Voter;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
+ */
 class PollController extends Controller
 {
     /**

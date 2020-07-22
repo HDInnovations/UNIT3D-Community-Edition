@@ -21,6 +21,9 @@ use App\Services\MovieScrapper;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest
+ */
 class PlaylistController extends Controller
 {
     /**
@@ -31,7 +34,7 @@ class PlaylistController extends Controller
     /**
      * PlaylistController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {
@@ -222,6 +225,7 @@ class PlaylistController extends Controller
      * @param \App\Playlist $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

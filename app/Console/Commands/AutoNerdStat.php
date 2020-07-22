@@ -22,6 +22,9 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\AutoNerdStatTest
+ */
 class AutoNerdStat extends Command
 {
     /**

@@ -21,6 +21,9 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoBanTest
+ */
 class AutoBan extends Command
 {
     /**

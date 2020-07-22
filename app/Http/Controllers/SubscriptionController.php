@@ -18,6 +18,9 @@ use App\Models\Subscription;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\SubscriptionControllerTest
+ */
 class SubscriptionController extends Controller
 {
     /**

@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Warning;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\WarningControllerTest
+ */
 class WarningController extends Controller
 {
     /**

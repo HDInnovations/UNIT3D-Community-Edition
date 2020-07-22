@@ -19,6 +19,9 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\MassActionControllerTest
+ */
 class MassActionController extends Controller
 {
     /**

@@ -40,6 +40,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
+ */
 class RequestController extends Controller
 {
     /**
@@ -55,8 +58,8 @@ class RequestController extends Controller
     /**
      * RequestController Constructor.
      *
-     * @param RequestFacetedRepository $faceted
-     * @param ChatRepository           $chat
+     * @param \App\Repositories\RequestFacetedRepository $requestFacetedRepository
+     * @param \App\Repositories\ChatRepository           $chatRepository
      */
     public function __construct(RequestFacetedRepository $requestFacetedRepository, ChatRepository $chatRepository)
     {
