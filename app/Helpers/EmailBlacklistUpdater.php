@@ -28,7 +28,7 @@ class EmailBlacklistUpdater
         $duration = Carbon::now()->addMonth();
 
         $domains = \json_decode(\file_get_contents($url), true);
-        $count = \count($domains);
+        $count = is_countable($domains) ? \count($domains) : 0;
 
         // Retrieve blacklisted domains
         \cache()->put($key, $domains, $duration);
