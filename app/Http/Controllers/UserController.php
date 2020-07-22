@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 use ZipArchive;
 
 class UserController extends Controller

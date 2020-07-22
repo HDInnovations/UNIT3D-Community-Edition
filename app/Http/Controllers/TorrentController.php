@@ -39,6 +39,7 @@ use App\Models\TorrentRequest;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Warning;
+use Illuminate\Support\Facades\Log;
 use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
@@ -1193,7 +1194,7 @@ class TorrentController extends Controller
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error."\n";
             }
-            \Log::notice(\sprintf('Deletion of torrent failed due to: 
+            Log::notice(\sprintf('Deletion of torrent failed due to: 
 
 %s', $errors));
 

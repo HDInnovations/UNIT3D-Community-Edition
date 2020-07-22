@@ -19,7 +19,7 @@ use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\MovieScrapper;
 use Illuminate\Http\Request;
-use Image;
+use Intervention\Image\Facades\Image;
 
 class PlaylistController extends Controller
 {

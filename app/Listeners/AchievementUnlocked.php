@@ -16,7 +16,7 @@ namespace App\Listeners;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class AchievementUnlocked
 {

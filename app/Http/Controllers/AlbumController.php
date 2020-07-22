@@ -18,7 +18,7 @@ use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 
 class AlbumController extends Controller
 {

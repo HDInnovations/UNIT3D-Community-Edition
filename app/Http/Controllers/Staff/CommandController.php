@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class CommandController extends Controller
 {
@@ -45,10 +46,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('down --allow='.$request->ip());
+        Artisan::call('down --allow='.$request->ip());
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -63,10 +64,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('up');
+        Artisan::call('up');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -81,10 +82,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('cache:clear');
+        Artisan::call('cache:clear');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -99,10 +100,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('view:clear');
+        Artisan::call('view:clear');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -117,10 +118,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('route:clear');
+        Artisan::call('route:clear');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -135,10 +136,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('config:clear');
+        Artisan::call('config:clear');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -153,10 +154,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('clear:all_cache');
+        Artisan::call('clear:all_cache');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -171,10 +172,10 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('set:all_cache');
+        Artisan::call('set:all_cache');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 
     /**
@@ -189,9 +190,9 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        \Artisan::call('test:email');
+        Artisan::call('test:email');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(\Artisan::output()));
+            ->withInfo(\trim(Artisan::output()));
     }
 }
