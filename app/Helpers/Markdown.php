@@ -1441,11 +1441,11 @@ class Markdown
             return self::$instances[$name];
         }
 
-        $instance = new static();
+        $static = new static();
 
-        self::$instances[$name] = $instance;
+        self::$instances[$name] = $static;
 
-        return $instance;
+        return $static;
     }
 
     private static $instances = [];

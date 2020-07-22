@@ -25,16 +25,16 @@ class GraveyardController extends Controller
     /**
      * @var TorrentFacetedRepository
      */
-    private $faceted;
+    private $torrentFacetedRepository;
 
     /**
      * GraveyardController Constructor.
      *
      * @param TorrentFacetedRepository $faceted
      */
-    public function __construct(TorrentFacetedRepository $faceted)
+    public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
     {
-        $this->faceted = $faceted;
+        $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
 
     /**
@@ -49,7 +49,7 @@ class GraveyardController extends Controller
         $current = Carbon::now();
         $user = $request->user();
         $torrents = Torrent::with('category', 'type')->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->paginate(25);
-        $repository = $this->faceted;
+        $repository = $this->torrentFacetedRepository;
         $deadcount = Torrent::where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
 
         return view('graveyard.index', [
@@ -162,12 +162,12 @@ class GraveyardController extends Controller
                 ->withErrors('Torrent Resurrection Failed! You cannot resurrect your own uploads.');
         }
 
-        $resurrection = new Graveyard();
-        $resurrection->user_id = $user->id;
-        $resurrection->torrent_id = $torrent->id;
-        $resurrection->seedtime = $request->input('seedtime');
+        $graveyard = new Graveyard();
+        $graveyard->user_id = $user->id;
+        $graveyard->torrent_id = $torrent->id;
+        $graveyard->seedtime = $request->input('seedtime');
 
-        $v = validator($resurrection->toArray(), [
+        $v = validator($graveyard->toArray(), [
             'user_id'    => 'required',
             'torrent_id' => 'required',
             'seedtime'   => 'required',
@@ -177,7 +177,7 @@ class GraveyardController extends Controller
             return redirect()->route('graveyard.index')
                 ->withErrors($v->errors());
         }
-        $resurrection->save();
+        $graveyard->save();
 
         return redirect()->route('graveyard.index')
             ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');

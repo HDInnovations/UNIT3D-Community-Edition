@@ -35,10 +35,10 @@ class NewBon extends Notification implements ShouldQueue
      * @param string          $sender
      * @param BonTransactions $transaction
      */
-    public function __construct(string $type, string $sender, BonTransactions $transaction)
+    public function __construct(string $type, string $sender, BonTransactions $bonTransactions)
     {
         $this->type = $type;
-        $this->transaction = $transaction;
+        $this->transaction = $bonTransactions;
         $this->sender = $sender;
     }
 

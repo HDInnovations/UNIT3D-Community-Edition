@@ -36,11 +36,11 @@ class NewTopic extends Notification implements ShouldQueue
      * @param User   $poster
      * @param Topic  $topic
      */
-    public function __construct(string $type, User $poster, Topic $topic)
+    public function __construct(string $type, User $user, Topic $topic)
     {
         $this->type = $type;
         $this->topic = $topic;
-        $this->poster = $poster;
+        $this->poster = $user;
     }
 
     /**

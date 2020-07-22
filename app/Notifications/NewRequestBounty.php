@@ -38,11 +38,11 @@ class NewRequestBounty extends Notification implements ShouldQueue
      * @param $amount
      * @param TorrentRequest $tr
      */
-    public function __construct(string $type, string $sender, $amount, TorrentRequest $tr)
+    public function __construct(string $type, string $sender, $amount, TorrentRequest $torrentRequest)
     {
         $this->type = $type;
         $this->sender = $sender;
-        $this->tr = $tr;
+        $this->tr = $torrentRequest;
         $this->amount = $amount;
     }
 

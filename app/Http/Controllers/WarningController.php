@@ -68,12 +68,12 @@ class WarningController extends Controller
         $warning->save();
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'Hit and Run Warning Deactivated';
-        $pm->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $warning->user_id;
+        $privateMessage->subject = 'Hit and Run Warning Deactivated';
+        $privateMessage->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
         return redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Deactivated');
@@ -102,12 +102,12 @@ class WarningController extends Controller
         }
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $user->id;
-        $pm->subject = 'All Hit and Run Warning Deactivated';
-        $pm->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $user->id;
+        $privateMessage->subject = 'All Hit and Run Warning Deactivated';
+        $privateMessage->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
         return redirect()->route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deactivated');
@@ -129,12 +129,12 @@ class WarningController extends Controller
         $warning = Warning::findOrFail($id);
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'Hit and Run Warning Deleted';
-        $pm->message = $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $warning->user_id;
+        $privateMessage->subject = 'Hit and Run Warning Deleted';
+        $privateMessage->message = $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
         $warning->deleted_by = $staff->id;
         $warning->save();
@@ -168,12 +168,12 @@ class WarningController extends Controller
         }
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $user->id;
-        $pm->subject = 'All Hit and Run Warnings Deleted';
-        $pm->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $user->id;
+        $privateMessage->subject = 'All Hit and Run Warnings Deleted';
+        $privateMessage->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
         return redirect()->route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deleted');

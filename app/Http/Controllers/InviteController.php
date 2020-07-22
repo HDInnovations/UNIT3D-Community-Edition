@@ -80,7 +80,7 @@ class InviteController extends Controller
      */
     public function store(Request $request)
     {
-        $current = new Carbon();
+        $carbon = new Carbon();
         $user = $request->user();
 
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
@@ -105,7 +105,7 @@ class InviteController extends Controller
         $invite->user_id = $user->id;
         $invite->email = $request->input('email');
         $invite->code = $code;
-        $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+        $invite->expires_on = $carbon->copy()->addDays(config('other.invite_expire'));
         $invite->custom = $request->input('message');
 
         if (config('email-blacklist.enabled')) {

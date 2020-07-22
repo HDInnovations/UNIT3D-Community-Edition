@@ -75,15 +75,15 @@ class HomeController extends Controller
         }
 
         // System Information
-        $sys = new SystemInformation();
-        $uptime = $sys->uptime();
-        $ram = $sys->memory();
-        $disk = $sys->disk();
-        $avg = $sys->avg();
-        $basic = $sys->basic();
+        $systemInformation = new SystemInformation();
+        $uptime = $systemInformation->uptime();
+        $ram = $systemInformation->memory();
+        $disk = $systemInformation->disk();
+        $avg = $systemInformation->avg();
+        $basic = $systemInformation->basic();
 
         // Directory Permissions
-        $file_permissions = $sys->directoryPermissions();
+        $file_permissions = $systemInformation->directoryPermissions();
 
         return view('Staff.dashboard.index', [
             'users'              => $users,

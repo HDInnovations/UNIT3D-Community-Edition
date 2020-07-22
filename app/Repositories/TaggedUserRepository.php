@@ -44,7 +44,7 @@ class TaggedUserRepository
     /**
      * @var PrivateMessage
      */
-    private $message;
+    private $privateMessage;
 
     /**
      * TaggedUserRepository constructor.
@@ -52,10 +52,10 @@ class TaggedUserRepository
      * @param User           $user
      * @param PrivateMessage $message
      */
-    public function __construct(User $user, PrivateMessage $message)
+    public function __construct(User $user, PrivateMessage $privateMessage)
     {
         $this->user = $user;
-        $this->message = $message;
+        $this->privateMessage = $privateMessage;
     }
 
     /**
@@ -91,11 +91,11 @@ class TaggedUserRepository
         return collect($this->getTags($haystack))->contains($needle);
     }
 
-    public function messageTaggedCommentUsers(string $type, string $content, User $sender, $alias, Comment $comment)
+    public function messageTaggedCommentUsers(string $type, string $content, User $user, $alias, Comment $comment)
     {
         foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
-            $this->messageCommentUsers($type, $tagged_user, $sender, $alias, $comment);
+            $this->messageCommentUsers($type, $tagged_user, $user, $alias, $comment);
         }
 
         return true;
@@ -126,11 +126,11 @@ class TaggedUserRepository
         return true;
     }
 
-    public function messageTaggedPostUsers(string $type, string $content, User $sender, $alias, Post $post)
+    public function messageTaggedPostUsers(string $type, string $content, User $user, $alias, Post $post)
     {
         foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
-            $this->messagePostUsers($type, $tagged_user, $sender, $alias, $post);
+            $this->messagePostUsers($type, $tagged_user, $user, $alias, $post);
         }
 
         return true;

@@ -35,11 +35,11 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      * @param string         $sender
      * @param TorrentRequest $tr
      */
-    public function __construct(string $type, string $sender, TorrentRequest $tr)
+    public function __construct(string $type, string $sender, TorrentRequest $torrentRequest)
     {
         $this->type = $type;
         $this->sender = $sender;
-        $this->tr = $tr;
+        $this->tr = $torrentRequest;
     }
 
     /**

@@ -148,14 +148,14 @@ class PrivateMessageController extends Controller
                 ->withErrors($v->errors());
         }
 
-        $pm = new PrivateMessage();
-        $pm->sender_id = $user->id;
-        $pm->receiver_id = $recipient->id;
-        $pm->subject = $request->input('subject');
-        $pm->message = $request->input('message');
-        $pm->read = 0;
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $user->id;
+        $privateMessage->receiver_id = $recipient->id;
+        $privateMessage->subject = $request->input('subject');
+        $privateMessage->message = $request->input('message');
+        $privateMessage->read = 0;
 
-        $v = validator($pm->toArray(), [
+        $v = validator($privateMessage->toArray(), [
             'sender_id'   => 'required',
             'receiver_id' => 'required',
             'subject'     => 'required',
@@ -172,7 +172,7 @@ class PrivateMessageController extends Controller
             return redirect()->route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
                 ->withErrors($v->errors());
         }
-        $pm->save();
+        $privateMessage->save();
         if ($dest == 'profile') {
             return redirect()->route('users.show', ['username' => $recipient->username])
                 ->withSuccess('Your PM Was Sent Successfully!');
@@ -196,15 +196,15 @@ class PrivateMessageController extends Controller
 
         $message = PrivateMessage::where('id', '=', $id)->firstOrFail();
 
-        $pm = new PrivateMessage();
-        $pm->sender_id = $user->id;
-        $pm->receiver_id = $message->sender_id == $user->id ? $message->receiver_id : $message->sender_id;
-        $pm->subject = $message->subject;
-        $pm->message = $request->input('message');
-        $pm->related_to = $message->id;
-        $pm->read = 0;
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $user->id;
+        $privateMessage->receiver_id = $message->sender_id == $user->id ? $message->receiver_id : $message->sender_id;
+        $privateMessage->subject = $message->subject;
+        $privateMessage->message = $request->input('message');
+        $privateMessage->related_to = $message->id;
+        $privateMessage->read = 0;
 
-        $v = validator($pm->toArray(), [
+        $v = validator($privateMessage->toArray(), [
             'sender_id'   => 'required',
             'receiver_id' => 'required',
             'subject'     => 'required',
@@ -217,7 +217,7 @@ class PrivateMessageController extends Controller
             return redirect()->route('inbox')
                 ->withErrors($v->errors());
         }
-        $pm->save();
+        $privateMessage->save();
 
         return redirect()->route('inbox')
             ->withSuccess('Your PM Was Sent Successfully!');

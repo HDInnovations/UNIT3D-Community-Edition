@@ -29,16 +29,16 @@ class RssController extends Controller
     /**
      * @var TorrentFacetedRepository
      */
-    private $torrent_faceted;
+    private $torrentFacetedRepository;
 
     /**
      * RssController Constructor.
      *
      * @param TorrentFacetedRepository $torrent_faceted
      */
-    public function __construct(TorrentFacetedRepository $torrent_faceted)
+    public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
     {
-        $this->torrent_faceted = $torrent_faceted;
+        $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
 
     /**
@@ -74,7 +74,7 @@ class RssController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
-        $torrent_repository = $this->torrent_faceted;
+        $torrent_repository = $this->torrentFacetedRepository;
 
         return view('rss.create', [
             'torrent_repository' => $torrent_repository,
@@ -229,16 +229,16 @@ class RssController extends Controller
             $description .= '%'.$keyword.'%';
         }
 
-        $torrent = Torrent::with(['user', 'category', 'type', 'resolution']);
+        $builder = Torrent::with(['user', 'category', 'type', 'resolution']);
 
         if ($rss->object_torrent->search) {
-            $torrent->where(function ($query) use ($search) {
+            $builder->where(function ($query) use ($search) {
                 $query->where('name', 'like', $search);
             });
         }
 
         if ($rss->object_torrent->description) {
-            $torrent->where(function ($query) use ($description) {
+            $builder->where(function ($query) use ($description) {
                 $query->where('description', 'like', $description)->orWhere('mediainfo', 'like', $description);
             });
         }
@@ -248,83 +248,83 @@ class RssController extends Controller
             if (null === $match) {
                 return ['result' => [], 'count' => 0];
             }
-            $torrent->where('user_id', '=', $match->id)->where('anon', '=', 0);
+            $builder->where('user_id', '=', $match->id)->where('anon', '=', 0);
         }
 
         if ($rss->object_torrent->imdb && $rss->object_torrent->imdb != null) {
-            $torrent->where('imdb', '=', $imdb);
+            $builder->where('imdb', '=', $imdb);
         }
 
         if ($rss->object_torrent->tvdb && $rss->object_torrent->tvdb != null) {
-            $torrent->where('tvdb', '=', $tvdb);
+            $builder->where('tvdb', '=', $tvdb);
         }
 
         if ($rss->object_torrent->tmdb && $rss->object_torrent->tmdb != null) {
-            $torrent->where('tmdb', '=', $tmdb);
+            $builder->where('tmdb', '=', $tmdb);
         }
 
         if ($rss->object_torrent->mal && $rss->object_torrent->mal != null) {
-            $torrent->where('mal', '=', $mal);
+            $builder->where('mal', '=', $mal);
         }
 
         if ($rss->object_torrent->categories && is_array($rss->object_torrent->categories)) {
-            $torrent->whereIn('category_id', $categories);
+            $builder->whereIn('category_id', $categories);
         }
 
         if ($rss->object_torrent->types && is_array($rss->object_torrent->types)) {
-            $torrent->whereIn('type_id', $types);
+            $builder->whereIn('type_id', $types);
         }
 
         if ($rss->object_torrent->resolutions && is_array($rss->object_torrent->resolutions)) {
-            $torrent->whereIn('resolution_id', $resolutions);
+            $builder->whereIn('resolution_id', $resolutions);
         }
 
         if ($rss->object_torrent->genres && is_array($rss->object_torrent->genres)) {
             $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
-            $torrent->whereIn('id', $genreID)->cursor();
+            $builder->whereIn('id', $genreID)->cursor();
         }
 
         if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
-            $torrent->where('free', '=', $freeleech);
+            $builder->where('free', '=', $freeleech);
         }
 
         if ($rss->object_torrent->doubleupload && $rss->object_torrent->doubleupload != null) {
-            $torrent->where('doubleup', '=', $doubleupload);
+            $builder->where('doubleup', '=', $doubleupload);
         }
 
         if ($rss->object_torrent->featured && $rss->object_torrent->featured != null) {
-            $torrent->where('featured', '=', $featured);
+            $builder->where('featured', '=', $featured);
         }
 
         if ($rss->object_torrent->stream && $rss->object_torrent->stream != null) {
-            $torrent->where('stream', '=', $stream);
+            $builder->where('stream', '=', $stream);
         }
 
         if ($rss->object_torrent->highspeed && $rss->object_torrent->highspeed != null) {
-            $torrent->where('highspeed', '=', $highspeed);
+            $builder->where('highspeed', '=', $highspeed);
         }
 
         if ($rss->object_torrent->sd && $rss->object_torrent->sd != null) {
-            $torrent->where('sd', '=', $sd);
+            $builder->where('sd', '=', $sd);
         }
 
         if ($rss->object_torrent->internal && $rss->object_torrent->internal != null) {
-            $torrent->where('internal', '=', $internal);
+            $builder->where('internal', '=', $internal);
         }
 
         if ($rss->object_torrent->alive && $rss->object_torrent->alive != null) {
-            $torrent->where('seeders', '>=', $alive);
+            $builder->where('seeders', '>=', $alive);
         }
 
         if ($rss->object_torrent->dying && $rss->object_torrent->dying != null) {
-            $torrent->where('seeders', '=', $dying)->where('times_completed', '>=', 3);
+            $builder->where('seeders', '=', $dying)->where('times_completed', '>=', 3);
         }
 
         if ($rss->object_torrent->dead && $rss->object_torrent->dead != null) {
-            $torrent->where('seeders', '=', $dead);
+            $builder->where('seeders', '=', $dead);
         }
 
-        $torrents = $torrent->latest()->take(50)->get();
+        $torrents = $builder->latest()->take(50)->get();
 
         return response()->view('rss.show', ['torrents' => $torrents, 'user' => $user, 'rss' => $rss])->header('Content-Type', 'text/xml');
     }
@@ -341,7 +341,7 @@ class RssController extends Controller
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
-        $torrent_repository = $this->torrent_faceted;
+        $torrent_repository = $this->torrentFacetedRepository;
 
         return view('rss.edit', [
             'torrent_repository' => $torrent_repository,

@@ -26,16 +26,16 @@ class PlaylistController extends Controller
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * PlaylistController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -104,7 +104,7 @@ class PlaylistController extends Controller
         // Announce To Shoutbox
         $appurl = config('app.url');
         if ($playlist->is_private != 1) {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
             );
         }
@@ -133,17 +133,17 @@ class PlaylistController extends Controller
             $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
         }
         if (isset($random) && isset($torrent)) {
-            $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            $movieScrapper = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             if ($torrent->category_id == 2) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $movieScrapper->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $movieScrapper->scrape('tv', 'tt'.$torrent->imdb);
                 }
             } elseif ($torrent->tmdb || $torrent->tmdb != 0) {
-                $meta = $client->scrape('movie', null, $torrent->tmdb);
+                $meta = $movieScrapper->scrape('movie', null, $torrent->tmdb);
             } else {
-                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+                $meta = $movieScrapper->scrape('movie', 'tt'.$torrent->imdb);
             }
         }
 

@@ -34,7 +34,7 @@ class WishRepository implements WishInterface
     /**
      * @var OmdbClient
      */
-    private $client;
+    private $omdbClient;
 
     /**
      * @var Torrent
@@ -49,11 +49,11 @@ class WishRepository implements WishInterface
      * @param OmdbClient $client
      * @param Torrent    $torrent
      */
-    public function __construct(Wish $wish, User $user, OmdbClient $client, Torrent $torrent)
+    public function __construct(Wish $wish, User $user, OmdbClient $omdbClient, Torrent $torrent)
     {
         $this->wish = $wish;
         $this->user = $user;
-        $this->client = $client;
+        $this->omdbClient = $omdbClient;
         $this->torrent = $torrent;
     }
 
@@ -175,6 +175,6 @@ class WishRepository implements WishInterface
      */
     public function omdbRequest($imdb)
     {
-        return $this->client->find(['imdb' => $imdb]);
+        return $this->omdbClient->find(['imdb' => $imdb]);
     }
 }

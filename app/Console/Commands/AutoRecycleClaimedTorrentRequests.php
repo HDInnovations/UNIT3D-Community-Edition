@@ -38,13 +38,13 @@ class AutoRecycleClaimedTorrentRequests extends Command
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
         parent::__construct();
 
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -67,7 +67,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
                 ->first();
             if ($requestClaim) {
                 $tr_url = href_request($torrentRequest);
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $tr_url, $torrentRequest->name)
                 );
 

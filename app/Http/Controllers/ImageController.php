@@ -51,8 +51,8 @@ class ImageController extends Controller
         $file = $request->file('image');
         $random_name = uniqid();
         $destinationPath = public_path('/files/img/');
-        $extension = $file->getClientOriginalExtension();
-        $filename = 'album-image_'.$random_name.'.'.$extension;
+        $clientOriginalExtension = $file->getClientOriginalExtension();
+        $filename = 'album-image_'.$random_name.'.'.$clientOriginalExtension;
         $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
         $image->image = $filename;
 

@@ -25,16 +25,16 @@ class AlbumController extends Controller
     /**
      * @var OmdbClient
      */
-    private $client;
+    private $omdbClient;
 
     /**
      * AlbumController Constructor.
      *
      * @param OmdbClient $client
      */
-    public function __construct(OmdbClient $client)
+    public function __construct(OmdbClient $omdbClient)
     {
-        $this->client = $client;
+        $this->omdbClient = $omdbClient;
     }
 
     /**
@@ -69,7 +69,7 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
-        $omdb = $this->client->find(['imdb' => $imdb]);
+        $omdb = $this->omdbClient->find(['imdb' => $imdb]);
 
         if ($omdb === null || ! $omdb) {
             return redirect()->route('albums.create')

@@ -45,7 +45,7 @@ class AutoPreWarning extends Command
     public function handle()
     {
         if (config('hitrun.enabled') == true) {
-            $current = new Carbon();
+            $carbon = new Carbon();
             $prewarn = History::with(['user', 'torrent'])
                 ->where('prewarn', '=', 0)
                 ->where('hitrun', '=', 0)
@@ -53,7 +53,7 @@ class AutoPreWarning extends Command
                 ->where('actual_downloaded', '>', 0)
                 ->where('active', '=', 0)
                 ->where('seedtime', '<=', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
+                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
 
             foreach ($prewarn as $pre) {

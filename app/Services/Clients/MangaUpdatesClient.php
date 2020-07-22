@@ -38,10 +38,10 @@ class MangaUpdatesClient extends Client implements MangaInterface
     public function manga($id)
     {
         $webpage = $this->request($this->apiUrl.$this->apiSeriesUrl.$id);
-        $dom = new Crawler($webpage);
+        $crawler = new Crawler($webpage);
 
         $data = [];
-        $data['description'] = $dom->filter('.sContainer .sContent')->first()->html();
+        $data['description'] = $crawler->filter('.sContainer .sContent')->first()->html();
 
         preg_match(
             '#(?:class\=\"sCat\"\>\<b\>Associated Names\<\/b\>\<\/div\>)+\n?(?:\<div class\=\"sContent\" \>)(.+)(?:\n?+\<\/div\>)#i',

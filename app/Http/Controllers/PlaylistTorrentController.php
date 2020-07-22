@@ -33,11 +33,11 @@ class PlaylistTorrentController extends Controller
 
         abort_unless($user->id === $playlist->user_id, 403);
 
-        $playlist_torrent = new PlaylistTorrent();
-        $playlist_torrent->playlist_id = $playlist->id;
-        $playlist_torrent->torrent_id = $request->input('torrent_id');
+        $playlistTorrent = new PlaylistTorrent();
+        $playlistTorrent->playlist_id = $playlist->id;
+        $playlistTorrent->torrent_id = $request->input('torrent_id');
 
-        $v = validator($playlist_torrent->toArray(), [
+        $v = validator($playlistTorrent->toArray(), [
             'playlist_id'    => 'required|numeric|exists:playlists,id|unique:playlist_torrents,playlist_id,NULL,NULL,torrent_id,'.$request->input('torrent_id'),
             'torrent_id'     => 'required|numeric|exists:torrents,id|unique:playlist_torrents,torrent_id,NULL,NULL,playlist_id,'.$request->input('playlist_id'),
         ]);
@@ -46,7 +46,7 @@ class PlaylistTorrentController extends Controller
             return redirect()->route('playlists.show', ['id' => $playlist->id])
                 ->withErrors($v->errors());
         }
-        $playlist_torrent->save();
+        $playlistTorrent->save();
 
         return redirect()->route('playlists.show', ['id' => $playlist->id])
             ->withSuccess('Torrent Has Successfully Been Attached To Your Playlist.');

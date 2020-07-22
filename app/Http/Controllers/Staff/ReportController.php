@@ -78,16 +78,16 @@ class ReportController extends Controller
         $report->save();
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $user->id;
-        $pm->receiver_id = $report->reporter_id;
-        $pm->subject = 'Your Report Has A New Verdict';
-        $pm->message = sprintf('[b]REPORT TITLE:[/b] %s
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $user->id;
+        $privateMessage->receiver_id = $report->reporter_id;
+        $privateMessage->subject = 'Your Report Has A New Verdict';
+        $privateMessage->message = sprintf('[b]REPORT TITLE:[/b] %s
         
                         [b]ORIGINAL MESSAGE:[/b] %s
                         
                         [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
-        $pm->save();
+        $privateMessage->save();
 
         return redirect()->route('staff.reports.index')
             ->withSuccess('Report has been successfully resolved');

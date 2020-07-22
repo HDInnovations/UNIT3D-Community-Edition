@@ -27,13 +27,13 @@ class AutoGraveyard extends Command
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
         parent::__construct();
 
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -81,7 +81,7 @@ class AutoGraveyard extends Command
                 // Auto Shout
                 $appurl = config('app.url');
 
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
                 );
 

@@ -37,16 +37,16 @@ class TorrentController extends BaseController
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * RequestController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -83,7 +83,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $movieScrapper = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         // Deplace and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
@@ -172,10 +172,10 @@ class TorrentController extends BaseController
         $torrent->save();
         // Set torrent to featured
         if ($torrent->featured == 1) {
-            $feature = new FeaturedTorrent();
-            $feature->user_id = $user->id;
-            $feature->torrent_id = $torrent->id;
-            $feature->save();
+            $featuredTorrent = new FeaturedTorrent();
+            $featuredTorrent->user_id = $user->id;
+            $featuredTorrent->torrent_id = $torrent->id;
+            $featuredTorrent->save();
         }
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
@@ -183,27 +183,27 @@ class TorrentController extends BaseController
         // Backup the files contained in the torrent
         $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
         foreach ($fileList as $file) {
-            $f = new TorrentFile();
-            $f->name = $file['name'];
-            $f->size = $file['size'];
-            $f->torrent_id = $torrent->id;
-            $f->save();
-            unset($f);
+            $torrentFile = new TorrentFile();
+            $torrentFile->name = $file['name'];
+            $torrentFile->size = $file['size'];
+            $torrentFile->torrent_id = $torrent->id;
+            $torrentFile->save();
+            unset($torrentFile);
         }
         $meta = null;
         // Torrent Tags System
         if ($torrent->category->tv_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = $client->scrape('tv', null, $torrent->tmdb);
+                $meta = $movieScrapper->scrape('tv', null, $torrent->tmdb);
             } else {
-                $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
+                $meta = $movieScrapper->scrape('tv', 'tt'.$torrent->imdb);
             }
         }
         if ($torrent->category->movie_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = $client->scrape('movie', null, $torrent->tmdb);
+                $meta = $movieScrapper->scrape('movie', null, $torrent->tmdb);
             } else {
-                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+                $meta = $movieScrapper->scrape('movie', 'tt'.$torrent->imdb);
             }
         }
         if (isset($meta) && $meta->genres) {
@@ -227,33 +227,33 @@ class TorrentController extends BaseController
 
             // Announce To Shoutbox
             if ($anon == 0) {
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             } else {
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             }
 
             if ($anon == 1 && $featured == 1) {
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can! :fire:'
                 );
             } elseif ($anon == 0 && $featured == 1) {
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
                 );
             }
 
             if ($free == 1 && $featured == 0) {
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
                 );
             }
 
             if ($doubleup == 1 && $featured == 0) {
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                 );
             }

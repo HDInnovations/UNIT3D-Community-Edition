@@ -34,7 +34,7 @@ class BonusController extends Controller
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * The library used for parsing byte units.
@@ -51,11 +51,11 @@ class BonusController extends Controller
      */
     public function __construct(
         \App\Interfaces\ByteUnitsInterface $byteUnits,
-        ChatRepository $chat
+        ChatRepository $chatRepository
     ) {
         $this->byteUnits = $byteUnits;
 
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -296,18 +296,18 @@ class BonusController extends Controller
             }
         } elseif ($item['personal_freeleech'] == true) {
             if (! $activefl) {
-                $personal_freeleech = new PersonalFreeleech();
-                $personal_freeleech->user_id = $user_acc->id;
-                $personal_freeleech->save();
+                $personalFreeleech = new PersonalFreeleech();
+                $personalFreeleech->user_id = $user_acc->id;
+                $personalFreeleech->save();
 
                 // Send Private Message
-                $pm = new PrivateMessage();
-                $pm->sender_id = 1;
-                $pm->receiver_id = $user_acc->id;
-                $pm->subject = 'Personal 24 Hour Freeleech Activated';
-                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
+                $privateMessage = new PrivateMessage();
+                $privateMessage->sender_id = 1;
+                $privateMessage->receiver_id = $user_acc->id;
+                $privateMessage->subject = 'Personal 24 Hour Freeleech Activated';
+                $privateMessage->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                $pm->save();
+                $privateMessage->save();
             } else {
                 return false;
             }
@@ -367,24 +367,24 @@ class BonusController extends Controller
             $user->seedbonus -= $value;
             $user->save();
 
-            $transaction = new BonTransactions();
-            $transaction->itemID = 0;
-            $transaction->name = 'gift';
-            $transaction->cost = $value;
-            $transaction->sender = $user->id;
-            $transaction->receiver = $recipient->id;
-            $transaction->comment = $request->input('bonus_message');
-            $transaction->torrent_id = null;
-            $transaction->save();
+            $bonTransactions = new BonTransactions();
+            $bonTransactions->itemID = 0;
+            $bonTransactions->name = 'gift';
+            $bonTransactions->cost = $value;
+            $bonTransactions->sender = $user->id;
+            $bonTransactions->receiver = $recipient->id;
+            $bonTransactions->comment = $request->input('bonus_message');
+            $bonTransactions->torrent_id = null;
+            $bonTransactions->save();
 
             if ($user->id != $recipient->id && $recipient->acceptsNotification($request->user(), $recipient, 'bon', 'show_bon_gift')) {
-                $recipient->notify(new NewBon('gift', $user->username, $transaction));
+                $recipient->notify(new NewBon('gift', $user->username, $bonTransactions));
             }
 
             $profile_url = href_profile($user);
             $recipient_url = href_profile($recipient);
 
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)
             );
 
@@ -453,15 +453,15 @@ class BonusController extends Controller
         $user->seedbonus -= $tip_amount;
         $user->save();
 
-        $transaction = new BonTransactions();
-        $transaction->itemID = 0;
-        $transaction->name = 'tip';
-        $transaction->cost = $tip_amount;
-        $transaction->sender = $user->id;
-        $transaction->receiver = $uploader->id;
-        $transaction->comment = 'tip';
-        $transaction->torrent_id = $torrent->id;
-        $transaction->save();
+        $bonTransactions = new BonTransactions();
+        $bonTransactions->itemID = 0;
+        $bonTransactions->name = 'tip';
+        $bonTransactions->cost = $tip_amount;
+        $bonTransactions->sender = $user->id;
+        $bonTransactions->receiver = $uploader->id;
+        $bonTransactions->comment = 'tip';
+        $bonTransactions->torrent_id = $torrent->id;
+        $bonTransactions->save();
 
         if ($uploader->acceptsNotification($request->user(), $uploader, 'torrent', 'show_torrent_tip')) {
             $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
@@ -508,15 +508,15 @@ class BonusController extends Controller
         $user->seedbonus -= $tip_amount;
         $user->save();
 
-        $transaction = new BonTransactions();
-        $transaction->itemID = 0;
-        $transaction->name = 'tip';
-        $transaction->cost = $tip_amount;
-        $transaction->sender = $user->id;
-        $transaction->receiver = $poster->id;
-        $transaction->comment = 'tip';
-        $transaction->post_id = $post->id;
-        $transaction->save();
+        $bonTransactions = new BonTransactions();
+        $bonTransactions->itemID = 0;
+        $bonTransactions->name = 'tip';
+        $bonTransactions->cost = $tip_amount;
+        $bonTransactions->sender = $user->id;
+        $bonTransactions->receiver = $poster->id;
+        $bonTransactions->comment = 'tip';
+        $bonTransactions->post_id = $post->id;
+        $bonTransactions->save();
 
         $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 

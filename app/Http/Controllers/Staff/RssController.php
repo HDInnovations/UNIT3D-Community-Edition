@@ -26,16 +26,16 @@ class RssController extends Controller
     /**
      * @var TorrentFacetedRepository
      */
-    private $torrent_faceted;
+    private $torrentFacetedRepository;
 
     /**
      * RssController Constructor.
      *
      * @param TorrentFacetedRepository $torrent_faceted
      */
-    public function __construct(TorrentFacetedRepository $torrent_faceted)
+    public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
     {
-        $this->torrent_faceted = $torrent_faceted;
+        $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
 
     /**
@@ -65,7 +65,7 @@ class RssController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
-        $torrent_repository = $this->torrent_faceted;
+        $torrent_repository = $this->torrentFacetedRepository;
 
         return view('Staff.rss.create', [
             'torrent_repository' => $torrent_repository,
@@ -142,7 +142,7 @@ class RssController extends Controller
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
-        $torrent_repository = $this->torrent_faceted;
+        $torrent_repository = $this->torrentFacetedRepository;
 
         return view('Staff.rss.edit', [
             'torrent_repository' => $torrent_repository,

@@ -52,8 +52,8 @@ class IrcBroadcast extends Command
     public function handle()
     {
         $this->info('Broadcasting: '.$this->argument('message'));
-        $bot = new IRCAnnounceBot();
-        $bot->broadcast($this->argument('message'));
+        $ircAnnounceBot = new IRCAnnounceBot();
+        $ircAnnounceBot->broadcast($this->argument('message'));
     }
 
     /**

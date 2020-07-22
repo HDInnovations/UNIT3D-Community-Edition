@@ -124,7 +124,7 @@ class TwoStepController extends Controller
             return view('auth.twostep-exceeded')->with($data);
         }
 
-        $now = new Carbon();
+        $carbon = new Carbon();
         $sentTimestamp = $twoStepAuth->requestDate;
 
         if (! $twoStepAuth->authCode) {
@@ -137,7 +137,7 @@ class TwoStepController extends Controller
         } else {
             $timeBuffer = config('laravel2step.laravel2stepTimeResetBufferSeconds');
             $timeAllowedToSendCode = $sentTimestamp->addSeconds($timeBuffer);
-            if ($now->gt($timeAllowedToSendCode)) {
+            if ($carbon->gt($timeAllowedToSendCode)) {
                 $this->sendVerificationCodeNotification($twoStepAuth);
                 $twoStepAuth->requestDate = new Carbon();
                 $twoStepAuth->save();

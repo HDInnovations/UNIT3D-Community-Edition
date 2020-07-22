@@ -39,12 +39,12 @@ class TopicController extends Controller
     /**
      * @var TaggedUserRepository
      */
-    private $tag;
+    private $taggedUserRepository;
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * ForumController Constructor.
@@ -52,10 +52,10 @@ class TopicController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
     {
-        $this->tag = $tag;
-        $this->chat = $chat;
+        $this->taggedUserRepository = $taggedUserRepository;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -221,7 +221,7 @@ class TopicController extends Controller
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $forum->notifyStaffers($user, $topic);
         } else {
-            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
             $forum->notifySubscribers($user, $topic);
         }
         //Achievements

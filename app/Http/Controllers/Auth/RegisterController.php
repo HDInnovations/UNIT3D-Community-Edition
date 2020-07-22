@@ -33,16 +33,16 @@ class RegisterController extends Controller
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * RegisterController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -127,14 +127,14 @@ class RegisterController extends Controller
                 ->withErrors($v->errors());
         }
         $user->save();
-        $privacy = new UserPrivacy();
-        $privacy->setDefaultValues();
-        $privacy->user_id = $user->id;
-        $privacy->save();
-        $notification = new UserNotification();
-        $notification->setDefaultValues();
-        $notification->user_id = $user->id;
-        $notification->save();
+        $userPrivacy = new UserPrivacy();
+        $userPrivacy->setDefaultValues();
+        $userPrivacy->user_id = $user->id;
+        $userPrivacy->save();
+        $userNotification = new UserNotification();
+        $userNotification->setDefaultValues();
+        $userNotification->user_id = $user->id;
+        $userNotification->save();
         if ($key) {
             // Update The Invite Record
             $key->accepted_by = $user->id;
@@ -143,10 +143,10 @@ class RegisterController extends Controller
         }
         // Handle The Activation System
         $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
-        $activation = new UserActivation();
-        $activation->user_id = $user->id;
-        $activation->token = $token;
-        $activation->save();
+        $userActivation = new UserActivation();
+        $userActivation->user_id = $user->id;
+        $userActivation->token = $token;
+        $userActivation->save();
         $this->dispatch(new SendActivationMail($user, $token));
         // Select A Random Welcome Message
         $profile_url = href_profile($user);
@@ -160,16 +160,16 @@ class RegisterController extends Controller
             'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
         ];
         $selected = mt_rand(0, count($welcomeArray) - 1);
-        $this->chat->systemMessage(
+        $this->chatRepository->systemMessage(
             $welcomeArray[$selected]
         );
         // Send Welcome PM
-        $pm = new PrivateMessage();
-        $pm->sender_id = 1;
-        $pm->receiver_id = $user->id;
-        $pm->subject = config('welcomepm.subject');
-        $pm->message = config('welcomepm.message');
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = 1;
+        $privateMessage->receiver_id = $user->id;
+        $privateMessage->subject = config('welcomepm.subject');
+        $privateMessage->message = config('welcomepm.message');
+        $privateMessage->save();
 
         return redirect()->route('login')
             ->withSuccess(trans('auth.register-thanks'));

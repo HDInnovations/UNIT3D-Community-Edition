@@ -69,7 +69,7 @@ class ApplicationController extends Controller
         $application = Application::withAnyStatus()->findOrFail($id);
 
         if ($application->status !== 1) {
-            $current = new Carbon();
+            $carbon = new Carbon();
             $user = $request->user();
 
             $code = Uuid::uuid4()->toString();
@@ -77,7 +77,7 @@ class ApplicationController extends Controller
             $invite->user_id = $user->id;
             $invite->email = $application->email;
             $invite->code = $code;
-            $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+            $invite->expires_on = $carbon->copy()->addDays(config('other.invite_expire'));
             $invite->custom = $request->input('approve');
 
             if (config('email-blacklist.enabled') == true) {

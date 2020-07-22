@@ -39,16 +39,16 @@ class SubtitleController extends Controller
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * SubtitleController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -132,11 +132,11 @@ class SubtitleController extends Controller
         $torrent_url = href_torrent($subtitle->torrent);
         $profile_url = href_profile($user);
         if ($subtitle->anon == false) {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]', $profile_url, $user->username, $subtitle->language->name, $torrent_url, $subtitle->torrent->name)
             );
         } else {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]', $subtitle->language->name, $torrent_url, $subtitle->torrent->name)
             );
         }

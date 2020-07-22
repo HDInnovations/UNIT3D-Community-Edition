@@ -383,9 +383,9 @@ class Torrent extends Model
      */
     public function getMediaInfo()
     {
-        $parser = new MediaInfo();
+        $mediaInfo = new MediaInfo();
 
-        return $parser->parse($this->mediaInfo);
+        return $mediaInfo->parse($this->mediaInfo);
     }
 
     /**

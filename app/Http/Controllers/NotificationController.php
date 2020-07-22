@@ -188,8 +188,8 @@ class NotificationController extends Controller
      */
     public function updateAll(Request $request)
     {
-        $current = new Carbon();
-        $request->user()->unreadNotifications()->update(['read_at' => $current]);
+        $carbon = new Carbon();
+        $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
 
         return redirect()->route('notifications.index')
             ->withSuccess('All Notifications Marked As Read!');

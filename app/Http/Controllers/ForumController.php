@@ -25,12 +25,12 @@ class ForumController extends Controller
     /**
      * @var TaggedUserRepository
      */
-    private $tag;
+    private $taggedUserRepository;
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * ForumController Constructor.
@@ -38,10 +38,10 @@ class ForumController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
     {
-        $this->tag = $tag;
-        $this->chat = $chat;
+        $this->taggedUserRepository = $taggedUserRepository;
+        $this->chatRepository = $chatRepository;
     }
 
     /**

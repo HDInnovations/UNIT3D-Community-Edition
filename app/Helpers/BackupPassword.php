@@ -41,7 +41,7 @@ class BackupPassword
      *
      * @throws \PhpZip\Exception\ZipException
      */
-    public function __construct(BackupEncryption $encryption, string $path)
+    public function __construct(BackupEncryption $backupEncryption, string $path)
     {
         $this->password = config('backup.security.password');
 
@@ -52,13 +52,13 @@ class BackupPassword
         // If ZipArchive is enabled
         if (class_exists('ZipArchive') && in_array('setEncryptionIndex', get_class_methods('ZipArchive'))) {
             consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
-            $this->makeZipArchive($encryption, $path);
+            $this->makeZipArchive($backupEncryption, $path);
         }
 
         // Fall back on PHP-driven ZipFile
         else {
             consoleOutput()->info('Applying password and encryption to zip using ZipFile...');
-            $this->makeZipFile($encryption, $path);
+            $this->makeZipFile($backupEncryption, $path);
         }
 
         consoleOutput()->info('Successfully applied password and encryption to zip.');
@@ -74,9 +74,9 @@ class BackupPassword
      *
      * @return void
      */
-    protected function makeZipArchive(BackupEncryption $encryption, string $path): void
+    protected function makeZipArchive(BackupEncryption $backupEncryption, string $path): void
     {
-        $encryptionConstant = $encryption->getEncryptionConstant(
+        $encryptionConstant = $backupEncryption->getEncryptionConstant(
             config('backup.security.encryption'),
             'ZipArchive'
         );
@@ -103,9 +103,9 @@ class BackupPassword
      *
      * @return void
      */
-    protected function makeZipFile(BackupEncryption $encryption, string $path): void
+    protected function makeZipFile(BackupEncryption $backupEncryption, string $path): void
     {
-        $encryptionConstant = $encryption->getEncryptionConstant(
+        $encryptionConstant = $backupEncryption->getEncryptionConstant(
             config('backup.security.encryption'),
             'ZipFile'
         );

@@ -267,9 +267,9 @@ Menu
         // we delay between api calls to reduce throttling
         usleep(500_000);
 
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $movieScrapper = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
-        return $client->scrape('movie', null, $id);
+        return $movieScrapper->scrape('movie', null, $id);
     }
 
     private function ids()

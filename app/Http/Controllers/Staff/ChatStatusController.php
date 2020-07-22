@@ -23,16 +23,16 @@ class ChatStatusController extends Controller
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * ChatController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -42,7 +42,7 @@ class ChatStatusController extends Controller
      */
     public function index()
     {
-        $chatstatuses = $this->chat->statuses();
+        $chatstatuses = $this->chatRepository->statuses();
 
         return view('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,

@@ -24,13 +24,13 @@ class AutoRemoveFeaturedTorrent extends Command
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
         parent::__construct();
 
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -69,7 +69,7 @@ class AutoRemoveFeaturedTorrent extends Command
                 // Auto Announce Featured Expired
                 $appurl = config('app.url');
 
-                $this->chat->systemMessage(
+                $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
                 );
             }

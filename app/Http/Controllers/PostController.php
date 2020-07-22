@@ -36,12 +36,12 @@ class PostController extends Controller
     /**
      * @var TaggedUserRepository
      */
-    private $tag;
+    private $taggedUserRepository;
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * ForumController Constructor.
@@ -49,10 +49,10 @@ class PostController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
     {
-        $this->tag = $tag;
-        $this->chat = $chat;
+        $this->taggedUserRepository = $taggedUserRepository;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -95,15 +95,15 @@ class PostController extends Controller
         $appurl = config('app.url');
         $href = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
         $message = sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
-        if ($this->tag->hasTags($request->input('content'))) {
-            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+        if ($this->taggedUserRepository->hasTags($request->input('content'))) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = collect([]);
 
                 $topic->posts()->get()->each(function ($p) use ($users) {
                     $users->push($p->user);
                 });
 
-                $this->tag->messagePostUsers(
+                $this->taggedUserRepository->messagePostUsers(
                     'forum',
                     $users,
                     $user,
@@ -111,7 +111,7 @@ class PostController extends Controller
                     $post
                 );
             } else {
-                $this->tag->messageTaggedPostUsers(
+                $this->taggedUserRepository->messageTaggedPostUsers(
                     'forum',
                     $request->input('content'),
                     $user,
@@ -150,7 +150,7 @@ class PostController extends Controller
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $topic->notifyStaffers($user, $topic, $post);
         } else {
-            $this->chat->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);

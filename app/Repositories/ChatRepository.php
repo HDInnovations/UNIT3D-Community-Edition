@@ -37,12 +37,12 @@ class ChatRepository
     /**
      * @var Chatroom
      */
-    private $room;
+    private $chatroom;
 
     /**
      * @var ChatStatus
      */
-    private $status;
+    private $chatStatus;
 
     /**
      * @var User
@@ -64,15 +64,15 @@ class ChatRepository
      */
     private $audible;
 
-    public function __construct(Message $message, Chatroom $room, ChatStatus $status, User $user, Bot $bot, UserEcho $echo, UserAudible $audible)
+    public function __construct(Message $message, Chatroom $chatroom, ChatStatus $chatStatus, User $user, Bot $bot, UserEcho $userEcho, UserAudible $userAudible)
     {
         $this->message = $message;
-        $this->room = $room;
-        $this->echo = $echo;
-        $this->status = $status;
+        $this->chatroom = $chatroom;
+        $this->echo = $userEcho;
+        $this->chatStatus = $chatStatus;
         $this->user = $user;
         $this->bot = $bot;
-        $this->audible = $audible;
+        $this->audible = $userAudible;
     }
 
     public function config()
@@ -115,12 +115,12 @@ class ChatRepository
 
     public function rooms()
     {
-        return $this->room->all();
+        return $this->chatroom->all();
     }
 
     public function roomFindOrFail($id)
     {
-        return $this->room->findOrFail($id);
+        return $this->chatroom->findOrFail($id);
     }
 
     public function ping($type, $id)
@@ -329,16 +329,16 @@ class ChatRepository
             if ($room instanceof Chatroom) {
                 $room = $room->id;
             } elseif (is_int($room)) {
-                $room = $this->room->findOrFail($room)->id;
+                $room = $this->chatroom->findOrFail($room)->id;
             } else {
-                $room = $this->room->whereName($room)->first()->id;
+                $room = $this->chatroom->whereName($room)->first()->id;
             }
         } elseif (is_int($config)) {
-            $room = $this->room->findOrFail($config)->id;
+            $room = $this->chatroom->findOrFail($config)->id;
         } elseif ($config instanceof Chatroom) {
             $room = $config->id;
         } else {
-            $room = $this->room->whereName($config)->first()->id;
+            $room = $this->chatroom->whereName($config)->first()->id;
         }
 
         return $room;
@@ -346,17 +346,17 @@ class ChatRepository
 
     public function statuses()
     {
-        return $this->status->all();
+        return $this->chatStatus->all();
     }
 
     public function status($user)
     {
         if ($user instanceof User) {
-            $status = $this->status->where('user_id', '=', $user->id)->first();
+            $status = $this->chatStatus->where('user_id', '=', $user->id)->first();
         }
 
         if (is_int($user)) {
-            $status = $this->status->where('user_id', '=', $user)->first();
+            $status = $this->chatStatus->where('user_id', '=', $user)->first();
         }
 
         return $status;
@@ -364,7 +364,7 @@ class ChatRepository
 
     public function statusFindOrFail($id)
     {
-        return $this->status->findOrFail($id);
+        return $this->chatStatus->findOrFail($id);
     }
 
     /**

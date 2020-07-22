@@ -24,16 +24,16 @@ class PollController extends Controller
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * PollController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -79,18 +79,18 @@ class PollController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StorePoll $request)
+    public function store(StorePoll $storePoll)
     {
-        $user = $request->user();
+        $user = $storePoll->user();
 
-        $poll = $request->user() ? $user->polls()->create($request->all()) : Poll::create($request->all());
+        $poll = $storePoll->user() ? $user->polls()->create($storePoll->all()) : Poll::create($storePoll->all());
 
-        $options = collect($request->input('options'))->map(fn ($value) => new Option(['name' => $value]));
+        $options = collect($storePoll->input('options'))->map(fn ($value) => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
 
         $poll_url = href_poll($poll);
 
-        $this->chat->systemMessage(
+        $this->chatRepository->systemMessage(
             sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
         );
 
@@ -120,18 +120,18 @@ class PollController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(StorePoll $request, $id)
+    public function update(StorePoll $storePoll, $id)
     {
         $poll = Poll::findOrFail($id);
 
-        $poll->title = $request->input('title');
+        $poll->title = $storePoll->input('title');
 
-        $poll->multiple_choice = (bool) $request->input('multiple_choice');
+        $poll->multiple_choice = (bool) $storePoll->input('multiple_choice');
 
         // Remove the deleted options in poll
         $oldOptionIds = collect($poll->options)->map(fn ($option) => $option->id)->all();
 
-        $existingOldOptionIds = collect($request->input('option-id'))->map(fn ($id) => (int) $id)->all();
+        $existingOldOptionIds = collect($storePoll->input('option-id'))->map(fn ($id) => (int) $id)->all();
 
         $idsOfOptionToBeRemove = array_diff($oldOptionIds, $existingOldOptionIds);
 
@@ -141,7 +141,7 @@ class PollController extends Controller
         }
 
         // Update existing options
-        $existingOldOptionContents = collect($request->input('option-content'))->map(fn ($content) => strval($content))->all();
+        $existingOldOptionContents = collect($storePoll->input('option-content'))->map(fn ($content) => strval($content))->all();
 
         if (count($existingOldOptionContents) === count($existingOldOptionIds)) {
             $len = count($existingOldOptionContents);
@@ -153,14 +153,14 @@ class PollController extends Controller
         }
 
         // Insert new options
-        $newOptions = collect($request->input('new-option-content'))->map(fn ($content) => new Option(['name' => $content]));
+        $newOptions = collect($storePoll->input('new-option-content'))->map(fn ($content) => new Option(['name' => $content]));
 
         $poll->options()->saveMany($newOptions);
 
         // Last work from store()
         $poll_url = href_poll($poll);
 
-        $this->chat->systemMessage(
+        $this->chatRepository->systemMessage(
             sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', $poll_url, $poll->title)
         );
 

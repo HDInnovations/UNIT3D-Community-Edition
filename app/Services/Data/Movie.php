@@ -40,7 +40,7 @@ class Movie
     /**
      * @var Carbon
      */
-    public $releaseDate;
+    public $carbon;
 
     /**
      * @var int
@@ -168,12 +168,12 @@ class Movie
             }
         }
 
-        if ($this->releaseDate instanceof \DateTime) {
-            $release_date = $this->releaseDate ? (new Carbon())->instance($this->releaseDate) : null;
+        if ($this->carbon instanceof \DateTime) {
+            $release_date = $this->carbon ? (new Carbon())->instance($this->carbon) : null;
         } else {
-            $release_date = $this->releaseDate ? new Carbon($this->releaseDate) : null;
+            $release_date = $this->carbon ? new Carbon($this->carbon) : null;
         }
-        $this->releaseDate = $release_date;
+        $this->carbon = $release_date;
         $this->releaseYear = $release_date ? $release_date->year : null;
 
         $this->title = $this->cleanTitle($this->title);

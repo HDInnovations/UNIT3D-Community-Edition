@@ -49,10 +49,10 @@ class CasinoBot
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
         $bot = Bot::where('id', '=', '3')->firstOrFail();
-        $this->chat = $chat;
+        $this->chat = $chatRepository;
         $this->bot = $bot;
         $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();
@@ -107,14 +107,14 @@ class CasinoBot
             $this->target->seedbonus -= $value;
             $this->target->save();
 
-            $transaction = new BotTransaction();
-            $transaction->type = 'bon';
-            $transaction->cost = $value;
-            $transaction->user_id = $this->target->id;
-            $transaction->bot_id = $this->bot->id;
-            $transaction->to_bot = 1;
-            $transaction->comment = $output;
-            $transaction->save();
+            $botTransaction = new BotTransaction();
+            $botTransaction->type = 'bon';
+            $botTransaction->cost = $value;
+            $botTransaction->user_id = $this->target->id;
+            $botTransaction->bot_id = $this->bot->id;
+            $botTransaction->to_bot = 1;
+            $botTransaction->comment = $output;
+            $botTransaction->save();
 
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             cache()->put('casinobot-donations', $donations, $this->expiresAt);
@@ -169,9 +169,9 @@ class CasinoBot
      *
      * @return bool
      */
-    public function process($type, User $target, $message = '', $targeted = 0)
+    public function process($type, User $user, $message = '', $targeted = 0)
     {
-        $this->target = $target;
+        $this->target = $user;
         if ($type == 'message') {
             $x = 0;
             $y = 1;

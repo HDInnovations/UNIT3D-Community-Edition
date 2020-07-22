@@ -24,16 +24,16 @@ class ChatRoomController extends Controller
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * ChatController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -43,7 +43,7 @@ class ChatRoomController extends Controller
      */
     public function index()
     {
-        $chatrooms = $this->chat->rooms();
+        $chatrooms = $this->chatRepository->rooms();
 
         return view('Staff.chat.room.index', [
             'chatrooms'    => $chatrooms,

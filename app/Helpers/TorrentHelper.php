@@ -100,15 +100,15 @@ class TorrentHelper
         // Announce To IRC
         if (config('irc-bot.enabled') == true) {
             $appname = config('app.name');
-            $bot = new IRCAnnounceBot();
+            $ircAnnounceBot = new IRCAnnounceBot();
             if ($anon == 0) {
-                $bot->message(config('irc-bot.channels'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
-                $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
-                $bot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                $ircAnnounceBot->message(config('irc-bot.channels'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
+                $ircAnnounceBot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
+                $ircAnnounceBot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
             } else {
-                $bot->message(config('irc-bot.channels'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
-                $bot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']');
-                $bot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                $ircAnnounceBot->message(config('irc-bot.channels'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
+                $ircAnnounceBot->message(config('irc-bot.channels'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']');
+                $ircAnnounceBot->message(config('irc-bot.channels'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
             }
         }
     }

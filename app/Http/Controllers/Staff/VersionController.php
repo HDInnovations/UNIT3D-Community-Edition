@@ -21,11 +21,11 @@ class VersionController extends Controller
     /**
      * @var VersionController
      */
-    private $version;
+    private $versionController;
 
     public function __construct()
     {
-        $this->version = config('unit3d.version');
+        $this->versionController = config('unit3d.version');
     }
 
     /**
@@ -40,7 +40,7 @@ class VersionController extends Controller
         $lastestVersion = $response[0]->tag_name;
 
         return response([
-            'updated'       => ! version_compare($this->version, $lastestVersion, '<'),
+            'updated'       => ! version_compare($this->versionController, $lastestVersion, '<'),
             'latestversion' => $lastestVersion,
         ]);
     }

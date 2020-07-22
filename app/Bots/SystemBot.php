@@ -46,10 +46,10 @@ class SystemBot
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
         $bot = Bot::where('slug', '=', 'systembot')->firstOrFail();
-        $this->chat = $chat;
+        $this->chat = $chatRepository;
         $this->bot = $bot;
     }
 
@@ -115,18 +115,18 @@ class SystemBot
             $this->target->seedbonus -= $value;
             $this->target->save();
 
-            $transaction = new BonTransactions();
-            $transaction->itemID = 0;
-            $transaction->name = 'gift';
-            $transaction->cost = $value;
-            $transaction->sender = $this->target->id;
-            $transaction->receiver = $recipient->id;
-            $transaction->comment = $output;
-            $transaction->torrent_id = null;
-            $transaction->save();
+            $bonTransactions = new BonTransactions();
+            $bonTransactions->itemID = 0;
+            $bonTransactions->name = 'gift';
+            $bonTransactions->cost = $value;
+            $bonTransactions->sender = $this->target->id;
+            $bonTransactions->receiver = $recipient->id;
+            $bonTransactions->comment = $output;
+            $bonTransactions->torrent_id = null;
+            $bonTransactions->save();
 
             if ($this->target->id != $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
-                $recipient->notify(new NewBon('gift', $this->target->username, $transaction));
+                $recipient->notify(new NewBon('gift', $this->target->username, $bonTransactions));
             }
 
             $profile_url = href_profile($this->target);
@@ -152,9 +152,9 @@ class SystemBot
      *
      * @return bool
      */
-    public function process($type, User $target, $message = '', $targeted = 0)
+    public function process($type, User $user, $message = '', $targeted = 0)
     {
-        $this->target = $target;
+        $this->target = $user;
         $x = $type == 'message' ? 0 : 1;
 
         $y = $x + 1;

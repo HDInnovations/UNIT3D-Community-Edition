@@ -36,9 +36,9 @@ class NewPost extends Notification implements ShouldQueue
      * @param User   $poster
      * @param Post   $post
      */
-    public function __construct(string $type, User $poster, Post $post)
+    public function __construct(string $type, User $user, Post $post)
     {
-        $this->poster = $poster;
+        $this->poster = $user;
         $this->post = $post;
         $this->type = $type;
     }

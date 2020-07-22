@@ -44,7 +44,7 @@ class FetchGenres extends Command
      */
     public function handle()
     {
-        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $movieScrapper = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
         $torrents = Torrent::withAnyStatus()
             ->select(['id', 'category_id', 'imdb', 'tmdb'])
@@ -53,16 +53,16 @@ class FetchGenres extends Command
         foreach ($torrents as $torrent) {
             if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $movieScrapper->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $movieScrapper->scrape('tv', 'tt'.$torrent->imdb);
                 }
             }
             if ($torrent->category->movie_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $movieScrapper->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $movieScrapper->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 

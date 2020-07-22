@@ -41,12 +41,12 @@ class CommentController extends Controller
     /**
      * @var TaggedUserRepository
      */
-    private $tag;
+    private $taggedUserRepository;
 
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * CommentController Constructor.
@@ -54,10 +54,10 @@ class CommentController extends Controller
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
     {
-        $this->tag = $tag;
-        $this->chat = $chat;
+        $this->taggedUserRepository = $taggedUserRepository;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -100,22 +100,22 @@ class CommentController extends Controller
         $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profile_url, $user->username, $article_url, $article->title)
             );
         } else {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $article_url, $article->title)
             );
         }
-        if ($this->tag->hasTags($request->input('content'))) {
-            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+        if ($this->taggedUserRepository->hasTags($request->input('content'))) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = collect([]);
 
                 $article->comments()->get()->each(function ($c) use ($users) {
                     $users->push($c->user);
                 });
-                $this->tag->messageCommentUsers(
+                $this->taggedUserRepository->messageCommentUsers(
                     'article',
                     $users,
                     $user,
@@ -124,7 +124,7 @@ class CommentController extends Controller
                 );
             } else {
                 $sender = $comment->anon ? 'Anonymous' : $user->username;
-                $this->tag->messageTaggedCommentUsers(
+                $this->taggedUserRepository->messageTaggedCommentUsers(
                     'article',
                     $request->input('content'),
                     $user,
@@ -191,22 +191,22 @@ class CommentController extends Controller
         $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profile_url, $user->username, $playlist_url, $playlist->name)
             );
         } else {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlist_url, $playlist->name)
             );
         }
-        if ($this->tag->hasTags($request->input('content'))) {
-            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+        if ($this->taggedUserRepository->hasTags($request->input('content'))) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = collect([]);
 
                 $playlist->comments()->get()->each(function ($c) use ($users) {
                     $users->push($c->user);
                 });
-                $this->tag->messageCommentUsers(
+                $this->taggedUserRepository->messageCommentUsers(
                     'playlist',
                     $users,
                     $user,
@@ -215,7 +215,7 @@ class CommentController extends Controller
                 );
             } else {
                 $sender = $comment->anon ? 'Anonymous' : $user->username;
-                $this->tag->messageTaggedCommentUsers(
+                $this->taggedUserRepository->messageTaggedCommentUsers(
                     'playlist',
                     $request->input('content'),
                     $user,
@@ -286,22 +286,22 @@ class CommentController extends Controller
         $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
             );
         } else {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrent_url, $torrent->name)
             );
         }
-        if ($this->tag->hasTags($request->input('content'))) {
-            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+        if ($this->taggedUserRepository->hasTags($request->input('content'))) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = collect([]);
 
                 $torrent->comments()->get()->each(function ($c) use ($users) {
                     $users->push($c->user);
                 });
-                $this->tag->messageCommentUsers(
+                $this->taggedUserRepository->messageCommentUsers(
                     'torrent',
                     $users,
                     $user,
@@ -310,7 +310,7 @@ class CommentController extends Controller
                 );
             } else {
                 $sender = $comment->anon ? 'Anonymous' : $user->username;
-                $this->tag->messageTaggedCommentUsers(
+                $this->taggedUserRepository->messageTaggedCommentUsers(
                     'torrent',
                     $request->input('content'),
                     $user,
@@ -377,11 +377,11 @@ class CommentController extends Controller
         $profile_url = href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
             );
         } else {
-            $this->chat->systemMessage(
+            $this->chatRepository->systemMessage(
                 sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $tr_url, $tr->name)
             );
         }
@@ -389,14 +389,14 @@ class CommentController extends Controller
         if ($user->id != $tr->user_id) {
             $tr->notifyRequester('comment', $comment);
         }
-        if ($this->tag->hasTags($request->input('content'))) {
-            if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
+        if ($this->taggedUserRepository->hasTags($request->input('content'))) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
                 $users = collect([]);
 
                 $tr->comments()->get()->each(function ($c) use ($users) {
                     $users->push($c->user);
                 });
-                $this->tag->messageCommentUsers(
+                $this->taggedUserRepository->messageCommentUsers(
                     'request',
                     $users,
                     $user,
@@ -405,7 +405,7 @@ class CommentController extends Controller
                 );
             } else {
                 $sender = $comment->anon ? 'Anonymous' : $user->username;
-                $this->tag->messageTaggedCommentUsers(
+                $this->taggedUserRepository->messageTaggedCommentUsers(
                     'request',
                     $request->input('content'),
                     $user,
@@ -505,7 +505,7 @@ class CommentController extends Controller
         // Auto Shout
         $torrent_url = href_torrent($torrent);
         $profile_url = href_profile($user);
-        $this->chat->systemMessage(
+        $this->chatRepository->systemMessage(
             sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
         );
 

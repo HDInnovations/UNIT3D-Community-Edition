@@ -22,9 +22,9 @@ class AchievementUnlocked
 {
     private $chat;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chat = $chatRepository;
     }
 
     /**
@@ -34,17 +34,17 @@ class AchievementUnlocked
      *
      * @return void
      */
-    public function handle(Unlocked $event)
+    public function handle(Unlocked $unlocked)
     {
         // There's an AchievementProgress instance located on $event->progress
-        $user = User::where('id', '=', $event->progress->achiever_id)->first();
-        Session::flash('achievement', $event->progress->details->name);
+        $user = User::where('id', '=', $unlocked->progress->achiever_id)->first();
+        Session::flash('achievement', $unlocked->progress->details->name);
 
         if ($user->private_profile == 0) {
             $profile_url = href_profile($user);
 
             $this->chat->systemMessage(
-                sprintf('User [url=%s]%s[/url] has unlocked the %s achievement :medal:', $profile_url, $user->username, $event->progress->details->name)
+                sprintf('User [url=%s]%s[/url] has unlocked the %s achievement :medal:', $profile_url, $user->username, $unlocked->progress->details->name)
             );
         }
     }

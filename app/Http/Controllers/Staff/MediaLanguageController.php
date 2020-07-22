@@ -50,11 +50,11 @@ class MediaLanguageController extends Controller
      */
     public function store(Request $request)
     {
-        $media_language = new MediaLanguage();
-        $media_language->name = $request->input('name');
-        $media_language->code = $request->input('code');
+        $mediaLanguage = new MediaLanguage();
+        $mediaLanguage->name = $request->input('name');
+        $mediaLanguage->code = $request->input('code');
 
-        $v = validator($media_language->toArray(), [
+        $v = validator($mediaLanguage->toArray(), [
             'name' => 'required|unique:media_languages',
             'code' => 'required|unique:media_languages',
         ]);
@@ -63,7 +63,7 @@ class MediaLanguageController extends Controller
             return redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
-        $media_language->save();
+        $mediaLanguage->save();
 
         return redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Added');

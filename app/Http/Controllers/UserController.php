@@ -1978,12 +1978,12 @@ class UserController extends Controller
         $zipFileName = sprintf('%s.zip', $user->username);
 
         // Create ZipArchive Obj
-        $zip = new ZipArchive();
+        $zipArchive = new ZipArchive();
 
         // Get Users History
         $historyTorrents = History::where('user_id', '=', $user->id)->pluck('info_hash');
 
-        if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
+        if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
             $failCSV = '"Name","URL","ID","info_hash"
 ';
@@ -2017,16 +2017,16 @@ class UserController extends Controller
                     file_put_contents(getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
 
                     // Add Files To ZipArchive
-                    $zip->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
+                    $zipArchive->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
                 }
             }
             if ($failCount > 0) {
                 $CSVtmpName = sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
                 file_put_contents(getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
-                $zip->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
+                $zipArchive->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
             }
             // Close ZipArchive
-            $zip->close();
+            $zipArchive->close();
         }
 
         $zip_file = $path.'/'.$zipFileName;
