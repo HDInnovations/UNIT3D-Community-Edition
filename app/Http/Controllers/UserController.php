@@ -1884,12 +1884,12 @@ class UserController extends Controller
             ->paginate(50);
 
         return \view('user.private.active', ['user' => $user,
-            'route'                                => 'active',
-            'active'                               => $active,
-            'his_upl'                              => $his_upl,
-            'his_upl_cre'                          => $his_upl_cre,
-            'his_downl'                            => $his_downl,
-            'his_downl_cre'                        => $his_downl_cre,
+            'route'                                 => 'active',
+            'active'                                => $active,
+            'his_upl'                               => $his_upl,
+            'his_upl_cre'                           => $his_upl_cre,
+            'his_downl'                             => $his_downl,
+            'his_downl_cre'                         => $his_downl_cre,
         ]);
     }
 
@@ -1919,12 +1919,12 @@ class UserController extends Controller
             ->paginate(50);
 
         return \view('user.private.seeds', ['user' => $user,
-            'route'                               => 'seeds',
-            'seeds'                               => $seeds,
-            'his_upl'                             => $his_upl,
-            'his_upl_cre'                         => $his_upl_cre,
-            'his_downl'                           => $his_downl,
-            'his_downl_cre'                       => $his_downl_cre,
+            'route'                                => 'seeds',
+            'seeds'                                => $seeds,
+            'his_upl'                              => $his_upl,
+            'his_upl_cre'                          => $his_upl_cre,
+            'his_downl'                            => $his_downl,
+            'his_downl_cre'                        => $his_downl_cre,
         ]);
     }
 
