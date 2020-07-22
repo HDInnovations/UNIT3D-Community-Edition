@@ -172,7 +172,7 @@ class RssController extends Controller
      */
     public function show($id, $rsskey)
     {
-        $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
+        $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
 
         $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
@@ -187,7 +187,7 @@ class RssController extends Controller
             \abort(404);
         }
 
-        $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
+        $rss = Rss::where('id', '=', $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
         $search = $rss->object_torrent->search;
         $description = $rss->object_torrent->description;
