@@ -28,7 +28,7 @@ class AuditController extends Controller
     {
         $audits = Audit::with('user')->latest()->paginate(50);
 
-        return view('Staff.audit.index', ['audits' => $audits]);
+        return \view('Staff.audit.index', ['audits' => $audits]);
     }
 
     /**
@@ -44,10 +44,10 @@ class AuditController extends Controller
         $user = $request->user();
         $audit = Audit::findOrFail($id);
 
-        abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->group->is_modo, 403);
         $audit->delete();
 
-        return redirect()->route('staff.audits.index')
+        return \redirect()->route('staff.audits.index')
             ->withSuccess('Audit Record Has Successfully Been Deleted');
     }
 }

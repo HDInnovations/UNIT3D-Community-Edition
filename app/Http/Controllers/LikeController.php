@@ -30,18 +30,18 @@ class LikeController extends Controller
     public function store(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
+        $postUrl = \sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
         if ($like || $dislike) {
-            return redirect()->to($postUrl)
+            return \redirect()->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
         }
 
         if ($user->id == $post->user_id) {
-            return redirect()->to($postUrl)
+            return \redirect()->to($postUrl)
                 ->withErrors('You cannot like your own post!');
         }
         $new = new Like();
@@ -50,7 +50,7 @@ class LikeController extends Controller
         $new->like = 1;
         $new->save();
 
-        return redirect()->to($postUrl)
+        return \redirect()->to($postUrl)
                 ->withSuccess('Like Successfully Applied!');
     }
 
@@ -65,18 +65,18 @@ class LikeController extends Controller
     public function destroy(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
-        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
+        $postUrl = \sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
         $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
         if ($like || $dislike) {
-            return redirect()->to($postUrl)
+            return \redirect()->to($postUrl)
                 ->withErrors('You have already liked/disliked this post!');
         }
 
         if ($user->id == $post->user_id) {
-            return redirect()->to($postUrl)
+            return \redirect()->to($postUrl)
                 ->withErrors('You cannot dislike your own post!');
         }
         $new = new Like();
@@ -85,7 +85,7 @@ class LikeController extends Controller
         $new->dislike = 1;
         $new->save();
 
-        return redirect()->to($postUrl)
+        return \redirect()->to($postUrl)
                 ->withSuccess('Dislike Successfully Applied!');
     }
 }

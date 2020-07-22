@@ -46,11 +46,11 @@ class SubscriptionController extends Controller
             $subscription->topic_id = $topic->id;
             $subscription->save();
 
-            return redirect()->route($logger, $params)
+            return \redirect()->route($logger, $params)
                 ->withSuccess('You are now subscribed to topic, '.$topic->name.'. You will now receive site notifications when a reply is left.');
         }
 
-        return redirect()->route($logger, $params)
+        return \redirect()->route($logger, $params)
             ->withErrors('You are already subscribed to this topic');
     }
 
@@ -78,11 +78,11 @@ class SubscriptionController extends Controller
             $subscription = $request->user()->subscriptions()->where('topic_id', '=', $topic->id)->first();
             $subscription->delete();
 
-            return redirect()->route($logger, $params)
+            return \redirect()->route($logger, $params)
                 ->withSuccess('You are no longer subscribed to topic, '.$topic->name.'. You will no longer receive site notifications when a reply is left.');
         }
 
-        return redirect()->route($logger, $params)
+        return \redirect()->route($logger, $params)
             ->withErrors('You are not subscribed this topic to begin with...');
     }
 
@@ -112,11 +112,11 @@ class SubscriptionController extends Controller
             $subscription->forum_id = $forum->id;
             $subscription->save();
 
-            return redirect()->route($logger, $params)
+            return \redirect()->route($logger, $params)
                 ->withSuccess('You are now subscribed to forum, '.$forum->name.'. You will now receive site notifications when a topic is started.');
         }
 
-        return redirect()->route($logger, $params)
+        return \redirect()->route($logger, $params)
             ->withErrors('You are already subscribed to this forum');
     }
 
@@ -144,11 +144,11 @@ class SubscriptionController extends Controller
             $subscription = $request->user()->subscriptions()->where('forum_id', '=', $forum->id)->first();
             $subscription->delete();
 
-            return redirect()->route($logger, $params)
+            return \redirect()->route($logger, $params)
                 ->withSuccess('You are no longer subscribed to forum, '.$forum->name.'. You will no longer receive site notifications when a topic is started.');
         }
 
-        return redirect()->route($logger, $params)
+        return \redirect()->route($logger, $params)
             ->withErrors('You are not subscribed this forum to begin with...');
     }
 }

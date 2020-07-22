@@ -29,7 +29,7 @@ class NoteController extends Controller
     {
         $notes = Note::latest()->paginate(25);
 
-        return view('Staff.note.index', ['notes' => $notes]);
+        return \view('Staff.note.index', ['notes' => $notes]);
     }
 
     /**
@@ -50,19 +50,19 @@ class NoteController extends Controller
         $note->staff_id = $staff->id;
         $note->message = $request->input('message');
 
-        $v = validator($note->toArray(), [
+        $v = \validator($note->toArray(), [
             'user_id'  => 'required',
             'staff_id' => 'required',
             'message'  => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
         $note->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Posted');
     }
 
@@ -79,7 +79,7 @@ class NoteController extends Controller
         $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

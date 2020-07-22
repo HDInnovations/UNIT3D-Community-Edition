@@ -28,9 +28,9 @@ class CommandController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
-        return view('Staff.command.index');
+        return \view('Staff.command.index');
     }
 
     /**
@@ -43,12 +43,12 @@ class CommandController extends Controller
     public function maintanceEnable(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('down --allow='.$request->ip());
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -61,12 +61,12 @@ class CommandController extends Controller
     public function maintanceDisable(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('up');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -79,12 +79,12 @@ class CommandController extends Controller
     public function clearCache(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('cache:clear');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -97,12 +97,12 @@ class CommandController extends Controller
     public function clearView(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('view:clear');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -115,12 +115,12 @@ class CommandController extends Controller
     public function clearRoute(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('route:clear');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -133,12 +133,12 @@ class CommandController extends Controller
     public function clearConfig(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('config:clear');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -151,12 +151,12 @@ class CommandController extends Controller
     public function clearAllCache(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('clear:all_cache');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -169,12 +169,12 @@ class CommandController extends Controller
     public function setAllCache(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('set:all_cache');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 
     /**
@@ -187,11 +187,11 @@ class CommandController extends Controller
     public function testEmail(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_owner, 403);
+        \abort_unless($user->group->is_owner, 403);
 
         \Artisan::call('test:email');
 
-        return redirect()->route('staff.commands.index')
-            ->withInfo(trim(\Artisan::output()));
+        return \redirect()->route('staff.commands.index')
+            ->withInfo(\trim(\Artisan::output()));
     }
 }

@@ -67,12 +67,12 @@ class NewRequestBounty extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         return [
             'title' => $this->sender.' Has Added A Bounty Of '.$this->amount.' To A Requested Torrent',
             'body'  => $this->sender.' has added a bounty to one of your Requested Torrents '.$this->tr->name,
-            'url'   => sprintf('/requests/%s', $this->tr->id),
+            'url'   => \sprintf('/requests/%s', $this->tr->id),
         ];
     }
 }

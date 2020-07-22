@@ -56,10 +56,10 @@ class EmailBlacklistValidator
         $this->refresh();
 
         // Extract domain from supplied email address
-        $domain = Str::after(strtolower($value), '@');
+        $domain = Str::after(\strtolower($value), '@');
 
         // Run validation check
-        return ! in_array($domain, $this->domains);
+        return ! \in_array($domain, $this->domains);
     }
 
     /**
@@ -74,16 +74,16 @@ class EmailBlacklistValidator
     public function refresh()
     {
         $this->shouldUpdate();
-        $this->domains = cache()->get(config('email-blacklist.cache-key'));
+        $this->domains = \cache()->get(\config('email-blacklist.cache-key'));
         $this->appendCustomDomains();
     }
 
     protected function shouldUpdate()
     {
-        $autoupdate = config('email-blacklist.auto-update');
+        $autoupdate = \config('email-blacklist.auto-update');
 
         try {
-            if ($autoupdate && ! cache()->has(config('email-blacklist.cache-key'))) {
+            if ($autoupdate && ! \cache()->has(\config('email-blacklist.cache-key'))) {
                 EmailBlacklistUpdater::update();
             }
         } catch (InvalidArgumentException $e) {
@@ -92,11 +92,11 @@ class EmailBlacklistValidator
 
     protected function appendCustomDomains()
     {
-        $append_list = config('email-blacklist.append');
+        $append_list = \config('email-blacklist.append');
         if ($append_list === null) {
             return;
         }
-        $append_domains = explode('|', strtolower($append_list));
-        $this->domains = array_merge($this->domains, $append_domains);
+        $append_domains = \explode('|', \strtolower($append_list));
+        $this->domains = \array_merge($this->domains, $append_domains);
     }
 }

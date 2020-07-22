@@ -63,12 +63,12 @@ class NewBon extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         return [
             'title' => $this->sender.' Has Gifted You '.$this->transaction->cost.' BON',
             'body'  => $this->sender.' has gifted you '.$this->transaction->cost.' BON with the following note: '.$this->transaction->comment,
-            'url'   => sprintf('/users/%s', $this->transaction->senderObj->username),
+            'url'   => \sprintf('/users/%s', $this->transaction->senderObj->username),
         ];
     }
 }

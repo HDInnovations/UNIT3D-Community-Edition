@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all()->sortBy('position');
 
-        return view('Staff.category.index', ['categories' => $categories]);
+        return \view('Staff.category.index', ['categories' => $categories]);
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('Staff.category.create');
+        return \view('Staff.category.create');
     }
 
     /**
@@ -65,15 +65,15 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'category-'.uniqid().'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $filename = 'category-'.\uniqid().'.'.$image->getClientOriginalExtension();
+            $path = \public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(60, 60)->encode('png', 100)->save($path);
             $category->image = $filename;
         } else {
             $category->image = null;
         }
 
-        $v = validator($category->toArray(), [
+        $v = \validator($category->toArray(), [
             'name'          => 'required',
             'slug'          => 'required',
             'position'      => 'required',
@@ -86,12 +86,12 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.categories.index')
+            return \redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         }
         $category->save();
 
-        return redirect()->route('staff.categories.index')
+        return \redirect()->route('staff.categories.index')
             ->withSuccess('Category Successfully Added');
     }
 
@@ -106,7 +106,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view('Staff.category.edit', ['category' => $category]);
+        return \view('Staff.category.edit', ['category' => $category]);
     }
 
     /**
@@ -132,13 +132,13 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'category-'.uniqid().'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $filename = 'category-'.\uniqid().'.'.$image->getClientOriginalExtension();
+            $path = \public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(60, 60)->encode('png', 100)->save($path);
             $category->image = $filename;
         }
 
-        $v = validator($category->toArray(), [
+        $v = \validator($category->toArray(), [
             'name'          => 'required',
             'slug'          => 'required',
             'position'      => 'required',
@@ -151,12 +151,12 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.categories.index')
+            return \redirect()->route('staff.categories.index')
                 ->withErrors($v->errors());
         }
         $category->save();
 
-        return redirect()->route('staff.categories.index')
+        return \redirect()->route('staff.categories.index')
             ->withSuccess('Category Successfully Modified');
     }
 
@@ -172,7 +172,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('staff.categories.index')
+        return \redirect()->route('staff.categories.index')
             ->withSuccess('Category Successfully Deleted');
     }
 }

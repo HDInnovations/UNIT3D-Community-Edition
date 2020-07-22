@@ -27,7 +27,7 @@ trait ConsoleTools
 
     private function cyan($line)
     {
-        $this->io->writeln(sprintf('<fg=cyan>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=cyan>%s</>', $line));
     }
 
     private function white($line)
@@ -37,22 +37,22 @@ trait ConsoleTools
 
     private function magenta($line)
     {
-        $this->io->writeln(sprintf('<fg=magenta>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=magenta>%s</>', $line));
     }
 
     private function green($line)
     {
-        $this->io->writeln(sprintf('<fg=green>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=green>%s</>', $line));
     }
 
     private function red($line)
     {
-        $this->io->writeln(sprintf('<fg=red>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=red>%s</>', $line));
     }
 
     private function blue($line)
     {
-        $this->io->writeln(sprintf('<fg=blue>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=blue>%s</>', $line));
     }
 
     private function done()
@@ -62,29 +62,29 @@ trait ConsoleTools
 
     private function header($line)
     {
-        $this->blue(str_repeat('=', 50));
+        $this->blue(\str_repeat('=', 50));
         $this->io->write($line);
-        $this->blue(str_repeat('=', 50));
+        $this->blue(\str_repeat('=', 50));
     }
 
     private function alertSuccess($line)
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=green> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=green> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertDanger($line)
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=red> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=red> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertInfo($line)
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=cyan> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=cyan> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertWarning($line)
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=yellow> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=yellow> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function commands(array $commands, $silent = false)
@@ -114,14 +114,14 @@ trait ConsoleTools
             try {
                 $process->checkTimeout();
             } catch (ProcessTimedOutException $e) {
-                $this->red(sprintf("'%s' timed out.!", $command));
+                $this->red(\sprintf("'%s' timed out.!", $command));
             }
 
             if (! $silent) {
                 $bar->advance();
             }
 
-            usleep(200_000);
+            \usleep(200_000);
         }
 
         if (! $silent) {

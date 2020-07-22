@@ -56,18 +56,18 @@ class AutoSoftDeleteDisabledUsers extends Command
      */
     public function handle()
     {
-        if (config('pruning.user_pruning') == true) {
-            $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        if (\config('pruning.user_pruning') == true) {
+            $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $pruned_group = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
             $users = User::where('group_id', '=', $disabled_group[0])
-                ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
+                ->where('disabled_at', '<', $current->copy()->subDays(\config('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
             foreach ($users as $user) {
                 // Send Email
-                dispatch(new SendDeleteUserMail($user));
+                \dispatch(new SendDeleteUserMail($user));
 
                 $user->can_upload = 0;
                 $user->can_download = 0;

@@ -27,7 +27,7 @@ class CheckForModo
      */
     public function handle($request, Closure $next)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
         return $next($request);
     }

@@ -118,7 +118,7 @@ class WishRepository implements WishInterface
      */
     public function isGranted($id)
     {
-        $id = str_replace('tt', '', $id);
+        $id = \str_replace('tt', '', $id);
 
         return (bool) $this->torrent
             ->where('imdb', '=', $id)
@@ -135,14 +135,14 @@ class WishRepository implements WishInterface
     public function getSource($id)
     {
         if ($this->isGranted($id)) {
-            $id = str_replace('tt', '', $id);
+            $id = \str_replace('tt', '', $id);
             $source = $this->torrent
                 ->where('imdb', '=', $id)
                 ->where('seeders', '>', 0)
                 ->where('status', '=', 1)
                 ->first();
 
-            return route('torrent', ['id' => $source->id]);
+            return \route('torrent', ['id' => $source->id]);
         }
 
         return $this->findById($id)->source ?? null;

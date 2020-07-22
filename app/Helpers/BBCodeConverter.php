@@ -36,9 +36,9 @@ class BBCodeConverter
      */
     protected function replaceSize()
     {
-        $this->text = preg_replace_callback('#\[size=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/size\]#iu',
+        $this->text = \preg_replace_callback('#\[size=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/size\]#iu',
 
-            fn ($matches) => '<span style="font-size: '.trim($matches[1], '').';">'.trim($matches[1], '').'</span>',
+            fn ($matches) => '<span style="font-size: '.\trim($matches[1], '').';">'.\trim($matches[1], '').'</span>',
 
             $this->text
         );
@@ -49,9 +49,9 @@ class BBCodeConverter
      */
     protected function replaceCenter()
     {
-        $this->text = preg_replace_callback('#\[center\]([\W\D\w\s]*?)\[/center\]#iu',
+        $this->text = \preg_replace_callback('#\[center\]([\W\D\w\s]*?)\[/center\]#iu',
 
-            fn ($matches) => '<span class="text-center">'.trim($matches[1], ' ').'</span>',
+            fn ($matches) => '<span class="text-center">'.\trim($matches[1], ' ').'</span>',
 
             $this->text
         );
@@ -62,9 +62,9 @@ class BBCodeConverter
      */
     protected function replaceBold()
     {
-        $this->text = preg_replace_callback('#\[b\]([\W\D\w\s]*?)\[/b\]#iu',
+        $this->text = \preg_replace_callback('#\[b\]([\W\D\w\s]*?)\[/b\]#iu',
 
-            fn ($matches) => '**'.trim($matches[1], ' ').'**',
+            fn ($matches) => '**'.\trim($matches[1], ' ').'**',
 
             $this->text
         );
@@ -75,9 +75,9 @@ class BBCodeConverter
      */
     protected function replaceItalic()
     {
-        $this->text = preg_replace_callback('#\[i\]([\W\D\w\s]*?)\[/i\]#iu',
+        $this->text = \preg_replace_callback('#\[i\]([\W\D\w\s]*?)\[/i\]#iu',
 
-            fn ($matches) => '*'.trim($matches[1], ' ').'*',
+            fn ($matches) => '*'.\trim($matches[1], ' ').'*',
 
             $this->text
         );
@@ -88,9 +88,9 @@ class BBCodeConverter
      */
     protected function replaceUnderline()
     {
-        $this->text = preg_replace_callback('#\[u\]([\W\D\w\s]*?)\[/u\]#iu',
+        $this->text = \preg_replace_callback('#\[u\]([\W\D\w\s]*?)\[/u\]#iu',
 
-            fn ($matches) => '_'.trim($matches[1], ' ').'_',
+            fn ($matches) => '_'.\trim($matches[1], ' ').'_',
 
             $this->text
         );
@@ -101,9 +101,9 @@ class BBCodeConverter
      */
     protected function replaceStrikethrough()
     {
-        $this->text = preg_replace_callback('#\[s\]([\W\D\w\s]*?)\[/s\]#iu',
+        $this->text = \preg_replace_callback('#\[s\]([\W\D\w\s]*?)\[/s\]#iu',
 
-            fn ($matches) => '~~'.trim($matches[1], ' ').'~~',
+            fn ($matches) => '~~'.\trim($matches[1], ' ').'~~',
 
             $this->text
         );
@@ -114,31 +114,31 @@ class BBCodeConverter
      */
     protected function replaceLists()
     {
-        $this->text = preg_replace_callback('#\[list(?P<type>=1)?\](?P<items>[\W\D\w\s]*?)\[/list\]#iu',
+        $this->text = \preg_replace_callback('#\[list(?P<type>=1)?\](?P<items>[\W\D\w\s]*?)\[/list\]#iu',
 
             function ($matches) {
                 $buffer = '';
 
-                $list = preg_replace('#\s*$|^\s*#mu', '', $matches['items']);
-                if (is_null($list)) {
-                    throw new \RuntimeException(sprintf("Text identified by '%d' has malformed BBCode lists", $this->id));
+                $list = \preg_replace('#\s*$|^\s*#mu', '', $matches['items']);
+                if (\is_null($list)) {
+                    throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode lists", $this->id));
                 }
-                $items = preg_split('#\[\*\]#u', $list);
+                $items = \preg_split('#\[\*\]#u', $list);
 
-                $counter = count($items);
+                $counter = \count($items);
 
                 if (isset($matches['type']) && $matches['type'] == '=1') { // ordered list
                     // We start from 1 to discard the first string, in fact, it's empty.
                     for ($i = 1; $i < $counter; $i++) {
                         if (! empty($items[$i])) {
-                            $buffer .= (string) ($i).'. '.trim($items[$i]).PHP_EOL;
+                            $buffer .= (string) ($i).'. '.\trim($items[$i]).PHP_EOL;
                         }
                     }
                 } else { // unordered list
                     // We start from 1 to discard the first string, in fact, it's empty.
                     for ($i = 1; $i < $counter; $i++) {
                         if (! empty($items[$i])) {
-                            $buffer .= '- '.trim($items[$i]).PHP_EOL;
+                            $buffer .= '- '.\trim($items[$i]).PHP_EOL;
                         }
                     }
                 }
@@ -162,46 +162,46 @@ class BBCodeConverter
     {
         $replaceRow = function ($matches) {
             $columns = $matches['columns'];
-            $columns = trim($columns);
+            $columns = \trim($columns);
 
-            $cells = preg_replace_callback('#\[td?\](?P<cells>[\W\w\s]*?)\[/td\]#iu', fn ($matches) => $matches['cells'].' | ', $columns);
+            $cells = \preg_replace_callback('#\[td?\](?P<cells>[\W\w\s]*?)\[/td\]#iu', fn ($matches) => $matches['cells'].' | ', $columns);
 
             if ($cells !== '') {
                 $cells = '| '.$cells;
             }
 
-            return trim($cells);
+            return \trim($cells);
         };
 
-        $this->text = preg_replace_callback('#\[table?\](?P<rows>[\W\w\s]*?)\[/table\]#iu', function ($tableMatches) use ($replaceRow) {
-            preg_match_all('#\[th?\](?P<columns>[\W\w\s]*?)\[/th\]#iu', $tableMatches['rows'], $headerMatches, PREG_SET_ORDER);
+        $this->text = \preg_replace_callback('#\[table?\](?P<rows>[\W\w\s]*?)\[/table\]#iu', function ($tableMatches) use ($replaceRow) {
+            \preg_match_all('#\[th?\](?P<columns>[\W\w\s]*?)\[/th\]#iu', $tableMatches['rows'], $headerMatches, PREG_SET_ORDER);
             $headers = [];
-            if (count($headerMatches) !== 0) {
-                $headers = array_map($replaceRow, $headerMatches);
+            if (\count($headerMatches) !== 0) {
+                $headers = \array_map($replaceRow, $headerMatches);
             }
 
-            preg_match_all('#\[tr?\](?P<columns>[\W\w\s]*?)\[/tr\]#iu', $tableMatches['rows'], $contentMatches, PREG_SET_ORDER);
+            \preg_match_all('#\[tr?\](?P<columns>[\W\w\s]*?)\[/tr\]#iu', $tableMatches['rows'], $contentMatches, PREG_SET_ORDER);
             $rows = [];
-            if (count($contentMatches) !== 0) {
-                $rows = array_map($replaceRow, $contentMatches);
+            if (\count($contentMatches) !== 0) {
+                $rows = \array_map($replaceRow, $contentMatches);
             }
 
             $headerSeparator = '';
-            if (count($rows) > 0) {
-                $columnCount = substr_count($rows[0], '|');
+            if (\count($rows) > 0) {
+                $columnCount = \substr_count($rows[0], '|');
 
-                if (count($headers) === 0) {
-                    $headers[] = implode(' ', array_fill(0, $columnCount, '|'));
+                if (\count($headers) === 0) {
+                    $headers[] = \implode(' ', \array_fill(0, $columnCount, '|'));
                 }
 
-                $headerSeparator = implode(' --- ', array_fill(0, $columnCount, '|'));
+                $headerSeparator = \implode(' --- ', \array_fill(0, $columnCount, '|'));
             } else {
                 return $tableMatches['rows'];
             }
 
             $headers[] = $headerSeparator;
 
-            return implode("\n", array_merge($headers, $rows))."\n";
+            return \implode("\n", \array_merge($headers, $rows))."\n";
         }, $this->text);
     }
 
@@ -210,14 +210,14 @@ class BBCodeConverter
      */
     protected function replaceUrls()
     {
-        $this->text = preg_replace_callback('#\[url\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\]([\W\D\w\s]*?)\[/url\]#iu',
+        $this->text = \preg_replace_callback('#\[url\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\]([\W\D\w\s]*?)\[/url\]#iu',
 
             function ($matches) {
                 if (isset($matches[1]) && isset($matches[2])) {
                     return '['.$matches[2].']('.$matches[1].')';
                 }
 
-                throw new \RuntimeException(sprintf("Text identified by '%d' has malformed BBCode urls", $this->id));
+                throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode urls", $this->id));
             },
 
             $this->text
@@ -229,7 +229,7 @@ class BBCodeConverter
      */
     protected function replaceImage()
     {
-        $this->text = preg_replace_callback('#\[img\]([\W\D\w\s]*?)\[/img\]#iu',
+        $this->text = \preg_replace_callback('#\[img\]([\W\D\w\s]*?)\[/img\]#iu',
 
             fn ($matches) => PHP_EOL.'![]'.'('.$matches[1].')'.PHP_EOL,
 
@@ -242,7 +242,7 @@ class BBCodeConverter
      */
     protected function replaceImages()
     {
-        $this->text = preg_replace_callback('#\[img\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\[/img\]#iu',
+        $this->text = \preg_replace_callback('#\[img\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\[/img\]#iu',
 
                 fn ($matches) => PHP_EOL.'!['.$matches[2].']'.'('.$matches[1].')'.PHP_EOL,
 
@@ -256,13 +256,13 @@ class BBCodeConverter
     protected function replaceQuotes()
     {
         // Removes the inner quotes, leaving just one level.
-        $this->text = preg_replace('#\G(?<!^)(?>(\[quote\b[^]]*](?>[^[]++|\[(?!/?quote)|(?1))*\[/quote])|(?<!\[)(?>[^[]++|\[(?!/?quote))+\K)|\[quote\b[^]]*]\K#', '', $this->text);
+        $this->text = \preg_replace('#\G(?<!^)(?>(\[quote\b[^]]*](?>[^[]++|\[(?!/?quote)|(?1))*\[/quote])|(?<!\[)(?>[^[]++|\[(?!/?quote))+\K)|\[quote\b[^]]*]\K#', '', $this->text);
 
         // Replaces all the remaining quotes with '> ' characters.
-        $this->text = preg_replace_callback('#\[quote\b[^]]*\]((?>[^[]++|\[(?!/?quote))*)\[/quote\]#i',
+        $this->text = \preg_replace_callback('#\[quote\b[^]]*\]((?>[^[]++|\[(?!/?quote))*)\[/quote\]#i',
 
             function ($matches) {
-                $quote = preg_replace('#^\s*#mu', '', trim($matches[1]));
+                $quote = \preg_replace('#^\s*#mu', '', \trim($matches[1]));
 
                 return '> '.$quote.PHP_EOL.PHP_EOL;
             },
@@ -276,11 +276,11 @@ class BBCodeConverter
      */
     protected function replaceSnippets()
     {
-        $this->text = preg_replace_callback('#\[code\s*=?(?P<language>\w*)\](?P<snippet>[\W\D\w\s]*?)\[\/code\]#iu',
+        $this->text = \preg_replace_callback('#\[code\s*=?(?P<language>\w*)\](?P<snippet>[\W\D\w\s]*?)\[\/code\]#iu',
 
             function ($matches) {
                 if (isset($matches['snippet'])) {
-                    $language = strtolower($matches['language']);
+                    $language = \strtolower($matches['language']);
 
                     if ($language === 'html4strict' || $language === 'div') {
                         $language = 'html';
@@ -308,10 +308,10 @@ class BBCodeConverter
                         $language = 'aspx-vb';
                     }
 
-                    return PHP_EOL.'```'.$language.PHP_EOL.trim($matches['snippet']).PHP_EOL.'```'.PHP_EOL;
+                    return PHP_EOL.'```'.$language.PHP_EOL.\trim($matches['snippet']).PHP_EOL.'```'.PHP_EOL;
                 }
 
-                throw new \RuntimeException(sprintf("Text identified by '%d' has malformed BBCode snippet.", $this->id));
+                throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode snippet.", $this->id));
             },
 
             $this->text
@@ -323,9 +323,9 @@ class BBCodeConverter
      */
     protected function replaceSpoilers()
     {
-        $this->text = preg_replace_callback('#\[spoiler\]([\W\D\w\s]*?)\[/spoiler\]#iu',
+        $this->text = \preg_replace_callback('#\[spoiler\]([\W\D\w\s]*?)\[/spoiler\]#iu',
 
-            fn ($matches) => '<details><summary>Spoiler!</summary><pre><code>'.trim($matches[1], ' ').'</code></pre></details>',
+            fn ($matches) => '<details><summary>Spoiler!</summary><pre><code>'.\trim($matches[1], ' ').'</code></pre></details>',
 
             $this->text
         );
@@ -336,9 +336,9 @@ class BBCodeConverter
      */
     protected function replaceColor()
     {
-        $this->text = preg_replace_callback('#\[color=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/color\]#iu',
+        $this->text = \preg_replace_callback('#\[color=([\W\D\w\s]*?)\]([\W\D\w\s]*?)\[/color\]#iu',
 
-            fn ($matches) => '<span style="color: '.trim($matches[1], '').';">'.trim($matches[2], '').'</span>',
+            fn ($matches) => '<span style="color: '.\trim($matches[1], '').';">'.\trim($matches[2], '').'</span>',
 
             $this->text
         );
@@ -349,9 +349,9 @@ class BBCodeConverter
      */
     protected function replaceVideo()
     {
-        $this->text = preg_replace_callback('#\[video=.*\]([\W\D\w\s]*?)\[/video\]#iu',
+        $this->text = \preg_replace_callback('#\[video=.*\]([\W\D\w\s]*?)\[/video\]#iu',
 
-            fn ($matches) => '<iframe src="https://www.youtube-nocookie.com/embed/'.trim($matches[1], '').'?rel=0" width="640" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe src="https://www.youtube-nocookie.com/embed/'.\trim($matches[1], '').'?rel=0" width="640" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
 
             $this->text
         );
@@ -362,9 +362,9 @@ class BBCodeConverter
      */
     protected function replaceYoutube()
     {
-        $this->text = preg_replace_callback('#\[youtube\]([\W\D\w\s]*?)\[/youtube\]#iu',
+        $this->text = \preg_replace_callback('#\[youtube\]([\W\D\w\s]*?)\[/youtube\]#iu',
 
-            fn ($matches) => '<iframe src="https://www.youtube-nocookie.com/embed/'.trim($matches[1], '').'?rel=0" width="640" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe src="https://www.youtube-nocookie.com/embed/'.\trim($matches[1], '').'?rel=0" width="640" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
 
             $this->text
         );
@@ -375,9 +375,9 @@ class BBCodeConverter
      */
     protected function replaceAlert()
     {
-        $this->text = preg_replace_callback('#\[alert\]([\W\D\w\s]*?)\[/alert\]#iu',
+        $this->text = \preg_replace_callback('#\[alert\]([\W\D\w\s]*?)\[/alert\]#iu',
 
-            fn ($matches) => '<div class="decoda-alert">'.trim($matches[1], '').'</div>',
+            fn ($matches) => '<div class="decoda-alert">'.\trim($matches[1], '').'</div>',
 
             $this->text
         );
@@ -388,9 +388,9 @@ class BBCodeConverter
      */
     protected function replaceNote()
     {
-        $this->text = preg_replace_callback('#\[note\]([\W\D\w\s]*?)\[/note\]#iu',
+        $this->text = \preg_replace_callback('#\[note\]([\W\D\w\s]*?)\[/note\]#iu',
 
-            fn ($matches) => '<div class="decoda-note">'.trim($matches[1], '').'</div>',
+            fn ($matches) => '<div class="decoda-note">'.\trim($matches[1], '').'</div>',
 
             $this->text
         );

@@ -43,6 +43,6 @@ class CheaterController extends Controller
             ->latest()
             ->paginate(25);
 
-        return view('Staff.cheater.index', ['cheaters' => $cheaters]);
+        return \view('Staff.cheater.index', ['cheaters' => $cheaters]);
     }
 }

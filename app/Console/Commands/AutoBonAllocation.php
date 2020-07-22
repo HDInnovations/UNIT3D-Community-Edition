@@ -159,7 +159,7 @@ class AutoBonAllocation extends Command
         $array = [];
 
         foreach ($dying_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 2;
             } else {
                 $array[$value->user_id] = $value->value * 2;
@@ -167,7 +167,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($legendary_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1.5;
             } else {
                 $array[$value->user_id] = $value->value * 1.5;
@@ -175,7 +175,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($old_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1;
             } else {
                 $array[$value->user_id] = $value->value * 1;
@@ -183,7 +183,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($huge_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.75;
             } else {
                 $array[$value->user_id] = $value->value * 0.75;
@@ -191,7 +191,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($large_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.50;
             } else {
                 $array[$value->user_id] = $value->value * 0.50;
@@ -199,7 +199,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($regular_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.25;
             } else {
                 $array[$value->user_id] = $value->value * 0.25;
@@ -207,7 +207,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($participaint_seeder as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.25;
             } else {
                 $array[$value->user_id] = $value->value * 0.25;
@@ -215,7 +215,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($teamplayer_seeder as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.50;
             } else {
                 $array[$value->user_id] = $value->value * 0.50;
@@ -223,7 +223,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($commited_seeder as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.75;
             } else {
                 $array[$value->user_id] = $value->value * 0.75;
@@ -231,7 +231,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($mvp_seeder as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1;
             } else {
                 $array[$value->user_id] = $value->value * 1;
@@ -239,7 +239,7 @@ class AutoBonAllocation extends Command
         }
 
         foreach ($legendary_seeder as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
+            if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 2;
             } else {
                 $array[$value->user_id] = $value->value * 2;

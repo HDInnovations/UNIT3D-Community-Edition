@@ -31,7 +31,7 @@ class ForumController extends Controller
     {
         $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
 
-        return view('Staff.forum.index', ['categories' => $categories]);
+        return \view('Staff.forum.index', ['categories' => $categories]);
     }
 
     /**
@@ -44,7 +44,7 @@ class ForumController extends Controller
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
+        return \view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
     }
 
     /**
@@ -74,7 +74,7 @@ class ForumController extends Controller
             }
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
-            if (array_key_exists($group->id, $request->input('permissions'))) {
+            if (\array_key_exists($group->id, $request->input('permissions'))) {
                 $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
                 $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
                 $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
@@ -88,7 +88,7 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff.forums.index')
+        return \redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been created successfully');
     }
 
@@ -105,7 +105,7 @@ class ForumController extends Controller
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return view('Staff.forum.edit', [
+        return \view('Staff.forum.edit', [
             'categories' => $categories,
             'groups'     => $groups,
             'forum'      => $forum,
@@ -140,7 +140,7 @@ class ForumController extends Controller
             }
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
-            if (array_key_exists($group->id, $request->input('permissions'))) {
+            if (\array_key_exists($group->id, $request->input('permissions'))) {
                 $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
                 $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
                 $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
@@ -154,7 +154,7 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff.forums.index')
+        return \redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been edited successfully');
     }
 
@@ -213,7 +213,7 @@ class ForumController extends Controller
             $forum->delete();
         }
 
-        return redirect()->route('staff.forums.index')
+        return \redirect()->route('staff.forums.index')
             ->withSuccess('Forum has been deleted successfully');
     }
 }

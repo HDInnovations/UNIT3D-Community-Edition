@@ -29,7 +29,7 @@ class TypeController extends Controller
     {
         $types = Type::all()->sortBy('position');
 
-        return view('Staff.type.index', ['types' => $types]);
+        return \view('Staff.type.index', ['types' => $types]);
     }
 
     /**
@@ -39,7 +39,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('Staff.type.create');
+        return \view('Staff.type.create');
     }
 
     /**
@@ -56,19 +56,19 @@ class TypeController extends Controller
         $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
-        $v = validator($type->toArray(), [
+        $v = \validator($type->toArray(), [
             'name'     => 'required',
             'slug'     => 'required',
             'position' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.types.index')
+            return \redirect()->route('staff.types.index')
                 ->withErrors($v->errors());
         }
         $type->save();
 
-        return redirect()->route('staff.types.index')
+        return \redirect()->route('staff.types.index')
             ->withSuccess('Type Successfully Added');
     }
 
@@ -83,7 +83,7 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
 
-        return view('Staff.type.edit', ['type' => $type]);
+        return \view('Staff.type.edit', ['type' => $type]);
     }
 
     /**
@@ -101,19 +101,19 @@ class TypeController extends Controller
         $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
-        $v = validator($type->toArray(), [
+        $v = \validator($type->toArray(), [
             'name'     => 'required',
             'slug'     => 'required',
             'position' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.types.index')
+            return \redirect()->route('staff.types.index')
                 ->withErrors($v->errors());
         }
         $type->save();
 
-        return redirect()->route('staff.types.index')
+        return \redirect()->route('staff.types.index')
             ->withSuccess('Type Successfully Modified');
     }
 
@@ -129,7 +129,7 @@ class TypeController extends Controller
         $type = Type::findOrFail($id);
         $type->delete();
 
-        return redirect()->route('staff.types.index')
+        return \redirect()->route('staff.types.index')
             ->withSuccess('Type Successfully Deleted');
     }
 }

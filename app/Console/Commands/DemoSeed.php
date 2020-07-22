@@ -54,7 +54,7 @@ class DemoSeed extends Command
         $this->warn('*** This process could take a few minutes ***');
         $this->warn('Press CTRL + C to abort');
 
-        sleep(5);
+        \sleep(5);
 
         $abort = false;
 
@@ -62,17 +62,17 @@ class DemoSeed extends Command
             // Users
             $this->info('Creating User Account');
 
-            $uid = factory()->create()->id;
+            $uid = \factory()->create()->id;
 
             // random boolean
-            if ([false, true][rand(0, 1)]) {
+            if ([false, true][\rand(0, 1)]) {
                 $r = $this->search($id);
 
                 // Torrents
                 $this->info('Creating Movie Torrents for Account ID #'.$uid);
 
                 try {
-                    factory()->create([
+                    \factory()->create([
                         'user_id'     => $uid,
                         'tmdb'        => $id,
                         'name'        => $r->title.' ('.$r->releaseYear.')',
@@ -227,8 +227,8 @@ Menu
 01:34:15.858                             : en:Who Gets Away?
 01:44:15.249                             : en:End Credits
                         ',
-                        'created_at' => now(),
-                        'updated_at' => now(),
+                        'created_at' => \now(),
+                        'updated_at' => \now(),
                     ]);
                 } catch (Exception $e) {
                     $abort = true;
@@ -265,9 +265,9 @@ Menu
     private function search($id)
     {
         // we delay between api calls to reduce throttling
-        usleep(500_000);
+        \usleep(500_000);
 
-        $movieScrapper = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $movieScrapper = new \App\Services\MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
 
         return $movieScrapper->scrape('movie', null, $id);
     }

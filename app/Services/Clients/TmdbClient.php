@@ -48,7 +48,7 @@ class TmdbClient extends Client implements MovieTvInterface
         $this->validateKeys($keys);
 
         if ($type === 'movie' && isset($keys['imdb'])) {
-            $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.config('app.locale');
+            $url = $this->apiUrl.'find/'.$keys['imdb'].'?api_key='.$this->apiKey.'&external_source=imdb_id&language='.\config('app.locale');
             $results = $this->toArray($this->request($url));
             if (isset($results['movie_results'][0]['id'])) {
                 return $this->movie($results['movie_results'][0]['id']);
@@ -88,7 +88,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
+        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.\config('app.locale');
         $movie = $this->toArray($this->request($url));
 
         if ($type === 'tv') {
@@ -107,7 +107,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl.'person/'.$id.'?append_to_response=movie_credits,tv_credits,external_ids,images&api_key='.$this->apiKey.'&language='.config('app.locale');
+        $url = $this->apiUrl.'person/'.$id.'?append_to_response=movie_credits,tv_credits,external_ids,images&api_key='.$this->apiKey.'&language='.\config('app.locale');
 
         return $this->formatPerson($this->toArray($this->request($url)));
     }
@@ -119,7 +119,7 @@ class TmdbClient extends Client implements MovieTvInterface
      */
     private function formatMovie($movie)
     {
-        if (is_array($movie)) {
+        if (\is_array($movie)) {
             return new Movie([
                 'imdb'         => ! empty($movie['imdb_id']) ? $movie['imdb_id'] : 'Not Defined',
                 'tmdb'         => $movie['id'],
@@ -158,7 +158,7 @@ class TmdbClient extends Client implements MovieTvInterface
 
     private function formatTv($movie)
     {
-        if (is_array($movie)) {
+        if (\is_array($movie)) {
             return new Tv([
                 'tmdb'         => $movie['id'],
                 'imdb'         => ! empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : 'Not Defined',
@@ -228,7 +228,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatCountries($countries, $type = 'movie')
     {
         $movie_countries = [];
-        if ($type == 'movie' && ! is_null($countries)) {
+        if ($type == 'movie' && ! \is_null($countries)) {
             foreach ($countries as $country) {
                 $movie_countries[] = [
                     'code'    => $country['iso_3166_1'],
@@ -237,7 +237,7 @@ class TmdbClient extends Client implements MovieTvInterface
             }
         }
 
-        if ($type == 'tv' && ! is_null($countries)) {
+        if ($type == 'tv' && ! \is_null($countries)) {
             foreach ($countries as $country) {
                 $movie_countries[] = [
                     'code'    => $country,
@@ -252,7 +252,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatLanguages($languages, $type = 'movie')
     {
         $movie_languages = [];
-        if ($type == 'movie' && ! is_null($languages)) {
+        if ($type == 'movie' && ! \is_null($languages)) {
             foreach ($languages as $language) {
                 $movie_languages[] = [
                     'code'     => $language['iso_639_1'],
@@ -260,7 +260,7 @@ class TmdbClient extends Client implements MovieTvInterface
                 ];
             }
         }
-        if ($type == 'tv' && ! is_null($languages)) {
+        if ($type == 'tv' && ! \is_null($languages)) {
             foreach ($languages as $language) {
                 $movie_languages[] = [
                     'code'     => $language,
@@ -275,7 +275,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatGenres($genres)
     {
         $movie_genres = [];
-        if (! is_null($genres)) {
+        if (! \is_null($genres)) {
             foreach ($genres as $genre) {
                 $movie_genres[] = $genre['name'];
             }
@@ -288,11 +288,11 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $akas = [];
 
-        if (! empty($movie['original_title']) && strtolower($movie['original_title']) !== strtolower($movie['title'])) {
+        if (! empty($movie['original_title']) && \strtolower($movie['original_title']) !== \strtolower($movie['title'])) {
             $akas[] = $movie['original_title'];
         }
 
-        if (! empty($movie['original_name']) && strtolower($movie['original_name']) !== strtolower($movie['name'])) {
+        if (! empty($movie['original_name']) && \strtolower($movie['original_name']) !== \strtolower($movie['name'])) {
             $akas[] = $movie['original_name'];
         }
 
@@ -307,16 +307,16 @@ class TmdbClient extends Client implements MovieTvInterface
         }
         if ($alternative_titles) {
             foreach ($alternative_titles as $aka_title) {
-                similar_text($original_title, $aka_title['title'], $percent);
+                \similar_text($original_title, $aka_title['title'], $percent);
                 if ($percent < 95) {
                     $akas[] = $aka_title['title'];
                 }
             }
         }
 
-        if (is_array($akas)) {
-            $akas = array_filter($akas);
-            $akas = array_unique($akas);
+        if (\is_array($akas)) {
+            $akas = \array_filter($akas);
+            $akas = \array_unique($akas);
         }
 
         return $akas;
@@ -335,9 +335,9 @@ class TmdbClient extends Client implements MovieTvInterface
 
     private function formatImages($images, $path, $image)
     {
-        $images = array_map(fn ($item) => $path.$item['file_path'], $images);
+        $images = \array_map(fn ($item) => $path.$item['file_path'], $images);
 
-        return array_filter($images, fn ($item) => ! $item !== ! ($path.$image));
+        return \array_filter($images, fn ($item) => ! $item !== ! ($path.$image));
     }
 
     private function formatCasts($credits, $role)

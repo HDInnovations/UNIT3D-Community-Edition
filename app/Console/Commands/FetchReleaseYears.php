@@ -44,8 +44,8 @@ class FetchReleaseYears extends Command
      */
     public function handle()
     {
-        $movieScrapper = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        $appurl = config('app.url');
+        $movieScrapper = new MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
+        $appurl = \config('app.url');
 
         $torrents = Torrent::withAnyStatus()
             ->with(['category'])
@@ -61,8 +61,8 @@ class FetchReleaseYears extends Command
             ->whereNull('release_year')
             ->count();
 
-        $this->alert(sprintf('%s Torrents Already Have A Release Year Value', $withyear));
-        $this->alert(sprintf('%s Torrents Are Missing A Release Year Value', $withoutyear));
+        $this->alert(\sprintf('%s Torrents Already Have A Release Year Value', $withyear));
+        $this->alert(\sprintf('%s Torrents Are Missing A Release Year Value', $withoutyear));
 
         foreach ($torrents as $torrent) {
             $meta = null;
@@ -76,10 +76,10 @@ class FetchReleaseYears extends Command
                 if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s 
 ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s
                     %s/torrents/%s 
 ', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
@@ -94,10 +94,10 @@ class FetchReleaseYears extends Command
                 if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s 
 ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s
                     %s/torrents/%s 
 ', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
@@ -108,24 +108,24 @@ class FetchReleaseYears extends Command
                     $meta = Game::find($torrent->igdb);
                 }
                 if (isset($meta->first_release_date) && $meta->first_release_date > '1900') {
-                    $torrent->release_year = date('Y', strtotime($meta->first_release_date));
+                    $torrent->release_year = \date('Y', \strtotime($meta->first_release_date));
                     $torrent->save();
-                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s 
 ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s
                     %s/torrents/%s 
 ', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
 
             if ($torrent->category->no_meta || $torrent->category->music_meta) {
-                $this->warn(sprintf('(SKIPPED) %s Is In A Category That Does Not Have Meta. 
+                $this->warn(\sprintf('(SKIPPED) %s Is In A Category That Does Not Have Meta. 
 ', $torrent->name));
             }
 
             // sleep for 1 second
-            sleep(1);
+            \sleep(1);
         }
         $this->comment('Torrent Release Year Command Complete');
     }

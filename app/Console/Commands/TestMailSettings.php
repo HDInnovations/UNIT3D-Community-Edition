@@ -40,10 +40,10 @@ class TestMailSettings extends Command
      */
     public function handle()
     {
-        $owner = config('other.email');
+        $owner = \config('other.email');
 
         $this->info('Sending Test Email To '.$owner);
-        sleep(5);
+        \sleep(5);
 
         try {
             Mail::to($owner)->send(new TestEmail());

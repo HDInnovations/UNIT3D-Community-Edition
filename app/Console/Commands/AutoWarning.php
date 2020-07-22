@@ -44,7 +44,7 @@ class AutoWarning extends Command
      */
     public function handle()
     {
-        if (config('hitrun.enabled') == true) {
+        if (\config('hitrun.enabled') == true) {
             $carbon = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)
@@ -52,12 +52,12 @@ class AutoWarning extends Command
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)
-                ->where('seedtime', '<', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
+                ->where('seedtime', '<', \config('hitrun.seedtime'))
+                ->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())
                 ->get();
 
             foreach ($hitrun as $hr) {
-                if (! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
+                if (! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (\config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $hr->torrent->id)
                         ->where('user_id', '=', $hr->user->id)
@@ -68,8 +68,8 @@ class AutoWarning extends Command
                         $warning->user_id = $hr->user->id;
                         $warning->warned_by = '1';
                         $warning->torrent = $hr->torrent->id;
-                        $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
-                        $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
+                        $warning->reason = \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
+                        $warning->expires_on = $carbon->copy()->addDays(\config('hitrun.expire'));
                         $warning->active = '1';
                         $warning->save();
 

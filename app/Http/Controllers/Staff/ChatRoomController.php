@@ -45,7 +45,7 @@ class ChatRoomController extends Controller
     {
         $chatrooms = $this->chatRepository->rooms();
 
-        return view('Staff.chat.room.index', [
+        return \view('Staff.chat.room.index', [
             'chatrooms'    => $chatrooms,
         ]);
     }
@@ -62,17 +62,17 @@ class ChatRoomController extends Controller
         $chatroom = new Chatroom();
         $chatroom->name = $request->input('name');
 
-        $v = validator($chatroom->toArray(), [
+        $v = \validator($chatroom->toArray(), [
             'name' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.rooms.index')
+            return \redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
         }
         $chatroom->save();
 
-        return redirect()->route('staff.rooms.index')
+        return \redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Added');
     }
 
@@ -89,17 +89,17 @@ class ChatRoomController extends Controller
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->name = $request->input('name');
 
-        $v = validator($chatroom->toArray(), [
+        $v = \validator($chatroom->toArray(), [
             'name' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.rooms.index')
+            return \redirect()->route('staff.rooms.index')
                 ->withErrors($v->errors());
         }
         $chatroom->save();
 
-        return redirect()->route('staff.rooms.index')
+        return \redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Modified');
     }
 
@@ -114,14 +114,14 @@ class ChatRoomController extends Controller
     {
         $chatroom = Chatroom::findOrFail($id);
         $users = User::where('chatroom_id', '=', $id)->get();
-        $default = Chatroom::where('name', '=', config('chat.system_chatroom'))->pluck('id');
+        $default = Chatroom::where('name', '=', \config('chat.system_chatroom'))->pluck('id');
         foreach ($users as $user) {
             $user->chatroom_id = $default[0];
             $user->save();
         }
         $chatroom->delete();
 
-        return redirect()->route('staff.rooms.index')
+        return \redirect()->route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Deleted');
     }
 }

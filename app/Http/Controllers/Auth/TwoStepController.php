@@ -55,14 +55,14 @@ class TwoStepController extends Controller
      */
     private function setUser2StepData()
     {
-        $user = auth()->user();
+        $user = \auth()->user();
         $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
         $authCount = $twoStepAuth->authCount;
         $this->_user = $user;
         $this->_twoStepAuth = $twoStepAuth;
         $this->_authCount = $authCount;
         $this->_authStatus = $twoStepAuth->authStatus;
-        $this->_remainingAttempts = config('auth.TwoStepExceededCount') - $authCount;
+        $this->_remainingAttempts = \config('auth.TwoStepExceededCount') - $authCount;
     }
 
     /**
@@ -78,7 +78,7 @@ class TwoStepController extends Controller
         $this->_twoStepAuth->save();
 
         $returnData = [
-            'message'           => trans('auth.titleFailed'),
+            'message'           => \trans('auth.titleFailed'),
             'authCount'         => $this->_authCount,
             'remainingAttempts' => $this->_remainingAttempts,
         ];
@@ -99,8 +99,8 @@ class TwoStepController extends Controller
      */
     public function showVerification()
     {
-        if (! config('auth.TwoStepEnabled')) {
-            abort(404);
+        if (! \config('auth.TwoStepEnabled')) {
+            \abort(404);
         }
 
         $twoStepAuth = $this->_twoStepAuth;
@@ -115,13 +115,13 @@ class TwoStepController extends Controller
             'remainingAttempts' => $this->_remainingAttempts + 1,
         ];
 
-        if ($this->_authCount > config('auth.TwoStepExceededCount')) {
+        if ($this->_authCount > \config('auth.TwoStepExceededCount')) {
             $exceededTimeDetails = $this->exceededTimeParser($twoStepAuth->updated_at);
 
             $data['timeUntilUnlock'] = $exceededTimeDetails['tomorrow'];
             $data['timeCountdownUnlock'] = $exceededTimeDetails['remaining'];
 
-            return view('auth.twostep-exceeded')->with($data);
+            return \view('auth.twostep-exceeded')->with($data);
         }
 
         $carbon = new Carbon();
@@ -135,7 +135,7 @@ class TwoStepController extends Controller
         if (! $sentTimestamp) {
             $this->sendVerificationCodeNotification($twoStepAuth);
         } else {
-            $timeBuffer = config('laravel2step.laravel2stepTimeResetBufferSeconds');
+            $timeBuffer = \config('laravel2step.laravel2stepTimeResetBufferSeconds');
             $timeAllowedToSendCode = $sentTimestamp->addSeconds($timeBuffer);
             if ($carbon->gt($timeAllowedToSendCode)) {
                 $this->sendVerificationCodeNotification($twoStepAuth);
@@ -144,7 +144,7 @@ class TwoStepController extends Controller
             }
         }
 
-        return view('auth.twostep-verification')->with($data);
+        return \view('auth.twostep-verification')->with($data);
     }
 
     /**
@@ -156,12 +156,12 @@ class TwoStepController extends Controller
      */
     public function verify(Request $request)
     {
-        if (! config('auth.TwoStepEnabled')) {
-            abort(404);
+        if (! \config('auth.TwoStepEnabled')) {
+            \abort(404);
         }
 
         if ($request->ajax()) {
-            $validator = validator($request->all(), [
+            $validator = \validator($request->all(), [
                 'v_input_1' => 'required|min:1|max:1',
                 'v_input_2' => 'required|min:1|max:1',
                 'v_input_3' => 'required|min:1|max:1',
@@ -171,7 +171,7 @@ class TwoStepController extends Controller
             if ($validator->fails()) {
                 $returnData = $this->invalidCodeReturnData($validator->errors());
 
-                return response()->json($returnData, 418);
+                return \response()->json($returnData, 418);
             }
 
             $code = $request->v_input_1.$request->v_input_2.$request->v_input_3.$request->v_input_4;
@@ -180,19 +180,19 @@ class TwoStepController extends Controller
             if ($validCode != $code) {
                 $returnData = $this->invalidCodeReturnData();
 
-                return response()->json($returnData, 418);
+                return \response()->json($returnData, 418);
             }
 
             $this->resetActivationCountdown($this->_twoStepAuth);
 
             $returnData = [
-                'nextUri' => session('nextUri', '/'),
-                'message' => trans('auth.titlePassed'),
+                'nextUri' => \session('nextUri', '/'),
+                'message' => \trans('auth.titlePassed'),
             ];
 
-            return response()->json($returnData, 200);
+            return \response()->json($returnData, 200);
         }
-        abort(404);
+        \abort(404);
     }
 
     /**
@@ -202,18 +202,18 @@ class TwoStepController extends Controller
      */
     public function resend()
     {
-        if (! config('auth.TwoStepEnabled')) {
-            abort(404);
+        if (! \config('auth.TwoStepEnabled')) {
+            \abort(404);
         }
 
         $twoStepAuth = $this->_twoStepAuth;
         $this->sendVerificationCodeNotification($twoStepAuth);
 
         $returnData = [
-            'title'   => trans('auth.verificationEmailSuccess'),
-            'message' => trans('auth.verificationEmailSentMsg'),
+            'title'   => \trans('auth.verificationEmailSuccess'),
+            'message' => \trans('auth.verificationEmailSentMsg'),
         ];
 
-        return response()->json($returnData, 200);
+        return \response()->json($returnData, 200);
     }
 }

@@ -52,7 +52,7 @@ class GraveyardController extends Controller
         $repository = $this->torrentFacetedRepository;
         $deadcount = Torrent::where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
 
-        return view('graveyard.index', [
+        return \view('graveyard.index', [
             'user'       => $user,
             'torrents'   => $torrents,
             'repository' => $repository,
@@ -76,14 +76,14 @@ class GraveyardController extends Controller
         $user = $request->user();
         $search = $request->input('search');
         $imdb_id = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
-        $imdb = str_replace('tt', '', $imdb_id);
+        $imdb = \str_replace('tt', '', $imdb_id);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
         $categories = $request->input('categories');
         $types = $request->input('types');
 
-        $terms = explode(' ', $search);
+        $terms = \explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
             $search .= '%'.$term.'%';
@@ -96,7 +96,7 @@ class GraveyardController extends Controller
         }
 
         if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrent->where('imdb', '=', str_replace('tt', '', $imdb));
+            $torrent->where('imdb', '=', \str_replace('tt', '', $imdb));
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
@@ -132,7 +132,7 @@ class GraveyardController extends Controller
             $torrents = $torrent->paginate(25);
         }
 
-        return view('graveyard.results', [
+        return \view('graveyard.results', [
             'user'     => $user,
             'torrents' => $torrents,
         ])->render();
@@ -153,12 +153,12 @@ class GraveyardController extends Controller
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
         if ($resurrected) {
-            return redirect()->route('graveyard.index')
+            return \redirect()->route('graveyard.index')
                 ->withErrors('Torrent Resurrection Failed! This torrent is already pending a resurrection.');
         }
 
         if ($user->id === $torrent->user_id) {
-            return redirect()->route('graveyard.index')
+            return \redirect()->route('graveyard.index')
                 ->withErrors('Torrent Resurrection Failed! You cannot resurrect your own uploads.');
         }
 
@@ -167,19 +167,19 @@ class GraveyardController extends Controller
         $graveyard->torrent_id = $torrent->id;
         $graveyard->seedtime = $request->input('seedtime');
 
-        $v = validator($graveyard->toArray(), [
+        $v = \validator($graveyard->toArray(), [
             'user_id'    => 'required',
             'torrent_id' => 'required',
             'seedtime'   => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('graveyard.index')
+            return \redirect()->route('graveyard.index')
                 ->withErrors($v->errors());
         }
         $graveyard->save();
 
-        return redirect()->route('graveyard.index')
+        return \redirect()->route('graveyard.index')
             ->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
     }
 
@@ -196,10 +196,10 @@ class GraveyardController extends Controller
         $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);
 
-        abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
+        \abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
 
-        return redirect()->route('graveyard.index')
+        return \redirect()->route('graveyard.index')
             ->withSuccess('Resurrection Successfully Canceled!');
     }
 }

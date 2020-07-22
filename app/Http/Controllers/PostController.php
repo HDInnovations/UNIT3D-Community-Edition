@@ -72,7 +72,7 @@ class PostController extends Controller
 
         // The user has the right to create a post here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
-            return redirect()->route('forums.index')
+            return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
 
@@ -81,23 +81,23 @@ class PostController extends Controller
         $post->user_id = $user->id;
         $post->topic_id = $topic->id;
 
-        $v = validator($post->toArray(), [
+        $v = \validator($post->toArray(), [
             'content'  => 'required|min:1',
             'user_id'  => 'required',
             'topic_id' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('forum_topic', ['id' => $topic->id])
+            return \redirect()->route('forum_topic', ['id' => $topic->id])
                 ->withErrors($v->errors());
         }
         $post->save();
-        $appurl = config('app.url');
-        $href = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
-        $message = sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
+        $appurl = \config('app.url');
+        $href = \sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+        $message = \sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                $users = collect([]);
+                $users = \collect([]);
 
                 $topic->posts()->get()->each(function ($p) use ($users) {
                     $users->push($p->user);
@@ -142,15 +142,15 @@ class PostController extends Controller
         // Save
         $forum->save();
         // Post To Chatbox
-        $appurl = config('app.url');
-        $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
-        $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
-        $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
+        $appurl = \config('app.url');
+        $postUrl = \sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+        $realUrl = \sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
+        $profileUrl = \sprintf('%s/users/%s', $appurl, $user->username);
 
-        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
+        if (\config('other.staff-forum-notify') && ($forum->id == \config('other.staff-forum-id') || $forum->parent_id == \config('other.staff-forum-id'))) {
             $topic->notifyStaffers($user, $topic, $post);
         } else {
-            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);
@@ -171,7 +171,7 @@ class PostController extends Controller
         $user->addProgress(new UserMade800Posts(), 1);
         $user->addProgress(new UserMade900Posts(), 1);
 
-        return redirect()->to($realUrl)
+        return \redirect()->to($realUrl)
             ->withSuccess('Post Successfully Posted');
     }
 
@@ -190,7 +190,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
         $post = Post::findOrFail($postId);
 
-        return view('forum.post_edit', [
+        return \view('forum.post_edit', [
             'topic'    => $topic,
             'forum'    => $forum,
             'post'     => $post,
@@ -210,13 +210,13 @@ class PostController extends Controller
     {
         $user = $request->user();
         $post = Post::findOrFail($postId);
-        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
+        $postUrl = \sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
-        abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->content = $request->input('content');
         $post->save();
 
-        return redirect()->to($postUrl)
+        return \redirect()->to($postUrl)
             ->withSuccess('Post Successfully Edited!');
     }
 
@@ -235,10 +235,10 @@ class PostController extends Controller
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);
 
-        abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->delete();
 
-        return redirect()->route('forum_topic', ['id' => $post->topic->id])
+        return \redirect()->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('This Post Is Now Deleted!');
     }
 }

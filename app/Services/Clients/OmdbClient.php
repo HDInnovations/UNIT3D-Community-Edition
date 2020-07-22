@@ -36,7 +36,7 @@ class OmdbClient extends Client implements MovieTvInterface
 
         $result = $this->toArray($this->request($url));
         if (isset($result['Response']) && $result['Response'] == 'True') {
-            return array_map(function ($value) {
+            return \array_map(function ($value) {
                 if ($value == 'N/A') {
                     return;
                 }
@@ -63,7 +63,7 @@ class OmdbClient extends Client implements MovieTvInterface
 
     private function formatMovie($movie, $type = 'movie')
     {
-        if (is_array($movie) && $movie['Type'] != $type) {
+        if (\is_array($movie) && $movie['Type'] != $type) {
             return ($type == 'movie') ? new Movie([]) : new Tv([]);
         }
 
@@ -80,7 +80,7 @@ class OmdbClient extends Client implements MovieTvInterface
             'wikiUrl'      => null,
             'rated'        => $movie['Rated'],
             'imdbRating'   => $movie['imdbRating'],
-            'imdbVotes'    => str_replace(',', '', $movie['imdbVotes']),
+            'imdbVotes'    => \str_replace(',', '', $movie['imdbVotes']),
         ];
 
         return ($type == 'movie') ? new Movie($data) : new Tv($data);
@@ -90,11 +90,11 @@ class OmdbClient extends Client implements MovieTvInterface
     {
         $movie_languages = [];
         if (! empty($languages)) {
-            $languages = explode(',', $languages);
+            $languages = \explode(',', $languages);
             foreach ($languages as $language) {
                 $movie_languages[] = [
                     'code'     => null,
-                    'language' => trim($language),
+                    'language' => \trim($language),
                 ];
             }
         }
@@ -106,9 +106,9 @@ class OmdbClient extends Client implements MovieTvInterface
     {
         $movie_genres = [];
         if (! empty($genres)) {
-            $genres = explode(',', $genres);
+            $genres = \explode(',', $genres);
             foreach ($genres as $genre) {
-                $movie_genres[] = trim($genre);
+                $movie_genres[] = \trim($genre);
             }
         }
 
@@ -117,6 +117,6 @@ class OmdbClient extends Client implements MovieTvInterface
 
     private function resizePoster($poster)
     {
-        return str_replace('SX300', 'SX780', $poster);
+        return \str_replace('SX300', 'SX780', $poster);
     }
 }

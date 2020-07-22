@@ -28,7 +28,7 @@ class ForgotPasswordController extends Controller
 
     protected function validateEmail(Request $request)
     {
-        if (config('captcha.enabled') == false) {
+        if (\config('captcha.enabled') == false) {
             $request->validate(['email' => 'required|email']);
         } else {
             $request->validate([

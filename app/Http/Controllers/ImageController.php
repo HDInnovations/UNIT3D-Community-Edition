@@ -30,7 +30,7 @@ class ImageController extends Controller
     {
         $album = Album::find($id);
 
-        return view('album.image', ['album' => $album]);
+        return \view('album.image', ['album' => $album]);
     }
 
     /**
@@ -49,14 +49,14 @@ class ImageController extends Controller
         $image->type = $request->input('type');
 
         $file = $request->file('image');
-        $random_name = uniqid();
-        $destinationPath = public_path('/files/img/');
+        $random_name = \uniqid();
+        $destinationPath = \public_path('/files/img/');
         $clientOriginalExtension = $file->getClientOriginalExtension();
         $filename = 'album-image_'.$random_name.'.'.$clientOriginalExtension;
         $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
         $image->image = $filename;
 
-        $v = validator($image->toArray(), [
+        $v = \validator($image->toArray(), [
             'album_id'    => 'required|numeric|exists:albums,id',
             'user_id'     => 'required',
             'description' => 'required',
@@ -65,12 +65,12 @@ class ImageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('images.create', ['id' => $request->input('album_id')])
+            return \redirect()->route('images.create', ['id' => $request->input('album_id')])
                 ->withErrors($v->errors());
         }
         $image->save();
 
-        return redirect()->route('albums.show', ['id' => $request->input('album_id')])
+        return \redirect()->route('albums.show', ['id' => $request->input('album_id')])
             ->withSuccess('Your image has successfully published!');
     }
 
@@ -86,15 +86,15 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
         $filename = $image->image;
 
-        if (! file_exists(getcwd().'/files/img/'.$filename)) {
-            return redirect()->route('show_album', ['id' => $image->album_id])
+        if (! \file_exists(\getcwd().'/files/img/'.$filename)) {
+            return \redirect()->route('show_album', ['id' => $image->album_id])
                 ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
 
         $image->downloads++;
         $image->save();
 
-        return response()->download(getcwd().'/files/img/'.$filename);
+        return \response()->download(\getcwd().'/files/img/'.$filename);
     }
 
     /**
@@ -110,10 +110,10 @@ class ImageController extends Controller
         $user = $request->user();
         $image = Image::findOrFail($id);
 
-        abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
+        \abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
         $image->delete();
 
-        return redirect()->route('albums.show', ['id' => $image->album_id])
+        return \redirect()->route('albums.show', ['id' => $image->album_id])
             ->withSuccess('Image has successfully been deleted');
     }
 }

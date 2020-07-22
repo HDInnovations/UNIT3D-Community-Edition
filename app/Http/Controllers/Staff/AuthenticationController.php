@@ -27,6 +27,6 @@ class AuthenticationController extends Controller
     {
         $attempts = FailedLoginAttempt::latest()->paginate(25);
 
-        return view('Staff.authentication.index', ['attempts' => $attempts]);
+        return \view('Staff.authentication.index', ['attempts' => $attempts]);
     }
 }

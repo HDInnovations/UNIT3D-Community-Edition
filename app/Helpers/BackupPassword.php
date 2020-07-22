@@ -43,25 +43,25 @@ class BackupPassword
      */
     public function __construct(BackupEncryption $backupEncryption, string $path)
     {
-        $this->password = config('backup.security.password');
+        $this->password = \config('backup.security.password');
 
         if (! $this->password) {
             return $this->path = $path;
         }
 
         // If ZipArchive is enabled
-        if (class_exists('ZipArchive') && in_array('setEncryptionIndex', get_class_methods('ZipArchive'))) {
-            consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
+        if (\class_exists('ZipArchive') && \in_array('setEncryptionIndex', \get_class_methods('ZipArchive'))) {
+            \consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
             $this->makeZipArchive($backupEncryption, $path);
         }
 
         // Fall back on PHP-driven ZipFile
         else {
-            consoleOutput()->info('Applying password and encryption to zip using ZipFile...');
+            \consoleOutput()->info('Applying password and encryption to zip using ZipFile...');
             $this->makeZipFile($backupEncryption, $path);
         }
 
-        consoleOutput()->info('Successfully applied password and encryption to zip.');
+        \consoleOutput()->info('Successfully applied password and encryption to zip.');
     }
 
     /**
@@ -77,7 +77,7 @@ class BackupPassword
     protected function makeZipArchive(BackupEncryption $backupEncryption, string $path): void
     {
         $encryptionConstant = $backupEncryption->getEncryptionConstant(
-            config('backup.security.encryption'),
+            \config('backup.security.encryption'),
             'ZipArchive'
         );
 
@@ -106,7 +106,7 @@ class BackupPassword
     protected function makeZipFile(BackupEncryption $backupEncryption, string $path): void
     {
         $encryptionConstant = $backupEncryption->getEncryptionConstant(
-            config('backup.security.encryption'),
+            \config('backup.security.encryption'),
             'ZipFile'
         );
 

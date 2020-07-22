@@ -43,21 +43,21 @@ class MangaUpdatesClient extends Client implements MangaInterface
         $data = [];
         $data['description'] = $crawler->filter('.sContainer .sContent')->first()->html();
 
-        preg_match(
+        \preg_match(
             '#(?:class\=\"sCat\"\>\<b\>Associated Names\<\/b\>\<\/div\>)+\n?(?:\<div class\=\"sContent\" \>)(.+)(?:\n?+\<\/div\>)#i',
             $webpage,
             $aka_titles
         );
-        $aka_titles = explode('<br />', $aka_titles[1]);
-        $data['aka_titles'] = array_filter($aka_titles, 'html_entity_decode');
+        $aka_titles = \explode('<br />', $aka_titles[1]);
+        $data['aka_titles'] = \array_filter($aka_titles, 'html_entity_decode');
 
-        preg_match(
+        \preg_match(
             '#(?:class\=\"sCat\"\>\<b\>Genre\<\/b\>\<\/div\>)+\n?(?:\<div class\=\"sContent\" \>)(.+)(?:\n?+\<\/div\>)#i',
             $webpage,
             $genre_block
         );
-        preg_match_all('#series\.html\?act\=genresearch\&amp\;genre\=([\w-+]+)#i', $genre_block[1], $genres);
-        $data['genres'] = array_filter($genres[1], 'urldecode');
+        \preg_match_all('#series\.html\?act\=genresearch\&amp\;genre\=([\w-+]+)#i', $genre_block[1], $genres);
+        $data['genres'] = \array_filter($genres[1], 'urldecode');
 
         return $data;
     }

@@ -75,14 +75,14 @@ class AutoGraveyard extends Command
                 $reward->rewarded = 1;
                 $reward->save();
 
-                $user->fl_tokens += config('graveyard.reward');
+                $user->fl_tokens += \config('graveyard.reward');
                 $user->save();
 
                 // Auto Shout
-                $appurl = config('app.url');
+                $appurl = \config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
                 );
 
                 // Send Private Message
@@ -90,7 +90,7 @@ class AutoGraveyard extends Command
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user->id;
                 $pm->subject = 'Successful Graveyard Resurrection';
-                $pm->message = sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
+                $pm->message = \sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }

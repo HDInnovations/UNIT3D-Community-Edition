@@ -30,7 +30,7 @@ class ArticleController extends Controller
     {
         $articles = Article::latest()->paginate(25);
 
-        return view('Staff.article.index', ['articles' => $articles]);
+        return \view('Staff.article.index', ['articles' => $articles]);
     }
 
     /**
@@ -40,7 +40,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('Staff.article.create');
+        return \view('Staff.article.create');
     }
 
     /**
@@ -60,8 +60,8 @@ class ArticleController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'article-'.uniqid().'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $filename = 'article-'.\uniqid().'.'.$image->getClientOriginalExtension();
+            $path = \public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
             $article->image = $filename;
         } else {
@@ -69,7 +69,7 @@ class ArticleController extends Controller
             $article->image = null;
         }
 
-        $v = validator($article->toArray(), [
+        $v = \validator($article->toArray(), [
             'title'   => 'required',
             'slug'    => 'required',
             'content' => 'required|min:20',
@@ -77,12 +77,12 @@ class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.articles.index')
+            return \redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
         }
         $article->save();
 
-        return redirect()->route('staff.articles.index')
+        return \redirect()->route('staff.articles.index')
             ->withSuccess('Your article has successfully published!');
     }
 
@@ -97,7 +97,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        return view('Staff.article.edit', ['article' => $article]);
+        return \view('Staff.article.edit', ['article' => $article]);
     }
 
     /**
@@ -117,8 +117,8 @@ class ArticleController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'article-'.uniqid().'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $filename = 'article-'.\uniqid().'.'.$image->getClientOriginalExtension();
+            $path = \public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
             $article->image = $filename;
         } else {
@@ -126,19 +126,19 @@ class ArticleController extends Controller
             $article->image = null;
         }
 
-        $v = validator($article->toArray(), [
+        $v = \validator($article->toArray(), [
             'title'   => 'required',
             'slug'    => 'required',
             'content' => 'required|min:20',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.articles.index')
+            return \redirect()->route('staff.articles.index')
                 ->withErrors($v->errors());
         }
         $article->save();
 
-        return redirect()->route('staff.articles.index')
+        return \redirect()->route('staff.articles.index')
             ->withSuccess('Your article changes have successfully published!');
     }
 
@@ -154,7 +154,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $article->delete();
 
-        return redirect()->route('staff.articles.index')
+        return \redirect()->route('staff.articles.index')
             ->withSuccess('Article has successfully been deleted');
     }
 }

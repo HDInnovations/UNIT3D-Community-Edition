@@ -65,7 +65,7 @@ class TaggedUserRepository
      */
     public function getTags($content)
     {
-        preg_match_all($this->regex, $content, $tagged);
+        \preg_match_all($this->regex, $content, $tagged);
 
         return $tagged[0];
     }
@@ -88,13 +88,13 @@ class TaggedUserRepository
      */
     public function contains($haystack, $needle)
     {
-        return collect($this->getTags($haystack))->contains($needle);
+        return \collect($this->getTags($haystack))->contains($needle);
     }
 
     public function messageTaggedCommentUsers(string $type, string $content, User $user, $alias, Comment $comment)
     {
         foreach ($this->getTags($content) as $username) {
-            $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
+            $tagged_user = $this->user->where('username', \str_replace('@', '', $username))->first();
             $this->messageCommentUsers($type, $tagged_user, $user, $alias, $comment);
         }
 
@@ -104,9 +104,9 @@ class TaggedUserRepository
     public function messageCommentUsers($type, $users, $sender, $alias, Comment $comment)
     {
         // Array of User objects
-        if (is_iterable($users)) {
+        if (\is_iterable($users)) {
             // we only want unique users from the collection
-            $users = is_array($users) ? collect($users)->unique() : $users->unique();
+            $users = \is_array($users) ? \collect($users)->unique() : $users->unique();
 
             foreach ($users as $user) {
                 if ($this->validate($user) && $user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_comment')) {
@@ -129,7 +129,7 @@ class TaggedUserRepository
     public function messageTaggedPostUsers(string $type, string $content, User $user, $alias, Post $post)
     {
         foreach ($this->getTags($content) as $username) {
-            $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
+            $tagged_user = $this->user->where('username', \str_replace('@', '', $username))->first();
             $this->messagePostUsers($type, $tagged_user, $user, $alias, $post);
         }
 
@@ -139,9 +139,9 @@ class TaggedUserRepository
     public function messagePostUsers($type, $users, $sender, $alias, Post $post)
     {
         // Array of User objects
-        if (is_iterable($users)) {
+        if (\is_iterable($users)) {
             // we only want unique users from the collection
-            $users = is_array($users) ? collect($users)->unique() : $users->unique();
+            $users = \is_array($users) ? \collect($users)->unique() : $users->unique();
 
             foreach ($users as $user) {
                 if ($this->validate($user) && $user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_post')) {
@@ -178,6 +178,6 @@ class TaggedUserRepository
 
     protected function validate($user)
     {
-        return is_object($user);
+        return \is_object($user);
     }
 }

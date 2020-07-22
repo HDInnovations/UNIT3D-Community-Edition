@@ -63,7 +63,7 @@ class NewUnfollow extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         return [
             'title' => $this->sender->username.' Has Unfollowed You!',

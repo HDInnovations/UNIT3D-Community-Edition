@@ -28,11 +28,11 @@ class LanguageController extends Controller
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
-            $locale = config('app.locale');
+            $locale = \config('app.locale');
         }
 
-        if (auth()->check()) {
-            auth()->user()->setAttribute('locale', $locale)->save();
+        if (\auth()->check()) {
+            \auth()->user()->setAttribute('locale', $locale)->save();
         } else {
             $request->session()->put('locale', $locale);
         }
@@ -50,9 +50,9 @@ class LanguageController extends Controller
     {
         $this->setLocale($locale, $request);
 
-        $url = config('language.url') ? url('/'.$locale) : url('/');
+        $url = \config('language.url') ? \url('/'.$locale) : \url('/');
 
-        return redirect($url)
+        return \redirect($url)
             ->withSuccess('Language Changed!');
     }
 
@@ -69,18 +69,18 @@ class LanguageController extends Controller
         $this->setLocale($locale, $request);
 
         $session = $request->session();
-        if (config('language.url')) {
-            $previous_url = substr(str_replace(env('APP_URL'), '', $session->previousUrl()), 7);
-            if (strlen($previous_url) === 3) {
-                $previous_url = substr($previous_url, 3);
+        if (\config('language.url')) {
+            $previous_url = \substr(\str_replace(\env('APP_URL'), '', $session->previousUrl()), 7);
+            if (\strlen($previous_url) === 3) {
+                $previous_url = \substr($previous_url, 3);
             } else {
-                $previous_url = substr($previous_url, strrpos($previous_url, '/') + 1);
+                $previous_url = \substr($previous_url, \strrpos($previous_url, '/') + 1);
             }
-            $url = rtrim(env('APP_URL'), '/').'/'.$locale.'/'.ltrim($previous_url, '/');
+            $url = \rtrim(\env('APP_URL'), '/').'/'.$locale.'/'.\ltrim($previous_url, '/');
             $session->setPreviousUrl($url);
         }
 
-        return redirect($session->previousUrl())
+        return \redirect($session->previousUrl())
             ->withSuccess('Language Changed!');
     }
 }

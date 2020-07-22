@@ -44,7 +44,7 @@ class FetchGenres extends Command
      */
     public function handle()
     {
-        $movieScrapper = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $movieScrapper = new MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
 
         $torrents = Torrent::withAnyStatus()
             ->select(['id', 'category_id', 'imdb', 'tmdb'])
@@ -76,7 +76,7 @@ class FetchGenres extends Command
             }
 
             // sleep for 1 second
-            sleep(1);
+            \sleep(1);
         }
         $this->comment('Torrent Genres Command Complete');
     }

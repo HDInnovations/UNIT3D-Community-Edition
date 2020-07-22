@@ -63,12 +63,12 @@ class NewRequestClaim extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         return [
             'title' => $this->sender.' Has Claimed One Of Your Requested Torrents',
             'body'  => $this->sender.' has claimed your Requested Torrent '.$this->tr->name,
-            'url'   => sprintf('/requests/%s', $this->tr->id),
+            'url'   => \sprintf('/requests/%s', $this->tr->id),
         ];
     }
 }

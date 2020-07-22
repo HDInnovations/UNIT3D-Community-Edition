@@ -28,7 +28,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        return view('auth.application.create');
+        return \view('auth.application.create');
     }
 
     /**
@@ -40,14 +40,14 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        $application = resolve(Application::class);
+        $application = \resolve(Application::class);
         $application->type = $request->input('type');
         $application->email = $request->input('email');
         $application->referrer = $request->input('referrer');
 
-        if (config('email-blacklist.enabled') == true) {
-            if (config('captcha.enabled') == false) {
-                $v = validator($request->all(), [
+        if (\config('email-blacklist.enabled') == true) {
+            if (\config('captcha.enabled') == false) {
+                $v = \validator($request->all(), [
                     'type'     => 'required',
                     'email'    => 'required|string|email|max:70|blacklist|unique:invites|unique:users|unique:applications',
                     'referrer' => 'required',
@@ -57,7 +57,7 @@ class ApplicationController extends Controller
                     'links'    => 'min:2',
                 ]);
             } else {
-                $v = validator($request->all(), [
+                $v = \validator($request->all(), [
                     'type'     => 'required',
                     'email'    => 'required|string|email|max:70|blacklist|unique:invites|unique:users|unique:applications',
                     'referrer' => 'required',
@@ -68,8 +68,8 @@ class ApplicationController extends Controller
                     'captcha'  => 'hiddencaptcha',
                 ]);
             }
-        } elseif (config('captcha.enabled') == false) {
-            $v = validator($request->all(), [
+        } elseif (\config('captcha.enabled') == false) {
+            $v = \validator($request->all(), [
                 'type'     => 'required',
                 'email'    => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
                 'referrer' => 'required',
@@ -79,7 +79,7 @@ class ApplicationController extends Controller
                 'links'    => 'min:2',
             ]);
         } else {
-            $v = validator($request->all(), [
+            $v = \validator($request->all(), [
                 'type'     => 'required',
                 'email'    => 'required|string|email|max:70|unique:invites|unique:users|unique:applications',
                 'referrer' => 'required',
@@ -92,18 +92,18 @@ class ApplicationController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('application.create')
+            return \redirect()->route('application.create')
                 ->withErrors($v->errors());
         }
         $application->save();
         // Map And Save IMG Proofs
-        $imgs = collect($request->input('images'))->map(fn ($value) => new ApplicationImageProof(['image' => $value]));
+        $imgs = \collect($request->input('images'))->map(fn ($value) => new ApplicationImageProof(['image' => $value]));
         $application->imageProofs()->saveMany($imgs);
         // Map And Save URL Proofs
-        $urls = collect($request->input('links'))->map(fn ($value) => new ApplicationUrlProof(['url' => $value]));
+        $urls = \collect($request->input('links'))->map(fn ($value) => new ApplicationUrlProof(['url' => $value]));
         $application->urlProofs()->saveMany($urls);
 
-        return redirect()->route('login')
-            ->withSuccess(trans('auth.application-submitted'));
+        return \redirect()->route('login')
+            ->withSuccess(\trans('auth.application-submitted'));
     }
 }

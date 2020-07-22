@@ -26,6 +26,6 @@ trait UsersOnlineTrait
             return false;
         }
 
-        return $this->last_action->gt(now()->subMinutes(5));
+        return $this->last_action->gt(\now()->subMinutes(5));
     }
 }

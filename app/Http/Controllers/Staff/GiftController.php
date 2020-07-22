@@ -27,7 +27,7 @@ class GiftController extends Controller
      */
     public function index()
     {
-        return view('Staff.gift.index');
+        return \view('Staff.gift.index');
     }
 
     /**
@@ -46,7 +46,7 @@ class GiftController extends Controller
         $invites = $request->input('invites');
         $fl_tokens = $request->input('fl_tokens');
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'username'  => 'required|exists:users,username|max:180',
             'seedbonus' => 'required|numeric|min:0',
             'invites'   => 'required|numeric|min:0',
@@ -54,12 +54,12 @@ class GiftController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.gifts.index')
+            return \redirect()->route('staff.gifts.index')
                 ->withErrors($v->errors());
         }
         $recipient = User::where('username', '=', $username)->first();
         if (! $recipient) {
-            return redirect()->route('staff.gifts.index')
+            return \redirect()->route('staff.gifts.index')
                 ->withErrors('Unable To Find Specified User');
         }
         $recipient->seedbonus += $seedbonus;
@@ -71,11 +71,11 @@ class GiftController extends Controller
         $privateMessage->sender_id = 1;
         $privateMessage->receiver_id = $recipient->id;
         $privateMessage->subject = 'You Have Received A System Generated Gift';
-        $privateMessage->message = sprintf('We just wanted to let you know that staff member, %s, has credited your account with %s Bonus Points, %s Invites and %s Freeleech Tokens.
+        $privateMessage->message = \sprintf('We just wanted to let you know that staff member, %s, has credited your account with %s Bonus Points, %s Invites and %s Freeleech Tokens.
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $staff->username, $seedbonus, $invites, $fl_tokens);
         $privateMessage->save();
 
-        return redirect()->route('staff.gifts.index')
+        return \redirect()->route('staff.gifts.index')
             ->withSuccess('Gift Sent');
     }
 }

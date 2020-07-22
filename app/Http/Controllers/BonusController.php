@@ -76,7 +76,7 @@ class BonusController extends Controller
         $gifts_sent = BonTransactions::where('sender', '=', $user->id)->where('name', '=', 'gift')->sum('cost');
         $gifts_received = BonTransactions::where('receiver', '=', $user->id)->where('name', '=', 'gift')->sum('cost');
 
-        return view('bonus.gifts', [
+        return \view('bonus.gifts', [
             'user'              => $user,
             'gifttransactions'  => $gifttransactions,
             'userbon'           => $userbon,
@@ -103,7 +103,7 @@ class BonusController extends Controller
         $tips_sent = BonTransactions::where('sender', '=', $user->id)->where('name', '=', 'tip')->sum('cost');
         $tips_received = BonTransactions::where('receiver', '=', $user->id)->where('name', '=', 'tip')->sum('cost');
 
-        return view('bonus.tips', [
+        return \view('bonus.tips', [
             'user'              => $user,
             'bontransactions'   => $bontransactions,
             'userbon'           => $userbon,
@@ -131,7 +131,7 @@ class BonusController extends Controller
         $personalFreeleech = $BonExchange->getPersonalFreeleechOption();
         $invite = $BonExchange->getInviteOption();
 
-        return view('bonus.store', [
+        return \view('bonus.store', [
             'userbon'           => $userbon,
             'activefl'          => $activefl,
             'bontransactions'   => $bontransactions,
@@ -154,7 +154,7 @@ class BonusController extends Controller
         $user = $request->user();
         $userbon = $user->getSeedbonus();
 
-        return view('bonus.gift', [
+        return \view('bonus.gift', [
             'userbon'           => $userbon,
         ]);
     }
@@ -208,7 +208,7 @@ class BonusController extends Controller
         $minute = $total / 60;
         $second = $minute / 60;
 
-        return view('bonus.index', [
+        return \view('bonus.index', [
             'userbon'           => $userbon,
             'dying'             => $dying,
             'legendary'         => $legendary,
@@ -245,25 +245,25 @@ class BonusController extends Controller
         $user = $request->user();
         $userbon = $user->seedbonus;
 
-        $BonExchange = resolve(BonExchange::class);
+        $BonExchange = \resolve(BonExchange::class);
         $itemCost = $BonExchange->getItemCost($id);
 
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
             if ($flag === '') {
-                return redirect()->route('bonus_store')
+                return \redirect()->route('bonus_store')
                     ->withErrors('Bonus Exchange Failed!');
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return redirect()->route('bonus_store')
+            return \redirect()->route('bonus_store')
                 ->withErrors('Bonus Exchange Failed!');
         }
 
-        return redirect()->route('bonus_store')
+        return \redirect()->route('bonus_store')
             ->withSuccess('Bonus Exchange Successful');
     }
 
@@ -282,7 +282,7 @@ class BonusController extends Controller
 
         $user_acc = User::findOrFail($userID);
         $activefl = PersonalFreeleech::where('user_id', '=', $user_acc->id)->first();
-        $bon_transactions = resolve(BonTransactions::class);
+        $bon_transactions = \resolve(BonTransactions::class);
 
         if ($item['upload'] == true) {
             $user_acc->uploaded += $item['value'];
@@ -305,7 +305,7 @@ class BonusController extends Controller
                 $privateMessage->sender_id = 1;
                 $privateMessage->receiver_id = $user_acc->id;
                 $privateMessage->subject = 'Personal 24 Hour Freeleech Activated';
-                $privateMessage->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
+                $privateMessage->message = \sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).\config('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $privateMessage->save();
             } else {
@@ -341,9 +341,9 @@ class BonusController extends Controller
     {
         $user = $request->user();
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'to_username'   => 'required|exists:users,username|max:180',
-            'bonus_points'  => sprintf('required|numeric|min:1|max:%s', $user->seedbonus),
+            'bonus_points'  => \sprintf('required|numeric|min:1|max:%s', $user->seedbonus),
             'bonus_message' => 'required|string',
         ]);
 
@@ -356,7 +356,7 @@ class BonusController extends Controller
             $recipient = User::where('username', '=', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
-                return redirect()->route('bonus_store')
+                return \redirect()->route('bonus_store')
                     ->withErrors('Unable to find specified user');
             }
 
@@ -381,42 +381,42 @@ class BonusController extends Controller
                 $recipient->notify(new NewBon('gift', $user->username, $bonTransactions));
             }
 
-            $profile_url = href_profile($user);
-            $recipient_url = href_profile($recipient);
+            $profile_url = \href_profile($user);
+            $recipient_url = \href_profile($recipient);
 
             $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)
+                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)
             );
 
             if ($dest == 'profile') {
-                return redirect()->route('users.show', ['username' => $recipient->username])
+                return \redirect()->route('users.show', ['username' => $recipient->username])
                     ->withSuccess('Gift Sent');
             }
 
-            return redirect()->route('bonus_gift')
+            return \redirect()->route('bonus_gift')
                 ->withSuccess('Gift Sent');
         }
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'to_username' => 'required|exists:users,username|max:180',
         ]);
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
-                return redirect()->route('bonus_store')
+                return \redirect()->route('bonus_store')
                     ->withErrors('Unable to find specified user');
             }
 
             if ($dest == 'profile') {
-                return redirect()->route('users.show', ['username' => $recipient->username])
+                return \redirect()->route('users.show', ['username' => $recipient->username])
                     ->withErrors('You Must Enter An Amount And Message!');
             }
 
-            return redirect()->route('bonus_gift')
+            return \redirect()->route('bonus_gift')
                 ->withErrors('You Must Enter An Amount And Message!');
         }
 
-        return redirect()->route('bonus_store')
+        return \redirect()->route('bonus_store')
             ->withErrors('Unable to find specified user');
     }
 
@@ -436,15 +436,15 @@ class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Your To Broke To Tip The Uploader!');
         }
         if ($user->id == $torrent->user_id) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $uploader->seedbonus += $tip_amount;
@@ -467,7 +467,7 @@ class BonusController extends Controller
             $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
         }
 
-        return redirect()->route('torrent', ['id' => $torrent->id])
+        return \redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 
@@ -486,20 +486,20 @@ class BonusController extends Controller
             $post = Post::with('topic')->findOrFail($request->input('post'));
             $poster = User::where('id', '=', $post->user_id)->firstOrFail();
         } else {
-            abort(404);
+            \abort(404);
         }
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Are To Broke To Tip The Poster!');
         }
         if ($user->id == $poster->id) {
-            return redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip Yourself!');
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('forum_topic', ['id' => $post->topic->id])
+            return \redirect()->route('forum_topic', ['id' => $post->topic->id])
                 ->withErrors('You Cannot Tip A Negative Amount!');
         }
         $poster->seedbonus += $tip_amount;
@@ -520,7 +520,7 @@ class BonusController extends Controller
 
         $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 
-        return redirect()->route('forum_topic', ['id' => $post->topic->id])
+        return \redirect()->route('forum_topic', ['id' => $post->topic->id])
             ->withSuccess('Your Tip Was Successfully Applied!');
     }
 

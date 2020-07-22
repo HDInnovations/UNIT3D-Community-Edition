@@ -27,22 +27,22 @@ class LanguageCensor
 
     protected static function isSpecial($c)
     {
-        return strpos(self::SPECIAL_CHARS, $c) !== false;
+        return \strpos(self::SPECIAL_CHARS, $c) !== false;
     }
 
     protected static function matchWordIndexes($string, $word)
     {
         $result = [];
-        $length = strlen($word);
-        $string_length = strlen($string);
-        $pos = stripos($string, $word, 0);
+        $length = \strlen($word);
+        $string_length = \strlen($string);
+        $pos = \stripos($string, $word, 0);
         while ($pos !== false) {
             $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
             $last = ($pos + $length) < $string_length ? $string[$pos + $length] : ' ';
             if (self::isSpecial($prev) && self::isSpecial($last)) {
                 $result[] = $pos;
             }
-            $pos = stripos($string, $word, $pos + $length);
+            $pos = \stripos($string, $word, $pos + $length);
         }
 
         return $result;
@@ -57,18 +57,18 @@ class LanguageCensor
      */
     public static function censor($source)
     {
-        $redactArray = config('censor.redact', []);
+        $redactArray = \config('censor.redact', []);
         foreach ($redactArray as $word) {
             $result = '';
-            $length = strlen($source);
-            $word_length = strlen($word);
-            assert($word_length > 0);
+            $length = \strlen($source);
+            $word_length = \strlen($word);
+            \assert($word_length > 0);
             $indexes = self::matchWordIndexes($source, $word);
             $ignore = 0;
             for ($i = 0; $i < $length; $i++) {
-                if ((is_countable($indexes) ? count($indexes) : 0) > 0 && $indexes[0] == $i) {
-                    $match = substr($source, $indexes[0], $word_length);
-                    $result .= sprintf("<span class='censor'>%s</span>", $match);
+                if ((\is_countable($indexes) ? \count($indexes) : 0) > 0 && $indexes[0] == $i) {
+                    $match = \substr($source, $indexes[0], $word_length);
+                    $result .= \sprintf("<span class='censor'>%s</span>", $match);
                     $ignore = $word_length - 1;
                 } elseif ($ignore > 0) {
                     $ignore--;
@@ -79,9 +79,9 @@ class LanguageCensor
             $source = $result;
         }
 
-        $replaceDict = config('censor.replace', []);
+        $replaceDict = \config('censor.replace', []);
         foreach ($replaceDict as $word => $replacement) {
-            $source = str_ireplace($word, $replacement, $source);
+            $source = \str_ireplace($word, $replacement, $source);
         }
 
         return $source;

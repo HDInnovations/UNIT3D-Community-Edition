@@ -28,6 +28,6 @@ class WarningController extends Controller
         $warnings = Warning::with(['torrenttitle', 'warneduser'])->latest()->paginate(25);
         $warningcount = Warning::count();
 
-        return view('Staff.warning.index', ['warnings' => $warnings, 'warningcount' => $warningcount]);
+        return \view('Staff.warning.index', ['warnings' => $warnings, 'warningcount' => $warningcount]);
     }
 }

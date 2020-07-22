@@ -29,7 +29,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
 
-        return view('Staff.page.index', ['pages' => $pages]);
+        return \view('Staff.page.index', ['pages' => $pages]);
     }
 
     /**
@@ -39,7 +39,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('Staff.page.create');
+        return \view('Staff.page.create');
     }
 
     /**
@@ -56,19 +56,19 @@ class PageController extends Controller
         $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
-        $v = validator($page->toArray(), [
+        $v = \validator($page->toArray(), [
             'name'    => 'required',
             'slug'    => 'required',
             'content' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.pages.index')
+            return \redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         }
         $page->save();
 
-        return redirect()->route('staff.pages.index')
+        return \redirect()->route('staff.pages.index')
             ->withSuccess('Page has been created successfully');
     }
 
@@ -83,7 +83,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return view('Staff.page.edit', ['page' => $page]);
+        return \view('Staff.page.edit', ['page' => $page]);
     }
 
     /**
@@ -101,19 +101,19 @@ class PageController extends Controller
         $page->slug = Str::slug($page->name);
         $page->content = $request->input('content');
 
-        $v = validator($page->toArray(), [
+        $v = \validator($page->toArray(), [
             'name'    => 'required',
             'slug'    => 'required',
             'content' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.pages.index')
+            return \redirect()->route('staff.pages.index')
                 ->withErrors($v->errors());
         }
         $page->save();
 
-        return redirect()->route('staff.pages.index')
+        return \redirect()->route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
     }
 
@@ -128,7 +128,7 @@ class PageController extends Controller
     {
         Page::findOrFail($id)->delete();
 
-        return redirect()->route('staff.pages.index')
+        return \redirect()->route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');
     }
 }

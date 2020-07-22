@@ -83,7 +83,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        $movieScrapper = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $movieScrapper = new \App\Services\MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
         // Deplace and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
@@ -94,14 +94,14 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        $fileName = sprintf('%s.torrent', uniqid()); // Generate a unique name
+        $fileName = \sprintf('%s.torrent', \uniqid()); // Generate a unique name
         Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
 
         // Create the torrent (DB)
-        $torrent = app()->make(Torrent::class);
+        $torrent = \app()->make(Torrent::class);
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
@@ -133,7 +133,7 @@ class TorrentController extends BaseController
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
         // Validation
-        $v = validator($torrent->toArray(), [
+        $v = \validator($torrent->toArray(), [
             'name'           => 'required|unique:torrents',
             'slug'           => 'required',
             'description'    => 'required',
@@ -216,7 +216,7 @@ class TorrentController extends BaseController
         }
         // check for trusted user and update torrent
         if ($user->group->is_trusted) {
-            $appurl = config('app.url');
+            $appurl = \config('app.url');
             $user = $torrent->user;
             $user_id = $user->id;
             $username = $user->username;
@@ -228,40 +228,40 @@ class TorrentController extends BaseController
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chatRepository->systemMessage(
-                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    \sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             }
 
             if ($anon == 1 && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can! :fire:'
+                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can! :fire:'
                 );
             } elseif ($anon == 0 && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
+                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
                 );
             }
 
             if ($free == 1 && $featured == 0) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
+                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
                 );
             }
 
             if ($doubleup == 1 && $featured == 0) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
+                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                 );
             }
 
             TorrentHelper::approveHelper($torrent->id);
         }
 
-        return $this->sendResponse(route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
+        return $this->sendResponse(\route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => \auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
     }
 
     /**
@@ -343,19 +343,19 @@ class TorrentController extends BaseController
         $dying = $request->input('dying');
         $dead = $request->input('dead');
 
-        $terms = explode(' ', $search);
+        $terms = \explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
             $search .= '%'.$term.'%';
         }
 
-        $usernames = explode(' ', $uploader);
+        $usernames = \explode(' ', $uploader);
         $uploader = null;
         foreach ($usernames as $username) {
             $uploader .= $username.'%';
         }
 
-        $keywords = explode(' ', $description);
+        $keywords = \explode(' ', $description);
         $description = '';
         foreach ($keywords as $keyword) {
             $description .= '%'.$keyword.'%';
@@ -398,7 +398,7 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrent->where('torrents.imdb', '=', str_replace('tt', '', $imdb));
+            $torrent->where('torrents.imdb', '=', \str_replace('tt', '', $imdb));
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
@@ -501,16 +501,16 @@ class TorrentController extends BaseController
         if ($mediainfo === null) {
             return;
         }
-        $complete_name_i = strpos($mediainfo, 'Complete name');
+        $complete_name_i = \strpos($mediainfo, 'Complete name');
         if ($complete_name_i !== false) {
-            $path_i = strpos($mediainfo, ': ', $complete_name_i);
+            $path_i = \strpos($mediainfo, ': ', $complete_name_i);
             if ($path_i !== false) {
                 $path_i += 2;
-                $end_i = strpos($mediainfo, "\n", $path_i);
-                $path = substr($mediainfo, $path_i, $end_i - $path_i);
+                $end_i = \strpos($mediainfo, "\n", $path_i);
+                $path = \substr($mediainfo, $path_i, $end_i - $path_i);
                 $new_path = MediaInfo::stripPath($path);
 
-                return substr_replace($mediainfo, $new_path, $path_i, strlen($path));
+                return \substr_replace($mediainfo, $new_path, $path_i, \strlen($path));
             }
         }
 

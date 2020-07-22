@@ -45,6 +45,6 @@ class UnbanUser extends Mailable
     public function build()
     {
         return $this->markdown('emails.unban')
-            ->subject('You Have Been Unbanned - '.config('other.title'));
+            ->subject('You Have Been Unbanned - '.\config('other.title'));
     }
 }

@@ -46,11 +46,11 @@ class AutoBanDisposableUsers extends Command
      */
     public function handle()
     {
-        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
         User::where('group_id', '!=', $banned_group[0])->chunkById(100, function ($users) use ($banned_group) {
             foreach ($users as $user) {
-                $v = validator([
+                $v = \validator([
                     'email' => $user->email,
                 ], [
                     'email' => 'required|string|email|max:70|blacklist',
@@ -68,7 +68,7 @@ class AutoBanDisposableUsers extends Command
                     $user->save();
 
                     // Log The Ban To Ban Log
-                    $domain = substr(strrchr($user->email, '@'), 1);
+                    $domain = \substr(\strrchr($user->email, '@'), 1);
                     $logban = new Ban();
                     $logban->owned_by = $user->id;
                     $logban->created_by = 1;

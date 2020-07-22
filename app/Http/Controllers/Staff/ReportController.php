@@ -29,7 +29,7 @@ class ReportController extends Controller
     {
         $reports = Report::latest()->paginate(25);
 
-        return view('Staff.report.index', ['reports' => $reports]);
+        return \view('Staff.report.index', ['reports' => $reports]);
     }
 
     /**
@@ -43,9 +43,9 @@ class ReportController extends Controller
     {
         $report = Report::findOrFail($id);
 
-        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
+        \preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
 
-        return view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
+        return \view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
     }
 
     /**
@@ -58,9 +58,9 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = \auth()->user();
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'verdict'  => 'required|min:3',
             'staff_id' => 'required',
         ]);
@@ -68,7 +68,7 @@ class ReportController extends Controller
         $report = Report::findOrFail($id);
 
         if ($report->solved == 1) {
-            return redirect()->route('staff.reports.index')
+            return \redirect()->route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
         }
 
@@ -82,14 +82,14 @@ class ReportController extends Controller
         $privateMessage->sender_id = $user->id;
         $privateMessage->receiver_id = $report->reporter_id;
         $privateMessage->subject = 'Your Report Has A New Verdict';
-        $privateMessage->message = sprintf('[b]REPORT TITLE:[/b] %s
+        $privateMessage->message = \sprintf('[b]REPORT TITLE:[/b] %s
         
                         [b]ORIGINAL MESSAGE:[/b] %s
                         
                         [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $privateMessage->save();
 
-        return redirect()->route('staff.reports.index')
+        return \redirect()->route('staff.reports.index')
             ->withSuccess('Report has been successfully resolved');
     }
 }

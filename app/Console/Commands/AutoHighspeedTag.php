@@ -46,7 +46,7 @@ class AutoHighspeedTag extends Command
 
         $seedbox_users = Seedbox::select(['user_id'])->get()->toArray();
 
-        if (is_array($seedbox_users) && count($seedbox_users) > 0) {
+        if (\is_array($seedbox_users) && \count($seedbox_users) > 0) {
             $torid = Peer::select(['torrent_id'])->whereIn('user_id', $seedbox_users)->where('seeder', '=', 1)->get()->toArray();
 
             foreach ($torid as $id) {

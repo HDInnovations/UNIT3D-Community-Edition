@@ -408,7 +408,7 @@ class Torrent extends Model
      */
     public function bookmarked()
     {
-        return (bool) Bookmark::where('user_id', '=', auth()->user()->id)
+        return (bool) Bookmark::where('user_id', '=', \auth()->user()->id)
             ->where('torrent_id', '=', $this->id)
             ->first();
     }
@@ -425,7 +425,7 @@ class Torrent extends Model
     {
         if ($type == 'thank') {
             $user = User::with('notification')->findOrFail($this->user_id);
-            if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
+            if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));
 
                 return true;
@@ -434,7 +434,7 @@ class Torrent extends Model
             return true;
         }
         $user = User::with('notification')->findOrFail($this->user_id);
-        if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
+        if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
             $user->notify(new NewComment('torrent', $payload));
 
             return true;
@@ -454,6 +454,6 @@ class Torrent extends Model
     {
         $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
 
-        return $this->free || config('other.freeleech') || $pfree;
+        return $this->free || \config('other.freeleech') || $pfree;
     }
 }

@@ -37,13 +37,13 @@ class MediaInfo
 
     public function parse($string)
     {
-        $string = trim($string);
-        $lines = preg_split("/\r\n|\n|\r/", $string);
+        $string = \trim($string);
+        $lines = \preg_split("/\r\n|\n|\r/", $string);
 
         $output = [];
         foreach ($lines as $line) {
-            $line = trim($line); // removed strtolower, unnecessary with the i-switch in the regexp (caseless) and adds problems with values; added it in the required places instead.
-            if (preg_match(self::REGEX_SECTION, $line)) {
+            $line = \trim($line); // removed strtolower, unnecessary with the i-switch in the regexp (caseless) and adds problems with values; added it in the required places instead.
+            if (\preg_match(self::REGEX_SECTION, $line)) {
                 $section = $line;
                 $output[$section] = [];
             }
@@ -52,7 +52,7 @@ class MediaInfo
             }
         }
 
-        if (count($output) > 0) {
+        if (\count($output) > 0) {
             $output = $this->parseSections($output);
         }
 
@@ -63,7 +63,7 @@ class MediaInfo
     {
         $output = [];
         foreach ($sections as $key => $section) {
-            $key_section = strtolower(explode(' ', $key)[0]);
+            $key_section = \strtolower(\explode(' ', $key)[0]);
             if (! empty($section)) {
                 if ($key_section === 'general') {
                     $output[$key_section] = $this->parseProperty($section, $key_section);
@@ -82,13 +82,13 @@ class MediaInfo
         foreach ($sections as $info) {
             $property = null;
             $value = null;
-            $info = explode(':', $info, 2);
-            if (count($info) >= 2) {
-                $property = trim(strtolower($info[0]));
-                $value = trim($info[1]);
+            $info = \explode(':', $info, 2);
+            if (\count($info) >= 2) {
+                $property = \trim(\strtolower($info[0]));
+                $value = \trim($info[1]);
             }
             if ($property && $value) {
-                switch (strtolower($section)) {
+                switch (\strtolower($section)) {
                     case 'general':
                         switch ($property) {
                             case 'complete name':
@@ -165,7 +165,7 @@ class MediaInfo
                                 break;
                             case 'display aspect ratio':
                             case 'displayaspectratio':
-                                $output['aspect_ratio'] = str_replace('/', ':', $value); // mediainfo sometimes uses / instead of :
+                                $output['aspect_ratio'] = \str_replace('/', ':', $value); // mediainfo sometimes uses / instead of :
                                 break;
                             case 'bit rate':
                             case 'bitrate':
@@ -301,8 +301,8 @@ class MediaInfo
 
     public static function stripPath($string)
     {
-        $string = str_replace('\\', '/', $string);
-        $path_parts = pathinfo($string);
+        $string = \str_replace('\\', '/', $string);
+        $path_parts = \pathinfo($string);
 
         return $path_parts['basename'];
     }
@@ -310,7 +310,7 @@ class MediaInfo
     private function parseFileSize($string)
     {
         $number = (float) $string;
-        preg_match('#[KMGTPEZ]#i', $string, $size);
+        \preg_match('#[KMGTPEZ]#i', $string, $size);
         if (! empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
         }
@@ -320,19 +320,19 @@ class MediaInfo
 
     private function parseBitRate($string)
     {
-        $string = str_replace(' ', '', strtolower($string));
+        $string = \str_replace(' ', '', \strtolower($string));
 
-        return str_replace('kbps', ' kbps', $string);
+        return \str_replace('kbps', ' kbps', $string);
     }
 
     private function parseWidthHeight($string)
     {
-        return str_replace(['pixels', ' '], null, strtolower($string));
+        return \str_replace(['pixels', ' '], null, \strtolower($string));
     }
 
     private function parseAudioChannels($string)
     {
-        return str_ireplace(array_keys(self::REPLACE), self::REPLACE, $string);
+        return \str_ireplace(\array_keys(self::REPLACE), self::REPLACE, $string);
     }
 
     private function formatOutput($data)
@@ -356,7 +356,7 @@ class MediaInfo
             $output['general'] = null;
         } else {
             if (isset($data['general']['format'])) {
-                $output['general'][] = ucfirst($data['general']['format']);
+                $output['general'][] = \ucfirst($data['general']['format']);
             }
             if (isset($data['general']['duration'])) {
                 $output['general'][] = $data['general']['duration'];
@@ -370,7 +370,7 @@ class MediaInfo
             foreach ($data['video'] as $video_element) {
                 $temp_video_output = [];
                 if (isset($video_element['format'])) {
-                    $temp_video_output[] = strtoupper($video_element['format']);
+                    $temp_video_output[] = \strtoupper($video_element['format']);
                 }
                 if (isset($video_element['width']) && isset($video_element['height'])) {
                     $temp_video_output[] = $video_element['width'].' x '.$video_element['height'];
@@ -420,7 +420,7 @@ class MediaInfo
                         $temp_text_output[] = $text_element[$property];
                     }
                 }
-                if (isset($text_element['forced']) && strtolower($text_element['forced']) === 'yes') {
+                if (isset($text_element['forced']) && \strtolower($text_element['forced']) === 'yes') {
                     $temp_text_output[] = 'Forced';
                 }
 
@@ -442,10 +442,10 @@ class MediaInfo
     private function computerSize($number, $size)
     {
         $bytes = (float) $number;
-        $size = strtolower($size);
+        $size = \strtolower($size);
 
         if (isset(self::FACTORS[$size])) {
-            return (float) number_format($bytes * pow(1_024, self::FACTORS[$size]), 2, '.', '');
+            return (float) \number_format($bytes * \pow(1_024, self::FACTORS[$size]), 2, '.', '');
         }
 
         return $bytes;

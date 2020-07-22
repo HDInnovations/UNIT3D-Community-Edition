@@ -34,7 +34,7 @@ class FollowController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
 
         if ($request->user()->id == $user->id) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('Nice try, but sadly you can not follow yourself.');
         }
 
@@ -47,11 +47,11 @@ class FollowController extends Controller
                 $user->notify(new NewFollow('user', $request->user(), $user, $follow));
             }
 
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess(sprintf('You are now following %s', $user->username));
+            return \redirect()->route('users.show', ['username' => $user->username])
+                ->withSuccess(\sprintf('You are now following %s', $user->username));
         }
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withErrors('You are already following this user');
     }
 
@@ -74,11 +74,11 @@ class FollowController extends Controller
                 $user->notify(new NewUnfollow('user', $request->user(), $user, $follow));
             }
 
-            return redirect()->route('users.show', ['username' => $user->username])
-                ->withSuccess(sprintf('You are no longer following %s', $user->username));
+            return \redirect()->route('users.show', ['username' => $user->username])
+                ->withSuccess(\sprintf('You are no longer following %s', $user->username));
         }
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withErrors('You are not following this user to begin with');
     }
 }

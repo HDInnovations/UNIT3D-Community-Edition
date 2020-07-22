@@ -56,7 +56,7 @@ class RssController extends Controller
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
         $private_rss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
-        return view('rss.index', [
+        return \view('rss.index', [
             'hash'        => $hash,
             'public_rss'  => $public_rss,
             'private_rss' => $private_rss,
@@ -76,7 +76,7 @@ class RssController extends Controller
         $user = $request->user();
         $torrent_repository = $this->torrentFacetedRepository;
 
-        return view('rss.create', [
+        return \view('rss.create', [
             'torrent_repository' => $torrent_repository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
@@ -96,7 +96,7 @@ class RssController extends Controller
     {
         $user = $request->user();
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'name'        => 'required|min:3|max:255',
             'search'      => 'max:255',
             'description' => 'max:255',
@@ -141,7 +141,7 @@ class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = array_merge($expected, $params);
+            $rss->json_torrent = \array_merge($expected, $params);
             $rss->is_private = 1;
             $rss->save();
             $success = 'Private RSS Feed Created';
@@ -152,11 +152,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('rss.create')
+            return \redirect()->route('rss.create')
                 ->withErrors($error);
         }
 
-        return redirect()->route('rss.index', ['hash' => 'private'])
+        return \redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -174,17 +174,17 @@ class RssController extends Controller
     {
         $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
 
-        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         if ($user->group->id == $banned_group[0]) {
-            abort(404);
+            \abort(404);
         }
         if ($user->group->id == $disabled_group[0]) {
-            abort(404);
+            \abort(404);
         }
         if ($user->active == 0) {
-            abort(404);
+            \abort(404);
         }
 
         $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
@@ -211,19 +211,19 @@ class RssController extends Controller
         $dying = $rss->object_torrent->dying;
         $dead = $rss->object_torrent->dead;
 
-        $terms = explode(' ', $search);
+        $terms = \explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
             $search .= '%'.$term.'%';
         }
 
-        $usernames = explode(' ', $uploader);
+        $usernames = \explode(' ', $uploader);
         $uploader = '';
         foreach ($usernames as $username) {
             $uploader .= '%'.$username.'%';
         }
 
-        $keywords = explode(' ', $description);
+        $keywords = \explode(' ', $description);
         $description = '';
         foreach ($keywords as $keyword) {
             $description .= '%'.$keyword.'%';
@@ -267,19 +267,19 @@ class RssController extends Controller
             $builder->where('mal', '=', $mal);
         }
 
-        if ($rss->object_torrent->categories && is_array($rss->object_torrent->categories)) {
+        if ($rss->object_torrent->categories && \is_array($rss->object_torrent->categories)) {
             $builder->whereIn('category_id', $categories);
         }
 
-        if ($rss->object_torrent->types && is_array($rss->object_torrent->types)) {
+        if ($rss->object_torrent->types && \is_array($rss->object_torrent->types)) {
             $builder->whereIn('type_id', $types);
         }
 
-        if ($rss->object_torrent->resolutions && is_array($rss->object_torrent->resolutions)) {
+        if ($rss->object_torrent->resolutions && \is_array($rss->object_torrent->resolutions)) {
             $builder->whereIn('resolution_id', $resolutions);
         }
 
-        if ($rss->object_torrent->genres && is_array($rss->object_torrent->genres)) {
+        if ($rss->object_torrent->genres && \is_array($rss->object_torrent->genres)) {
             $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
             $builder->whereIn('id', $genreID)->cursor();
         }
@@ -326,7 +326,7 @@ class RssController extends Controller
 
         $torrents = $builder->latest()->take(50)->get();
 
-        return response()->view('rss.show', ['torrents' => $torrents, 'user' => $user, 'rss' => $rss])->header('Content-Type', 'text/xml');
+        return \response()->view('rss.show', ['torrents' => $torrents, 'user' => $user, 'rss' => $rss])->header('Content-Type', 'text/xml');
     }
 
     /**
@@ -343,7 +343,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $torrent_repository = $this->torrentFacetedRepository;
 
-        return view('rss.edit', [
+        return \view('rss.edit', [
             'torrent_repository' => $torrent_repository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
@@ -365,7 +365,7 @@ class RssController extends Controller
     {
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'search'      => 'max:255',
             'description' => 'max:255',
             'uploader'    => 'max:255',
@@ -405,8 +405,8 @@ class RssController extends Controller
         $redirect = null;
         if ($v->passes()) {
             $expected = $rss->expected_fields;
-            $push = array_merge($expected, $params);
-            $rss->json_torrent = array_merge($rss->json_torrent, $push);
+            $push = \array_merge($expected, $params);
+            $rss->json_torrent = \array_merge($rss->json_torrent, $push);
             $rss->is_private = 1;
             $rss->save();
             $success = 'Private RSS Feed Updated';
@@ -417,11 +417,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('rss.edit', ['id' => $id])
+            return \redirect()->route('rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('rss.index', ['hash' => 'private'])
+        return \redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess($success);
     }
 
@@ -439,7 +439,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();
 
-        return redirect()->route('rss.index', ['hash' => 'private'])
+        return \redirect()->route('rss.index', ['hash' => 'private'])
             ->withSuccess('RSS Feed Deleted!');
     }
 }

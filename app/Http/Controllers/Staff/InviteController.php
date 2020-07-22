@@ -28,6 +28,6 @@ class InviteController extends Controller
         $invites = Invite::latest()->paginate(25);
         $invitecount = Invite::count();
 
-        return view('Staff.invite.index', ['invites' => $invites, 'invitecount' => $invitecount]);
+        return \view('Staff.invite.index', ['invites' => $invites, 'invitecount' => $invitecount]);
     }
 }

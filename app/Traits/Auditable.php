@@ -48,15 +48,15 @@ trait Auditable
         // Convert the data to an array
         $data = (array) $data;
         // Start stripping
-        $globalDiscards = (! empty(config('audit.global_discards'))) ? config('audit.global_discards') : [];
+        $globalDiscards = (! empty(\config('audit.global_discards'))) ? \config('audit.global_discards') : [];
         $modelDiscards = (! empty($instance->discarded)) ? $instance->discarded : [];
-        foreach (array_keys($data) as $key) {
+        foreach (\array_keys($data) as $key) {
             // Check the model-specific discards
-            if (in_array($key, $modelDiscards)) {
+            if (\in_array($key, $modelDiscards)) {
                 unset($data[$key]);
             }
             // Check global discards
-            if (! empty($globalDiscards) && in_array($key, $globalDiscards)) {
+            if (! empty($globalDiscards) && \in_array($key, $globalDiscards)) {
                 unset($data[$key]);
             }
         }
@@ -78,7 +78,7 @@ trait Auditable
         $data = [];
         switch ($action) {
             default:
-                throw new \InvalidArgumentException(sprintf('Unknown action `%s`.', $action));
+                throw new \InvalidArgumentException(\sprintf('Unknown action `%s`.', $action));
                 break;
             case 'create':
                 // Expect new data to be filled
@@ -121,9 +121,9 @@ trait Auditable
                 break;
         }
 
-        $clean = array_filter($data);
+        $clean = \array_filter($data);
 
-        return json_encode($clean);
+        return \json_encode($clean);
     }
 
     /**
@@ -133,11 +133,11 @@ trait Auditable
      */
     public static function getUserId()
     {
-        if (auth()->guest()) {
+        if (\auth()->guest()) {
             return;
         }
 
-        return auth()->user()->id;
+        return \auth()->user()->id;
     }
 
     /**
@@ -153,12 +153,12 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
 
-        if (! is_null($userId) && ! empty($data)) {
+        if (! \is_null($userId) && ! empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
-                'model_name'     => class_basename($model),
+                'model_name'     => \class_basename($model),
                 'model_entry_id' => $model->{$model->getKeyName()},
                 'action'         => 'create',
                 'record'         => $data,
@@ -181,12 +181,12 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
-        if (! is_null($userId) && ! empty(json_decode($data, true))) {
+        if (! \is_null($userId) && ! empty(\json_decode($data, true))) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
-                'model_name'     => class_basename($model),
+                'model_name'     => \class_basename($model),
                 'model_entry_id' => $model->{$model->getKeyName()},
                 'action'         => 'update',
                 'record'         => $data,
@@ -209,12 +209,12 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('delete', self::strip($model, $model->getAttributes()));
 
-        if (! is_null($userId) && ! empty($data)) {
+        if (! \is_null($userId) && ! empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
-                'model_name'     => class_basename($model),
+                'model_name'     => \class_basename($model),
                 'model_entry_id' => $model->{$model->getKeyName()},
                 'action'         => 'delete',
                 'record'         => $data,
