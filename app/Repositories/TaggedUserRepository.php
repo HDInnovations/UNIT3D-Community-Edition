@@ -49,8 +49,8 @@ class TaggedUserRepository
     /**
      * TaggedUserRepository constructor.
      *
-     * @param User           $user
-     * @param PrivateMessage $message
+     * @param User                       $user
+     * @param \App\Models\PrivateMessage $privateMessage
      */
     public function __construct(User $user, PrivateMessage $privateMessage)
     {

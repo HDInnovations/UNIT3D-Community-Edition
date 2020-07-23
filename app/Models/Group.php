@@ -110,7 +110,7 @@ class Group extends Model
      *
      * @param $forum
      *
-     * @return
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function getPermissionsByForum($forum)
     {

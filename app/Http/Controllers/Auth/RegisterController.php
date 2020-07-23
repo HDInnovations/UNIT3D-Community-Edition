@@ -38,7 +38,7 @@ class RegisterController extends Controller
     /**
      * RegisterController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {

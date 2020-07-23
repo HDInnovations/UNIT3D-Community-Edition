@@ -31,9 +31,9 @@ class NewRequestFill extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param string         $type
-     * @param string         $sender
-     * @param TorrentRequest $tr
+     * @param string                     $type
+     * @param string                     $sender
+     * @param \App\Models\TorrentRequest $torrentRequest
      */
     public function __construct(string $type, string $sender, TorrentRequest $torrentRequest)
     {

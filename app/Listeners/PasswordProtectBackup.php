@@ -31,11 +31,10 @@ class PasswordProtectBackup
     /**
      * Handle the event.
      *
-     * @param \Spatie\Backup\Events\BackupZipWasCreated $event
-     *
-     * @throws \PhpZip\Exception\ZipException
+     * @param \Spatie\Backup\Events\BackupZipWasCreated $backupZipWasCreated
      *
      * @return string
+     * @throws \PhpZip\Exception\ZipException
      */
     public function handle(BackupZipWasCreated $backupZipWasCreated): string
     {

@@ -30,7 +30,7 @@ class AchievementUnlocked
     /**
      * Handle the event.
      *
-     * @param $event
+     * @param \Gstt\Achievements\Event\Unlocked $unlocked
      *
      * @return void
      */

@@ -44,7 +44,7 @@ class SubtitleController extends Controller
     /**
      * SubtitleController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(ChatRepository $chatRepository)
     {
@@ -199,6 +199,7 @@ class SubtitleController extends Controller
      * @param \App\Models\Subtitle     $id
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {

@@ -36,8 +36,8 @@ class BackupPassword
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.
      *
-     * @param \App\Helpers\BackupEncryption $encryption
-     * @param string                        $path       the path to the .zip-file
+     * @param \App\Helpers\BackupEncryption $backupEncryption
+     * @param string                        $path the path to the .zip-file
      *
      * @throws \PhpZip\Exception\ZipException
      */
@@ -67,12 +67,11 @@ class BackupPassword
     /**
      * Use native PHP ZipArchive.
      *
-     * @param \App\Helpers\BackupEncryption $encryption
+     * @param \App\Helpers\BackupEncryption $backupEncryption
      * @param string                        $path
      *
-     * @throws \Exception
-     *
      * @return void
+     * @throws \Exception
      */
     protected function makeZipArchive(BackupEncryption $backupEncryption, string $path): void
     {
@@ -97,11 +96,11 @@ class BackupPassword
     /**
      * Use PhpZip\ZipFile-package to create the zip.
      *
-     * @param \App\Helpers\BackupEncryption $encryption
-     *
-     * @throws \PhpZip\Exception\ZipException
+     * @param \App\Helpers\BackupEncryption $backupEncryption
+     * @param string                        $path
      *
      * @return void
+     * @throws \PhpZip\Exception\ZipException
      */
     protected function makeZipFile(BackupEncryption $backupEncryption, string $path): void
     {
