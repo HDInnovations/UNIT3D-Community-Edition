@@ -1,15 +1,4 @@
 <?php
-/**
- * NOTICE OF LICENSE.
- *
- * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D Community Edition
- *
- * @author     HDVinnie <hdinnovations@protonmail.com>
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- */
 
 use Arcanedev\LogViewer\Contracts\Utilities\Filesystem;
 
@@ -41,25 +30,25 @@ return [
      |    'pl', 'pt-BR', 'ro', 'ru', 'sv', 'th', 'tr', 'zh-TW', 'zh'
      */
 
-    'locale'        => 'auto',
+    'locale'        => 'en',
 
     /* -----------------------------------------------------------------
      |  Theme
      | -----------------------------------------------------------------
      |  Supported themes :
-     |    'bootstrap-3'
+     |    'bootstrap-4'
      |  Make your own theme by adding a folder to the views directory and specifying it here.
      */
 
-    'theme'         => 'bootstrap-3',
+    'theme'         => 'bootstrap-4',
 
     /* -----------------------------------------------------------------
      |  Route settings
      | -----------------------------------------------------------------
      */
 
-    'route' => [
-        'enabled' => true,
+    'route'         => [
+        'enabled'    => true,
 
         'attributes' => [
             'prefix'     => 'staff/log-viewer',
@@ -75,13 +64,6 @@ return [
      */
 
     'per-page'      => 30,
-
-    /* -----------------------------------------------------------------
-     |  LogViewer's Facade
-     | -----------------------------------------------------------------
-     */
-
-    'facade'        => 'LogViewer',
 
     /* -----------------------------------------------------------------
      |  Download settings
@@ -110,8 +92,8 @@ return [
      | -----------------------------------------------------------------
      */
 
-    'icons' => [
-        /*
+    'icons' =>  [
+        /**
          * Font awesome >= 4.3
          * http://fontawesome.io/icons/
          */
@@ -131,7 +113,7 @@ return [
      | -----------------------------------------------------------------
      */
 
-    'colors' => [
+    'colors' =>  [
         'levels'    => [
             'empty'     => '#D1D1D1',
             'all'       => '#8A8A8A',
