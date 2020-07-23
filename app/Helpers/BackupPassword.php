@@ -37,7 +37,7 @@ class BackupPassword
      * Read the .zip, apply password and encryption, then rewrite the file.
      *
      * @param \App\Helpers\BackupEncryption $backupEncryption
-     * @param string                        $path the path to the .zip-file
+     * @param string                        $path             the path to the .zip-file
      *
      * @throws \PhpZip\Exception\ZipException
      */
@@ -70,8 +70,9 @@ class BackupPassword
      * @param \App\Helpers\BackupEncryption $backupEncryption
      * @param string                        $path
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     protected function makeZipArchive(BackupEncryption $backupEncryption, string $path): void
     {
@@ -99,8 +100,9 @@ class BackupPassword
      * @param \App\Helpers\BackupEncryption $backupEncryption
      * @param string                        $path
      *
-     * @return void
      * @throws \PhpZip\Exception\ZipException
+     *
+     * @return void
      */
     protected function makeZipFile(BackupEncryption $backupEncryption, string $path): void
     {

@@ -36,8 +36,9 @@ class MovieScrapper
      * @param null $tmdb
      * @param null $tvdb
      *
-     * @return Movie|Tv
      * @throws \ErrorException
+     *
+     * @return Movie|Tv
      */
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {

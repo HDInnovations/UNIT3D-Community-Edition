@@ -419,8 +419,9 @@ class NerdBot
      * @param string           $message
      * @param int              $targeted
      *
-     * @return bool
      * @throws \Exception
+     *
+     * @return bool
      */
     public function process($type, User $user, $message = '', $targeted = 0)
     {
