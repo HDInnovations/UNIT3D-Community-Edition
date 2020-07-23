@@ -92,10 +92,10 @@ return [
      | -----------------------------------------------------------------
      */
 
-    'icons' =>  [
+    'icons' => [
         /**
          * Font awesome >= 4.3
-         * http://fontawesome.io/icons/
+         * http://fontawesome.io/icons/.
          */
         'all'       => 'fa fa-fw fa-list',                 // http://fontawesome.io/icon/list/
         'emergency' => 'fa fa-fw fa-bug',                  // http://fontawesome.io/icon/bug/
@@ -113,7 +113,7 @@ return [
      | -----------------------------------------------------------------
      */
 
-    'colors' =>  [
+    'colors' => [
         'levels'    => [
             'empty'     => '#D1D1D1',
             'all'       => '#8A8A8A',
