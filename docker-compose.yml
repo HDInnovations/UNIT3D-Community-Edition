@@ -7,6 +7,7 @@ services:
       context: .
       args:
         - APP_HOSTNAME=localhost
+    tty: true
     environment:
       - NODE_ENV=production
     ports:
@@ -28,6 +29,8 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: always
+    ports:
+      - "3333:3306"
     environment:
       MYSQL_ROOT_PASSWORD: unit3d
       MYSQL_DATABASE: unit3d
@@ -38,7 +41,6 @@ services:
 
   echo-server:
     image: oanhnn/laravel-echo-server:latest
-    container_name: unit3d-echo
     depends_on:
       - redis
     environment:
@@ -50,12 +52,14 @@ services:
     build:
       dockerfile: docker/Dockerfile
       context: .
+    tty: true
     depends_on:
       - mariadb
       - redis
       - echo-server
     volumes:
       - composer_cache:/app/vendor
+      - storage:/app/storage
     restart: always
     networks:
       - unit3d
