@@ -10,6 +10,8 @@ require('laravel-mix-purgecss');
  | Mix provides a clean, fluent API for defining some Webpack build steps
  |
  */
+// Fix for docker builds looking for /public instead of ./public during build
+mix.setPublicPath('public');
 
 mix.version();
 mix.options({
