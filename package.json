@@ -13,7 +13,6 @@
     "ajv": "^6.12.3",
     "axios": "^0.19",
     "bootstrap-sass": "^3.4.1",
-    "cross-env": "^7.0",
     "emojione-assets": "^4.5.0",
     "jquery": "^3.5.1",
     "laravel-echo": "^1.8.0",
@@ -31,7 +30,8 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "cross-env": "^7.0.2",
     "dayjs": "^1.8.29",
-    "laravel-mix-sri": "0.0.4"
+    "laravel-mix-sri": "^0.0.4"
   }
 }

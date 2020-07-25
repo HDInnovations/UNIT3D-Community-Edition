@@ -16,18 +16,34 @@ will be as simple as the following for ubuntu based systems:
 
 ## docker-compose.yml
 
-Setup docker dependencies. This will create the database & user then do the 
-initial database migration seed.
+For a quick-start setup simply run `make` from the project root.
 
-    make install
+    make
     
-Run the swarm:
+This will ask a couple questions and then configure and start the services.
+    
+If you receive an error related to not being able to connect to mariadb, run the command
+again. The mariadb instance may not have been fully initialized yet.
+
+Connect to a mysql shell
+
+    make sql
+    
+Connect to one of the services shells
+
+    make shell_{app,http,mariadb,echo-server}
+    
+Start the services
 
     make start
+    
+Stop the services
+
+    make stop
     
 
 ## Build Image
 
-You can build the image `unit3d:latest` via::
+You can build the image `unit3d_app:latest` via:
 
-    make image
+    make app

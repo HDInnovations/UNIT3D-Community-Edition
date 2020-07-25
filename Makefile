@@ -1,37 +1,68 @@
-.PHONY: docker
+.PHONY: docker config
 
-install: frontend
-	docker-compose up --remove-orphans -d mariadb && sleep 10 #Sleep so mariadb has enough time to restart itself
-	docker exec -it united_mariadb_1 mysql -u root -e "CREATE USER IF NOT EXISTS'unit3d'@'%';GRANT ALL PRIVILEGES ON * . * TO 'unit3d'@'%';FLUSH PRIVILEGES;CREATE DATABASE IF NOT EXISTS unit3d CHARACTER SET = 'utf8' COLLATE = 'utf8_unicode_ci';"
-	docker container run -it --network united_unit3d --mount source=united_composer_cache,target=/app/vendor --mount source=united_storage,target=/app/storage --mount source=united_public,target=/app/public --mount source=united_public_files,target=/app/public/files  united_app ./docker_setup.sh
-	docker-compose down
+all: stop clean config build install start
+
+current_dir := $(shell pwd)
+
+build: build_frontend build_app
+
+config:
+	@./configure_docker.sh
+
+install:
+	@docker-compose -p unit3d up --remove-orphans -d mariadb redis
+	@echo "Sleeping w/maria for 30s"
+	@sleep 30  # Sleep so mariadb has enough time to restart itself
+	@docker-compose -p unit3d exec mariadb mysql -hmariadb -u root -punit3d -e "CREATE USER IF NOT EXISTS'unit3d'@'%';GRANT ALL PRIVILEGES ON * . * TO 'unit3d'@'%';FLUSH PRIVILEGES;CREATE DATABASE IF NOT EXISTS unit3d CHARACTER SET = 'utf8' COLLATE = 'utf8_unicode_ci';"
+	# Install the deps and configure laravel
+	@UID=$$UID GID=$$GID docker-compose -p unit3d run --rm app ./docker_setup.sh
 
 shell_app:
-	docker container run -it --network united_unit3d --mount source=united_composer_cache,target=/app/vendor --mount source=united_storage,target=/app/storage united_app bash
-
-shell_mariadb:
-	docker exec -it united_mariadb_1 mysql -u root
+	@docker-compose -p unit3d exec app bash
 
 shell_http:
-	docker exec -it united_http_1 sh
+	@docker-compose -p unit3d exec http ash
 
 sql:
-	docker run -it --network united_unit3d --rm mariadb mysql -hmariadb -uunit3d
+	@docker-compose -p unit3d run --rm mariadb mysql -hmariadb -u root -punit3d -D unit3d
 
-frontend:
-	docker-compose build frontend
+build_frontend:
+	#@docker-compose -p unit3d build frontend
+	@yarn install
+	@yarn run production
 
-image:
-	docker build -t unit3d:latest -f docker/Dockerfile .
+build_app:
+	@UID=$$UID GID=$$GID docker-compose -p unit3d build app
+
+build_http:
+	@docker-compose -p unit3d build http
+
+build_redis:
+	@docker-compose -p unit3d build redis
+
+build_mariadb:
+	@docker-compose -p unit3d build mariadb
+
+build_echo:
+	@docker-compose -p unit3d build echo-server
+
+build_portainer:
+	@docker-compose -p unit3d build portainer
 
 up:
-	docker-compose up --build --remove-orphans
+	@UID=$$UID GID=$$GID docker-compose -p unit3d up --build --remove-orphans
 
 start:
-	docker-compose up --remove-orphans
+	@docker-compose -p unit3d up --remove-orphans -d
 
 stop:
-	docker-compose down
+	@docker-compose -p unit3d down
 
-docker_delete_all:
-	docker system prune --volumes
+clean:
+	@rm -rf public/css public/fonts public/js public/mix-manifest.json public/mix-sri.json
+
+cleanall: clean
+	@rm -rf docker/Caddyfile docker/env
+
+docker_prune:
+	@docker system prune --volumes

@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
+mkdir -p storage/logs \
+  storage/framework/sessions \
+  storage/framework/views \
+  storage/framework/cache \
+  storage/framework/testing \
+  storage/framework/views \
+  storage/app/public
+
 if ! test -f "composer"; then
   ./composer-setup.sh
 fi
 
-php composer install --dev
+php -d memory_limit=-1 composer install --prefer-dist
+
 #if ! test -f "vendor/autoload.php"; then
 #  php composer install --no-dev --prefer-dist
 #else
@@ -18,12 +27,12 @@ if [[ "${error_code}" -eq 0 ]]; then
 fi
 
 # Assume that we have already seeded the data since we have migration rows
-result=$(mysql unit3d -h mariadb -u unit3d -D unit3d -s -e "select count(*) from migrations;")
+result=$(mysql unit3d -h mariadb -u root -punit3d -D unit3d -s -e "select count(*) from migrations;")
 if [[ $result -eq "0" ]]; then
-  php artisan migrate --seed  -n
+  php artisan migrate --seed --force -n
 else
-  php artisan migrate  -n
+  php artisan migrate --force -n
 fi
 
-chown -R www-data:www-data /app
 php artisan config:clear -n
+chmod 777 /app/storage/app/public /app/storage/logs /app/storage/framework/ /app/storage/framework/cache /app/storage/framework/sessions /app/storage/framework/testing /app/storage/framework/views

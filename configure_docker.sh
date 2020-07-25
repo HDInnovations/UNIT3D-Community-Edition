@@ -4,6 +4,12 @@ emailValid=false
 hostname=""
 email="$2"
 
+if test -f docker/Caddyfile; then
+  echo "Existing configs exist, skipping creation"
+  echo "Run ./configure_docker.sh to regenerate your configs"
+  exit 0
+fi
+
 if [ "$1" != "" ]; then
   hostnameValid=true
   hostname=$1
@@ -13,6 +19,7 @@ if [ "$2" != "" ]; then
   emailValid=true
   email=$2
 fi
+
 while [ $hostnameValid == false ]; do
   read -rp "Enter your hostname (eg: example.com): " hostname
   echo "Using hostname for generated configs: $hostname"
@@ -31,14 +38,9 @@ while [ $emailValid == false ]; do
   fi
 done
 
-
-echo "Generating configs for: ${email} @ https://${hostname}"
-cp docker/template/nginx.conf docker/nginx.conf
-sed -i -r "s/APP_HOSTNAME/${hostname}/g" docker/nginx.conf
-
-cp docker/template/.env.example docker/.env
-sed -i -r "s/APP_URL=$/APP_URL=https:\/\/${hostname}/g" docker/.env
-sed -i -r "s/APP_HOSTNAME=$/APP_HOSTNAME=${hostname}/g" docker/.env
+cp docker/template/.env.example docker/env
+sed -i -r "s/APP_URL=$/APP_URL=https:\/\/${hostname}/g" docker/env
+sed -i -r "s/APP_HOSTNAME=$/APP_HOSTNAME=${hostname}/g" docker/env
 
 cp docker/template/Caddyfile docker/Caddyfile
 sed -i -r "s/APP_HOSTNAME/${hostname}/g" docker/Caddyfile

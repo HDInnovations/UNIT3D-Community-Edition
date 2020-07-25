@@ -11,10 +11,12 @@ APP_HOSTNAME {
         }
         format console
     }
+    file_server
     encode gzip zstd
     php_fastcgi app:9000
 
     tls APP_EMAIL {
+        # ca https://acme-staging-v02.api.letsencrypt.org/directory
     	protocols tls1.2 tls1.3
     }
 }

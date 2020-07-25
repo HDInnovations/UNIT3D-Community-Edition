@@ -49,3 +49,4 @@ _ide_helper.php
 /docker/Caddyfile
 /docker/nginx.conf
 /docker/.env
+/docker/env

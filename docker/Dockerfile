@@ -13,12 +13,20 @@ RUN apt-get update && apt-get install -y \
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
+VOLUME ["/app/static", "/app/files", "/app/storage", "/app/vendor"]
 WORKDIR /app
 RUN apt update && apt install wget -y
 RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 COPY docker/unit3d.ini /usr/local/etc/php/conf.d/unit3d.ini
-COPY composer.json composer.lock composer-setup.sh ./
-COPY . .
-COPY .env .
+COPY composer.json composer.lock composer-setup.sh preload.php ./
 COPY docker/docker_setup.sh .
-VOLUME ["/app/public", "/app/public/files", "/app/storage", "/app/vendor"]
+COPY grumphp.yml .
+COPY ./artisan .
+COPY ./app/ app/
+COPY ./bootstrap/ bootstrap/
+COPY ./database/ database/
+COPY ./config/ config/
+COPY ./routes/ routes/
+COPY ./resources/ resources/
+
+

@@ -1,12 +1,15 @@
-version: '3.4'
+version: '3.5'
 
 services:
-  frontend:
-    build:
-      dockerfile: docker/frontend.Dockerfile
-      context: .
-    volumes:
-      - public:/build/public
+#  frontend:
+#    build:
+#      dockerfile: docker/frontend.Dockerfile
+#      context: .
+#    volumes:
+#      - public:/build/public
+#      - node_modules:/build/node_modules
+#    networks:
+#      - unit3d
 
   # Caddy based setup
   http:
@@ -16,7 +19,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
       - ./docker/Caddyfile:/etc/caddy/Caddyfile
-      - public:/app/public
+      - ./public:/app/public
       - public_files:/app/public/files
     ports:
       - "80:80"
@@ -25,28 +28,6 @@ services:
       - app
     networks:
       - unit3d
-
-  # nginx based setup
-#  http:
-#    build:
-#      dockerfile: docker/nginx.Dockerfile
-#      context: .
-#      args:
-#        - APP_HOSTNAME=localhost
-#    restart: always
-#    tty: true
-#    environment:
-#      - NODE_ENV=production
-#    ports:
-#      - "8080:80"
-#    volumes:
-#      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
-#      - public:/app/public
-#      - public_files:/app/public/files
-#    depends_on:
-#      - app
-#    networks:
-#      - unit3d
 
   redis:
     image: redis:6-alpine
@@ -64,9 +45,6 @@ services:
       - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: unit3d
-      MYSQL_DATABASE: unit3d
-      MYSQL_USER: unit3d
-      MYSQL_PASSWORD: unit3d
     networks:
       - unit3d
 
@@ -80,6 +58,16 @@ services:
     networks:
       - unit3d
 
+  portainer:
+    image: portainer/portainer:latest
+    restart: unless-stopped
+    networks:
+      - unit3d
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9009:9000"
   app:
     build:
       dockerfile: docker/Dockerfile
@@ -91,23 +79,25 @@ services:
       - redis
       - echo-server
     volumes:
-      - ./docker/.env:/app/.env
+      - ./docker/env:/app/.env
       - composer_cache:/app/vendor
       - storage:/app/storage
-      - public:/app/public
+      - ./public:/app/public
       - public_files:/app/public/files
     networks:
       - unit3d
 
 volumes:
-  caddy_data: {}
-  caddy_config: {}
-  public: {}
-  db_data: {}
-  redis_data: {}
-  storage: {}
-  public_files: {}
-  composer_cache: {}
+  caddy_data:
+  caddy_config:
+  db_data:
+  redis_data:
+  storage:
+  public_files:
+  public:
+  composer_cache:
+  portainer_data:
+  node_modules:
 
 networks:
   unit3d:

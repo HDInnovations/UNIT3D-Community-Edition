@@ -2121,7 +2121,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-cross-env@^7.0:
+cross-env@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.2.tgz#bd5ed31339a93a3418ac4f3ca9ca3403082ae5f9"
   integrity sha512-KZP/bMEOJEDCkDQAyRhu3RL2ZO/SUVrxQVI0G3YEQ+OLbRA3c6zgixe8Mq8a/z7+HKlNEjo8oiLUs8iRijY2Rw==
@@ -4173,7 +4173,7 @@ laravel-mix-purgecss@^5.0.0:
   dependencies:
     postcss-purgecss-laravel "^0.1.1"
 
-laravel-mix-sri@0.0.4:
+laravel-mix-sri@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/laravel-mix-sri/-/laravel-mix-sri-0.0.4.tgz#a2778bac3c197170d8abdefb61337679281a828b"
   integrity sha512-CqRu9kYwWj5PugAkN9kEkrS2aPDPkYsqYiB2rzdjJj+qioJP8mN5czyENsNm6V8bUZws38s4UpcyeXzt85Kxxg==
