@@ -40,6 +40,7 @@ services:
 #    ports:
 #      - "8080:80"
 #    volumes:
+#      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
 #      - public:/app/public
 #      - public_files:/app/public/files
 #    depends_on:
@@ -90,6 +91,7 @@ services:
       - redis
       - echo-server
     volumes:
+      - ./docker/.env:/app/.env
       - composer_cache:/app/vendor
       - storage:/app/storage
       - public:/app/public
