@@ -1,0 +1,20 @@
+{
+	experimental_http3
+}
+APP_HOSTNAME {
+    root * /app/public
+    log {
+        output file /var/log/caddy/APP_HOSTNAME.access.log {
+        	roll_size 3MiB
+	        roll_keep 5
+	        roll_keep_for 48h
+        }
+        format console
+    }
+    encode gzip zstd
+    php_fastcgi app:9000
+
+    tls APP_EMAIL {
+    	protocols tls1.2 tls1.3
+    }
+}

@@ -20,5 +20,5 @@ COPY docker/unit3d.ini /usr/local/etc/php/conf.d/unit3d.ini
 COPY composer.json composer.lock composer-setup.sh ./
 COPY . .
 COPY .env .
-COPY public/mix-manifest.json public/mix-manifest.json
 COPY docker/docker_setup.sh .
+VOLUME ["/app/public", "/app/public/files", "/app/storage", "/app/vendor"]

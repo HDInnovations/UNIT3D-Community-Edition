@@ -44,3 +44,8 @@ laravel-echo-server.json
 # Vim
 .*.swp
 _ide_helper.php
+
+# User generated docker configs
+/docker/Caddyfile
+/docker/nginx.conf
+/docker/.env

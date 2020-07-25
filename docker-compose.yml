@@ -1,36 +1,66 @@
 version: '3.4'
 
 services:
-  http:
+  frontend:
     build:
-      dockerfile: docker/nginx.Dockerfile
+      dockerfile: docker/frontend.Dockerfile
       context: .
-      args:
-        - APP_HOSTNAME=localhost
-    tty: true
-    environment:
-      - NODE_ENV=production
-    ports:
-      - "8080:80"
     volumes:
+      - public:/build/public
+
+  # Caddy based setup
+  http:
+    image: caddy/caddy:latest
+    restart: always
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile
+      - public:/app/public
       - public_files:/app/public/files
+    ports:
+      - "80:80"
+      - "443:443"
     depends_on:
       - app
     networks:
       - unit3d
 
+  # nginx based setup
+#  http:
+#    build:
+#      dockerfile: docker/nginx.Dockerfile
+#      context: .
+#      args:
+#        - APP_HOSTNAME=localhost
+#    restart: always
+#    tty: true
+#    environment:
+#      - NODE_ENV=production
+#    ports:
+#      - "8080:80"
+#    volumes:
+#      - public:/app/public
+#      - public_files:/app/public/files
+#    depends_on:
+#      - app
+#    networks:
+#      - unit3d
+
   redis:
     image: redis:6-alpine
+    restart: always
+    entrypoint: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
     networks:
       - unit3d
 
   mariadb:
     image: mariadb:10
+    restart: always
     volumes:
       - db_data:/var/lib/mysql
-    restart: always
-    ports:
-      - "3333:3306"
     environment:
       MYSQL_ROOT_PASSWORD: unit3d
       MYSQL_DATABASE: unit3d
@@ -41,6 +71,7 @@ services:
 
   echo-server:
     image: oanhnn/laravel-echo-server:latest
+    restart: always
     depends_on:
       - redis
     environment:
@@ -52,6 +83,7 @@ services:
     build:
       dockerfile: docker/Dockerfile
       context: .
+    restart: always
     tty: true
     depends_on:
       - mariadb
@@ -60,12 +92,17 @@ services:
     volumes:
       - composer_cache:/app/vendor
       - storage:/app/storage
-    restart: always
+      - public:/app/public
+      - public_files:/app/public/files
     networks:
       - unit3d
 
 volumes:
+  caddy_data: {}
+  caddy_config: {}
+  public: {}
   db_data: {}
+  redis_data: {}
   storage: {}
   public_files: {}
   composer_cache: {}
