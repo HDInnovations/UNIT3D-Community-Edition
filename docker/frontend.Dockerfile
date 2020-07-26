@@ -5,7 +5,7 @@ COPY yarn.lock .
 COPY package.json webpack.mix.js ./
 COPY resources/ ./resources
 RUN yarn install
-RUN yarn add cross-env && yarn run dev
+RUN yarn add cross-env && yarn run production
 COPY ./public/css/ ./static/css/
 COPY ./public/fonts/ ./static/fonts/
 COPY ./public/js/ ./static/js/

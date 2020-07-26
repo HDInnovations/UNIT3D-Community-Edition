@@ -2,7 +2,7 @@
 hostnameValid=false
 emailValid=false
 hostname=""
-email="$2"
+email=""
 
 if test -f docker/Caddyfile; then
   echo "Existing configs exist, skipping creation"
@@ -24,7 +24,7 @@ while [ $hostnameValid == false ]; do
   read -rp "Enter your hostname (eg: example.com): " hostname
   echo "Using hostname for generated configs: $hostname"
   read -rp "Is this correct? [Y/n]" correct
-  if [ "$correct" == "" ]; then
+  if [ "$correct" == "" ] || [ "$correct" == "y" ] || [ "$correct" == "Y" ]; then
     hostnameValid=true
   fi
 done
@@ -33,7 +33,7 @@ while [ $emailValid == false ]; do
   read -rp "Enter your email for Lets Encrypt SSL Certs (eg: user@host.com): " email
   echo "Using email for registration: $email"
   read -rp "Is this correct? [Y/n]" correctE
-  if [ "$correctE" == "" ]; then
+  if [ "$correctE" == "" ] || [ "$correctE" == "y" ] || [ "$correctE" == "Y" ]; then
     emailValid=true
   fi
 done

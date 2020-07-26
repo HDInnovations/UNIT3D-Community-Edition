@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
+# This file is executed inside the php container to configure it
+
 mkdir -p storage/logs \
   storage/framework/sessions \
   storage/framework/views \
   storage/framework/cache \
   storage/framework/testing \
   storage/framework/views \
-  storage/app/public
+  storage/app/public \
+  bootstrap/cache
 
 if ! test -f "composer"; then
   ./composer-setup.sh
@@ -35,4 +38,4 @@ else
 fi
 
 php artisan config:clear -n
-chmod 777 /app/storage/app/public /app/storage/logs /app/storage/framework/ /app/storage/framework/cache /app/storage/framework/sessions /app/storage/framework/testing /app/storage/framework/views
+chmod 777 /app/bootstrap/cache /app/storage/app/public /app/storage/logs /app/storage/framework/ /app/storage/framework/cache /app/storage/framework/sessions /app/storage/framework/testing /app/storage/framework/views

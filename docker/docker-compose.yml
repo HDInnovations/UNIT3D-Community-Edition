@@ -1,18 +1,20 @@
 version: '3.5'
 
 services:
-#  frontend:
-#    build:
-#      dockerfile: docker/frontend.Dockerfile
-#      context: .
-#    volumes:
-#      - public:/build/public
-#      - node_modules:/build/node_modules
-#    networks:
-#      - unit3d
+  frontend:
+    user: "${UID}:${GID}"
+    build:
+      dockerfile: docker/frontend.Dockerfile
+      context: ..
+    volumes:
+      - public:/build/public
+      - node_modules:/build/node_modules
+    networks:
+      - unit3d
 
   # Caddy based setup
   http:
+    user: "${UID}:${GID}"
     image: caddy/caddy:latest
     restart: always
     volumes:
@@ -30,6 +32,7 @@ services:
       - unit3d
 
   redis:
+    user: "${UID}:${GID}"
     image: redis:6-alpine
     restart: always
     entrypoint: redis-server --appendonly yes
@@ -39,6 +42,7 @@ services:
       - unit3d
 
   mariadb:
+    user: "${UID}:${GID}"
     image: mariadb:10
     restart: always
     volumes:
@@ -59,6 +63,7 @@ services:
       - unit3d
 
   portainer:
+    user: "${UID}:${GID}"
     image: portainer/portainer:latest
     restart: unless-stopped
     networks:
@@ -69,9 +74,10 @@ services:
     ports:
       - "9009:9000"
   app:
+    user: "${UID}:${GID}"
     build:
       dockerfile: docker/Dockerfile
-      context: .
+      context: ..
     restart: always
     tty: true
     depends_on:
