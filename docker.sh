@@ -2,18 +2,6 @@
 stack_name="unit3d"
 compose_file="docker-compose.yml"
 
-run_build_app () {
-  docker-compose -f $compose_file -p $stack_name build app;
-}
-
-run_build_frontend () {
-  docker-compose -f $compose_file -p $stack_name build frontend;
-}
-
-run_build () {
-  docker-compose -f $compose_file -p $stack_name build;
-}
-
 run_config () {
   ./docker/configure_docker.sh;
 }
@@ -23,11 +11,20 @@ run_install () {
   if ! test -f docker/Caddyfile; then
     run_config
   fi
-  docker-compose -f $compose_file -p ${stack_name} build
-  docker-compose -f $compose_file -p ${stack_name} up -d mariadb
-  echo "Please wait while the database initializes (60s)"
-  echo "..."
-  sleep 60  # Sleep so mariadb has enough time to restart and init itself
+  docker-compose -f ${compose_file} -p ${stack_name} build
+  docker-compose -f ${compose_file} -p ${stack_name} up -d mariadb
+  echo "Please wait while the database initializes, could take over a minute on slower hardware"
+  retval=-1
+  until [ $retval -eq 0 ]
+  do
+    docker-compose -f ${compose_file} -p ${stack_name} exec mariadb mysql -uunit3d -punit3d -D unit3d -s -e "SELECT 1" > /dev/null 2>&1
+    retval=$?
+    printf "."
+    sleep 2
+   done
+   echo ""
+   docker-compose -f ${compose_file} -p ${stack_name} up -d
+   docker-compose -f ${compose_file} -p ${stack_name} logs -f
 }
 
 run_clean_config () {
@@ -36,11 +33,11 @@ run_clean_config () {
 }
 
 run_sql () {
-  docker-compose -f $compose_file -p $stack_name run --rm mariadb mysql -hmariadb -u root -punit3d -D unit3d
+  docker-compose -f ${compose_file} -p ${stack_name} exec mariadb mysql -uunit3d -punit3d -D unit3d
 }
 
 run_redis() {
-  docker-compose -f $compose_file -p $stack_name exec redis redis-cli
+  docker-compose -f ${compose_file} -p ${stack_name} exec redis redis-cli
 }
 
 run_clean () {
@@ -58,46 +55,27 @@ run_prune() {
   docker system prune --volumes
 }
 
-run_usage() {
-  echo "Usage: $0 {logs|config|install|build|start|stop|sql|up|down|prune}"
-  exit 1
-}
-
-run_shell_app () {
-  docker-compose -f $compose_file -p $stack_name exec app bash
-}
-
-run_shell_http () {
-  docker-compose -f $compose_file -p $stack_name exec http ash
-}
-
 run_up() {
   docker-compose -f $compose_file -p $stack_name up --remove-orphans -d
-}
-
-run_logs() {
-  docker-compose -f $compose_file -p $stack_name logs
 }
 
 run_down() {
   docker-compose -f $compose_file -p $stack_name down
 }
 
+run_usage() {
+  echo "Usage: $0 {artisan|build|clean|cleanall|config|down|exec|install|logs|prune|redis|run|sql}"
+  exit 1
+}
+
 case "$1" in
+  artisan)
+    shift
+    docker-compose -f $compose_file -p $stack_name exec app php artisan "$@"
+    ;;
   build)
-    run_build
-    ;;
-  build_app)
-    run_build_app
-    ;;
-  build_frontend)
-    run_build_frontend
-    ;;
-  config)
-    run_config
-    ;;
-  install)
-    run_install
+    shift
+    docker-compose -f $compose_file -p $stack_name build "$@"
     ;;
   clean)
     run_clean
@@ -106,8 +84,22 @@ case "$1" in
     run_clean
     run_clean_config
     ;;
+  config)
+    run_config
+    ;;
+  down)
+    run_down
+    ;;
+  exec)
+    shift
+    docker-compose -f $compose_file -p $stack_name exec "$@"
+    ;;
+  install)
+    run_install
+    ;;
   logs)
-    run_logs
+    shift
+    docker-compose -f $compose_file -p $stack_name logs "$@"
     ;;
   prune)
     run_prune
@@ -115,30 +107,19 @@ case "$1" in
   redis)
     run_redis
     ;;
-  shell_app)
-    run_shell_app
-    ;;
-  shell_http)
-    run_shell_http
-    ;;
-  up)
-    run_up
-    ;;
-  down)
-    run_down
+  run)
+    shift
+    docker-compose -f $compose_file -p $stack_name run --rm "$@"
     ;;
   sql)
     run_sql
     ;;
-  run)
+  up)
     shift
-    docker-compose -f $compose_file -p $stack_name run --rm $@
-    ;;
-  exec)
-    shift
-    docker-compose -f $compose_file -p $stack_name exec $@
+    docker-compose -f $compose_file -p $stack_name up -d "$@"
+    docker-compose -f $compose_file -p $stack_name logs -f
     ;;
   *)
-  run_usage
-  ;;
+    run_usage
+    ;;
 esac

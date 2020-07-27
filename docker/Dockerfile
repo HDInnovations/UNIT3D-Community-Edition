@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
         mariadb-client \
         libcurl4-openssl-dev libssl-dev \
     && docker-php-ext-configure pdo_mysql \
-    && docker-php-ext-install -j$(nproc) zip bcmath intl pdo_mysql curl
+    && docker-php-ext-install -j$(nproc) zip bcmath intl pdo_mysql
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
@@ -32,6 +32,3 @@ COPY ./resources/ resources/
 COPY ./docker/env .env
 RUN ./composer-setup.sh
 RUN php -d memory_limit=-1 composer global require hirak/prestissimo
-
-# COPY ./public/mix-sri.json ./static/mix-sri.json
-
