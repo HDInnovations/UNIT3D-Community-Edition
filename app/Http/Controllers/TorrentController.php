@@ -503,19 +503,19 @@ class TorrentController extends Controller
             }
 
             if ($request->has('tvdb') && $request->input('tvdb') != null) {
-                $torrent->where('torrentsl.tvdb', '=', $tvdb);
+                $torrent->orWhere('torrentsl.tvdb', '=', $tvdb);
             }
 
             if ($request->has('tmdb') && $request->input('tmdb') != null) {
-                $torrent->where('torrentsl.tmdb', '=', $tmdb);
+                $torrent->orWhere('torrentsl.tmdb', '=', $tmdb);
             }
 
             if ($request->has('mal') && $request->input('mal') != null) {
-                $torrent->where('torrentsl.mal', '=', $mal);
+                $torrent->orWhere('torrentsl.mal', '=', $mal);
             }
 
             if ($request->has('igdb') && $request->input('igdb') != null) {
-                $torrent->where('torrentsl.igdb', '=', $igdb);
+                $torrent->orWhere('torrentsl.igdb', '=', $igdb);
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
@@ -640,19 +640,19 @@ class TorrentController extends Controller
             }
 
             if ($request->has('tvdb') && $request->input('tvdb') != null) {
-                $torrent->where('torrents.tvdb', '=', $tvdb);
+                $torrent->orWhere('torrents.tvdb', '=', $tvdb);
             }
 
             if ($request->has('tmdb') && $request->input('tmdb') != null) {
-                $torrent->where('torrents.tmdb', '=', $tmdb);
+                $torrent->orWhere('torrents.tmdb', '=', $tmdb);
             }
 
             if ($request->has('mal') && $request->input('mal') != null) {
-                $torrent->where('torrents.mal', '=', $mal);
+                $torrent->orWhere('torrents.mal', '=', $mal);
             }
 
             if ($request->has('igdb') && $request->input('igdb') != null) {
-                $torrent->where('torrents.igdb', '=', $igdb);
+                $torrent->orWhere('torrents.igdb', '=', $igdb);
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
