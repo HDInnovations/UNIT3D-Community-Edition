@@ -73,20 +73,19 @@ services:
     ports:
       - "9099:9000"
 
-#  setup:
-#    image: unit3d_app:latest
-#    restart: "no"
-#    depends_on:
-#      - mariadb
-#    volumes:
-#      - composer_cache:/app/vendor
-#      - storage:/app/storage
-#      - public:/app/public
-#      - public_files:/app/public/files
-#    networks:
-#      - unit3d
-#    entrypoint:
-#    command: ""
+  queue:
+    image: unit3d_app:latest
+    restart: "no"
+    depends_on:
+      - mariadb
+    volumes:
+      - composer_cache:/app/vendor
+      - storage:/app/storage
+      - public:/app/public
+      - public_files:/app/public/files
+    networks:
+      - unit3d
+    command: "php artisan queue:work"
 
   app:
     build:
@@ -95,6 +94,7 @@ services:
     restart: always
     tty: true
     depends_on:
+      - queue
       - mariadb
       - redis
       - echo-server
