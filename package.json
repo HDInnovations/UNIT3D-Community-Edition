@@ -25,13 +25,13 @@
     "sass-loader": "^9.0.2",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
-    "sweetalert2": "^9.17.0",
+    "sweetalert2": "^9.17.1",
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "dayjs": "^1.8.29",
+    "dayjs": "^1.8.30",
     "laravel-mix-sri": "0.0.4"
   }
 }

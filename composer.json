@@ -52,6 +52,7 @@
         "nunomaduro/collision": "^4.1",
         "php-coveralls/php-coveralls": "^2.2",
         "phpunit/phpunit": "^9.0",
+        "rector/rector-prefixed": "^0.7.54",
         "symplify/changelog-linker": "^8.1"
     },
     "config": {
