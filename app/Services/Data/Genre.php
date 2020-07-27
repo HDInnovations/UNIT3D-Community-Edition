@@ -60,7 +60,7 @@ class Genre
         $myGenre = [];
         $genreCollection = $this->movieGenres + $this->tvGenres;
         foreach ($genres as $genre) {
-            if (in_array($genre, $genreCollection)) {
+            if (\in_array($genre, $genreCollection)) {
                 $myGenre[] = $genre;
             } elseif ($matchedGenre = $this->matchGenre($genre)) {
                 $myGenre[] = $matchedGenre;

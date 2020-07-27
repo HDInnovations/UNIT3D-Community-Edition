@@ -17,6 +17,9 @@ use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest
+ */
 class SeedboxController extends Controller
 {
     /**
@@ -31,11 +34,11 @@ class SeedboxController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
         $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
 
-        return view('seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
+        return \view('seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
     }
 
     /**
@@ -54,18 +57,18 @@ class SeedboxController extends Controller
         $seedbox->name = $request->input('name');
         $seedbox->ip = $request->input('ip');
 
-        $v = validator($seedbox->toArray(), [
+        $v = \validator($seedbox->toArray(), [
             'name'  => 'required|alpha_num',
             'ip'    => 'required|unique:clients,ip',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('seedboxes.index', ['username' => $user->username])
+            return \redirect()->route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
         $seedbox->save();
 
-        return redirect()->route('seedboxes.index', ['username' => $user->username])
+        return \redirect()->route('seedboxes.index', ['username' => $user->username])
             ->withSuccess('Seedbox Has Been Successfully Added!');
     }
 
@@ -75,6 +78,8 @@ class SeedboxController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Seedbox      $id
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function destroy(Request $request, $id)
@@ -82,11 +87,11 @@ class SeedboxController extends Controller
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);
 
-        abort_unless(($user->group->is_modo || $user->id == $seedbox->user_id), 403);
+        \abort_unless(($user->group->is_modo || $user->id == $seedbox->user_id), 403);
 
         $seedbox->delete();
 
-        return redirect()->route('seedboxes.index', ['username' => $user->username])
+        return \redirect()->route('seedboxes.index', ['username' => $user->username])
             ->withSuccess('Seedbox Has Been Successfully Deleted');
     }
 }

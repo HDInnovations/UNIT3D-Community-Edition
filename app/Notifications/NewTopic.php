@@ -32,15 +32,15 @@ class NewTopic extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param string $type
-     * @param User   $poster
-     * @param Topic  $topic
+     * @param string           $type
+     * @param \App\Models\User $user
+     * @param Topic            $topic
      */
-    public function __construct(string $type, User $poster, Topic $topic)
+    public function __construct(string $type, User $user, Topic $topic)
     {
         $this->type = $type;
         $this->topic = $topic;
-        $this->poster = $poster;
+        $this->poster = $user;
     }
 
     /**
@@ -64,20 +64,20 @@ class NewTopic extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         if ($this->type == 'staff') {
             return [
                 'title' => $this->poster->username.' Has Posted In A Staff Forum',
                 'body'  => $this->poster->username.' has started a new staff topic in '.$this->topic->forum->name,
-                'url'   => route('forum_topic', ['id' => $this->topic->id]),
+                'url'   => \route('forum_topic', ['id' => $this->topic->id]),
             ];
         }
 
         return [
             'title' => $this->poster->username.' Has Posted In A Subscribed Forum',
             'body'  => $this->poster->username.' has started a new topic in '.$this->topic->forum->name,
-            'url'   => sprintf('/forums/topics/%s', $this->topic->id),
+            'url'   => \sprintf('/forums/topics/%s', $this->topic->id),
         ];
     }
 }

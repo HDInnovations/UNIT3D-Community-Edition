@@ -20,6 +20,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
+ */
 class HomeController extends Controller
 {
     /**
@@ -34,8 +37,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // User Info
-        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $users = DB::table('users')
             ->selectRaw('count(*) as total')
             ->selectRaw("count(case when group_id = $banned_group[0] then 1 end) as banned")
@@ -69,23 +72,23 @@ class HomeController extends Controller
 
         // SSL Info
         try {
-            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
+            $certificate = $request->secure() ? SslCertificate::createForHostName(\config('app.url')) : '';
         } catch (\Exception $e) {
             $certificate = '';
         }
 
         // System Information
-        $sys = new SystemInformation();
-        $uptime = $sys->uptime();
-        $ram = $sys->memory();
-        $disk = $sys->disk();
-        $avg = $sys->avg();
-        $basic = $sys->basic();
+        $systemInformation = new SystemInformation();
+        $uptime = $systemInformation->uptime();
+        $ram = $systemInformation->memory();
+        $disk = $systemInformation->disk();
+        $avg = $systemInformation->avg();
+        $basic = $systemInformation->basic();
 
         // Directory Permissions
-        $file_permissions = $sys->directoryPermissions();
+        $file_permissions = $systemInformation->directoryPermissions();
 
-        return view('Staff.dashboard.index', [
+        return \view('Staff.dashboard.index', [
             'users'              => $users,
             'torrents'           => $torrents,
             'peers'              => $peers,

@@ -35,18 +35,18 @@ class SystemInformation
 
     public function avg()
     {
-        if (is_readable('/proc/loadavg')) {
-            return (float) file_get_contents('/proc/loadavg');
+        if (\is_readable('/proc/loadavg')) {
+            return (float) \file_get_contents('/proc/loadavg');
         }
     }
 
     public function memory()
     {
-        if (is_readable('/proc/meminfo')) {
-            $content = file_get_contents('/proc/meminfo');
-            preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
+        if (\is_readable('/proc/meminfo')) {
+            $content = \file_get_contents('/proc/meminfo');
+            \preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
             $total = $matches[1] * 1_024;
-            preg_match('#^MemFree: \s*(\d*)#m', $content, $matches);
+            \preg_match('#^MemFree: \s*(\d*)#m', $content, $matches);
             $free = $matches[1] * 1_024;
             //preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
             //$used = $this->formatBytes($matches[1] * 1024);
@@ -67,20 +67,20 @@ class SystemInformation
 
     protected function formatBytes($bytes, $precision = 2)
     {
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1_024));
-        $pow = min($pow, count(self::UNITS) - 1);
+        $bytes = \max($bytes, 0);
+        $pow = \floor(($bytes ? \log($bytes) : 0) / \log(1_024));
+        $pow = \min($pow, (is_countable(self::UNITS) ? \count(self::UNITS) : 0) - 1);
         // Uncomment one of the following alternatives
-        $bytes /= pow(1_024, $pow);
+        $bytes /= \pow(1_024, $pow);
         // $bytes /= (1 << (10 * $pow));
 
-        return round($bytes, $precision).' '.self::UNITS[$pow];
+        return \round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
     public function disk()
     {
-        $total = disk_total_space(base_path());
-        $free = disk_free_space(base_path());
+        $total = \disk_total_space(\base_path());
+        $free = \disk_free_space(\base_path());
 
         return [
             'total' => $this->formatBytes($total),
@@ -91,8 +91,8 @@ class SystemInformation
 
     public function uptime()
     {
-        if (is_readable('/proc/uptime')) {
-            return (float) file_get_contents('/proc/uptime');
+        if (\is_readable('/proc/uptime')) {
+            return (float) \file_get_contents('/proc/uptime');
         }
     }
 
@@ -104,16 +104,16 @@ class SystemInformation
     public function basic()
     {
         return [
-            'os'       => php_uname('s'),
-            'php'      => phpversion(),
+            'os'       => \php_uname('s'),
+            'php'      => \phpversion(),
             'database' => $this->getDatabase(),
-            'laravel'  => app()->version(),
+            'laravel'  => \app()->version(),
         ];
     }
 
     private function getDatabase()
     {
-        if (! in_array(config('database.default'), self::KNOWN_DATABASES)) {
+        if (! \in_array(\config('database.default'), self::KNOWN_DATABASES)) {
             return 'Unkown';
         }
         $results = DB::select(DB::raw('select version()'));
@@ -130,22 +130,22 @@ class SystemInformation
     {
         return [
             [
-                'directory'   => base_path('bootstrap/cache'),
+                'directory'   => \base_path('bootstrap/cache'),
                 'permission'  => $this->getDirectoryPermission('bootstrap/cache'),
                 'recommended' => '0775',
             ],
             [
-                'directory'   => base_path('public'),
+                'directory'   => \base_path('public'),
                 'permission'  => $this->getDirectoryPermission('public'),
                 'recommended' => '0775',
             ],
             [
-                'directory'   => base_path('storage'),
+                'directory'   => \base_path('storage'),
                 'permission'  => $this->getDirectoryPermission('storage'),
                 'recommended' => '0775',
             ],
             [
-                'directory'   => base_path('vendor'),
+                'directory'   => \base_path('vendor'),
                 'permission'  => $this->getDirectoryPermission('vendor'),
                 'recommended' => '0775',
             ],
@@ -162,9 +162,9 @@ class SystemInformation
     public function getDirectoryPermission($path)
     {
         try {
-            return substr(sprintf('%o', fileperms(base_path($path))), -4);
+            return \substr(\sprintf('%o', \fileperms(\base_path($path))), -4);
         } catch (\Exception $ex) {
-            return trans('site.error');
+            return \trans('site.error');
         }
     }
 }

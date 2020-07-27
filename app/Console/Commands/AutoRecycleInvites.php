@@ -17,6 +17,9 @@ use App\Models\Invite;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoRecycleInvitesTest
+ */
 class AutoRecycleInvites extends Command
 {
     /**

@@ -18,6 +18,9 @@ use App\Models\PrivateMessage;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoRemovePersonalFreeleechTest
+ */
 class AutoRemovePersonalFreeleech extends Command
 {
     /**

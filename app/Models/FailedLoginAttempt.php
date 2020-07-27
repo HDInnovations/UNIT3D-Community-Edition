@@ -52,7 +52,7 @@ class FailedLoginAttempt extends Model
     public static function record($user, $username, $ip)
     {
         return static::create([
-            'user_id'    => is_null($user) ? null : $user->id,
+            'user_id'    => \is_null($user) ? null : $user->id,
             'username'   => $username,
             'ip_address' => $ip,
         ]);

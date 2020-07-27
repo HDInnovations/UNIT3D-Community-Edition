@@ -18,21 +18,24 @@ use App\Models\ChatStatus;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\ChatStatusControllerTest
+ */
 class ChatStatusController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * ChatController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -42,9 +45,9 @@ class ChatStatusController extends Controller
      */
     public function index()
     {
-        $chatstatuses = $this->chat->statuses();
+        $chatstatuses = $this->chatRepository->statuses();
 
-        return view('Staff.chat.status.index', [
+        return \view('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,
         ]);
     }
@@ -63,19 +66,19 @@ class ChatStatusController extends Controller
         $chatstatus->color = $request->input('color');
         $chatstatus->icon = $request->input('icon');
 
-        $v = validator($chatstatus->toArray(), [
+        $v = \validator($chatstatus->toArray(), [
             'name'  => 'required',
             'color' => 'required',
             'icon'  => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.statuses.index')
+            return \redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
         }
         $chatstatus->save();
 
-        return redirect()->route('staff.statuses.index')
+        return \redirect()->route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Added');
     }
 
@@ -94,19 +97,19 @@ class ChatStatusController extends Controller
         $chatstatus->color = $request->input('color');
         $chatstatus->icon = $request->input('icon');
 
-        $v = validator($chatstatus->toArray(), [
+        $v = \validator($chatstatus->toArray(), [
             'name'  => 'required',
             'color' => 'required',
             'icon'  => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.statuses.index')
+            return \redirect()->route('staff.statuses.index')
                 ->withErrors($v->errors());
         }
         $chatstatus->save();
 
-        return redirect()->route('staff.statuses.index')
+        return \redirect()->route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');
     }
 
@@ -115,6 +118,8 @@ class ChatStatusController extends Controller
      *
      * @param \App\Models\ChatStatus $id
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
@@ -122,7 +127,7 @@ class ChatStatusController extends Controller
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
-        return redirect()->route('staff.statuses.index')
+        return \redirect()->route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');
     }
 }

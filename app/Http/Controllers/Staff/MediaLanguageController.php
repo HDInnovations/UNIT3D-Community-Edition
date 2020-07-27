@@ -28,7 +28,7 @@ class MediaLanguageController extends Controller
     {
         $media_languages = MediaLanguage::all()->sortBy('name');
 
-        return view('Staff.media_language.index', ['media_languages' => $media_languages]);
+        return \view('Staff.media_language.index', ['media_languages' => $media_languages]);
     }
 
     /**
@@ -38,7 +38,7 @@ class MediaLanguageController extends Controller
      */
     public function create()
     {
-        return view('Staff.media_language.create');
+        return \view('Staff.media_language.create');
     }
 
     /**
@@ -50,22 +50,22 @@ class MediaLanguageController extends Controller
      */
     public function store(Request $request)
     {
-        $media_language = new MediaLanguage();
-        $media_language->name = $request->input('name');
-        $media_language->code = $request->input('code');
+        $mediaLanguage = new MediaLanguage();
+        $mediaLanguage->name = $request->input('name');
+        $mediaLanguage->code = $request->input('code');
 
-        $v = validator($media_language->toArray(), [
+        $v = \validator($mediaLanguage->toArray(), [
             'name' => 'required|unique:media_languages',
             'code' => 'required|unique:media_languages',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.media_languages.index')
+            return \redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
-        $media_language->save();
+        $mediaLanguage->save();
 
-        return redirect()->route('staff.media_languages.index')
+        return \redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Added');
     }
 
@@ -80,7 +80,7 @@ class MediaLanguageController extends Controller
     {
         $media_language = MediaLanguage::findOrFail($id);
 
-        return view('Staff.media_language.edit', ['media_language' => $media_language]);
+        return \view('Staff.media_language.edit', ['media_language' => $media_language]);
     }
 
     /**
@@ -97,18 +97,18 @@ class MediaLanguageController extends Controller
         $media_language->name = $request->input('name');
         $media_language->code = $request->input('code');
 
-        $v = validator($media_language->toArray(), [
+        $v = \validator($media_language->toArray(), [
             'name' => 'required',
             'code' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.media_languages.index')
+            return \redirect()->route('staff.media_languages.index')
                 ->withErrors($v->errors());
         }
         $media_language->save();
 
-        return redirect()->route('staff.media_languages.index')
+        return \redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Updated');
     }
 
@@ -117,6 +117,8 @@ class MediaLanguageController extends Controller
      *
      * @param \App\Models\MediaLanguage $id
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
@@ -124,7 +126,7 @@ class MediaLanguageController extends Controller
         $media_language = MediaLanguage::findOrFail($id);
         $media_language->delete();
 
-        return redirect()->route('staff.media_languages.index')
+        return \redirect()->route('staff.media_languages.index')
             ->withSuccess('Media Language Has Successfully Been Deleted');
     }
 }

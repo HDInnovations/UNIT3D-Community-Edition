@@ -23,6 +23,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\ApplicationControllerTest
+ */
 class ApplicationController extends Controller
 {
     /**
@@ -37,7 +40,7 @@ class ApplicationController extends Controller
             ->latest()
             ->paginate(25);
 
-        return view('Staff.application.index', ['applications' => $applications]);
+        return \view('Staff.application.index', ['applications' => $applications]);
     }
 
     /**
@@ -51,7 +54,7 @@ class ApplicationController extends Controller
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
-        return view('Staff.application.show', ['application' => $application]);
+        return \view('Staff.application.show', ['application' => $application]);
     }
 
     /**
@@ -69,7 +72,7 @@ class ApplicationController extends Controller
         $application = Application::withAnyStatus()->findOrFail($id);
 
         if ($application->status !== 1) {
-            $current = new Carbon();
+            $carbon = new Carbon();
             $user = $request->user();
 
             $code = Uuid::uuid4()->toString();
@@ -77,34 +80,34 @@ class ApplicationController extends Controller
             $invite->user_id = $user->id;
             $invite->email = $application->email;
             $invite->code = $code;
-            $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+            $invite->expires_on = $carbon->copy()->addDays(\config('other.invite_expire'));
             $invite->custom = $request->input('approve');
 
-            if (config('email-blacklist.enabled') == true) {
-                $v = validator($request->all(), [
+            if (\config('email-blacklist.enabled') == true) {
+                $v = \validator($request->all(), [
                     'email'   => 'required|string|email|max:70|blacklist|unique:users|unique:invites',
                     'approve' => 'required',
                 ]);
             } else {
-                $v = validator($request->all(), [
+                $v = \validator($request->all(), [
                     'email'   => 'required|string|email|max:70|unique:users|unique:invites',
                     'approve' => 'required',
                 ]);
             }
 
             if ($v->fails()) {
-                return redirect()->route('staff.applications.index')
+                return \redirect()->route('staff.applications.index')
                     ->withErrors($v->errors());
             }
             Mail::to($application->email)->send(new InviteUser($invite));
             $invite->save();
             $application->markApproved();
 
-            return redirect()->route('staff.applications.index')
+            return \redirect()->route('staff.applications.index')
                 ->withSuccess('Application Approved');
         }
 
-        return redirect()->route('staff.applications.index')
+        return \redirect()->route('staff.applications.index')
                 ->withErrors('Application Already Approved');
     }
 
@@ -122,18 +125,18 @@ class ApplicationController extends Controller
 
         if ($application->status !== 2) {
             $denied_message = $request->input('deny');
-            $v = validator($request->all(), [
+            $v = \validator($request->all(), [
                 'deny' => 'required',
             ]);
 
             $application->markRejected();
             Mail::to($application->email)->send(new DenyApplication($denied_message));
 
-            return redirect()->route('staff.applications.index')
+            return \redirect()->route('staff.applications.index')
                 ->withSuccess('Application Rejected');
         }
 
-        return redirect()->route('staff.applications.index')
+        return \redirect()->route('staff.applications.index')
             ->withErrors('Application Already Rejected');
     }
 }

@@ -33,7 +33,7 @@ class TwoStepAuth
     {
         $response = $next($request);
         $uri = $request->path();
-        $nextUri = config('app.url').'/'.$uri;
+        $nextUri = \config('app.url').'/'.$uri;
         $user = $request->user();
 
         switch ($uri) {
@@ -45,10 +45,10 @@ class TwoStepAuth
                 break;
 
             default:
-                session(['nextUri' => $nextUri]);
+                \session(['nextUri' => $nextUri]);
 
-                if (config('auth.TwoStepEnabled') && $user->twostep == 1 && ! $this->twoStepVerification()) {
-                    return redirect()->route('verificationNeeded');
+                if (\config('auth.TwoStepEnabled') && $user->twostep == 1 && ! $this->twoStepVerification()) {
+                    return \redirect()->route('verificationNeeded');
                 }
 
                 break;

@@ -18,6 +18,9 @@ use App\Services\MovieScrapper;
 use Illuminate\Console\Command;
 use MarcReichel\IGDBLaravel\Models\Game;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\FetchReleaseYearsTest
+ */
 class FetchReleaseYears extends Command
 {
     /**
@@ -44,8 +47,8 @@ class FetchReleaseYears extends Command
      */
     public function handle()
     {
-        $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        $appurl = config('app.url');
+        $movieScrapper = new MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
+        $appurl = \config('app.url');
 
         $torrents = Torrent::withAnyStatus()
             ->with(['category'])
@@ -61,25 +64,25 @@ class FetchReleaseYears extends Command
             ->whereNull('release_year')
             ->count();
 
-        $this->alert(sprintf('%s Torrents Already Have A Release Year Value', $withyear));
-        $this->alert(sprintf('%s Torrents Are Missing A Release Year Value', $withoutyear));
+        $this->alert(\sprintf('%s Torrents Already Have A Release Year Value', $withyear));
+        $this->alert(\sprintf('%s Torrents Are Missing A Release Year Value', $withoutyear));
 
         foreach ($torrents as $torrent) {
             $meta = null;
 
             if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $movieScrapper->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $movieScrapper->scrape('tv', 'tt'.$torrent->imdb);
                 }
                 if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s 
 ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s
                     %s/torrents/%s 
 ', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
@@ -87,17 +90,17 @@ class FetchReleaseYears extends Command
 
             if ($torrent->category->movie_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $meta = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $movieScrapper->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $movieScrapper->scrape('movie', 'tt'.$torrent->imdb);
                 }
                 if (isset($meta->releaseYear) && $meta->releaseYear > '1900') {
                     $torrent->release_year = $meta->releaseYear;
                     $torrent->save();
-                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s 
 ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s
                     %s/torrents/%s 
 ', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
@@ -108,24 +111,24 @@ class FetchReleaseYears extends Command
                     $meta = Game::find($torrent->igdb);
                 }
                 if (isset($meta->first_release_date) && $meta->first_release_date > '1900') {
-                    $torrent->release_year = date('Y', strtotime($meta->first_release_date));
+                    $torrent->release_year = \date('Y', \strtotime($meta->first_release_date));
                     $torrent->save();
-                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s 
+                    $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s 
 ', $torrent->category->name, $torrent->name));
                 } else {
-                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s
+                    $this->warn(\sprintf('(%s) No Release Year Found For Torrent %s
                     %s/torrents/%s 
 ', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
                 }
             }
 
             if ($torrent->category->no_meta || $torrent->category->music_meta) {
-                $this->warn(sprintf('(SKIPPED) %s Is In A Category That Does Not Have Meta. 
+                $this->warn(\sprintf('(SKIPPED) %s Is In A Category That Does Not Have Meta. 
 ', $torrent->name));
             }
 
             // sleep for 1 second
-            sleep(1);
+            \sleep(1);
         }
         $this->comment('Torrent Release Year Command Complete');
     }

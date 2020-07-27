@@ -18,6 +18,9 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoDeactivateWarningTest
+ */
 class AutoDeactivateWarning extends Command
 {
     /**

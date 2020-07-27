@@ -20,6 +20,9 @@ use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
+ */
 class GroupController extends Controller
 {
     /**
@@ -32,11 +35,11 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->group->is_admin, 403);
 
         $groups = Group::all()->sortBy('position');
 
-        return view('Staff.group.index', ['groups' => $groups]);
+        return \view('Staff.group.index', ['groups' => $groups]);
     }
 
     /**
@@ -49,9 +52,9 @@ class GroupController extends Controller
     public function create(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->group->is_admin, 403);
 
-        return view('Staff.group.create');
+        return \view('Staff.group.create');
     }
 
     /**
@@ -64,7 +67,7 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->group->is_admin, 403);
 
         $group = new Group();
         $group->name = $request->input('name');
@@ -86,7 +89,7 @@ class GroupController extends Controller
         $group->can_upload = $request->input('can_upload');
         $group->autogroup = $request->input('autogroup');
 
-        $v = validator($group->toArray(), [
+        $v = \validator($group->toArray(), [
             'name'     => 'required|unique:groups',
             'slug'     => 'required|unique:groups',
             'position' => 'required',
@@ -95,12 +98,12 @@ class GroupController extends Controller
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
-            return redirect()->route('staff.groups.index')
+            return \redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to create a group with owner permissions!');
         }
 
         if ($v->fails()) {
-            return redirect()->route('staff.groups.index')
+            return \redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
         }
         $group->save();
@@ -115,7 +118,7 @@ class GroupController extends Controller
             $permission->save();
         }
 
-        return redirect()->route('staff.groups.index')
+        return \redirect()->route('staff.groups.index')
             ->withSuccess('Group Was Created Successfully!');
     }
 
@@ -130,11 +133,11 @@ class GroupController extends Controller
     public function edit(Request $request, $id)
     {
         $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->group->is_admin, 403);
 
         $group = Group::findOrFail($id);
 
-        return view('Staff.group.edit', ['group' => $group]);
+        return \view('Staff.group.edit', ['group' => $group]);
     }
 
     /**
@@ -148,7 +151,7 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->group->is_admin, 403);
 
         $group = Group::findOrFail($id);
 
@@ -171,7 +174,7 @@ class GroupController extends Controller
         $group->can_upload = $request->input('can_upload');
         $group->autogroup = $request->input('autogroup');
 
-        $v = validator($group->toArray(), [
+        $v = \validator($group->toArray(), [
             'name'     => 'required',
             'slug'     => 'required',
             'position' => 'required',
@@ -180,17 +183,17 @@ class GroupController extends Controller
         ]);
 
         if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
-            return redirect()->route('staff.groups.index')
+            return \redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to give a group owner permissions!');
         }
 
         if ($v->fails()) {
-            return redirect()->route('staff.groups.index')
+            return \redirect()->route('staff.groups.index')
                 ->withErrors($v->errors());
         }
         $group->save();
 
-        return redirect()->route('staff.groups.index')
+        return \redirect()->route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');
     }
 }

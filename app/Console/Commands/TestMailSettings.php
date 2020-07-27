@@ -17,6 +17,9 @@ use App\Mail\TestEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\TestMailSettingsTest
+ */
 class TestMailSettings extends Command
 {
     /**
@@ -40,10 +43,10 @@ class TestMailSettings extends Command
      */
     public function handle()
     {
-        $owner = config('other.email');
+        $owner = \config('other.email');
 
         $this->info('Sending Test Email To '.$owner);
-        sleep(5);
+        \sleep(5);
 
         try {
             Mail::to($owner)->send(new TestEmail());

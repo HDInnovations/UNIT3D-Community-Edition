@@ -31,6 +31,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
+ */
 class UserController extends Controller
 {
     /**
@@ -54,7 +57,7 @@ class UserController extends Controller
         $admins = User::with('group')->where('group_id', '=', 4)->latest()->paginate(25);
         $coders = User::with('group')->where('group_id', '=', 10)->latest()->paginate(25);
 
-        return view('Staff.user.user_search', [
+        return \view('Staff.user.user_search', [
             'users'     => $users,
             'uploaders' => $uploaders,
             'mods'      => $mods,
@@ -77,7 +80,7 @@ class UserController extends Controller
         ])->paginate(25);
         $users->setPath('?username='.$request->input('username'));
 
-        return view('Staff.user.user_results', ['users' => $users]);
+        return \view('Staff.user.user_results', ['users' => $users]);
     }
 
     /**
@@ -93,7 +96,7 @@ class UserController extends Controller
         $groups = Group::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
-        return view('Staff.user.user_edit', [
+        return \view('Staff.user.user_edit', [
             'user'   => $user,
             'groups' => $groups,
             'notes'  => $notes,
@@ -136,7 +139,7 @@ class UserController extends Controller
         // Hard coded until group change.
 
         if ($target >= $sender || ($sender == 0 && ($sendto === 6 || $sendto === 4 || $sendto === 10)) || ($sender == 1 && ($sendto === 4 || $sendto === 10))) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('You Are Not Authorized To Perform This Action!');
         }
 
@@ -149,7 +152,7 @@ class UserController extends Controller
         $user->group_id = (int) $request->input('group_id');
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -174,7 +177,7 @@ class UserController extends Controller
         $user->can_chat = $request->input('can_chat');
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -189,13 +192,13 @@ class UserController extends Controller
     protected function password(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = auth()->user();
+        $staff = \auth()->user();
 
         $new_password = $request->input('new_password');
         $user->password = Hash::make($new_password);
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
     }
 
@@ -209,9 +212,9 @@ class UserController extends Controller
     protected function destroy($username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $staff = auth()->user();
+        $staff = \auth()->user();
 
-        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+        \abort_if($user->group->is_modo || \auth()->user()->id == $user->id, 403);
 
         // Removes UserID from Torrents if any and replaces with System UserID (1)
         foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
@@ -284,11 +287,11 @@ class UserController extends Controller
         }
 
         if ($user->delete()) {
-            return redirect()->route('staff.dashboard.index')
+            return \redirect()->route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
 
-        return redirect()->route('staff.dashboard.index')
+        return \redirect()->route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
     }
 }

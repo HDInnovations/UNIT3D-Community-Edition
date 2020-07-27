@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-use Crypt;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
 
@@ -28,23 +28,23 @@ class HiddenCaptcha
      */
     public static function render($mustBeEmptyField = '_username')
     {
-        $ts = time();
+        $ts = \time();
         $random = Str::random(16);
 
         // Generate the token
         $token = [
             'timestamp'         => $ts,
-            'session_id'        => session()->getId(),
-            'ip'                => request()->ip(),
-            'user_agent'        => request()->header('User-Agent'),
+            'session_id'        => \session()->getId(),
+            'ip'                => \request()->ip(),
+            'user_agent'        => \request()->header('User-Agent'),
             'random_field_name' => $random,
             'must_be_empty'     => $mustBeEmptyField,
         ];
 
         // Encrypt the token
-        $token = Crypt::encrypt(serialize($token));
+        $token = Crypt::encrypt(\serialize($token));
 
-        return (string) view('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
+        return (string) \view('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
     }
 
     /**
@@ -66,12 +66,12 @@ class HiddenCaptcha
         }
 
         // Hidden "must be empty" field check
-        if (! array_key_exists($token['must_be_empty'], $formData) || ! empty($formData[$token['must_be_empty']])) {
+        if (! \array_key_exists($token['must_be_empty'], $formData) || ! empty($formData[$token['must_be_empty']])) {
             return false;
         }
 
         // Check time limits
-        $now = time();
+        $now = \time();
         if ($now - $token['timestamp'] < $minLimit || $now - $token['timestamp'] > $maxLimit) {
             return false;
         }
@@ -83,7 +83,7 @@ class HiddenCaptcha
 
         // Check if the random field value is similar to the token value
         $randomField = $formData[$token['random_field_name']];
-        if (! ctype_digit($randomField) || $token['timestamp'] != $randomField) {
+        if (! \ctype_digit($randomField) || $token['timestamp'] != $randomField) {
             return false;
         }
 
@@ -107,10 +107,10 @@ class HiddenCaptcha
             return false;
         }
 
-        $token = @unserialize($token);
+        $token = @\unserialize($token);
 
         // Token is null or unserializable
-        if (! $token || ! is_array($token) || empty($token)) {
+        if (! $token || ! \is_array($token) || empty($token)) {
             return false;
         }
 
@@ -118,9 +118,9 @@ class HiddenCaptcha
         if (empty($token['session_id']) ||
             empty($token['ip']) ||
             empty($token['user_agent']) ||
-            $token['session_id'] !== session()->getId() ||
-            $token['ip'] !== request()->ip() ||
-            $token['user_agent'] !== request()->header('User-Agent')
+            $token['session_id'] !== \session()->getId() ||
+            $token['ip'] !== \request()->ip() ||
+            $token['user_agent'] !== \request()->header('User-Agent')
         ) {
             return false;
         }

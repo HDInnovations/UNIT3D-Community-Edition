@@ -16,16 +16,19 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\VersionControllerTest
+ */
 class VersionController extends Controller
 {
     /**
      * @var VersionController
      */
-    private $version;
+    private $versionController;
 
     public function __construct()
     {
-        $this->version = config('unit3d.version');
+        $this->versionController = \config('unit3d.version');
     }
 
     /**
@@ -36,11 +39,11 @@ class VersionController extends Controller
     public function checkVersion()
     {
         $client = new Client();
-        $response = json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody());
+        $response = \json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody());
         $lastestVersion = $response[0]->tag_name;
 
-        return response([
-            'updated'       => ! version_compare($this->version, $lastestVersion, '<'),
+        return \response([
+            'updated'       => ! \version_compare($this->versionController, $lastestVersion, '<'),
             'latestversion' => $lastestVersion,
         ]);
     }

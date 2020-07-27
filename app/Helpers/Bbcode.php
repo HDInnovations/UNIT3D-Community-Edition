@@ -344,8 +344,8 @@ class Bbcode
      */
     protected function searchAndReplace($pattern, $replace, $source)
     {
-        while (preg_match($pattern, $source)) {
-            $source = preg_replace($pattern, $replace, $source);
+        while (\preg_match($pattern, $source)) {
+            $source = \preg_replace($pattern, $replace, $source);
         }
 
         return $source;

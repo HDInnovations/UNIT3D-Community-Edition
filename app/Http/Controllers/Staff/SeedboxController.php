@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest
+ */
 class SeedboxController extends Controller
 {
     /**
@@ -28,7 +31,7 @@ class SeedboxController extends Controller
     {
         $seedboxes = Seedbox::with('user')->latest()->paginate(50);
 
-        return view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
+        return \view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
     }
 
     /**
@@ -37,6 +40,8 @@ class SeedboxController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Seedbox      $id
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
@@ -44,10 +49,10 @@ class SeedboxController extends Controller
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);
 
-        abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->group->is_modo, 403);
         $seedbox->delete();
 
-        return redirect()->route('staff.seedboxes.index')
+        return \redirect()->route('staff.seedboxes.index')
             ->withSuccess('Seedbox Record Has Successfully Been Deleted');
     }
 }

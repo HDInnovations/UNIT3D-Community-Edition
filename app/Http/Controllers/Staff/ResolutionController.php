@@ -29,7 +29,7 @@ class ResolutionController extends Controller
     {
         $resolutions = Resolution::all()->sortBy('position');
 
-        return view('Staff.resolution.index', ['resolutions' => $resolutions]);
+        return \view('Staff.resolution.index', ['resolutions' => $resolutions]);
     }
 
     /**
@@ -39,7 +39,7 @@ class ResolutionController extends Controller
      */
     public function create()
     {
-        return view('Staff.resolution.create');
+        return \view('Staff.resolution.create');
     }
 
     /**
@@ -56,19 +56,19 @@ class ResolutionController extends Controller
         $resolution->slug = Str::slug($resolution->name);
         $resolution->position = $request->input('position');
 
-        $v = validator($resolution->toArray(), [
+        $v = \validator($resolution->toArray(), [
             'name'     => 'required',
             'slug'     => 'required',
             'position' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.resolutions.index')
+            return \redirect()->route('staff.resolutions.index')
                 ->withErrors($v->errors());
         }
         $resolution->save();
 
-        return redirect()->route('staff.resolutions.index')
+        return \redirect()->route('staff.resolutions.index')
                 ->withSuccess('Resolution Successfully Added');
     }
 
@@ -83,7 +83,7 @@ class ResolutionController extends Controller
     {
         $resolution = Resolution::findOrFail($id);
 
-        return view('Staff.resolution.edit', ['resolution' => $resolution]);
+        return \view('Staff.resolution.edit', ['resolution' => $resolution]);
     }
 
     /**
@@ -101,19 +101,19 @@ class ResolutionController extends Controller
         $resolution->slug = Str::slug($resolution->name);
         $resolution->position = $request->input('position');
 
-        $v = validator($resolution->toArray(), [
+        $v = \validator($resolution->toArray(), [
             'name'     => 'required',
             'slug'     => 'required',
             'position' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.resolutions.index')
+            return \redirect()->route('staff.resolutions.index')
                 ->withErrors($v->errors());
         }
         $resolution->save();
 
-        return redirect()->route('staff.resolutions.index')
+        return \redirect()->route('staff.resolutions.index')
                 ->withSuccess('Resolution Successfully Modified');
     }
 
@@ -131,7 +131,7 @@ class ResolutionController extends Controller
         $resolution = Resolution::findOrFail($id);
         $resolution->delete();
 
-        return redirect()->route('staff.resolutions.index')
+        return \redirect()->route('staff.resolutions.index')
             ->withSuccess('Resolution Successfully Deleted');
     }
 }

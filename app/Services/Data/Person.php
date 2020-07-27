@@ -52,8 +52,8 @@ class Person
     public function __construct($data = [])
     {
         foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
-                if (is_array($value) && ! count($value)) {
+            if (\property_exists($this, $key)) {
+                if (\is_array($value) && ! \count($value)) {
                     $value = null;
                 }
                 $this->$key = $value;

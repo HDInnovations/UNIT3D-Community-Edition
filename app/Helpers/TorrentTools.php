@@ -38,23 +38,23 @@ class TorrentTools
         // The PID will be set if an user downloads the torrent, but for
         // security purposes it's better to overwrite the user-provided
         // announce URL.
-        $announce = config('app.url');
+        $announce = \config('app.url');
         $announce .= '/announce/PID';
         $result['announce'] = $announce;
-        $result['info']['source'] = config('torrent.source');
+        $result['info']['source'] = \config('torrent.source');
         $result['info']['private'] = 1;
-        $created_by = config('torrent.created_by', null);
-        $created_by_append = config('torrent.created_by_append', false);
+        $created_by = \config('torrent.created_by', null);
+        $created_by_append = \config('torrent.created_by_append', false);
         if ($created_by !== null) {
-            if ($created_by_append && array_key_exists('created by', $result)) {
+            if ($created_by_append && \array_key_exists('created by', $result)) {
                 $c = $result['created by'];
-                $c = trim($c, '. ');
+                $c = \trim($c, '. ');
                 $c .= '. '.$created_by;
                 $created_by = $c;
             }
             $result['created by'] = $created_by;
         }
-        $comment = config('torrent.comment', null);
+        $comment = \config('torrent.comment', null);
         if ($comment !== null) {
             $result['comment'] = $comment;
         }
@@ -72,8 +72,8 @@ class TorrentTools
     public static function getFileCount($decodedTorrent)
     {
         // Multiple file torrent ?
-        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
-            return is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0;
+        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+            return \is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;
@@ -89,11 +89,11 @@ class TorrentTools
     public static function getTorrentSize($decodedTorrent)
     {
         $size = 0;
-        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
+        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
                 $size += $file['length'];
-                $count = is_countable($file['path']) ? count($file['path']) : 0;
+                $count = \is_countable($file['path']) ? \count($file['path']) : 0;
             }
         } else {
             $size = $decodedTorrent['info']['length'];
@@ -112,10 +112,10 @@ class TorrentTools
      */
     public static function getTorrentFiles($decodedTorrent)
     {
-        if (array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0)) {
+        if (\array_key_exists('files', $decodedTorrent['info']) && (\is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
-                $count = is_countable($file['path']) ? count($file['path']) : 0;
+                $count = \is_countable($file['path']) ? \count($file['path']) : 0;
                 for ($i = 0; $i < $count; $i++) {
                     if ($i + 1 === $count) {
                         $fname = $dir.$file['path'][$i];
@@ -144,7 +144,7 @@ class TorrentTools
      */
     public static function getTorrentHash($decodedTorrent)
     {
-        return sha1(Bencode::bencode($decodedTorrent['info']));
+        return \sha1(Bencode::bencode($decodedTorrent['info']));
     }
 
     /**
@@ -156,8 +156,8 @@ class TorrentTools
      */
     public static function getTorrentFileCount($decodedTorrent)
     {
-        if (array_key_exists('files', $decodedTorrent['info'])) {
-            return is_countable($decodedTorrent['info']['files']) ? count($decodedTorrent['info']['files']) : 0;
+        if (\array_key_exists('files', $decodedTorrent['info'])) {
+            return \is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
         }
 
         return 1;
@@ -172,11 +172,11 @@ class TorrentTools
      */
     public static function getNfo($inputFile)
     {
-        $fileName = uniqid().'.nfo';
-        $inputFile->move(getcwd().'/files/tmp/', $fileName);
-        if (file_exists(getcwd().'/files/tmp/'.$fileName)) {
-            $fileContent = file_get_contents(getcwd().'/files/tmp/'.$fileName);
-            unlink(getcwd().'/files/tmp/'.$fileName);
+        $fileName = \uniqid().'.nfo';
+        $inputFile->move(\getcwd().'/files/tmp/', $fileName);
+        if (\file_exists(\getcwd().'/files/tmp/'.$fileName)) {
+            $fileContent = \file_get_contents(\getcwd().'/files/tmp/'.$fileName);
+            \unlink(\getcwd().'/files/tmp/'.$fileName);
         } else {
             $fileContent = null;
         }

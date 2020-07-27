@@ -58,7 +58,7 @@ class SendDisableUserMail implements ShouldQueue
     public function handle()
     {
         if ($this->attempts() > 2) {
-            $this->delay(min(30 * $this->attempts(), 300));
+            $this->delay(\min(30 * $this->attempts(), 300));
         }
 
         Mail::to($this->user)->send(new DisableUser($this->user));

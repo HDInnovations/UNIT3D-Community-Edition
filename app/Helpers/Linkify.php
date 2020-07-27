@@ -22,8 +22,8 @@ class Linkify
 
     public function linky($text)
     {
-        if (preg_match(self::REG_EX_URL, $text, $url)) {
-            return preg_replace(self::REG_EX_URL, sprintf("<a href='%s'>%s</a> ", $url[0], $url[0]), $text);
+        if (\preg_match(self::REG_EX_URL, $text, $url)) {
+            return \preg_replace(self::REG_EX_URL, \sprintf("<a href='%s'>%s</a> ", $url[0], $url[0]), $text);
         }
 
         return $text;

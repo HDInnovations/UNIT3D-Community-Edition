@@ -16,6 +16,9 @@ namespace App\Console\Commands;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\SyncPeersTest
+ */
 class SyncPeers extends Command
 {
     /**
