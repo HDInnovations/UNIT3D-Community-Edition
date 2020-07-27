@@ -30,7 +30,7 @@ class Tv extends Movie
     /**
      * @var Carbon
      */
-    public $endDate;
+    public $carbon;
 
     /**
      * @var bool
@@ -61,11 +61,11 @@ class Tv extends Movie
     {
         parent::__construct($data);
 
-        if ($this->endDate instanceof \DateTime) {
-            $this->endDate = $this->endDate ? (new Carbon())->instance($this->endDate) : null;
+        if ($this->carbon instanceof \DateTime) {
+            $this->carbon = $this->carbon ? (new Carbon())->instance($this->carbon) : null;
         } else {
-            $this->endDate = $this->endDate ? (new Carbon($this->endDate)) : null;
+            $this->carbon = $this->carbon ? (new Carbon($this->carbon)) : null;
         }
-        $this->ended = $this->endDate ? true : $this->ended;
+        $this->ended = $this->carbon ? true : $this->ended;
     }
 }

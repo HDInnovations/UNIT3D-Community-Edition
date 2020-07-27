@@ -31,15 +31,15 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param string         $type
-     * @param string         $sender
-     * @param TorrentRequest $tr
+     * @param string                     $type
+     * @param string                     $sender
+     * @param \App\Models\TorrentRequest $torrentRequest
      */
-    public function __construct(string $type, string $sender, TorrentRequest $tr)
+    public function __construct(string $type, string $sender, TorrentRequest $torrentRequest)
     {
         $this->type = $type;
         $this->sender = $sender;
-        $this->tr = $tr;
+        $this->tr = $torrentRequest;
     }
 
     /**
@@ -63,12 +63,12 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         return [
             'title' => $this->sender.' Has Unclaimed One Of Your Requested Torrents',
             'body'  => $this->sender.' has unclaimed your Requested Torrent '.$this->tr->name,
-            'url'   => sprintf('/requests/%s', $this->tr->id),
+            'url'   => \sprintf('/requests/%s', $this->tr->id),
         ];
     }
 }

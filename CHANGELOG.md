@@ -1,6 +1,16 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v2.7.0]
+
+- [#1410] [ImgBot] Optimize images, Thanks to [@imgbot][bot]
+- [#1414] (Update) Log Viewer, Thanks to [@HDVinnie]
+- [#1412] (Refactor) Code Quality and Style, Thanks to [@HDVinnie]
+- [#1409] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+
+<!-- dumped content end -->
+
+<!-- dumped content start -->
 ## [v2.6.0]
 
 - [#1394] Adds num_file to torrent API response., Thanks to [@PyR8zdl]
@@ -1516,6 +1526,7 @@
 [v2.4.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.3.0...v2.4.0
 [v2.5.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.4.0...v2.5.0
 [v2.6.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.5.0...v2.6.0
+[v2.7.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.6.0...v2.7.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1534,3 +1545,7 @@
 [@leighmacdonald]: https://github.com/leighmacdonald
 [@StealthC]: https://github.com/StealthC
 [@Gideon75]: https://github.com/Gideon75
+[#1414]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1414
+[#1412]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1412
+[#1410]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1410
+[#1409]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1409

@@ -120,7 +120,7 @@ class Rss extends Model
         if ($this->json_torrent) {
             $expected = $this->expected_fields;
 
-            return (object) array_merge($expected, $this->json_torrent);
+            return (object) \array_merge($expected, $this->json_torrent);
         }
 
         return false;

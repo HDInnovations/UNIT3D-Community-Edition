@@ -62,11 +62,11 @@ class Http2ServerPush
 
     public function getConfig($key, $default = false)
     {
-        if (! function_exists('config')) { // for tests..
+        if (! \function_exists('config')) { // for tests..
             return $default;
         }
 
-        return config('http2serverpush.'.$key, $default);
+        return \config('http2serverpush.'.$key, $default);
     }
 
     /**
@@ -88,20 +88,20 @@ class Http2ServerPush
                 if (! $value) {
                     return false;
                 }
-                $exclude_keywords = collect($excludeKeywords)->map(fn ($keyword) => preg_quote($keyword));
+                $exclude_keywords = \collect($excludeKeywords)->map(fn ($keyword) => \preg_quote($keyword));
                 if ($exclude_keywords->count() <= 0) {
                     return true;
                 }
 
-                return ! preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
+                return ! \preg_match('%('.$exclude_keywords->implode('|').')%i', $value);
             })
             ->take($limit);
 
-        $sizeLimit ??= max(1, (int) $this->getConfig('size_limit', 32 * 1_024));
-        $headersText = trim($headers->implode(','));
-        while (strlen($headersText) > $sizeLimit) {
+        $sizeLimit ??= \max(1, (int) $this->getConfig('size_limit', 32 * 1_024));
+        $headersText = \trim($headers->implode(','));
+        while (\strlen($headersText) > $sizeLimit) {
             $headers->pop();
-            $headersText = trim($headers->implode(','));
+            $headersText = \trim($headers->implode(','));
         }
 
         if (! empty($headersText)) {
@@ -138,7 +138,7 @@ class Http2ServerPush
     {
         $crawler = $this->getCrawler($response);
 
-        return collect($crawler->filter('link:not([rel*="icon"]), script[src], img[src], object[data]')->extract(['src', 'href', 'data']));
+        return \collect($crawler->filter('link:not([rel*="icon"]), script[src], img[src], object[data]')->extract(['src', 'href', 'data']));
     }
 
     /**
@@ -150,13 +150,13 @@ class Http2ServerPush
      */
     private function buildLinkHeaderString($url)
     {
-        $type = collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(strtoupper($url), $extension));
-        if (! preg_match('#^https?://#i', $url)) {
+        $type = \collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(\strtoupper($url), $extension));
+        if (! \preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
-            $url = $basePath.ltrim($url, $basePath);
+            $url = $basePath.\ltrim($url, $basePath);
         }
 
-        return is_null($type) ? null : sprintf('<%s>; rel=preload; as=%s', $url, $type);
+        return \is_null($type) ? null : \sprintf('<%s>; rel=preload; as=%s', $url, $type);
     }
 
     /**

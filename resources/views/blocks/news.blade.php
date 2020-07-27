@@ -21,7 +21,8 @@
                             </h4>
                         </div>
                     @endif
-                    <div id="collapse4" class="panel-collapse collapse {{ ($article->newNews ? 'in' : '') }}" style="height: 0;">
+                    <div aria-expanded="{{ ($article->newNews ? 'true' : 'false') }}" id="collapse4" class="panel-collapse collapse {{ ($article->newNews ? 'in' : '') }}"
+                         style="{{ ($article->newNews ? '' : 'height: 0;') }}">
                         <div class="panel-body no-padding">
                             <div class="news-blocks">
                                 <a href="{{ route('articles.show', ['id' => $article->id]) }}"

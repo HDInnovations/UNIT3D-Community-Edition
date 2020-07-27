@@ -19,6 +19,9 @@ use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\WarningControllerTest
+ */
 class WarningController extends Controller
 {
     /**
@@ -31,7 +34,7 @@ class WarningController extends Controller
      */
     public function show(Request $request, $username)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -41,7 +44,7 @@ class WarningController extends Controller
         $softDeletedWarnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
         $softDeletedWarningCount = Warning::where('user_id', '=', $user->id)->onlyTrashed()->count();
 
-        return view('user.warninglog', [
+        return \view('user.warninglog', [
             'warnings'                => $warnings,
             'warningcount'            => $warningcount,
             'softDeletedWarnings'     => $softDeletedWarnings,
@@ -60,7 +63,7 @@ class WarningController extends Controller
      */
     public function deactivate(Request $request, $id)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
         $staff = $request->user();
         $warning = Warning::findOrFail($id);
         $warning->expires_on = Carbon::now();
@@ -68,14 +71,14 @@ class WarningController extends Controller
         $warning->save();
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'Hit and Run Warning Deactivated';
-        $pm->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $warning->user_id;
+        $privateMessage->subject = 'Hit and Run Warning Deactivated';
+        $privateMessage->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
-        return redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Deactivated');
     }
 
@@ -89,7 +92,7 @@ class WarningController extends Controller
      */
     public function deactivateAllWarnings(Request $request, $username)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -102,14 +105,14 @@ class WarningController extends Controller
         }
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $user->id;
-        $pm->subject = 'All Hit and Run Warning Deactivated';
-        $pm->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $user->id;
+        $privateMessage->subject = 'All Hit and Run Warning Deactivated';
+        $privateMessage->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
-        return redirect()->route('warnings.show', ['username' => $user->username])
+        return \redirect()->route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deactivated');
     }
 
@@ -119,28 +122,30 @@ class WarningController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Warning      $id
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteWarning(Request $request, $id)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
         $staff = $request->user();
         $warning = Warning::findOrFail($id);
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $warning->user_id;
-        $pm->subject = 'Hit and Run Warning Deleted';
-        $pm->message = $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $warning->user_id;
+        $privateMessage->subject = 'Hit and Run Warning Deleted';
+        $privateMessage->message = $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
         $warning->deleted_by = $staff->id;
         $warning->save();
         $warning->delete();
 
-        return redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Deleted');
     }
 
@@ -154,7 +159,7 @@ class WarningController extends Controller
      */
     public function deleteAllWarnings(Request $request, $username)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
@@ -168,14 +173,14 @@ class WarningController extends Controller
         }
 
         // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = $staff->id;
-        $pm->receiver_id = $user->id;
-        $pm->subject = 'All Hit and Run Warnings Deleted';
-        $pm->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $staff->id;
+        $privateMessage->receiver_id = $user->id;
+        $privateMessage->subject = 'All Hit and Run Warnings Deleted';
+        $privateMessage->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->save();
 
-        return redirect()->route('warnings.show', ['username' => $user->username])
+        return \redirect()->route('warnings.show', ['username' => $user->username])
             ->withSuccess('All Warnings Were Successfully Deleted');
     }
 
@@ -189,13 +194,13 @@ class WarningController extends Controller
      */
     public function restoreWarning(Request $request, $id)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
         $staff = $request->user();
         $warning = Warning::withTrashed()->findOrFail($id);
         $warning->restore();
 
-        return redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
+        return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])
             ->withSuccess('Warning Was Successfully Restored');
     }
 }

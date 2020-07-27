@@ -39,7 +39,7 @@ class StringHelper
     {
         $string = '';
         for ($i = 0; $i < $length; $i++) {
-            $string .= self::CHARACTERS[rand(0, strlen(self::CHARACTERS) - 1)];
+            $string .= self::CHARACTERS[\rand(0, \strlen(self::CHARACTERS) - 1)];
         }
 
         return $string;
@@ -47,7 +47,7 @@ class StringHelper
 
     public static function formatBytes($bytes, $precision = 2)
     {
-        $bytes = max($bytes, 0);
+        $bytes = \max($bytes, 0);
         $suffix = 'B';
         $value = $bytes;
         if ($bytes >= self::PIB) {
@@ -67,7 +67,7 @@ class StringHelper
             $value = $bytes / self::KIB;
         }
 
-        return round($value, $precision).' '.$suffix;
+        return \round($value, $precision).' '.$suffix;
     }
 
     /**
@@ -86,7 +86,7 @@ class StringHelper
         $months = 0;
         $years = 0;
 
-        $seconds = config('hitrun.seedtime') - $seconds;
+        $seconds = \config('hitrun.seedtime') - $seconds;
 
         if ($seconds == 0) {
             return 'N/A';
@@ -115,13 +115,13 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
+        $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.\trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.\trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.\trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.\trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.\trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.\trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
@@ -169,13 +169,13 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
+        $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.\trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.\trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.\trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.\trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.\trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.\trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }

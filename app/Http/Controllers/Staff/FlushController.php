@@ -21,21 +21,24 @@ use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest
+ */
 class FlushController extends Controller
 {
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
     /**
      * ChatController Constructor.
      *
-     * @param ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -47,8 +50,8 @@ class FlushController extends Controller
      */
     public function peers()
     {
-        $current = new Carbon();
-        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
+        $carbon = new Carbon();
+        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
 
         foreach ($peers as $peer) {
             $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
@@ -59,7 +62,7 @@ class FlushController extends Controller
             $peer->delete();
         }
 
-        return redirect()->route('staff.dashboard.index')
+        return \redirect()->route('staff.dashboard.index')
             ->withSuccess('Ghost Peers Have Been Flushed');
     }
 
@@ -73,15 +76,15 @@ class FlushController extends Controller
     public function chat()
     {
         foreach (Message::all() as $message) {
-            broadcast(new MessageDeleted($message));
+            \broadcast(new MessageDeleted($message));
             $message->delete();
         }
 
-        $this->chat->systemMessage(
+        $this->chatRepository->systemMessage(
             'Chatbox Has Been Flushed! :broom:'
         );
 
-        return redirect()->route('staff.dashboard.index')
+        return \redirect()->route('staff.dashboard.index')
             ->withSuccess('Chatbox Has Been Flushed');
     }
 }

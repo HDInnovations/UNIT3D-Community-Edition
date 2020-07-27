@@ -178,7 +178,7 @@ class Topic extends Model
      */
     public function viewable()
     {
-        if (auth()->user()->group->is_modo) {
+        if (\auth()->user()->group->is_modo) {
             return true;
         }
 
@@ -197,7 +197,7 @@ class Topic extends Model
     public function notifyStarter($poster, $topic, $post)
     {
         $user = User::find($topic->first_post_user_id);
-        if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
+        if ($user->acceptsNotification(\auth()->user(), $user, 'forum', 'show_forum_topic')) {
             $user->notify(new NewPost('topic', $poster, $post));
         }
 

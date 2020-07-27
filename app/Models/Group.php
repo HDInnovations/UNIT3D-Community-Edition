@@ -110,7 +110,7 @@ class Group extends Model
      *
      * @param $forum
      *
-     * @return
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function getPermissionsByForum($forum)
     {
@@ -129,7 +129,7 @@ class Group extends Model
      */
     public function isAllowed($object, $group_id)
     {
-        if (is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id, $object['default_groups'])) {
+        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($group_id, $object['default_groups'])) {
             return $object['default_groups'][$group_id] == 1;
         }
 

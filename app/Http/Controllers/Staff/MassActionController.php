@@ -19,6 +19,9 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\MassActionControllerTest
+ */
 class MassActionController extends Controller
 {
     /**
@@ -33,7 +36,7 @@ class MassActionController extends Controller
      */
     public function create()
     {
-        return view('Staff.masspm.index');
+        return \view('Staff.masspm.index');
     }
 
     /**
@@ -49,20 +52,20 @@ class MassActionController extends Controller
         $subject = $request->input('subject');
         $message = $request->input('message');
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'subject' => 'required|min:5',
             'message' => 'required|min:5',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.mass-pm.create')
+            return \redirect()->route('staff.mass-pm.create')
                 ->withErrors($v->errors());
         }
         foreach ($users as $user) {
             $this->dispatch(new ProcessMassPM(self::SENDER_ID, $user->id, $subject, $message));
         }
 
-        return redirect()->route('staff.mass-pm.create')
+        return \redirect()->route('staff.mass-pm.create')
             ->withSuccess('MassPM Sent');
     }
 
@@ -75,8 +78,8 @@ class MassActionController extends Controller
      */
     public function update()
     {
-        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $member_group = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $member_group = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
         $users = User::where('group_id', '=', $validating_group[0])->get();
 
         foreach ($users as $user) {
@@ -90,7 +93,7 @@ class MassActionController extends Controller
             $user->save();
         }
 
-        return redirect()->route('staff.dashboard.index')
+        return \redirect()->route('staff.dashboard.index')
             ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

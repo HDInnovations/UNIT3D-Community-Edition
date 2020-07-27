@@ -31,7 +31,7 @@ class UpdateLastAction
             return $next($request);
         }
 
-        $user->last_action = now();
+        $user->last_action = \now();
         $user->save();
 
         return $next($request);

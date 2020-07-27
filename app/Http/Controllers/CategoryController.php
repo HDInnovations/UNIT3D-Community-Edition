@@ -18,6 +18,9 @@ use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\CategoryControllerTest
+ */
 class CategoryController extends Controller
 {
     /**
@@ -29,7 +32,7 @@ class CategoryController extends Controller
     {
         $categories = Category::withCount('torrents')->get()->sortBy('position');
 
-        return view('category.index', ['categories' => $categories]);
+        return \view('category.index', ['categories' => $categories]);
     }
 
     /**
@@ -43,13 +46,13 @@ class CategoryController extends Controller
     public function show(Request $request, $id)
     {
         $user = $request->user();
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        $movieScrapper = new \App\Services\MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
         $category = Category::select(['id', 'name'])->findOrFail($id);
         $torrents = Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->where('category_id', '=', $id)->orderBy('sticky', 'desc')->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
-        return view('category.show', [
-            'client'             => $client,
+        return \view('category.show', [
+            'client'             => $movieScrapper,
             'torrents'           => $torrents,
             'user'               => $user,
             'category'           => $category,

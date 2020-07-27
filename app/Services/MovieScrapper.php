@@ -31,13 +31,12 @@ class MovieScrapper
     }
 
     /**
-     * @param $type
+     * @param      $type
      * @param null $imdb
      * @param null $tmdb
      * @param null $tvdb
      *
      * @throws \ErrorException
-     * @throws \HttpInvalidParamException
      *
      * @return Movie|Tv
      */

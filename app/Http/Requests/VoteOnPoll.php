@@ -15,6 +15,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
+ */
 class VoteOnPoll extends FormRequest
 {
     /**

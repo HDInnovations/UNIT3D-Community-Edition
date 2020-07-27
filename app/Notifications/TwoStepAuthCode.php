@@ -60,11 +60,11 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage())
-            ->from(config('auth.verificationEmailFrom'), config('auth.verificationEmailFromName'))
-            ->subject(trans('auth.verificationEmailSubject'))
-            ->greeting(trans('auth.verificationEmailGreeting', ['username' => $this->user->name]))
-            ->line(trans('auth.verificationEmailMessage'))
+            ->from(\config('auth.verificationEmailFrom'), \config('auth.verificationEmailFromName'))
+            ->subject(\trans('auth.verificationEmailSubject'))
+            ->greeting(\trans('auth.verificationEmailGreeting', ['username' => $this->user->name]))
+            ->line(\trans('auth.verificationEmailMessage'))
             ->line($this->code)
-            ->action(trans('auth.verificationEmailButton'), route('verificationNeeded'));
+            ->action(\trans('auth.verificationEmailButton'), \route('verificationNeeded'));
     }
 }

@@ -16,6 +16,9 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
+ */
 class PageController extends Controller
 {
     /**
@@ -27,7 +30,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
 
-        return view('page.index', ['pages' => $pages]);
+        return \view('page.index', ['pages' => $pages]);
     }
 
     /**
@@ -41,7 +44,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return view('page.page', ['page' => $page]);
+        return \view('page.page', ['page' => $page]);
     }
 
     /**
@@ -53,7 +56,7 @@ class PageController extends Controller
     {
         $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
 
-        return view('page.staff', ['staff' => $staff]);
+        return \view('page.staff', ['staff' => $staff]);
     }
 
     /**
@@ -65,7 +68,7 @@ class PageController extends Controller
     {
         $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_internal', 1)->get();
 
-        return view('page.internal', ['internal' => $internal]);
+        return \view('page.internal', ['internal' => $internal]);
     }
 
     /**
@@ -75,10 +78,10 @@ class PageController extends Controller
      */
     public function blacklist()
     {
-        $clients = config('client-blacklist.clients', []);
-        $browsers = config('client-blacklist.browsers', []);
+        $clients = \config('client-blacklist.clients', []);
+        $browsers = \config('client-blacklist.browsers', []);
 
-        return view('page.blacklist', ['clients' => $clients, 'browsers' => $browsers]);
+        return \view('page.blacklist', ['clients' => $clients, 'browsers' => $browsers]);
     }
 
     /**
@@ -88,6 +91,6 @@ class PageController extends Controller
      */
     public function about()
     {
-        return view('page.aboutus');
+        return \view('page.aboutus');
     }
 }

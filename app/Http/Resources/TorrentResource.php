@@ -49,7 +49,7 @@ class TorrentResource extends JsonResource
                 'mal_id'          => $this->mal,
                 'igdb_id'         => $this->igdb,
                 'created_at'      => $this->created_at->toDayDateTimeString(),
-                'download_link'   => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]),
+                'download_link'   => \route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]),
             ],
         ];
     }

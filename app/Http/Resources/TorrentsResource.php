@@ -35,7 +35,7 @@ class TorrentsResource extends ResourceCollection
     {
         return [
             'links'    => [
-                'self' => route('torrents.index'),
+                'self' => \route('torrents.index'),
             ],
         ];
     }

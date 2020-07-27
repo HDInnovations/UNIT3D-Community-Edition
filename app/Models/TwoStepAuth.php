@@ -117,7 +117,7 @@ class TwoStepAuth extends Model
      */
     public static function rules($merge = [])
     {
-        return array_merge(
+        return \array_merge(
             [
                 'userId'     => 'required|integer',
                 'authCode'   => 'required|string|max:4|min:4',

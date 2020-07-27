@@ -36,48 +36,48 @@ class BackupPassword
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.
      *
-     * @param \App\Helpers\BackupEncryption $encryption
-     * @param string                        $path       the path to the .zip-file
+     * @param \App\Helpers\BackupEncryption $backupEncryption
+     * @param string                        $path             the path to the .zip-file
      *
      * @throws \PhpZip\Exception\ZipException
      */
-    public function __construct(BackupEncryption $encryption, string $path)
+    public function __construct(BackupEncryption $backupEncryption, string $path)
     {
-        $this->password = config('backup.security.password');
+        $this->password = \config('backup.security.password');
 
         if (! $this->password) {
             return $this->path = $path;
         }
 
         // If ZipArchive is enabled
-        if (class_exists('ZipArchive') && in_array('setEncryptionIndex', get_class_methods('ZipArchive'))) {
-            consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
-            $this->makeZipArchive($encryption, $path);
+        if (\class_exists('ZipArchive') && \in_array('setEncryptionIndex', \get_class_methods('ZipArchive'))) {
+            \consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
+            $this->makeZipArchive($backupEncryption, $path);
         }
 
         // Fall back on PHP-driven ZipFile
         else {
-            consoleOutput()->info('Applying password and encryption to zip using ZipFile...');
-            $this->makeZipFile($encryption, $path);
+            \consoleOutput()->info('Applying password and encryption to zip using ZipFile...');
+            $this->makeZipFile($backupEncryption, $path);
         }
 
-        consoleOutput()->info('Successfully applied password and encryption to zip.');
+        \consoleOutput()->info('Successfully applied password and encryption to zip.');
     }
 
     /**
      * Use native PHP ZipArchive.
      *
-     * @param \App\Helpers\BackupEncryption $encryption
+     * @param \App\Helpers\BackupEncryption $backupEncryption
      * @param string                        $path
      *
      * @throws \Exception
      *
      * @return void
      */
-    protected function makeZipArchive(BackupEncryption $encryption, string $path): void
+    protected function makeZipArchive(BackupEncryption $backupEncryption, string $path): void
     {
-        $encryptionConstant = $encryption->getEncryptionConstant(
-            config('backup.security.encryption'),
+        $encryptionConstant = $backupEncryption->getEncryptionConstant(
+            \config('backup.security.encryption'),
             'ZipArchive'
         );
 
@@ -97,16 +97,17 @@ class BackupPassword
     /**
      * Use PhpZip\ZipFile-package to create the zip.
      *
-     * @param \App\Helpers\BackupEncryption $encryption
+     * @param \App\Helpers\BackupEncryption $backupEncryption
+     * @param string                        $path
      *
      * @throws \PhpZip\Exception\ZipException
      *
      * @return void
      */
-    protected function makeZipFile(BackupEncryption $encryption, string $path): void
+    protected function makeZipFile(BackupEncryption $backupEncryption, string $path): void
     {
-        $encryptionConstant = $encryption->getEncryptionConstant(
-            config('backup.security.encryption'),
+        $encryptionConstant = $backupEncryption->getEncryptionConstant(
+            \config('backup.security.encryption'),
             'ZipFile'
         );
 

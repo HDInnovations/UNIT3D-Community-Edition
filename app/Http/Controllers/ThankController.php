@@ -17,6 +17,9 @@ use App\Models\Thank;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\ThankControllerTest
+ */
 class ThankController extends Controller
 {
     /**
@@ -33,13 +36,13 @@ class ThankController extends Controller
         $torrent = Torrent::findOrFail($id);
 
         if ($user->id === $torrent->user_id) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Cannot Thank Your Own Torrent!');
         }
 
         $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         if ($thank) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('You Have Already Thanked On This Torrent!');
         }
 
@@ -53,7 +56,7 @@ class ThankController extends Controller
             $torrent->notifyUploader('thank', $thank);
         }
 
-        return redirect()->route('torrent', ['id' => $torrent->id])
+        return \redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Your Thank Was Successfully Applied!');
     }
 }

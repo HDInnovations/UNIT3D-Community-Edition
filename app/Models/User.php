@@ -64,21 +64,21 @@ class User extends Authenticatable
     public function group()
     {
         return $this->belongsTo(Group::class)->withDefault([
-            'color'         => config('user.group.defaults.color'),
-            'effect'        => config('user.group.defaults.effect'),
-            'icon'          => config('user.group.defaults.icon'),
-            'name'          => config('user.group.defaults.name'),
-            'slug'          => config('user.group.defaults.slug'),
-            'position'      => config('user.group.defaults.position'),
-            'is_admin'      => config('user.group.defaults.is_admin'),
-            'is_freeleech'  => config('user.group.defaults.is_freeleech'),
-            'is_immune'     => config('user.group.defaults.is_immune'),
-            'is_incognito'  => config('user.group.defaults.is_incognito'),
-            'is_internal'   => config('user.group.defaults.is_internal'),
-            'is_modo'       => config('user.group.defaults.is_modo'),
-            'is_trusted'    => config('user.group.defaults.is_trusted'),
-            'can_upload'    => config('user.group.defaults.can_upload'),
-            'level'         => config('user.group.defaults.level'),
+            'color'         => \config('user.group.defaults.color'),
+            'effect'        => \config('user.group.defaults.effect'),
+            'icon'          => \config('user.group.defaults.icon'),
+            'name'          => \config('user.group.defaults.name'),
+            'slug'          => \config('user.group.defaults.slug'),
+            'position'      => \config('user.group.defaults.position'),
+            'is_admin'      => \config('user.group.defaults.is_admin'),
+            'is_freeleech'  => \config('user.group.defaults.is_freeleech'),
+            'is_immune'     => \config('user.group.defaults.is_immune'),
+            'is_incognito'  => \config('user.group.defaults.is_incognito'),
+            'is_internal'   => \config('user.group.defaults.is_internal'),
+            'is_modo'       => \config('user.group.defaults.is_modo'),
+            'is_trusted'    => \config('user.group.defaults.is_trusted'),
+            'can_upload'    => \config('user.group.defaults.can_upload'),
+            'level'         => \config('user.group.defaults.level'),
         ]);
     }
 
@@ -597,8 +597,8 @@ class User extends Authenticatable
         if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
-        if ($target->notification && $target->notification->$target_group && is_array($target->notification->$target_group['default_groups'])) {
-            if (array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
+        if ($target->notification && $target->notification->$target_group && \is_array($target->notification->$target_group['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
                 return $target->notification->$target_group['default_groups'][$sender->group->id] == 1;
             }
 
@@ -620,7 +620,7 @@ class User extends Authenticatable
     public function isVisible(self $target, $group = 'profile', $type = false)
     {
         $target_group = 'json_'.$group.'_groups';
-        $sender = auth()->user();
+        $sender = \auth()->user();
         if ($sender->id == $target->id) {
             return true;
         }
@@ -633,8 +633,8 @@ class User extends Authenticatable
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
-            if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
+        if ($target->privacy && $target->privacy->$target_group && \is_array($target->privacy->$target_group['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
                 return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
             }
 
@@ -656,7 +656,7 @@ class User extends Authenticatable
     public function isAllowed(self $target, $group = 'profile', $type = false)
     {
         $target_group = 'json_'.$group.'_groups';
-        $sender = auth()->user();
+        $sender = \auth()->user();
         if ($sender->id == $target->id) {
             return true;
         }
@@ -669,8 +669,8 @@ class User extends Authenticatable
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
-            if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
+        if ($target->privacy && $target->privacy->$target_group && \is_array($target->privacy->$target_group['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
                 return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
             }
 
@@ -756,14 +756,14 @@ class User extends Authenticatable
             return INF;
         }
 
-        return (float) round($this->uploaded / $this->downloaded, 2);
+        return \round($this->uploaded / $this->downloaded, 2);
     }
 
     // Return the ratio pretty formated as a string.
     public function getRatioString()
     {
         $ratio = $this->getRatio();
-        if (is_infinite($ratio)) {
+        if (\is_infinite($ratio)) {
             return '∞';
         }
 
@@ -777,7 +777,7 @@ class User extends Authenticatable
             return INF;
         }
 
-        return (float) round($this->uploaded / ($this->downloaded + $size), 2);
+        return \round($this->uploaded / ($this->downloaded + $size), 2);
     }
 
     // Return the ratio after $size bytes would be downloaded, pretty formatted
@@ -785,11 +785,11 @@ class User extends Authenticatable
     public function ratioAfterSizeString($size, $freeleech = false)
     {
         if ($freeleech) {
-            return $this->getRatioString().' ('.trans('torrent.freeleech').')';
+            return $this->getRatioString().' ('.\trans('torrent.freeleech').')';
         }
 
         $ratio = $this->ratioAfterSize($size);
-        if (is_infinite($ratio)) {
+        if (\is_infinite($ratio)) {
             return '∞';
         }
 
@@ -804,7 +804,7 @@ class User extends Authenticatable
             return '∞';
         }
 
-        $bytes = round(($this->uploaded / $ratio) - $this->downloaded);
+        $bytes = \round(($this->uploaded / $ratio) - $this->downloaded);
 
         return StringHelper::formatBytes($bytes);
     }
@@ -875,7 +875,7 @@ class User extends Authenticatable
      */
     public function getSeedbonus()
     {
-        return number_format($this->seedbonus, 2, '.', ' ');
+        return \number_format($this->seedbonus, 2, '.', ' ');
     }
 
     /**

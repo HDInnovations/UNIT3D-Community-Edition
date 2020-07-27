@@ -15,6 +15,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\SetCacheTest
+ */
 class SetCache extends Command
 {
     /**

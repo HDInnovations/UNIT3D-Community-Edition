@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use App\Models\History;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\Staff\CheaterControllerTest
+ */
 class CheaterController extends Controller
 {
     /**
@@ -43,6 +46,6 @@ class CheaterController extends Controller
             ->latest()
             ->paginate(25);
 
-        return view('Staff.cheater.index', ['cheaters' => $cheaters]);
+        return \view('Staff.cheater.index', ['cheaters' => $cheaters]);
     }
 }

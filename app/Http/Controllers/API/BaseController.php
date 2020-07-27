@@ -25,7 +25,7 @@ class BaseController extends Controller
             'message' => $message,
         ];
 
-        return response()->json($response, 200);
+        return \response()->json($response, 200);
     }
 
     public function sendError($error, $errorMessages = [], $code = 404)
@@ -39,6 +39,6 @@ class BaseController extends Controller
             $response['data'] = $errorMessages;
         }
 
-        return response()->json($response, $code);
+        return \response()->json($response, $code);
     }
 }

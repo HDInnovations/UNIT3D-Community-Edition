@@ -58,7 +58,7 @@ class NewThank extends Notification
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         return [
             'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',

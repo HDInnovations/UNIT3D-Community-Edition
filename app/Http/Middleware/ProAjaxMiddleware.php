@@ -55,7 +55,7 @@ class ProAjaxMiddleware
         // return redirect('/contact')
         // then the user should be redirected
         if ($this->shouldRedirectRequest($request, $response)) {
-            return response()->json(['redirect' => $response->getTargetUrl()]);
+            return \response()->json(['redirect' => $response->getTargetUrl()]);
         }
 
         // If we've gotten this far, it looks like its an ajax request
@@ -71,7 +71,7 @@ class ProAjaxMiddleware
             $request->session()->forget($this->flash_name);
 
             // Finally, let's return a json with the flash message
-            return response()->json([
+            return \response()->json([
                 'type'    => $flash_message['type'],
                 'message' => $flash_message['message'],
                 //'redirect' => $flash_message['redirect'], // Returns false if no redirect request
@@ -79,7 +79,7 @@ class ProAjaxMiddleware
         }
 
         // So... if the request wants json, return json
-        return $request->wantsJson() ? response()->json() : $response;
+        return $request->wantsJson() ? \response()->json() : $response;
         //return $response;
     }
 
@@ -118,8 +118,8 @@ class ProAjaxMiddleware
     {
         $session = $request->session();
 
-        $flash_message['type'] = $session->get(sprintf('%s.type', $this->flash_name));
-        $flash_message['message'] = $session->get(sprintf('%s.message', $this->flash_name));
+        $flash_message['type'] = $session->get(\sprintf('%s.type', $this->flash_name));
+        $flash_message['message'] = $session->get(\sprintf('%s.message', $this->flash_name));
 
         return $flash_message;
     }
@@ -135,7 +135,7 @@ class ProAjaxMiddleware
     public function shouldRedirectRequest($request, $response)
     {
         // If there is no target URL, we know that it is not a redirect request
-        if (! method_exists($response, 'getTargetUrl')) {
+        if (! \method_exists($response, 'getTargetUrl')) {
             return false;
         }
 

@@ -67,12 +67,12 @@ class NewPostTip extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
+        $appurl = \config('app.url');
 
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For A Forum Post',
             'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
-            'url'   => sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+            'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
         ];
     }
 }

@@ -19,6 +19,9 @@ use App\Models\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\AutoRevokePermissionsTest
+ */
 class AutoRevokePermissions extends Command
 {
     /**
@@ -44,16 +47,16 @@ class AutoRevokePermissions extends Command
      */
     public function handle()
     {
-        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $leech_group = cache()->rememberForever('leech_group', fn () => Group::where('slug', '=', 'leech')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $leech_group = \cache()->rememberForever('leech_group', fn () => Group::where('slug', '=', 'leech')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         User::whereNotIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '1', 'can_request' => '1']);
         User::whereIn('group_id', [$banned_group[0], $validating_group[0], $leech_group[0], $disabled_group[0], $pruned_group[0]])->update(['can_download' => '0', 'can_request' => '0']);
 
-        $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
+        $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.revoke'))->get();
 
         foreach ($warning as $deny) {
             if ($deny->warneduser->can_download == 1 && $deny->warneduser->can_request == 1) {

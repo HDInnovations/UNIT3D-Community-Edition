@@ -18,23 +18,26 @@ use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\AlbumControllerTest
+ */
 class AlbumController extends Controller
 {
     /**
      * @var OmdbClient
      */
-    private $client;
+    private $omdbClient;
 
     /**
      * AlbumController Constructor.
      *
-     * @param OmdbClient $client
+     * @param \App\Services\Clients\OmdbClient $omdbClient
      */
-    public function __construct(OmdbClient $client)
+    public function __construct(OmdbClient $omdbClient)
     {
-        $this->client = $client;
+        $this->omdbClient = $omdbClient;
     }
 
     /**
@@ -46,7 +49,7 @@ class AlbumController extends Controller
     {
         $albums = Album::withCount('images')->get();
 
-        return view('album.index')->with('albums', $albums);
+        return \view('album.index')->with('albums', $albums);
     }
 
     /**
@@ -56,7 +59,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        return view('album.create');
+        return \view('album.create');
     }
 
     /**
@@ -69,10 +72,10 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
-        $omdb = $this->client->find(['imdb' => $imdb]);
+        $omdb = $this->omdbClient->find(['imdb' => $imdb]);
 
         if ($omdb === null || ! $omdb) {
-            return redirect()->route('albums.create')
+            return \redirect()->route('albums.create')
                 ->withErrors('Bad IMDB Request!');
         }
 
@@ -83,12 +86,12 @@ class AlbumController extends Controller
         $album->imdb = $request->input('imdb');
 
         $image = $request->file('cover_image');
-        $filename = 'album-cover_'.uniqid().'.'.$image->getClientOriginalExtension();
-        $path = public_path('/files/img/'.$filename);
+        $filename = 'album-cover_'.\uniqid().'.'.$image->getClientOriginalExtension();
+        $path = \public_path('/files/img/'.$filename);
         Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         $album->cover_image = $filename;
 
-        $v = validator($album->toArray(), [
+        $v = \validator($album->toArray(), [
             'user_id'     => 'required',
             'name'        => 'required',
             'description' => 'required',
@@ -97,13 +100,13 @@ class AlbumController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('albums.create')
+            return \redirect()->route('albums.create')
                 ->withInput()
                 ->withErrors($v->errors());
         }
         $album->save();
 
-        return redirect()->route('albums.show', ['id' => $album->id])
+        return \redirect()->route('albums.show', ['id' => $album->id])
             ->withSuccess('Your album has successfully published!');
     }
 
@@ -119,7 +122,7 @@ class AlbumController extends Controller
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
 
-        return view('album.show', ['album' => $album, 'albums' => $albums]);
+        return \view('album.show', ['album' => $album, 'albums' => $albums]);
     }
 
     /**
@@ -128,6 +131,8 @@ class AlbumController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Album        $id
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request, $id)
@@ -135,10 +140,10 @@ class AlbumController extends Controller
         $user = $request->user();
         $album = Album::findOrFail($id);
 
-        abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
+        \abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
         $album->delete();
 
-        return redirect()->route('albums.index')
+        return \redirect()->route('albums.index')
             ->withSuccess('Album has successfully been deleted');
     }
 }
