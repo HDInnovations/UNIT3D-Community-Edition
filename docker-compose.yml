@@ -20,8 +20,8 @@ services:
       - caddy_data:/data
       - caddy_config:/config
       - ./docker/Caddyfile:/etc/caddy/Caddyfile
-      - public:/app/public
-      - public_files:/app/public/files
+      - public:/app/public:ro
+      - public_files:/app/public/files:ro
     ports:
       - "80:80"
       - "443:443"
@@ -31,6 +31,11 @@ services:
       - queue
     networks:
       - unit3d
+    logging:
+      options:
+        mode: non-blocking
+        max-size: 50M
+        max-file: "5"
 
   redis:
     image: redis:6-alpine
@@ -54,25 +59,32 @@ services:
       - unit3d
 
   echo-server:
-    image: oanhnn/laravel-echo-server:latest
+    build:
+      dockerfile: docker/echo-server.Dockerfile
+      context: "."
     restart: always
+    ports:
+      - "8443:8443"
     depends_on:
       - redis
-    environment:
-      REDIS_HOST: redis
     networks:
       - unit3d
 
-  portainer:
-    image: portainer/portainer:latest
+  cron:
+    image: unit3d_app:latest
     restart: always
+    depends_on:
+      - mariadb
+      - redis
+    volumes:
+      - composer_cache:/app/vendor
+      - storage:/app/storage
+      - public:/app/public
+      - public_files:/app/public/files
     networks:
       - unit3d
-    volumes:
-      - portainer_data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "9099:9000"
+    entrypoint: "cron"
+    command: "-f"
 
   queue:
     image: unit3d_app:latest
@@ -80,6 +92,7 @@ services:
     depends_on:
       - mariadb
       - app
+      - redis
     volumes:
       - composer_cache:/app/vendor
       - storage:/app/storage
@@ -110,15 +123,25 @@ services:
     command: ./docker_setup.sh
 
 volumes:
+  # Caddy SSL certs
   caddy_data:
+  # Caddy config data
   caddy_config:
+  # Mariadb database
   db_data:
+  # Redis persistence data
   redis_data:
+  # Laravel app storage
   storage:
+  # Generated files from /files
   public_files:
+  # Static files serves over HTTP
   public:
+  # PHP Library cache
   composer_cache:
+  # Portainer persistent storage
   portainer_data:
+  # JS Library cache
   node_modules:
 
 networks:

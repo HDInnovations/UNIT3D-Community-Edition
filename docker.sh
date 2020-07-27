@@ -4,6 +4,7 @@ compose_file="docker-compose.yml"
 
 run_config() {
   ./docker/configure_docker.sh
+  docker-compose -f $compose_file -p $stack_name build
 }
 
 run_install() {
@@ -57,11 +58,12 @@ run_prune() {
 }
 
 run_up() {
-  docker-compose -f $compose_file -p $stack_name up --remove-orphans -d
+  docker-compose -f ${compose_file} -p ${stack_name} build
+  docker-compose -f ${compose_file} -p ${stack_name} up --remove-orphans -d
 }
 
 run_down() {
-  docker-compose -f $compose_file -p $stack_name down
+  docker-compose -f ${compose_file} -p ${stack_name} down
 }
 
 run_usage() {
@@ -72,11 +74,11 @@ run_usage() {
 case "$1" in
   artisan)
     shift
-    docker-compose -f $compose_file -p $stack_name exec app php artisan "$@"
+    docker-compose -f ${compose_file} -p ${stack_name} exec app php artisan "$@"
     ;;
   build)
     shift
-    docker-compose -f $compose_file -p $stack_name build "$@"
+    docker-compose -f ${compose_file} -p ${stack_name} build "$@"
     ;;
   clean)
     run_clean
@@ -93,14 +95,14 @@ case "$1" in
     ;;
   exec)
     shift
-    docker-compose -f $compose_file -p $stack_name exec "$@"
+    docker-compose -f ${compose_file} -p ${stack_name} exec "$@"
     ;;
   install)
     run_install
     ;;
   logs)
     shift
-    docker-compose -f $compose_file -p $stack_name logs "$@"
+    docker-compose -f ${compose_file} -p ${stack_name} logs "$@"
     ;;
   prune)
     run_prune
@@ -110,15 +112,15 @@ case "$1" in
     ;;
   run)
     shift
-    docker-compose -f $compose_file -p $stack_name run --rm "$@"
+    docker-compose -f ${compose_file} -p ${stack_name} run --rm "$@"
     ;;
   sql)
     run_sql
     ;;
   up)
     shift
-    docker-compose -f $compose_file -p $stack_name up -d "$@"
-    docker-compose -f $compose_file -p $stack_name logs -f
+    docker-compose -f ${compose_file} -p ${stack_name} up -d "$@"
+    docker-compose -f ${compose_file} -p ${stack_name} logs -f
     ;;
   *)
     run_usage

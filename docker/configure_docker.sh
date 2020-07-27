@@ -41,6 +41,7 @@ done
 cp docker/template/.env.example docker/env
 sed -i -r "s/APP_URL=$/APP_URL=https:\/\/${hostname}/g" docker/env
 sed -i -r "s/APP_HOSTNAME=$/APP_HOSTNAME=${hostname}/g" docker/env
+sed -i -r "s/LARAVEL_ECHO_SERVER_AUTH_HOST=$/LARAVEL_ECHO_SERVER_AUTH_HOST=https:\/\/${hostname}/g" docker/env
 
 cp docker/template/Caddyfile docker/Caddyfile
 sed -i -r "s/APP_HOSTNAME/${hostname}/g" docker/Caddyfile

@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
         unzip \
         libmariadb-dev-compat libmariadb-dev \
         mariadb-client \
-        libcurl4-openssl-dev libssl-dev \
+        libcurl4-openssl-dev libssl-dev cron \
     && docker-php-ext-configure pdo_mysql \
     && docker-php-ext-install -j$(nproc) zip bcmath intl pdo_mysql
 RUN pecl install -o -f redis \
@@ -19,6 +19,9 @@ RUN apt update && apt install wget -y
 RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 COPY docker/unit3d.ini /usr/local/etc/php/conf.d/unit3d.ini
 COPY composer.json composer.lock composer-setup.sh preload.php ./
+COPY docker/unit3d.cron /etc/cron.d/unit3d.cron
+RUN crontab /etc/cron.d/unit3d.cron
+RUN touch /var/log/cron.log
 COPY docker/docker_setup.sh .
 COPY grumphp.yml .
 RUN mkdir -p public
