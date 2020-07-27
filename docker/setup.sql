@@ -1,0 +1,4 @@
+CREATE DATABASE unit3d CHARACTER SET = 'utf8' COLLATE = 'utf8_unicode_ci';
+CREATE USER 'unit3d'@'%' IDENTIFIED BY 'unit3d';
+GRANT ALL PRIVILEGES ON unit3d.* TO 'unit3d'@'%';
+FLUSH PRIVILEGES;

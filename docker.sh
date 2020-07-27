@@ -23,11 +23,12 @@ run_install () {
   if ! test -f docker/Caddyfile; then
     run_config
   fi
-  docker-compose -f $compose_file -p $stack_name up -d redis mariadb
-  echo "Sleeping w/maria for 10s"
-  sleep 10  # Sleep so mariadb has enough time to restart itself
-  # Install the deps and configure laravel
-  docker-compose -f $compose_file -p $stack_name run --rm app ./docker_setup.sh
+  docker-compose -f $compose_file -p ${stack_name} build
+  docker-compose -f $compose_file -p ${stack_name} up -d mariadb
+  echo "Please wait while the database initializes (60s)"
+  echo "..."
+  sleep 60  # Sleep so mariadb has enough time to restart and init itself
+  docker-compose -f $compose_file -p ${stack_name} down
 }
 
 run_clean_config () {
