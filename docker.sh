@@ -2,14 +2,13 @@
 stack_name="unit3d"
 compose_file="docker-compose.yml"
 
-run_config () {
-  ./docker/configure_docker.sh;
+run_config() {
+  ./docker/configure_docker.sh "$1" "$2";
 }
 
-
-run_install () {
+run_install() {
   if ! test -f docker/Caddyfile; then
-    run_config
+    run_config "$1" "$2"
   fi
   docker-compose -f ${compose_file} -p ${stack_name} build
   docker-compose -f ${compose_file} -p ${stack_name} up -d mariadb
@@ -95,7 +94,7 @@ case "$1" in
     docker-compose -f $compose_file -p $stack_name exec "$@"
     ;;
   install)
-    run_install
+    run_install "$1" "$2"
     ;;
   logs)
     shift

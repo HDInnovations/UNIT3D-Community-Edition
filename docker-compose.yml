@@ -28,6 +28,7 @@ services:
     depends_on:
       - mariadb
       - app
+      - queue
     networks:
       - unit3d
 
@@ -75,9 +76,10 @@ services:
 
   queue:
     image: unit3d_app:latest
-    restart: "no"
+    restart: always
     depends_on:
       - mariadb
+      - app
     volumes:
       - composer_cache:/app/vendor
       - storage:/app/storage
@@ -85,7 +87,8 @@ services:
       - public_files:/app/public/files
     networks:
       - unit3d
-    command: "php artisan queue:work"
+    entrypoint: "php"
+    command: "artisan queue:work"
 
   app:
     build:
@@ -94,7 +97,6 @@ services:
     restart: always
     tty: true
     depends_on:
-      - queue
       - mariadb
       - redis
       - echo-server
