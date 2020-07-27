@@ -3,12 +3,12 @@ stack_name="unit3d"
 compose_file="docker-compose.yml"
 
 run_config() {
-  ./docker/configure_docker.sh "$1" "$2";
+  ./docker/configure_docker.sh
 }
 
 run_install() {
   if ! test -f docker/Caddyfile; then
-    run_config "$1" "$2"
+    run_config
   fi
   docker-compose -f ${compose_file} -p ${stack_name} build
   docker-compose -f ${compose_file} -p ${stack_name} up -d mariadb
@@ -32,10 +32,12 @@ run_clean_config () {
 }
 
 run_sql () {
+  docker-compose -f ${compose_file} -p ${stack_name} up -d mariadb
   docker-compose -f ${compose_file} -p ${stack_name} exec mariadb mysql -uunit3d -punit3d -D unit3d
 }
 
 run_redis() {
+  docker-compose -f ${compose_file} -p ${stack_name} up -d redis
   docker-compose -f ${compose_file} -p ${stack_name} exec redis redis-cli
 }
 
@@ -94,7 +96,7 @@ case "$1" in
     docker-compose -f $compose_file -p $stack_name exec "$@"
     ;;
   install)
-    run_install "$2" "$3"
+    run_install
     ;;
   logs)
     shift

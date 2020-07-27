@@ -21,7 +21,7 @@ All commands are handled by the `docker.sh` wrapper script.
 
 For a quick-start setup simply run `./docker.sh install` from the project root.
 
-    ./docker.sh install [example.com your.lets.encrypt@email.com]
+    ./docker.sh install
     
 This command only needs to be run once unless you have custom builds. Once this completes
 you should have a fully deployed environment working.
