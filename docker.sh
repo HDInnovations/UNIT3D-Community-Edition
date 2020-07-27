@@ -28,7 +28,6 @@ run_install () {
   echo "Please wait while the database initializes (60s)"
   echo "..."
   sleep 60  # Sleep so mariadb has enough time to restart and init itself
-  docker-compose -f $compose_file -p ${stack_name} down
 }
 
 run_clean_config () {
