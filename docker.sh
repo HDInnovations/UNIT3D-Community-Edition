@@ -84,7 +84,7 @@ case "$1" in
     run_clean_config
     ;;
   config)
-    run_config
+    run_config "$2" "$3"
     ;;
   down)
     run_down
@@ -94,7 +94,7 @@ case "$1" in
     docker-compose -f $compose_file -p $stack_name exec "$@"
     ;;
   install)
-    run_install "$1" "$2"
+    run_install "$2" "$3"
     ;;
   logs)
     shift
