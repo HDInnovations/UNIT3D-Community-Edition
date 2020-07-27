@@ -10,7 +10,7 @@ You have two options when deciding to use docker.
 Installation of docker is out of scope for these instructions, but it generally
 will be as simple as the following for ubuntu based systems:
     
-    sudo apt install docker-compose
+    sudo apt install docker-compose -y
     sudo systemctl enable docker
     sudo systemctl start docker
     sudo usermod -aG docker `id -un`

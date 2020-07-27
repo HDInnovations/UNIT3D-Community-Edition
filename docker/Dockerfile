@@ -29,6 +29,6 @@ COPY ./database/ database/
 COPY ./config/ config/
 COPY ./routes/ routes/
 COPY ./resources/ resources/
-COPY ./docker/env /.env
+COPY ./docker/env /app/.env
 # COPY ./public/mix-sri.json ./static/mix-sri.json
 

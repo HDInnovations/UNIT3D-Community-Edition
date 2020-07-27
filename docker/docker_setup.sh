@@ -21,7 +21,7 @@ php -d memory_limit=-1 composer install --prefer-dist
 #else
 #  echo "Vendor already exists"
 #fi
-
+ls -la
 # Create a new key if we have not specified one
 grep -q '^APP_KEY=$' .env || error_code=$?
 if [[ "${error_code}" -eq 0 ]]; then

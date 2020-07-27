@@ -1,9 +1,6 @@
 #1/bin/bash
 stack_name="unit3d"
 compose_file="docker-compose.yml"
-uid=20000 #$(id -r -u)
-gid=20000 #$(id -r -g)
-# UID=${uid} GID=${gid} docker-compose
 
 run_build_app () {
   docker-compose -f $compose_file -p $stack_name build app;
@@ -128,6 +125,7 @@ case "$1" in
     ;;
   run)
     shift
+    # shellcheck disable=SC2068
     docker-compose -f $compose_file -p $stack_name run --rm $@
     ;;
   *)
