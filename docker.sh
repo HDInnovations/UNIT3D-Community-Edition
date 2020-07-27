@@ -23,6 +23,9 @@ run_config () {
 
 
 run_install () {
+  if ! test -f docker/Caddyfile; then
+    run_config
+  fi
   docker-compose -f $compose_file -p $stack_name up -d redis
   echo "Sleeping w/maria for 10s"
   sleep 10  # Sleep so mariadb has enough time to restart itself
