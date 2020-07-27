@@ -1,4 +1,5 @@
 FROM php:7-fpm
+ENV TZ America/Edmonton
 RUN apt-get update && apt-get install -y \
         libzip-dev \
         libsodium-dev \
