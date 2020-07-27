@@ -30,7 +30,6 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "cross-env": "^7.0.2",
     "dayjs": "^1.8.29",
     "laravel-mix-sri": "^0.0.4"
   }

@@ -21,6 +21,7 @@ COPY docker/unit3d.ini /usr/local/etc/php/conf.d/unit3d.ini
 COPY composer.json composer.lock composer-setup.sh preload.php ./
 COPY docker/docker_setup.sh .
 COPY grumphp.yml .
+RUN mkdir -p public
 COPY ./artisan .
 COPY ./app/ app/
 COPY ./bootstrap/ bootstrap/
@@ -28,5 +29,6 @@ COPY ./database/ database/
 COPY ./config/ config/
 COPY ./routes/ routes/
 COPY ./resources/ resources/
-
+COPY ./docker/env /.env
+# COPY ./public/mix-sri.json ./static/mix-sri.json
 

@@ -2,26 +2,24 @@ version: '3.5'
 
 services:
   frontend:
-    user: "${UID}:${GID}"
     build:
       dockerfile: docker/frontend.Dockerfile
-      context: ..
+      context: "."
     volumes:
-      - public:/build/public
+      - public:/build/static
       - node_modules:/build/node_modules
     networks:
       - unit3d
 
   # Caddy based setup
   http:
-    user: "${UID}:${GID}"
     image: caddy/caddy:latest
     restart: always
     volumes:
       - caddy_data:/data
       - caddy_config:/config
       - ./docker/Caddyfile:/etc/caddy/Caddyfile
-      - ./public:/app/public
+      - public:/app/public
       - public_files:/app/public/files
     ports:
       - "80:80"
@@ -32,7 +30,6 @@ services:
       - unit3d
 
   redis:
-    user: "${UID}:${GID}"
     image: redis:6-alpine
     restart: always
     entrypoint: redis-server --appendonly yes
@@ -42,7 +39,6 @@ services:
       - unit3d
 
   mariadb:
-    user: "${UID}:${GID}"
     image: mariadb:10
     restart: always
     volumes:
@@ -63,7 +59,6 @@ services:
       - unit3d
 
   portainer:
-    user: "${UID}:${GID}"
     image: portainer/portainer:latest
     restart: unless-stopped
     networks:
@@ -73,11 +68,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "9009:9000"
+
   app:
-    user: "${UID}:${GID}"
     build:
       dockerfile: docker/Dockerfile
-      context: ..
+      context: ""
     restart: always
     tty: true
     depends_on:
@@ -85,10 +80,9 @@ services:
       - redis
       - echo-server
     volumes:
-      - ./docker/env:/app/.env
       - composer_cache:/app/vendor
       - storage:/app/storage
-      - ./public:/app/public
+      - public:/app/public
       - public_files:/app/public/files
     networks:
       - unit3d

@@ -38,4 +38,11 @@ else
 fi
 
 php artisan config:clear -n
-chmod 777 /app/bootstrap/cache /app/storage/app/public /app/storage/logs /app/storage/framework/ /app/storage/framework/cache /app/storage/framework/sessions /app/storage/framework/testing /app/storage/framework/views
+chmod 777 /app/bootstrap/cache \
+  /app/storage/app/public \
+  /app/storage/logs \
+  /app/storage/framework/ \
+  /app/storage/framework/cache \
+  /app/storage/framework/sessions \
+  /app/storage/framework/testing \
+  /app/storage/framework/views
