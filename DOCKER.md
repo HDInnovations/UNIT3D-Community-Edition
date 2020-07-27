@@ -17,34 +17,52 @@ will be as simple as the following for ubuntu based systems:
     
 ## docker-compose.yml
 
-For a quick-start setup simply run `make` from the project root.
+All commands are handled by the `docker.sh` wrapper script.
 
-    make
+For a quick-start setup simply run `./docker.sh install` from the project root.
+
+    ./docker.sh install
     
-This will ask a couple questions and then configure and start the services.
+This command only needs to be run once unless you have custom builds.
+
+Then bring up the services.
+
+    ./docker.sh up
     
-If you receive an error related to not being able to connect to mariadb, run the command
-again. The mariadb instance may not have been fully initialized yet.
+To see the logs you can run `logs`
+
+    ./docker.sh logs
+    ...
+    app_1          | Seeded:  MediaLanguagesSeeder (1.78 seconds)
+    app_1          | Seeding: ResolutionsTableSeeder
+    app_1          | Seeded:  ResolutionsTableSeeder (0.01 seconds)
+    app_1          | Database seeding completed successfully.
+    app_1          | Configuration cache cleared!
+    app_1          | [27-Jul-2020 12:20:59] NOTICE: fpm is running, pid 713
+    app_1          | [27-Jul-2020 12:20:59] NOTICE: ready to handle connections
+
+    
+This will ask a couple questions and then build and configure the services.
 
 Connect to a mysql shell
 
-    make sql
+    ./docker.sh sql
     
 Connect to one of the services shells
 
-    make shell_{app,http,mariadb,echo-server}
+    ./docker.sh run {app,http,mariadb,echo-server} bash
     
 Start the services
 
-    make start
+    ./docker.sh up
     
 Stop the services
 
-    make stop
+    ./docker.sh down
     
 
 ## Build Image
 
 You can build the image `unit3d_app:latest` via:
 
-    make app
+    ./docker.sh build

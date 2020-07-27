@@ -60,7 +60,7 @@ run_prune() {
 }
 
 run_usage() {
-  echo "Usage: $0 {config|install|build|start|stop|sql|up|down|prune}"
+  echo "Usage: $0 {logs|config|install|build|start|stop|sql|up|down|prune}"
   exit 1
 }
 
@@ -74,6 +74,10 @@ run_shell_http () {
 
 run_up() {
   docker-compose -f $compose_file -p $stack_name up --remove-orphans -d
+}
+
+run_logs() {
+  docker-compose -f $compose_file -p $stack_name logs
 }
 
 run_down() {
@@ -102,6 +106,9 @@ case "$1" in
   cleanall)
     run_clean
     run_clean_config
+    ;;
+  logs)
+    run_logs
     ;;
   prune)
     run_prune
