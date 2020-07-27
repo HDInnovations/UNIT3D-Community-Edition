@@ -26,13 +26,9 @@ run_install () {
   if ! test -f docker/Caddyfile; then
     run_config
   fi
-  docker-compose -f $compose_file -p $stack_name up -d redis
+  docker-compose -f $compose_file -p $stack_name up -d redis mariadb
   echo "Sleeping w/maria for 10s"
   sleep 10  # Sleep so mariadb has enough time to restart itself
-  docker-compose -f $compose_file -p $stack_name down
-  docker-compose -f $compose_file -p $stack_name up -d mariadb redis
-  sleep 10  # Sleep so mariadb has enough time to restart itself
-  docker-compose -f $compose_file -p $stack_name exec mariadb mysql -u root -punit3d -e "CREATE USER IF NOT EXISTS'unit3d'@'%';GRANT ALL PRIVILEGES ON * . * TO 'unit3d'@'%';FLUSH PRIVILEGES;CREATE DATABASE IF NOT EXISTS unit3d CHARACTER SET = 'utf8' COLLATE = 'utf8_unicode_ci';"
   # Install the deps and configure laravel
   docker-compose -f $compose_file -p $stack_name run --rm app ./docker_setup.sh
 }

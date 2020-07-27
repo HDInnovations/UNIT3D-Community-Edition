@@ -45,6 +45,7 @@ services:
       - db_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: unit3d
+      MYSQL_DATABASE: unit3d
     networks:
       - unit3d
 
