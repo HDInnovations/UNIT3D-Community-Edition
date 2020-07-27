@@ -13,7 +13,6 @@ mkdir -p storage/logs \
 if ! test -f "composer"; then
   ./composer-setup.sh
 fi
-php -d memory_limit=-1 composer global require hirak/prestissimo
 php -d memory_limit=-1 composer install
 
 #if ! test -f "vendor/autoload.php"; then
@@ -21,7 +20,7 @@ php -d memory_limit=-1 composer install
 #else
 #  echo "Vendor already exists"
 #fi
-ls -la
+
 # Create a new key if we have not specified one
 grep -q '^APP_KEY=$' .env || error_code=$?
 if [[ "${error_code}" -eq 0 ]]; then
@@ -38,6 +37,7 @@ else
 fi
 
 php artisan config:clear -n
+
 chmod 777 /app/bootstrap/cache \
   /app/storage/app/public \
   /app/storage/logs \
@@ -46,6 +46,3 @@ chmod 777 /app/bootstrap/cache \
   /app/storage/framework/sessions \
   /app/storage/framework/testing \
   /app/storage/framework/views
-
-echo "Starting PHP-FPM"
-exec php-fpm

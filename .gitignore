@@ -50,3 +50,4 @@ _ide_helper.php
 /docker/nginx.conf
 /docker/.env
 /docker/env
+/composer

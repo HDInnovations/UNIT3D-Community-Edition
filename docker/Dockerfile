@@ -6,10 +6,9 @@ RUN apt-get update && apt-get install -y \
         unzip \
         libmariadb-dev-compat libmariadb-dev \
         mariadb-client \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-configure sodium \
+        libcurl4-openssl-dev libssl-dev \
     && docker-php-ext-configure pdo_mysql \
-    && docker-php-ext-install -j$(nproc) zip sodium bcmath intl pdo_mysql curl
+    && docker-php-ext-install -j$(nproc) zip bcmath intl pdo_mysql curl
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
@@ -22,14 +21,17 @@ COPY composer.json composer.lock composer-setup.sh preload.php ./
 COPY docker/docker_setup.sh .
 COPY grumphp.yml .
 RUN mkdir -p public
-COPY ./artisan .
-COPY ./app/ app/
-COPY ./bootstrap/ bootstrap/
-COPY ./database/ database/
-COPY ./config/ config/
-COPY ./routes/ routes/
-COPY ./resources/ resources/
+COPY . .
+#COPY ./app/ app/
+#COPY ./bootstrap/ bootstrap/
+#COPY ./database/ database/
+#COPY ./config/ config/
+#COPY ./routes/ routes/
+#COPY ./resources/ resources/
 COPY ./docker/env .env
-CMD ["./docker_setup.sh"]
+RUN ./composer-setup.sh
+RUN php -d memory_limit=-1 composer global require hirak/prestissimo
+CMD ./docker_setup.sh && php-fpm
+
 # COPY ./public/mix-sri.json ./static/mix-sri.json
 

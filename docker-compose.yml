@@ -77,6 +77,7 @@ services:
     restart: always
     tty: true
     depends_on:
+      - frontend
       - mariadb
       - redis
       - echo-server

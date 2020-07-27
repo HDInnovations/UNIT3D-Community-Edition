@@ -127,6 +127,10 @@ case "$1" in
     shift
     docker-compose -f $compose_file -p $stack_name run --rm $@
     ;;
+  exec)
+    shift
+    docker-compose -f $compose_file -p $stack_name exec $@
+    ;;
   *)
   run_usage
   ;;

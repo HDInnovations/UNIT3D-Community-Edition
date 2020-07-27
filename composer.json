@@ -32,6 +32,7 @@
         "nelexa/zip": "^3.1",
         "paragonie/constant_time_encoding": "^2.0",
         "phpro/grumphp": "^0.19.1",
+        "prestissimo": "^0.3.10",
         "spatie/laravel-backup": "^6.8",
         "spatie/laravel-cookie-consent": "^2.12",
         "spatie/laravel-image-optimizer": "^1.6",
