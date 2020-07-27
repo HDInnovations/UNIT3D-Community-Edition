@@ -13,8 +13,8 @@ mkdir -p storage/logs \
 if ! test -f "composer"; then
   ./composer-setup.sh
 fi
-
-php -d memory_limit=-1 composer install --prefer-dist
+php -d memory_limit=-1 composer global require hirak/prestissimo
+php -d memory_limit=-1 composer install
 
 #if ! test -f "vendor/autoload.php"; then
 #  php composer install --no-dev --prefer-dist
@@ -46,3 +46,6 @@ chmod 777 /app/bootstrap/cache \
   /app/storage/framework/sessions \
   /app/storage/framework/testing \
   /app/storage/framework/views
+
+echo "Starting PHP-FPM"
+exec php-fpm

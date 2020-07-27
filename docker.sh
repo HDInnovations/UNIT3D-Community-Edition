@@ -55,11 +55,11 @@ run_clean () {
 }
 
 run_prune() {
-  docker system prune --volumes;
+  docker system prune --volumes
 }
 
 run_usage() {
-  echo "Usage: $0 {config|install|build|start|stop|sql|up|down}"
+  echo "Usage: $0 {config|install|build|start|stop|sql|up|down|prune}"
   exit 1
 }
 
@@ -125,7 +125,6 @@ case "$1" in
     ;;
   run)
     shift
-    # shellcheck disable=SC2068
     docker-compose -f $compose_file -p $stack_name run --rm $@
     ;;
   *)

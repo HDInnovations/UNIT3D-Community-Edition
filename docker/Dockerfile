@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure zip \
     && docker-php-ext-configure sodium \
     && docker-php-ext-configure pdo_mysql \
-    && docker-php-ext-install -j$(nproc) zip sodium bcmath intl pdo_mysql
+    && docker-php-ext-install -j$(nproc) zip sodium bcmath intl pdo_mysql curl
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
@@ -29,6 +29,7 @@ COPY ./database/ database/
 COPY ./config/ config/
 COPY ./routes/ routes/
 COPY ./resources/ resources/
-COPY ./docker/env /app/.env
+COPY ./docker/env .env
+CMD ["./docker_setup.sh"]
 # COPY ./public/mix-sri.json ./static/mix-sri.json
 
