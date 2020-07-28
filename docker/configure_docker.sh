@@ -4,7 +4,7 @@ emailValid=false
 hostname=""
 email=""
 
-if test -f docker/Caddyfile; then
+if test -f docker/Caddyfile && test -f docker/mika.yaml && test -f docker/env; then
   echo "Existing configs exist, skipping creation"
   echo "Run ./configure_docker.sh to regenerate your configs"
   exit 0
@@ -42,7 +42,22 @@ cp docker/template/.env.example docker/env
 sed -i -r "s/APP_URL=$/APP_URL=https:\/\/${hostname}/g" docker/env
 sed -i -r "s/APP_HOSTNAME=$/APP_HOSTNAME=${hostname}/g" docker/env
 sed -i -r "s/LARAVEL_ECHO_SERVER_AUTH_HOST=$/LARAVEL_ECHO_SERVER_AUTH_HOST=https:\/\/${hostname}/g" docker/env
+echo "Created docker/env"
 
 cp docker/template/Caddyfile docker/Caddyfile
 sed -i -r "s/APP_HOSTNAME/${hostname}/g" docker/Caddyfile
 sed -i -r "s/APP_EMAIL/${email}/g" docker/Caddyfile
+echo "Created docker/Caddyfile"
+
+cp docker/template/mika.yaml docker/mika.yaml
+echo "Enter your IP2Location API Key if you have one. Without this you will not be " \
+  "able to use any geo lookup functionality."
+read -rp ": " geoenable
+if [ "$geoenable" != "" ]; then
+  echo "Enabling geo database functionality using key: $geoenable"
+  sed -i -r "s/geodb_api_key:/geodb_api_key: ${geoenable}/g" docker/mika.yaml
+  sed -i -r "s/geodb_enabled: false/geodb_enabled: true/g" docker/mika.yaml
+fi
+
+
+echo "Created docker/mika.yaml"

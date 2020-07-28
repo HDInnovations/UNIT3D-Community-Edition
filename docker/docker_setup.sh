@@ -7,7 +7,12 @@ mkdir -p storage/logs \
   storage/framework/cache \
   storage/framework/testing \
   storage/app/public \
-  bootstrap/cache
+  bootstrap/cache \
+  public/files/img \
+  public/files/subtitles \
+  public/files/tmp \
+  public/files/tmpzip \
+  public/files/torrents
 
 chmod 777 storage/logs \
   storage/framework/sessions \
@@ -16,7 +21,12 @@ chmod 777 storage/logs \
   storage/framework/testing \
   storage/app/public \
   bootstrap/cache \
-  storage/framework
+  storage/framework \
+  public/files/img \
+  public/files/subtitles \
+  public/files/tmp \
+  public/files/tmpzip \
+  public/files/torrents
 
 if ! test -f "composer"; then
   ./composer-setup.sh
@@ -24,16 +34,10 @@ fi
 
 php -d memory_limit=-1 composer install
 
-#if ! test -f "vendor/autoload.php"; then
-#  php composer install --no-dev --prefer-dist
-#else
-#  echo "Vendor already exists"
-#fi
-
 # Create a new key if we have not specified one
 grep -q '^APP_KEY=$' .env || error_code=$?
 if [[ "${error_code}" -eq 0 ]]; then
-  echo "generating new key"
+  echo "Generating new key"
   php artisan key:generate
 fi
 

@@ -542,7 +542,7 @@ return [
 
         // https://w3c.github.io/webappsec-trusted-types/dist/spec/#trusted-types-csp-directive
         'trusted-types' => [
-            'enable' => true,
+            'enable' => false,
 
             'allow-duplicates' => false,
 

@@ -51,3 +51,4 @@ _ide_helper.php
 /docker/.env
 /docker/env
 /composer
+/docker/mika.yaml

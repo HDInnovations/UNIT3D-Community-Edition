@@ -14,11 +14,11 @@ run_install() {
   docker-compose -f ${compose_file} -p ${stack_name} build
   docker-compose -f ${compose_file} -p ${stack_name} up -d mariadb
   echo "Please wait while the database initializes, could take over a minute on slower hardware"
-  retval=-1
-  until [ $retval -eq 0 ]
+  ret_val=-1
+  until [ $ret_val -eq 0 ]
   do
     docker-compose -f ${compose_file} -p ${stack_name} exec mariadb mysql -uunit3d -punit3d -D unit3d -s -e "SELECT 1" > /dev/null 2>&1
-    retval=$?
+    ret_val=$?
     printf "."
     sleep 2
    done
@@ -68,10 +68,6 @@ run_up() {
   docker-compose -f ${compose_file} -p ${stack_name} up --remove-orphans -d
 }
 
-run_down() {
-  docker-compose -f ${compose_file} -p ${stack_name} down
-}
-
 run_usage() {
   echo "Usage: $0 {artisan|build|clean|cleanall|config|down|exec|install|logs|prune|redis|run|sql}"
   exit 1
@@ -97,7 +93,8 @@ case "$1" in
     run_config "$2" "$3"
     ;;
   down)
-    run_down
+    shift
+    docker-compose -f ${compose_file} -p ${stack_name} down "$@"
     ;;
   exec)
     shift

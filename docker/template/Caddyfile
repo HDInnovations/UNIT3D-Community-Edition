@@ -11,7 +11,12 @@ APP_HOSTNAME {
         }
         format console
     }
-    reverse_proxy /socket.io/* echo-server:6001
+    reverse_proxy /socket.io echo-server:6001 {
+        header_upstream Host {host}
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        websocket
+    }
     file_server
     encode gzip zstd
     php_fastcgi app:9000
