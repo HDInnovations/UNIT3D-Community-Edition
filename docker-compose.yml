@@ -14,12 +14,13 @@ services:
 
   # Caddy based setup
   http:
-    image: caddy/caddy:latest
+    build:
+      dockerfile: docker/caddy.Dockerfile
+      context: "."
     restart: always
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./docker/Caddyfile:/etc/caddy/Caddyfile
       - public:/app/public:ro
       - public_files:/app/public/files:ro
     ports:
