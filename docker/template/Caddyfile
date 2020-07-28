@@ -11,6 +11,7 @@ APP_HOSTNAME {
         }
         format console
     }
+    reverse_proxy /socket.io/* echo-server:6001
     file_server
     encode gzip zstd
     php_fastcgi app:9000

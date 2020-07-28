@@ -21,7 +21,7 @@ return [
      * Note: when server is empty string, it will not add to response header
      */
 
-    'server' => 'Unknown',
+    'server' => '',
 
     /*
      * X-Content-Type-Options
@@ -361,8 +361,8 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/connect-src
         'connect-src' => [
-            'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
-            'wss://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
+            'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/socket.io/',
+            'wss://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/socket.io/',
             'https://api.themoviedb.org/',
         ],
 

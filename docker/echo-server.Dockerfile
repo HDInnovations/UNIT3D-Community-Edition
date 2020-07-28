@@ -1,2 +1,2 @@
 FROM oanhnn/laravel-echo-server:latest
-COPY docker/env /app/.env
+COPY docker/env .env
