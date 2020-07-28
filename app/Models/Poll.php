@@ -20,11 +20,11 @@ use Illuminate\Support\Str;
 /**
  * App\Models\Poll.
  *
- * @property int $id
- * @property int $user_id
- * @property string $title
- * @property string $slug
- * @property int $multiple_choice
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $title
+ * @property string                          $slug
+ * @property int                             $multiple_choice
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $options

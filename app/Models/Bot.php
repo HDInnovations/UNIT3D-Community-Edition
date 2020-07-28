@@ -19,29 +19,29 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Bot.
  *
- * @property int $id
- * @property int $position
- * @property string $slug
- * @property string $name
- * @property string $command
- * @property string|null $color
- * @property string|null $icon
- * @property string|null $emoji
- * @property string|null $info
- * @property string|null $about
- * @property string|null $help
- * @property int $active
- * @property int $is_protected
- * @property int $is_triviabot
- * @property int $is_nerdbot
- * @property int $is_systembot
- * @property int $is_casinobot
- * @property int $is_betbot
- * @property int $uploaded
- * @property int $downloaded
- * @property int $fl_tokens
- * @property float $seedbonus
- * @property int $invites
+ * @property int                             $id
+ * @property int                             $position
+ * @property string                          $slug
+ * @property string                          $name
+ * @property string                          $command
+ * @property string|null                     $color
+ * @property string|null                     $icon
+ * @property string|null                     $emoji
+ * @property string|null                     $info
+ * @property string|null                     $about
+ * @property string|null                     $help
+ * @property int                             $active
+ * @property int                             $is_protected
+ * @property int                             $is_triviabot
+ * @property int                             $is_nerdbot
+ * @property int                             $is_systembot
+ * @property int                             $is_casinobot
+ * @property int                             $is_betbot
+ * @property int                             $uploaded
+ * @property int                             $downloaded
+ * @property int                             $fl_tokens
+ * @property float                           $seedbonus
+ * @property int                             $invites
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *

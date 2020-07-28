@@ -20,28 +20,28 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Topic.
  *
- * @property int $id
- * @property string $name
- * @property string $slug
- * @property string|null $state
- * @property int $pinned
- * @property int $approved
- * @property int $denied
- * @property int $solved
- * @property int $invalid
- * @property int $bug
- * @property int $suggestion
- * @property int $implemented
- * @property int|null $num_post
- * @property int|null $first_post_user_id
- * @property int|null $last_post_user_id
- * @property string|null $first_post_user_username
- * @property string|null $last_post_user_username
+ * @property int                             $id
+ * @property string                          $name
+ * @property string                          $slug
+ * @property string|null                     $state
+ * @property int                             $pinned
+ * @property int                             $approved
+ * @property int                             $denied
+ * @property int                             $solved
+ * @property int                             $invalid
+ * @property int                             $bug
+ * @property int                             $suggestion
+ * @property int                             $implemented
+ * @property int|null                        $num_post
+ * @property int|null                        $first_post_user_id
+ * @property int|null                        $last_post_user_id
+ * @property string|null                     $first_post_user_username
+ * @property string|null                     $last_post_user_username
  * @property \Illuminate\Support\Carbon|null $last_reply_at
- * @property int|null $views
+ * @property int|null                        $views
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $forum_id
+ * @property int                             $forum_id
  * @property-read \App\Models\Forum $forum
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $posts
  * @property-read int|null $posts_count

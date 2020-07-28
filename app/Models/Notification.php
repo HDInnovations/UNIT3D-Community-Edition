@@ -19,12 +19,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Notification.
  *
- * @property int $id
- * @property string $type
- * @property int $notifiable_id
- * @property string $notifiable_type
- * @property string $data
- * @property string|null $read_at
+ * @property int                             $id
+ * @property string                          $type
+ * @property int                             $notifiable_id
+ * @property string                          $notifiable_type
+ * @property string                          $data
+ * @property string|null                     $read_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *

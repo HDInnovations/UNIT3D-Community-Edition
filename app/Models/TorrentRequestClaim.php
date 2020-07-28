@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TorrentRequestClaim.
  *
- * @property int $id
- * @property int $request_id
- * @property string|null $username
- * @property int $anon
+ * @property int                             $id
+ * @property int                             $request_id
+ * @property string|null                     $username
+ * @property int                             $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *

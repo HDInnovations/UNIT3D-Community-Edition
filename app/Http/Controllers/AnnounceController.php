@@ -76,7 +76,7 @@ class AnnounceController extends Controller
             $blockedBrowsers = \config('client-blacklist.browsers');
             if (\in_array($agent, $blockedBrowsers)) {
                 \abort(405, 'What Are You Trying To Do?');
-                die();
+                exit();
             }
 
             // Check If Client Is Blacklisted

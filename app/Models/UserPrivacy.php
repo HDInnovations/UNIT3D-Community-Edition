@@ -19,36 +19,36 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\UserPrivacy.
  *
- * @property int $id
- * @property int $user_id
- * @property int $show_achievement
- * @property int $show_bon
- * @property int $show_comment
- * @property int $show_download
- * @property int $show_follower
- * @property int $show_online
- * @property int $show_peer
- * @property int $show_post
- * @property int $show_profile
- * @property int $show_profile_about
- * @property int $show_profile_achievement
- * @property int $show_profile_badge
- * @property int $show_profile_follower
- * @property int $show_profile_title
- * @property int $show_profile_bon_extra
- * @property int $show_profile_comment_extra
- * @property int $show_profile_forum_extra
- * @property int $show_profile_request_extra
- * @property int $show_profile_torrent_count
- * @property int $show_profile_torrent_extra
- * @property int $show_profile_torrent_ratio
- * @property int $show_profile_torrent_seed
- * @property int $show_profile_warning
- * @property int $show_rank
- * @property int $show_requested
- * @property int $show_topic
- * @property int $show_upload
- * @property int $show_wishlist
+ * @property int   $id
+ * @property int   $user_id
+ * @property int   $show_achievement
+ * @property int   $show_bon
+ * @property int   $show_comment
+ * @property int   $show_download
+ * @property int   $show_follower
+ * @property int   $show_online
+ * @property int   $show_peer
+ * @property int   $show_post
+ * @property int   $show_profile
+ * @property int   $show_profile_about
+ * @property int   $show_profile_achievement
+ * @property int   $show_profile_badge
+ * @property int   $show_profile_follower
+ * @property int   $show_profile_title
+ * @property int   $show_profile_bon_extra
+ * @property int   $show_profile_comment_extra
+ * @property int   $show_profile_forum_extra
+ * @property int   $show_profile_request_extra
+ * @property int   $show_profile_torrent_count
+ * @property int   $show_profile_torrent_extra
+ * @property int   $show_profile_torrent_ratio
+ * @property int   $show_profile_torrent_seed
+ * @property int   $show_profile_warning
+ * @property int   $show_rank
+ * @property int   $show_requested
+ * @property int   $show_topic
+ * @property int   $show_upload
+ * @property int   $show_wishlist
  * @property array $json_profile_groups
  * @property array $json_torrent_groups
  * @property array $json_forum_groups

@@ -19,11 +19,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TorrentRequestBounty.
  *
- * @property int $id
- * @property int $user_id
- * @property float $seedbonus
- * @property int $requests_id
- * @property int $anon
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property float                           $seedbonus
+ * @property int                             $requests_id
+ * @property int                             $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\TorrentRequest $request

@@ -19,14 +19,14 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Invite.
  *
- * @property int $id
- * @property int $user_id
- * @property string $email
- * @property string $code
- * @property string|null $expires_on
- * @property int|null $accepted_by
- * @property string|null $accepted_at
- * @property string|null $custom
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $email
+ * @property string                          $code
+ * @property string|null                     $expires_on
+ * @property int|null                        $accepted_by
+ * @property string|null                     $accepted_at
+ * @property string|null                     $custom
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User|null $receiver

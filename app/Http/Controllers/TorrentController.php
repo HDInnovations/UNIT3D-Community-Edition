@@ -586,29 +586,29 @@ class TorrentController extends Controller
             $torrent = $torrent->with(['user:id,username', 'category', 'type', 'tags'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
         } elseif ($history == 1) {
             $torrent = History::where('history.user_id', '=', $user->id);
-            $torrent->where(function ($query) use ($user, $seedling, $downloaded, $leeching, $idling) {
+            $torrent->where(function ($query) use ($seedling, $downloaded, $leeching, $idling) {
                 if ($seedling == 1) {
-                    $query->orWhere(function ($query) use ($user) {
+                    $query->orWhere(function ($query) {
                         $query->whereRaw('history.active = ? AND history.seeder = ?', [1, 1]);
                     });
                 }
                 if ($downloaded == 1) {
-                    $query->orWhere(function ($query) use ($user) {
+                    $query->orWhere(function ($query) {
                         $query->whereRaw('history.completed_at is not null');
                     });
                 }
                 if ($leeching == 1) {
-                    $query->orWhere(function ($query) use ($user) {
+                    $query->orWhere(function ($query) {
                         $query->whereRaw('history.active = ? AND history.seeder = ? AND history.completed_at is null', [1, 0]);
                     });
                 }
                 if ($idling == 1) {
-                    $query->orWhere(function ($query) use ($user) {
+                    $query->orWhere(function ($query) {
                         $query->whereRaw('history.active = ? AND history.seeder = ? AND history.completed_at is null', [0, 0]);
                     });
                 }
             });
-            $torrent = $torrent->selectRaw('distinct(torrents.id),max(torrents.sticky),max(torrents.created_at),max(torrents.seeders),max(torrents.leechers),max(torrents.name),max(torrents.size),max(torrents.times_completed)')->leftJoin('torrents', function ($join) use ($user) {
+            $torrent = $torrent->selectRaw('distinct(torrents.id),max(torrents.sticky),max(torrents.created_at),max(torrents.seeders),max(torrents.leechers),max(torrents.name),max(torrents.size),max(torrents.times_completed)')->leftJoin('torrents', function ($join) {
                 $join->on('history.info_hash', '=', 'torrents.info_hash');
             })->groupBy('torrents.id');
         } else {

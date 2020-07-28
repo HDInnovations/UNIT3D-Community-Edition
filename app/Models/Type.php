@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Type.
  *
- * @property int $id
+ * @property int    $id
  * @property string $name
  * @property string $slug
- * @property int $position
+ * @property int    $position
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequest[] $requests
  * @property-read int|null $requests_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents

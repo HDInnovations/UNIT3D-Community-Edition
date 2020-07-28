@@ -20,9 +20,9 @@ use Illuminate\Notifications\Notifiable;
 /**
  * App\Models\Follow.
  *
- * @property int $id
- * @property int $user_id
- * @property int $target_id
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $target_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications

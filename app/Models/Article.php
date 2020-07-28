@@ -22,14 +22,14 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\Article.
  *
- * @property int $id
- * @property string $title
- * @property string $slug
- * @property string|null $image
- * @property string $content
+ * @property int                             $id
+ * @property string                          $title
+ * @property string                          $slug
+ * @property string|null                     $image
+ * @property string                          $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $user_id
+ * @property int                             $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read int|null $comments_count
  * @property-read \App\Models\User $user

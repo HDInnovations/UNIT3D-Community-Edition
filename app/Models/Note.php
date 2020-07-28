@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Note.
  *
- * @property int $id
- * @property int $user_id
- * @property int $staff_id
- * @property string $message
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $staff_id
+ * @property string                          $message
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $noteduser

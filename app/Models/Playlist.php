@@ -19,15 +19,15 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Playlist.
  *
- * @property int $id
- * @property int $user_id
- * @property string $name
- * @property string $description
- * @property string|null $cover_image
- * @property int|null $position
- * @property int $is_private
- * @property int $is_pinned
- * @property int $is_featured
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $name
+ * @property string                          $description
+ * @property string|null                     $cover_image
+ * @property int|null                        $position
+ * @property int                             $is_private
+ * @property int                             $is_pinned
+ * @property int                             $is_featured
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments

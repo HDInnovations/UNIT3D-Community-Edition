@@ -19,19 +19,19 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Report.
  *
- * @property int $id
- * @property string $type
- * @property int $reporter_id
- * @property int|null $staff_id
- * @property string $title
- * @property string $message
- * @property int $solved
- * @property string|null $verdict
+ * @property int                             $id
+ * @property string                          $type
+ * @property int                             $reporter_id
+ * @property int|null                        $staff_id
+ * @property string                          $title
+ * @property string                          $message
+ * @property int                             $solved
+ * @property string|null                     $verdict
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $reported_user
- * @property int $torrent_id
- * @property int $request_id
+ * @property int                             $reported_user
+ * @property int                             $torrent_id
+ * @property int                             $request_id
  * @property-read \App\Models\User $reported
  * @property-read \App\Models\User $reporter
  * @property-read \App\Models\TorrentRequest $request

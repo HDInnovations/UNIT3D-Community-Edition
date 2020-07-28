@@ -22,12 +22,12 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\Post.
  *
- * @property int $id
- * @property string $content
+ * @property int                             $id
+ * @property string                          $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $user_id
- * @property int $topic_id
+ * @property int                             $user_id
+ * @property int                             $topic_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
  * @property-read int|null $likes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips

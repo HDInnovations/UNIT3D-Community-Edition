@@ -20,14 +20,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Warning.
  *
- * @property int $id
- * @property int $user_id
- * @property int $warned_by
- * @property int $torrent
- * @property string $reason
- * @property string|null $expires_on
- * @property int $active
- * @property int|null $deleted_by
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $warned_by
+ * @property int                             $torrent
+ * @property string                          $reason
+ * @property string|null                     $expires_on
+ * @property int                             $active
+ * @property int|null                        $deleted_by
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at

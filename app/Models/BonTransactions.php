@@ -19,16 +19,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\BonTransactions.
  *
- * @property int $id
- * @property int $itemID
- * @property string $name
- * @property float $cost
- * @property int $sender
- * @property int $receiver
+ * @property int      $id
+ * @property int      $itemID
+ * @property string   $name
+ * @property float    $cost
+ * @property int      $sender
+ * @property int      $receiver
  * @property int|null $torrent_id
  * @property int|null $post_id
- * @property string $comment
- * @property string $date_actioned
+ * @property string   $comment
+ * @property string   $date_actioned
  * @property-read \App\Models\BonExchange $exchange
  * @property-read \App\Models\User $receiverObj
  * @property-read \App\Models\User $senderObj

@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Subscription.
  *
- * @property int $id
- * @property int $user_id
- * @property int|null $forum_id
- * @property int|null $topic_id
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int|null                        $forum_id
+ * @property int|null                        $topic_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Forum|null $forum

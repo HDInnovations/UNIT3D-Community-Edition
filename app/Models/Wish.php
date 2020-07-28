@@ -19,12 +19,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Wish.
  *
- * @property int $id
- * @property int $user_id
- * @property string $title
- * @property string $imdb
- * @property string $type
- * @property string|null $source
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $title
+ * @property string                          $imdb
+ * @property string                          $type
+ * @property string|null                     $source
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user

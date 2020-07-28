@@ -20,14 +20,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Rss.
  *
- * @property int $id
- * @property int $position
- * @property string $name
- * @property int $user_id
- * @property int $staff_id
- * @property int $is_private
- * @property int $is_torrent
- * @property array $json_torrent
+ * @property int                             $id
+ * @property int                             $position
+ * @property string                          $name
+ * @property int                             $user_id
+ * @property int                             $staff_id
+ * @property int                             $is_private
+ * @property int                             $is_torrent
+ * @property array                           $json_torrent
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at

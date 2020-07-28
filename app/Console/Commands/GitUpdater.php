@@ -97,7 +97,7 @@ class GitUpdater extends Command
 
         if (! $this->io->confirm('Would you like to proceed', false)) {
             $this->line('<fg=red>Aborted ...</>');
-            die();
+            exit();
         }
 
         $this->io->writeln('
@@ -176,7 +176,7 @@ class GitUpdater extends Command
                 $this->call('up');
             } else {
                 $this->alertDanger('Aborted Update');
-                die();
+                exit();
             }
         } else {
             $this->alertSuccess('No Available Updates Found');

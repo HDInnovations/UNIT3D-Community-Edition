@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Tag.
  *
- * @property int $id
+ * @property int         $id
  * @property string|null $name
  * @property string|null $slug
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents
