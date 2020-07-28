@@ -42,6 +42,12 @@ run_redis() {
   docker-compose -f ${compose_file} -p ${stack_name} exec redis redis-cli
 }
 
+run_update() {
+  git fetch
+  latest=$(git tag -l | tail -n1)
+  git checkout "${latest}"
+}
+
 run_clean () {
   rm -rf docker/Caddyfile \
     docker/env \
@@ -121,6 +127,9 @@ case "$1" in
     shift
     docker-compose -f ${compose_file} -p ${stack_name} up -d "$@"
     docker-compose -f ${compose_file} -p ${stack_name} logs -f
+    ;;
+  update)
+    run_update
     ;;
   *)
     run_usage

@@ -47,14 +47,4 @@ fi
 
 php artisan config:clear -n
 
-retval=-1
-until [ $retval -eq 0 ]
-do
-  mariadb mysql -hmariadb -uunit3d -punit3d -D unit3d -s -e "SELECT 1" > /dev/null 2>&1
-  retval=$?
-  printf "."
-  sleep 2
- done
- echo ""
-
 php-fpm
