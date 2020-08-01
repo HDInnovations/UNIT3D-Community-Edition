@@ -250,6 +250,9 @@ class UserController extends Controller
         $user->censor = $request->input('censor');
         $user->chat_hidden = $request->input('chat_hidden');
 
+        // Language Settings
+        $user->locale = $request->input('language');
+
         // Style Settings
         $user->style = (int) $request->input('theme');
         $css_url = $request->input('custom_css');
