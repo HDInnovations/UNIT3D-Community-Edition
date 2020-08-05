@@ -62,6 +62,7 @@ use App\Http\Controllers\VersionController;
 use App\Http\Controllers\WarningController;
 use App\Http\Controllers\WishController;
 use Illuminate\Support\Facades\Route;
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -91,7 +92,7 @@ Route::middleware('language')->group(function () {
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware('guest')->group(['before' => 'auth',], function () {
+    Route::middleware('guest')->group(['before' => 'auth'], function () {
         // Activation
         Route::get('/activate/{token}', [Auth\ActivationController::class, 'activate'])->name('activate');
 

@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\TorrentController;
 use Illuminate\Support\Facades\Route;
+
 /**
  * NOTICE OF LICENSE.
  *

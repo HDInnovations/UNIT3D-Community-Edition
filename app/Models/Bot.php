@@ -100,5 +100,4 @@ class Bot extends Model
      *
      * @var array
      */
-    
 }

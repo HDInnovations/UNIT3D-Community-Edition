@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TorrentController;
 use Illuminate\Support\Facades\Route;
+
 /*
  * NOTICE OF LICENSE
  *
