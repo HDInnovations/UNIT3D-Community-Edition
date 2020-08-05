@@ -22,13 +22,13 @@
 |
 */
 
-Route::group(['middleware' => 'language'], function () {
+Route::middleware('language')->group(function () {
     /*
     |---------------------------------------------------------------------------------
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
+    Route::middleware('guest')->group(['before' => 'auth',], function () {
         // Activation
         Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
 
@@ -74,14 +74,14 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::middleware('auth', 'twostep', 'banned')->group(function () {
 
         // General
         Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
         Route::get('/', 'HomeController@index')->name('home.index');
 
         // Achievements System
-        Route::group(['prefix' => 'achievements'], function () {
+        Route::prefix('achievements')->group(function () {
             Route::name('achievements.')->group(function () {
                 Route::get('/', 'AchievementsController@index')->name('index');
                 Route::get('/{username}', 'AchievementsController@show')->name('show');
@@ -89,7 +89,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Albums System
-        Route::group(['prefix' => 'albums'], function () {
+        Route::prefix('albums')->group(function () {
             Route::name('albums.')->group(function () {
                 Route::get('/', 'AlbumController@index')->name('index');
                 Route::get('/create', 'AlbumController@create')->name('create');
@@ -100,7 +100,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Articles System
-        Route::group(['prefix' => 'articles'], function () {
+        Route::prefix('articles')->group(function () {
             Route::name('articles.')->group(function () {
                 Route::get('/', 'ArticleController@index')->name('index');
                 Route::get('/{id}', 'ArticleController@show')->name('show');
@@ -108,7 +108,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // RSS System
-        Route::group(['prefix' => 'rss'], function () {
+        Route::prefix('rss')->group(function () {
             Route::name('rss.')->group(function () {
                 Route::get('/', 'RssController@index')->name('index');
                 Route::get('/create', 'RssController@create')->name('create');
@@ -120,14 +120,14 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // TwoStep Auth System
-        Route::group(['prefix' => 'twostep'], function () {
+        Route::prefix('twostep')->group(function () {
             Route::get('/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
             Route::post('/verify', 'Auth\TwoStepController@verify')->name('verify');
             Route::post('/resend', 'Auth\TwoStepController@resend')->name('resend');
         });
 
         // Bonus System
-        Route::group(['prefix' => 'bonus'], function () {
+        Route::prefix('bonus')->group(function () {
             Route::get('/', 'BonusController@bonus')->name('bonus');
             Route::get('/gifts', 'BonusController@gifts')->name('bonus_gifts');
             Route::get('/tips', 'BonusController@tips')->name('bonus_tips');
@@ -138,7 +138,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Bookmarks System
-        Route::group(['prefix' => 'bookmarks'], function () {
+        Route::prefix('bookmarks')->group(function () {
             Route::name('bookmarks.')->group(function () {
                 Route::post('/{id}/store', 'BookmarkController@store')->name('store');
                 Route::delete('/{id}/destroy', 'BookmarkController@destroy')->name('destroy');
@@ -146,14 +146,14 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Reports System
-        Route::group(['prefix' => 'reports'], function () {
+        Route::prefix('reports')->group(function () {
             Route::post('/torrent/{id}', 'ReportController@torrent')->name('report_torrent');
             Route::post('/request/{id}', 'ReportController@request')->name('report_request');
             Route::post('/user/{username}', 'ReportController@user')->name('report_user');
         });
 
         // Categories System
-        Route::group(['prefix' => 'categories'], function () {
+        Route::prefix('categories')->group(function () {
             Route::name('categories.')->group(function () {
                 Route::get('/', 'CategoryController@index')->name('index');
                 Route::get('/{id}', 'CategoryController@show')->name('show');
@@ -161,7 +161,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Contact Us System
-        Route::group(['prefix' => 'contact'], function () {
+        Route::prefix('contact')->group(function () {
             Route::name('contact.')->group(function () {
                 Route::get('/', 'ContactController@index')->name('index');
                 Route::post('/store', 'ContactController@store')->name('store');
@@ -169,7 +169,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Pages System
-        Route::group(['prefix' => 'pages'], function () {
+        Route::prefix('pages')->group(function () {
             Route::get('/', 'PageController@index')->name('pages.index');
             Route::get('/staff', 'PageController@staff')->name('staff');
             Route::get('/internal', 'PageController@internal')->name('internal');
@@ -179,7 +179,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Comments System
-        Route::group(['prefix' => 'comments'], function () {
+        Route::prefix('comments')->group(function () {
             Route::post('/article/{id}', 'CommentController@article')->name('comment_article');
             Route::post('/torrent/{id}', 'CommentController@torrent')->name('comment_torrent');
             Route::get('/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
@@ -190,7 +190,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Extra-Stats System
-        Route::group(['prefix' => 'stats'], function () {
+        Route::prefix('stats')->group(function () {
             Route::get('/', 'StatsController@index')->name('stats');
             Route::get('/user/uploaded', 'StatsController@uploaded')->name('uploaded');
             Route::get('/user/downloaded', 'StatsController@downloaded')->name('downloaded');
@@ -212,7 +212,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Private Messages System
-        Route::group(['prefix' => 'mail'], function () {
+        Route::prefix('mail')->group(function () {
             Route::post('/searchPMInbox', 'PrivateMessageController@searchPMInbox')->name('searchPMInbox');
             Route::post('/searchPMOutbox', 'PrivateMessageController@searchPMOutbox')->name('searchPMOutbox');
             Route::get('/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
@@ -227,7 +227,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Requests System
-        Route::group(['prefix' => 'requests'], function () {
+        Route::prefix('requests')->group(function () {
             Route::get('/filter', 'RequestController@faceted');
             Route::get('/', 'RequestController@requests')->name('requests');
             Route::get('/add/{title?}/{imdb?}/{tmdb?}', 'RequestController@addRequestForm')->name('add_request_form');
@@ -246,12 +246,12 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Torrents System
-        Route::group(['prefix' => 'upload'], function () {
+        Route::prefix('upload')->group(function () {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
             Route::post('/', 'TorrentController@upload')->name('upload');
         });
 
-        Route::group(['prefix' => 'torrents'], function () {
+        Route::prefix('torrents')->group(function () {
             Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
             Route::get('/filter', 'TorrentController@faceted');
             Route::get('/filterSettings', 'TorrentController@filtered');
@@ -278,7 +278,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Warnings System
-        Route::group(['prefix' => 'warnings'], function () {
+        Route::prefix('warnings')->group(function () {
             Route::get('/{id}/deactivate', 'WarningController@deactivate')->name('deactivateWarning');
             Route::get('/{username}/mass-deactivate', 'WarningController@deactivateAllWarnings')->name('massDeactivateWarnings');
             Route::delete('/{id}', 'WarningController@deleteWarning')->name('deleteWarning');
@@ -288,7 +288,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Users System
-        Route::group(['prefix' => 'users'], function () {
+        Route::prefix('users')->group(function () {
             Route::get('/{username}', 'UserController@show')->name('users.show');
             Route::get('/{username}/edit', 'UserController@editProfileForm')->name('user_edit_profile_form');
             Route::post('/{username}/edit', 'UserController@editProfile')->name('user_edit_profile');
@@ -351,7 +351,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Wishlist System
-        Route::group(['prefix' => 'wishes'], function () {
+        Route::prefix('wishes')->group(function () {
             Route::name('wishes.')->group(function () {
                 Route::get('/{username}', 'WishController@index')->name('index');
                 Route::post('/store', 'WishController@store')->name('store');
@@ -360,7 +360,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Follow System
-        Route::group(['prefix' => 'follow'], function () {
+        Route::prefix('follow')->group(function () {
             Route::name('follow.')->group(function () {
                 Route::post('/{username}', 'FollowController@store')->name('store');
                 Route::delete('/{username}', 'FollowController@destroy')->name('destroy');
@@ -371,7 +371,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/thanks/{id}', 'ThankController@store')->name('thanks.store');
 
         // Invite System
-        Route::group(['prefix' => 'invites'], function () {
+        Route::prefix('invites')->group(function () {
             Route::name('invites.')->group(function () {
                 Route::get('/create', 'InviteController@create')->name('create');
                 Route::post('/store', 'InviteController@store')->name('store');
@@ -381,7 +381,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Poll System
-        Route::group(['prefix' => 'polls'], function () {
+        Route::prefix('polls')->group(function () {
             Route::get('/', 'PollController@index')->name('polls');
             Route::post('/vote', 'PollController@vote');
             Route::get('/{id}', 'PollController@show')->where('id', '[0-9]+')->name('poll');
@@ -389,7 +389,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Graveyard System
-        Route::group(['prefix' => 'graveyard'], function () {
+        Route::prefix('graveyard')->group(function () {
             Route::name('graveyard.')->group(function () {
                 Route::get('/filter', 'GraveyardController@faceted');
                 Route::get('/', 'GraveyardController@index')->name('index');
@@ -399,7 +399,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Notifications System
-        Route::group(['prefix' => 'notifications'], function () {
+        Route::prefix('notifications')->group(function () {
             Route::name('notifications.')->group(function () {
                 Route::get('/filter', 'NotificationController@faceted');
                 Route::get('/', 'NotificationController@index')->name('index');
@@ -412,7 +412,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Images System
-        Route::group(['prefix' => 'images'], function () {
+        Route::prefix('images')->group(function () {
             Route::name('images.')->group(function () {
                 Route::get('/{id}/create', 'ImageController@create')->name('create');
                 Route::post('/store', 'ImageController@store')->name('store');
@@ -422,7 +422,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Playlist System
-        Route::group(['prefix' => 'playlists'], function () {
+        Route::prefix('playlists')->group(function () {
             Route::name('playlists.')->group(function () {
                 Route::get('/', 'PlaylistController@index')->name('index');
                 Route::get('/create', 'PlaylistController@create')->name('create');
@@ -437,7 +437,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Subtitles System
-        Route::group(['prefix' => 'subtitles'], function () {
+        Route::prefix('subtitles')->group(function () {
             Route::name('subtitles.')->group(function () {
                 Route::get('/', 'SubtitleController@index')->name('index');
                 Route::get('/create/{torrent_id}', 'SubtitleController@create')->where('id', '[0-9]+')->name('create');
@@ -455,7 +455,7 @@ Route::group(['middleware' => 'language'], function () {
     | ChatBox Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'API'], function () {
+    Route::prefix('chatbox')->middleware('auth', 'twostep', 'banned')->namespace('API')->group(function () {
         Route::get('/', 'ChatController@index');
         Route::get('/chatrooms', 'ChatController@fetchChatrooms');
         Route::post('/change-chatroom', 'ChatController@changeChatroom');
@@ -468,7 +468,7 @@ Route::group(['middleware' => 'language'], function () {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::prefix('forums')->middleware('auth', 'twostep', 'banned')->group(function () {
         // Forum System
         Route::name('forums.')->group(function () {
             Route::get('/', 'ForumController@index')->name('index');
@@ -476,14 +476,14 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Forum Category System
-        Route::group(['prefix' => 'categories'], function () {
+        Route::prefix('categories')->group(function () {
             Route::name('forums.categories.')->group(function () {
                 Route::get('/{id}', 'ForumCategoryController@show')->where('id', '[0-9]+')->name('show');
             });
         });
 
         // Posts System
-        Route::group(['prefix' => 'posts'], function () {
+        Route::prefix('posts')->group(function () {
             Route::post('/topic/{id}/reply', 'PostController@reply')->name('forum_reply');
             Route::get('/posts/{id}/post-{postId}/edit', 'PostController@postEditForm')->name('forum_post_edit_form');
             Route::post('/posts/{postId}/edit', 'PostController@postEdit')->name('forum_post_edit');
@@ -496,7 +496,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/latest/posts', 'ForumController@latestPosts')->name('forum_latest_posts');
         Route::get('/search', 'ForumController@search')->name('forum_search_form');
 
-        Route::group(['prefix' => 'topics'], function () {
+        Route::prefix('topics')->group(function () {
             // Create New Topic
             Route::get('/forum/{id}/new-topic', 'TopicController@addForm')->name('forum_new_topic_form');
             Route::post('/forum/{id}/new-topic', 'TopicController@newTopic')->name('forum_new_topic');
@@ -521,7 +521,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Topic Label System
-        Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function () {
+        Route::prefix('topics')->middleware('modo')->group(function () {
             Route::name('topics.')->group(function () {
                 Route::get('/{id}/approve', 'TopicLabelController@approve')->name('approve');
                 Route::get('/{id}/deny', 'TopicLabelController@deny')->name('deny');
@@ -549,7 +549,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned'], 'namespace' => 'Staff'], function () {
+    Route::prefix('dashboard')->middleware('auth', 'twostep', 'modo', 'banned')->namespace('Staff')->group(function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
@@ -557,7 +557,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Articles System
-        Route::group(['prefix' => 'articles'], function () {
+        Route::prefix('articles')->group(function () {
             Route::name('staff.articles.')->group(function () {
                 Route::get('/', 'ArticleController@index')->name('index');
                 Route::get('/create', 'ArticleController@create')->name('create');
@@ -569,7 +569,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Applications System
-        Route::group(['prefix' => 'applications'], function () {
+        Route::prefix('applications')->group(function () {
             Route::name('staff.applications.')->group(function () {
                 Route::get('/', 'ApplicationController@index')->name('index');
                 Route::get('/{id}', 'ApplicationController@show')->where('id', '[0-9]+')->name('show');
@@ -579,7 +579,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Audit Log
-        Route::group(['prefix' => 'audits'], function () {
+        Route::prefix('audits')->group(function () {
             Route::name('staff.audits.')->group(function () {
                 Route::get('/', 'AuditController@index')->name('index');
                 Route::delete('/{id}/destroy', 'AuditController@destroy')->name('destroy');
@@ -587,14 +587,14 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Authentications Log
-        Route::group(['prefix' => 'authentications'], function () {
+        Route::prefix('authentications')->group(function () {
             Route::name('staff.authentications.')->group(function () {
                 Route::get('/', 'AuthenticationController@index')->name('index');
             });
         });
 
         // Backup System
-        Route::group(['prefix' => 'backups'], function () {
+        Route::prefix('backups')->group(function () {
             Route::name('staff.backups.')->group(function () {
                 Route::get('/', 'BackupController@index')->name('index');
                 Route::post('/full', 'BackupController@create')->name('full');
@@ -606,7 +606,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Ban System
-        Route::group(['prefix' => 'bans'], function () {
+        Route::prefix('bans')->group(function () {
             Route::name('staff.bans.')->group(function () {
                 Route::get('/', 'BanController@index')->name('index');
                 Route::post('/{username}/store', 'BanController@store')->name('store');
@@ -615,7 +615,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Categories System
-        Route::group(['prefix' => 'categories'], function () {
+        Route::prefix('categories')->group(function () {
             Route::name('staff.categories.')->group(function () {
                 Route::get('/', 'CategoryController@index')->name('index');
                 Route::get('/create', 'CategoryController@create')->name('create');
@@ -627,7 +627,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Chat Bots System
-        Route::group(['prefix' => 'chat'], function () {
+        Route::prefix('chat')->group(function () {
             Route::name('staff.bots.')->group(function () {
                 Route::get('/bots', 'ChatBotController@index')->name('index');
                 Route::get('/bots/{id}/edit', 'ChatBotController@edit')->name('edit');
@@ -639,7 +639,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Chat Rooms System
-        Route::group(['prefix' => 'chat'], function () {
+        Route::prefix('chat')->group(function () {
             Route::name('staff.rooms.')->group(function () {
                 Route::get('/rooms', 'ChatRoomController@index')->name('index');
                 Route::post('/rooms/store', 'ChatRoomController@store')->name('store');
@@ -649,7 +649,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Chat Statuses System
-        Route::group(['prefix' => 'chat'], function () {
+        Route::prefix('chat')->group(function () {
             Route::name('staff.statuses.')->group(function () {
                 Route::get('/statuses', 'ChatStatusController@index')->name('index');
                 Route::post('/statuses/store', 'ChatStatusController@store')->name('store');
@@ -659,19 +659,19 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Cheaters
-        Route::group(['prefix' => 'cheaters'], function () {
+        Route::prefix('cheaters')->group(function () {
             Route::name('staff.cheaters.')->group(function () {
                 Route::get('/ghost-leechers', 'CheaterController@index')->name('index');
             });
         });
 
         // Codebase Version Check
-        Route::group(['prefix' => 'UNIT3D'], function () {
+        Route::prefix('UNIT3D')->group(function () {
             Route::get('/', 'VersionController@checkVersion');
         });
 
         // Commands
-        Route::group(['prefix' => 'commands'], function () {
+        Route::prefix('commands')->group(function () {
             Route::get('/', 'CommandController@index')->name('staff.commands.index');
             Route::get('/maintance-enable', 'CommandController@maintanceEnable');
             Route::get('/maintance-disable', 'CommandController@maintanceDisable');
@@ -686,7 +686,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Flush System
-        Route::group(['prefix' => 'flush'], function () {
+        Route::prefix('flush')->group(function () {
             Route::name('staff.flush.')->group(function () {
                 Route::get('/peers', 'FlushController@peers')->name('peers');
                 Route::get('/chat', 'FlushController@chat')->name('chat');
@@ -694,7 +694,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Forums System
-        Route::group(['prefix' => 'forums'], function () {
+        Route::prefix('forums')->group(function () {
             Route::name('staff.forums.')->group(function () {
                 Route::get('/', 'ForumController@index')->name('index');
                 Route::get('/create', 'ForumController@create')->name('create');
@@ -706,7 +706,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Groups System
-        Route::group(['prefix' => 'groups'], function () {
+        Route::prefix('groups')->group(function () {
             Route::name('staff.groups.')->group(function () {
                 Route::get('/', 'GroupController@index')->name('index');
                 Route::get('/create', 'GroupController@create')->name('create');
@@ -717,21 +717,21 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Invites Log
-        Route::group(['prefix' => 'invites'], function () {
+        Route::prefix('invites')->group(function () {
             Route::name('staff.invites.')->group(function () {
                 Route::get('/', 'InviteController@index')->name('index');
             });
         });
 
         // Mass Actions
-        Route::group(['prefix' => 'mass-actions'], function () {
+        Route::prefix('mass-actions')->group(function () {
             Route::get('/validate-users', 'MassActionController@update')->name('staff.mass-actions.validate');
             Route::get('/mass-pm', 'MassActionController@create')->name('staff.mass-pm.create');
             Route::post('/mass-pm/store', 'MassActionController@store')->name('staff.mass-pm.store');
         });
 
         // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
-        Route::group(['prefix' => 'media-languages'], function () {
+        Route::prefix('media-languages')->group(function () {
             Route::name('staff.media_languages.')->group(function () {
                 Route::get('/', 'MediaLanguageController@index')->name('index');
                 Route::get('/create', 'MediaLanguageController@create')->name('create');
@@ -743,7 +743,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Moderation System
-        Route::group(['prefix' => 'moderation'], function () {
+        Route::prefix('moderation')->group(function () {
             Route::name('staff.moderation.')->group(function () {
                 Route::get('/', 'ModerationController@index')->name('index');
                 Route::get('/{id}/approve', 'ModerationController@approve')->name('approve');
@@ -753,7 +753,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         //Pages System
-        Route::group(['prefix' => 'pages'], function () {
+        Route::prefix('pages')->group(function () {
             Route::name('staff.pages.')->group(function () {
                 Route::get('/', 'PageController@index')->name('index');
                 Route::get('/create', 'PageController@create')->name('create');
@@ -765,7 +765,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Polls System
-        Route::group(['prefix' => 'polls'], function () {
+        Route::prefix('polls')->group(function () {
             Route::name('staff.polls.')->group(function () {
                 Route::get('/', 'PollController@index')->name('index');
                 Route::get('/{id}', 'PollController@show')->where('id', '[0-9]+')->name('show');
@@ -778,7 +778,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Registered Seedboxes
-        Route::group(['prefix' => 'seedboxes'], function () {
+        Route::prefix('seedboxes')->group(function () {
             Route::name('staff.seedboxes.')->group(function () {
                 Route::get('/', 'SeedboxController@index')->name('index');
                 Route::delete('/{id}/destroy', 'SeedboxController@destroy')->name('destroy');
@@ -786,7 +786,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Reports
-        Route::group(['prefix' => 'reports'], function () {
+        Route::prefix('reports')->group(function () {
             Route::name('staff.reports.')->group(function () {
                 Route::get('/', 'ReportController@index')->name('index');
                 Route::get('/{id}', 'ReportController@show')->where('id', '[0-9]+')->name('show');
@@ -795,7 +795,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Resolutions
-        Route::group(['prefix' => 'resolutions'], function () {
+        Route::prefix('resolutions')->group(function () {
             Route::name('staff.resolutions.')->group(function () {
                 Route::get('/', 'ResolutionController@index')->name('index');
                 Route::get('/create', 'ResolutionController@create')->name('create');
@@ -807,7 +807,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // RSS System
-        Route::group(['prefix' => 'rss'], function () {
+        Route::prefix('rss')->group(function () {
             Route::name('staff.rss.')->group(function () {
                 Route::get('/', 'RssController@index')->name('index');
                 Route::get('/create', 'RssController@create')->name('create');
@@ -819,7 +819,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Tag (Genres)
-        Route::group(['prefix' => 'tags'], function () {
+        Route::prefix('tags')->group(function () {
             Route::name('staff.tags.')->group(function () {
                 Route::get('/', 'TagController@index')->name('index');
                 Route::get('/create', 'TagController@create')->name('create');
@@ -830,7 +830,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Types
-        Route::group(['prefix' => 'types'], function () {
+        Route::prefix('types')->group(function () {
             Route::name('staff.types.')->group(function () {
                 Route::get('/', 'TypeController@index')->name('index');
                 Route::get('/create', 'TypeController@create')->name('create');
@@ -842,7 +842,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // User Gifting (From System)
-        Route::group(['prefix' => 'gifts'], function () {
+        Route::prefix('gifts')->group(function () {
             Route::name('staff.gifts.')->group(function () {
                 Route::get('/', 'GiftController@index')->name('index');
                 Route::post('/store', 'GiftController@store')->name('store');
@@ -850,7 +850,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // User Staff Notes
-        Route::group(['prefix' => 'notes'], function () {
+        Route::prefix('notes')->group(function () {
             Route::name('staff.notes.')->group(function () {
                 Route::get('/', 'NoteController@index')->name('index');
                 Route::post('/{username}/store', 'NoteController@store')->name('store');
@@ -859,7 +859,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // User Tools TODO: Leaving since we will be refactoring users and roles
-        Route::group(['prefix' => 'users'], function () {
+        Route::prefix('users')->group(function () {
             Route::get('/', 'UserController@index')->name('user_search');
             Route::get('/search', 'UserController@search')->name('user_results');
             Route::post('/{username}/edit', 'UserController@edit')->name('user_edit');
@@ -870,7 +870,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Warnings Log
-        Route::group(['prefix' => 'warnings'], function () {
+        Route::prefix('warnings')->group(function () {
             Route::name('staff.warnings.')->group(function () {
                 Route::get('/', 'WarningController@index')->name('index');
             });
