@@ -38,7 +38,10 @@ class VoteOnPoll extends FormRequest
     public function rules()
     {
         return [
-            'option' => 'required|min:1',
+            'option' => [
+                'required',
+                'min:1',
+            ],
         ];
     }
 

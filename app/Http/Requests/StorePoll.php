@@ -38,9 +38,16 @@ class StorePoll extends FormRequest
     public function rules()
     {
         return [
-            'title'     => 'required|min:10',
-            'options.*' => 'filled',
-            'options'   => 'min:2',
+            'title'     => [
+                'required',
+                'min:10',
+            ],
+            'options.*' => [
+                'filled',
+            ],
+            'options'   => [
+                'min:2',
+            ],
         ];
     }
 
