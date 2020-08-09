@@ -75,8 +75,8 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
-        $users = User::where([['username', 'like', '%'.$request->input('search').'%'],])
-            ->orWhere([['email', 'like', '%'.$request->input('search').'%'],])
+        $users = User::where([['username', 'like', '%'.$request->input('search').'%']])
+            ->orWhere([['email', 'like', '%'.$request->input('search').'%']])
             ->paginate(25);
 
         return \view('Staff.user.user_results', ['users' => $users]);
