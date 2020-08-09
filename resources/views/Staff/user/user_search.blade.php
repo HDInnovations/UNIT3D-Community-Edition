@@ -27,7 +27,7 @@
             <div class="col-sm-12 col-lg-12">
                 <div class="block">
                     <form action="{{ route('user_results') }}" method="GET" class="form-inline pull-right">
-                        <label for="username"></label><input type="text" name="username" id="username" size="25"
+                        <label for="username"></label><input type="text" name="search" id="search" size="25"
                             placeholder="@lang('user.search')" class="form-control">
                         <button type="submit" class="btn btn-success">
                             <i class="{{ config('other.font-awesome') }} fa-search"></i> @lang('common.search')
