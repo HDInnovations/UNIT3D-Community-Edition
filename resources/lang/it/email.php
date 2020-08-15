@@ -13,11 +13,11 @@
 
 return [
     'activate-account'    => 'Attiva account',
-    'ban-reason'          => 'Ragionare',
-    'banned-footer'       => 'Questo è quello che ottieni per non seguire le regole',
+    'ban-reason'          => 'Motivare',
+    'banned-footer'       => 'Questo è quello che ottieni per non aver seguito le regole',
     'banned-header'       => 'Sei stato escluso',
     'bug-description'     => 'Problema',
-    'bug-footer'          => 'Risolvi quella merda',
+    'bug-footer'          => 'Risolvi quella schifezza',
     'bug-header'          => 'Nuovo bug report da',
     'bug-priority'        => 'Priorità',
     'bug-title'           => 'Titolo del bug',
@@ -48,10 +48,10 @@ return [
     'report-link-hash'    => 'Link effettivo',
     'thanks'              => 'Grazie per averlo usato',
     'unban-footer'        => 'Ben tornato!',
-    'unban-header'        => 'Sei stato non abbinato',
+    'unban-header'        => 'Sei stato sbannato',
     'unban-reason'        => 'Ragionare',
     'username-reminder'   => 'Recentemente ci hai inviato una richiesta per il tuo nome utente sulla nostra app. Il tuo nome utente è',
     'username-sent'       => 'Il tuo nome utente è stato inviato al tuo indirizzo email!',
     'disabled-header'     => 'Il tuo account è stato disabilitato',
-    'pruned-header'       => 'Il tuo account è stato potato',
+    'pruned-header'       => 'Il tuo account è stato sospeso',
 ];
