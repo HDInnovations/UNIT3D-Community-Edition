@@ -1,5 +1,5 @@
 <header id="hoe-header" hoe-color-type="header-bg5" hoe-lpanel-effect="shrink" class="hoe-minimized-lpanel">
-    <div class="hoe-left-header" hoe-position-type="fixed">
+    <div class="hoe-left-header" hoe-position-type="static">
         <a href="{{ route('home.index') }}">
             <div class="banner">
                 <i class="fal fa-rocket" style="display: inline;"></i>
@@ -50,29 +50,6 @@
         </ul>
 
         <ul class="right-navbar">
-            <li class="dropdown hoe-rheader-submenu hoe-header-profile">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span>
-                        <img src="{{ url('img/flags/' . auth()->user()->locale) . '.png' }}" alt="flag"
-                            class="img-circle {{ auth()->user()->locale }}" />
-                    </span>
-                    <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
-                </a>
-                <ul class="dropdown-menu">
-                    @foreach (App\Models\Language::allowed() as $code => $name)
-                        <li class="{{ config('language.flags.li_class') }}">
-                            <a href="{{ route('back', [$code]) }}">
-                                <img src="{{ url('img/flags/' . $code . '.png') }}" alt="{{ $name }}"
-                                    class="img-circle {{ $code }}" width="{{ config('language.flags.width') }}" />
-                                {{ $name }}
-                                @if (auth()->user()->locale == $code)
-                                    <span class="text-orange text-bold">(@lang('common.active')!)</span>
-                                @endif
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </li>
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span>

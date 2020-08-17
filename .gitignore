@@ -12,6 +12,7 @@
 /public/css
 /public/js
 /public/mix-manifest.json
+/public/mix-sri.json
 /public/tmp
 /public/fonts/bootstrap
 /public/fonts/font-awesome

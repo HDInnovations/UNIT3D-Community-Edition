@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('content')
-    <style>
+    <style nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('style') }}">
         .stack {
             font-size: 0.85em;
         }

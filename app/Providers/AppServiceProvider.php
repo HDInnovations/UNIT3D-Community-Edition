@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // OMDB
         $this->app->bind(OmdbClient::class, function ($app) {
-            $key = config('api-keys.omdb');
+            $key = \config('api-keys.omdb');
 
             return new OmdbClient($key);
         });
@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WishInterface::class, WishRepository::class);
 
         // Hidden Captcha
-        $this->app->bind('hiddencaptcha', 'App\Helpers\HiddenCaptcha');
+        $this->app->bind('hiddencaptcha', \App\Helpers\HiddenCaptcha::class);
 
         $this->app->bind(ByteUnitsInterface::class, ByteUnits::class);
     }
@@ -71,20 +71,20 @@ class AppServiceProvider extends ServiceProvider
         Torrent::observe(TorrentObserver::class);
 
         // Share $footer_pages across all views
-        view()->composer('*', function (View $view) {
-            $footer_pages = cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
+        \view()->composer('*', function (View $view) {
+            $footer_pages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
 
             $view->with(['footer_pages' => $footer_pages]);
         });
 
         // Hidden Captcha
-        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
+        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
             function ($attribute, $value, $parameters, $validator) {
-                $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
-                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
+                $minLimit = (isset($parameters[0]) && \is_numeric($parameters[0])) ? $parameters[0] : 0;
+                $maxLimit = (isset($parameters[1]) && \is_numeric($parameters[1])) ? $parameters[1] : 1_200;
                 if (! HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {
                     $validator->setCustomMessages(['hiddencaptcha' => 'Captcha error']);
 

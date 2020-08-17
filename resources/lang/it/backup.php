@@ -13,7 +13,7 @@
 
 return [
     'actions'                        => 'Azioni',
-    'backup'                         => 'di riserva',
+    'backup'                         => 'Backup',
     'backup_doesnt_exist'            => 'Il file di backup non esiste.',
     'create_a_new_backup'            => 'Crea backup completo',
     'create_a_new_files_backup'      => 'Crea backup di file',

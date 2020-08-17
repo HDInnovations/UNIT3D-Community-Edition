@@ -19,25 +19,25 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Group.
  *
- * @property int $id
+ * @property int    $id
  * @property string $name
  * @property string $slug
- * @property int $position
- * @property int $level
+ * @property int    $position
+ * @property int    $level
  * @property string $color
  * @property string $icon
  * @property string $effect
- * @property int $is_internal
- * @property int $is_owner
- * @property int $is_admin
- * @property int $is_modo
- * @property int $is_trusted
- * @property int $is_immune
- * @property int $is_freeleech
- * @property int $is_double_upload
- * @property int $can_upload
- * @property int $is_incognito
- * @property int $autogroup
+ * @property int    $is_internal
+ * @property int    $is_owner
+ * @property int    $is_admin
+ * @property int    $is_modo
+ * @property int    $is_trusted
+ * @property int    $is_immune
+ * @property int    $is_freeleech
+ * @property int    $is_double_upload
+ * @property int    $can_upload
+ * @property int    $is_incognito
+ * @property int    $autogroup
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
@@ -110,7 +110,7 @@ class Group extends Model
      *
      * @param $forum
      *
-     * @return
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     public function getPermissionsByForum($forum)
     {
@@ -129,7 +129,7 @@ class Group extends Model
      */
     public function isAllowed($object, $group_id)
     {
-        if (is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id, $object['default_groups'])) {
+        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($group_id, $object['default_groups'])) {
             return $object['default_groups'][$group_id] == 1;
         }
 

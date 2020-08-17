@@ -23,29 +23,29 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\TorrentRequest.
  *
- * @property int $id
- * @property string $name
- * @property int $category_id
- * @property string|null $imdb
- * @property string|null $tvdb
- * @property string|null $tmdb
- * @property string|null $mal
- * @property string $igdb
- * @property string $description
- * @property int $user_id
- * @property float $bounty
- * @property int $votes
- * @property int|null $claimed
- * @property int $anon
+ * @property int                             $id
+ * @property string                          $name
+ * @property int                             $category_id
+ * @property string|null                     $imdb
+ * @property string|null                     $tvdb
+ * @property string|null                     $tmdb
+ * @property string|null                     $mal
+ * @property string                          $igdb
+ * @property string                          $description
+ * @property int                             $user_id
+ * @property float                           $bounty
+ * @property int                             $votes
+ * @property int|null                        $claimed
+ * @property int                             $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $filled_by
- * @property string|null $filled_hash
+ * @property int|null                        $filled_by
+ * @property string|null                     $filled_hash
  * @property \Illuminate\Support\Carbon|null $filled_when
- * @property int $filled_anon
- * @property int|null $approved_by
+ * @property int                             $filled_anon
+ * @property int|null                        $approved_by
  * @property \Illuminate\Support\Carbon|null $approved_when
- * @property int $type_id
+ * @property int                             $type_id
  * @property-read \App\Models\User|null $FillUser
  * @property-read \App\Models\User|null $approveUser
  * @property-read \App\Models\Category $category
@@ -168,6 +168,16 @@ class TorrentRequest extends Model
     }
 
     /**
+     * Belongs To A Resolution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function resolution()
+    {
+        return $this->belongsTo(Resolution::class);
+    }
+
+    /**
      * Belongs To A Torrent.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -235,7 +245,7 @@ class TorrentRequest extends Model
     public function notifyRequester($type, $payload)
     {
         $user = User::with('notification')->findOrFail($this->user_id);
-        if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {
+        if ($user->acceptsNotification(\auth()->user(), $user, 'request', 'show_request_comment')) {
             $user->notify(new NewComment('request', $payload));
 
             return true;

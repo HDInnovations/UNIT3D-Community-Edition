@@ -18,7 +18,8 @@ config('api-keys.omdb')) @endphp
                 @else
                     <th></th>
                 @endif
-                <th>@lang('torrent.category')/@lang('torrent.type')</th>
+                <th>@lang('torrent.category')</th>
+                <th>@lang('torrent.type')/@lang('torrent.resolution')</th>
                 <th style="white-space: nowrap !important;">@sortablelink('name', trans('common.name'), '',
                     ['id'=>'name','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting
                     == "name" ? $direction : 0)])</th>
@@ -106,31 +107,40 @@ config('api-keys.omdb')) @endphp
                         @endif
                     </td>
 
-                    <td style="width: 1%;">
-                        @if ($torrent->category->image != null)
-                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                <div class="text-center">
-                                    <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
-                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 10px;" alt="{{ $torrent->category->name }}">
-                                </div>
-                            </a>
-                        @else
-                            <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
-                                <div class="text-center">
-                                    <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
-                                        style="padding-bottom: 10px;"></i>
-                                </div>
-                            </a>
-                        @endif
-                        <div class="text-center" style="padding-top: 5px;">
+                        <td style="width: 1%;">
+                            @if ($torrent->category->image != null)
+                                <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <div class="text-center">
+                                        <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                             data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                             style="padding-top: 10px;" alt="{{ $torrent->category->name }}">
+                                    </div>
+                                </a>
+                            @else
+                                <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <div class="text-center">
+                                        <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
+                                           data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                           style="padding-top: 10px;"></i>
+                                    </div>
+                                </a>
+                            @endif
+                        </td>
+
+                        <td style="width: 1%;">
+                            <div class="text-center" style="padding-top: 15px;">
                             <span class="label label-success" data-toggle="tooltip"
-                                data-original-title="@lang('torrent.type')">
+                                  data-original-title="@lang('torrent.type')">
                                 {{ $torrent->type->name }}
                             </span>
-                        </div>
-                    </td>
+                            </div>
+                            <div class="text-center" style="padding-top: 8px;">
+                            <span class="label label-success" data-toggle="tooltip"
+                                  data-original-title="@lang('torrent.resolution')">
+                                {{ $torrent->resolution->name ?? 'No Res' }}
+                            </span>
+                            </div>
+                        </td>
 
                     <td>
                         <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
@@ -159,7 +169,7 @@ config('api-keys.omdb')) @endphp
                                 </button>
                             @endif
 
-                            @if ($current->seeder == 0 && $current->active == 0 && $current->completed_at != null)
+                            @if ($current->seeder == 1 && $current->active == 0 && $current->completed_at != null)
                                 <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
                                     data-original-title="@lang('torrent.completed-not-seeding')!">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>

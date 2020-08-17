@@ -20,10 +20,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Seedbox.
  *
- * @property int $id
- * @property int $user_id
- * @property string $name
- * @property string $ip
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $name
+ * @property string                          $ip
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user

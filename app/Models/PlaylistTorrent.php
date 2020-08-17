@@ -19,11 +19,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\PlaylistTorrent.
  *
- * @property int $id
+ * @property int      $id
  * @property int|null $position
- * @property int $playlist_id
- * @property int $torrent_id
- * @property int $tmdb_id
+ * @property int      $playlist_id
+ * @property int      $torrent_id
+ * @property int      $tmdb_id
  * @property-read \App\Models\Playlist $playlist
  * @property-read \App\Models\Torrent $torrent
  *

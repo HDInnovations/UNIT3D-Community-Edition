@@ -19,18 +19,18 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Category.
  *
- * @property int $id
- * @property string $name
- * @property string $slug
+ * @property int         $id
+ * @property string      $name
+ * @property string      $slug
  * @property string|null $image
- * @property int $position
- * @property string $icon
- * @property int $no_meta
- * @property int $music_meta
- * @property int $game_meta
- * @property int $tv_meta
- * @property int $movie_meta
- * @property int $num_torrent
+ * @property int         $position
+ * @property string      $icon
+ * @property int         $no_meta
+ * @property int         $music_meta
+ * @property int         $game_meta
+ * @property int         $tv_meta
+ * @property int         $movie_meta
+ * @property int         $num_torrent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TorrentRequest[] $requests
  * @property-read int|null $requests_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Torrent[] $torrents

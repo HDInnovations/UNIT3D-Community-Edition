@@ -14,6 +14,7 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Tag;
 use App\Models\Type;
 
@@ -40,6 +41,16 @@ class TorrentFacetedRepository
     }
 
     /**
+     * Return a collection of Resolution Name from storage.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function resolutions()
+    {
+        return Resolution::all()->sortBy('position')->pluck('name', 'id');
+    }
+
+    /**
      * Return a collection of Tag Name from storage.
      *
      * @return \Illuminate\Support\Collection
@@ -57,12 +68,12 @@ class TorrentFacetedRepository
     public function sorting()
     {
         return [
-            'created_at'      => trans('torrent.date'),
-            'name'            => trans('torrent.name'),
-            'seeders'         => trans('torrent.seeders'),
-            'leechers'        => trans('torrent.leechers'),
-            'times_completed' => trans('torrent.completed-times'),
-            'size'            => trans('torrent.size'),
+            'created_at'      => \trans('torrent.date'),
+            'name'            => \trans('torrent.name'),
+            'seeders'         => \trans('torrent.seeders'),
+            'leechers'        => \trans('torrent.leechers'),
+            'times_completed' => \trans('torrent.completed-times'),
+            'size'            => \trans('torrent.size'),
         ];
     }
 
@@ -74,8 +85,8 @@ class TorrentFacetedRepository
     public function direction()
     {
         return [
-            'desc' => trans('common.descending'),
-            'asc'  => trans('common.ascending'),
+            'desc' => \trans('common.descending'),
+            'asc'  => \trans('common.ascending'),
         ];
     }
 }

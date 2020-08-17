@@ -18,6 +18,9 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Feature\Http\Controllers\BookmarkControllerTest
+ */
 class BookmarkController extends Controller
 {
     /**
@@ -32,12 +35,12 @@ class BookmarkController extends Controller
     {
         $user = User::with('bookmarks')->where('username', '=', $username)->firstOrFail();
 
-        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
         $bookmarks = $user->bookmarks()->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
-        return view('user.bookmarks', [
+        return \view('user.bookmarks', [
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
             'bookmarks'          => $bookmarks,
@@ -58,12 +61,12 @@ class BookmarkController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($request->user()->isBookmarked($torrent->id)) {
-            return redirect()->route('torrent', ['id' => $torrent->id])
+            return \redirect()->route('torrent', ['id' => $torrent->id])
                 ->withErrors('Torrent has already been bookmarked.');
         }
         $request->user()->bookmarks()->attach($torrent->id);
 
-        return redirect()->route('torrent', ['id' => $torrent->id])
+        return \redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Bookmarked Successfully!');
     }
 
@@ -80,7 +83,7 @@ class BookmarkController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $request->user()->bookmarks()->detach($torrent->id);
 
-        return redirect()->route('torrent', ['id' => $torrent->id])
+        return \redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Unbookmarked Successfully!');
     }
 }

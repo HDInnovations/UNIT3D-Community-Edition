@@ -17,6 +17,9 @@ use App\Models\History;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoCorrectHistoryTest
+ */
 class AutoCorrectHistory extends Command
 {
     /**
@@ -52,12 +55,11 @@ class AutoCorrectHistory extends Command
      */
     public function handle()
     {
-        $current = new Carbon();
-        $history = History::select(['id', 'active', 'updated_at'])->where('active', '=', 1)->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
+        $carbon = new Carbon();
+        $history = History::select(['id', 'active', 'updated_at'])->where('active', '=', 1)->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
 
         foreach ($history as $h) {
             $h->active = false;
-            $h->seeder = false;
             $h->save();
         }
         $this->comment('Automated History Record Correction Command Complete');

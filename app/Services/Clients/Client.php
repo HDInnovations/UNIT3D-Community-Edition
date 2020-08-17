@@ -34,7 +34,7 @@ abstract class Client
 
     public function request($url, array $options = [])
     {
-        $key = md5($url.serialize($options));
+        $key = \md5($url.\serialize($options));
         if ($cache = $this->cache($key)) {
             return $cache;
         }
@@ -54,12 +54,12 @@ abstract class Client
 
     public function toArray($string)
     {
-        return json_decode($string, true);
+        return \json_decode($string, true);
     }
 
     public function toJson(array $array, $options = 0)
     {
-        return json_encode($array, $options);
+        return \json_encode($array, $options);
     }
 
     public function cache($key, $data = null)
@@ -67,11 +67,11 @@ abstract class Client
         $key = 'movietvdb:'.$key;
 
         if ($data) {
-            cache()->remember($key, 7 * 24 * 60, fn () => serialize($data));
+            \cache()->remember($key, 7 * 24 * 60, fn () => \serialize($data));
         }
 
-        if (cache()->has($key)) {
-            return unserialize(cache()->get($key));
+        if (\cache()->has($key)) {
+            return \unserialize(\cache()->get($key));
         }
 
         return $data;

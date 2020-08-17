@@ -19,21 +19,21 @@ use Kyslik\ColumnSortable\Sortable;
 /**
  * App\Models\Peer.
  *
- * @property int $id
- * @property string|null $peer_id
- * @property string|null $md5_peer_id
- * @property string|null $info_hash
- * @property string|null $ip
- * @property int|null $port
- * @property string|null $agent
- * @property int|null $uploaded
- * @property int|null $downloaded
- * @property int|null $left
- * @property int|null $seeder
+ * @property int                             $id
+ * @property string|null                     $peer_id
+ * @property string|null                     $md5_peer_id
+ * @property string|null                     $info_hash
+ * @property string|null                     $ip
+ * @property int|null                        $port
+ * @property string|null                     $agent
+ * @property int|null                        $uploaded
+ * @property int|null                        $downloaded
+ * @property int|null                        $left
+ * @property int|null                        $seeder
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null $torrent_id
- * @property int|null $user_id
+ * @property int|null                        $torrent_id
+ * @property int|null                        $user_id
  * @property-read \App\Models\Torrent $seed
  * @property-read \App\Models\Torrent|null $torrent
  * @property-read \App\Models\User|null $user

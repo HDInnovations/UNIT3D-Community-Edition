@@ -28,8 +28,8 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (auth()->guard($guard)->check()) {
-            return redirect()->route('home.index');
+        if (\auth()->guard($guard)->check()) {
+            return \redirect()->route('home.index');
         }
 
         return $next($request);

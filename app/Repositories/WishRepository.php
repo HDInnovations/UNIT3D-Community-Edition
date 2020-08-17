@@ -34,7 +34,7 @@ class WishRepository implements WishInterface
     /**
      * @var OmdbClient
      */
-    private $client;
+    private $omdbClient;
 
     /**
      * @var Torrent
@@ -44,16 +44,16 @@ class WishRepository implements WishInterface
     /**
      * WishRepository constructor.
      *
-     * @param Wish       $wish
-     * @param User       $user
-     * @param OmdbClient $client
-     * @param Torrent    $torrent
+     * @param Wish                             $wish
+     * @param User                             $user
+     * @param \App\Services\Clients\OmdbClient $omdbClient
+     * @param Torrent                          $torrent
      */
-    public function __construct(Wish $wish, User $user, OmdbClient $client, Torrent $torrent)
+    public function __construct(Wish $wish, User $user, OmdbClient $omdbClient, Torrent $torrent)
     {
         $this->wish = $wish;
         $this->user = $user;
-        $this->client = $client;
+        $this->omdbClient = $omdbClient;
         $this->torrent = $torrent;
     }
 
@@ -118,7 +118,7 @@ class WishRepository implements WishInterface
      */
     public function isGranted($id)
     {
-        $id = str_replace('tt', '', $id);
+        $id = \str_replace('tt', '', $id);
 
         return (bool) $this->torrent
             ->where('imdb', '=', $id)
@@ -135,14 +135,14 @@ class WishRepository implements WishInterface
     public function getSource($id)
     {
         if ($this->isGranted($id)) {
-            $id = str_replace('tt', '', $id);
+            $id = \str_replace('tt', '', $id);
             $source = $this->torrent
                 ->where('imdb', '=', $id)
                 ->where('seeders', '>', 0)
                 ->where('status', '=', 1)
                 ->first();
 
-            return route('torrent', ['id' => $source->id]);
+            return \route('torrent', ['id' => $source->id]);
         }
 
         return $this->findById($id)->source ?? null;
@@ -175,6 +175,6 @@ class WishRepository implements WishInterface
      */
     public function omdbRequest($imdb)
     {
-        return $this->client->find(['imdb' => $imdb]);
+        return $this->omdbClient->find(['imdb' => $imdb]);
     }
 }

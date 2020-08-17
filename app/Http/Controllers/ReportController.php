@@ -19,6 +19,9 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\ReportControllerTest
+ */
 class ReportController extends Controller
 {
     /**
@@ -50,12 +53,12 @@ class ReportController extends Controller
         $reported_by = $request->user();
         $reported_user = $torrentRequest->user;
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'message' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('request', ['id' => $id])
+            return \redirect()->route('request', ['id' => $id])
                 ->withErrors($v->errors());
         }
         $this->report->create([
@@ -69,7 +72,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return redirect()->route('request', ['id' => $id])
+        return \redirect()->route('request', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
 
@@ -87,12 +90,12 @@ class ReportController extends Controller
         $reported_by = $request->user();
         $reported_user = $torrent->user;
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'message' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('torrent', ['id' => $id])
+            return \redirect()->route('torrent', ['id' => $id])
                 ->withErrors($v->errors());
         }
         $this->report->create([
@@ -106,7 +109,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return redirect()->route('torrent', ['id' => $id])
+        return \redirect()->route('torrent', ['id' => $id])
             ->withSuccess('Your report has been successfully sent');
     }
 
@@ -123,12 +126,12 @@ class ReportController extends Controller
         $reported_user = User::where('username', '=', $username)->firstOrFail();
         $reported_by = $request->user();
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'message' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $username])
+            return \redirect()->route('users.show', ['username' => $username])
                 ->withErrors($v->errors());
         }
         $this->report->create([
@@ -142,7 +145,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return redirect()->route('users.show', ['username' => $username])
+        return \redirect()->route('users.show', ['username' => $username])
             ->withSuccess('Your report has been successfully sent');
     }
 }

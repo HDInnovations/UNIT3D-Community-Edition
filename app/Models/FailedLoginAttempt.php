@@ -18,10 +18,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\FailedLoginAttempt.
  *
- * @property int $id
- * @property int|null $user_id
- * @property string $username
- * @property string $ip_address
+ * @property int                             $id
+ * @property int|null                        $user_id
+ * @property string                          $username
+ * @property string                          $ip_address
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *
@@ -52,7 +52,7 @@ class FailedLoginAttempt extends Model
     public static function record($user, $username, $ip)
     {
         return static::create([
-            'user_id'    => is_null($user) ? null : $user->id,
+            'user_id'    => \is_null($user) ? null : $user->id,
             'username'   => $username,
             'ip_address' => $ip,
         ]);

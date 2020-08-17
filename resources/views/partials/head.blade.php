@@ -66,4 +66,6 @@
     <link rel="stylesheet" href="{{ auth()->user()->custom_css }}">
 @endif
 
+@livewireStyles
+
 @yield('stylesheets')

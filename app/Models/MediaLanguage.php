@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\MediaLanguage.
  *
- * @property int $id
- * @property string $name
- * @property string $code
+ * @property int                             $id
+ * @property string                          $name
+ * @property string                          $code
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *

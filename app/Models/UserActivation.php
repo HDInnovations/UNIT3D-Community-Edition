@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\UserActivation.
  *
- * @property int $id
- * @property int $user_id
- * @property string $token
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user

@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Invite;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\InviteControllerTest
+ */
 class InviteController extends Controller
 {
     /**
@@ -28,6 +31,6 @@ class InviteController extends Controller
         $invites = Invite::latest()->paginate(25);
         $invitecount = Invite::count();
 
-        return view('Staff.invite.index', ['invites' => $invites, 'invitecount' => $invitecount]);
+        return \view('Staff.invite.index', ['invites' => $invites, 'invitecount' => $invitecount]);
     }
 }

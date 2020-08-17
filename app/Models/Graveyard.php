@@ -19,11 +19,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Graveyard.
  *
- * @property int $id
- * @property int $user_id
- * @property int $torrent_id
- * @property int $seedtime
- * @property int $rewarded
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property int                             $seedtime
+ * @property int                             $rewarded
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Torrent $torrent

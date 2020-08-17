@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TagTorrent.
  *
- * @property int $id
- * @property int $torrent_id
+ * @property int    $id
+ * @property int    $torrent_id
  * @property string $tag_name
  * @property-read \App\Models\Tag $genre
  *

@@ -20,7 +20,7 @@
         <div class="block">
             <div class="container box text-center">
                 <h2>Playlists</h2>
-                <h4>Here you will find user compiled playlists that contain titles to there liking!</h4>
+                <h4>Here you will find user compiled playlists that contain titles to their liking!</h4>
                 <a href="{{ route('playlists.create') }}" class="btn btn-md btn-success">Create New Playlist</a>
             </div>
     

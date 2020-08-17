@@ -34,7 +34,9 @@ class TorrentResource extends JsonResource
                 'release_year'    => $this->release_year,
                 'category'        => $this->category->name,
                 'type'            => $this->type->name,
+                'resolution'      => $this->resolution->name,
                 'size'            => $this->getSize(),
+                'num_file'        => $this->num_file,
                 'freeleech'       => $this->free ? 'Yes' : 'No',
                 'double_upload'   => $this->doubleup ? 'Yes' : 'No',
                 'uploader'        => $this->anon ? 'Anonymous' : $this->user->username,
@@ -47,7 +49,7 @@ class TorrentResource extends JsonResource
                 'mal_id'          => $this->mal,
                 'igdb_id'         => $this->igdb,
                 'created_at'      => $this->created_at->toDayDateTimeString(),
-                'download_link'   => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]),
+                'download_link'   => \route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]),
             ],
         ];
     }

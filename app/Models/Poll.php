@@ -20,11 +20,11 @@ use Illuminate\Support\Str;
 /**
  * App\Models\Poll.
  *
- * @property int $id
- * @property int $user_id
- * @property string $title
- * @property string $slug
- * @property int $multiple_choice
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $title
+ * @property string                          $slug
+ * @property int                             $multiple_choice
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Option[] $options
@@ -102,7 +102,7 @@ class Poll extends Model
      */
     public function setTitleAttribute($title)
     {
-        if (substr($title, -1) !== '?') {
+        if (\substr($title, -1) !== '?') {
             return $this->attributes['title'] = $title.'?';
         }
 
@@ -118,10 +118,10 @@ class Poll extends Model
      */
     public function makeSlugFromTitle($title)
     {
-        $slug = strlen($title) > 20 ? substr(Str::slug($title), 0, 20) : Str::slug($title);
+        $slug = \strlen($title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
         $count = $this->where('slug', 'LIKE', "%$slug%")->count();
 
-        return $count ? sprintf('%s-%s', $slug, $count) : $slug;
+        return $count ? \sprintf('%s-%s', $slug, $count) : $slug;
     }
 
     /**

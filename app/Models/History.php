@@ -19,22 +19,22 @@ use Kyslik\ColumnSortable\Sortable;
 /**
  * App\Models\History.
  *
- * @property int $id
- * @property int $user_id
- * @property string|null $agent
- * @property string $info_hash
- * @property int|null $uploaded
- * @property int|null $actual_uploaded
- * @property int|null $client_uploaded
- * @property int|null $downloaded
- * @property int|null $actual_downloaded
- * @property int|null $client_downloaded
- * @property int $seeder
- * @property int $active
- * @property int $seedtime
- * @property int $immune
- * @property int $hitrun
- * @property int $prewarn
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string|null                     $agent
+ * @property string                          $info_hash
+ * @property int|null                        $uploaded
+ * @property int|null                        $actual_uploaded
+ * @property int|null                        $client_uploaded
+ * @property int|null                        $downloaded
+ * @property int|null                        $actual_downloaded
+ * @property int|null                        $client_downloaded
+ * @property int                             $seeder
+ * @property int                             $active
+ * @property int                             $seedtime
+ * @property int                             $immune
+ * @property int                             $hitrun
+ * @property int                             $prewarn
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $completed_at

@@ -19,12 +19,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Album.
  *
- * @property int $id
- * @property int $user_id
- * @property string $name
- * @property string $description
- * @property string $imdb
- * @property string $cover_image
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $name
+ * @property string                          $description
+ * @property string                          $imdb
+ * @property string                          $cover_image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Image[] $images

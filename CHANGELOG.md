@@ -1,8 +1,49 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v2.7.0]
 
-## Unreleased
+- [#1410] [ImgBot] Optimize images, Thanks to [@imgbot][bot]
+- [#1414] (Update) Log Viewer, Thanks to [@HDVinnie]
+- [#1412] (Refactor) Code Quality and Style, Thanks to [@HDVinnie]
+- [#1409] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+
+<!-- dumped content end -->
+
+<!-- dumped content start -->
+## [v2.6.0]
+
+- [#1394] Adds num_file to torrent API response., Thanks to [@PyR8zdl]
+- [#1385] fix: Add unique index for group slug, Thanks to [@leighmacdonald]
+- [#1403] build(deps-dev): bump lodash from 4.17.15 to 4.17.19, Thanks to [@dependabot][bot]
+- [#1392] (Update) index.blade.php, Thanks to [@innocente205]
+- [#1387] (Update) Italian Translations, Thanks to [@Gideon75]
+- [#1334] Laravel 7.x Shift, Thanks to [@HDVinnie]
+- [#1408] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1388] Fix a single translation (pt-br), Thanks to [@StealthC]
+- [#1386] Fix 'Expired' lang, Thanks to [@PyR8zdl]
+
+<!-- dumped content end -->
+
+<!-- dumped content start -->
+
+## [v2.5.0]
+
+- [#1365] (Update) Add set freeleech to torrent upload page, Thanks to [@innocente205]
+- [#1360] (Refactor) Types System, Thanks to [@HDVinnie]
+- [#1354] (Update) Announce Controller, Thanks to [@PyR8zdl]
+- [#1356] PHPUnit 9 Shift, Thanks to [@HDVinnie]
+- [#1357] (Update) upload.blade.php, Thanks to [@innocente205]
+- [#1358] (Update) add_request.blade.php, Thanks to [@innocente205]
+- [#1359] (Update) Composer v2 Compatibility, Thanks to [@HDVinnie]
+- [#1379] (Feature) Resolutions System, Thanks to [@HDVinnie]
+- [#1368] (Enhancement) Upload Parser, Thanks to [@HDVinnie]
+- [#1371] (Refactor) Code Quality Changes, Thanks to [@HDVinnie]
+- [#1374] (Update) Model Doc Blocks, Thanks to [@HDVinnie]
+- [#1376] (Refactor) Count and Sum Queries, Thanks to [@HDVinnie]
+- [#1378] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1372] Apply fixes from StyleCI, Thanks to [@HDVinnie]
+- [#1375] Apply fixes from StyleCI, Thanks to [@HDVinnie]
 
 <!-- dumped content end -->
 
@@ -1467,3 +1508,44 @@
 [#1350]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1350
 [#1346]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1346
 [#1345]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1345
+[#1379]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1379
+[#1378]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1378
+[#1376]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1376
+[#1375]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1375
+[#1374]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1374
+[#1372]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1372
+[#1371]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1371
+[#1368]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1368
+[#1365]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1365
+[#1360]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1360
+[#1359]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1359
+[#1358]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1358
+[#1357]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1357
+[#1356]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1356
+[#1354]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1354
+[v2.4.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.3.0...v2.4.0
+[v2.5.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.4.0...v2.5.0
+[v2.6.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.5.0...v2.6.0
+[v2.7.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.6.0...v2.7.0
+[#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
+[#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
+[#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
+[#1403]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1403
+[#1397]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1397
+[#1396]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1396
+[#1394]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1394
+[#1393]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1393
+[#1392]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1392
+[#1389]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1389
+[#1388]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1388
+[#1387]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1387
+[#1386]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1386
+[#1385]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1385
+[#1334]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1334
+[@leighmacdonald]: https://github.com/leighmacdonald
+[@StealthC]: https://github.com/StealthC
+[@Gideon75]: https://github.com/Gideon75
+[#1414]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1414
+[#1412]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1412
+[#1410]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1410
+[#1409]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1409

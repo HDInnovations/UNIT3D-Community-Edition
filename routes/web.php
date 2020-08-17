@@ -23,7 +23,6 @@
 */
 
 Route::group(['middleware' => 'language'], function () {
-
     /*
     |---------------------------------------------------------------------------------
     | Website (Not Authorized) (Alpha Ordered)
@@ -370,9 +369,6 @@ Route::group(['middleware' => 'language'], function () {
 
         // Thank System
         Route::get('/thanks/{id}', 'ThankController@store')->name('thanks.store');
-
-        // Language System
-        Route::get('/{locale}/back', 'LanguageController@back')->name('back');
 
         // Invite System
         Route::group(['prefix' => 'invites'], function () {
@@ -795,6 +791,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/', 'ReportController@index')->name('index');
                 Route::get('/{id}', 'ReportController@show')->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/solve', 'ReportController@update')->name('update');
+            });
+        });
+
+        // Resolutions
+        Route::group(['prefix' => 'resolutions'], function () {
+            Route::name('staff.resolutions.')->group(function () {
+                Route::get('/', 'ResolutionController@index')->name('index');
+                Route::get('/create', 'ResolutionController@create')->name('create');
+                Route::post('/store', 'ResolutionController@store')->name('store');
+                Route::get('/{id}/edit', 'ResolutionController@edit')->name('edit');
+                Route::patch('/{id}/update', 'ResolutionController@update')->name('update');
+                Route::delete('/{id}/destroy', 'ResolutionController@destroy')->name('destroy');
             });
         });
 

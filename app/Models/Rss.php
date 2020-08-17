@@ -20,14 +20,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Rss.
  *
- * @property int $id
- * @property int $position
- * @property string $name
- * @property int $user_id
- * @property int $staff_id
- * @property int $is_private
- * @property int $is_torrent
- * @property array $json_torrent
+ * @property int                             $id
+ * @property int                             $position
+ * @property string                          $name
+ * @property int                             $user_id
+ * @property int                             $staff_id
+ * @property int                             $is_private
+ * @property int                             $is_torrent
+ * @property array                           $json_torrent
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -120,7 +120,7 @@ class Rss extends Model
         if ($this->json_torrent) {
             $expected = $this->expected_fields;
 
-            return (object) array_merge($expected, $this->json_torrent);
+            return (object) \array_merge($expected, $this->json_torrent);
         }
 
         return false;
@@ -135,9 +135,9 @@ class Rss extends Model
     {
         // Just Torrents for now... extendable to check on feed type in future.
         $expected_fields = ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null,
-            'mal'                    => null, 'categories' => null, 'types' => null, 'genres' => null, 'freeleech' => null,
-            'doubleupload'           => null, 'featured' => null, 'stream' => null, 'highspeed' => null, 'internal' => null,
-            'alive'                  => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
+            'mal'                    => null, 'categories' => null, 'types' => null, 'resolutions' => null, 'genres' => null,
+            'freeleech'              => null, 'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null,
+            'internal'               => null, 'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
 
         return $expected_fields;
     }

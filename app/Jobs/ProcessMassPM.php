@@ -57,11 +57,11 @@ class ProcessMassPM implements ShouldQueue
      */
     public function handle()
     {
-        $pm = new PrivateMessage();
-        $pm->sender_id = $this->sender_id;
-        $pm->receiver_id = $this->receiver_id;
-        $pm->subject = $this->subject;
-        $pm->message = $this->message;
-        $pm->save();
+        $privateMessage = new PrivateMessage();
+        $privateMessage->sender_id = $this->sender_id;
+        $privateMessage->receiver_id = $this->receiver_id;
+        $privateMessage->subject = $this->subject;
+        $privateMessage->message = $this->message;
+        $privateMessage->save();
     }
 }

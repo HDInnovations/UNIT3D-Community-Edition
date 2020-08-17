@@ -19,12 +19,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Ban.
  *
- * @property int $id
- * @property int $owned_by
- * @property int|null $created_by
- * @property string|null $ban_reason
- * @property string|null $unban_reason
- * @property string|null $removed_at
+ * @property int                             $id
+ * @property int                             $owned_by
+ * @property int|null                        $created_by
+ * @property string|null                     $ban_reason
+ * @property string|null                     $unban_reason
+ * @property string|null                     $removed_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $banneduser

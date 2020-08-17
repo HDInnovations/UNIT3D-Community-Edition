@@ -18,9 +18,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\ApplicationUrlProof.
  *
- * @property int $id
- * @property int $application_id
- * @property string $url
+ * @property int                             $id
+ * @property int                             $application_id
+ * @property string                          $url
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Application $application

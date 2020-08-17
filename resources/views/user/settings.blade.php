@@ -34,11 +34,23 @@
                 </ul>
                 <div class="tab-content">
                     <br>
-                    <div class="tab-pane active" id="general">
                         <form role="form" method="POST"
                             action="{{ route('change_settings', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
                             @csrf
+                            <div class="well">
+                                <h3>Language</h3>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="language" class="control-label">Language</label>
+                                    <select class="form-control" id="language" name="language">
+                                        @foreach (App\Models\Language::allowed() as $code => $name)
+                                            <option @if (auth()->user()->locale == $code) selected @endif value="{{ $code }}">{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="well">
                                 <h3>Style</h3>
                                 <hr>
@@ -144,5 +156,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection

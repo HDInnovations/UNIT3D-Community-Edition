@@ -22,14 +22,14 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\Article.
  *
- * @property int $id
- * @property string $title
- * @property string $slug
- * @property string|null $image
- * @property string $content
+ * @property int                             $id
+ * @property string                          $title
+ * @property string                          $slug
+ * @property string|null                     $image
+ * @property string                          $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $user_id
+ * @property int                             $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read int|null $comments_count
  * @property-read \App\Models\User $user
@@ -88,17 +88,17 @@ class Article extends Model
         $input = $this->content;
         //strip tags, if desired
         if ($strip_html) {
-            $input = strip_tags($input);
+            $input = \strip_tags($input);
         }
 
         //no need to trim, already shorter than trim length
-        if (strlen($input) <= $length) {
+        if (\strlen($input) <= $length) {
             return $input;
         }
 
         //find last space within length
-        $last_space = strrpos(substr($input, 0, $length), ' ');
-        $trimmed_text = substr($input, 0, $last_space);
+        $last_space = \strrpos(\substr($input, 0, $length), ' ');
+        $trimmed_text = \substr($input, 0, $last_space);
 
         //add ellipses (...)
         if ($ellipses) {

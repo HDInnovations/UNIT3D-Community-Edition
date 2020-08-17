@@ -19,11 +19,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TwoStepAuth.
  *
- * @property int $id
- * @property int $userId
- * @property string|null $authCode
- * @property int $authCount
- * @property bool $authStatus
+ * @property int                             $id
+ * @property int                             $userId
+ * @property string|null                     $authCode
+ * @property int                             $authCount
+ * @property bool                            $authStatus
  * @property \Illuminate\Support\Carbon|null $authDate
  * @property \Illuminate\Support\Carbon|null $requestDate
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -117,7 +117,7 @@ class TwoStepAuth extends Model
      */
     public static function rules($merge = [])
     {
-        return array_merge(
+        return \array_merge(
             [
                 'userId'     => 'required|integer',
                 'authCode'   => 'required|string|max:4|min:4',

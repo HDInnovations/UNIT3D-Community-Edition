@@ -18,6 +18,9 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\TagControllerTest
+ */
 class TagController extends Controller
 {
     /**
@@ -29,7 +32,7 @@ class TagController extends Controller
     {
         $tags = Tag::all()->sortBy('name');
 
-        return view('Staff.tag.index', ['tags' => $tags]);
+        return \view('Staff.tag.index', ['tags' => $tags]);
     }
 
     /**
@@ -39,7 +42,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('Staff.tag.create');
+        return \view('Staff.tag.create');
     }
 
     /**
@@ -55,18 +58,18 @@ class TagController extends Controller
         $tag->name = $request->input('name');
         $tag->slug = Str::slug($tag->name);
 
-        $v = validator($tag->toArray(), [
+        $v = \validator($tag->toArray(), [
             'name' => 'required|unique:tags',
             'slug' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.tags.index')
+            return \redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
         }
         $tag->save();
 
-        return redirect()->route('staff.tags.index')
+        return \redirect()->route('staff.tags.index')
             ->withSuccess('Tag Successfully Added');
     }
 
@@ -81,7 +84,7 @@ class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
 
-        return view('Staff.tag.edit', ['tag' => $tag]);
+        return \view('Staff.tag.edit', ['tag' => $tag]);
     }
 
     /**
@@ -98,18 +101,18 @@ class TagController extends Controller
         $tag->name = $request->input('name');
         $tag->slug = Str::slug($tag->name);
 
-        $v = validator($tag->toArray(), [
+        $v = \validator($tag->toArray(), [
             'name' => 'required',
             'slug' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.tags.index')
+            return \redirect()->route('staff.tags.index')
                 ->withErrors($v->errors());
         }
         $tag->save();
 
-        return redirect()->route('staff.tags.index')
+        return \redirect()->route('staff.tags.index')
             ->withSuccess('Tag Successfully Modified');
     }
 }

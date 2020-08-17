@@ -19,29 +19,29 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\UserNotification.
  *
- * @property int $id
- * @property int $user_id
- * @property int $show_bon_gift
- * @property int $show_mention_forum_post
- * @property int $show_mention_article_comment
- * @property int $show_mention_request_comment
- * @property int $show_mention_torrent_comment
- * @property int $show_subscription_topic
- * @property int $show_subscription_forum
- * @property int $show_forum_topic
- * @property int $show_following_upload
- * @property int $show_request_bounty
- * @property int $show_request_comment
- * @property int $show_request_fill
- * @property int $show_request_fill_approve
- * @property int $show_request_fill_reject
- * @property int $show_request_claim
- * @property int $show_request_unclaim
- * @property int $show_torrent_comment
- * @property int $show_torrent_tip
- * @property int $show_torrent_thank
- * @property int $show_account_follow
- * @property int $show_account_unfollow
+ * @property int   $id
+ * @property int   $user_id
+ * @property int   $show_bon_gift
+ * @property int   $show_mention_forum_post
+ * @property int   $show_mention_article_comment
+ * @property int   $show_mention_request_comment
+ * @property int   $show_mention_torrent_comment
+ * @property int   $show_subscription_topic
+ * @property int   $show_subscription_forum
+ * @property int   $show_forum_topic
+ * @property int   $show_following_upload
+ * @property int   $show_request_bounty
+ * @property int   $show_request_comment
+ * @property int   $show_request_fill
+ * @property int   $show_request_fill_approve
+ * @property int   $show_request_fill_reject
+ * @property int   $show_request_claim
+ * @property int   $show_request_unclaim
+ * @property int   $show_torrent_comment
+ * @property int   $show_torrent_tip
+ * @property int   $show_torrent_thank
+ * @property int   $show_account_follow
+ * @property int   $show_account_unfollow
  * @property array $json_account_groups
  * @property array $json_bon_groups
  * @property array $json_mention_groups

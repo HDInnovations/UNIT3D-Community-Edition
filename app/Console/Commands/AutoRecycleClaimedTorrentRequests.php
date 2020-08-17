@@ -19,6 +19,9 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoRecycleClaimedTorrentRequestsTest
+ */
 class AutoRecycleClaimedTorrentRequests extends Command
 {
     /**
@@ -38,17 +41,19 @@ class AutoRecycleClaimedTorrentRequests extends Command
     /**
      * @var ChatRepository
      */
-    private $chat;
+    private $chatRepository;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chatRepository)
     {
         parent::__construct();
 
-        $this->chat = $chat;
+        $this->chatRepository = $chatRepository;
     }
 
     /**
      * Execute the console command.
+     *
+     * @throws \Exception
      *
      * @return mixed
      */
@@ -66,9 +71,9 @@ class AutoRecycleClaimedTorrentRequests extends Command
                 ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
                 ->first();
             if ($requestClaim) {
-                $tr_url = href_request($torrentRequest);
-                $this->chat->systemMessage(
-                    sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $tr_url, $torrentRequest->name)
+                $tr_url = \href_request($torrentRequest);
+                $this->chatRepository->systemMessage(
+                    \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $tr_url, $torrentRequest->name)
                 );
 
                 $requestClaim->delete();

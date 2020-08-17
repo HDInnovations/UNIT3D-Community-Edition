@@ -59,6 +59,8 @@ return [
     'reset'               => 'Reset',
     'reset-confirmation'  => 'Are you sure you want to reset this Request',
     'reset-request'       => 'Reset this Request',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Reward',
     'reward-desc'         => 'How many Bonus Points would you like to reward? Minimum 100 BP',
     'reward-from'         => 'From',

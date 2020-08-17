@@ -284,7 +284,7 @@ return [
     'resurrections'                       => 'Resurrections',
     'restore'                             => 'Restore',
     'satisfied-immune'		                  => 'Satisfied / Immune',
-    'search'                              => 'Quick Search by Username',
+    'search'                              => 'Quick Search by Username/Email',
     'security'                            => 'Security',
     'security-settings'                   => 'Security Settings',
     'seedboxes'                           => 'Seedboxes',

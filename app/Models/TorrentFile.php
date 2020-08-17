@@ -20,10 +20,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TorrentFile.
  *
- * @property int $id
+ * @property int    $id
  * @property string $name
- * @property int $size
- * @property int $torrent_id
+ * @property int    $size
+ * @property int    $torrent_id
  * @property-read \App\Models\Torrent $torrent
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentFile newModelQuery()

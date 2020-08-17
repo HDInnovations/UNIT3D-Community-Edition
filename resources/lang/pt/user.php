@@ -219,7 +219,7 @@ return [
     'recent-achievements'                  => 'Conquistas recentes',
     'recent-followers'                     => 'Seguidores Recentes',
     'registration-date'                    => 'Data de registro',
-    'report'                               => 'Relatório',
+    'report'                               => 'Reportar',
     'request-help'                         => 'Controle o compartilhamento de estatísticas e informações relacionadas a solicitações específicas com grupos que têm permissão para acessar seu perfil. Essas configurações serão canceladas se você não permitir que nenhum grupo acesse suas estatísticas e informações relacionadas solicitadas ou se você for <strong>Particular</strong>',
     'request'                              => 'Pedido',
     'requested'                            => 'Requeridos',

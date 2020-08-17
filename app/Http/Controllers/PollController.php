@@ -20,6 +20,9 @@ use App\Models\Voter;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
+ */
 class PollController extends Controller
 {
     /**
@@ -46,7 +49,7 @@ class PollController extends Controller
     {
         $polls = Poll::latest()->paginate(15);
 
-        return view('poll.latest', ['polls' => $polls]);
+        return \view('poll.latest', ['polls' => $polls]);
     }
 
     /**
@@ -64,11 +67,11 @@ class PollController extends Controller
         $user_has_voted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
-            return redirect()->route('poll_results', ['id' => $poll->id])
+            return \redirect()->route('poll_results', ['id' => $poll->id])
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
 
-        return view('poll.show', ['poll' => $poll]);
+        return \view('poll.show', ['poll' => $poll]);
     }
 
     /**
@@ -86,7 +89,7 @@ class PollController extends Controller
             ->where('poll_id', '=', $poll->id)
             ->exists();
         if ($voted) {
-            return redirect()->route('poll_results', ['id' => $poll->id])
+            return \redirect()->route('poll_results', ['id' => $poll->id])
                 ->withErrors('Bro have already vote on this poll. Your vote has not been counted.');
         }
 
@@ -101,14 +104,14 @@ class PollController extends Controller
         $vote->user_id = $user->id;
         $vote->save();
 
-        $poll_url = href_poll($poll);
-        $profile_url = href_profile($user);
+        $poll_url = \href_poll($poll);
+        $profile_url = \href_profile($user);
 
         $this->chat->systemMessage(
-            sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)
+            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)
         );
 
-        return redirect()->route('poll_results', ['id' => $poll->id])
+        return \redirect()->route('poll_results', ['id' => $poll->id])
             ->withSuccess('Your vote has been counted.');
     }
 
@@ -127,6 +130,6 @@ class PollController extends Controller
             'total_votes' => $poll->totalVotes(),
         ];
 
-        return view('poll.result', $map);
+        return \view('poll.result', $map);
     }
 }

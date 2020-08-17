@@ -21,6 +21,9 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * @see \Tests\Unit\Console\Commands\AutoBanTest
+ */
 class AutoBan extends Command
 {
     /**
@@ -46,9 +49,9 @@ class AutoBan extends Command
      */
     public function handle()
     {
-        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
+        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.max_warnings'))->get();
 
         foreach ($bans as $ban) {
             if ($ban->warneduser->group_id != $banned_group[0] && ! $ban->warneduser->group->is_immune) {

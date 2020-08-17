@@ -19,13 +19,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Image.
  *
- * @property int $id
- * @property int $user_id
- * @property int $album_id
- * @property string $image
- * @property string $description
- * @property string $type
- * @property int|null $downloads
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $album_id
+ * @property string                          $image
+ * @property string                          $description
+ * @property string                          $type
+ * @property int|null                        $downloads
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user

@@ -15,26 +15,30 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
 use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
+ */
 class RssController extends Controller
 {
     /**
      * @var TorrentFacetedRepository
      */
-    private $torrent_faceted;
+    private $torrentFacetedRepository;
 
     /**
      * RssController Constructor.
      *
-     * @param TorrentFacetedRepository $torrent_faceted
+     * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      */
-    public function __construct(TorrentFacetedRepository $torrent_faceted)
+    public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
     {
-        $this->torrent_faceted = $torrent_faceted;
+        $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
 
     /**
@@ -42,13 +46,13 @@ class RssController extends Controller
      *
      * @param string $hash
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index($hash = null)
     {
         $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
-        return view('Staff.rss.index', [
+        return \view('Staff.rss.index', [
             'hash'       => $hash,
             'public_rss' => $public_rss,
         ]);
@@ -59,17 +63,18 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Request $request)
     {
         $user = $request->user();
-        $torrent_repository = $this->torrent_faceted;
+        $torrent_repository = $this->torrentFacetedRepository;
 
-        return view('Staff.rss.create', [
+        return \view('Staff.rss.create', [
             'torrent_repository' => $torrent_repository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
+            'resolutions'        => Resolution::all()->sortBy('position'),
             'user'               => $user, ]);
     }
 
@@ -78,25 +83,26 @@ class RssController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $user = $request->user();
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'name'        => 'required|min:3|max:255',
             'search'      => 'max:255',
             'description' => 'max:255',
             'uploader'    => 'max:255',
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
+            'resolutions' => 'sometimes|array|max:999',
             'genres'      => 'sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['type', 'name', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
+            'types', 'resolutions', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
@@ -106,7 +112,7 @@ class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = array_merge($expected, $params);
+            $rss->json_torrent = \array_merge($expected, $params);
             $rss->is_private = 0;
             $rss->staff_id = $user->id;
             $rss->position = (int) $request->input('position');
@@ -119,11 +125,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('staff.rss.create')
+            return \redirect()->route('staff.rss.create')
                 ->withErrors($error);
         }
 
-        return redirect()->route('staff.rss.index')
+        return \redirect()->route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -133,18 +139,19 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Request $request, $id)
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
-        $torrent_repository = $this->torrent_faceted;
+        $torrent_repository = $this->torrentFacetedRepository;
 
-        return view('Staff.rss.edit', [
+        return \view('Staff.rss.edit', [
             'torrent_repository' => $torrent_repository,
             'categories'         => Category::all()->sortBy('position'),
             'types'              => Type::all()->sortBy('position'),
+            'resolutions'        => Resolution::all()->sortBy('position'),
             'user'               => $user,
             'rss'                => $rss,
         ]);
@@ -156,25 +163,26 @@ class RssController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'name'        => 'required|min:3|max:255',
             'search'      => 'max:255',
             'description' => 'max:255',
             'uploader'    => 'max:255',
             'categories'  => 'sometimes|array|max:999',
             'types'       => 'sometimes|array|max:999',
+            'resolutions' => 'sometimes|array|max:999',
             'genres'      => 'sometimes|array|max:999',
             'position'    => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['type', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
+            'types', 'resolutions', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
@@ -182,8 +190,8 @@ class RssController extends Controller
 
         if ($v->passes()) {
             $expected = $rss->expected_fields;
-            $push = array_merge($expected, $params);
-            $rss->json_torrent = array_merge($rss->json_torrent, $push);
+            $push = \array_merge($expected, $params);
+            $rss->json_torrent = \array_merge($rss->json_torrent, $push);
             $rss->is_private = 0;
             $rss->name = $request->input('name');
             $rss->position = (int) $request->input('position');
@@ -196,11 +204,11 @@ class RssController extends Controller
                 $error = $v->errors();
             }
 
-            return redirect()->route('staff.rss.edit', ['id' => $id])
+            return \redirect()->route('staff.rss.edit', ['id' => $id])
                 ->withErrors($error);
         }
 
-        return redirect()->route('staff.rss.index')
+        return \redirect()->route('staff.rss.index')
             ->withSuccess($success);
     }
 
@@ -209,6 +217,8 @@ class RssController extends Controller
      *
      * @param int $id
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -216,7 +226,7 @@ class RssController extends Controller
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
 
-        return redirect()->route('staff.rss.index')
+        return \redirect()->route('staff.rss.index')
             ->withSuccess('RSS Feed Deleted!');
     }
 }

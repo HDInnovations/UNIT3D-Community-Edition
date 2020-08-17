@@ -23,6 +23,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
+ */
 class BanController extends Controller
 {
     /**
@@ -34,7 +37,7 @@ class BanController extends Controller
     {
         $bans = Ban::latest()->paginate(25);
 
-        return view('Staff.ban.index', ['bans' => $bans]);
+        return \view('Staff.ban.index', ['bans' => $bans]);
     }
 
     /**
@@ -51,9 +54,9 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->group_id = $banned_group[0];
         $user->can_upload = 0;
@@ -68,12 +71,12 @@ class BanController extends Controller
         $ban->created_by = $staff->id;
         $ban->ban_reason = $request->input('ban_reason');
 
-        $v = validator($ban->toArray(), [
+        $v = \validator($ban->toArray(), [
             'ban_reason' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
         $user->save();
@@ -81,7 +84,7 @@ class BanController extends Controller
         // Send Email
         Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Banned!');
     }
 
@@ -98,7 +101,7 @@ class BanController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
-        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->group_id = $request->input('group_id');
         $user->can_upload = 1;
@@ -114,13 +117,13 @@ class BanController extends Controller
         $ban->unban_reason = $request->input('unban_reason');
         $ban->removed_at = Carbon::now();
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'group_id'     => 'required',
             'unban_reason' => 'required',
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('users.show', ['username' => $user->username])
+            return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
         $user->save();
@@ -128,7 +131,7 @@ class BanController extends Controller
         // Send Email
         Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

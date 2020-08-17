@@ -22,12 +22,12 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\Post.
  *
- * @property int $id
- * @property string $content
+ * @property int                             $id
+ * @property string                          $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int $user_id
- * @property int $topic_id
+ * @property int                             $user_id
+ * @property int                             $topic_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Like[] $likes
  * @property-read int|null $likes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
@@ -134,17 +134,17 @@ class Post extends Model
         $input = $this->content;
         //strip tags, if desired
         if ($strip_html) {
-            $input = strip_tags($input);
+            $input = \strip_tags($input);
         }
 
         //no need to trim, already shorter than trim length
-        if (strlen($input) <= $length) {
+        if (\strlen($input) <= $length) {
             return $input;
         }
 
         //find last space within length
-        $last_space = strrpos(substr($input, 0, $length), ' ');
-        $trimmed_text = substr($input, 0, $last_space);
+        $last_space = \strrpos(\substr($input, 0, $length), ' ');
+        $trimmed_text = \substr($input, 0, $last_space);
 
         //add ellipses (...)
         if ($ellipses) {
@@ -173,6 +173,6 @@ class Post extends Model
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
 
-        return floor($result);
+        return \floor($result);
     }
 }

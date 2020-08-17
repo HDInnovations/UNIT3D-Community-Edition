@@ -35,9 +35,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Image;
+use Intervention\Image\Facades\Image;
 use ZipArchive;
 
+/**
+ * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
+ */
 class UserController extends Controller
 {
     /**
@@ -54,7 +57,7 @@ class UserController extends Controller
         $groups = Group::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
         $history = $user->history;
-        $warnings = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->where('active', '=', 1)->take(config('hitrun.max_warnings'))->get();
+        $warnings = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->where('active', '=', 1)->take(\config('hitrun.max_warnings'))->get();
         $hitrun = Warning::where('user_id', '=', $user->id)->latest()->paginate(10);
 
         $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
@@ -68,7 +71,7 @@ class UserController extends Controller
         $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
         $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
-        return view('user.profile', [
+        return \view('user.profile', [
             'route'        => 'profile',
             'user'         => $user,
             'groups'       => $groups,
@@ -98,7 +101,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Follow::with('user')->where('target_id', '=', $user->id)->latest()->paginate(25);
 
-        return view('user.followers', [
+        return \view('user.followers', [
             'route'   => 'follower',
             'results' => $results,
             'user'    => $user,
@@ -117,7 +120,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
-        return view('user.topics', [
+        return \view('user.topics', [
             'route'   => 'forum',
             'results' => $results,
             'user'    => $user,
@@ -136,7 +139,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
 
-        return view('user.posts', [
+        return \view('user.posts', [
             'route'   => 'forum',
             'results' => $results,
             'user'    => $user,
@@ -155,9 +158,9 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
-        return view('user.edit_profile', ['user' => $user, 'route' => 'edit']);
+        return \view('user.edit_profile', ['user' => $user, 'route' => 'edit']);
     }
 
     /**
@@ -172,32 +175,32 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         // Avatar
-        $max_upload = config('image.max_upload_size');
+        $max_upload = \config('image.max_upload_size');
         if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
-            if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', $image->getMimeType())) {
+            if (\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && \preg_match('#image/*#', $image->getMimeType())) {
                 if ($max_upload >= $image->getSize()) {
                     $filename = $user->username.'.'.$image->getClientOriginalExtension();
-                    $path = public_path('/files/img/'.$filename);
+                    $path = \public_path('/files/img/'.$filename);
                     if ($image->getClientOriginalExtension() !== 'gif') {
                         Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
                     } else {
-                        $v = validator($request->all(), [
+                        $v = \validator($request->all(), [
                             'image' => 'dimensions:ratio=1/1',
                         ]);
                         if ($v->passes()) {
-                            $image->move(public_path('/files/img/'), $filename);
+                            $image->move(\public_path('/files/img/'), $filename);
                         } else {
-                            return redirect()->route('users.show', ['username' => $user->username])
+                            return \redirect()->route('users.show', ['username' => $user->username])
                                 ->withErrors('Because you are uploading a GIF, your avatar must be square!');
                         }
                     }
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
-                    return redirect()->route('users.show', ['username' => $user->username])
+                    return \redirect()->route('users.show', ['username' => $user->username])
                         ->withErrors('Your avatar is too large, max file size: '.($max_upload / 1_000_000).' MB');
                 }
             }
@@ -208,7 +211,7 @@ class UserController extends Controller
         $user->signature = $request->input('signature');
         $user->save();
 
-        return redirect()->route('user_edit_profile_form', ['username' => $user->username])
+        return \redirect()->route('user_edit_profile_form', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
@@ -224,9 +227,9 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
-        return view('user.settings', ['user' => $user, 'route' => 'settings']);
+        return \view('user.settings', ['user' => $user, 'route' => 'settings']);
     }
 
     /**
@@ -241,17 +244,20 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         // General Settings
         $user->censor = $request->input('censor');
         $user->chat_hidden = $request->input('chat_hidden');
 
+        // Language Settings
+        $user->locale = $request->input('language');
+
         // Style Settings
         $user->style = (int) $request->input('theme');
         $css_url = $request->input('custom_css');
-        if (isset($css_url) && ! filter_var($css_url, FILTER_VALIDATE_URL)) {
-            return redirect()->route('users.show', ['username' => $user->username])
+        if (isset($css_url) && ! \filter_var($css_url, FILTER_VALIDATE_URL)) {
+            return \redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }
         $user->custom_css = $css_url;
@@ -263,7 +269,7 @@ class UserController extends Controller
         $user->ratings = $request->input('ratings');
         $user->save();
 
-        return redirect()->route('user_settings', ['username' => $user->username])
+        return \redirect()->route('user_settings', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
@@ -279,9 +285,9 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
-        return view('user.security', ['user' => $user]);
+        return \view('user.security', ['user' => $user]);
     }
 
     /**
@@ -293,13 +299,13 @@ class UserController extends Controller
      */
     protected function changeTwoStep(Request $request)
     {
-        $user = auth()->user();
+        $user = \auth()->user();
 
-        abort_unless(config('auth.TwoStepEnabled') == true, 403);
+        \abort_unless(\config('auth.TwoStepEnabled') == true, 403);
         $user->twostep = $request->input('twostep');
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Changed Your TwoStep Auth Status!');
     }
 
@@ -315,9 +321,9 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
-        $v = validator($request->all(), [
+        $v = \validator($request->all(), [
             'current_password'          => 'required',
             'new_password'              => 'required|min:6|confirmed',
             'new_password_confirmation' => 'required|min:6',
@@ -327,14 +333,14 @@ class UserController extends Controller
                 $user->password = Hash::make($request->input('new_password'));
                 $user->save();
 
-                return redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
+                return \redirect()->route('home.index')->withSuccess('Your Password Has Been Reset');
             }
 
-            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+            return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your Password Was Incorrect!');
         }
 
-        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your New Password Is To Weak!');
     }
 
@@ -350,26 +356,26 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
-        if (config('email-blacklist.enabled') == true) {
-            $v = validator($request->all(), [
+        if (\config('email-blacklist.enabled') == true) {
+            $v = \validator($request->all(), [
                 'email' => 'required|string|email|max:70|blacklist|unique:users',
             ]);
         } else {
-            $v = validator($request->all(), [
+            $v = \validator($request->all(), [
                 'email' => 'required|string|email|max:70|unique:users',
             ]);
         }
 
         if ($v->fails()) {
-            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
+            return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
                 ->withErrors($v->errors());
         }
         $user->email = $request->input('email');
         $user->save();
 
-        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
+        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#email'])
             ->withSuccess('Your Email Was Updated Successfully!');
     }
 
@@ -385,12 +391,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $user->private_profile = 1;
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Private!');
     }
 
@@ -406,12 +412,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $user->private_profile = 0;
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Gone Public!');
     }
 
@@ -427,12 +433,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $user->block_notifications = 1;
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disabled Notifications!');
     }
 
@@ -448,12 +454,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $user->block_notifications = 0;
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Enabled Notifications!');
     }
 
@@ -469,12 +475,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $user->hidden = 1;
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Disappeared Like A Ninja!');
     }
 
@@ -490,12 +496,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $user->hidden = 0;
         $user->save();
 
-        return redirect()->route('users.show', ['username' => $user->username])
+        return \redirect()->route('users.show', ['username' => $user->username])
             ->withSuccess('You Have Given Up Your Ninja Ways And Become Visible!');
     }
 
@@ -511,12 +517,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
-        $user->passkey = md5(uniqid().time().microtime());
+        $user->passkey = \md5(\uniqid().\time().\microtime());
         $user->save();
 
-        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
+        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');
     }
 
@@ -532,7 +538,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -544,13 +550,13 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $privacy->json_other_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_other_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#other'])
+        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#other'])
             ->withSuccess('Your Other Privacy Settings Have Been Saved!');
     }
 
@@ -566,7 +572,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -578,13 +584,13 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $privacy->json_request_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_request_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#request'])
+        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#request'])
             ->withSuccess('Your Request Privacy Settings Have Been Saved!');
     }
 
@@ -600,7 +606,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -612,13 +618,13 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $privacy->json_achievement_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_achievement_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#achievement'])
+        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#achievement'])
             ->withSuccess('Your Achievement Privacy Settings Have Been Saved!');
     }
 
@@ -634,7 +640,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -646,14 +652,14 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $privacy->json_forum_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_forum_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_topic = ($request->input('show_topic') && $request->input('show_topic') == 1 ? 1 : 0);
         $privacy->show_post = ($request->input('show_post') && $request->input('show_post') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#forum'])
+        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#forum'])
             ->withSuccess('Your Forum History Privacy Settings Have Been Saved!');
     }
 
@@ -669,7 +675,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -681,13 +687,13 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $privacy->json_follower_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_follower_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#follower'])
+        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#follower'])
             ->withSuccess('Your Follower Privacy Settings Have Been Saved!');
     }
 
@@ -703,7 +709,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -715,9 +721,9 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $privacy->json_torrent_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_torrent_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
         $privacy->show_download = ($request->input('show_download') && $request->input('show_download') == 1 ? 1 : 0);
         $privacy->show_peer = ($request->input('show_peer') && $request->input('show_peer') == 1 ? 1 : 0);
@@ -726,7 +732,7 @@ class UserController extends Controller
         $user->peer_hidden = 0;
         $user->save();
 
-        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#torrent'])
+        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent History Privacy Settings Have Been Saved!');
     }
 
@@ -742,7 +748,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -755,14 +761,14 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_account_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_account_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_account_follow = ($request->input('show_account_follow') && $request->input('show_account_follow') == 1 ? 1 : 0);
         $notification->show_account_unfollow = ($request->input('show_account_unfollow') && $request->input('show_account_unfollow') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#account'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#account'])
             ->withSuccess('Your Account Notification Settings Have Been Saved!');
     }
 
@@ -778,7 +784,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -791,13 +797,13 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_following_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_following_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#following'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#following'])
             ->withSuccess('Your Followed User Notification Settings Have Been Saved!');
     }
 
@@ -813,7 +819,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -826,13 +832,13 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_bon_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_bon_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#bon'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#bon'])
             ->withSuccess('Your BON Notification Settings Have Been Saved!');
     }
 
@@ -848,7 +854,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -861,14 +867,14 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_subscription_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_subscription_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_subscription_forum = ($request->input('show_subscription_forum') && $request->input('show_subscription_forum') == 1 ? 1 : 0);
         $notification->show_subscription_topic = ($request->input('show_subscription_topic') && $request->input('show_subscription_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#subscription'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#subscription'])
             ->withSuccess('Your Subscription Notification Settings Have Been Saved!');
     }
 
@@ -884,7 +890,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -897,9 +903,9 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_request_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_request_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_request_comment = ($request->input('show_request_comment') && $request->input('show_request_comment') == 1 ? 1 : 0);
         $notification->show_request_bounty = ($request->input('show_request_bounty') && $request->input('show_request_bounty') == 1 ? 1 : 0);
         $notification->show_request_fill = ($request->input('show_request_fill') && $request->input('show_request_fill') == 1 ? 1 : 0);
@@ -909,7 +915,7 @@ class UserController extends Controller
         $notification->show_request_unclaim = ($request->input('show_request_unclaim') && $request->input('show_request_unclaim') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#request'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#request'])
             ->withSuccess('Your Request Notification Settings Have Been Saved!');
     }
 
@@ -925,7 +931,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -938,15 +944,15 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_torrent_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_torrent_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_torrent_comment = ($request->input('show_torrent_comment') && $request->input('show_torrent_comment') == 1 ? 1 : 0);
         $notification->show_torrent_thank = ($request->input('show_torrent_thank') && $request->input('show_torrent_thank') == 1 ? 1 : 0);
         $notification->show_torrent_tip = ($request->input('show_torrent_tip') && $request->input('show_torrent_tip') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#torrent'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#torrent'])
             ->withSuccess('Your Torrent Notification Settings Have Been Saved!');
     }
 
@@ -962,7 +968,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -975,9 +981,9 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_mention_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_mention_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_mention_torrent_comment = ($request->input('show_mention_torrent_comment') && $request->input('show_mention_torrent_comment') == 1 ? 1 : 0);
         $notification->show_mention_request_comment = ($request->input('show_mention_request_comment') && $request->input('show_mention_request_comment') == 1 ? 1 : 0);
         $notification->show_mention_article_comment = ($request->input('show_mention_article_comment') && $request->input('show_mention_article_comment') == 1 ? 1 : 0);
@@ -985,7 +991,7 @@ class UserController extends Controller
 
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#mention'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#mention'])
             ->withSuccess('Your @Mention Notification Settings Have Been Saved!');
     }
 
@@ -1001,7 +1007,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
         if (! $notification) {
@@ -1014,13 +1020,13 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $notification->json_forum_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->json_forum_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
         $notification->save();
 
-        return redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#forum'])
+        return \redirect()->route('user_notification', ['username' => $user->username, 'hash' => '#forum'])
             ->withSuccess('Your Forum Notification Settings Have Been Saved!');
     }
 
@@ -1036,7 +1042,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
         if (! $privacy) {
@@ -1049,9 +1055,9 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = is_array($approved) && in_array($group->id, $approved) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
-        $privacy->json_profile_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->json_profile_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_profile_torrent_count = ($request->input('show_profile_torrent_count') && $request->input('show_profile_torrent_count') == 1 ? 1 : 0);
         $privacy->show_profile_torrent_ratio = ($request->input('show_profile_torrent_ratio') && $request->input('show_profile_torrent_ratio') == 1 ? 1 : 0);
         $privacy->show_profile_torrent_seed = ($request->input('show_profile_torrent_seed') && $request->input('show_profile_torrent_seed') == 1 ? 1 : 0);
@@ -1068,7 +1074,7 @@ class UserController extends Controller
         $privacy->show_profile_warning = ($request->input('show_profile_warning') && $request->input('show_profile_warning') == 1 ? 1 : 0);
         $privacy->save();
 
-        return redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#profile'])
+        return \redirect()->route('user_privacy', ['username' => $user->username, 'hash' => '#profile'])
             ->withSuccess('Your Profile Privacy Settings Have Been Saved!');
     }
 
@@ -1084,12 +1090,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
-        $user->rsskey = md5(uniqid().time().microtime());
+        $user->rsskey = \md5(\uniqid().\time().\microtime());
         $user->save();
 
-        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
+        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#rid'])
             ->withSuccess('Your RID Was Changed Successfully!');
     }
 
@@ -1105,12 +1111,12 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $user->api_token = Str::random(100);
         $user->save();
 
-        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#api'])
+        return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#api'])
             ->withSuccess('Your API Token Was Changed Successfully!');
     }
 
@@ -1126,11 +1132,11 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
-        return view('user.privacy', ['user' => $user, 'groups'=> $groups]);
+        return \view('user.privacy', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
@@ -1145,11 +1151,11 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
-        return view('user.notification', ['user' => $user, 'groups'=> $groups]);
+        return \view('user.notification', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
@@ -1166,7 +1172,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
         if ($request->has('view') && $request->input('view') == 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
@@ -1236,12 +1242,11 @@ class UserController extends Controller
                 $table = $history->orderBy($sorting, $order)->paginate(50);
             }
 
-            return view('user.filters.seeds', [
+            return \view('user.filters.seeds', [
                 'user'  => $user,
                 'seeds' => $table,
             ])->render();
         }
-
         if ($request->has('view') && $request->input('view') == 'requests') {
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type']);
             $order = null;
@@ -1289,16 +1294,16 @@ class UserController extends Controller
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(25);
             }
 
-            return view('user.filters.requests', [
+            return \view('user.filters.requests', [
                 'user'            => $user,
                 'torrentRequests' => $table,
             ])->render();
-        } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
-            $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
+        }
 
+        if ($request->has('view') && $request->input('view') == 'resurrections') {
+            $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
             $order = null;
             $sorting = null;
-
             if ($request->has('rewarded') && $request->input('rewarded') != null) {
                 $history->where('graveyard.rewarded', '=', 1);
             }
@@ -1320,7 +1325,6 @@ class UserController extends Controller
                 // $order = 'asc';
             }
             $direction = $order == 'asc' ? 1 : 2;
-
             if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
                 if ($sorting == 'goal') {
                     $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('graveyard.seedtime', $order)->paginate(50);
@@ -1331,7 +1335,7 @@ class UserController extends Controller
                 $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
             }
 
-            return view('user.filters.resurrections', [
+            return \view('user.filters.resurrections', [
                 'user'          => $user,
                 'resurrections' => $table,
             ])->render();
@@ -1371,26 +1375,26 @@ class UserController extends Controller
                 $table = $history->where('peers.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
             }
 
-            return view('user.filters.active', [
+            return \view('user.filters.active', [
                 'user'   => $user,
                 'active' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'unsatisfieds') {
-            if (config('hitrun.enabled') == true) {
+            if (\config('hitrun.enabled') == true) {
                 $history = History::selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                     $query->withAnyStatus();
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
-                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.enabled') == true ? (config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
+                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.enabled') == true ? (\config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
             } else {
                 $history = History::selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                     $query->withAnyStatus();
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
-                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.enabled') == true ? (config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
+                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.enabled') == true ? (\config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
             }
             $order = null;
             $sorting = null;
 
-            $history->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')]);
+            $history->whereRaw('(history.seedtime < ? and history.immune != 1)', [\config('hitrun.seedtime')]);
 
             if ($request->has('name') && $request->input('name') != null) {
                 $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
@@ -1429,7 +1433,7 @@ class UserController extends Controller
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
             }
 
-            return view('user.filters.unsatisfieds', [
+            return \view('user.filters.unsatisfieds', [
                 'user'      => $user,
                 'downloads' => $table,
             ])->render();
@@ -1437,16 +1441,16 @@ class UserController extends Controller
             $history = History::selectRaw('distinct(history.info_hash), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
-                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.enabled') == true ? (config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.enabled') == true ? (\config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
             $order = null;
             $sorting = null;
 
             $history->where(function ($query) use ($request) {
                 if ($request->has('satisfied') && $request->input('satisfied') != null) {
-                    $query->orWhereRaw('(history.seedtime >= ? or history.immune = 1)', [config('hitrun.seedtime')]);
+                    $query->orWhereRaw('(history.seedtime >= ? or history.immune = 1)', [\config('hitrun.seedtime')]);
                 }
                 if ($request->has('notsatisfied') && $request->input('notsatisfied') != null) {
-                    $query->orWhereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')]);
+                    $query->orWhereRaw('(history.seedtime < ? and history.immune != 1)', [\config('hitrun.seedtime')]);
                 }
             });
             if ($request->has('name') && $request->input('name') != null) {
@@ -1495,7 +1499,7 @@ class UserController extends Controller
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
             }
 
-            return view('user.filters.downloads', [
+            return \view('user.filters.downloads', [
                 'user'      => $user,
                 'downloads' => $table,
             ])->render();
@@ -1552,7 +1556,7 @@ class UserController extends Controller
                 $table = $history->orderBy($sorting, $order)->paginate(50);
             }
 
-            return view('user.filters.uploads', [
+            return \view('user.filters.uploads', [
                 'user'    => $user,
                 'uploads' => $table,
             ])->render();
@@ -1606,7 +1610,7 @@ class UserController extends Controller
 
             $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
 
-            return view('user.filters.history', [
+            return \view('user.filters.history', [
                 'user'    => $user,
                 'history' => $table,
             ])->render();
@@ -1634,11 +1638,11 @@ class UserController extends Controller
 
             $logger = 'user.private.downloads';
 
-            if (config('hitrun.enabled') == true) {
+            if (\config('hitrun.enabled') == true) {
                 $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                     $query->withAnyStatus();
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
-                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
                     ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
                     ->paginate(50);
             } else {
@@ -1649,7 +1653,7 @@ class UserController extends Controller
                     ->paginate(50);
             }
 
-            return view($logger, [
+            return \view($logger, [
                 'route'         => 'downloads',
                 'user'          => $user,
                 'downloads'     => $downloads,
@@ -1660,11 +1664,11 @@ class UserController extends Controller
             ]);
         }
         $logger = 'user.downloads';
-        if (config('hitrun.enabled') == true) {
+        if (\config('hitrun.enabled') == true) {
             $downloads = History::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
-                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)
                 ->groupBy('history.info_hash')->orderBy('completed_at', 'desc')
                 ->paginate(50);
@@ -1677,7 +1681,7 @@ class UserController extends Controller
                 ->paginate(50);
         }
 
-        return view($logger, [
+        return \view($logger, [
             'route'        => 'downloads',
             'user'         => $user,
             'downloads'    => $downloads,
@@ -1700,7 +1704,7 @@ class UserController extends Controller
 
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->latest()->paginate(25);
 
-            return view($logger, [
+            return \view($logger, [
                 'route'           => 'requests',
                 'user'            => $user,
                 'torrentRequests' => $torrentRequests,
@@ -1709,7 +1713,7 @@ class UserController extends Controller
         $logger = 'user.requests';
         $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
-        return view($logger, [
+        return \view($logger, [
             'route'           => 'requests',
             'user'            => $user,
             'torrentRequests' => $torrentRequests,
@@ -1728,31 +1732,31 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
         $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
         $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
         $his_downl_cre = History::where('user_id', '=', $user->id)->sum('downloaded');
 
-        if (config('hitrun.enabled') == true) {
+        if (\config('hitrun.enabled') == true) {
             $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
-                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
-                ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
+                ->whereRaw('(history.seedtime < ? and history.immune != 1)', [\config('hitrun.seedtime')])
                 ->paginate(50);
         } else {
             $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
-                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(\config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
-                ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
+                ->whereRaw('(history.seedtime < ? and history.immune != 1)', [\config('hitrun.seedtime')])
                 ->paginate(50);
         }
 
-        return view('user.private.unsatisfieds', [
+        return \view('user.private.unsatisfieds', [
             'route'         => 'unsatisfieds',
             'user'          => $user,
             'downloads'     => $downloads,
@@ -1775,7 +1779,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
         $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
         $his_downl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
@@ -1785,7 +1789,7 @@ class UserController extends Controller
         }])->selectRaw('distinct(history.id),max(history.info_hash) as info_hash,max(history.agent) as agent,max(history.uploaded) as uploaded,max(history.downloaded) as downloaded,max(history.seeder) as seeder,max(history.active) as active,max(history.actual_uploaded) as actual_uploaded,max(history.actual_downloaded) as actual_downloaded,max(history.seedtime) as seedtime,max(history.created_at) as created_at,max(history.updated_at) as updated_at,max(history.completed_at) as completed_at,max(history.immune) as immune,max(history.hitrun) as hitrun,max(history.prewarn) as prewarn,max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.status) as status')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('history.user_id', '=', $user->id)->groupBy('history.id')
             ->orderBy('created_at', 'DESC')->paginate(50);
 
-        return view('user.private.torrents', [
+        return \view('user.private.torrents', [
             'route'         => 'torrents',
             'user'          => $user,
             'history'       => $history,
@@ -1807,11 +1811,11 @@ class UserController extends Controller
     public function resurrections(Request $request, $username)
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(50);
 
-        return view('user.private.resurrections', [
+        return \view('user.private.resurrections', [
             'route'         => 'resurrections',
             'user'          => $user,
             'resurrections' => $resurrections,
@@ -1839,7 +1843,7 @@ class UserController extends Controller
             $uploads = Torrent::with(['tips', 'thanks', 'category'])->selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,max(bt.tipped_total) as tipped_total')
                 ->withAnyStatus()->where('torrents.user_id', '=', $user->id)->leftJoin(DB::raw('(select distinct(bon_transactions.torrent_id),sum(bon_transactions.cost) as tipped_total from bon_transactions group by bon_transactions.torrent_id) as bt'), 'bt.torrent_id', '=', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
 
-            return view($logger, [
+            return \view($logger, [
                 'route'         => 'uploads',
                 'user'          => $user,
                 'uploads'       => $uploads,
@@ -1852,7 +1856,7 @@ class UserController extends Controller
         $logger = 'user.uploads';
         $uploads = Torrent::selectRaw('distinct(torrents.id),max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(distinct thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
 
-        return view($logger, [
+        return \view($logger, [
             'route'       => 'uploads',
             'user'        => $user,
             'uploads'     => $uploads,
@@ -1871,7 +1875,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
@@ -1885,13 +1889,13 @@ class UserController extends Controller
             ->distinct('info_hash')
             ->paginate(50);
 
-        return view('user.private.active', ['user' => $user,
-            'route'                                => 'active',
-            'active'                               => $active,
-            'his_upl'                              => $his_upl,
-            'his_upl_cre'                          => $his_upl_cre,
-            'his_downl'                            => $his_downl,
-            'his_downl_cre'                        => $his_downl_cre,
+        return \view('user.private.active', ['user' => $user,
+            'route'                                 => 'active',
+            'active'                                => $active,
+            'his_upl'                               => $his_upl,
+            'his_upl_cre'                           => $his_upl_cre,
+            'his_downl'                             => $his_downl,
+            'his_downl_cre'                         => $his_downl_cre,
         ]);
     }
 
@@ -1907,7 +1911,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
@@ -1920,13 +1924,13 @@ class UserController extends Controller
             ->where('peers.seeder', '=', 1)->orderBy('history_created_at', 'DESC')->groupBy('torrents.info_hash')
             ->paginate(50);
 
-        return view('user.private.seeds', ['user' => $user,
-            'route'                               => 'seeds',
-            'seeds'                               => $seeds,
-            'his_upl'                             => $his_upl,
-            'his_upl_cre'                         => $his_upl_cre,
-            'his_downl'                           => $his_downl,
-            'his_downl_cre'                       => $his_downl_cre,
+        return \view('user.private.seeds', ['user' => $user,
+            'route'                                => 'seeds',
+            'seeds'                                => $seeds,
+            'his_upl'                              => $his_upl,
+            'his_upl_cre'                          => $his_upl_cre,
+            'his_downl'                            => $his_downl,
+            'his_downl_cre'                        => $his_downl_cre,
         ]);
     }
 
@@ -1940,12 +1944,12 @@ class UserController extends Controller
      */
     public function getBans(Request $request, $username)
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->group->is_modo, 403);
 
         $user = User::where('username', '=', $username)->firstOrFail();
         $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
 
-        return view('user.banlog', [
+        return \view('user.banlog', [
             'user'      => $user,
             'bans'      => $bans,
         ]);
@@ -1957,19 +1961,19 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $username
      *
-     * @return \ZipArchive
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadHistoryTorrents(Request $request, $username)
     {
         //  Extend The Maximum Execution Time
-        set_time_limit(300);
+        \set_time_limit(300);
 
         // Authorized User
         $user = User::where('username', '=', $username)->firstOrFail();
-        abort_unless($request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->id == $user->id, 403);
 
         // Define Dir Folder
-        $path = getcwd().'/files/tmp_zip/';
+        $path = \getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
         if (! File::isDirectory($path)) {
@@ -1977,15 +1981,15 @@ class UserController extends Controller
         }
 
         // Zip File Name
-        $zipFileName = sprintf('%s.zip', $user->username);
+        $zipFileName = \sprintf('%s.zip', $user->username);
 
         // Create ZipArchive Obj
-        $zip = new ZipArchive();
+        $zipArchive = new ZipArchive();
 
         // Get Users History
         $historyTorrents = History::where('user_id', '=', $user->id)->pluck('info_hash');
 
-        if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
+        if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
             $failCSV = '"Name","URL","ID","info_hash"
 ';
@@ -1995,49 +1999,49 @@ class UserController extends Controller
                 $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
 
                 // Define The Torrent Filename
-                $tmpFileName = sprintf('%s.torrent', $torrent->slug);
+                $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
 
                 // The Torrent File Exist?
-                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent.'"
+                if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
+                    $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent.'"
 ';
                     $failCount++;
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
-                    if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
-                        unlink(getcwd().'/files/tmp/'.$tmpFileName);
+                    if (\file_exists(\getcwd().'/files/tmp/'.$tmpFileName)) {
+                        \unlink(\getcwd().'/files/tmp/'.$tmpFileName);
                     }
 
                     // Get The Content Of The Torrent
-                    $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
+                    $dict = Bencode::bdecode(\file_get_contents(\getcwd().'/files/torrents/'.$torrent->file_name));
                     // Set the announce key and add the user passkey
-                    $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
+                    $dict['announce'] = \route('announce', ['passkey' => $user->passkey]);
                     // Remove Other announce url
                     unset($dict['announce-list']);
 
                     $fileToDownload = Bencode::bencode($dict);
-                    file_put_contents(getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
+                    \file_put_contents(\getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
 
                     // Add Files To ZipArchive
-                    $zip->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
+                    $zipArchive->addFile(\getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
                 }
             }
             if ($failCount > 0) {
-                $CSVtmpName = sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
-                file_put_contents(getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
-                $zip->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
+                $CSVtmpName = \sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
+                \file_put_contents(\getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
+                $zipArchive->addFile(\getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
             }
             // Close ZipArchive
-            $zip->close();
+            $zipArchive->close();
         }
 
         $zip_file = $path.'/'.$zipFileName;
 
-        if (file_exists($zip_file)) {
-            return response()->download($zip_file)->deleteFileAfterSend(true);
+        if (\file_exists($zip_file)) {
+            return \response()->download($zip_file)->deleteFileAfterSend(true);
         }
 
-        return redirect()->back()->withErrors('Something Went Wrong!');
+        return \redirect()->back()->withErrors('Something Went Wrong!');
     }
 
     /**

@@ -18,12 +18,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\UserAudible.
  *
- * @property int $id
- * @property int $user_id
- * @property int|null $room_id
- * @property int|null $target_id
- * @property int|null $bot_id
- * @property int $status
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int|null                        $room_id
+ * @property int|null                        $target_id
+ * @property int|null                        $bot_id
+ * @property int                             $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Bot|null $bot

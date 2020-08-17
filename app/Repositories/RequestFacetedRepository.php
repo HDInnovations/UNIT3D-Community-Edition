@@ -14,6 +14,7 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Type;
 
 class RequestFacetedRepository
@@ -39,6 +40,16 @@ class RequestFacetedRepository
     }
 
     /**
+     * Return a collection of Resolution Name from storage.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function resolutions()
+    {
+        return Resolution::all()->sortBy('position')->pluck('name', 'id');
+    }
+
+    /**
      * Options for sort the search result.
      *
      * @return array
@@ -46,10 +57,10 @@ class RequestFacetedRepository
     public function sorting()
     {
         return [
-            'created_at' => trans('torrent.date'),
-            'name'       => trans('torrent.name'),
-            'bounty'     => trans('request.bounty'),
-            'votes'      => trans('request.votes'),
+            'created_at' => \trans('torrent.date'),
+            'name'       => \trans('torrent.name'),
+            'bounty'     => \trans('request.bounty'),
+            'votes'      => \trans('request.votes'),
         ];
     }
 
@@ -61,8 +72,8 @@ class RequestFacetedRepository
     public function direction()
     {
         return [
-            'desc' => trans('common.descending'),
-            'asc'  => trans('common.ascending'),
+            'desc' => \trans('common.descending'),
+            'asc'  => \trans('common.ascending'),
         ];
     }
 }
