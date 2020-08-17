@@ -42,13 +42,6 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
     protected $torrent;
 
     /**
-     * The number of times the job may be attempted.
-     *
-     * @var int
-     */
-    public $tries = 3;
-
-    /**
      * ProcessAnnounceRequest constructor.
      *
      * @param                     $queries
@@ -73,10 +66,6 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
     {
         $bin2hex_hash = bin2hex($this->queries['info_hash']);
         $bin2hex_peer_id = bin2hex($this->queries['peer_id']);
-
-        if ($this->attempts() > 2) {
-            $this->delay(min(30 * $this->attempts(), 300));
-        }
 
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
@@ -179,5 +168,11 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         $this->user->downloaded += $mod_downloaded;
         $this->user->save();
         // End User Update
+
+
+        // Sync Seeders / Leechers Count
+        $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '=', '0')->count();
+        $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '>', '0')->count();
+        $this->torrent->save();
     }
 }
