@@ -340,11 +340,6 @@ class AnnounceController extends Controller
             throw new TrackerException(151, [':status' => 'POSTPONED Moderation']);
         }
 
-        // Sync Seeders / Leechers Count
-        $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)->where('left', '=', '0')->count();
-        $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)->where('left', '>', '0')->count();
-        $torrent->save();
-
         return $torrent;
     }
 
@@ -358,14 +353,19 @@ class AnnounceController extends Controller
     private function sendAnnounceJob($queries, $user, $torrent)
     {
         if (strtolower($queries['event']) == 'started') {
-            ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessStartedAnnounceRequest::dispatch($queries, $user, $torrent);
         } elseif (strtolower($queries['event']) == 'completed') {
-            ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessCompletedAnnounceRequest::dispatch($queries, $user, $torrent);
         } elseif (strtolower($queries['event']) == 'stopped') {
-            ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessStoppedAnnounceRequest::dispatch($queries, $user, $torrent);
         } else {
-            ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessBasicAnnounceRequest::dispatch($queries, $user, $torrent);
         }
+
+        // Sync Seeders / Leechers Count
+        $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)->where('left', '=', '0')->count();
+        $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)->where('left', '>', '0')->count();
+        $torrent->save();
     }
 
     /**
