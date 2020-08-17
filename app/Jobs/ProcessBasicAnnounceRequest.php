@@ -169,7 +169,6 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         $this->user->save();
         // End User Update
 
-
         // Sync Seeders / Leechers Count
         $this->torrent->seeders = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '=', '0')->count();
         $this->torrent->leechers = Peer::where('torrent_id', '=', $this->torrent->id)->where('left', '>', '0')->count();
