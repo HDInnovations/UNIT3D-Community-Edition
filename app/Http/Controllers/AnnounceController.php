@@ -49,7 +49,8 @@ class AnnounceController extends Controller
         4662,  // eDonkey 2000 P2P file sharing service. http://www.edonkey2000.com/
         6346, 6347,  // Gnutella (FrostWire, Limewire, Shareaza, etc.), BearShare file sharing app
         6699,  // Port used by p2p software, such as WinMX, Napster.
-        6881, 6882, 6883, 6884, 6885, 6886, 6887, // BitTorrent part of full range of ports used most often (unofficial)
+        //6881, 6882, 6883, 6884, 6885, 6886, 6887, // BitTorrent part of full range of ports used most often (unofficial)
+        //65000, 65001, 65002, 65003, 65004, 65005, 65006, 65007, 65008, 65009, 65010   // For unknown Reason 2333~
     ];
 
     /**
@@ -353,19 +354,14 @@ class AnnounceController extends Controller
     private function sendAnnounceJob($queries, $user, $torrent)
     {
         if (strtolower($queries['event']) == 'started') {
-            ProcessStartedAnnounceRequest::dispatch($queries, $user, $torrent);
+            ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
         } elseif (strtolower($queries['event']) == 'completed') {
-            ProcessCompletedAnnounceRequest::dispatch($queries, $user, $torrent);
+            ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
         } elseif (strtolower($queries['event']) == 'stopped') {
-            ProcessStoppedAnnounceRequest::dispatch($queries, $user, $torrent);
+            ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
         } else {
-            ProcessBasicAnnounceRequest::dispatch($queries, $user, $torrent);
+            ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
         }
-
-        // Sync Seeders / Leechers Count
-        $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)->where('left', '=', '0')->count();
-        $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)->where('left', '>', '0')->count();
-        $torrent->save();
     }
 
     /**
