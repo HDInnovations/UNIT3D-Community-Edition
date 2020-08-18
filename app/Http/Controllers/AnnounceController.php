@@ -61,6 +61,7 @@ class AnnounceController extends Controller
      * @param \App\Models\User         $passkey
      *
      * @return string
+     * @throws \Exception
      */
     public function index(Request $request, $passkey)
     {
@@ -153,12 +154,12 @@ class AnnounceController extends Controller
         $user_agent = $request->header('User-Agent');
 
         // Should also Block those too long User-Agent. ( For Database reason
-        if (strlen($user_agent) > 64) {
+        if (\strlen($user_agent) > 64) {
             throw new TrackerException(123);
         }
 
         // Block Browser by check it's User-Agent
-        if (preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $user_agent)) {
+        if (\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $user_agent)) {
             throw new TrackerException(121);
         }
     }
@@ -179,12 +180,12 @@ class AnnounceController extends Controller
         }
 
         // If Passkey Lenght Is Wrong
-        if (strlen($passkey) != 32) {
+        if (\strlen($passkey) != 32) {
             throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
         }
 
         // If Passkey Format Is Wrong
-        if (strspn(strtolower($passkey), 'abcdef0123456789') != 32) {  // MD5 char limit
+        if (\strspn(\strtolower($passkey), 'abcdef0123456789') != 32) {  // MD5 char limit
             throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']);
         }
     }
@@ -193,16 +194,17 @@ class AnnounceController extends Controller
      *
      * @param $passkey
      *
-     * @throws \App\Exceptions\TrackerException
-     *
      * @return object
+     * @throws \Exception
+     *
+     * @throws \App\Exceptions\TrackerException
      */
     protected function checkUser($passkey): object
     {
         // Caached System Required Groups
-        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         // Check Passkey Against Users Table
         $user = User::where('passkey', '=', $passkey)->first();
@@ -236,77 +238,6 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @throws \App\Exceptions\TrackerException
-     *
-     * @return array
-     */
-    private function checkAnnounceFields(Request $request): array
-    {
-        $queries = [
-            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
-        ];
-
-        // Part.1 check Announce **Need** Fields
-        foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
-            $item_data = $request->query->get($item);
-            if (! is_null($item_data)) {
-                $queries[$item] = $item_data;
-            } else {
-                throw new TrackerException(130, [':attribute' => $item]);
-            }
-        }
-
-        foreach (['info_hash', 'peer_id'] as $item) {
-            if (strlen($queries[$item]) != 20) {
-                throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
-            }
-        }
-
-        foreach (['uploaded', 'downloaded', 'left'] as $item) {
-            $item_data = $queries[$item];
-            if (! is_numeric($item_data) || $item_data < 0) {
-                throw new TrackerException(134, [':attribute' => $item]);
-            }
-        }
-
-        // Part.2 check Announce **Option** Fields
-        foreach (['event' => '', 'no_peer_id' => 1, 'compact' => 0, 'numwant' => 50, 'corrupt' => 0, 'key' => ''] as $item => $value) {
-            $queries[$item] = $request->query->get($item, $value);
-        }
-
-        foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
-            if (! is_numeric($queries[$item]) || $queries[$item] < 0) {
-                throw new TrackerException(134, [':attribute' => $item]);
-            }
-        }
-
-        if (! in_array(strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
-            throw new TrackerException(136, [':event' => strtolower($queries['event'])]);
-        }
-
-        // Part.3 check Port is Valid and Allowed
-        /**
-         * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
-         * However, in some case , When `&event=stopped` the port may set to 0.
-         */
-        if ($queries['port'] == 0 && strtolower($queries['event']) != 'stopped') {
-            throw new TrackerException(137, [':event' => strtolower($queries['event'])]);
-        } elseif (! is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || in_array($queries['port'], self::BLACK_PORTS)) {
-            throw new TrackerException(135, [':port' => $queries['port']]);
-        }
-
-        // Part.4 Get User Ip Address
-        $queries['ip-address'] = $request->getClientIp();
-
-        // Part.5 Get Users Agent
-        $queries['user-agent'] = $request->headers->get('user-agent');
-
-        return $queries;
-    }
-
-    /**
      * @param $info_hash
      *
      * @throws \App\Exceptions\TrackerException
@@ -315,7 +246,7 @@ class AnnounceController extends Controller
      */
     protected function checkTorrent($info_hash): object
     {
-        $bin2hex_hash = bin2hex($info_hash);
+        $bin2hex_hash = \bin2hex($info_hash);
 
         // Check Info Hash Against Torrents Table
         $torrent = Torrent::withAnyStatus()
@@ -343,91 +274,6 @@ class AnnounceController extends Controller
         }
 
         return $torrent;
-    }
-
-    /**
-     * @param $queries
-     * @param $user
-     * @param $torrent
-     *
-     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html)
-     */
-    private function sendAnnounceJob($queries, $user, $torrent)
-    {
-        if (strtolower($queries['event']) == 'started') {
-            ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        } elseif (strtolower($queries['event']) == 'completed') {
-            ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        } elseif (strtolower($queries['event']) == 'stopped') {
-            ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        } else {
-            ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        }
-    }
-
-    /**
-     * @param $queries
-     * @param $torrent
-     *
-     * @return array
-     */
-    private function generateSuccessAnnounceResponse($queries, $torrent)
-    {
-        // Build Response For Bittorrent Client
-        $rep_dict = [
-            'interval'     => rand(self::MIN, self::MAX),
-            'min interval' => self::MIN,
-            'complete'     => (int) $torrent->seeders,
-            'incomplete'   => (int) $torrent->leechers,
-        ];
-
-        /**
-         * For non `stopped` event only
-         * We query peers from database and send peerlist, otherwise just quick return.
-         */
-        if ($queries['event'] != 'stopped') {
-            $limit = (int) ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
-
-            // Get Torrents Peers
-            $peers = Peer::where('torrent_id', '=', $torrent->id)->take($limit)->get()->toArray();
-
-            $rep_dict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV4);
-            $rep_dict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
-        }
-
-        return $rep_dict;
-    }
-
-    /**
-     * @param $peers
-     * @param $compact
-     * @param $no_peer_id
-     * @param $filter_flag
-     *
-     * @return string
-     */
-    private function givePeers($peers, $compact, $no_peer_id, $filter_flag = FILTER_FLAG_IPV4)
-    {
-        if ($compact) {
-            $pcomp = '';
-            foreach ($peers as &$p) {
-                if (isset($p['ip']) && isset($p['port']) && filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
-                    $pcomp .= inet_pton($p['ip']);
-                    $pcomp .= pack('n', (int) $p['port']);
-                }
-            }
-
-            return $pcomp;
-        }
-        if ($no_peer_id) {
-            foreach ($peers as &$p) {
-                unset($p['peer_id']);
-            }
-
-            return $peers;
-        }
-
-        return $peers;
     }
 
     /**
@@ -462,9 +308,165 @@ class AnnounceController extends Controller
      */
     protected function sendFinalAnnounceResponse($rep_dict)
     {
-        return response(Bencode::bencode($rep_dict))
+        return \response(Bencode::bencode($rep_dict))
             ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
             ->withHeaders(['Connection' => 'close'])
             ->withHeaders(['Pragma' => 'no-cache']);
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @throws \App\Exceptions\TrackerException
+     *
+     * @return array
+     */
+    private function checkAnnounceFields(Request $request): array
+    {
+        $queries = [
+            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
+        ];
+
+        // Part.1 check Announce **Need** Fields
+        foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
+            $item_data = $request->query->get($item);
+            if (! \is_null($item_data)) {
+                $queries[$item] = $item_data;
+            } else {
+                throw new TrackerException(130, [':attribute' => $item]);
+            }
+        }
+
+        foreach (['info_hash', 'peer_id'] as $item) {
+            if (\strlen($queries[$item]) != 20) {
+                throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
+            }
+        }
+
+        foreach (['uploaded', 'downloaded', 'left'] as $item) {
+            $item_data = $queries[$item];
+            if (! \is_numeric($item_data) || $item_data < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
+            }
+        }
+
+        // Part.2 check Announce **Option** Fields
+        foreach (['event' => '', 'no_peer_id' => 1, 'compact' => 0, 'numwant' => 50, 'corrupt' => 0, 'key' => ''] as $item => $value) {
+            $queries[$item] = $request->query->get($item, $value);
+        }
+
+        foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
+            if (! \is_numeric($queries[$item]) || $queries[$item] < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
+            }
+        }
+
+        if (! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
+            throw new TrackerException(136, [':event' => \strtolower($queries['event'])]);
+        }
+
+        // Part.3 check Port is Valid and Allowed
+        /**
+         * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
+         * However, in some case , When `&event=stopped` the port may set to 0.
+         */
+        if ($queries['port'] == 0 && \strtolower($queries['event']) != 'stopped') {
+            throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
+        } elseif (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS)) {
+            throw new TrackerException(135, [':port' => $queries['port']]);
+        }
+
+        // Part.4 Get User Ip Address
+        $queries['ip-address'] = $request->getClientIp();
+
+        // Part.5 Get Users Agent
+        $queries['user-agent'] = $request->headers->get('user-agent');
+
+        return $queries;
+    }
+
+    /**
+     * @param $queries
+     * @param $torrent
+     *
+     * @return array
+     */
+    private function generateSuccessAnnounceResponse($queries, $torrent)
+    {
+        // Build Response For Bittorrent Client
+        $rep_dict = [
+            'interval'     => \rand(self::MIN, self::MAX),
+            'min interval' => self::MIN,
+            'complete'     => (int) $torrent->seeders,
+            'incomplete'   => (int) $torrent->leechers,
+        ];
+
+        /**
+         * For non `stopped` event only
+         * We query peers from database and send peerlist, otherwise just quick return.
+         */
+        if ($queries['event'] != 'stopped') {
+            $limit = (int) ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
+
+            // Get Torrents Peers
+            $peers = Peer::where('torrent_id', '=', $torrent->id)->take($limit)->get()->toArray();
+
+            $rep_dict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV4);
+            $rep_dict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
+        }
+
+        return $rep_dict;
+    }
+
+    /**
+     * @param $queries
+     * @param $user
+     * @param $torrent
+     *
+     * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html)
+     */
+    private function sendAnnounceJob($queries, $user, $torrent)
+    {
+        if (\strtolower($queries['event']) == 'started') {
+            ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        } elseif (\strtolower($queries['event']) == 'completed') {
+            ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        } elseif (\strtolower($queries['event']) == 'stopped') {
+            ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        } else {
+            ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
+        }
+    }
+
+    /**
+     * @param $peers
+     * @param $compact
+     * @param $no_peer_id
+     * @param $filter_flag
+     *
+     * @return string
+     */
+    private function givePeers($peers, $compact, $no_peer_id, $filter_flag = FILTER_FLAG_IPV4)
+    {
+        if ($compact) {
+            $pcomp = '';
+            foreach ($peers as &$p) {
+                if (isset($p['ip']) && isset($p['port']) && \filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
+                    $pcomp .= \inet_pton($p['ip']);
+                    $pcomp .= \pack('n', (int) $p['port']);
+                }
+            }
+
+            return $pcomp;
+        }
+        if ($no_peer_id) {
+            foreach ($peers as &$p) {
+                unset($p['peer_id']);
+            }
+
+            return $peers;
+        }
+
+        return $peers;
     }
 }
