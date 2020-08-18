@@ -60,8 +60,9 @@ class AnnounceController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\User         $passkey
      *
-     * @return string
      * @throws \Exception
+     *
+     * @return string
      */
     public function index(Request $request, $passkey)
     {
@@ -194,10 +195,10 @@ class AnnounceController extends Controller
      *
      * @param $passkey
      *
-     * @return object
      * @throws \Exception
-     *
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
      */
     protected function checkUser($passkey): object
     {
