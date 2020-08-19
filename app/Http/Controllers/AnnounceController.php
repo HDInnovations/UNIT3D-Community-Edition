@@ -14,7 +14,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessBasicAnnounceRequest;
@@ -25,6 +24,7 @@ use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AnnounceController extends Controller
@@ -94,7 +94,7 @@ class AnnounceController extends Controller
             $torrent = $this->checkTorrent($queries['info_hash']);
 
             /**
-             * Lock Min Announce Interval
+             * Lock Min Announce Interval.
              */
             $this->checkMinInterval($queries, $user);
 
