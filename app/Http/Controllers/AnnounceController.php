@@ -14,6 +14,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessBasicAnnounceRequest;
@@ -93,14 +94,19 @@ class AnnounceController extends Controller
             $torrent = $this->checkTorrent($queries['info_hash']);
 
             /**
-             * Generate A Response For The Torrent Clent.
+             * Lock Min Announce Interval
              */
-            $rep_dict = $this->generateSuccessAnnounceResponse($queries, $torrent);
+            $this->checkMinInterval($queries, $user);
 
             /**
              * Dispatch The Specfic Annnounce Event Job.
              */
             $this->sendAnnounceJob($queries, $user, $torrent);
+
+            /**
+             * Generate A Response For The Torrent Clent.
+             */
+            $rep_dict = $this->generateSuccessAnnounceResponse($queries, $torrent);
         } catch (TrackerException $exception) {
             $rep_dict = $this->generateFailedAnnounceResponse($exception);
         } finally {
@@ -278,6 +284,25 @@ class AnnounceController extends Controller
     }
 
     /**
+     * @param $queries
+     * @param $user
+     *
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkMinInterval($queries, $user)
+    {
+        $prev_announce = Peer::where('info_hash', '=', $queries['info_hash'])
+            ->where('peer_id', '=', $queries['peer_id'])
+            ->where('user_id', '=', $user->id)
+            ->pluck('updated_at');
+
+        $carbon = new Carbon();
+        if ($prev_announce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) != 'completed') {
+            throw new TrackerException(162, [':min' => self::MIN]);
+        }
+    }
+
+    /**
      * @param $exception
      *
      * @return array
@@ -406,7 +431,7 @@ class AnnounceController extends Controller
          * For non `stopped` event only
          * We query peers from database and send peerlist, otherwise just quick return.
          */
-        if ($queries['event'] != 'stopped') {
+        if (\strtolower($queries['event']) != 'stopped') {
             $limit = (int) ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
 
             // Get Torrents Peers
