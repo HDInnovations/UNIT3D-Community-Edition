@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -121,7 +122,7 @@ class AnnounceController extends Controller
      *
      * @return void
      */
-    protected function checkClient(Request $request)
+    protected function checkClient(Request $request): void
     {
         // Miss Header User-Agent is not allowed.
         if (! $request->header('User-Agent')) {
@@ -179,7 +180,7 @@ class AnnounceController extends Controller
      *
      * @return void
      */
-    protected function checkPasskey($passkey)
+    protected function checkPasskey($passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey == null) {
@@ -289,7 +290,7 @@ class AnnounceController extends Controller
      *
      * @throws \App\Exceptions\TrackerException
      */
-    private function checkMinInterval($queries, $user)
+    private function checkMinInterval($queries, $user): void
     {
         $prev_announce = Peer::where('info_hash', '=', $queries['info_hash'])
             ->where('peer_id', '=', $queries['peer_id'])
@@ -297,7 +298,7 @@ class AnnounceController extends Controller
             ->pluck('updated_at');
 
         $carbon = new Carbon();
-        if ($prev_announce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) != 'completed') {
+        if ($prev_announce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) !== 'completed') {
             throw new TrackerException(162, [':min' => self::MIN]);
         }
     }
@@ -307,7 +308,7 @@ class AnnounceController extends Controller
      *
      * @return array
      */
-    protected function generateFailedAnnounceResponse(TrackerException $exception)
+    protected function generateFailedAnnounceResponse(TrackerException $exception): array
     {
         return [
             'failure reason' => $exception->getMessage(),
@@ -398,7 +399,9 @@ class AnnounceController extends Controller
          */
         if ($queries['port'] == 0 && \strtolower($queries['event']) != 'stopped') {
             throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
-        } elseif (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS)) {
+        }
+
+        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS)) {
             throw new TrackerException(135, [':port' => $queries['port']]);
         }
 
@@ -418,11 +421,11 @@ class AnnounceController extends Controller
      *
      * @return array
      */
-    private function generateSuccessAnnounceResponse($queries, $torrent, $user)
+    private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
         // Build Response For Bittorrent Client
         $rep_dict = [
-            'interval'     => \rand(self::MIN, self::MAX),
+            'interval'     => \random_int(self::MIN, self::MAX),
             'min interval' => self::MIN,
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,
@@ -432,8 +435,8 @@ class AnnounceController extends Controller
          * For non `stopped` event only
          * We query peers from database and send peerlist, otherwise just quick return.
          */
-        if (\strtolower($queries['event']) != 'stopped') {
-            $limit = (int) ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
+        if (\strtolower($queries['event']) !== 'stopped') {
+            $limit = ($queries['numwant'] <= 50 ? $queries['numwant'] : 50);
 
             // Get Torrents Peers
             $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take($limit)->get()->toArray();
@@ -452,13 +455,13 @@ class AnnounceController extends Controller
      *
      * TODO: Paused Event (http://www.bittorrent.org/beps/bep_0021.html)
      */
-    private function sendAnnounceJob($queries, $user, $torrent)
+    private function sendAnnounceJob($queries, $user, $torrent): void
     {
-        if (\strtolower($queries['event']) == 'started') {
+        if (\strtolower($queries['event']) === 'started') {
             ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        } elseif (\strtolower($queries['event']) == 'completed') {
+        } elseif (\strtolower($queries['event']) === 'completed') {
             ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
-        } elseif (\strtolower($queries['event']) == 'stopped') {
+        } elseif (\strtolower($queries['event']) === 'stopped') {
             ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
         } else {
             ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
@@ -473,12 +476,12 @@ class AnnounceController extends Controller
      *
      * @return string
      */
-    private function givePeers($peers, $compact, $no_peer_id, $filter_flag = FILTER_FLAG_IPV4)
+    private function givePeers($peers, $compact, $no_peer_id, $filter_flag = FILTER_FLAG_IPV4): string
     {
         if ($compact) {
             $pcomp = '';
-            foreach ($peers as &$p) {
-                if (isset($p['ip']) && isset($p['port']) && \filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
+            foreach ($peers as $p) {
+                if (isset($p['ip'], $p['port']) && \filter_var($p['ip'], FILTER_VALIDATE_IP, $filter_flag)) {
                     $pcomp .= \inet_pton($p['ip']);
                     $pcomp .= \pack('n', (int) $p['port']);
                 }
