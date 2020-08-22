@@ -32,7 +32,7 @@ return [
     'cancel'               => 'Annulla',
     'category'             => 'Categoria',
     'categories'           => 'categorie',
-    'close'                => 'Vicino',
+    'close'                => 'Chiudi',
     'comment'              => 'Commento',
     'comments'             => 'Commenti',
     'community'            => 'Comunità',
