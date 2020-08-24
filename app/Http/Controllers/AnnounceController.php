@@ -101,7 +101,7 @@ class AnnounceController extends Controller
             $this->checkMinInterval($queries, $user);
 
             /**
-             * Check Download Slots
+             * Check Download Slots.
              */
             $this->checkDownloadSlots($user);
 
@@ -444,8 +444,9 @@ class AnnounceController extends Controller
      * @param $torrent
      * @param $user
      *
-     * @return array
      * @throws \Exception
+     *
+     * @return array
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
