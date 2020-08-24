@@ -19,22 +19,27 @@ class IRCAnnounceBot
      * @var mixed
      */
     public $server;
+
     /**
      * @var mixed
      */
     public $port;
+
     /**
      * @var mixed
      */
     public $hostname;
+
     /**
      * @var mixed
      */
     public $nickservpass;
+
     /**
      * @var mixed
      */
     public $joinchannels;
+
     protected $socket = null;
 
     private $channels = [];
@@ -103,7 +108,7 @@ class IRCAnnounceBot
     public function message($channel, $message)
     {
         // Messages an specific IRC Channel
-        if ($this->joinchannels && \preg_match('##(\w*[a-zA-Z_0-9]+\w*)#', $channel)) {
+        if ($this->joinchannels && \preg_match('/#(\w*[a-zA-Z_0-9]+\w*)/', $channel)) {
             $this->join($channel);
         }
 
