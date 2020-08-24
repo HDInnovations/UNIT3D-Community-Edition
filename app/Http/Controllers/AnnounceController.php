@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+//use Illuminate\Support\Facades\Log;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessBasicAnnounceRequest;
@@ -106,14 +107,14 @@ class AnnounceController extends Controller
             //$this->checkDownloadSlots($user);
 
             /**
-             * Dispatch The Specfic Annnounce Event Job.
-             */
-            $this->sendAnnounceJob($queries, $user, $torrent);
-
-            /**
              * Generate A Response For The Torrent Clent.
              */
             $rep_dict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
+
+            /**
+             * Dispatch The Specfic Annnounce Event Job.
+             */
+            $this->sendAnnounceJob($queries, $user, $torrent);
         } catch (TrackerException $exception) {
             $rep_dict = $this->generateFailedAnnounceResponse($exception);
         } finally {
@@ -260,11 +261,9 @@ class AnnounceController extends Controller
      */
     protected function checkTorrent($info_hash): object
     {
-        $bin2hex_hash = \bin2hex($info_hash);
-
         // Check Info Hash Against Torrents Table
         $torrent = Torrent::withAnyStatus()
-            ->where('info_hash', '=', $bin2hex_hash)
+            ->where('info_hash', '=', $info_hash)
             ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
@@ -436,6 +435,12 @@ class AnnounceController extends Controller
         // Part.5 Get Users Agent
         $queries['user-agent'] = $request->headers->get('user-agent');
 
+        // Part.6 bin2hex info_hash
+        $queries['info_hash'] = \bin2hex($queries['info_hash']);
+
+        // Part.7 bin2hex peer_id
+        $queries['peer_id'] = \bin2hex($queries['peer_id']);
+
         return $queries;
     }
 
@@ -450,6 +455,11 @@ class AnnounceController extends Controller
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
+        /* For Debugging Only */
+        //Log::debug('Announce Debug Queries:',[$queries]);
+        //Log::debug('Announce Debug User:',[$user]);
+        //Log::debug('Announce Debug Torrent:',[$torrent]);
+
         // Build Response For Bittorrent Client
         $rep_dict = [
             'interval'     => \random_int(self::MIN, self::MAX),

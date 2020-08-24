@@ -57,12 +57,9 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
      */
     public function handle()
     {
-        $bin2hex_hash = bin2hex($this->queries['info_hash']);
-        $bin2hex_peer_id = bin2hex($this->queries['peer_id']);
-
         // Get The Current Peer
         $peer = Peer::where('torrent_id', '=', $this->torrent->id)
-            ->where('peer_id', $bin2hex_peer_id)
+            ->where('peer_id', $this->queries['peer_id'])
             ->where('user_id', '=', $this->user->id)
             ->first();
 
@@ -75,22 +72,22 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         }
 
         // Get history information
-        $history = History::where('info_hash', '=', $bin2hex_hash)->where('user_id', '=', $this->user->id)->first();
+        $history = History::where('info_hash', '=', $this->queries['info_hash'])->where('user_id', '=', $this->user->id)->first();
 
         // If no History record found then create one
         if ($history === null) {
             $history = new History();
             $history->user_id = $this->user->id;
-            $history->info_hash = $bin2hex_hash;
+            $history->info_hash = $this->queries['info_hash'];
         }
 
         $real_uploaded = $this->queries['uploaded'];
         $real_downloaded = $this->queries['downloaded'];
 
         // Peer Update
-        $peer->peer_id = $bin2hex_peer_id;
+        $peer->peer_id = $this->queries['peer_id'];
         $peer->md5_peer_id = md5($this->queries['peer_id']);
-        $peer->info_hash = $bin2hex_hash;
+        $peer->info_hash = $this->queries['info_hash'];
         $peer->ip = $this->queries['ip-address'];
         $peer->port = $this->queries['port'];
         $peer->agent = $this->queries['user-agent'];
