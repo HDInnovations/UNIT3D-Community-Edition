@@ -11,7 +11,7 @@ declare(strict_types=1);
  *
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @credits    Rhilip
+ * @credits    Rhilip <https://github.com/Rhilip>
  */
 
 namespace App\Http\Controllers;
@@ -103,7 +103,7 @@ class AnnounceController extends Controller
             /**
              * Check Download Slots.
              */
-            $this->checkDownloadSlots($user);
+            //$this->checkDownloadSlots($user);
 
             /**
              * Dispatch The Specfic Annnounce Event Job.
@@ -454,8 +454,8 @@ class AnnounceController extends Controller
         $rep_dict = [
             'interval'     => \random_int(self::MIN, self::MAX),
             'min interval' => self::MIN,
-            'complete'     => (int) $torrent->seeders,
-            'incomplete'   => (int) $torrent->leechers,
+            'complete'     => $torrent->seeders,
+            'incomplete'   => $torrent->leechers,
         ];
 
         /**
@@ -485,13 +485,13 @@ class AnnounceController extends Controller
     private function sendAnnounceJob($queries, $user, $torrent): void
     {
         if (\strtolower($queries['event']) === 'started') {
-            ProcessStartedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessStartedAnnounceRequest::dispatch($queries, $user, $torrent);
         } elseif (\strtolower($queries['event']) === 'completed') {
-            ProcessCompletedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessCompletedAnnounceRequest::dispatch($queries, $user, $torrent);
         } elseif (\strtolower($queries['event']) === 'stopped') {
-            ProcessStoppedAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessStoppedAnnounceRequest::dispatch($queries, $user, $torrent);
         } else {
-            ProcessBasicAnnounceRequest::dispatchNow($queries, $user, $torrent);
+            ProcessBasicAnnounceRequest::dispatch($queries, $user, $torrent);
         }
     }
 
