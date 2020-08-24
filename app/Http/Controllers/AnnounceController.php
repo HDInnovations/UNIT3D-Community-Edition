@@ -101,6 +101,11 @@ class AnnounceController extends Controller
             $this->checkMinInterval($queries, $user);
 
             /**
+             * Check Download Slots
+             */
+            $this->checkDownloadSlots($user);
+
+            /**
              * Dispatch The Specfic Annnounce Event Job.
              */
             $this->sendAnnounceJob($queries, $user, $torrent);
@@ -184,17 +189,17 @@ class AnnounceController extends Controller
     protected function checkPasskey($passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
-        if ($passkey == null) {
+        if ($passkey === null) {
             throw new TrackerException(130, [':attribute' => 'passkey']);
         }
 
         // If Passkey Lenght Is Wrong
-        if (\strlen($passkey) != 32) {
+        if (\strlen($passkey) !== 32) {
             throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
         }
 
         // If Passkey Format Is Wrong
-        if (\strspn(\strtolower($passkey), 'abcdef0123456789') != 32) {  // MD5 char limit
+        if (\strspn(\strtolower($passkey), 'abcdef0123456789') !== 32) {  // MD5 char limit
             throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']);
         }
     }
@@ -224,22 +229,22 @@ class AnnounceController extends Controller
         }
 
         // If User Account Is Unactivated/Validating Return Error to Client
-        if ($user->active == 0 || $user->group_id == $validating_group[0]) {
+        if ($user->active === 0 || $user->group_id === $validating_group[0]) {
             throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
         }
 
         // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download == 0 && $left != 0) {
+        if ($user->can_download === 0 && $left !== 0) {
             throw new TrackerException(142);
         }
 
         // If User Is Banned Return Error to Client
-        if ($user->group_id == $banned_group[0]) {
+        if ($user->group_id === $banned_group[0]) {
             throw new TrackerException(143);
         }
 
         // If User Is Disabled Return Error to Client
-        if ($user->group_id == $disabled_group[0]) {
+        if ($user->group_id === $disabled_group[0]) {
             throw new TrackerException(144);
         }
 
@@ -268,17 +273,17 @@ class AnnounceController extends Controller
         }
 
         // If Torrent Is Pending Moderation Return Error to Client
-        if ($torrent->status == self::PENDING) {
+        if ($torrent->status === self::PENDING) {
             throw new TrackerException(151, [':status' => 'PENDING Moderation']);
         }
 
         // If Torrent Is Rejected Return Error to Client
-        if ($torrent->status == self::REJECTED) {
+        if ($torrent->status === self::REJECTED) {
             throw new TrackerException(151, [':status' => 'REJECTED Moderation']);
         }
 
         // If Torrent Is Postponed Return Error to Client
-        if ($torrent->status == self::POSTPONED) {
+        if ($torrent->status === self::POSTPONED) {
             throw new TrackerException(151, [':status' => 'POSTPONED Moderation']);
         }
 
@@ -301,6 +306,25 @@ class AnnounceController extends Controller
         $carbon = new Carbon();
         if ($prev_announce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) !== 'completed') {
             throw new TrackerException(162, [':min' => self::MIN]);
+        }
+    }
+
+    /**
+     * @param $user
+     *
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkDownloadSlots($user): void
+    {
+        if (config('announce.slots_system.enabled')) {
+            $max = $user->group()->download_slots;
+
+            if ($max > 0) {
+                $count = Peer::where('user_id', '=', $user->id)->where('seeder', '=', 0)->count();
+                if ($count >= $max) {
+                    throw new TrackerException(164, [':max' => $max]);
+                }
+            }
         }
     }
 
@@ -366,7 +390,7 @@ class AnnounceController extends Controller
         }
 
         foreach (['info_hash', 'peer_id'] as $item) {
-            if (\strlen($queries[$item]) != 20) {
+            if (\strlen($queries[$item]) !== 20) {
                 throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
             }
         }
@@ -398,7 +422,7 @@ class AnnounceController extends Controller
          * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
          * However, in some case , When `&event=stopped` the port may set to 0.
          */
-        if ($queries['port'] == 0 && \strtolower($queries['event']) != 'stopped') {
+        if ($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped') {
             throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
         }
 
@@ -421,6 +445,7 @@ class AnnounceController extends Controller
      * @param $user
      *
      * @return array
+     * @throws \Exception
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
