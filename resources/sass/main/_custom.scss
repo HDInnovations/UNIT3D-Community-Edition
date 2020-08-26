@@ -7195,7 +7195,8 @@ time {
 
 .topic .topic-posts .post aside.post-info .post-info-image {
     width: 150px;
-    height: 150px;
+    max-width: 100%;
+    height: auto;
 }
 
 .topic .topic-posts .post aside.post-info .post-info-username {
