@@ -119,10 +119,7 @@
 
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_torrent_count'))
                             <div class="button-holder some-padding">
-                                <div class="button-left-small">
-
-                                </div>
-                                <div class="button-right-large">
+                                <div class="text-center">
                             <span class="badge-user badge-float p-10"><i
                                         class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.total-uploads')
                                 : <span class="text-green text-bold">{{ $user->torrents->count() }}</span></span>
