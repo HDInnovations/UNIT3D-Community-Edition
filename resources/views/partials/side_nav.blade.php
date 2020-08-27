@@ -1,4 +1,4 @@
-<aside id="hoe-left-panel" hoe-position-type="static" hoe-position-type="absolute">
+<aside id="hoe-left-panel" hoe-position-type="fixed" hoe-position-type="absolute">
     <ul class="nav panel-list">
         <li class="nav-level">@lang('common.navigation')</li>
         <li>
@@ -103,13 +103,6 @@
             <a href="{{ route('forums.index') }}">
                 <i class="{{ config('other.font-awesome') }} fa-comments" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('forum.forums')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('inbox') }}">
-                <i class="{{ config('other.font-awesome') }} fa-envelope" style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">@lang('pm.inbox')</span>
                 <span class="selected"></span>
             </a>
         </li>
