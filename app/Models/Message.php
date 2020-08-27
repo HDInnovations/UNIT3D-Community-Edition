@@ -14,7 +14,6 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
@@ -126,8 +125,7 @@ class Message extends Model
     public static function getMessageHtml($message)
     {
         $bbcode = new Bbcode();
-        $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($message), true);
+        return $bbcode->parse($message, true);
     }
 }

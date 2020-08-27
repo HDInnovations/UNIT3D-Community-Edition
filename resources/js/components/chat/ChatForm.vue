@@ -35,12 +35,6 @@
                            @click="$emit('changedStatus', status.id)"
                            :class="status.icon ? status.icon + ' pointee mr-5' : 'fa fa-dot-circle-o pointee mr-5'"
                            :style="`color: ${status.color}`"></i>
-                        <span class="badge-extra">
-                                <strong>SHIFT + ENTER</strong> to insert new line
-                            </span>
-                        <span class="badge-extra" style="margin-right: 5px;">
-                                Type <strong>:</strong> for emoji
-                            </span>
                         <span>
                             <chatrooms-dropdown :current="user.chatroom.id"
                                                 :chatrooms="$parent.chatrooms"
