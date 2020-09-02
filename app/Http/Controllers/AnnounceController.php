@@ -136,7 +136,7 @@ class AnnounceController extends Controller
             throw new TrackerException(120);
         }
 
-        // Block Other Browser, Crawler (, May Cheater or Faker Client) by check Requests headers
+        // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
         if ($request->header('accept-language') || $request->header('referer')
             || $request->header('accept-charset')
 
@@ -147,22 +147,9 @@ class AnnounceController extends Controller
              * @see https://blog.rhilip.info/archives/1010/ ( in Chinese )
              */
             || $request->header('want-digest')
-
-            /**
-             * If your tracker is behind the Cloudflare or other CDN (proxy) Server,
-             * Comment this line to avoid unexpected Block ,
-             * Because They may add the Cookie header ,
-             * Otherwise you should enabled this header check.
-             *
-             * For example :
-             *
-             * The Cloudflare will add `__cfduid` Cookies to identify individual clients behind a shared IP address
-             * and apply security settings on a per-client basis.
-             *
-             * @see https://support.cloudflare.com/hc/en-us/articles/200170156
-             */
-            || $request->header('cookie')
         ) {
+            /*Log::debug('Client Headers:',[$request->header('User-Agent'), $request->header('accept-language'), $request->header('referer'),
+                $request->header('accept-charset'), $request->header('want-digest')]);*/
             throw new TrackerException(122);
         }
 
@@ -235,7 +222,7 @@ class AnnounceController extends Controller
         }
 
         // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download === 0 && $left !== 0) {
+        if ($user->can_download === 0) {
             throw new TrackerException(142);
         }
 
@@ -462,7 +449,7 @@ class AnnounceController extends Controller
 
         // Build Response For Bittorrent Client
         $rep_dict = [
-            'interval'     => \random_int(self::MIN, self::MAX),
+            'interval'     => \rand(self::MIN, self::MAX),
             'min interval' => self::MIN,
             'complete'     => $torrent->seeders,
             'incomplete'   => $torrent->leechers,
