@@ -13,8 +13,8 @@
 
 namespace App\Listeners;
 
-use App\Helpers\BackupPassword;
 use App\Helpers\BackupEncryption;
+use App\Helpers\BackupPassword;
 use Spatie\Backup\Events\BackupZipWasCreated;
 
 class PasswordProtectBackup
