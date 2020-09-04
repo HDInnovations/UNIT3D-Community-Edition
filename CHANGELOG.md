@@ -1,6 +1,18 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v3.0.0]
+
+- [#1369] (Refactor) PHP Announce, Thanks to [@HDVinnie]
+- [#1425] minor language corrections, Thanks to [@Gideon75]
+- [#1421] (Update) Italian Translations, Thanks to [@Gideon75]
+- [#1430] (Fix) atomic counter updates in SubtitleController, Thanks to [@howardlau1999]
+- [#1427] (Fix) user profile totals and user info in posts, Thanks to [@werrpy]
+- [#1419] Fixes featured torrents not being set to freeleech and doubleup when …, Thanks to [@PyR8zdl]
+
+<!-- dumped content end -->
+
+<!-- dumped content start -->
 ## [v2.7.0]
 
 - [#1410] [ImgBot] Optimize images, Thanks to [@imgbot][bot]
@@ -1527,6 +1539,7 @@
 [v2.5.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.4.0...v2.5.0
 [v2.6.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.5.0...v2.6.0
 [v2.7.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.6.0...v2.7.0
+[v3.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.7.0...v3.0.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1549,3 +1562,9 @@
 [#1412]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1412
 [#1410]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1410
 [#1409]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1409
+[#1430]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1430
+[#1427]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1427
+[#1425]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1425
+[#1421]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1421
+[#1419]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1419
+[#1369]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1369
