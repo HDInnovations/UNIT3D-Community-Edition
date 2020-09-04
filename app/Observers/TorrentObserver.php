@@ -51,7 +51,7 @@ class TorrentObserver
      */
     public function retrieved(Torrent $torrent)
     {
-       // Cache::add(\sprintf('torrent.%s', $torrent->info_hash), $torrent);
+        // Cache::add(\sprintf('torrent.%s', $torrent->info_hash), $torrent);
     }
 
     /**
