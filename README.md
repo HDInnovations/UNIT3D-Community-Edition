@@ -141,11 +141,7 @@ Here are some packages that are built for UNIT3D.
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
  3.x.x       |  Active Support :rocket: | >= 7.4
- 2.7.x       |  End Of Life :skull: | >= 7.4
- 2.6.x       |  End Of Life :skull: | >= 7.4
- 2.5.x       |  End Of Life :skull: | >= 7.4
- 2.4.x       |  End Of Life :skull: | >= 7.4
- 2.3.x       |  End Of Life :skull: | >= 7.4
+ 2.3.0 to 2.7.0|  End Of Life :skull: | >= 7.4
  2.0.0 to 2.2.7|  End Of Life :skull: | >= 7.3
  1.0 to 1.9.4|  End Of Life :skull:     | >= 7.1.3
 
