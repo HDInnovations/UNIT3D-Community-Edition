@@ -125,7 +125,7 @@ class BBCodeConverter
                 }
                 $items = \preg_split('#\[\*\]#u', $list);
 
-                $counter = is_countable($items) ? \count($items) : 0;
+                $counter = \is_countable($items) ? \count($items) : 0;
 
                 if (isset($matches['type']) && $matches['type'] == '=1') { // ordered list
                     // We start from 1 to discard the first string, in fact, it's empty.

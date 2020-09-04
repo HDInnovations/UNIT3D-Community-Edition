@@ -302,7 +302,7 @@ class AnnounceController extends Controller
      */
     private function checkDownloadSlots($user): void
     {
-        if (config('announce.slots_system.enabled')) {
+        if (\config('announce.slots_system.enabled')) {
             $max = $user->group()->download_slots;
 
             if ($max > 0) {

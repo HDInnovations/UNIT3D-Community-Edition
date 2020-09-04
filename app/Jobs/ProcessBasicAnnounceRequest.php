@@ -72,7 +72,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
-        if ($peer === null && strtolower($this->queries['event']) === 'completed') {
+        if ($peer === null && \strtolower($this->queries['event']) === 'completed') {
             throw new TrackerException(151);
         }
 
@@ -113,13 +113,13 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         $freeleech_token = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
         $group = Group::whereId($this->user->group_id)->first();
 
-        if (config('other.freeleech') == 1 || $this->torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
+        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
             $mod_downloaded = 0;
         } else {
             $mod_downloaded = $downloaded;
         }
 
-        if (config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
+        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
             $mod_uploaded = $uploaded * 2;
         } else {
             $mod_uploaded = $uploaded;
@@ -127,7 +127,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
 
         // Peer Update
         $peer->peer_id = $this->queries['peer_id'];
-        $peer->md5_peer_id = md5($this->queries['peer_id']);
+        $peer->md5_peer_id = \md5($this->queries['peer_id']);
         $peer->info_hash = $this->queries['info_hash'];
         $peer->ip = $this->queries['ip-address'];
         $peer->port = $this->queries['port'];

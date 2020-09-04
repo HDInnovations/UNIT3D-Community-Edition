@@ -81,7 +81,7 @@ class TrackerException extends \Exception
         $message = self::ERROR_MSG[$code];
         if ($replace) {
             foreach ($replace as $key => $value) {
-                $message = str_replace($key, $value, $message);
+                $message = \str_replace($key, $value, $message);
             }
         }
 

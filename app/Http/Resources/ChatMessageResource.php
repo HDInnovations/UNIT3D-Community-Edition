@@ -52,7 +52,7 @@ class ChatMessageResource extends JsonResource
             'user'       => new UserResource($this->whenLoaded('user')),
             'receiver'   => new UserResource($this->whenLoaded('receiver')),
             'chatroom'   => new ChatRoomResource($this->whenLoaded('chatroom')),
-            'message'    => clean($logger),
+            'message'    => \clean($logger),
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
         ];
