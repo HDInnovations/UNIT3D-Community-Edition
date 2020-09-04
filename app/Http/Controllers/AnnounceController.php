@@ -319,10 +319,10 @@ class AnnounceController extends Controller
      *
      * @return array
      */
-    protected function generateFailedAnnounceResponse(TrackerException $exception): array
+    protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
     {
         return [
-            'failure reason' => $exception->getMessage(),
+            'failure reason' => $trackerException->getMessage(),
             'min interval'   => self::MIN,
             /**
              * BEP 31: Failure Retry Extension.

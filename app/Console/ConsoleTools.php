@@ -156,9 +156,9 @@ trait ConsoleTools
     /**
      * @param $bar
      */
-    protected function progressStop(ProgressBar $bar)
+    protected function progressStop(ProgressBar $progressBar)
     {
-        $bar->setMessage('<fg=green>Done!</>');
-        $bar->finish();
+        $progressBar->setMessage('<fg=green>Done!</>');
+        $progressBar->finish();
     }
 }

@@ -47,10 +47,10 @@ class ChatController extends Controller
      */
     private $authManager;
 
-    public function __construct(ChatRepository $chatRepository, \Illuminate\Contracts\Auth\Factory $factory)
+    public function __construct(ChatRepository $chatRepository, \Illuminate\Contracts\Auth\Factory $authFactory)
     {
         $this->chatRepository = $chatRepository;
-        $this->authManager = $factory;
+        $this->authManager = $authFactory;
     }
 
     /* STATUSES */

@@ -74,9 +74,9 @@ class TrackerException extends \Exception
      *
      * @param int             $code
      * @param array|null      $replace
-     * @param \Throwable|null $previous
+     * @param \Throwable|null $throwable
      */
-    public function __construct(int $code = 999, array $replace = null, Throwable $previous = null)
+    public function __construct(int $code = 999, array $replace = null, Throwable $throwable = null)
     {
         $message = self::ERROR_MSG[$code];
         if ($replace) {
@@ -85,6 +85,6 @@ class TrackerException extends \Exception
             }
         }
 
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, $code, $throwable);
     }
 }
