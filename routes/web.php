@@ -62,7 +62,7 @@ Route::group(['middleware' => 'language'], function () {
     */
     Route::group(['before' => 'auth'], function () {
         // Announce (Pass Key Auth)
-        Route::get('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
+        Route::get('/announce/{passkey}', 'AnnounceController@index')->name('announce');
 
         // RSS (RSS Key Auth)
         Route::get('/rss/{id}.{rsskey}', 'RssController@show')->name('rss.show.rsskey');
