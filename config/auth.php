@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard'     => 'web',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -37,14 +37,14 @@ return [
 
     'guards' => [
         'web' => [
-            'driver'   => 'session',
+            'driver' => 'session',
             'provider' => 'users',
         ],
 
         'api' => [
-            'driver'   => 'token',
+            'driver' => 'token',
             'provider' => 'users',
-            'hash'     => false,
+            'hash' => false,
         ],
     ],
 
@@ -68,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model'  => App\Models\User::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -95,8 +95,8 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table'    => 'password_resets',
-            'expire'   => 60,
+            'table' => 'password_resets',
+            'expire' => 60,
             'throttle' => 60,
         ],
     ],
@@ -114,32 +114,18 @@ return [
 
     'password_timeout' => 10800,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Verification Authentication Enabled
-    |--------------------------------------------------------------------------
-    */
-
     'TwoStepEnabled' => true,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Verification Email Settings
-    |--------------------------------------------------------------------------
-    */
-
     'verificationEmailFrom'     => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
+
     'verificationEmailFromName' => ' 2-Step Verification',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Verification Timings Settings
-    |--------------------------------------------------------------------------
-    */
-
     'TwoStepExceededCount'             => 3,
+
     'TwoStepExceededCountdownMinutes'  => 60 * 24,
+
     'TwoStepVerifiedLifetimeMinutes'   => 6 * 60,
+
     'TwoStepTimeResetBufferSeconds'    => 6 * 60,
 
 ];
