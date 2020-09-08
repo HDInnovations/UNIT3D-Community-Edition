@@ -24,10 +24,10 @@ class ApplicationImageProofFactory extends Factory
     public function definition()
     {
         return [
-        'application_id' => function () {
-            return Application::factory()->create()->id;
-        },
-        'image' => $this->faker->word,
-    ];
+            'application_id' => function () {
+                return Application::factory()->create()->id;
+            },
+            'image' => $this->faker->word,
+        ];
     }
 }

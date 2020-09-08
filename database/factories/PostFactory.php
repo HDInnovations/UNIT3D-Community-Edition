@@ -24,13 +24,13 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-        'content' => $this->faker->text,
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'topic_id' => function () {
-            return Topic::factory()->create()->id;
-        },
-    ];
+            'content' => $this->faker->text,
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'topic_id' => function () {
+                return Topic::factory()->create()->id;
+            },
+        ];
     }
 }

@@ -23,7 +23,7 @@ class PersonalFreeleechFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => $this->faker->randomNumber(),
-    ];
+            'user_id' => $this->faker->randomNumber(),
+        ];
     }
 }

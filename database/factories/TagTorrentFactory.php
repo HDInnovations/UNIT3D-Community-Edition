@@ -24,10 +24,10 @@ class TagTorrentFactory extends Factory
     public function definition()
     {
         return [
-        'torrent_id' => $this->faker->randomNumber(),
-        'tag_name'   => function () {
-            return Tag::factory()->create()->id;
-        },
-    ];
+            'torrent_id' => $this->faker->randomNumber(),
+            'tag_name'   => function () {
+                return Tag::factory()->create()->id;
+            },
+        ];
     }
 }

@@ -24,13 +24,13 @@ class VoterFactory extends Factory
     public function definition()
     {
         return [
-        'poll_id' => function () {
-            return Poll::factory()->create()->id;
-        },
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'ip_address' => $this->faker->word,
-    ];
+            'poll_id' => function () {
+                return Poll::factory()->create()->id;
+            },
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'ip_address' => $this->faker->word,
+        ];
     }
 }

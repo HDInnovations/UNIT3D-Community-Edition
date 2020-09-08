@@ -24,13 +24,13 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-        'title'   => $this->faker->word,
-        'slug'    => $this->faker->slug,
-        'image'   => $this->faker->word,
-        'content' => $this->faker->text,
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-    ];
+            'title'   => $this->faker->word,
+            'slug'    => $this->faker->slug,
+            'image'   => $this->faker->word,
+            'content' => $this->faker->text,
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+        ];
     }
 }

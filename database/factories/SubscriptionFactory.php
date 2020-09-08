@@ -24,15 +24,15 @@ class SubscriptionFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'forum_id' => function () {
-            return Forum::factory()->create()->id;
-        },
-        'topic_id' => function () {
-            return Topic::factory()->create()->id;
-        },
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'forum_id' => function () {
+                return Forum::factory()->create()->id;
+            },
+            'topic_id' => function () {
+                return Topic::factory()->create()->id;
+            },
+        ];
     }
 }

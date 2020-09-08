@@ -24,11 +24,11 @@ class TorrentFileFactory extends Factory
     public function definition()
     {
         return [
-        'name'       => $this->faker->name,
-        'size'       => $this->faker->randomNumber(),
-        'torrent_id' => function () {
-            return Torrent::factory()->create()->id;
-        },
-    ];
+            'name'       => $this->faker->name,
+            'size'       => $this->faker->randomNumber(),
+            'torrent_id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+        ];
     }
 }

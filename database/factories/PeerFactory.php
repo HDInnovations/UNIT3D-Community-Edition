@@ -24,25 +24,25 @@ class PeerFactory extends Factory
     public function definition()
     {
         return [
-        'peer_id'     => $this->faker->word,
-        'md5_peer_id' => $this->faker->word,
-        'info_hash'   => $this->faker->word,
-        'ip'          => $this->faker->word,
-        'port'        => $this->faker->randomNumber(),
-        'agent'       => $this->faker->word,
-        'uploaded'    => $this->faker->randomNumber(),
-        'downloaded'  => $this->faker->randomNumber(),
-        'left'        => $this->faker->randomNumber(),
-        'seeder'      => $this->faker->boolean,
-        'torrent_id'  => function () {
-            return Torrent::factory()->create()->id;
-        },
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'torrents.id' => function () {
-            return Torrent::factory()->create()->id;
-        },
-    ];
+            'peer_id'     => $this->faker->word,
+            'md5_peer_id' => $this->faker->word,
+            'info_hash'   => $this->faker->word,
+            'ip'          => $this->faker->word,
+            'port'        => $this->faker->randomNumber(),
+            'agent'       => $this->faker->word,
+            'uploaded'    => $this->faker->randomNumber(),
+            'downloaded'  => $this->faker->randomNumber(),
+            'left'        => $this->faker->randomNumber(),
+            'seeder'      => $this->faker->boolean,
+            'torrent_id'  => function () {
+                return Torrent::factory()->create()->id;
+            },
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'torrents.id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+        ];
     }
 }

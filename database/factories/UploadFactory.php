@@ -23,6 +23,6 @@ class UploadFactory extends Factory
     public function definition()
     {
         return [
-    ];
+        ];
     }
 }

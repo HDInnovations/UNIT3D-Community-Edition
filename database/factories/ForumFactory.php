@@ -23,18 +23,18 @@ class ForumFactory extends Factory
     public function definition()
     {
         return [
-        'position'                => $this->faker->randomNumber(),
-        'num_topic'               => $this->faker->randomNumber(),
-        'num_post'                => $this->faker->randomNumber(),
-        'last_topic_id'           => $this->faker->randomNumber(),
-        'last_topic_name'         => $this->faker->word,
-        'last_topic_slug'         => $this->faker->word,
-        'last_post_user_id'       => $this->faker->randomNumber(),
-        'last_post_user_username' => $this->faker->word,
-        'name'                    => $this->faker->name,
-        'slug'                    => $this->faker->slug,
-        'description'             => $this->faker->text,
-        'parent_id'               => $this->faker->randomNumber(),
-    ];
+            'position'                => $this->faker->randomNumber(),
+            'num_topic'               => $this->faker->randomNumber(),
+            'num_post'                => $this->faker->randomNumber(),
+            'last_topic_id'           => $this->faker->randomNumber(),
+            'last_topic_name'         => $this->faker->word,
+            'last_topic_slug'         => $this->faker->word,
+            'last_post_user_id'       => $this->faker->randomNumber(),
+            'last_post_user_username' => $this->faker->word,
+            'name'                    => $this->faker->name,
+            'slug'                    => $this->faker->slug,
+            'description'             => $this->faker->text,
+            'parent_id'               => $this->faker->randomNumber(),
+        ];
     }
 }

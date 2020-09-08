@@ -23,8 +23,8 @@ class GitUpdateFactory extends Factory
     public function definition()
     {
         return [
-        'name' => $this->faker->name,
-        'hash' => $this->faker->word,
-    ];
+            'name' => $this->faker->name,
+            'hash' => $this->faker->word,
+        ];
     }
 }

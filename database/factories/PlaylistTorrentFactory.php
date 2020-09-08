@@ -24,14 +24,14 @@ class PlaylistTorrentFactory extends Factory
     public function definition()
     {
         return [
-        'position'    => $this->faker->randomNumber(),
-        'playlist_id' => function () {
-            return Playlist::factory()->create()->id;
-        },
-        'torrent_id' => function () {
-            return Torrent::factory()->create()->id;
-        },
-        'tmdb_id' => $this->faker->randomNumber(),
-    ];
+            'position'    => $this->faker->randomNumber(),
+            'playlist_id' => function () {
+                return Playlist::factory()->create()->id;
+            },
+            'torrent_id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+            'tmdb_id' => $this->faker->randomNumber(),
+        ];
     }
 }

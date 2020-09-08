@@ -24,17 +24,17 @@ class BotTransactionFactory extends Factory
     public function definition()
     {
         return [
-        'type'    => $this->faker->word,
-        'cost'    => $this->faker->randomFloat(),
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'bot_id' => function () {
-            return Bot::factory()->create()->id;
-        },
-        'to_user' => $this->faker->boolean,
-        'to_bot'  => $this->faker->boolean,
-        'comment' => $this->faker->text,
-    ];
+            'type'    => $this->faker->word,
+            'cost'    => $this->faker->randomFloat(),
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'bot_id' => function () {
+                return Bot::factory()->create()->id;
+            },
+            'to_user' => $this->faker->boolean,
+            'to_bot'  => $this->faker->boolean,
+            'comment' => $this->faker->text,
+        ];
     }
 }

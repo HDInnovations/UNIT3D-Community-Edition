@@ -24,15 +24,15 @@ class LikeFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'post_id' => function () {
-            return Post::factory()->create()->id;
-        },
-        'subtitle_id' => $this->faker->randomNumber(),
-        'like'        => $this->faker->boolean,
-        'dislike'     => $this->faker->boolean,
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'post_id' => function () {
+                return Post::factory()->create()->id;
+            },
+            'subtitle_id' => $this->faker->randomNumber(),
+            'like'        => $this->faker->boolean,
+            'dislike'     => $this->faker->boolean,
+        ];
     }
 }

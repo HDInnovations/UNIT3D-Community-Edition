@@ -13,13 +13,6 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\AchievementDetailsTableSeeder;
-use Database\Seeders\ArticlesTableSeeder;
-use Database\Seeders\BonExchangeTableSeeder;
-use Database\Seeders\BotsTableSeeder;
-use Database\Seeders\CategoriesTableSeeder;
-use Database\Seeders\ChatroomTableSeeder;
-use Database\Seeders\ChatStatusSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

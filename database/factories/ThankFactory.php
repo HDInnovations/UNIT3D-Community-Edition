@@ -24,12 +24,12 @@ class ThankFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'torrent_id' => function () {
-            return Torrent::factory()->create()->id;
-        },
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'torrent_id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+        ];
     }
 }

@@ -24,13 +24,13 @@ class AuditFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'model_name'     => $this->faker->word,
-        'model_entry_id' => $this->faker->randomNumber(),
-        'action'         => $this->faker->word,
-        'record'         => $this->faker->word,
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'model_name'     => $this->faker->word,
+            'model_entry_id' => $this->faker->randomNumber(),
+            'action'         => $this->faker->word,
+            'record'         => $this->faker->word,
+        ];
     }
 }

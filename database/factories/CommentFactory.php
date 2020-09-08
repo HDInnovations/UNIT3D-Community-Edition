@@ -24,23 +24,23 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-        'content'    => $this->faker->text,
-        'anon'       => (int) $this->faker->boolean(),
-        'torrent_id' => function () {
-            return Torrent::factory()->create()->id;
-        },
-        'article_id' => function () {
-            return Article::factory()->create()->id;
-        },
-        'requests_id' => function () {
-            return TorrentRequest::factory()->create()->id;
-        },
-        'playlist_id' => function () {
-            return Playlist::factory()->create()->id;
-        },
-        'user_id'       => function () {
-            return User::factory()->create()->id;
-        },
-    ];
+            'content'    => $this->faker->text,
+            'anon'       => (int) $this->faker->boolean(),
+            'torrent_id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+            'article_id' => function () {
+                return Article::factory()->create()->id;
+            },
+            'requests_id' => function () {
+                return TorrentRequest::factory()->create()->id;
+            },
+            'playlist_id' => function () {
+                return Playlist::factory()->create()->id;
+            },
+            'user_id'       => function () {
+                return User::factory()->create()->id;
+            },
+        ];
     }
 }

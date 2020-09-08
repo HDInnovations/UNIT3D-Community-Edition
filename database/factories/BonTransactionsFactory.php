@@ -24,22 +24,22 @@ class BonTransactionsFactory extends Factory
     public function definition()
     {
         return [
-        'itemID' => function () {
-            return BonExchange::factory()->create()->id;
-        },
-        'name'   => $this->faker->name,
-        'cost'   => $this->faker->randomFloat(),
-        'sender' => function () {
-            return User::factory()->create()->id;
-        },
-        'receiver' => function () {
-            return User::factory()->create()->id;
-        },
-        'torrent_id'    => $this->faker->randomNumber(),
-        'donation_id'   => $this->faker->randomNumber(),
-        'post_id'       => $this->faker->randomNumber(),
-        'comment'       => $this->faker->text,
-        'date_actioned' => $this->faker->dateTime(),
-    ];
+            'itemID' => function () {
+                return BonExchange::factory()->create()->id;
+            },
+            'name'   => $this->faker->name,
+            'cost'   => $this->faker->randomFloat(),
+            'sender' => function () {
+                return User::factory()->create()->id;
+            },
+            'receiver' => function () {
+                return User::factory()->create()->id;
+            },
+            'torrent_id'    => $this->faker->randomNumber(),
+            'donation_id'   => $this->faker->randomNumber(),
+            'post_id'       => $this->faker->randomNumber(),
+            'comment'       => $this->faker->text,
+            'date_actioned' => $this->faker->dateTime(),
+        ];
     }
 }

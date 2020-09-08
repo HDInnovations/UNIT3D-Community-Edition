@@ -24,13 +24,13 @@ class AlbumFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'name'        => $this->faker->name,
-        'description' => $this->faker->text,
-        'imdb'        => $this->faker->word,
-        'cover_image' => $this->faker->word,
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'name'        => $this->faker->name,
+            'description' => $this->faker->text,
+            'imdb'        => $this->faker->word,
+            'cover_image' => $this->faker->word,
+        ];
     }
 }

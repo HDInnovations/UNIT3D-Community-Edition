@@ -24,15 +24,15 @@ class BanFactory extends Factory
     public function definition()
     {
         return [
-        'owned_by' => function () {
-            return User::factory()->create()->id;
-        },
-        'created_by' => function () {
-            return User::factory()->create()->id;
-        },
-        'ban_reason'   => $this->faker->text,
-        'unban_reason' => $this->faker->text,
-        'removed_at'   => $this->faker->dateTime(),
-    ];
+            'owned_by' => function () {
+                return User::factory()->create()->id;
+            },
+            'created_by' => function () {
+                return User::factory()->create()->id;
+            },
+            'ban_reason'   => $this->faker->text,
+            'unban_reason' => $this->faker->text,
+            'removed_at'   => $this->faker->dateTime(),
+        ];
     }
 }

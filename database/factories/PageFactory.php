@@ -23,9 +23,9 @@ class PageFactory extends Factory
     public function definition()
     {
         return [
-        'name'    => $this->faker->name,
-        'slug'    => $this->faker->slug,
-        'content' => $this->faker->text,
-    ];
+            'name'    => $this->faker->name,
+            'slug'    => $this->faker->slug,
+            'content' => $this->faker->text,
+        ];
     }
 }

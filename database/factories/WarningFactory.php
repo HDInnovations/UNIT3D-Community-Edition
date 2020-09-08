@@ -24,21 +24,21 @@ class WarningFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'warned_by' => function () {
-            return User::factory()->create()->id;
-        },
-        'torrent' => function () {
-            return Torrent::factory()->create()->id;
-        },
-        'reason'     => $this->faker->text,
-        'expires_on' => $this->faker->dateTime(),
-        'active'     => $this->faker->boolean,
-        'deleted_by' => function () {
-            return User::factory()->create()->id;
-        },
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'warned_by' => function () {
+                return User::factory()->create()->id;
+            },
+            'torrent' => function () {
+                return Torrent::factory()->create()->id;
+            },
+            'reason'     => $this->faker->text,
+            'expires_on' => $this->faker->dateTime(),
+            'active'     => $this->faker->boolean,
+            'deleted_by' => function () {
+                return User::factory()->create()->id;
+            },
+        ];
     }
 }

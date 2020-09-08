@@ -24,14 +24,14 @@ class GraveyardFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'torrent_id' => function () {
-            return Torrent::factory()->create()->id;
-        },
-        'seedtime' => $this->faker->randomNumber(),
-        'rewarded' => $this->faker->boolean,
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'torrent_id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+            'seedtime' => $this->faker->randomNumber(),
+            'rewarded' => $this->faker->boolean,
+        ];
     }
 }

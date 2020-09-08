@@ -24,16 +24,16 @@ class PlaylistFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'name'        => $this->faker->name,
-        'description' => $this->faker->text,
-        'cover_image' => $this->faker->word,
-        'position'    => $this->faker->randomNumber(),
-        'is_private'  => $this->faker->boolean,
-        'is_pinned'   => $this->faker->boolean,
-        'is_featured' => $this->faker->boolean,
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'name'        => $this->faker->name,
+            'description' => $this->faker->text,
+            'cover_image' => $this->faker->word,
+            'position'    => $this->faker->randomNumber(),
+            'is_private'  => $this->faker->boolean,
+            'is_pinned'   => $this->faker->boolean,
+            'is_featured' => $this->faker->boolean,
+        ];
     }
 }

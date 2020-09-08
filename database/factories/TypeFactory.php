@@ -23,9 +23,9 @@ class TypeFactory extends Factory
     public function definition()
     {
         return [
-        'name'     => $this->faker->name,
-        'slug'     => $this->faker->slug,
-        'position' => $this->faker->randomNumber(),
-    ];
+            'name'     => $this->faker->name,
+            'slug'     => $this->faker->slug,
+            'position' => $this->faker->randomNumber(),
+        ];
     }
 }

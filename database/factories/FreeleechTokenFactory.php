@@ -23,8 +23,8 @@ class FreeleechTokenFactory extends Factory
     public function definition()
     {
         return [
-        'user_id'    => $this->faker->randomNumber(),
-        'torrent_id' => $this->faker->randomNumber(),
-    ];
+            'user_id'    => $this->faker->randomNumber(),
+            'torrent_id' => $this->faker->randomNumber(),
+        ];
     }
 }

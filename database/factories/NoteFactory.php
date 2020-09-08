@@ -24,13 +24,13 @@ class NoteFactory extends Factory
     public function definition()
     {
         return [
-        'user_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'staff_id' => function () {
-            return User::factory()->create()->id;
-        },
-        'message' => $this->faker->text,
-    ];
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'staff_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'message' => $this->faker->text,
+        ];
     }
 }
