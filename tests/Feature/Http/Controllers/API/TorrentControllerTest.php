@@ -2,16 +2,19 @@
 
 namespace Tests\Feature\Http\Controllers\API;
 
+use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\ChatroomTableSeeder;
+use Database\Seeders\BotsTableSeeder;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
-use BotsTableSeeder;
-use ChatroomTableSeeder;
+
+
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
-use UsersTableSeeder;
+
 
 /**
  * @see \App\Http\Controllers\API\TorrentController

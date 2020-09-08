@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers\API;
 
+use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\BotsTableSeeder;
 use App\Models\Bot;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
@@ -9,10 +11,10 @@ use App\Models\Message;
 use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
-use BotsTableSeeder;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use UsersTableSeeder;
+
 
 /**
  * @see \App\Http\Controllers\API\ChatController

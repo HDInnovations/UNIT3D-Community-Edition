@@ -2,17 +2,21 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\ChatroomTableSeeder;
+use Database\Seeders\BotsTableSeeder;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Playlist;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
-use BotsTableSeeder;
-use ChatroomTableSeeder;
-use GroupsTableSeeder;
+
+
+
 use Tests\TestCase;
-use UsersTableSeeder;
+
 
 /**
  * @see \App\Http\Controllers\CommentController

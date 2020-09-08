@@ -11,6 +11,15 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
+namespace Database\Seeders;
+
+use Database\Seeders\ChatroomTableSeeder;
+use Database\Seeders\ChatStatusSeeder;
+use Database\Seeders\CategoriesTableSeeder;
+use Database\Seeders\BotsTableSeeder;
+use Database\Seeders\BonExchangeTableSeeder;
+use Database\Seeders\ArticlesTableSeeder;
+use Database\Seeders\AchievementDetailsTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

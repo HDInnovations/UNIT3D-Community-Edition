@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use App\Models\User;
-use GroupsTableSeeder;
+
 use Tests\TestCase;
-use UsersTableSeeder;
+
 
 /**
  * @see \App\Http\Controllers\ContactController

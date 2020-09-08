@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
+use Database\Seeders\GroupsTableSeeder;
 use App\Models\UserActivation;
-use GroupsTableSeeder;
+
 use Tests\TestCase;
 
 /**

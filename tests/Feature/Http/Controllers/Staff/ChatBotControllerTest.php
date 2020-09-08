@@ -2,10 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use Database\Seeders\GroupsTableSeeder;
 use App\Models\Bot;
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+
 use Tests\TestCase;
 
 /**

@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
+use Database\Seeders\GroupsTableSeeder;
 use App\Models\TwoStepAuth;
 use App\Models\User;
-use GroupsTableSeeder;
+
 use Tests\TestCase;
 
 /**
