@@ -2,11 +2,29 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\GitUpdate::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'hash' => $faker->word,
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class GitUpdateFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\GitUpdate::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'name' => $this->faker->name,
+        'hash' => $this->faker->word,
     ];
-});
+    }
+}

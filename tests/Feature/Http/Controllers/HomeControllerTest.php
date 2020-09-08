@@ -29,7 +29,7 @@ class HomeControllerTest extends TestCase
     /** @test */
     public function whenAuthenticatedHomepageReturns200()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->get(route('home.index'))
@@ -58,7 +58,7 @@ class HomeControllerTest extends TestCase
     /** @test */
     public function whenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'twostep' => true,
         ]);
 

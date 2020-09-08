@@ -21,11 +21,11 @@ class TwoStepControllerTest extends TestCase
 
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'twostep' => true,
         ]);
 
-        factory(TwoStepAuth::class)->create([
+        TwoStepAuth::factory()->create([
             'userId' => $user->id,
         ]);
 
@@ -42,11 +42,11 @@ class TwoStepControllerTest extends TestCase
 
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'twostep' => true,
         ]);
 
-        factory(TwoStepAuth::class)->create([
+        TwoStepAuth::factory()->create([
             'userId' => $user->id,
         ]);
 
@@ -64,11 +64,11 @@ class TwoStepControllerTest extends TestCase
 
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'twostep' => true,
         ]);
 
-        $twoStep = factory(TwoStepAuth::class)->create([
+        $twoStep = TwoStepAuth::factory()->create([
             'userId' => $user->id,
         ]);
 

@@ -2,17 +2,36 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\PlaylistTorrent::class, function (Faker $faker) {
-    return [
-        'position'    => $faker->randomNumber(),
+use App\Models\Torrent;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PlaylistTorrentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\PlaylistTorrent::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'position'    => $this->faker->randomNumber(),
         'playlist_id' => function () {
-            return factory(App\Models\Playlist::class)->create()->id;
+            return Playlist::factory()->create()->id;
         },
         'torrent_id' => function () {
-            return factory(App\Models\Torrent::class)->create()->id;
+            return Torrent::factory()->create()->id;
         },
-        'tmdb_id' => $faker->randomNumber(),
+        'tmdb_id' => $this->faker->randomNumber(),
     ];
-});
+    }
+}

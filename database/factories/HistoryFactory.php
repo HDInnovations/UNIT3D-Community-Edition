@@ -2,30 +2,49 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\History::class, function (Faker $faker) {
-    return [
+use App\Models\Torrent;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class HistoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\History::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
-        'agent'     => $faker->word,
+        'agent'     => $this->faker->word,
         'info_hash' => function () {
-            return factory(App\Models\Torrent::class)->create()->id;
+            return Torrent::factory()->create()->id;
         },
-        'uploaded'          => $faker->randomNumber(),
-        'actual_uploaded'   => $faker->randomNumber(),
-        'client_uploaded'   => $faker->randomNumber(),
-        'downloaded'        => $faker->randomNumber(),
-        'actual_downloaded' => $faker->randomNumber(),
-        'client_downloaded' => $faker->randomNumber(),
-        'seeder'            => $faker->boolean,
-        'active'            => $faker->boolean,
-        'seedtime'          => $faker->randomNumber(),
-        'immune'            => $faker->boolean,
-        'hitrun'            => $faker->boolean,
-        'prewarn'           => $faker->boolean,
-        'completed_at'      => $faker->dateTime(),
-        'deleted_at'        => $faker->dateTime(),
+        'uploaded'          => $this->faker->randomNumber(),
+        'actual_uploaded'   => $this->faker->randomNumber(),
+        'client_uploaded'   => $this->faker->randomNumber(),
+        'downloaded'        => $this->faker->randomNumber(),
+        'actual_downloaded' => $this->faker->randomNumber(),
+        'client_downloaded' => $this->faker->randomNumber(),
+        'seeder'            => $this->faker->boolean,
+        'active'            => $this->faker->boolean,
+        'seedtime'          => $this->faker->randomNumber(),
+        'immune'            => $this->faker->boolean,
+        'hitrun'            => $this->faker->boolean,
+        'prewarn'           => $this->faker->boolean,
+        'completed_at'      => $this->faker->dateTime(),
+        'deleted_at'        => $this->faker->dateTime(),
     ];
-});
+    }
+}

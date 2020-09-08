@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Traits\Auditable;
@@ -50,6 +51,8 @@ use voku\helper\AntiXSS;
  */
 class PrivateMessage extends Model
 {
+    use HasFactory;
+
     use Auditable;
 
     /**

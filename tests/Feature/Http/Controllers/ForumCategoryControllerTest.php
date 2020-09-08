@@ -20,17 +20,17 @@ class ForumCategoryControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         // This Forum has a parent Forum, which makes it a "Forum Category".
 
-        $parentForum = factory(Forum::class)->create();
+        $parentForum = Forum::factory()->create();
 
-        factory(Permission::class)->create([
+        Permission::factory()->create([
             'forum_id' => $parentForum->id,
         ]);
 
-        $forum = factory(Forum::class)->create([
+        $forum = Forum::factory()->create([
             'parent_id' => $parentForum->id,
         ]);
 
@@ -47,16 +47,16 @@ class ForumCategoryControllerTest extends TestCase
         // This Forum does not have a parent, which makes it a proper Forum
         // (and not a "Forum Category").
 
-        $forum = factory(Forum::class)->create([
+        $forum = Forum::factory()->create([
             'parent_id' => 0,
         ]);
 
-        $permissions = factory(Permission::class)->create([
+        $permissions = Permission::factory()->create([
             'forum_id'   => $forum->id,
             'show_forum' => true,
         ]);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'group_id' => $permissions['group_id'],
         ]);
 

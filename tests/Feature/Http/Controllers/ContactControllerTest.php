@@ -18,7 +18,7 @@ class ContactControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('contact.index'));
 
@@ -32,7 +32,7 @@ class ContactControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('contact.store'), [
             'email'        => 'foo@bar.com',

@@ -2,14 +2,32 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Notification::class, function (Faker $faker) {
-    return [
-        'type'            => $faker->word,
-        'notifiable_id'   => $faker->randomNumber(),
-        'notifiable_type' => $faker->word,
-        'data'            => $faker->text,
-        'read_at'         => $faker->dateTime(),
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class NotificationFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\Notification::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'type'            => $this->faker->word,
+        'notifiable_id'   => $this->faker->randomNumber(),
+        'notifiable_type' => $this->faker->word,
+        'data'            => $this->faker->text,
+        'read_at'         => $this->faker->dateTime(),
     ];
-});
+    }
+}

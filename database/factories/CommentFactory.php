@@ -2,26 +2,45 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Comment::class, function (Faker $faker) {
-    return [
-        'content'    => $faker->text,
-        'anon'       => (int) $faker->boolean(),
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CommentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\Comment::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'content'    => $this->faker->text,
+        'anon'       => (int) $this->faker->boolean(),
         'torrent_id' => function () {
-            return factory(App\Models\Torrent::class)->create()->id;
+            return Torrent::factory()->create()->id;
         },
         'article_id' => function () {
-            return factory(App\Models\Article::class)->create()->id;
+            return Article::factory()->create()->id;
         },
         'requests_id' => function () {
-            return factory(App\Models\TorrentRequest::class)->create()->id;
+            return TorrentRequest::factory()->create()->id;
         },
         'playlist_id' => function () {
-            return factory(App\Models\Playlist::class)->create()->id;
+            return Playlist::factory()->create()->id;
         },
         'user_id'       => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
     ];
-});
+    }
+}

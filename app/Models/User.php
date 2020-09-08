@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
@@ -27,6 +28,8 @@ use voku\helper\AntiXSS;
 
 class User extends Authenticatable
 {
+    use HasFactory;
+
     use Notifiable;
     use Achiever;
     use SoftDeletes;

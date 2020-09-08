@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
@@ -48,6 +49,8 @@ use voku\helper\AntiXSS;
  */
 class Message extends Model
 {
+    use HasFactory;
+
     /**
      * The Attributes That Are Mass Assignable.
      *

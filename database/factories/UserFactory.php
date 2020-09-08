@@ -2,63 +2,82 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\User::class, function (Faker $faker) {
-    return [
-        'username' => $faker->unique()->userName,
-        'email'    => $faker->unique()->safeEmail,
+use App\Models\ChatStatus;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class UserFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\User::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'username' => $this->faker->unique()->userName,
+        'email'    => $this->faker->unique()->safeEmail,
         'password' => bcrypt('secret'),
-        'passkey'  => $faker->word,
+        'passkey'  => $this->faker->word,
         'group_id' => function () {
-            return factory(App\Models\Group::class)->create()->id;
+            return Group::factory()->create()->id;
         },
         'active'      => true,
-        'uploaded'    => $faker->randomNumber(),
-        'downloaded'  => $faker->randomNumber(),
-        'image'       => $faker->word,
-        'title'       => $faker->word,
-        'about'       => $faker->word,
-        'signature'   => $faker->text,
-        'fl_tokens'   => $faker->randomNumber(),
-        'seedbonus'   => $faker->randomFloat(),
-        'invites'     => $faker->randomNumber(),
-        'hitandruns'  => $faker->randomNumber(),
-        'rsskey'      => $faker->word,
+        'uploaded'    => $this->faker->randomNumber(),
+        'downloaded'  => $this->faker->randomNumber(),
+        'image'       => $this->faker->word,
+        'title'       => $this->faker->word,
+        'about'       => $this->faker->word,
+        'signature'   => $this->faker->text,
+        'fl_tokens'   => $this->faker->randomNumber(),
+        'seedbonus'   => $this->faker->randomFloat(),
+        'invites'     => $this->faker->randomNumber(),
+        'hitandruns'  => $this->faker->randomNumber(),
+        'rsskey'      => $this->faker->word,
         'chatroom_id' => function () {
-            return factory(App\Models\Chatroom::class)->create()->id;
+            return Chatroom::factory()->create()->id;
         },
-        'censor'              => $faker->boolean,
-        'chat_hidden'         => $faker->boolean,
-        'hidden'              => $faker->boolean,
-        'style'               => $faker->boolean,
-        'nav'                 => $faker->boolean,
-        'torrent_layout'      => $faker->boolean,
-        'torrent_filters'     => $faker->boolean,
-        'custom_css'          => $faker->word,
-        'ratings'             => $faker->boolean,
-        'read_rules'          => $faker->boolean,
-        'can_chat'            => $faker->boolean,
-        'can_comment'         => $faker->boolean,
-        'can_download'        => $faker->boolean,
-        'can_request'         => $faker->boolean,
-        'can_invite'          => $faker->boolean,
-        'can_upload'          => $faker->boolean,
-        'show_poster'         => $faker->boolean,
-        'peer_hidden'         => $faker->boolean,
-        'private_profile'     => $faker->boolean,
-        'block_notifications' => $faker->boolean,
-        'stat_hidden'         => $faker->boolean,
+        'censor'              => $this->faker->boolean,
+        'chat_hidden'         => $this->faker->boolean,
+        'hidden'              => $this->faker->boolean,
+        'style'               => $this->faker->boolean,
+        'nav'                 => $this->faker->boolean,
+        'torrent_layout'      => $this->faker->boolean,
+        'torrent_filters'     => $this->faker->boolean,
+        'custom_css'          => $this->faker->word,
+        'ratings'             => $this->faker->boolean,
+        'read_rules'          => $this->faker->boolean,
+        'can_chat'            => $this->faker->boolean,
+        'can_comment'         => $this->faker->boolean,
+        'can_download'        => $this->faker->boolean,
+        'can_request'         => $this->faker->boolean,
+        'can_invite'          => $this->faker->boolean,
+        'can_upload'          => $this->faker->boolean,
+        'show_poster'         => $this->faker->boolean,
+        'peer_hidden'         => $this->faker->boolean,
+        'private_profile'     => $this->faker->boolean,
+        'block_notifications' => $this->faker->boolean,
+        'stat_hidden'         => $this->faker->boolean,
         'twostep'             => false,
         'remember_token'      => Str::random(10),
-        'api_token'           => $faker->uuid,
-        //'last_login'          => $faker->dateTime(),
-        'last_action'         => $faker->dateTime(),
-        //'disabled_at'         => $faker->dateTime(),
-        //'deleted_by'          => $faker->randomNumber(),
-        'locale'              => $faker->word,
+        'api_token'           => $this->faker->uuid,
+        //'last_login'          => $this->faker->dateTime(),
+        'last_action'         => $this->faker->dateTime(),
+        //'disabled_at'         => $this->faker->dateTime(),
+        //'deleted_by'          => $this->faker->randomNumber(),
+        'locale'              => $this->faker->word,
         'chat_status_id'      => function () {
-            return factory(App\Models\ChatStatus::class)->create()->id;
+            return ChatStatus::factory()->create()->id;
         },
     ];
-});
+    }
+}

@@ -2,13 +2,32 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\TagTorrent::class, function (Faker $faker) {
-    return [
-        'torrent_id' => $faker->randomNumber(),
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class TagTorrentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\TagTorrent::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'torrent_id' => $this->faker->randomNumber(),
         'tag_name'   => function () {
-            return factory(App\Models\Tag::class)->create()->id;
+            return Tag::factory()->create()->id;
         },
     ];
-});
+    }
+}

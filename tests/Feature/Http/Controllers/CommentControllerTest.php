@@ -29,11 +29,11 @@ class CommentControllerTest extends TestCase
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_comment' => true,
         ]);
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -56,11 +56,11 @@ class CommentControllerTest extends TestCase
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_comment' => true,
         ]);
 
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -78,11 +78,11 @@ class CommentControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_comment' => true,
         ]);
 
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -104,11 +104,11 @@ class CommentControllerTest extends TestCase
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_comment' => true,
         ]);
 
-        $playlist = factory(Playlist::class)->create([
+        $playlist = Playlist::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -133,11 +133,11 @@ class CommentControllerTest extends TestCase
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_comment' => true,
         ]);
 
-        $torrent = factory(Torrent::class)->create([
+        $torrent = Torrent::factory()->create([
             'user_id' => $user->id,
             'status'  => 1,
         ]);
@@ -158,11 +158,11 @@ class CommentControllerTest extends TestCase
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_comment' => true,
         ]);
 
-        $torrentRequest = factory(TorrentRequest::class)->create([
+        $torrentRequest = TorrentRequest::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -185,11 +185,11 @@ class CommentControllerTest extends TestCase
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_comment' => true,
         ]);
 
-        $torrent = factory(Torrent::class)->create([
+        $torrent = Torrent::factory()->create([
             'user_id' => $user->id,
             'status'  => 1,
         ]);

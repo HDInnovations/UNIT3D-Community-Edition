@@ -2,17 +2,36 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Image::class, function (Faker $faker) {
-    return [
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ImageFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\Image::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
-        'album_id'    => $faker->randomNumber(),
-        'image'       => $faker->word,
-        'description' => $faker->text,
-        'type'        => $faker->word,
-        'downloads'   => $faker->randomNumber(),
+        'album_id'    => $this->faker->randomNumber(),
+        'image'       => $this->faker->word,
+        'description' => $this->faker->text,
+        'type'        => $this->faker->word,
+        'downloads'   => $this->faker->randomNumber(),
     ];
-});
+    }
+}

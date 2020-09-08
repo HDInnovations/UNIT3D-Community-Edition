@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
@@ -137,6 +138,8 @@ use voku\helper\AntiXSS;
  */
 class Torrent extends Model
 {
+    use HasFactory;
+
     use Moderatable;
     use Sortable;
     use Auditable;

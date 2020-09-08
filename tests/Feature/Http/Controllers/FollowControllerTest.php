@@ -19,11 +19,11 @@ class FollowControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $userToFollow = factory(User::class)->create();
+        $userToFollow = User::factory()->create();
 
-        $follow = factory(Follow::class)->create([
+        $follow = Follow::factory()->create([
             'user_id'   => $user->id,
             'target_id' => $userToFollow->id,
         ]);
@@ -42,9 +42,9 @@ class FollowControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $userToFollow = factory(User::class)->create();
+        $userToFollow = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('follow.store', ['username' => $userToFollow->username]));
 

@@ -27,7 +27,7 @@ class BonusControllerTest extends TestCase
     /** @test */
     public function bonus_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('bonus'));
 
@@ -60,11 +60,11 @@ class BonusControllerTest extends TestCase
     {
         // User's seed bonus must be >= cost for exchange to succeed.
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'seedbonus' => 2,
         ]);
 
-        $bon = factory(BonExchange::class)->create([
+        $bon = BonExchange::factory()->create([
             'cost'               => 1,
             'upload'             => true,
             'download'           => false,
@@ -85,12 +85,12 @@ class BonusControllerTest extends TestCase
 
         // Likewise, User's downloaded value must be >= Bon value.
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'seedbonus'  => 2,
             'downloaded' => 2,
         ]);
 
-        $bon = factory(BonExchange::class)->create([
+        $bon = BonExchange::factory()->create([
             'cost'               => 1,
             'value'              => 1,
             'upload'             => false,
@@ -112,12 +112,12 @@ class BonusControllerTest extends TestCase
 
         // Likewise, User's downloaded value must be >= Bon value.
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'seedbonus'  => 2,
             'downloaded' => 2,
         ]);
 
-        $bon = factory(BonExchange::class)->create([
+        $bon = BonExchange::factory()->create([
             'cost'               => 1,
             'value'              => 1,
             'upload'             => false,
@@ -135,7 +135,7 @@ class BonusControllerTest extends TestCase
     /** @test */
     public function gift_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('bonus_gift'));
 
@@ -147,7 +147,7 @@ class BonusControllerTest extends TestCase
     /** @test */
     public function gifts_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('bonus_gifts'));
 
@@ -167,11 +167,11 @@ class BonusControllerTest extends TestCase
         $this->seed(BotsTableSeeder::class);
         $this->seed(ChatroomTableSeeder::class);
 
-        $senderUser = factory(User::class)->create([
+        $senderUser = User::factory()->create([
             'seedbonus' => 2,
         ]);
 
-        $recipientUser = factory(User::class)->create();
+        $recipientUser = User::factory()->create();
 
         $response = $this->actingAs($senderUser)->post(route('bonus_send_gift'), [
             'to_username'   => $recipientUser->username,
@@ -186,7 +186,7 @@ class BonusControllerTest extends TestCase
     /** @test */
     public function store_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('bonus_store'));
 
@@ -206,11 +206,11 @@ class BonusControllerTest extends TestCase
     {
         // User's seed bonus must be >= tip amount for exchange to succeed.
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'seedbonus' => 2,
         ]);
 
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $response = $this->actingAs($user)->post(route('tip_poster', ['id' => $post->id]), [
             'post' => $post->id,
@@ -226,11 +226,11 @@ class BonusControllerTest extends TestCase
     {
         // User's seed bonus must be >= tip amount for exchange to succeed.
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'seedbonus' => 2,
         ]);
 
-        $torrent = factory(Torrent::class)->create();
+        $torrent = Torrent::factory()->create();
 
         $response = $this->actingAs($user)->post(route('tip_uploader', ['id' => $torrent->id]), [
             'tip' => 1,
@@ -243,7 +243,7 @@ class BonusControllerTest extends TestCase
     /** @test */
     public function tips_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('bonus_tips'));
 

@@ -2,16 +2,34 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Carbon\Carbon;
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\TwoStepAuth::class, function (Faker $faker) {
-    return [
-        'userId'      => $faker->randomNumber(),
-        'authCode'    => sprintf('%s%s%s%s', $faker->numberBetween(0, 9), $faker->numberBetween(0, 9), $faker->numberBetween(0, 9), $faker->numberBetween(0, 9)),
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
+
+class TwoStepAuthFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\TwoStepAuth::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'userId'      => $this->faker->randomNumber(),
+        'authCode'    => sprintf('%s%s%s%s', $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9), $this->faker->numberBetween(0, 9)),
         'authCount'   => 0,
         'authStatus'  => false,
         'authDate'    => null,
         'requestDate' => Carbon::now(),
     ];
-});
+    }
+}

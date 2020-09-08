@@ -2,21 +2,40 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\UserEcho::class, function (Faker $faker) {
-    return [
+use App\Models\Bot;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class UserEchoFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\UserEcho::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
         'room_id' => function () {
-            return factory(App\Models\Chatroom::class)->create()->id;
+            return Chatroom::factory()->create()->id;
         },
         'target_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
         'bot_id' => function () {
-            return factory(App\Models\Bot::class)->create()->id;
+            return Bot::factory()->create()->id;
         },
     ];
-});
+    }
+}

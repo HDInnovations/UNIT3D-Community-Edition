@@ -2,20 +2,39 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\BotTransaction::class, function (Faker $faker) {
-    return [
-        'type'    => $faker->word,
-        'cost'    => $faker->randomFloat(),
+use App\Models\Bot;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class BotTransactionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\BotTransaction::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'type'    => $this->faker->word,
+        'cost'    => $this->faker->randomFloat(),
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
         'bot_id' => function () {
-            return factory(App\Models\Bot::class)->create()->id;
+            return Bot::factory()->create()->id;
         },
-        'to_user' => $faker->boolean,
-        'to_bot'  => $faker->boolean,
-        'comment' => $faker->text,
+        'to_user' => $this->faker->boolean,
+        'to_bot'  => $this->faker->boolean,
+        'comment' => $this->faker->text,
     ];
-});
+    }
+}

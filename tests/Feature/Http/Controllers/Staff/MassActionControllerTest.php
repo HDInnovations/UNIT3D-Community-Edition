@@ -20,9 +20,9 @@ class MassActionControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -54,7 +54,7 @@ class MassActionControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $message = factory(PrivateMessage::class)->create();
+        $message = PrivateMessage::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.mass-pm.store'), [
             'sender_id'   => $user->id,

@@ -23,7 +23,7 @@ class TorrentControllerTest extends TestCase
      */
     public function filter_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user, 'api')->getJson('api/torrents/filter');
 
@@ -54,7 +54,7 @@ class TorrentControllerTest extends TestCase
      */
     public function index_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user, 'api')->getJson(route('torrents.index'));
 
@@ -85,9 +85,9 @@ class TorrentControllerTest extends TestCase
      */
     public function show_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $torrent = factory(Torrent::class)->create([
+        $torrent = Torrent::factory()->create([
             'user_id' => $user->id,
             'status'  => 1,
         ]);
@@ -110,13 +110,13 @@ class TorrentControllerTest extends TestCase
         $this->seed(ChatroomTableSeeder::class);
         $this->seed(BotsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $category = factory(Category::class)->create();
-        $type = factory(Type::class)->create();
-        $resolution = factory(Resolution::class)->create();
+        $category = Category::factory()->create();
+        $type = Type::factory()->create();
+        $resolution = Resolution::factory()->create();
 
-        $torrent = factory(Torrent::class)->make();
+        $torrent = Torrent::factory()->make();
 
         $response = $this->actingAs($user, 'api')->postJson('api/torrents/upload', [
             'torrent' => new UploadedFile(

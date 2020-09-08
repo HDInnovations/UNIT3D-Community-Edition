@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Notifications\NewComment;
@@ -87,6 +88,8 @@ use voku\helper\AntiXSS;
  */
 class TorrentRequest extends Model
 {
+    use HasFactory;
+
     use Auditable;
 
     /**

@@ -17,7 +17,7 @@ class AlbumControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('albums.create'));
 
@@ -32,9 +32,9 @@ class AlbumControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $album = factory(Album::class)->create([
+        $album = Album::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -49,7 +49,7 @@ class AlbumControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('albums.index'));
 
@@ -62,9 +62,9 @@ class AlbumControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $album = factory(Album::class)->create([
+        $album = Album::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -81,9 +81,9 @@ class AlbumControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $album = factory(Album::class)->raw([
+        $album = Album::factory()->raw([
             'user_id' => $user->id,
         ]);
 

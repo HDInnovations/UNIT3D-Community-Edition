@@ -2,51 +2,70 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\UserPrivacy::class, function (Faker $faker) {
-    return [
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class UserPrivacyFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\UserPrivacy::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
-        'show_achievement'           => $faker->boolean,
-        'show_bon'                   => $faker->boolean,
-        'show_comment'               => $faker->boolean,
-        'show_download'              => $faker->boolean,
-        'show_follower'              => $faker->boolean,
-        'show_online'                => $faker->boolean,
-        'show_peer'                  => $faker->boolean,
-        'show_post'                  => $faker->boolean,
-        'show_profile'               => $faker->boolean,
-        'show_profile_about'         => $faker->boolean,
-        'show_profile_achievement'   => $faker->boolean,
-        'show_profile_badge'         => $faker->boolean,
-        'show_profile_follower'      => $faker->boolean,
-        'show_profile_title'         => $faker->boolean,
-        'show_profile_bon_extra'     => $faker->boolean,
-        'show_profile_comment_extra' => $faker->boolean,
-        'show_profile_forum_extra'   => $faker->boolean,
-        'show_profile_request_extra' => $faker->boolean,
-        'show_profile_torrent_count' => $faker->boolean,
-        'show_profile_torrent_extra' => $faker->boolean,
-        'show_profile_torrent_ratio' => $faker->boolean,
-        'show_profile_torrent_seed'  => $faker->boolean,
-        'show_profile_warning'       => $faker->boolean,
-        'show_rank'                  => $faker->boolean,
-        'show_requested'             => $faker->boolean,
-        'show_topic'                 => $faker->boolean,
-        'show_upload'                => $faker->boolean,
-        'show_wishlist'              => $faker->boolean,
-        'json_profile_groups'        => $faker->word,
-        'json_torrent_groups'        => $faker->word,
-        'json_forum_groups'          => $faker->word,
-        'json_bon_groups'            => $faker->word,
-        'json_comment_groups'        => $faker->word,
-        'json_wishlist_groups'       => $faker->word,
-        'json_follower_groups'       => $faker->word,
-        'json_achievement_groups'    => $faker->word,
-        'json_rank_groups'           => $faker->word,
-        'json_request_groups'        => $faker->word,
-        'json_other_groups'          => $faker->word,
+        'show_achievement'           => $this->faker->boolean,
+        'show_bon'                   => $this->faker->boolean,
+        'show_comment'               => $this->faker->boolean,
+        'show_download'              => $this->faker->boolean,
+        'show_follower'              => $this->faker->boolean,
+        'show_online'                => $this->faker->boolean,
+        'show_peer'                  => $this->faker->boolean,
+        'show_post'                  => $this->faker->boolean,
+        'show_profile'               => $this->faker->boolean,
+        'show_profile_about'         => $this->faker->boolean,
+        'show_profile_achievement'   => $this->faker->boolean,
+        'show_profile_badge'         => $this->faker->boolean,
+        'show_profile_follower'      => $this->faker->boolean,
+        'show_profile_title'         => $this->faker->boolean,
+        'show_profile_bon_extra'     => $this->faker->boolean,
+        'show_profile_comment_extra' => $this->faker->boolean,
+        'show_profile_forum_extra'   => $this->faker->boolean,
+        'show_profile_request_extra' => $this->faker->boolean,
+        'show_profile_torrent_count' => $this->faker->boolean,
+        'show_profile_torrent_extra' => $this->faker->boolean,
+        'show_profile_torrent_ratio' => $this->faker->boolean,
+        'show_profile_torrent_seed'  => $this->faker->boolean,
+        'show_profile_warning'       => $this->faker->boolean,
+        'show_rank'                  => $this->faker->boolean,
+        'show_requested'             => $this->faker->boolean,
+        'show_topic'                 => $this->faker->boolean,
+        'show_upload'                => $this->faker->boolean,
+        'show_wishlist'              => $this->faker->boolean,
+        'json_profile_groups'        => $this->faker->word,
+        'json_torrent_groups'        => $this->faker->word,
+        'json_forum_groups'          => $this->faker->word,
+        'json_bon_groups'            => $this->faker->word,
+        'json_comment_groups'        => $this->faker->word,
+        'json_wishlist_groups'       => $this->faker->word,
+        'json_follower_groups'       => $this->faker->word,
+        'json_achievement_groups'    => $this->faker->word,
+        'json_rank_groups'           => $this->faker->word,
+        'json_request_groups'        => $this->faker->word,
+        'json_other_groups'          => $this->faker->word,
     ];
-});
+    }
+}

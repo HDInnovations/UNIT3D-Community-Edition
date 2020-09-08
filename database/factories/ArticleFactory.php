@@ -2,16 +2,35 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Article::class, function (Faker $faker) {
-    return [
-        'title'   => $faker->word,
-        'slug'    => $faker->slug,
-        'image'   => $faker->word,
-        'content' => $faker->text,
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ArticleFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\Article::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'title'   => $this->faker->word,
+        'slug'    => $this->faker->slug,
+        'image'   => $this->faker->word,
+        'content' => $this->faker->text,
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
     ];
-});
+    }
+}

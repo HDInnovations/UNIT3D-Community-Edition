@@ -20,9 +20,9 @@ class ChatStatusControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -39,7 +39,7 @@ class ChatStatusControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chat_status = factory(ChatStatus::class)->create();
+        $chat_status = ChatStatus::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('staff.statuses.destroy', ['id' => $chat_status->id]));
         $response->assertRedirect(route('staff.statuses.index'));
@@ -69,7 +69,7 @@ class ChatStatusControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chat_status = factory(ChatStatus::class)->make();
+        $chat_status = ChatStatus::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.statuses.store'), [
             'name'  => $chat_status->name,
@@ -88,7 +88,7 @@ class ChatStatusControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chat_status = factory(ChatStatus::class)->create();
+        $chat_status = ChatStatus::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.statuses.update', ['id' => $chat_status->id]), [
             'name'  => $chat_status->name,

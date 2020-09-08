@@ -22,13 +22,13 @@ class AnnounceControllerTest extends TestCase
 
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_download' => true,
         ]);
 
         $infoHash = sha1(random_bytes(20));
 
-        factory(Torrent::class)->create([
+        Torrent::factory()->create([
             'info_hash' => bin2hex($infoHash),
             'status'    => 1, // Approved
         ]);

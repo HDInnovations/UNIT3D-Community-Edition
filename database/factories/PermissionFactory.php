@@ -2,19 +2,38 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Permission::class, function (Faker $faker) {
-    return [
+use App\Models\Group;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PermissionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\Permission::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'forum_id' => function () {
-            return factory(App\Models\Forum::class)->create()->id;
+            return Forum::factory()->create()->id;
         },
         'group_id' => function () {
-            return factory(App\Models\Group::class)->create()->id;
+            return Group::factory()->create()->id;
         },
-        'show_forum'  => $faker->boolean,
-        'read_topic'  => $faker->boolean,
-        'reply_topic' => $faker->boolean,
-        'start_topic' => $faker->boolean,
+        'show_forum'  => $this->faker->boolean,
+        'read_topic'  => $this->faker->boolean,
+        'reply_topic' => $this->faker->boolean,
+        'start_topic' => $this->faker->boolean,
     ];
-});
+    }
+}

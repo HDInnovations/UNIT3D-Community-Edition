@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Notifications\NewTopic;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
@@ -70,6 +71,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Forum extends Model
 {
+    use HasFactory;
+
     use Auditable;
 
     /**

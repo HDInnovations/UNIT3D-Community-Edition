@@ -2,20 +2,39 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Invite::class, function (Faker $faker) {
-    return [
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class InviteFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\Invite::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
-        'email'       => $faker->safeEmail,
-        'code'        => $faker->word,
-        'expires_on'  => $faker->dateTime(),
+        'email'       => $this->faker->safeEmail,
+        'code'        => $this->faker->word,
+        'expires_on'  => $this->faker->dateTime(),
         'accepted_by' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
-        'accepted_at' => $faker->dateTime(),
-        'custom'      => $faker->text,
+        'accepted_at' => $this->faker->dateTime(),
+        'custom'      => $this->faker->text,
     ];
-});
+    }
+}

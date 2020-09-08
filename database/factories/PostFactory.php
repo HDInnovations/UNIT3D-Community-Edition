@@ -2,16 +2,35 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Post::class, function (Faker $faker) {
-    return [
-        'content' => $faker->text,
+use App\Models\Topic;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PostFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\Post::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'content' => $this->faker->text,
         'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
+            return User::factory()->create()->id;
         },
         'topic_id' => function () {
-            return factory(App\Models\Topic::class)->create()->id;
+            return Topic::factory()->create()->id;
         },
     ];
-});
+    }
+}

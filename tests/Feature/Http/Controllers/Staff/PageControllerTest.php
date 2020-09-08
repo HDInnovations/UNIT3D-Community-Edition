@@ -20,9 +20,9 @@ class PageControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -54,7 +54,7 @@ class PageControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $page = factory(Page::class)->create();
+        $page = Page::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('staff.pages.destroy', ['id' => $page->id]));
 
@@ -69,7 +69,7 @@ class PageControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $page = factory(Page::class)->create();
+        $page = Page::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.pages.edit', ['id' => $page->id]));
 
@@ -102,7 +102,7 @@ class PageControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $page = factory(Page::class)->make();
+        $page = Page::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.pages.store'), [
             'name'    => $page->name,
@@ -121,7 +121,7 @@ class PageControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $page = factory(Page::class)->create();
+        $page = Page::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.pages.update', ['id' => $page->id]), [
             'name'    => $page->name,

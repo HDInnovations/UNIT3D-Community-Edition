@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\BBCodeConverter;
 use App\Helpers\Markdown;
 use App\Traits\Auditable;
@@ -41,6 +42,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Page extends Model
 {
+    use HasFactory;
+
     use Auditable;
 
     /**

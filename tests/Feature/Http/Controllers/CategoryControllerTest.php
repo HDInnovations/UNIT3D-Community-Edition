@@ -22,7 +22,7 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('categories.index'));
 
@@ -34,9 +34,9 @@ class CategoryControllerTest extends TestCase
     /** @test */
     public function show_returns_an_ok_response()
     {
-        $category = factory(Category::class)->create();
+        $category = Category::factory()->create();
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('categories.show', ['id' => $category->id]));
 

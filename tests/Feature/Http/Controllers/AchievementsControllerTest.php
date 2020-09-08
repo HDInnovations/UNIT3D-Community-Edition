@@ -18,7 +18,7 @@ class AchievementsControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('achievements.index'));
 
@@ -37,7 +37,7 @@ class AchievementsControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('achievements.show', [
             'username' => $user->username,

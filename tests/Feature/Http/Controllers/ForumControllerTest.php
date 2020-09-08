@@ -20,7 +20,7 @@ class ForumControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)->get(route('forums.index'))
             ->assertOk()
@@ -37,7 +37,7 @@ class ForumControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)->get(route('forum_latest_posts'))
             ->assertOk()
@@ -55,7 +55,7 @@ class ForumControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)->get(route('forum_latest_topics'))
             ->assertOk()
@@ -73,7 +73,7 @@ class ForumControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)->get(route('forum_search_form'))
             ->assertOk()
@@ -95,7 +95,7 @@ class ForumControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)->call('GET', route('forum_search_form', ['body' => 1]))
             ->assertOk()
@@ -119,14 +119,14 @@ class ForumControllerTest extends TestCase
 
         // This Forum has a parent Forum, which makes it a "Forum Category".
 
-        $parentForum = factory(Forum::class)->create();
+        $parentForum = Forum::factory()->create();
 
-        $permissions = factory(Permission::class)->create([
+        $permissions = Permission::factory()->create([
             'forum_id'   => $parentForum->id,
             'show_forum' => true,
         ]);
 
-        $forum = factory(Forum::class)->create([
+        $forum = Forum::factory()->create([
             'parent_id' => $parentForum->id,
         ]);
 
@@ -134,7 +134,7 @@ class ForumControllerTest extends TestCase
         // the Group ID is instead derived from the child ("Forum Category")
         // permissions.
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'group_id' => $permissions['group_id'],
         ]);
 
@@ -157,16 +157,16 @@ class ForumControllerTest extends TestCase
         // This Forum does not have a parent, which makes it a proper Forum
         // (and not a "Forum Category").
 
-        $forum = factory(Forum::class)->create([
+        $forum = Forum::factory()->create([
             'parent_id' => 0,
         ]);
 
-        $permissions = factory(Permission::class)->create([
+        $permissions = Permission::factory()->create([
             'forum_id'   => $forum->id,
             'show_forum' => true,
         ]);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'group_id' => $permissions['group_id'],
         ]);
 
@@ -180,7 +180,7 @@ class ForumControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)->get(route('forum_subscriptions'))
             ->assertOk()

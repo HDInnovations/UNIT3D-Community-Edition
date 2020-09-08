@@ -19,9 +19,9 @@ class GiftControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -53,7 +53,7 @@ class GiftControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $staff = $this->createStaffUser();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($staff)->post(route('staff.gifts.store'), [
             'username'  => $user->username,

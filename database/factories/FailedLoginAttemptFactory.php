@@ -2,12 +2,30 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\FailedLoginAttempt::class, function (Faker $faker) {
-    return [
-        'user_id'    => $faker->randomNumber(),
-        'username'   => $faker->userName,
-        'ip_address' => $faker->word,
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class FailedLoginAttemptFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\FailedLoginAttempt::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+        'user_id'    => $this->faker->randomNumber(),
+        'username'   => $this->faker->userName,
+        'ip_address' => $this->faker->word,
     ];
-});
+    }
+}
