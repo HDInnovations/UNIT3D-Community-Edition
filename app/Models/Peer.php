@@ -63,7 +63,6 @@ use Kyslik\ColumnSortable\Sortable;
 class Peer extends Model
 {
     use HasFactory;
-
     use Sortable;
 
     /**

@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Database\Seeders\GroupsTableSeeder;
 use App\Models\Bookmark;
 use App\Models\User;
-
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**

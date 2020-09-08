@@ -13,13 +13,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Carbon\Carbon;
 use Gstt\Achievements\Achiever;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,7 +29,6 @@ use voku\helper\AntiXSS;
 class User extends Authenticatable
 {
     use HasFactory;
-
     use Notifiable;
     use Achiever;
     use SoftDeletes;

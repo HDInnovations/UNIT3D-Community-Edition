@@ -13,8 +13,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -49,7 +49,6 @@ use Illuminate\Support\Str;
 class Poll extends Model
 {
     use HasFactory;
-
     use Auditable;
 
     /**

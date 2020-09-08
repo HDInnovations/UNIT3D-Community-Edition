@@ -70,7 +70,6 @@ use Kyslik\ColumnSortable\Sortable;
 class History extends Model
 {
     use HasFactory;
-
     use Sortable;
 
     /**

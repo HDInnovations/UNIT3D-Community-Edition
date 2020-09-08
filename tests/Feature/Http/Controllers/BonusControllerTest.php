@@ -2,19 +2,15 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Database\Seeders\UsersTableSeeder;
-use Database\Seeders\GroupsTableSeeder;
-use Database\Seeders\ChatroomTableSeeder;
-use Database\Seeders\BotsTableSeeder;
 use App\Models\BonExchange;
 use App\Models\Post;
 use App\Models\Torrent;
 use App\Models\User;
-
-
-
+use Database\Seeders\BotsTableSeeder;
+use Database\Seeders\ChatroomTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\UsersTableSeeder;
 use Tests\TestCase;
-
 
 /**
  * @see \App\Http\Controllers\BonusController
