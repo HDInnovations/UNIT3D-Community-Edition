@@ -71,12 +71,12 @@ class AnnounceController extends Controller
     public function index(Request $request, $passkey)
     {
         try {
-            /**
+            /*
              * Check client.
              */
             $this->checkClient($request);
 
-            /**
+            /*
              * Check passkey.
              */
             $this->checkPasskey($passkey);
@@ -96,7 +96,7 @@ class AnnounceController extends Controller
              */
             $torrent = $this->checkTorrent($queries['info_hash']);
 
-            /**
+            /*
              * Lock Min Announce Interval.
              */
             $this->checkMinInterval($queries, $user);
@@ -111,7 +111,7 @@ class AnnounceController extends Controller
              */
             $rep_dict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
-            /**
+            /*
              * Dispatch The Specfic Annnounce Event Job.
              */
             $this->sendAnnounceJob($queries, $user, $torrent);
@@ -140,7 +140,7 @@ class AnnounceController extends Controller
         if ($request->header('accept-language') || $request->header('referer')
             || $request->header('accept-charset')
 
-            /**
+            /*
              * This header check may block Non-bittorrent client `Aria2` to access tracker,
              * Because they always add this header which other clients don't have.
              *
@@ -324,7 +324,7 @@ class AnnounceController extends Controller
         return [
             'failure reason' => $trackerException->getMessage(),
             'min interval'   => self::MIN,
-            /**
+            /*
              * BEP 31: Failure Retry Extension.
              *
              * However most bittorrent client don't support it, so this feature is disabled default
@@ -404,7 +404,7 @@ class AnnounceController extends Controller
         }
 
         // Part.3 check Port is Valid and Allowed
-        /**
+        /*
          * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
          * However, in some case , When `&event=stopped` the port may set to 0.
          */
@@ -455,7 +455,7 @@ class AnnounceController extends Controller
             'incomplete'   => $torrent->leechers,
         ];
 
-        /**
+        /*
          * For non `stopped` event only
          * We query peers from database and send peerlist, otherwise just quick return.
          */
