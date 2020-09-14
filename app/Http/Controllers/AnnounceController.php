@@ -82,14 +82,14 @@ class AnnounceController extends Controller
             $this->checkPasskey($passkey);
 
             /**
-             * Check user via supplied passkey.
-             */
-            $user = $this->checkUser($passkey);
-
-            /**
              * Check and then get Announce queries.
              */
             $queries = $this->checkAnnounceFields($request);
+
+            /**
+             * Check user via supplied passkey.
+             */
+            $user = $this->checkUser($passkey, $queries);
 
             /**
              * Get Torrent Info Array from queries and judge if user can reach it.
@@ -194,14 +194,13 @@ class AnnounceController extends Controller
 
     /** Get User Via Validated Passkey.
      *
-     * @param $passkey
-     *
-     * @throws \Exception
-     * @throws \App\Exceptions\TrackerException
+     * @param                          $passkey
+     * @param                          $queries
      *
      * @return object
+     * @throws \App\Exceptions\TrackerException
      */
-    protected function checkUser($passkey): object
+    protected function checkUser($passkey, $queries): object
     {
         // Caached System Required Groups
         $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
@@ -222,18 +221,18 @@ class AnnounceController extends Controller
         }
 
         // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download === 0) {
+        if ($user->can_download === 0 && $queries['left'] != 0) {
             throw new TrackerException(142);
         }
 
         // If User Is Banned Return Error to Client
         if ($user->group_id === $banned_group[0]) {
-            throw new TrackerException(143);
+            throw new TrackerException(141, [':status' => 'Banned']);
         }
 
         // If User Is Disabled Return Error to Client
         if ($user->group_id === $disabled_group[0]) {
-            throw new TrackerException(144);
+            throw new TrackerException(141, [':status' => 'Disabled']);
         }
 
         return $user;
@@ -315,7 +314,7 @@ class AnnounceController extends Controller
     }
 
     /**
-     * @param $exception
+     * @param \App\Exceptions\TrackerException $trackerException
      *
      * @return array
      */
