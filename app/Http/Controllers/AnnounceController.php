@@ -194,11 +194,12 @@ class AnnounceController extends Controller
 
     /** Get User Via Validated Passkey.
      *
-     * @param                          $passkey
-     * @param                          $queries
+     * @param $passkey
+     * @param $queries
+     *
+     * @throws \App\Exceptions\TrackerException
      *
      * @return object
-     * @throws \App\Exceptions\TrackerException
      */
     protected function checkUser($passkey, $queries): object
     {
