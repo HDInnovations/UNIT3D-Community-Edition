@@ -14,7 +14,6 @@
 namespace App\Observers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Cache;
 
 class UserObserver
 {
@@ -27,7 +26,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        //Cache::put(\sprintf('user.%s', $user->passkey), $user);
+        \cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }
 
     /**
@@ -39,7 +38,7 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        //Cache::put(\sprintf('user.%s', $user->passkey), $user);
+        \cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }
 
     /**
@@ -51,7 +50,7 @@ class UserObserver
      */
     public function retrieved(User $user)
     {
-        //Cache::add(\sprintf('user.%s', $user->passkey), $user);
+        \cache()->add(\sprintf('user:%s', $user->passkey), $user);
     }
 
     /**
@@ -63,7 +62,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        //Cache::forget(\sprintf('user.%s', $user->passkey));
+        \cache()->forget(\sprintf('user:%s', $user->passkey));
     }
 
     /**
@@ -75,6 +74,6 @@ class UserObserver
      */
     public function restored(User $user)
     {
-        //Cache::put(\sprintf('user.%s', $user->passkey), $user);
+        \cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }
 }

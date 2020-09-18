@@ -209,7 +209,7 @@ class AnnounceController extends Controller
         $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
         // Check Passkey Against Users Table
-        $user = User::where('passkey', '=', $passkey)->first();
+        $user = \cache()->get(\sprintf('user:%s', $passkey)) ?? User::where('passkey', '=', $passkey)->first();
 
         // If User Doesn't Exist Return Error to Client
         if ($user === null) {
@@ -249,9 +249,9 @@ class AnnounceController extends Controller
     protected function checkTorrent($info_hash): object
     {
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::withAnyStatus()
-            ->where('info_hash', '=', $info_hash)
-            ->first();
+        $torrent = \cache()->get(\sprintf('torrent:%s', $info_hash)) ?? Torrent::withAnyStatus()
+                ->where('info_hash', '=', $info_hash)
+                ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
         if ($torrent === null) {
