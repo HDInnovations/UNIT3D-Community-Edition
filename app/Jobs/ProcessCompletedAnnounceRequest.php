@@ -151,6 +151,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $history->downloaded += $mod_downloaded;
         $history->actual_downloaded += $downloaded;
         $history->client_downloaded = $real_downloaded;
+        $history->completed_at = Carbon::now();
         // Seedtime allocation
         if ($this->queries['left'] == 0) {
             $new_update = $peer->updated_at->timestamp;
