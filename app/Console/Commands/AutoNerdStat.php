@@ -63,62 +63,44 @@ class AutoNerdStat extends Command
     public function handle()
     {
         if (\config('chat.nerd_bot') == true) {
-            // Current Timestamp
-            $current = Carbon::now();
-
-            // Cache Expires Timestamp
-            $expiresAt = $current->addMinutes(60);
-
             // Site Birthday
             $bday = \config('other.birthdate');
 
             // Logins Count Last 24hours
-            $logins = User::whereNotNull('last_login')->where('last_login', '>', $current->subDay())->count();
-            \cache()->put('nerdbot-logins', $logins, $expiresAt);
+            $logins = User::whereNotNull('last_login')->where('last_login', '>', Carbon::now()->subDay())->count();
 
             // Torrents Uploaded Count Last 24hours
-            $uploads = Torrent::where('created_at', '>', $current->subDay())->count();
-            \cache()->put('nerdbot-uploads', $uploads, $expiresAt);
+            $uploads = Torrent::where('created_at', '>', Carbon::now()->subDay())->count();
 
             // New Users Count Last 24hours
-            $users = User::where('created_at', '>', $current->subDay())->count();
-            \cache()->put('nerdbot-users', $users, $expiresAt);
+            $users = User::where('created_at', '>', Carbon::now()->subDay())->count();
 
             // Top Banker
             $banker = User::latest('seedbonus')->first();
-            \cache()->put('nerdbot-banker', $banker, $expiresAt);
 
             // Most Snatched Torrent
             $snatched = Torrent::latest('times_completed')->first();
-            \cache()->put('nerdbot-snatched', $snatched, $expiresAt);
 
             // Most Seeded Torrent
             $seeded = Torrent::latest('seeders')->first();
-            \cache()->put('nerdbot-seeded', $seeded, $expiresAt);
 
             // Most Leeched Torrent
             $leeched = Torrent::latest('leechers')->first();
-            \cache()->put('nerdbot-leeched', $leeched, $expiresAt);
 
             // FL Torrents
             $fl = Torrent::where('free', '=', 1)->count();
-            \cache()->put('nerdbot-fl', $fl, $expiresAt);
 
             // DU Torrents
             $du = Torrent::where('doubleup', '=', 1)->count();
-            \cache()->put('nerdbot-doubleup', $du, $expiresAt);
 
             // Peers Count
             $peers = Peer::count();
-            \cache()->put('nerdbot-peers', $peers, $expiresAt);
 
             // New User Bans Count Last 24hours
-            $bans = Ban::whereNull('unban_reason')->whereNull('removed_at')->where('created_at', '>', $current->subDay())->count();
-            \cache()->put('nerdbot-bans', $bans, $expiresAt);
+            $bans = Ban::whereNull('unban_reason')->whereNull('removed_at')->where('created_at', '>', Carbon::now()->subDay())->count();
 
             // Hit and Run Warning Issued In Last 24hours
-            $warnings = Warning::where('created_at', '>', $current->subDay())->count();
-            \cache()->put('nerdbot-warnings', $warnings, $expiresAt);
+            $warnings = Warning::where('created_at', '>', Carbon::now()->subDay())->count();
 
             // URL Helpers
             $banker_url = \href_profile($banker);
