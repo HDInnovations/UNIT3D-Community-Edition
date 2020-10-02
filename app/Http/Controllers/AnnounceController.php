@@ -102,6 +102,11 @@ class AnnounceController extends Controller
             $this->checkMinInterval($queries, $user);
 
             /**
+             * Check User Max Connections Per Torrent.
+             */
+            $this->checkMaxConnections($torrent, $user);
+
+            /**
              * Check Download Slots.
              */
             //$this->checkDownloadSlots($user);
@@ -190,6 +195,86 @@ class AnnounceController extends Controller
         if (\strspn(\strtolower($passkey), 'abcdef0123456789') !== 32) {  // MD5 char limit
             throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']);
         }
+    }
+
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @throws \App\Exceptions\TrackerException
+     *
+     * @return array
+     */
+    private function checkAnnounceFields(Request $request): array
+    {
+        $queries = [
+            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
+        ];
+
+        // Part.1 check Announce **Need** Fields
+        foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
+            $item_data = $request->query->get($item);
+            if (! \is_null($item_data)) {
+                $queries[$item] = $item_data;
+            } else {
+                throw new TrackerException(130, [':attribute' => $item]);
+            }
+        }
+
+        foreach (['info_hash', 'peer_id'] as $item) {
+            if (\strlen($queries[$item]) !== 20) {
+                throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
+            }
+        }
+
+        foreach (['uploaded', 'downloaded', 'left'] as $item) {
+            $item_data = $queries[$item];
+            if (! \is_numeric($item_data) || $item_data < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
+            }
+        }
+
+        // Part.2 check Announce **Option** Fields
+        foreach (['event' => '', 'no_peer_id' => 1, 'compact' => 0, 'numwant' => 50, 'corrupt' => 0, 'key' => ''] as $item => $value) {
+            $queries[$item] = $request->query->get($item, $value);
+        }
+
+        foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
+            if (! \is_numeric($queries[$item]) || $queries[$item] < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
+            }
+        }
+
+        if (! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
+            throw new TrackerException(136, [':event' => \strtolower($queries['event'])]);
+        }
+
+        // Part.3 check Port is Valid and Allowed
+        /**
+         * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
+         * However, in some case , When `&event=stopped` the port may set to 0.
+         */
+        if ($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped') {
+            throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
+        }
+
+        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS)) {
+            throw new TrackerException(135, [':port' => $queries['port']]);
+        }
+
+        // Part.4 Get User Ip Address
+        $queries['ip-address'] = $request->getClientIp();
+
+        // Part.5 Get Users Agent
+        $queries['user-agent'] = $request->headers->get('user-agent');
+
+        // Part.6 bin2hex info_hash
+        $queries['info_hash'] = \bin2hex($queries['info_hash']);
+
+        // Part.7 bin2hex peer_id
+        $queries['peer_id'] = \bin2hex($queries['peer_id']);
+
+        return $queries;
     }
 
     /** Get User Via Validated Passkey.
@@ -296,6 +381,23 @@ class AnnounceController extends Controller
     }
 
     /**
+     * @param $torrent
+     * @param $user
+     *
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkMaxConnections($torrent, $user): void
+    {
+        // Pull Count On Users Peers Per Torrent For Rate Limiting
+        $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
+
+        // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
+        if ($connections > config('announce.rate_limit')) {
+            throw new TrackerException(138, [':limit' => config('announce.rate_limit')]);
+        }
+    }
+
+    /**
      * @param $user
      *
      * @throws \App\Exceptions\TrackerException
@@ -312,123 +414,6 @@ class AnnounceController extends Controller
                 }
             }
         }
-    }
-
-    /**
-     * @param \App\Exceptions\TrackerException $trackerException
-     *
-     * @return array
-     */
-    protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
-    {
-        return [
-            'failure reason' => $trackerException->getMessage(),
-            'min interval'   => self::MIN,
-            /**
-             * BEP 31: Failure Retry Extension.
-             *
-             * However most bittorrent client don't support it, so this feature is disabled default
-             *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
-             *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
-             *  - libtransmission (e.g. Transmission )
-             *    This library will ignore any other key if failed
-             *
-             * @see http://www.bittorrent.org/beps/bep_0031.html
-             */
-            //'retry in' => self::MIN
-        ];
-    }
-
-    /**
-     * @param $rep_dict
-     *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    protected function sendFinalAnnounceResponse($rep_dict)
-    {
-        return \response(Bencode::bencode($rep_dict))
-            ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
-            ->withHeaders(['Connection' => 'close'])
-            ->withHeaders(['Pragma' => 'no-cache']);
-    }
-
-    /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @throws \App\Exceptions\TrackerException
-     *
-     * @return array
-     */
-    private function checkAnnounceFields(Request $request): array
-    {
-        $queries = [
-            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
-        ];
-
-        // Part.1 check Announce **Need** Fields
-        foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
-            $item_data = $request->query->get($item);
-            if (! \is_null($item_data)) {
-                $queries[$item] = $item_data;
-            } else {
-                throw new TrackerException(130, [':attribute' => $item]);
-            }
-        }
-
-        foreach (['info_hash', 'peer_id'] as $item) {
-            if (\strlen($queries[$item]) !== 20) {
-                throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
-            }
-        }
-
-        foreach (['uploaded', 'downloaded', 'left'] as $item) {
-            $item_data = $queries[$item];
-            if (! \is_numeric($item_data) || $item_data < 0) {
-                throw new TrackerException(134, [':attribute' => $item]);
-            }
-        }
-
-        // Part.2 check Announce **Option** Fields
-        foreach (['event' => '', 'no_peer_id' => 1, 'compact' => 0, 'numwant' => 50, 'corrupt' => 0, 'key' => ''] as $item => $value) {
-            $queries[$item] = $request->query->get($item, $value);
-        }
-
-        foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
-            if (! \is_numeric($queries[$item]) || $queries[$item] < 0) {
-                throw new TrackerException(134, [':attribute' => $item]);
-            }
-        }
-
-        if (! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
-            throw new TrackerException(136, [':event' => \strtolower($queries['event'])]);
-        }
-
-        // Part.3 check Port is Valid and Allowed
-        /**
-         * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
-         * However, in some case , When `&event=stopped` the port may set to 0.
-         */
-        if ($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped') {
-            throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
-        }
-
-        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS)) {
-            throw new TrackerException(135, [':port' => $queries['port']]);
-        }
-
-        // Part.4 Get User Ip Address
-        $queries['ip-address'] = $request->getClientIp();
-
-        // Part.5 Get Users Agent
-        $queries['user-agent'] = $request->headers->get('user-agent');
-
-        // Part.6 bin2hex info_hash
-        $queries['info_hash'] = \bin2hex($queries['info_hash']);
-
-        // Part.7 bin2hex peer_id
-        $queries['peer_id'] = \bin2hex($queries['peer_id']);
-
-        return $queries;
     }
 
     /**
@@ -490,6 +475,44 @@ class AnnounceController extends Controller
         } else {
             ProcessBasicAnnounceRequest::dispatch($queries, $user, $torrent);
         }
+    }
+
+    /**
+     * @param \App\Exceptions\TrackerException $trackerException
+     *
+     * @return array
+     */
+    protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
+    {
+        return [
+            'failure reason' => $trackerException->getMessage(),
+            'min interval'   => self::MIN,
+            /**
+             * BEP 31: Failure Retry Extension.
+             *
+             * However most bittorrent client don't support it, so this feature is disabled default
+             *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
+             *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
+             *  - libtransmission (e.g. Transmission )
+             *    This library will ignore any other key if failed
+             *
+             * @see http://www.bittorrent.org/beps/bep_0031.html
+             */
+            //'retry in' => self::MIN
+        ];
+    }
+
+    /**
+     * @param $rep_dict
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    protected function sendFinalAnnounceResponse($rep_dict)
+    {
+        return \response(Bencode::bencode($rep_dict))
+            ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
+            ->withHeaders(['Connection' => 'close'])
+            ->withHeaders(['Pragma' => 'no-cache']);
     }
 
     /**
