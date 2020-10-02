@@ -44,6 +44,7 @@ class TrackerException extends \Exception
         135 => 'Illegal port :port . Port should between 6881-64999',
         136 => 'Unsupported Event type :event .',
         137 => 'Illegal port 0 under Event type :event .',
+        138 => 'You have reached a rate limit. You can only seed/leech a single torrent from upto :limit locations.',
 
         // Error message about User Account
         140 => 'Passkey does not esist! Please Re-download the .torrent',
@@ -52,7 +53,7 @@ class TrackerException extends \Exception
 
         // Error message about Torrent
         150 => 'Torrent not registered with this tracker.',
-        151 => 'You do not have permission to download a :status torrent.',
+        151 => 'You do not have permission to access a :status torrent.',
 
         // Error message about Download Session
         160 => 'You cannot seed the same torrent from more than :count locations.',
