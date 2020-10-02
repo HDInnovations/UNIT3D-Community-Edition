@@ -197,7 +197,6 @@ class AnnounceController extends Controller
         }
     }
 
-
     /**
      * @param \Illuminate\Http\Request $request
      *
