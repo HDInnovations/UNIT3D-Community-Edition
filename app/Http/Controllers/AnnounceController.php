@@ -1,6 +1,6 @@
 <?php
-
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Support\Facades\Log;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessBasicAnnounceRequest;
@@ -34,7 +33,6 @@ class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
-    protected const APPROVED = 1;
     protected const REJECTED = 2;
     protected const POSTPONED = 3;
 
@@ -54,8 +52,6 @@ class AnnounceController extends Controller
         4662,  // eDonkey 2000 P2P file sharing service. http://www.edonkey2000.com/
         6346, 6347,  // Gnutella (FrostWire, Limewire, Shareaza, etc.), BearShare file sharing app
         6699,  // Port used by p2p software, such as WinMX, Napster.
-        //6881, 6882, 6883, 6884, 6885, 6886, 6887, // BitTorrent part of full range of ports used most often (unofficial)
-        //65000, 65001, 65002, 65003, 65004, 65005, 65006, 65007, 65008, 65009, 65010   // For unknown Reason 2333~
     ];
 
     /**
@@ -153,8 +149,6 @@ class AnnounceController extends Controller
              */
             || $request->header('want-digest')
         ) {
-            /*Log::debug('Client Headers:',[$request->header('User-Agent'), $request->header('accept-language'), $request->header('referer'),
-                $request->header('accept-charset'), $request->header('want-digest')]);*/
             throw new TrackerException(122);
         }
 
@@ -257,7 +251,8 @@ class AnnounceController extends Controller
             throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
         }
 
-        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS)) {
+        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS,
+                true)) {
             throw new TrackerException(135, [':port' => $queries['port']]);
         }
 
@@ -306,7 +301,7 @@ class AnnounceController extends Controller
         }
 
         // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download === 0 && $queries['left'] != 0) {
+        if ($user->can_download === 0 && $queries['left'] !== 0) {
             throw new TrackerException(142);
         }
 
@@ -426,11 +421,6 @@ class AnnounceController extends Controller
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
-        /* For Debugging Only */
-        //Log::debug('Announce Debug Queries:',[$queries]);
-        //Log::debug('Announce Debug User:',[$user]);
-        //Log::debug('Announce Debug Torrent:',[$torrent]);
-
         // Build Response For Bittorrent Client
         $rep_dict = [
             'interval'     => \rand(self::MIN, self::MAX),
