@@ -28,7 +28,7 @@ return [
     'allow-invite'           => 'Le registrazioni sono chiuse! Devi essere invitato per registrarti! Sei stato reindirizzato alla pagina di accesso! ',
     'failed'   => 'Credenziali non corrispondenti ai dati registrati.',
     'lost-password'          => 'Dimenticata la Password?',
-    'lost-username'          => 'Dimenticato il tuo Username?'
+    'lost-username'          => 'Dimenticato il tuo Username?',
     'need-invite'            => 'Le registrazioni sono chiuse ed hai bisogno di un invito per ottenere accesso!',
     'signup'   => 'Registrazione',
     'throttle' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
