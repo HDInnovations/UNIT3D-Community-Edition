@@ -47,7 +47,7 @@ return [
     'report-link'         => 'collegamento',
     'report-link-hash'    => 'Link effettivo',
     'thanks'              => 'Grazie per averlo usato',
-    'unban-footer'        => 'Ben tornato!',
+    'unban-footer'        => '- Ben tornato!',
     'unban-header'        => 'Sei stato sbannato',
     'unban-reason'        => 'Motivazione',
     'username-reminder'   => 'Recentemente ci hai inviato una richiesta per ricordarti il nome utente. Il tuo nome utente è',
