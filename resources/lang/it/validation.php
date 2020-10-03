@@ -36,7 +36,7 @@ return [
     'between'              => [
         'numeric' => ':attribute deve trovarsi tra :min - :max.',
         'file'    => ':attribute deve trovarsi tra :min - :max kilobyte.',
-        'string'  => ':attribute deve trovarsi tra :min - :max caratteri.',
+        'string'  => ':attribute di :min - :max caratteri',
         'array'   => ':attribute deve avere tra :min - :max elementi.',
     ],
     'boolean'              => 'Il campo :attribute deve essere vero o falso.',
@@ -121,7 +121,7 @@ return [
     'starts_with'          => ':attribute deve iniziare con uno dei seguenti: :values',
     'string'               => ':attribute deve essere una stringa.',
     'timezone'             => ':attribute deve essere una zona valida.',
-    'unique'               => ':attribute è stato già utilizzato.',
+    'unique'               => ':attribute già utilizzata',
     'uploaded'             => ':attribute non è stato caricato.',
     'url'                  => 'Il formato del campo :attribute non è valido.',
     'uuid'                 => ':attribute deve essere un UUID valido.',
