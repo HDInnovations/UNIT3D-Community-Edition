@@ -12,13 +12,17 @@
  */
 
 return [
-    'by-count'                => 'Per Conte',
+    'all-time'                => 'Generale',
+    'by-count'                => 'Per numero',
     'by-data'                 => 'Per dati',
     'by-volume'               => 'Per volume',
     'group'                   => 'Gruppo',
-    'groups'                  => 'gruppi',
+    'groups'                  => 'Gruppi',
+    'last30days'              => 'Ultimi 30 giorni',
     'nerd-stats'              => 'Statistiche nerd',
-    'nerd-stats-desc'         => 'Amiamo tutti le statistiche. Ecco alcuni che riteniamo importanti',
+    'nerd-stats-desc'         => 'Amiamo tutti le statistiche. Ecco alcune che riteniamo importanti',
+    'languages'               => 'Lingua',
+    'place'                   => 'Posizione',
     'registration-date'       => 'Data di registrazione',
     'request-fulfilled'       => 'Richiesta soddisfatta',
     'request-not-fulfilled'   => 'Richiesta non soddisfatta',

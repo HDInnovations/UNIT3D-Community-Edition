@@ -16,6 +16,7 @@
         "bepsvpt/secure-headers": "^6.0",
         "christofferok/laravel-emojione": "^4.0",
         "doctrine/dbal": "^2.10",
+        "darkghosthunter/laraload": "^2.1",
         "elhebert/laravel-sri": "^2.1",
         "emojione/assets": "^4.5",
         "fideloper/proxy": "^4.2",

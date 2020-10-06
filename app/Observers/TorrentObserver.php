@@ -14,7 +14,6 @@
 namespace App\Observers;
 
 use App\Models\Torrent;
-use Illuminate\Support\Facades\Cache;
 
 class TorrentObserver
 {
@@ -27,7 +26,7 @@ class TorrentObserver
      */
     public function created(Torrent $torrent)
     {
-        //Cache::put(\sprintf('torrent.%s', $torrent->info_hash), $torrent);
+        \cache()->put(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }
 
     /**
@@ -39,7 +38,7 @@ class TorrentObserver
      */
     public function updated(Torrent $torrent)
     {
-        //Cache::put(\sprintf('torrent.%s', $torrent->info_hash), $torrent);
+        \cache()->put(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }
 
     /**
@@ -51,7 +50,7 @@ class TorrentObserver
      */
     public function retrieved(Torrent $torrent)
     {
-        // Cache::add(\sprintf('torrent.%s', $torrent->info_hash), $torrent);
+        \cache()->add(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }
 
     /**
@@ -63,7 +62,7 @@ class TorrentObserver
      */
     public function deleted(Torrent $torrent)
     {
-        //Cache::forget(\sprintf('torrent.%s', $torrent->info_hash));
+        \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
     }
 
     /**
@@ -75,6 +74,6 @@ class TorrentObserver
      */
     public function restored(Torrent $torrent)
     {
-        //Cache::put(\sprintf('torrent.%s', $torrent->info_hash), $torrent);
+        \cache()->put(\sprintf('torrent:%s', $torrent->info_hash), $torrent);
     }
 }

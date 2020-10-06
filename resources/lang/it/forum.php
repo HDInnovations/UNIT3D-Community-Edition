@@ -48,7 +48,7 @@ return [
     'open'                      => 'Aperto',
     'open-topic'                => 'Apri questo argomento',
     'permalink'                 => 'Permalink',
-    'pin'                       => 'perno',
+    'pin'                       => 'Fissa',
     'post'                      => 'Inviare',
     'post-quick-search'         => 'Ricerca rapida corpo postale',
     'posts'                     => 'Messaggi',

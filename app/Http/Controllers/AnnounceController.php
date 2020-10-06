@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,7 +17,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessBasicAnnounceRequest;
@@ -34,7 +35,6 @@ class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
-    protected const APPROVED = 1;
     protected const REJECTED = 2;
     protected const POSTPONED = 3;
 
@@ -54,8 +54,6 @@ class AnnounceController extends Controller
         4662,  // eDonkey 2000 P2P file sharing service. http://www.edonkey2000.com/
         6346, 6347,  // Gnutella (FrostWire, Limewire, Shareaza, etc.), BearShare file sharing app
         6699,  // Port used by p2p software, such as WinMX, Napster.
-        //6881, 6882, 6883, 6884, 6885, 6886, 6887, // BitTorrent part of full range of ports used most often (unofficial)
-        //65000, 65001, 65002, 65003, 65004, 65005, 65006, 65007, 65008, 65009, 65010   // For unknown Reason 2333~
     ];
 
     /**
@@ -71,20 +69,15 @@ class AnnounceController extends Controller
     public function index(Request $request, $passkey)
     {
         try {
-            /*
+            /**
              * Check client.
              */
             $this->checkClient($request);
 
-            /*
+            /**
              * Check passkey.
              */
             $this->checkPasskey($passkey);
-
-            /**
-             * Check user via supplied passkey.
-             */
-            $user = $this->checkUser($passkey);
 
             /**
              * Check and then get Announce queries.
@@ -92,14 +85,24 @@ class AnnounceController extends Controller
             $queries = $this->checkAnnounceFields($request);
 
             /**
+             * Check user via supplied passkey.
+             */
+            $user = $this->checkUser($passkey, $queries);
+
+            /**
              * Get Torrent Info Array from queries and judge if user can reach it.
              */
             $torrent = $this->checkTorrent($queries['info_hash']);
 
-            /*
+            /**
              * Lock Min Announce Interval.
              */
             $this->checkMinInterval($queries, $user);
+
+            /**
+             * Check User Max Connections Per Torrent.
+             */
+            $this->checkMaxConnections($torrent, $user);
 
             /**
              * Check Download Slots.
@@ -111,7 +114,7 @@ class AnnounceController extends Controller
              */
             $rep_dict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
-            /*
+            /**
              * Dispatch The Specfic Annnounce Event Job.
              */
             $this->sendAnnounceJob($queries, $user, $torrent);
@@ -140,7 +143,7 @@ class AnnounceController extends Controller
         if ($request->header('accept-language') || $request->header('referer')
             || $request->header('accept-charset')
 
-            /*
+            /**
              * This header check may block Non-bittorrent client `Aria2` to access tracker,
              * Because they always add this header which other clients don't have.
              *
@@ -148,8 +151,6 @@ class AnnounceController extends Controller
              */
             || $request->header('want-digest')
         ) {
-            /*Log::debug('Client Headers:',[$request->header('User-Agent'), $request->header('accept-language'), $request->header('referer'),
-                $request->header('accept-charset'), $request->header('want-digest')]);*/
             throw new TrackerException(122);
         }
 
@@ -190,166 +191,6 @@ class AnnounceController extends Controller
         if (\strspn(\strtolower($passkey), 'abcdef0123456789') !== 32) {  // MD5 char limit
             throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']);
         }
-    }
-
-    /** Get User Via Validated Passkey.
-     *
-     * @param $passkey
-     *
-     * @throws \Exception
-     * @throws \App\Exceptions\TrackerException
-     *
-     * @return object
-     */
-    protected function checkUser($passkey): object
-    {
-        // Caached System Required Groups
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-
-        // Check Passkey Against Users Table
-        $user = User::where('passkey', '=', $passkey)->first();
-
-        // If User Doesn't Exist Return Error to Client
-        if ($user === null) {
-            throw new TrackerException(140);
-        }
-
-        // If User Account Is Unactivated/Validating Return Error to Client
-        if ($user->active === 0 || $user->group_id === $validating_group[0]) {
-            throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
-        }
-
-        // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download === 0) {
-            throw new TrackerException(142);
-        }
-
-        // If User Is Banned Return Error to Client
-        if ($user->group_id === $banned_group[0]) {
-            throw new TrackerException(143);
-        }
-
-        // If User Is Disabled Return Error to Client
-        if ($user->group_id === $disabled_group[0]) {
-            throw new TrackerException(144);
-        }
-
-        return $user;
-    }
-
-    /**
-     * @param $info_hash
-     *
-     * @throws \App\Exceptions\TrackerException
-     *
-     * @return object
-     */
-    protected function checkTorrent($info_hash): object
-    {
-        // Check Info Hash Against Torrents Table
-        $torrent = Torrent::withAnyStatus()
-            ->where('info_hash', '=', $info_hash)
-            ->first();
-
-        // If Torrent Doesnt Exsist Return Error to Client
-        if ($torrent === null) {
-            throw new TrackerException(150);
-        }
-
-        // If Torrent Is Pending Moderation Return Error to Client
-        if ($torrent->status === self::PENDING) {
-            throw new TrackerException(151, [':status' => 'PENDING Moderation']);
-        }
-
-        // If Torrent Is Rejected Return Error to Client
-        if ($torrent->status === self::REJECTED) {
-            throw new TrackerException(151, [':status' => 'REJECTED Moderation']);
-        }
-
-        // If Torrent Is Postponed Return Error to Client
-        if ($torrent->status === self::POSTPONED) {
-            throw new TrackerException(151, [':status' => 'POSTPONED Moderation']);
-        }
-
-        return $torrent;
-    }
-
-    /**
-     * @param $queries
-     * @param $user
-     *
-     * @throws \App\Exceptions\TrackerException
-     */
-    private function checkMinInterval($queries, $user): void
-    {
-        $prev_announce = Peer::where('info_hash', '=', $queries['info_hash'])
-            ->where('peer_id', '=', $queries['peer_id'])
-            ->where('user_id', '=', $user->id)
-            ->pluck('updated_at');
-
-        $carbon = new Carbon();
-        if ($prev_announce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) !== 'completed') {
-            throw new TrackerException(162, [':min' => self::MIN]);
-        }
-    }
-
-    /**
-     * @param $user
-     *
-     * @throws \App\Exceptions\TrackerException
-     */
-    private function checkDownloadSlots($user): void
-    {
-        if (\config('announce.slots_system.enabled')) {
-            $max = $user->group()->download_slots;
-
-            if ($max > 0) {
-                $count = Peer::where('user_id', '=', $user->id)->where('seeder', '=', 0)->count();
-                if ($count >= $max) {
-                    throw new TrackerException(164, [':max' => $max]);
-                }
-            }
-        }
-    }
-
-    /**
-     * @param $exception
-     *
-     * @return array
-     */
-    protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
-    {
-        return [
-            'failure reason' => $trackerException->getMessage(),
-            'min interval'   => self::MIN,
-            /*
-             * BEP 31: Failure Retry Extension.
-             *
-             * However most bittorrent client don't support it, so this feature is disabled default
-             *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
-             *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
-             *  - libtransmission (e.g. Transmission )
-             *    This library will ignore any other key if failed
-             *
-             * @see http://www.bittorrent.org/beps/bep_0031.html
-             */
-            //'retry in' => self::MIN
-        ];
-    }
-
-    /**
-     * @param $rep_dict
-     *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     */
-    protected function sendFinalAnnounceResponse($rep_dict)
-    {
-        return \response(Bencode::bencode($rep_dict))
-            ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
-            ->withHeaders(['Connection' => 'close'])
-            ->withHeaders(['Pragma' => 'no-cache']);
     }
 
     /**
@@ -404,7 +245,7 @@ class AnnounceController extends Controller
         }
 
         // Part.3 check Port is Valid and Allowed
-        /*
+        /**
          * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
          * However, in some case , When `&event=stopped` the port may set to 0.
          */
@@ -412,7 +253,8 @@ class AnnounceController extends Controller
             throw new TrackerException(137, [':event' => \strtolower($queries['event'])]);
         }
 
-        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS)) {
+        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS,
+                true)) {
             throw new TrackerException(135, [':port' => $queries['port']]);
         }
 
@@ -431,6 +273,145 @@ class AnnounceController extends Controller
         return $queries;
     }
 
+    /** Get User Via Validated Passkey.
+     *
+     * @param $passkey
+     * @param $queries
+     *
+     * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
+     */
+    protected function checkUser($passkey, $queries): object
+    {
+        // Caached System Required Groups
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+
+        // Check Passkey Against Users Table
+        $user = \cache()->get(\sprintf('user:%s', $passkey)) ?? User::where('passkey', '=', $passkey)->first();
+
+        // If User Doesn't Exist Return Error to Client
+        if ($user === null) {
+            throw new TrackerException(140);
+        }
+
+        // If User Account Is Unactivated/Validating Return Error to Client
+        if ($user->active === 0 || $user->group_id === $validating_group[0]) {
+            throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
+        }
+
+        // If User Download Rights Are Disabled Return Error to Client
+        if ($user->can_download === 0 && $queries['left'] !== '0') {
+            throw new TrackerException(142);
+        }
+
+        // If User Is Banned Return Error to Client
+        if ($user->group_id === $banned_group[0]) {
+            throw new TrackerException(141, [':status' => 'Banned']);
+        }
+
+        // If User Is Disabled Return Error to Client
+        if ($user->group_id === $disabled_group[0]) {
+            throw new TrackerException(141, [':status' => 'Disabled']);
+        }
+
+        return $user;
+    }
+
+    /**
+     * @param $info_hash
+     *
+     * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
+     */
+    protected function checkTorrent($info_hash): object
+    {
+        // Check Info Hash Against Torrents Table
+        $torrent = \cache()->get(\sprintf('torrent:%s', $info_hash)) ?? Torrent::withAnyStatus()
+                ->where('info_hash', '=', $info_hash)
+                ->first();
+
+        // If Torrent Doesnt Exsist Return Error to Client
+        if ($torrent === null) {
+            throw new TrackerException(150);
+        }
+
+        // If Torrent Is Pending Moderation Return Error to Client
+        if ($torrent->status === self::PENDING) {
+            throw new TrackerException(151, [':status' => 'PENDING Moderation']);
+        }
+
+        // If Torrent Is Rejected Return Error to Client
+        if ($torrent->status === self::REJECTED) {
+            throw new TrackerException(151, [':status' => 'REJECTED Moderation']);
+        }
+
+        // If Torrent Is Postponed Return Error to Client
+        if ($torrent->status === self::POSTPONED) {
+            throw new TrackerException(151, [':status' => 'POSTPONED Moderation']);
+        }
+
+        return $torrent;
+    }
+
+    /**
+     * @param $queries
+     * @param $user
+     *
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkMinInterval($queries, $user): void
+    {
+        $prev_announce = Peer::where('info_hash', '=', $queries['info_hash'])
+            ->where('peer_id', '=', $queries['peer_id'])
+            ->where('user_id', '=', $user->id)
+            ->pluck('updated_at');
+
+        $carbon = new Carbon();
+        if ($prev_announce < $carbon->copy()->subSeconds(self::MIN)->toDateTimeString() && \strtolower($queries['event']) !== 'completed') {
+            throw new TrackerException(162, [':min' => self::MIN]);
+        }
+    }
+
+    /**
+     * @param $torrent
+     * @param $user
+     *
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkMaxConnections($torrent, $user): void
+    {
+        // Pull Count On Users Peers Per Torrent For Rate Limiting
+        $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
+
+        // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
+        if ($connections > config('announce.rate_limit')) {
+            throw new TrackerException(138, [':limit' => config('announce.rate_limit')]);
+        }
+    }
+
+    /**
+     * @param $user
+     *
+     * @throws \App\Exceptions\TrackerException
+     */
+    private function checkDownloadSlots($user): void
+    {
+        if (\config('announce.slots_system.enabled')) {
+            $max = $user->group()->download_slots;
+
+            if ($max > 0) {
+                $count = Peer::where('user_id', '=', $user->id)->where('seeder', '=', 0)->count();
+                if ($count >= $max) {
+                    throw new TrackerException(164, [':max' => $max]);
+                }
+            }
+        }
+    }
+
     /**
      * @param $queries
      * @param $torrent
@@ -442,11 +423,6 @@ class AnnounceController extends Controller
      */
     private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
     {
-        /* For Debugging Only */
-        //Log::debug('Announce Debug Queries:',[$queries]);
-        //Log::debug('Announce Debug User:',[$user]);
-        //Log::debug('Announce Debug Torrent:',[$torrent]);
-
         // Build Response For Bittorrent Client
         $rep_dict = [
             'interval'     => \rand(self::MIN, self::MAX),
@@ -455,7 +431,7 @@ class AnnounceController extends Controller
             'incomplete'   => $torrent->leechers,
         ];
 
-        /*
+        /**
          * For non `stopped` event only
          * We query peers from database and send peerlist, otherwise just quick return.
          */
@@ -490,6 +466,44 @@ class AnnounceController extends Controller
         } else {
             ProcessBasicAnnounceRequest::dispatch($queries, $user, $torrent);
         }
+    }
+
+    /**
+     * @param \App\Exceptions\TrackerException $trackerException
+     *
+     * @return array
+     */
+    protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
+    {
+        return [
+            'failure reason' => $trackerException->getMessage(),
+            'min interval'   => self::MIN,
+            /**
+             * BEP 31: Failure Retry Extension.
+             *
+             * However most bittorrent client don't support it, so this feature is disabled default
+             *  - libtorrent-rasterbar (e.g. qBittorrent, Deluge )
+             *    This library will obey the `min interval` key if exist or it will retry in 60s (By default `min interval`)
+             *  - libtransmission (e.g. Transmission )
+             *    This library will ignore any other key if failed
+             *
+             * @see http://www.bittorrent.org/beps/bep_0031.html
+             */
+            //'retry in' => self::MIN
+        ];
+    }
+
+    /**
+     * @param $rep_dict
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    protected function sendFinalAnnounceResponse($rep_dict)
+    {
+        return \response(Bencode::bencode($rep_dict))
+            ->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])
+            ->withHeaders(['Connection' => 'close'])
+            ->withHeaders(['Pragma' => 'no-cache']);
     }
 
     /**

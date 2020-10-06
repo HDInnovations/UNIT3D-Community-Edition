@@ -70,7 +70,7 @@ class CategoryController extends Controller
             $image = $request->file('image');
             $filename = 'category-'.\uniqid().'.'.$image->getClientOriginalExtension();
             $path = \public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(60, 60)->encode('png', 100)->save($path);
+            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
             $category->image = $filename;
         } else {
             $category->image = null;
@@ -137,7 +137,7 @@ class CategoryController extends Controller
             $image = $request->file('image');
             $filename = 'category-'.\uniqid().'.'.$image->getClientOriginalExtension();
             $path = \public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(60, 60)->encode('png', 100)->save($path);
+            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
             $category->image = $filename;
         }
 
