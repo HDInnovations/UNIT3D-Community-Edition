@@ -4,8 +4,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Group;
 use App\Models\Forum;
+use App\Models\Group;
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

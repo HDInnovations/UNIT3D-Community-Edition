@@ -4,8 +4,8 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Models\Note;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NoteFactory extends Factory

@@ -4,9 +4,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Torrent;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
+use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PlaylistTorrentFactory extends Factory

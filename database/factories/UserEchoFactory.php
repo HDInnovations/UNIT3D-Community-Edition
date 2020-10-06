@@ -5,9 +5,9 @@
 namespace Database\Factories;
 
 use App\Models\Bot;
+use App\Models\Chatroom;
 use App\Models\User;
 use App\Models\UserEcho;
-use App\Models\Chatroom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserEchoFactory extends Factory

@@ -5,8 +5,8 @@
 namespace Database\Factories;
 
 use App\Models\Bot;
-use App\Models\User;
 use App\Models\Chatroom;
+use App\Models\User;
 use App\Models\UserAudible;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

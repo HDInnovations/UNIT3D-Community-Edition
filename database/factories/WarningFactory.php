@@ -4,9 +4,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
-use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WarningFactory extends Factory

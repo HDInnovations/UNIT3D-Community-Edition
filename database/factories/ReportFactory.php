@@ -4,10 +4,10 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReportFactory extends Factory

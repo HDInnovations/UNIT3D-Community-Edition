@@ -4,12 +4,12 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use App\Models\Group;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
-use Illuminate\Support\Str;
+use App\Models\Group;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {

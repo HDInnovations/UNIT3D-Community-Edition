@@ -4,8 +4,8 @@
 
 namespace Database\Factories;
 
-use Carbon\Carbon;
 use App\Models\TwoStepAuth;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TwoStepAuthFactory extends Factory

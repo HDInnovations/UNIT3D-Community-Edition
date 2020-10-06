@@ -4,8 +4,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Poll;
 use App\Models\Option;
+use App\Models\Poll;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OptionFactory extends Factory

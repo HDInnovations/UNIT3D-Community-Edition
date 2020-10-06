@@ -4,9 +4,9 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use App\Models\Torrent;
 use App\Models\FeaturedTorrent;
+use App\Models\Torrent;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FeaturedTorrentFactory extends Factory

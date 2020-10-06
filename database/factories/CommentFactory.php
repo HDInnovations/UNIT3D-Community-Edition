@@ -4,12 +4,12 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use App\Models\Comment;
-use App\Models\Torrent;
 use App\Models\Article;
+use App\Models\Comment;
 use App\Models\Playlist;
+use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
