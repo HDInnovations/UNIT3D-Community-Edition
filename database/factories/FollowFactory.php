@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FollowFactory extends Factory
@@ -14,7 +15,7 @@ class FollowFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Follow::class;
+    protected $model = Follow::class;
 
     /**
      * Define the model's default state.

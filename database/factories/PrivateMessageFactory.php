@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\PrivateMessage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PrivateMessageFactory extends Factory
@@ -14,7 +15,7 @@ class PrivateMessageFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\PrivateMessage::class;
+    protected $model = PrivateMessage::class;
 
     /**
      * Define the model's default state.

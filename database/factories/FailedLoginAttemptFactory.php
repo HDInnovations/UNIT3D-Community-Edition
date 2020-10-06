@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\FailedLoginAttempt;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FailedLoginAttemptFactory extends Factory
@@ -13,7 +14,7 @@ class FailedLoginAttemptFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\FailedLoginAttempt::class;
+    protected $model = FailedLoginAttempt::class;
 
     /**
      * Define the model's default state.

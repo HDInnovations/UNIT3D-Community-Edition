@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Bot;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BotFactory extends Factory
@@ -13,7 +14,7 @@ class BotFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Bot::class;
+    protected $model = Bot::class;
 
     /**
      * Define the model's default state.

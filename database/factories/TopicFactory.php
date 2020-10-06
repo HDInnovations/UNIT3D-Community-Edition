@@ -4,7 +4,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Forum;
+use App\Models\Topic;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TopicFactory extends Factory
@@ -14,7 +16,7 @@ class TopicFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Topic::class;
+    protected $model = Topic::class;
 
     /**
      * Define the model's default state.

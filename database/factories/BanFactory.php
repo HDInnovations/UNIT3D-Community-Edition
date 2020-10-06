@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Ban;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +15,7 @@ class BanFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Ban::class;
+    protected $model = Ban::class;
 
     /**
      * Define the model's default state.

@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Resolution;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ResolutionFactory extends Factory
@@ -13,7 +14,7 @@ class ResolutionFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Resolution::class;
+    protected $model = Resolution::class;
 
     /**
      * Define the model's default state.

@@ -5,6 +5,9 @@
 namespace Database\Factories;
 
 use App\Models\Bot;
+use App\Models\User;
+use App\Models\Chatroom;
+use App\Models\UserAudible;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserAudibleFactory extends Factory
@@ -14,7 +17,7 @@ class UserAudibleFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\UserAudible::class;
+    protected $model = UserAudible::class;
 
     /**
      * Define the model's default state.

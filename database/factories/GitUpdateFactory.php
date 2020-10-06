@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\GitUpdate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GitUpdateFactory extends Factory
@@ -13,7 +14,7 @@ class GitUpdateFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\GitUpdate::class;
+    protected $model = GitUpdate::class;
 
     /**
      * Define the model's default state.

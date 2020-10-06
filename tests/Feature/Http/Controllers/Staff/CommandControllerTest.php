@@ -132,20 +132,6 @@ class CommandControllerTest extends TestCase
     /**
      * @test
      */
-    public function maintance_enable_returns_an_ok_response()
-    {
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = $this->createStaffUser();
-
-        $response = $this->actingAs($user)->get('dashboard/commands/maintance-enable');
-
-        $response->assertRedirect(route('staff.commands.index'));
-    }
-
-    /**
-     * @test
-     */
     public function set_all_cache_returns_an_ok_response()
     {
         $this->seed(GroupsTableSeeder::class);

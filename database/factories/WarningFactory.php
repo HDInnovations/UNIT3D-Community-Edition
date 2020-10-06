@@ -5,6 +5,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Warning;
+use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WarningFactory extends Factory
@@ -14,7 +16,7 @@ class WarningFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Warning::class;
+    protected $model = Warning::class;
 
     /**
      * Define the model's default state.

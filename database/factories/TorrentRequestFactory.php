@@ -5,6 +5,11 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Type;
+use App\Models\Torrent;
+use App\Models\Category;
+use App\Models\Resolution;
+use App\Models\TorrentRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TorrentRequestFactory extends Factory
@@ -14,7 +19,7 @@ class TorrentRequestFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\TorrentRequest::class;
+    protected $model = TorrentRequest::class;
 
     /**
      * Define the model's default state.

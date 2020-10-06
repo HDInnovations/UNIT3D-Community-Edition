@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GroupFactory extends Factory
@@ -13,7 +14,7 @@ class GroupFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Group::class;
+    protected $model = Group::class;
 
     /**
      * Define the model's default state.

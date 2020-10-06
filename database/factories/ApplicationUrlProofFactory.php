@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\Application;
+use App\Models\ApplicationUrlProof;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicationUrlProofFactory extends Factory
@@ -14,7 +15,7 @@ class ApplicationUrlProofFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\ApplicationUrlProof::class;
+    protected $model = ApplicationUrlProof::class;
 
     /**
      * Define the model's default state.

@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Note;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NoteFactory extends Factory
@@ -14,7 +15,7 @@ class NoteFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Note::class;
+    protected $model = Note::class;
 
     /**
      * Define the model's default state.

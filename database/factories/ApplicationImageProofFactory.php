@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\Application;
+use App\Models\ApplicationImageProof;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicationImageProofFactory extends Factory
@@ -14,7 +15,7 @@ class ApplicationImageProofFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\ApplicationImageProof::class;
+    protected $model = ApplicationImageProof::class;
 
     /**
      * Define the model's default state.

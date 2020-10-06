@@ -13,7 +13,7 @@
 
 namespace App\Achievements;
 
-use Gstt\Achievements\Achievement;
+use Assada\Achievements\Achievement;
 
 class UserFilled25Requests extends Achievement
 {

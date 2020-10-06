@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\TorrentRequestClaim;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TorrentRequestClaimFactory extends Factory
@@ -13,7 +14,7 @@ class TorrentRequestClaimFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\TorrentRequestClaim::class;
+    protected $model = TorrentRequestClaim::class;
 
     /**
      * Define the model's default state.

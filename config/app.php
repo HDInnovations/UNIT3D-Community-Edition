@@ -175,10 +175,10 @@ return [
         /*
          * Package Service Providers...
          */
+        Assada\Achievements\AchievementsServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Hootlex\Moderation\ModerationServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
-        Gstt\Achievements\AchievementsServiceProvider::class,
         ChristofferOK\LaravelEmojiOne\LaravelEmojiOneServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,

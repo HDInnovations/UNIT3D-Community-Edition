@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PersonalFreeleech;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PersonalFreeleechFactory extends Factory
@@ -13,7 +14,7 @@ class PersonalFreeleechFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\PersonalFreeleech::class;
+    protected $model = PersonalFreeleech::class;
 
     /**
      * Define the model's default state.

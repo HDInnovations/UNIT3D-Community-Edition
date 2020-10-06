@@ -4,7 +4,11 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Chatroom;
 use App\Models\ChatStatus;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -14,7 +18,7 @@ class UserFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\User::class;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.

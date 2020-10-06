@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Poll;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PollFactory extends Factory
@@ -14,7 +15,7 @@ class PollFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Poll::class;
+    protected $model = Poll::class;
 
     /**
      * Define the model's default state.

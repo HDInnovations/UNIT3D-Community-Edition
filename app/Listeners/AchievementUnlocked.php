@@ -15,7 +15,7 @@ namespace App\Listeners;
 
 use App\Models\User;
 use App\Repositories\ChatRepository;
-use Gstt\Achievements\Event\Unlocked;
+use Assada\Achievements\Event\Unlocked;
 use Illuminate\Support\Facades\Session;
 
 class AchievementUnlocked
@@ -30,7 +30,7 @@ class AchievementUnlocked
     /**
      * Handle the event.
      *
-     * @param \Gstt\Achievements\Event\Unlocked $unlocked
+     * @param \Assada\Achievements\Event\Unlocked $unlocked
      *
      * @return void
      */

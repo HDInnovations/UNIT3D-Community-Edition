@@ -5,6 +5,9 @@
 namespace Database\Factories;
 
 use App\Models\Bot;
+use App\Models\User;
+use App\Models\Message;
+use App\Models\Chatroom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MessageFactory extends Factory
@@ -14,7 +17,7 @@ class MessageFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Message::class;
+    protected $model = Message::class;
 
     /**
      * Define the model's default state.

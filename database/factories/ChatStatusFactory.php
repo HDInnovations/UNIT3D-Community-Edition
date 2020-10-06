@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ChatStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ChatStatusFactory extends Factory
@@ -13,7 +14,7 @@ class ChatStatusFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\ChatStatus::class;
+    protected $model = ChatStatus::class;
 
     /**
      * Define the model's default state.

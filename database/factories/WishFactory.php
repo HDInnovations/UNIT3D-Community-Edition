@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Wish;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WishFactory extends Factory
@@ -14,7 +15,7 @@ class WishFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Wish::class;
+    protected $model = Wish::class;
 
     /**
      * Define the model's default state.

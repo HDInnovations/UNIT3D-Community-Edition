@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\UserActivation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserActivationFactory extends Factory
@@ -14,7 +15,7 @@ class UserActivationFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\UserActivation::class;
+    protected $model = UserActivation::class;
 
     /**
      * Define the model's default state.

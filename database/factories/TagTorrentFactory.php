@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\Tag;
+use App\Models\TagTorrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TagTorrentFactory extends Factory
@@ -14,7 +15,7 @@ class TagTorrentFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\TagTorrent::class;
+    protected $model = TagTorrent::class;
 
     /**
      * Define the model's default state.

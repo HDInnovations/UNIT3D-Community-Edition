@@ -4,6 +4,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\Report;
+use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +17,7 @@ class ReportFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Report::class;
+    protected $model = Report::class;
 
     /**
      * Define the model's default state.

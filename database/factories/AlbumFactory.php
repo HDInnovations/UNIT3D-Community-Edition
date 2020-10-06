@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Album;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AlbumFactory extends Factory
@@ -14,7 +15,7 @@ class AlbumFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Album::class;
+    protected $model = Album::class;
 
     /**
      * Define the model's default state.

@@ -4,7 +4,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Torrent;
+use App\Models\Bookmark;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BookmarkFactory extends Factory
@@ -14,7 +16,7 @@ class BookmarkFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Bookmark::class;
+    protected $model = Bookmark::class;
 
     /**
      * Define the model's default state.

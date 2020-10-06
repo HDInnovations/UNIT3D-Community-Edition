@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Notification;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class NotificationFactory extends Factory
@@ -13,7 +14,7 @@ class NotificationFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Notification::class;
+    protected $model = Notification::class;
 
     /**
      * Define the model's default state.

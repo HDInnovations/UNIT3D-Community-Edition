@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\BonTransactions;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BonTransactionsFactory extends Factory
@@ -14,7 +15,7 @@ class BonTransactionsFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\BonTransactions::class;
+    protected $model = BonTransactions::class;
 
     /**
      * Define the model's default state.

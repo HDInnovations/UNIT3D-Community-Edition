@@ -4,7 +4,10 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Topic;
+use App\Models\Forum;
+use App\Models\Subscription;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SubscriptionFactory extends Factory
@@ -14,7 +17,7 @@ class SubscriptionFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Subscription::class;
+    protected $model = Subscription::class;
 
     /**
      * Define the model's default state.

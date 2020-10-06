@@ -4,7 +4,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Torrent;
+use App\Models\History;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class HistoryFactory extends Factory
@@ -14,7 +16,7 @@ class HistoryFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\History::class;
+    protected $model = History::class;
 
     /**
      * Define the model's default state.

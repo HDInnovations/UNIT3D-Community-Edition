@@ -4,7 +4,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\TorrentRequest;
+use App\Models\TorrentRequestBounty;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TorrentRequestBountyFactory extends Factory
@@ -14,7 +16,7 @@ class TorrentRequestBountyFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\TorrentRequestBounty::class;
+    protected $model = TorrentRequestBounty::class;
 
     /**
      * Define the model's default state.

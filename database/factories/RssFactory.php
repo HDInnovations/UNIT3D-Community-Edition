@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Rss;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +15,7 @@ class RssFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Rss::class;
+    protected $model = Rss::class;
 
     /**
      * Define the model's default state.

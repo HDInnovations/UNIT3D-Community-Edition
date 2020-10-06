@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicationFactory extends Factory
@@ -14,7 +15,7 @@ class ApplicationFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Application::class;
+    protected $model = Application::class;
 
     /**
      * Define the model's default state.

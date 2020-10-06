@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Chatroom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ChatroomFactory extends Factory
@@ -13,7 +14,7 @@ class ChatroomFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Chatroom::class;
+    protected $model = Chatroom::class;
 
     /**
      * Define the model's default state.

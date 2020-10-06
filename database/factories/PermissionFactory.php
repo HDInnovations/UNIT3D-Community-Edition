@@ -5,6 +5,8 @@
 namespace Database\Factories;
 
 use App\Models\Group;
+use App\Models\Forum;
+use App\Models\Permission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PermissionFactory extends Factory
@@ -14,7 +16,7 @@ class PermissionFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Permission::class;
+    protected $model = Permission::class;
 
     /**
      * Define the model's default state.

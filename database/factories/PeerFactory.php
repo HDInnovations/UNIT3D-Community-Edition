@@ -4,6 +4,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Peer;
+use App\Models\User;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,7 +16,7 @@ class PeerFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Peer::class;
+    protected $model = Peer::class;
 
     /**
      * Define the model's default state.

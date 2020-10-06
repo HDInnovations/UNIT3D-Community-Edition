@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Audit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AuditFactory extends Factory
@@ -14,7 +15,7 @@ class AuditFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Audit::class;
+    protected $model = Audit::class;
 
     /**
      * Define the model's default state.

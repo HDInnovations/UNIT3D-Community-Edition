@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\FreeleechToken;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FreeleechTokenFactory extends Factory
@@ -13,7 +14,7 @@ class FreeleechTokenFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\FreeleechToken::class;
+    protected $model = FreeleechToken::class;
 
     /**
      * Define the model's default state.

@@ -4,7 +4,9 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Torrent;
+use App\Models\Graveyard;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GraveyardFactory extends Factory
@@ -14,7 +16,7 @@ class GraveyardFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Graveyard::class;
+    protected $model = Graveyard::class;
 
     /**
      * Define the model's default state.

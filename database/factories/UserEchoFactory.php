@@ -5,6 +5,9 @@
 namespace Database\Factories;
 
 use App\Models\Bot;
+use App\Models\User;
+use App\Models\UserEcho;
+use App\Models\Chatroom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserEchoFactory extends Factory
@@ -14,7 +17,7 @@ class UserEchoFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\UserEcho::class;
+    protected $model = UserEcho::class;
 
     /**
      * Define the model's default state.

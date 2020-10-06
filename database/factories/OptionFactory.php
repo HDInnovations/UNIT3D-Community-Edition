@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\Poll;
+use App\Models\Option;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OptionFactory extends Factory
@@ -14,7 +15,7 @@ class OptionFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Option::class;
+    protected $model = Option::class;
 
     /**
      * Define the model's default state.

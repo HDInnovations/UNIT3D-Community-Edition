@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Seedbox;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SeedboxFactory extends Factory
@@ -14,7 +15,7 @@ class SeedboxFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Seedbox::class;
+    protected $model = Seedbox::class;
 
     /**
      * Define the model's default state.

@@ -4,6 +4,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BonExchange;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BonExchangeFactory extends Factory
@@ -13,7 +14,7 @@ class BonExchangeFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\BonExchange::class;
+    protected $model = BonExchange::class;
 
     /**
      * Define the model's default state.

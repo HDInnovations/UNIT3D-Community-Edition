@@ -5,6 +5,7 @@
 namespace Database\Factories;
 
 use Carbon\Carbon;
+use App\Models\TwoStepAuth;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TwoStepAuthFactory extends Factory
@@ -14,7 +15,7 @@ class TwoStepAuthFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\TwoStepAuth::class;
+    protected $model = TwoStepAuth::class;
 
     /**
      * Define the model's default state.
