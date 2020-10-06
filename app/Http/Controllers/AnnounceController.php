@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
 use App\Jobs\ProcessBasicAnnounceRequest;
