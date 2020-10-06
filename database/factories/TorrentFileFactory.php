@@ -2,14 +2,34 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\TorrentFile::class, function (Faker $faker) {
-    return [
-        'name'       => $faker->name,
-        'size'       => $faker->randomNumber(),
-        'torrent_id' => function () {
-            return factory(App\Models\Torrent::class)->create()->id;
-        },
-    ];
-});
+use App\Models\Torrent;
+use App\Models\TorrentFile;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class TorrentFileFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = TorrentFile::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'       => $this->faker->name,
+            'size'       => $this->faker->randomNumber(),
+            'torrent_id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+        ];
+    }
+}

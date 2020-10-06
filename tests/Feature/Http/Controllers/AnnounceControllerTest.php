@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers;
 use App\Helpers\Bencode;
 use App\Models\Torrent;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -22,13 +22,13 @@ class AnnounceControllerTest extends TestCase
 
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->create([
             'can_download' => true,
         ]);
 
         $infoHash = sha1(random_bytes(20));
 
-        factory(Torrent::class)->create([
+        Torrent::factory()->create([
             'info_hash' => bin2hex($infoHash),
             'status'    => 1, // Approved
         ]);

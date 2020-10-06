@@ -2,14 +2,34 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Seedbox::class, function (Faker $faker) {
-    return [
-        'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'name' => $faker->name,
-        'ip'   => $faker->word,
-    ];
-});
+use App\Models\Seedbox;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class SeedboxFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Seedbox::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'name' => $this->faker->name,
+            'ip'   => $this->faker->word,
+        ];
+    }
+}

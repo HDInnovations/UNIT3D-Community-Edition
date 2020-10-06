@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -46,6 +47,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserAudible extends Model
 {
+    use HasFactory;
+
     /**
      * Indicates If The Model Should Be Timestamped.
      *

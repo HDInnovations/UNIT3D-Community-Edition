@@ -2,31 +2,50 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Bot::class, function (Faker $faker) {
-    return [
-        'position'     => $faker->randomNumber(),
-        'slug'         => $faker->slug,
-        'name'         => $faker->name,
-        'command'      => $faker->word,
-        'color'        => $faker->word,
-        'icon'         => $faker->word,
-        'emoji'        => $faker->word,
-        'info'         => $faker->word,
-        'about'        => $faker->word,
-        'help'         => $faker->text,
-        'active'       => $faker->boolean,
-        'is_protected' => $faker->boolean,
-        'is_triviabot' => $faker->boolean,
-        'is_nerdbot'   => $faker->boolean,
-        'is_systembot' => $faker->boolean,
-        'is_casinobot' => $faker->boolean,
-        'is_betbot'    => $faker->boolean,
-        'uploaded'     => $faker->randomNumber(),
-        'downloaded'   => $faker->randomNumber(),
-        'fl_tokens'    => $faker->randomNumber(),
-        'seedbonus'    => $faker->randomFloat(),
-        'invites'      => $faker->randomNumber(),
-    ];
-});
+use App\Models\Bot;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class BotFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Bot::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'position'     => $this->faker->randomNumber(),
+            'slug'         => $this->faker->slug,
+            'name'         => $this->faker->name,
+            'command'      => $this->faker->word,
+            'color'        => $this->faker->word,
+            'icon'         => $this->faker->word,
+            'emoji'        => $this->faker->word,
+            'info'         => $this->faker->word,
+            'about'        => $this->faker->word,
+            'help'         => $this->faker->text,
+            'active'       => $this->faker->boolean,
+            'is_protected' => $this->faker->boolean,
+            'is_triviabot' => $this->faker->boolean,
+            'is_nerdbot'   => $this->faker->boolean,
+            'is_systembot' => $this->faker->boolean,
+            'is_casinobot' => $this->faker->boolean,
+            'is_betbot'    => $this->faker->boolean,
+            'uploaded'     => $this->faker->randomNumber(),
+            'downloaded'   => $this->faker->randomNumber(),
+            'fl_tokens'    => $this->faker->randomNumber(),
+            'seedbonus'    => $this->faker->randomFloat(),
+            'invites'      => $this->faker->randomNumber(),
+        ];
+    }
+}

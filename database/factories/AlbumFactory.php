@@ -2,16 +2,36 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Album::class, function (Faker $faker) {
-    return [
-        'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'name'        => $faker->name,
-        'description' => $faker->text,
-        'imdb'        => $faker->word,
-        'cover_image' => $faker->word,
-    ];
-});
+use App\Models\Album;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class AlbumFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Album::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'name'        => $this->faker->name,
+            'description' => $this->faker->text,
+            'imdb'        => $this->faker->word,
+            'cover_image' => $this->faker->word,
+        ];
+    }
+}

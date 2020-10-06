@@ -11,27 +11,18 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Models\Chatroom;
-use Illuminate\Database\Seeder;
+namespace App\Http\Middleware;
 
-class ChatroomTableSeeder extends Seeder
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Middleware;
+
+class PreventRequestsDuringMaintenance extends Middleware
 {
     /**
-     * Run the database seeds.
+     * The URIs that should be reachable while maintenance mode is enabled.
      *
-     * @return void
+     * @var array
      */
-    public function run()
-    {
-        $rooms = [
-            'General',
-            'Trivia',
-        ];
-
-        foreach ($rooms as $room) {
-            Chatroom::create([
-                'name' => $room,
-            ]);
-        }
-    }
+    protected $except = [
+        //
+    ];
 }

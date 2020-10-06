@@ -27,7 +27,7 @@ class ApplicationControllerTest extends TestCase
     {
         config(['captcha.enabled' => false]);
 
-        $application = factory(Application::class)->make();
+        $application = Application::factory()->make();
 
         $this->post(route('application.store'), $application->toArray())
             ->assertRedirect(route('login'))

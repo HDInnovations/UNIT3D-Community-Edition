@@ -2,25 +2,45 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\BonTransactions::class, function (Faker $faker) {
-    return [
-        'itemID' => function () {
-            return factory(App\Models\BonExchange::class)->create()->id;
-        },
-        'name'   => $faker->name,
-        'cost'   => $faker->randomFloat(),
-        'sender' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'receiver' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'torrent_id'    => $faker->randomNumber(),
-        'donation_id'   => $faker->randomNumber(),
-        'post_id'       => $faker->randomNumber(),
-        'comment'       => $faker->text,
-        'date_actioned' => $faker->dateTime(),
-    ];
-});
+use App\Models\BonTransactions;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class BonTransactionsFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = BonTransactions::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'itemID' => function () {
+                return BonExchange::factory()->create()->id;
+            },
+            'name'   => $this->faker->name,
+            'cost'   => $this->faker->randomFloat(),
+            'sender' => function () {
+                return User::factory()->create()->id;
+            },
+            'receiver' => function () {
+                return User::factory()->create()->id;
+            },
+            'torrent_id'    => $this->faker->randomNumber(),
+            'donation_id'   => $this->faker->randomNumber(),
+            'post_id'       => $this->faker->randomNumber(),
+            'comment'       => $this->faker->text,
+            'date_actioned' => $this->faker->dateTime(),
+        ];
+    }
+}

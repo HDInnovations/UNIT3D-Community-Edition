@@ -2,20 +2,39 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Category::class, function (Faker $faker) {
-    return [
-        'name'        => $faker->name,
-        'slug'        => $faker->slug,
-        'image'       => $faker->word,
-        'position'    => $faker->randomNumber(),
-        'icon'        => $faker->word,
-        'no_meta'     => $faker->boolean,
-        'music_meta'  => $faker->boolean,
-        'game_meta'   => $faker->boolean,
-        'tv_meta'     => $faker->boolean,
-        'movie_meta'  => $faker->boolean,
-        'num_torrent' => $faker->randomNumber(),
-    ];
-});
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class CategoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Category::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'        => $this->faker->name,
+            'slug'        => $this->faker->slug,
+            'image'       => $this->faker->word,
+            'position'    => $this->faker->randomNumber(),
+            'icon'        => $this->faker->word,
+            'no_meta'     => $this->faker->boolean,
+            'music_meta'  => $this->faker->boolean,
+            'game_meta'   => $this->faker->boolean,
+            'tv_meta'     => $this->faker->boolean,
+            'movie_meta'  => $this->faker->boolean,
+            'num_torrent' => $this->faker->randomNumber(),
+        ];
+    }
+}

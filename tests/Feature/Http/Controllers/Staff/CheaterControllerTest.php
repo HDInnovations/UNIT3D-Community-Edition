@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -19,9 +19,9 @@ class CheaterControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,

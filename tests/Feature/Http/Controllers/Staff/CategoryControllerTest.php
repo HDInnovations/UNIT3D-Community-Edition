@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -20,9 +20,9 @@ class CategoryControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -53,7 +53,7 @@ class CategoryControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $category = factory(Category::class)->create();
+        $category = Category::factory()->create();
         $user = $this->createStaffUser();
 
         $response = $this->actingAs($user)->delete(route('staff.categories.destroy', ['id' => $category->id]));
@@ -69,7 +69,7 @@ class CategoryControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $category = factory(Category::class)->create();
+        $category = Category::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.categories.edit', ['id' => $category->id]));
 
@@ -102,7 +102,7 @@ class CategoryControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $category = factory(Category::class)->make();
+        $category = Category::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.categories.store'), [
             'name'       => $category->name,
@@ -127,7 +127,7 @@ class CategoryControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $category = factory(Category::class)->create();
+        $category = Category::factory()->create();
         $user = $this->createStaffUser();
 
         $response = $this->actingAs($user)->patch(route('staff.categories.update', ['id' => $category->id]), [

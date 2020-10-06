@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 use App\Models\Article;
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -20,9 +20,9 @@ class ArticleControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -54,7 +54,7 @@ class ArticleControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('staff.articles.destroy', ['id' => $article->id]));
         $response->assertRedirect(route('staff.articles.index'));
@@ -68,7 +68,7 @@ class ArticleControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.articles.edit', ['id' => $article->id]));
 
@@ -101,7 +101,7 @@ class ArticleControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $article = factory(Article::class)->make();
+        $article = Article::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.articles.store'), [
             'title'   => $article->title,
@@ -121,7 +121,7 @@ class ArticleControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.articles.update', ['id' => $article->id]), [
             'title'   => $article->title,

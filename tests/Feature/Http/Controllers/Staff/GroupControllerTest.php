@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -19,9 +19,9 @@ class GroupControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -53,7 +53,7 @@ class GroupControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $group = factory(Group::class)->create();
+        $group = Group::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.groups.edit', ['id' => $group->id]));
 
@@ -86,7 +86,7 @@ class GroupControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $group = factory(Group::class)->make();
+        $group = Group::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.groups.store'), [
             'name'             => $group->name,
@@ -120,7 +120,7 @@ class GroupControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $group = factory(Group::class)->create();
+        $group = Group::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.groups.update', ['id' => $group->id]), [
             'name'             => $group->name,

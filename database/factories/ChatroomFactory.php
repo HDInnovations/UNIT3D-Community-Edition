@@ -2,10 +2,29 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Chatroom::class, function (Faker $faker) {
-    return [
-        'name' => $faker->unique()->word,
-    ];
-});
+use App\Models\Chatroom;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ChatroomFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Chatroom::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->unique()->word,
+        ];
+    }
+}

@@ -33,7 +33,7 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Failed' => [
             \App\Listeners\FailedLoginListener::class,
         ],
-        'Gstt\Achievements\Event\Unlocked' => [
+        'Assada\Achievements\Event\Unlocked' => [
             \App\Listeners\AchievementUnlocked::class,
         ],
         'Spatie\Backup\Events\BackupZipWasCreated' => [
@@ -48,7 +48,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        parent::boot();
 
         //
     }

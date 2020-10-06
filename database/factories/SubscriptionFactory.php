@@ -2,18 +2,40 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Subscription::class, function (Faker $faker) {
-    return [
-        'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'forum_id' => function () {
-            return factory(App\Models\Forum::class)->create()->id;
-        },
-        'topic_id' => function () {
-            return factory(App\Models\Topic::class)->create()->id;
-        },
-    ];
-});
+use App\Models\Forum;
+use App\Models\Subscription;
+use App\Models\Topic;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class SubscriptionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Subscription::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'forum_id' => function () {
+                return Forum::factory()->create()->id;
+            },
+            'topic_id' => function () {
+                return Topic::factory()->create()->id;
+            },
+        ];
+    }
+}

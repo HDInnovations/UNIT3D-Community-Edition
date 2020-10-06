@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -20,9 +20,9 @@ class ChatRoomControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -39,7 +39,7 @@ class ChatRoomControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chatroom = factory(Chatroom::class)->create();
+        $chatroom = Chatroom::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('staff.rooms.destroy', ['id' => $chatroom->id]));
 
@@ -70,7 +70,7 @@ class ChatRoomControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chatroom = factory(Chatroom::class)->make();
+        $chatroom = Chatroom::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.rooms.store'), [
             'name' => $chatroom->name,
@@ -87,7 +87,7 @@ class ChatRoomControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $chatroom = factory(Chatroom::class)->create();
+        $chatroom = Chatroom::factory()->create();
 
         $response = $this->actingAs($user)->post(route('staff.rooms.update', ['id' => $chatroom->id]), [
             'name' => $chatroom->name,

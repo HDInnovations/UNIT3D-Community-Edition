@@ -2,19 +2,39 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\PrivateMessage::class, function (Faker $faker) {
-    return [
-        'sender_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'receiver_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'subject'    => $faker->word,
-        'message'    => $faker->text,
-        'read'       => $faker->boolean,
-        'related_to' => $faker->randomNumber(),
-    ];
-});
+use App\Models\PrivateMessage;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PrivateMessageFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = PrivateMessage::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'sender_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'receiver_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'subject'    => $this->faker->word,
+            'message'    => $this->faker->text,
+            'read'       => $this->faker->boolean,
+            'related_to' => $this->faker->randomNumber(),
+        ];
+    }
+}

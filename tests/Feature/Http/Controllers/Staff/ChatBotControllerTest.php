@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 use App\Models\Bot;
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -20,9 +20,9 @@ class ChatBotControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -39,7 +39,7 @@ class ChatBotControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $bot = factory(Bot::class)->create([
+        $bot = Bot::factory()->create([
             'is_protected' => false,
         ]);
 
@@ -55,7 +55,7 @@ class ChatBotControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $bot = factory(Bot::class)->create();
+        $bot = Bot::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.bots.disable', ['id' => $bot->id]));
         $response->assertRedirect(route('staff.bots.index'));
@@ -69,7 +69,7 @@ class ChatBotControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $bot = factory(Bot::class)->create();
+        $bot = Bot::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.bots.edit', ['id' => $bot->id]));
 
@@ -86,7 +86,7 @@ class ChatBotControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $bot = factory(Bot::class)->create();
+        $bot = Bot::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.bots.enable', ['id' => $bot->id]));
         $response->assertRedirect(route('staff.bots.index'));
@@ -116,7 +116,7 @@ class ChatBotControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $bot = factory(Bot::class)->create();
+        $bot = Bot::factory()->create();
 
         $response = $this->actingAs($user)->patch(route('staff.bots.update', ['id' => $bot->id]), [
             'position'     => $bot->position,

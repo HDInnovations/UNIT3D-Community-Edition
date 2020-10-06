@@ -2,29 +2,51 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Report::class, function (Faker $faker) {
-    return [
-        'type'        => $faker->word,
-        'reporter_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'staff_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'title'         => $faker->word,
-        'message'       => $faker->text,
-        'solved'        => $faker->randomNumber(),
-        'verdict'       => $faker->text,
-        'reported_user' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'torrent_id' => function () {
-            return factory(App\Models\Torrent::class)->create()->id;
-        },
-        'request_id' => function () {
-            return factory(App\Models\TorrentRequest::class)->create()->id;
-        },
-    ];
-});
+use App\Models\Report;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ReportFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Report::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'type'        => $this->faker->word,
+            'reporter_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'staff_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'title'         => $this->faker->word,
+            'message'       => $this->faker->text,
+            'solved'        => $this->faker->randomNumber(),
+            'verdict'       => $this->faker->text,
+            'reported_user' => function () {
+                return User::factory()->create()->id;
+            },
+            'torrent_id' => function () {
+                return Torrent::factory()->create()->id;
+            },
+            'request_id' => function () {
+                return TorrentRequest::factory()->create()->id;
+            },
+        ];
+    }
+}

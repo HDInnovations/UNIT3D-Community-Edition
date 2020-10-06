@@ -17,7 +17,7 @@ class ForgotUsernameControllerTest extends TestCase
     {
         config(['captcha.enabled' => false]);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->post(route('username.email'), [
             'email' => $user->email,

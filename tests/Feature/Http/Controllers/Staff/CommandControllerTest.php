@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 
 use App\Models\Group;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -19,9 +19,9 @@ class CommandControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -125,20 +125,6 @@ class CommandControllerTest extends TestCase
         $user = $this->createStaffUser();
 
         $response = $this->actingAs($user)->get('dashboard/commands/maintance-disable');
-
-        $response->assertRedirect(route('staff.commands.index'));
-    }
-
-    /**
-     * @test
-     */
-    public function maintance_enable_returns_an_ok_response()
-    {
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = $this->createStaffUser();
-
-        $response = $this->actingAs($user)->get('dashboard/commands/maintance-enable');
 
         $response->assertRedirect(route('staff.commands.index'));
     }

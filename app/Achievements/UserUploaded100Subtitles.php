@@ -2,7 +2,7 @@
 
 namespace App\Achievements;
 
-use Gstt\Achievements\Achievement;
+use Assada\Achievements\Achievement;
 
 class UserUploaded100Subtitles extends Achievement
 {

@@ -17,6 +17,7 @@ use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Notifications\NewComment;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
@@ -87,6 +88,7 @@ use voku\helper\AntiXSS;
  */
 class TorrentRequest extends Model
 {
+    use HasFactory;
     use Auditable;
 
     /**

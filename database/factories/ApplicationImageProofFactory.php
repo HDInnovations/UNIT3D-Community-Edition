@@ -2,13 +2,33 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\ApplicationImageProof::class, function (Faker $faker) {
-    return [
-        'application_id' => function () {
-            return factory(App\Models\Application::class)->create()->id;
-        },
-        'image' => $faker->word,
-    ];
-});
+use App\Models\Application;
+use App\Models\ApplicationImageProof;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ApplicationImageProofFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ApplicationImageProof::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'application_id' => function () {
+                return Application::factory()->create()->id;
+            },
+            'image' => $this->faker->word,
+        ];
+    }
+}

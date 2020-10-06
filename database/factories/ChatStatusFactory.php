@@ -2,12 +2,31 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\ChatStatus::class, function (Faker $faker) {
-    return [
-        'name'  => $faker->unique()->name,
-        'color' => $faker->unique()->word,
-        'icon'  => $faker->word,
-    ];
-});
+use App\Models\ChatStatus;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ChatStatusFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ChatStatus::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'  => $this->faker->unique()->name,
+            'color' => $this->faker->unique()->word,
+            'icon'  => $this->faker->word,
+        ];
+    }
+}

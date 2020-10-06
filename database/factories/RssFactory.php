@@ -2,20 +2,40 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Rss::class, function (Faker $faker) {
-    return [
-        'position' => $faker->randomNumber(),
-        'name'     => $faker->name,
-        'user_id'  => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'staff_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'is_private'   => $faker->boolean,
-        'is_torrent'   => $faker->boolean,
-        'json_torrent' => $faker->word,
-    ];
-});
+use App\Models\Rss;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class RssFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Rss::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'position' => $this->faker->randomNumber(),
+            'name'     => $this->faker->name,
+            'user_id'  => function () {
+                return User::factory()->create()->id;
+            },
+            'staff_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'is_private'   => $this->faker->boolean,
+            'is_torrent'   => $this->faker->boolean,
+            'json_torrent' => $this->faker->word,
+        ];
+    }
+}

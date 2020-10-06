@@ -2,19 +2,39 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Playlist::class, function (Faker $faker) {
-    return [
-        'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'name'        => $faker->name,
-        'description' => $faker->text,
-        'cover_image' => $faker->word,
-        'position'    => $faker->randomNumber(),
-        'is_private'  => $faker->boolean,
-        'is_pinned'   => $faker->boolean,
-        'is_featured' => $faker->boolean,
-    ];
-});
+use App\Models\Playlist;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PlaylistFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Playlist::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'name'        => $this->faker->name,
+            'description' => $this->faker->text,
+            'cover_image' => $this->faker->word,
+            'position'    => $this->faker->randomNumber(),
+            'is_private'  => $this->faker->boolean,
+            'is_pinned'   => $this->faker->boolean,
+            'is_featured' => $this->faker->boolean,
+        ];
+    }
+}

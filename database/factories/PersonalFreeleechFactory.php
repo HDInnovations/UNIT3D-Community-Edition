@@ -2,10 +2,29 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\PersonalFreeleech::class, function (Faker $faker) {
-    return [
-        'user_id' => $faker->randomNumber(),
-    ];
-});
+use App\Models\PersonalFreeleech;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PersonalFreeleechFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = PersonalFreeleech::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => $this->faker->randomNumber(),
+        ];
+    }
+}

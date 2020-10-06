@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 use App\Models\Group;
 use App\Models\Type;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -20,9 +20,9 @@ class TypeControllerTest extends TestCase
 
     protected function createStaffUser()
     {
-        return factory(User::class)->create([
+        return User::factory()->create([
             'group_id' => function () {
-                return factory(Group::class)->create([
+                return Group::factory()->create([
                     'is_owner' => true,
                     'is_admin' => true,
                     'is_modo'  => true,
@@ -54,7 +54,7 @@ class TypeControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $type = factory(Type::class)->create();
+        $type = Type::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('staff.types.destroy', ['id' => $type->id]));
 
@@ -69,7 +69,7 @@ class TypeControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $type = factory(Type::class)->create();
+        $type = Type::factory()->create();
 
         $response = $this->actingAs($user)->get(route('staff.types.edit', ['id' => $type->id]));
 
@@ -102,7 +102,7 @@ class TypeControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $type = factory(Type::class)->make();
+        $type = Type::factory()->make();
 
         $response = $this->actingAs($user)->post(route('staff.types.store'), [
             'name'     => $type->name,
@@ -121,7 +121,7 @@ class TypeControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = $this->createStaffUser();
-        $type = factory(Type::class)->create();
+        $type = Type::factory()->create();
 
         $response = $this->actingAs($user)->patch(route('staff.types.update', ['id' => $type->id]), [
             'name'     => $type->name,

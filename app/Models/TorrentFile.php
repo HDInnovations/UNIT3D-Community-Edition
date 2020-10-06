@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\StringHelper;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -36,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TorrentFile extends Model
 {
+    use HasFactory;
+
     /**
      * Indicates If The Model Should Be Timestamped.
      *

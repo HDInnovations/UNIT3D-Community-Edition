@@ -7,7 +7,7 @@
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-7-f4645f.svg?style=flat-square" /></a> 
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg?style=flat-square" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
 <a href="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition?utm_medium=notification&utm_source=github_status"><img src="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition.svg?branch=master" /></a> 
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
@@ -45,7 +45,7 @@
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 6, MySQL Strict Mode Compliant and PHP 7.4 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 8, MySQL Strict Mode Compliant and PHP 7.4 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -104,11 +104,25 @@ config/secure-headers.php   <-- Content Security Policy must be disabled
 ### <a name="auto-install"></a> Automated Installer
 **A UNIT3D Installer has been released by Poppabear.**
 
-<pre>
+**Officially Supported OS's**
+- Ubuntu 20.04 LTS (Recommended)
+- Ubuntu 18.04 LTS
+- Ubuntu 16.04 LTS
+
+**For Ubuntu 20.04 LTS:**
+```
 git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
 cd installer
 sudo ./install.sh
-</pre>
+```
+
+**For Ubuntu 16.04 LTS or Ubuntu 18.04 LTS:**
+```
+git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
+cd installer
+git checkout Ubuntu-16.04-18.04
+sudo ./install.sh
+```
 
 Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
@@ -292,7 +306,7 @@ Thanks goes to these wonderful people who have contributed alot of code:
 
 ## <a name="thanks"></a> 🎉 Special Thanks
 
-<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>
+<a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>
 <a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" height="50px;"></a>
 <a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" height="50px;"></a>
 <a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>

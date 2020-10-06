@@ -15,7 +15,7 @@ class UserFactoryTest extends TestCase
     /** @test */
     public function factoryReturnsCorrectValuesWhenCreated()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->assertInstanceOf(User::class, $user);
 

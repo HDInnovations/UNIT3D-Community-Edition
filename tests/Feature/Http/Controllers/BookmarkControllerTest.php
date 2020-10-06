@@ -4,7 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Bookmark;
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -22,9 +22,9 @@ class BookmarkControllerTest extends TestCase
     /** @test */
     public function destroy_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $bookmark = factory(Bookmark::class)->create([
+        $bookmark = Bookmark::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -37,9 +37,9 @@ class BookmarkControllerTest extends TestCase
     /** @test */
     public function index_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        factory(Bookmark::class)->create([
+        Bookmark::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -56,9 +56,9 @@ class BookmarkControllerTest extends TestCase
     /** @test */
     public function store_returns_an_ok_response()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $bookmark = factory(Bookmark::class)->make([
+        $bookmark = Bookmark::factory()->make([
             'user_id' => $user->id,
         ]);
 

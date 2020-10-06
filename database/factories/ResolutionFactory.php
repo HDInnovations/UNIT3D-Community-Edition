@@ -2,12 +2,31 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Resolution::class, function (Faker $faker) {
-    return [
-        'name'     => $faker->name,
-        'slug'     => $faker->slug,
-        'position' => $faker->randomNumber(),
-    ];
-});
+use App\Models\Resolution;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ResolutionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Resolution::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'     => $this->faker->name,
+            'slug'     => $this->faker->slug,
+            'position' => $this->faker->randomNumber(),
+        ];
+    }
+}

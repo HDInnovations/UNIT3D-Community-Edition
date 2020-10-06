@@ -2,54 +2,77 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Torrent::class, function (Faker $faker) {
-    return [
-        'name'            => $faker->name,
-        'slug'            => $faker->slug,
-        'description'     => $faker->text,
-        'mediainfo'       => $faker->text,
-        'info_hash'       => $faker->word,
-        'file_name'       => $faker->word,
-        'num_file'        => $faker->randomNumber(),
-        'size'            => $faker->randomFloat(),
-        'nfo'             => $faker->text,
-        'leechers'        => $faker->randomNumber(),
-        'seeders'         => $faker->randomNumber(),
-        'times_completed' => $faker->randomNumber(),
-        'category_id'     => function () {
-            return factory(App\Models\Category::class)->create()->id;
-        },
-        'announce' => $faker->word,
-        'user_id'  => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'imdb'         => $faker->randomNumber(),
-        'tvdb'         => $faker->randomNumber(),
-        'tmdb'         => $faker->randomNumber(),
-        'mal'          => $faker->randomNumber(),
-        'igdb'         => $faker->randomNumber(),
-        'type_id'      => function () {
-            return factory(App\Models\Type::class)->create()->id;
-        },
-        'resolution_id'      => function () {
-            return factory(App\Models\Resolution::class)->create()->id;
-        },
-        'stream'       => $faker->boolean,
-        'free'         => $faker->boolean,
-        'doubleup'     => $faker->boolean,
-        'highspeed'    => $faker->boolean,
-        'featured'     => $faker->boolean,
-        'status'       => (int) $faker->boolean,
-        'moderated_at' => $faker->dateTime(),
-        'moderated_by' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'anon'         => $faker->boolean,
-        'sticky'       => $faker->boolean,
-        'sd'           => $faker->boolean,
-        'internal'     => $faker->boolean,
-        'release_year' => $faker->date('Y'),
-    ];
-});
+use App\Models\Category;
+use App\Models\Resolution;
+use App\Models\Torrent;
+use App\Models\Type;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class TorrentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Torrent::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'            => $this->faker->name,
+            'slug'            => $this->faker->slug,
+            'description'     => $this->faker->text,
+            'mediainfo'       => $this->faker->text,
+            'info_hash'       => $this->faker->word,
+            'file_name'       => $this->faker->word,
+            'num_file'        => $this->faker->randomNumber(),
+            'size'            => $this->faker->randomFloat(),
+            'nfo'             => $this->faker->text,
+            'leechers'        => $this->faker->randomNumber(),
+            'seeders'         => $this->faker->randomNumber(),
+            'times_completed' => $this->faker->randomNumber(),
+            'category_id'     => function () {
+                return Category::factory()->create()->id;
+            },
+            'announce' => $this->faker->word,
+            'user_id'  => function () {
+                return User::factory()->create()->id;
+            },
+            'imdb'         => $this->faker->randomNumber(),
+            'tvdb'         => $this->faker->randomNumber(),
+            'tmdb'         => $this->faker->randomNumber(),
+            'mal'          => $this->faker->randomNumber(),
+            'igdb'         => $this->faker->randomNumber(),
+            'type_id'      => function () {
+                return Type::factory()->create()->id;
+            },
+            'resolution_id'      => function () {
+                return Resolution::factory()->create()->id;
+            },
+            'stream'       => $this->faker->boolean,
+            'free'         => $this->faker->boolean,
+            'doubleup'     => $this->faker->boolean,
+            'highspeed'    => $this->faker->boolean,
+            'featured'     => $this->faker->boolean,
+            'status'       => (int) $this->faker->boolean,
+            'moderated_at' => $this->faker->dateTime(),
+            'moderated_by' => function () {
+                return User::factory()->create()->id;
+            },
+            'anon'         => $this->faker->boolean,
+            'sticky'       => $this->faker->boolean,
+            'sd'           => $this->faker->boolean,
+            'internal'     => $this->faker->boolean,
+            'release_year' => $this->faker->date('Y'),
+        ];
+    }
+}

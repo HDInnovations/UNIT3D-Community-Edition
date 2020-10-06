@@ -2,18 +2,39 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\TorrentRequestBounty::class, function (Faker $faker) {
-    return [
-        'user_id' => function () {
-            return factory(App\Models\User::class)->create()->id;
-        },
-        'seedbonus'   => $faker->randomFloat(),
-        'requests_id' => $faker->randomNumber(),
-        'anon'        => $faker->boolean,
-        'request_id'  => function () {
-            return factory(App\Models\TorrentRequest::class)->create()->id;
-        },
-    ];
-});
+use App\Models\TorrentRequest;
+use App\Models\TorrentRequestBounty;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class TorrentRequestBountyFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = TorrentRequestBounty::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => function () {
+                return User::factory()->create()->id;
+            },
+            'seedbonus'   => $this->faker->randomFloat(),
+            'requests_id' => $this->faker->randomNumber(),
+            'anon'        => $this->faker->boolean,
+            'request_id'  => function () {
+                return TorrentRequest::factory()->create()->id;
+            },
+        ];
+    }
+}

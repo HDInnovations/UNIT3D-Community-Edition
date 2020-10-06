@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TagTorrent extends Model
 {
+    use HasFactory;
+
     /**
      * The Database Table Used By The Model.
      *

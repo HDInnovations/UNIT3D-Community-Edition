@@ -3,7 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Models\UserActivation;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
 /**
@@ -18,7 +18,7 @@ class ActivationControllerTest extends TestCase
     {
         $this->seed(GroupsTableSeeder::class);
 
-        $activation = factory(UserActivation::class)->create();
+        $activation = UserActivation::factory()->create();
 
         $this->get(route('activate', ['token' => $activation->token]))
             ->assertRedirect(route('login'))

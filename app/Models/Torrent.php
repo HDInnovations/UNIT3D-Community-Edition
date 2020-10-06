@@ -21,6 +21,7 @@ use App\Notifications\NewComment;
 use App\Notifications\NewThank;
 use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use voku\helper\AntiXSS;
@@ -137,6 +138,7 @@ use voku\helper\AntiXSS;
  */
 class Torrent extends Model
 {
+    use HasFactory;
     use Moderatable;
     use Sortable;
     use Auditable;

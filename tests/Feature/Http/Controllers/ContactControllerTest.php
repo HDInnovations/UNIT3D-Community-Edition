@@ -3,9 +3,9 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
-use GroupsTableSeeder;
+use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\UsersTableSeeder;
 use Tests\TestCase;
-use UsersTableSeeder;
 
 /**
  * @see \App\Http\Controllers\ContactController
@@ -18,7 +18,7 @@ class ContactControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('contact.index'));
 
@@ -32,7 +32,7 @@ class ContactControllerTest extends TestCase
         $this->seed(UsersTableSeeder::class);
         $this->seed(GroupsTableSeeder::class);
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('contact.store'), [
             'email'        => 'foo@bar.com',
