@@ -83,7 +83,8 @@
                     _token: csrf,
                     name: name,
                     categories: categories,
-                    language_id: language_id
+                    language_id: language_id,
+                    page: page
                 },
                 type: 'get',
                 beforeSend: function() {
