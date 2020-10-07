@@ -175,6 +175,7 @@ return [
     'my-security-settings'                     => 'My Security Settings',
     'my-seedboxes'                             => 'My Seedboxes',
     'my-settings'                              => 'My Settings',
+    'my-uploads'                               => 'My Uploads',
     'my-wishlist'                              => 'My Wishlist',
     'no-ban'                                   => 'The are no bans in the database for this user!',
     'no-logs'                                  => 'The are no invite logs in the database for this user!',
