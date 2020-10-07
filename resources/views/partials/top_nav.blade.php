@@ -62,7 +62,7 @@
                     </span>
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
-                <ul class="dropdown-menu ">
+                <ul class="dropdown-menu">
                     <li>
                         <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.my-profile')
@@ -84,13 +84,18 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('bookmarks.index', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
+                        <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.my-uploads')
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_requested', ['username' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('user.my-requested')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('bookmarks.index', ['username' => auth()->user()->username]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
                     </li>
                     <li>
