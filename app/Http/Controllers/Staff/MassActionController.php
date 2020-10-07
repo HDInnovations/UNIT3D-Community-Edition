@@ -53,7 +53,7 @@ class MassActionController extends Controller
         $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
         $pruned_group = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
         $users = User::whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->pluck('id');
-        
+
         $subject = $request->input('subject');
         $message = $request->input('message');
 
