@@ -48,7 +48,12 @@ class MassActionController extends Controller
      */
     public function store(Request $request)
     {
-        $users = User::all();
+        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $users = User::whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->pluck('id');
+
         $subject = $request->input('subject');
         $message = $request->input('message');
 
@@ -61,8 +66,9 @@ class MassActionController extends Controller
             return \redirect()->route('staff.mass-pm.create')
                 ->withErrors($v->errors());
         }
-        foreach ($users as $user) {
-            $this->dispatch(new ProcessMassPM(self::SENDER_ID, $user->id, $subject, $message));
+
+        foreach ($users as $user_id) {
+            ProcessMassPM::dispatch(self::SENDER_ID, $user_id, $subject, $message);
         }
 
         return \redirect()->route('staff.mass-pm.create')
