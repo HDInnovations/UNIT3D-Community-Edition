@@ -140,7 +140,7 @@
 
 
                     <h3><i class="{{ config('other.font-awesome') }} fa-unlock"></i> @lang('user.public-info')</h3>
-                <div class="table-responsive">
+                <div style="word-wrap: break-word; display: table; width: 100%;">
                     <table class="table table-condensed table-striped table-bordered">
                         <tbody>
                         <tr>
@@ -503,7 +503,7 @@
     @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
         <div class="block">
             <h3><i class="{{ config('other.font-awesome') }} fa-lock"></i> @lang('user.private-info')</h3>
-            <div class="table-responsive">
+            <div style="word-wrap: break-word; display: table; width: 100%;">
                 <table class="table table-condensed table-striped table-bordered">
                 <tbody>
                 <tr>
