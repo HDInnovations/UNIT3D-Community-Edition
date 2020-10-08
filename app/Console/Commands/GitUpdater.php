@@ -124,10 +124,7 @@ class GitUpdater extends Command
             $this->io->listing($updating);
 
             if ($this->io->confirm('Start the update process', false)) {
-                $this->call('down', [
-                    '--message' => 'Currently Updating',
-                    '--retry'   => '300',
-                ]);
+                $this->call('down');
 
                 $this->process('git add .');
 
