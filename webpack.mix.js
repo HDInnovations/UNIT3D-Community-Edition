@@ -89,3 +89,9 @@ mix.options({
 // mix.autoload({}); <-- Will be passed to Webpack's ProvidePlugin.
 // mix.webpackConfig({}); <-- Override webpack.config.js, without editing the file directly.
 // mix.then(function () {}) <-- Will be triggered each time Webpack finishes building.
+
+
+mix.postCss('resources/css/tailwind.css', 'public/css/app.css', [
+    require('postcss-import'),
+    require('tailwindcss'),
+]);
