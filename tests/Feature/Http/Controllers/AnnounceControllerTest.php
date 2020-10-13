@@ -34,9 +34,9 @@ class AnnounceControllerTest extends TestCase
 
         $headers = [
             'accept-language' => null,
-            'referer' => null,
-            'accept-charset' => null,
-            'want-digest' => null
+            'referer'         => null,
+            'accept-charset'  => null,
+            'want-digest'     => null,
         ];
 
         $response = $this->withHeaders($headers)->get(route('announce', [
