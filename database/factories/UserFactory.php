@@ -30,8 +30,8 @@ class UserFactory extends Factory
         return [
             'username' => $this->faker->unique()->userName,
             'email'    => $this->faker->unique()->safeEmail,
-            'password' => bcrypt('secret'),
-            'passkey'  => $this->faker->word,
+            'password' => \bcrypt('secret'),
+            'passkey'  => \md5(\uniqid().\time().\microtime()),
             'group_id' => function () {
                 return Group::factory()->create()->id;
             },
@@ -46,7 +46,7 @@ class UserFactory extends Factory
             'seedbonus'   => $this->faker->randomFloat(),
             'invites'     => $this->faker->randomNumber(),
             'hitandruns'  => $this->faker->randomNumber(),
-            'rsskey'      => $this->faker->word,
+            'rsskey'      => \md5(\uniqid().\time().\microtime()),
             'chatroom_id' => function () {
                 return Chatroom::factory()->create()->id;
             },
