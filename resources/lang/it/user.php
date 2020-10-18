@@ -151,7 +151,7 @@ return [
     'my-privacy'                           => 'La mia privacy',
     'my-privacy-settings'                  => 'Le mie impostazioni sulla privacy',
     'my-profile'                           => 'Il mio profilo',
-    'my-requested'                         => 'La mia richiesta',
+    'my-requested'                         => 'Le mie richieste',
     'my-security'                          => 'La mia sicurezza',
     'my-security-settings'                 => 'Le mie impostazioni di sicurezza',
     'my-seedboxes'                         => 'Le mie Seedbox',
