@@ -14,7 +14,7 @@
 return [
     'about'                                => 'Di',
     'about-me'                             => 'Riguardo a me',
-    'accepted-at'                          => 'Accettato a',
+    'accepted-at'                          => 'Accettato il',
     'accepted-by'                          => 'Accettato da',
     'account-notification'                 => 'Impostazioni di notifica dell account',
     'account-notification-follow'          => 'Ricevi una notifica quando un utente segue il tuo account',
