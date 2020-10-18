@@ -28,7 +28,7 @@ return [
     'frontend'                => 'Fine frontale',
     'general-tools'           => 'Strumenti generali',
     'groups'                  => 'gruppi',
-    'invites-log'             => 'Invita il registro',
+    'invites-log'             => 'Registro degli inviti',
     'laravel-log'             => 'Log di Laravel',
     'links'                   => 'link',
     'logs'                    => 'logs',
