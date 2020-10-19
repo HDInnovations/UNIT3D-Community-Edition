@@ -38,7 +38,7 @@ class IRCAnnounceBot
     /**
      * @var mixed
      */
-    public $joinchannels;
+    public $joinchannel;
 
     protected $socket = null;
 
@@ -51,12 +51,12 @@ class IRCAnnounceBot
     public function __construct()
     {
         $this->username = \config('irc-bot.username');
-        $this->channels = \config('irc-bot.channels');
+        $this->channel = \config('irc-bot.channel');
         $this->server = \config('irc-bot.server');
         $this->port = \config('irc-bot.port');
         $this->hostname = \config('irc-bot.hostname');
         $this->nickservpass = \config('irc-bot.nickservpass');
-        $this->joinchannels = \config('irc-bot.joinchannels');
+        $this->joinchannel = \config('irc-bot.joinchannel');
         $this->socket = \fsockopen($this->server, $this->port);
 
         $this->send_data(\sprintf('NICK %s', $this->username));
@@ -91,8 +91,7 @@ class IRCAnnounceBot
 
     private function send_data($data)
     {
-        \fwrite($this->socket, \sprintf('%s
-', $data));
+        \fwrite($this->socket, \sprintf('%s', $data));
     }
 
     private function say($channel, $string)
@@ -108,19 +107,10 @@ class IRCAnnounceBot
     public function message($channel, $message)
     {
         // Messages an specific IRC Channel
-        if ($this->joinchannels && \preg_match('/#(\w*[a-zA-Z_0-9]+\w*)/', $channel)) {
+        if ($this->joinchannel && \preg_match('/#(\w*[a-zA-Z_0-9]+\w*)/', $channel)) {
             $this->join($channel);
         }
 
         $this->say($channel, $message);
-    }
-
-    public function broadcast($message, $channels = null)
-    {
-        // Broadcast to all IRC Channels in config
-        $channels = (\is_null($channels)) ? $this->channels : $channels;
-        foreach ($channels as $channel) {
-            $this->message($channel, $message);
-        }
     }
 }

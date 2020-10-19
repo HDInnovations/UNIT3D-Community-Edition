@@ -1546,9 +1546,9 @@ class TorrentController extends Controller
         if (\config('irc-bot.enabled') == true) {
             $appname = \config('app.name');
             $ircAnnounceBot = new IRCAnnounceBot();
-            $ircAnnounceBot->message('#announce', '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
-            $ircAnnounceBot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
-            $ircAnnounceBot->message('#announce', \sprintf('[Link: %s]', $torrent_url));
+            $ircAnnounceBot->message(\config('irc-bot.channel'), '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
+            $ircAnnounceBot->message(\config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
+            $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s]', $torrent_url));
         }
 
         return \redirect()->route('torrent', ['id' => $torrent->id])

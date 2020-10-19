@@ -28,7 +28,7 @@ return [
     'port'         => '6667',
     'username'     => 'UNIT3D',
     'password'     => 'UNIT3D',
-    'channels'     => ['#announce'],
+    'channel'      => '#announce',
     'nickservpass' => false,
-    'joinchannels' => false,
+    'joinchannel'  => false,
 ];

@@ -16,7 +16,6 @@ namespace App\Console\Commands;
 use App\Bots\IRCAnnounceBot;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class IrcMessage extends Command
 {
@@ -68,16 +67,4 @@ class IrcMessage extends Command
             ['message', InputArgument::REQUIRED, 'Message you would like to send'],
         ];
     }
-
-    /*
-     * Get the console command options.
-     *
-     * @return array
-     */
-    // protected function getOptions()
-    // {
-    // 	return [
-    // 		['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
-    // 	];
-    // }
 }
