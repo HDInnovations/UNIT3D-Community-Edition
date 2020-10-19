@@ -56,16 +56,15 @@
                                             <td>{{ $pf['cost'] }}</td>
                                             <td>
                                                 @if ($activefl)
-                                                    <form method="POST" action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-success btn-exchange disabled">
-                                                            @lang('bon.activated')!</button>
-                                                    </form>
+                                                    <button type="submit" class="btn btn-sm btn-success btn-exchange disabled">
+                                                        @lang('bon.activated')!
+                                                    </button>
                                                 @else
                                                     <form method="POST" action="{{ route('bonus_exchange', ['id' => $pf['id']]) }}">
                                                         @csrf
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-info btn-exchange">@lang('bon.exchange')</button>
+                                                        <button type="submit" class="btn btn-sm btn-info btn-exchange">
+                                                            @lang('bon.exchange')
+                                                        </button>
                                                     </form>
                                                 @endif
                                             </td>
