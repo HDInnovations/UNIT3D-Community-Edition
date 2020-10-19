@@ -41,13 +41,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // OMDB
-        $this->app->bind(OmdbClient::class, function ($app) {
-            $key = \config('api-keys.omdb');
-
-            return new OmdbClient($key);
-        });
-
         // Wish
         $this->app->bind(WishInterface::class, WishRepository::class);
 
@@ -65,10 +58,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // User Observer For Cache
-        User::observe(UserObserver::class);
+        //User::observe(UserObserver::class);
 
         // Torrent Observer For Cache
-        Torrent::observe(TorrentObserver::class);
+        //Torrent::observe(TorrentObserver::class);
 
         // Share $footer_pages across all views
         \view()->composer('*', function (View $view) {

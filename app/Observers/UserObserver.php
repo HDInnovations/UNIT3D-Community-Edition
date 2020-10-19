@@ -26,7 +26,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        \cache()->put(\sprintf('user:%s', $user->passkey), $user);
+        //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }
 
     /**
@@ -38,7 +38,7 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        \cache()->put(\sprintf('user:%s', $user->passkey), $user);
+        //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }
 
     /**
@@ -50,7 +50,7 @@ class UserObserver
      */
     public function retrieved(User $user)
     {
-        \cache()->add(\sprintf('user:%s', $user->passkey), $user);
+        //\cache()->add(\sprintf('user:%s', $user->passkey), $user);
     }
 
     /**
@@ -62,7 +62,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        \cache()->forget(\sprintf('user:%s', $user->passkey));
+        //\cache()->forget(\sprintf('user:%s', $user->passkey));
     }
 
     /**
@@ -74,6 +74,6 @@ class UserObserver
      */
     public function restored(User $user)
     {
-        \cache()->put(\sprintf('user:%s', $user->passkey), $user);
+        //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
     }
 }
