@@ -42,7 +42,7 @@ class IRCAnnounceBot
 
     protected $socket = null;
 
-    private $channels = [];
+    private $channel = null;
 
     private $username = null;
 
