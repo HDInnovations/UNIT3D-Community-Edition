@@ -1205,7 +1205,7 @@ class Markdown
 
     protected function inlineSpecialCharacter($Excerpt)
     {
-        if ($Excerpt['text'][0] === '&' && ! \preg_match('#^&#?\w+;#', $Excerpt['text'])) {
+        if ($Excerpt['text'][0] === '&' && ! \preg_match('~^&#?\w+;~', $Excerpt['text'])) {
             return [
                 'markup' => '&amp;',
                 'extent' => 1,
