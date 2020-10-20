@@ -25,7 +25,7 @@
     <div class="container box">
         <h2>
             @lang('common.edit') @lang('torrent.torrent') @lang('torrent.genre-tags') (@lang('torrent.genre'))</h2>
-        <form role="form" method="POST" action="{{ route('staff.types.update', ['id' => $tag->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.tags.update', ['id' => $tag->id]) }}">
             @csrf
     
             <div class="form-group">
