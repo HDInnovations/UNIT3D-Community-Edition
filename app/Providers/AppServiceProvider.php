@@ -23,7 +23,6 @@ use App\Models\User;
 use App\Observers\TorrentObserver;
 use App\Observers\UserObserver;
 use App\Repositories\WishRepository;
-use App\Services\Clients\OmdbClient;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
