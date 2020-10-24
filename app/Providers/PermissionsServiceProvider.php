@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Permission;
+
+use App\Models\RBACPermissions;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -18,7 +19,7 @@ class PermissionsServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-            Permission::get()->map(function ($permission) {
+            RBACPermissions::get()->map(function ($permission) {
                 Gate::define($permission->slug, function ($user) use ($permission) {
                     return $user->hasPermissionTo($permission);
                 });
@@ -30,13 +31,23 @@ class PermissionsServiceProvider extends ServiceProvider
 
 
         //Blade directives
+        //
+        // @role()
         Blade::directive('role', function ($role) {
             return "<?php if(auth()->check() && auth()->user()->hasRole($role)) { ?>"; //return this if statement inside php tag
         });
-
+        //@endrole
         Blade::directive('endrole', function ($role) {
             return "<?php } ?>"; //return this endif statement inside php tag
         });
 
+        //@permission()
+        Blade::directive('permission', function ($perm) {
+            return "<?php if(auth()->check() && auth()->user()->hasPermission($perm)) { ?>"; //return this if statement inside php tag
+        });
+        //@endpermission
+        Blade::directive('endpermission', function ($perm) {
+            return "<?php } ?>"; //return this endif statement inside php tag
+        });
     }
 }

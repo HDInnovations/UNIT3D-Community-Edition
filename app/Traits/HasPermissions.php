@@ -1,33 +1,32 @@
 <?php
-namespace App\Permissions;
+namespace App\Traits;
 
-use App\Models\Permission;
-use App\Models\Role;
+use App\Models\RBACPermissions;
+use App\Models\RBACRoles;
 
-trait HasPermissionsTrait {
+trait HasPermissions {
 
     public function givePermissionsTo(... $permissions) {
 
         $permissions = $this->getAllPermissions($permissions);
-        dd($permissions);
         if($permissions === null) {
             return $this;
         }
-        $this->permissions()->saveMany($permissions);
+        $this->permissions->saveMany($permissions);
         return $this;
     }
 
     public function withdrawPermissionsTo( ... $permissions ) {
 
         $permissions = $this->getAllPermissions($permissions);
-        $this->permissions()->detach($permissions);
+        $this->permissions->detach($permissions);
         return $this;
 
     }
 
     public function refreshPermissions( ... $permissions ) {
 
-        $this->permissions()->detach();
+        $this->permissions->detach();
         return $this->givePermissionsTo($permissions);
     }
 
@@ -57,12 +56,12 @@ trait HasPermissionsTrait {
 
     public function roles() {
 
-        return $this->belongsToMany(Role::class,'users_roles');
+        return $this->belongsToMany(RBACRoles::class,'RBACusers_roles', 'user_id', 'role_id');
 
     }
     public function permissions() {
 
-        return $this->belongsToMany(Permission::class,'users_permissions');
+        return $this->belongsToMany(RBACPermissions::class,'RBACusers_permissions','user_id', 'permission_id');
 
     }
     protected function hasPermission($permission) {
@@ -72,7 +71,7 @@ trait HasPermissionsTrait {
 
     protected function getAllPermissions(array $permissions) {
 
-        return Permission::whereIn('slug',$permissions)->get();
+        return RBACPermissions::whereIn('slug',$permissions)->get();
 
     }
 
