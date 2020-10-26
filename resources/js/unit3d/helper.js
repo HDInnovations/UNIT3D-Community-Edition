@@ -182,7 +182,7 @@ class uploadExtensionBuilder {
             defaults: {"language": "ENGLISH"} // defaults values for : language, resolution and year
         });
 
-        console.log(release);
+ 
 
         let matcher = name.value.toLowerCase();
 
