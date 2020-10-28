@@ -48,6 +48,8 @@ class WishController extends Controller
      */
     public function index(Request $request, $username)
     {
+        abort(307);
+
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
         \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);

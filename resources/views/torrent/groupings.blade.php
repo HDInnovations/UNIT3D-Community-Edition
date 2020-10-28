@@ -64,6 +64,16 @@
                     </div>
 
                     <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="keywords"
+                               class="mt-5 col-sm-1 label label-default fatten-me">Keywords</label>
+                        <div class="col-sm-9 fatten-me">
+                            <label for="keywaords"></label>
+                            <input type="text" class="form-control facetedSearch"
+                                   trigger="keyup" id="keywords" placeholder="Keywords">
+                        </div>
+                    </div>
+
+                    <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="uploader" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.uploader')</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="uploader" placeholder="@lang('torrent.uploader')">
@@ -142,10 +152,10 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                         <div class="col-sm-10">
-                            @foreach ($repository->tags() as $id => $genre)
+                            @foreach ($repository->genres() as $id => $genre)
                                 <span class="badge-user">
                                 <label class="inline">
-                                    <input type="checkbox" trigger="click" value="{{ $genre}}" class="genre facetedSearch"> {{ $genre }}
+                                    <input type="checkbox" trigger="click" value="{{ $id}}" class="genre facetedSearch"> {{ $genre }}
                                 </label>
                             </span>
                             @endforeach
@@ -273,41 +283,37 @@
                                             @endif
                                                 <span class="badge-user text-bold" style="float: right;">
                                                 <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                                                @if($t->meta && ($t->meta->imdbRating || $t->meta->tmdbVotes))
-                                                        @if ($user->ratings == 1)
-                                                            {{ $t->meta->imdbRating }}/10 ({{ $t->meta->imdbVotes }} @lang('torrent.votes'))
-                                                        @else
-                                                            {{ $t->meta->tmdbRating }}/10 ({{ $t->meta->tmdbVotes }} @lang('torrent.votes'))
-                                                        @endif
-                                                    @endif
+                                                    {{ $t->meta->vote_average ?? 0 }}/10 ({{ $t->meta->vote_count ?? 0}} @lang('torrent.votes'))
                                             </span>
                                         </div>
                                         <div class="card_alt">
                                             <div class="body_poster">
-                                                @if($t->meta && $t->meta->poster)
-                                                    <img src="{{ $t->meta->poster }}" class="show-poster" alt="@lang('torrent.poster')"
-                                                         data-image='<img src="{{ $t->meta->poster }}" alt="@lang('torrent.poster')"
+                                                <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster" alt="@lang('torrent.poster')"
+                                                         data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')"
                                                          style="height: 1000px;">'>
-                                                @else
-                                                    <img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" />
-                                                @endif
                                             </div>
                                             <div class="body_grouping" style="width: 100%;">
                                                 <h3 class="description_title">
-                                                    {{ ($t->meta ? $t->meta->title : $t->name) }}
-                                                    @if($t->meta && $t->meta->releaseYear)
-                                                        <span class="text-bold text-pink"> {{ $t->meta->releaseYear }}</span>
+                                                    @if ($t->category->movie_meta)
+                                                        {{ $t->meta->title ?? 'Unknown' }}
                                                     @endif
+                                                    @if ($t->category->tv_meta)
+                                                        {{ $t->meta->name ?? 'Unknown' }}
+                                                    @endif
+                                                        @if ($t->category->movie_meta)
+                                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date, 0, 4) ?? 'Unknown' }}</span>
+                                                        @endif
+                                                        @if ($t->category->tv_meta)
+                                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date, 0, 4) ?? 'Unknown' }}</span>
+                                                        @endif
                                                 </h3>
-                                                @if ($t->meta && $t->meta->genres)
-                                                    @foreach ($t->meta->genres as $genre)
-                                                        <span class="genre-label">{{ $genre }}</span>
-                                                    @endforeach
+                                                @if ($t->meta->genres->isNotEmpty())
+                                                @foreach ($t->meta->genres as $genre)
+                                                    <span class="genre-label">{{ $genre->name }}</span>
+                                                @endforeach
                                                 @endif
                                                 <p class="description_plot" style="width: 100%;">
-                                                    @if($t->meta && $t->meta->plot)
-                                                        {{ $t->meta->plot }}
-                                                    @endif
+                                                    {{ $t->meta->plot }}
                                                 </p>
                                                 <div class="card_holder" style="width: 100%;" ;>
                                                     <hr style="padding: 0 !important; margin: 5px 0 !important; width: 100%;">

@@ -762,6 +762,10 @@ class User extends Authenticatable
     }
 
     // Return the ratio pretty formated as a string.
+
+    /**
+     * @return string
+     */
     public function getRatioString()
     {
         $ratio = $this->getRatio();
@@ -773,6 +777,12 @@ class User extends Authenticatable
     }
 
     // Return the ratio after $size bytes would be downloaded.
+
+    /**
+     * @param $size
+     *
+     * @return float
+     */
     public function ratioAfterSize($size)
     {
         if ($this->downloaded + $size == 0) {
@@ -784,6 +794,13 @@ class User extends Authenticatable
 
     // Return the ratio after $size bytes would be downloaded, pretty formatted
     // as a string.
+
+    /**
+     * @param      $size
+     * @param bool $freeleech
+     *
+     * @return string
+     */
     public function ratioAfterSizeString($size, $freeleech = false)
     {
         if ($freeleech) {
@@ -800,6 +817,12 @@ class User extends Authenticatable
 
     // Return the size (pretty formated) which can be safely downloaded
     // without falling under the minimum ratio.
+
+    /**
+     * @param $ratio
+     *
+     * @return string
+     */
     public function untilRatio($ratio)
     {
         if ($ratio == 0.0) {

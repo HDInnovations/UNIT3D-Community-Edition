@@ -24,12 +24,12 @@
 
 @section('content')
     <div class="torrent box container">
-        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,rgb(209,58,58),rgb(209,58,58) 10px,rgb(223,75,75) 10px,rgb(223,75,75) 20px);border:solid 1px rgb(178,41,41);-webkit-box-shadow: 0px 0px 6px rgb(178,41,41);margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:#ffffff">
-            <br>{!! trans('torrent.say-thanks') !!}!
-        </div>
+        @if ($torrent->category->movie_meta)
+            @include('torrent.partials.movie_meta')
+        @endif
 
-        @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-            @include('torrent.partials.movie_tv_meta')
+        @if ($torrent->category->tv_meta)
+            @include('torrent.partials.tv_meta')
         @endif
 
         @if ($torrent->category->game_meta)
@@ -40,6 +40,7 @@
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
                     <span class="badge-user" style=" width: 100%; background-color: rgba(0, 0, 0, 0.19);">
+                        @if (file_exists(public_path().'/files/torrents/'.$torrent->file_name))
                         @if (config('torrent.download_check_page') == 1)
                             <a href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button" class="btn btn-sm btn-success">
                                 <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
@@ -49,7 +50,7 @@
                                 <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('common.download')
                             </a>
                         @endif
-                        @if (config('torrent.magnet') == 1)
+                        @else
                             <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}" role="button" class="btn btn-sm btn-success">
                                 <i class='{{ config("other.font-awesome") }} fa-magnet'></i> @lang('common.magnet')
                             </a>
@@ -404,6 +405,17 @@
                         <td>{{ $torrent->resolution->name ?? 'No Res' }}</td>
                     </tr>
 
+                    @if ($torrent->keywords->isNotEmpty())
+                        <tr>
+                            <td class="col-sm-2"><strong>Keywords</strong></td>
+                            <td>
+                                @foreach($torrent->keywords as $keyword)
+                                    <span class="badge-user text-bold">{{ $keyword->name }}</span>
+                                @endforeach
+                            </td>
+                        </tr>
+                    @endif
+
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.stream-optimized')?</strong></td>
                         <td>
@@ -587,6 +599,32 @@
                         <td>
                             <div class="panel-body">
                                 @emojione($torrent->getDescriptionHtml())
+
+                                @if (! empty($meta->collection['0']) && $torrent->category->movie_meta)
+                                    <hr>
+                                    <div id="collection_waypoint" class="collection">
+                                        <div class="header collection"
+                                             style=" background-image: url({{ $meta->collection['0']->backdrop ?? 'https://via.placeholder.com/1400x800' }}); background-size: cover; background-position: 50% 50%;">
+                                            <div class="collection-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0, 0, 0, 0.87), rgba(45, 71, 131, 0.46));"></div>
+                                            <section class="collection">
+                                                <h2>Part of the {{ $meta->collection['0']->name }}</h2>
+                                                <p class="text-blue">Includes:
+                                                    @foreach($meta->collection['0']->movie as $collection_movie)
+                                                        {{ $collection_movie->title }},
+                                                    @endforeach
+                                                </p>
+
+                                                <a href="{{ route('mediahub.collections.show', ['id' => $meta->collection['0']->id]) }}"
+                                                   role="button" class="btn btn-labeled btn-primary"
+                                                   style=" margin: 0; text-transform: uppercase; position: absolute; bottom: 50px;">
+                                                    <span class="btn-label">
+                                                        <i class="{{ config("other.font-awesome") }} fa-copy"></i> View The Collection
+                                                    </span>
+                                                </a>
+                                            </section>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </td>
                     </tr>
@@ -758,13 +796,13 @@
 @endsection
 
 @section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#content').wysibb({});
       })
     </script>
 
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
 
         $('.slidingDiv').hide();
@@ -777,28 +815,8 @@
       })
     </script>
 
-    @if (isset($meta) && ($torrent->category->movie_meta || $torrent->category->tv_meta) && $meta->videoTrailer && $meta->title)
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $('.show-trailer').each(function () {
-        $(this).off('click');
-        $(this).on('click', function (e) {
-          e.preventDefault();
-          Swal.fire({
-            showConfirmButton: false,
-            showCloseButton: true,
-            background: 'rgb(35,35,35)',
-            width: 970,
-            html: '<iframe width="930" height="523" src="{{ $meta->videoTrailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            title: '<i style="color: #a5a5a5;">{{ $meta->title }}</i>',
-            text: ''
-          });
-        });
-      });
-    </script>
-    @endif
-
     @if (isset($meta) && $torrent->category->game_meta && $meta->videos && $meta->name)
-        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
           $('.show-trailer').each(function () {
             $(this).off('click');
             $(this).on('click', function (e) {

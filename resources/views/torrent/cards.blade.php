@@ -29,8 +29,9 @@
                     <div class="container mt-5">
                         <div class="mx-0 mt-5 form-group fatten-me">
                             <div>
-                                <label for="query"></label><input type="text" class="form-control facetedSearch"
-                                    trigger="keyup" id="query" placeholder="@lang('torrent.search')">
+                                <label for="query"></label>
+                                <input type="text" class="form-control facetedSearch"
+                                       trigger="keyup" id="query" placeholder="@lang('torrent.search')">
                             </div>
                         </div>
                     </div>
@@ -41,96 +42,106 @@
                 <div class="box">
                     <div class="container well search mt-5">
                         <form role="form" method="GET" action="TorrentController@torrents"
-                            class="form-horizontal form-condensed form-torrent-search form-bordered">
+                              class="form-horizontal form-condensed form-torrent-search form-bordered">
                             @csrf
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="name"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
                                 <div class="col-sm-9">
                                     <label for="search"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                                                                       trigger="keyup" id="search" placeholder="@lang('torrent.name')">
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="name"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.description')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.description')</label>
                                 <div class="col-sm-9">
                                     <label for="description"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="description" placeholder="@lang('torrent.description')">
+                                                                            trigger="keyup" id="description" placeholder="@lang('torrent.description')">
                                 </div>
                             </div>
-    
+
+                            <div class="mx-0 mt-5 form-group fatten-me">
+                                <label for="keywords"
+                                       class="mt-5 col-sm-1 label label-default fatten-me">Keywords</label>
+                                <div class="col-sm-9 fatten-me">
+                                    <label for="keywaords"></label>
+                                    <input type="text" class="form-control facetedSearch"
+                                           trigger="keyup" id="keywords" placeholder="Keywords">
+                                </div>
+                            </div>
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="uploader"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.uploader')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.uploader')</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control facetedSearch" trigger="keyup" id="uploader"
-                                        placeholder="@lang('torrent.uploader')">
+                                           placeholder="@lang('torrent.uploader')">
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="imdb" class="mt-5 col-sm-1 label label-default fatten-me">ID</label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control facetedSearch" trigger="keyup" id="imdb"
-                                        placeholder="IMDB #">
+                                           placeholder="IMDB #">
                                 </div>
                                 <div class="col-sm-2">
                                     <label for="tvdb"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="tvdb" placeholder="TVDB #">
+                                                                     trigger="keyup" id="tvdb" placeholder="TVDB #">
                                 </div>
                                 <div class="col-sm-2">
                                     <label for="tmdb"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="tmdb" placeholder="TMDB #">
+                                                                     trigger="keyup" id="tmdb" placeholder="TMDB #">
                                 </div>
                                 <div class="col-sm-2">
                                     <label for="mal"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="mal" placeholder="MAL #">
+                                                                    trigger="keyup" id="mal" placeholder="MAL #">
                                 </div>
                                 <div class="col-sm-2">
                                     <label for="igdb"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="igdb" placeholder="IGDB #">
+                                                                     trigger="keyup" id="igdb" placeholder="IGDB #">
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="release_year" class="mt-5 col-sm-1 label label-default fatten-me">Year
                                     Range</label>
                                 <div class="col-sm-2">
                                     <label for="start_year"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="start_year" placeholder="Start Year">
+                                                                           trigger="keyup" id="start_year" placeholder="Start Year">
                                 </div>
                                 <div class="col-sm-2">
                                     <label for="end_year"></label><input type="text" class="form-control facetedSearch"
-                                        trigger="keyup" id="end_year" placeholder="End Year">
+                                                                         trigger="keyup" id="end_year" placeholder="End Year">
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="category"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.category')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.category')</label>
                                 <div class="col-sm-10">
                                     @foreach ($repository->categories() as $id => $category)
                                         <span class="badge-user">
                                             <label class="inline">
                                                 <input type="checkbox" trigger="click" value="{{ $id }}"
-                                                    class="category facetedSearch"> {{ $category }}
+                                                       class="category facetedSearch"> {{ $category }}
                                             </label>
                                         </span>
                                     @endforeach
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.type')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.type')</label>
                                 <div class="col-sm-10">
                                     @foreach ($repository->types() as $id => $type)
                                         <span class="badge-user">
                                             <label class="inline">
                                                 <input type="checkbox" trigger="click" value="{{ $id }}"
-                                                    class="type facetedSearch"> {{ $type }}
+                                                       class="type facetedSearch"> {{ $type }}
                                             </label>
                                         </span>
                                     @endforeach
@@ -151,70 +162,70 @@
                                     @endforeach
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="genre"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                                 <div class="col-sm-10">
-                                    @foreach ($repository->tags() as $id => $genre)
+                                    @foreach ($repository->genres() as $id => $genre)
                                         <span class="badge-user">
                                             <label class="inline">
-                                                <input type="checkbox" trigger="click" value="{{ $genre }}"
-                                                    class="genre facetedSearch"> {{ $genre }}
+                                                <input type="checkbox" trigger="click" value="{{ $id }}"
+                                                       class="genre facetedSearch"> {{ $genre }}
                                             </label>
                                         </span>
                                     @endforeach
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.discounts')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.discounts')</label>
                                 <div class="col-sm-10">
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="freeleech" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-star text-gold"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-star text-gold"></span>
                                             @lang('torrent.freeleech')
                                         </label>
                                     </span>
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="doubleupload" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-gem text-green"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-gem text-green"></span>
                                             @lang('torrent.double-upload')
                                         </label>
                                     </span>
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="featured" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span>
                                             @lang('torrent.featured')
                                         </label>
                                     </span>
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.special')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.special')</label>
                                 <div class="col-sm-10">
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="stream" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-play text-red"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-play text-red"></span>
                                             @lang('torrent.stream-optimized')
                                         </label>
                                     </span>
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="highspeed" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span>
                                             @lang('common.high-speeds')
                                         </label>
                                     </span>
@@ -228,39 +239,39 @@
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="internal" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-magic"
-                                                style="color: #baaf92;"></span> @lang('torrent.internal')
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-magic"
+                                                    style="color: #baaf92;"></span> @lang('torrent.internal')
                                         </label>
                                     </span>
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.health')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.health')</label>
                                 <div class="col-sm-10">
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="alive" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-smile text-green"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-smile text-green"></span>
                                             @lang('torrent.alive')
                                         </label>
                                     </span>
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="dying" trigger="click" value="1"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-meh text-orange"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-meh text-orange"></span>
                                             @lang('torrent.dying-torrent')
                                         </label>
                                     </span>
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="dead" trigger="click" value="0"
-                                                class="facetedSearch"> <span
-                                                class="{{ config('other.font-awesome') }} fa-frown text-red"></span>
+                                                   class="facetedSearch"> <span
+                                                    class="{{ config('other.font-awesome') }} fa-frown text-red"></span>
                                             @lang('torrent.dead-torrent')
                                         </label>
                                     </span>
@@ -268,10 +279,10 @@
                             </div>
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="sort"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                                 <div class="col-sm-2">
                                     <label for="sorting"></label><select id="sorting" trigger="change" name="sorting"
-                                        class="form-control facetedSearch">
+                                                                         class="form-control facetedSearch">
                                         @foreach ($repository->sorting() as $value => $sort)
                                             <option value="{{ $value }}">{{ $sort }}</option>
                                         @endforeach
@@ -280,10 +291,10 @@
                             </div>
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="sort"
-                                    class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                                 <div class="col-sm-2">
                                     <label for="direction"></label><select id="direction" trigger="change" name="direction"
-                                        class="form-control facetedSearch">
+                                                                           class="form-control facetedSearch">
                                         @foreach ($repository->direction() as $value => $dir)
                                             <option value="{{ $value }}">{{ $dir }}</option>
                                         @endforeach
@@ -294,7 +305,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <span id="facetedHeader"></span>
             <div id="facetedSearch" type="card" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
@@ -303,109 +314,106 @@
                 </div>
                 <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
-                        @foreach ($torrents as $k => $t)
+                        @foreach ($torrents as $torrent)
                             <div class="col-md-4">
                                 <div class="card is-torrent">
                                     <div class="card_head">
                                         <span class="badge-user text-bold" style="float:right;">
                                             <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up text-green"></i>
-                                            {{ $t->seeders }} /
+                                            {{ $torrent->seeders }} /
                                             <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down text-red"></i>
-                                            {{ $t->leechers }} /
-                                            <i
-                                                class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->times_completed }}
+                                            {{ $torrent->leechers }} /
+                                            <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>
+                                            {{ $torrent->times_completed }}
                                         </span>&nbsp;
                                         <span class="badge-user text-bold text-blue"
-                                            style="float:right;">{{ $t->getSize() }}</span>&nbsp;
+                                              style="float:right;">{{ $torrent->getSize() }}</span>&nbsp;
                                         <span class="badge-user text-bold text-blue"
-                                              style="float:right;">{{ $t->resolution->name ?? 'No Res' }}</span>
+                                              style="float:right;">{{ $torrent->resolution->name ?? 'No Res' }}</span>
                                         <span class="badge-user text-bold text-blue"
-                                            style="float:right;">{{ $t->type->name }}</span>&nbsp;
+                                              style="float:right;">{{ $torrent->type->name }}</span>&nbsp;
                                         <span class="badge-user text-bold text-blue"
-                                            style="float:right;">{{ $t->category->name }}</span>&nbsp;
+                                              style="float:right;">{{ $torrent->category->name }}</span>&nbsp;
                                     </div>
                                     <div class="card_body">
                                         <div class="body_poster">
-                                            @if ($t->category->movie_meta || $t->category->tv_meta)
-                                                <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}"
-                                                    class="show-poster"
-                                                    data-name='<i style="color: #a5a5a5;">{{ $t->meta->title ?? 'N/A' }}</i>'
-                                                    data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('
+                                            @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
+                                                <img src="{{ $torrent->meta->poster ?? 'https://via.placeholder.com/600x900' }}"
+                                                     class="show-poster"
+                                                     data-image='<img src="{{ $torrent->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('
                                                     torrent.poster')" style="height: 1000px;">'
-                                                class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                             @endif
-        
-                                            @if ($t->category->game_meta && isset($t->meta) && $t->meta->cover->image_id &&
-                                                $t->meta->name)
-                                                <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->meta->cover->image_id }}.jpg"
-                                                    class="show-poster"
-                                                    data-name='<i style="color: #a5a5a5;">{{ $t->meta->name ?? 'N/A' }}</i>'
-                                                    data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->meta->cover->image_id }}.jpg" alt="@lang('
+
+                                            @if ($torrent->category->game_meta && isset($torrent->meta) && $torrent->meta->cover->image_id &&
+                                                $torrent->meta->name)
+                                                <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $torrent->meta->cover->image_id }}.jpg"
+                                                     class="show-poster"
+                                                     data-name='<i style="color: #a5a5a5;">{{ $torrent->meta->name ?? 'N/A' }}</i>'
+                                                     data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $torrent->meta->cover->image_id }}.jpg" alt="@lang('
                                                     torrent.poster')" style="height: 1000px;">'
-                                                class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                             @endif
-        
-                                            @if ($t->category->no_meta || $t->category->music_meta)
+
+                                            @if ($torrent->category->no_meta || $torrent->category->music_meta)
                                                 <img src="https://via.placeholder.com/600x900" class="show-poster"
-                                                    data-name='<i style="color: #a5a5a5;">N/A</i>'
-                                                    data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('
+                                                     data-name='<i style="color: #a5a5a5;">N/A</i>'
+                                                     data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('
                                                     torrent.poster')" style="height: 1000px;">'
-                                                class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                             @endif
                                         </div>
                                         <div class="body_description">
                                             <h3 class="description_title">
-                                                <a href="{{ route('torrent', ['id' => $t->id]) }}">{{ $t->name }}
-                                                    @if($t->category->movie_meta || $t->category->tv_meta)
-                                                        <span class="text-bold text-pink"> {{ $t->meta->releaseYear ?? ''}}</span>
+                                                <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}
+                                                    @if($torrent->category->movie_meta || $torrent->category->tv_meta)
+                                                        <span class="text-bold text-pink"> {{ $torrent->meta->releaseYear ?? ''}}</span>
                                                     @endif
-                                                    @if($t->category->game_meta && isset($t->meta) &&
-                                                        $t->meta->first_release_date)
+                                                    @if($torrent->category->game_meta && isset($torrent->meta) &&
+                                                        $torrent->meta->first_release_date)
                                                         <span class="text-bold text-pink">
-                                                            {{ date('Y', strtotime($t->meta->first_release_date)) }}</span>
+                                                            {{ date('Y', strtotime($torrent->meta->first_release_date)) }}</span>
                                                     @endif
                                                 </a>
                                             </h3>
-                                            @if ($t->category->movie_meta && isset($t->meta) && $t->meta->genres)
-                                                @foreach ($t->meta->genres as $genre)
-                                                    <span class="genre-label">{{ $genre }}</span>
+                                            @if ($torrent->category->movie_meta && isset($torrent->meta) && $torrent->meta->genres)
+                                                @foreach ($torrent->meta->genres as $genre)
+                                                    <span class="genre-label">{{ $genre->name }}</span>
                                                 @endforeach
                                             @endif
-                                            @if ($t->category->tv_meta && isset($t->meta) && $t->meta->genres)
-                                                @foreach ($t->meta->genres as $genre)
-                                                    <span class="genre-label">{{ $genre }}</span>
+                                            @if ($torrent->category->tv_meta && isset($torrent->meta) && $torrent->meta->genres)
+                                                @foreach ($torrent->meta->genres as $genre)
+                                                    <span class="genre-label">{{ $genre->name }}</span>
                                                 @endforeach
                                             @endif
-                                            @if ($t->category->game_meta && isset($t->meta) && $t->meta->genres)
-                                                @foreach ($t->meta->genres as $genre)
+                                            @if ($torrent->category->game_meta && isset($torrent->meta) && $torrent->meta->genres)
+                                                @foreach ($torrent->meta->genres as $genre)
                                                     <span class="genre-label">{{ $genre->name }}</span>
                                                 @endforeach
                                             @endif
                                             <p class="description_plot">
-                                                @if($t->category->movie_meta || $t->category->tv_meta)
-                                                    {{ $t->meta->plot ?? '' }}
-                                                @endif
+                                                {{ $torrent->meta->overview ?? '' }}
                                             </p>
                                         </div>
                                     </div>
                                     <div class="card_footer">
                                         <div style="float: left;">
-                                            @if ($t->anon == 1)
+                                            @if ($torrent->anon == 1)
                                                 <span
-                                                    class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-                                                    @if (auth()->user()->id == $t->user->id || auth()->user()->group->is_modo)
-                                                        <a href="{{ route('users.show', ['username' => $t->user->username]) }}">
-                                                            ({{ $t->user->username }})
+                                                        class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
+                                                    @if (auth()->user()->id == $torrent->user->id || auth()->user()->group->is_modo)
+                                                        <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
+                                                            ({{ $torrent->user->username }})
                                                         </a>
                                                     @endif
                                                 </span>
                                             @else
-                                                <a href="{{ route('users.show', ['username' => $t->user->username]) }}">
+                                                <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                                     <span class="badge-user text-bold"
-                                                        style="color:{{ $t->user->group->color }}; background-image:{{ $t->user->group->effect }};">
-                                                        <i class="{{ $t->user->group->icon }}" data-toggle="tooltip" title=""
-                                                            data-original-title="{{ $t->user->group->name }}"></i>
-                                                        {{ $t->user->username }}
+                                                          style="color:{{ $torrent->user->group->color }}; background-image:{{ $torrent->user->group->effect }};">
+                                                        <i class="{{ $torrent->user->group->icon }}" data-toggle="tooltip" title=""
+                                                           data-original-title="{{ $torrent->user->group->name }}"></i>
+                                                        {{ $torrent->user->username }}
                                                     </span>
                                                 </a>
                                             @endif
@@ -413,9 +421,9 @@
                                         <span class="badge-user text-bold" style="float: right;">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
                                             @if ($user->ratings == 1)
-                                                {{ $t->meta->imdbRating ?? '0' }}/10 ({{ $t->meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
+                                                {{ $torrent->meta->imdbRating ?? '0' }}/10 ({{ $torrent->meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
                                             @else
-                                                {{ $t->meta->tmdbRating ?? '0' }}/10 ({{ $t->meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
+                                                {{ $torrent->meta->tmdbRating ?? '0' }}/10 ({{ $torrent->meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
                                             @endif
                                         </span>
                                     </div>

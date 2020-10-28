@@ -63,7 +63,13 @@ class UserController extends Controller
         $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
         $bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
 
-        $realupload = $user->uploaded - $bonupload;
+        //  With Multipliers
+        $his_upl_cre = History::where('user_id', '=', $user->id)->sum('uploaded');
+        //  Without Multipliers
+        $his_upl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $total = $his_upl_cre - $his_upl;
+
+        $realupload = ($user->uploaded - $bonupload) - $total;
         $realdownload = $user->downloaded + $bondownload;
 
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
@@ -83,6 +89,8 @@ class UserController extends Controller
             'realupload'   => $realupload,
             'bondownload'  => $bondownload,
             'realdownload' => $realdownload,
+            'his_upl_cre'  => $his_upl_cre,
+            'his_upl'      => $his_upl,
             'requested'    => $requested,
             'filled'       => $filled,
             'invitedBy'    => $invitedBy,
@@ -521,6 +529,8 @@ class UserController extends Controller
 
         $user->passkey = \md5(\uniqid().\time().\microtime());
         $user->save();
+
+        \cache()->forget(\sprintf('user:%s', $user->passkey));
 
         return \redirect()->route('user_security', ['username' => $user->username, 'hash' => '#pid'])
             ->withSuccess('Your PID Was Changed Successfully!');
@@ -1966,7 +1976,7 @@ class UserController extends Controller
     public function downloadHistoryTorrents(Request $request, $username)
     {
         //  Extend The Maximum Execution Time
-        \set_time_limit(300);
+        \set_time_limit(1200);
 
         // Authorized User
         $user = User::where('username', '=', $username)->firstOrFail();

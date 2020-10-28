@@ -123,7 +123,7 @@
             <div class="form-group">
                 <label for="genre">@lang('torrent.genre')</label>
                 <div>
-                    @foreach ($torrent_repository->tags() as $id => $genre)
+                    @foreach ($torrent_repository->genres() as $id => $genre)
                         <span class="badge-user">
                             <label class="inline">
                                 @if(is_array($rss->object_torrent->genres) && in_array($genre,$rss->object_torrent->genres))

@@ -65,8 +65,12 @@
                     </div>
                 </div>
 
-                @if ($torrentRequest->category->movie_meta || $torrentRequest->category->tv_meta)
-                    @include('requests.partials.movie_tv_meta')
+                @if ($torrentRequest->category->movie_meta)
+                    @include('requests.partials.movie_meta')
+                @endif
+
+                @if ($torrentRequest->category->tv_meta)
+                    @include('requests.partials.tv_meta')
                 @endif
 
                 @if ($torrentRequest->category->game_meta)
@@ -164,7 +168,7 @@
                             </td>
                             <td>
                                 @if ($torrentRequest->claimed == null && $torrentRequest->filled_hash == null)
-                                    <button class="btn btn-md btn-info btn-vote-request" data-toggle="modal"
+                                    <button class="btn btn-xs btn-info btn-vote-request" data-toggle="modal"
                                             data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-hand-paper">
                                         </i> @lang('request.claim')
                                     </button>
@@ -218,7 +222,7 @@
                                                 data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @elseif ($torrentRequest->claimed == 0)
-                                        <button id="btn_fulfil_request" class="btn btn-md btn-info" data-toggle="modal"
+                                        <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
                                                 data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @endif

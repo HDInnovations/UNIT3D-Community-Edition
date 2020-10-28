@@ -19,9 +19,9 @@
                     </div>
                     <div class="card_body">
                         <div class="body_poster">
-                            @if (($t->category->movie_meta || $t->category->tv_meta) && isset($t->meta) && $t->meta->poster && $t->meta->title)
+                            @if ($t->category->movie_meta || $t->category->tv_meta)
                                 <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster"
-                                     data-name='<i style="color: #a5a5a5;">{{ $t->meta->title ?? 'N/A' }}</i>' data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                     data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                             @endif
 
@@ -31,7 +31,7 @@
                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                             @endif
 
-                            @if ($t->category->no_meta || $t->category->music_meta || ! $t->meta)
+                            @if ($t->category->no_meta || $t->category->music_meta)
                                 <img src="https://via.placeholder.com/600x900" class="show-poster"
                                      data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
@@ -50,12 +50,12 @@
                             </h3>
                             @if ($t->category->movie_meta && isset($t->meta) && $t->meta->genres)
                                 @foreach ($t->meta->genres as $genre)
-                                    <span class="genre-label">{{ $genre }}</span>
+                                    <span class="genre-label">{{ $genre->name }}</span>
                                 @endforeach
                             @endif
                             @if ($t->category->tv_meta && isset($t->meta) && $t->meta->genres)
                                 @foreach ($t->meta->genres as $genre)
-                                    <span class="genre-label">{{ $genre }}</span>
+                                    <span class="genre-label">{{ $genre->name }}</span>
                                 @endforeach
                             @endif
                             @if ($t->category->game_meta && isset($t->meta) && $t->meta->genres)
@@ -64,9 +64,7 @@
                                 @endforeach
                             @endif
                             <p class="description_plot">
-                                @if(($t->category->movie_meta || $t->category->tv_meta) && $t->meta && $t->meta->plot)
-                                    {{ $t->meta->plot }}
-                                @endif
+                                {{ $t->meta->overview ?? '' }}
                             </p>
                         </div>
                     </div>
