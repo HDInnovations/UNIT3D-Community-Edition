@@ -1,7 +1,27 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
-## [v3.0.0]
+## [v4.0.0] - 2020-10-28
+
+- [#1467] (Refactor) Meta Data, Thanks to [@HDVinnie]
+- [#1465] Update helper.js, Thanks to [@DrunkenMonkey1]
+- [#1464] ZH Translation update, Thanks to [@ted423]
+- [#1459] idiom, Thanks to [@Gideon75]
+- [#1454] (Update) User Profiles, Thanks to [@HDVinnie]
+- [#1453] (Update) Top Nav, Thanks to [@HDVinnie]
+- [#1452] (Update) README, Thanks to [@VPEvents]
+- [#1451] (Optimize) MassPM Function, Thanks to [@HDVinnie]
+- [#1449] edit language, Thanks to [@Gideon75]
+- [#1447] just a correct idioma, Thanks to [@Gideon75]
+- [#1436] Laravel 8.x Shift, Thanks to [@HDVinnie]
+- [#1463] Fix: [#1434] , [#1437], Thanks to [@fmohican]
+- [#1462] Fix Regular Expressions to find inline HTML encoded special characters, Thanks to [@fmohican]
+- [#1458] (Fix) Announce Controller Test, Thanks to [@HDVinnie]
+
+<!-- dumped content end -->
+
+<!-- dumped content start -->
+## [v3.0.0] - 2020-09-04
 
 - [#1369] (Refactor) PHP Announce, Thanks to [@HDVinnie]
 - [#1425] minor language corrections, Thanks to [@Gideon75]
@@ -1540,6 +1560,7 @@
 [v2.6.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.5.0...v2.6.0
 [v2.7.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.6.0...v2.7.0
 [v3.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.7.0...v3.0.0
+[v4.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v3.0.0...v4.0.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1568,3 +1589,23 @@
 [#1421]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1421
 [#1419]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1419
 [#1369]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1369
+[#1465]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1465
+[#1464]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1464
+[#1463]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1463
+[#1462]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1462
+[#1459]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1459
+[#1458]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1458
+[#1454]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1454
+[#1453]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1453
+[#1452]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1452
+[#1451]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1451
+[#1449]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1449
+[#1447]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1447
+[#1437]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1437
+[#1436]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1436
+[#1434]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1434
+[#1467]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1467
+[@ted423]: https://github.com/ted423
+[@fmohican]: https://github.com/fmohican
+[@VPEvents]: https://github.com/VPEvents
+[@DrunkenMonkey1]: https://github.com/DrunkenMonkey1
