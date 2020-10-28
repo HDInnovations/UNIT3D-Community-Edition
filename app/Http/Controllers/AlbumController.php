@@ -14,8 +14,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
-use App\Services\Clients\OmdbClient;
 use Carbon\Carbon;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -25,21 +25,6 @@ use Intervention\Image\Facades\Image;
  */
 class AlbumController extends Controller
 {
-    /**
-     * @var OmdbClient
-     */
-    private $omdbClient;
-
-    /**
-     * AlbumController Constructor.
-     *
-     * @param \App\Services\Clients\OmdbClient $omdbClient
-     */
-    public function __construct(OmdbClient $omdbClient)
-    {
-        $this->omdbClient = $omdbClient;
-    }
-
     /**
      * Display All Albums.
      *
@@ -72,16 +57,16 @@ class AlbumController extends Controller
     public function store(Request $request)
     {
         $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
-        $omdb = $this->omdbClient->find(['imdb' => $imdb]);
+        $meta = Movie::where('imdb_id', '=', $imdb)->first();
 
-        if ($omdb === null || ! $omdb) {
+        if ($meta === null || ! $meta) {
             return \redirect()->route('albums.create')
-                ->withErrors('Bad IMDB Request!');
+                ->withErrors('Meta Data Not Found. Gallery System Is Being Refactored');
         }
 
         $album = new Album();
         $album->user_id = $request->user()->id;
-        $album->name = $omdb['Title'].' ('.$omdb['Year'].')';
+        $album->name = $meta->title.' ('.$meta->release_date.')';
         $album->description = $request->input('description');
         $album->imdb = $request->input('imdb');
 
