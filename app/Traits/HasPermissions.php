@@ -31,8 +31,8 @@ trait HasPermissions {
     }
 
     public function hasPermissionTo($permission) {
-
-        return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
+        $perm = RBACPermissions::where('slug', $permission)->first();
+        return $this->hasPermissionThroughRole($perm) || $this->hasPermission($perm);
     }
     public function hasPermissionThroughRole($permission) {
 
