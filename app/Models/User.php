@@ -794,6 +794,7 @@ class User extends Authenticatable
 
     // Return the ratio after $size bytes would be downloaded, pretty formatted
     // as a string.
+
     /**
      * @param      $size
      * @param bool $freeleech
@@ -816,6 +817,7 @@ class User extends Authenticatable
 
     // Return the size (pretty formated) which can be safely downloaded
     // without falling under the minimum ratio.
+
     /**
      * @param $ratio
      *
