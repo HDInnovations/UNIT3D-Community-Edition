@@ -15,7 +15,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.staff-dashboard')
                 </a>
             </li>
-            @role('owner')
+            @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="{{ route('staff.backups.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup')
@@ -27,7 +27,7 @@
                         <i class="fab fa-laravel"></i> Commands
                     </a>
                 </li>
-            @endrole
+            @endif
 
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.chat-tools')
@@ -67,7 +67,7 @@
                     <span class="badge badge-danger"> {{ $apps->pending }} </span>
                 </a>
             </li>
-            @permission('dashboard')
+            @if (auth()->user()->group->is_admin)
                 <li>
                     <a href="{{ route('staff.forums.index') }}">
                         <i class="fab fa-wpforms"></i> @lang('staff.forums')
@@ -78,7 +78,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('staff.groups')
                     </a>
                 </li>
-            @endpermission
+            @endif
             <li>
                 <a href="{{ route('staff.pages.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.pages')

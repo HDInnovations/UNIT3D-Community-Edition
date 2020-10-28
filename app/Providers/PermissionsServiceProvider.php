@@ -43,13 +43,11 @@ class PermissionsServiceProvider extends ServiceProvider
 
         //@permission()
         Blade::directive('permission', function ($perm) {
-
-            return "<?php if(auth()->check() && auth()->user()->hasPermissionTo($perm)) { ?>"; //return this if statement inside php tag
+            return "<?php if(auth()->check() && auth()->user()->hasPermission($perm)) { ?>"; //return this if statement inside php tag
         });
         //@endpermission
         Blade::directive('endpermission', function ($perm) {
             return "<?php } ?>"; //return this endif statement inside php tag
         });
-
     }
 }

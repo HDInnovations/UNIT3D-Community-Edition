@@ -1,7 +1,6 @@
 <?php
 namespace App\Traits;
 
-use App\Models\Permission;
 use App\Models\RBACPermissions;
 use App\Models\RBACRoles;
 
@@ -32,12 +31,12 @@ trait HasPermissions {
     }
 
     public function hasPermissionTo($permission) {
-        $perm = RBACPermissions::where('slug', '=', $permission)->first();
-        return $this->hasPermissionThroughRole($perm) || $this->hasPermission($perm);
-    }
-    public function hasPermissionThroughRole($perm) {
 
-        foreach ($perm->roles as $role){
+        return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
+    }
+    public function hasPermissionThroughRole($permission) {
+
+        foreach ($permission->roles as $role){
             if($this->roles->contains($role)) {
                 return true;
             }
@@ -65,8 +64,8 @@ trait HasPermissions {
         return $this->belongsToMany(RBACPermissions::class,'RBACusers_permissions','user_id', 'permission_id');
 
     }
-    public function hasPermission($permission) {
-       var_dump($permission);
+    protected function hasPermission($permission) {
+
         return (bool) $this->permissions->where('slug', $permission->slug)->count();
     }
 
