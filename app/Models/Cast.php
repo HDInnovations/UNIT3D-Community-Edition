@@ -18,25 +18,36 @@ use Illuminate\Database\Eloquent\Model;
 class Cast extends Model
 {
     protected $guarded = [];
-    protected $primaryKey = 'id';
     public $timestamps = false;
     public $table = 'cast';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tv()
     {
         return $this->belongsToMany(Tv::class, 'cast_tv', 'tv_id', 'cast_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function season()
     {
         return $this->belongsToMany(Season::class, 'cast_season', 'season_id', 'cast_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function episode()
     {
         return $this->belongsToMany(Episode::class, 'cast_episode', 'episode_id', 'cast_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function movie()
     {
         return $this->belongsToMany(Movie::class, 'cast_movie', 'movie_id', 'cast_id');

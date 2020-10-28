@@ -18,10 +18,12 @@ use Illuminate\Database\Eloquent\Model;
 class GuestStar extends Model
 {
     protected $guarded = [];
-    protected $primaryKey = 'id';
     public $timestamps = false;
     public $table = 'person';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function episode()
     {
         return $this->belongsToMany(Episode::class, 'episode_guest_star', 'episode_id', 'person_id');

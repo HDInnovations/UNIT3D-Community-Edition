@@ -20,9 +20,11 @@ class Episode extends Model
     protected $guarded = [];
     protected $orderBy = 'order';
     protected $orderDirection = 'ASC';
-    protected $primaryKey = 'id';
     public $table = 'episodes';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function season()
     {
         return $this->belongsTo(Season::class)
@@ -30,22 +32,34 @@ class Episode extends Model
             ->orderBy('episode_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function person()
     {
         return $this->belongsToMany(Person::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function cast()
     {
         return $this->belongsToMany(Cast::class)
             ->orderBy('order');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function crew()
     {
         return $this->belongsToMany(Crew::class, 'crew_episode', 'person_id', 'episode_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function guest_star()
     {
         return $this->belongsToMany(GuestStar::class, 'episode_guest_star', 'person_id', 'episode_id');

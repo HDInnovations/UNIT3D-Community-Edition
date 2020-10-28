@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class Collection extends Model
 {
     protected $guarded = [];
-    protected $primaryKey = 'id';
     public $timestamps = false;
     protected $table = 'collection';
 
@@ -32,6 +31,9 @@ class Collection extends Model
         return $this->hasMany(Comment::class, 'collection_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function movie()
     {
         return $this->belongsToMany(Movie::class);

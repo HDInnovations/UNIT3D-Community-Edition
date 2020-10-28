@@ -18,15 +18,20 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     protected $guarded = [];
-    protected $primaryKey = 'id';
     public $timestamps = false;
     public $table = 'companies';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function movie()
     {
         return $this->belongsToMany(Movie::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tv()
     {
         return $this->belongsToMany(Tv::class);

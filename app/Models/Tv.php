@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tv extends Model
 {
     protected $guarded = [];
-    protected $primaryKey = 'id';
     public $table = 'tv';
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -32,17 +31,26 @@ class Tv extends Model
         return $this->hasMany(Torrent::class, 'tmdb', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function seasons()
     {
         return $this->hasMany(Season::class)
             ->orderBy('season_number');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function persons()
     {
         return $this->belongsToMany(Person::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function cast()
     {
         return $this->belongsToMany(Cast::class, 'cast_tv', 'cast_id', 'tv_id')
@@ -50,26 +58,41 @@ class Tv extends Model
             ->take(6);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function crew()
     {
         return $this->belongsToMany(Crew::class, 'crew_tv', 'person_id', 'tv_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function genres()
     {
         return $this->belongsToMany(Genre::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function creators()
     {
         return $this->belongsToMany(Person::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function networks()
     {
         return $this->belongsToMany(Network::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function companies()
     {
         return $this->belongsToMany(Company::class);

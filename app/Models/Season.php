@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class Season extends Model
 {
     protected $guarded = [];
-    protected $primaryKey = 'id';
     public $timestamps = false;
     public $table = 'seasons';
 
@@ -32,27 +31,42 @@ class Season extends Model
         return $this->hasMany(Torrent::class, 'tmdb', 'tv_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function tv()
     {
         return $this->belongsTo(Tv::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function episodes()
     {
         return $this->hasMany(Episode::class)
             ->orderBy('episode_number');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function person()
     {
         return $this->belongsToMany(Person::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function cast()
     {
         return $this->belongsToMany(Cast::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function crew()
     {
         return $this->belongsToMany(Crew::class);
