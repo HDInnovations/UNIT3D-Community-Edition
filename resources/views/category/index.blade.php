@@ -6,12 +6,6 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</s
-pan>
-        </a>
-    </li>
-    <li>
         <a href="{{ route('categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.categories')</span>
         </a>
@@ -25,23 +19,18 @@ pan>
                 <h1>@lang('torrent.categories')</h1>
             </div>
         </div>
-        <div class="blocks">
-            @foreach ($categories as $category)
+        <section class="tall_categories">
+            @foreach($categories as $category)
                 <a href="{{ route('categories.show', ['id' => $category->id]) }}">
-                    <div class="general media_blocks">
-                        <h2>
-                            @if ($category->image != null)
-                                <img src="{{ url('files/img/' . $category->image) }}" alt="{{ $category->name }}">
-                            @else
-                                <i class="{{ $category->icon }}"></i>
-                            @endif
-                            {{ $category->name }}
-                        </h2>
-                        <span></span>
-                        <h2>{{ $category->torrents_count }} @lang('torrent.torrents')</h2>
+                    <div class="category {{ strtolower($category->name) }}">
+                        <div>
+                            <p>{{ $category->name }}</p>
+                            <span></span>
+                            <p>{{ $category->num_torrent }} {{ trans('torrent.torrents') }}</p>
+                        </div>
                     </div>
                 </a>
             @endforeach
-        </div>
+        </section>
     </div>
 @endsection

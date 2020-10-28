@@ -184,21 +184,38 @@
                 <td class="col-md-2">@lang('common.download')</td>
                 <td>
                     <span class="badge-extra text-red" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.download-recorded')">{{ $user->getDownloaded() }}</span> = 
-                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.download-true')">{{ App\Helpers\StringHelper::formatBytes($realdownload , 2) }}</span> - 
+                          data-original-title="@lang('user.download-recorded')">{{ $user->getDownloaded() }}</span>
+                    +
                     <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.download-bon')">{{ App\Helpers\StringHelper::formatBytes($bondownload , 2) }}</span></td>
+                          data-original-title="@lang('user.download-bon')">{{ App\Helpers\StringHelper::formatBytes($bondownload , 2) }}</span> =
+                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                          data-original-title="@lang('user.download-true')">{{ App\Helpers\StringHelper::formatBytes($realdownload , 2) }}</span></td>
             </tr>
             <tr>
-                <td>@lang('common.upload')</td>
+                <td>Recorded @lang('common.upload')</td>
+                <td>
+                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
+                          data-original-title="Default Starter Upload">{{ App\Helpers\StringHelper::formatBytes(config('other.default_upload') , 2) }}</span> +
+                    <span class="badge-extra text-green" data-toggle="tooltip" title=""
+                          data-original-title="True Client Upload">{{ App\Helpers\StringHelper::formatBytes($his_upl , 2) }}</span> +
+                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
+                          data-original-title="Upload From Multipliers">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre - $his_upl , 2) }}</span> +
+                    <span class="badge-extra text-orange" data-toggle="tooltip" title=""
+                          data-original-title="@lang('user.upload-bon')">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span> =
+                    <span class="badge-extra text-green" data-toggle="tooltip" title=""
+                          data-original-title="Recorded Account Upload">{{ $user->getUploaded() }}</span></td>
+            </tr>
+            <tr>
+                <td>Real @lang('common.upload')</td>
                 <td>
                     <span class="badge-extra text-green" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.upload-recorded')">{{ $user->getUploaded() }}</span> = 
-                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.upload-true')">{{ App\Helpers\StringHelper::formatBytes($realupload , 2) }}</span> + 
+                          data-original-title="Recorded Account Upload">{{ $user->getUploaded() }}</span> -
+                    <span class="badge-extra text-info" data-toggle="tooltip" title=""
+                          data-original-title="Upload From Multipliers">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre - $his_upl , 2) }}</span> -
                     <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                          data-original-title="@lang('user.upload-bon')">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span></td>
+                          data-original-title="@lang('user.upload-bon')">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span> =
+                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                          data-original-title="@lang('user.upload-true')">{{ App\Helpers\StringHelper::formatBytes($realupload , 2) }}</span></td>
             </tr>
             <tr>
                 <td>@lang('common.ratio')</td>

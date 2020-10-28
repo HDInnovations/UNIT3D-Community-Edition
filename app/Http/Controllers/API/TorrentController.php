@@ -17,11 +17,11 @@ use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
+use App\Services\Tmdb\TMDBScraper;
 use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
-use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
@@ -59,22 +59,18 @@ class TorrentController extends BaseController
      */
     public function index()
     {
-        return new TorrentsResource(Torrent::with(['category', 'type', 'tags'])->latest()->paginate());
+        return new TorrentsResource(Torrent::with(['category', 'type', 'resolutions'])->latest()->paginate());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $torrent
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Torrent $torrent)
+    public function store(Request $request)
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -86,7 +82,6 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        $movieScrapper = new \App\Services\MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
         // Deplace and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
@@ -199,30 +194,19 @@ class TorrentController extends BaseController
             $torrentFile->save();
             unset($torrentFile);
         }
-        $meta = null;
-        // Torrent Tags System
+
+        $client = new TMDBScraper();
         if ($torrent->category->tv_meta) {
-            if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = $movieScrapper->scrape('tv', null, $torrent->tmdb);
-            } else {
-                $meta = $movieScrapper->scrape('tv', 'tt'.$torrent->imdb);
+            if ($torrent->tmdb || $torrent->tmdb != 0) {
+                $client->tv($torrent->tmdb);
             }
         }
         if ($torrent->category->movie_meta) {
-            if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = $movieScrapper->scrape('movie', null, $torrent->tmdb);
-            } else {
-                $meta = $movieScrapper->scrape('movie', 'tt'.$torrent->imdb);
+            if ($torrent->tmdb || $torrent->tmdb != 0) {
+                $client->movie($torrent->tmdb);
             }
         }
-        if (isset($meta) && $meta->genres) {
-            foreach ($meta->genres as $genre) {
-                $tag = new TagTorrent();
-                $tag->torrent_id = $torrent->id;
-                $tag->tag_name = $genre;
-                $tag->save();
-            }
-        }
+
         // check for trusted user and update torrent
         if ($user->group->is_trusted) {
             $appurl = \config('app.url');
@@ -268,6 +252,7 @@ class TorrentController extends BaseController
             }
 
             TorrentHelper::approveHelper($torrent->id);
+            info('New API Upload', ["User {$user->username} has uploaded {$torrent->name}"]);
         }
 
         return $this->sendResponse(\route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => \auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
@@ -411,19 +396,19 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
-            $torrent->where('torrents.tvdb', '=', $tvdb);
+            $torrent->orWhere('torrents.tvdb', '=', $tvdb);
         }
 
         if ($request->has('tmdb') && $request->input('tmdb') != null) {
-            $torrent->where('torrents.tmdb', '=', $tmdb);
+            $torrent->orWhere('torrents.tmdb', '=', $tmdb);
         }
 
         if ($request->has('mal') && $request->input('mal') != null) {
-            $torrent->where('torrents.mal', '=', $mal);
+            $torrent->orWhere('torrents.mal', '=', $mal);
         }
 
         if ($request->has('igdb') && $request->input('igdb') != null) {
-            $torrent->where('torrents.igdb', '=', $igdb);
+            $torrent->orWhere('torrents.igdb', '=', $igdb);
         }
 
         if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
@@ -443,8 +428,7 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('genres') && $request->input('genres') != null) {
-            $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
-            $torrent->whereIn('torrents.id', $genreID);
+            // TODO
         }
 
         if ($request->has('freeleech') && $request->input('freeleech') != null) {

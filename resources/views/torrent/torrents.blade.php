@@ -46,7 +46,7 @@
                         <form role="form" method="GET" action="TorrentController@torrents"
                             class="form-horizontal form-condensed form-torrent-search form-bordered">
                             @csrf
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="name"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
@@ -64,6 +64,15 @@
                                 </div>
                             </div>
                             <div class="mx-0 mt-5 form-group fatten-me">
+                                <label for="keywords"
+                                       class="mt-5 col-sm-1 label label-default fatten-me">Keywords</label>
+                                <div class="col-sm-9 fatten-me">
+                                    <label for="keywaords"></label>
+                                    <input type="text" class="form-control facetedSearch"
+                                           trigger="keyup" id="keywords" placeholder="Keywords">
+                                </div>
+                            </div>
+                            <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="uploader"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.uploader')</label>
                                 <div class="col-sm-9 fatten-me">
@@ -71,7 +80,7 @@
                                         placeholder="@lang('torrent.uploader')">
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="imdb" class="mt-5 col-sm-1 label label-default fatten-me">ID</label>
                                 <div class="col-sm-2">
@@ -95,7 +104,7 @@
                                         trigger="keyup" id="igdb" placeholder="IGDB #">
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="release_year"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.year-range')
@@ -109,7 +118,7 @@
                                         trigger="keyup" id="end_year" placeholder="@lang('torrent.end-year')">
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="category"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.category')</label>
@@ -124,7 +133,7 @@
                                     @endforeach
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.type')</label>
@@ -153,22 +162,22 @@
                                     @endforeach
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="genre"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.genre')</label>
                                 <div class="col-sm-10">
-                                    @foreach ($repository->tags() as $id => $genre)
+                                    @foreach ($repository->genres() as $id => $genre)
                                         <span class="badge-user">
                                             <label class="inline">
-                                                <input type="checkbox" value="{{ $genre }}"
+                                                <input type="checkbox" value="{{ $id }}"
                                                     class="genre facetedSearch" trigger="click"> {{ $genre }}
                                             </label>
                                         </span>
                                     @endforeach
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.discounts')</label>
@@ -199,7 +208,7 @@
                                     </span>
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.special')</label>
@@ -236,7 +245,7 @@
                                     </span>
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.health')</label>
@@ -265,15 +274,15 @@
                                             @lang('torrent.dead-torrent')
                                         </label>
                                     </span>
-    
+
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="type"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.activity')</label>
                                 <div class="col-sm-10">
-    
+
                                     <span class="badge-user">
                                         <label class="inline">
                                             <input type="checkbox" id="seeding" value="1" class="facetedSearch"
@@ -314,11 +323,11 @@
                                             @lang('torrent.have-not-downloaded')
                                         </label>
                                     </span>
-    
-    
+
+
                                 </div>
                             </div>
-    
+
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="qty"
                                     class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.quantity')</label>

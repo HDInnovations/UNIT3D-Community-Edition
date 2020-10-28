@@ -1,4 +1,4 @@
-<aside id="hoe-left-panel" hoe-position-type="fixed" hoe-position-type="absolute">
+<aside id="hoe-left-panel" hoe-position-type="fixed">
     <ul class="nav panel-list">
         <li class="nav-level">@lang('common.navigation')</li>
         <li>
@@ -38,6 +38,14 @@
                     </li>
                 @endforeach
             </ul>
+        </li>
+        <li>
+            <a href="{{ route('mediahub.index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-database"
+                   style=" font-size: 18px; color: #ffffff;"></i>
+                <span class="menu-text">MediaHub</span>
+                <span class="selected"></span>
+            </a>
         </li>
         <li>
             <a href="{{ route('requests') }}">

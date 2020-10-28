@@ -13,9 +13,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Genre;
 use App\Models\Category;
 use App\Models\Resolution;
-use App\Models\Tag;
 use App\Models\Type;
 
 class TorrentFacetedRepository
@@ -55,9 +55,9 @@ class TorrentFacetedRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function tags()
+    public function genres()
     {
-        return Tag::all()->sortBy('name')->pluck('name', 'id');
+        return Genre::all()->sortBy('name')->pluck('name', 'id');
     }
 
     /**
@@ -68,7 +68,7 @@ class TorrentFacetedRepository
     public function sorting()
     {
         return [
-            'created_at'      => \trans('torrent.date'),
+            'bumped_at'       => \trans('torrent.date'),
             'name'            => \trans('torrent.name'),
             'seeders'         => \trans('torrent.seeders'),
             'leechers'        => \trans('torrent.leechers'),

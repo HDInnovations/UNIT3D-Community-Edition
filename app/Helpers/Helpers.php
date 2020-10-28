@@ -70,3 +70,12 @@ if (! function_exists('hrefPlaylist')) {
         return sprintf('%s/playlists/%s', $appurl, $playlist->id);
     }
 }
+
+if (! function_exists('hrefCollection')) {
+    function href_collection($collection)
+    {
+        $appurl = appurl();
+
+        return sprintf('%s/mediahub/collections/%s', $appurl, $collection->id);
+    }
+}

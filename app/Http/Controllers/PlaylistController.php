@@ -13,12 +13,16 @@
 
 namespace App\Http\Controllers;
 
+use ZipArchive;
+use App\Models\Tv;
+use App\Models\Movie;
 use App\Models\Playlist;
+use App\Helpers\Bencode;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
-use App\Services\MovieScrapper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -129,24 +133,24 @@ class PlaylistController extends Controller
     public function show($id)
     {
         $playlist = Playlist::findOrFail($id);
-        $meta = null;
 
         $random = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->inRandomOrder()->first();
         if (isset($random)) {
             $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
         }
+
+        $meta = null;
+
         if (isset($random) && isset($torrent)) {
-            $movieScrapper = new MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
-            if ($torrent->category_id == 2) {
+            if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = $movieScrapper->scrape('tv', null, $torrent->tmdb);
-                } else {
-                    $meta = $movieScrapper->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
                 }
-            } elseif ($torrent->tmdb || $torrent->tmdb != 0) {
-                $meta = $movieScrapper->scrape('movie', null, $torrent->tmdb);
-            } else {
-                $meta = $movieScrapper->scrape('movie', 'tt'.$torrent->imdb);
+            }
+            if ($torrent->category->movie_meta) {
+                if ($torrent->tmdb || $torrent->tmdb != 0) {
+                    $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
+                }
             }
         }
 
@@ -239,5 +243,97 @@ class PlaylistController extends Controller
 
         return \redirect()->route('playlists.index')
             ->withSuccess('Playlist Deleted!');
+    }
+
+    /**
+     * Download All History Torrents.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param                          $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadPlaylist(Request $request, $id)
+    {
+        //  Extend The Maximum Execution Time
+        \set_time_limit(300);
+
+        // Playlist
+        $playlist = Playlist::with('torrents')->findOrFail($id);
+
+        // Authorized User
+        $user = \auth()->user();
+
+        // Define Dir Folder
+        $path = \getcwd().'/files/tmp_zip/';
+
+        // Check Directory exists
+        if (! File::isDirectory($path)) {
+            File::makeDirectory($path, 0755, true, true);
+        }
+
+        // Zip File Name
+        $zipFileName = \sprintf('[%s]%s.zip', $user->username, $playlist->name);
+
+        // Create ZipArchive Obj
+        $zipArchive = new ZipArchive();
+
+        // Get Users History
+        $playlist_torrents = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->get();
+
+        if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
+            $failCSV = '"Name","URL","ID"';
+            $failCount = 0;
+
+            foreach ($playlist_torrents as $playlist_torrent) {
+                // Get Torrent
+                $torrent = Torrent::withAnyStatus()->find($playlist_torrent->torrent_id);
+
+                // Define The Torrent Filename
+                $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
+
+                // The Torrent File Exist?
+                if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
+                    $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'"
+';
+                    $failCount++;
+                } else {
+                    // Delete The Last Torrent Tmp File If Exist
+                    if (\file_exists(\getcwd().'/files/tmp/'.$tmpFileName)) {
+                        \unlink(\getcwd().'/files/tmp/'.$tmpFileName);
+                    }
+
+                    // Get The Content Of The Torrent
+                    $dict = Bencode::bdecode(\file_get_contents(\getcwd().'/files/torrents/'.$torrent->file_name));
+                    // Set the announce key and add the user passkey
+                    $dict['announce'] = \route('announce', ['passkey' => $user->passkey]);
+                    // Remove Other announce url
+                    unset($dict['announce-list']);
+
+                    $fileToDownload = Bencode::bencode($dict);
+                    \file_put_contents(\getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
+
+                    // Add Files To ZipArchive
+                    $zipArchive->addFile(\getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
+                }
+            }
+
+            if ($failCount > 0) {
+                $CSVtmpName = \sprintf('%s.zip', $playlist->name).'-missingTorrentFiles.CSV';
+                \file_put_contents(\getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
+                $zipArchive->addFile(\getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
+            }
+
+            // Close ZipArchive
+            $zipArchive->close();
+
+            $zip_file = $path.'/'.$zipFileName;
+
+            if (\file_exists($zip_file)) {
+                return \response()->download($zip_file)->deleteFileAfterSend(true);
+            }
+        }
+
+        return \redirect()->back()->withErrors('Something Went Wrong!');
     }
 }

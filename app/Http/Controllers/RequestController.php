@@ -13,6 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tv;
+use App\Models\Movie;
+use App\Services\Tmdb\TMDBScraper;
 use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
@@ -143,19 +146,19 @@ class RequestController extends Controller
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
-            $torrentRequest->where('tvdb', '=', $tvdb);
+            $torrentRequest->orWhere('tvdb', '=', $tvdb);
         }
 
         if ($request->has('tmdb') && $request->input('tmdb') != null) {
-            $torrentRequest->where('tmdb', '=', $tmdb);
+            $torrentRequest->orWhere('tmdb', '=', $tmdb);
         }
 
         if ($request->has('mal') && $request->input('mal') != null) {
-            $torrentRequest->where('mal', '=', $mal);
+            $torrentRequest->orWhere('mal', '=', $mal);
         }
 
         if ($request->has('igdb') && $request->input('igdb') != null) {
-            $torrentRequest->where('igdb', '=', $igdb);
+            $torrentRequest->orWhere('igdb', '=', $igdb);
         }
 
         if ($request->has('categories') && $request->input('categories') != null) {
@@ -244,24 +247,25 @@ class RequestController extends Controller
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
 
-        $movieScrapper = new \App\Services\MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
         $meta = null;
         if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = $movieScrapper->scrape('tv', null, $torrentRequest->tmdb);
-            } else {
-                $meta = $movieScrapper->scrape('tv', 'tt'.$torrentRequest->imdb);
+                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
             }
         }
         if ($torrentRequest->category->movie_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = $movieScrapper->scrape('movie', null, $torrentRequest->tmdb);
-            } else {
-                $meta = $movieScrapper->scrape('movie', 'tt'.$torrentRequest->imdb);
+                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
             }
         }
         if ($torrentRequest->category->game_meta) {
-            $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrentRequest->igdb);
+            if ($torrentRequest->igdb || $torrentRequest->igdb != 0) {
+                $meta = Game::with([
+                    'cover' => ['url', 'image_id'],
+                    'artworks' => ['url', 'image_id'],
+                    'genres' => ['name']
+                ])->find($torrentRequest->igdb);
+            }
         }
 
         return \view('requests.request', [
@@ -347,12 +351,27 @@ class RequestController extends Controller
                 ->withErrors($v->errors())->withInput();
         }
         $torrentRequest->save();
+
+        $client = new TMDBScraper();
+        if ($torrentRequest->category->tv_meta) {
+            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
+                $client->tv($torrentRequest->tmdb);
+            }
+        }
+
+        if ($torrentRequest->category->movie_meta) {
+            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
+                $client->movie($torrentRequest->tmdb);
+            }
+        }
+
         $torrentRequestBounty = new TorrentRequestBounty();
         $torrentRequestBounty->user_id = $user->id;
         $torrentRequestBounty->seedbonus = $request->input('bounty');
         $torrentRequestBounty->requests_id = $torrentRequest->id;
         $torrentRequestBounty->anon = $request->input('anon');
         $torrentRequestBounty->save();
+
         $BonTransactions = new BonTransactions();
         $BonTransactions->itemID = 0;
         $BonTransactions->name = 'request';
@@ -459,6 +478,19 @@ class RequestController extends Controller
                 ->withErrors($v->errors());
         }
         $torrentRequest->save();
+
+        $client = new TMDBScraper();
+        if ($torrentRequest->category->tv_meta) {
+            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
+                $client->tv($torrentRequest->tmdb);
+            }
+        }
+
+        if ($torrentRequest->category->movie_meta) {
+            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
+                $client->movie($torrentRequest->tmdb);
+            }
+        }
 
         return \redirect()->route('requests', ['id' => $torrentRequest->id])
             ->withSuccess('Request Edited Successfully.');

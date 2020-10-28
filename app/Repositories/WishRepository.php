@@ -17,7 +17,6 @@ use App\Interfaces\WishInterface;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Wish;
-use App\Services\Clients\OmdbClient;
 
 class WishRepository implements WishInterface
 {
@@ -32,11 +31,6 @@ class WishRepository implements WishInterface
     private $user;
 
     /**
-     * @var OmdbClient
-     */
-    private $omdbClient;
-
-    /**
      * @var Torrent
      */
     private $torrent;
@@ -46,14 +40,12 @@ class WishRepository implements WishInterface
      *
      * @param Wish                             $wish
      * @param User                             $user
-     * @param \App\Services\Clients\OmdbClient $omdbClient
      * @param Torrent                          $torrent
      */
-    public function __construct(Wish $wish, User $user, OmdbClient $omdbClient, Torrent $torrent)
+    public function __construct(Wish $wish, User $user, Torrent $torrent)
     {
         $this->wish = $wish;
         $this->user = $user;
-        $this->omdbClient = $omdbClient;
         $this->torrent = $torrent;
     }
 
@@ -166,15 +158,5 @@ class WishRepository implements WishInterface
     public function delete($id)
     {
         return $this->findById($id)->delete();
-    }
-
-    /**
-     * @param $imdb
-     *
-     * @return array|mixed|null
-     */
-    public function omdbRequest($imdb)
-    {
-        return $this->omdbClient->find(['imdb' => $imdb]);
     }
 }

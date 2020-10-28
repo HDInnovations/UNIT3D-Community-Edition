@@ -1,5 +1,3 @@
-@php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') ,
-config('api-keys.omdb')) @endphp
 <div class="table-responsive">
     <div class="text-center">
         @if($links)
@@ -52,16 +50,12 @@ config('api-keys.omdb')) @endphp
             @php $meta = null; @endphp
                 @if ($torrent->category->tv_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-            @php $meta = $client->scrape('tv', null, $torrent->tmdb); @endphp
-                    @else
-            @php $meta = $client->scrape('tv', 'tt'. $torrent->imdb); @endphp
+                        @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first(); @endphp
                     @endif
                 @endif
                 @if ($torrent->category->movie_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-            @php $meta = $client->scrape('movie', null, $torrent->tmdb); @endphp
-                    @else
-            @php $meta = $client->scrape('movie', 'tt'. $torrent->imdb); @endphp
+                        @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first(); @endphp
                     @endif
                 @endif
                 @if ($torrent->category->game_meta)
@@ -78,28 +72,19 @@ config('api-keys.omdb')) @endphp
                     <td style="width: 1%;">
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
-                                @if (($torrent->category->movie_meta || $torrent->category->tv_meta) && isset($meta) &&
-                                    $meta->poster && $meta->title)
-                                    <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
-                                        data-name='<i style="color: #a5a5a5;">{{ $meta->title ?? 'N/A' }}</i>'
-                                        data-image='<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('
-                                        torrent.poster')" style="height: 1000px;">'
-                                    class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
+                                    <img loading="lazy" src="https://images.weserv.nl/?url={{ $meta->poster ?? 'https://via.placeholder.com/52x80' }}&w=52&h=80"
+                                    class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 
                                 @if ($torrent->category->game_meta && isset($meta) && $meta->cover->image_id && $meta->name)
-                                    <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
-                                        data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>'
-                                        data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" alt="@lang('
-                                        torrent.poster')" style="height: 1000px;">'
-                                    class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                    <img loading="lazy" src="https://images.weserv.nl/?url=https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg&w=52&h=80"
+                                         class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
 
-                                @if ($torrent->category->no_meta || $torrent->category->music_meta || ! $meta)
-                                    <img src="https://via.placeholder.com/600x900" data-name='<i style="color: #a5a5a5;">N/A</i>'
-                                        data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')"
-                                        style="height: 1000px;">'
-                                    class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                @if ($torrent->category->no_meta || $torrent->category->music_meta)
+                                    <img loading="lazy" src="https://images.weserv.nl/?url=https://via.placeholder.com/600x900&w=52&h=80"
+                                    class="torrent-poster-img-small" alt="@lang('torrent.poster')">
                                 @endif
                             </div>
                         @else
@@ -199,37 +184,14 @@ config('api-keys.omdb')) @endphp
                         @endif
 
                         @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                            @if ($user->ratings == 1)
-                                <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}" target="_blank">
-                                    <span class="badge-extra text-bold">
-                                        <span class="text-gold movie-rating-stars">
-                                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
-                                                data-original-title="@lang('torrent.view-more')"></i>
-                                        </span>
-                                        {{ $meta->imdbRating ?? '0' }}/10 ({{ $meta->imdbVotes ?? '0' }} @lang('torrent.votes'))
-                                    </span>
-                                </a>
-                            @else
-
-                                @if ($torrent->category->tv_meta)
-                                    <a href="https://www.themoviedb.org/tv/{{ $torrent->tmdb }}?language={{ config('app.locale') }}"
-                                        target="_blank">
-                                    @endif
-                                    @if ($torrent->category->movie_meta)
-                                        <a href="https://www.themoviedb.org/movie/{{ $torrent->tmdb }}?language={{ config('app.locale') }}"
-                                            target="_blank">
-                                        @endif
-
-                                        <span class="badge-extra text-bold">
-                                            <span class="text-gold movie-rating-stars">
-                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
-                                                    data-original-title="@lang('torrent.view-more')"></i>
-                                            </span>
-                                            {{ $meta->tmdbRating ?? '0' }}/10 ({{ $meta->tmdbVotes ?? '0' }} @lang('torrent.votes'))
-                                        </span>
-                                    </a>
-                                @endif
-                            @endif
+                            <span class="badge-extra text-bold">
+                                <span class="text-gold movie-rating-stars">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
+                                       data-original-title="@lang('torrent.rating')"></i>
+                                </span>
+                                {{ $meta->vote_average ?? 0 }}/10 ({{ $meta->vote_count ?? 0 }} @lang('torrent.votes'))
+                            </span>
+                        @endif
 
                             @if ($torrent->category->game_meta && isset($meta))
                                 <a href="{{ $meta->url }}" title="IMDB" target="_blank">
@@ -370,6 +332,13 @@ config('api-keys.omdb')) @endphp
                                     </span>
                                 @endif
 
+                        @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Carbon\Carbon::now()->addDay(2))
+                            <span class='badge-extra text-bold'>
+                                    <i class='{{ config('other.font-awesome') }} fa-level-up-alt text-gold' data-toggle='tooltip'
+                                       title='' data-original-title='Recently Bumped!'></i>
+                                </span>
+                        @endif
+
                                 <br>
 
                             @if ($torrent->category->game_meta)
@@ -384,16 +353,19 @@ config('api-keys.omdb')) @endphp
                             @endif
 
                             @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                @foreach($torrent->tags as $tag)
-                                    <span class="badge-extra text-bold">
-                                        <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
-                                            data-original-title='@lang('torrent.genre')'></i> {{ $tag->name }}
-                                    </span>
-                                @endforeach
+                                @if (isset($meta) && $meta->genres)
+                                    @foreach($meta->genres as $genre)
+                                        <span class="badge-extra text-bold">
+                                            <i class='{{ config('other.font-awesome') }} fa-tag' data-toggle='tooltip' title=''
+                                                data-original-title='@lang('torrent.genre')'></i> {{ $genre->name }}
+                                        </span>
+                                    @endforeach
+                                @endif
                             @endif
                     </td>
 
                         <td>
+                            @if (file_exists(public_path().'/files/torrents/'.$torrent->file_name))
                             @if (config('torrent.download_check_page') == 1)
                                 <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
@@ -409,7 +381,7 @@ config('api-keys.omdb')) @endphp
                                     </button>
                                 </a>
                             @endif
-                            @if (config('torrent.magnet') == 1)
+                            @else
                                 <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                             data-original-title="@lang('common.magnet')">

@@ -105,23 +105,23 @@
                     </div>
 
                     @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                        <div class="form-group">
-                            <label for="resolution_id">@lang('torrent.resolution')</label>
-                            <label>
-                                <select name="resolution_id" class="form-control">
-                                    @if (! $torrent->resolution)
-                                        <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>)
-                                    @else
-                                        <option value="{{ $torrent->resolution->id }}" selected>{{ $torrent->resolution->name }}
-                                            (@lang('torrent.current'))
-                                        </option>
-                                    @endif
-                                    @foreach ($resolutions as $resolution)
-                                        <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
-                                    @endforeach
-                                </select>
-                            </label>
-                        </div>
+                    <div class="form-group">
+                        <label for="resolution_id">@lang('torrent.resolution')</label>
+                        <label>
+                            <select name="resolution_id" class="form-control">
+                                @if (! $torrent->resolution)
+                                    <option hidden="" disabled="disabled" selected="selected" value="">--Select Resolution--</option>)
+                                @else
+                                    <option value="{{ $torrent->resolution->id }}" selected>{{ $torrent->resolution->name }}
+                                        (@lang('torrent.current'))
+                                    </option>
+                                @endif
+                                @foreach ($resolutions as $resolution)
+                                    <option value="{{ $resolution->id }}">{{ $resolution->name }}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    </div>
                     @endif
     
                     <div class="form-group">
