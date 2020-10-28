@@ -12,8 +12,8 @@ class PermissionsMiddleware
 {
     public function handle(Request $request, Closure $next, $permission)
     {
-        $perm = RBACPermissions::where('slug', $permission)->first();
-        if($request->user()->hasPermissionTo($perm)) {
+
+        if($request->user()->hasPermissionTo($permission)) {
             return $next($request);
         }
         abort(403);
