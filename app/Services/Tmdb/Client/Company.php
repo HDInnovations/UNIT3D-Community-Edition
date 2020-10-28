@@ -22,25 +22,26 @@ class Company
     {
         $this->client = new \GuzzleHttp\Client(
             [
-                'base_uri' => self::API_BASE_URI,
-                'verify' => false,
+                'base_uri'    => self::API_BASE_URI,
+                'verify'      => false,
                 'http_errors' => false,
-                'headers' => [
+                'headers'     => [
                     'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
+                    'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key' => config('api-keys.tmdb'),
+                    'api_key'            => config('api-keys.tmdb'),
                     'append_to_response' => 'movies,videos,images,credits',
-                    'page' => $page,
+                    'page'               => $page,
                 ],
             ]
         );
 
-        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/company/' . $id);
+        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/company/'.$id);
 
         $this->data = json_decode($response->getBody()->getContents(), true);
     }
+
     public function index()
     {
         return $this->data;
@@ -48,66 +49,80 @@ class Company
 
     public function get_birthday()
     {
-        return $this->data["birthday"];
+        return $this->data['birthday'];
     }
+
     public function get_known_for_department()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data["known_for_department"]);
+        return preg_replace('/[[:^print:]]/', '', $this->data['known_for_department']);
     }
+
     public function get_deathday()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data["deathday"]);
+        return preg_replace('/[[:^print:]]/', '', $this->data['deathday']);
     }
+
     public function get_id()
     {
-        return $this->data["id"];
+        return $this->data['id'];
     }
+
     public function get_foto()
     {
-        return "https://image.tmdb.org/t/p/original" . $this->data["profile_path"];
+        return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }
+
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data["name"]);
+        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
+
     public function get_gender()
     {
-        return $this->data["gender"];
+        return $this->data['gender'];
     }
+
     public function get_biography()
     {
-        return $this->data["biography"];
+        return $this->data['biography'];
     }
+
     public function get_popularity()
     {
-        return $this->data["popularity"];
+        return $this->data['popularity'];
     }
+
     public function get_place_of_birth()
     {
-        return $this->data["place_of_birth"];
+        return $this->data['place_of_birth'];
     }
+
     public function get_adult()
     {
-        return $this->data["adult"];
+        return $this->data['adult'];
     }
+
     public function get_imdb_id()
     {
-        return $this->data["imdb_id"];
+        return $this->data['imdb_id'];
     }
+
     public function get_homepage()
     {
-        return $this->data["homepage"];
+        return $this->data['homepage'];
     }
+
     public function get_movies()
     {
-        $array = array();
+        $array = [];
         $this->page = 1;
-        while ($data = $this->data["movies"][$this->page++]) {
-            $json = json_decode($data, True);                                   #01
-            foreach ($json['results'] as $row) $array[] = $row;
+        while ($data = $this->data['movies'][$this->page++]) {
+            $json = json_decode($data, true);                                   //01
+            foreach ($json['results'] as $row) {
+                $array[] = $row;
+            }
         }
 
         return $array;
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Company;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class CompanySearch extends Component
@@ -31,10 +31,10 @@ class CompanySearch extends Component
 
     public function render()
     {
-        $search_term = '%' . $this->searchTerm . '%';
+        $search_term = '%'.$this->searchTerm.'%';
 
         return view('livewire.company-search', [
-            'companies' => Company::withCount('tv', 'movie')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30)
+            'companies' => Company::withCount('tv', 'movie')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
         ]);
     }
 }

@@ -38,9 +38,9 @@ class WishRepository implements WishInterface
     /**
      * WishRepository constructor.
      *
-     * @param Wish                             $wish
-     * @param User                             $user
-     * @param Torrent                          $torrent
+     * @param Wish    $wish
+     * @param User    $user
+     * @param Torrent $torrent
      */
     public function __construct(Wish $wish, User $user, Torrent $torrent)
     {

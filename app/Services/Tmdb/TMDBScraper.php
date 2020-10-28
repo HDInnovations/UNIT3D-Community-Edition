@@ -13,27 +13,27 @@
 
 namespace App\Services\Tmdb;
 
+use App\Jobs\ProcessCollectionJob;
+use App\Jobs\ProcessCompanyJob;
+use App\Jobs\ProcessMovieJob;
+use App\Jobs\ProcessTvJob;
+use App\Models\Collection;
+use App\Models\Company;
+use App\Models\Movie;
+use App\Models\Tv;
 use DateTime;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
-use App\Services\Tmdb\Client;
-use App\Models\Collection;
-use App\Models\Company;
-use App\Jobs\ProcessMovieJob;
-use App\Jobs\ProcessTvJob;
-use App\Jobs\ProcessCollectionJob;
-use App\Jobs\ProcessCompanyJob;
-use App\Models\Movie;
-use App\Models\Tv;
 use Illuminate\Support\Str;
 
 class TMDBScraper implements ShouldQueue
 {
     use SerializesModels;
 
-    public function __construct(Request $request = null){
-        if($request != null){
+    public function __construct(Request $request = null)
+    {
+        if ($request != null) {
             $this->id = $request->query('id') ?? null;
         }
     }
@@ -50,28 +50,28 @@ class TMDBScraper implements ShouldQueue
         $tv = $client->index();
         if (isset($tv['id'])) {
             $array = [
-                'backdrop' => $helper->image('backdrop', $tv),
-                'episode_run_time' => $helper->ifHasItems('episode_run_time', $tv),
-                'first_air_date' => $helper->ifExists('first_air_date', $tv),
-                'homepage' => $tv['homepage'],
-                'in_production' => $tv['in_production'],
-                'last_air_date' => $helper->ifExists('last_air_date', $tv),
-                'name' => Str::limit($tv['name'],200),
-                'name_sort' => addslashes(str_replace(["The ", "An ", "A ", "\""], [""], Str::limit($tv['name'], 100))),
+                'backdrop'           => $helper->image('backdrop', $tv),
+                'episode_run_time'   => $helper->ifHasItems('episode_run_time', $tv),
+                'first_air_date'     => $helper->ifExists('first_air_date', $tv),
+                'homepage'           => $tv['homepage'],
+                'in_production'      => $tv['in_production'],
+                'last_air_date'      => $helper->ifExists('last_air_date', $tv),
+                'name'               => Str::limit($tv['name'], 200),
+                'name_sort'          => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], Str::limit($tv['name'], 100))),
                 'number_of_episodes' => $tv['number_of_episodes'],
-                'number_of_seasons' => $tv['number_of_seasons'],
-                'origin_country' => $helper->ifHasItems('origin_country', $tv),
-                'original_language' => $tv['original_language'],
-                'original_name' => $tv['original_name'],
-                'overview' => $tv['overview'],
-                'popularity' => $tv['popularity'],
-                'poster' => $helper->image('poster', $tv),
-                'status' => $tv['status'],
-                'vote_average' => $tv['vote_average'],
-                'vote_count' => $tv['vote_count'],
+                'number_of_seasons'  => $tv['number_of_seasons'],
+                'origin_country'     => $helper->ifHasItems('origin_country', $tv),
+                'original_language'  => $tv['original_language'],
+                'original_name'      => $tv['original_name'],
+                'overview'           => $tv['overview'],
+                'popularity'         => $tv['popularity'],
+                'poster'             => $helper->image('poster', $tv),
+                'status'             => $tv['status'],
+                'vote_average'       => $tv['vote_average'],
+                'vote_count'         => $tv['vote_count'],
             ];
 
-            Tv::updateOrCreate(["id" => $id], $array);
+            Tv::updateOrCreate(['id' => $id], $array);
 
             ProcessTvJob::dispatch($tv, $id);
 
@@ -81,7 +81,7 @@ class TMDBScraper implements ShouldQueue
 
     public function movie($id = null)
     {
-        if($id == null) {
+        if ($id == null) {
             $id = $this->id;
         }
 
@@ -95,32 +95,32 @@ class TMDBScraper implements ShouldQueue
             preg_match($re, $movie['title'], $matches);
 
             $year = (new DateTime($movie['release_date']))->format('Y');
-            $titleSort = addslashes(str_replace(["The ", "An ", "A ", "\""], [""],
-                Str::limit($matches['namesort'] ? $matches['namesort']." ".$year : $movie['title'], 100)));
+            $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''],
+                Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'], 100)));
 
             $array = [
-                'adult' => $movie['adult'] ?? 0,
-                'backdrop' => $helper->image('backdrop', $movie),
-                'budget' => $movie['budget'] ?? null,
-                'homepage' => $movie['homepage'] ?? null,
-                'imdb_id' => $movie['imdb_id'] ?? null,
+                'adult'             => $movie['adult'] ?? 0,
+                'backdrop'          => $helper->image('backdrop', $movie),
+                'budget'            => $movie['budget'] ?? null,
+                'homepage'          => $movie['homepage'] ?? null,
+                'imdb_id'           => $movie['imdb_id'] ?? null,
                 'original_language' => $movie['original_language'] ?? null,
-                'original_title' => $movie['original_title'] ?? null,
-                'overview' => $movie['overview'] ?? null,
-                'popularity' => $movie['popularity'] ?? null,
-                'poster' => $helper->image('poster', $movie),
-                'release_date' => $helper->ifExists('release_date', $movie),
-                'revenue' => $movie['revenue'] ?? null,
-                'runtime' => $movie['runtime'] ?? null,
-                'status' => $movie['status'] ?? null,
-                'tagline' => $movie['tagline'] ?? null,
-                'title' => Str::limit($movie['title'], 200),
-                'title_sort' => $titleSort,
-                'vote_average' => $movie['vote_average'] ?? null,
-                'vote_count' => $movie['vote_count'] ?? null,
+                'original_title'    => $movie['original_title'] ?? null,
+                'overview'          => $movie['overview'] ?? null,
+                'popularity'        => $movie['popularity'] ?? null,
+                'poster'            => $helper->image('poster', $movie),
+                'release_date'      => $helper->ifExists('release_date', $movie),
+                'revenue'           => $movie['revenue'] ?? null,
+                'runtime'           => $movie['runtime'] ?? null,
+                'status'            => $movie['status'] ?? null,
+                'tagline'           => $movie['tagline'] ?? null,
+                'title'             => Str::limit($movie['title'], 200),
+                'title_sort'        => $titleSort,
+                'vote_average'      => $movie['vote_average'] ?? null,
+                'vote_count'        => $movie['vote_count'] ?? null,
             ];
 
-            Movie::updateOrCreate(["id" => $movie['id']], $array);
+            Movie::updateOrCreate(['id' => $movie['id']], $array);
 
             ProcessMovieJob::dispatch($movie, $id);
 
@@ -130,7 +130,7 @@ class TMDBScraper implements ShouldQueue
 
     public function collection($id = null)
     {
-        if($id == null) {
+        if ($id == null) {
             $id = $this->id;
         }
 
@@ -140,12 +140,12 @@ class TMDBScraper implements ShouldQueue
         $collection = $client->index();
 
         $array = [
-            'name' => $collection['name'],
+            'name'     => $collection['name'],
             'overview' => $collection['overview'],
             'backdrop' => $helper->image('backdrop', $collection),
-            'poster' => $helper->image('poster', $collection),
+            'poster'   => $helper->image('poster', $collection),
         ];
-        Collection::updateOrCreate(["id" => $collection['id']], $array);
+        Collection::updateOrCreate(['id' => $collection['id']], $array);
 
         ProcessCollectionJob::dispatch($collection);
 
@@ -154,7 +154,7 @@ class TMDBScraper implements ShouldQueue
 
     public function company($id = null)
     {
-        if($id == null) {
+        if ($id == null) {
             $id = $this->id;
         }
 
@@ -164,16 +164,15 @@ class TMDBScraper implements ShouldQueue
         $company = $client->index();
 
         $array = [
-            'name' => $company['name'],
+            'name'     => $company['name'],
             'overview' => $company['overview'],
             'backdrop' => $helper->image('backdrop', $company),
-            'poster' => $helper->image('poster', $company),
+            'poster'   => $helper->image('poster', $company),
         ];
-        Company::updateOrCreate(["id" => $company['id']], $array);
+        Company::updateOrCreate(['id' => $company['id']], $array);
 
         ProcessCompanyJob::dispatch($company);
 
         //return ['message' => 'Company with id: ' . $id . ' Has been added  to the database, But movies are loaded with the queue'];
     }
-
 }

@@ -15,14 +15,17 @@ namespace App\Jobs;
 
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class ProcessCompanyJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public $company;
 
@@ -43,8 +46,7 @@ class ProcessCompanyJob implements ShouldQueue
      */
     public function handle()
     {
-        foreach ($this->company["movie"] as $movie) {
-
+        foreach ($this->company['movie'] as $movie) {
             $metadata = new TMDBScraper();
             $metadata->movie($movie['id']);
         }

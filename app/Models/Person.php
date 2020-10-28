@@ -41,5 +41,4 @@ class Person extends Model
     {
         return $this->belongsToMany(Movie::class, 'person_movie', 'movie_id', 'person_id');
     }
-
 }

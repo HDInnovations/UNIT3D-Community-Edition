@@ -22,12 +22,12 @@ class FindMovie
     {
         $this->client = new \GuzzleHttp\Client(
             [
-                'base_uri' => self::API_BASE_URI,
-                'verify' => false,
+                'base_uri'    => self::API_BASE_URI,
+                'verify'      => false,
                 'http_errors' => false,
-                'headers' => [
+                'headers'     => [
                     'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
+                    'Accept'       => 'application/json',
                 ],
                 // 'query' => [
                 //     'api_key' => config('api-keys.tmdb'),
@@ -36,10 +36,11 @@ class FindMovie
             ]
         );
 
-        $response = $this->client->request('get', 'https://api.themoviedb.org/3/search/movie?api_key=' . config('api-keys.tmdb') . '&query=' . $query . '&first_air_date_year=' . $year);
+        $response = $this->client->request('get', 'https://api.themoviedb.org/3/search/movie?api_key='.config('api-keys.tmdb').'&query='.$query.'&first_air_date_year='.$year);
 
         $this->data = json_decode($response->getBody()->getContents(), true);
     }
+
     public function index()
     {
         return $this->data;
@@ -47,7 +48,6 @@ class FindMovie
 
     public function get_homepage()
     {
-        return $this->data["homepage"];
+        return $this->data['homepage'];
     }
-
 }

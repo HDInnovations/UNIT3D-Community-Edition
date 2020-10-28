@@ -41,5 +41,4 @@ class Crew extends Model
     {
         return $this->belongsToMany(Movie::class, 'crew_movie', 'movie_id', 'person_id');
     }
-
 }

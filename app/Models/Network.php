@@ -26,6 +26,7 @@ class Network extends Model
     {
         return $this->belongsToMany(Tv::class);
     }
+
     public function movie()
     {
         return $this->belongsToMany(Movie::class);

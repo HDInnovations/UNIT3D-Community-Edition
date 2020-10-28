@@ -26,6 +26,4 @@ class GuestStar extends Model
     {
         return $this->belongsToMany(Episode::class, 'episode_guest_star', 'episode_id', 'person_id');
     }
-
-
 }

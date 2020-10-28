@@ -41,5 +41,4 @@ class Cast extends Model
     {
         return $this->belongsToMany(Movie::class, 'cast_movie', 'movie_id', 'cast_id');
     }
-
 }

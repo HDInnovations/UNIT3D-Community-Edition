@@ -22,21 +22,21 @@ class Collection
     {
         $this->client = new \GuzzleHttp\Client(
             [
-                'base_uri' => self::API_BASE_URI,
-                'verify' => false,
+                'base_uri'    => self::API_BASE_URI,
+                'verify'      => false,
                 'http_errors' => false,
-                'headers' => [
+                'headers'     => [
                     'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
+                    'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key' => config('api-keys.tmdb'),
-                    'append_to_response' => 'videos,images,credits'
+                    'api_key'            => config('api-keys.tmdb'),
+                    'append_to_response' => 'videos,images,credits',
                 ],
             ]
         );
 
-        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/collection/' . $id);
+        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/collection/'.$id);
 
         $this->data = json_decode($response->getBody()->getContents(), true);
     }
@@ -48,35 +48,34 @@ class Collection
 
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data["name"]);
+        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data["overview"]);
+        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
     public function get_id()
     {
-        return $this->data["id"];
+        return $this->data['id'];
     }
 
     public function get_backdrop()
     {
-        if ($this->data["backdrop_path"]) {
-            return "https://image.tmdb.org/t/p/original" . $this->data["backdrop_path"];
-        } else {
-            return null;
+        if ($this->data['backdrop_path']) {
+            return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
         }
+
+        return null;
     }
 
     public function get_poster()
     {
-        if ($this->data["poster_path"]) {
-            return "https://image.tmdb.org/t/p/original" . $this->data["poster_path"];
-        } else {
-            return null;
+        if ($this->data['poster_path']) {
+            return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
         }
-    }
 
+        return null;
+    }
 }

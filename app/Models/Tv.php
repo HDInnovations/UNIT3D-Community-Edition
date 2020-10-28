@@ -13,14 +13,14 @@
 
 namespace App\Models;
 
-Use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class Tv extends Model
 {
     protected $guarded = [];
     protected $primaryKey = 'id';
     public $table = 'tv';
-    protected $hidden = ["created_at", "updated_at"];
+    protected $hidden = ['created_at', 'updated_at'];
 
     /**
      * Has Many Torrents.
@@ -59,14 +59,17 @@ class Tv extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
     public function creators()
     {
         return $this->belongsToMany(Person::class);
     }
+
     public function networks()
     {
         return $this->belongsToMany(Network::class);
     }
+
     public function companies()
     {
         return $this->belongsToMany(Company::class);

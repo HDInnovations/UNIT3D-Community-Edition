@@ -16,7 +16,7 @@ namespace App\Interfaces;
 interface WishInterface
 {
     public function all();
-    
+
     public function findById($id);
 
     public function findByTitle($title);

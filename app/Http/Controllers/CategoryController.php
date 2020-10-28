@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Bookmark;
+use App\Models\Category;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
@@ -57,7 +57,7 @@ class CategoryController extends Controller
             'user'               => $user,
             'category'           => $category,
             'personal_freeleech' => $personal_freeleech,
-            'bookmarks'          => $bookmarks
+            'bookmarks'          => $bookmarks,
         ]);
     }
 }

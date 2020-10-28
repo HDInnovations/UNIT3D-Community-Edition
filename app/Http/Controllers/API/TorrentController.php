@@ -17,7 +17,6 @@ use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
-use App\Services\Tmdb\TMDBScraper;
 use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
@@ -26,6 +25,7 @@ use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -67,8 +67,9 @@ class TorrentController extends BaseController
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {

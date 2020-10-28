@@ -13,20 +13,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tv;
-use App\Models\Movie;
-use App\Services\Tmdb\TMDBScraper;
 use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
 use App\Models\BonTransactions;
 use App\Models\Category;
+use App\Models\Movie;
 use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\TorrentRequestClaim;
+use App\Models\Tv;
 use App\Models\Type;
 use App\Models\User;
 use App\Notifications\NewRequestBounty;
@@ -37,6 +36,7 @@ use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
 use App\Repositories\ChatRepository;
 use App\Repositories\RequestFacetedRepository;
+use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -261,9 +261,9 @@ class RequestController extends Controller
         if ($torrentRequest->category->game_meta) {
             if ($torrentRequest->igdb || $torrentRequest->igdb != 0) {
                 $meta = Game::with([
-                    'cover' => ['url', 'image_id'],
+                    'cover'    => ['url', 'image_id'],
                     'artworks' => ['url', 'image_id'],
-                    'genres' => ['name']
+                    'genres'   => ['name'],
                 ])->find($torrentRequest->igdb);
             }
         }

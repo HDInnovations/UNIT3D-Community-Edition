@@ -13,14 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tv;
-use App\Models\Movie;
-use App\Models\Keyword;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
-use App\Models\GenreTorrent;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Models\BonTransactions;
@@ -28,8 +24,11 @@ use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
+use App\Models\GenreTorrent;
 use App\Models\Graveyard;
 use App\Models\History;
+use App\Models\Keyword;
+use App\Models\Movie;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\PlaylistTorrent;
@@ -39,13 +38,14 @@ use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\TorrentRequest;
+use App\Models\Tv;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Warning;
-use App\Services\Tmdb\TMDBScraper;
 use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use App\Repositories\TorrentFacetedRepository;
+use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
@@ -203,9 +203,9 @@ class TorrentController extends Controller
             if ($torrent->category->game_meta) {
                 if ($torrent->igdb || $torrent->igdb != 0) {
                     $meta = Game::with([
-                        'cover' => ['url', 'image_id'],
+                        'cover'    => ['url', 'image_id'],
                         'artworks' => ['url', 'image_id'],
-                        'genres' => ['name']
+                        'genres'   => ['name'],
                     ])->find($torrent->igdb);
                 }
             }
@@ -336,9 +336,9 @@ class TorrentController extends Controller
                     if ($d['chunk']->category->game_meta) {
                         if ($d['chunk']->igdb || $d['chunk']->igdb != 0) {
                             $meta = Game::with([
-                                'cover' => ['url', 'image_id'],
+                                'cover'    => ['url', 'image_id'],
                                 'artworks' => ['url', 'image_id'],
-                                'genres' => ['name']
+                                'genres'   => ['name'],
                             ])->find($d['chunk']->igdb);
                         }
                     }
@@ -838,9 +838,9 @@ class TorrentController extends Controller
                     if ($d['chunk']->category->game_meta) {
                         if ($d['chunk']->igdb || $d['chunk']->igdb != 0) {
                             $meta = Game::with([
-                                'cover' => ['url', 'image_id'],
+                                'cover'    => ['url', 'image_id'],
                                 'artworks' => ['url', 'image_id'],
-                                'genres' => ['name']
+                                'genres'   => ['name'],
                             ])->find($d['chunk']->igdb);
                         }
                     }
@@ -869,9 +869,9 @@ class TorrentController extends Controller
                 if ($torrent->category->game_meta) {
                     if ($torrent->igdb || $torrent->igdb != 0) {
                         $meta = Game::with([
-                            'cover' => ['url', 'image_id'],
+                            'cover'    => ['url', 'image_id'],
                             'artworks' => ['url', 'image_id'],
-                            'genres' => ['name']
+                            'genres'   => ['name'],
                         ])->find($torrent->igdb);
                     }
                 }
@@ -935,13 +935,14 @@ class TorrentController extends Controller
      *
      * @return array
      */
-    private static function parseKeywords($text) {
+    private static function parseKeywords($text)
+    {
         $parts = explode(', ', $text);
         $len = count($parts);
         $result = [];
         foreach ($parts as $part) {
             $part = trim($part);
-            if ($part != "") {
+            if ($part != '') {
                 array_push($result, $part);
             }
         }

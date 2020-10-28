@@ -13,17 +13,17 @@
 
 namespace App\Http\Controllers;
 
-use ZipArchive;
-use App\Models\Tv;
+use App\Helpers\Bencode;
 use App\Models\Movie;
 use App\Models\Playlist;
-use App\Helpers\Bencode;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
+use App\Models\Tv;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use ZipArchive;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest

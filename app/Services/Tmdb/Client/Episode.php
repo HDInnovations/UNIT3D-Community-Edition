@@ -22,24 +22,25 @@ class Episode
     {
         $this->client = new \GuzzleHttp\Client(
             [
-                'base_uri' => self::API_BASE_URI,
-                'verify' => false,
+                'base_uri'    => self::API_BASE_URI,
+                'verify'      => false,
                 'http_errors' => false,
-                'headers' => [
+                'headers'     => [
                     'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
+                    'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key' => config('api-keys.tmdb'),
-                    'append_to_response' => 'video,credits,external_ids'
+                    'api_key'            => config('api-keys.tmdb'),
+                    'append_to_response' => 'video,credits,external_ids',
                 ],
             ]
         );
 
-        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/tv/' . $id .  '/season/' . $season . '/episode/' . $episode);
+        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/tv/'.$id.'/season/'.$season.'/episode/'.$episode);
 
         $this->data = json_decode($response->getBody()->getContents(), true);
     }
+
     public function index()
     {
         return $this->data;
@@ -47,37 +48,36 @@ class Episode
 
     public function get_air_date()
     {
-        return $this->data["first_air_date"];
+        return $this->data['first_air_date'];
     }
 
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data["name"]);
+        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data["overview"]);
+        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
     }
 
     public function get_id()
     {
-        return $this->data["id"];
+        return $this->data['id'];
     }
 
     public function get_poster()
     {
-        return "https://image.tmdb.org/t/p/original" . $this->data["poster_path"];
+        return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
     }
 
     public function get_season_number()
     {
-        return sprintf("%02d", $this->data["seasons"]);
+        return sprintf('%02d', $this->data['seasons']);
     }
 
     public function get_status()
     {
-        return $this->data["status"];
+        return $this->data['status'];
     }
-
 }

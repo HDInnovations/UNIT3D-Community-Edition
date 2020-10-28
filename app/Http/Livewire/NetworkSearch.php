@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Network;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class NetworkSearch extends Component
@@ -31,10 +31,10 @@ class NetworkSearch extends Component
 
     public function render()
     {
-        $search_term = '%' . $this->searchTerm . '%';
+        $search_term = '%'.$this->searchTerm.'%';
 
         return view('livewire.network-search', [
-            'networks' => Network::withCount('tv')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30)
+            'networks' => Network::withCount('tv')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
         ]);
     }
 }

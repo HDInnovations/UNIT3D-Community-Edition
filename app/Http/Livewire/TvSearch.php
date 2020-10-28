@@ -31,10 +31,10 @@ class TvSearch extends Component
 
     public function render()
     {
-        $search_term = '%' . $this->searchTerm . '%';
+        $search_term = '%'.$this->searchTerm.'%';
 
         return view('livewire.tv-search', [
-            'shows' => Tv::with('networks', 'genres', 'torrents')->withCount('torrents', 'seasons')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30)
+            'shows' => Tv::with('networks', 'genres', 'torrents')->withCount('torrents', 'seasons')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
         ]);
     }
 }

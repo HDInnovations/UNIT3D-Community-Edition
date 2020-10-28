@@ -27,7 +27,7 @@ class Episode extends Model
     {
         return $this->belongsTo(Season::class)
             ->orderBy('season_id')
-            ->orderBy('episode_id');;
+            ->orderBy('episode_id');
     }
 
     public function person()

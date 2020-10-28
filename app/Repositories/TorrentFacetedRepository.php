@@ -13,8 +13,8 @@
 
 namespace App\Repositories;
 
-use App\Models\Genre;
 use App\Models\Category;
+use App\Models\Genre;
 use App\Models\Resolution;
 use App\Models\Type;
 

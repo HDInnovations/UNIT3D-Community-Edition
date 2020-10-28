@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Person;
-use Livewire\Component;
 use App\Models\Collection;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class CollectionSearch extends Component
@@ -32,10 +31,10 @@ class CollectionSearch extends Component
 
     public function render()
     {
-        $search_term = '%' . $this->searchTerm . '%';
+        $search_term = '%'.$this->searchTerm.'%';
 
         return view('livewire.collection-search', [
-            'collections' => Collection::withCount('movie')->with('movie')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(25)
+            'collections' => Collection::withCount('movie')->with('movie')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(25),
         ]);
     }
 }

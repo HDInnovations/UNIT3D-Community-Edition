@@ -31,10 +31,10 @@ class MovieSearch extends Component
 
     public function render()
     {
-        $search_term = '%' . $this->searchTerm . '%';
+        $search_term = '%'.$this->searchTerm.'%';
 
         return view('livewire.movie-search', [
-            'movies' => Movie::with('companies', 'genres')->withCount('torrents')->where('title', 'LIKE', $search_term)->orderBy('title', 'asc')->paginate(30)
+            'movies' => Movie::with('companies', 'genres')->withCount('torrents')->where('title', 'LIKE', $search_term)->orderBy('title', 'asc')->paginate(30),
         ]);
     }
 }

@@ -90,79 +90,78 @@ class CommentController extends Controller
         $comment->collection_id = $collection->id;
 
         $v = validator($comment->toArray(), [
-            'content'    => 'required',
-            'user_id'    => 'required',
+            'content'       => 'required',
+            'user_id'       => 'required',
             'collection_id' => 'required',
-            'anon'       => 'required',
+            'anon'          => 'required',
         ]);
 
         if ($v->fails()) {
             return redirect()->route('collection.show', ['id' => $collection->id])
                 ->withErrors($v->errors());
-        } else {
-            $comment->save();
+        }
+        $comment->save();
 
-            $collection_url = href_collection($collection);
-            $profile_url = href_profile($user);
+        $collection_url = href_collection($collection);
+        $profile_url = href_profile($user);
 
-            // Auto Shout
-            if ($comment->anon == 0) {
-                $this->chatRepository->systemMessage(
+        // Auto Shout
+        if ($comment->anon == 0) {
+            $this->chatRepository->systemMessage(
                     "[url={$profile_url}]{$user->username}[/url] has left a comment on collection [url={$collection_url}]{$collection->name}[/url]"
                 );
-            } else {
-                $this->chatRepository->systemMessage(
+        } else {
+            $this->chatRepository->systemMessage(
                     "An anonymous user has left a comment on collection [url={$collection_url}]{$collection->name}[/url]"
                 );
-            }
+        }
 
-            if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-                if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                    $users = collect([]);
+        if ($this->taggedUserRepository->hasTags($request->input('content'))) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+                $users = collect([]);
 
-                    $collection->comments()->get()->each(function ($c, $v) use ($users) {
-                        $users->push($c->user);
-                    });
-                    $this->tag->messageCommentUsers(
+                $collection->comments()->get()->each(function ($c, $v) use ($users) {
+                    $users->push($c->user);
+                });
+                $this->tag->messageCommentUsers(
                         'collection',
                         $users,
                         $user,
                         'Staff',
                         $comment
                     );
+            } else {
+                if ($comment->anon) {
+                    $sender = 'Anonymous';
                 } else {
-                    if ($comment->anon) {
-                        $sender = 'Anonymous';
-                    } else {
-                        $sender = $user->username;
-                    }
-                    $this->taggedUserRepository->messageTaggedCommentUsers(
+                    $sender = $user->username;
+                }
+                $this->taggedUserRepository->messageTaggedCommentUsers(
                         'collection',
                         $request->input('content'),
                         $user,
                         $sender,
                         $comment
                     );
-                }
             }
-
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
-
-            return redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
-                ->withSuccess('Your Comment Has Been Added!');
         }
+
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
+
+        return redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
+                ->withSuccess('Your Comment Has Been Added!');
     }
 
     /**

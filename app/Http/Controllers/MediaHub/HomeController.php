@@ -1,24 +1,25 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\MediaHub;
 
-use App\Models\Person;
-use App\Models\Company;
+use App\Http\Controllers\Controller;
 use App\Models\Collection;
+use App\Models\Company;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Network;
-use App\Http\Controllers\Controller;
+use App\Models\Person;
 use App\Models\Tv;
 
 class HomeController extends Controller
@@ -39,13 +40,13 @@ class HomeController extends Controller
         $companies = Company::count();
 
         return view('mediahub.index', [
-            'tv' => $tv,
-            'movies' => $movies,
+            'tv'          => $tv,
+            'movies'      => $movies,
             'collections' => $collections,
-            'persons' => $persons,
-            'genres' => $genres,
-            'networks' => $networks,
-            'companies' => $companies,
+            'persons'     => $persons,
+            'genres'      => $genres,
+            'networks'    => $networks,
+            'companies'   => $companies,
         ]);
     }
 }

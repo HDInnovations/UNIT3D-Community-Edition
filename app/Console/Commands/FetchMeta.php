@@ -13,12 +13,11 @@
 
 namespace App\Console\Commands;
 
-use Exception;
-use App\Models\Tv;
 use App\Models\Movie;
 use App\Models\Torrent;
-use Illuminate\Console\Command;
+use App\Models\Tv;
 use App\Services\Tmdb\TMDBScraper;
+use Illuminate\Console\Command;
 
 class FetchMeta extends Command
 {
