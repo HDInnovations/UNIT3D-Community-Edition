@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-
 use App\Models\RBACPermissions;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
@@ -10,7 +9,6 @@ use Illuminate\Support\ServiceProvider;
 
 class PermissionsServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
         //
@@ -26,9 +24,9 @@ class PermissionsServiceProvider extends ServiceProvider
             });
         } catch (\Exception $e) {
             report($e);
+
             return false;
         }
-
 
         //Blade directives
         //
@@ -38,7 +36,7 @@ class PermissionsServiceProvider extends ServiceProvider
         });
         //@endrole
         Blade::directive('endrole', function ($role) {
-            return "<?php } ?>"; //return this endif statement inside php tag
+            return '<?php } ?>'; //return this endif statement inside php tag
         });
 
         //@permission()
@@ -47,7 +45,7 @@ class PermissionsServiceProvider extends ServiceProvider
         });
         //@endpermission
         Blade::directive('endpermission', function ($perm) {
-            return "<?php } ?>"; //return this endif statement inside php tag
+            return '<?php } ?>'; //return this endif statement inside php tag
         });
     }
 }

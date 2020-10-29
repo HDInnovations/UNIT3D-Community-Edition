@@ -23,7 +23,7 @@ class CreateRBACUsersPermissionsTable extends Migration
             $table->foreign('permission_id')->references('id')->on('RBACpermissions');
 
             //SETTING THE PRIMARY KEYS
-            $table->primary(['user_id','permission_id']);
+            $table->primary(['user_id', 'permission_id']);
         });
         Schema::enableForeignKeyConstraints();
     }

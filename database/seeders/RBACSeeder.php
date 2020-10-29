@@ -1,10 +1,11 @@
 <?php
+
 namespace Database\Seeders;
-use Illuminate\Database\Seeder;
+
 use App\Models\RBACPermissions as Permission;
 use App\Models\RBACRoles as Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Seeder;
 
 class RBACSeeder extends Seeder
 {
@@ -27,10 +28,8 @@ class RBACSeeder extends Seeder
         $perm->name = 'Dashboard';
         $perm->save();
 
-
-
         //Select Default Roles
-        $admin = Role::where('slug','owner')->first();
+        $admin = Role::where('slug', 'owner')->first();
 
         //Add Permissions to Default Roles
         $admin->permissions()->attach($perm);
@@ -39,6 +38,5 @@ class RBACSeeder extends Seeder
         $owner = User::where('id', 3)->first();
         $owner->roles()->attach($role);
         $owner->save();
-
     }
 }

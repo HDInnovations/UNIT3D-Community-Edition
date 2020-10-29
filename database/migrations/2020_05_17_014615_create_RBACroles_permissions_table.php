@@ -22,7 +22,7 @@ class CreateRBACRolesPermissionsTable extends Migration
             $table->foreign('permission_id')->references('id')->on('RBACpermissions')->onDelete('cascade');
 
             //SETTING THE PRIMARY KEYS
-            $table->primary(['role_id','permission_id']);
+            $table->primary(['role_id', 'permission_id']);
         });
     }
 
