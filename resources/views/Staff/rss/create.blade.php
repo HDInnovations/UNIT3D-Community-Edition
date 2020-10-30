@@ -103,7 +103,7 @@
             <div class="form-group">
                 <label for="genre">@lang('torrent.genre')</label>
                 <div>
-                    @foreach ($torrent_repository->tags() as $id => $genre)
+                    @foreach ($torrent_repository->genres() as $id => $genre)
                         <span class="badge-user">
                             <label class="inline">
                                 <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}" class="genre">

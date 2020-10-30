@@ -23,79 +23,27 @@
 @endsection
 
 @section('content')
-    @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') ,
-    config('api-keys.omdb')) @endphp
-@php $meta = null; @endphp
+    @php $meta = null; @endphp
     @if ($torrents->first()->category->tv_meta)
-@php $meta = $client->scrape('tv', null, $tmdb); @endphp
+        @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $tmdb)->first(); @endphp
     @endif
     @if ($torrents->first()->category->movie_meta)
-@php $meta = $client->scrape('movie', null, $tmdb); @endphp
+        @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $tmdb)->first(); @endphp
     @endif
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
-            <div class="header gradient light_blue">
-                <div class="inner_content">
-                    <h1>{{ $meta->title }} ({{ $meta->releaseYear }})</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 movie-list">
-                    <div class="pull-left">
-                        <a href="#">
-                            <img src="{{ $meta->poster }}" style="height:200px; margin-right:10px;"
-                                alt="{{ $meta->title }} @lang('torrent.poster')">
-                        </a>
-                    </div>
-                    <h2 class="movie-title text-bold">
-                        {{ $meta->title }} ({{ $meta->releaseYear }})
-                        <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
-                            <span class="movie-rating-stars">
-                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
-                            </span>
-                            @if ($user->ratings == 1)
-                                {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} @lang('torrent.votes'))
-                            @else
-                                {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} @lang('torrent.votes'))
-                            @endif
-                        </span>
-                    </h2>
-                    <div class="movie-details">
-                        <p class="movie-plot">{{ $meta->plot }}</p>
-                        <strong>ID:</strong>
-    
-                        <span class="badge-user"><a href="https://www.imdb.com/title/{{ $meta->imdb }}"
-                                target="_blank">{{ $meta->imdb }}</a></span>
-                        @if ($torrents->first()->category_id == "2" && $torrents->first()->tmdb != 0 &&
-                            $torrents->first()->tmdb != null)
-                            <span class="badge-user"><a
-                                    href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}?language={{ config('app.locale') }}"
-                                    target="_blank">{{ $meta->tmdb }}</a></span>
-                        @elseif ($torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
-                            <span class="badge-user"><a
-                                    href="https://www.themoviedb.org/movie/{{ $meta->tmdb }}?language={{ config('app.locale') }}"
-                                    target="_blank">{{ $meta->tmdb }}</a></span>
-                        @endif
-                        <strong>@lang('torrent.genre'): </strong>
-                        @if ($meta->genres)
-                            @foreach ($meta->genres as $genre)
-                                <span class="badge-user text-bold text-green">{{ $genre }}</span>
-                            @endforeach
-                        @endif
-                    </div>
-                    <br>
-                    <ul class="list-inline">
-                        <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>@lang('torrent.torrents'):
-                            </strong> {{ $torrents->count() }}</li>
-                        <li>
-                            <a href="{{ route('upload_form', ['category_id' => $torrents->first()->category_id, 'title' => $meta->title, 'imdb' => $meta->imdb, 'tmdb' => $meta->tmdb]) }}"
-                                class="btn btn-xs btn-danger">
-                                @lang('common.upload') {{ $meta->title }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @if ($torrents->first()->category->movie_meta)
+                @include('torrent.partials.movie_meta', ['torrent' => $torrents->first()])
+            @endif
+
+            @if ($torrents->first()->category->tv_meta)
+                @include('torrent.partials.tv_meta', ['torrent' => $torrents->first()])
+            @endif
+
+            @if ($torrents->first()->category->game_meta)
+                @include('torrent.partials.game_meta')
+            @endif
+
             <div class="table-responsive">
                 <table class="table table-condensed table-bordered table-striped table-hover">
                     <thead>
@@ -204,37 +152,16 @@
                                             </a>
                                         </span>
                                     @endif
-        
-                                    @if (! $torrent->category->no_meta)
-                                        @if ($user->ratings == 1)
-                                            <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}" target="_blank">
-                                                <span class="badge-extra text-bold">
-                                                    <span class="text-gold movie-rating-stars">
-                                                        <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
-                                                            data-original-title="@lang('torrent.view-more')"></i>
-                                                    </span>
-                                                    {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} @lang('torrent.votes'))
-                                                </span>
-                                            </a>
-                                        @else
-                                            @if ($torrent->category->tv_meta)
-                                                <a href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}?language={{ config('app.locale') }}"
-                                                    target="_blank">
-                                                @else
-                                                    <a href="https://www.themoviedb.org/movie/{{ $meta->tmdb }}?language={{ config('app.locale') }}"
-                                                        target="_blank">
-                                                    @endif
-                                                    <span class="badge-extra text-bold">
-                                                        <span class="text-gold movie-rating-stars">
-                                                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up"
-                                                                data-toggle="tooltip"
-                                                                data-original-title="@lang('torrent.view-more')"></i>
-                                                        </span>
-                                                        {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} @lang('torrent.votes'))
-                                                    </span>
-                                                </a>
-                                            @endif
-                                        @endif
+
+                                    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
+                                        <span class="badge-extra text-bold">
+                                <span class="text-gold movie-rating-stars">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
+                                       data-original-title="@lang('torrent.rating')"></i>
+                                </span>
+                                {{ $meta->vote_average ?? 0 }}/10 ({{ $meta->vote_count ?? 0 }} @lang('torrent.votes'))
+                            </span>
+                                    @endif
         
                                         <span class="badge-extra text-bold text-pink">
                                             <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip"

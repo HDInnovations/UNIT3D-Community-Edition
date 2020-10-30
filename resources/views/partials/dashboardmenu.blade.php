@@ -118,11 +118,6 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff.tags.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('torrent.genre-tags')
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('staff.media_languages.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('common.media-languages')
                 </a>

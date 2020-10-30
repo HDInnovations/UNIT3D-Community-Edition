@@ -61,21 +61,24 @@
 
 		<div class="block">
 			<div class="row">
+				<div class="text-center">
+					<a href="{{ route('playlists.download', ['id' => $playlist->id]) }}" role="button"
+					   class="btn btn-sm btn-labeled btn-success">
+                    <span class='btn-label'>
+                        <i class='{{ config('other.font-awesome') }} fa-download'></i> Download All Playlist Torrents
+                    </span>
+					</a>
+				</div>
 				@php $meta = null; @endphp
-				@php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
 				@foreach($torrents as $t)
 					@if ($t->torrent->category->tv_meta)
 						@if ($t->torrent->tmdb || $t->torrent->tmdb != 0)
-							@php $meta = $client->scrape('tv', null, $t->torrent->tmdb); @endphp
-						@else
-							@php $meta = $client->scrape('tv', 'tt'. $t->torrent->imdb); @endphp
+							@php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $t->torrent->tmdb)->first(); @endphp
 						@endif
 					@endif
 					@if ($t->torrent->category->movie_meta)
 						@if ($t->torrent->tmdb || $t->torrent->tmdb != 0)
-							@php $meta = $client->scrape('movie', null, $t->torrent->tmdb); @endphp
-						@else
-							@php $meta = $client->scrape('movie', 'tt'. $t->torrent->imdb); @endphp
+							@php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $t->torrent->tmdb)->first(); @endphp
 						@endif
 					@endif
 					<div class="col-md-6">
@@ -123,22 +126,19 @@
 							</div>
 							<div class="card_body">
 								<div class="body_poster">
-									@if ($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && isset($meta) && $meta->poster && $meta->title)
-										<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster"
-										     data-name='<i style="color: #a5a5a5;">{{ $t->torrent->meta->title ?? 'N/A' }}</i>' data-image='<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')" style="height: 1000px;">'
-										     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+									@if ($t->torrent->category->movie_meta || $t->torrent->category->tv_meta)
+										<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
+										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 
 									@if ($t->torrent->category->game_meta && isset($t->torrent->meta) && $meta->cover->image_id && $meta->name)
-										<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->torrent->meta->cover->image_id }}.jpg" class="show-poster"
-										     data-name='<i style="color: #a5a5a5;">{{ $meta->name ?? 'N/A' }}</i>' data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg" alt="@lang('torrent.poster')" style="height: 1000px;">'
-										     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+										<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->torrent->meta->cover->image_id }}.jpg"
+										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 
-									@if ($t->torrent->category->no_meta || $t->torrent->category->music_meta || ! $meta)
-										<img src="https://via.placeholder.com/600x900" class="show-poster"
-										     data-name='<i style="color: #a5a5a5;">N/A</i>' data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('torrent.poster')" style="height: 1000px;">'
-										     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+									@if ($t->torrent->category->no_meta || $t->torrent->category->music_meta)
+										<img src="https://via.placeholder.com/600x900"
+										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 								</div>
 								<div class="body_description">
@@ -154,12 +154,12 @@
 									</h3>
 									@if ($t->torrent->category->movie_meta && isset($meta) && $meta->genres)
 										@foreach ($meta->genres as $genre)
-											<span class="genre-label">{{ $genre }}</span>
+											<span class="genre-label">{{ $genre->name }}</span>
 										@endforeach
 									@endif
 									@if ($t->torrent->category->tv_meta && isset($meta) && $meta->genres)
 										@foreach ($meta->genres as $genre)
-											<span class="genre-label">{{ $genre }}</span>
+											<span class="genre-label">{{ $genre->name }}</span>
 										@endforeach
 									@endif
 									@if ($t->torrent->category->game_meta && isset($meta) && $meta->genres)
@@ -169,7 +169,7 @@
 									@endif
 									<p class="description_plot">
 										@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && $meta && $meta->plot)
-											{{ $meta->plot ?? '' }}
+											{{ $meta->overview ?? '' }}
 										@endif
 									</p>
 								</div>
@@ -194,15 +194,9 @@
 									@endif
 								</div>
 								<span class="badge-user text-bold" style="float: right;">
-                                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
-                                            @if($meta && ($meta->imdbRating || $meta->tmdbVotes))
-										@if (auth()->user()->ratings == 1)
-											{{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} @lang('torrent.votes'))
-										@else
-											{{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} @lang('torrent.votes'))
-										@endif
-									@endif
-                                        </span>
+									<i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
+                                    {{ $meta->vote_average ?? '0' }}/10 ({{ $meta->vote_count ?? '0' }} @lang('torrent.votes'))
+								</span>
 							</div>
 						</div>
 					</div>
@@ -328,7 +322,7 @@
 @endsection
 
 @section('javascripts')
-	<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+	<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#content').wysibb({});
       })

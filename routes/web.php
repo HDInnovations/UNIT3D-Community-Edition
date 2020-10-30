@@ -185,6 +185,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
             Route::post('/request/{id}', 'CommentController@request')->name('comment_request');
             Route::post('/playlist/{id}', 'CommentController@playlist')->name('comment_playlist');
+            Route::post('/collection/{id}', 'CommentController@collection')->name('comment_collection');
             Route::post('/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
             Route::get('/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
         });
@@ -433,6 +434,7 @@ Route::group(['middleware' => 'language'], function () {
                 Route::delete('/{id}/destroy', 'PlaylistController@destroy')->name('destroy');
                 Route::post('/attach', 'PlaylistTorrentController@store')->name('attach');
                 Route::delete('/{id}/detach', 'PlaylistTorrentController@destroy')->name('detach');
+                Route::get('/{id}/download', 'PlaylistController@downloadPlaylist')->name('download');
             });
         });
 
@@ -448,6 +450,61 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/filter', 'SubtitleController@faceted');
             });
         });
+    });
+
+    /*
+    |------------------------------------------
+    | MediaHub (When Authorized)
+    |------------------------------------------
+    */
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'MediaHub'], function () {
+        // MediaHub Home
+        Route::get('/', 'HomeController@index')->name('mediahub.index');
+
+        // Genres
+        Route::get('/genres', 'GenreController@index')->name('mediahub.genres.index');
+
+        // Genre
+        Route::get('/genre/{id}', 'GenreController@show')->name('mediahub.genres.show');
+
+        // Networks
+        Route::get('/networks', 'NetworkController@index')->name('mediahub.networks.index');
+
+        // Network
+        Route::get('/network/{id}', 'NetworkController@show')->name('mediahub.networks.show');
+
+        // Companies
+        Route::get('/companies', 'CompanyController@index')->name('mediahub.companies.index');
+
+        // Company
+        Route::get('/company/{id}', 'CompanyController@show')->name('mediahub.companies.show');
+
+        // TV Shows
+        Route::get('/tv-shows', 'TvShowController@index')->name('mediahub.shows.index');
+
+        // TV Show
+        Route::get('/tv-show/{id}', 'TvShowController@show')->name('mediahub.shows.show');
+
+        // TV Show Season
+        Route::get('/tv-show/season/{id}', 'TvSeasonController@show')->name('mediahub.season.show');
+
+        // Persons
+        Route::get('/persons', 'PersonController@index')->name('mediahub.persons.index');
+
+        // Person
+        Route::get('/persons/{id}', 'PersonController@show')->name('mediahub.persons.show');
+
+        // Collections
+        Route::get('/collections', 'CollectionController@index')->name('mediahub.collections.index');
+
+        // Collection
+        Route::get('/collections/{id}', 'CollectionController@show')->name('mediahub.collections.show');
+
+        // Movies
+        Route::get('/movies', 'MovieController@index')->name('mediahub.movies.index');
+
+        // Movie
+        Route::get('/movies/{id}', 'MovieController@show')->name('mediahub.movies.show');
     });
 
     /*
@@ -815,17 +872,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/{id}/edit', 'RssController@edit')->name('edit');
                 Route::patch('/{id}/update', 'RssController@update')->name('update');
                 Route::delete('/{id}/destroy', 'RssController@destroy')->name('destroy');
-            });
-        });
-
-        // Tag (Genres)
-        Route::group(['prefix' => 'tags'], function () {
-            Route::name('staff.tags.')->group(function () {
-                Route::get('/', 'TagController@index')->name('index');
-                Route::get('/create', 'TagController@create')->name('create');
-                Route::post('/store', 'TagController@store')->name('store');
-                Route::get('/{id}/edit', 'TagController@edit')->name('edit');
-                Route::post('/{id}/update', 'TagController@update')->name('update');
             });
         });
 

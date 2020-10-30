@@ -83,8 +83,6 @@ use voku\helper\AntiXSS;
  * @property-write mixed $media_info
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subtitle[] $subtitles
  * @property-read int|null $subtitles_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
- * @property-read int|null $tags_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Thank[] $thanks
  * @property-read int|null $thanks_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BonTransactions[] $tips
@@ -217,6 +215,16 @@ class Torrent extends Model
     }
 
     /**
+     * Has Many Genres.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'genre_torrent', 'torrent_id', 'genre_id', 'id', 'id');
+    }
+
+    /**
      * Torrent Has Been Moderated By.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -230,23 +238,13 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Tags.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'tag_torrent', 'torrent_id', 'tag_name', 'id', 'name');
-    }
-
-    /**
-     * Has Many Subtitles.
+     * Has Many Keywords.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subtitles()
+    public function keywords()
     {
-        return $this->hasMany(Subtitle::class);
+        return $this->hasMany(Keyword::class);
     }
 
     /**
@@ -327,6 +325,16 @@ class Torrent extends Model
     public function peers()
     {
         return $this->hasMany(Peer::class);
+    }
+
+    /**
+     * Has Many Subtitles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subtitles()
+    {
+        return $this->hasMany(Subtitle::class);
     }
 
     /**

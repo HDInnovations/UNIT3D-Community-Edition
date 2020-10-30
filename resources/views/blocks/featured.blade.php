@@ -1,5 +1,3 @@
-@php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'),
-config('api-keys.omdb')); @endphp
 <div class="mobile-hide">
     <div class="col-md-10 col-sm-10 col-md-offset-1">
         <div class="clearfix visible-sm-block"></div>
@@ -39,16 +37,12 @@ config('api-keys.omdb')); @endphp
                     @foreach ($featured as $key => $feature)
                         @if ($feature->torrent->category->tv_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                                @php $meta = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
-                            @else
-                                @php $meta = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $feature->torrent->tmdb)->first(); @endphp
                             @endif
                         @endif
                         @if ($feature->torrent->category->movie_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                                @php $meta = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
-                            @else
-                                @php $meta = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $feature->torrent->tmdb)->first(); @endphp
                             @endif
                         @endif
                         @if ($feature->torrent->category->game_meta)
@@ -79,7 +73,7 @@ config('api-keys.omdb')); @endphp
                                                         @foreach ($meta->genres as $genre)
                                                             @if ($feature->torrent->category->tv_meta ||
                                                                 $feature->torrent->category->movie_meta)
-                                                                | {{ $genre }} |
+                                                                | {{ $genre->name }} |
                                                             @endif
                                                             @if ($feature->torrent->category->game_meta)
                                                                 | {{ $genre->name }} |
@@ -91,11 +85,11 @@ config('api-keys.omdb')); @endphp
                                             <span class="movie-desc">
                                                 @if ($feature->torrent->category->tv_meta ||
                                                     $feature->torrent->category->movie_meta)
-                                                    {{ Str::limit(strip_tags($meta->plot), 200) ?? "" }}...
+                                                    {{ Str::limit(strip_tags($meta->overview), 200) }}...
                                                 @endif
                                                 @if ($feature->torrent->category->game_meta && isset($meta) &&
                                                     $meta->summary)
-                                                    {{ Str::limit(strip_tags($meta->summary), 200) ?? "" }}...
+                                                    {{ Str::limit(strip_tags($meta->summary), 200) }}...
                                                 @endif
                                                 <br>
                                                 <br>

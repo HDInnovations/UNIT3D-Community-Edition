@@ -145,7 +145,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="approve"></label>
-                                                            <textarea class="form-control" rows="5" cols="50" name="approve" id="approve"></textarea>
+                                                            <textarea class="form-control" rows="5" cols="50" name="approve" id="approve">Application Approved!</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -186,7 +186,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="deny"></label>
-                                                            <textarea class="form-control" rows="5" cols="50" name="deny" id="deny"></textarea>
+                                                            <textarea class="form-control" rows="5" cols="50" name="deny" id="deny">Insufficient Proofs.</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

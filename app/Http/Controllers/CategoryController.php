@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
@@ -46,17 +47,17 @@ class CategoryController extends Controller
     public function show(Request $request, $id)
     {
         $user = $request->user();
-        $movieScrapper = new \App\Services\MovieScrapper(\config('api-keys.tmdb'), \config('api-keys.tvdb'), \config('api-keys.omdb'));
         $category = Category::select(['id', 'name'])->findOrFail($id);
         $torrents = Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->where('category_id', '=', $id)->orderBy('sticky', 'desc')->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
         return \view('category.show', [
-            'client'             => $movieScrapper,
             'torrents'           => $torrents,
             'user'               => $user,
             'category'           => $category,
             'personal_freeleech' => $personal_freeleech,
+            'bookmarks'          => $bookmarks,
         ]);
     }
 }

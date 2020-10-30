@@ -23,8 +23,6 @@ class AlbumControllerTest extends TestCase
 
         $response->assertOk()
             ->assertViewIs('album.create');
-
-        // TODO: perform additional assertions
     }
 
     /** @test */
@@ -91,9 +89,6 @@ class AlbumControllerTest extends TestCase
 
         $response->assertRedirect(route('albums.create'));
 
-        // TODO It would be ideal to use assertSessionHasErrors() here, but that
-        // will require fixing the SUT.
-
-        $this->assertEquals('Bad IMDB Request!', session()->get('errors')->default->first());
+        $this->assertEquals('Meta Data Not Found. Gallery System Is Being Refactored', session()->get('errors')->default->first());
     }
 }

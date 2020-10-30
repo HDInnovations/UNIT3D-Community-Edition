@@ -52,6 +52,13 @@ class FailedLoginAttempt extends Model
         'ip_address',
     ];
 
+    /**
+     * @param $user
+     * @param $username
+     * @param $ip
+     *
+     * @return mixed
+     */
     public static function record($user, $username, $ip)
     {
         return static::create([

@@ -17,7 +17,6 @@ use App\Models\Category;
 use App\Models\Group;
 use App\Models\Resolution;
 use App\Models\Rss;
-use App\Models\TagTorrent;
 use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
@@ -283,8 +282,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->genres && \is_array($rss->object_torrent->genres)) {
-            $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
-            $builder->whereIn('id', $genreID)->cursor();
+            // TODO
         }
 
         if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
