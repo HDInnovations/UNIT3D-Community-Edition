@@ -41,7 +41,7 @@
         <div class="torrent box container">
             <div class="alert alert-info text-center">
                 <h2 class="mt-10"><strong>@lang('torrent.announce-url'):</strong>
-                    {{ route('announce', ['passkey' => $user->passkey]) }}
+                    {{ $announce_url }}
                 </h2>
                 <p>@lang('torrent.announce-url-desc', ['source' => config('torrent.source')]).</p>
             </div>

@@ -67,6 +67,10 @@ class AnnounceController extends Controller
      */
     public function index(Request $request, $passkey)
     {
+        // Only proceed if we are running the php tracker
+        if (app('config')->get("tracker")["tracker_type"] === "mika") {
+            return response("Invalid tracker address", 404);
+        }
         try {
             /**
              * Check client.

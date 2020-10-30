@@ -1268,7 +1268,13 @@ class TorrentController extends Controller
     public function uploadForm(Request $request, $category_id = 0, $title = '', $imdb = 0, $tmdb = 0)
     {
         $user = $request->user();
-
+        $tracker_config = app('config')->get("tracker");
+        if ($tracker_config["tracker_type"] === "mika") {
+            $ann_url_base = $tracker_config["announce_url"];
+            $ann_url = sprintf($ann_url_base, $user->passkey);
+        } else {
+            $ann_url = route('announce', ['passkey' => $user->passkey]);
+        }
         return \view('torrent.upload', [
             'categories'  => Category::all()->sortBy('position'),
             'types'       => Type::all()->sortBy('position'),
@@ -1278,6 +1284,7 @@ class TorrentController extends Controller
             'title'       => $title,
             'imdb'        => \str_replace('tt', '', $imdb),
             'tmdb'        => $tmdb,
+            'announce_url' => $ann_url,
         ]);
     }
 
@@ -1324,7 +1331,7 @@ class TorrentController extends Controller
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
         $meta = Bencode::get_meta($decodedTorrent);
-        $fileName = \uniqid().'.torrent'; // Generate a unique name
+        $fileName = \uniqid("", true).'.torrent'; // Generate a unique name
         \file_put_contents(\getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         // Create the torrent (DB)
