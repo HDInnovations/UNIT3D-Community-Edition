@@ -16,7 +16,7 @@ class CreateRBACPermissionsTable extends Migration
         Schema::create('RBACpermissions', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // edit posts
-            $table->string('slug'); //edit-posts
+            $table->string('slug')->unique(); //edit-posts
             $table->timestamps();
         });
     }
