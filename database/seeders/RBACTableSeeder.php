@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\RBACPermissions as Permission;
-use App\Models\RBACRoles as Role;
-use App\Models\User;
+use App\Models\Privilege;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
-class RBACSeeder extends Seeder
+class RBACTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -43,7 +42,7 @@ class RBACSeeder extends Seeder
             ['slug' => 'coder', 'name' => 'Coder'],
             ['slug' => 'bot', 'name' => 'Bot'],
         ], ['slug'], ['name']);
-        Permission::upsert([
+        Privilege::upsert([
             ['slug' => 'dashboard_can_view', 'name' => 'dashboard_can_view'],
             ['slug' => 'torrent_can_view', 'name' => 'torrent_can_view'],
             ['slug' => 'torrent_can_create', 'name' => 'torrent_can_create'],
