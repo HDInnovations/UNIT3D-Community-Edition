@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRBACUsersRolesTable extends Migration
+class CreateUserRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,13 @@ class CreateRBACUsersRolesTable extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('RBACusers_roles', function (Blueprint $table) {
+        Schema::create('user_role', function (Blueprint $table) {
             $table->integer('user_id');
             $table->foreignId('role_id');
 
             //FOREIGN KEY CONSTRAINTS
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('RBACroles')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
 
             //SETTING THE PRIMARY KEYS
             $table->primary(['user_id', 'role_id']);
@@ -35,6 +35,6 @@ class CreateRBACUsersRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('RBACusers_roles');
+        Schema::dropIfExists('user_role');
     }
 }
