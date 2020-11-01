@@ -14,7 +14,7 @@ class Privilege extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany(RBACRoles::class, 'role_privileges', 'privilege_id', 'role_id');
+        return $this->belongsToMany(Role::class, 'role_privileges', 'privilege_id', 'role_id');
     }
 
     /**
