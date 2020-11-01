@@ -15,10 +15,8 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\WishInterface;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Services\Tmdb\TMDBScraper;
 use App\Services\Tmdb\Client\Movie;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WishControllerTest
