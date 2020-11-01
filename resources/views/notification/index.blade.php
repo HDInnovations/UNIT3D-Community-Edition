@@ -156,7 +156,8 @@
         </form>
     
         <br>
-        <div class="text-center" style=" margin-top: 100px; display: inline-block;">
+        <br>
+        <div class="text-center">
             <form action="{{ route('notifications.updateall') }}" method="POST" style="display: inline-block;">
                 @csrf
                 <button type="submit" class="btn btn btn-success" data-toggle="tooltip"
