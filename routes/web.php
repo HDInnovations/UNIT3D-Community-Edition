@@ -246,6 +246,13 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/reset', 'RequestController@resetRequest')->name('resetRequest')->middleware('modo');
         });
 
+        // Roles System
+        Route::group(['prefix' => 'roles'], function () {
+            Route::name('roles.')->group(function () {
+                Route::get('/', 'RoleController@index')->name('index');
+            });
+        });
+
         // Torrents System
         Route::group(['prefix' => 'upload'], function () {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
