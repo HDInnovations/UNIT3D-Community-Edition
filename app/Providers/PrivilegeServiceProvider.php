@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\RBACPermissions;
+use App\Models\Privilege;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
-class PermissionsServiceProvider extends ServiceProvider
+class PrivilegeServiceProvider extends ServiceProvider
 {
     public function register()
     {
@@ -17,9 +17,9 @@ class PermissionsServiceProvider extends ServiceProvider
     public function boot()
     {
         try {
-            RBACPermissions::get()->map(function ($permission) {
-                Gate::define($permission->slug, function ($user) use ($permission) {
-                    return $user->hasPermissionTo($permission);
+            Privilege::get()->map(function ($privilege) {
+                Gate::define($privilege->slug, function ($user) use ($privilege) {
+                    return $user->hasPrivilegeTo($privilege);
                 });
             });
         } catch (\Exception $e) {
@@ -39,12 +39,12 @@ class PermissionsServiceProvider extends ServiceProvider
             return '<?php } ?>'; //return this endif statement inside php tag
         });
 
-        //@permission()
-        Blade::directive('permission', function ($perm) {
-            return "<?php if(auth()->check() && auth()->user()->hasPermissionTo($perm)) { ?>"; //return this if statement inside php tag
+        //@privilege()
+        Blade::directive('privilege', function ($privilege) {
+            return "<?php if(auth()->check() && auth()->user()->hasPrivilegeTo($privilege)) { ?>"; //return this if statement inside php tag
         });
         //@endpermission
-        Blade::directive('endpermission', function ($perm) {
+        Blade::directive('endprivilege', function ($perm) {
             return '<?php } ?>'; //return this endif statement inside php tag
         });
     }
