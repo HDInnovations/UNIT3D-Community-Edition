@@ -17,6 +17,8 @@ use App\Interfaces\WishInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Services\Tmdb\TMDBScraper;
+use App\Services\Tmdb\Client\Movie;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WishControllerTest
@@ -48,8 +50,6 @@ class WishController extends Controller
      */
     public function index(Request $request, $username)
     {
-        abort(307);
-
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
         \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
@@ -73,33 +73,35 @@ class WishController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        if ($request->get('imdb') == 0) {
+        if ($request->get('tmdb') === 0) {
             return \redirect()
                 ->route('wishes.index', ['username' => $user->username])
-                ->withErrors('IMDB Entry Required');
+                ->withErrors('TMDB ID Required');
         }
 
-        $imdb = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $tmdb = $request->get('tmdb');
 
-        if ($this->wish->exists($user->id, $imdb)) {
+        if ($this->wish->exists($user->id, $tmdb)) {
             return \redirect()
                 ->route('wishes.index', ['username' => $user->username])
                 ->withErrors('Wish already exists!');
         }
 
-        $omdb = $this->wish->omdbRequest($imdb);
-        if ($omdb === null || $omdb === false) {
+        $client = new Movie($tmdb);
+        $meta = $client->index();
+
+        if ($meta === null || $meta === false) {
             return \redirect()
                 ->route('wishes.index', ['username' => $user->username])
-                ->withErrors('IMDB Bad Request!');
+                ->withErrors('TMDM Bad Request!');
         }
 
-        $source = $this->wish->getSource($imdb);
+        $source = $this->wish->getSource($tmdb);
 
         $this->wish->create([
-            'title'   => $omdb['Title'].' ('.$omdb['Year'].')',
-            'type'    => $omdb['Type'],
-            'imdb'    => $imdb,
+            'title'   => $meta['title'].' ('.$meta['release_date'].')',
+            'type'    => 'Movie',
+            'tmdb'    => $tmdb,
             'source'  => $source,
             'user_id' => $user->id,
         ]);

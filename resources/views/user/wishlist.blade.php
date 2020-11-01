@@ -34,8 +34,8 @@
                             @csrf
     
                             <div class="form-group mt-5">
-                                <label for="imdb"></label><input type="text" class="form-control" name="imdb" id="imdb"
-                                    placeholder="IMDB ID">
+                                <label for="tmdb"></label><input type="text" class="form-control" name="tmdb" id="tmdb"
+                                    placeholder="TMDB ID">
                             </div>
     
                             <button type="submit" class="btn btn-success mt-10">
@@ -53,7 +53,7 @@
                                 <thead>
                                     <tr>
                                         <th>@lang('torrent.title')</th>
-                                        <th>IMDB</th>
+                                        <th>TMDB</th>
                                         <th>@lang('common.status')</th>
                                         <th>@lang('common.delete')</th>
                                     </tr>
@@ -73,8 +73,8 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="http://www.imdb.com/title/{{ $wish->imdb }}" target="_blank">
-                                                    Link
+                                                <a href="{{ route('mediahub.movies.show', ['id' => $wish->tmdb]) }}" target="_blank">
+                                                    MediaHub
                                                 </a>
                                             </td>
                                             <td>
