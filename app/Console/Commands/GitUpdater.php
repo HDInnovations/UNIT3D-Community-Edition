@@ -78,7 +78,7 @@ class GitUpdater extends Command
 
         $this->info('
         ***************************
-        * Git Updater v2.5 Beta   *
+        * Git Updater v3.0   *
         ***************************
         ');
 
@@ -95,7 +95,7 @@ class GitUpdater extends Command
         <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER! USE AT YOUR OWN RISK!</>
         </>');
 
-        if (! $this->io->confirm('Would you like to proceed', false)) {
+        if (! $this->io->confirm('Would you like to proceed', true)) {
             $this->line('<fg=red>Aborted ...</>');
             exit();
         }
@@ -123,7 +123,7 @@ class GitUpdater extends Command
             $this->cyan('Files that need updated:');
             $this->io->listing($updating);
 
-            if ($this->io->confirm('Start the update process', false)) {
+            if ($this->io->confirm('Start the update process', true)) {
                 $this->call('down');
 
                 $this->process('git add .');
@@ -168,6 +168,10 @@ class GitUpdater extends Command
                 $this->setCache();
 
                 $this->permissions();
+
+                $this->supervisor();
+
+                $this->php();
 
                 $this->header('Bringing Site Live');
                 $this->call('up');
@@ -259,7 +263,7 @@ class GitUpdater extends Command
 
         $this->commands([
             'composer install',
-            'composer dump-autoload',
+            'composer dump-autoload -o',
         ]);
 
         $this->done();
@@ -271,6 +275,7 @@ class GitUpdater extends Command
 
         $this->commands([
             'rm -rf node_modules',
+            'npm cache clean --force',
             'npm install',
             'npm run prod',
         ]);
@@ -288,14 +293,14 @@ class GitUpdater extends Command
     private function clearCache()
     {
         $this->header('Clearing Cache');
-        $this->call('clear:all_cache');
+        $this->call('optimize:clear');
         $this->done();
     }
 
     private function setCache()
     {
         $this->header('Setting Cache');
-        $this->call('set:all_cache');
+        $this->call('optimize');
         $this->done();
     }
 
@@ -313,37 +318,42 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    private function supervisor()
+    {
+        $this->header('Restarting Supervisor');
+        $this->call('queue:restart');
+        $this->process('supervisorctl reread && supervisorctl update && supervisorctl reload');
+        $this->done();
+    }
+
+    private function php()
+    {
+        $this->header('Restarting PHP');
+        $this->process('systemctl restart php7.4-fpm');
+        $this->done();
+    }
+
     private function validatePath($path)
     {
         if (! \is_file(\base_path($path)) && ! \is_dir(\base_path($path))) {
             $this->red(\sprintf("The path '%s' is invalid", $path));
-            //$this->call('up');
-            //die();
         }
     }
 
     private function createBackupPath($path)
     {
         if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \is_file(\base_path($path))) {
-            \mkdir(\storage_path(\sprintf('gitupdate/%s', $path)), 0775, true);
+            if (!mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && !is_dir($concurrentDirectory)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+            }
         } elseif (\is_file(\base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname($path);
             if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path)))) {
-                \mkdir(\storage_path(\sprintf('gitupdate/%s', $path)), 0775, true);
+                if (!mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && !is_dir($concurrentDirectory)) {
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                }
             }
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-
-        ];
     }
 
     /**
