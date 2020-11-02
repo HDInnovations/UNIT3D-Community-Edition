@@ -15,11 +15,9 @@ namespace Database\Seeders;
 
 use App\Models\Forum;
 use Illuminate\Database\Seeder;
-use Symfony\Component\DomCrawler\Form;
 
 class ForumsTableSeeder extends Seeder
 {
-
     private $forums;
 
     public function __construct()
@@ -39,7 +37,8 @@ class ForumsTableSeeder extends Seeder
         }
     }
 
-    private function getForums() {
+    private function getForums()
+    {
         return [
             [
                 'id'                      => 1,

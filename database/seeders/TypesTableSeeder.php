@@ -18,7 +18,6 @@ use Illuminate\Database\Seeder;
 
 class TypesTableSeeder extends Seeder
 {
-
     private $types;
 
     public function __construct()
@@ -38,7 +37,8 @@ class TypesTableSeeder extends Seeder
         }
     }
 
-    private function getTypes() {
+    private function getTypes()
+    {
         return [
             [
                 'id'       => 1,

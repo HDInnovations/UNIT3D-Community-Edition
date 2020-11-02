@@ -18,13 +18,13 @@ use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
 {
-
     private $categories;
 
     public function __construct()
     {
         $this->categories = $this->getCategories();
     }
+
     /**
      * Auto generated seed file.
      *
@@ -37,7 +37,8 @@ class CategoriesTableSeeder extends Seeder
         }
     }
 
-    private function getCategories() {
+    private function getCategories()
+    {
         return [
             [
                 'id'          => 1,

@@ -29,7 +29,8 @@ class MediaLanguagesSeeder extends Seeder
         }
     }
 
-    private function getLanguages() {
+    private function getLanguages()
+    {
         return [
             'aa' => 'Afar',
             'ab' => 'Abkhazian',

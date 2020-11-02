@@ -19,7 +19,6 @@ use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
-
     private $users;
 
     public function __construct()
@@ -39,7 +38,8 @@ class UsersTableSeeder extends Seeder
         }
     }
 
-    private function getUsers() {
+    private function getUsers()
+    {
         return [
             [
                 'username'  => 'System',

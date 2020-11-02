@@ -18,13 +18,13 @@ use Illuminate\Database\Seeder;
 
 class ResolutionsTableSeeder extends Seeder
 {
-
     private $resolutions;
 
     public function __construct()
     {
         $this->resolutions = $this->getResolutions();
     }
+
     /**
      * Auto generated seed file.
      *
@@ -37,7 +37,8 @@ class ResolutionsTableSeeder extends Seeder
         }
     }
 
-    private function getResolutions() {
+    private function getResolutions()
+    {
         return [
             [
                 'id'       => 1,

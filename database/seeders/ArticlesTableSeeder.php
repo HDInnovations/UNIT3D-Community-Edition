@@ -18,7 +18,6 @@ use Illuminate\Database\Seeder;
 
 class ArticlesTableSeeder extends Seeder
 {
-
     private $articles;
 
     public function __construct()

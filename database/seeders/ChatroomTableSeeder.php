@@ -18,7 +18,6 @@ use Illuminate\Database\Seeder;
 
 class ChatroomTableSeeder extends Seeder
 {
-
     private $rooms;
 
     public function __construct()
@@ -38,13 +37,14 @@ class ChatroomTableSeeder extends Seeder
         }
     }
 
-    private function getRooms() {
+    private function getRooms()
+    {
         return [
             [
-                'name' => 'General'
+                'name' => 'General',
             ],
             [
-                'name' => 'Trivia'
+                'name' => 'Trivia',
             ],
         ];
     }

@@ -18,13 +18,13 @@ use Illuminate\Database\Seeder;
 
 class ChatStatusSeeder extends Seeder
 {
-
     private $statuses;
 
     public function __construct()
     {
         $this->statuses = $this->getStatuses();
     }
+
     /**
      * Run the database seeds.
      *
@@ -37,25 +37,26 @@ class ChatStatusSeeder extends Seeder
         }
     }
 
-    private function getStatuses() {
+    private function getStatuses()
+    {
         return [
             [
-                'name' =>  'Online',
+                'name'  => 'Online',
                 'color' => '#2ECC40',
                 'icon'  => config('other.font-awesome').' fa-comment-smile',
             ],
             [
-                'name' => 'Away',
+                'name'  => 'Away',
                 'color' => '#FFDC00',
                 'icon'  => config('other.font-awesome').' fa-comment-minus',
             ],
             [
-                'name' => 'Busy',
+                'name'  => 'Busy',
                 'color' => '#FF4136',
                 'icon'  => config('other.font-awesome').' fa-comment-exclamation',
             ],
             [
-                'name' => 'Offline',
+                'name'  => 'Offline',
                 'color' => '#AAAAAA',
                 'icon'  => config('other.font-awesome').' fa-comment-slash',
             ],

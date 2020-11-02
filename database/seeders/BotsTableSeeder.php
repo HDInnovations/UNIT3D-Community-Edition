@@ -24,6 +24,7 @@ class BotsTableSeeder extends Seeder
     {
         $this->bots = $this->getBots();
     }
+
     /**
      * Run the database seeds.
      *

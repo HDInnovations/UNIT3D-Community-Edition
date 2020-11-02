@@ -19,11 +19,11 @@ use Illuminate\Database\Seeder;
 
 class BonExchangeTableSeeder extends Seeder
 {
-
     private ByteUnits $byteUnits;
     private $bonExchanges;
 
-    public function __construct(ByteUnits $byteUnits ) {
+    public function __construct(ByteUnits $byteUnits)
+    {
         $this->byteUnits = $byteUnits;
         $this->bonExchanges = $this->getBonExchanges();
     }

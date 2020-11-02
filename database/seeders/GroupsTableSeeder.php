@@ -19,6 +19,7 @@ use Illuminate\Database\Seeder;
 class GroupsTableSeeder extends Seeder
 {
     private $groups;
+
     public function __construct()
     {
         $this->groups = $this->getGroups();
@@ -31,12 +32,13 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach($this->groups as $group) {
+        foreach ($this->groups as $group) {
             Group::updateOrCreate($group);
         }
     }
 
-    private function getGroups() {
+    private function getGroups()
+    {
         return [
             [
                 'name'       => 'Validating',
@@ -256,7 +258,7 @@ class GroupsTableSeeder extends Seeder
                 'icon'       => config('other.font-awesome').' fa-times-circle',
                 'can_upload' => 0,
                 'level'      => 0,
-            ]
+            ],
 
         ];
     }

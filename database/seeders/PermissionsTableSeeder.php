@@ -18,7 +18,6 @@ use Illuminate\Database\Seeder;
 
 class PermissionsTableSeeder extends Seeder
 {
-
     private $permissions;
 
     public function __construct()

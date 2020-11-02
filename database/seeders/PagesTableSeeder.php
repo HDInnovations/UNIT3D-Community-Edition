@@ -18,8 +18,8 @@ use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
 {
-
     private $pages;
+
     public function __construct()
     {
         $this->pages = $this->getPages();
@@ -33,16 +33,16 @@ class PagesTableSeeder extends Seeder
     public function run()
     {
         foreach ($this->pages as $page) {
-            if(Page::find($page['id']) == null) {
+            if (Page::find($page['id']) == null) {
                 Page::create($page);
             } else {
                 Page::find($page['id'])->update($page);
             }
-
         }
     }
 
-    private function getPages() {
+    private function getPages()
+    {
         return [
             [
                 'id'      => 1,
