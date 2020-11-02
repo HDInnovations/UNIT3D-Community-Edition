@@ -57,7 +57,7 @@ trait HasPrivileges
     {
         $perm = Privilege::where('slug', $privilege)->first();
 
-        return $this->hasPrivilegeThroughRole($perm) || $this->hasPermission($perm);
+        return $this->hasPrivilegeThroughRole($perm) || $this->hasPrivilege($perm);
     }
 
     /**
@@ -105,7 +105,7 @@ trait HasPrivileges
      */
     public function privileges()
     {
-        return $this->belongsToMany(Privilege::class, 'users_privileges', 'user_id', 'permission_id');
+        return $this->belongsToMany(Privilege::class, 'users_privileges', 'user_id', 'privilege_id');
     }
 
     /**
