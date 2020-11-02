@@ -15,7 +15,7 @@ class CreatePrivilegesTable extends Migration
     {
         Schema::create('privileges', function (Blueprint $table) {
             $table->id();
-            $table->integer('position');
+            $table->integer('position')->nullable();
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('description')->nullable();
