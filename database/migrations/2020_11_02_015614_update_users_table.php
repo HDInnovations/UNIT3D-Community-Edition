@@ -14,7 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->renameColumn('group_id', 'primary_role_id');
+            $table->renameColumn('group_id', 'role_id');
         });
     }
 
