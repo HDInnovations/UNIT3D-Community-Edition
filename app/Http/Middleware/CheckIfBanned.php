@@ -34,7 +34,7 @@ class CheckIfBanned
         $user = $request->user();
         $banned_group = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
 
-        if ($user && $user->hasRole($banned_group[0])) {
+        if ($user && $user->hasRole([$banned_group[0]])) {
             \auth()->logout();
             $request->session()->flush();
 
