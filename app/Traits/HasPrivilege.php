@@ -3,9 +3,8 @@
 namespace App\Traits;
 
 use App\Models\Privilege;
-use App\Models\Role;
 
-trait HasPrivileges
+trait HasPrivilege
 {
     /**
      * @param mixed ...$privileges
@@ -74,30 +73,6 @@ trait HasPrivileges
         }
 
         return false;
-    }
-
-    /**
-     * @param mixed ...$roles
-     *
-     * @return bool
-     */
-    public function hasRole(...$roles)
-    {
-        foreach ($roles as $role) {
-            if ($this->roles->contains('slug', $role)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'users_roles', 'user_id', 'role_id');
     }
 
     /**
