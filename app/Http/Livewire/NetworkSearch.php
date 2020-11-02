@@ -21,14 +21,9 @@ class NetworkSearch extends Component
 {
     use WithPagination;
 
-    protected $updatesQueryString = ['searchTerm'];
+    protected $queryString = ['searchTerm'];
 
     public $searchTerm;
-
-    public function mount()
-    {
-        $this->searchTerm = request()->query('searchTerm', $this->searchTerm);
-    }
 
     public function paginationView()
     {
