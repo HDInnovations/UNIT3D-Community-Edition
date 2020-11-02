@@ -119,7 +119,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the page to create a  new role
+     * Show The Page To Create A New Role.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -133,7 +133,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Store the new role in database
+     * Store The New Role In Database.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -188,7 +188,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Delete a specific role
+     * Delete A Specific Role.
      *
      * @param \Illuminate\Http\Request $request
      * @param                          $id

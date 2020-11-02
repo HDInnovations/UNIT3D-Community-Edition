@@ -768,17 +768,6 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Groups System
-        Route::group(['prefix' => 'groups'], function () {
-            Route::name('staff.groups.')->group(function () {
-                Route::get('/', 'GroupController@index')->name('index');
-                Route::get('/create', 'GroupController@create')->name('create');
-                Route::post('/store', 'GroupController@store')->name('store');
-                Route::get('/{id}/edit', 'GroupController@edit')->name('edit');
-                Route::post('/{id}/update', 'GroupController@update')->name('update');
-            });
-        });
-
         // Invites Log
         Route::group(['prefix' => 'invites'], function () {
             Route::name('staff.invites.')->group(function () {
@@ -866,6 +855,18 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('/{id}/edit', 'ResolutionController@edit')->name('edit');
                 Route::patch('/{id}/update', 'ResolutionController@update')->name('update');
                 Route::delete('/{id}/destroy', 'ResolutionController@destroy')->name('destroy');
+            });
+        });
+
+        // Roles System
+        Route::group(['prefix' => 'roles'], function () {
+            Route::name('staff.roles.')->group(function () {
+                Route::get('/', 'RoleController@index')->name('index');
+                Route::get('/create', 'RoleController@create')->name('create');
+                Route::post('/store', 'RoleController@store')->name('store');
+                Route::get('/{id}/edit', 'RoleController@edit')->name('edit');
+                Route::post('/{id}/update', 'RoleController@update')->name('update');
+                Route::delete('/{id}/destroy', 'RoleController@destroy')->name('destroy');
             });
         });
 
