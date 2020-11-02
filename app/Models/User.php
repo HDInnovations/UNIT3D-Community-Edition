@@ -16,7 +16,7 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
-use App\Traits\HasPermissions;
+use App\Traits\HasPrivileges;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
 use Carbon\Carbon;
@@ -34,7 +34,7 @@ class User extends Authenticatable
     use Achiever;
     use SoftDeletes;
     use UsersOnlineTrait;
-    use HasPermissions;
+    use HasPrivileges;
     /**
      * The Attributes Excluded From The Model's JSON Form.
      *
