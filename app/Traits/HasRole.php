@@ -7,14 +7,15 @@ use App\Models\Role;
 trait HasRole
 {
     /**
-     * @param mixed ...$roles
+     * Check If A User Has One Or Many Roles.
      *
+     * @param $roles
      * @return bool
      */
-    public function hasRole(...$roles)
+    public function hasRole($roles)
     {
         foreach ($roles as $role) {
-            if ($this->primaryRole->where('slug', '=', $role)) {
+            if ($this->primaryRole->slug === $role) {
                 return true;
             }
             if ($this->additionalRoles->contains('slug', '=', $role)) {
@@ -26,6 +27,8 @@ trait HasRole
     }
 
     /**
+     * Check A Users Primary Role.
+     *
      * @return mixed
      */
     public function primaryRole()
@@ -34,11 +37,15 @@ trait HasRole
     }
 
     /**
+     * Check A Users Additional Roles.
+     *
      * @return mixed
      */
     public function additionalRoles()
     {
-        return $this->belongsToMany(Role::class, 'users_roles', 'user_id', 'role_id')
-            ->where('id', '!=', $this->primaryRole()->id);
+        if ($this->primaryRole) {
+            return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->where('user_id', $this->id)->where('id', '!=', $this->primaryRole->id);
+        }
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->where('user_id', $this->id);
     }
 }
