@@ -243,7 +243,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{id}/vote', 'RequestController@addBonus')->name('add_votes');
             Route::post('/{id}/claim', 'RequestController@claimRequest')->name('claimRequest');
             Route::get('/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
-            Route::get('/{id}/reset', 'RequestController@resetRequest')->name('resetRequest')->middleware('modo');
+            Route::get('/{id}/reset', 'RequestController@resetRequest')->name('resetRequest')->middleware('privilege:request_can_reset');
         });
 
         // Roles System
@@ -260,7 +260,6 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         Route::group(['prefix' => 'torrents'], function () {
-            Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
             Route::get('/filter', 'TorrentController@faceted');
             Route::get('/filterSettings', 'TorrentController@filtered');
             Route::get('/', 'TorrentController@torrents')->name('torrents');
@@ -585,7 +584,7 @@ Route::group(['middleware' => 'language'], function () {
         });
 
         // Topic Label System
-        Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function () {
+        Route::group(['prefix' => 'topics', 'middleware' => 'privilege:forum_can_edit_label'], function () {
             Route::name('topics.')->group(function () {
                 Route::get('/{id}/approve', 'TopicLabelController@approve')->name('approve');
                 Route::get('/{id}/deny', 'TopicLabelController@deny')->name('deny');
@@ -613,7 +612,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned', 'permission:dashboard', 'role:owner'], 'namespace' => 'Staff'], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'banned', 'privilege:dashboard_can_view', 'role:owner'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {

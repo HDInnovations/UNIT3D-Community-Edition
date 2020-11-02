@@ -13,9 +13,9 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Role;
+use App\Http\Middleware\CheckRole;
 use Fruitcake\Cors\HandleCors;
-use App\Http\Middleware\Privilege;
+use App\Http\Middleware\CheckPrivilege;
 use App\Http\Middleware\TwoStepAuth;
 use App\Http\Middleware\SetLanguage;
 use App\Http\Middleware\TrimStrings;
@@ -107,7 +107,7 @@ class Kernel extends HttpKernel
         'twostep'       => TwoStepAuth::class,
         'signed'        => ValidateSignature::class,
         'verified'      => EnsureEmailIsVerified::class,
-        'role'          => Role::class,
-        'permission'    => Privilege::class,
+        'role'          => CheckRole::class,
+        'privilege'     => CheckPrivilege::class,
     ];
 }

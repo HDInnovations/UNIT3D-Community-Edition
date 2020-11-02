@@ -16,13 +16,14 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Privilege
+class CheckRole
 {
-    public function handle(Request $request, Closure $next, $permission)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if ($request->user()->hasPrivilegeTo($permission)) {
-            return $next($request);
+        if (! $request->user()->hasRole($role)) {
+            abort(403);
         }
-        abort(403);
+
+        return $next($request);
     }
 }
