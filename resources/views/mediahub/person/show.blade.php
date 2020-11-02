@@ -90,31 +90,31 @@
                         </div>
                     </div>
                     @endif
-                    @foreach($credits->movie as $show)
+                    @foreach($credits->movie as $movie)
                         <tr>
                             <td class="col-sm-1">
-                                @if($show->poster)
-                                    <img src="{{ $show->poster }}" width="100" height="100" alt="{{ $show->name }}" class="img-responsive">
+                                @if($movie->poster)
+                                    <img src="{{ $movie->poster }}" width="100" height="100" alt="{{ $movie->name }}" class="img-responsive">
                                 @else
-                                    <img src="/img/no-poster.png" width="100" height="100" alt="{{ $show->name }}" class="img-responsive">
+                                    <img src="/img/no-poster.png" width="100" height="100" alt="{{ $movie->name }}" class="img-responsive">
                                 @endif
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-film text-purple" aria-hidden="true"></i> <strong>Movie</strong><br>
-                                <i class="fa fa-eye text-green" aria-hidden="true"></i> <a href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}">{{ $show->title }}</a><br>
+                                <i class="fa fa-eye text-green" aria-hidden="true"></i> <a href="{{ route('mediahub.movies.show', ['id' => $movie->id]) }}">{{ $movie->title }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
                                 <strong>
-                                    @if ($show->genres)
-                                        @foreach ($show->genres as $genre)
-                                            {{ $genre->name }}
+                                    @if ($movie->genres)
+                                        @foreach ($movie->genres as $genre)
+                                            {{ $movie->name }}
                                         @endforeach
                                     @endif
                                 </strong>
                                 <br>
-                                <i class="fa fa-calendar text-blue" aria-hidden="true"></i> <strong>Release date: </strong>{{ $show->release_date }}<br>
+                                <i class="fa fa-calendar text-blue" aria-hidden="true"></i> <strong>Release date: </strong>{{ $movie->release_date }}<br>
                             </td>
                             <td class="col-xs-pull-6"><i class="fa fa-book text-gold" aria-hidden="true"></i> <strong>Plot: </strong>
-                                {{ $show->overview }}
+                                {{ $movie->overview }}
                             </td>
                         </tr>
                     @endforeach

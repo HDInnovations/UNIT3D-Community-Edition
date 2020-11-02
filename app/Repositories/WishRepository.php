@@ -99,7 +99,7 @@ class WishRepository implements WishInterface
     {
         return (bool) $this->user->find($uid)
             ->wishes()
-            ->where('imdb', '=', $id)
+            ->where('tmdb', '=', $id)
             ->first();
     }
 
@@ -110,10 +110,8 @@ class WishRepository implements WishInterface
      */
     public function isGranted($id)
     {
-        $id = \str_replace('tt', '', $id);
-
         return (bool) $this->torrent
-            ->where('imdb', '=', $id)
+            ->where('tmdb', '=', $id)
             ->where('seeders', '>', 0)
             ->where('status', '=', 1)
             ->first();
@@ -127,9 +125,8 @@ class WishRepository implements WishInterface
     public function getSource($id)
     {
         if ($this->isGranted($id)) {
-            $id = \str_replace('tt', '', $id);
             $source = $this->torrent
-                ->where('imdb', '=', $id)
+                ->where('tmdb', '=', $id)
                 ->where('seeders', '>', 0)
                 ->where('status', '=', 1)
                 ->first();

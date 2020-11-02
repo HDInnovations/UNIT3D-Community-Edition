@@ -31,6 +31,7 @@ Homestead.yaml
 npm-debug.log
 .env
 laravel-echo-server.json
+laravel-echo-server.lock
 
 # OS X
 .DS_store

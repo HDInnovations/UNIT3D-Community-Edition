@@ -49,7 +49,7 @@ class TorrentHelper
 
         $uploader = $torrent->uploader;
 
-        $wishes = Wish::where('imdb', '=', 'tt'.$torrent->imdb)->whereNull('source')->get();
+        $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
         if ($wishes) {
             foreach ($wishes as $wish) {
                 $wish->source = \sprintf('%s/torrents/%s', $appurl, $torrent->id);
