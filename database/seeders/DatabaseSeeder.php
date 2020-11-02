@@ -24,20 +24,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(GroupsTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(BonExchangeTableSeeder::class);
-        $this->call(AchievementDetailsTableSeeder::class);
-        $this->call(PagesTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
-        $this->call(TypesTableSeeder::class);
-        $this->call(ArticlesTableSeeder::class);
-        $this->call(PermissionsTableSeeder::class);
-        $this->call(ForumsTableSeeder::class);
-        $this->call(ChatroomTableSeeder::class);
-        $this->call(ChatStatusSeeder::class);
-        $this->call(BotsTableSeeder::class);
-        $this->call(MediaLanguagesSeeder::class);
-        $this->call(ResolutionsTableSeeder::class);
+        $this->call([
+            GroupsTableSeeder::class,
+            UsersTableSeeder::class,
+            BonExchangeTableSeeder::class,
+            AchievementDetailsTableSeeder::class,
+            PagesTableSeeder::class,
+            CategoriesTableSeeder::class,
+            TypesTableSeeder::class,
+            ArticlesTableSeeder::class,
+            PermissionsTableSeeder::class,
+            ForumsTableSeeder::class,
+            ChatroomTableSeeder::class,
+            ChatStatusSeeder::class,
+            BotsTableSeeder::class,
+            MediaLanguagesSeeder::class,
+            ResolutionsTableSeeder::class,
+        ]);
     }
 }

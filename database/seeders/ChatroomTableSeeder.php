@@ -18,6 +18,14 @@ use Illuminate\Database\Seeder;
 
 class ChatroomTableSeeder extends Seeder
 {
+
+    private $rooms;
+
+    public function __construct()
+    {
+        $this->rooms = $this->getRooms();
+    }
+
     /**
      * Run the database seeds.
      *
@@ -25,15 +33,19 @@ class ChatroomTableSeeder extends Seeder
      */
     public function run()
     {
-        $rooms = [
-            'General',
-            'Trivia',
-        ];
-
-        foreach ($rooms as $room) {
-            Chatroom::create([
-                'name' => $room,
-            ]);
+        foreach ($this->rooms as $room) {
+            Chatroom::updateOrCreate($room);
         }
+    }
+
+    private function getRooms() {
+        return [
+            [
+                'name' => 'General'
+            ],
+            [
+                'name' => 'Trivia'
+            ],
+        ];
     }
 }

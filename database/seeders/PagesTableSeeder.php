@@ -18,6 +18,13 @@ use Illuminate\Database\Seeder;
 
 class PagesTableSeeder extends Seeder
 {
+
+    private $pages;
+    public function __construct()
+    {
+        $this->pages = $this->getPages();
+    }
+
     /**
      * Auto generated seed file.
      *
@@ -25,46 +32,53 @@ class PagesTableSeeder extends Seeder
      */
     public function run()
     {
-        Page::create([
-            'id'      => 1,
-            'name'    => 'Rules',
-            'slug'    => 'rules',
-            'content' => 'RULES GOES HERE',
-        ]);
+        foreach ($this->pages as $page) {
+            if(Page::find($page['id']) == null) {
+                Page::create($page);
+            } else {
+                Page::find($page['id'])->update($page);
+            }
 
-        Page::create([
-            'id'      => 2,
-            'name'    => 'FAQ',
-            'slug'    => 'faq',
-            'content' => 'FAQ GOES HERE',
-        ]);
+        }
+    }
 
-        Page::create([
-            'id'      => 3,
-            'name'    => 'Suggested Clients',
-            'slug'    => 'suggested-clients',
-            'content' => 'We suggest the following BitTorrent clients.',
-        ]);
-
-        Page::create([
-            'id'      => 4,
-            'name'    => 'Upload Guide',
-            'slug'    => 'upload-guide',
-            'content' => 'UPLOAD GUIDE HERE',
-        ]);
-
-        Page::create([
-            'id'      => 5,
-            'name'    => 'Tracker Codes',
-            'slug'    => 'tracker-codes',
-            'content' => 'Our Tracker Codes/Responses',
-        ]);
-
-        Page::create([
-            'id'      => 6,
-            'name'    => 'Terms Of Use',
-            'slug'    => 'terms-of-use',
-            'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
+    private function getPages() {
+        return [
+            [
+                'id'      => 1,
+                'name'    => 'Rules',
+                'slug'    => 'rules',
+                'content' => 'RULES GOES HERE',
+            ],
+            [
+                'id'      => 2,
+                'name'    => 'FAQ',
+                'slug'    => 'faq',
+                'content' => 'FAQ GOES HERE',
+            ],
+            [
+                'id'      => 3,
+                'name'    => 'Suggested Clients',
+                'slug'    => 'suggested-clients',
+                'content' => 'We suggest the following BitTorrent clients.',
+            ],
+            [
+                'id'      => 4,
+                'name'    => 'Upload Guide',
+                'slug'    => 'upload-guide',
+                'content' => 'UPLOAD GUIDE HERE',
+            ],
+            [
+                'id'      => 5,
+                'name'    => 'Tracker Codes',
+                'slug'    => 'tracker-codes',
+                'content' => 'Our Tracker Codes/Responses',
+            ],
+            [
+                'id'      => 6,
+                'name'    => 'Terms Of Use',
+                'slug'    => 'terms-of-use',
+                'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
 
 Welcome to our website located at '.config('app.url').' (this "Site")! This Site allows you to:
 (a) participate in interactive features that we may make available from time to time through the Site; or
@@ -82,7 +96,7 @@ Welcome to our website located at '.config('app.url').' (this "Site")! This Site
 [/b]This Site may provide fora and other features for communication. Please read our Privacy Policy, available at '.config('app.url').'/p/privacy.8 to understand your privacy protections. You are entirely responsible for the content of, and any harm resulting from, any of your postings or submissions to this Site (collectively, "Contributions"). You understand that we may also make the Contributions you submit available to other websites and businesses (such other websites and businesses, the “Network”) where they may be used. Any licenses or other rights grants, and promises, representations and warranties you make about the Contributions with respect to this Site or the Services, you are also hereby making with respect to the use of such Contributions through and by the Network (i.e., wherever you are granting a license or other rights grant, or making a promise, representation or warranty, with respect to this Site or the Services, that grant, promise, representation or warranty shall be deemed and construed to also apply to the Network). When you create or make available a Contribution, you represent and warrant that you:own or have sufficient rights to post your Contributions on or through this Site;will not post Contributions that violate our or any other person’s privacy rights, publicity rights, intellectual property rights (including without limitation copyrights), confidentiality or contract rights;have fully complied with any third-party licenses relating to Contributions, agree to pay all royalties, fees and any other monies owning any person by reason of Contributions that you posted to or through this Site;will not post or submit Contributions that:
 (i) are defamatory, damaging, disruptive, unlawful, inappropriate, offensive, inaccurate, pornographic, vulgar, indecent, profane, hateful, racially or ethnically offensive, obscene, lewd, lascivious, filthy, threatening, excessively violent, harassing, or otherwise objectionable;
 (ii) incite, encourage or threaten immediate physical harm against another, including but not limited to, Contributions that promote racism, bigotry, sexism, religious intolerance or harm against any group or individual; or
-(iii) contain material that solicits personal information from anyone under 13 or exploits anyone in a sexual or violent manner;will not post or submit Contributions that contain advertisements or solicit any person to buy or sell products or services (other than our products and services);will not use this Site for any unauthorized purpose including collecting usernames and/or email addresses of other users by electronic or other means for the purpose of sending unsolicited email or other electronic communications, or engaging in unauthorized framing of, or linking to, this Site without our express written consent;will not post or submit Contributions that constitute, contain, install or attempt to install or promote spyware, malware or other computer code, whether on our or others’ computers or equipment, designated to enable you or others to gather information about or monitor the on-line or other activities of another party;will not transmit chain letters, bulk or junk email or interfere with, disrupt, or create an undue burden on this Site or the networks or services connected to this Site, including without limitation, hacking into this Site, or using the system to send unsolicited or commercial emails, bulletins, comments or other communications; orwill not impersonate any other person or entity, sell or let others use your profile or password, provide false or misleading identification or address information, or invade the privacy, or violate the personal or proprietary right, of any person or entity.
+(iii) contain material that solicits personal information from anyone under 13 or exploits anyone in a sexual or violent manner;will not post or submit Contributions that contain advertisements or solicit any person to buy or sell products or services (other than our products and services,will not use this Site for any unauthorized purpose including collecting usernames and/or email addresses of other users by electronic or other means for the purpose of sending unsolicited email or other electronic communications, or engaging in unauthorized framing of, or linking to, this Site without our express written consent;will not post or submit Contributions that constitute, contain, install or attempt to install or promote spyware, malware or other computer code, whether on our or others’ computers or equipment, designated to enable you or others to gather information about or monitor the on-line or other activities of another party;will not transmit chain letters, bulk or junk email or interfere with, disrupt, or create an undue burden on this Site or the networks or services connected to this Site, including without limitation, hacking into this Site, or using the system to send unsolicited or commercial emails, bulletins, comments or other communications; orwill not impersonate any other person or entity, sell or let others use your profile or password, provide false or misleading identification or address information, or invade the privacy, or violate the personal or proprietary right, of any person or entity.
 [b]
 3. Grant of License to Us for Contributions
 [/b]We do not claim any ownership right in the Contributions that you post on or through this Site. After posting your Contributions on this Site, you continue to retain any rights you may have in your Contributions, including any intellectual property rights or other proprietary rights associated with your Contributions, subject to the license you grant to us below.By making a Contribution to this Site, you grant us a perpetual, non-exclusive (meaning you are free to license your Contribution to anyone else in addition to us), fully-paid, royalty-free (meaning that neither we nor anyone who directly or indirectly receives the Contribution from us are required to pay you to use your Contribution), sublicensable (so that we can distribute the Contributions to third parties, regardless of whether through this Site, through our other products, or through other sites or products offered by our affiliates)) and worldwide (because the Internet and this Site are global in reach) license to use, modify, create derivative works of, publicly perform, publicly display, reproduce and distribute the Contribution in connection with this Site and other websites and businesses, or the promotion thereof in any media formats and through any media channels now known or hereafter devised.If you provides us with any feedback (e.g. suggested improvements, corrections etc.) about the Site or Services (“Feedback”), you assign all right, title and interest in and to such Feedback to us and acknowledge that we will be entitled to use, including without limitation, implement and exploit, any such Feedback in any manner without any restriction or obligation. You further acknowledge and agree that we are not obligated to act on such Feedback.
@@ -143,6 +157,7 @@ YOU AGREE THAT YOUR USE OF THIS SITE AND SERVICES WILL BE AT YOUR SOLE RISK. WE 
 (D) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THIS SITE,
 (E) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH MAY BE TRANSMITTED TO OR THROUGH THIS SITE BY ANY THIRD PARTY, AND/OR
 (F) ANY ERRORS OR OMISSIONS IN ANY CONTRIBUTIONS, CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT, CONTRIBUTIONS, OR MATERIALS POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THIS SITE.WE WILL NOT BE LIABLE TO YOU FOR ANY LOSS OF ANY DATA (INCLUDING CONTENT) OR FOR LOSS OF USE OF THIS SITE.SOME STATES OR JURISDICTIONS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF CERTAIN WARRANTIES, OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF YOU RESIDE IN ONE OF THESE STATES OR JURISDICTIONS, THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.',
-        ]);
+            ],
+        ];
     }
 }

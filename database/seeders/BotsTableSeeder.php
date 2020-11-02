@@ -18,6 +18,12 @@ use Illuminate\Database\Seeder;
 
 class BotsTableSeeder extends Seeder
 {
+    private $bots;
+
+    public function __construct()
+    {
+        $this->bots = $this->getBots();
+    }
     /**
      * Run the database seeds.
      *
@@ -25,16 +31,23 @@ class BotsTableSeeder extends Seeder
      */
     public function run()
     {
-        //1
-        Bot::create([
-            'name'       => 'SystemBot',
-            'slug'       => 'systembot',
-            'emoji'      => '1f916',
-            'command'    => 'systembot',
-            'position'   => 1,
-            'color'      => '#f1c40f',
-            'icon'       => 'fab fa-android',
-            'help'       => '{me} v0.1 Help -- Notes about / ! and @{me} tab
+        foreach ($this->bots as $bot) {
+            Bot::updateOrCreate($bot);
+        }
+    }
+
+    private function getBots()
+    {
+        return [
+            [
+                'name'       => 'SystemBot',
+                'slug'       => 'systembot',
+                'emoji'      => '1f916',
+                'command'    => 'systembot',
+                'position'   => 1,
+                'color'      => '#f1c40f',
+                'icon'       => 'fab fa-android',
+                'help'       => '{me} v0.1 Help -- Notes about / ! and @{me} tab
 
 All [b]echo[/b] commands begin with / and echo output to current tab.
 All [b]room[/b] commands begin with ! and echo output for all in current room.
@@ -46,20 +59,18 @@ Echo & Private commands:
 
 Available Bots:
 {bots}',
-            'is_protected' => 1,
-            'is_systembot' => 1,
-        ]);
-
-        //2
-        Bot::create([
-            'name'       => 'NerdBot',
-            'slug'       => 'nerdbot',
-            'emoji'      => '1f913',
-            'command'    => 'nerdbot',
-            'position'   => 2,
-            'color'      => '#f1c40f',
-            'icon'       => 'fab fa-android',
-            'help'       => '{me} v0.1 Help -- Notes about / ! and @{me} tab
+                'is_protected' => 1,
+                'is_systembot' => 1,
+            ],
+            [
+                'name'       => 'NerdBot',
+                'slug'       => 'nerdbot',
+                'emoji'      => '1f913',
+                'command'    => 'nerdbot',
+                'position'   => 2,
+                'color'      => '#f1c40f',
+                'icon'       => 'fab fa-android',
+                'help'       => '{me} v0.1 Help -- Notes about / ! and @{me} tab
 
 All [b]echo[/b] commands begin with / and echo output to current tab.
 All [b]room[/b] commands begin with ! and echo output for all in current room.
@@ -90,50 +101,45 @@ Echo & Private commands:
 None.
 
 (All NerdBot statistics are cached for 60 minutes)',
-            'is_protected' => 1,
-            'is_nerdbot'   => 1,
-        ]);
-
-        //3
-        Bot::create([
-            'name'         => 'CasinoBot',
-            'slug'         => 'casinobot',
-            'command'      => 'casinobot',
-            'emoji'        => '1f3b0',
-            'position'     => 3,
-            'color'        => '#f1c40f',
-            'icon'         => 'fab fa-android',
-            'help'         => 'Coming soon',
-            'is_protected' => 1,
-            'is_casinobot' => 1,
-        ]);
-
-        //4
-        Bot::create([
-            'name'         => 'BetBot',
-            'slug'         => 'betbot',
-            'command'      => 'betbot',
-            'emoji'        => '1f3b2',
-            'position'     => 4,
-            'color'        => '#f1c40f',
-            'icon'         => 'fab fa-android',
-            'help'         => 'Coming soon',
-            'is_protected' => 1,
-            'is_betbot'    => 1,
-        ]);
-
-        //5
-        Bot::create([
-            'name'         => 'TriviaBot',
-            'slug'         => 'triviabot',
-            'command'      => 'triviabot',
-            'emoji'        => '2753',
-            'position'     => 5,
-            'color'        => '#f1c40f',
-            'icon'         => 'fab fa-android',
-            'help'         => 'Coming soon',
-            'is_protected' => 1,
-            'is_triviabot' => 1,
-        ]);
+                'is_protected' => 1,
+                'is_nerdbot'   => 1,
+            ],
+            [
+                'name'         => 'CasinoBot',
+                'slug'         => 'casinobot',
+                'command'      => 'casinobot',
+                'emoji'        => '1f3b0',
+                'position'     => 3,
+                'color'        => '#f1c40f',
+                'icon'         => 'fab fa-android',
+                'help'         => 'Coming soon',
+                'is_protected' => 1,
+                'is_casinobot' => 1,
+            ],
+            [
+                'name'         => 'BetBot',
+                'slug'         => 'betbot',
+                'command'      => 'betbot',
+                'emoji'        => '1f3b2',
+                'position'     => 4,
+                'color'        => '#f1c40f',
+                'icon'         => 'fab fa-android',
+                'help'         => 'Coming soon',
+                'is_protected' => 1,
+                'is_betbot'    => 1,
+            ],
+            [
+                'name'         => 'TriviaBot',
+                'slug'         => 'triviabot',
+                'command'      => 'triviabot',
+                'emoji'        => '2753',
+                'position'     => 5,
+                'color'        => '#f1c40f',
+                'icon'         => 'fab fa-android',
+                'help'         => 'Coming soon',
+                'is_protected' => 1,
+                'is_triviabot' => 1,
+            ],
+        ];
     }
 }

@@ -13,10 +13,20 @@
 
 namespace Database\Seeders;
 
+use App\Models\Forum;
 use Illuminate\Database\Seeder;
+use Symfony\Component\DomCrawler\Form;
 
 class ForumsTableSeeder extends Seeder
 {
+
+    private $forums;
+
+    public function __construct()
+    {
+        $this->forums = $this->getForums();
+    }
+
     /**
      * Auto generated seed file.
      *
@@ -24,10 +34,14 @@ class ForumsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('forums')->delete();
+        foreach ($this->forums as $forum) {
+            Forum::updateOrCreate($forum);
+        }
+    }
 
-        \DB::table('forums')->insert([
-            0 => [
+    private function getForums() {
+        return [
+            [
                 'id'                      => 1,
                 'position'                => 1,
                 'num_topic'               => null,
@@ -44,7 +58,7 @@ class ForumsTableSeeder extends Seeder
                 'created_at'              => '2017-01-03 18:29:21',
                 'updated_at'              => '2017-01-03 18:29:21',
             ],
-            1 => [
+            [
                 'id'                      => 2,
                 'position'                => 2,
                 'num_topic'               => null,
@@ -61,6 +75,6 @@ class ForumsTableSeeder extends Seeder
                 'created_at'              => '2017-04-01 20:16:06',
                 'updated_at'              => '2017-12-27 18:19:07',
             ],
-        ]);
+        ];
     }
 }
