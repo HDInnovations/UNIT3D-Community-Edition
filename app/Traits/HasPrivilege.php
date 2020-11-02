@@ -17,7 +17,7 @@ trait HasPrivilege
         if ($privileges === null) {
             return $this;
         }
-        $this->privileges->saveMany($privileges);
+        $this->privileges()->attach($privileges);
 
         return $this;
     }
@@ -30,7 +30,7 @@ trait HasPrivilege
     public function withdrawPrivilegesTo(...$privileges)
     {
         $privileges = $this->getAllPrivileges($privileges);
-        $this->privileges->detach($privileges);
+        $this->privileges()->detach($privileges);
 
         return $this;
     }
@@ -42,7 +42,7 @@ trait HasPrivilege
      */
     public function refreshPrivileges(...$privileges)
     {
-        $this->privileges->detach();
+        $this->privileges()->detach();
 
         return $this->givePrivilegesTo($privileges);
     }
@@ -80,7 +80,7 @@ trait HasPrivilege
      */
     public function privileges()
     {
-        return $this->belongsToMany(Privilege::class, 'users_privileges', 'user_id', 'privilege_id');
+        return $this->belongsToMany(Privilege::class, 'user_privilege', 'user_id', 'privilege_id');
     }
 
     /**
