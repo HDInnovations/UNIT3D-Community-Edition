@@ -18,6 +18,13 @@ use Illuminate\Database\Seeder;
 
 class ChatStatusSeeder extends Seeder
 {
+
+    private $statuses;
+
+    public function __construct()
+    {
+        $this->statuses = $this->getStatuses();
+    }
     /**
      * Run the database seeds.
      *
@@ -25,31 +32,33 @@ class ChatStatusSeeder extends Seeder
      */
     public function run()
     {
-        $statuses = [
-            'Online' => [
+        foreach ($this->statuses as $status) {
+            ChatStatus::updateOrCreate($status);
+        }
+    }
+
+    private function getStatuses() {
+        return [
+            [
+                'name' =>  'Online',
                 'color' => '#2ECC40',
                 'icon'  => config('other.font-awesome').' fa-comment-smile',
             ],
-            'Away' => [
+            [
+                'name' => 'Away',
                 'color' => '#FFDC00',
                 'icon'  => config('other.font-awesome').' fa-comment-minus',
             ],
-            'Busy' => [
+            [
+                'name' => 'Busy',
                 'color' => '#FF4136',
                 'icon'  => config('other.font-awesome').' fa-comment-exclamation',
             ],
-            'Offline' => [
+            [
+                'name' => 'Offline',
                 'color' => '#AAAAAA',
                 'icon'  => config('other.font-awesome').' fa-comment-slash',
             ],
         ];
-
-        foreach ($statuses as $status => $columns) {
-            ChatStatus::create([
-                'name'  => $status,
-                'color' => $columns['color'],
-                'icon'  => $columns['icon'],
-            ]);
-        }
     }
 }

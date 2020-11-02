@@ -14,21 +14,18 @@
 namespace Database\Seeders;
 
 use App\Helpers\ByteUnits;
+use App\Models\BonExchange;
 use Illuminate\Database\Seeder;
 
 class BonExchangeTableSeeder extends Seeder
 {
-    /**
-     * The library used for parsing byte units.
-     *
-     * @var Parser
-     */
-    protected $byteUnits;
 
-    public function __construct(
-        ByteUnits $byteUnits
-    ) {
+    private ByteUnits $byteUnits;
+    private $bonExchanges;
+
+    public function __construct(ByteUnits $byteUnits ) {
         $this->byteUnits = $byteUnits;
+        $this->bonExchanges = $this->getBonExchanges();
     }
 
     /**
@@ -38,10 +35,15 @@ class BonExchangeTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('bon_exchange')->delete();
+        foreach ($this->bonExchanges as $be) {
+            BonExchange::updateOrCreate($be);
+        }
+    }
 
-        \DB::table('bon_exchange')->insert([
-            0 => [
+    private function getBonExchanges()
+    {
+        return [
+            [
                 'id'                 => 1,
                 'description'        => '2 GiB Upload',
                 'value'              => $this->byteUnits->bytesFromUnit('2GiB'),
@@ -51,7 +53,7 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 0,
                 'invite'             => 0,
             ],
-            1 => [
+            [
                 'id'                 => 2,
                 'description'        => '10 GiB Upload',
                 'value'              => $this->byteUnits->bytesFromUnit('10GiB'),
@@ -61,7 +63,7 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 0,
                 'invite'             => 0,
             ],
-            2 => [
+            [
                 'id'                 => 3,
                 'description'        => '25 GiB Upload',
                 'value'              => $this->byteUnits->bytesFromUnit('25GiB'),
@@ -71,7 +73,7 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 0,
                 'invite'             => 0,
             ],
-            3 => [
+            [
                 'id'                 => 4,
                 'description'        => '100 GiB Upload',
                 'value'              => $this->byteUnits->bytesFromUnit('100GiB'),
@@ -81,7 +83,7 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 0,
                 'invite'             => 0,
             ],
-            4 => [
+            [
                 'id'                 => 9,
                 'description'        => '1 Invite',
                 'value'              => 1,
@@ -91,7 +93,7 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 0,
                 'invite'             => 1,
             ],
-            5 => [
+            [
                 'id'                 => 10,
                 'description'        => 'Personal 24Hr Freeleech',
                 'value'              => 1,
@@ -101,6 +103,6 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 1,
                 'invite'             => 0,
             ],
-        ]);
+        ];
     }
 }

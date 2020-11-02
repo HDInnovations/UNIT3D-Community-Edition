@@ -19,6 +19,14 @@ use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
+
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = $this->getUsers();
+    }
+
     /**
      * Auto generated seed file.
      *
@@ -26,7 +34,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = [
+        foreach ($this->users as $user) {
+            User::updateOrCreate($user);
+        }
+    }
+
+    private function getUsers() {
+        return [
             [
                 'username'  => 'System',
                 'email'     => config('unit3d.default-owner-email'),
@@ -58,18 +72,5 @@ class UsersTableSeeder extends Seeder
                 'active'    => 1,
             ],
         ];
-
-        foreach ($users as $user) {
-            User::create([
-                'username'  => $user['username'],
-                'email'     => $user['email'],
-                'group_id'  => $user['group_id'],
-                'password'  => $user['password'],
-                'passkey'   => $user['passkey'],
-                'rsskey'    => $user['rsskey'],
-                'api_token' => $user['api_token'],
-                'active'    => $user['active'],
-            ]);
-        }
     }
 }

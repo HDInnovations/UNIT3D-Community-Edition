@@ -13,10 +13,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionsTableSeeder extends Seeder
 {
+
+    private $permissions;
+
+    public function __construct()
+    {
+        $this->permissions = $this->getPermissions();
+    }
+
     /**
      * Auto generated seed file.
      *
@@ -24,10 +33,15 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('permissions')->delete();
+        foreach ($this->permissions as $permission) {
+            Permission::updateOrCreate($permission);
+        }
+    }
 
-        \DB::table('permissions')->insert([
-            0 => [
+    private function getPermissions()
+    {
+        return [
+            [
                 'id'          => 1,
                 'forum_id'    => 1,
                 'group_id'    => 1,
@@ -36,7 +50,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            1 => [
+            [
                 'id'          => 2,
                 'forum_id'    => 1,
                 'group_id'    => 2,
@@ -45,7 +59,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            2 => [
+            [
                 'id'          => 3,
                 'forum_id'    => 1,
                 'group_id'    => 3,
@@ -54,7 +68,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            3 => [
+            [
                 'id'          => 4,
                 'forum_id'    => 1,
                 'group_id'    => 4,
@@ -63,7 +77,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            4 => [
+            [
                 'id'          => 5,
                 'forum_id'    => 1,
                 'group_id'    => 5,
@@ -72,7 +86,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            5 => [
+            [
                 'id'          => 6,
                 'forum_id'    => 1,
                 'group_id'    => 6,
@@ -81,7 +95,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            6 => [
+            [
                 'id'          => 7,
                 'forum_id'    => 1,
                 'group_id'    => 7,
@@ -90,7 +104,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            7 => [
+            [
                 'id'          => 8,
                 'forum_id'    => 1,
                 'group_id'    => 8,
@@ -99,7 +113,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            8 => [
+            [
                 'id'          => 9,
                 'forum_id'    => 1,
                 'group_id'    => 9,
@@ -108,7 +122,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            9 => [
+            [
                 'id'          => 10,
                 'forum_id'    => 1,
                 'group_id'    => 10,
@@ -117,7 +131,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            10 => [
+            [
                 'id'          => 11,
                 'forum_id'    => 1,
                 'group_id'    => 11,
@@ -126,7 +140,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            11 => [
+            [
                 'id'          => 12,
                 'forum_id'    => 1,
                 'group_id'    => 12,
@@ -135,7 +149,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            12 => [
+            [
                 'id'          => 13,
                 'forum_id'    => 1,
                 'group_id'    => 13,
@@ -144,7 +158,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            13 => [
+            [
                 'id'          => 14,
                 'forum_id'    => 1,
                 'group_id'    => 14,
@@ -153,7 +167,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            14 => [
+            [
                 'id'          => 15,
                 'forum_id'    => 1,
                 'group_id'    => 15,
@@ -162,7 +176,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            15 => [
+            [
                 'id'          => 16,
                 'forum_id'    => 1,
                 'group_id'    => 16,
@@ -171,7 +185,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            16 => [
+            [
                 'id'          => 17,
                 'forum_id'    => 1,
                 'group_id'    => 17,
@@ -180,7 +194,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            17 => [
+            [
                 'id'          => 18,
                 'forum_id'    => 1,
                 'group_id'    => 18,
@@ -189,7 +203,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            18 => [
+            [
                 'id'          => 19,
                 'forum_id'    => 2,
                 'group_id'    => 1,
@@ -198,7 +212,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            19 => [
+            [
                 'id'          => 20,
                 'forum_id'    => 2,
                 'group_id'    => 2,
@@ -207,7 +221,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            20 => [
+            [
                 'id'          => 21,
                 'forum_id'    => 2,
                 'group_id'    => 3,
@@ -216,7 +230,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            21 => [
+            [
                 'id'          => 22,
                 'forum_id'    => 2,
                 'group_id'    => 4,
@@ -225,7 +239,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            22 => [
+            [
                 'id'          => 23,
                 'forum_id'    => 2,
                 'group_id'    => 5,
@@ -234,7 +248,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            23 => [
+            [
                 'id'          => 24,
                 'forum_id'    => 2,
                 'group_id'    => 6,
@@ -243,7 +257,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            24 => [
+            [
                 'id'          => 25,
                 'forum_id'    => 2,
                 'group_id'    => 7,
@@ -252,7 +266,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            25 => [
+            [
                 'id'          => 26,
                 'forum_id'    => 2,
                 'group_id'    => 8,
@@ -261,7 +275,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            26 => [
+            [
                 'id'          => 27,
                 'forum_id'    => 2,
                 'group_id'    => 9,
@@ -270,7 +284,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            27 => [
+            [
                 'id'          => 28,
                 'forum_id'    => 2,
                 'group_id'    => 10,
@@ -279,7 +293,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            28 => [
+            [
                 'id'          => 29,
                 'forum_id'    => 2,
                 'group_id'    => 11,
@@ -288,7 +302,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            29 => [
+            [
                 'id'          => 30,
                 'forum_id'    => 2,
                 'group_id'    => 12,
@@ -297,7 +311,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            30 => [
+            [
                 'id'          => 31,
                 'forum_id'    => 2,
                 'group_id'    => 13,
@@ -306,7 +320,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            31 => [
+            [
                 'id'          => 32,
                 'forum_id'    => 2,
                 'group_id'    => 14,
@@ -315,7 +329,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            32 => [
+            [
                 'id'          => 33,
                 'forum_id'    => 2,
                 'group_id'    => 15,
@@ -324,7 +338,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            33 => [
+            [
                 'id'          => 34,
                 'forum_id'    => 2,
                 'group_id'    => 16,
@@ -333,7 +347,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            34 => [
+            [
                 'id'          => 35,
                 'forum_id'    => 2,
                 'group_id'    => 17,
@@ -342,7 +356,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            35 => [
+            [
                 'id'          => 36,
                 'forum_id'    => 2,
                 'group_id'    => 18,
@@ -351,7 +365,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            36 => [
+            [
                 'id'          => 37,
                 'forum_id'    => 1,
                 'group_id'    => 19,
@@ -360,7 +374,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            37 => [
+            [
                 'id'          => 38,
                 'forum_id'    => 2,
                 'group_id'    => 19,
@@ -369,7 +383,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 1,
                 'start_topic' => 1,
             ],
-            38 => [
+            [
                 'id'          => 39,
                 'forum_id'    => 1,
                 'group_id'    => 20,
@@ -378,7 +392,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            39 => [
+            [
                 'id'          => 40,
                 'forum_id'    => 1,
                 'group_id'    => 21,
@@ -387,7 +401,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            40 => [
+            [
                 'id'          => 41,
                 'forum_id'    => 2,
                 'group_id'    => 20,
@@ -396,7 +410,7 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-            41 => [
+            [
                 'id'          => 42,
                 'forum_id'    => 2,
                 'group_id'    => 21,
@@ -405,6 +419,6 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => 0,
                 'start_topic' => 0,
             ],
-        ]);
+        ];
     }
 }

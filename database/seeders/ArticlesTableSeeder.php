@@ -13,10 +13,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use Illuminate\Database\Seeder;
 
 class ArticlesTableSeeder extends Seeder
 {
+
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = $this->getArticles();
+    }
+
     /**
      * Auto generated seed file.
      *
@@ -24,10 +33,15 @@ class ArticlesTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('articles')->delete();
+        foreach ($this->articles as $article) {
+            Article::updateOrCreate($article);
+        }
+    }
 
-        \DB::table('articles')->insert([
-            0 => [
+    private function getArticles()
+    {
+        return [
+            [
                 'id'         => 1,
                 'title'      => 'Welcome To '.config('other.title').' .',
                 'slug'       => 'welcome',
@@ -36,6 +50,6 @@ class ArticlesTableSeeder extends Seeder
                 'created_at' => '2017-02-28 17:22:37',
                 'updated_at' => '2017-04-21 12:21:06',
             ],
-        ]);
+        ];
     }
 }
