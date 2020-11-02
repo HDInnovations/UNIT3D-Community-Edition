@@ -14,10 +14,10 @@ trait HasRole
     public function hasRole(...$roles)
     {
         foreach ($roles as $role) {
-            if ($this->primaryRole()->contains('slug', $role)) {
+            if ($this->primaryRole->where('slug', '=', $role)) {
                 return true;
             }
-            if ($this->additionalRoles()->contains('slug', $role)) {
+            if ($this->additionalRoles->contains('slug', '=', $role)) {
                 return true;
             }
         }
@@ -30,7 +30,7 @@ trait HasRole
      */
     public function primaryRole()
     {
-        return $this->hasOne(Role::class, 'id', 'primary_role_id');
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     /**
@@ -38,6 +38,7 @@ trait HasRole
      */
     public function additionalRoles()
     {
-        return $this->belongsToMany(Role::class, 'users_roles', 'user_id', 'role_id');
+        return $this->belongsToMany(Role::class, 'users_roles', 'user_id', 'role_id')
+            ->where('id', '!=', $this->primaryRole()->id);
     }
 }

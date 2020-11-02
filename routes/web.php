@@ -74,7 +74,7 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['middleware' => ['auth', 'banned']], function () {
 
         // General
         Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -117,13 +117,6 @@ Route::group(['middleware' => 'language'], function () {
                 Route::patch('/{id}/update', 'RssController@update')->name('update');
                 Route::delete('/{id}/destroy', 'RssController@destroy')->name('destroy');
             });
-        });
-
-        // TwoStep Auth System
-        Route::group(['prefix' => 'twostep'], function () {
-            Route::get('/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
-            Route::post('/verify', 'Auth\TwoStepController@verify')->name('verify');
-            Route::post('/resend', 'Auth\TwoStepController@resend')->name('resend');
         });
 
         // Bonus System
@@ -346,7 +339,6 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/{username}/settings/privacy/achievement', 'UserController@changeAchievement')->name('privacy_achievement');
             Route::post('/{username}/settings/privacy/request', 'UserController@changeRequest')->name('privacy_request');
             Route::post('/{username}/settings/privacy/other', 'UserController@changeOther')->name('privacy_other');
-            Route::post('/{username}/settings/change_twostep', 'UserController@changeTwoStep')->name('change_twostep');
             Route::get('/{username}/settings/hidden', 'UserController@makeHidden')->name('user_hidden');
             Route::get('/{username}/settings/visible', 'UserController@makeVisible')->name('user_visible');
             Route::get('/{username}/settings/private', 'UserController@makePrivate')->name('user_private');
@@ -463,7 +455,7 @@ Route::group(['middleware' => 'language'], function () {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'MediaHub'], function () {
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'banned'], 'namespace' => 'MediaHub'], function () {
         // MediaHub Home
         Route::get('/', 'HomeController@index')->name('mediahub.index');
 
@@ -518,7 +510,7 @@ Route::group(['middleware' => 'language'], function () {
     | ChatBox Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'banned'], 'namespace' => 'API'], function () {
         Route::get('/', 'ChatController@index');
         Route::get('/chatrooms', 'ChatController@fetchChatrooms');
         Route::post('/change-chatroom', 'ChatController@changeChatroom');
@@ -531,7 +523,7 @@ Route::group(['middleware' => 'language'], function () {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'banned']], function () {
         // Forum System
         Route::name('forums.')->group(function () {
             Route::get('/', 'ForumController@index')->name('index');
@@ -612,7 +604,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'banned', 'privilege:dashboard_can_view', 'role:owner'], 'namespace' => 'Staff'], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'banned', 'privilege:dashboard_can_view', 'role:owner'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
