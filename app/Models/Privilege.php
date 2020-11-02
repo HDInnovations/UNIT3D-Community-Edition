@@ -14,7 +14,7 @@ class Privilege extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_privileges', 'privilege_id', 'role_id');
+        return $this->belongsToMany(Role::class, 'role_privilege', 'privilege_id', 'role_id');
     }
 
     /**
@@ -22,6 +22,6 @@ class Privilege extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_privileges', 'privilege_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_privilege', 'privilege_id', 'user_id');
     }
 }
