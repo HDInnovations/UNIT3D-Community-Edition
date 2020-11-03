@@ -51,35 +51,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('group')->latest()->paginate(25);
-        $uploaders = User::with('group')->where('group_id', '=', 7)->latest()->paginate(25);
-        $mods = User::with('group')->where('group_id', '=', 6)->latest()->paginate(25);
-        $admins = User::with('group')->where('group_id', '=', 4)->latest()->paginate(25);
-        $coders = User::with('group')->where('group_id', '=', 10)->latest()->paginate(25);
-
-        return \view('Staff.user.user_search', [
-            'users'     => $users,
-            'uploaders' => $uploaders,
-            'mods'      => $mods,
-            'admins'    => $admins,
-            'coders'    => $coders,
-        ]);
-    }
-
-    /**
-     * Search For A User.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function search(Request $request)
-    {
-        $users = User::where([['username', 'like', '%'.$request->input('search').'%']])
-            ->orWhere([['email', 'like', '%'.$request->input('search').'%']])
-            ->paginate(25);
-
-        return \view('Staff.user.user_results', ['users' => $users]);
+        return \view('Staff.user.index');
     }
 
     /**
@@ -95,7 +67,7 @@ class UserController extends Controller
         $groups = Group::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
-        return \view('Staff.user.user_edit', [
+        return \view('Staff.user.edit', [
             'user'   => $user,
             'groups' => $groups,
             'notes'  => $notes,
