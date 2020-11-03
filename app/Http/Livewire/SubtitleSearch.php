@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Torrent;
 use App\Models\Subtitle;
+use App\Models\Torrent;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -46,6 +46,7 @@ class SubtitleSearch extends Component
             })
             ->when($this->categories, function ($query) {
                 $torrents = Torrent::whereIn('category_id', $this->categories)->pluck('id');
+
                 return $query->whereIn('torrent_id', $torrents);
             })
             ->when($this->language, function ($query) {
@@ -55,7 +56,7 @@ class SubtitleSearch extends Component
             ->paginate($this->perPage);
 
         return view('livewire.subtitle-search', [
-            'subtitles' => $subtitles
+            'subtitles' => $subtitles,
         ]);
     }
 }

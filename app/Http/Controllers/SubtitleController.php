@@ -26,7 +26,6 @@ use App\Achievements\UserUploaded700Subtitles;
 use App\Achievements\UserUploaded800Subtitles;
 use App\Achievements\UserUploaded900Subtitles;
 use App\Achievements\UserUploadedFirstSubtitle;
-use App\Models\Category;
 use App\Models\MediaLanguage;
 use App\Models\Subtitle;
 use App\Models\Torrent;
