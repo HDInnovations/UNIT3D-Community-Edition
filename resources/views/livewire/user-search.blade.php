@@ -1,7 +1,7 @@
 <div>
 	<div class="mb-10 form-inline pull-right">
 		<div class="form-group">
-			Per Page: &nbsp;
+			@lang('common.quantity')
 			<select wire:model="perPage" class="form-control">
 				<option>25</option>
 				<option>50</option>
