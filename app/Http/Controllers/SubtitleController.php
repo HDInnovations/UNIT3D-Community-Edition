@@ -58,11 +58,7 @@ class SubtitleController extends Controller
      */
     public function index()
     {
-        $subtitles = Subtitle::with(['user', 'torrent', 'language'])->latest()->paginate(50);
-        $media_languages = MediaLanguage::all()->sortBy('name');
-        $categories = Category::all()->sortBy('position');
-
-        return \view('subtitle.index', ['subtitles' => $subtitles, 'media_languages' => $media_languages, 'categories' => $categories]);
+        return \view('subtitle.index');
     }
 
     /**
@@ -94,7 +90,7 @@ class SubtitleController extends Controller
         $filename = \uniqid().'.'.$subtitle_file->getClientOriginalExtension();
 
         $subtitle = new Subtitle();
-        $subtitle->title = $subtitle_file->getClientOriginalName();
+        $subtitle->title = $request->input('torrent_name');
         $subtitle->file_name = $filename;
         $subtitle->file_size = $subtitle_file->getSize();
         $subtitle->extension = '.'.$subtitle_file->getClientOriginalExtension();
@@ -247,53 +243,5 @@ class SubtitleController extends Controller
         $headers = ['Content-Type: '.Storage::disk('subtitles')->mimeType($subtitle->file_name)];
 
         return Storage::disk('subtitles')->download($subtitle->file_name, $temp_filename, $headers);
-    }
-
-    /**
-     * Uses Input's To Put Together A Search.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Subtitle     $subtitle
-     *
-     * @throws \Throwable
-     *
-     * @return array
-     */
-    public function faceted(Request $request, Subtitle $subtitle)
-    {
-        $user = $request->user();
-
-        $name = $request->input('name');
-        $categories = $request->input('categories');
-        $language_id = $request->input('language_id');
-
-        $terms = \explode(' ', $name);
-        $name = '';
-        foreach ($terms as $term) {
-            $name .= '%'.$term.'%';
-        }
-
-        $subtitle = $subtitle->with(['user', 'torrent', 'language']);
-
-        if ($request->has('name') && $request->input('name') != null) {
-            $torrents = Torrent::where('name', 'like', $name)->pluck('id');
-            $subtitle->whereIn('torrent_id', $torrents);
-        }
-
-        if ($request->has('categories') && $request->input('categories') != null) {
-            $torrents = Torrent::whereIn('category_id', $categories)->pluck('id');
-            $subtitle->whereIn('torrent_id', $torrents);
-        }
-
-        if ($request->has('language_id') && $request->input('language_id') != null) {
-            $subtitle->where('language_id', '=', $language_id);
-        }
-
-        $subtitles = $subtitle->latest()->paginate(25);
-
-        return \view('subtitle.results', [
-            'user'        => $user,
-            'subtitles'   => $subtitles,
-        ])->render();
     }
 }
