@@ -23,8 +23,8 @@ class UserSearch extends Component
 
     public $perPage = 25;
     public $searchTerm = '';
-    public $sortField = 'username';
-    public $sortDirection = 'asc';
+    public $sortField = 'created_at';
+    public $sortDirection = 'desc';
 
     public function paginationView()
     {
