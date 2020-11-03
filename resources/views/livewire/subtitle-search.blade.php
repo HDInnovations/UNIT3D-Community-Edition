@@ -1,45 +1,58 @@
 <div>
 	<div class="container-fluid">
 		<div class="block">
-			<div class="container box">
-					<div class="header gradient silver">
-						<div class="inner_content">
-							<div class="page-title">
-								<h1 style="margin: 0;">Subtitles</h1>
-							</div>
+			<div class="container box search mt-5 fatten-me form-horizontal form-condensed form-torrent-search form-bordered">
+				<div class="header gradient silver">
+					<div class="inner_content">
+						<div class="page-title">
+							<h1 style="margin: 0;">Subtitles</h1>
 						</div>
 					</div>
-					<br>
-					<div class="form-group">
-						<label for="name" class="col-sm-2 control-label">@lang('common.name')</label>
-						<div class="col-sm-10">
-							<input wire:model="searchTerm" class="form-control" placeholder="Search by Torrent Name" type="text">
-						</div>
+				</div>
+				<br>
+				<div class="mx-0 mt-5 form-group fatten-me">
+					<label for="searchTerm" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
+					<div class="col-sm-9 fatten-me">
+						<label for="searchTerm"></label>
+						<input wire:model="searchTerm" type="text" class="form-control" placeholder="@lang('torrent.name')">
 					</div>
-					<div class="form-group">
-						<label for="language_id" class="col-sm-2 control-label">@lang('common.language')</label>
-						<div class="col-sm-10">
-							<select class="form-control" wire:model="language">
-								<option value="">--@lang('common.select') @lang('common.language')--</option>
-								@foreach (App\Models\MediaLanguage::all()->sortBy('name') as $media_language)
-									<option value="{{ $media_language->id }}">{{ $media_language->name }} ({{ $media_language->code }})</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="category_id" class="col-sm-2 control-label">@lang('common.category')</label>
-						<div class="col-sm-10">
-							@foreach (App\Models\Category::all()->sortBy('position') as $category)
-								<span class="badge-user">
-                                <label class="inline">
-                                    <input type="checkbox" wire:model="categories" value="{{ $category->id }}"
-                                           class="category facetedSearch" trigger="click"> {{ $category->name }}
-                                </label>
-                            </span>
+				</div>
+
+				<div class="mx-0 mt-5 form-group fatten-me">
+					<label for="language_id" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.language')</label>
+					<div class="col-sm-9">
+						<select class="form-control" wire:model="language">
+							<option value="">--@lang('common.select') @lang('common.language')--</option>
+							@foreach (App\Models\MediaLanguage::all()->sortBy('name') as $media_language)
+								<option value="{{ $media_language->id }}">{{ $media_language->name }} ({{ $media_language->code }})</option>
 							@endforeach
-						</div>
+						</select>
 					</div>
+				</div>
+
+				<div class="mx-0 mt-5 form-group fatten-me">
+					<label for="categories" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.category')</label>
+					<div class="col-sm-9">
+						@foreach (App\Models\Category::all()->sortBy('position') as $category)
+							<span class="badge-user">
+								<label class="inline">
+									<input type="checkbox" wire:model="categories" value="{{ $category->id }}"> {{ $category->name }}
+								</label>
+							</span>
+						@endforeach
+					</div>
+				</div>
+
+				<div class="mx-0 mt-5 form-group fatten-me">
+					<label for="perPage" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.quantity')</label>
+					<div class="col-sm-2">
+						<select wire:model="perPage" class="form-control">
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+					</div>
+				</div>
 			</div>
 			<br>
 			<div class="table-responsive">
