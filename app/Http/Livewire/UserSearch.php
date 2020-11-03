@@ -48,10 +48,11 @@ class UserSearch extends Component
 
     public function render()
     {
-        $search_term = '%'.$this->searchTerm.'%';
-
         return view('livewire.user-search', [
-            'users' => User::where('username', 'LIKE', $search_term)->orWhere('email', 'LIKE', $search_term)
+            'users' => User::query()
+                ->when($this->searchTerm, function ($query) {
+                    return $query->where('username', 'LIKE', '%'.$this->searchTerm.'%')->orWhere('email', 'LIKE', '%'.$this->searchTerm.'%');
+                })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
         ]);
