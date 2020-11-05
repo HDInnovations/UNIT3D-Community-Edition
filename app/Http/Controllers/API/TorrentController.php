@@ -230,23 +230,23 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($anon == 1 && $featured == 1) {
+            if ($anon === 1 && $featured === 1) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can! :fire:'
                 );
-            } elseif ($anon == 0 && $featured == 1) {
+            } elseif ($anon === 0 && $featured === 1) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
                 );
             }
 
-            if ($multi_down === 0.0 && $featured == 0) {
+            if ($multi_down <= 0 && $featured === 0) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
                 );
             }
 
-            if ($multi_up >= 2 && $featured == 0) {
+            if ($multi_up > 1 && $featured === 0) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                 );
@@ -433,7 +433,7 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('multi_down') && $request->input('multi_down') != null) {
-            $torrent->where('torrents.multi_down', '=', $multi_down);
+            $torrent->where('torrents.multi_down', '<=', $multi_down);
         }
 
         if ($request->has('multi_up') && $request->input('multi_up') != null) {

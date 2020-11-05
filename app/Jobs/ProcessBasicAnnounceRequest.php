@@ -115,7 +115,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
 
         if ($personal_freeleech || ($group && $group->is_freeleech === 1) || $freeleech_token) {
             $mod_downloaded = 0;
-        } else if ((float) \config('other.multi_down') <= 0) {
+        } else if ((float) \config('other.multi_down', 1.0) <= 0) {
             $mod_downloaded = $downloaded * (float) \config('other.multi_down');
         } else {
             $mod_downloaded = $downloaded * $this->torrent->multi_down;
@@ -123,7 +123,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
 
         if ($group && $group->is_double_upload === 1) {
             $mod_uploaded = $uploaded * 2;
-        } else if ((float) \config('other.multi_up') >= 1 ) {
+        } else if ((float) \config('other.multi_up', 1.0) > 1 ) {
             $mod_uploaded = $uploaded * (float) \config('other.multi_up', 1.0);
         } else {
             $mod_uploaded = $uploaded * $this->torrent->multi_up;

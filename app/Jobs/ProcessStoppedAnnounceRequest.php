@@ -121,8 +121,8 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
 
         if ($group && $group->is_double_upload === 1) {
             $mod_uploaded = $uploaded * 2;
-        } else if ((float) \config('other.multi_up') > 1 ) {
-            $mod_uploaded = $uploaded * (float) \config('other.multi_up');
+        } else if ((float) \config('other.multi_up', 1.0) > 1 ) {
+            $mod_uploaded = $uploaded * (float) \config('other.multi_up', 1.0);
         } else {
             $mod_uploaded = $uploaded * $this->torrent->multi_up;
         }

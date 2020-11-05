@@ -38,7 +38,7 @@ class TorrentResource extends JsonResource
                 'size'            => $this->getSize(),
                 'num_file'        => $this->num_file,
                 'freeleech'       => $this->multi_down <= 0 ? 'Yes' : 'No',
-                'double_upload'   => $this->multi_up >= 2 ? 'Yes' : 'No',
+                'double_upload'   => $this->multi_up > 1 ? 'Yes' : 'No',
                 'uploader'        => $this->anon ? 'Anonymous' : $this->user->username,
                 'seeders'         => $this->seeders,
                 'leechers'        => $this->leechers,

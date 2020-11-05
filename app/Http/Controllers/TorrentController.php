@@ -552,7 +552,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('multi_down') && $request->input('multi_down') != null) {
-                $torrent->where('torrentsl.free', '=', $multi_down);
+                $torrent->where('torrentsl.free', '<=', $multi_down);
             }
 
             if ($request->has('multi_up') && $request->input('multi_up') != null) {
@@ -694,7 +694,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('multi_down') && $request->input('multi_down') != null) {
-                $torrent->where('torrents.multi_down', '=', 0.0);
+                $torrent->where('torrents.multi_down', '<=', 0.0);
             }
 
             if ($request->has('multi_up') && $request->input('multi_up') != null) {
@@ -1690,7 +1690,7 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent_url = \href_torrent($torrent);
 
-        if ($torrent->multi_up <= 2.0) {
+        if ($torrent->multi_up < 2.0) {
             $torrent->multi_up = 2.0;
 
             $this->chatRepository->systemMessage(
