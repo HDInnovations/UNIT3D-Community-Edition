@@ -138,8 +138,8 @@ class TorrentControllerTest extends TestCase
             'sd'            => $torrent->sd,
             'internal'      => $torrent->internal,
             'featured'      => false,
-            'doubleup'      => $torrent->doubleup,
-            'free'          => $torrent->free,
+            'multi_up'      => $torrent->multi_up,
+            'multi_down'    => $torrent->multi_down,
             'sticky'        => $torrent->sticky,
         ]);
 

@@ -112,7 +112,7 @@
                                 <strong>@lang('torrent.discounts')</strong>
                             </td>
                             <td>
-                                @if ($torrent->doubleup == '1' || $torrent->free == '1' || config('other.freeleech') == '1' || config('other.doubleup') == '1' || $personal_freeleech || $user->group->is_freeleech == '1' || $freeleech_token)
+                                @if ((float)$torrent->multi_up > 1 || (float)$torrent->multi_down <= 0 || (float)config('other.multi_down') <= - || (float)config('other.multi_up') > 1 || $personal_freeleech || $user->group->is_freeleech == '1' || $freeleech_token)
                                     @if ($freeleech_token)
                                         <span class="badge-extra text-bold">
                                             <i class="{{ config('other.font-awesome') }} fa-coins text-bold"></i> @lang('common.fl_token')
@@ -131,7 +131,7 @@
                                         </span>
                                     @endif
 
-                                    @if ($torrent->doubleup == '1')
+                                    @if ($torrent->multi_up > 1)
                                         <span class="badge-extra text-bold">
                                             <i class="{{ config('other.font-awesome') }} fa-gem text-green"></i> @lang('torrent.double-upload')
                                         </span>
@@ -149,13 +149,13 @@
                                         </span>
                                     @endif
 
-                                    @if (config('other.freeleech') == '1')
+                                    @if ((float) config('other.multi_down') <= 0)
                                         <span class="badge-extra text-bold">
                                             <i class="{{ config('other.font-awesome') }} fa-globe text-blue"></i> @lang('common.global') @lang('torrent.freeleech')
                                         </span>
                                     @endif
 
-                                    @if (config('other.doubleup') == '1')
+                                    @if ((float) config('other.multi_up') > 1)
                                         <span class="badge-extra text-bold">
                                             <i class="{{ config('other.font-awesome') }} fa-globe text-green"></i> @lang('common.global') {{ strtolower(trans('torrent.double-upload')) }}
                                         </span>
@@ -270,7 +270,7 @@
                                     </a>
                                 @endif
 
-                                @if ($torrent->doubleup == 0)
+                                @if ($torrent->multi_up == 1.0)
                                     <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
                                        class="btn btn-success btn-xs" role="button">
                                         <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> @lang('torrent.grant') @lang('torrent.double-upload')

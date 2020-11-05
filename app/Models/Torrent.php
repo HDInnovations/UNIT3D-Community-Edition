@@ -51,8 +51,8 @@ use voku\helper\AntiXSS;
  * @property string                                                                 $mal
  * @property string                                                                 $igdb
  * @property int                                                                    $stream
- * @property int                                                                    $free
- * @property int                                                                    $doubleup
+ * @property float                                                                  $multi_up
+ * @property float                                                                  $multi_down
  * @property int                                                                    $highspeed
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\FeaturedTorrent[] $featured
  * @property int                                                                    $status

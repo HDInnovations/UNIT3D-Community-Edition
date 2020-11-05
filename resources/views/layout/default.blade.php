@@ -42,7 +42,7 @@
         <script src="{{ mix('js/unit3d.js') }}" integrity="{{ Sri::hash('js/unit3d.js') }}"
             crossorigin="anonymous"></script>
 
-        @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
+        @if ((float)config('other.multi_down') <= 0 || config('other.invite-only') == false || (float)config('other.multi_up') > 1)
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
                 CountDownTimer('{{ config('other.freeleech_until') }}', 'promotions');
                 function CountDownTimer(dt, id) {

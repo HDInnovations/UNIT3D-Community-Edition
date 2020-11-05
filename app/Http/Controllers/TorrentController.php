@@ -430,8 +430,8 @@ class TorrentController extends Controller
         $types = $request->input('types');
         $resolutions = $request->input('resolutions');
         $genres = $request->input('genres');
-        $freeleech = $request->input('freeleech');
-        $doubleupload = $request->input('doubleupload');
+        $multi_down = $request->input('multi_down');
+        $multi_up = $request->input('multi_up');
         $featured = $request->input('featured');
         $stream = $request->input('stream');
         $highspeed = $request->input('highspeed');
@@ -551,12 +551,12 @@ class TorrentController extends Controller
                 $torrent->whereIn('torrentsl.id', $matches);
             }
 
-            if ($request->has('freeleech') && $request->input('freeleech') != null) {
-                $torrent->where('torrentsl.free', '=', $freeleech);
+            if ($request->has('multi_down') && $request->input('multi_down') != null) {
+                $torrent->where('torrentsl.free', '=', $multi_down);
             }
 
-            if ($request->has('doubleupload') && $request->input('doubleupload') != null) {
-                $torrent->where('torrentsl.doubleup', '=', $doubleupload);
+            if ($request->has('multi_up') && $request->input('multi_up') != null) {
+                $torrent->where('torrentsl.multi_up', '>=', $multi_up);
             }
 
             if ($request->has('featured') && $request->input('featured') != null) {
@@ -693,12 +693,12 @@ class TorrentController extends Controller
                 $torrent->whereIn('torrents.id', $matches);
             }
 
-            if ($request->has('freeleech') && $request->input('freeleech') != null) {
-                $torrent->where('torrents.free', '=', $freeleech);
+            if ($request->has('multi_down') && $request->input('multi_down') != null) {
+                $torrent->where('torrents.multi_down', '=', 0.0);
             }
 
-            if ($request->has('doubleupload') && $request->input('doubleupload') != null) {
-                $torrent->where('torrents.doubleup', '=', $doubleupload);
+            if ($request->has('multi_up') && $request->input('multi_up') != null) {
+                $torrent->where('torrents.multi_up', '>=', $multi_up);
             }
 
             if ($request->has('featured') && $request->input('featured') != null) {
@@ -1650,8 +1650,8 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($torrent->featured == 0) {
-            $torrent->free = '1';
-            $torrent->doubleup = '1';
+            $torrent->multi_down = 0.0;
+            $torrent->multi_up = 2.0;
             $torrent->featured = '1';
             $torrent->save();
 
@@ -1690,14 +1690,14 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent_url = \href_torrent($torrent);
 
-        if ($torrent->doubleup == 0) {
-            $torrent->doubleup = '1';
+        if ($torrent->multi_up <= 2.0) {
+            $torrent->multi_up = 2.0;
 
             $this->chatRepository->systemMessage(
                 \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
             );
         } else {
-            $torrent->doubleup = '0';
+            $torrent->multi_up = 1.0;
             $this->chatRepository->systemMessage(
                 \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrent_url, $torrent->name)
             );

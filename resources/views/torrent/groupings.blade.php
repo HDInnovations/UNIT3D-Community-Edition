@@ -452,13 +452,13 @@
                                                                                 @endif
 
                                                                                 @if ($current->featured == 0)
-                                                                                    @if ($current->doubleup == 1)
+                                                                                    @if ($current->multi_up > 1)
                                                                                         <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-gem text-green' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.double-upload')'></i> @lang('torrent.double-upload')
                             </span>
                                                                                     @endif
-                                                                                    @if ($current->free == 1)
+                                                                                    @if ($current->multi_down <= 0)
                                                                                         <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-star text-gold' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.freeleech')'></i> @lang('torrent.freeleech')
@@ -494,14 +494,14 @@
                             </span>
                                                                                 @endif
 
-                                                                                @if (config('other.freeleech') == 1)
+                                                                                @if ((float)config('other.multi_down') <= 0)
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-globe text-blue' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.global-freeleech')'></i> @lang('torrent.global-freeleech')
                             </span>
                                                                                 @endif
 
-                                                                                @if (config('other.doubleup') == 1)
+                                                                                @if (config('other.multi_up') > 1)
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-globe text-green' data-toggle='tooltip' title=''
                                    data-original-title='@lang('torrent.double-upload')'></i> @lang('torrent.double-upload')

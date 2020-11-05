@@ -192,7 +192,7 @@
                                         @endif
         
                                         @if ($torrent->featured == 0)
-                                            @if ($torrent->doubleup == 1)
+                                            @if ($torrent->multi_up > 1)
                                                 <span class='badge-extra text-bold'>
                                                     <i class='{{ config('other.font-awesome') }} fa-gem text-green'
                                                         data-toggle='tooltip' title='' data-original-title='@lang('
@@ -250,7 +250,7 @@
                                             </span>
                                         @endif
         
-                                        @if (config('other.doubleup') == 1)
+                                        @if (config('other.multi_up') > 1)
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-globe text-green'
                                                     data-toggle='tooltip' title='' data-original-title='@lang('

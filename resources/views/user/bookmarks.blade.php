@@ -161,13 +161,13 @@
                                         @endif
         
                                         @if ($bookmark->featured == 0)
-                                            @if ($bookmark->doubleup == 1)
+                                            @if ($bookmark->multi_up >= 2.0)
                                                 <span class='badge-extra text-bold'>
                                                     <i class='{{ config('other.font-awesome') }} fa-gem text-green'
                                                         data-toggle='tooltip' data-original-title='Double upload'></i> Double Upload
                                                 </span>
                                             @endif
-                                            @if ($bookmark->free == 1)
+                                            @if ($bookmark->multi_down == 0.0)
                                                 <span class='badge-extra text-bold'>
                                                     <i class='{{ config('other.font-awesome') }} fa-star text-gold'
                                                         data-toggle='tooltip' data-original-title='100% Free'></i> 100% Free
@@ -213,7 +213,7 @@
                                             </span>
                                         @endif
         
-                                        @if (config('other.doubleup') == 1)
+                                        @if (config('other.multi_up') > 1)
                                             <span class='badge-extra text-bold'>
                                                 <i class='{{ config('other.font-awesome') }} fa-globe text-green'
                                                     data-toggle='tooltip' data-original-title='Double Upload'></i> Global Double

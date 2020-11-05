@@ -93,7 +93,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        $fileName = \sprintf('%s.torrent', \uniqid()); // Generate a unique name
+        $fileName = \sprintf('%s.torrent', \uniqid("", true)); // Generate a unique name
         Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
@@ -125,16 +125,16 @@ class TorrentController extends BaseController
         $torrent->sd = $request->input('sd');
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
         $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
-        $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
-        $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
+        $torrent->multi_up = $user->group->is_modo || $user->group->is_internal ? $request->input('multi_up') : 1.0;
+        $torrent->multi_down = $user->group->is_modo || $user->group->is_internal ? $request->input('multi_down') : 1.0;
         $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? $request->input('sticky') : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
         // Set freeleech and doubleup if featured
-        if ($torrent->featured == 1) {
-            $torrent->free = '1';
-            $torrent->doubleup = '1';
+        if ($torrent->featured === 1) {
+            $torrent->multi_down = 0.0;
+            $torrent->multi_up = 2.0;
         }
 
         // Validation
@@ -161,8 +161,8 @@ class TorrentController extends BaseController
             'sd'             => 'required',
             'internal'       => 'required',
             'featured'       => 'required',
-            'free'           => 'required',
-            'doubleup'       => 'required',
+            'multi_down'     => 'required',
+            'multi_up'       => 'required',
             'sticky'         => 'required',
         ]);
 
@@ -216,8 +216,8 @@ class TorrentController extends BaseController
             $username = $user->username;
             $anon = $torrent->anon;
             $featured = $torrent->featured;
-            $free = $torrent->free;
-            $doubleup = $torrent->doubleup;
+            $multi_down = $torrent->multi_down;
+            $multi_up = $torrent->multi_up;
 
             // Announce To Shoutbox
             if ($anon == 0) {
@@ -240,13 +240,13 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($free == 1 && $featured == 0) {
+            if ($multi_down === 0.0 && $featured == 0) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:'
                 );
             }
 
-            if ($doubleup == 1 && $featured == 0) {
+            if ($multi_up >= 2 && $featured == 0) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
                 );
@@ -327,8 +327,8 @@ class TorrentController extends BaseController
         $types = $request->input('types');
         $resolutions = $request->input('resolutions');
         $genres = $request->input('genres');
-        $freeleech = $request->input('freeleech');
-        $doubleupload = $request->input('doubleupload');
+        $multi_down = $request->input('multi_down');
+        $multi_up = $request->input('multi_up');
         $featured = $request->input('featured');
         $stream = $request->input('stream');
         $highspeed = $request->input('highspeed');
@@ -432,12 +432,12 @@ class TorrentController extends BaseController
             // TODO
         }
 
-        if ($request->has('freeleech') && $request->input('freeleech') != null) {
-            $torrent->where('torrents.free', '=', $freeleech);
+        if ($request->has('multi_down') && $request->input('multi_down') != null) {
+            $torrent->where('torrents.multi_down', '=', $multi_down);
         }
 
-        if ($request->has('doubleupload') && $request->input('doubleupload') != null) {
-            $torrent->where('torrents.doubleup', '=', $doubleupload);
+        if ($request->has('multi_up') && $request->input('multi_up') != null) {
+            $torrent->where('torrents.multi_up', '>=', $multi_up);
         }
 
         if ($request->has('featured') && $request->input('featured') != null) {

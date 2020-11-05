@@ -102,7 +102,7 @@ class RssController extends Controller
         ]);
 
         $params = $request->only(['type', 'name', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'resolutions', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
+            'types', 'resolutions', 'genres', 'multi_down', 'multi_up', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
@@ -182,7 +182,7 @@ class RssController extends Controller
         ]);
 
         $params = $request->only(['type', 'position', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'resolutions', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
+            'types', 'resolutions', 'genres', 'multi_down', 'multi_up', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;

@@ -178,7 +178,7 @@ class NerdBot
     {
         $fl = \cache()->get('nerdbot-fl');
         if (! $fl || $fl == null) {
-            $fl = Torrent::where('free', '=', 1)->count();
+            $fl = Torrent::where('multi_down', '<=', 0)->count();
             \cache()->put('nerdbot-fl', $fl, $this->expiresAt);
         }
 
@@ -198,7 +198,7 @@ class NerdBot
     {
         $du = \cache()->get('nerdbot-doubleup');
         if (! $du || $du == null) {
-            $du = Torrent::where('doubleup', '=', 1)->count();
+            $du = Torrent::where('multi_up', '>=', 2)->count();
             \cache()->put('nerdbot-doubleup', $du, $this->expiresAt);
         }
 
@@ -470,9 +470,11 @@ class NerdBot
             if ($command[$x] === 'donate') {
                 $log = $this->putDonate($params, $wildcard);
             }
+            // TODO fix for multi_up
             if ($command[$x] === 'doubleupload') {
                 $log = $this->getDoubleUpload($params);
             }
+            // TODO fix for multi_down
             if ($command[$x] === 'freeleech') {
                 $log = $this->getFreeleech($params);
             }

@@ -113,16 +113,20 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
         $freeleech_token = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
         $group = Group::whereId($this->user->group_id)->first();
 
-        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
+        if ($personal_freeleech || ($group && $group->is_freeleech === 1) || $freeleech_token) {
             $mod_downloaded = 0;
+        } else if ((float) \config('other.multi_down') < 1) {
+            $mod_downloaded = $downloaded * (float) \config('other.multi_down');
         } else {
-            $mod_downloaded = $downloaded;
+            $mod_downloaded = $downloaded * $this->torrent->multi_down;
         }
 
-        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
+        if ($group && $group->is_double_upload === 1) {
             $mod_uploaded = $uploaded * 2;
+        } else if ((float) \config('other.multi_up') > 1) {
+            $mod_uploaded = $uploaded * (float) \config('other.multi_up');
         } else {
-            $mod_uploaded = $uploaded;
+            $mod_uploaded = $uploaded * $this->torrent->multi_up;
         }
 
         // Peer Update

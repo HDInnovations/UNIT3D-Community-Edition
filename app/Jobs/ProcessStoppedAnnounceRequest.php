@@ -113,16 +113,18 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         $freeleech_token = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
         $group = Group::whereId($this->user->group_id)->first();
 
-        if (\config('other.freeleech') == 1 || $this->torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
+        if ((float) \config('other.freeleech') <= 0 || $this->torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
             $mod_downloaded = 0;
         } else {
             $mod_downloaded = $downloaded;
         }
 
-        if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
+        if ($group && $group->is_double_upload === 1) {
             $mod_uploaded = $uploaded * 2;
+        } else if ((float) \config('other.multi_up') > 1 ) {
+            $mod_uploaded = $uploaded * (float) \config('other.multi_up');
         } else {
-            $mod_uploaded = $uploaded;
+            $mod_uploaded = $uploaded * $this->torrent->multi_up;
         }
 
         // Peer Update

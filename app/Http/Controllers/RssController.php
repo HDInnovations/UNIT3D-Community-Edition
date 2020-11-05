@@ -123,8 +123,8 @@ class RssController extends Controller
             'types',
             'resolutions',
             'genres',
-            'freeleech',
-            'doubleupload',
+            'multi_down',
+            'multi_up',
             'featured',
             'stream',
             'highspeed',
@@ -202,8 +202,8 @@ class RssController extends Controller
         $types = $rss->object_torrent->types;
         $resolutions = $rss->object_torrent->resolutions;
         $genres = $rss->object_torrent->genres;
-        $freeleech = $rss->object_torrent->freeleech;
-        $doubleupload = $rss->object_torrent->doubleupload;
+        $multi_down = $rss->object_torrent->multi_down;
+        $multi_up = $rss->object_torrent->multi_up;
         $featured = $rss->object_torrent->featured;
         $stream = $rss->object_torrent->stream;
         $highspeed = $rss->object_torrent->highspeed;
@@ -286,11 +286,11 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
-            $builder->where('free', '=', $freeleech);
+            $builder->where('multi_down', '<=', $multi_down);
         }
 
-        if ($rss->object_torrent->doubleupload && $rss->object_torrent->doubleupload != null) {
-            $builder->where('doubleup', '=', $doubleupload);
+        if ($rss->object_torrent->multi_up && $rss->object_torrent->multi_up != null) {
+            $builder->where('multi_up', '>=', $multi_up);
         }
 
         if ($rss->object_torrent->featured && $rss->object_torrent->featured != null) {
@@ -389,8 +389,8 @@ class RssController extends Controller
             'types',
             'resolutions',
             'genres',
-            'freeleech',
-            'doubleupload',
+            'multi_down',
+            'multi_up',
             'featured',
             'stream',
             'highspeed',

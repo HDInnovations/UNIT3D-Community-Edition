@@ -153,7 +153,7 @@
                             </span>
                             <span class="badge-user">
                                 <label class="inline">
-                                    @if($rss->object_torrent->doubleupload)
+                                    @if($rss->object_torrent->multi_up > 1)
                                         <input type="checkbox" id="doubleupload" name="doubleupload" value="1" CHECKED><span
                                             class="{{ config('other.font-awesome') }} fa-gem text-green"></span>
                                         @lang('torrent.double-upload')

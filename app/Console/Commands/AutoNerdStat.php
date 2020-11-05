@@ -88,10 +88,10 @@ class AutoNerdStat extends Command
             $leeched = Torrent::latest('leechers')->first();
 
             // FL Torrents
-            $fl = Torrent::where('free', '=', 1)->count();
+            $fl = Torrent::where('multi_down', '=', 0.0)->count();
 
             // DU Torrents
-            $du = Torrent::where('doubleup', '=', 1)->count();
+            $du = Torrent::where('multi_up', '>=', 2.0)->count();
 
             // Peers Count
             $peers = Peer::count();
