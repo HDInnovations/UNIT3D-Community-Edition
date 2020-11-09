@@ -1,5 +1,6 @@
 FROM composer AS composer
 
+ENV COMPOSER_MEMORY_LIMIT '-1'
 RUN apk --no-cache add shadow && usermod -a -G www-data root
 WORKDIR /var/www
 ADD ./.git/config ./.git/config
@@ -12,7 +13,7 @@ ADD package.json .
 RUN npm install
 
 FROM php:7.4-fpm-alpine3.12
-
+RUN sed -i 's/memory_limit = 128M/memory_limit = -1/g' $PHP_INI_DIR/php.ini
 # ENV & Build ARGS
 ENV LARAVEL_DIR /var/www
 ENV APACHE_LOG_DIR ${LARAVEL_DIR}/storage/logs
