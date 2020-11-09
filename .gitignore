@@ -44,3 +44,5 @@ laravel-echo-server.json
 # Vim
 .*.swp
 _ide_helper.php
+
+storage/debugbar/
