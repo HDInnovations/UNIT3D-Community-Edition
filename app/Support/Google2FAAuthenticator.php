@@ -14,6 +14,7 @@ class Google2FAAuthenticator extends Authenticator
         if ($this->getUser()->passwordSecurity == null) {
             return true;
         }
+
         return
             ! $this->getUser()->passwordSecurity->google2fa_enable ||
             ! $this->isEnabled() ||
