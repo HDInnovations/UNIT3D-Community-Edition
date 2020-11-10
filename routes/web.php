@@ -121,15 +121,11 @@ Route::group(['middleware' => 'language'], function () {
 
         // TOTP Auth System
         Route::group(['prefix' => 'totp'], function () {
-	    Route::get('/2fa','Auth\PasswordSecurityController@show2faForm');
-	    Route::post('/generate2faSecret','Auth\PasswordSecurityController@generate2faSecret')->name('generate2faSecret');
-	    Route::post('/2fa','Auth\PasswordSecurityController@enable2fa')->name('enable2fa');
-	    Route::post('/disable2fa','Auth\PasswordSecurityController@disable2fa')->name('disable2fa');
-	    Route::post('/faVerify','Auth\PasswordSecurityController@faVerify')->name('faVerify');
-	    //Middleware
-	    //Route::post('/2faVerify', function () {
-        	//return redirect(URL()->previous());
-    	    //})->name('2faVerify')->middleware('2fa');
+            Route::get('/2fa','Auth\PasswordSecurityController@show2faForm');
+            Route::post('/generate2faSecret','Auth\PasswordSecurityController@generate2faSecret')->name('generate2faSecret');
+            Route::post('/2fa','Auth\PasswordSecurityController@enable2fa')->name('enable2fa');
+            Route::post('/disable2fa','Auth\PasswordSecurityController@disable2fa')->name('disable2fa');
+            Route::post('/faVerify','Auth\PasswordSecurityController@faVerify')->name('faVerify');
 	});
 
 
