@@ -1007,7 +1007,7 @@ class User extends Authenticatable
     }
 
     /**
-     * PasswordSecurity
+     * PasswordSecurity.
      *
      */
     public function passwordSecurity()
