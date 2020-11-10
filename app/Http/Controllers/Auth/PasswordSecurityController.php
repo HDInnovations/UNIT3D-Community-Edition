@@ -24,7 +24,7 @@ class PasswordSecurityController extends Controller
         }
         $data = [
             'user'             => $user,
-            'google2fa_url' => $google2fa_url,
+            'google2fa_url'    => $google2fa_url,
         ];
         return view('auth.2fa', ['data' => $data, 'user' => $user]);
     }
