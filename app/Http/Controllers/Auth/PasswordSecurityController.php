@@ -12,8 +12,8 @@ class PasswordSecurityController extends Controller
     {
         $user = \Auth::user();
 
-        $google2fa_url = "";
-        if($user->passwordSecurity()->exists()){
+        $google2fa_url = '';
+        if ($user->passwordSecurity()->exists()) {
             $google2fa = app('pragmarx.google2fa');
             //$google2fa_url = $google2fa->getQRCodeGoogleUrl(
             $google2fa_url = $google2fa->getQRCodeInline(
@@ -31,12 +31,12 @@ class PasswordSecurityController extends Controller
 
     public function generate2faSecret(Request $request)
     {
-    	$user = \Auth::user();
-    	// Initialise the 2FA class
-    	$google2fa = app('pragmarx.google2fa');
+        $user = \Auth::user();
+        // Initialise the 2FA class
+        $google2fa = app('pragmarx.google2fa');
 
-    	// Add the secret key to the registration data
-    	PasswordSecurity::create([
+        // Add the secret key to the registration data
+        PasswordSecurity::create([
             'user_id'          => $user->id,
             'google2fa_enable' => 0,
             'google2fa_secret' => $google2fa->generateSecretKey(),
@@ -56,7 +56,7 @@ class PasswordSecurityController extends Controller
             $user->passwordSecurity->save();
             return redirect('totp/2fa')->with('success', '2FA is Enabled Successfully.');
         }
-	else {
+        else {
             return redirect('totp/2fa')->with('error', 'Invalid Verification Code, Please try again.');
         }
     }
@@ -79,7 +79,7 @@ class PasswordSecurityController extends Controller
 
     public function faVerify(Request $request)
     {
-    	$this->middleware('2fa')->only('faVerify');
-	return redirect(URL()->previous());
+        $this->middleware('2fa')->only('faVerify');
+        return redirect(URL()->previous());
     }
 }
