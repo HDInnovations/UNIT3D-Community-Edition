@@ -74,7 +74,7 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['middleware' => ['auth', '2fa', 'banned']], function () {
 
         // General
         Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -119,12 +119,19 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // TwoStep Auth System
-        Route::group(['prefix' => 'twostep'], function () {
-            Route::get('/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
-            Route::post('/verify', 'Auth\TwoStepController@verify')->name('verify');
-            Route::post('/resend', 'Auth\TwoStepController@resend')->name('resend');
-        });
+        // TOTP Auth System
+        Route::group(['prefix' => 'totp'], function () {
+	    Route::get('/2fa','Auth\PasswordSecurityController@show2faForm');
+	    Route::post('/generate2faSecret','Auth\PasswordSecurityController@generate2faSecret')->name('generate2faSecret');
+	    Route::post('/2fa','Auth\PasswordSecurityController@enable2fa')->name('enable2fa');
+	    Route::post('/disable2fa','Auth\PasswordSecurityController@disable2fa')->name('disable2fa');
+	    Route::post('/faVerify','Auth\PasswordSecurityController@faVerify')->name('faVerify');
+	    //Middleware
+	    //Route::post('/2faVerify', function () {
+        	//return redirect(URL()->previous());
+    	    //})->name('2faVerify')->middleware('2fa');
+	});
+
 
         // Bonus System
         Route::group(['prefix' => 'bonus'], function () {
@@ -457,7 +464,7 @@ Route::group(['middleware' => 'language'], function () {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'MediaHub'], function () {
+    Route::group(['prefix' => 'mediahub', 'middleware' => ['auth', '2fa', 'banned'], 'namespace' => 'MediaHub'], function () {
         // MediaHub Home
         Route::get('/', 'HomeController@index')->name('mediahub.index');
 
@@ -512,7 +519,7 @@ Route::group(['middleware' => 'language'], function () {
     | ChatBox Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'banned'], 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', '2fa', 'banned'], 'namespace' => 'API'], function () {
         Route::get('/', 'ChatController@index');
         Route::get('/chatrooms', 'ChatController@fetchChatrooms');
         Route::post('/change-chatroom', 'ChatController@changeChatroom');
@@ -525,7 +532,7 @@ Route::group(['middleware' => 'language'], function () {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'banned']], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', '2fa', 'banned']], function () {
         // Forum System
         Route::name('forums.')->group(function () {
             Route::get('/', 'ForumController@index')->name('index');
@@ -606,7 +613,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'banned'], 'namespace' => 'Staff'], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', '2fa', 'modo', 'banned'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {
