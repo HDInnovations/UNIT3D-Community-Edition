@@ -14,11 +14,11 @@ class CreatePasswordSecuritiesTable extends Migration
     public function up()
     {
         Schema::create('password_securities', function (Blueprint $table) {
-		$table->increments('id');
-            	$table->integer('user_id');
-            	$table->boolean('google2fa_enable')->default(false);
-            	$table->string('google2fa_secret')->nullable();
-            	$table->timestamps();
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->boolean('google2fa_enable')->default(false);
+            $table->string('google2fa_secret')->nullable();
+            $table->timestamps();
         });
     }
 
