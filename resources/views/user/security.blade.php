@@ -36,7 +36,7 @@
                     <li><a href="#rid" data-toggle="tab">RSS Key (RID)</a></li>
                     <li><a href="#api" data-toggle="tab">API Token</a></li>
                     @if (config('auth.TwoStepEnabled') == true)
-                        <li><a href="#twostep" data-toggle="tab">Two Step Auth</a></li>
+                        <li><a href="/totp/2fa">Two Step Auth</a></li>
                     @endif
                 </ul>
                 <div class="tab-content">
