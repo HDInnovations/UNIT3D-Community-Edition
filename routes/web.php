@@ -126,8 +126,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::post('/2fa', 'Auth\PasswordSecurityController@enable2fa')->name('enable2fa');
             Route::post('/disable2fa', 'Auth\PasswordSecurityController@disable2fa')->name('disable2fa');
             Route::post('/faVerify', 'Auth\PasswordSecurityController@faVerify')->name('faVerify');
-	});
-
+        });
 
         // Bonus System
         Route::group(['prefix' => 'bonus'], function () {
