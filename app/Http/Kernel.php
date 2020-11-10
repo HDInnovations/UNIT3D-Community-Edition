@@ -82,7 +82,7 @@ class Kernel extends HttpKernel
         'modo'          => \App\Http\Middleware\CheckForModo::class,
         'owner'         => \App\Http\Middleware\CheckForOwner::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        '2fa' 		    => \App\Http\Middleware\Google2FAMiddleware::class,
+        '2fa'           => \App\Http\Middleware\Google2FAMiddleware::class,
         'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
