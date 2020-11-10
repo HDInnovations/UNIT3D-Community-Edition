@@ -1005,4 +1005,10 @@ class User extends Authenticatable
 
         return Torrent::whereIn('id', $peers)->sum('size');
     }
+    
+    public function passwordSecurity()
+    {
+        return $this->hasOne('App\PasswordSecurity');
+    }
+
 }
