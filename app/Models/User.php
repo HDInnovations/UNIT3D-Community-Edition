@@ -1008,7 +1008,6 @@ class User extends Authenticatable
 
     /**
      * PasswordSecurity.
-     *
      */
     public function passwordSecurity()
     {
