@@ -23,8 +23,8 @@ class PasswordSecurityController extends Controller
             );
         }
         $data = [
-            'user' 	    => $user,
-            'google2fa_url' => $google2fa_url
+            'user'             => $user,
+            'google2fa_url' => $google2fa_url,
         ];
         return view('auth.2fa', ['data' => $data, 'user' => $user]);
     }
@@ -40,7 +40,7 @@ class PasswordSecurityController extends Controller
             'user_id'          => $user->id,
             'google2fa_enable' => 0,
             'google2fa_secret' => $google2fa->generateSecretKey(),
-    	]);
+        ]);
 
         return redirect('totp/2fa')->with('success', 'Secret Key is generated, Please verify Code to Enable 2FA');
     }
@@ -54,6 +54,7 @@ class PasswordSecurityController extends Controller
         if ($valid) {
             $user->passwordSecurity->google2fa_enable = 1;
             $user->passwordSecurity->save();
+
             return redirect('totp/2fa')->with('success', '2FA is Enabled Successfully.');
         }
         else {
@@ -74,12 +75,14 @@ class PasswordSecurityController extends Controller
         $user = \Auth::user();
         $user->passwordSecurity->google2fa_enable = 0;
         $user->passwordSecurity->save();
+
         return redirect('totp/2fa')->with('success', '2FA is now Disabled.');
     }
 
     public function faVerify(Request $request)
     {
         $this->middleware('2fa')->only('faVerify');
+
         return redirect(URL()->previous());
     }
 }
