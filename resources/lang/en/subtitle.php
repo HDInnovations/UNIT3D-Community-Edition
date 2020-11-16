@@ -29,7 +29,7 @@ return [
                                       </ul>',
     'size'                        => 'Size',
     'subtitle-file'               => 'Subtitle File',
-    'subtitle-file-types'         => 'Accepted files are ICO, SRT and ZIP',
+    'subtitle-file-types'         => 'Accepted files are ICO, SRT, SUP, ASS and ZIP',
     'uploaded'                    => 'Uploaded',
     'uploader'                    => 'Uploader',
 ];
