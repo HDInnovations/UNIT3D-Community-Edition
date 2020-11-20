@@ -30,7 +30,8 @@ class Collection
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
+                    'api_key'            => \config('api-keys.tmdb'),
+                    'language'           => \config('app.locale'),
                     'append_to_response' => 'videos,images,credits',
                 ],
             ]

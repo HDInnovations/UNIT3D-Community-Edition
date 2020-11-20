@@ -30,8 +30,9 @@ class Movie
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'           => config('api-keys.tmdb'),
-                    'append_to_response'=> 'videos,images,credits,external_ids,keywords',
+                    'api_key'            => \config('api-keys.tmdb'),
+                    'language'           => \config('app.locale'),
+                    'append_to_response' => 'videos,images,credits,external_ids,keywords',
                 ],
             ]
         );

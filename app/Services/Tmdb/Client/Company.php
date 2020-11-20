@@ -30,7 +30,8 @@ class Company
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
+                    'api_key'            => \config('api-keys.tmdb'),
+                    'language'           => \config('app.locale'),
                     'append_to_response' => 'movies,videos,images,credits',
                     'page'               => $page,
                 ],
