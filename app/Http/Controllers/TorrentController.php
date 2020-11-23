@@ -156,8 +156,8 @@ class TorrentController extends Controller
             ->withCount(['thanks', 'comments'])
             ->where('category_id', '=', $category_id)
             ->where('tmdb', '=', $tmdb)
-            ->latest()
-            ->get();
+            ->get()
+            ->sortByDesc('name');
 
         if (! $torrents || $torrents->count() < 1) {
             \abort(404, 'No Similar Torrents Found');
@@ -1324,7 +1324,7 @@ class TorrentController extends Controller
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
         $meta = Bencode::get_meta($decodedTorrent);
-        $fileName = \uniqid().'.torrent'; // Generate a unique name
+        $fileName = \uniqid('', true).'.torrent'; // Generate a unique name
         \file_put_contents(\getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         // Create the torrent (DB)
