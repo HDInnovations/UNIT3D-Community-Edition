@@ -10,7 +10,7 @@
     "require": {
         "php": ">=7.4",
         "ext-zip": "*",
-        "appstract/laravel-opcache": "^3.0",
+        "appstract/laravel-opcache": "^4.0",
         "arcanedev/log-viewer": "^8.0",
         "assada/laravel-achievements": "^2.3",
         "bandwidth-throttle/token-bucket": "^2.0",

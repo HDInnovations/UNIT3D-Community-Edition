@@ -4,33 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dc496d81571e1a715c04ac2a67794c0",
+    "content-hash": "ce942412d0a4562ce8e135259e25f566",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
-            "version": "3.2.1",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appstract/laravel-opcache.git",
-                "reference": "0807d573459ff8b5d209d35e7ebe459f64bfd6f3"
+                "reference": "414f2f0f26e254f70126723b1462a25cb913448b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appstract/laravel-opcache/zipball/0807d573459ff8b5d209d35e7ebe459f64bfd6f3",
-                "reference": "0807d573459ff8b5d209d35e7ebe459f64bfd6f3",
+                "url": "https://api.github.com/repos/appstract/laravel-opcache/zipball/414f2f0f26e254f70126723b1462a25cb913448b",
+                "reference": "414f2f0f26e254f70126723b1462a25cb913448b",
                 "shasum": ""
             },
             "require": {
-                "appstract/lush-http": "^0.5",
-                "illuminate/console": ">=5.8",
-                "illuminate/filesystem": ">=5.8",
-                "illuminate/routing": ">=5.8",
-                "illuminate/support": ">=5.8",
-                "php": "^7.1.3"
+                "guzzlehttp/guzzle": "^6.3.1|^7.0",
+                "laravel/framework": ">=7.0",
+                "php": "^7.2.5"
             },
             "require-dev": {
-                "orchestra/testbench": "^3.8",
-                "phpunit/phpunit": "^7.5"
+                "orchestra/testbench": "^5.0",
+                "phpunit/phpunit": "^8.5"
             },
             "type": "library",
             "extra": {
@@ -52,12 +49,12 @@
             "authors": [
                 {
                     "name": "Olav van Schie",
-                    "email": "hello@appstract.team",
-                    "homepage": "https://appstract.team",
+                    "email": "mail@appstract.nl",
+                    "homepage": "https://appstract.nl",
                     "role": "Developer"
                 }
             ],
-            "description": "OPcache helper for Laravel.",
+            "description": "PHP OPcache Artisan commands for Laravel.",
             "homepage": "https://github.com/appstract/laravel-opcache",
             "keywords": [
                 "Opcache",
@@ -69,71 +66,7 @@
                 "issues": "https://github.com/appstract/laravel-opcache/issues",
                 "source": "https://github.com/appstract/laravel-opcache/tree/master"
             },
-            "time": "2019-12-31T20:06:57+00:00"
-        },
-        {
-            "name": "appstract/lush-http",
-            "version": "0.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/appstract/lush-http.git",
-                "reference": "5e363176ba54751b58bcbcd821bae1912cc8fe7c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/appstract/lush-http/zipball/5e363176ba54751b58bcbcd821bae1912cc8fe7c",
-                "reference": "5e363176ba54751b58bcbcd821bae1912cc8fe7c",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=5.4",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Lush": "Appstract\\LushHttp\\LushFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Appstract\\LushHttp\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Olav van Schie",
-                    "email": "hello@appstract.team",
-                    "homepage": "https://appstract.team",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Smart Http Client for PHP.",
-            "homepage": "https://github.com/appstract/lush-http",
-            "keywords": [
-                "appstract",
-                "client",
-                "curl",
-                "http",
-                "lush",
-                "lush-http",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/appstract/lush-http/issues",
-                "source": "https://github.com/appstract/lush-http/tree/0.5.5"
-            },
-            "abandoned": true,
-            "time": "2019-05-28T15:08:43+00:00"
+            "time": "2020-08-13T08:00:24+00:00"
         },
         {
             "name": "arcanedev/log-viewer",
