@@ -55,7 +55,7 @@
                             </div>
                             <div class="row message-body">
                                 <div class="col-sm-12">
-                                    @emojione($pm->getMessageHtml())
+                                    @joypixels($pm->getMessageHtml())
                                 </div>
                             </div>
                         </div>

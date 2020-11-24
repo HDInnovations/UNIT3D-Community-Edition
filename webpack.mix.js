@@ -67,9 +67,9 @@ mix.options({
     .generateIntegrityHash()
 
     /*
-     * Copy emojione assets
+     * Copy assets
      */
-    .copy('node_modules/emojione-assets/png/64', 'public/img/joypixels')
+    .copy('vendor/joypixels/assets/png', 'public/vendor/joypixels')
     .copy('resources/sass/vendor/webfonts/wysibb', 'public/fonts/wysibb')
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
     .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap');

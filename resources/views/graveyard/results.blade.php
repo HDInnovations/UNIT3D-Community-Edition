@@ -59,7 +59,7 @@
                             <button data-toggle="modal" data-target="#resurrect-{{ $torrent->id }}"
                                 class="btn btn-sm btn-default">
                                 <span class="icon">
-                                    @emojione(':zombie:') @lang('graveyard.resurrect')
+                                    @joypixels(':zombie:') @lang('graveyard.resurrect')
                                 </span>
                             </button>
                             <div class="modal fade" id="resurrect-{{ $torrent->id }}" tabindex="-1" role="dialog"
@@ -138,7 +138,7 @@
                         @else
                             <button class="btn btn-sm btn-info" disabled>
                                 <span class="icon">
-                                    @emojione(':angel_tone2:') {{ strtolower(trans('graveyard.pending')) }}
+                                    @joypixels(':angel_tone2:') {{ strtolower(trans('graveyard.pending')) }}
                                 </span>
                             </button>
                         @endif

@@ -14,7 +14,7 @@
 namespace App\Http\Resources;
 
 use App\Helpers\Bbcode;
-use ChristofferOK\LaravelEmojiOne\LaravelEmojiOne;
+use andkab\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ChatMessageResource extends JsonResource
@@ -30,7 +30,7 @@ class ChatMessageResource extends JsonResource
      */
     public function toArray($request)
     {
-        $emojiOne = \app()->make(LaravelEmojiOne::class);
+        $emojiOne = \app()->make(LaravelJoyPixels::class);
 
         $logger = null;
         if ($this->user_id && $this->user_id == 1) {

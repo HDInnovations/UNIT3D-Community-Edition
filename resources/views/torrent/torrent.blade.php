@@ -487,13 +487,13 @@
                                 <div class="panel-body">
                                     <div class="text-center">
                                         <span class="text-bold text-blue">
-                                            @emojione(':blue_heart:') @lang('torrent.media-info') @emojione(':blue_heart:')
+                                            @joypixels(':blue_heart:') @lang('torrent.media-info') @joypixels(':blue_heart:')
                                         </span>
                                     </div>
                                     <br>
                                     @if ($general !== null && isset($general['file_name']))
                                         <span class="text-bold text-blue">
-                                            @emojione(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
+                                            @joypixels(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
                                         </span>
                                         <span class="text-bold">
                                             <em>{{ $general['file_name'] }}</em>
@@ -502,7 +502,7 @@
                                         <br>
                                     @endif
                                     @if ($general_crumbs !== null)
-                                        <span class="text-bold text-blue">@emojione(':information_source:') {{ strtoupper(trans('torrent.general')) }}
+                                        <span class="text-bold text-blue">@joypixels(':information_source:') {{ strtoupper(trans('torrent.general')) }}
                                         :</span>
                                         <span class="text-bold"><em>
                       @foreach ($general_crumbs as $crumb)
@@ -517,7 +517,7 @@
                                     @endif
                                     @if ($video_crumbs !== null)
                                         @foreach ($video_crumbs as $key => $v)
-                                            <span class="text-bold text-blue">@emojione(':projector:') {{ strtoupper(trans('torrent.video')) }}
+                                            <span class="text-bold text-blue">@joypixels(':projector:') {{ strtoupper(trans('torrent.video')) }}
                                             :</span>
                                             <span class="text-bold"><em>
                         @foreach ($v as $crumb)
@@ -533,7 +533,7 @@
                                     @endif
                                     @if ($audio_crumbs !== null)
                                         @foreach ($audio_crumbs as $key => $a)
-                                            <span class="text-bold text-blue">@emojione(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
+                                            <span class="text-bold text-blue">@joypixels(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
                                             :</span>
                                             <span class="text-bold"><em>
                       @foreach ($a as $crumb)
@@ -549,7 +549,7 @@
                                     <br>
                                     @if ($text_crumbs !== null)
                                         @foreach ($text_crumbs as $key => $s)
-                                            <span class="text-bold text-blue">@emojione(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
+                                            <span class="text-bold text-blue">@joypixels(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
                                             :</span>
                                             <span class="text-bold"><em>
                       @foreach ($s as $crumb)
@@ -564,7 +564,7 @@
                                     @endif
                                     @if ($settings)
                                         <br>
-                                        <span class="text-bold text-blue">@emojione(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
+                                        <span class="text-bold text-blue">@joypixels(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
                                         :</span>
                                         <br>
                                         <div class="decoda-code text-black">{{ $settings }}</div>
@@ -573,7 +573,7 @@
                                     <br>
                                     <div class="text-center">
                                         <button class="show_hide btn btn-labeled btn-primary" href="#">
-                                            <span class="btn-label">@emojione(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
+                                            <span class="btn-label">@joypixels(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
                                         </button>
                                     </div>
                                     <div class="slidingDiv">
@@ -598,7 +598,7 @@
                     <tr>
                         <td>
                             <div class="panel-body">
-                                @emojione($torrent->getDescriptionHtml())
+                                @joypixels($torrent->getDescriptionHtml())
 
                                 @if (! empty($meta->collection['0']) && $torrent->category->movie_meta)
                                     <hr>
@@ -750,7 +750,7 @@
                                                             aria-hidden="true"></i></a>
                                             @endif
                                             <div class="pt-5">
-                                                @emojione($comment->getContentHtml())
+                                                @joypixels($comment->getContentHtml())
                                             </div>
                                         </div>
                                     </li>

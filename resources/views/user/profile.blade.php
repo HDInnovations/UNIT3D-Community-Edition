@@ -165,7 +165,7 @@
                         <tr>
                             <td>@lang('user.about')</td>
                             <td>
-                                <span class="badge-extra">@emojione($user->getAboutHtml())</span>
+                                <span class="badge-extra">@joypixels($user->getAboutHtml())</span>
                             </td>
                         </tr>
                         @endif

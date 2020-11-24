@@ -34,7 +34,7 @@
         @if (Session::has('previewContent'))
             <div class="torrent box container">
                 <h2 class="text-center">Upload Description Preview</h2>
-                <div class="preview col-md-12"> @emojione(Session::get('previewContent')) </div>
+                <div class="preview col-md-12"> @joypixels(Session::get('previewContent')) </div>
                 <hr>
             </div>
         @endif

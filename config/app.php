@@ -179,7 +179,6 @@ return [
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Hootlex\Moderation\ModerationServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
-        ChristofferOK\LaravelEmojiOne\LaravelEmojiOneServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
@@ -218,6 +217,7 @@ return [
         'Cache'        => Illuminate\Support\Facades\Cache::class,
         'Config'       => Illuminate\Support\Facades\Config::class,
         'Cookie'       => Illuminate\Support\Facades\Cookie::class,
+        'CookieConsent'   => BrianFaust\CookieConsent\Facades\CookieConsent::class,
         'Crypt'        => Illuminate\Support\Facades\Crypt::class,
         'DB'           => Illuminate\Support\Facades\DB::class,
         'Eloquent'     => Illuminate\Database\Eloquent\Model::class,
@@ -225,6 +225,8 @@ return [
         'File'         => Illuminate\Support\Facades\File::class,
         'Gate'         => Illuminate\Support\Facades\Gate::class,
         'Hash'         => Illuminate\Support\Facades\Hash::class,
+        'Image'           => Intervention\Image\Facades\Image::class,
+        'Irc'         => App\Bots\IRCAnnounceBot::class,
         'Lang'         => Illuminate\Support\Facades\Lang::class,
         'Log'          => Illuminate\Support\Facades\Log::class,
         'Mail'         => Illuminate\Support\Facades\Mail::class,
@@ -243,12 +245,6 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-
-        'CookieConsent'   => BrianFaust\CookieConsent\Facades\CookieConsent::class,
-        'LaravelEmojiOne' => ChristofferOK\LaravelEmojiOne\LaravelEmojiOneFacade::class,
-        'Image'           => Intervention\Image\Facades\Image::class,
-
-        'Irc'         => App\Bots\IRCAnnounceBot::class,
     ],
 
 ];

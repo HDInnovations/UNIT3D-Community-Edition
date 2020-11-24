@@ -4,8 +4,83 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce942412d0a4562ce8e135259e25f566",
+    "content-hash": "7fce0ccbaef59e0941d838c0def7857d",
     "packages": [
+        {
+            "name": "andkab/laravel-joypixels",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andkab/laravel-joypixels.git",
+                "reference": "01400d9ccfe067ffa2494ec39c797219570d46b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andkab/laravel-joypixels/zipball/01400d9ccfe067ffa2494ec39c797219570d46b5",
+                "reference": "01400d9ccfe067ffa2494ec39c797219570d46b5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5|^6|^7|^8",
+                "joypixels/emoji-toolkit": "^6",
+                "php": ">=7.0"
+            },
+            "suggest": {
+                "joypixels/assets": "If you want to serve the emojione assets yourself"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "andkab\\LaravelJoyPixels\\LaravelJoyPixelsServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelJoyPixels": "andkab\\LaravelJoyPixels\\LaravelJoyPixelsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "andkab\\LaravelJoyPixels\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Frost",
+                    "email": "andkab2012@gmail.com",
+                    "homepage": "https://andkab.best",
+                    "role": "Developer"
+                },
+                {
+                    "name": ":Christoffer Korvald",
+                    "email": "korvald@gmail.com",
+                    "homepage": "https://christofferok.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel helper for Joypixels, EmojiOne",
+            "homepage": "https://github.com/andkab/laravel-joypixels",
+            "keywords": [
+                "ChristofferOK",
+                "JoyPixels",
+                "LaravelEmojiOne",
+                "LaravelJoyPixels",
+                "andkab",
+                "andrew_frost",
+                "emoji",
+                "emojione",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/andkab/laravel-joypixels/issues",
+                "source": "https://github.com/andkab/laravel-joypixels/tree/1.0.3"
+            },
+            "time": "2020-09-10T04:55:33+00:00"
+        },
         {
             "name": "appstract/laravel-opcache",
             "version": "4.0.1",
@@ -509,75 +584,6 @@
                 }
             ],
             "time": "2020-08-18T23:57:15+00:00"
-        },
-        {
-            "name": "christofferok/laravel-emojione",
-            "version": "4.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/christofferok/laravel-emojione.git",
-                "reference": "76079be0363ab06cd8ae0dbf5a04131db11043e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/christofferok/laravel-emojione/zipball/76079be0363ab06cd8ae0dbf5a04131db11043e5",
-                "reference": "76079be0363ab06cd8ae0dbf5a04131db11043e5",
-                "shasum": ""
-            },
-            "require": {
-                "emojione/emojione": "^4.0.0",
-                "illuminate/support": "~5.1|~6.0|~7.0|~8.0",
-                "php": "~5.6|~7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0||~5.0",
-                "squizlabs/php_codesniffer": "^2.3"
-            },
-            "suggest": {
-                "emojione/assets": "If you want to serve the emojione assets yourself"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ChristofferOK\\LaravelEmojiOne\\LaravelEmojiOneServiceProvider"
-                    ],
-                    "aliases": {
-                        "LaravelEmojiOne": "ChristofferOK\\LaravelEmojiOne\\LaravelEmojiOneFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ChristofferOK\\LaravelEmojiOne\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": ":Christoffer Korvald",
-                    "email": "korvald@gmail.com",
-                    "homepage": "https://christofferok.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Laravel helper for EmojiOne",
-            "homepage": "https://github.com/christofferok/LaravelEmojiOne",
-            "keywords": [
-                "ChristofferOK",
-                "LaravelEmojiOne",
-                "emoji",
-                "emojione",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/christofferok/laravel-emojione/issues",
-                "source": "https://github.com/christofferok/laravel-emojione/tree/4.0.4"
-            },
-            "time": "2020-09-17T07:13:42+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1283,94 +1289,6 @@
             "time": "2020-09-10T06:38:47+00:00"
         },
         {
-            "name": "emojione/assets",
-            "version": "4.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/emojione/emojione-assets.git",
-                "reference": "88478c659a64af0176c7b0cd0778f1f9cb8f916f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/emojione/emojione-assets/zipball/88478c659a64af0176c7b0cd0778f1f9cb8f916f",
-                "reference": "88478c659a64af0176c7b0cd0778f1f9cb8f916f",
-                "shasum": ""
-            },
-            "suggest": {
-                "emojione/emojione": "A set of libraries to make using emoji on your websites easier."
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "description": "Emojis in png format brought to you by EmojiOne. EmojiOne is a complete set of emojis designed for the web.",
-            "homepage": "https://www.emojione.com",
-            "keywords": [
-                "emoji",
-                "emojione",
-                "emojis",
-                "emoticons",
-                "smileys",
-                "smilies",
-                "unicode"
-            ],
-            "support": {
-                "issues": "https://github.com/emojione/emojione-assets/issues",
-                "source": "https://github.com/emojione/emojione-assets/tree/4.5"
-            },
-            "abandoned": true,
-            "time": "2019-01-23T22:10:07+00:00"
-        },
-        {
-            "name": "emojione/emojione",
-            "version": "4.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/emojione/emojione.git",
-                "reference": "79e685356877cbb6128074a71b7f88f435b58412"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/emojione/emojione/zipball/79e685356877cbb6128074a71b7f88f435b58412",
-                "reference": "79e685356877cbb6128074a71b7f88f435b58412",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.6 || ~5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Emojione\\": "lib/php/src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "(CC-BY-4.0 and MIT)"
-            ],
-            "description": "EmojiOne is a complete set of emojis designed for the web. It includes libraries to easily convert unicode characters to shortnames (:smile:) and shortnames to our custom emoji images. PNG format provided for the emoji images.",
-            "homepage": "http://www.emojione.com",
-            "keywords": [
-                "emoji",
-                "emojione",
-                "emojis",
-                "emoticons",
-                "smileys",
-                "smilies",
-                "unicode"
-            ],
-            "support": {
-                "issues": "https://github.com/emojione/emojione/issues",
-                "source": "https://github.com/emojione/emojione/tree/4.5.0"
-            },
-            "abandoned": true,
-            "time": "2019-02-15T01:32:20+00:00"
-        },
-        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.13.0",
             "source": {
@@ -2044,6 +1962,95 @@
                 "source": "https://github.com/Intervention/image/tree/master"
             },
             "time": "2019-11-02T09:15:47+00:00"
+        },
+        {
+            "name": "joypixels/assets",
+            "version": "v6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joypixels/emoji-assets.git",
+                "reference": "efce79f143188c7899b43e4a047a820e755d8f4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joypixels/emoji-assets/zipball/efce79f143188c7899b43e4a047a820e755d8f4d",
+                "reference": "efce79f143188c7899b43e4a047a820e755d8f4d",
+                "shasum": ""
+            },
+            "suggest": {
+                "joypixels/emoji-toolkit": "A set of libraries to make using emoji on your websites easier."
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Emoji in png format brought to you by JoyPixels. JoyPixels is a complete set of emojis designed for the web. Licensing required: https://www.joypixels.com/licenses.",
+            "homepage": "https://www.joypixels.com",
+            "keywords": [
+                "JoyPixels",
+                "emoji",
+                "emojione",
+                "emojis",
+                "emoticons",
+                "smileys",
+                "smilies",
+                "unicode"
+            ],
+            "support": {
+                "issues": "https://github.com/joypixels/emoji-assets/issues",
+                "source": "https://github.com/joypixels/emoji-assets/tree/master"
+            },
+            "time": "2020-06-21T17:04:03+00:00"
+        },
+        {
+            "name": "joypixels/emoji-toolkit",
+            "version": "6.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joypixels/emoji-toolkit.git",
+                "reference": "e74cb16a435aab08f4a26e45e92583b986ce5d77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joypixels/emoji-toolkit/zipball/e74cb16a435aab08f4a26e45e92583b986ce5d77",
+                "reference": "e74cb16a435aab08f4a26e45e92583b986ce5d77",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6 || ~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JoyPixels\\": "lib/php/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(CC-BY-4.0 and MIT)"
+            ],
+            "description": "JoyPixels is a complete set of emoji designed for the web. The emoji-toolkit includes libraries to easily convert unicode characters to shortnames (:smile:) and shortnames to JoyPixels emoji images. PNG formats provided for the emoji images.",
+            "homepage": "http://www.joypixels.com",
+            "keywords": [
+                "JoyPixels",
+                "emoji",
+                "emoji-toolkit",
+                "emojione",
+                "emojis",
+                "emoticons",
+                "smileys",
+                "smilies",
+                "unicode"
+            ],
+            "support": {
+                "issues": "https://github.com/joypixels/emoji-toolkit/issues",
+                "source": "https://github.com/joypixels/emoji-toolkit/tree/master"
+            },
+            "time": "2020-08-11T20:49:03+00:00"
         },
         {
             "name": "kyslik/column-sortable",

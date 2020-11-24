@@ -125,7 +125,7 @@
                             </aside>
 
                             <article class="col-md-9 post-content">
-                                @emojione($p->getContentHtml())
+                                @joypixels($p->getContentHtml())
 
                             </article>
 

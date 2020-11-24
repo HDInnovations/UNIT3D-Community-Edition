@@ -144,7 +144,7 @@
                                                         aria-hidden="true"></i></a>
                                         @endif
                                         <div class="pt-5">
-                                            @emojione($comment->getContentHtml())
+                                            @joypixels($comment->getContentHtml())
                                         </div>
                                     </div>
                                 </li>

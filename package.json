@@ -14,7 +14,6 @@
     "axios": "^0.21",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^7.0",
-    "emojione-assets": "^4.5.0",
     "jquery": "^3.5.1",
     "laravel-echo": "^1.9.0",
     "laravel-mix": "^5.0.9",
