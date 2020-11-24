@@ -17,22 +17,22 @@
     "emojione-assets": "^4.5.0",
     "jquery": "^3.5.1",
     "laravel-echo": "^1.9.0",
-    "laravel-mix": "^5.0.7",
+    "laravel-mix": "^5.0.9",
     "laravel-mix-purgecss": "^5.0.0",
     "lodash": "^4.17.20",
     "resolve-url-loader": "3.1.2",
-    "sass": "^1.27.0",
-    "sass-loader": "^10.0.4",
+    "sass": "^1.29.0",
+    "sass-loader": "^10.1.0",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.1",
-    "sweetalert2": "^10.8.1",
+    "sweetalert2": "^10.10.1",
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.12",
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "dayjs": "^1.9.4",
+    "dayjs": "^1.9.6",
     "laravel-mix-sri": "0.0.5",
-    "npm-check-updates": "^9.2.3"
+    "npm-check-updates": "^10.2.2"
   }
 }
