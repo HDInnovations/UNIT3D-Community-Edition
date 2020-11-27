@@ -13,11 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PrivateMessage;
-use App\Models\User;
 use App\Models\Warning;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WarningControllerTest
  */
@@ -39,8 +36,10 @@ class WarningController extends \App\Http\Controllers\Controller
         $warningcount = \App\Models\Warning::where('user_id', '=', $user->id)->count();
         $softDeletedWarnings = \App\Models\Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
         $softDeletedWarningCount = \App\Models\Warning::where('user_id', '=', $user->id)->onlyTrashed()->count();
+
         return \view('user.warninglog', ['warnings' => $warnings, 'warningcount' => $warningcount, 'softDeletedWarnings' => $softDeletedWarnings, 'softDeletedWarningCount' => $softDeletedWarningCount, 'user' => $user]);
     }
+
     /**
      * Deactivate A Warning.
      *
@@ -62,10 +61,12 @@ class WarningController extends \App\Http\Controllers\Controller
         $privateMessage->sender_id = $staff->id;
         $privateMessage->receiver_id = $warning->user_id;
         $privateMessage->subject = 'Hit and Run Warning Deactivated';
-        $privateMessage->message = $staff->username . ' has decided to deactivate your active warning for torrent ' . $warning->torrent . ' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->message = $staff->username.' has decided to deactivate your active warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $privateMessage->save();
+
         return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])->withSuccess('Warning Was Successfully Deactivated');
     }
+
     /**
      * Deactivate All Warnings.
      *
@@ -90,10 +91,12 @@ class WarningController extends \App\Http\Controllers\Controller
         $privateMessage->sender_id = $staff->id;
         $privateMessage->receiver_id = $user->id;
         $privateMessage->subject = 'All Hit and Run Warning Deactivated';
-        $privateMessage->message = $staff->username . ' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->message = $staff->username.' has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $privateMessage->save();
+
         return \redirect()->route('warnings.show', ['username' => $user->username])->withSuccess('All Warnings Were Successfully Deactivated');
     }
+
     /**
      * Delete A Warning.
      *
@@ -114,13 +117,15 @@ class WarningController extends \App\Http\Controllers\Controller
         $privateMessage->sender_id = $staff->id;
         $privateMessage->receiver_id = $warning->user_id;
         $privateMessage->subject = 'Hit and Run Warning Deleted';
-        $privateMessage->message = $staff->username . ' has decided to delete your warning for torrent ' . $warning->torrent . ' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->message = $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $privateMessage->save();
         $warning->deleted_by = $staff->id;
         $warning->save();
         $warning->delete();
+
         return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])->withSuccess('Warning Was Successfully Deleted');
     }
+
     /**
      * Delete All Warnings.
      *
@@ -145,10 +150,12 @@ class WarningController extends \App\Http\Controllers\Controller
         $privateMessage->sender_id = $staff->id;
         $privateMessage->receiver_id = $user->id;
         $privateMessage->subject = 'All Hit and Run Warnings Deleted';
-        $privateMessage->message = $staff->username . ' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+        $privateMessage->message = $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
         $privateMessage->save();
+
         return \redirect()->route('warnings.show', ['username' => $user->username])->withSuccess('All Warnings Were Successfully Deleted');
     }
+
     /**
      * Restore A Soft Deleted Warning.
      *
@@ -163,6 +170,7 @@ class WarningController extends \App\Http\Controllers\Controller
         $staff = $request->user();
         $warning = \App\Models\Warning::withTrashed()->findOrFail($id);
         $warning->restore();
+
         return \redirect()->route('warnings.show', ['username' => $warning->warneduser->username])->withSuccess('Warning Was Successfully Restored');
     }
 }

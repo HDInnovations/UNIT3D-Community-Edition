@@ -13,9 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Wish.
  *
@@ -52,6 +49,7 @@ class Wish extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $guarded = [];
+
     /**
      * Belongs To A User.
      *

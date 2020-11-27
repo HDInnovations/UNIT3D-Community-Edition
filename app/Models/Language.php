@@ -13,10 +13,10 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 class Language
 {
     use \App\Traits\Auditable;
+
     /**
      * Get single flags view.
      *
@@ -31,8 +31,10 @@ class Language
         }
         $name = self::getName($code);
         $code = self::country($code);
+
         return \view('vendor.language.flag', ['code' => $code, 'name' => $name]);
     }
+
     /**
      * Get country code based on locale.
      *
@@ -48,8 +50,10 @@ class Language
         if (\config('language.mode.code', 'short') == 'short') {
             return \strtolower(\substr(self::getLongCode($locale), 3));
         }
+
         return \strtolower(\substr($locale, 3));
     }
+
     /**
      * Get all flags view.
      *
@@ -59,6 +63,7 @@ class Language
     {
         return \view('vendor.language.flags');
     }
+
     /**
      * Return true if $code is an allowed lang.
      * Get all allowed languages.
@@ -75,8 +80,10 @@ class Language
         if (\config('language.allowed')) {
             return self::names(\array_merge(\config('language.allowed'), [\config('app.locale')]));
         }
+
         return self::names([\config('app.locale')]);
     }
+
     /**
      * Add names to an array of language codes as [$code => $language].
      *
@@ -101,8 +108,10 @@ class Language
             }
             $array[$code] = $lang_name;
         }
+
         return $array;
     }
+
     /**
      * Add names to an array of language codes as [$language => $code].
      *
@@ -127,8 +136,10 @@ class Language
             }
             $array[$lang] = $lang_code;
         }
+
         return $array;
     }
+
     /**
      * Returns the url to set up language and return back.
      *
@@ -140,6 +151,7 @@ class Language
     {
         return \route('back', ['locale' => $code]);
     }
+
     /**
      * Returns the url to set up language and return to url('/').
      *
@@ -151,6 +163,7 @@ class Language
     {
         return \route('home', ['locale' => $code]);
     }
+
     /**
      * Returns the language code.
      *
@@ -163,8 +176,10 @@ class Language
         if ($name === 'default') {
             $name = self::getName();
         }
+
         return self::codes([$name])[$name];
     }
+
     /**
      * Returns the language long code.
      *
@@ -186,8 +201,10 @@ class Language
             }
             $long = $language['long'];
         }
+
         return $long;
     }
+
     /**
      * Returns the language short code.
      *
@@ -209,8 +226,10 @@ class Language
             }
             $short = $language['short'];
         }
+
         return $short;
     }
+
     /**
      * Returns the language name.
      *
@@ -223,6 +242,7 @@ class Language
         if ($code === 'default') {
             $code = \app()->getLocale();
         }
+
         return self::names([$code])[$code];
     }
 }

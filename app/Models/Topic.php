@@ -13,10 +13,6 @@
 
 namespace App\Models;
 
-use App\Notifications\NewPost;
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Topic.
  *
@@ -81,6 +77,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
     protected $casts = ['last_reply_at' => 'datetime'];
+
     /**
      * Belongs To A Forum.
      *
@@ -90,6 +87,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Forum::class);
     }
+
     /**
      * Belongs To A User.
      *
@@ -99,6 +97,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'first_post_user_id', 'id');
     }
+
     /**
      * Has Many Posts.
      *
@@ -108,6 +107,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Post::class);
     }
+
     /**
      * Has Many Subscriptions.
      *
@@ -117,6 +117,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Subscription::class);
     }
+
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.
      *
@@ -135,6 +136,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
             }
         }
     }
+
     /**
      * Notify Staffers When New Staff Post Is Made.
      *
@@ -151,6 +153,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
             $staffer->notify(new \App\Notifications\NewPost('staff', $poster, $post));
         }
     }
+
     /**
      * Does User Have Permission To View Topic.
      *
@@ -161,8 +164,10 @@ class Topic extends \Illuminate\Database\Eloquent\Model
         if (\auth()->user()->group->is_modo) {
             return true;
         }
+
         return $this->forum->getPermission()->read_topic;
     }
+
     /**
      * Notify Starter When An Action Is Taken.
      *
@@ -178,8 +183,10 @@ class Topic extends \Illuminate\Database\Eloquent\Model
         if ($user->acceptsNotification(\auth()->user(), $user, 'forum', 'show_forum_topic')) {
             $user->notify(new \App\Notifications\NewPost('topic', $poster, $post));
         }
+
         return true;
     }
+
     /**
      * Get Post Number From ID.
      *
@@ -196,6 +203,7 @@ class Topic extends \Illuminate\Database\Eloquent\Model
                 break;
             }
         }
+
         return $count;
     }
 }

@@ -14,11 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
+
 /**
  * App\Models\Post.
  *
@@ -50,6 +46,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A Topic.
      *
@@ -59,6 +56,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Topic::class);
     }
+
     /**
      * Belongs To A User.
      *
@@ -68,6 +66,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * A Post Has Many Likes.
      *
@@ -77,6 +76,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Like::class);
     }
+
     /**
      * A Post Has Many Tips.
      *
@@ -86,6 +86,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\BonTransactions::class);
     }
+
     /**
      * Set The Posts Content After Its Been Purified.
      *
@@ -98,6 +99,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
         $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['content'] = $antiXss->xss_clean($value);
     }
+
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -107,8 +109,10 @@ class Post extends \Illuminate\Database\Eloquent\Model
     {
         $bbcode = new \App\Helpers\Bbcode();
         $linkify = new \App\Helpers\Linkify();
+
         return $bbcode->parse($linkify->linky($this->content), true);
     }
+
     /**
      * Post Trimming.
      *
@@ -136,8 +140,10 @@ class Post extends \Illuminate\Database\Eloquent\Model
         if ($ellipses) {
             $trimmed_text .= '...';
         }
+
         return $trimmed_text;
     }
+
     /**
      * Get A Post From A ID.
      *
@@ -147,6 +153,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
     {
         return $this->topic->postNumberFromId($this->id);
     }
+
     /**
      * Get A Posts Page Number.
      *
@@ -155,6 +162,7 @@ class Post extends \Illuminate\Database\Eloquent\Model
     public function getPageNumber()
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
+
         return \floor($result);
     }
 }

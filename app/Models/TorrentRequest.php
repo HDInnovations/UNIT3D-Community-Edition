@@ -14,12 +14,8 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
-use App\Notifications\NewComment;
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
+
 /**
  * App\Models\TorrentRequest.
  *
@@ -101,6 +97,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
      * @var string
      */
     protected $table = 'requests';
+
     /**
      * Belongs To A User.
      *
@@ -110,6 +107,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A User.
      *
@@ -119,6 +117,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'approved_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A User.
      *
@@ -128,6 +127,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'filled_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A Category.
      *
@@ -137,6 +137,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Category::class);
     }
+
     /**
      * Belongs To A Type.
      *
@@ -146,6 +147,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Type::class);
     }
+
     /**
      * Belongs To A Resolution.
      *
@@ -155,6 +157,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Resolution::class);
     }
+
     /**
      * Belongs To A Torrent.
      *
@@ -164,6 +167,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Torrent::class, 'filled_hash', 'info_hash');
     }
+
     /**
      * Has Many Comments.
      *
@@ -173,6 +177,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Comment::class, 'requests_id', 'id');
     }
+
     /**
      * Has Many BON Bounties.
      *
@@ -182,6 +187,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\TorrentRequestBounty::class, 'requests_id', 'id');
     }
+
     /**
      * Set The Requests Description After Its Been Purified.
      *
@@ -194,6 +200,7 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
         $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['description'] = $antiXss->xss_clean($value);
     }
+
     /**
      * Parse Description And Return Valid HTML.
      *
@@ -203,8 +210,10 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
     {
         $bbcode = new \App\Helpers\Bbcode();
         $linkify = new \App\Helpers\Linkify();
+
         return $bbcode->parse($linkify->linky($this->description), true);
     }
+
     /**
      * Notify Requester When A New Action Is Taken.
      *
@@ -218,8 +227,10 @@ class TorrentRequest extends \Illuminate\Database\Eloquent\Model
         $user = \App\Models\User::with('notification')->findOrFail($this->user_id);
         if ($user->acceptsNotification(\auth()->user(), $user, 'request', 'show_request_comment')) {
             $user->notify(new \App\Notifications\NewComment('request', $payload));
+
             return true;
         }
+
         return true;
     }
 }

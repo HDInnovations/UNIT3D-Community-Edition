@@ -13,11 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\History;
-use App\Models\PrivateMessage;
 use App\Models\Warning;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Unit\Console\Commands\AutoWarningTest
  */
@@ -35,6 +33,7 @@ class AutoWarning extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Automatically Post Warnings To Users Accounts and Warnings Table';
+
     /**
      * Execute the console command.
      *
@@ -48,7 +47,7 @@ class AutoWarning extends \Illuminate\Console\Command
             $carbon = new \Carbon\Carbon();
             $hitrun = \App\Models\History::with(['user', 'torrent'])->where('actual_downloaded', '>', 0)->where('prewarn', '=', 1)->where('hitrun', '=', 0)->where('immune', '=', 0)->where('active', '=', 0)->where('seedtime', '<', \config('hitrun.seedtime'))->where('updated_at', '<', $carbon->copy()->subDays(\config('hitrun.grace'))->toDateTimeString())->get();
             foreach ($hitrun as $hr) {
-                if (!$hr->user->group->is_immune && $hr->actual_downloaded > $hr->torrent->size * (\config('hitrun.buffer') / 100)) {
+                if (! $hr->user->group->is_immune && $hr->actual_downloaded > $hr->torrent->size * (\config('hitrun.buffer') / 100)) {
                     $exsist = \App\Models\Warning::withTrashed()->where('torrent', '=', $hr->torrent->id)->where('user_id', '=', $hr->user->id)->first();
                     // Insert Warning Into Warnings Table if doesnt already exsist
                     if ($exsist === null) {
@@ -69,7 +68,7 @@ class AutoWarning extends \Illuminate\Console\Command
                         $pm->sender_id = 1;
                         $pm->receiver_id = $hr->user->id;
                         $pm->subject = 'Hit and Run Warning Received';
-                        $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent ' . $hr->torrent->name . '[/b]
+                        $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent '.$hr->torrent->name.'[/b]
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                         $pm->save();
                         $hr->save();

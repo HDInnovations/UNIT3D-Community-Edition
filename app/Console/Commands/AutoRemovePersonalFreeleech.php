@@ -13,10 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\PersonalFreeleech;
-use App\Models\PrivateMessage;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Unit\Console\Commands\AutoRemovePersonalFreeleechTest
  */
@@ -34,6 +32,7 @@ class AutoRemovePersonalFreeleech extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Automatically Removes A Users Personal Freeleech If It Has Expired';
+
     /**
      * Execute the console command.
      *

@@ -13,9 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Voter.
  *
@@ -41,6 +38,7 @@ class Voter extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A Poll.
      *
@@ -50,6 +48,7 @@ class Voter extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Poll::class);
     }
+
     /**
      * Belongs To A User.
      *

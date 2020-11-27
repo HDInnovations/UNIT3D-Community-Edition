@@ -17,18 +17,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\TrackerException;
-use App\Helpers\Bencode;
-use App\Jobs\ProcessBasicAnnounceRequest;
-use App\Jobs\ProcessCompletedAnnounceRequest;
-use App\Jobs\ProcessStartedAnnounceRequest;
-use App\Jobs\ProcessStoppedAnnounceRequest;
-use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 class AnnounceController extends \App\Http\Controllers\Controller
 {
     // Torrent Moderation Codes
@@ -66,6 +59,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
         // Gnutella (FrostWire, Limewire, Shareaza, etc.), BearShare file sharing app
         6699,
     ];
+
     /**
      * Announce Code.
      *
@@ -125,6 +119,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
             return $this->sendFinalAnnounceResponse($rep_dict);
         }
     }
+
     /**
      * @param Request $request
      *
@@ -135,7 +130,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
     protected function checkClient(\Illuminate\Http\Request $request): void
     {
         // Miss Header User-Agent is not allowed.
-        if (!$request->header('User-Agent')) {
+        if (! $request->header('User-Agent')) {
             throw new \App\Exceptions\TrackerException(120);
         }
         // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
@@ -152,6 +147,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
             throw new \App\Exceptions\TrackerException(121);
         }
     }
+
     /** Check Passkey Exist and Valid.
      *
      * @param $passkey
@@ -176,6 +172,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
             throw new \App\Exceptions\TrackerException(131, [':attribute' => 'passkey', ':reason' => 'The format of passkey isnt correct']);
         }
     }
+
     /**
      * @param \Illuminate\Http\Request $request
      *
@@ -189,7 +186,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
         // Part.1 check Announce **Need** Fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
             $item_data = $request->query->get($item);
-            if (!\is_null($item_data)) {
+            if (! \is_null($item_data)) {
                 $queries[$item] = $item_data;
             } else {
                 throw new \App\Exceptions\TrackerException(130, [':attribute' => $item]);
@@ -202,7 +199,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
         }
         foreach (['uploaded', 'downloaded', 'left'] as $item) {
             $item_data = $queries[$item];
-            if (!\is_numeric($item_data) || $item_data < 0) {
+            if (! \is_numeric($item_data) || $item_data < 0) {
                 throw new \App\Exceptions\TrackerException(134, [':attribute' => $item]);
             }
         }
@@ -211,11 +208,11 @@ class AnnounceController extends \App\Http\Controllers\Controller
             $queries[$item] = $request->query->get($item, $value);
         }
         foreach (['numwant', 'corrupt', 'no_peer_id', 'compact'] as $item) {
-            if (!\is_numeric($queries[$item]) || $queries[$item] < 0) {
+            if (! \is_numeric($queries[$item]) || $queries[$item] < 0) {
                 throw new \App\Exceptions\TrackerException(134, [':attribute' => $item]);
             }
         }
-        if (!\in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
+        if (! \in_array(\strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', ''])) {
             throw new \App\Exceptions\TrackerException(136, [':event' => \strtolower($queries['event'])]);
         }
         // Part.3 check Port is Valid and Allowed
@@ -226,7 +223,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
         if ($queries['port'] === 0 && \strtolower($queries['event']) !== 'stopped') {
             throw new \App\Exceptions\TrackerException(137, [':event' => \strtolower($queries['event'])]);
         }
-        if (!\is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS, true)) {
+        if (! \is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xffff || \in_array($queries['port'], self::BLACK_PORTS, true)) {
             throw new \App\Exceptions\TrackerException(135, [':port' => $queries['port']]);
         }
         // Part.4 Get User Ip Address
@@ -237,8 +234,10 @@ class AnnounceController extends \App\Http\Controllers\Controller
         $queries['info_hash'] = \bin2hex($queries['info_hash']);
         // Part.7 bin2hex peer_id
         $queries['peer_id'] = \bin2hex($queries['peer_id']);
+
         return $queries;
     }
+
     /** Get User Via Validated Passkey.
      *
      * @param $passkey
@@ -251,9 +250,9 @@ class AnnounceController extends \App\Http\Controllers\Controller
     protected function checkUser($passkey, $queries): object
     {
         // Caached System Required Groups
-        $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = \cache()->rememberForever('validating_group', fn() => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn () => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
         // Check Passkey Against Users Table
         $user = \App\Models\User::where('passkey', '=', $passkey)->first();
         // If User Doesn't Exist Return Error to Client
@@ -276,8 +275,10 @@ class AnnounceController extends \App\Http\Controllers\Controller
         if ($user->group_id === $disabled_group[0]) {
             throw new \App\Exceptions\TrackerException(141, [':status' => 'Disabled']);
         }
+
         return $user;
     }
+
     /**
      * @param $info_hash
      *
@@ -305,8 +306,10 @@ class AnnounceController extends \App\Http\Controllers\Controller
         if ($torrent->status === self::POSTPONED) {
             throw new \App\Exceptions\TrackerException(151, [':status' => 'POSTPONED Moderation']);
         }
+
         return $torrent;
     }
+
     /**
      * @param $queries
      * @param $user
@@ -321,6 +324,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
             throw new \App\Exceptions\TrackerException(162, [':min' => self::MIN]);
         }
     }
+
     /**
      * @param $torrent
      * @param $user
@@ -336,6 +340,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
             throw new \App\Exceptions\TrackerException(138, [':limit' => config('announce.rate_limit')]);
         }
     }
+
     /**
      * @param $user
      *
@@ -353,6 +358,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
             }
         }
     }
+
     /**
      * @param $queries
      * @param $torrent
@@ -377,8 +383,10 @@ class AnnounceController extends \App\Http\Controllers\Controller
             $rep_dict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV4);
             $rep_dict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
         }
+
         return $rep_dict;
     }
+
     /**
      * @param $queries
      * @param $user
@@ -398,6 +406,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
             \App\Jobs\ProcessBasicAnnounceRequest::dispatch($queries, $user, $torrent);
         }
     }
+
     /**
      * @param \App\Exceptions\TrackerException $trackerException
      *
@@ -407,6 +416,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
     {
         return ['failure reason' => $trackerException->getMessage(), 'min interval' => self::MIN];
     }
+
     /**
      * @param $rep_dict
      *
@@ -416,6 +426,7 @@ class AnnounceController extends \App\Http\Controllers\Controller
     {
         return \response(\App\Helpers\Bencode::bencode($rep_dict))->withHeaders(['Content-Type' => 'text/plain; charset=utf-8'])->withHeaders(['Connection' => 'close'])->withHeaders(['Pragma' => 'no-cache']);
     }
+
     /**
      * @param $peers
      * @param $compact
@@ -434,14 +445,17 @@ class AnnounceController extends \App\Http\Controllers\Controller
                     $pcomp .= \pack('n', (int) $p['port']);
                 }
             }
+
             return $pcomp;
         }
         if ($no_peer_id) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);
             }
+
             return $peers;
         }
+
         return $peers;
     }
 }

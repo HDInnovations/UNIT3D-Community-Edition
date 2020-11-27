@@ -13,9 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Audit;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleAuditsTest
  */
@@ -33,6 +32,7 @@ class AutoRecycleAudits extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Recycle Activity From Log Once 30 Days Old.';
+
     /**
      * Execute the console command.
      *

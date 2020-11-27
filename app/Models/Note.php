@@ -13,9 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\Note.
  *
@@ -49,6 +48,7 @@ class Note extends \Illuminate\Database\Eloquent\Model
      * @var string
      */
     protected $table = 'user_notes';
+
     /**
      * Belongs To A User.
      *
@@ -58,6 +58,7 @@ class Note extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A User.
      *

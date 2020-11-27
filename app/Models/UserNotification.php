@@ -13,9 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\UserNotification.
  *
@@ -106,6 +105,7 @@ class UserNotification extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $casts = ['json_account_groups' => 'array', 'json_mention_groups' => 'array', 'json_request_groups' => 'array', 'json_torrent_groups' => 'array', 'json_forum_groups' => 'array', 'json_following_groups' => 'array', 'json_subscription_groups' => 'array', 'json_bon_groups' => 'array'];
+
     /**
      * Belongs To A User.
      *
@@ -115,6 +115,7 @@ class UserNotification extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Get the Expected groups for form validation.
      *
@@ -124,6 +125,7 @@ class UserNotification extends \Illuminate\Database\Eloquent\Model
     {
         return ['default_groups' => ['1' => 0]];
     }
+
     /**
      * Get the Expected fields for form validation.
      *
@@ -133,6 +135,7 @@ class UserNotification extends \Illuminate\Database\Eloquent\Model
     {
         return [];
     }
+
     /**
      * Set the base vars on object creation without touching boot.
      *

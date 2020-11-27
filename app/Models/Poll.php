@@ -13,10 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 /**
  * App\Models\Poll.
  *
@@ -55,6 +51,7 @@ class Poll extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $fillable = ['title', 'slug', 'multiple_choice'];
+
     /**
      * Belongs To A User.
      *
@@ -64,6 +61,7 @@ class Poll extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * A Poll Has Many Options.
      *
@@ -73,6 +71,7 @@ class Poll extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Option::class);
     }
+
     /**
      * A Poll Has Many Voters.
      *
@@ -82,6 +81,7 @@ class Poll extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Voter::class);
     }
+
     /**
      * Set The Poll's Title, Adds A Question Mark (?) If Needed.
      *
@@ -92,10 +92,12 @@ class Poll extends \Illuminate\Database\Eloquent\Model
     public function setTitleAttribute($title)
     {
         if (\substr($title, -1) !== '?') {
-            return $this->attributes['title'] = $title . '?';
+            return $this->attributes['title'] = $title.'?';
         }
+
         return $this->attributes['title'] = $title;
     }
+
     /**
      * Create A Poll Title Slug.
      *
@@ -107,8 +109,10 @@ class Poll extends \Illuminate\Database\Eloquent\Model
     {
         $slug = \strlen($title) > 20 ? \substr(\Illuminate\Support\Str::slug($title), 0, 20) : \Illuminate\Support\Str::slug($title);
         $count = $this->where('slug', 'LIKE', "%{$slug}%")->count();
+
         return $count ? \sprintf('%s-%s', $slug, $count) : $slug;
     }
+
     /**
      * Get Total Votes On A Poll Option.
      *
@@ -120,8 +124,10 @@ class Poll extends \Illuminate\Database\Eloquent\Model
         foreach ($this->options as $option) {
             $result += $option->votes;
         }
+
         return $result;
     }
+
     protected static function boot()
     {
         parent::boot();
@@ -129,6 +135,7 @@ class Poll extends \Illuminate\Database\Eloquent\Model
             if (empty($poll->slug)) {
                 $poll->slug = $poll->makeSlugFromTitle($poll->title);
             }
+
             return true;
         });
     }

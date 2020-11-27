@@ -13,9 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\Group.
  *
@@ -83,6 +82,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
      * @var bool
      */
     public $timestamps = false;
+
     /**
      * Has Many Users.
      *
@@ -92,6 +92,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\User::class);
     }
+
     /**
      * Has Many Permissions.
      *
@@ -101,6 +102,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Permission::class);
     }
+
     /**
      * Returns The Requested Row From The Permissions Table.
      *
@@ -112,6 +114,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
     {
         return \App\Models\Permission::where('forum_id', '=', $forum->id)->where('group_id', '=', $this->id)->first();
     }
+
     /**
      * Get the Group allowed answer as bool.
      *
@@ -125,6 +128,7 @@ class Group extends \Illuminate\Database\Eloquent\Model
         if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($group_id, $object['default_groups'])) {
             return $object['default_groups'][$group_id] == 1;
         }
+
         return true;
     }
 }

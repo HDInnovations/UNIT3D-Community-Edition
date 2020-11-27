@@ -13,10 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Warning.
  *
@@ -60,6 +56,7 @@ class Warning extends \Illuminate\Database\Eloquent\Model
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \Illuminate\Database\Eloquent\SoftDeletes;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A Torrent.
      *
@@ -69,6 +66,7 @@ class Warning extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Torrent::class, 'torrent');
     }
+
     /**
      * Belongs To A User.
      *
@@ -78,6 +76,7 @@ class Warning extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A USer.
      *
@@ -87,6 +86,7 @@ class Warning extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'warned_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A USer.
      *

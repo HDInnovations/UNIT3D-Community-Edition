@@ -15,10 +15,9 @@ namespace App\Console\Commands;
 
 use App\Helpers\ByteUnits;
 use App\Models\Group;
-use App\Models\History;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Unit\Console\Commands\AutoGroupTest
  */
@@ -36,6 +35,7 @@ class AutoGroup extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Automatically Change A Users Group Class If Requirements Met';
+
     /**
      * Execute the console command.
      *

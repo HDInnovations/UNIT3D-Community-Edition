@@ -13,13 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\InviteUser;
 use App\Models\Invite;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Ramsey\Uuid\Uuid;
+
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\InviteControllerTest
  */
@@ -39,8 +34,10 @@ class InviteController extends \App\Http\Controllers\Controller
         $owner = \App\Models\User::where('username', '=', $username)->firstOrFail();
         \abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
         $invites = \App\Models\Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
+
         return \view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
+
     /**
      * Invite Form.
      *
@@ -57,11 +54,13 @@ class InviteController extends \App\Http\Controllers\Controller
         if ($user->can_invite == 0) {
             return \redirect()->route('home.index')->withErrors('Your Invite Rights Have Been Revoked!');
         }
-        if (\config('other.invites_restriced') == true && !\in_array($user->group->name, \config('other.invite_groups'))) {
+        if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'))) {
             return \redirect()->route('home.index')->withErrors('Invites are currently disabled for your group.');
         }
+
         return \view('user.invite', ['user' => $user, 'route' => 'invite']);
     }
+
     /**
      * Send Invite.
      *
@@ -75,7 +74,7 @@ class InviteController extends \App\Http\Controllers\Controller
     {
         $carbon = new \Carbon\Carbon();
         $user = $request->user();
-        if (\config('other.invites_restriced') == true && !\in_array($user->group->name, \config('other.invite_groups'))) {
+        if (\config('other.invites_restriced') == true && ! \in_array($user->group->name, \config('other.invite_groups'))) {
             return \redirect()->route('home.index')->withErrors('Invites are currently disabled for your group.');
         }
         if ($user->invites <= 0) {
@@ -104,8 +103,10 @@ class InviteController extends \App\Http\Controllers\Controller
         $invite->save();
         $user->invites--;
         $user->save();
+
         return \redirect()->route('invites.create')->withSuccess('Invite was sent successfully!');
     }
+
     /**
      * Resend Invite.
      *
@@ -123,6 +124,7 @@ class InviteController extends \App\Http\Controllers\Controller
             return \redirect()->route('invites.index', ['username' => $user->username])->withErrors('The invite you are trying to resend has already been used.');
         }
         \Illuminate\Support\Facades\Mail::to($invite->email)->send(new \App\Mail\InviteUser($invite));
+
         return \redirect()->route('invites.index', ['username' => $user->username])->withSuccess('Invite was resent successfully!');
     }
 }
