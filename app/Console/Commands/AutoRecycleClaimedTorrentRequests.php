@@ -18,11 +18,10 @@ use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleClaimedTorrentRequestsTest
  */
-class AutoRecycleClaimedTorrentRequests extends Command
+class AutoRecycleClaimedTorrentRequests extends \Illuminate\Console\Command
 {
     /**
      * The name and signature of the console command.
@@ -30,26 +29,21 @@ class AutoRecycleClaimedTorrentRequests extends Command
      * @var string
      */
     protected $signature = 'auto:recycle_claimed_torrent_requests';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Recycle Torrent Requests That Wwere Claimed But Not Filled Within 7 Days.';
-
     /**
      * @var ChatRepository
      */
     private $chatRepository;
-
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
         parent::__construct();
-
         $this->chatRepository = $chatRepository;
     }
-
     /**
      * Execute the console command.
      *
@@ -59,23 +53,13 @@ class AutoRecycleClaimedTorrentRequests extends Command
      */
     public function handle()
     {
-        $current = Carbon::now();
-        $torrentRequests = TorrentRequest::where('claimed', '=', 1)
-            ->whereNull('filled_by')
-            ->whereNull('filled_when')
-            ->whereNull('filled_hash')
-            ->get();
-
+        $current = \Carbon\Carbon::now();
+        $torrentRequests = \App\Models\TorrentRequest::where('claimed', '=', 1)->whereNull('filled_by')->whereNull('filled_when')->whereNull('filled_hash')->get();
         foreach ($torrentRequests as $torrentRequest) {
-            $requestClaim = TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)
-                ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
-                ->first();
+            $requestClaim = \App\Models\TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->first();
             if ($requestClaim) {
                 $tr_url = \href_request($torrentRequest);
-                $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $tr_url, $torrentRequest->name)
-                );
-
+                $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $tr_url, $torrentRequest->name));
                 $requestClaim->delete();
                 $torrentRequest->claimed = null;
                 $torrentRequest->save();

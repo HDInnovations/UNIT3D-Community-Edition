@@ -16,11 +16,10 @@ namespace App\Console\Commands;
 use App\Models\FailedLoginAttempt;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleFailedLoginsTest
  */
-class AutoRecycleFailedLogins extends Command
+class AutoRecycleFailedLogins extends \Illuminate\Console\Command
 {
     /**
      * The name and signature of the console command.
@@ -28,14 +27,12 @@ class AutoRecycleFailedLogins extends Command
      * @var string
      */
     protected $signature = 'auto:recycle_failed_logins';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Recycle Failed Logins Once 30 Days Old.';
-
     /**
      * Execute the console command.
      *
@@ -43,9 +40,8 @@ class AutoRecycleFailedLogins extends Command
      */
     public function handle()
     {
-        $current = Carbon::now();
-        $failedLogins = FailedLoginAttempt::where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->get();
-
+        $current = \Carbon\Carbon::now();
+        $failedLogins = \App\Models\FailedLoginAttempt::where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->get();
         foreach ($failedLogins as $failedLogin) {
             $failedLogin->delete();
         }

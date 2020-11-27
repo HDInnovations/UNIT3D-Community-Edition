@@ -22,11 +22,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
-
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ApplicationControllerTest
  */
-class ApplicationController extends Controller
+class ApplicationController extends \App\Http\Controllers\Controller
 {
     /**
      * Display All Applications.
@@ -35,14 +34,9 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::withAnyStatus()
-            ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
-            ->latest()
-            ->paginate(25);
-
+        $applications = \App\Models\Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->latest()->paginate(25);
         return \view('Staff.application.index', ['applications' => $applications]);
     }
-
     /**
      * Get A Application.
      *
@@ -52,11 +46,9 @@ class ApplicationController extends Controller
      */
     public function show($id)
     {
-        $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
-
+        $application = \App\Models\Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
         return \view('Staff.application.show', ['application' => $application]);
     }
-
     /**
      * Approve A Application.
      *
@@ -67,50 +59,34 @@ class ApplicationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function approve(Request $request, $id)
+    public function approve(\Illuminate\Http\Request $request, $id)
     {
-        $application = Application::withAnyStatus()->findOrFail($id);
-
+        $application = \App\Models\Application::withAnyStatus()->findOrFail($id);
         if ($application->status !== 1) {
-            $carbon = new Carbon();
+            $carbon = new \Carbon\Carbon();
             $user = $request->user();
-
-            $code = Uuid::uuid4()->toString();
-            $invite = new Invite();
+            $code = \Ramsey\Uuid\Uuid::uuid4()->toString();
+            $invite = new \App\Models\Invite();
             $invite->user_id = $user->id;
             $invite->email = $application->email;
             $invite->code = $code;
             $invite->expires_on = $carbon->copy()->addDays(\config('other.invite_expire'));
             $invite->custom = $request->input('approve');
-
             if (\config('email-blacklist.enabled') == true) {
-                $v = \validator($request->all(), [
-                    'email'   => 'required|string|email|max:70|blacklist|unique:users|unique:invites',
-                    'approve' => 'required',
-                ]);
+                $v = \validator($request->all(), ['email' => 'required|string|email|max:70|blacklist|unique:users|unique:invites', 'approve' => 'required']);
             } else {
-                $v = \validator($request->all(), [
-                    'email'   => 'required|string|email|max:70|unique:users|unique:invites',
-                    'approve' => 'required',
-                ]);
+                $v = \validator($request->all(), ['email' => 'required|string|email|max:70|unique:users|unique:invites', 'approve' => 'required']);
             }
-
             if ($v->fails()) {
-                return \redirect()->route('staff.applications.index')
-                    ->withErrors($v->errors());
+                return \redirect()->route('staff.applications.index')->withErrors($v->errors());
             }
-            Mail::to($application->email)->send(new InviteUser($invite));
+            \Illuminate\Support\Facades\Mail::to($application->email)->send(new \App\Mail\InviteUser($invite));
             $invite->save();
             $application->markApproved();
-
-            return \redirect()->route('staff.applications.index')
-                ->withSuccess('Application Approved');
+            return \redirect()->route('staff.applications.index')->withSuccess('Application Approved');
         }
-
-        return \redirect()->route('staff.applications.index')
-                ->withErrors('Application Already Approved');
+        return \redirect()->route('staff.applications.index')->withErrors('Application Already Approved');
     }
-
     /**
      * Reject A Application.
      *
@@ -119,24 +95,16 @@ class ApplicationController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function reject(Request $request, $id)
+    public function reject(\Illuminate\Http\Request $request, $id)
     {
-        $application = Application::withAnyStatus()->findOrFail($id);
-
+        $application = \App\Models\Application::withAnyStatus()->findOrFail($id);
         if ($application->status !== 2) {
             $denied_message = $request->input('deny');
-            $v = \validator($request->all(), [
-                'deny' => 'required',
-            ]);
-
+            $v = \validator($request->all(), ['deny' => 'required']);
             $application->markRejected();
-            Mail::to($application->email)->send(new DenyApplication($denied_message));
-
-            return \redirect()->route('staff.applications.index')
-                ->withSuccess('Application Rejected');
+            \Illuminate\Support\Facades\Mail::to($application->email)->send(new \App\Mail\DenyApplication($denied_message));
+            return \redirect()->route('staff.applications.index')->withSuccess('Application Rejected');
         }
-
-        return \redirect()->route('staff.applications.index')
-            ->withErrors('Application Already Rejected');
+        return \redirect()->route('staff.applications.index')->withErrors('Application Already Rejected');
     }
 }

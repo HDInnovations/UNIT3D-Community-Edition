@@ -42,34 +42,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Models\Game;
-
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
  */
-class RequestController extends Controller
+class RequestController extends \App\Http\Controllers\Controller
 {
     /**
      * @var RequestFacetedRepository
      */
     private $requestFacetedRepository;
-
     /**
      * @var ChatRepository
      */
     private $chatRepository;
-
     /**
      * RequestController Constructor.
      *
      * @param \App\Repositories\RequestFacetedRepository $requestFacetedRepository
      * @param \App\Repositories\ChatRepository           $chatRepository
      */
-    public function __construct(RequestFacetedRepository $requestFacetedRepository, ChatRepository $chatRepository)
+    public function __construct(private \App\Repositories\RequestFacetedRepository $requestFacetedRepository, private \App\Repositories\ChatRepository $chatRepository)
     {
         $this->requestFacetedRepository = $requestFacetedRepository;
         $this->chatRepository = $chatRepository;
     }
-
     /**
      * Displays Requests List View.
      *
@@ -77,33 +73,15 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function requests(Request $request)
+    public function requests(\Illuminate\Http\Request $request)
     {
         $user = $request->user();
-
-        $requests = DB::table('requests')
-            ->selectRaw('count(*) as total')
-            ->selectRaw('count(case when filled_by != null then 1 end) as filled')
-            ->selectRaw('count(case when filled_by = null then 1 end) as unfilled')
-            ->first();
-        $bounties = DB::table('requests')
-            ->selectRaw('coalesce(sum(bounty), 0) as total')
-            ->selectRaw('coalesce(sum(case when filled_by != null then 1 end), 0) as claimed')
-            ->selectRaw('coalesce(sum(case when filled_by = null then 1 end), 0) as unclaimed')
-            ->first();
-
-        $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
+        $requests = \Illuminate\Support\Facades\DB::table('requests')->selectRaw('count(*) as total')->selectRaw('count(case when filled_by != null then 1 end) as filled')->selectRaw('count(case when filled_by = null then 1 end) as unfilled')->first();
+        $bounties = \Illuminate\Support\Facades\DB::table('requests')->selectRaw('coalesce(sum(bounty), 0) as total')->selectRaw('coalesce(sum(case when filled_by != null then 1 end), 0) as claimed')->selectRaw('coalesce(sum(case when filled_by = null then 1 end), 0) as unclaimed')->first();
+        $torrentRequests = \App\Models\TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
         $repository = $this->requestFacetedRepository;
-
-        return \view('requests.requests', [
-            'torrentRequests'  => $torrentRequests,
-            'repository'       => $repository,
-            'user'             => $user,
-            'requests'         => $requests,
-            'bounties'         => $bounties,
-        ]);
+        return \view('requests.requests', ['torrentRequests' => $torrentRequests, 'repository' => $repository, 'user' => $user, 'requests' => $requests, 'bounties' => $bounties]);
     }
-
     /**
      * Uses Input's To Put Together A Search.
      *
@@ -114,11 +92,11 @@ class RequestController extends Controller
      *
      * @return array
      */
-    public function faceted(Request $request, TorrentRequest $torrentRequest)
+    public function faceted(\Illuminate\Http\Request $request, \App\Models\TorrentRequest $torrentRequest)
     {
         $user = $request->user();
         $search = $request->input('search');
-        $imdb_id = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb_id = \Illuminate\Support\Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt' . $request->get('imdb');
         $imdb = \str_replace('tt', '', $imdb_id);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
@@ -128,104 +106,78 @@ class RequestController extends Controller
         $types = $request->input('types');
         $resolutions = $request->input('resolutions');
         $myrequests = $request->input('myrequests');
-
         $terms = \explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
-            $search .= '%'.$term.'%';
+            $search .= '%' . $term . '%';
         }
-
         $torrentRequest = $torrentRequest->with(['user', 'category', 'type']);
-
         if ($request->has('search') && $request->input('search') != null) {
             $torrentRequest->where('name', 'like', $search);
         }
-
         if ($request->has('imdb') && $request->input('imdb') != null) {
             $torrentRequest->where('imdb', '=', \str_replace('tt', '', $imdb));
         }
-
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
             $torrentRequest->orWhere('tvdb', '=', $tvdb);
         }
-
         if ($request->has('tmdb') && $request->input('tmdb') != null) {
             $torrentRequest->orWhere('tmdb', '=', $tmdb);
         }
-
         if ($request->has('mal') && $request->input('mal') != null) {
             $torrentRequest->orWhere('mal', '=', $mal);
         }
-
         if ($request->has('igdb') && $request->input('igdb') != null) {
             $torrentRequest->orWhere('igdb', '=', $igdb);
         }
-
         if ($request->has('categories') && $request->input('categories') != null) {
             $torrentRequest->whereIn('category_id', $categories);
         }
-
         if ($request->has('types') && $request->input('types') != null) {
             $torrentRequest->whereIn('type_id', $types);
         }
-
         if ($request->has('resolutions') && $request->input('resolutions') != null) {
             $torrentRequest->whereIn('resolution_id', $resolutions);
         }
-
         if ($request->has('unfilled') && $request->input('unfilled') != null) {
             $torrentRequest->where('filled_hash', '=', null);
         }
-
         if ($request->has('claimed') && $request->input('claimed') != null) {
             $torrentRequest->where('claimed', '!=', null)->where('filled_hash', '=', null);
         }
-
         if ($request->has('pending') && $request->input('pending') != null) {
             $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', '=', null);
         }
-
         if ($request->has('filled') && $request->input('filled') != null) {
             $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
         }
-
         if ($request->has('myrequests') && $request->input('myrequests') != null) {
             $torrentRequest->where('user_id', '=', $myrequests);
         }
-
         if ($request->has('myclaims') && $request->input('myclaims') != null) {
-            $requestCliams = TorrentRequestClaim::where('username', '=', $user->username)->pluck('request_id');
+            $requestCliams = \App\Models\TorrentRequestClaim::where('username', '=', $user->username)->pluck('request_id');
             $torrentRequest->whereIn('id', $requestCliams);
         }
-
         if ($request->has('myvoted') && $request->input('myvoted') != null) {
-            $requestVotes = TorrentRequestBounty::where('user_id', '=', $user->id)->pluck('requests_id');
+            $requestVotes = \App\Models\TorrentRequestBounty::where('user_id', '=', $user->id)->pluck('requests_id');
             $torrentRequest->whereIn('id', $requestVotes);
         }
-
         if ($request->has('myfiled') && $request->input('myfiled') != null) {
             $torrentRequest->where('filled_by', '=', $user->id);
         }
-
         if ($request->has('sorting')) {
             $sorting = $request->input('sorting');
             $order = $request->input('direction');
             $torrentRequest->orderBy($sorting, $order);
         }
-
         if ($request->has('qty')) {
             $qty = $request->get('qty');
             $torrentRequests = $torrentRequest->paginate($qty);
         } else {
             $torrentRequests = $torrentRequest->paginate(25);
         }
-
-        return \view('requests.results', [
-            'user'            => $user,
-            'torrentRequests' => $torrentRequests,
-        ])->render();
+        return \view('requests.results', ['user' => $user, 'torrentRequests' => $torrentRequests])->render();
     }
-
     /**
      * Display The Torrent Request.
      *
@@ -237,47 +189,33 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function request(Request $request, $id)
+    public function request(\Illuminate\Http\Request $request, $id)
     {
         // Find the torrent in the database
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
         $user = $request->user();
-        $torrentRequestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
+        $torrentRequestClaim = \App\Models\TorrentRequestClaim::where('request_id', '=', $id)->first();
         $voters = $torrentRequest->requestBounty()->get();
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
-        $carbon = Carbon::now()->addDay();
-
+        $carbon = \Carbon\Carbon::now()->addDay();
         $meta = null;
         if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
+                $meta = \App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
             }
         }
         if ($torrentRequest->category->movie_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
+                $meta = \App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
             }
         }
         if ($torrentRequest->category->game_meta) {
             if ($torrentRequest->igdb || $torrentRequest->igdb != 0) {
-                $meta = Game::with([
-                    'cover'    => ['url', 'image_id'],
-                    'artworks' => ['url', 'image_id'],
-                    'genres'   => ['name'],
-                ])->find($torrentRequest->igdb);
+                $meta = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrentRequest->igdb);
             }
         }
-
-        return \view('requests.request', [
-            'torrentRequest'      => $torrentRequest,
-            'voters'              => $voters, 'user' => $user,
-            'comments'            => $comments,
-            'carbon'              => $carbon,
-            'meta'                => $meta,
-            'torrentRequestClaim' => $torrentRequestClaim,
-        ]);
+        return \view('requests.request', ['torrentRequest' => $torrentRequest, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'meta' => $meta, 'torrentRequestClaim' => $torrentRequestClaim]);
     }
-
     /**
      * Torrent Request Add Form.
      *
@@ -288,21 +226,11 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0)
+    public function addRequestForm(\Illuminate\Http\Request $request, $title = '', $imdb = 0, $tmdb = 0)
     {
         $user = $request->user();
-
-        return \view('requests.add_request', [
-            'categories'  => Category::all()->sortBy('position'),
-            'types'       => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
-            'user'        => $user,
-            'title'       => $title,
-            'imdb'        => \str_replace('tt', '', $imdb),
-            'tmdb'        => $tmdb,
-        ]);
+        return \view('requests.add_request', ['categories' => \App\Models\Category::all()->sortBy('position'), 'types' => \App\Models\Type::all()->sortBy('position'), 'resolutions' => \App\Models\Resolution::all()->sortBy('position'), 'user' => $user, 'title' => $title, 'imdb' => \str_replace('tt', '', $imdb), 'tmdb' => $tmdb]);
     }
-
     /**
      * Store A New Torrent Request.
      *
@@ -310,12 +238,11 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function addrequest(Request $request)
+    public function addrequest(\Illuminate\Http\Request $request)
     {
         $user = $request->user();
-
-        $category = Category::findOrFail($request->input('category_id'));
-        $torrentRequest = new TorrentRequest();
+        $category = \App\Models\Category::findOrFail($request->input('category_id'));
+        $torrentRequest = new \App\Models\TorrentRequest();
         $torrentRequest->name = $request->input('name');
         $torrentRequest->description = $request->input('description');
         $torrentRequest->category_id = $category->id;
@@ -330,49 +257,29 @@ class RequestController extends Controller
         $torrentRequest->bounty = $request->input('bounty');
         $torrentRequest->votes = 1;
         $torrentRequest->anon = $request->input('anon');
-
-        $v = \validator($torrentRequest->toArray(), [
-            'name'          => 'required|max:180',
-            'imdb'          => 'required|numeric',
-            'tvdb'          => 'required|numeric',
-            'tmdb'          => 'required|numeric',
-            'mal'           => 'required|numeric',
-            'igdb'          => 'required|numeric',
-            'category_id'   => 'required|exists:categories,id',
-            'type_id'       => 'required|exists:types,id',
-            'resolution_id' => 'nullable|exists:resolutions,id',
-            'description'   => 'required|string',
-            'bounty'        => \sprintf('required|numeric|min:0|max:%s', $user->seedbonus),
-            'anon'          => 'required',
-        ]);
-
+        $v = \validator($torrentRequest->toArray(), ['name' => 'required|max:180', 'imdb' => 'required|numeric', 'tvdb' => 'required|numeric', 'tmdb' => 'required|numeric', 'mal' => 'required|numeric', 'igdb' => 'required|numeric', 'category_id' => 'required|exists:categories,id', 'type_id' => 'required|exists:types,id', 'resolution_id' => 'nullable|exists:resolutions,id', 'description' => 'required|string', 'bounty' => \sprintf('required|numeric|min:0|max:%s', $user->seedbonus), 'anon' => 'required']);
         if ($v->fails()) {
-            return \redirect()->route('requests')
-                ->withErrors($v->errors())->withInput();
+            return \redirect()->route('requests')->withErrors($v->errors())->withInput();
         }
         $torrentRequest->save();
-
-        $client = new TMDBScraper();
+        $client = new \App\Services\Tmdb\TMDBScraper();
         if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
                 $client->tv($torrentRequest->tmdb);
             }
         }
-
         if ($torrentRequest->category->movie_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
                 $client->movie($torrentRequest->tmdb);
             }
         }
-
-        $torrentRequestBounty = new TorrentRequestBounty();
+        $torrentRequestBounty = new \App\Models\TorrentRequestBounty();
         $torrentRequestBounty->user_id = $user->id;
         $torrentRequestBounty->seedbonus = $request->input('bounty');
         $torrentRequestBounty->requests_id = $torrentRequest->id;
         $torrentRequestBounty->anon = $request->input('anon');
         $torrentRequestBounty->save();
-
-        $BonTransactions = new BonTransactions();
+        $BonTransactions = new \App\Models\BonTransactions();
         $BonTransactions->itemID = 0;
         $BonTransactions->name = 'request';
         $BonTransactions->cost = $request->input('bounty');
@@ -386,19 +293,12 @@ class RequestController extends Controller
         $profile_url = \href_profile($user);
         // Auto Shout
         if ($torrentRequest->anon == 0) {
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $torrentRequest->name)
-            );
+            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $torrentRequest->name));
         } else {
-            $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $torrentRequest->name)
-            );
+            $this->chatRepository->systemMessage(\sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $torrentRequest->name));
         }
-
-        return \redirect()->route('requests')
-            ->withSuccess('Request Added.');
+        return \redirect()->route('requests')->withSuccess('Request Added.');
     }
-
     /**
      * Torrent Request Edit Form.
      *
@@ -407,19 +307,12 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editRequestForm(Request $request, $id)
+    public function editRequestForm(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
-
-        return \view('requests.edit_request', [
-            'categories'     => Category::all()->sortBy('position'),
-            'types'          => Type::all()->sortBy('position'),
-            'resolutions'    => Resolution::all()->sortBy('position'),
-            'user'           => $user,
-            'torrentRequest' => $torrentRequest, ]);
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
+        return \view('requests.edit_request', ['categories' => \App\Models\Category::all()->sortBy('position'), 'types' => \App\Models\Type::all()->sortBy('position'), 'resolutions' => \App\Models\Resolution::all()->sortBy('position'), 'user' => $user, 'torrentRequest' => $torrentRequest]);
     }
-
     /**
      * Edit A Torrent Request.
      *
@@ -428,12 +321,11 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editrequest(Request $request, $id)
+    public function editrequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
         \abort_unless($user->group->is_modo || $user->id === $torrentRequest->user_id, 403);
-
         // Find the right category
         $name = $request->input('name');
         $imdb = $request->input('imdb');
@@ -446,7 +338,6 @@ class RequestController extends Controller
         $resolution = $request->input('resolution_id');
         $description = $request->input('description');
         $anon = $request->input('anon');
-
         $torrentRequest->name = $name;
         $torrentRequest->imdb = $imdb;
         $torrentRequest->tvdb = $tvdb;
@@ -458,44 +349,24 @@ class RequestController extends Controller
         $torrentRequest->resolution_id = $resolution;
         $torrentRequest->description = $description;
         $torrentRequest->anon = $anon;
-
-        $v = \validator($torrentRequest->toArray(), [
-            'name'          => 'required|max:180',
-            'imdb'          => 'required|numeric',
-            'tvdb'          => 'required|numeric',
-            'tmdb'          => 'required|numeric',
-            'mal'           => 'required|numeric',
-            'igdb'          => 'required|numeric',
-            'category_id'   => 'required|exists:categories,id',
-            'type_id'       => 'required|exists:types,id',
-            'resolution_id' => 'nullable|exists:resolutions,id',
-            'description'   => 'required|string',
-            'anon'          => 'required',
-        ]);
-
+        $v = \validator($torrentRequest->toArray(), ['name' => 'required|max:180', 'imdb' => 'required|numeric', 'tvdb' => 'required|numeric', 'tmdb' => 'required|numeric', 'mal' => 'required|numeric', 'igdb' => 'required|numeric', 'category_id' => 'required|exists:categories,id', 'type_id' => 'required|exists:types,id', 'resolution_id' => 'nullable|exists:resolutions,id', 'description' => 'required|string', 'anon' => 'required']);
         if ($v->fails()) {
-            return \redirect()->route('requests')
-                ->withErrors($v->errors());
+            return \redirect()->route('requests')->withErrors($v->errors());
         }
         $torrentRequest->save();
-
-        $client = new TMDBScraper();
+        $client = new \App\Services\Tmdb\TMDBScraper();
         if ($torrentRequest->category->tv_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
                 $client->tv($torrentRequest->tmdb);
             }
         }
-
         if ($torrentRequest->category->movie_meta) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
                 $client->movie($torrentRequest->tmdb);
             }
         }
-
-        return \redirect()->route('requests', ['id' => $torrentRequest->id])
-            ->withSuccess('Request Edited Successfully.');
+        return \redirect()->route('requests', ['id' => $torrentRequest->id])->withSuccess('Request Edited Successfully.');
     }
-
     /**
      * Add Bounty To A Torrent Request.
      *
@@ -504,31 +375,25 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function addBonus(Request $request, $id)
+    public function addBonus(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-
-        $tr = TorrentRequest::with('user')->findOrFail($id);
+        $tr = \App\Models\TorrentRequest::with('user')->findOrFail($id);
         $tr->votes++;
         $tr->bounty += $request->input('bonus_value');
-        $tr->created_at = Carbon::now();
-
-        $v = \validator($request->all(), [
-            'bonus_value' => \sprintf('required|numeric|min:100|max:%s', $user->seedbonus),
-        ]);
-
+        $tr->created_at = \Carbon\Carbon::now();
+        $v = \validator($request->all(), ['bonus_value' => \sprintf('required|numeric|min:100|max:%s', $user->seedbonus)]);
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $tr->id])
-                ->withErrors($v->errors());
+            return \redirect()->route('request', ['id' => $tr->id])->withErrors($v->errors());
         }
         $tr->save();
-        $torrentRequestBounty = new TorrentRequestBounty();
+        $torrentRequestBounty = new \App\Models\TorrentRequestBounty();
         $torrentRequestBounty->user_id = $user->id;
         $torrentRequestBounty->seedbonus = $request->input('bonus_value');
         $torrentRequestBounty->requests_id = $tr->id;
         $torrentRequestBounty->anon = $request->input('anon');
         $torrentRequestBounty->save();
-        $BonTransactions = new BonTransactions();
+        $BonTransactions = new \App\Models\BonTransactions();
         $BonTransactions->itemID = 0;
         $BonTransactions->name = 'request';
         $BonTransactions->cost = $request->input('bonus_value');
@@ -542,24 +407,17 @@ class RequestController extends Controller
         $profile_url = \href_profile($user);
         // Auto Shout
         if ($torrentRequestBounty->anon == 0) {
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profile_url, $user->username, $request->input('bonus_value'), $tr_url, $tr->name)
-            );
+            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profile_url, $user->username, $request->input('bonus_value'), $tr_url, $tr->name));
         } else {
-            $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $tr_url, $tr->name)
-            );
+            $this->chatRepository->systemMessage(\sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $tr_url, $tr->name));
         }
         $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $tr->user;
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
-            $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
+            $requester->notify(new \App\Notifications\NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
         }
-
-        return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your bonus has been successfully added.');
+        return \redirect()->route('request', ['id' => $request->input('request_id')])->withSuccess('Your bonus has been successfully added.');
     }
-
     /**
      * Fill A Torrent Request.
      *
@@ -568,31 +426,21 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function fillRequest(Request $request, $id)
+    public function fillRequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = $user->id;
         $torrentRequest->filled_hash = $request->input('info_hash');
-        $torrentRequest->filled_when = Carbon::now();
+        $torrentRequest->filled_when = \Carbon\Carbon::now();
         $torrentRequest->filled_anon = $request->input('filled_anon');
-
-        $v = \validator($request->all(), [
-            'request_id'  => 'required|exists:requests,id',
-            'info_hash'   => 'required|exists:torrents,info_hash',
-            'filled_anon' => 'required',
-        ]);
-
-        $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
+        $v = \validator($request->all(), ['request_id' => 'required|exists:requests,id', 'info_hash' => 'required|exists:torrents,info_hash', 'filled_anon' => 'required']);
+        $torrent = \App\Models\Torrent::withAnyStatus()->where('info_hash', '=', $torrentRequest->filled_hash)->first();
         if ($torrent->isApproved() === false) {
-            return \redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
+            return \redirect()->route('request', ['id' => $request->input('request_id')])->withErrors('The torrent info_hash you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.');
         }
-
         if ($v->fails()) {
-            return \redirect()->route('request', ['id' => $request->input('request_id')])
-                ->withErrors($v->errors());
+            return \redirect()->route('request', ['id' => $request->input('request_id')])->withErrors($v->errors());
         }
         $torrentRequest->save();
         // Send Private Message
@@ -600,13 +448,10 @@ class RequestController extends Controller
         $sender = $request->input('filled_anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $torrentRequest->user;
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
-            $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
+            $requester->notify(new \App\Notifications\NewRequestFill('torrent', $sender, $torrentRequest));
         }
-
-        return \redirect()->route('request', ['id' => $request->input('request_id')])
-            ->withSuccess('Your request fill is pending approval by the Requester.');
+        return \redirect()->route('request', ['id' => $request->input('request_id')])->withSuccess('Your request fill is pending approval by the Requester.');
     }
-
     /**
      * Approve A Torrent Request.
      *
@@ -615,26 +460,21 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function approveRequest(Request $request, $id)
+    public function approveRequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-
-        $tr = TorrentRequest::findOrFail($id);
-
+        $tr = \App\Models\TorrentRequest::findOrFail($id);
         if ($user->id == $tr->user_id || $request->user()->group->is_modo) {
             if ($tr->approved_by != null) {
-                return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already approved');
+                return \redirect()->route('request', ['id' => $id])->withErrors('Seems this request was already approved');
             }
             $tr->approved_by = $user->id;
-            $tr->approved_when = Carbon::now();
+            $tr->approved_when = \Carbon\Carbon::now();
             $tr->save();
-
             //BON and torrent request hash code below
-            $fill_user = User::findOrFail($tr->filled_by);
+            $fill_user = \App\Models\User::findOrFail($tr->filled_by);
             $fill_amount = $tr->bounty;
-
-            $BonTransactions = new BonTransactions();
+            $BonTransactions = new \App\Models\BonTransactions();
             $BonTransactions->itemID = 0;
             $BonTransactions->name = 'request';
             $BonTransactions->cost = $fill_amount;
@@ -642,48 +482,32 @@ class RequestController extends Controller
             $BonTransactions->receiver = $fill_user->id;
             $BonTransactions->comment = \sprintf('%s has filled %s and has been awarded %s BONUS.', $fill_user->username, $tr->name, $fill_amount);
             $BonTransactions->save();
-
             $fill_user->seedbonus += $fill_amount;
             $fill_user->save();
-
             // Achievements
-            $fill_user->addProgress(new UserFilled25Requests(), 1);
-            $fill_user->addProgress(new UserFilled50Requests(), 1);
-            $fill_user->addProgress(new UserFilled75Requests(), 1);
-            $fill_user->addProgress(new UserFilled100Requests(), 1);
-
+            $fill_user->addProgress(new \App\Achievements\UserFilled25Requests(), 1);
+            $fill_user->addProgress(new \App\Achievements\UserFilled50Requests(), 1);
+            $fill_user->addProgress(new \App\Achievements\UserFilled75Requests(), 1);
+            $fill_user->addProgress(new \App\Achievements\UserFilled100Requests(), 1);
             $tr_url = \href_request($tr);
             $profile_url = \href_profile($fill_user);
-
             // Auto Shout
             if ($tr->filled_anon == 0) {
-                $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profile_url, $fill_user->username, $tr_url, $tr->name)
-                );
+                $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profile_url, $fill_user->username, $tr_url, $tr->name));
             } else {
-                $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $tr_url, $tr->name)
-                );
+                $this->chatRepository->systemMessage(\sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $tr_url, $tr->name));
             }
-
             $requester = $fill_user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill_approve')) {
-                $requester->notify(new NewRequestFillApprove('torrent', $user->username, $tr));
+                $requester->notify(new \App\Notifications\NewRequestFillApprove('torrent', $user->username, $tr));
             }
-
             if ($tr->filled_anon == 0) {
-                return \redirect()->route('request', ['id' => $id])
-                    ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
+                return \redirect()->route('request', ['id' => $id])->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
             }
-
-            return \redirect()->route('request', ['id' => $id])
-                ->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
+            return \redirect()->route('request', ['id' => $id])->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
         }
-
-        return \redirect()->route('request', ['id' => $id])
-                ->withErrors("You don't have access to approve this request");
+        return \redirect()->route('request', ['id' => $id])->withErrors("You don't have access to approve this request");
     }
-
     /**
      * Reject A Torrent Request.
      *
@@ -692,36 +516,27 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function rejectRequest(Request $request, $id)
+    public function rejectRequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
         $appurl = \config('app.url');
-        $torrentRequest = TorrentRequest::findOrFail($id);
-
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
-                return \redirect()->route('request', ['id' => $id])
-                    ->withErrors('Seems this request was already rejected');
+                return \redirect()->route('request', ['id' => $id])->withErrors('Seems this request was already rejected');
             }
-
-            $requester = User::findOrFail($torrentRequest->filled_by);
+            $requester = \App\Models\User::findOrFail($torrentRequest->filled_by);
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill_reject')) {
-                $requester->notify(new NewRequestFillReject('torrent', $user->username, $torrentRequest));
+                $requester->notify(new \App\Notifications\NewRequestFillReject('torrent', $user->username, $torrentRequest));
             }
-
             $torrentRequest->filled_by = null;
             $torrentRequest->filled_when = null;
             $torrentRequest->filled_hash = null;
             $torrentRequest->save();
-
-            return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('This request has been reset.');
+            return \redirect()->route('request', ['id' => $id])->withSuccess('This request has been reset.');
         }
-
-        return \redirect()->route('request', ['id' => $id])
-            ->withSuccess("You don't have access to approve this request");
+        return \redirect()->route('request', ['id' => $id])->withSuccess("You don't have access to approve this request");
     }
-
     /**
      * Delete A Torrent Request.
      *
@@ -732,23 +547,17 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteRequest(Request $request, $id)
+    public function deleteRequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
-
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
         if ($user->group->is_modo || $torrentRequest->user_id == $user->id) {
             $name = $torrentRequest->name;
             $torrentRequest->delete();
-
-            return \redirect()->route('requests')
-                ->withSuccess(\sprintf('You have deleted %s', $name));
+            return \redirect()->route('requests')->withSuccess(\sprintf('You have deleted %s', $name));
         }
-
-        return \redirect()->route('request', ['id' => $id])
-            ->withErrors("You don't have access to delete this request.");
+        return \redirect()->route('request', ['id' => $id])->withErrors("You don't have access to delete this request.");
     }
-
     /**
      * Claim A Torrent Request.
      *
@@ -757,36 +566,27 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function claimRequest(Request $request, $id)
+    public function claimRequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-        $torrentRequest = TorrentRequest::with('user')->findOrFail($id);
-
+        $torrentRequest = \App\Models\TorrentRequest::with('user')->findOrFail($id);
         if ($torrentRequest->claimed == null) {
-            $torrentRequestClaim = new TorrentRequestClaim();
+            $torrentRequestClaim = new \App\Models\TorrentRequestClaim();
             $torrentRequestClaim->request_id = $id;
             $torrentRequestClaim->username = $user->username;
             $torrentRequestClaim->anon = $request->input('anon');
             $torrentRequestClaim->save();
-
             $torrentRequest->claimed = 1;
             $torrentRequest->save();
-
             $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
-
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
-                $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
+                $requester->notify(new \App\Notifications\NewRequestClaim('torrent', $sender, $torrentRequest));
             }
-
-            return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Claimed');
+            return \redirect()->route('request', ['id' => $id])->withSuccess('Request Successfully Claimed');
         }
-
-        return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Someone else has already claimed this request buddy.');
+        return \redirect()->route('request', ['id' => $id])->withErrors('Someone else has already claimed this request buddy.');
     }
-
     /**
      * Uncliam A Torrent Request.
      *
@@ -797,37 +597,27 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function unclaimRequest(Request $request, $id)
+    public function unclaimRequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
-        $claimer = TorrentRequestClaim::where('request_id', '=', $id)->first();
-
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
+        $claimer = \App\Models\TorrentRequestClaim::where('request_id', '=', $id)->first();
         \abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
-
         if ($torrentRequest->claimed == 1) {
-            $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
+            $requestClaim = \App\Models\TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
             $isAnon = $requestClaim->anon;
             $requestClaim->delete();
-
             $torrentRequest->claimed = null;
             $torrentRequest->save();
-
             $sender = $isAnon == 1 ? 'Anonymous' : $user->username;
-
             $requester = $torrentRequest->user;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
-                $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
+                $requester->notify(new \App\Notifications\NewRequestUnclaim('torrent', $sender, $torrentRequest));
             }
-
-            return \redirect()->route('request', ['id' => $id])
-                ->withSuccess('Request Successfully Un-Claimed');
+            return \redirect()->route('request', ['id' => $id])->withSuccess('Request Successfully Un-Claimed');
         }
-
-        return \redirect()->route('request', ['id' => $id])
-            ->withErrors('Nothing To Unclaim.');
+        return \redirect()->route('request', ['id' => $id])->withErrors('Nothing To Unclaim.');
     }
-
     /**
      * Resets the filled and approved attributes on a given request.
      *
@@ -836,20 +626,17 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function resetRequest(Request $request, $id)
+    public function resetRequest(\Illuminate\Http\Request $request, $id)
     {
         $user = $request->user();
         \abort_unless($user->group->is_modo, 403);
-
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = null;
         $torrentRequest->filled_when = null;
         $torrentRequest->filled_hash = null;
         $torrentRequest->approved_by = null;
         $torrentRequest->approved_when = null;
         $torrentRequest->save();
-
-        return \redirect()->route('request', ['id' => $id])
-            ->withSuccess('The request has been reset!');
+        return \redirect()->route('request', ['id' => $id])->withSuccess('The request has been reset!');
     }
 }

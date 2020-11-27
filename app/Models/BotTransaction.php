@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\BotTransaction.
  *
@@ -48,50 +47,36 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BotTransaction whereUserId($value)
  * @mixin \Eloquent
  */
-class BotTransaction extends Model
+class BotTransaction extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = true;
-
     /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
     // Bad name to not conflict with sender (not sender_id)
-
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Bot.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
     // Bad name to not conflict with sender (not sender_id)
-
     public function bot()
     {
-        return $this->belongsTo(Bot::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\Bot::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Get the Bot transaction type answer as string.
      *
@@ -102,7 +87,6 @@ class BotTransaction extends Model
         if ($this->type == 'bon') {
             return 'BON';
         }
-
         return 'Unknown';
     }
 }

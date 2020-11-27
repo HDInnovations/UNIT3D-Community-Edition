@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Image.
  *
@@ -45,19 +44,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image whereUserId($value)
  * @mixin \Eloquent
  */
-class Image extends Model
+class Image extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs to User.
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

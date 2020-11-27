@@ -15,10 +15,6 @@ namespace App\Helpers;
 
 class BBCodeConverter
 {
-    /**
-     * @var string|mixed|mixed[]|null
-     */
-    public $text;
     public $id;
 
     /**
@@ -26,9 +22,8 @@ class BBCodeConverter
      *
      * @param string $text The text to be converted.
      */
-    public function __construct($text)
+    public function __construct(public $text)
     {
-        $this->text = $text;
     }
 
     /**

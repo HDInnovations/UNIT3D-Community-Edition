@@ -14,7 +14,6 @@
 namespace App\Helpers;
 
 use Carbon\Carbon;
-
 class EmailBlacklistUpdater
 {
     public static function update()
@@ -25,14 +24,11 @@ class EmailBlacklistUpdater
         }
         // Define parameters for the cache
         $key = \config('email-blacklist.cache-key');
-        $duration = Carbon::now()->addMonth();
-
+        $duration = \Carbon\Carbon::now()->addMonth();
         $domains = \json_decode(\file_get_contents($url), true);
         $count = \is_countable($domains) ? \count($domains) : 0;
-
         // Retrieve blacklisted domains
         \cache()->put($key, $domains, $duration);
-
         return $count;
     }
 }

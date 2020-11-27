@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use voku\helper\AntiXSS;
-
 /**
  * App\Models\Torrent.
  *
@@ -134,28 +133,18 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Torrent whereUserId($value)
  * @mixin \Eloquent
  */
-class Torrent extends Model
+class Torrent extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Moderatable;
-    use Sortable;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \Hootlex\Moderation\Moderatable;
+    use \Kyslik\ColumnSortable\Sortable;
+    use \App\Traits\Auditable;
     /**
      * The Columns That Are Sortable.
      *
      * @var array
      */
-    public $sortable = [
-        'id',
-        'name',
-        'size',
-        'seeders',
-        'leechers',
-        'times_completed',
-        'created_at',
-    ];
-
+    public $sortable = ['id', 'name', 'size', 'seeders', 'leechers', 'times_completed', 'created_at'];
     /**
      * Belongs To A User.
      *
@@ -163,12 +152,8 @@ class Torrent extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Uploader.
      *
@@ -177,13 +162,8 @@ class Torrent extends Model
     public function uploader()
     {
         // Not needed yet but may use this soon.
-
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Category.
      *
@@ -191,9 +171,8 @@ class Torrent extends Model
      */
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(\App\Models\Category::class);
     }
-
     /**
      * Belongs To A Type.
      *
@@ -201,9 +180,8 @@ class Torrent extends Model
      */
     public function type()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(\App\Models\Type::class);
     }
-
     /**
      * Belongs To A Resolution.
      *
@@ -211,9 +189,8 @@ class Torrent extends Model
      */
     public function resolution()
     {
-        return $this->belongsTo(Resolution::class);
+        return $this->belongsTo(\App\Models\Resolution::class);
     }
-
     /**
      * Has Many Genres.
      *
@@ -221,9 +198,8 @@ class Torrent extends Model
      */
     public function genres()
     {
-        return $this->belongsToMany(Genre::class, 'genre_torrent', 'torrent_id', 'genre_id', 'id', 'id');
+        return $this->belongsToMany(\App\Models\Genre::class, 'genre_torrent', 'torrent_id', 'genre_id', 'id', 'id');
     }
-
     /**
      * Torrent Has Been Moderated By.
      *
@@ -231,12 +207,8 @@ class Torrent extends Model
      */
     public function moderated()
     {
-        return $this->belongsTo(User::class, 'moderated_by')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'moderated_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Has Many Keywords.
      *
@@ -244,9 +216,8 @@ class Torrent extends Model
      */
     public function keywords()
     {
-        return $this->hasMany(Keyword::class);
+        return $this->hasMany(\App\Models\Keyword::class);
     }
-
     /**
      * Has Many History.
      *
@@ -254,9 +225,8 @@ class Torrent extends Model
      */
     public function history()
     {
-        return $this->hasMany(History::class, 'info_hash', 'info_hash');
+        return $this->hasMany(\App\Models\History::class, 'info_hash', 'info_hash');
     }
-
     /**
      * Has Many Tips.
      *
@@ -264,9 +234,8 @@ class Torrent extends Model
      */
     public function tips()
     {
-        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
+        return $this->hasMany(\App\Models\BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
     }
-
     /**
      * Has Many Thank.
      *
@@ -274,9 +243,8 @@ class Torrent extends Model
      */
     public function thanks()
     {
-        return $this->hasMany(Thank::class);
+        return $this->hasMany(\App\Models\Thank::class);
     }
-
     /**
      * Has Many HitRuns.
      *
@@ -284,9 +252,8 @@ class Torrent extends Model
      */
     public function hitrun()
     {
-        return $this->hasMany(Warning::class, 'torrent');
+        return $this->hasMany(\App\Models\Warning::class, 'torrent');
     }
-
     /**
      * Has Many Featured.
      *
@@ -294,9 +261,8 @@ class Torrent extends Model
      */
     public function featured()
     {
-        return $this->hasMany(FeaturedTorrent::class);
+        return $this->hasMany(\App\Models\FeaturedTorrent::class);
     }
-
     /**
      * Has Many Files.
      *
@@ -304,9 +270,8 @@ class Torrent extends Model
      */
     public function files()
     {
-        return $this->hasMany(TorrentFile::class);
+        return $this->hasMany(\App\Models\TorrentFile::class);
     }
-
     /**
      * Has Many Comments.
      *
@@ -314,9 +279,8 @@ class Torrent extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(\App\Models\Comment::class);
     }
-
     /**
      * Has Many Peers.
      *
@@ -324,9 +288,8 @@ class Torrent extends Model
      */
     public function peers()
     {
-        return $this->hasMany(Peer::class);
+        return $this->hasMany(\App\Models\Peer::class);
     }
-
     /**
      * Has Many Subtitles.
      *
@@ -334,9 +297,8 @@ class Torrent extends Model
      */
     public function subtitles()
     {
-        return $this->hasMany(Subtitle::class);
+        return $this->hasMany(\App\Models\Subtitle::class);
     }
-
     /**
      * Relationship To A Single Request.
      *
@@ -344,9 +306,8 @@ class Torrent extends Model
      */
     public function request()
     {
-        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
+        return $this->hasOne(\App\Models\TorrentRequest::class, 'filled_hash', 'info_hash');
     }
-
     /**
      * Set The Torrents Description After Its Been Purified.
      *
@@ -356,11 +317,9 @@ class Torrent extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
+        $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['description'] = $antiXss->xss_clean($value);
     }
-
     /**
      * Parse Description And Return Valid HTML.
      *
@@ -368,12 +327,10 @@ class Torrent extends Model
      */
     public function getDescriptionHtml()
     {
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
+        $bbcode = new \App\Helpers\Bbcode();
+        $linkify = new \App\Helpers\Linkify();
         return $bbcode->parse($linkify->linky($this->description), true);
     }
-
     /**
      * Set The Torrents MediaInfo After Its Been Purified.
      *
@@ -385,7 +342,6 @@ class Torrent extends Model
     {
         $this->attributes['mediainfo'] = $value;
     }
-
     /**
      * Formats The Output Of The Media Info Dump.
      *
@@ -393,11 +349,9 @@ class Torrent extends Model
      */
     public function getMediaInfo()
     {
-        $mediaInfo = new MediaInfo();
-
+        $mediaInfo = new \App\Helpers\MediaInfo();
         return $mediaInfo->parse($this->mediaInfo);
     }
-
     /**
      * Returns The Size In Human Format.
      *
@@ -409,20 +363,15 @@ class Torrent extends Model
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->size;
-
-        return StringHelper::formatBytes($bytes, 2);
+        return \App\Helpers\StringHelper::formatBytes($bytes, 2);
     }
-
     /**
      * Bookmarks.
      */
     public function bookmarked()
     {
-        return (bool) Bookmark::where('user_id', '=', \auth()->user()->id)
-            ->where('torrent_id', '=', $this->id)
-            ->first();
+        return (bool) \App\Models\Bookmark::where('user_id', '=', \auth()->user()->id)->where('torrent_id', '=', $this->id)->first();
     }
-
     /**
      * Notify Uploader When An Action Is Taken.
      *
@@ -434,25 +383,20 @@ class Torrent extends Model
     public function notifyUploader($type, $payload)
     {
         if ($type == 'thank') {
-            $user = User::with('notification')->findOrFail($this->user_id);
+            $user = \App\Models\User::with('notification')->findOrFail($this->user_id);
             if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
-                $user->notify(new NewThank('torrent', $payload));
-
+                $user->notify(new \App\Notifications\NewThank('torrent', $payload));
                 return true;
             }
-
             return true;
         }
-        $user = User::with('notification')->findOrFail($this->user_id);
+        $user = \App\Models\User::with('notification')->findOrFail($this->user_id);
         if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
-            $user->notify(new NewComment('torrent', $payload));
-
+            $user->notify(new \App\Notifications\NewComment('torrent', $payload));
             return true;
         }
-
         return true;
     }
-
     /**
      * Torrent Is Freeleech.
      *
@@ -462,8 +406,7 @@ class Torrent extends Model
      */
     public function isFreeleech($user = null)
     {
-        $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
-
+        $pfree = $user ? $user->group->is_freeleech || \App\Models\PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
         return $this->free || \config('other.freeleech') || $pfree;
     }
 }

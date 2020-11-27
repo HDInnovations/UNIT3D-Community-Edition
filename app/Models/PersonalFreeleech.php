@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\PersonalFreeleech.
  *
@@ -34,11 +33,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PersonalFreeleech whereUserId($value)
  * @mixin \Eloquent
  */
-class PersonalFreeleech extends Model
+class PersonalFreeleech extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *

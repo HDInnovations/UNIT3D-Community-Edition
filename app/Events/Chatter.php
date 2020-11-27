@@ -32,10 +32,6 @@ class Chatter implements ShouldBroadcastNow
      */
     public $echoes;
 
-    public $target;
-
-    public $type;
-
     public $message;
 
     public $ping;
@@ -49,9 +45,8 @@ class Chatter implements ShouldBroadcastNow
      * @param $target
      * @param $payload
      */
-    public function __construct($type, $target, $payload)
+    public function __construct(public $type, public $target, $payload)
     {
-        $this->type = $type;
         if ($type == 'echo') {
             $this->echoes = $payload;
         } elseif ($type == 'audible') {
@@ -63,7 +58,6 @@ class Chatter implements ShouldBroadcastNow
         } elseif ($type == 'new.ping') {
             $this->ping = $payload;
         }
-        $this->target = $target;
     }
 
     /**

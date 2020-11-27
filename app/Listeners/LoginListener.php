@@ -14,7 +14,6 @@
 namespace App\Listeners;
 
 use Carbon\Carbon;
-
 class LoginListener
 {
     /**
@@ -27,7 +26,7 @@ class LoginListener
     public function handle($event)
     {
         // Update Login Timestamp
-        $event->user->last_login = Carbon::now();
+        $event->user->last_login = \Carbon\Carbon::now();
         $event->user->save();
     }
 }

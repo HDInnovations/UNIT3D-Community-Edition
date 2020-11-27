@@ -26,18 +26,12 @@ use Illuminate\Http\Request;
 class PollController extends Controller
 {
     /**
-     * @var ChatRepository
-     */
-    private $chat;
-
-    /**
      * PollController Constructor.
      *
      * @param ChatRepository $chat
      */
-    public function __construct(ChatRepository $chat)
+    public function __construct(private ChatRepository $chat)
     {
-        $this->chat = $chat;
     }
 
     /**

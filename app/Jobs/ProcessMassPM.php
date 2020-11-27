@@ -26,13 +26,6 @@ class ProcessMassPM implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
-    protected $sender_id;
-
-    protected $receiver_id;
-
-    protected $subject;
-
-    protected $message;
 
     /**
      * Create a new job instance.
@@ -42,12 +35,8 @@ class ProcessMassPM implements ShouldQueue
      * @param $subject
      * @param $message
      */
-    public function __construct($sender_id, $receiver_id, $subject, $message)
+    public function __construct(protected $sender_id, protected $receiver_id, protected $subject, protected $message)
     {
-        $this->sender_id = $sender_id;
-        $this->receiver_id = $receiver_id;
-        $this->subject = $subject;
-        $this->message = $message;
     }
 
     /**

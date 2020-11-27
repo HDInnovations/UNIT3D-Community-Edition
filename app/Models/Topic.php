@@ -17,7 +17,6 @@ use App\Notifications\NewPost;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Topic.
  *
@@ -77,15 +76,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Topic whereViews($value)
  * @mixin \Eloquent
  */
-class Topic extends Model
+class Topic extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
-    protected $casts = [
-        'last_reply_at' => 'datetime',
-    ];
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
+    protected $casts = ['last_reply_at' => 'datetime'];
     /**
      * Belongs To A Forum.
      *
@@ -93,9 +88,8 @@ class Topic extends Model
      */
     public function forum()
     {
-        return $this->belongsTo(Forum::class);
+        return $this->belongsTo(\App\Models\Forum::class);
     }
-
     /**
      * Belongs To A User.
      *
@@ -103,9 +97,8 @@ class Topic extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'first_post_user_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'first_post_user_id', 'id');
     }
-
     /**
      * Has Many Posts.
      *
@@ -113,9 +106,8 @@ class Topic extends Model
      */
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(\App\Models\Post::class);
     }
-
     /**
      * Has Many Subscriptions.
      *
@@ -123,9 +115,8 @@ class Topic extends Model
      */
     public function subscriptions()
     {
-        return $this->hasMany(Subscription::class);
+        return $this->hasMany(\App\Models\Subscription::class);
     }
-
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.
      *
@@ -137,20 +128,13 @@ class Topic extends Model
      */
     public function notifySubscribers($poster, $topic, $post)
     {
-        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)
-            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
-            ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
-            ->where('subscriptions.topic_id', '=', $topic->id)
-            ->whereRaw('(user_notifications.show_subscription_topic = 1 OR user_notifications.show_subscription_topic is null)')
-            ->groupBy('users.id')->get();
-
+        $subscribers = \App\Models\User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')->where('subscriptions.topic_id', '=', $topic->id)->whereRaw('(user_notifications.show_subscription_topic = 1 OR user_notifications.show_subscription_topic is null)')->groupBy('users.id')->get();
         foreach ($subscribers as $subscriber) {
             if ($subscriber->acceptsNotification($poster, $subscriber, 'subscription', 'show_subscription_topic')) {
-                $subscriber->notify(new NewPost('subscription', $poster, $post));
+                $subscriber->notify(new \App\Notifications\NewPost('subscription', $poster, $post));
             }
         }
     }
-
     /**
      * Notify Staffers When New Staff Post Is Made.
      *
@@ -162,17 +146,11 @@ class Topic extends Model
      */
     public function notifyStaffers($poster, $topic, $post)
     {
-        $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
-            ->select('users.id')
-            ->where('users.id', '<>', $poster->id)
-            ->where('groups.is_modo', 1)
-            ->get();
-
+        $staffers = \App\Models\User::leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id')->where('users.id', '<>', $poster->id)->where('groups.is_modo', 1)->get();
         foreach ($staffers as $staffer) {
-            $staffer->notify(new NewPost('staff', $poster, $post));
+            $staffer->notify(new \App\Notifications\NewPost('staff', $poster, $post));
         }
     }
-
     /**
      * Does User Have Permission To View Topic.
      *
@@ -183,10 +161,8 @@ class Topic extends Model
         if (\auth()->user()->group->is_modo) {
             return true;
         }
-
         return $this->forum->getPermission()->read_topic;
     }
-
     /**
      * Notify Starter When An Action Is Taken.
      *
@@ -198,14 +174,12 @@ class Topic extends Model
      */
     public function notifyStarter($poster, $topic, $post)
     {
-        $user = User::find($topic->first_post_user_id);
+        $user = \App\Models\User::find($topic->first_post_user_id);
         if ($user->acceptsNotification(\auth()->user(), $user, 'forum', 'show_forum_topic')) {
-            $user->notify(new NewPost('topic', $poster, $post));
+            $user->notify(new \App\Notifications\NewPost('topic', $poster, $post));
         }
-
         return true;
     }
-
     /**
      * Get Post Number From ID.
      *
@@ -222,7 +196,6 @@ class Topic extends Model
                 break;
             }
         }
-
         return $count;
     }
 }

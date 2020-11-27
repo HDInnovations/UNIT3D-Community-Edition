@@ -17,7 +17,6 @@ use App\Traits\Auditable;
 use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Seedbox.
  *
@@ -40,28 +39,23 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seedbox whereUserId($value)
  * @mixin \Eloquent
  */
-class Seedbox extends Model
+class Seedbox extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Encryptable;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Encryptable;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'clients';
-
     /**
      * The Attributes That Are Encrypted.
      *
      * @var array
      */
-    protected $encryptable = [
-        'ip',
-    ];
-
+    protected $encryptable = ['ip'];
     /**
      * Belongs To A User.
      *
@@ -69,9 +63,6 @@ class Seedbox extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

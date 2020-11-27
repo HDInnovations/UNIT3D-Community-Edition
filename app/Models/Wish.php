@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Wish.
  *
@@ -43,18 +42,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wish whereUserId($value)
  * @mixin \Eloquent
  */
-class Wish extends Model
+class Wish extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Attributes That Aren't Mass Assignable.
      *
      * @var array
      */
     protected $guarded = [];
-
     /**
      * Belongs To A User.
      *
@@ -62,9 +59,6 @@ class Wish extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

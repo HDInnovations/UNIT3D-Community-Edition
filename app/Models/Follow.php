@@ -17,7 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-
 /**
  * App\Models\Follow.
  *
@@ -41,12 +40,11 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Follow whereUserId($value)
  * @mixin \Eloquent
  */
-class Follow extends Model
+class Follow extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Notifiable;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \Illuminate\Notifications\Notifiable;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -54,12 +52,8 @@ class Follow extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A User.
      *
@@ -67,9 +61,6 @@ class Follow extends Model
      */
     public function target()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

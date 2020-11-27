@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\TorrentRequestClaim.
  *
@@ -38,11 +37,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestClaim whereUsername($value)
  * @mixin \Eloquent
  */
-class TorrentRequestClaim extends Model
+class TorrentRequestClaim extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *

@@ -18,25 +18,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
-class FailedLogin extends Notification implements ShouldQueue
+class FailedLogin extends \Illuminate\Notifications\Notification implements \Illuminate\Contracts\Queue\ShouldQueue
 {
-    use Queueable;
-
+    use \Illuminate\Bus\Queueable;
     /**
      * The request IP address.
      *
      * @var string
      */
     public $ip;
-
     /**
      * The Time.
      *
      * @var Carbon\Carbon
      */
     public $carbon;
-
     /**
      * Create a new notification instance.
      *
@@ -44,12 +40,11 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($ip)
+    public function __construct(public $ip)
     {
         $this->ip = $ip;
-        $this->carbon = Carbon::now();
+        $this->carbon = \Carbon\Carbon::now();
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -61,7 +56,6 @@ class FailedLogin extends Notification implements ShouldQueue
     {
         return ['mail'];
     }
-
     /**
      * Get the database representation of the notification.
      *
@@ -71,12 +65,8 @@ class FailedLogin extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [
-            'ip'   => $this->ip,
-            'time' => $this->carbon,
-        ];
+        return ['ip' => $this->ip, 'time' => $this->carbon];
     }
-
     /**
      * Get the mail representation of the notification.
      *
@@ -86,11 +76,6 @@ class FailedLogin extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage())
-                ->error()
-                ->subject(\trans('email.fail-login-subject'))
-                ->greeting(\trans('email.fail-login-greeting'))
-                ->line(\trans('email.fail-login-line1'))
-                ->line(\trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => \gethostbyaddr($this->ip), 'time' => $this->carbon]));
+        return (new \Illuminate\Notifications\Messages\MailMessage())->error()->subject(\trans('email.fail-login-subject'))->greeting(\trans('email.fail-login-greeting'))->line(\trans('email.fail-login-line1'))->line(\trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => \gethostbyaddr($this->ip), 'time' => $this->carbon]));
     }
 }

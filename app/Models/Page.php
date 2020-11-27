@@ -18,7 +18,6 @@ use App\Helpers\Markdown;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Page.
  *
@@ -40,11 +39,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Page whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Page extends Model
+class Page extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Set The Pages Content After Its Been Purified.
      *
@@ -56,7 +54,6 @@ class Page extends Model
     {
         $this->attributes['content'] = $value;
     }
-
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -64,11 +61,9 @@ class Page extends Model
      */
     public function getContentHtml()
     {
-        $bbCodeConverter = new BBCodeConverter($this->content);
+        $bbCodeConverter = new \App\Helpers\BBCodeConverter($this->content);
         $content = $bbCodeConverter->toMarkdown();
-
-        $markdown = new Markdown();
-
+        $markdown = new \App\Helpers\Markdown();
         return $markdown->text($content);
     }
 }

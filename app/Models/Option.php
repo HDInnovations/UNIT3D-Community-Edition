@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Option.
  *
@@ -39,25 +38,21 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Option whereVotes($value)
  * @mixin \Eloquent
  */
-class Option extends Model
+class Option extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /*** The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
-
+    protected $fillable = ['name'];
     /*** Belongs To A Poll.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function poll()
     {
-        return $this->belongsTo(Poll::class);
+        return $this->belongsTo(\App\Models\Poll::class);
     }
 }

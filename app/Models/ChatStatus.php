@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\ChatStatus.
  *
@@ -40,11 +39,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChatStatus whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class ChatStatus extends Model
+class ChatStatus extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * A Status Has Many Users.
      *
@@ -52,6 +50,6 @@ class ChatStatus extends Model
      */
     public function users()
     {
-        return $this->hasMany(User::class, 'chat_status_id', 'id');
+        return $this->hasMany(\App\Models\User::class, 'chat_status_id', 'id');
     }
 }

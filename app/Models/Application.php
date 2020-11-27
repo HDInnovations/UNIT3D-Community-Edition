@@ -17,7 +17,6 @@ use App\Traits\Auditable;
 use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Application.
  *
@@ -53,12 +52,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Application whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Application extends Model
+class Application extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Moderatable;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \Hootlex\Moderation\Moderatable;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -66,9 +64,8 @@ class Application extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
-
     /**
      * Application Has Been Moderated By.
      *
@@ -76,9 +73,8 @@ class Application extends Model
      */
     public function moderated()
     {
-        return $this->belongsTo(User::class, 'moderated_by');
+        return $this->belongsTo(\App\Models\User::class, 'moderated_by');
     }
-
     /**
      * A Application Has Many Image Proofs.
      *
@@ -86,9 +82,8 @@ class Application extends Model
      */
     public function imageProofs()
     {
-        return $this->hasMany(ApplicationImageProof::class);
+        return $this->hasMany(\App\Models\ApplicationImageProof::class);
     }
-
     /**
      * A Application Has Many URL Proofs.
      *
@@ -96,6 +91,6 @@ class Application extends Model
      */
     public function urlProofs()
     {
-        return $this->hasMany(ApplicationUrlProof::class);
+        return $this->hasMany(\App\Models\ApplicationUrlProof::class);
     }
 }

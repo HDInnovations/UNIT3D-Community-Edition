@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\UserPrivacy.
  *
@@ -111,44 +110,28 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserPrivacy whereUserId($value)
  * @mixin \Eloquent
  */
-class UserPrivacy extends Model
+class UserPrivacy extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'user_privacy';
-
     /**
      * The Attributes That Should Be Cast To Native Values.
      *
      * @var array
      */
-    protected $casts = [
-        'json_profile_groups'     => 'array',
-        'json_torrent_groups'     => 'array',
-        'json_forum_groups'       => 'array',
-        'json_bon_groups'         => 'array',
-        'json_comment_groups'     => 'array',
-        'json_wishlist_groups'    => 'array',
-        'json_follower_groups'    => 'array',
-        'json_achievement_groups' => 'array',
-        'json_rank_groups'        => 'array',
-        'json_request_groups'     => 'array',
-        'json_other_groups'       => 'array',
-    ];
-
+    protected $casts = ['json_profile_groups' => 'array', 'json_torrent_groups' => 'array', 'json_forum_groups' => 'array', 'json_bon_groups' => 'array', 'json_comment_groups' => 'array', 'json_wishlist_groups' => 'array', 'json_follower_groups' => 'array', 'json_achievement_groups' => 'array', 'json_rank_groups' => 'array', 'json_request_groups' => 'array', 'json_other_groups' => 'array'];
     /**
      * Belongs To A User.
      *
@@ -156,12 +139,8 @@ class UserPrivacy extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Get the Expected groups for form validation.
      *
@@ -171,7 +150,6 @@ class UserPrivacy extends Model
     {
         return ['default_groups' => ['1' => 0]];
     }
-
     /**
      * Get the Expected fields for form validation.
      *
@@ -181,7 +159,6 @@ class UserPrivacy extends Model
     {
         return [];
     }
-
     /**
      * Set the base vars on object creation without touching boot.
      *
@@ -193,7 +170,7 @@ class UserPrivacy extends Model
     {
         foreach ($this->casts as $k => $v) {
             if ($v == 'array') {
-                $this->$k = $this->expected_groups;
+                $this->{$k} = $this->expected_groups;
             }
         }
     }

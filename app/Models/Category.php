@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Category.
  *
@@ -54,18 +53,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereTvMeta($value)
  * @mixin \Eloquent
  */
-class Category extends Model
+class Category extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * Has Many Torrents.
      *
@@ -73,9 +70,8 @@ class Category extends Model
      */
     public function torrents()
     {
-        return $this->hasMany(Torrent::class);
+        return $this->hasMany(\App\Models\Torrent::class);
     }
-
     /**
      * Has Many Requests.
      *
@@ -83,6 +79,6 @@ class Category extends Model
      */
     public function requests()
     {
-        return $this->hasMany(TorrentRequest::class);
+        return $this->hasMany(\App\Models\TorrentRequest::class);
     }
 }

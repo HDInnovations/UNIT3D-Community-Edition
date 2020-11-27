@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Type.
  *
@@ -38,18 +37,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereSlug($value)
  * @mixin \Eloquent
  */
-class Type extends Model
+class Type extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * Has Many Torrents.
      *
@@ -57,9 +54,8 @@ class Type extends Model
      */
     public function torrents()
     {
-        return $this->hasMany(Torrent::class);
+        return $this->hasMany(\App\Models\Torrent::class);
     }
-
     /**
      * Has Many Torrent Requests.
      *
@@ -67,6 +63,6 @@ class Type extends Model
      */
     public function requests()
     {
-        return $this->hasMany(TorrentRequest::class);
+        return $this->hasMany(\App\Models\TorrentRequest::class);
     }
 }

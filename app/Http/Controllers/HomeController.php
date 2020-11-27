@@ -28,11 +28,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
  */
-class HomeController extends Controller
+class HomeController extends \App\Http\Controllers\Controller
 {
     /**
      * Display Home Page.
@@ -43,119 +42,43 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(\Illuminate\Http\Request $request)
     {
         // For Cache
-        $current = Carbon::now();
+        $current = \Carbon\Carbon::now();
         $expiresAt = $current->addMinutes(1);
-
         // Authorized User
         $user = $request->user();
-
         // Latest Articles/News Block
-        $articles = \cache()->remember('latest_article', $expiresAt, fn () => Article::latest()->take(1)->get());
+        $articles = \cache()->remember('latest_article', $expiresAt, fn() => \App\Models\Article::latest()->take(1)->get());
         foreach ($articles as $article) {
-            $article->newNews = ($user->updated_at->subDays(3)->getTimestamp() < $article->created_at->getTimestamp()) ? 1 : 0;
+            $article->newNews = $user->updated_at->subDays(3)->getTimestamp() < $article->created_at->getTimestamp() ? 1 : 0;
         }
-
         // Latest Torrents Block
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-
-        $newest = \cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
-            ->withCount(['thanks', 'comments'])
-            ->latest()
-            ->take(5)
-            ->get());
-
-        $seeded = \cache()->remember('seeded_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
-            ->withCount(['thanks', 'comments'])
-            ->latest('seeders')
-            ->take(5)
-            ->get());
-
-        $leeched = \cache()->remember('leeched_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
-            ->withCount(['thanks', 'comments'])
-            ->latest('leechers')
-            ->take(5)
-            ->get());
-
-        $dying = \cache()->remember('dying_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
-            ->withCount(['thanks', 'comments'])
-            ->where('seeders', '=', 1)
-            ->where('times_completed', '>=', 1)
-            ->latest('leechers')
-            ->take(5)
-            ->get());
-
-        $dead = \cache()->remember('dead_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
-            ->withCount(['thanks', 'comments'])
-            ->where('seeders', '=', 0)
-            ->latest('leechers')
-            ->take(5)
-            ->get());
-
+        $personal_freeleech = \App\Models\PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $newest = \cache()->remember('newest_torrents', $expiresAt, fn() => \App\Models\Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->latest()->take(5)->get());
+        $seeded = \cache()->remember('seeded_torrents', $expiresAt, fn() => \App\Models\Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->latest('seeders')->take(5)->get());
+        $leeched = \cache()->remember('leeched_torrents', $expiresAt, fn() => \App\Models\Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->latest('leechers')->take(5)->get());
+        $dying = \cache()->remember('dying_torrents', $expiresAt, fn() => \App\Models\Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->where('seeders', '=', 1)->where('times_completed', '>=', 1)->latest('leechers')->take(5)->get());
+        $dead = \cache()->remember('dead_torrents', $expiresAt, fn() => \App\Models\Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->where('seeders', '=', 0)->latest('leechers')->take(5)->get());
         // Latest Topics Block
-        $topics = \cache()->remember('latest_topics', $expiresAt, fn () => Topic::with('forum')->latest()->take(5)->get());
-
+        $topics = \cache()->remember('latest_topics', $expiresAt, fn() => \App\Models\Topic::with('forum')->latest()->take(5)->get());
         // Latest Posts Block
-        $posts = \cache()->remember('latest_posts', $expiresAt, fn () => Post::with('topic', 'user')->latest()->take(5)->get());
-
+        $posts = \cache()->remember('latest_posts', $expiresAt, fn() => \App\Models\Post::with('topic', 'user')->latest()->take(5)->get());
         // Online Block
-        $users = \cache()->remember('online_users', $expiresAt, fn () => User::with('group', 'privacy')
-            ->withCount([
-                'warnings' => function (Builder $query) {
-                    $query->whereNotNull('torrent')->where('active', '1');
-                },
-            ])
-            ->where('last_action', '>', \now()->subMinutes(5))
-            ->get());
-
-        $groups = \cache()->remember('user-groups', $expiresAt, fn () => Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
-
+        $users = \cache()->remember('online_users', $expiresAt, fn() => \App\Models\User::with('group', 'privacy')->withCount(['warnings' => function (\Illuminate\Database\Eloquent\Builder $query) {
+            $query->whereNotNull('torrent')->where('active', '1');
+        }])->where('last_action', '>', \now()->subMinutes(5))->get());
+        $groups = \cache()->remember('user-groups', $expiresAt, fn() => \App\Models\Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
         // Featured Torrents Block
-        $featured = \cache()->remember('latest_featured', $expiresAt, fn () => FeaturedTorrent::with('torrent')->get());
-
+        $featured = \cache()->remember('latest_featured', $expiresAt, fn() => \App\Models\FeaturedTorrent::with('torrent')->get());
         // Latest Poll Block
-        $poll = \cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first());
-
+        $poll = \cache()->remember('latest_poll', $expiresAt, fn() => \App\Models\Poll::latest()->first());
         // Top Uploaders Block
-        $uploaders = \cache()->remember('top_uploaders', $expiresAt, fn () => Torrent::with('user')
-            ->select(DB::raw('user_id, count(*) as value'))
-            ->groupBy('user_id')
-            ->latest('value')
-            ->take(10)
-            ->get());
-
-        $past_uploaders = \cache()->remember('month_uploaders', $expiresAt, fn () => Torrent::with('user')
-            ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
-            ->select(DB::raw('user_id, count(*) as value'))
-            ->groupBy('user_id')
-            ->latest('value')
-            ->take(10)
-            ->get());
-
-        $freeleech_tokens = FreeleechToken::where('user_id', $user->id)->get();
-        $bookmarks = Bookmark::where('user_id', $user->id)->get();
-
-        return \view('home.index', [
-            'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
-            'users'              => $users,
-            'groups'             => $groups,
-            'articles'           => $articles,
-            'newest'             => $newest,
-            'seeded'             => $seeded,
-            'dying'              => $dying,
-            'leeched'            => $leeched,
-            'dead'               => $dead,
-            'topics'             => $topics,
-            'posts'              => $posts,
-            'featured'           => $featured,
-            'poll'               => $poll,
-            'uploaders'          => $uploaders,
-            'past_uploaders'     => $past_uploaders,
-            'freeleech_tokens'   => $freeleech_tokens,
-            'bookmarks'          => $bookmarks,
-        ]);
+        $uploaders = \cache()->remember('top_uploaders', $expiresAt, fn() => \App\Models\Torrent::with('user')->select(\Illuminate\Support\Facades\DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(10)->get());
+        $past_uploaders = \cache()->remember('month_uploaders', $expiresAt, fn() => \App\Models\Torrent::with('user')->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())->select(\Illuminate\Support\Facades\DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(10)->get());
+        $freeleech_tokens = \App\Models\FreeleechToken::where('user_id', $user->id)->get();
+        $bookmarks = \App\Models\Bookmark::where('user_id', $user->id)->get();
+        return \view('home.index', ['user' => $user, 'personal_freeleech' => $personal_freeleech, 'users' => $users, 'groups' => $groups, 'articles' => $articles, 'newest' => $newest, 'seeded' => $seeded, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts, 'featured' => $featured, 'poll' => $poll, 'uploaders' => $uploaders, 'past_uploaders' => $past_uploaders, 'freeleech_tokens' => $freeleech_tokens, 'bookmarks' => $bookmarks]);
     }
 }

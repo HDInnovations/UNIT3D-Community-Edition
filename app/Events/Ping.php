@@ -24,7 +24,6 @@ class Ping implements ShouldBroadcastNow
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
-    public $room;
 
     public $ping;
 
@@ -34,9 +33,8 @@ class Ping implements ShouldBroadcastNow
      * @param $room
      * @param $id
      */
-    public function __construct($room, $id)
+    public function __construct(public $room, $id)
     {
-        $this->room = $room;
         $this->ping = ['type' => 'room', 'id' => $id];
     }
 

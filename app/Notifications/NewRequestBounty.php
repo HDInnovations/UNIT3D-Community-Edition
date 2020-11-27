@@ -22,14 +22,6 @@ class NewRequestBounty extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $tr;
-
-    public $amount;
-
     /**
      * Create a new notification instance.
      *
@@ -38,12 +30,8 @@ class NewRequestBounty extends Notification implements ShouldQueue
      * @param                            $amount
      * @param \App\Models\TorrentRequest $torrentRequest
      */
-    public function __construct(string $type, string $sender, $amount, TorrentRequest $torrentRequest)
+    public function __construct(public string $type, public string $sender, public $amount, public TorrentRequest $tr)
     {
-        $this->type = $type;
-        $this->sender = $sender;
-        $this->tr = $torrentRequest;
-        $this->amount = $amount;
     }
 
     /**

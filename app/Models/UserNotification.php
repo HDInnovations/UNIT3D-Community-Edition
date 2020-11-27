@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\UserNotification.
  *
@@ -91,34 +90,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserNotification whereUserId($value)
  * @mixin \Eloquent
  */
-class UserNotification extends Model
+class UserNotification extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * The Attributes That Should Be Cast To Native Values.
      *
      * @var array
      */
-    protected $casts = [
-        'json_account_groups'      => 'array',
-        'json_mention_groups'      => 'array',
-        'json_request_groups'      => 'array',
-        'json_torrent_groups'      => 'array',
-        'json_forum_groups'        => 'array',
-        'json_following_groups'    => 'array',
-        'json_subscription_groups' => 'array',
-        'json_bon_groups'          => 'array',
-    ];
-
+    protected $casts = ['json_account_groups' => 'array', 'json_mention_groups' => 'array', 'json_request_groups' => 'array', 'json_torrent_groups' => 'array', 'json_forum_groups' => 'array', 'json_following_groups' => 'array', 'json_subscription_groups' => 'array', 'json_bon_groups' => 'array'];
     /**
      * Belongs To A User.
      *
@@ -126,12 +113,8 @@ class UserNotification extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Get the Expected groups for form validation.
      *
@@ -141,7 +124,6 @@ class UserNotification extends Model
     {
         return ['default_groups' => ['1' => 0]];
     }
-
     /**
      * Get the Expected fields for form validation.
      *
@@ -151,7 +133,6 @@ class UserNotification extends Model
     {
         return [];
     }
-
     /**
      * Set the base vars on object creation without touching boot.
      *
@@ -163,7 +144,7 @@ class UserNotification extends Model
     {
         foreach ($this->casts as $k => $v) {
             if ($v == 'array') {
-                $this->$k = $this->expected_groups;
+                $this->{$k} = $this->expected_groups;
             }
         }
     }

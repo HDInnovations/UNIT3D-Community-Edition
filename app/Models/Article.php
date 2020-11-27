@@ -19,7 +19,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
-
 /**
  * App\Models\Article.
  *
@@ -48,11 +47,10 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUserId($value)
  * @mixin \Eloquent
  */
-class Article extends Model
+class Article extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -60,12 +58,8 @@ class Article extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Has Many Comments.
      *
@@ -73,9 +67,8 @@ class Article extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(\App\Models\Comment::class);
     }
-
     /**
      * Article Trimming.
      *
@@ -92,24 +85,19 @@ class Article extends Model
         if ($strip_html) {
             $input = \strip_tags($input);
         }
-
         //no need to trim, already shorter than trim length
         if (\strlen($input) <= $length) {
             return $input;
         }
-
         //find last space within length
         $last_space = \strrpos(\substr($input, 0, $length), ' ');
         $trimmed_text = \substr($input, 0, $last_space);
-
         //add ellipses (...)
         if ($ellipses) {
             $trimmed_text .= '...';
         }
-
         return $trimmed_text;
     }
-
     /**
      * Set The Articles Content After Its Been Purified.
      *
@@ -119,11 +107,9 @@ class Article extends Model
      */
     public function setContentAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
+        $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['content'] = $antiXss->xss_clean($value);
     }
-
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -131,9 +117,8 @@ class Article extends Model
      */
     public function getContentHtml()
     {
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
+        $bbcode = new \App\Helpers\Bbcode();
+        $linkify = new \App\Helpers\Linkify();
         return $bbcode->parse($linkify->linky($this->content), true);
     }
 }

@@ -22,10 +22,6 @@ class NewUpload extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $torrent;
-
     /**
      * Create a new notification instance.
      *
@@ -34,10 +30,8 @@ class NewUpload extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $type, Torrent $torrent)
+    public function __construct(public string $type, public Torrent $torrent)
     {
-        $this->type = $type;
-        $this->torrent = $torrent;
     }
 
     /**

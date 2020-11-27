@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Ban.
  *
@@ -44,11 +43,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ban whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Ban extends Model
+class Ban extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -56,12 +54,8 @@ class Ban extends Model
      */
     public function banneduser()
     {
-        return $this->belongsTo(User::class, 'owned_by')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'owned_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A User.
      *
@@ -69,9 +63,6 @@ class Ban extends Model
      */
     public function staffuser()
     {
-        return $this->belongsTo(User::class, 'created_by')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'created_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

@@ -22,14 +22,6 @@ class NewPostTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $tipper;
-
-    public $post;
-
-    public $amount;
-
     /**
      * Create a new notification instance.
      *
@@ -38,12 +30,8 @@ class NewPostTip extends Notification implements ShouldQueue
      * @param $amount
      * @param Post $post
      */
-    public function __construct(string $type, string $tipper, $amount, Post $post)
+    public function __construct(public string $type, public string $tipper, public $amount, public Post $post)
     {
-        $this->type = $type;
-        $this->post = $post;
-        $this->tipper = $tipper;
-        $this->amount = $amount;
     }
 
     /**

@@ -17,11 +17,10 @@ use App\Models\PrivateMessage;
 use App\Models\Warning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoDeactivateWarningTest
  */
-class AutoDeactivateWarning extends Command
+class AutoDeactivateWarning extends \Illuminate\Console\Command
 {
     /**
      * The name and signature of the console command.
@@ -29,14 +28,12 @@ class AutoDeactivateWarning extends Command
      * @var string
      */
     protected $signature = 'auto:deactivate_warning';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Automatically Deactivates User Warnings If Expired';
-
     /**
      * Execute the console command.
      *
@@ -44,20 +41,18 @@ class AutoDeactivateWarning extends Command
      */
     public function handle()
     {
-        $current = Carbon::now();
-        $warnings = Warning::with(['warneduser', 'torrenttitle'])->where('active', '=', 1)->where('expires_on', '<', $current)->get();
-
+        $current = \Carbon\Carbon::now();
+        $warnings = \App\Models\Warning::with(['warneduser', 'torrenttitle'])->where('active', '=', 1)->where('expires_on', '<', $current)->get();
         foreach ($warnings as $warning) {
             // Set Records Active To 0 in warnings table
             $warning->active = '0';
             $warning->save();
-
             // Send Private Message
-            $pm = new PrivateMessage();
+            $pm = new \App\Models\PrivateMessage();
             $pm->sender_id = 1;
             $pm->receiver_id = $warning->warneduser->id;
             $pm->subject = 'Hit and Run Warning Deactivated';
-            $pm->message = 'The [b]WARNING[/b] you received relating to Torrent '.$warning->torrenttitle->name.' has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+            $pm->message = 'The [b]WARNING[/b] you received relating to Torrent ' . $warning->torrenttitle->name . ' has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
             $pm->save();
         }
         $this->comment('Automated Warning Deativation Command Complete');

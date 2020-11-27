@@ -27,16 +27,13 @@ class ProcessCompanyJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public $company;
-
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($company)
+    public function __construct(public $company)
     {
-        $this->company = $company;
     }
 
     /**

@@ -30,12 +30,6 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected $queries;
-
-    protected $user;
-
-    protected $torrent;
-
     /**
      * ProcessAnnounceRequest constructor.
      *
@@ -43,11 +37,8 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
      * @param \App\Models\User    $user
      * @param \App\Models\Torrent $torrent
      */
-    public function __construct($queries, User $user, Torrent $torrent)
+    public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
-        $this->queries = $queries;
-        $this->user = $user;
-        $this->torrent = $torrent;
     }
 
     /**

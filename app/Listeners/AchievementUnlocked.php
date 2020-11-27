@@ -20,11 +20,8 @@ use Illuminate\Support\Facades\Session;
 
 class AchievementUnlocked
 {
-    private $chat;
-
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chat)
     {
-        $this->chat = $chatRepository;
     }
 
     /**

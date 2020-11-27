@@ -22,12 +22,6 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $tr;
-
     /**
      * Create a new notification instance.
      *
@@ -35,11 +29,8 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      * @param string                     $sender
      * @param \App\Models\TorrentRequest $torrentRequest
      */
-    public function __construct(string $type, string $sender, TorrentRequest $torrentRequest)
+    public function __construct(public string $type, public string $sender, public TorrentRequest $tr)
     {
-        $this->type = $type;
-        $this->sender = $sender;
-        $this->tr = $torrentRequest;
     }
 
     /**

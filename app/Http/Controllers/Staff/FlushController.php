@@ -20,27 +20,24 @@ use App\Models\Message;
 use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
-
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest
  */
-class FlushController extends Controller
+class FlushController extends \App\Http\Controllers\Controller
 {
     /**
      * @var ChatRepository
      */
     private $chatRepository;
-
     /**
      * ChatController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
         $this->chatRepository = $chatRepository;
     }
-
     /**
      * Flsuh All Old Peers From Database.
      *
@@ -50,22 +47,18 @@ class FlushController extends Controller
      */
     public function peers()
     {
-        $carbon = new Carbon();
-        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
-
+        $carbon = new \Carbon\Carbon();
+        $peers = \App\Models\Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
         foreach ($peers as $peer) {
-            $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
+            $history = \App\Models\History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
             if ($history) {
                 $history->active = false;
                 $history->save();
             }
             $peer->delete();
         }
-
-        return \redirect()->route('staff.dashboard.index')
-            ->withSuccess('Ghost Peers Have Been Flushed');
+        return \redirect()->route('staff.dashboard.index')->withSuccess('Ghost Peers Have Been Flushed');
     }
-
     /**
      * Flush All Chat Messages.
      *
@@ -75,16 +68,11 @@ class FlushController extends Controller
      */
     public function chat()
     {
-        foreach (Message::all() as $message) {
-            \broadcast(new MessageDeleted($message));
+        foreach (\App\Models\Message::all() as $message) {
+            \broadcast(new \App\Events\MessageDeleted($message));
             $message->delete();
         }
-
-        $this->chatRepository->systemMessage(
-            'Chatbox Has Been Flushed! :broom:'
-        );
-
-        return \redirect()->route('staff.dashboard.index')
-            ->withSuccess('Chatbox Has Been Flushed');
+        $this->chatRepository->systemMessage('Chatbox Has Been Flushed! :broom:');
+        return \redirect()->route('staff.dashboard.index')->withSuccess('Chatbox Has Been Flushed');
     }
 }

@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\TorrentRequestBounty.
  *
@@ -42,18 +41,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequestBounty whereUserId($value)
  * @mixin \Eloquent
  */
-class TorrentRequestBounty extends Model
+class TorrentRequestBounty extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'request_bounty';
-
     /**
      * Belongs To A User.
      *
@@ -61,12 +58,8 @@ class TorrentRequestBounty extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Torrent Request.
      *
@@ -74,6 +67,6 @@ class TorrentRequestBounty extends Model
      */
     public function request()
     {
-        return $this->belongsTo(TorrentRequest::class);
+        return $this->belongsTo(\App\Models\TorrentRequest::class);
     }
 }

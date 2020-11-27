@@ -17,11 +17,10 @@ use App\Models\History;
 use App\Models\Peer;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoFlushPeersTest
  */
-class AutoFlushPeers extends Command
+class AutoFlushPeers extends \Illuminate\Console\Command
 {
     /**
      * The name and signature of the console command.
@@ -29,14 +28,12 @@ class AutoFlushPeers extends Command
      * @var string
      */
     protected $signature = 'auto:flush_peers';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Flushes Ghost Peers';
-
     /**
      * Create a new command instance.
      *
@@ -46,7 +43,6 @@ class AutoFlushPeers extends Command
     {
         parent::__construct();
     }
-
     /**
      * Execute the console command.
      *
@@ -56,11 +52,10 @@ class AutoFlushPeers extends Command
      */
     public function handle()
     {
-        $carbon = new Carbon();
-        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
-
+        $carbon = new \Carbon\Carbon();
+        $peers = \App\Models\Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
         foreach ($peers as $peer) {
-            $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
+            $history = \App\Models\History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
             if ($history) {
                 $history->active = false;
                 $history->save();

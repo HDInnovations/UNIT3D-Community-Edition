@@ -20,7 +20,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
-
 /**
  * App\Models\TorrentRequest.
  *
@@ -86,30 +85,22 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TorrentRequest whereVotes($value)
  * @mixin \Eloquent
  */
-class TorrentRequest extends Model
+class TorrentRequest extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'filled_when',
-        'approved_when',
-    ];
-
+    protected $dates = ['created_at', 'updated_at', 'filled_when', 'approved_when'];
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'requests';
-
     /**
      * Belongs To A User.
      *
@@ -117,12 +108,8 @@ class TorrentRequest extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A User.
      *
@@ -130,12 +117,8 @@ class TorrentRequest extends Model
      */
     public function approveUser()
     {
-        return $this->belongsTo(User::class, 'approved_by')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'approved_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A User.
      *
@@ -143,12 +126,8 @@ class TorrentRequest extends Model
      */
     public function FillUser()
     {
-        return $this->belongsTo(User::class, 'filled_by')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'filled_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Category.
      *
@@ -156,9 +135,8 @@ class TorrentRequest extends Model
      */
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(\App\Models\Category::class);
     }
-
     /**
      * Belongs To A Type.
      *
@@ -166,9 +144,8 @@ class TorrentRequest extends Model
      */
     public function type()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(\App\Models\Type::class);
     }
-
     /**
      * Belongs To A Resolution.
      *
@@ -176,9 +153,8 @@ class TorrentRequest extends Model
      */
     public function resolution()
     {
-        return $this->belongsTo(Resolution::class);
+        return $this->belongsTo(\App\Models\Resolution::class);
     }
-
     /**
      * Belongs To A Torrent.
      *
@@ -186,9 +162,8 @@ class TorrentRequest extends Model
      */
     public function torrent()
     {
-        return $this->belongsTo(Torrent::class, 'filled_hash', 'info_hash');
+        return $this->belongsTo(\App\Models\Torrent::class, 'filled_hash', 'info_hash');
     }
-
     /**
      * Has Many Comments.
      *
@@ -196,9 +171,8 @@ class TorrentRequest extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'requests_id', 'id');
+        return $this->hasMany(\App\Models\Comment::class, 'requests_id', 'id');
     }
-
     /**
      * Has Many BON Bounties.
      *
@@ -206,9 +180,8 @@ class TorrentRequest extends Model
      */
     public function requestBounty()
     {
-        return $this->hasMany(TorrentRequestBounty::class, 'requests_id', 'id');
+        return $this->hasMany(\App\Models\TorrentRequestBounty::class, 'requests_id', 'id');
     }
-
     /**
      * Set The Requests Description After Its Been Purified.
      *
@@ -218,11 +191,9 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
+        $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['description'] = $antiXss->xss_clean($value);
     }
-
     /**
      * Parse Description And Return Valid HTML.
      *
@@ -230,12 +201,10 @@ class TorrentRequest extends Model
      */
     public function getDescriptionHtml()
     {
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
+        $bbcode = new \App\Helpers\Bbcode();
+        $linkify = new \App\Helpers\Linkify();
         return $bbcode->parse($linkify->linky($this->description), true);
     }
-
     /**
      * Notify Requester When A New Action Is Taken.
      *
@@ -246,13 +215,11 @@ class TorrentRequest extends Model
      */
     public function notifyRequester($type, $payload)
     {
-        $user = User::with('notification')->findOrFail($this->user_id);
+        $user = \App\Models\User::with('notification')->findOrFail($this->user_id);
         if ($user->acceptsNotification(\auth()->user(), $user, 'request', 'show_request_comment')) {
-            $user->notify(new NewComment('request', $payload));
-
+            $user->notify(new \App\Notifications\NewComment('request', $payload));
             return true;
         }
-
         return true;
     }
 }

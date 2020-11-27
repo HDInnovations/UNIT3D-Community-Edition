@@ -17,7 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 /**
  * App\Models\Warning.
  *
@@ -56,12 +55,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Warning withoutTrashed()
  * @mixin \Eloquent
  */
-class Warning extends Model
+class Warning extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use SoftDeletes;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \Illuminate\Database\Eloquent\SoftDeletes;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A Torrent.
      *
@@ -69,9 +67,8 @@ class Warning extends Model
      */
     public function torrenttitle()
     {
-        return $this->belongsTo(Torrent::class, 'torrent');
+        return $this->belongsTo(\App\Models\Torrent::class, 'torrent');
     }
-
     /**
      * Belongs To A User.
      *
@@ -79,12 +76,8 @@ class Warning extends Model
      */
     public function warneduser()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'user_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A USer.
      *
@@ -92,12 +85,8 @@ class Warning extends Model
      */
     public function staffuser()
     {
-        return $this->belongsTo(User::class, 'warned_by')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'warned_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A USer.
      *
@@ -105,9 +94,6 @@ class Warning extends Model
      */
     public function deletedBy()
     {
-        return $this->belongsTo(User::class, 'deleted_by')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'deleted_by')->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

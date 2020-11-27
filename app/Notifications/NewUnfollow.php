@@ -22,12 +22,6 @@ class NewUnfollow extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $target;
-
     /**
      * Create a new notification instance.
      *
@@ -35,11 +29,8 @@ class NewUnfollow extends Notification implements ShouldQueue
      * @param User   $sender
      * @param User   $target
      */
-    public function __construct(string $type, User $sender, User $target)
+    public function __construct(public string $type, public User $sender, public User $target)
     {
-        $this->type = $type;
-        $this->sender = $sender;
-        $this->target = $target;
     }
 
     /**

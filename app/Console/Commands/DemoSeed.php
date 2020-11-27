@@ -230,7 +230,7 @@ Menu
                         'created_at' => \now(),
                         'updated_at' => \now(),
                     ]);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $abort = true;
 
                     break;

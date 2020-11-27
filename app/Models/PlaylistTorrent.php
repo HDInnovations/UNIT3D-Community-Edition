@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\PlaylistTorrent.
  *
@@ -38,18 +37,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PlaylistTorrent whereTorrentId($value)
  * @mixin \Eloquent
  */
-class PlaylistTorrent extends Model
+class PlaylistTorrent extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * Belongs To A Torrent.
      *
@@ -57,9 +54,8 @@ class PlaylistTorrent extends Model
      */
     public function torrent()
     {
-        return $this->belongsTo(Torrent::class);
+        return $this->belongsTo(\App\Models\Torrent::class);
     }
-
     /**
      * Belongs To A Playlist.
      *
@@ -67,6 +63,6 @@ class PlaylistTorrent extends Model
      */
     public function playlist()
     {
-        return $this->belongsTo(Playlist::class);
+        return $this->belongsTo(\App\Models\Playlist::class);
     }
 }

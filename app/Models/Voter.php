@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Voter.
  *
@@ -38,11 +37,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Voter whereUserId($value)
  * @mixin \Eloquent
  */
-class Voter extends Model
+class Voter extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A Poll.
      *
@@ -50,9 +48,8 @@ class Voter extends Model
      */
     public function poll()
     {
-        return $this->belongsTo(Poll::class);
+        return $this->belongsTo(\App\Models\Poll::class);
     }
-
     /**
      * Belongs To A User.
      *
@@ -60,9 +57,6 @@ class Voter extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

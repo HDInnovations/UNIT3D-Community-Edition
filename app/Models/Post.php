@@ -19,7 +19,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
-
 /**
  * App\Models\Post.
  *
@@ -47,11 +46,10 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUserId($value)
  * @mixin \Eloquent
  */
-class Post extends Model
+class Post extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A Topic.
      *
@@ -59,9 +57,8 @@ class Post extends Model
      */
     public function topic()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(\App\Models\Topic::class);
     }
-
     /**
      * Belongs To A User.
      *
@@ -69,12 +66,8 @@ class Post extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * A Post Has Many Likes.
      *
@@ -82,9 +75,8 @@ class Post extends Model
      */
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(\App\Models\Like::class);
     }
-
     /**
      * A Post Has Many Tips.
      *
@@ -92,9 +84,8 @@ class Post extends Model
      */
     public function tips()
     {
-        return $this->hasMany(BonTransactions::class);
+        return $this->hasMany(\App\Models\BonTransactions::class);
     }
-
     /**
      * Set The Posts Content After Its Been Purified.
      *
@@ -104,11 +95,9 @@ class Post extends Model
      */
     public function setContentAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
+        $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['content'] = $antiXss->xss_clean($value);
     }
-
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -116,12 +105,10 @@ class Post extends Model
      */
     public function getContentHtml()
     {
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
+        $bbcode = new \App\Helpers\Bbcode();
+        $linkify = new \App\Helpers\Linkify();
         return $bbcode->parse($linkify->linky($this->content), true);
     }
-
     /**
      * Post Trimming.
      *
@@ -138,24 +125,19 @@ class Post extends Model
         if ($strip_html) {
             $input = \strip_tags($input);
         }
-
         //no need to trim, already shorter than trim length
         if (\strlen($input) <= $length) {
             return $input;
         }
-
         //find last space within length
         $last_space = \strrpos(\substr($input, 0, $length), ' ');
         $trimmed_text = \substr($input, 0, $last_space);
-
         //add ellipses (...)
         if ($ellipses) {
             $trimmed_text .= '...';
         }
-
         return $trimmed_text;
     }
-
     /**
      * Get A Post From A ID.
      *
@@ -165,7 +147,6 @@ class Post extends Model
     {
         return $this->topic->postNumberFromId($this->id);
     }
-
     /**
      * Get A Posts Page Number.
      *
@@ -174,7 +155,6 @@ class Post extends Model
     public function getPageNumber()
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
-
         return \floor($result);
     }
 }

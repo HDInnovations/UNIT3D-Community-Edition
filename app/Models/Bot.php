@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Bot.
  *
@@ -76,27 +75,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Bot whereUploaded($value)
  * @mixin \Eloquent
  */
-class Bot extends Model
+class Bot extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = true;
-
     /**
      * The Attributes That Should Be Cast To Native Types.
      *
      * @var array
      */
-    protected $casts = [
-        'name' => 'string',
-    ];
-
+    protected $casts = ['name' => 'string'];
     /**
      * The attributes that should be mutated to dates.
      *

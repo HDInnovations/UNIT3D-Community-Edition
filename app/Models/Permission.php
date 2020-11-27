@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Permission.
  *
@@ -42,18 +41,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereStartTopic($value)
  * @mixin \Eloquent
  */
-class Permission extends Model
+class Permission extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Tells Laravel To Not Maintain The Timestamp Columns.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * Belongs To A Group.
      *
@@ -61,9 +58,8 @@ class Permission extends Model
      */
     public function group()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(\App\Models\Group::class);
     }
-
     /**
      * Belongs To A Forum.
      *
@@ -71,6 +67,6 @@ class Permission extends Model
      */
     public function forum()
     {
-        return $this->belongsTo(Forum::class);
+        return $this->belongsTo(\App\Models\Forum::class);
     }
 }

@@ -19,11 +19,10 @@ use App\Models\History;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoGroupTest
  */
-class AutoGroup extends Command
+class AutoGroup extends \Illuminate\Console\Command
 {
     /**
      * The name and signature of the console command.
@@ -31,14 +30,12 @@ class AutoGroup extends Command
      * @var string
      */
     protected $signature = 'auto:group';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Automatically Change A Users Group Class If Requirements Met';
-
     /**
      * Execute the console command.
      *
@@ -46,18 +43,15 @@ class AutoGroup extends Command
      *
      * @return mixed
      */
-    public function handle(ByteUnits $byteUnits)
+    public function handle(\App\Helpers\ByteUnits $byteUnits)
     {
         // Temp Hard Coding of Immune Groups (Config Files To Come)
-        $current = Carbon::now();
-        $groups = Group::select(['id'])->where('autogroup', '=', 1)->get()->toArray();
-        $users = User::whereIn('group_id', $groups)->get();
-
+        $current = \Carbon\Carbon::now();
+        $groups = \App\Models\Group::select(['id'])->where('autogroup', '=', 1)->get()->toArray();
+        $users = \App\Models\User::whereIn('group_id', $groups)->get();
         foreach ($users as $user) {
-            $hiscount = History::where('user_id', '=', $user->id)->count();
-
+            $hiscount = \App\Models\History::where('user_id', '=', $user->id)->count();
             // Temp Hard Coding of Group Requirements (Config Files To Come) (Upload in Bytes!) (Seedtime in Seconds!)
-
             // Leech ratio dropped below sites minimum
             if ($user->getRatio() < \config('other.ratio') && $user->group_id != 15) {
                 $user->group_id = 15;
@@ -74,7 +68,6 @@ class AutoGroup extends Command
                 $user->can_download = 1;
                 $user->save();
             }
-
             // PowerUser >= 1TiB and account 1 month old
             if ($user->uploaded >= $byteUnits->bytesFromUnit('1TiB') && $user->getRatio() >= \config('other.ratio') && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 11) {
                 $user->group_id = 11;
@@ -96,7 +89,7 @@ class AutoGroup extends Command
                 $user->save();
             }
             // Seeder Seedsize >= 5TiB and account 1 month old and seedtime average 30 days or better
-            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('5TiB') && $user->getRatio() >= \config('other.ratio') && \round($user->getTotalSeedTime() / \max(1, $hiscount)) > 2_592_000 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 17) {
+            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('5TiB') && $user->getRatio() >= \config('other.ratio') && \round($user->getTotalSeedTime() / \max(1, $hiscount)) > 2592000 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 17) {
                 $user->group_id = 17;
                 $user->save();
             }
@@ -106,7 +99,7 @@ class AutoGroup extends Command
                 $user->save();
             }
             // Archivist Seedsize >= 10TiB and account 3 month old and seedtime average 60 days or better
-            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('10TiB') && $user->getRatio() >= \config('other.ratio') && \round($user->getTotalSeedTime() / \max(1, $hiscount)) > 2_592_000 * 2 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 18) {
+            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('10TiB') && $user->getRatio() >= \config('other.ratio') && \round($user->getTotalSeedTime() / \max(1, $hiscount)) > 2592000 * 2 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 18) {
                 $user->group_id = 18;
                 $user->save();
             }

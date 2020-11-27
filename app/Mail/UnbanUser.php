@@ -21,9 +21,6 @@ class UnbanUser extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    public $email;
-
-    public $ban;
 
     /**
      * Create a new message instance.
@@ -31,10 +28,8 @@ class UnbanUser extends Mailable
      * @param $email
      * @param $ban
      */
-    public function __construct($email, $ban)
+    public function __construct(public $email, public $ban)
     {
-        $this->email = $email;
-        $this->ban = $ban;
     }
 
     /**

@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\FreeleechToken.
  *
@@ -36,8 +35,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FreeleechToken whereUserId($value)
  * @mixin \Eloquent
  */
-class FreeleechToken extends Model
+class FreeleechToken extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
 }

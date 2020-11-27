@@ -22,14 +22,6 @@ class NewUploadTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $tipper;
-
-    public $torrent;
-
-    public $amount;
-
     /**
      * Create a new notification instance.
      *
@@ -38,12 +30,8 @@ class NewUploadTip extends Notification implements ShouldQueue
      * @param $amount
      * @param Torrent $torrent
      */
-    public function __construct(string $type, string $tipper, $amount, Torrent $torrent)
+    public function __construct(public string $type, public string $tipper, public $amount, public Torrent $torrent)
     {
-        $this->type = $type;
-        $this->tipper = $tipper;
-        $this->torrent = $torrent;
-        $this->amount = $amount;
     }
 
     /**

@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\FeaturedTorrent.
  *
@@ -38,11 +37,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\FeaturedTorrent whereUserId($value)
  * @mixin \Eloquent
  */
-class FeaturedTorrent extends Model
+class FeaturedTorrent extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A Torrent.
      *
@@ -50,9 +48,8 @@ class FeaturedTorrent extends Model
      */
     public function torrent()
     {
-        return $this->belongsTo(Torrent::class);
+        return $this->belongsTo(\App\Models\Torrent::class);
     }
-
     /**
      * Belongs To A User.
      *
@@ -60,6 +57,6 @@ class FeaturedTorrent extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
 }

@@ -103,7 +103,7 @@ class HiddenCaptcha
         // Get the token values
         try {
             $token = Crypt::decrypt($captcha);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             return false;
         }
 

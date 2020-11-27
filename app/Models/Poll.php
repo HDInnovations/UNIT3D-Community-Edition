@@ -17,7 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-
 /**
  * App\Models\Poll.
  *
@@ -46,22 +45,16 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Poll whereUserId($value)
  * @mixin \Eloquent
  */
-class Poll extends Model
+class Poll extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'title',
-        'slug',
-        'multiple_choice',
-    ];
-
+    protected $fillable = ['title', 'slug', 'multiple_choice'];
     /**
      * Belongs To A User.
      *
@@ -69,12 +62,8 @@ class Poll extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * A Poll Has Many Options.
      *
@@ -82,9 +71,8 @@ class Poll extends Model
      */
     public function options()
     {
-        return $this->hasMany(Option::class);
+        return $this->hasMany(\App\Models\Option::class);
     }
-
     /**
      * A Poll Has Many Voters.
      *
@@ -92,9 +80,8 @@ class Poll extends Model
      */
     public function voters()
     {
-        return $this->hasMany(Voter::class);
+        return $this->hasMany(\App\Models\Voter::class);
     }
-
     /**
      * Set The Poll's Title, Adds A Question Mark (?) If Needed.
      *
@@ -105,12 +92,10 @@ class Poll extends Model
     public function setTitleAttribute($title)
     {
         if (\substr($title, -1) !== '?') {
-            return $this->attributes['title'] = $title.'?';
+            return $this->attributes['title'] = $title . '?';
         }
-
         return $this->attributes['title'] = $title;
     }
-
     /**
      * Create A Poll Title Slug.
      *
@@ -120,12 +105,10 @@ class Poll extends Model
      */
     public function makeSlugFromTitle($title)
     {
-        $slug = \strlen($title) > 20 ? \substr(Str::slug($title), 0, 20) : Str::slug($title);
-        $count = $this->where('slug', 'LIKE', "%$slug%")->count();
-
+        $slug = \strlen($title) > 20 ? \substr(\Illuminate\Support\Str::slug($title), 0, 20) : \Illuminate\Support\Str::slug($title);
+        $count = $this->where('slug', 'LIKE', "%{$slug}%")->count();
         return $count ? \sprintf('%s-%s', $slug, $count) : $slug;
     }
-
     /**
      * Get Total Votes On A Poll Option.
      *
@@ -137,10 +120,8 @@ class Poll extends Model
         foreach ($this->options as $option) {
             $result += $option->votes;
         }
-
         return $result;
     }
-
     protected static function boot()
     {
         parent::boot();
@@ -148,7 +129,6 @@ class Poll extends Model
             if (empty($poll->slug)) {
                 $poll->slug = $poll->makeSlugFromTitle($poll->title);
             }
-
             return true;
         });
     }

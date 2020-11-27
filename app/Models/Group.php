@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Group.
  *
@@ -68,25 +67,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group whereSlug($value)
  * @mixin \Eloquent
  */
-class Group extends Model
+class Group extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Attributes That Aren't Mass Assignable.
      *
      * @var array
      */
     protected $guarded = ['id'];
-
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * Has Many Users.
      *
@@ -94,9 +90,8 @@ class Group extends Model
      */
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(\App\Models\User::class);
     }
-
     /**
      * Has Many Permissions.
      *
@@ -104,9 +99,8 @@ class Group extends Model
      */
     public function permissions()
     {
-        return $this->hasMany(Permission::class);
+        return $this->hasMany(\App\Models\Permission::class);
     }
-
     /**
      * Returns The Requested Row From The Permissions Table.
      *
@@ -116,11 +110,8 @@ class Group extends Model
      */
     public function getPermissionsByForum($forum)
     {
-        return Permission::where('forum_id', '=', $forum->id)
-            ->where('group_id', '=', $this->id)
-            ->first();
+        return \App\Models\Permission::where('forum_id', '=', $forum->id)->where('group_id', '=', $this->id)->first();
     }
-
     /**
      * Get the Group allowed answer as bool.
      *
@@ -134,7 +125,6 @@ class Group extends Model
         if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($group_id, $object['default_groups'])) {
             return $object['default_groups'][$group_id] == 1;
         }
-
         return true;
     }
 }

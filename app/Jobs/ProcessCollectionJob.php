@@ -27,16 +27,13 @@ class ProcessCollectionJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public $collection;
-
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($collection)
+    public function __construct(public $collection)
     {
-        $this->collection = $collection;
     }
 
     /**

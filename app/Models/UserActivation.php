@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\UserActivation.
  *
@@ -37,11 +36,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserActivation whereUserId($value)
  * @mixin \Eloquent
  */
-class UserActivation extends Model
+class UserActivation extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -49,9 +47,6 @@ class UserActivation extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id')->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

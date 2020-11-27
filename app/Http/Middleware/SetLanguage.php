@@ -17,7 +17,6 @@ use App\Models\Language;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Support\Facades\App;
-
 class SetLanguage
 {
     /**
@@ -28,50 +27,41 @@ class SetLanguage
     private function setLocale($locale)
     {
         // Check if is allowed and set default locale if not
-        if (! Language::allowed($locale)) {
+        if (!\App\Models\Language::allowed($locale)) {
             $locale = \config('app.locale');
         }
-
         // Set app language
-        App::setLocale($locale);
-
+        \Illuminate\Support\Facades\App::setLocale($locale);
         // Set carbon language
         if (\config('language.carbon')) {
             // Carbon uses only language code
             if (\config('language.mode.code') == 'long') {
                 $locale = \explode('-', $locale)[0];
             }
-
-            Carbon::setLocale($locale);
+            \Carbon\Carbon::setLocale($locale);
         }
-
         // Set date language
         if (\config('language.date')) {
             // Date uses only language code
             if (\config('language.mode.code') == 'long') {
                 $locale = \explode('-', $locale)[0];
             }
-
             \Date::setLocale($locale);
         }
     }
-
     public function setDefaultLocale()
     {
         $this->setLocale(\config('app.locale'));
     }
-
     public function setUserLocale()
     {
         $user = \auth()->user();
-
         if ($user->locale) {
             $this->setLocale($user->locale);
         } else {
             $this->setDefaultLocale();
         }
     }
-
     public function setSystemLocale($request)
     {
         if ($request->session()->has('locale')) {
@@ -80,7 +70,6 @@ class SetLanguage
             $this->setDefaultLocale();
         }
     }
-
     /**
      * Handle an incoming request.
      *
@@ -89,7 +78,7 @@ class SetLanguage
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, \Closure $next)
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));
@@ -98,7 +87,6 @@ class SetLanguage
         } else {
             $this->setSystemLocale($request);
         }
-
         return $next($request);
     }
 }

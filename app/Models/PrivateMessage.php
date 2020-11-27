@@ -19,7 +19,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
-
 /**
  * App\Models\PrivateMessage.
  *
@@ -49,11 +48,10 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PrivateMessage whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class PrivateMessage extends Model
+class PrivateMessage extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -61,12 +59,8 @@ class PrivateMessage extends Model
      */
     public function sender()
     {
-        return $this->belongsTo(User::class, 'sender_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'sender_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A User.
      *
@@ -74,12 +68,8 @@ class PrivateMessage extends Model
      */
     public function receiver()
     {
-        return $this->belongsTo(User::class, 'receiver_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'receiver_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Set The PM Message After Its Been Purified.
      *
@@ -89,11 +79,9 @@ class PrivateMessage extends Model
      */
     public function setMessageAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
+        $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['message'] = $antiXss->xss_clean($value);
     }
-
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -101,9 +89,8 @@ class PrivateMessage extends Model
      */
     public function getMessageHtml()
     {
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
+        $bbcode = new \App\Helpers\Bbcode();
+        $linkify = new \App\Helpers\Linkify();
         return $bbcode->parse($linkify->linky($this->message), true);
     }
 }

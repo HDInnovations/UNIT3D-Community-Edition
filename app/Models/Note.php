@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Note.
  *
@@ -40,18 +39,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note whereUserId($value)
  * @mixin \Eloquent
  */
-class Note extends Model
+class Note extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'user_notes';
-
     /**
      * Belongs To A User.
      *
@@ -59,12 +56,8 @@ class Note extends Model
      */
     public function noteduser()
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'user_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A User.
      *
@@ -72,9 +65,6 @@ class Note extends Model
      */
     public function staffuser()
     {
-        return $this->belongsTo(User::class, 'staff_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'staff_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

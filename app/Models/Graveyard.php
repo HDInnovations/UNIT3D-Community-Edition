@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Graveyard.
  *
@@ -42,18 +41,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Graveyard whereUserId($value)
  * @mixin \Eloquent
  */
-class Graveyard extends Model
+class Graveyard extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'graveyard';
-
     /**
      * Belongs To A User.
      *
@@ -61,9 +58,8 @@ class Graveyard extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
-
     /**
      * Belongs To A Torrent.
      *
@@ -71,6 +67,6 @@ class Graveyard extends Model
      */
     public function torrent()
     {
-        return $this->belongsTo(Torrent::class);
+        return $this->belongsTo(\App\Models\Torrent::class);
     }
 }

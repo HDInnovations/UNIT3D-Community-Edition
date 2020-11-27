@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\TwoStepAuth.
  *
@@ -44,72 +43,46 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\TwoStepAuth whereUserId($value)
  * @mixin \Eloquent
  */
-class TwoStepAuth extends Model
+class TwoStepAuth extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'twostep_auth';
-
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = true;
-
     /**
      * The Attributes That Are Not Mass Assignable.
      *
      * @var array
      */
-    protected $guarded = [
-        'id',
-    ];
-
+    protected $guarded = ['id'];
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'requestDate',
-        'authDate',
-    ];
-
+    protected $dates = ['created_at', 'updated_at', 'requestDate', 'authDate'];
     /**
      * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'userId',
-        'authCode',
-        'authCount',
-        'authStatus',
-        'requestDate',
-        'authDate',
-    ];
-
+    protected $fillable = ['userId', 'authCode', 'authCount', 'authStatus', 'requestDate', 'authDate'];
     /**
      * The Attributes That Should Be Casted To Native Types.
      *
      * @var array
      */
-    protected $casts = [
-        'userId'     => 'integer',
-        'authCode'   => 'string',
-        'authCount'  => 'integer',
-        'authStatus' => 'boolean',
-    ];
-
+    protected $casts = ['userId' => 'integer', 'authCode' => 'string', 'authCount' => 'integer', 'authStatus' => 'boolean'];
     /**
      * Get a validator for an incoming Request.
      *
@@ -119,14 +92,6 @@ class TwoStepAuth extends Model
      */
     public static function rules($merge = [])
     {
-        return \array_merge(
-            [
-                'userId'     => 'required|integer',
-                'authCode'   => 'required|string|max:4|min:4',
-                'authCount'  => 'required|integer',
-                'authStatus' => 'required|boolean',
-            ],
-            $merge
-        );
+        return \array_merge(['userId' => 'required|integer', 'authCode' => 'required|string|max:4|min:4', 'authCount' => 'required|integer', 'authStatus' => 'required|boolean'], $merge);
     }
 }

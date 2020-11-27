@@ -16,11 +16,10 @@ namespace App\Console\Commands;
 use App\Models\History;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoCorrectHistoryTest
  */
-class AutoCorrectHistory extends Command
+class AutoCorrectHistory extends \Illuminate\Console\Command
 {
     /**
      * The name and signature of the console command.
@@ -28,14 +27,12 @@ class AutoCorrectHistory extends Command
      * @var string
      */
     protected $signature = 'auto:correct_history';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Corrects History Records Said To Be Active Even Though Really Are Not Due To Not Receiving A STOPPED Event From Client.';
-
     /**
      * Create a new command instance.
      *
@@ -45,7 +42,6 @@ class AutoCorrectHistory extends Command
     {
         parent::__construct();
     }
-
     /**
      * Execute the console command.
      *
@@ -55,9 +51,8 @@ class AutoCorrectHistory extends Command
      */
     public function handle()
     {
-        $carbon = new Carbon();
-        $history = History::select(['id', 'active', 'updated_at'])->where('active', '=', 1)->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
-
+        $carbon = new \Carbon\Carbon();
+        $history = \App\Models\History::select(['id', 'active', 'updated_at'])->where('active', '=', 1)->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
         foreach ($history as $h) {
             $h->active = false;
             $h->save();

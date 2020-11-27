@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Subscription.
  *
@@ -41,11 +40,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subscription whereUserId($value)
  * @mixin \Eloquent
  */
-class Subscription extends Model
+class Subscription extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -53,12 +51,8 @@ class Subscription extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Topic.
      *
@@ -66,9 +60,8 @@ class Subscription extends Model
      */
     public function topic()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(\App\Models\Topic::class);
     }
-
     /**
      * Belongs To A Forum.
      *
@@ -76,6 +69,6 @@ class Subscription extends Model
      */
     public function forum()
     {
-        return $this->belongsTo(Forum::class);
+        return $this->belongsTo(\App\Models\Forum::class);
     }
 }

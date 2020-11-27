@@ -19,7 +19,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
-
 /**
  * App\Models\Comment.
  *
@@ -54,11 +53,10 @@ use voku\helper\AntiXSS;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
  * @mixin \Eloquent
  */
-class Comment extends Model
+class Comment extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * Belongs To A Torrent.
      *
@@ -66,9 +64,8 @@ class Comment extends Model
      */
     public function torrent()
     {
-        return $this->belongsTo(Torrent::class);
+        return $this->belongsTo(\App\Models\Torrent::class);
     }
-
     /**
      * Belongs To A Article.
      *
@@ -76,9 +73,8 @@ class Comment extends Model
      */
     public function article()
     {
-        return $this->belongsTo(Article::class);
+        return $this->belongsTo(\App\Models\Article::class);
     }
-
     /**
      * Belongs To A Request.
      *
@@ -86,9 +82,8 @@ class Comment extends Model
      */
     public function request()
     {
-        return $this->belongsTo(TorrentRequest::class, 'requests_id', 'id');
+        return $this->belongsTo(\App\Models\TorrentRequest::class, 'requests_id', 'id');
     }
-
     /**
      * Belongs To A Playlist.
      *
@@ -96,9 +91,8 @@ class Comment extends Model
      */
     public function playlist()
     {
-        return $this->belongsTo(Playlist::class);
+        return $this->belongsTo(\App\Models\Playlist::class);
     }
-
     /**
      * Belongs To A User.
      *
@@ -106,12 +100,8 @@ class Comment extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Set The Comments Content After Its Been Purified.
      *
@@ -121,11 +111,9 @@ class Comment extends Model
      */
     public function setContentAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
+        $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['content'] = $antiXss->xss_clean($value);
     }
-
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -133,9 +121,8 @@ class Comment extends Model
      */
     public function getContentHtml()
     {
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
+        $bbcode = new \App\Helpers\Bbcode();
+        $linkify = new \App\Helpers\Linkify();
         return $bbcode->parse($linkify->linky($this->content), true);
     }
 }

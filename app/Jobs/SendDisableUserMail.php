@@ -28,10 +28,6 @@ class SendDisableUserMail implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
-    /**
-     * @var User
-     */
-    public $user;
 
     /**
      * The number of times the job may be attempted.
@@ -45,9 +41,8 @@ class SendDisableUserMail implements ShouldQueue
      *
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct(public User $user)
     {
-        $this->user = $user;
     }
 
     /**

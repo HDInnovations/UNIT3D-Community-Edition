@@ -23,12 +23,6 @@ class NewPost extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $post;
-
-    public $type;
-
-    public $poster;
-
     /**
      * Create a new notification instance.
      *
@@ -36,11 +30,8 @@ class NewPost extends Notification implements ShouldQueue
      * @param \App\Models\User $user
      * @param Post             $post
      */
-    public function __construct(string $type, User $user, Post $post)
+    public function __construct(public string $type, public User $poster, public Post $post)
     {
-        $this->poster = $user;
-        $this->post = $post;
-        $this->type = $type;
     }
 
     /**

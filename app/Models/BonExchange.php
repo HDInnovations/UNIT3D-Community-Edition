@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\BonExchange.
  *
@@ -42,37 +41,28 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BonExchange whereValue($value)
  * @mixin \Eloquent
  */
-class BonExchange extends Model
+class BonExchange extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'bon_exchange';
-
     /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * The Attributes That Should Be Casted To Native Types.
      *
      * @var array
      */
-    protected $casts = [
-        'upload'             => 'boolean',
-        'download'           => 'boolean',
-        'personal_freeleech' => 'boolean',
-        'invite'             => 'boolean',
-    ];
-
+    protected $casts = ['upload' => 'boolean', 'download' => 'boolean', 'personal_freeleech' => 'boolean', 'invite' => 'boolean'];
     /**
      * @method getDownloadOptions
      *
@@ -80,11 +70,8 @@ class BonExchange extends Model
      */
     public function getDownloadOptions()
     {
-        return self::where('download', '=', true)
-            ->orderBy('value', 'asc')
-            ->get();
+        return self::where('download', '=', true)->orderBy('value', 'asc')->get();
     }
-
     /**
      * @method getUploadOptions
      *
@@ -92,11 +79,8 @@ class BonExchange extends Model
      */
     public function getUploadOptions()
     {
-        return self::where('upload', '=', true)
-            ->orderBy('value', 'asc')
-            ->get();
+        return self::where('upload', '=', true)->orderBy('value', 'asc')->get();
     }
-
     /**
      * @method getPersonalFreeleechOption
      *
@@ -104,11 +88,8 @@ class BonExchange extends Model
      */
     public function getPersonalFreeleechOption()
     {
-        return self::where('personal_freeleech', '=', true)
-            ->orderBy('value', 'asc')
-            ->get();
+        return self::where('personal_freeleech', '=', true)->orderBy('value', 'asc')->get();
     }
-
     /**
      * @method getInviteOption
      *
@@ -116,11 +97,8 @@ class BonExchange extends Model
      */
     public function getInviteOption()
     {
-        return self::where('invite', '=', true)
-            ->orderBy('value', 'asc')
-            ->get();
+        return self::where('invite', '=', true)->orderBy('value', 'asc')->get();
     }
-
     /**
      * @method getItemCost
      *
@@ -130,8 +108,6 @@ class BonExchange extends Model
      */
     public function getItemCost($id)
     {
-        return self::where('id', '=', $id)
-            ->get()
-            ->toArray()[0]['cost'];
+        return self::where('id', '=', $id)->get()->toArray()[0]['cost'];
     }
 }

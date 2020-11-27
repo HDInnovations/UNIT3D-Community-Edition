@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Report.
  *
@@ -57,20 +56,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Report whereVerdict($value)
  * @mixin \Eloquent
  */
-class Report extends Model
+class Report extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \App\Traits\Auditable;
     /**
      * The Attributes That Aren't Mass Assignable.
      *
      * @var array
      */
-    protected $guarded = [
-        'id',
-    ];
-
+    protected $guarded = ['id'];
     /**
      * Belongs To A Request.
      *
@@ -78,9 +73,8 @@ class Report extends Model
      */
     public function request()
     {
-        return $this->belongsTo(TorrentRequest::class, 'request_id');
+        return $this->belongsTo(\App\Models\TorrentRequest::class, 'request_id');
     }
-
     /**
      * Belongs To A Torrent.
      *
@@ -88,9 +82,8 @@ class Report extends Model
      */
     public function torrent()
     {
-        return $this->belongsTo(Torrent::class, 'torrent_id');
+        return $this->belongsTo(\App\Models\Torrent::class, 'torrent_id');
     }
-
     /**
      * Belongs To A User.
      *
@@ -98,12 +91,8 @@ class Report extends Model
      */
     public function reporter()
     {
-        return $this->belongsTo(User::class, 'reporter_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'reporter_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A User.
      *
@@ -111,12 +100,8 @@ class Report extends Model
      */
     public function reported()
     {
-        return $this->belongsTo(User::class, 'reported_user')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'reported_user')->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Staff Member.
      *
@@ -124,9 +109,6 @@ class Report extends Model
      */
     public function staff()
     {
-        return $this->belongsTo(User::class, 'staff_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class, 'staff_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
 }

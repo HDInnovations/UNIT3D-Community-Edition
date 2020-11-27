@@ -23,14 +23,6 @@ class NewFollow extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $follow;
-
-    public $target;
-
     /**
      * Create a new notification instance.
      *
@@ -39,12 +31,8 @@ class NewFollow extends Notification implements ShouldQueue
      * @param User   $target
      * @param Follow $follow
      */
-    public function __construct(string $type, User $sender, User $target, Follow $follow)
+    public function __construct(public string $type, public User $sender, public User $target, public Follow $follow)
     {
-        $this->type = $type;
-        $this->follow = $follow;
-        $this->sender = $sender;
-        $this->target = $target;
     }
 
     /**

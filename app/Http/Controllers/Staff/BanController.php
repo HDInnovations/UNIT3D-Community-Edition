@@ -22,11 +22,10 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
  */
-class BanController extends Controller
+class BanController extends \App\Http\Controllers\Controller
 {
     /**
      * Display All Bans.
@@ -35,11 +34,9 @@ class BanController extends Controller
      */
     public function index()
     {
-        $bans = Ban::latest()->paginate(25);
-
+        $bans = \App\Models\Ban::latest()->paginate(25);
         return \view('Staff.ban.index', ['bans' => $bans]);
     }
-
     /**
      * Ban A User (current_group -> banned).
      *
@@ -50,14 +47,12 @@ class BanController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $username)
+    public function store(\Illuminate\Http\Request $request, $username)
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = \App\Models\User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-
+        $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
         \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
-
         $user->group_id = $banned_group[0];
         $user->can_upload = 0;
         $user->can_download = 0;
@@ -65,29 +60,20 @@ class BanController extends Controller
         $user->can_invite = 0;
         $user->can_request = 0;
         $user->can_chat = 0;
-
-        $ban = new Ban();
+        $ban = new \App\Models\Ban();
         $ban->owned_by = $user->id;
         $ban->created_by = $staff->id;
         $ban->ban_reason = $request->input('ban_reason');
-
-        $v = \validator($ban->toArray(), [
-            'ban_reason' => 'required',
-        ]);
-
+        $v = \validator($ban->toArray(), ['ban_reason' => 'required']);
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors($v->errors());
+            return \redirect()->route('users.show', ['username' => $user->username])->withErrors($v->errors());
         }
         $user->save();
         $ban->save();
         // Send Email
-        Mail::to($user->email)->send(new BanUser($user->email, $ban));
-
-        return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('User Is Now Banned!');
+        \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\BanUser($user->email, $ban));
+        return \redirect()->route('users.show', ['username' => $user->username])->withSuccess('User Is Now Banned!');
     }
-
     /**
      * Unban A User (banned -> new_group).
      *
@@ -96,13 +82,11 @@ class BanController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $username)
+    public function update(\Illuminate\Http\Request $request, $username)
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = \App\Models\User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-
         \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
-
         $user->group_id = $request->input('group_id');
         $user->can_upload = 1;
         $user->can_download = 1;
@@ -110,28 +94,19 @@ class BanController extends Controller
         $user->can_invite = 1;
         $user->can_request = 1;
         $user->can_chat = 1;
-
-        $ban = new Ban();
+        $ban = new \App\Models\Ban();
         $ban->owned_by = $user->id;
         $ban->created_by = $staff->id;
         $ban->unban_reason = $request->input('unban_reason');
-        $ban->removed_at = Carbon::now();
-
-        $v = \validator($request->all(), [
-            'group_id'     => 'required',
-            'unban_reason' => 'required',
-        ]);
-
+        $ban->removed_at = \Carbon\Carbon::now();
+        $v = \validator($request->all(), ['group_id' => 'required', 'unban_reason' => 'required']);
         if ($v->fails()) {
-            return \redirect()->route('users.show', ['username' => $user->username])
-                ->withErrors($v->errors());
+            return \redirect()->route('users.show', ['username' => $user->username])->withErrors($v->errors());
         }
         $user->save();
         $ban->save();
         // Send Email
-        Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
-
-        return \redirect()->route('users.show', ['username' => $user->username])
-            ->withSuccess('User Is Now Relieved Of His Ban!');
+        \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\UnbanUser($user->email, $ban));
+        return \redirect()->route('users.show', ['username' => $user->username])->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

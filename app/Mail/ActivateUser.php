@@ -22,15 +22,6 @@ class ActivateUser extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    /**
-     * @var User
-     */
-    public $user;
-
-    /**
-     * @var string
-     */
-    public $code;
 
     /**
      * ActivateUser constructor.
@@ -38,10 +29,8 @@ class ActivateUser extends Mailable
      * @param User   $user
      * @param string $code
      */
-    public function __construct(User $user, $code)
+    public function __construct(public User $user, public $code)
     {
-        $this->user = $user;
-        $this->code = $code;
     }
 
     public function build()

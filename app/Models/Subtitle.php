@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Helpers\StringHelper;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Subtitle.
  *
@@ -63,10 +62,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Subtitle whereVerified($value)
  * @mixin \Eloquent
  */
-class Subtitle extends Model
+class Subtitle extends \Illuminate\Database\Eloquent\Model
 {
-    use Auditable;
-
+    use \App\Traits\Auditable;
     /**
      * Belongs To A User.
      *
@@ -74,12 +72,8 @@ class Subtitle extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Torrent.
      *
@@ -87,9 +81,8 @@ class Subtitle extends Model
      */
     public function torrent()
     {
-        return $this->belongsTo(Torrent::class);
+        return $this->belongsTo(\App\Models\Torrent::class);
     }
-
     /**
      * Belongs To A Media Language.
      *
@@ -97,9 +90,8 @@ class Subtitle extends Model
      */
     public function language()
     {
-        return $this->belongsTo(MediaLanguage::class);
+        return $this->belongsTo(\App\Models\MediaLanguage::class);
     }
-
     /**
      * Returns The Size In Human Format.
      *
@@ -111,7 +103,6 @@ class Subtitle extends Model
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->file_size;
-
-        return StringHelper::formatBytes($bytes, 2);
+        return \App\Helpers\StringHelper::formatBytes($bytes, 2);
     }
 }

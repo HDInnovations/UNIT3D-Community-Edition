@@ -21,16 +21,14 @@ class Contact extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    public $input;
 
     /**
      * Create a new message instance.
      *
      * @param array $input
      */
-    public function __construct(array $input)
+    public function __construct(public array $input)
     {
-        $this->input = $input;
     }
 
     /**

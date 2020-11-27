@@ -1,0 +1,12 @@
+[2020-11-27 04:18:01] prod.ERROR: syntax error, unexpected 'private' (T_PRIVATE), expecting variable (T_VARIABLE) {"exception":"[object] (ParseError(code: 0): syntax error, unexpected 'private' (T_PRIVATE), expecting variable (T_VARIABLE) at /var/www/html/app/Console/Commands/AutoRecycleClaimedTorrentRequests.php:42)
+[stacktrace]
+#0 /var/www/html/vendor/composer/ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#1 [internal function]: Composer\\Autoload\\ClassLoader->loadClass()
+#2 [internal function]: spl_autoload_call()
+#3 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(229): is_subclass_of()
+#4 /var/www/html/app/Console/Kernel.php(73): Illuminate\\Foundation\\Console\\Kernel->load()
+#5 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(316): App\\Console\\Kernel->commands()
+#6 /var/www/html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(127): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 /var/www/html/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#8 {main}
+"} 

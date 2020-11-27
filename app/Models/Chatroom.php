@@ -17,7 +17,6 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-
 /**
  * App\Models\Chatroom.
  *
@@ -41,21 +40,17 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Chatroom whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Chatroom extends Model
+class Chatroom extends \Illuminate\Database\Eloquent\Model
 {
-    use HasFactory;
-    use Notifiable;
-    use Auditable;
-
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    use \Illuminate\Notifications\Notifiable;
+    use \App\Traits\Auditable;
     /**
      * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
-
+    protected $fillable = ['name'];
     /**
      * A User Has Many Messages.
      *
@@ -63,9 +58,8 @@ class Chatroom extends Model
      */
     public function messages()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(\App\Models\Message::class);
     }
-
     /**
      * A Chat Room Has Many Users.
      *
@@ -73,6 +67,6 @@ class Chatroom extends Model
      */
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(\App\Models\User::class);
     }
 }
