@@ -13,11 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\TorrentRequest;
-use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleClaimedTorrentRequestsTest
  */
@@ -39,11 +37,13 @@ class AutoRecycleClaimedTorrentRequests extends \Illuminate\Console\Command
      * @var ChatRepository
      */
     private $chatRepository;
+
     public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
         parent::__construct();
         $this->chatRepository = $chatRepository;
     }
+
     /**
      * Execute the console command.
      *

@@ -13,13 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Events\MessageDeleted;
-use App\Http\Controllers\Controller;
-use App\Models\History;
-use App\Models\Message;
-use App\Models\Peer;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest
  */
@@ -29,6 +24,7 @@ class FlushController extends \App\Http\Controllers\Controller
      * @var ChatRepository
      */
     private $chatRepository;
+
     /**
      * ChatController Constructor.
      *
@@ -38,6 +34,7 @@ class FlushController extends \App\Http\Controllers\Controller
     {
         $this->chatRepository = $chatRepository;
     }
+
     /**
      * Flsuh All Old Peers From Database.
      *
@@ -57,8 +54,10 @@ class FlushController extends \App\Http\Controllers\Controller
             }
             $peer->delete();
         }
+
         return \redirect()->route('staff.dashboard.index')->withSuccess('Ghost Peers Have Been Flushed');
     }
+
     /**
      * Flush All Chat Messages.
      *
@@ -73,6 +72,7 @@ class FlushController extends \App\Http\Controllers\Controller
             $message->delete();
         }
         $this->chatRepository->systemMessage('Chatbox Has Been Flushed! :broom:');
+
         return \redirect()->route('staff.dashboard.index')->withSuccess('Chatbox Has Been Flushed');
     }
 }

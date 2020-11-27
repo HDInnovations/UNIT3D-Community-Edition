@@ -13,14 +13,12 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Ban;
-use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoNerdStatTest
  */
@@ -30,11 +28,13 @@ class AutoNerdStat extends \Illuminate\Console\Command
      * @var ChatRepository
      */
     private $chatRepository;
+
     public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
         parent::__construct();
         $this->chatRepository = $chatRepository;
     }
+
     /**
      * The name and signature of the console command.
      *
@@ -47,6 +47,7 @@ class AutoNerdStat extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Automatically Posts Daily Nerd Stat To Shoutbox';
+
     /**
      * Execute the console command.
      *
@@ -89,7 +90,7 @@ class AutoNerdStat extends \Illuminate\Console\Command
             $leeched_url = \href_torrent($leeched);
             $snatched_url = \href_torrent($snatched);
             // Select A Random Nerd Stat
-            $statArray = [\sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Unique Users Have Logged Into ', $logins) . \config('other.title') . '!', \sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Torrents Have Been Uploaded To ', $uploads) . \config('other.title') . '!', \sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Users Have Registered To ', $users) . \config('other.title') . '!', \sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Freeleech Torrents On ', $fl) . \config('other.title') . '!', \sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Double Upload Torrents On ', $du) . \config('other.title') . '!', \sprintf('Currently [url=%s]%s[/url] Is The Best Seeded Torrent On ', $seeded_url, $seeded->name) . \config('other.title') . '!', \sprintf('Currently [url=%s]%s[/url] Is The Most Leeched Torrent On ', $leeched_url, $leeched->name) . \config('other.title') . '!', \sprintf('Currently [url=%s]%s[/url] Is The Most Snatched Torrent On ', $snatched_url, $snatched->name) . \config('other.title') . '!', \sprintf('Currently [url=%s]%s[/url] Is The Top BON Holder On ', $banker_url, $banker->username) . \config('other.title') . '!', \sprintf('Currently There Are [color=#93c47d][b]%s[/b][/color] Peers On ', $peers) . \config('other.title') . '!', \sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Users Have Been Banned From ', $bans) . \config('other.title') . '!', \sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Hit and Run Warnings Have Been Issued On ', $warnings) . \config('other.title') . '!', \config('other.title') . \sprintf(' Birthday Is [b]%s[/b]!', $bday), \config('other.title') . ' Is King!'];
+            $statArray = [\sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Unique Users Have Logged Into ', $logins).\config('other.title').'!', \sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Torrents Have Been Uploaded To ', $uploads).\config('other.title').'!', \sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Users Have Registered To ', $users).\config('other.title').'!', \sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Freeleech Torrents On ', $fl).\config('other.title').'!', \sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Double Upload Torrents On ', $du).\config('other.title').'!', \sprintf('Currently [url=%s]%s[/url] Is The Best Seeded Torrent On ', $seeded_url, $seeded->name).\config('other.title').'!', \sprintf('Currently [url=%s]%s[/url] Is The Most Leeched Torrent On ', $leeched_url, $leeched->name).\config('other.title').'!', \sprintf('Currently [url=%s]%s[/url] Is The Most Snatched Torrent On ', $snatched_url, $snatched->name).\config('other.title').'!', \sprintf('Currently [url=%s]%s[/url] Is The Top BON Holder On ', $banker_url, $banker->username).\config('other.title').'!', \sprintf('Currently There Are [color=#93c47d][b]%s[/b][/color] Peers On ', $peers).\config('other.title').'!', \sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Users Have Been Banned From ', $bans).\config('other.title').'!', \sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Hit and Run Warnings Have Been Issued On ', $warnings).\config('other.title').'!', \config('other.title').\sprintf(' Birthday Is [b]%s[/b]!', $bday), \config('other.title').' Is King!'];
             $selected = \mt_rand(0, (\is_countable($statArray) ? \count($statArray) : 0) - 1);
             // Auto Shout Nerd Stat
             $this->chatRepository->systemMessage($statArray[$selected], 2);

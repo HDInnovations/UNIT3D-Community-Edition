@@ -13,20 +13,10 @@
 
 namespace App\Jobs;
 
-use App\Exceptions\TrackerException;
-use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
-use App\Models\PersonalFreeleech;
-use App\Models\Torrent;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+
 class ProcessBasicAnnounceRequest implements \Illuminate\Contracts\Queue\ShouldQueue
 {
     use \Illuminate\Foundation\Bus\Dispatchable;
@@ -36,6 +26,7 @@ class ProcessBasicAnnounceRequest implements \Illuminate\Contracts\Queue\ShouldQ
     protected $queries;
     protected $user;
     protected $torrent;
+
     /**
      * ProcessAnnounceRequest constructor.
      *
@@ -49,6 +40,7 @@ class ProcessBasicAnnounceRequest implements \Illuminate\Contracts\Queue\ShouldQ
         $this->user = $user;
         $this->torrent = $torrent;
     }
+
     /**
      * Execute the job.
      *

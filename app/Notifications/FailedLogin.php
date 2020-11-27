@@ -14,10 +14,8 @@
 namespace App\Notifications;
 
 use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+
 class FailedLogin extends \Illuminate\Notifications\Notification implements \Illuminate\Contracts\Queue\ShouldQueue
 {
     use \Illuminate\Bus\Queueable;
@@ -33,6 +31,7 @@ class FailedLogin extends \Illuminate\Notifications\Notification implements \Ill
      * @var Carbon\Carbon
      */
     public $carbon;
+
     /**
      * Create a new notification instance.
      *
@@ -45,6 +44,7 @@ class FailedLogin extends \Illuminate\Notifications\Notification implements \Ill
         $this->ip = $ip;
         $this->carbon = \Carbon\Carbon::now();
     }
+
     /**
      * Get the notification's delivery channels.
      *
@@ -56,6 +56,7 @@ class FailedLogin extends \Illuminate\Notifications\Notification implements \Ill
     {
         return ['mail'];
     }
+
     /**
      * Get the database representation of the notification.
      *
@@ -67,6 +68,7 @@ class FailedLogin extends \Illuminate\Notifications\Notification implements \Ill
     {
         return ['ip' => $this->ip, 'time' => $this->carbon];
     }
+
     /**
      * Get the mail representation of the notification.
      *

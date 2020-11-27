@@ -13,20 +13,8 @@
 
 namespace App\Bots;
 
-use App\Events\Chatter;
-use App\Http\Resources\UserAudibleResource;
-use App\Http\Resources\UserEchoResource;
-use App\Models\Ban;
 use App\Models\Bot;
-use App\Models\BotTransaction;
-use App\Models\Peer;
-use App\Models\Torrent;
-use App\Models\User;
-use App\Models\UserAudible;
-use App\Models\UserEcho;
-use App\Models\Warning;
-use App\Repositories\ChatRepository;
-use Carbon\Carbon;
+
 class NerdBot
 {
     private $bot;
@@ -38,6 +26,7 @@ class NerdBot
     private $log;
     private $expiresAt;
     private $current;
+
     /**
      * NerdBot Constructor.
      *
@@ -51,6 +40,7 @@ class NerdBot
         $this->expiresAt = \Carbon\Carbon::now()->addMinutes(60);
         $this->current = \Carbon\Carbon::now();
     }
+
     /**
      * Replace Vars.
      *
@@ -66,12 +56,14 @@ class NerdBot
             $bot_help = '';
             $bots = \App\Models\Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
             foreach ($bots as $bot) {
-                $bot_help .= '( ! | / | @)' . $bot->command . ' help triggers help file for ' . $bot->name . "\n";
+                $bot_help .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
             $output = \str_replace('{bots}', $bot_help, $output);
         }
+
         return $output;
     }
+
     /**
      * Get Banker.
      *
@@ -84,12 +76,14 @@ class NerdBot
     public function getBanker($duration = 'default')
     {
         $banker = \cache()->get('nerdbot-banker');
-        if (!$banker || $banker == null) {
+        if (! $banker || $banker == null) {
             $banker = \App\Models\User::latest('seedbonus')->first();
             \cache()->put('nerdbot-banker', $banker, $this->expiresAt);
         }
-        return \sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username) . \config('other.title') . '!';
+
+        return \sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username).\config('other.title').'!';
     }
+
     /**
      * Get Snatched.
      *
@@ -102,12 +96,14 @@ class NerdBot
     public function getSnatched($duration = 'default')
     {
         $snatched = \cache()->get('nerdbot-snatched');
-        if (!$snatched || $snatched == null) {
+        if (! $snatched || $snatched == null) {
             $snatched = \App\Models\Torrent::latest('times_completed')->first();
             \cache()->put('nerdbot-snatched', $snatched, $this->expiresAt);
         }
-        return \sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name) . \config('other.title') . '!';
+
+        return \sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name).\config('other.title').'!';
     }
+
     /**
      * Get Leeched.
      *
@@ -120,12 +116,14 @@ class NerdBot
     public function getLeeched($duration = 'default')
     {
         $leeched = \cache()->get('nerdbot-leeched');
-        if (!$leeched || $leeched == null) {
+        if (! $leeched || $leeched == null) {
             $leeched = \App\Models\Torrent::latest('leechers')->first();
             \cache()->put('nerdbot-leeched', $leeched, $this->expiresAt);
         }
-        return \sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name) . \config('other.title') . '!';
+
+        return \sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name).\config('other.title').'!';
     }
+
     /**
      * Get Seeded.
      *
@@ -138,12 +136,14 @@ class NerdBot
     public function getSeeded($duration = 'default')
     {
         $seeded = \cache()->get('nerdbot-seeded');
-        if (!$seeded || $seeded == null) {
+        if (! $seeded || $seeded == null) {
             $seeded = \App\Models\Torrent::latest('seeders')->first();
             \cache()->put('nerdbot-seeded', $seeded, $this->expiresAt);
         }
-        return \sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name) . \config('other.title') . '!';
+
+        return \sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name).\config('other.title').'!';
     }
+
     /**
      * Get FL.
      *
@@ -156,12 +156,14 @@ class NerdBot
     public function getFreeleech($duration = 'default')
     {
         $fl = \cache()->get('nerdbot-fl');
-        if (!$fl || $fl == null) {
+        if (! $fl || $fl == null) {
             $fl = \App\Models\Torrent::where('free', '=', 1)->count();
             \cache()->put('nerdbot-fl', $fl, $this->expiresAt);
         }
-        return \sprintf('There Are Currently %s Freeleech Torrents On ', $fl) . \config('other.title') . '!';
+
+        return \sprintf('There Are Currently %s Freeleech Torrents On ', $fl).\config('other.title').'!';
     }
+
     /**
      * Get DU.
      *
@@ -174,12 +176,14 @@ class NerdBot
     public function getDoubleUpload($duration = 'default')
     {
         $du = \cache()->get('nerdbot-doubleup');
-        if (!$du || $du == null) {
+        if (! $du || $du == null) {
             $du = \App\Models\Torrent::where('doubleup', '=', 1)->count();
             \cache()->put('nerdbot-doubleup', $du, $this->expiresAt);
         }
-        return \sprintf('There Are Currently %s Double Upload Torrents On ', $du) . \config('other.title') . '!';
+
+        return \sprintf('There Are Currently %s Double Upload Torrents On ', $du).\config('other.title').'!';
     }
+
     /**
      * Get Peers.
      *
@@ -192,12 +196,14 @@ class NerdBot
     public function getPeers($duration = 'default')
     {
         $peers = \cache()->get('nerdbot-peers');
-        if (!$peers || $peers == null) {
+        if (! $peers || $peers == null) {
             $peers = \App\Models\Peer::count();
             \cache()->put('nerdbot-peers', $peers, $this->expiresAt);
         }
-        return \sprintf('Currently There Are %s Peers On ', $peers) . \config('other.title') . '!';
+
+        return \sprintf('Currently There Are %s Peers On ', $peers).\config('other.title').'!';
     }
+
     /**
      * Get Bans.
      *
@@ -210,12 +216,14 @@ class NerdBot
     public function getBans($duration = 'default')
     {
         $bans = \cache()->get('nerdbot-bans');
-        if (!$bans || $bans == null) {
+        if (! $bans || $bans == null) {
             $bans = \App\Models\Ban::whereNull('unban_reason')->whereNull('removed_at')->where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-bans', $bans, $this->expiresAt);
         }
-        return \sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans) . \config('other.title') . '!';
+
+        return \sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans).\config('other.title').'!';
     }
+
     /**
      * Get Warnings.
      *
@@ -228,12 +236,14 @@ class NerdBot
     public function getWarnings($duration = 'default')
     {
         $warnings = \cache()->get('nerdbot-warnings');
-        if (!$warnings || $warnings == null) {
+        if (! $warnings || $warnings == null) {
             $warnings = \App\Models\Warning::where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-warnings', $warnings, $this->expiresAt);
         }
-        return \sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings) . \config('other.title') . '!';
+
+        return \sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings).\config('other.title').'!';
     }
+
     /**
      * Get Uploads.
      *
@@ -246,12 +256,14 @@ class NerdBot
     public function getUploads($duration = 'default')
     {
         $uploads = \cache()->get('nerdbot-uploads');
-        if (!$uploads || $uploads == null) {
+        if (! $uploads || $uploads == null) {
             $uploads = \App\Models\Torrent::where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-uploads', $uploads, $this->expiresAt);
         }
-        return \sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads) . \config('other.title') . '!';
+
+        return \sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads).\config('other.title').'!';
     }
+
     /**
      * Get Logins.
      *
@@ -264,12 +276,14 @@ class NerdBot
     public function getLogins($duration = 'default')
     {
         $logins = \cache()->get('nerdbot-logins');
-        if (!$logins || $logins == null) {
+        if (! $logins || $logins == null) {
             $logins = \App\Models\User::whereNotNull('last_login')->where('last_login', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-logins', $logins, $this->expiresAt);
         }
-        return \sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins) . \config('other.title') . '!';
+
+        return \sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins).\config('other.title').'!';
     }
+
     /**
      * Get Registrations.
      *
@@ -282,12 +296,14 @@ class NerdBot
     public function getRegistrations($duration = 'default')
     {
         $registrations = \cache()->get('nerdbot-users');
-        if (!$registrations || $registrations == null) {
+        if (! $registrations || $registrations == null) {
             $registrations = \App\Models\User::where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-users', $registrations, $this->expiresAt);
         }
-        return \sprintf('In The Last 24 Hours %s Users Have Registered To ', $registrations) . \config('other.title') . '!';
+
+        return \sprintf('In The Last 24 Hours %s Users Have Registered To ', $registrations).\config('other.title').'!';
     }
+
     /**
      * Get Bot Donations.
      *
@@ -300,18 +316,20 @@ class NerdBot
     public function getDonations($duration = 'default')
     {
         $donations = \cache()->get('nerdbot-donations');
-        if (!$donations || $donations == null) {
+        if (! $donations || $donations == null) {
             $donations = \App\Models\BotTransaction::with('user', 'bot')->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('nerdbot-donations', $donations, $this->expiresAt);
         }
         $donation_dump = '';
         $i = 1;
         foreach ($donations as $donation) {
-            $donation_dump .= '#' . $i . '. ' . $donation->user->username . ' sent ' . $donation->bot->name . ' ' . $donation->cost . ' ' . $donation->forHumans() . ".\n";
+            $donation_dump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->bot->name.' '.$donation->cost.' '.$donation->forHumans().".\n";
             $i++;
         }
-        return "The Most Recent Donations To All Bots Are As Follows:\n\n" . \trim($donation_dump);
+
+        return "The Most Recent Donations To All Bots Are As Follows:\n\n".\trim($donation_dump);
     }
+
     /**
      * Get Help.
      */
@@ -319,13 +337,15 @@ class NerdBot
     {
         return $this->replaceVars($this->bot->help);
     }
+
     /**
      * Get King.
      */
     public function getKing()
     {
-        return \config('other.title') . ' Is King!';
+        return \config('other.title').' Is King!';
     }
+
     /**
      * Send Bot Donation.
      *
@@ -356,10 +376,13 @@ class NerdBot
             $botTransaction->save();
             $donations = \App\Models\BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('casinobot-donations', $donations, $this->expiresAt);
-            return 'Your donation to ' . $this->bot->name . ' for ' . $amount . ' BON has been sent!';
+
+            return 'Your donation to '.$this->bot->name.' for '.$amount.' BON has been sent!';
         }
-        return 'Your donation to ' . $output . ' could not be sent.';
+
+        return 'Your donation to '.$output.' could not be sent.';
     }
+
     /**
      * Process Message.
      *
@@ -387,7 +410,7 @@ class NerdBot
         if ($message === '') {
             $log = '';
         } else {
-            $log = 'All ' . $this->bot->name . ' commands must be a private message or begin with /' . $this->bot->command . ' or !' . $this->bot->command . '. Need help? Type /' . $this->bot->command . ' help and you shall be helped.';
+            $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
         $command = @\explode(' ', $message);
         $wildcard = null;
@@ -456,8 +479,10 @@ class NerdBot
         $this->type = $type;
         $this->message = $message;
         $this->log = $log;
+
         return $this->pm();
     }
+
     /**
      * Output Message.
      */
@@ -473,8 +498,8 @@ class NerdBot
         }
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
-            $receiver_echoes = \cache()->get('user-echoes' . $target->id);
-            if (!$receiver_echoes || !\is_array($receiver_echoes) || (\is_countable($receiver_echoes) ? \count($receiver_echoes) : 0) < 1) {
+            $receiver_echoes = \cache()->get('user-echoes'.$target->id);
+            if (! $receiver_echoes || ! \is_array($receiver_echoes) || (\is_countable($receiver_echoes) ? \count($receiver_echoes) : 0) < 1) {
                 $receiver_echoes = \App\Models\UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -483,7 +508,7 @@ class NerdBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new \App\Models\UserEcho();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;
@@ -493,12 +518,12 @@ class NerdBot
             }
             if ($receiver_dirty == 1) {
                 $expiresAt = \Carbon\Carbon::now()->addMinutes(60);
-                \cache()->put('user-echoes' . $target->id, $receiver_echoes, $expiresAt);
+                \cache()->put('user-echoes'.$target->id, $receiver_echoes, $expiresAt);
                 \event(new \App\Events\Chatter('echo', $target->id, \App\Http\Resources\UserEchoResource::collection($receiver_echoes)));
             }
             $receiver_dirty = 0;
-            $receiver_audibles = \cache()->get('user-audibles' . $target->id);
-            if (!$receiver_audibles || !\is_array($receiver_audibles) || (\is_countable($receiver_audibles) ? \count($receiver_audibles) : 0) < 1) {
+            $receiver_audibles = \cache()->get('user-audibles'.$target->id);
+            if (! $receiver_audibles || ! \is_array($receiver_audibles) || (\is_countable($receiver_audibles) ? \count($receiver_audibles) : 0) < 1) {
                 $receiver_audibles = \App\Models\UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -507,7 +532,7 @@ class NerdBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new \App\Models\UserAudible();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;
@@ -517,7 +542,7 @@ class NerdBot
             }
             if ($receiver_dirty == 1) {
                 $expiresAt = \Carbon\Carbon::now()->addMinutes(60);
-                \cache()->put('user-audibles' . $target->id, $receiver_audibles, $expiresAt);
+                \cache()->put('user-audibles'.$target->id, $receiver_audibles, $expiresAt);
                 \event(new \App\Events\Chatter('audible', $target->id, \App\Http\Resources\UserAudibleResource::collection($receiver_audibles)));
             }
             if ($txt != '') {
@@ -525,6 +550,7 @@ class NerdBot
                 $message = $this->chat->privateMessage($target->id, $room_id, $message, 1, $this->bot->id);
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
+
             return \response('success');
         }
         if ($type == 'echo') {
@@ -532,6 +558,7 @@ class NerdBot
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
+
             return \response('success');
         }
         if ($type == 'public') {
@@ -539,8 +566,10 @@ class NerdBot
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
+
             return \response('success');
         }
+
         return true;
     }
 }

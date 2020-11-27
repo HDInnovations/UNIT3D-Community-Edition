@@ -16,9 +16,7 @@ namespace App\Http\Controllers;
 use App\Models\Graveyard;
 use App\Models\Torrent;
 use App\Repositories\TorrentFacetedRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\GraveyardControllerTest
  */
@@ -28,6 +26,7 @@ class GraveyardController extends \App\Http\Controllers\Controller
      * @var TorrentFacetedRepository
      */
     private $torrentFacetedRepository;
+
     /**
      * GraveyardController Constructor.
      *
@@ -37,6 +36,7 @@ class GraveyardController extends \App\Http\Controllers\Controller
     {
         $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
+
     /**
      * Show The Graveyard.
      *
@@ -51,8 +51,10 @@ class GraveyardController extends \App\Http\Controllers\Controller
         $torrents = \App\Models\Torrent::with('category', 'type')->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->paginate(25);
         $repository = $this->torrentFacetedRepository;
         $deadcount = \App\Models\Torrent::where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
+
         return \view('graveyard.index', ['user' => $user, 'torrents' => $torrents, 'repository' => $repository, 'deadcount' => $deadcount]);
     }
+
     /**
      * Uses Input's To Put Together A Search.
      *
@@ -68,7 +70,7 @@ class GraveyardController extends \App\Http\Controllers\Controller
         $current = \Carbon\Carbon::now();
         $user = $request->user();
         $search = $request->input('search');
-        $imdb_id = \Illuminate\Support\Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt' . $request->get('imdb');
+        $imdb_id = \Illuminate\Support\Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
         $imdb = \str_replace('tt', '', $imdb_id);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
@@ -78,7 +80,7 @@ class GraveyardController extends \App\Http\Controllers\Controller
         $terms = \explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
-            $search .= '%' . $term . '%';
+            $search .= '%'.$term.'%';
         }
         $torrent = $torrent->with('category', 'type')->where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
         if ($request->has('search') && $request->input('search') != null) {
@@ -113,8 +115,10 @@ class GraveyardController extends \App\Http\Controllers\Controller
         } else {
             $torrents = $torrent->paginate(25);
         }
+
         return \view('graveyard.results', ['user' => $user, 'torrents' => $torrents])->render();
     }
+
     /**
      * Resurrect A Torrent.
      *
@@ -143,8 +147,10 @@ class GraveyardController extends \App\Http\Controllers\Controller
             return \redirect()->route('graveyard.index')->withErrors($v->errors());
         }
         $graveyard->save();
+
         return \redirect()->route('graveyard.index')->withSuccess('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.');
     }
+
     /**
      * Cancel A Ressurection.
      *
@@ -161,6 +167,7 @@ class GraveyardController extends \App\Http\Controllers\Controller
         $resurrection = \App\Models\Graveyard::findOrFail($id);
         \abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
+
         return \redirect()->route('graveyard.index')->withSuccess('Resurrection Successfully Canceled!');
     }
 }

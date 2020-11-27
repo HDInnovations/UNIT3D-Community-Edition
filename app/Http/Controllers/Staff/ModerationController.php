@@ -13,13 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Helpers\TorrentHelper;
-use App\Http\Controllers\Controller;
-use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ModerationControllerTest
  */
@@ -29,6 +25,7 @@ class ModerationController extends \App\Http\Controllers\Controller
      * @var ChatRepository
      */
     private $chatRepository;
+
     /**
      * ModerationController Constructor.
      *
@@ -38,6 +35,7 @@ class ModerationController extends \App\Http\Controllers\Controller
     {
         $this->chatRepository = $chatRepository;
     }
+
     /**
      * Torrent Moderation Panel.
      *
@@ -49,8 +47,10 @@ class ModerationController extends \App\Http\Controllers\Controller
         $pending = \App\Models\Torrent::with(['user', 'category', 'type'])->pending()->get();
         $postponed = \App\Models\Torrent::with(['user', 'category', 'type'])->postponed()->get();
         $rejected = \App\Models\Torrent::with(['user', 'category', 'type'])->rejected()->get();
+
         return \view('Staff.moderation.index', ['current' => $current, 'pending' => $pending, 'postponed' => $postponed, 'rejected' => $rejected]);
     }
+
     /**
      * Approve A Torrent.
      *
@@ -69,15 +69,18 @@ class ModerationController extends \App\Http\Controllers\Controller
             $anon = $torrent->anon;
             // Announce To Shoutbox
             if ($anon == 0) {
-                $this->chatRepository->systemMessage(\sprintf('User [url=%s/users/', $appurl) . $username . ']' . $username . \sprintf('[/url] has uploaded [url=%s/torrents/', $appurl) . $torrent->id . ']' . $torrent->name . '[/url] grab it now! :slight_smile:');
+                $this->chatRepository->systemMessage(\sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:');
             } else {
-                $this->chatRepository->systemMessage(\sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl) . $torrent->id . ']' . $torrent->name . '[/url] grab it now! :slight_smile:');
+                $this->chatRepository->systemMessage(\sprintf('An anonymous user has uploaded [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:');
             }
             \App\Helpers\TorrentHelper::approveHelper($torrent->id);
+
             return \redirect()->route('staff.moderation.index')->withSuccess('Torrent Approved');
         }
+
         return \redirect()->route('staff.moderation.index')->withErrors('Torrent Already Approved');
     }
+
     /**
      * Postpone A Torrent.
      *
@@ -104,8 +107,10 @@ class ModerationController extends \App\Http\Controllers\Controller
 
 %s', $torrent->name, $request->input('message'));
         $privateMessage->save();
+
         return \redirect()->route('staff.moderation.index')->withSuccess('Torrent Postponed');
     }
+
     /**
      * Reject A Torrent.
      *
@@ -132,6 +137,7 @@ class ModerationController extends \App\Http\Controllers\Controller
 
 %s', $torrent->name, $request->input('message'));
         $privateMessage->save();
+
         return \redirect()->route('staff.moderation.index')->withSuccess('Torrent Rejected');
     }
 }

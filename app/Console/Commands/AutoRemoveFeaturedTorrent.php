@@ -13,11 +13,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\FeaturedTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Unit\Console\Commands\AutoRemoveFeaturedTorrentTest
  */
@@ -27,11 +26,13 @@ class AutoRemoveFeaturedTorrent extends \Illuminate\Console\Command
      * @var ChatRepository
      */
     private $chatRepository;
+
     public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
         parent::__construct();
         $this->chatRepository = $chatRepository;
     }
+
     /**
      * The name and signature of the console command.
      *
@@ -44,6 +45,7 @@ class AutoRemoveFeaturedTorrent extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Automatically Removes Featured Torrents If Expired';
+
     /**
      * Execute the console command.
      *

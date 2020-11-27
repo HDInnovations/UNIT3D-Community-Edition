@@ -13,35 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Achievements\UserFilled100Requests;
-use App\Achievements\UserFilled25Requests;
-use App\Achievements\UserFilled50Requests;
-use App\Achievements\UserFilled75Requests;
-use App\Models\BonTransactions;
 use App\Models\Category;
-use App\Models\Movie;
-use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
-use App\Models\TorrentRequestBounty;
-use App\Models\TorrentRequestClaim;
-use App\Models\Tv;
-use App\Models\Type;
-use App\Models\User;
-use App\Notifications\NewRequestBounty;
-use App\Notifications\NewRequestClaim;
-use App\Notifications\NewRequestFill;
-use App\Notifications\NewRequestFillApprove;
-use App\Notifications\NewRequestFillReject;
-use App\Notifications\NewRequestUnclaim;
 use App\Repositories\ChatRepository;
 use App\Repositories\RequestFacetedRepository;
-use App\Services\Tmdb\TMDBScraper;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use MarcReichel\IGDBLaravel\Models\Game;
+
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
  */
@@ -55,6 +33,7 @@ class RequestController extends \App\Http\Controllers\Controller
      * @var ChatRepository
      */
     private $chatRepository;
+
     /**
      * RequestController Constructor.
      *
@@ -66,6 +45,7 @@ class RequestController extends \App\Http\Controllers\Controller
         $this->requestFacetedRepository = $requestFacetedRepository;
         $this->chatRepository = $chatRepository;
     }
+
     /**
      * Displays Requests List View.
      *
@@ -80,8 +60,10 @@ class RequestController extends \App\Http\Controllers\Controller
         $bounties = \Illuminate\Support\Facades\DB::table('requests')->selectRaw('coalesce(sum(bounty), 0) as total')->selectRaw('coalesce(sum(case when filled_by != null then 1 end), 0) as claimed')->selectRaw('coalesce(sum(case when filled_by = null then 1 end), 0) as unclaimed')->first();
         $torrentRequests = \App\Models\TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
         $repository = $this->requestFacetedRepository;
+
         return \view('requests.requests', ['torrentRequests' => $torrentRequests, 'repository' => $repository, 'user' => $user, 'requests' => $requests, 'bounties' => $bounties]);
     }
+
     /**
      * Uses Input's To Put Together A Search.
      *
@@ -96,7 +78,7 @@ class RequestController extends \App\Http\Controllers\Controller
     {
         $user = $request->user();
         $search = $request->input('search');
-        $imdb_id = \Illuminate\Support\Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt' . $request->get('imdb');
+        $imdb_id = \Illuminate\Support\Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
         $imdb = \str_replace('tt', '', $imdb_id);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
@@ -109,7 +91,7 @@ class RequestController extends \App\Http\Controllers\Controller
         $terms = \explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
-            $search .= '%' . $term . '%';
+            $search .= '%'.$term.'%';
         }
         $torrentRequest = $torrentRequest->with(['user', 'category', 'type']);
         if ($request->has('search') && $request->input('search') != null) {
@@ -176,8 +158,10 @@ class RequestController extends \App\Http\Controllers\Controller
         } else {
             $torrentRequests = $torrentRequest->paginate(25);
         }
+
         return \view('requests.results', ['user' => $user, 'torrentRequests' => $torrentRequests])->render();
     }
+
     /**
      * Display The Torrent Request.
      *
@@ -214,8 +198,10 @@ class RequestController extends \App\Http\Controllers\Controller
                 $meta = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrentRequest->igdb);
             }
         }
+
         return \view('requests.request', ['torrentRequest' => $torrentRequest, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'meta' => $meta, 'torrentRequestClaim' => $torrentRequestClaim]);
     }
+
     /**
      * Torrent Request Add Form.
      *
@@ -229,8 +215,10 @@ class RequestController extends \App\Http\Controllers\Controller
     public function addRequestForm(\Illuminate\Http\Request $request, $title = '', $imdb = 0, $tmdb = 0)
     {
         $user = $request->user();
+
         return \view('requests.add_request', ['categories' => \App\Models\Category::all()->sortBy('position'), 'types' => \App\Models\Type::all()->sortBy('position'), 'resolutions' => \App\Models\Resolution::all()->sortBy('position'), 'user' => $user, 'title' => $title, 'imdb' => \str_replace('tt', '', $imdb), 'tmdb' => $tmdb]);
     }
+
     /**
      * Store A New Torrent Request.
      *
@@ -297,8 +285,10 @@ class RequestController extends \App\Http\Controllers\Controller
         } else {
             $this->chatRepository->systemMessage(\sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $tr_url, $torrentRequest->name));
         }
+
         return \redirect()->route('requests')->withSuccess('Request Added.');
     }
+
     /**
      * Torrent Request Edit Form.
      *
@@ -311,8 +301,10 @@ class RequestController extends \App\Http\Controllers\Controller
     {
         $user = $request->user();
         $torrentRequest = \App\Models\TorrentRequest::findOrFail($id);
+
         return \view('requests.edit_request', ['categories' => \App\Models\Category::all()->sortBy('position'), 'types' => \App\Models\Type::all()->sortBy('position'), 'resolutions' => \App\Models\Resolution::all()->sortBy('position'), 'user' => $user, 'torrentRequest' => $torrentRequest]);
     }
+
     /**
      * Edit A Torrent Request.
      *
@@ -365,8 +357,10 @@ class RequestController extends \App\Http\Controllers\Controller
                 $client->movie($torrentRequest->tmdb);
             }
         }
+
         return \redirect()->route('requests', ['id' => $torrentRequest->id])->withSuccess('Request Edited Successfully.');
     }
+
     /**
      * Add Bounty To A Torrent Request.
      *
@@ -416,8 +410,10 @@ class RequestController extends \App\Http\Controllers\Controller
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
             $requester->notify(new \App\Notifications\NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
         }
+
         return \redirect()->route('request', ['id' => $request->input('request_id')])->withSuccess('Your bonus has been successfully added.');
     }
+
     /**
      * Fill A Torrent Request.
      *
@@ -450,8 +446,10 @@ class RequestController extends \App\Http\Controllers\Controller
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
             $requester->notify(new \App\Notifications\NewRequestFill('torrent', $sender, $torrentRequest));
         }
+
         return \redirect()->route('request', ['id' => $request->input('request_id')])->withSuccess('Your request fill is pending approval by the Requester.');
     }
+
     /**
      * Approve A Torrent Request.
      *
@@ -504,10 +502,13 @@ class RequestController extends \App\Http\Controllers\Controller
             if ($tr->filled_anon == 0) {
                 return \redirect()->route('request', ['id' => $id])->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to %s', $tr->name, $fill_user->username));
             }
+
             return \redirect()->route('request', ['id' => $id])->withSuccess(\sprintf('You have approved %s and the bounty has been awarded to a anonymous user', $tr->name));
         }
+
         return \redirect()->route('request', ['id' => $id])->withErrors("You don't have access to approve this request");
     }
+
     /**
      * Reject A Torrent Request.
      *
@@ -533,10 +534,13 @@ class RequestController extends \App\Http\Controllers\Controller
             $torrentRequest->filled_when = null;
             $torrentRequest->filled_hash = null;
             $torrentRequest->save();
+
             return \redirect()->route('request', ['id' => $id])->withSuccess('This request has been reset.');
         }
+
         return \redirect()->route('request', ['id' => $id])->withSuccess("You don't have access to approve this request");
     }
+
     /**
      * Delete A Torrent Request.
      *
@@ -554,10 +558,13 @@ class RequestController extends \App\Http\Controllers\Controller
         if ($user->group->is_modo || $torrentRequest->user_id == $user->id) {
             $name = $torrentRequest->name;
             $torrentRequest->delete();
+
             return \redirect()->route('requests')->withSuccess(\sprintf('You have deleted %s', $name));
         }
+
         return \redirect()->route('request', ['id' => $id])->withErrors("You don't have access to delete this request.");
     }
+
     /**
      * Claim A Torrent Request.
      *
@@ -583,10 +590,13 @@ class RequestController extends \App\Http\Controllers\Controller
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
                 $requester->notify(new \App\Notifications\NewRequestClaim('torrent', $sender, $torrentRequest));
             }
+
             return \redirect()->route('request', ['id' => $id])->withSuccess('Request Successfully Claimed');
         }
+
         return \redirect()->route('request', ['id' => $id])->withErrors('Someone else has already claimed this request buddy.');
     }
+
     /**
      * Uncliam A Torrent Request.
      *
@@ -614,10 +624,13 @@ class RequestController extends \App\Http\Controllers\Controller
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
                 $requester->notify(new \App\Notifications\NewRequestUnclaim('torrent', $sender, $torrentRequest));
             }
+
             return \redirect()->route('request', ['id' => $id])->withSuccess('Request Successfully Un-Claimed');
         }
+
         return \redirect()->route('request', ['id' => $id])->withErrors('Nothing To Unclaim.');
     }
+
     /**
      * Resets the filled and approved attributes on a given request.
      *
@@ -637,6 +650,7 @@ class RequestController extends \App\Http\Controllers\Controller
         $torrentRequest->approved_by = null;
         $torrentRequest->approved_when = null;
         $torrentRequest->save();
+
         return \redirect()->route('request', ['id' => $id])->withSuccess('The request has been reset!');
     }
 }

@@ -13,26 +13,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Jobs\SendActivationMail;
-use App\Models\Group;
 use App\Models\Invite;
-use App\Models\PrivateMessage;
-use App\Models\User;
-use App\Models\UserActivation;
-use App\Models\UserNotification;
-use App\Models\UserPrivacy;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+
 class RegisterController extends \App\Http\Controllers\Controller
 {
     /**
      * @var ChatRepository
      */
     private $chatRepository;
+
     /**
      * RegisterController Constructor.
      *
@@ -42,6 +32,7 @@ class RegisterController extends \App\Http\Controllers\Controller
     {
         $this->chatRepository = $chatRepository;
     }
+
     /**
      * Registration Form.
      *
@@ -59,22 +50,24 @@ class RegisterController extends \App\Http\Controllers\Controller
         if ($code === 'null' && \config('other.invite-only') == 1) {
             return \redirect()->route('login')->withWarning(\trans('auth.allow-invite'));
         }
+
         return \view('auth.register', ['code' => $code]);
     }
+
     public function register(\Illuminate\Http\Request $request, $code = null)
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = \App\Models\Invite::where('code', '=', $code)->first();
-        if (\config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
+        if (\config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return \redirect()->route('registrationForm', ['code' => $code])->withErrors(\trans('auth.invalid-key'));
         }
-        $validating_group = \cache()->rememberForever('validating_group', fn() => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn () => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
         $user = new \App\Models\User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = \Illuminate\Support\Facades\Hash::make($request->input('password'));
-        $user->passkey = \md5(\uniqid() . \time() . \microtime());
-        $user->rsskey = \md5(\uniqid() . \time() . \microtime() . $user->password);
+        $user->passkey = \md5(\uniqid().\time().\microtime());
+        $user->rsskey = \md5(\uniqid().\time().\microtime().$user->password);
         $user->uploaded = \config('other.default_upload');
         $user->downloaded = \config('other.default_download');
         $user->style = \config('other.default_style', 0);
@@ -110,7 +103,7 @@ class RegisterController extends \App\Http\Controllers\Controller
             $key->save();
         }
         // Handle The Activation System
-        $token = \hash_hmac('sha256', $user->username . $user->email . \Illuminate\Support\Str::random(16), \config('app.key'));
+        $token = \hash_hmac('sha256', $user->username.$user->email.\Illuminate\Support\Str::random(16), \config('app.key'));
         $userActivation = new \App\Models\UserActivation();
         $userActivation->user_id = $user->id;
         $userActivation->token = $token;
@@ -118,7 +111,7 @@ class RegisterController extends \App\Http\Controllers\Controller
         $this->dispatch(new \App\Jobs\SendActivationMail($user, $token));
         // Select A Random Welcome Message
         $profile_url = \href_profile($user);
-        $welcomeArray = [\sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username) . \config('other.title') . '! Hope you enjoy the community :rocket:', \sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profile_url, $user->username), \sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profile_url, $user->username), \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profile_url, $user->username), \sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username), \sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username), 'Welcome to ' . \config('other.title') . \sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username)];
+        $welcomeArray = [\sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).\config('other.title').'! Hope you enjoy the community :rocket:', \sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profile_url, $user->username), \sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profile_url, $user->username), \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profile_url, $user->username), \sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username), \sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username), 'Welcome to '.\config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username)];
         $selected = \mt_rand(0, (\is_countable($welcomeArray) ? \count($welcomeArray) : 0) - 1);
         $this->chatRepository->systemMessage($welcomeArray[$selected]);
         // Send Welcome PM
@@ -128,6 +121,7 @@ class RegisterController extends \App\Http\Controllers\Controller
         $privateMessage->subject = \config('welcomepm.subject');
         $privateMessage->message = \config('welcomepm.message');
         $privateMessage->save();
+
         return \redirect()->route('login')->withSuccess(\trans('auth.register-thanks'));
     }
 }
