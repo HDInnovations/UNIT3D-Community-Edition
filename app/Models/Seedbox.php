@@ -13,8 +13,10 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use App\Traits\Encryptable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Seedbox.
  *
@@ -54,7 +56,6 @@ class Seedbox extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $encryptable = ['ip'];
-
     /**
      * Belongs To A User.
      *

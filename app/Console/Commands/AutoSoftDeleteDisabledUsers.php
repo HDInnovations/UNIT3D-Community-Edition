@@ -13,11 +13,23 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SendDeleteUserMail;
+use App\Models\Comment;
+use App\Models\Follow;
+use App\Models\Group;
 use App\Models\Invite;
+use App\Models\Like;
+use App\Models\Message;
+use App\Models\Note;
+use App\Models\Peer;
+use App\Models\Post;
+use App\Models\PrivateMessage;
+use App\Models\Thank;
 use App\Models\Topic;
+use App\Models\Torrent;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoSoftDeleteDisabledUsersTest
  */
@@ -35,7 +47,6 @@ class AutoSoftDeleteDisabledUsers extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'User account must be In disabled group for at least x days';
-
     /**
      * Execute the console command.
      *
@@ -46,8 +57,8 @@ class AutoSoftDeleteDisabledUsers extends \Illuminate\Console\Command
     public function handle()
     {
         if (\config('pruning.user_pruning') == true) {
-            $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
-            $pruned_group = \cache()->rememberForever('pruned_group', fn () => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
+            $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
+            $pruned_group = \cache()->rememberForever('pruned_group', fn() => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
             $current = \Carbon\Carbon::now();
             $users = \App\Models\User::where('group_id', '=', $disabled_group[0])->where('disabled_at', '<', $current->copy()->subDays(\config('pruning.soft_delete'))->toDateTimeString())->get();
             foreach ($users as $user) {

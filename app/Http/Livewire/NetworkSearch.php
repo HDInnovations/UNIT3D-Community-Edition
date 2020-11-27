@@ -39,7 +39,7 @@ class NetworkSearch extends Component
     {
         $search_term = '%'.$this->searchTerm.'%';
 
-        return view('livewire.network-search', [
+        return \view('livewire.network-search', [
             'networks' => Network::withCount('tv')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
         ]);
     }

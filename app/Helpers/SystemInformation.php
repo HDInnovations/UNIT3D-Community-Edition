@@ -49,7 +49,7 @@ class SystemInformation
     {
         $bytes = \max($bytes, 0);
         $pow = \floor(($bytes ? \log($bytes) : 0) / \log(1024));
-        $pow = \min($pow, (\is_countable(self::UNITS) ? \count(self::UNITS) : 0) - 1);
+        $pow = \min($pow, (\is_countable(self::UNITS) ? \is_countable(self::UNITS) ? \count(self::UNITS) : 0 : 0) - 1);
         // Uncomment one of the following alternatives
         $bytes /= \pow(1024, $pow);
         // $bytes /= (1 << (10 * $pow));

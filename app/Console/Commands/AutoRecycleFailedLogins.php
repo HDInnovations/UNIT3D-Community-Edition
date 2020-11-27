@@ -13,8 +13,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\FailedLoginAttempt;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleFailedLoginsTest
  */
@@ -32,7 +33,6 @@ class AutoRecycleFailedLogins extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Recycle Failed Logins Once 30 Days Old.';
-
     /**
      * Execute the console command.
      *

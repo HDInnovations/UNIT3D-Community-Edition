@@ -13,6 +13,10 @@
 
 namespace App\Models;
 
+use App\Notifications\NewTopic;
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Forum.
  *
@@ -68,7 +72,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
-
     /**
      * Has Many Topic.
      *
@@ -78,7 +81,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Topic::class);
     }
-
     /**
      * Has Many Sub Topics.
      *
@@ -90,10 +92,8 @@ class Forum extends \Illuminate\Database\Eloquent\Model
         if (\is_array($children)) {
             return $this->hasMany(\App\Models\Topic::class)->orWhereIn('topics.forum_id', $children);
         }
-
         return $this->hasMany(\App\Models\Topic::class);
     }
-
     /**
      * Has Many Sub Forums.
      *
@@ -103,7 +103,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
-
     /**
      * Has Many Subscribed Topics.
      *
@@ -114,15 +113,12 @@ class Forum extends \Illuminate\Database\Eloquent\Model
         if (\auth()->user() !== null) {
             $id = $this->id;
             $subscriptions = \auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
-
             return $this->hasMany(\App\Models\Topic::class)->where(function ($query) use ($id, $subscriptions) {
                 $query->whereIn('topics.id', [$id])->orWhereIn('topics.id', $subscriptions);
             });
         }
-
         return $this->hasMany(\App\Models\Topic::class, 'id', 'topic_id');
     }
-
     /**
      * Has Many Subscriptions.
      *
@@ -132,7 +128,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Subscription::class, 'forum_id', 'id');
     }
-
     /**
      * Has Many Permissions.
      *
@@ -142,7 +137,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Permission::class);
     }
-
     /**
      * Notify Subscribers Of A Forum When New Topic Is Made.
      *
@@ -160,7 +154,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
             }
         }
     }
-
     /**
      * Notify Staffers When New Staff Topic Is Made.
      *
@@ -176,7 +169,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
             $staffer->notify(new \App\Notifications\NewTopic('staff', $poster, $topic));
         }
     }
-
     /**
      * Returns A Table With The Forums In The Category.
      *
@@ -186,7 +178,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     {
         return self::where('parent_id', '=', $this->id)->get();
     }
-
     /**
      * Returns A Table With The Forums In The Category.
      *
@@ -198,7 +189,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     {
         return self::where('parent_id', '=', $forumId)->get();
     }
-
     /**
      * Returns The Category Nn Which The Forum Is Located.
      *
@@ -208,7 +198,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     {
         return self::find($this->parent_id);
     }
-
     /**
      * Count The Number Of Posts In The Forum.
      *
@@ -224,10 +213,8 @@ class Forum extends \Illuminate\Database\Eloquent\Model
         foreach ($topics as $t) {
             $count += $t->posts()->count();
         }
-
         return $count;
     }
-
     /**
      * Count The Number Of Topics In The Forum.
      *
@@ -238,10 +225,8 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     public function getTopicCount($forumId)
     {
         $forum = self::find($forumId);
-
         return \App\Models\Topic::where('forum_id', '=', $forum->id)->count();
     }
-
     /**
      * Returns The Permission Field.
      *
@@ -250,7 +235,6 @@ class Forum extends \Illuminate\Database\Eloquent\Model
     public function getPermission()
     {
         $group = \auth()->check() ? \auth()->user()->group : \App\Models\Group::where('slug', 'guest')->first();
-
         return $group->permissions->where('forum_id', $this->id)->first();
     }
 }

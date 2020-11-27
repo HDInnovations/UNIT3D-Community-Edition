@@ -13,6 +13,9 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Option.
  *
@@ -44,7 +47,6 @@ class Option extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $fillable = ['name'];
-
     /*** Belongs To A Poll.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

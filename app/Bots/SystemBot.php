@@ -195,7 +195,7 @@ class SystemBot
             }
             $receiver_dirty = 0;
             $receiver_audibles = \cache()->get('user-audibles' . $target->id);
-            if (!$receiver_audibles || !\is_array($receiver_audibles) || \count($receiver_audibles) < 1) {
+            if (!$receiver_audibles || !\is_array($receiver_audibles) || (\is_countable($receiver_audibles) ? \count($receiver_audibles) : 0) < 1) {
                 $receiver_audibles = \App\Models\UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;

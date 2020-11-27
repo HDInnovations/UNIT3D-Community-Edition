@@ -13,8 +13,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\History;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoCorrectHistoryTest
  */
@@ -32,7 +33,6 @@ class AutoCorrectHistory extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Corrects History Records Said To Be Active Even Though Really Are Not Due To Not Receiving A STOPPED Event From Client.';
-
     /**
      * Create a new command instance.
      *
@@ -42,7 +42,6 @@ class AutoCorrectHistory extends \Illuminate\Console\Command
     {
         parent::__construct();
     }
-
     /**
      * Execute the console command.
      *

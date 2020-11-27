@@ -13,6 +13,9 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\UserActivation.
  *
@@ -37,7 +40,6 @@ class UserActivation extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
-
     /**
      * Belongs To A User.
      *

@@ -13,6 +13,9 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Permission.
  *
@@ -48,7 +51,6 @@ class Permission extends \Illuminate\Database\Eloquent\Model
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * Belongs To A Group.
      *
@@ -58,7 +60,6 @@ class Permission extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Group::class);
     }
-
     /**
      * Belongs To A Forum.
      *

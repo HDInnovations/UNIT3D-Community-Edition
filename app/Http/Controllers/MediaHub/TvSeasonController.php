@@ -39,7 +39,7 @@ class TvSeasonController extends Controller
         $season = Season::with(['episodes'])->findOrFail($id);
         $show = Tv::whereId($season->tv_id)->first();
 
-        return view('mediahub.tv.season.show', [
+        return \view('mediahub.tv.season.show', [
             'season' => $season,
             'show'   => $show,
         ]);

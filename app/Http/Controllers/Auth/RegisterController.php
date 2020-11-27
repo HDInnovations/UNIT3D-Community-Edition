@@ -119,7 +119,7 @@ class RegisterController extends \App\Http\Controllers\Controller
         // Select A Random Welcome Message
         $profile_url = \href_profile($user);
         $welcomeArray = [\sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username) . \config('other.title') . '! Hope you enjoy the community :rocket:', \sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profile_url, $user->username), \sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profile_url, $user->username), \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profile_url, $user->username), \sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username), \sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username), 'Welcome to ' . \config('other.title') . \sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username)];
-        $selected = \mt_rand(0, \count($welcomeArray) - 1);
+        $selected = \mt_rand(0, (\is_countable($welcomeArray) ? \count($welcomeArray) : 0) - 1);
         $this->chatRepository->systemMessage($welcomeArray[$selected]);
         // Send Welcome PM
         $privateMessage = new \App\Models\PrivateMessage();

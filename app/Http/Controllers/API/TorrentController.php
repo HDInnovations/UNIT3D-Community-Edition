@@ -196,7 +196,7 @@ class TorrentController extends \App\Http\Controllers\API\BaseController
                 $this->chatRepository->systemMessage(\sprintf('Ladies and Gents, [url=%s/torrents/', $appurl) . $torrent->id . ']' . $torrent->name . '[/url] has been granted Double Upload! Grab It While You Can! :fire:');
             }
             \App\Helpers\TorrentHelper::approveHelper($torrent->id);
-            info('New API Upload', ["User {$user->username} has uploaded {$torrent->name}"]);
+            \info('New API Upload', ["User {$user->username} has uploaded {$torrent->name}"]);
         }
         return $this->sendResponse(\route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => \auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
     }

@@ -39,7 +39,7 @@ class CompanySearch extends Component
     {
         $search_term = '%'.$this->searchTerm.'%';
 
-        return view('livewire.company-search', [
+        return \view('livewire.company-search', [
             'companies' => Company::withCount('tv', 'movie')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
         ]);
     }

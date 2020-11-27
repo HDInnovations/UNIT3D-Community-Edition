@@ -13,10 +13,15 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use App\Mail\BanUser;
+use App\Mail\UnbanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
-
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
  */
@@ -30,10 +35,8 @@ class BanController extends \App\Http\Controllers\Controller
     public function index()
     {
         $bans = \App\Models\Ban::latest()->paginate(25);
-
         return \view('Staff.ban.index', ['bans' => $bans]);
     }
-
     /**
      * Ban A User (current_group -> banned).
      *
@@ -48,7 +51,7 @@ class BanController extends \App\Http\Controllers\Controller
     {
         $user = \App\Models\User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $banned_group = \cache()->rememberForever('banned_group', fn () => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
         \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
         $user->group_id = $banned_group[0];
         $user->can_upload = 0;
@@ -69,10 +72,8 @@ class BanController extends \App\Http\Controllers\Controller
         $ban->save();
         // Send Email
         \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\BanUser($user->email, $ban));
-
         return \redirect()->route('users.show', ['username' => $user->username])->withSuccess('User Is Now Banned!');
     }
-
     /**
      * Unban A User (banned -> new_group).
      *
@@ -106,7 +107,6 @@ class BanController extends \App\Http\Controllers\Controller
         $ban->save();
         // Send Email
         \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\UnbanUser($user->email, $ban));
-
         return \redirect()->route('users.show', ['username' => $user->username])->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

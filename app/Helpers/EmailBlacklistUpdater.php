@@ -13,6 +13,7 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
 class EmailBlacklistUpdater
 {
     public static function update()
@@ -24,11 +25,10 @@ class EmailBlacklistUpdater
         // Define parameters for the cache
         $key = \config('email-blacklist.cache-key');
         $duration = \Carbon\Carbon::now()->addMonth();
-        $domains = \json_decode(\file_get_contents($url), true);
-        $count = \is_countable($domains) ? \count($domains) : 0;
+        $domains = \json_decode(\file_get_contents($url), true, 512, JSON_THROW_ON_ERROR);
+        $count = \is_countable($domains) ? \is_countable($domains) ? \count($domains) : 0 : 0;
         // Retrieve blacklisted domains
         \cache()->put($key, $domains, $duration);
-
         return $count;
     }
 }

@@ -203,7 +203,7 @@ class VendorCleanup extends Command
     protected function arrayFind($needle, array $haystack)
     {
         foreach ($haystack as $key => $value) {
-            if (false !== \stripos($value, $needle)) {
+            if (false !== \stripos($value, (string) $needle)) {
                 return $key;
             }
         }

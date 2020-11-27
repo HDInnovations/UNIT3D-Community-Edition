@@ -13,8 +13,9 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\TwoStepAuth.
  *
@@ -82,7 +83,6 @@ class TwoStepAuth extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $casts = ['userId' => 'integer', 'authCode' => 'string', 'authCount' => 'integer', 'authStatus' => 'boolean'];
-
     /**
      * Get a validator for an incoming Request.
      *

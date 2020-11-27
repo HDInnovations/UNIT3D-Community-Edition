@@ -212,10 +212,10 @@ class ChatController extends \App\Http\Controllers\Controller
             $receiver_dirty = 0;
             $sender_echoes = \cache()->get('user-echoes' . $user_id);
             $receiver_echoes = \cache()->get('user-echoes' . $receiver_id);
-            if (!$sender_echoes || !\is_array($sender_echoes) || \count($sender_echoes) < 1) {
+            if (!$sender_echoes || !\is_array($sender_echoes) || (\is_countable($sender_echoes) ? \count($sender_echoes) : 0) < 1) {
                 $sender_echoes = \App\Models\UserEcho::with(['room', 'target', 'bot'])->where('user_id', $user_id)->get();
             }
-            if (!$receiver_echoes || !\is_array($receiver_echoes) || \count($receiver_echoes) < 1) {
+            if (!$receiver_echoes || !\is_array($receiver_echoes) || (\is_countable($receiver_echoes) ? \count($receiver_echoes) : 0) < 1) {
                 $receiver_echoes = \App\Models\UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$receiver_id])->get();
             }
             $sender_listening = false;
@@ -260,10 +260,10 @@ class ChatController extends \App\Http\Controllers\Controller
             $receiver_dirty = 0;
             $sender_audibles = \cache()->get('user-audibles' . $user_id);
             $receiver_audibles = \cache()->get('user-audibles' . $receiver_id);
-            if (!$sender_audibles || !\is_array($sender_audibles) || \count($sender_audibles) < 1) {
+            if (!$sender_audibles || !\is_array($sender_audibles) || (\is_countable($sender_audibles) ? \count($sender_audibles) : 0) < 1) {
                 $sender_audibles = \App\Models\UserAudible::with(['room', 'target', 'bot'])->where('user_id', $user_id)->get();
             }
-            if (!$receiver_audibles || !\is_array($receiver_audibles) || \count($receiver_audibles) < 1) {
+            if (!$receiver_audibles || !\is_array($receiver_audibles) || (\is_countable($receiver_audibles) ? \count($receiver_audibles) : 0) < 1) {
                 $receiver_audibles = \App\Models\UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$receiver_id])->get();
             }
             $sender_listening = false;
@@ -425,7 +425,7 @@ class ChatController extends \App\Http\Controllers\Controller
         $user->save();
         $sender_dirty = 0;
         $sender_echoes = \cache()->get('user-echoes' . $id);
-        if (!$sender_echoes || !\is_array($sender_echoes) || \count($sender_echoes) < 1) {
+        if (!$sender_echoes || !\is_array($sender_echoes) || (\is_countable($sender_echoes) ? \count($sender_echoes) : 0) < 1) {
             $sender_echoes = \App\Models\UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$id])->get();
         }
         $sender_listening = false;

@@ -13,8 +13,9 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\PlaylistTorrent.
  *
@@ -46,7 +47,6 @@ class PlaylistTorrent extends \Illuminate\Database\Eloquent\Model
      * @var bool
      */
     public $timestamps = false;
-
     /**
      * Belongs To A Torrent.
      *
@@ -56,7 +56,6 @@ class PlaylistTorrent extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Torrent::class);
     }
-
     /**
      * Belongs To A Playlist.
      *

@@ -70,7 +70,7 @@ class ProcessTvJob implements ShouldQueue
             $client = new Client\Network($network['id']);
             $network = $client->index();
             if (isset($network['name'])) {
-                if (isset($network['images']['logos'][0]) && array_key_exists('file_path', $network['images']['logos'][0])) {
+                if (isset($network['images']['logos'][0]) && \array_key_exists('file_path', $network['images']['logos'][0])) {
                     $logo = 'https://image.tmdb.org/t/p/original'.$network['images']['logos'][0]['file_path'];
                 } else {
                     $logo = null;
@@ -107,7 +107,7 @@ class ProcessTvJob implements ShouldQueue
         }
 
         foreach ($this->tv['seasons'] as $season) {
-            $client = new Client\Season($this->id, sprintf('%02d', $season['season_number']));
+            $client = new Client\Season($this->id, \sprintf('%02d', $season['season_number']));
             $season = $client->index();
             if (isset($season['season_number'])) {
                 $season_array = [
@@ -115,25 +115,25 @@ class ProcessTvJob implements ShouldQueue
                     'poster'        => $helper->image('poster', $season),
                     'name'          => $helper->ifExists('name', $season),
                     'overview'      => $helper->ifExists('overview', $season),
-                    'season_number' => sprintf('%02d', $season['season_number']),
+                    'season_number' => \sprintf('%02d', $season['season_number']),
                     'tv_id'         => $this->id,
                 ];
 
                 Season::updateOrCreate(['id' => $season['id']], $season_array)->tv();
 
                 foreach ($season['episodes'] as $episode) {
-                    $client = new Client\Episode($this->id, sprintf('%02d', $season['season_number']), $episode['episode_number']);
+                    $client = new Client\Episode($this->id, \sprintf('%02d', $season['season_number']), $episode['episode_number']);
                     $episode = $client->index();
                     if (isset($episode['episode_number'])) {
                         $episode_array = [
                             'tv_id'           => $this->id,
                             'air_date'        => $helper->ifExists('air_date', $episode),
                             'name'            => Str::limit($helper->ifExists('name', $episode), 200),
-                            'episode_number'  => sprintf('%02d', $episode['episode_number']),
+                            'episode_number'  => \sprintf('%02d', $episode['episode_number']),
                             'overview'        => $helper->ifExists('overview', $episode),
                             'still'           => $helper->image('still', $episode),
                             'production_code' => $episode['production_code'],
-                            'season_number'   => sprintf('%02d', $episode['season_number']),
+                            'season_number'   => \sprintf('%02d', $episode['season_number']),
                             'vote_average'    => $episode['vote_average'],
                             'vote_count'      => $episode['vote_count'],
                             'season_id'       => $season['id'],

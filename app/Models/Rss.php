@@ -13,8 +13,10 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Rss.
  *
@@ -76,7 +78,6 @@ class Rss extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $casts = ['name' => 'string', 'json_torrent' => 'array', 'expected_fields' => 'array'];
-
     /**
      * Belongs To A User.
      *
@@ -86,7 +87,6 @@ class Rss extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Staff Member.
      *
@@ -97,7 +97,6 @@ class Rss extends \Illuminate\Database\Eloquent\Model
         // Not needed yet. Just added for future extendability.
         return $this->belongsTo(\App\Models\User::class, 'staff_id');
     }
-
     /**
      * Get the RSS feeds JSON Torrent as object.
      *
@@ -108,13 +107,10 @@ class Rss extends \Illuminate\Database\Eloquent\Model
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
         if ($this->json_torrent) {
             $expected = $this->expected_fields;
-
             return (object) \array_merge($expected, $this->json_torrent);
         }
-
         return false;
     }
-
     /**
      * Get the RSS feeds expected fields for form validation.
      *
@@ -124,7 +120,6 @@ class Rss extends \Illuminate\Database\Eloquent\Model
     {
         // Just Torrents for now... extendable to check on feed type in future.
         $expected_fields = ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null, 'mal' => null, 'categories' => null, 'types' => null, 'resolutions' => null, 'genres' => null, 'freeleech' => null, 'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null, 'internal' => null, 'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null];
-
         return $expected_fields;
     }
 }

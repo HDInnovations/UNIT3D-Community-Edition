@@ -13,6 +13,10 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 /**
  * App\Models\Chatroom.
  *
@@ -47,7 +51,6 @@ class Chatroom extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $fillable = ['name'];
-
     /**
      * A User Has Many Messages.
      *
@@ -57,7 +60,6 @@ class Chatroom extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Message::class);
     }
-
     /**
      * A Chat Room Has Many Users.
      *

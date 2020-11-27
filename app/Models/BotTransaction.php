@@ -13,8 +13,9 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\BotTransaction.
  *
@@ -56,7 +57,6 @@ class BotTransaction extends \Illuminate\Database\Eloquent\Model
      * @var bool
      */
     public $timestamps = true;
-
     /**
      * Belongs To A User.
      *
@@ -67,7 +67,6 @@ class BotTransaction extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Belongs To A Bot.
      *
@@ -78,7 +77,6 @@ class BotTransaction extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Bot::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
-
     /**
      * Get the Bot transaction type answer as string.
      *
@@ -89,7 +87,6 @@ class BotTransaction extends \Illuminate\Database\Eloquent\Model
         if ($this->type == 'bon') {
             return 'BON';
         }
-
         return 'Unknown';
     }
 }

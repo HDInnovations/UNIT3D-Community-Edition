@@ -13,8 +13,11 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SendDisableUserMail;
+use App\Models\Group;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
-
 /**
  * @see \Tests\Unit\Console\Commands\AutoDisableInactiveUsersTest
  */
@@ -32,7 +35,6 @@ class AutoDisableInactiveUsers extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'User account must be at least x days old & user account x days Of inactivity to be disabled';
-
     /**
      * Execute the console command.
      *
@@ -43,7 +45,7 @@ class AutoDisableInactiveUsers extends \Illuminate\Console\Command
     public function handle()
     {
         if (\config('pruning.user_pruning') == true) {
-            $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
+            $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
             $current = \Carbon\Carbon::now();
             $matches = \App\Models\User::whereIn('group_id', [\config('pruning.group_ids')])->get();
             $users = $matches->where('created_at', '<', $current->copy()->subDays(\config('pruning.account_age'))->toDateTimeString())->where('last_login', '<', $current->copy()->subDays(\config('pruning.last_login'))->toDateTimeString())->get();

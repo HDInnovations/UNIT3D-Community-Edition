@@ -25,7 +25,7 @@ class NetworkController extends Controller
      */
     public function index()
     {
-        return view('mediahub.network.index');
+        return \view('mediahub.network.index');
     }
 
     /**
@@ -37,7 +37,7 @@ class NetworkController extends Controller
     {
         $network = Network::with('tv')->findOrFail($id);
 
-        return view('mediahub.network.show', [
+        return \view('mediahub.network.show', [
             'network' => $network,
         ]);
     }

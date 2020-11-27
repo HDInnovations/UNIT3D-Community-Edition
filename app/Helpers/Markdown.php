@@ -153,7 +153,7 @@ class Markdown
                 continue;
             }
 
-            if (str_contains($line, "\t")) {
+            if (\str_contains($line, "\t")) {
                 $parts = \explode("\t", $line);
 
                 $line = $parts[0];
@@ -750,7 +750,7 @@ class Markdown
             return;
         }
 
-        if (str_contains($Block['element']['text'], '|') && \rtrim($Line['text'], ' -:|') === '') {
+        if (\str_contains($Block['element']['text'], '|') && \rtrim($Line['text'], ' -:|') === '') {
             $alignments = [];
 
             $divider = $Line['text'];
@@ -1026,7 +1026,7 @@ class Markdown
 
     protected function inlineEmailTag($Excerpt)
     {
-        if (str_contains($Excerpt['text'], '>') && \preg_match('#^<((mailto:)?\S+?@\S+?)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<((mailto:)?\S+?@\S+?)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             if (! isset($matches[2])) {
@@ -1263,7 +1263,7 @@ class Markdown
 
     protected function inlineUrlTag($Excerpt)
     {
-        if (str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w+:\/{2}[^ >]+)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w+:\/{2}[^ >]+)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             return [

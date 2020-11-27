@@ -13,10 +13,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Group;
+use App\Models\History;
+use App\Models\Language;
+use App\Models\Peer;
 use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\User;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\StatsControllerTest
  */
@@ -26,7 +32,6 @@ class StatsController extends \App\Http\Controllers\Controller
      * @var \Carbon\Carbon|mixed
      */
     public $carbon;
-
     /**
      * StatsController Constructor.
      */
@@ -34,7 +39,6 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         $this->carbon = \Carbon\Carbon::now()->addMinutes(10);
     }
-
     /**
      * Show Extra-Stats Index.
      *
@@ -45,66 +49,60 @@ class StatsController extends \App\Http\Controllers\Controller
     public function index()
     {
         // Total Members Count (All Groups)
-        $all_user = \cache()->remember('all_user', $this->carbon, fn () => \App\Models\User::withTrashed()->count());
+        $all_user = \cache()->remember('all_user', $this->carbon, fn() => \App\Models\User::withTrashed()->count());
         // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
         $active_user = \cache()->remember('active_user', $this->carbon, function () {
-            $banned_group = \cache()->rememberForever('banned_group', fn () => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
-            $validating_group = \cache()->rememberForever('validating_group', fn () => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
-            $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
-            $pruned_group = \cache()->rememberForever('pruned_group', fn () => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
-
+            $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
+            $validating_group = \cache()->rememberForever('validating_group', fn() => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
+            $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
+            $pruned_group = \cache()->rememberForever('pruned_group', fn() => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
             return \App\Models\User::whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->count();
         });
         // Total Disabled Members Count
         $disabled_user = \cache()->remember('disabled_user', $this->carbon, function () {
-            $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
-
+            $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
             return \App\Models\User::where('group_id', '=', $disabled_group[0])->count();
         });
         // Total Pruned Members Count
         $pruned_user = \cache()->remember('pruned_user', $this->carbon, function () {
-            $pruned_group = \cache()->rememberForever('pruned_group', fn () => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
-
+            $pruned_group = \cache()->rememberForever('pruned_group', fn() => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
             return \App\Models\User::onlyTrashed()->where('group_id', '=', $pruned_group[0])->count();
         });
         // Total Banned Members Count
         $banned_user = \cache()->remember('banned_user', $this->carbon, function () {
-            $banned_group = \cache()->rememberForever('banned_group', fn () => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
-
+            $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
             return \App\Models\User::where('group_id', '=', $banned_group[0])->count();
         });
         // Total Torrents Count
-        $num_torrent = \cache()->remember('num_torrent', $this->carbon, fn () => \App\Models\Torrent::count());
+        $num_torrent = \cache()->remember('num_torrent', $this->carbon, fn() => \App\Models\Torrent::count());
         // Total Categories With Torrent Count
         $categories = \App\Models\Category::withCount('torrents')->get()->sortBy('position');
         // Total HD Count
-        $num_hd = \cache()->remember('num_hd', $this->carbon, fn () => \App\Models\Torrent::where('sd', '=', 0)->count());
+        $num_hd = \cache()->remember('num_hd', $this->carbon, fn() => \App\Models\Torrent::where('sd', '=', 0)->count());
         // Total SD Count
-        $num_sd = \cache()->remember('num_sd', $this->carbon, fn () => \App\Models\Torrent::where('sd', '=', 1)->count());
+        $num_sd = \cache()->remember('num_sd', $this->carbon, fn() => \App\Models\Torrent::where('sd', '=', 1)->count());
         // Total Torrent Size
-        $torrent_size = \cache()->remember('torrent_size', $this->carbon, fn () => \App\Models\Torrent::sum('size'));
+        $torrent_size = \cache()->remember('torrent_size', $this->carbon, fn() => \App\Models\Torrent::sum('size'));
         // Total Seeders
-        $num_seeders = \cache()->remember('num_seeders', $this->carbon, fn () => \App\Models\Peer::where('seeder', '=', 1)->count());
+        $num_seeders = \cache()->remember('num_seeders', $this->carbon, fn() => \App\Models\Peer::where('seeder', '=', 1)->count());
         // Total Leechers
-        $num_leechers = \cache()->remember('num_leechers', $this->carbon, fn () => \App\Models\Peer::where('seeder', '=', 0)->count());
+        $num_leechers = \cache()->remember('num_leechers', $this->carbon, fn() => \App\Models\Peer::where('seeder', '=', 0)->count());
         // Total Peers
-        $num_peers = \cache()->remember('num_peers', $this->carbon, fn () => \App\Models\Peer::count());
+        $num_peers = \cache()->remember('num_peers', $this->carbon, fn() => \App\Models\Peer::count());
         //Total Upload Traffic Without Double Upload
-        $actual_upload = \cache()->remember('actual_upload', $this->carbon, fn () => \App\Models\History::sum('actual_uploaded'));
+        $actual_upload = \cache()->remember('actual_upload', $this->carbon, fn() => \App\Models\History::sum('actual_uploaded'));
         //Total Upload Traffic With Double Upload
-        $credited_upload = \cache()->remember('credited_upload', $this->carbon, fn () => \App\Models\History::sum('uploaded'));
+        $credited_upload = \cache()->remember('credited_upload', $this->carbon, fn() => \App\Models\History::sum('uploaded'));
         //Total Download Traffic Without Freeleech
-        $actual_download = \cache()->remember('actual_download', $this->carbon, fn () => \App\Models\History::sum('actual_downloaded'));
+        $actual_download = \cache()->remember('actual_download', $this->carbon, fn() => \App\Models\History::sum('actual_downloaded'));
         //Total Download Traffic With Freeleech
-        $credited_download = \cache()->remember('credited_download', $this->carbon, fn () => \App\Models\History::sum('downloaded'));
+        $credited_download = \cache()->remember('credited_download', $this->carbon, fn() => \App\Models\History::sum('downloaded'));
         //Total Up/Down Traffic without perks
         $actual_up_down = $actual_upload + $actual_download;
         //Total Up/Down Traffic with perks
         $credited_up_down = $credited_upload + $credited_download;
-
         return \view('stats.index', ['all_user' => $all_user, 'active_user' => $active_user, 'disabled_user' => $disabled_user, 'pruned_user' => $pruned_user, 'banned_user' => $banned_user, 'num_torrent' => $num_torrent, 'categories' => $categories, 'num_hd' => $num_hd, 'num_sd' => $num_sd, 'torrent_size' => $torrent_size, 'num_seeders' => $num_seeders, 'num_leechers' => $num_leechers, 'num_peers' => $num_peers, 'actual_upload' => $actual_upload, 'actual_download' => $actual_download, 'actual_up_down' => $actual_up_down, 'credited_upload' => $credited_upload, 'credited_download' => $credited_download, 'credited_up_down' => $credited_up_down]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -114,16 +112,14 @@ class StatsController extends \App\Http\Controllers\Controller
      */
     public function uploaded()
     {
-        $banned_group = \cache()->rememberForever('banned_group', fn () => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = \cache()->rememberForever('validating_group', fn () => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = \cache()->rememberForever('pruned_group', fn () => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn() => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = \cache()->rememberForever('pruned_group', fn() => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
         // Fetch Top Uploaders
         $uploaded = \App\Models\User::latest('uploaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
-
         return \view('stats.users.uploaded', ['uploaded' => $uploaded]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -133,16 +129,14 @@ class StatsController extends \App\Http\Controllers\Controller
      */
     public function downloaded()
     {
-        $banned_group = \cache()->rememberForever('banned_group', fn () => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = \cache()->rememberForever('validating_group', fn () => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = \cache()->rememberForever('pruned_group', fn () => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn() => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = \cache()->rememberForever('pruned_group', fn() => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
         // Fetch Top Downloaders
         $downloaded = \App\Models\User::latest('downloaded')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
-
         return \view('stats.users.downloaded', ['downloaded' => $downloaded]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -152,10 +146,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Seeders
         $seeders = \App\Models\Peer::with('user')->select(\Illuminate\Support\Facades\DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
-
         return \view('stats.users.seeders', ['seeders' => $seeders]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -165,10 +157,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Leechers
         $leechers = \App\Models\Peer::with('user')->select(\Illuminate\Support\Facades\DB::raw('user_id, count(*) as value'))->where('seeder', '=', 0)->groupBy('user_id')->latest('value')->take(100)->get();
-
         return \view('stats.users.leechers', ['leechers' => $leechers]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -178,10 +168,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Uploaders
         $uploaders = \App\Models\Torrent::with('user')->select(\Illuminate\Support\Facades\DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
-
         return \view('stats.users.uploaders', ['uploaders' => $uploaders]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -191,16 +179,14 @@ class StatsController extends \App\Http\Controllers\Controller
      */
     public function bankers()
     {
-        $banned_group = \cache()->rememberForever('banned_group', fn () => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = \cache()->rememberForever('validating_group', fn () => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = \cache()->rememberForever('disabled_group', fn () => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = \cache()->rememberForever('pruned_group', fn () => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
+        $banned_group = \cache()->rememberForever('banned_group', fn() => \App\Models\Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = \cache()->rememberForever('validating_group', fn() => \App\Models\Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = \cache()->rememberForever('disabled_group', fn() => \App\Models\Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = \cache()->rememberForever('pruned_group', fn() => \App\Models\Group::where('slug', '=', 'pruned')->pluck('id'));
         // Fetch Top Bankers
         $bankers = \App\Models\User::latest('seedbonus')->whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->take(100)->get();
-
         return \view('stats.users.bankers', ['bankers' => $bankers]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -210,10 +196,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Total Seedtime
         $seedtime = \App\Models\User::with('history')->select(\Illuminate\Support\Facades\DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('seedtime');
-
         return \view('stats.users.seedtime', ['seedtime' => $seedtime]);
     }
-
     /**
      * Show Extra-Stats Users.
      *
@@ -223,10 +207,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Total Seedsize Users
         $seedsize = \App\Models\User::with(['peers', 'torrents'])->select(\Illuminate\Support\Facades\DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
-
         return \view('stats.users.seedsize', ['seedsize' => $seedsize]);
     }
-
     /**
      * Show Extra-Stats Torrents.
      *
@@ -236,10 +218,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Seeded
         $seeded = \App\Models\Torrent::latest('seeders')->take(100)->get();
-
         return \view('stats.torrents.seeded', ['seeded' => $seeded]);
     }
-
     /**
      * Show Extra-Stats Torrents.
      *
@@ -249,10 +229,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Leeched
         $leeched = \App\Models\Torrent::latest('leechers')->take(100)->get();
-
         return \view('stats.torrents.leeched', ['leeched' => $leeched]);
     }
-
     /**
      * Show Extra-Stats Torrents.
      *
@@ -262,10 +240,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Completed
         $completed = \App\Models\Torrent::latest('times_completed')->take(100)->get();
-
         return \view('stats.torrents.completed', ['completed' => $completed]);
     }
-
     /**
      * Show Extra-Stats Torrents.
      *
@@ -275,10 +251,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Dying
         $dying = \App\Models\Torrent::where('seeders', '=', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
-
         return \view('stats.torrents.dying', ['dying' => $dying]);
     }
-
     /**
      * Show Extra-Stats Torrents.
      *
@@ -288,10 +262,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Dead
         $dead = \App\Models\Torrent::where('seeders', '=', 0)->latest('leechers')->take(100)->get();
-
         return \view('stats.torrents.dead', ['dead' => $dead]);
     }
-
     /**
      * Show Extra-Stats Torrent Requests.
      *
@@ -301,10 +273,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Top Bountied
         $bountied = \App\Models\TorrentRequest::latest('bounty')->take(100)->get();
-
         return \view('stats.requests.bountied', ['bountied' => $bountied]);
     }
-
     /**
      * Show Extra-Stats Groups.
      *
@@ -314,10 +284,8 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch Groups User Counts
         $groups = \App\Models\Group::oldest('position')->get();
-
         return \view('stats.groups.groups', ['groups' => $groups]);
     }
-
     /**
      * Show Extra-Stats Groups.
      *
@@ -330,10 +298,8 @@ class StatsController extends \App\Http\Controllers\Controller
         // Fetch Users In Group
         $group = \App\Models\Group::findOrFail($id);
         $users = \App\Models\User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100);
-
         return \view('stats.groups.group', ['users' => $users, 'group' => $group]);
     }
-
     /**
      * Show Extra-Stats Languages.
      *
@@ -343,7 +309,6 @@ class StatsController extends \App\Http\Controllers\Controller
     {
         // Fetch All Languages
         $languages = \App\Models\Language::allowed();
-
         return \view('stats.languages.languages', ['languages' => $languages]);
     }
 }

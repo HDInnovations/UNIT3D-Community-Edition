@@ -757,13 +757,13 @@ class TorrentController extends \App\Http\Controllers\Controller
      */
     private static function parseKeywords($text)
     {
-        $parts = explode(', ', $text);
-        $len = count($parts);
+        $parts = \explode(', ', $text);
+        $len = \count($parts);
         $result = [];
         foreach ($parts as $part) {
-            $part = trim($part);
+            $part = \trim($part);
             if ($part != '') {
-                array_push($result, $part);
+                \array_push($result, $part);
             }
         }
         return $result;

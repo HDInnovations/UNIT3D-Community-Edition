@@ -13,8 +13,9 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Graveyard.
  *
@@ -50,7 +51,6 @@ class Graveyard extends \Illuminate\Database\Eloquent\Model
      * @var string
      */
     protected $table = 'graveyard';
-
     /**
      * Belongs To A User.
      *
@@ -60,7 +60,6 @@ class Graveyard extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class);
     }
-
     /**
      * Belongs To A Torrent.
      *

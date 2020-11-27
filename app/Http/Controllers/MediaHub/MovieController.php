@@ -25,7 +25,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return view('mediahub.movie.index');
+        return \view('mediahub.movie.index');
     }
 
     /**
@@ -40,6 +40,6 @@ class MovieController extends Controller
         return view('mediahub.movie.show', [
             'movie' => $movie,
         ]);*/
-        abort(307);
+        \abort(307);
     }
 }

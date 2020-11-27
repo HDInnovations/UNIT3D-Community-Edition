@@ -474,7 +474,7 @@ class NerdBot
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = \cache()->get('user-echoes' . $target->id);
-            if (!$receiver_echoes || !\is_array($receiver_echoes) || \count($receiver_echoes) < 1) {
+            if (!$receiver_echoes || !\is_array($receiver_echoes) || (\is_countable($receiver_echoes) ? \count($receiver_echoes) : 0) < 1) {
                 $receiver_echoes = \App\Models\UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -498,7 +498,7 @@ class NerdBot
             }
             $receiver_dirty = 0;
             $receiver_audibles = \cache()->get('user-audibles' . $target->id);
-            if (!$receiver_audibles || !\is_array($receiver_audibles) || \count($receiver_audibles) < 1) {
+            if (!$receiver_audibles || !\is_array($receiver_audibles) || (\is_countable($receiver_audibles) ? \count($receiver_audibles) : 0) < 1) {
                 $receiver_audibles = \App\Models\UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;

@@ -39,7 +39,7 @@ class PersonSearch extends Component
     {
         $search_term = '%'.$this->searchTerm.'%';
 
-        return view('livewire.person-search', [
+        return \view('livewire.person-search', [
             'persons' => Person::select(['id', 'still', 'name'])->whereNotNull('still')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
         ]);
     }
