@@ -13,9 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Thank.
  *
@@ -41,6 +38,7 @@ class Thank extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A Torrent.
      *
@@ -50,6 +48,7 @@ class Thank extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Torrent::class);
     }
+
     /**
      * Belongs To A User.
      *

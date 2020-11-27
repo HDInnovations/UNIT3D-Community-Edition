@@ -13,9 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Like.
  *
@@ -45,6 +42,7 @@ class Like extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A User.
      *
@@ -54,6 +52,7 @@ class Like extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A Post.
      *

@@ -13,9 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\Type.
  *
@@ -47,6 +46,7 @@ class Type extends \Illuminate\Database\Eloquent\Model
      * @var bool
      */
     public $timestamps = false;
+
     /**
      * Has Many Torrents.
      *
@@ -56,6 +56,7 @@ class Type extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Torrent::class);
     }
+
     /**
      * Has Many Torrent Requests.
      *

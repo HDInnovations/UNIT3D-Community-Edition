@@ -13,9 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Playlist.
  *
@@ -56,6 +53,7 @@ class Playlist extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A User.
      *
@@ -65,6 +63,7 @@ class Playlist extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Has Many Torrents.
      *
@@ -74,6 +73,7 @@ class Playlist extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\PlaylistTorrent::class);
     }
+
     /**
      * Has Many Comments.
      *

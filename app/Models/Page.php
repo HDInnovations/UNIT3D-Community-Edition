@@ -13,11 +13,8 @@
 
 namespace App\Models;
 
-use App\Helpers\BBCodeConverter;
 use App\Helpers\Markdown;
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\Page.
  *
@@ -43,6 +40,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Set The Pages Content After Its Been Purified.
      *
@@ -54,6 +52,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
     {
         $this->attributes['content'] = $value;
     }
+
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -64,6 +63,7 @@ class Page extends \Illuminate\Database\Eloquent\Model
         $bbCodeConverter = new \App\Helpers\BBCodeConverter($this->content);
         $content = $bbCodeConverter->toMarkdown();
         $markdown = new \App\Helpers\Markdown();
+
         return $markdown->text($content);
     }
 }

@@ -13,12 +13,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Traits\TwoStep;
 use Closure;
 use Illuminate\Http\Request;
+
 class TwoStepAuth
 {
     use \App\Traits\TwoStep;
+
     /**
      * Handle an incoming request.
      *
@@ -31,7 +32,7 @@ class TwoStepAuth
     {
         $response = $next($request);
         $uri = $request->path();
-        $nextUri = \config('app.url') . '/' . $uri;
+        $nextUri = \config('app.url').'/'.$uri;
         $user = $request->user();
         switch ($uri) {
             case 'twostep/needed':
@@ -42,11 +43,12 @@ class TwoStepAuth
                 break;
             default:
                 \session(['nextUri' => $nextUri]);
-                if (\config('auth.TwoStepEnabled') && $user->twostep == 1 && !$this->twoStepVerification()) {
+                if (\config('auth.TwoStepEnabled') && $user->twostep == 1 && ! $this->twoStepVerification()) {
                     return \redirect()->route('verificationNeeded');
                 }
                 break;
         }
+
         return $response;
     }
 }

@@ -13,9 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\BonTransactions.
  *
@@ -64,6 +63,7 @@ class BonTransactions extends \Illuminate\Database\Eloquent\Model
      * @var string
      */
     protected $dateFormat = 'U';
+
     /**
      * Belongs To A Sender.
      *
@@ -74,6 +74,7 @@ class BonTransactions extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'sender', 'id')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A Receiver.
      *
@@ -84,6 +85,7 @@ class BonTransactions extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'receiver', 'id')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To BonExchange.
      *

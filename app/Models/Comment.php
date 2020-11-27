@@ -14,11 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
+
 /**
  * App\Models\Comment.
  *
@@ -57,6 +53,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A Torrent.
      *
@@ -66,6 +63,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Torrent::class);
     }
+
     /**
      * Belongs To A Article.
      *
@@ -75,6 +73,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Article::class);
     }
+
     /**
      * Belongs To A Request.
      *
@@ -84,6 +83,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\TorrentRequest::class, 'requests_id', 'id');
     }
+
     /**
      * Belongs To A Playlist.
      *
@@ -93,6 +93,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Playlist::class);
     }
+
     /**
      * Belongs To A User.
      *
@@ -102,6 +103,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Set The Comments Content After Its Been Purified.
      *
@@ -114,6 +116,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
         $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['content'] = $antiXss->xss_clean($value);
     }
+
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -123,6 +126,7 @@ class Comment extends \Illuminate\Database\Eloquent\Model
     {
         $bbcode = new \App\Helpers\Bbcode();
         $linkify = new \App\Helpers\Linkify();
+
         return $bbcode->parse($linkify->linky($this->content), true);
     }
 }

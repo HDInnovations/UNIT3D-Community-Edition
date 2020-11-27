@@ -13,10 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Hootlex\Moderation\Moderatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Application.
  *
@@ -57,6 +53,7 @@ class Application extends \Illuminate\Database\Eloquent\Model
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \Hootlex\Moderation\Moderatable;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A User.
      *
@@ -66,6 +63,7 @@ class Application extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class);
     }
+
     /**
      * Application Has Been Moderated By.
      *
@@ -75,6 +73,7 @@ class Application extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'moderated_by');
     }
+
     /**
      * A Application Has Many Image Proofs.
      *
@@ -84,6 +83,7 @@ class Application extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\ApplicationImageProof::class);
     }
+
     /**
      * A Application Has Many URL Proofs.
      *

@@ -13,9 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\UserPrivacy.
  *
@@ -132,6 +131,7 @@ class UserPrivacy extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $casts = ['json_profile_groups' => 'array', 'json_torrent_groups' => 'array', 'json_forum_groups' => 'array', 'json_bon_groups' => 'array', 'json_comment_groups' => 'array', 'json_wishlist_groups' => 'array', 'json_follower_groups' => 'array', 'json_achievement_groups' => 'array', 'json_rank_groups' => 'array', 'json_request_groups' => 'array', 'json_other_groups' => 'array'];
+
     /**
      * Belongs To A User.
      *
@@ -141,6 +141,7 @@ class UserPrivacy extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Get the Expected groups for form validation.
      *
@@ -150,6 +151,7 @@ class UserPrivacy extends \Illuminate\Database\Eloquent\Model
     {
         return ['default_groups' => ['1' => 0]];
     }
+
     /**
      * Get the Expected fields for form validation.
      *
@@ -159,6 +161,7 @@ class UserPrivacy extends \Illuminate\Database\Eloquent\Model
     {
         return [];
     }
+
     /**
      * Set the base vars on object creation without touching boot.
      *

@@ -13,7 +13,6 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
 class EmailBlacklistUpdater
 {
     public static function update()
@@ -29,6 +28,7 @@ class EmailBlacklistUpdater
         $count = \is_countable($domains) ? \is_countable($domains) ? \count($domains) : 0 : 0;
         // Retrieve blacklisted domains
         \cache()->put($key, $domains, $duration);
+
         return $count;
     }
 }

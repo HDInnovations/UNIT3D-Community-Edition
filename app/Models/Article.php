@@ -14,11 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
+
 /**
  * App\Models\Article.
  *
@@ -51,6 +47,7 @@ class Article extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Auditable;
+
     /**
      * Belongs To A User.
      *
@@ -60,6 +57,7 @@ class Article extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class)->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Has Many Comments.
      *
@@ -69,6 +67,7 @@ class Article extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Comment::class);
     }
+
     /**
      * Article Trimming.
      *
@@ -96,8 +95,10 @@ class Article extends \Illuminate\Database\Eloquent\Model
         if ($ellipses) {
             $trimmed_text .= '...';
         }
+
         return $trimmed_text;
     }
+
     /**
      * Set The Articles Content After Its Been Purified.
      *
@@ -110,6 +111,7 @@ class Article extends \Illuminate\Database\Eloquent\Model
         $antiXss = new \voku\helper\AntiXSS();
         $this->attributes['content'] = $antiXss->xss_clean($value);
     }
+
     /**
      * Parse Content And Return Valid HTML.
      *
@@ -119,6 +121,7 @@ class Article extends \Illuminate\Database\Eloquent\Model
     {
         $bbcode = new \App\Helpers\Bbcode();
         $linkify = new \App\Helpers\Linkify();
+
         return $bbcode->parse($linkify->linky($this->content), true);
     }
 }

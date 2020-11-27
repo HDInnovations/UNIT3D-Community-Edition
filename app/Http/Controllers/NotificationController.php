@@ -14,8 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notification;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\NotificationControllerTest
  */
@@ -31,8 +30,10 @@ class NotificationController extends \App\Http\Controllers\Controller
     public function index(\Illuminate\Http\Request $request)
     {
         $notifications = $request->user()->notifications()->paginate(25);
+
         return \view('notification.index', ['notifications' => $notifications]);
     }
+
     /**
      * Uses Input's To Put Together A Search.
      *
@@ -104,8 +105,10 @@ class NotificationController extends \App\Http\Controllers\Controller
             $notification->where('type', '=', \App\Notifications\NewUpload::class);
         }
         $notifications = $notification->paginate(25);
+
         return \view('notification.results', ['user' => $user, 'notifications' => $notifications])->render();
     }
+
     /**
      * Show A Notification And Mark As Read.
      *
@@ -118,8 +121,10 @@ class NotificationController extends \App\Http\Controllers\Controller
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
+
         return \redirect()->to($notification->data['url'])->withSuccess('Notification Marked As Read!');
     }
+
     /**
      * Set A Notification To Read.
      *
@@ -131,15 +136,17 @@ class NotificationController extends \App\Http\Controllers\Controller
     public function update(\Illuminate\Http\Request $request, $id)
     {
         $notification = $request->user()->notifications()->where('id', '=', $id)->first();
-        if (!$notification) {
+        if (! $notification) {
             return \redirect()->route('notifications.index')->withErrors('Notification Does Not Exist!');
         }
         if ($notification->read_at != null) {
             return \redirect()->route('notifications.index')->withErrors('Notification Already Marked As Read!');
         }
         $notification->markAsRead();
+
         return \redirect()->route('notifications.index')->withSuccess('Notification Marked As Read!');
     }
+
     /**
      * Mass Update All Notification's To Read.
      *
@@ -153,8 +160,10 @@ class NotificationController extends \App\Http\Controllers\Controller
     {
         $carbon = new \Carbon\Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
+
         return \redirect()->route('notifications.index')->withSuccess('All Notifications Marked As Read!');
     }
+
     /**
      * Delete A Notification.
      *
@@ -166,8 +175,10 @@ class NotificationController extends \App\Http\Controllers\Controller
     public function destroy(\Illuminate\Http\Request $request, $id)
     {
         $request->user()->notifications()->findOrFail($id)->delete();
+
         return \redirect()->route('notifications.index')->withSuccess('Notification Deleted!');
     }
+
     /**
      * Mass Delete All Notification's.
      *
@@ -178,6 +189,7 @@ class NotificationController extends \App\Http\Controllers\Controller
     public function destroyAll(\Illuminate\Http\Request $request)
     {
         $request->user()->notifications()->delete();
+
         return \redirect()->route('notifications.index')->withSuccess('All Notifications Deleted!');
     }
 }

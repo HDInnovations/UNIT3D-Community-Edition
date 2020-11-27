@@ -13,9 +13,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Report.
  *
@@ -66,6 +63,7 @@ class Report extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $guarded = ['id'];
+
     /**
      * Belongs To A Request.
      *
@@ -75,6 +73,7 @@ class Report extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\TorrentRequest::class, 'request_id');
     }
+
     /**
      * Belongs To A Torrent.
      *
@@ -84,6 +83,7 @@ class Report extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\Torrent::class, 'torrent_id');
     }
+
     /**
      * Belongs To A User.
      *
@@ -93,6 +93,7 @@ class Report extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'reporter_id')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A User.
      *
@@ -102,6 +103,7 @@ class Report extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(\App\Models\User::class, 'reported_user')->withDefault(['username' => 'System', 'id' => '1']);
     }
+
     /**
      * Belongs To A Staff Member.
      *

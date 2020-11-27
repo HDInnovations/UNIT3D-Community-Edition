@@ -13,9 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\Models\BonExchange.
  *
@@ -63,6 +62,7 @@ class BonExchange extends \Illuminate\Database\Eloquent\Model
      * @var array
      */
     protected $casts = ['upload' => 'boolean', 'download' => 'boolean', 'personal_freeleech' => 'boolean', 'invite' => 'boolean'];
+
     /**
      * @method getDownloadOptions
      *
@@ -72,6 +72,7 @@ class BonExchange extends \Illuminate\Database\Eloquent\Model
     {
         return self::where('download', '=', true)->orderBy('value', 'asc')->get();
     }
+
     /**
      * @method getUploadOptions
      *
@@ -81,6 +82,7 @@ class BonExchange extends \Illuminate\Database\Eloquent\Model
     {
         return self::where('upload', '=', true)->orderBy('value', 'asc')->get();
     }
+
     /**
      * @method getPersonalFreeleechOption
      *
@@ -90,6 +92,7 @@ class BonExchange extends \Illuminate\Database\Eloquent\Model
     {
         return self::where('personal_freeleech', '=', true)->orderBy('value', 'asc')->get();
     }
+
     /**
      * @method getInviteOption
      *
@@ -99,6 +102,7 @@ class BonExchange extends \Illuminate\Database\Eloquent\Model
     {
         return self::where('invite', '=', true)->orderBy('value', 'asc')->get();
     }
+
     /**
      * @method getItemCost
      *

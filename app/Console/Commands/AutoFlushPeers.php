@@ -13,10 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\History;
-use App\Models\Peer;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+
 /**
  * @see \Tests\Unit\Console\Commands\AutoFlushPeersTest
  */
@@ -34,6 +32,7 @@ class AutoFlushPeers extends \Illuminate\Console\Command
      * @var string
      */
     protected $description = 'Flushes Ghost Peers';
+
     /**
      * Create a new command instance.
      *
@@ -43,6 +42,7 @@ class AutoFlushPeers extends \Illuminate\Console\Command
     {
         parent::__construct();
     }
+
     /**
      * Execute the console command.
      *
