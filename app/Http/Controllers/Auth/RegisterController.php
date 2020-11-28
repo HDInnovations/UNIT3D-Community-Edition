@@ -14,7 +14,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Invite;
-use App\Repositories\ChatRepository;
 
 class RegisterController extends \App\Http\Controllers\Controller
 {

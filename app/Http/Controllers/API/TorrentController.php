@@ -18,7 +18,6 @@ use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\Torrent;
 use App\Models\User;
-use App\Repositories\ChatRepository;
 use DB;
 use Illuminate\Support\Facades\Storage;
 

@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Graveyard;
 use App\Models\Torrent;
-use App\Repositories\TorrentFacetedRepository;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\GraveyardControllerTest

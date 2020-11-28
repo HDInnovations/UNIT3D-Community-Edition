@@ -19,8 +19,6 @@ use App\Models\History;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
-use App\Repositories\ChatRepository;
-use App\Repositories\TorrentFacetedRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

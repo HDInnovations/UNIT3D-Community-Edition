@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 
 /**

@@ -13,9 +13,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Repositories\ChatRepository;
-use Illuminate\Auth\AuthManager;
-
 /**
  * @see \Tests\Feature\Http\Controllers\API\ChatControllerTest
  */
