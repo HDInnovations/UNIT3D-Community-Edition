@@ -13,27 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Torrent;
 use App\Models\TorrentRequest;
-use App\Repositories\ChatRepository;
-use App\Repositories\RequestFacetedRepository;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
  */
 class RequestController extends \App\Http\Controllers\Controller
 {
-    /**
-     * @var RequestFacetedRepository
-     */
-    private $requestFacetedRepository;
-    /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
     /**
      * RequestController Constructor.
      *
@@ -42,8 +28,6 @@ class RequestController extends \App\Http\Controllers\Controller
      */
     public function __construct(private \App\Repositories\RequestFacetedRepository $requestFacetedRepository, private \App\Repositories\ChatRepository $chatRepository)
     {
-        $this->requestFacetedRepository = $requestFacetedRepository;
-        $this->chatRepository = $chatRepository;
     }
 
     /**

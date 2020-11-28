@@ -28,18 +28,12 @@ use Illuminate\Support\Facades\Storage;
 class TorrentController extends \App\Http\Controllers\API\BaseController
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
      * RequestController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
-        $this->chatRepository = $chatRepository;
     }
 
     /**

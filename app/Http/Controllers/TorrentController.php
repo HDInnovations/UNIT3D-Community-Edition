@@ -30,14 +30,6 @@ use Illuminate\Support\Facades\DB;
 class TorrentController extends \App\Http\Controllers\Controller
 {
     /**
-     * @var TorrentFacetedRepository
-     */
-    private $torrentFacetedRepository;
-    /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-    /**
      * @var int
      */
     private const PAGE = 0;
@@ -66,8 +58,6 @@ class TorrentController extends \App\Http\Controllers\Controller
      */
     public function __construct(private \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository, private \App\Repositories\ChatRepository $chatRepository)
     {
-        $this->torrentFacetedRepository = $torrentFacetedRepository;
-        $this->chatRepository = $chatRepository;
     }
 
     /**

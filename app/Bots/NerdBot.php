@@ -13,20 +13,8 @@
 
 namespace App\Bots;
 
-use App\Models\Bot;
-
 class NerdBot
 {
-    private $bot;
-    private $chat;
-    private $target;
-    private $type;
-    private $message;
-    private $targeted;
-    private $log;
-    private $expiresAt;
-    private $current;
-
     /**
      * NerdBot Constructor.
      *
@@ -35,7 +23,6 @@ class NerdBot
     public function __construct(private \App\Repositories\ChatRepository $chat)
     {
         $bot = \App\Models\Bot::where('id', '=', '2')->firstOrFail();
-        $this->chat = $chatRepository;
         $this->bot = $bot;
         $this->expiresAt = \Carbon\Carbon::now()->addMinutes(60);
         $this->current = \Carbon\Carbon::now();

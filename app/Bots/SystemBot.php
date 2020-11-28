@@ -15,14 +15,6 @@ namespace App\Bots;
 
 class SystemBot
 {
-    private $bot;
-    private $chat;
-    private $target;
-    private $type;
-    private $message;
-    private $targeted;
-    private $log;
-
     /**
      * SystemBot Constructor.
      *
@@ -31,7 +23,6 @@ class SystemBot
     public function __construct(private \App\Repositories\ChatRepository $chat)
     {
         $bot = \App\Models\Bot::where('slug', '=', 'systembot')->firstOrFail();
-        $this->chat = $chatRepository;
         $this->bot = $bot;
     }
 

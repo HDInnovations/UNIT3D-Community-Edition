@@ -24,15 +24,9 @@ use Illuminate\Console\Command;
  */
 class AutoNerdStat extends \Illuminate\Console\Command
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
     public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
         parent::__construct();
-        $this->chatRepository = $chatRepository;
     }
 
     /**

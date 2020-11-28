@@ -23,18 +23,12 @@ use App\Repositories\TorrentFacetedRepository;
 class GraveyardController extends \App\Http\Controllers\Controller
 {
     /**
-     * @var TorrentFacetedRepository
-     */
-    private $torrentFacetedRepository;
-
-    /**
      * GraveyardController Constructor.
      *
      * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      */
     public function __construct(private \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository)
     {
-        $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
 
     /**

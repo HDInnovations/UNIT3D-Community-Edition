@@ -21,19 +21,8 @@ use Illuminate\Auth\AuthManager;
  */
 class ChatController extends \App\Http\Controllers\Controller
 {
-    /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-    /**
-     * @var AuthManager
-     */
-    private $authManager;
-
     public function __construct(private \App\Repositories\ChatRepository $chatRepository, private \Illuminate\Contracts\Auth\Factory $authManager)
     {
-        $this->chatRepository = $chatRepository;
-        $this->authManager = $authFactory;
     }
 
     /* STATUSES */

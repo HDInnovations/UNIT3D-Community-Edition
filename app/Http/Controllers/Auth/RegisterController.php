@@ -19,18 +19,12 @@ use App\Repositories\ChatRepository;
 class RegisterController extends \App\Http\Controllers\Controller
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
      * RegisterController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private \App\Repositories\ChatRepository $chatRepository)
     {
-        $this->chatRepository = $chatRepository;
     }
 
     /**
