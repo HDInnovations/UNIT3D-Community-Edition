@@ -69,7 +69,6 @@ mix.options({
     /*
      * Copy assets
      */
-    .copy('vendor/joypixels/assets/png', 'public/vendor/joypixels')
     .copy('resources/sass/vendor/webfonts/wysibb', 'public/fonts/wysibb')
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
     .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap');
