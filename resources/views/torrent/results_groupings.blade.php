@@ -43,10 +43,10 @@
                                         {{ $t->meta->name ?? 'Unknown' }}
                                     @endif
                                         @if ($t->category->movie_meta)
-                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date, 0, 4) ?? 'Unknown' }}</span>
+                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date ?? '', 0, 4 }}</span>
                                         @endif
                                         @if ($t->category->tv_meta)
-                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date, 0, 4) ?? 'Unknown' }}</span>
+                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date ?? '', 0, 4 }}</span>
                                         @endif
                                 </h3>
                                 @foreach ($t->meta->genres as $genre)
