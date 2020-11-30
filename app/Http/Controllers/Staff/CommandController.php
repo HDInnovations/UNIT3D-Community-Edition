@@ -49,7 +49,7 @@ class CommandController extends Controller
         $user = $request->user();
         \abort_unless($user->group->is_owner, 403);
 
-        Artisan::call('down --allow='.$request->ip());
+        Artisan::call('down');
 
         return \redirect()->route('staff.commands.index')
             ->withInfo(\trim(Artisan::output()));
