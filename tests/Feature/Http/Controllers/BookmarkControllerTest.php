@@ -30,7 +30,7 @@ class BookmarkControllerTest extends TestCase
 
         $response = $this->actingAs($user)->delete(route('bookmarks.destroy', ['id' => $bookmark->torrent_id]));
 
-        $response->assertRedirect(route('torrent', ['id' => $bookmark->torrent_id]))
+        $response->assertRedirect(route('bookmarks.index', ['username' => $user->username]))
             ->assertSessionHas('success', 'Torrent Has Been Unbookmarked Successfully!');
     }
 
@@ -60,7 +60,7 @@ class BookmarkControllerTest extends TestCase
         ]);
 
         $this->actingAs($user)->post(route('bookmarks.store', ['id' => $bookmark->torrent_id]))
-            ->assertRedirect(back())
+            ->assertRedirect(route('torrent', ['id' => $bookmark->torrent_id]))
             ->assertSessionHas('success', 'Torrent Has Been Bookmarked Successfully!');
     }
 }
