@@ -46,11 +46,8 @@ class BookmarkControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('bookmarks.index', ['username' => $user->username]));
 
         $response->assertOk()
-            ->assertViewIs('user.bookmarks')
-            ->assertViewHas('user')
-            ->assertViewHas('personal_freeleech')
-            ->assertViewHas('bookmarks')
-            ->assertViewHas('route');
+            ->assertViewIs('bookmark.index')
+            ->assertViewHas('user');
     }
 
     /** @test */
@@ -63,7 +60,7 @@ class BookmarkControllerTest extends TestCase
         ]);
 
         $this->actingAs($user)->post(route('bookmarks.store', ['id' => $bookmark->torrent_id]))
-            ->assertRedirect(route('torrent', ['id' => $bookmark->torrent_id]))
+            ->assertRedirect(back())
             ->assertSessionHas('success', 'Torrent Has Been Bookmarked Successfully!');
     }
 }
