@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;

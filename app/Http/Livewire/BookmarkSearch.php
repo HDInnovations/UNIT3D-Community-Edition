@@ -2,11 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\PersonalFreeleech;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Http\Request;
-use App\Models\PersonalFreeleech;
 
 class BookmarkSearch extends Component
 {
