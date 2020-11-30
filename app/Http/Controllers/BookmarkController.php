@@ -74,7 +74,7 @@ class BookmarkController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $request->user()->bookmarks()->detach($torrent->id);
 
-        return \redirect()->back()
+        return \redirect()->route('bookmarks.index', ['username' => $request->user()->username])
             ->withSuccess('Torrent Has Been Unbookmarked Successfully!');
     }
 }
