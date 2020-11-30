@@ -33,19 +33,11 @@ class BookmarkController extends Controller
      */
     public function index(Request $request, $username)
     {
-        $user = User::with('bookmarks')->where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        \abort_unless(($request->user()->id == $user->id), 403);
 
-        $bookmarks = $user->bookmarks()->latest()->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-
-        return \view('user.bookmarks', [
-            'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
-            'bookmarks'          => $bookmarks,
-            'route'              => 'bookmarks.index',
-        ]);
+        return \view('bookmark.index', ['user' => $user]);
     }
 
     /**
@@ -83,7 +75,7 @@ class BookmarkController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $request->user()->bookmarks()->detach($torrent->id);
 
-        return \redirect()->route('torrent', ['id' => $torrent->id])
+        return \redirect()->back()
             ->withSuccess('Torrent Has Been Unbookmarked Successfully!');
     }
 }
