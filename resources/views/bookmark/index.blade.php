@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="box container" style="width: 95% !important;">
+    <div class="box container" style="width: 90% !important;">
         @livewire('bookmark-search')
     </div>
 @endsection
