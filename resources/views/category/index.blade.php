@@ -19,18 +19,23 @@
                 <h1>@lang('torrent.categories')</h1>
             </div>
         </div>
-        <section class="tall_categories">
-            @foreach($categories as $category)
+        <div class="blocks">
+            @foreach ($categories as $category)
                 <a href="{{ route('categories.show', ['id' => $category->id]) }}">
-                    <div class="category {{ strtolower($category->name) }}">
-                        <div>
-                            <p>{{ $category->name }}</p>
-                            <span></span>
-                            <p>{{ $category->num_torrent }} {{ trans('torrent.torrents') }}</p>
-                        </div>
+                    <div class="general media_blocks">
+                        <h2>
+                            @if ($category->image != null)
+                                <img src="{{ url('files/img/' . $category->image) }}" alt="{{ $category->name }}">
+                            @else
+                                <i class="{{ $category->icon }}"></i>
+                            @endif
+                            {{ $category->name }}
+                        </h2>
+                        <span></span>
+                        <h2>{{ $category->torrents_count }} @lang('torrent.torrents')</h2>
                     </div>
                 </a>
             @endforeach
-        </section>
+        </div>
     </div>
 @endsection
