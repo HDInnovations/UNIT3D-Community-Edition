@@ -132,7 +132,7 @@ Welcome to our website located at '.config('app.url').' (this "Site")! This Site
 8. Copyright Policy
 [/b]You are solely responsible for the content, including but not limited to photos, profiles information, messages, search results edits, and other content that you upload, publish or display (hereinafter, "submit") on or through the Service, or transmit to or share with other users. You may not submit content to the Service that you did not create or that you not have permission to submit. For submissions to search results pages, you may not submit content that is not compatible with the license used by the particular project of the Service. You understand and agree that the others may, but are not obligated to, edit, delete or remove (without notice) any content from the Service, for any reason or no reason. You are solely responsible at your sole cost and expense for creating backup copies and replacing any content you post or store on the Service or provide to the Company.
 [b]Claims of Copyright Infringement[/b]
-[i] For claims of copyright infringement, please contact us at blutopia@stealth.tg This site is in compliance with DCMA takedown notices.[/i]
+[i] For claims of copyright infringement, please contact us at example@example.com This site is in compliance with DCMA takedown notices.[/i]
 [b]
 9. Modifications
 [/b]The Internet and technology are rapidly changing. Accordingly, we may modify this Agreement from time to time without notice and it is your responsibility to read it carefully and review any changes that may have been made. Since changes will be posted on this page, we encourage you to check this page regularly. Your continued use of this Site or the Services constitutes your agreement with such modifications.
