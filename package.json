@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "dayjs": "^1.9.6",
-    "laravel-mix-sri": "0.0.5",
     "npm-check-updates": "^10.2.2"
   }
 }

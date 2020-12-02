@@ -1,5 +1,4 @@
 let mix = require('laravel-mix');
-require('laravel-mix-sri');
 require('laravel-mix-purgecss');
 
 /*
@@ -28,7 +27,6 @@ mix.options({
 
       whitelistPatterns: [/tooltip/, /fa/, /far/, /fas/, /fal/],
     })
-    .generateIntegrityHash()
 
     /*
      * Themes
@@ -45,7 +43,6 @@ mix.options({
     .sass('resources/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
     .sass('resources/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
     .sass('resources/sass/themes/cosmic-void.scss', 'public/css/themes/cosmic-void.css')
-    .generateIntegrityHash()
 
     /*
      * Login and TwoStep Auth styles
@@ -56,7 +53,6 @@ mix.options({
      */
     .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
     .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
-    .generateIntegrityHash()
 
     /*
      * Here we take all these scripts and compile them into a single 'unit3d.js' file that will be loaded after 'app.js'
@@ -64,7 +60,6 @@ mix.options({
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
     .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/custom.js', 'resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
-    .generateIntegrityHash()
 
     /*
      * Copy assets
@@ -72,19 +67,3 @@ mix.options({
     .copy('resources/sass/vendor/webfonts/wysibb', 'public/fonts/wysibb')
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
     .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap');
-
-// Full API
-// mix.js(src, output);
-// mix.extract(vendorLibs);
-// mix.sass(src, output);
-// mix.less(src, output);
-// mix.combine(files, destination);
-// mix.copy(from, to);
-// mix.minify(file);
-// mix.sourceMaps(); // Enable sourcemaps
-// mix.version(); // Enable versioning.
-// mix.disableNotifications();
-// mix.setPublicPath('path/to/public');
-// mix.autoload({}); <-- Will be passed to Webpack's ProvidePlugin.
-// mix.webpackConfig({}); <-- Override webpack.config.js, without editing the file directly.
-// mix.then(function () {}) <-- Will be triggered each time Webpack finishes building.
