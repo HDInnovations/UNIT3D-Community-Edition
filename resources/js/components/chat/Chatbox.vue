@@ -658,12 +658,12 @@
             },
             sortEchoes(obj) {
                 let output = obj.sort(function(a, b) {
-                    var nv1 = '';
-                    if(a.type == 'room') { nv1=a.name; }
+                  const nv1 = ''
+                  if(a.type == 'room') { nv1=a.name; }
                     if(a.type == 'target') { nv1=a.username; }
                     if(a.type == 'bot') { nv1=a.name; }
-                    var nv2 = '';
-                    if(b.type == 'room') { nv1=b.name; }
+                  const nv2 = ''
+                  if(b.type == 'room') { nv1=b.name; }
                     if(b.type == 'target') { nv1=b.username; }
                     if(b.type == 'bot') { nv1=b.name; }
                     return nv1 - nv2;
@@ -809,7 +809,7 @@
                 }
             },
             deletePing(type, id) {
-                for(var i = 0; i<this.pings.length; i++) {
+                for(let i = 0; i<this.pings.length; i++) {
                     if(this.pings[i].type == type && this.pings[i].id == id) {
                         this.pings.splice(i,1);
                     }

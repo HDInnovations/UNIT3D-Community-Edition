@@ -93,11 +93,11 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $('.show-image').click(function(e) {
             e.preventDefault();
-    
-            var name = $(this).attr('data-name');
-            var image = $(this).attr('data-image');
-    
-            Swal.fire({
+
+          const name = $(this).attr('data-name')
+          const image = $(this).attr('data-image')
+
+          Swal.fire({
                 showConfirmButton: false,
                 showCloseButton: true,
                 background: '#232323',

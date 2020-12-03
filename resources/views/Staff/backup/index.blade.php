@@ -96,8 +96,8 @@
             // capture the Create new backup button
             $("#create-full-backup-button").click(function(e) {
                 e.preventDefault();
-                var create_backup_url = $(this).attr('href');
-                // do the backup through ajax
+              const create_backup_url = $(this).attr('href')
+              // do the backup through ajax
                 Toast.fire({
                     icon: 'success',
                     title: '@lang('backup.backup_process_started')'
@@ -127,8 +127,8 @@
             // capture the Create new backup button
             $("#create-files-backup-button").click(function(e) {
                 e.preventDefault();
-                var create_backup_url = $(this).attr('href');
-                // do the backup through ajax
+              const create_backup_url = $(this).attr('href')
+              // do the backup through ajax
                 Toast.fire({
                     icon: 'success',
                     title: '@lang('backup.backup_process_started')'
@@ -158,8 +158,8 @@
             // capture the Create new backup button
             $("#create-db-backup-button").click(function(e) {
                 e.preventDefault();
-                var create_backup_url = $(this).attr('href');
-                // do the backup through ajax
+              const create_backup_url = $(this).attr('href')
+              // do the backup through ajax
                 Toast.fire({
                     icon: 'success',
                     title: '@lang('backup.backup_process_started')'
@@ -189,9 +189,9 @@
             // capture the delete button
             $("[data-button-type=delete]").click(function(e) {
                 e.preventDefault();
-                var delete_button = $(this);
-                var delete_url = $(this).attr('href');
-                if (confirm("@lang('backup.delete_confirm')") == true) {
+              const delete_button = $(this)
+              const delete_url = $(this).attr('href')
+              if (confirm("@lang('backup.delete_confirm')") == true) {
                     $.ajax({
                         url: delete_url,
                         type: 'DELETE',

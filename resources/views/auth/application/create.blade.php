@@ -173,14 +173,14 @@
             crossorigin="anonymous"></script>
 
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-            var images = 2;
+            let images = 2
 
             $('#addImg').on('click', function(e) {
                 e.preventDefault();
                 images += 1;
-                var imageHTML = '<div class="form-group extra-image"><label for="image' + images +
-                    '">Proof Image URL ' + images +
-                    ':</label><input type="text" name="images[]" class="form-control" value="" required></div>';
+                const imageHTML = '<div class="form-group extra-image"><label for="image' + images +
+                        '">Proof Image URL ' + images +
+                        ':</label><input type="text" name="images[]" class="form-control" value="" required></div>'
                 $('.more-images').append(imageHTML);
             });
 
@@ -193,14 +193,14 @@
         </script>
 
         <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-            var links = 2;
+            let links = 2
 
             $('#addLink').on('click', function(e) {
                 e.preventDefault();
                 links += 1;
-                var linkHTML = '<div class="form-group extra-link"><label for="link' + links +
-                    '">Profile Link URL ' + links +
-                    ':</label><input type="text" name="links[]" class="form-control" value="" required></div>';
+                const linkHTML = '<div class="form-group extra-link"><label for="link' + links +
+                        '">Profile Link URL ' + links +
+                        ':</label><input type="text" name="links[]" class="form-control" value="" required></div>'
                 $('.more-links').append(linkHTML);
             });
 

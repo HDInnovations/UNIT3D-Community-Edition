@@ -142,12 +142,12 @@ $(document).ready(function() {
         },
         Handlecontentheight: function() {
             function setHeight() {
-                var WH = $(window).height();
-                var HH = $('#hoe-header').innerHeight();
-                var FH = $('#footer').innerHeight();
-                var contentH = WH - HH - FH - 2;
-                var lpanelH = WH - HH - 2;
-                $('#main-content ').css('min-height', contentH);
+              const WH = $(window).height()
+              const HH = $('#hoe-header').innerHeight()
+              const FH = $('#footer').innerHeight()
+              const contentH = WH - HH - FH - 2
+              const lpanelH = WH - HH - 2
+              $('#main-content ').css('min-height', contentH);
                 $('.inner-left-panel ').css('height', lpanelH);
             }
 
@@ -185,8 +185,8 @@ $(document).ready(function() {
         },
         Handlelpanelmenu: function() {
             $('.hoe-has-menu > a').on('click', function() {
-                var compactMenu = $(this).closest('.hoe-minimized-lpanel').length;
-                if (compactMenu === 0) {
+              const compactMenu = $(this).closest('.hoe-minimized-lpanel').length
+              if (compactMenu === 0) {
                     $(this)
                         .parent('.hoe-has-menu')
                         .parent('ul')
@@ -197,10 +197,10 @@ $(document).ready(function() {
                         .parent('ul')
                         .find('.opened')
                         .removeClass('opened');
-                    var submenu = $(this)
-                        .parent('.hoe-has-menu')
-                        .find('>.hoe-sub-menu');
-                    if (submenu.is(':hidden')) {
+                  const submenu = $(this)
+                    .parent('.hoe-has-menu')
+                    .find('>.hoe-sub-menu')
+                  if (submenu.is(':hidden')) {
                         submenu.slideDown('fast');
                         $(this)
                             .parent('.hoe-has-menu')
@@ -239,8 +239,8 @@ $(document).ready(function() {
         },
         Handlelpanel: function() {
             function Responsivelpanel() {
-                var totalwidth = $(window)[0].innerWidth;
-                if (totalwidth >= 768 && totalwidth <= 1024) {
+              const totalwidth = $(window)[0].innerWidth
+              if (totalwidth >= 768 && totalwidth <= 1024) {
                     $('#hoeapp-wrapper').attr('hoe-device-type', 'tablet');
                     $('#hoe-header, #hoeapp-container').addClass('hoe-minimized-lpanel');
                     $('li.theme-option select').attr('disabled', false);

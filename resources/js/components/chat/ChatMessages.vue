@@ -109,8 +109,8 @@
             if(e.target.hasAttribute('trigger') && e.target.getAttribute('trigger') == 'bot') {
                 e.preventDefault();
                 let target = e.target.hash;
-                var tmp = target.split('/');
-                $('#chat-message').bbcode('/'+tmp[1]+' '+tmp[2]+' ');
+              const tmp = target.split('/')
+              $('#chat-message').bbcode('/'+tmp[1]+' '+tmp[2]+' ');
                 $('#chat-message').htmlcode('/'+tmp[1]+' '+tmp[2]+' ');
             }
         },

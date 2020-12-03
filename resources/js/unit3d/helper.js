@@ -25,8 +25,8 @@ class uploadExtensionBuilder {
     // https://stackoverflow.com/a/10710400
     // get all indexes of ch in str
     getAllIndexes(str, ch) {
-        var indices = [];
-        for (var i = 0; i < str.length; i++) {
+      const indices = []
+      for (let i = 0; i < str.length; i++) {
             if (str[i] === ch) indices.push(i);
         }
         return indices;
@@ -163,8 +163,8 @@ class uploadExtensionBuilder {
         let release;
         if (!name.value) {
             const fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
-            var newValue = torrent.value;
-            // strip path
+          let newValue = torrent.value
+          // strip path
             newValue = newValue.split('\\').pop().split('/').pop();
             // remove file endings
             fileEndings.forEach(function (e) {
@@ -310,209 +310,209 @@ class userFilterBuilder {
     }
     handle(page,nav) {
 
-        var userId = $('#userFilter').attr('userId');
-        var userName = $('#userFilter').attr('userName');
+      const userId = $('#userFilter').attr('userId')
+      const userName = $('#userFilter').attr('userName')
 
-        var view = $('#userFilter').attr('view');
+      const view = $('#userFilter').attr('view')
 
-        var active = (function () {
-            if ($("#active").is(":checked")) {
-                return $("#active").val();
-            }
-        })();
+      const active = (function () {
+        if ($('#active').is(':checked')) {
+          return $('#active').val()
+        }
+      })()
 
-        var seeding = (function () {
-            if ($("#seeding").is(":checked")) {
-                return $("#seeding").val();
-            }
-        })();
+      const seeding = (function () {
+        if ($('#seeding').is(':checked')) {
+          return $('#seeding').val()
+        }
+      })()
 
-        var leeching = (function () {
-            if ($("#leeching").is(":checked")) {
-                return $("#leeching").val();
-            }
-        })();
+      const leeching = (function () {
+        if ($('#leeching').is(':checked')) {
+          return $('#leeching').val()
+        }
+      })()
 
-        var prewarned = (function () {
-            if ($("#prewarned").is(":checked")) {
-                return $("#prewarned").val();
-            }
-        })();
+      const prewarned = (function () {
+        if ($('#prewarned').is(':checked')) {
+          return $('#prewarned').val()
+        }
+      })()
 
-        var hr = (function () {
-            if ($("#hr").is(":checked")) {
-                return $("#hr").val();
-            }
-        })();
+      const hr = (function () {
+        if ($('#hr').is(':checked')) {
+          return $('#hr').val()
+        }
+      })()
 
-        var immune = (function () {
-            if ($("#immune").is(":checked")) {
-                return $("#immune").val();
-            }
-        })();
+      const immune = (function () {
+        if ($('#immune').is(':checked')) {
+          return $('#immune').val()
+        }
+      })()
 
-        var completed = (function () {
-            if ($("#completed").is(":checked")) {
-                return $("#completed").val();
-            }
-        })();
+      const completed = (function () {
+        if ($('#completed').is(':checked')) {
+          return $('#completed').val()
+        }
+      })()
 
-        var pending = (function () {
-            if ($("#pending").is(":checked")) {
-                return $("#pending").val();
-            }
-        })();
+      const pending = (function () {
+        if ($('#pending').is(':checked')) {
+          return $('#pending').val()
+        }
+      })()
 
-        var approved = (function () {
-            if ($("#approved").is(":checked")) {
-                return $("#approved").val();
-            }
-        })();
+      const approved = (function () {
+        if ($('#approved').is(':checked')) {
+          return $('#approved').val()
+        }
+      })()
 
-        var rejected = (function () {
-            if ($("#rejected").is(":checked")) {
-                return $("#rejected").val();
-            }
-        })();
+      const rejected = (function () {
+        if ($('#rejected').is(':checked')) {
+          return $('#rejected').val()
+        }
+      })()
 
-        var dead = (function () {
-            if ($("#dead").is(":checked")) {
-                return $("#dead").val();
-            }
-        })();
+      const dead = (function () {
+        if ($('#dead').is(':checked')) {
+          return $('#dead').val()
+        }
+      })()
 
-        var alive = (function () {
-            if ($("#alive").is(":checked")) {
-                return $("#alive").val();
-            }
-        })();
+      const alive = (function () {
+        if ($('#alive').is(':checked')) {
+          return $('#alive').val()
+        }
+      })()
 
-        var reseed = (function () {
-            if ($("#reseed").is(":checked")) {
-                return $("#reseed").val();
-            }
-        })();
+      const reseed = (function () {
+        if ($('#reseed').is(':checked')) {
+          return $('#reseed').val()
+        }
+      })()
 
-        var error = (function () {
-            if ($("#error").is(":checked")) {
-                return $("#error").val();
-            }
-        })();
+      const error = (function () {
+        if ($('#error').is(':checked')) {
+          return $('#error').val()
+        }
+      })()
 
-        var satisfied = (function () {
-            if ($("#satisfied").is(":checked")) {
-                return $("#satisfied").val();
-            }
-        })();
+      const satisfied = (function () {
+        if ($('#satisfied').is(':checked')) {
+          return $('#satisfied').val()
+        }
+      })()
 
-        var notsatisfied = (function () {
-            if ($("#notsatisfied").is(":checked")) {
-                return $("#notsatisfied").val();
-            }
-        })();
+      const notsatisfied = (function () {
+        if ($('#notsatisfied').is(':checked')) {
+          return $('#notsatisfied').val()
+        }
+      })()
 
-        var rewarded = (function () {
-            if ($("#rewarded").is(":checked")) {
-                return $("#rewarded").val();
-            }
-        })();
+      const rewarded = (function () {
+        if ($('#rewarded').is(':checked')) {
+          return $('#rewarded').val()
+        }
+      })()
 
-        var notrewarded = (function () {
-            if ($("#notrewarded").is(":checked")) {
-                return $("#notrewarded").val();
-            }
-        })();
+      const notrewarded = (function () {
+        if ($('#notrewarded').is(':checked')) {
+          return $('#notrewarded').val()
+        }
+      })()
 
-        var dying = (function () {
-            if ($("#dying").is(":checked")) {
-                return $("#dying").val();
-            }
-        })();
+      const dying = (function () {
+        if ($('#dying').is(':checked')) {
+          return $('#dying').val()
+        }
+      })()
 
-        var legendary = (function () {
-            if ($("#legendary").is(":checked")) {
-                return $("#legendary").val();
-            }
-        })();
+      const legendary = (function () {
+        if ($('#legendary').is(':checked')) {
+          return $('#legendary').val()
+        }
+      })()
 
-        var large = (function () {
-            if ($("#large").is(":checked")) {
-                return $("#large").val();
-            }
-        })();
+      const large = (function () {
+        if ($('#large').is(':checked')) {
+          return $('#large').val()
+        }
+      })()
 
-        var huge = (function () {
-            if ($("#huge").is(":checked")) {
-                return $("#huge").val();
-            }
-        })();
+      const huge = (function () {
+        if ($('#huge').is(':checked')) {
+          return $('#huge').val()
+        }
+      })()
 
-        var everyday = (function () {
-            if ($("#everyday").is(":checked")) {
-                return $("#everyday").val();
-            }
-        })();
+      const everyday = (function () {
+        if ($('#everyday').is(':checked')) {
+          return $('#everyday').val()
+        }
+      })()
 
-        var legendary_seeder = (function () {
-            if ($("#legendary_seeder").is(":checked")) {
-                return $("#legendary_seeder").val();
-            }
-        })();
+      const legendary_seeder = (function () {
+        if ($('#legendary_seeder').is(':checked')) {
+          return $('#legendary_seeder').val()
+        }
+      })()
 
-        var mvp_seeder = (function () {
-            if ($("#mvp_seeder").is(":checked")) {
-                return $("#mvp_seeder").val();
-            }
-        })();
+      const mvp_seeder = (function () {
+        if ($('#mvp_seeder').is(':checked')) {
+          return $('#mvp_seeder').val()
+        }
+      })()
 
-        var committed_seeder = (function () {
-            if ($("#committed_seeder").is(":checked")) {
-                return $("#committed_seeder").val();
-            }
-        })();
+      const committed_seeder = (function () {
+        if ($('#committed_seeder').is(':checked')) {
+          return $('#committed_seeder').val()
+        }
+      })()
 
-        var teamplayer_seeder = (function () {
-            if ($("#teamplayer_seeder").is(":checked")) {
-                return $("#teamplayer_seeder").val();
-            }
-        })();
+      const teamplayer_seeder = (function () {
+        if ($('#teamplayer_seeder').is(':checked')) {
+          return $('#teamplayer_seeder').val()
+        }
+      })()
 
-        var participant_seeder = (function () {
-            if ($("#participant_seeder").is(":checked")) {
-                return $("#participant_seeder").val();
-            }
-        })();
+      const participant_seeder = (function () {
+        if ($('#participant_seeder').is(':checked')) {
+          return $('#participant_seeder').val()
+        }
+      })()
 
-        var old = (function () {
-            if ($("#old").is(":checked")) {
-                return $("#old").val();
-            }
-        })();
+      const old = (function () {
+        if ($('#old').is(':checked')) {
+          return $('#old').val()
+        }
+      })()
 
-        var unfilled = (function () {
-            if ($("#unfilled").is(":checked")) {
-                return $("#unfilled").val();
-            }
-        })();
+      const unfilled = (function () {
+        if ($('#unfilled').is(':checked')) {
+          return $('#unfilled').val()
+        }
+      })()
 
-        var filled = (function () {
-            if ($("#filled").is(":checked")) {
-                return $("#filled").val();
-            }
-        })();
+      const filled = (function () {
+        if ($('#filled').is(':checked')) {
+          return $('#filled').val()
+        }
+      })()
 
-        var claimed = (function () {
-            if ($("#claimed").is(":checked")) {
-                return $("#claimed").val();
-            }
-        })();
+      const claimed = (function () {
+        if ($('#claimed').is(':checked')) {
+          return $('#claimed').val()
+        }
+      })()
 
-        var search = $("#search").val();
+      const search = $('#search').val()
 
-        var sorting = $("#sorting").val();
-        var direction = $("#direction").val();
+      const sorting = $('#sorting').val()
+      const direction = $('#direction').val()
 
-        if(userFilterXHR != null) {
+      if(userFilterXHR != null) {
             userFilterXHR.abort();
         }
         userFilterXHR = $.ajax({
@@ -588,8 +588,8 @@ class userFilterBuilder {
             });
         });
 
-        var page = 0;
-        if (window.location.hash && window.location.hash.indexOf('page')) {
+      let page = 0
+      if (window.location.hash && window.location.hash.indexOf('page')) {
             page = parseInt(window.location.hash.split('/')[1]);
         }
         if (page && page > 0) {
@@ -624,8 +624,8 @@ class facetedSearchBuilder {
         } else {
             var force = 1;
         }
-        var localXHR = new XMLHttpRequest();
-        localXHR = $.ajax({
+      let localXHR = new XMLHttpRequest()
+      localXHR = $.ajax({
             url: '/filterSettings',
             data: {
                 _token: this.csrf,
@@ -644,97 +644,97 @@ class facetedSearchBuilder {
         } else {
             var search = $("#search").val();
         }
-        var description = $("#description").val();
-        var keywords = $("#keywords").val();
-        var uploader = $("#uploader").val();
-        var imdb = $("#imdb").val();
-        var tvdb = $("#tvdb").val();
-        var tmdb = $("#tmdb").val();
-        var mal = $("#mal").val();
-        var igdb = $("#igdb").val();
-        var start_year = $("#start_year").val();
-        var end_year = $("#end_year").val();
-        var categories = [];
-        var types = [];
-        var resolutions = [];
-        var genres = [];
-        var qty = $("#qty").val();
-        var notdownloaded = (function () {
-            if ($("#notdownloaded").is(":checked")) {
-                return $("#notdownloaded").val();
-            }
-        })();
-        var downloaded = (function () {
-            if ($("#downloaded").is(":checked")) {
-                return $("#downloaded").val();
-            }
-        })();
-        var idling = (function () {
-            if ($("#idling").is(":checked")) {
-                return $("#idling").val();
-            }
-        })();
-        var leeching = (function () {
-            if ($("#leeching").is(":checked")) {
-                return $("#leeching").val();
-            }
-        })();
-        var freeleech = (function () {
-            if ($("#freeleech").is(":checked")) {
-                return $("#freeleech").val();
-            }
-        })();
-        var doubleupload = (function () {
-            if ($("#doubleupload").is(":checked")) {
-                return $("#doubleupload").val();
-            }
-        })();
-        var featured = (function () {
-            if ($("#featured").is(":checked")) {
-                return $("#featured").val();
-            }
-        })();
-        var seeding = (function () {
-            if ($("#seeding").is(":checked")) {
-                return $("#seeding").val();
-            }
-        })();
-        var stream = (function () {
-            if ($("#stream").is(":checked")) {
-                return $("#stream").val();
-            }
-        })();
-        var highspeed = (function () {
-            if ($("#highspeed").is(":checked")) {
-                return $("#highspeed").val();
-            }
-        })();
-        var sd = (function () {
-            if ($("#sd").is(":checked")) {
-                return $("#sd").val();
-            }
-        })();
-        var internal = (function () {
-            if ($("#internal").is(":checked")) {
-                return $("#internal").val();
-            }
-        })();
-        var alive = (function () {
-            if ($("#alive").is(":checked")) {
-                return $("#alive").val();
-            }
-        })();
-        var dying = (function () {
-            if ($("#dying").is(":checked")) {
-                return $("#dying").val();
-            }
-        })();
-        var dead = (function () {
-            if ($("#dead").is(":checked")) {
-                return $("#dead").val();
-            }
-        })();
-        $(".category:checked").each(function () {
+      const description = $('#description').val()
+      const keywords = $('#keywords').val()
+      const uploader = $('#uploader').val()
+      const imdb = $('#imdb').val()
+      const tvdb = $('#tvdb').val()
+      const tmdb = $('#tmdb').val()
+      const mal = $('#mal').val()
+      const igdb = $('#igdb').val()
+      const start_year = $('#start_year').val()
+      const end_year = $('#end_year').val()
+      const categories = []
+      const types = []
+      const resolutions = []
+      const genres = []
+      let qty = $('#qty').val()
+      const notdownloaded = (function () {
+        if ($('#notdownloaded').is(':checked')) {
+          return $('#notdownloaded').val()
+        }
+      })()
+      const downloaded = (function () {
+        if ($('#downloaded').is(':checked')) {
+          return $('#downloaded').val()
+        }
+      })()
+      const idling = (function () {
+        if ($('#idling').is(':checked')) {
+          return $('#idling').val()
+        }
+      })()
+      const leeching = (function () {
+        if ($('#leeching').is(':checked')) {
+          return $('#leeching').val()
+        }
+      })()
+      const freeleech = (function () {
+        if ($('#freeleech').is(':checked')) {
+          return $('#freeleech').val()
+        }
+      })()
+      const doubleupload = (function () {
+        if ($('#doubleupload').is(':checked')) {
+          return $('#doubleupload').val()
+        }
+      })()
+      const featured = (function () {
+        if ($('#featured').is(':checked')) {
+          return $('#featured').val()
+        }
+      })()
+      const seeding = (function () {
+        if ($('#seeding').is(':checked')) {
+          return $('#seeding').val()
+        }
+      })()
+      const stream = (function () {
+        if ($('#stream').is(':checked')) {
+          return $('#stream').val()
+        }
+      })()
+      const highspeed = (function () {
+        if ($('#highspeed').is(':checked')) {
+          return $('#highspeed').val()
+        }
+      })()
+      const sd = (function () {
+        if ($('#sd').is(':checked')) {
+          return $('#sd').val()
+        }
+      })()
+      const internal = (function () {
+        if ($('#internal').is(':checked')) {
+          return $('#internal').val()
+        }
+      })()
+      const alive = (function () {
+        if ($('#alive').is(':checked')) {
+          return $('#alive').val()
+        }
+      })()
+      const dying = (function () {
+        if ($('#dying').is(':checked')) {
+          return $('#dying').val()
+        }
+      })()
+      const dead = (function () {
+        if ($('#dead').is(':checked')) {
+          return $('#dead').val()
+        }
+      })()
+      $(".category:checked").each(function () {
             categories.push($(this).val());
         });
         $(".type:checked").each(function () {
@@ -871,9 +871,9 @@ class facetedSearchBuilder {
             $(this).off('click');
             $(this).on('click', function(e) {
                 e.preventDefault();
-                var name = $(this).attr('data-name');
-                var image = $(this).attr('data-image');
-                Swal.fire({
+              const name = $(this).attr('data-name')
+              const image = $(this).attr('data-image')
+              Swal.fire({
                     showConfirmButton: false,
                     showCloseButton: true,
                     background: 'rgb(35,35,35)',
@@ -889,11 +889,11 @@ class facetedSearchBuilder {
         return this.active;
     }
     handle(id) {
-        var trigger = $('#'+id).attr('trigger');
-        this.active = id;
+      const trigger = $('#' + id).attr('trigger')
+      this.active = id;
         if(trigger && trigger == 'keyup') {
-            var length = $('#'+id).val().length;
-            if(length == this.memory[id]) return;
+          const length = $('#' + id).val().length
+          if(length == this.memory[id]) return;
             this.memory[id] = length;
         } else if(trigger && trigger == 'sort') {
             $('.facetedSort').each(function() {
@@ -917,9 +917,9 @@ class facetedSearchBuilder {
     }
     refresh(callback) {
         $('.facetedSearch').each(function() {
-            var trigger = $(this).attr("trigger") ? $(this).attr("trigger") : 'click';
-            var cloner = trigger;
-            if(cloner == 'sort') { cloner='click'; }
+          const trigger = $(this).attr('trigger') ? $(this).attr('trigger') : 'click'
+          let cloner = trigger
+          if(cloner == 'sort') { cloner='click'; }
             $(this).off(cloner);
             $(this).on(cloner, function(e) {
                 if($(this).attr('trigger') == 'sort') {
@@ -935,8 +935,8 @@ class facetedSearchBuilder {
                 if($(this).attr('torrent')) {
                     facetedSearch.put($(this).attr('torrent'));
                     $('.facetedLoading').each(function () {
-                        var check = facetedSearch.get();
-                        if ($(this).attr('torrent') && $(this).attr('torrent') == check) {
+                      const check = facetedSearch.get()
+                      if ($(this).attr('torrent') && $(this).attr('torrent') == check) {
                             $(this).show();
                         }
                     });
@@ -982,8 +982,8 @@ class facetedSearchBuilder {
             this.view = 'list';
         }
 
-        var page = 0;
-        if (window.location.hash && window.location.hash.indexOf('page')) {
+      let page = 0
+      if (window.location.hash && window.location.hash.indexOf('page')) {
             page = parseInt(window.location.hash.split('/')[1]);
         }
         if (page && page > 0) {
@@ -1076,10 +1076,10 @@ class torrentBookmarkBuilder {
     }
     update() {
         $('.torrentBookmark').each(function() {
-            var active = $(this).attr("state") ? $(this).attr("state") : 0;
-            var id = $(this).attr("id") ? $(this).attr("id") : 0;
-            var custom = $(this).attr("custom") ? $(this).attr("custom") : '';
-            $(this).off('click');
+          const active = $(this).attr('state') ? $(this).attr('state') : 0
+          const id = $(this).attr('id') ? $(this).attr('id') : 0
+          const custom = $(this).attr('custom') ? $(this).attr('custom') : ''
+          $(this).off('click');
             if(active == 1) {
                 $(this).attr("data-original-title","Unbookmark Torrent");
             } else {
@@ -1201,8 +1201,8 @@ $(document).ready(function () {
         $('#upload-form-description').wysibb({});
     }
     if(document.getElementById('facetedSearch')) {
-        var facetedType = document.getElementById('facetedSearch').getAttribute('type');
-        facetedSearch.init(facetedType);
+      const facetedType = document.getElementById('facetedSearch').getAttribute('type')
+      facetedSearch.init(facetedType);
     }
     if(document.getElementById('userFilter')) {
         userFilter.init();
@@ -1232,16 +1232,16 @@ $(document).on('click', '.pagination a', function (e) {
 
         e.preventDefault();
 
-        var sub = null;
-        if (window.location.hash && window.location.hash.substring) {
+      let sub = null
+      if (window.location.hash && window.location.hash.substring) {
             sub = window.location.hash.substring(1).split('/')[0];
         }
         if (!sub) {
             sub = 'page';
         }
-        var link_url = $(this).attr('href');
-        var page = parseInt(link_url.split('page=')[1]);
-        var url = (window.location.href.split("#")[0]) + '#' + sub + '/' + page;
+      const link_url = $(this).attr('href')
+      const page = parseInt(link_url.split('page=')[1])
+      var url = (window.location.href.split("#")[0]) + '#' + sub + '/' + page;
         if (window.history && window.history.pushState) {
             window.history.pushState("", "", url);
         }
@@ -1257,8 +1257,8 @@ $(document).on('click', '.pagination a', function (e) {
 $(document).mousedown(function(){
     if(audioLoaded == 0) {
         window.sounds = new Object();
-        var sound = new Audio('/sounds/alert.mp3');
-        sound.load();
+      const sound = new Audio('/sounds/alert.mp3')
+      sound.load();
         window.sounds['alert.mp3'] = sound;
     }
     audioLoaded = 1;

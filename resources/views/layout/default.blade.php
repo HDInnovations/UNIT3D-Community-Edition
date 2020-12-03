@@ -46,13 +46,14 @@
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
                 CountDownTimer('{{ config('other.freeleech_until') }}', 'promotions');
                 function CountDownTimer(dt, id) {
-                    var end = new Date(dt);
-                    var _second = 1000;
-                    var _minute = _second * 60;
-                    var _hour = _minute * 60;
-                    var _day = _hour * 24;
-                    var timer;
-                    function formatUnit(text, v) {
+                  const end = new Date(dt)
+                  const _second = 1000
+                  const _minute = _second * 60
+                  const _hour = _minute * 60
+                  const _day = _hour * 24
+                  let timer
+
+                  function formatUnit(text, v) {
                         let suffix = "@lang('common.plural-suffix')";
                         if (v === 1) {
                             suffix = "";
@@ -60,18 +61,18 @@
                         return v + " " + text + suffix;
                     }
                     function showRemaining() {
-                        var now = new Date();
-                        var distance = end - now;
-                        if (distance < 0) {
+                      const now = new Date()
+                      const distance = end - now
+                      if (distance < 0) {
                             clearInterval(timer);
                             document.getElementById(id).innerHTML = '{{ strtoupper(trans('common.expired')) }}!';
                             return;
                         }
-                        var days = Math.floor(distance / _day);
-                        var hours = Math.floor((distance % _day) / _hour);
-                        var minutes = Math.floor((distance % _hour) / _minute);
-                        var seconds = Math.floor((distance % _minute) / _second);
-                        document.getElementById(id).innerHTML = formatUnit("{{ strtolower(trans('common.day')) }}", days) + ", ";
+                      const days = Math.floor(distance / _day)
+                      const hours = Math.floor((distance % _day) / _hour)
+                      const minutes = Math.floor((distance % _hour) / _minute)
+                      const seconds = Math.floor((distance % _minute) / _second)
+                      document.getElementById(id).innerHTML = formatUnit("{{ strtolower(trans('common.day')) }}", days) + ", ";
                         document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.hour')) }}', hours) + ", ";
                         document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.minute')) }}', minutes) + ", ";
                         document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.second')) }}', seconds);

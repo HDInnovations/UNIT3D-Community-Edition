@@ -293,7 +293,7 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         !function() {
-            for(var t= {
+            for(let t= {
                 defaultSettings: {
                     url:"https://imgbb.com/upload", vendor:"auto", mode:"auto", lang:"auto", autoInsert:"bbcode-embed-thumbnail", palette:"default", init:"onload", containerClass:1, buttonClass:1, sibling:0, siblingPos:"after", fitEditor:0, observe:0, observeCache:1, html:'<div class="%cClass"><button %x class="%bClass"><span class="%iClass">%iconSvg</span><span class="%tClass">%text</span></button></div>', css:".%cClass{display:inline-block;margin-top:5px;margin-bottom:5px}.%bClass{line-height:normal;-webkit-transition:all .2s;-o-transition:all .2s;transition:all .2s;outline:0;color:%2;border:none;cursor:pointer;border:1px solid rgba(0,0,0,.15);background:%1;border-radius:.2em;padding:.5em 1em;font-size:12px;font-weight:700;text-shadow:none}.%bClass:hover{background:%3;color:%4;border-color:rgba(0,0,0,.1)}.%iClass,.%tClass{display:inline-block;vertical-align:middle}.%iClass svg{display:block;width:1em;height:1em;fill:currentColor}.%tClass{margin-left:.25em}"
                 }
@@ -312,24 +312,24 @@
                             return 1
                         }
                         , getEditor:function() {
-                            var t= {
-                                        textarea: {
-                                            name: ["mediainfo", "recaptcha", "search", "recipients", "coppa", "^comment_list", "username_list", "add", "filecomment", "poll_option_text"]
-                                        }
-                                        , ce: {
-                                            dataset: ["gramm"]
-                                        }
-                                    }
-                                    , e=["~", "|", "^", "$", "*"], i= {}
-                            ;
-                            for(var s in t) {
+                        const t = {
+                          textarea: {
+                            name: ['mediainfo', 'recaptcha', 'search', 'recipients', 'coppa', '^comment_list', 'username_list', 'add', 'filecomment', 'poll_option_text']
+                          }
+                          , ce: {
+                            dataset: ['gramm']
+                          }
+                        }
+                          , e = ['~', '|', '^', '$', '*'], i = {}
+                        for(let s in t) {
                                 i[s]="";
-                                var n=t[s];
-                                for(var r in n)for(var o=0;
+                              const n = t[s]
+                              for(let r in n)for(let o=0;
                                                    o<n[r].length;
                                                    o++) {
-                                    var a="", l=n[r][o], d=l.charAt(0);
-                                    e.indexOf(d)>-1&&(a=d, l=l.substring(1)), i[s]+=":not(["+("dataset"==r?"data-"+l: r+a+'="'+l+'"')+"])"
+                                  let a = '', l = n[r][o]
+                                  const d = l.charAt(0)
+                                  e.indexOf(d)>-1&&(a=d, l=l.substring(1)), i[s]+=":not(["+("dataset"==r?"data-"+l: r+a+'="'+l+'"')+"])"
                                 }
                             }
                             return document.querySelectorAll('[contenteditable=""]'+i.ce+',[contenteditable="true"]'+i.ce+",textarea:not([readonly])"+i.textarea)
@@ -338,33 +338,34 @@
                 }
                 ,
                 generateGuid:function() {
-                    var t=(new Date).getTime();
-                    return"undefined"!=typeof performance&&"function"==typeof performance.now&&(t+=performance.now()),
+                  let t = (new Date).getTime()
+                  return"undefined"!=typeof performance&&"function"==typeof performance.now&&(t+=performance.now()),
                             "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(e) {
-                                        var i=(t + 16 * Math.random()) % 16;
-                                        return t=Math.floor(t/16), ("x"===e?i: 3&i|8).toString(16)
+                              const i = (t + 16 * Math.random()) % 16
+                              return t=Math.floor(t/16), ("x"===e?i: 3&i|8).toString(16)
                                     }
                             )
                 }
                 ,
                 getNewValue:function(t, e) {
-                    var i="string"!=typeof t.getAttribute("contenteditable")?"value": "innerHTML", s="value"==i?"\n": "<br>", n=t[i], r=e;
-                    if(0==n.length)return r;
-                    var o="",
-                            a=n.match(/\n+$/g),
-                            l=a?a[0].split("\n").length: 0;
-                    if(l<=2) {
-                        var d=0==l?2: 1;
-                        o+=s.repeat(d)
+                  const i = 'string' != typeof t.getAttribute('contenteditable') ? 'value' : 'innerHTML', s = 'value' == i ? '\n' : '<br>',
+                    n = t[i], r = e
+                  if(0==n.length)return r;
+                  let o = ''
+                  const a = n.match(/\n+$/g),
+                    l = a ? a[0].split('\n').length : 0
+                  if(l<=2) {
+                      const d = 0 == l ? 2 : 1
+                      o+=s.repeat(d)
                     }
                     return o+r
                 }
                 ,
                 insertTrigger:function() {
-                    var t,
-                            e=this.vendors[this.settings.vendor],
-                            i=this.settings.sibling?document.querySelectorAll(this.settings.sibling+":not(["+this.ns.dataPlugin+"])")[0]: 0;
-                    if("auto"==this.settings.mode)t=this.vendors[e.hasOwnProperty("getEditor")?this.settings.vendor: "default"].getEditor();
+                  let t
+                  const e = this.vendors[this.settings.vendor],
+                    i = this.settings.sibling ? document.querySelectorAll(this.settings.sibling + ':not([' + this.ns.dataPlugin + '])')[0] : 0
+                  if("auto"==this.settings.mode)t=this.vendors[e.hasOwnProperty("getEditor")?this.settings.vendor: "default"].getEditor();
                     else {
                         for(var s=document.querySelectorAll("["+this.ns.dataPluginTrigger+"][data-target]:not(["+this.ns.dataPluginId+"])"), n=[], r=0;
                             r<s.length;
@@ -373,9 +374,9 @@
                     }
                     if(t) {
                         if(!document.getElementById(this.ns.pluginStyle)&&this.settings.css) {
-                            var o=document.createElement("style"),
-                                    a=this.settings.css;
-                            a=this.appyTemplate(a),
+                          const o = document.createElement('style')
+                          let a = this.settings.css
+                          a=this.appyTemplate(a),
                                     o.type="text/css",
                                     o.innerHTML=a.replace(/%p/g, "."+this.ns.plugin),
                                     o.setAttribute("id", this.ns.pluginStyle),
@@ -385,14 +386,14 @@
                         for(var l=0, r=0;
                             r<t.length;
                             r++)if(!t[r].getAttribute(this.ns.dataPluginTarget)) {
-                            var d=i||t[r];
-                            d.setAttribute(this.ns.dataPlugin, "sibling"),
+                          const d = i || t[r]
+                          d.setAttribute(this.ns.dataPlugin, "sibling"),
                                     d.insertAdjacentHTML( {
                                         before: "beforebegin", after: "afterend"
                                     }
                                             [this.settings.siblingPos], this.appyTemplate(this.settings.html));
-                            var u=d.parentElement.querySelector("["+this.ns.dataPluginTrigger+"]");
-                            this.setBoundId(u, t[r]),
+                          const u = d.parentElement.querySelector('[' + this.ns.dataPluginTrigger + ']')
+                          this.setBoundId(u, t[r]),
                                     l++
                         }
                         this.triggerCounter=l,
@@ -402,15 +403,15 @@
                 ,
                 appyTemplate:function(t) {
                     if(!this.cacheTable) {
-                        var e=[ {
-                            "%iconSvg": this.iconSvg
+                      const e = [{
+                        '%iconSvg': this.iconSvg
+                      }
+                        ,
+                        {
+                          '%text': this.settings.langString
                         }
-                            ,
-                            {
-                                "%text": this.settings.langString
-                            }
-                        ];
-                        if(this.palette) {
+                      ]
+                      if(this.palette) {
                             for(var i=/%(\d+)/g, s=i.exec(t), n=[];
                                 null!==s;
                             )-1==n.indexOf(s[1])&&n.push(s[1]),
@@ -424,12 +425,11 @@
                                 for(u=0;
                                     u<n.length;
                                     u++) {
-                                    var r=n[u]-1,
-                                            o=this.palette[r]||"";
-                                    o||"default"===this.settings.vendor||"default"===this.settings.palette||(o=this.palette[r-2]);
-                                    var a= {}
-                                    ;
-                                    a["%"+n[u]]=o,
+                                  const r = n[u] - 1
+                                  let o = this.palette[r] || ''
+                                  o||"default"===this.settings.vendor||"default"===this.settings.palette||(o=this.palette[r-2]);
+                                  const a = {}
+                                  a["%"+n[u]]=o,
                                             e.push(a)
                                 }
                             }
@@ -462,46 +462,47 @@
                 ,
                 strtr:function(t, e) {
                     if(!(t=t.toString())||void 0===e)return t;
-                    for(var i=0;
+                    for(let i=0;
                         i<e.length;
                         i++) {
-                        var s=e[i];
-                        for(var n in s)void 0!==s[n]&&(re=new RegExp(n, "g"), t=t.replace(re, s[n]))
+                      const s = e[i]
+                      for(let n in s)void 0!==s[n]&&(re=new RegExp(n, "g"), t=t.replace(re, s[n]))
                     }
                     return t
                 }
                 ,
                 setBoundId:function(t, e) {
-                    var i=this.generateGuid();
-                    t.setAttribute(this.ns.dataPluginId, i),
+                  const i = this.generateGuid()
+                  t.setAttribute(this.ns.dataPluginId, i),
                             e.setAttribute(this.ns.dataPluginTarget, i)
                 }
                 ,
                 openPopup:function(t) {
                     if("string"==typeof t) {
-                        var e=this;
-                        if(void 0===this.popups&&(this.popups= {}
+                      const e = this
+                      if(void 0===this.popups&&(this.popups= {}
                         ), void 0===this.popups[t]) {
                             this.popups[t]= {}
                             ;
-                            var i= {
-                                        l: void 0!=window.screenLeft?window.screenLeft: screen.left, t: void 0!=window.screenTop?window.screenTop: screen.top, w: window.innerWidth?window.innerWidth: document.documentElement.clientWidth?document.documentElement.clientWidth: screen.width, h: window.innerHeight?window.innerHeight: document.documentElement.clientHeight?document.documentElement.clientHeight: screen.height
-                                    }
-                                    ,
-                                    s= {
-                                        w: 720, h: 690
-                                    }
-                                    ,
-                                    n= {
-                                        w: .5, h: .85
-                                    }
-                            ;
-                            for(var r in s)s[r]/i[r]>n[r]&&(s[r]=i[r]*n[r]);
-                            var o= {
-                                        l: Math.trunc(i.w/2-s.w/2+i.l), t: Math.trunc(i.h/2-s.h/2+i.t)
-                                    }
-                            ;
-                            this.popups[t].window=window.open(this.settings.url, t, "width="+s.w+",height="+s.h+",top="+o.t+",left="+o.l),
+                          const i = {
+                              l: void 0 != window.screenLeft ? window.screenLeft : screen.left,
+                              t: void 0 != window.screenTop ? window.screenTop : screen.top,
+                              w: window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width,
+                              h: window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height
+                            }
+                            ,
+                            s = {
+                              w: 720, h: 690
+                            }
+                            ,
+                            n = {
+                              w: .5, h: .85
+                            }
+                          for(let r in s)s[r]/i[r]>n[r]&&(s[r]=i[r]*n[r]);
+                          const o = {
+                            l: Math.trunc(i.w / 2 - s.w / 2 + i.l), t: Math.trunc(i.h / 2 - s.h / 2 + i.t)
+                          }
+                          this.popups[t].window=window.open(this.settings.url, t, "width="+s.w+",height="+s.h+",top="+o.t+",left="+o.l),
                                     this.popups[t].timer=window.setInterval(function() {
                                                 e.popups[t].window&&!1===e.popups[t].window.closed||(window.clearInterval(e.popups[t].timer), e.popups[t]=void 0)
                                             }
@@ -520,8 +521,8 @@
                 ,
                 liveBind:function(t, e, i) {
                     document.addEventListener(e, function(e) {
-                                var s=document.querySelectorAll(t);
-                                if(s) {
+                        const s = document.querySelectorAll(t)
+                        if(s) {
                                     for(var n=e.target, r=-1;
                                         n&&-1===(r=Array.prototype.indexOf.call(s, n));
                                     )n=n.parentElement;
@@ -532,25 +533,25 @@
                 }
                 ,
                 prepare:function() {
-                    var t=this;
-                    this.ns.dataPlugin="data-"+this.ns.plugin,
+                  const t = this
+                  this.ns.dataPlugin="data-"+this.ns.plugin,
                             this.ns.dataPluginId=this.ns.dataPlugin+"-id",
                             this.ns.dataPluginTrigger=this.ns.dataPlugin+"-trigger",
                             this.ns.dataPluginTarget=this.ns.dataPlugin+"-target",
                             this.ns.pluginStyle=this.ns.plugin+"-style",
                             this.ns.selDataPluginTrigger="["+this.ns.dataPluginTrigger+"]";
-                    var e=document.currentScript||document.getElementById(this.ns.plugin+"-src");
-                    e?e.dataset.buttonTemplate&&(e.dataset.html=e.dataset.buttonTemplate):e= {
+                  let e = document.currentScript || document.getElementById(this.ns.plugin + '-src')
+                  e?e.dataset.buttonTemplate&&(e.dataset.html=e.dataset.buttonTemplate):e= {
                         dataset: {}
                     }
                     ;
-                    var i=0;
-                    this.settings= {}
+                  let i = 0
+                  this.settings= {}
                             ,
                             settings=this.settings;
                     for(var s in this.defaultSettings) {
-                        var n=e&&e.dataset[s]?e.dataset[s]: this.defaultSettings[s];
-                        "1"!==n&&"0"!==n||(n="true"==n),
+                      let n = e && e.dataset[s] ? e.dataset[s] : this.defaultSettings[s]
+                      '1'!==n&&"0"!==n||(n="true"==n),
                         "string"==typeof n&&this.classProps.indexOf(s.replace(/Class$/, ""))>-1&&(i=1),
                                 settings[s]=n
                     }
@@ -571,8 +572,8 @@
                             "target"];
                         for(var s in this.defaultSettings)-1==o.indexOf(s)&&(this.vendors.default.settings[s]=this.defaultSettings[s])
                     }
-                    var r=this.vendors[settings.vendor];
-                    if(r.settings)for(var s in r.settings)e&&e.dataset.hasOwnProperty(s)||(settings[s]=r.settings[s]);
+                  const r = this.vendors[settings.vendor]
+                  if(r.settings)for(var s in r.settings)e&&e.dataset.hasOwnProperty(s)||(settings[s]=r.settings[s]);
                     if("default"!==settings.vendor)if(r.settings.hasOwnProperty("fitEditor")||e.dataset.hasOwnProperty("fitEditor")||(settings.fitEditor=1), settings.fitEditor)i=!r.settings.css;
                     else {
                         var o=["autoInsert",
@@ -584,21 +585,23 @@
                     else {
                         settings.css=settings.css.replace("%defaultCSS", this.defaultSettings.css),
                         r.settings.extracss&&settings.css&&(settings.css+=r.settings.extracss);
-                        var a=settings.palette.split(",");
-                        a.length>1?this.palette=a: this.palettes.hasOwnProperty(a)||(settings.palette="default"), this.palette||(this.palette=(settings.fitEditor&&r.palettes&&r.palettes[settings.palette]?r: this).palettes[settings.palette])
+                      const a = settings.palette.split(',')
+                      a.length>1?this.palette=a: this.palettes.hasOwnProperty(a)||(settings.palette="default"), this.palette||(this.palette=(settings.fitEditor&&r.palettes&&r.palettes[settings.palette]?r: this).palettes[settings.palette])
                     }
-                    for(var l=this.classProps, d=0;
+                  const l = this.classProps
+                  let d = 0
+                  for(;
                         d<l.length;
                         d++) {
-                        var u=l[d]+"Class";
-                        "string"!=typeof settings[u]&&(settings[u]=this.ns.plugin+"-"+l[d], settings.fitEditor&&(settings[u]+="--"+settings.vendor))
+                      const u = l[d] + 'Class'
+                      'string'!=typeof settings[u]&&(settings[u]=this.ns.plugin+"-"+l[d], settings.fitEditor&&(settings[u]+="--"+settings.vendor))
                     }
-                    var c=("auto"==settings.lang?navigator.language||navigator.userLanguage:settings.lang).replace("-", "_");
-                    settings.langString="Upload Images To Description";
-                    var g=c in this.l10n?c:c.substring(0, 2)in this.l10n?c.substring(0, 2):null;
-                    g&&(settings.langString=this.l10n[g]);
-                    var f=document.createElement("a");
-                    f.href=settings.url,
+                  const c = ('auto' == settings.lang ? navigator.language || navigator.userLanguage : settings.lang).replace('-', '_')
+                  settings.langString="Upload Images To Description";
+                  const g = c in this.l10n ? c : c.substring(0, 2) in this.l10n ? c.substring(0, 2) : null
+                  g&&(settings.langString=this.l10n[g]);
+                  const f = document.createElement('a')
+                  f.href=settings.url,
                             this.originUrlPattern="^"+(f.protocol+"//"+f.hostname).replace(/\./g, "\\.").replace(/\ //g,"\\/")+"$";var h=document.querySelectorAll(this.ns.selDataPluginTrigger+"[data-target]");if(h.length>0)for(d=0;d<h.length;d++){var b=document.querySelector(h[d].dataset.target);this.setBoundId(h[d],b)}if(settings.observe){var p=settings.observe;settings.observeCache&&(p+=":not(["+this.ns.dataPlugin+"])"),this.liveBind(p,"click",function(e){e.setAttribute(t.ns.dataPlugin,1),t.observe()}.bind(this))}settings.sibling&&!settings.onDemand?this.waitForSibling():"onload"==settings.init?"loading"===document.readyState?document.addEventListener("DOMContentLoaded",function(e){t.init()},!1):this.init():this.observe()},observe:function(){this.waitForSibling("observe")},waitForSibling:function(t){var e=this.initialized?"insertTrigger":"init";if(this.settings.sibling)var i=document.querySelector(this.settings.sibling+":not(["+this.ns.dataPlugin+"])");else if("observe"==t&&(this[e](),this.triggerCounter))return;if(i)this[e]();else{if("complete"===document.readyState&&"observe"!==t)return;setTimeout(("observe"==t?this.observe:this.waitForSibling).bind(this),250)}},init:function(){this.insertTrigger();var t=this,e=this.vendors[this.settings.vendor];this.liveBind(this.ns.selDataPluginTrigger,"click",function(e){var i=e.getAttribute(t.ns.dataPluginId);t.openPopup(i)}),window.addEventListener("message",function(i){if(new RegExp(t.originUrlPattern,"i").test(i.origin)||void 0!==i.data.id&&void 0!==i.data.message){var s=i.data.id;if(s&&i.source===t.popups[s].window)if(i.data.requestAction&&t.hasOwnProperty(i.data.requestAction))t[i.data.requestAction](s);else{var n;if("default"!==t.settings.vendor){if(e.hasOwnProperty("useCustomEditor")&&e.useCustomEditor())return void e.editorValue(i.data.message,s);e.hasOwnProperty("getEditor")&&(n=e.getEditor())}if(n||(n=document.querySelector("["+t.ns.dataPluginTarget+'="'+s+'"]'))){n[null===n.getAttribute("contenteditable")?"value":"innerHTML"]+=t.getNewValue(n,i.data.message);for(var r=["blur","focus","input","change","paste"],o=0;o<r.length;o++){var a=new Event(r[o]);n.dispatchEvent(a)}}else alert("Target not found")}}},!1),this.initialized=1}},e=["WoltLab","XF1"],i=0;i<e.length;i++)t.vendors[e[i]]=Object.assign(Object.assign({},t.vendors.redactor2),t.vendors[e[i]]);t.prepare()}();
     </script>
 @endsection

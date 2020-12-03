@@ -54,18 +54,18 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
 
-        var options = parseInt("<?php echo count($poll->options); ?>"); // Get the size of options passing in
-        var langOption = "<?php echo __('poll.option') ?> "
+      let options = parseInt("<?php echo count($poll->options); ?>") // Get the size of options passing in
+        const langOption = '<?php echo __(\'poll.option\') ?> '
 
         $('#add').on('click', function (e) {
             e.preventDefault();
             options += 1;
-            var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">'
-                + langOption
-                + options
-                + ':</label>'
-                + '<input type="text" name="new-option-content[]" class="form-control" value="" required></div>';
-            $('.more-options').append(optionHTML);
+          const optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">'
+            + langOption
+            + options
+            + ':</label>'
+            + '<input type="text" name="new-option-content[]" class="form-control" value="" required></div>'
+          $('.more-options').append(optionHTML);
         });
 
         $('#del').on('click', function (e) {
