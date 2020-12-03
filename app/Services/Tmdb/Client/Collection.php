@@ -39,7 +39,7 @@ class Collection
 
         $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/collection/'.$id);
 
-        $this->data = json_decode($response->getBody()->getContents(), true);
+        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     public function index()

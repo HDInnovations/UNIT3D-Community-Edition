@@ -39,7 +39,7 @@ class Movie
 
         $response = $this->client->request('get', 'https://api.themoviedb.org/3/movie/'.$id);
 
-        $this->data = json_decode($response->getBody()->getContents(), true);
+        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     public function index()

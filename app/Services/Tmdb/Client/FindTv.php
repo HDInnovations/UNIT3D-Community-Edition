@@ -38,7 +38,7 @@ class FindTv
 
         $response = $this->client->request('get', 'https://api.themoviedb.org/3/search/tv?api_key='.config('api-keys.tmdb').'&query='.$query.'&first_air_date_year='.$year);
 
-        $this->data = json_decode($response->getBody()->getContents(), true);
+        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     public function index()
