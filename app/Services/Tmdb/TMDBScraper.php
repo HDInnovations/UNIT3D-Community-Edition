@@ -34,7 +34,7 @@ class TMDBScraper implements ShouldQueue
     public function __construct(Request $request = null)
     {
         if ($request != null) {
-            $this->id = $request->query('id') ?? null;
+            $this->id = $request->query('id');
         }
     }
 
