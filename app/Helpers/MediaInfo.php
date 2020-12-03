@@ -84,7 +84,7 @@ class MediaInfo
             $value = null;
             $info = \explode(':', $info, 2);
             if (\count($info) >= 2) {
-                $property = \trim(\strtolower($info[0]));
+                $property = \strtolower(\trim($info[0]));
                 $value = \trim($info[1]);
             }
             if ($property && $value) {
