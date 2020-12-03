@@ -1151,7 +1151,7 @@ class Markdown
             $extent += \strlen($matches[0]);
         } else {
             if (\preg_match('#^\s*\[(.*?)\]#', $remainder, $matches)) {
-                $definition = \strlen($matches[1]) !== 0 ? $matches[1] : $Element['text'];
+                $definition = $matches[1] != '' ? $matches[1] : $Element['text'];
                 $definition = \strtolower($definition);
 
                 $extent += \strlen($matches[0]);
