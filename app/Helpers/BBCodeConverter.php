@@ -131,7 +131,7 @@ class BBCodeConverter
                     // We start from 1 to discard the first string, in fact, it's empty.
                     for ($i = 1; $i < $counter; $i++) {
                         if (! empty($items[$i])) {
-                            $buffer .= (string) ($i).'. '.\trim($items[$i]).PHP_EOL;
+                            $buffer .= ($i).'. '.\trim($items[$i]).PHP_EOL;
                         }
                     }
                 } else { // unordered list
