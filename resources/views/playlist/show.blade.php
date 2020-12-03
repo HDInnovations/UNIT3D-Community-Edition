@@ -144,7 +144,7 @@
 								<div class="body_description">
 									<h3 class="description_title">
 										<a href="{{ route('torrent', ['id' => $t->torrent->id]) }}">{{ $t->torrent->name }}
-											@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && isset($t->torrent->meta) && $meta->releaseYear)
+											@if($t->torrent->category->movie_meta || ($t->torrent->category->tv_meta && isset($t->torrent->meta) && $meta->releaseYear))
 												<span class="text-bold text-pink"> {{ $meta->releaseYear ?? '' }}</span>
 											@endif
 											@if($t->torrent->category->game_meta && isset($meta) && $meta->first_release_date)
@@ -168,7 +168,7 @@
 										@endforeach
 									@endif
 									<p class="description_plot">
-										@if($t->torrent->category->movie_meta || $t->torrent->category->tv_meta && $meta && $meta->plot)
+										@if($t->torrent->category->movie_meta || ($t->torrent->category->tv_meta && $meta && $meta->plot))
 											{{ $meta->overview ?? '' }}
 										@endif
 									</p>
