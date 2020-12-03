@@ -72,7 +72,7 @@ class NerdBot
     public function replaceVars($output)
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
-        if (\strstr($output, '{bots}')) {
+        if (\strpos($output, '{bots}') !== false) {
             $bot_help = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
             foreach ($bots as $bot) {
