@@ -3493,7 +3493,7 @@ wbbdebug = true;
 
         //Browser fixes
         isChrome: function() {
-            return window.chrome ? true : false;
+            return !!window.chrome;
         },
         fixTableTransform: function(html) {
             if (!html) {
