@@ -668,13 +668,13 @@ class Markdown
             $remainder = \substr($Line['text'], $length);
 
             if (\trim($remainder) === '') {
-                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements, true)) {
                     $Block['closed'] = true;
 
                     $Block['void'] = true;
                 }
             } else {
-                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements, true)) {
                     return;
                 }
 
@@ -947,7 +947,7 @@ class Markdown
             foreach ($this->InlineTypes[$marker] as $inlineType) {
                 // check to see if the current inline type is nestable in the current context
 
-                if (! empty($nonNestables) && \in_array($inlineType, $nonNestables)) {
+                if (! empty($nonNestables) && \in_array($inlineType, $nonNestables, true)) {
                     continue;
                 }
 
@@ -1074,7 +1074,7 @@ class Markdown
 
     protected function inlineEscapeSequence($Excerpt)
     {
-        if (isset($Excerpt['text'][1]) && \in_array($Excerpt['text'][1], $this->specialCharacters)) {
+        if (isset($Excerpt['text'][1]) && \in_array($Excerpt['text'][1], $this->specialCharacters, true)) {
             return [
                 'markup' => $Excerpt['text'][1],
                 'extent' => 2,
@@ -1353,7 +1353,7 @@ class Markdown
 
         $trimmedMarkup = \trim($markup);
 
-        if (! \in_array('', $lines) && \strpos($trimmedMarkup, '<p>') === 0) {
+        if (!\in_array('', $lines, true) && \strpos($trimmedMarkup, '<p>') === 0) {
             $markup = $trimmedMarkup;
             $markup = \substr($markup, 3);
 

@@ -52,11 +52,11 @@ trait Auditable
         $modelDiscards = (! empty($instance->discarded)) ? $instance->discarded : [];
         foreach (\array_keys($data) as $key) {
             // Check the model-specific discards
-            if (\in_array($key, $modelDiscards)) {
+            if (\in_array($key, $modelDiscards, true)) {
                 unset($data[$key]);
             }
             // Check global discards
-            if (! empty($globalDiscards) && \in_array($key, $globalDiscards)) {
+            if (! empty($globalDiscards) && \in_array($key, $globalDiscards, true)) {
                 unset($data[$key]);
             }
         }

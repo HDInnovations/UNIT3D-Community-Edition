@@ -59,7 +59,7 @@ class EmailBlacklistValidator
         $domain = Str::after(\strtolower($value), '@');
 
         // Run validation check
-        return ! \in_array($domain, $this->domains);
+        return !\in_array($domain, $this->domains, true);
     }
 
     /**

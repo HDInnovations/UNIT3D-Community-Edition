@@ -50,7 +50,7 @@ class BackupPassword
         }
 
         // If ZipArchive is enabled
-        if (\class_exists('ZipArchive') && \in_array('setEncryptionIndex', \get_class_methods('ZipArchive'))) {
+        if (\class_exists('ZipArchive') && \in_array('setEncryptionIndex', \get_class_methods('ZipArchive'), true)) {
             \consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
             $this->makeZipArchive($backupEncryption, $path);
         }
