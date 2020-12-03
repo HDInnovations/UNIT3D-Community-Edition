@@ -29,7 +29,6 @@ class ProcessBasicAnnounceRequest implements \Illuminate\Contracts\Queue\ShouldQ
      */
     public function __construct(protected $queries, protected \App\Models\User $user, protected \App\Models\Torrent $torrent)
     {
-
     }
 
     /**
