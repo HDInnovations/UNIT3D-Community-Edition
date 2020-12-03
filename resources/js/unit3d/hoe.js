@@ -220,19 +220,19 @@ $(document).ready(function() {
         },
         HandleSidebartoggle: function() {
             $('.hoe-sidebar-toggle a').on('click', function() {
-                if ($('#hoeapp-wrapper').attr('hoe-device-type') !== 'phone') {
-                    $('#hoeapp-container').toggleClass('hoe-minimized-lpanel');
-                    $('#hoe-header').toggleClass('hoe-minimized-lpanel');
-                    if ($('body').attr('hoe-navigation-type') !== 'vertical-compact') {
-                        $('body').attr('hoe-navigation-type', 'vertical-compact');
+                if ($('#hoeapp-wrapper').attr('hoe-device-type') === 'phone') {
+                    if ($('#hoeapp-wrapper').hasClass('hoe-hide-lpanel')) {
+                        $('#hoeapp-wrapper').removeClass('hoe-hide-lpanel');
                     } else {
-                        $('body').attr('hoe-navigation-type', 'vertical');
+                        $('#hoeapp-wrapper').addClass('hoe-hide-lpanel');
                     }
                 } else {
-                    if (!$('#hoeapp-wrapper').hasClass('hoe-hide-lpanel')) {
-                        $('#hoeapp-wrapper').addClass('hoe-hide-lpanel');
+                    $('#hoeapp-container').toggleClass('hoe-minimized-lpanel');
+                    $('#hoe-header').toggleClass('hoe-minimized-lpanel');
+                    if ($('body').attr('hoe-navigation-type') === 'vertical-compact') {
+                        $('body').attr('hoe-navigation-type', 'vertical');
                     } else {
-                        $('#hoeapp-wrapper').removeClass('hoe-hide-lpanel');
+                        $('body').attr('hoe-navigation-type', 'vertical-compact');
                     }
                 }
             });
@@ -249,13 +249,13 @@ $(document).ready(function() {
                     $('#hoe-header, #hoeapp-container').removeClass('hoe-minimized-lpanel');
                     $('li.theme-option select').attr('disabled', 'disabled');
                 } else {
-                    if ($('body').attr('hoe-navigation-type') !== 'vertical-compact') {
+                    if ($('body').attr('hoe-navigation-type') === 'vertical-compact') {
                         $('#hoeapp-wrapper').attr('hoe-device-type', 'desktop');
-                        $('#hoe-header, #hoeapp-container').removeClass('hoe-minimized-lpanel');
+                        $('#hoe-header, #hoeapp-container').addClass('hoe-minimized-lpanel');
                         $('li.theme-option select').attr('disabled', false);
                     } else {
                         $('#hoeapp-wrapper').attr('hoe-device-type', 'desktop');
-                        $('#hoe-header, #hoeapp-container').addClass('hoe-minimized-lpanel');
+                        $('#hoe-header, #hoeapp-container').removeClass('hoe-minimized-lpanel');
                         $('li.theme-option select').attr('disabled', false);
                     }
                 }

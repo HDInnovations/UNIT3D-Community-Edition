@@ -328,13 +328,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.scrollToBottom(true);
                 } else if (typeVal == 'target') {
@@ -360,13 +360,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.scrollToBottom(true);
                 } else if (typeVal == 'bot') {
@@ -395,13 +395,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.scrollToBottom(true);
                 } else if (typeVal == 'list') {
@@ -417,13 +417,13 @@
                             return o.id;
                         }
                     });
-                    if (!currentAudio) {
+                    if (currentAudio) {
+                      if (currentAudio.status == 1) {
+                        this.listening = 1;
+                      } else {
+                        this.listening = 0;
+                      }
                     } else {
-                        if (currentAudio.status == 1) {
-                            this.listening = 1;
-                        } else {
-                            this.listening = 0;
-                        }
                     }
                     this.fetchConfiguration();
                 })
@@ -616,22 +616,22 @@
                 this.room = id;
                 this.bot_id = null;
                 this.receiver_id = null;
-                if (this.auth.chatroom.id !== id) {
-                    this.room = id;
-                    /* Update the users chatroom in the database */
-                    axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
-                        'room_id': id
-                    }).then(response => {
-                        // reassign the auth variable to the response data
-                        this.auth = response.data
-                        this.tab = this.auth.chatroom.name;
-                        this.activeRoom = this.auth.chatroom.name;
-                        this.fetchMessages()
-                    })
+                if (this.auth.chatroom.id === id) {
+                  this.tab = this.auth.chatroom.name;
+                  this.activeRoom = this.auth.chatroom.name;
+                  this.fetchMessages()
                 } else {
+                  this.room = id;
+                  /* Update the users chatroom in the database */
+                  axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
+                    'room_id': id
+                  }).then(response => {
+                    // reassign the auth variable to the response data
+                    this.auth = response.data
                     this.tab = this.auth.chatroom.name;
                     this.activeRoom = this.auth.chatroom.name;
                     this.fetchMessages()
+                  })
                 }
             },
             changeTarget(id) {
@@ -672,19 +672,19 @@
             },
             startBot() {
                 this.forced = false;
-                if (this.bot != 9999) {
-                    this.tab = '@' + this.helpName;
-                    this.bot = this.helpId;
-                    this.bot_id = this.helpId;
-                    this.receiver_id = 1;
-
-                    this.botId = this.helpId;
-                    this.botName = this.helpName;
-                    this.botCommand = this.helpCommand;
-
-                    this.fetchBotMessages(this.bot);
+                if (this.bot == 9999) {
+                  this.scrollToBottom(true);
                 } else {
-                    this.scrollToBottom(true);
+                  this.tab = '@' + this.helpName;
+                  this.bot = this.helpId;
+                  this.bot_id = this.helpId;
+                  this.receiver_id = 1;
+
+                  this.botId = this.helpId;
+                  this.botName = this.helpName;
+                  this.botCommand = this.helpCommand;
+
+                  this.fetchBotMessages(this.bot);
                 }
             },
             playSound() {
