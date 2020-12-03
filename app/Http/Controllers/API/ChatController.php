@@ -203,7 +203,7 @@ class ChatController extends Controller
                     $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
                     $which = 'private';
                 } elseif ($message && $receiver_id == 1 && $bot->id == $bot_id) {
-                    if ($message && \strpos($message, '/'.$bot->command) === 0) {
+                    if (\strpos($message, '/'.$bot->command) === 0) {
                         $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
                     }
                     if ($message && \strpos($message, '!'.$bot->command) === 0) {
