@@ -106,7 +106,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
             $downloaded = ($real_downloaded >= $peer->downloaded) ? ($real_downloaded - $peer->downloaded) : 0;
         }
 
-        $old_update = $peer->updated_at ? $peer->updated_at->timestamp : Carbon::now()->timestamp;
+        $old_update = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
 
         // Modification of Upload and Download
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
