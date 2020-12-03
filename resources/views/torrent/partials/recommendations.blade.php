@@ -13,7 +13,7 @@
                                     href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                 @else
                                     <a
-                                        href="{{ route('add_request_form', ['title' => isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
+                                        href="{{ route('add_request_form', ['title' => $recommendation['title'] ?? $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
                                     @endif
                                 </a>
                         </p>
@@ -23,7 +23,7 @@
                                     href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                 @else
                                     <a
-                                        href="{{ route('add_request_form', ['title' => isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
+                                        href="{{ route('add_request_form', ['title' => $recommendation['title'] ?? $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
                                     @endif
                                     <div>
                                         @if(isset($recommendation['poster_path']))

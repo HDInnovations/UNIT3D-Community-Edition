@@ -102,7 +102,7 @@
                         </label>
                     </div>
 
-                    @php $data = App\Models\Category::where('id', '=', isset($category_id) ? $category_id : old('category_id'))->first();@endphp
+                    @php $data = App\Models\Category::where('id', '=', $category_id ?? old('category_id'))->first();@endphp
                     @if ($data->movie_meta || $data->tv_meta)
                     <div class="form-group">
                         <label for="resolution_ids">@lang('torrent.resolution')</label>
