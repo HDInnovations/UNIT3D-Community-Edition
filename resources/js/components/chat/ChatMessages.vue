@@ -38,7 +38,7 @@
 					        {{message.user.username}}
                         </a>
 
-                        <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" v-tooltip="message.bot && message.bot.id > 0 ? message.bot.name : message.bot.name"
+                        <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" v-tooltip="message.bot.name"
                            :style="groupColor(message.user)">
 					        {{message.bot.name}}
                         </a>
