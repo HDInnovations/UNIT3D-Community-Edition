@@ -172,7 +172,7 @@ class TorrentTools
      */
     public static function getNfo($inputFile)
     {
-        $fileName = \uniqid().'.nfo';
+        $fileName = \uniqid('', true).'.nfo';
         $inputFile->move(\getcwd().'/files/tmp/', $fileName);
         if (\file_exists(\getcwd().'/files/tmp/'.$fileName)) {
             $fileContent = \file_get_contents(\getcwd().'/files/tmp/'.$fileName);

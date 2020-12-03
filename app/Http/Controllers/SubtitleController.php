@@ -86,7 +86,7 @@ class SubtitleController extends Controller
     {
         $user = $request->user();
         $subtitle_file = $request->file('subtitle_file');
-        $filename = \uniqid().'.'.$subtitle_file->getClientOriginalExtension();
+        $filename = \uniqid('', true).'.'.$subtitle_file->getClientOriginalExtension();
 
         $subtitle = new Subtitle();
         $subtitle->title = $request->input('torrent_name');

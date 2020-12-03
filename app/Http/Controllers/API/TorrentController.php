@@ -93,7 +93,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        $fileName = \sprintf('%s.torrent', \uniqid()); // Generate a unique name
+        $fileName = \sprintf('%s.torrent', \uniqid('', true)); // Generate a unique name
         Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
