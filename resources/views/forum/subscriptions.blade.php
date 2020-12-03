@@ -66,7 +66,7 @@
                 <tbody>
                     @foreach ($results as $r)
                         @php
-                        if(in_array($r->id,$forum_neos)) {
+                        if(in_array($r->id, $forum_neos, true)) {
                         @endphp
                         <tr>
                             <td class="f-display-topic-icon"><a href="{{ route('forums.show', ['id' => $r->id]) }}"><span

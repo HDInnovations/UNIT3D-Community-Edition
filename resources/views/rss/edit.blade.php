@@ -67,7 +67,7 @@
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->categories) &&
-                                            in_array($id,$rss->object_torrent->categories))
+                                            in_array($id, $rss->object_torrent->categories, true))
                                             <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}"
                                                 class="category" CHECKED> {{ $category }}
                                         @else
@@ -86,7 +86,7 @@
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->types) &&
-                                            in_array($id,$rss->object_torrent->types))
+                                            in_array($id, $rss->object_torrent->types, true))
                                             <input type="checkbox" id="{{ $type }}" name="types[]" value="{{ $id }}" class="type"
                                                 CHECKED> {{ $type }}
                                         @else
@@ -104,7 +104,7 @@
                             @foreach ($torrent_repository->resolutions() as $id => $resolution)
                                 <span class="badge-user">
                             <label class="inline">
-                                @if(is_array($rss->object_torrent->resolutions) && in_array($id,$rss->object_torrent->resolutions))
+                                @if(is_array($rss->object_torrent->resolutions) && in_array($id, $rss->object_torrent->resolutions, true))
                                     <input type="checkbox" id="{{ $resolution }}" name="resolutions[]" value="{{ $id }}" class="resolution" CHECKED>
                                     {{ $resolution }}
                                 @else
@@ -123,7 +123,7 @@
                                 <span class="badge-user">
                                     <label class="inline">
                                         @if(is_array($rss->object_torrent->genres) &&
-                                            in_array($genre,$rss->object_torrent->genres))
+                                            in_array($genre, $rss->object_torrent->genres, true))
                                             <input type="checkbox" id="{{ $genre }}" name="genres[]" value="{{ $genre }}"
                                                 class="genre" CHECKED> {{ $genre }}
                                         @else
