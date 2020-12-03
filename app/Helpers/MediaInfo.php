@@ -372,7 +372,7 @@ class MediaInfo
                 if (isset($video_element['format'])) {
                     $temp_video_output[] = \strtoupper($video_element['format']);
                 }
-                if (isset($video_element['width']) && isset($video_element['height'])) {
+                if (isset($video_element['width'], $video_element['height'])) {
                     $temp_video_output[] = $video_element['width'].' x '.$video_element['height'];
                 }
                 foreach (['aspect_ratio', 'frame_rate', 'bit_depth', 'bit_rate', 'format_profile', 'scan_type', 'title', 'color primaries'] as $property) {

@@ -213,7 +213,7 @@ class BBCodeConverter
         $this->text = \preg_replace_callback('#\[url\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\]([\W\D\w\s]*?)\[/url\]#iu',
 
             function ($matches) {
-                if (isset($matches[1]) && isset($matches[2])) {
+                if (isset($matches[1], $matches[2])) {
                     return '['.$matches[2].']('.$matches[1].')';
                 }
 

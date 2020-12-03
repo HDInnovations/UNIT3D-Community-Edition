@@ -1012,7 +1012,7 @@ class TorrentController extends Controller
             $general_crumbs = $view_crumbs['general'];
             $video = $parsed['video'];
             $video_crumbs = $view_crumbs['video'];
-            $settings = ($parsed['video'] !== null && isset($parsed['video'][0]) && isset($parsed['video'][0]['encoding_settings'])) ? $parsed['video'][0]['encoding_settings'] : null;
+            $settings = (isset($parsed['video'][0], $parsed['video'][0]['encoding_settings']) && $parsed['video'] !== null) ? $parsed['video'][0]['encoding_settings'] : null;
             $audio = $parsed['audio'];
             $audio_crumbs = $view_crumbs['audio'];
             $subtitle = $parsed['text'];

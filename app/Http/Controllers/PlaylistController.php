@@ -141,7 +141,7 @@ class PlaylistController extends Controller
 
         $meta = null;
 
-        if (isset($random) && isset($torrent)) {
+        if (isset($random, $torrent)) {
             if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
                     $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();

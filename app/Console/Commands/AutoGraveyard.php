@@ -67,7 +67,7 @@ class AutoGraveyard extends Command
 
             $torrent = Torrent::where('id', '=', $reward->torrent_id)->first();
 
-            if (isset($user) && isset($torrent)) {
+            if (isset($user, $torrent)) {
                 $history = History::where('info_hash', '=', $torrent->info_hash)
                     ->where('user_id', '=', $user->id)
                     ->where('seedtime', '>=', $reward->seedtime)
