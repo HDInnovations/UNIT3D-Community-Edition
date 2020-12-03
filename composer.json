@@ -41,7 +41,8 @@
         "spatie/ssl-certificate": "^1.12",
         "symfony/dom-crawler": "^2.7|^3.0",
         "theodorejb/polycast": "^1.0",
-        "voku/anti-xss": "^4.1"
+        "voku/anti-xss": "^4.1",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
