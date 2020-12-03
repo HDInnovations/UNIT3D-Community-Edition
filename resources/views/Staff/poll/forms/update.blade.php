@@ -14,7 +14,7 @@
     <div class="form-group">
         <label for="stitle">@lang('poll.title'):</label>
         <label>
-            <input readonly type="number" name="poll-id" style="visibility: hidden" value="{{$poll->id}}">
+            <input readonly type="number" name="poll-id" style="visibility: hidden;" value="{{$poll->id}}">
             <input type="text" name="title" class="form-control" value={{$poll->title}} required>
         </label>
     </div>
@@ -23,7 +23,7 @@
         <div class="form-group <?php echo(++$key) >= 3 ? 'extra-option' : '' ?>" )>
             <label for={{"option" . $key}}>@lang('poll.option') {{$key}}:</label>
             <label>
-                <input readonly type="number" name="option-id[]" style="visibility: hidden" value="{{$option->id}}">
+                <input readonly type="number" name="option-id[]" style="visibility: hidden;" value="{{$option->id}}">
                 <input type="text" name="option-content[]" class="form-control" value={{$option->name}}>
             </label>
         </div>

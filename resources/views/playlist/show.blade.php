@@ -25,9 +25,9 @@
 							<li class="account">
 								<a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
 									@if ($playlist->user->image != null)
-										<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
+										<img src="{{ url('files/img/' . $playlist->user->image) }}" alt="{{ $playlist->user->username }}" style=" width: 50px;">
 									@else
-										<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}" style=" width: 50px">
+										<img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}" style=" width: 50px;">
 									@endif
 								</a>
 								<p>A list by<br><a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">{{ $playlist->user->username }}</a></p>
@@ -222,17 +222,17 @@
 									</div>
 								@else
 									@foreach ($playlist->comments as $comment)
-										<li class="media" style="border-left: 5px solid #01BC8C">
+										<li class="media" style="border-left: 5px solid #01BC8C;">
 											<div class="media-body">
 												@if ($comment->anon == 1)
-													<a href="#" class="pull-left" style="padding-right: 10px">
+													<a href="#" class="pull-left" style="padding-right: 10px;">
 														<img src="{{ url('img/profile.png') }}"
 														     alt="{{ $comment->user->username }}" class="img-avatar-48">
 														<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-														<a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+														<a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
 												@else
 													<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-													   class="pull-left" style="padding-right: 10px">
+													   class="pull-left" style="padding-right: 10px;">
 														@if ($comment->user->image != null)
 															<img src="{{ url('files/img/' . $comment->user->image) }}"
 															     alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
@@ -241,7 +241,7 @@
 														     alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
 													@endif
 													<strong><a
-																href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+																href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
 												<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
 												@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
 													<a title="@lang('common.delete-comment')"

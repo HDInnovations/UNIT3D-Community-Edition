@@ -895,7 +895,7 @@ wbbdebug = true;
                 let mheight = this.options.autoresize === true ? this.options.resize_maxheight : height;
                 this.$body = $(
                     this.strf(
-                        '<div class="wysibb-text-editor" style="max-height:{maxheight}px;min-height:{height}px;"></div>',
+                        '<div class="wysibb-text-editor" style="max-height:{maxheight;}px;min-height:{height;}px;"></div>',
                         { maxheight: mheight, height: height }
                     )
                 ).insertAfter(this.$txtArea);
@@ -1190,7 +1190,7 @@ wbbdebug = true;
                     $dropblock.append('<span class="pl"></span>');
                 } else {
                     $dropblock.append(
-                        this.strf('<div class="sc" style="background:{color}" title="{color}"></div>', {
+                        this.strf('<div class="sc" style="background:{color;}" title="{color}"></div>', {
                             color: colorlist[j],
                         })
                     );
@@ -1264,7 +1264,7 @@ wbbdebug = true;
                         (h * 100) / rows +
                         '%;z-index:' +
                         --allcount +
-                        '" title="' +
+                        ';" title="' +
                         h +
                         ',' +
                         j +

@@ -34,7 +34,7 @@
                                             <div class="no_image_holder w300_and_h450 backdrop"></div>
                                         @endif
                                     </div>
-                                    <div style=" margin-top: 8px">
+                                    <div style=" margin-top: 8px;">
                                         <span class="badge-extra">
                                             <i class="fas fa-clock"></i> @lang('common.year'):
                                             @if(isset($recommendation['release_date']))

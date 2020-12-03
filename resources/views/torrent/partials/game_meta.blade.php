@@ -1,6 +1,6 @@
 <div class="movie-wrapper">
     <div class="movie-backdrop" @if (isset($meta) && $meta->artworks)
-            style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg')">
+            style="background-image: url('https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->artworks[0]['image_id'] }}.jpg');">
         @else
             style="background-image: url('https://via.placeholder.com/1400x800')">
         @endif
