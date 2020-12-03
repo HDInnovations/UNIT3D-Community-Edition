@@ -204,11 +204,8 @@ class MediaInfo
                                 $output['format_profile'] = $value;
 
                                 break;
-                            case 'title':
-                                $output['title'] = $value;
-
-                                break;
                             case 'color primaries':
+                            case 'title':
                                 $output['title'] = $value;
 
                                 break;
