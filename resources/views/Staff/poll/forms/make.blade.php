@@ -55,7 +55,7 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
       let options = 2
-      const langOption = '<?php echo __(\'poll.option\') ?> '
+      const langOption = "<?php echo __(\'poll.option\') ?>"
 
         $('#add').on('click', function (e) {
             e.preventDefault();
