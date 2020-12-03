@@ -150,7 +150,7 @@ class uploadExtensionBuilder {
 
                 if (!this.is_numeric(before) && this.is_numeric(after)) {
                     newTitle = this.replaceChar(newTitle, " ", i)
-                    continue;
+
                 }
             }
         }
