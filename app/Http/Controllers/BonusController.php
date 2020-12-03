@@ -315,7 +315,8 @@ class BonusController extends Controller
                 return false;
             }
         } elseif ($item['invite'] == true) {
-            if ($user_acc->invites += $item['value']) {
+            $user_acc->invites += $item['value'];
+            if ($user_acc->invites) {
                 $user_acc->save();
             } else {
                 return false;

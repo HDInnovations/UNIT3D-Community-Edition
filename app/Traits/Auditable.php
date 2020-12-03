@@ -67,11 +67,12 @@ trait Auditable
     /**
      * Generates the data to store.
      *
-     * @param $action
+     * @param       $action
      * @param array $old
      * @param array $new
      *
      * @return false|string
+     * @throws \JsonException
      */
     protected static function generate($action, $old = [], $new = [])
     {
@@ -79,7 +80,6 @@ trait Auditable
         switch ($action) {
             default:
                 throw new \InvalidArgumentException(\sprintf('Unknown action `%s`.', $action));
-                break;
             case 'create':
                 // Expect new data to be filled
                 if (empty($new)) {
@@ -144,6 +144,8 @@ trait Auditable
      * Logs a record creation.
      *
      * @param $model
+     *
+     * @throws \JsonException
      */
     protected static function registerCreate($model)
     {
@@ -172,6 +174,7 @@ trait Auditable
      * Logs a record update.
      *
      * @param $model
+     * @throws \JsonException
      */
     protected static function registerUpdate($model)
     {
@@ -200,6 +203,7 @@ trait Auditable
      * Logs a record deletion.
      *
      * @param $model
+     * @throws \JsonException
      */
     protected static function registerDelete($model)
     {

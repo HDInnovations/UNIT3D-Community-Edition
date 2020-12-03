@@ -67,6 +67,7 @@ class WishController extends Controller
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \JsonException
      */
     public function store(Request $request)
     {

@@ -146,7 +146,7 @@ class PollController extends Controller
         }
 
         // Update existing options
-        $existingOldOptionContents = \collect($storePoll->input('option-content'))->map(fn ($content) => \strval($content))->all();
+        $existingOldOptionContents = \collect($storePoll->input('option-content'))->map(fn ($content) => (string)$content)->all();
 
         if (\count($existingOldOptionContents) === \count($existingOldOptionIds)) {
             $len = \count($existingOldOptionContents);
