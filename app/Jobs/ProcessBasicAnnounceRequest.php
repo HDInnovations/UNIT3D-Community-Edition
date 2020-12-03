@@ -13,19 +13,12 @@
 
 namespace App\Jobs;
 
-use App\Models\History;
-use App\Models\Peer;
-use App\Models\User;
-
 class ProcessBasicAnnounceRequest implements \Illuminate\Contracts\Queue\ShouldQueue
 {
     use \Illuminate\Foundation\Bus\Dispatchable;
     use \Illuminate\Queue\InteractsWithQueue;
     use \Illuminate\Bus\Queueable;
     use \Illuminate\Queue\SerializesModels;
-    protected $queries;
-    protected $user;
-    protected $torrent;
 
     /**
      * ProcessAnnounceRequest constructor.
@@ -36,9 +29,7 @@ class ProcessBasicAnnounceRequest implements \Illuminate\Contracts\Queue\ShouldQ
      */
     public function __construct(protected $queries, protected \App\Models\User $user, protected \App\Models\Torrent $torrent)
     {
-        $this->queries = $queries;
-        $this->user = $user;
-        $this->torrent = $torrent;
+
     }
 
     /**
@@ -82,7 +73,7 @@ class ProcessBasicAnnounceRequest implements \Illuminate\Contracts\Queue\ShouldQ
             $uploaded = $real_uploaded >= $peer->uploaded ? $real_uploaded - $peer->uploaded : 0;
             $downloaded = $real_downloaded >= $peer->downloaded ? $real_downloaded - $peer->downloaded : 0;
         }
-        $old_update = $peer->updated_at ? $peer->updated_at->timestamp : \Carbon\Carbon::now()->timestamp;
+        $old_update = $peer->updated_at->timestamp ?? \Carbon\Carbon::now()->timestamp;
         // Modification of Upload and Download
         $personal_freeleech = \App\Models\PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
         $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
