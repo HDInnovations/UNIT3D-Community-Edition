@@ -907,8 +907,8 @@
                         this.audibles = e.audibles;
                     } else if(e.type == 'new.message') {
                         if(this.activeTab.substring(0,3) != 'bot' && this.activeTab.substring(0,6) != 'target') return false;
-                        if(e.message.bot && e.message.bot != null && e.message.bot.id != this.bot) return false;
-                        if(e.message.target && e.message.target != null && e.message.target.id != this.target) return false;
+                        if(e.message.bot && e.message.bot.id != this.bot) return false;
+                        if(e.message.target && e.message.target.id != this.target) return false;
                         this.messages.push(e.message);
                         if(this.bot && this.bot > 0) {
                             this.handleMessage('bot', this.bot, e.message);
