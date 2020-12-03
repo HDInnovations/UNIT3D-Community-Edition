@@ -83,7 +83,8 @@ class HiddenCaptcha
 
         // Check if the random field value is similar to the token value
         $randomField = $formData[$token['random_field_name']];
-        return !(!\ctype_digit($randomField) || $token['timestamp'] != $randomField);
+
+        return ! (! \ctype_digit($randomField) || $token['timestamp'] != $randomField);
     }
 
     /**
