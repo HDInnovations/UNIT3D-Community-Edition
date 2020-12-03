@@ -1353,7 +1353,7 @@ class Markdown
 
         $trimmedMarkup = \trim($markup);
 
-        if (!\in_array('', $lines, true) && \strpos($trimmedMarkup, '<p>') === 0) {
+        if (! \in_array('', $lines, true) && \strpos($trimmedMarkup, '<p>') === 0) {
             $markup = $trimmedMarkup;
             $markup = \substr($markup, 3);
 
