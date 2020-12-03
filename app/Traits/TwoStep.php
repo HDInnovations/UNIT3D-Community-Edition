@@ -174,6 +174,7 @@ trait TwoStep
     {
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'));
+
         return $now->gt($expire);
     }
 
