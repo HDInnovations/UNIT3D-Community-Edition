@@ -39,7 +39,7 @@
                     @foreach($show->seasons as $season)
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card is-torrent" style=" height: auto; margin-top: 0px; margin-bottom: 20px;">
+                            <div class="card is-torrent" style=" height: auto; margin-top: 0; margin-bottom: 20px;">
                                 <div class="card_head">
                                 <span class="badge-user text-bold" style="float:right;">
                                     {{ $season->episodes->count() }} Episodes

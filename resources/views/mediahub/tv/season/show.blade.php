@@ -61,7 +61,7 @@
                 @foreach($season->episodes as $episode)
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card is-torrent" style="margin-top: 0px; margin-bottom: 20px; height: auto;">
+                            <div class="card is-torrent" style="margin-top: 0; margin-bottom: 20px; height: auto;">
                                 <div class="card_head">
                                     <span class="badge-user text-bold" style="float:right;">
                                         Episode {{ $episode->episode_number }}
