@@ -338,7 +338,7 @@
                                                                     $hidden = "";
                                                                     $attr = "";
                                                                 @endphp
-                                                                @for($x = 0; $x<count($c); $x++)
+                                                                @for($x = 0,$xMax = count($c); $x<$xMax; $x++)
                                                                     @php
                                                                         if(array_key_exists('torrent'.$x,$c)) {
                                                                             $current = $c['torrent'.$x]['chunk'];
