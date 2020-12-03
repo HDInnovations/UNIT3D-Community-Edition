@@ -87,6 +87,6 @@ class BackupEncryption
             return $this->zipFileOptions[$type];
         }
 
-        throw new \Exception('Encryption key not set or invalid value', 1);
+        throw new \RuntimeException('Encryption key not set or invalid value', 1);
     }
 }
