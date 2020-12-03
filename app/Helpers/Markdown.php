@@ -1353,7 +1353,7 @@ class Markdown
 
         $trimmedMarkup = \trim($markup);
 
-        if (! \in_array('', $lines) && \substr($trimmedMarkup, 0, 3) === '<p>') {
+        if (! \in_array('', $lines) && \strpos($trimmedMarkup, '<p>') === 0) {
             $markup = $trimmedMarkup;
             $markup = \substr($markup, 3);
 
@@ -1432,7 +1432,7 @@ class Markdown
             return false;
         }
 
-        return \strtolower(\substr($string, 0, $len)) === \strtolower($needle);
+        return \stripos($string, \strtolower($needle)) === 0;
     }
 
     public static function instance($name = 'default')

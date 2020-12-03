@@ -170,7 +170,7 @@ class ChatController extends Controller
         $target = null;
         $runbot = null;
         $trip = 'msg';
-        if ($message && \substr($message, 0, 1 + (\strlen($trip))) === '/'.$trip) {
+        if ($message && \strpos($message, '/'.$trip) === 0) {
             $which = 'skip';
             $command = @\explode(' ', $message);
             if (\array_key_exists(1, $command)) {
@@ -185,7 +185,7 @@ class ChatController extends Controller
         }
 
         $trip = 'gift';
-        if ($message && \substr($message, 0, 1 + (\strlen($trip))) === '/'.$trip) {
+        if ($message && \strpos($message, '/'.$trip) === 0) {
             $which = 'echo';
             $target = 'system';
             $message = '/bot gift'.\substr($message, \strlen($trip) + 1, \strlen($message));
@@ -195,21 +195,21 @@ class ChatController extends Controller
         }
         if ($which == null) {
             foreach ($bots as $bot) {
-                if ($message && \substr($message, 0, 1 + (\strlen($bot->command))) === '/'.$bot->command) {
+                if ($message && \strpos($message, '/'.$bot->command) === 0) {
                     $which = 'echo';
-                } elseif ($message && \substr($message, 0, 1 + (\strlen($bot->command))) === '!'.$bot->command) {
+                } elseif ($message && \strpos($message, '!'.$bot->command) === 0) {
                     $which = 'public';
-                } elseif ($message && \substr($message, 0, 1 + (\strlen($bot->command))) === '@'.$bot->command) {
+                } elseif ($message && \strpos($message, '@'.$bot->command) === 0) {
                     $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
                     $which = 'private';
                 } elseif ($message && $receiver_id == 1 && $bot->id == $bot_id) {
-                    if ($message && \substr($message, 0, 1 + (\strlen($bot->command))) === '/'.$bot->command) {
+                    if ($message && \strpos($message, '/'.$bot->command) === 0) {
                         $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
                     }
-                    if ($message && \substr($message, 0, 1 + (\strlen($bot->command))) === '!'.$bot->command) {
+                    if ($message && \strpos($message, '!'.$bot->command) === 0) {
                         $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
                     }
-                    if ($message && \substr($message, 0, 1 + (\strlen($bot->command))) === '@'.$bot->command) {
+                    if ($message && \strpos($message, '@'.$bot->command) === 0) {
                         $message = \substr($message, 1 + \strlen($bot->command), \strlen($message));
                     }
                     $which = 'message';
