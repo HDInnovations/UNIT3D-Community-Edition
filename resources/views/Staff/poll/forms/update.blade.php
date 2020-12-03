@@ -59,7 +59,7 @@
 
         $('#add').on('click', function (e) {
             e.preventDefault();
-            options = options + 1;
+            options += 1;
             var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">'
                 + langOption
                 + options

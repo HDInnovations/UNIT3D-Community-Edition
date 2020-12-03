@@ -177,7 +177,7 @@
 
             $('#addImg').on('click', function(e) {
                 e.preventDefault();
-                images = images + 1;
+                images += 1;
                 var imageHTML = '<div class="form-group extra-image"><label for="image' + images +
                     '">Proof Image URL ' + images +
                     ':</label><input type="text" name="images[]" class="form-control" value="" required></div>';
@@ -197,7 +197,7 @@
 
             $('#addLink').on('click', function(e) {
                 e.preventDefault();
-                links = links + 1;
+                links += 1;
                 var linkHTML = '<div class="form-group extra-link"><label for="link' + links +
                     '">Profile Link URL ' + links +
                     ':</label><input type="text" name="links[]" class="form-control" value="" required></div>';
