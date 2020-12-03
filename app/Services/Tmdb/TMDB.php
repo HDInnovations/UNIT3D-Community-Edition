@@ -35,11 +35,7 @@ class TMDB
 
     public function ifHasItems($type, $array)
     {
-        if (isset($array[$type][0])) {
-            return $array[$type][0];
-        }
-
-        return null;
+        return $array[$type][0] ?? null;
     }
 
     public function ifExists($type, $array)

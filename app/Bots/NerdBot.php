@@ -444,10 +444,7 @@ class NerdBot
         $command = @\explode(' ', $message);
 
         $wildcard = null;
-        $params = null;
-        if (\array_key_exists($y, $command)) {
-            $params = $command[$y];
-        }
+        $params = $command[$y] ?? null;
 
         if ($params != null) {
             $clone = $command;
