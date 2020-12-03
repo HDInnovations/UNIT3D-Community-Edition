@@ -43,7 +43,7 @@
                     <tbody>
                         @if ($audits->count())
                             @foreach ($audits as $audit)
-                            @php $values = json_decode($audit->record, true); @endphp
+                            @php $values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR); @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ strtoupper($audit->action) }}</td>
