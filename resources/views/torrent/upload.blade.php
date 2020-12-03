@@ -341,7 +341,7 @@
                     var t=(new Date).getTime();
                     return"undefined"!=typeof performance&&"function"==typeof performance.now&&(t+=performance.now()),
                             "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(e) {
-                                        var i=(t+16*Math.random())%16|0;
+                                        var i=(t + 16 * Math.random()) % 16;
                                         return t=Math.floor(t/16), ("x"===e?i: 3&i|8).toString(16)
                                     }
                             )
