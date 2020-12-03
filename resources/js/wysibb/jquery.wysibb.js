@@ -745,9 +745,7 @@ wbbdebug = true;
                                                                 rname = rname.replace(this.getValidationRGX(rname), '');
                                                                 let p = this.relFilterByNode(el, rootSelector);
                                                                 let regRepl =
-                                                                    txt != r[a]
-                                                                        ? this.getRegexpReplace(txt, r[a])
-                                                                        : false;
+                                                                    txt != r[a] ? this.getRegexpReplace(txt, r[a]) : false;
                                                                 let sel = p ? $.trim(p) : false;
                                                                 if (
                                                                     $.inArray(sel, sl) > -1 ||

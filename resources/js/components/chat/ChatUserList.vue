@@ -20,7 +20,7 @@
                            :class="user.group.icon">
                         </i>
 
-                        <a v-tooltip="$parent.auth.id !== user.id ? `Private Message` : user.username"
+                        <a v-tooltip="$parent.auth.id===user.id?user.username:`Private Message`"
                            :style="groupColor(user)"
                            @click="pmUser(user)">
 					        {{ user.username }}
