@@ -62,8 +62,7 @@ class SystemBot
      */
     public function replaceVars($output)
     {
-        $output = \str_replace('{me}', $this->bot->name, $output);
-        $output = \str_replace('{command}', $this->bot->command, $output);
+        $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\strstr($output, '{bots}')) {
             $bot_help = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
