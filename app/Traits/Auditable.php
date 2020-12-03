@@ -71,8 +71,9 @@ trait Auditable
      * @param array $old
      * @param array $new
      *
-     * @return false|string
      * @throws \JsonException
+     *
+     * @return false|string
      */
     protected static function generate($action, $old = [], $new = [])
     {
@@ -174,6 +175,7 @@ trait Auditable
      * Logs a record update.
      *
      * @param $model
+     *
      * @throws \JsonException
      */
     protected static function registerUpdate($model)
@@ -203,6 +205,7 @@ trait Auditable
      * Logs a record deletion.
      *
      * @param $model
+     *
      * @throws \JsonException
      */
     protected static function registerDelete($model)

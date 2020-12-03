@@ -45,8 +45,9 @@ class EmailBlacklistUpdate extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      * @throws \JsonException
+     *
+     * @return mixed
      */
     public function handle()
     {
