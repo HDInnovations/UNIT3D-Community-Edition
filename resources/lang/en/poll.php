@@ -17,7 +17,6 @@ return [
     'current'              => 'Current Poll(s)',
     'delete-option'        => 'Delete Option',
     'edit-poll'            => 'Edit Poll',
-    'multiple-choice'      => 'Allow Multiple Answers',
     'multiple-choice'      => 'This is a multiple choice poll. Select as many answers as you like.',
     'option'               => 'Option',
     'poll'                 => 'Poll',
