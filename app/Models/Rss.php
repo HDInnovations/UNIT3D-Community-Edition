@@ -136,11 +136,9 @@ class Rss extends Model
     public function getExpectedFieldsAttribute()
     {
         // Just Torrents for now... extendable to check on feed type in future.
-        $expected_fields = ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null,
+        return ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null,
             'mal'                    => null, 'categories' => null, 'types' => null, 'resolutions' => null, 'genres' => null,
             'freeleech'              => null, 'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null,
             'internal'               => null, 'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
-
-        return $expected_fields;
     }
 }
