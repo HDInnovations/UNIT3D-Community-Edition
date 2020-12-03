@@ -121,7 +121,9 @@ class Bencode
             $pos++;
 
             return $dict;
-        } elseif ($c == 'l') {
+        }
+
+        if ($c == 'l') {
             $list = [];
             $pos++;
             while ($pos < $len && $s[$pos] != 'e') {

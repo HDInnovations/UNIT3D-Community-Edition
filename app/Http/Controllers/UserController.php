@@ -1349,7 +1349,9 @@ class UserController extends Controller
                 'user'          => $user,
                 'resurrections' => $table,
             ])->render();
-        } elseif ($request->has('view') && $request->input('view') == 'active') {
+        }
+
+        if ($request->has('view') && $request->input('view') == 'active') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id');
