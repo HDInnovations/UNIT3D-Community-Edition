@@ -974,15 +974,11 @@ class TorrentController extends Controller
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
 
         $meta = null;
-        if ($torrent->category->tv_meta) {
-            if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
-            }
+        if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+            $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
         }
-        if ($torrent->category->movie_meta) {
-            if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
-            }
+        if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
         }
 
         $characters = null;
