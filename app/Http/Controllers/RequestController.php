@@ -232,9 +232,6 @@ class RequestController extends Controller
      * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function request(Request $request, $id)

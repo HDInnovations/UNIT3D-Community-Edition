@@ -68,8 +68,7 @@ class CommentController extends Controller
      * Add A Comment To A Collection.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
+     * @param                          $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

@@ -44,7 +44,7 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      *
-     * @param string $hash
+     * @param null $hash
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */

@@ -125,9 +125,6 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -257,7 +254,6 @@ class PlaylistController extends Controller
     /**
      * Download All Playlist Torrents.
      *
-     * @param \Illuminate\Http\Request $request
      * @param                          $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse

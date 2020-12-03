@@ -32,7 +32,7 @@ class ProcessCollectionJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $collection
      */
     public function __construct($collection)
     {

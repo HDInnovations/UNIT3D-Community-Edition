@@ -71,7 +71,7 @@ class TwoStepController extends Controller
     /**
      * Validation and Invalid code failed actions and return message.
      *
-     * @param array $errors (optional)
+     * @param null $errors (optional)
      *
      * @return array
      */

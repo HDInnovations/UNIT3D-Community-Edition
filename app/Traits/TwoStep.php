@@ -220,8 +220,8 @@ trait TwoStep
     /**
      * Send verification code via notify.
      *
-     * @param $twoStepAuth
-     * @param string $deliveryMethod (nullable)
+     * @param      $twoStepAuth
+     * @param null $deliveryMethod (nullable)
      *
      * @return void
      */

@@ -520,6 +520,7 @@ class UserController extends Controller
      * @param \App\Models\User         $username
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function changePID(Request $request, $username)
     {

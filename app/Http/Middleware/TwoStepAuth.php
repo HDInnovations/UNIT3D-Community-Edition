@@ -28,6 +28,7 @@ class TwoStepAuth
      * @param Closure                  $next
      *
      * @return mixed
+     * @throws \Exception
      */
     public function handle(Request $request, Closure $next)
     {

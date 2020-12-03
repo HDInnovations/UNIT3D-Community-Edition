@@ -72,10 +72,10 @@ class Language
      * Return true if $code is an allowed lang.
      * Get all allowed languages.
      *
-     * @param string $locale
+     * @param null $locale
      *
      * @return bool|array
-     **/
+     */
     public static function allowed($locale = null)
     {
         if ($locale) {

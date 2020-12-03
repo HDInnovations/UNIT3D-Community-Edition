@@ -32,7 +32,7 @@ class ProcessCompanyJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $company
      */
     public function __construct($company)
     {

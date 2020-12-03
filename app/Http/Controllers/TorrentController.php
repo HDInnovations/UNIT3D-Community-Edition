@@ -176,9 +176,6 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function cardLayout(Request $request)
@@ -247,11 +244,8 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     * @throws \Throwable
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Throwable
      */
     public function groupingLayout(Request $request)
     {
@@ -371,11 +365,8 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Torrent                  $torrent
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     * @throws \Throwable
-     *
      * @return array
+     * @throws \Throwable
      */
     public function faceted(Request $request, Torrent $torrent)
     {
@@ -956,9 +947,6 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function torrent(Request $request, $id)
@@ -1075,9 +1063,6 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
-     *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1282,9 +1267,6 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function upload(Request $request)
@@ -1468,7 +1450,7 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Torrent      $id
-     * @param \App\Models\User         $rsskey
+     * @param null                     $rsskey
      *
      * @return TorrentFile
      */
