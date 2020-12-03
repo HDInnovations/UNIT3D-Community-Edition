@@ -55,7 +55,7 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
 
       let options = parseInt("<?php echo count($poll->options); ?>") // Get the size of options passing in
-        const langOption = "<?php echo __(\'poll.option\') ?>"
+        const langOption = "<?php echo __('poll.option') ?>"
 
         $('#add').on('click', function (e) {
             e.preventDefault();
