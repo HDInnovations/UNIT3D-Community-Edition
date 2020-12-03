@@ -943,7 +943,7 @@ class TorrentController extends Controller
         foreach ($parts as $part) {
             $part = trim($part);
             if ($part != '') {
-                array_push($result, $part);
+                $result[] = $part;
             }
         }
 
