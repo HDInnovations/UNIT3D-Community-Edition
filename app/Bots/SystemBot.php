@@ -197,9 +197,6 @@ class SystemBot
         $message = $this->message;
         $targeted = $this->targeted;
 
-        if ($targeted) {
-            // future holder
-        }
         if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = \cache()->get('user-echoes'.$target->id);
