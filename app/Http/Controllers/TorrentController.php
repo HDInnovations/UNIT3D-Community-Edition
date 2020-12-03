@@ -244,8 +244,9 @@ class TorrentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Throwable
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function groupingLayout(Request $request)
     {
@@ -365,8 +366,9 @@ class TorrentController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param Torrent                  $torrent
      *
-     * @return array
      * @throws \Throwable
+     *
+     * @return array
      */
     public function faceted(Request $request, Torrent $torrent)
     {
