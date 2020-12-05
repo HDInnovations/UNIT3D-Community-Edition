@@ -31,12 +31,14 @@ class ThankButton extends Component
     {
         if ($this->user->id === $this->torrent->user_id) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Thank Your Own Content!']);
+
             return;
         }
 
         $thank = Thank::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
         if ($thank) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Thanked!']);
+
             return;
         }
 
