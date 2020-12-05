@@ -120,6 +120,33 @@
             </script>
         @endif
 
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+            window.addEventListener('success', event => {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+
+                Toast.fire({
+                    icon: 'success',
+                    title: event.detail.message
+                })
+            })
+        </script>
+
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
+            window.addEventListener('error', event => {
+                Swal.fire({
+                    title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
+                    icon: 'error',
+                    html: event.detail.message,
+                    showCloseButton: true,
+                })
+            })
+        </script>
+
         @yield('javascripts')
         @yield('scripts')
         @livewireScripts(['nonce' => Bepsvpt\SecureHeaders\SecureHeaders::nonce()])

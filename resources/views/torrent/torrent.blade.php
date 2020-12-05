@@ -56,6 +56,8 @@
                             </a>
                         @endif
 
+                        @livewire('thank-button', ['torrent' => $torrent])
+
                         @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
                                 <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('torrent.similar')
@@ -207,12 +209,12 @@
                             <strong>@lang('torrent.name')</strong>
                         </td>
                         <td>{{ $torrent->name }} &nbsp; &nbsp;
-                            @if (auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
+                            @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id)
                                 <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['id' => $torrent->id]) }}" role="button">
                                     <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> @lang('common.edit')
                                 </a>
                             @endif
-                            @if (auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+                            @if (auth()->user()->group->is_modo || ( auth()->user()->id === $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
                                 <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.delete')
                                 </button>
@@ -360,15 +362,6 @@
                                     </form>
                                 @endif
                             @endif
-
-                            <a href="{{ route('thanks.store', ['id' => $torrent->id]) }}"
-                               class="btn btn-xs btn-success" data-toggle="tooltip"
-                               data-original-title="@lang('torrent.thank')">
-                                <i class="{{ config('other.font-awesome') }} fa-heart"></i> @lang('torrent.thank')
-                            </a>
-                            <span class="badge-extra text-pink">
-                                <i class="{{ config('other.font-awesome') }} fa-heart"></i> {{ $torrent->thanks()->count() }} @lang('torrent.thanks')
-                            </span>
                         </td>
                     </tr>
 
