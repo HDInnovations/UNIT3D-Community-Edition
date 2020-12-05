@@ -43,10 +43,10 @@
                                         {{ $t->meta->name ?? 'Unknown' }}
                                     @endif
                                         @if ($t->category->movie_meta)
-                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date ?? '', 0, 4 }}</span>
+                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date ?? '', 0, 4) }}</span>
                                         @endif
                                         @if ($t->category->tv_meta)
-                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date ?? '', 0, 4 }}</span>
+                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date ?? '', 0, 4) }}</span>
                                         @endif
                                 </h3>
                                 @foreach ($t->meta->genres as $genre)
@@ -102,14 +102,14 @@
                                                                         <div class="text-center">
                                                                             <img src="{{ url('files/img/' . $current->category->image) }}" alt="{{ $current->category->name }}"
                                                                                  data-toggle="tooltip"
-                                                                                 data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"">
+                                                                                 data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}">
                                                                         </div>
                                                                     </a>
                                                                 @else
                                                                     <a href="{{ route('categories.show', ['id' => $current->category->id]) }}">
                                                                         <div class="text-center">
                                                                             <i class="{{ $current->category->icon }} torrent-icon" data-toggle="tooltip"
-                                                                               data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}""></i>
+                                                                               data-original-title="{{ $current->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
                                                                         </div>
                                                                     </a>
                                                                 @endif
