@@ -106,7 +106,7 @@
                                 <strong>
                                     @if ($movie->genres)
                                         @foreach ($movie->genres as $genre)
-                                            {{ $movie->name }}
+                                            {{ $genre->name }}
                                         @endforeach
                                     @endif
                                 </strong>
