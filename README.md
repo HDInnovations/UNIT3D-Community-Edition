@@ -211,9 +211,11 @@ URL: https://discord.gg/Bf47vws
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
+You can support my work if you are enjoying UNIT3D and my other projects under HDInnovations, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. 
+
 https://github.com/sponsors/HDVinnie
 
-You can support my work if you are enjoying UNIT3D and my other projects under HDInnovations, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. Some folks have asked me if it's possible to do a one-time donation via cryptocurrency. Yes!
+Some folks have asked me if it's possible to do a one-time donation via cryptocurrency. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
 
@@ -222,6 +224,8 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
+
+Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 ## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
 <h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>
@@ -238,17 +242,25 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
-            <a href="https://github.com/Darkspac3"><img src="https://avatars2.githubusercontent.com/u/35001866?v=4" width="50px;" alt="Darkspac3"/>
+            <a href="https://github.com/StatusBaby"><img src="https://avatars2.githubusercontent.com/u/73584132?v=4" width="50px;" alt="StatusBaby"/>
                 <br />
-                <sub><b>Darkspac3</b></sub>
+                <sub><b>StatusBaby</b></sub>
             </a>
             <br />
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
-            <a href="https://github.com/NemoSciri"><img src="https://avatars2.githubusercontent.com/u/58690995?v=4" width="50px;" alt="NemoSciri"/>
+            <a href="https://github.com/zeleski"><img src="https://avatars1.githubusercontent.com/u/3497536?v=4" width="50px;" alt="zeleski"/>
                 <br />
-                <sub><b>NemoSciri</b></sub>
+                <sub><b>zeleski</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/Olaf1607"><img src="https://avatars1.githubusercontent.com/u/42134266?v=4" width="50px;" alt="Olaf1607"/>
+                <br />
+                <sub><b>Olaf1607</b></sub>
             </a>
             <br />
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
@@ -270,9 +282,25 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
         </td>
         <td align="center">
-            <a href="https://github.com/STiCKYFiNGAZZ"><img src="https://avatars2.githubusercontent.com/u/26826902?v=4" width="50px;" alt="STiCKYFiNGAZZ"/>
+            <a href="https://github.com/MyFeetHurt"><img src="https://avatars0.githubusercontent.com/u/14802057?v=4" width="50px;" alt="MyFeetHurt"/>
                 <br />
-                <sub><b>STiCKYFiNGAZZ</b></sub>
+                <sub><b>MyFeetHurt</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/itsasolid4fromme"><img src="https://avatars0.githubusercontent.com/u/14802057?v=4" width="50px;" alt="itsasolid4fromme"/>
+                <br />
+                <sub><b>itsasolid4fromme</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/humblbeast"><img src="https://avatars0.githubusercontent.com/u/46381271?v=4" width="50px;" alt="humblbeast"/>
+                <br />
+                <sub><b>humblbeast</b></sub>
             </a>
             <br />
             <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
