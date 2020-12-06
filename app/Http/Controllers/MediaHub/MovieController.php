@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\MediaHub;
 
-use Illuminate\Http\Request;
-use App\Models\PersonalFreeleech;
 use App\Http\Controllers\Controller;
 use App\Models\Movie;
+use App\Models\PersonalFreeleech;
+use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
@@ -45,8 +45,8 @@ class MovieController extends Controller
         $movie = Movie::with(['collection', 'genres', 'companies'])->findOrFail($id);
 
         return view('mediahub.movie.show', [
-            'movie' => $movie,
-            'user'  => $user,
+            'movie'              => $movie,
+            'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
         ]);
     }
