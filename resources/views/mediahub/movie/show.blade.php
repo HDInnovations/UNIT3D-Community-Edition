@@ -31,7 +31,7 @@
         <div class="block">
             <div class="movie-wrapper">
                 <div class="movie-backdrop"
-                     style="background-image: url('https://images.weserv.nl/?url={{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }}&w=1270&h=600');">
+                     style="background-image: url('https://images.weserv.nl/?url={{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }}&w=1270&h=600');">
                     <div class="tags">
                         Movie
                     </div>
@@ -233,26 +233,16 @@
                                         </span>
                                     @endif
 
-                                    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                        <span class="badge-extra text-bold">
-                                <span class="text-gold movie-rating-stars">
-                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up" data-toggle="tooltip"
-                                       data-original-title="@lang('torrent.rating')"></i>
-                                </span>
-                                {{ $meta->vote_average ?? 0 }}/10 ({{ $meta->vote_count ?? 0 }} @lang('torrent.votes'))
-                            </span>
-                                    @endif
-
                                     <span class="badge-extra text-bold text-pink">
                                             <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip"
                                                data-original-title="@lang('torrent.thanks-given')"></i>
-                                            {{ $torrent->thanks_count }}
+                                            {{ $torrent->thanks->count() }}
                                         </span>
 
                                     <span class="badge-extra text-bold text-green">
                                             <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip"
                                                data-original-title="@lang('common.comments')"></i>
-                                            {{ $torrent->comments_count }}
+                                            {{ $torrent->comments->count() }}
                                         </span>
 
                                     @if ($torrent->internal == 1)
