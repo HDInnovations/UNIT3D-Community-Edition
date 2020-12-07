@@ -35,12 +35,13 @@ class VersionController extends Controller
      * Check the latest release of UNIT3D and compare them to the local version.
      *
      * @return string
+     * @throws \JsonException
      */
     public function checkVersion()
     {
         $client = new Client();
         $response = \json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody(), true, 512, JSON_THROW_ON_ERROR);
-        $lastestVersion = $response[0]->tag_name;
+        $lastestVersion = $response[0]['tag_name'];
 
         return \response([
             'updated'       => ! \version_compare($this->versionController, $lastestVersion, '<'),
