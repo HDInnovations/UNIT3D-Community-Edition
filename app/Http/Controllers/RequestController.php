@@ -83,13 +83,13 @@ class RequestController extends Controller
 
         $requests = DB::table('requests')
             ->selectRaw('count(*) as total')
-            ->selectRaw('count(case when filled_by != null then 1 end) as filled')
-            ->selectRaw('count(case when filled_by = null then 1 end) as unfilled')
+            ->selectRaw('count(case when filled_by is not null then 1 end) as filled')
+            ->selectRaw('count(case when filled_by is null then 1 end) as unfilled')
             ->first();
         $bounties = DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
-            ->selectRaw('coalesce(sum(case when filled_by != null then 1 end), 0) as claimed')
-            ->selectRaw('coalesce(sum(case when filled_by = null then 1 end), 0) as unclaimed')
+            ->selectRaw('coalesce(sum(case when filled_by is not null then 1 end), 0) as claimed')
+            ->selectRaw('coalesce(sum(case when filled_by is null then 1 end), 0) as unclaimed')
             ->first();
 
         $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->paginate(25);
