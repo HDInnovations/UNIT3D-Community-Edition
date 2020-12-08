@@ -60,10 +60,6 @@
 					<td>
 						<span class="badge-user text-bold">
                             {{ $user->username }}
-							@if ($user->warnings_count > 0)
-								<i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-								   data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
-							@endif
                         </span>
 					</td>
 					<td>

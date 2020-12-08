@@ -50,6 +50,7 @@ class UserSearch extends Component
     {
         return view('livewire.user-search', [
             'users' => User::query()
+                ->with('group')
                 ->when($this->searchTerm, function ($query) {
                     return $query->where('username', 'LIKE', '%'.$this->searchTerm.'%')->orWhere('email', 'LIKE', '%'.$this->searchTerm.'%');
                 })
