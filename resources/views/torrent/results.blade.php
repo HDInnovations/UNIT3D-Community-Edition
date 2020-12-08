@@ -50,12 +50,12 @@
             @php $meta = null; @endphp
                 @if ($torrent->category->tv_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-                        @php $meta = App\Models\Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first(); @endphp
+                        @php $meta = App\Models\Tv::with('genres')->where('id', '=', $torrent->tmdb)->first(); @endphp
                     @endif
                 @endif
                 @if ($torrent->category->movie_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
-                        @php $meta = App\Models\Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first(); @endphp
+                        @php $meta = App\Models\Movie::with('genres')->where('id', '=', $torrent->tmdb)->first(); @endphp
                     @endif
                 @endif
                 @if ($torrent->category->game_meta)

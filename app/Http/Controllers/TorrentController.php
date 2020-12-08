@@ -189,12 +189,12 @@ class TorrentController extends Controller
 
             if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
+                    $meta = Tv::with('genres')->where('id', '=', $torrent->tmdb)->first();
                 }
             }
             if ($torrent->category->movie_meta) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
+                    $meta = Movie::with('genres')->where('id', '=', $torrent->tmdb)->first();
                 }
             }
             if ($torrent->category->game_meta) {
@@ -320,12 +320,12 @@ class TorrentController extends Controller
                     $meta = null;
                     if ($d['chunk']->category->tv_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $d['chunk']->tmdb)->first();
+                            $meta = Tv::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                         }
                     }
                     if ($d['chunk']->category->movie_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $d['chunk']->tmdb)->first();
+                            $meta = Movie::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                         }
                     }
                     if ($d['chunk']->category->game_meta) {
@@ -820,12 +820,12 @@ class TorrentController extends Controller
                     $meta = null;
                     if ($d['chunk']->category->tv_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $d['chunk']->tmdb)->first();
+                            $meta = Tv::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                         }
                     }
                     if ($d['chunk']->category->movie_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $d['chunk']->tmdb)->first();
+                            $meta = Movie::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                         }
                     }
                     if ($d['chunk']->category->game_meta) {
@@ -931,7 +931,6 @@ class TorrentController extends Controller
     private static function parseKeywords($text)
     {
         $parts = explode(', ', $text);
-        $len = count($parts);
         $result = [];
         foreach ($parts as $part) {
             $part = trim($part);
