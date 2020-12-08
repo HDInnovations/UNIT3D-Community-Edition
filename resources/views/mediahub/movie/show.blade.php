@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title> - {{ config('other.title') }}</title>
+    <title>{{ $movie->title }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
