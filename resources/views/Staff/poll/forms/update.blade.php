@@ -14,17 +14,17 @@
     <div class="form-group">
         <label for="stitle">@lang('poll.title'):</label>
         <label>
-            <input readonly type="number" name="poll-id" style="visibility: hidden;" value="{{$poll->id}}">
-            <input type="text" name="title" class="form-control" value={{$poll->title}} required>
+            <input readonly type="number" name="poll-id" style="visibility: hidden;" value="{{ $poll->id }}">
+            <input type="text" name="title" class="form-control" value="{{ $poll->title }}" required>
         </label>
     </div>
 
-    @foreach($poll->options as $key=>$option)
-        <div class="form-group <?php echo(++$key) >= 3 ? 'extra-option' : '' ?>" )>
-            <label for={{"option" . $key}}>@lang('poll.option') {{$key}}:</label>
+    @foreach($poll->options as $key => $option)
+        <div class="form-group <?php echo(++$key) >= 3 ? 'extra-option' : '' ?>">
+            <label for="{{ 'option' . $key }}">@lang('poll.option') {{ $key }}:</label>
             <label>
-                <input readonly type="number" name="option-id[]" style="visibility: hidden;" value="{{$option->id}}">
-                <input type="text" name="option-content[]" class="form-control" value={{$option->name}}>
+                <input readonly type="number" name="option-id[]" style="visibility: hidden;" value="{{ $option->id }}">
+                <input type="text" name="option-content[]" class="form-control" value="{{ $option->name }}">
             </label>
         </div>
 
@@ -54,17 +54,13 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
 
-      let options = parseInt("<?php echo count($poll->options); ?>") // Get the size of options passing in
-        const langOption = "<?php echo __('poll.option') ?>"
+      let options = parseInt({{ $poll->options->count() }}) // Get the size of options passing in
+        const langOption = "@lang('poll.option') "
 
         $('#add').on('click', function (e) {
             e.preventDefault();
             options += 1;
-          const optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">'
-            + langOption
-            + options
-            + ':</label>'
-            + '<input type="text" name="new-option-content[]" class="form-control" value="" required></div>'
+          const optionHTML = `<div class="form-group extra-option"><label for="option${options}">${langOption}${options}:</label><input type="text" name="new-option-content[]" class="form-control" value="" required></div>`
           $('.more-options').append(optionHTML);
         });
 
