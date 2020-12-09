@@ -1188,7 +1188,7 @@ wbbdebug = true;
                     $dropblock.append('<span class="pl"></span>');
                 } else {
                     $dropblock.append(
-                        this.strf('<div class="sc" style="background:{color;}" title="{color}"></div>', {
+                        this.strf('<div class="sc" style="background:{color};" title="{color}"></div>', {
                             color: colorlist[j],
                         })
                     );
