@@ -71,20 +71,11 @@ mix.options({
      */
     .copy('resources/sass/vendor/webfonts/wysibb', 'public/fonts/wysibb')
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
-    .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap');
+    .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap')
 
-// Full API
-// mix.js(src, output);
-// mix.extract(vendorLibs);
-// mix.sass(src, output);
-// mix.less(src, output);
-// mix.combine(files, destination);
-// mix.copy(from, to);
-// mix.minify(file);
-// mix.sourceMaps(); // Enable sourcemaps
-// mix.version(); // Enable versioning.
-// mix.disableNotifications();
-// mix.setPublicPath('path/to/public');
-// mix.autoload({}); <-- Will be passed to Webpack's ProvidePlugin.
-// mix.webpackConfig({}); <-- Override webpack.config.js, without editing the file directly.
-// mix.then(function () {}) <-- Will be triggered each time Webpack finishes building.
+    /*
+     * Extra JS
+     */
+    .js('resources/js/unit3d/imgbb.js', 'public/js')
+    .generateIntegrityHash();
+
