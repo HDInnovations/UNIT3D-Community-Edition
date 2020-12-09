@@ -126,7 +126,6 @@
 
                             <article class="col-md-9 post-content">
                                 @joypixels($p->getContentHtml())
-
                             </article>
 
                             <div class="post-signature col-md-12 some-margin post-tips">
@@ -316,29 +315,18 @@
 @endsection
 
 @section('javascripts')
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+        $(document).ready(function () {
+            $('#topic-response').wysibb();
+        })
+    </script>
+
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).ready(function() {
-            let wbbOpt = {
-                allButtons: {
-                    quote: {
-                        transform: {
-                            '<div class="wbbquote"><cite><b>{AUTHOR}</b> wrote:</cite> <br /> <br />{SELTEXT}<br /><br /></div>': '[quote={AUTHOR}]{SELTEXT}[/quote]'
-                        }
-                    }
-                }
-            };
-
-            let editor = $("#topic-response").wysibb(wbbOpt);
-
-            $('.profil').on('click', 'button#quote', function() {
-                let author = $(this).closest('.post-info').find('.badge-user').first().text().trim();
-                let text = $(this).closest('.profil').find('.post-content').first().html().replace('@here',
-                    '').trim();
-
-                editor.execCommand('quote', {
-                    author: '@' + author,
-                    seltext: text
-                });
+            $('.profil').on('click', 'button#quote', function () {
+                let author = $(this).closest('.profil').find('.post-info-username').first().text();
+                let text = $(this).closest('.profil').find('.post-content').text().replace('@here', '');
+                $("#topic-response").wysibb().insertAtCursor('[quote=@'+author.trim()+']'+text.trim()+'[/quote]\r\n', true);
             });
         });
 
