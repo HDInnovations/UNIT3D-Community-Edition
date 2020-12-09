@@ -89,7 +89,7 @@
                     <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $meta->cover->image_id }}.jpg"
                         alt="{{ $meta->name }}" class="movie-poster img-responsive hidden-xs">
                 @else
-                    <img src="https://via.placeholder.com/600x900" alt="{{ $meta->name }}"
+                    <img src="https://via.placeholder.com/600x900" alt="Placeholder"
                         class="movie-poster img-responsive hidden-xs">
                 @endif
             </div>
