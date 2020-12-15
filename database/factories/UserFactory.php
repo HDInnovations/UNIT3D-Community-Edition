@@ -32,9 +32,7 @@ class UserFactory extends Factory
             'email'    => $this->faker->unique()->safeEmail,
             'password' => \bcrypt('secret'),
             'passkey'  => \md5(\uniqid().\time().\microtime()),
-            'group_id' => function () {
-                return Group::factory()->create()->id;
-            },
+            'group_id' => \rand(1,20),
             'active'      => true,
             'uploaded'    => $this->faker->randomNumber(),
             'downloaded'  => $this->faker->randomNumber(),
@@ -47,9 +45,7 @@ class UserFactory extends Factory
             'invites'     => $this->faker->randomNumber(),
             'hitandruns'  => $this->faker->randomNumber(),
             'rsskey'      => \md5(\uniqid().\time().\microtime()),
-            'chatroom_id' => function () {
-                return Chatroom::factory()->create()->id;
-            },
+            'chatroom_id' => 1,
             'censor'              => $this->faker->boolean,
             'chat_hidden'         => $this->faker->boolean,
             'hidden'              => $this->faker->boolean,
@@ -79,9 +75,7 @@ class UserFactory extends Factory
             //'disabled_at'         => $this->faker->dateTime(),
             //'deleted_by'          => $this->faker->randomNumber(),
             'locale'              => $this->faker->word,
-            'chat_status_id'      => function () {
-                return ChatStatus::factory()->create()->id;
-            },
+            'chat_status_id'      => 1,
         ];
     }
 }
