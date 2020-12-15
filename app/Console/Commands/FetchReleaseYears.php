@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Tv;
 use App\Models\Movie;
 use App\Models\Torrent;
+use App\Models\Tv;
 use Illuminate\Console\Command;
 
 /**
