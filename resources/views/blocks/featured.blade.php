@@ -85,11 +85,11 @@
                                             <span class="movie-desc">
                                                 @if ($feature->torrent->category->tv_meta ||
                                                     $feature->torrent->category->movie_meta)
-                                                    {{ Str::limit(strip_tags($meta->overview), 200) }}...
+                                                    {{ Str::limit(strip_tags($meta->overview ?? ''), 200) }}...
                                                 @endif
                                                 @if ($feature->torrent->category->game_meta && isset($meta) &&
                                                     $meta->summary)
-                                                    {{ Str::limit(strip_tags($meta->summary), 200) }}...
+                                                    {{ Str::limit(strip_tags($meta->summary ?? ''), 200) }}...
                                                 @endif
                                                 <br>
                                                 <br>
