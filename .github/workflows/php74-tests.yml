@@ -28,7 +28,7 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: '7.4'
-                  tools: phpunit, prestissimo
+                  tools: phpunit
                   extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
                   coverage: none
 
