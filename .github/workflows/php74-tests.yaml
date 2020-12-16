@@ -1,4 +1,4 @@
-name: PHPUnit Tests
+name: PHP 7.4 Tests
 
 on: [push, pull_request]
 
@@ -8,9 +8,20 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: ['7.4', '8.0']
+                php: ['7.4']
 
         name: PHP ${{ matrix.php }} tests
+
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_ROOT_PASSWORD: secret
+                    MYSQL_DATABASE: unit3d_test
+                ports:
+                    - 33306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
         steps:
             -   uses: actions/checkout@v2
 
@@ -24,5 +35,10 @@ jobs:
 
             -   run: composer install --no-progress --ansi
                 if: "matrix.dependencies != 'lowest'"
+
+            -   name: Prepare UNIT3D Application
+                run: |
+                    cp .env.testing .env
+                    php artisan key:generate
 
             -   run: vendor/bin/phpunit
