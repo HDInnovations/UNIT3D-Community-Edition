@@ -19,50 +19,50 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_USER: homestead
           MYSQL_PASSWORD: secret
-          MYSQL_DATABASE: unit3d_test
+          MYSQL_DATABASE: unit3d_testZ
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-        steps:
-          - uses: actions/checkout@v2
-            with:
-              fetch-depth: 1
+    steps:
+      - uses: actions/checkout@v2
+          with:
+            fetch-depth: 1
 
-          - name: Setup PHP
-            uses: shivammathur/setup-php@v2
-            with:
-              php-version: '7.4'
-              tools: phpunit, prestissimo
-              extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
-              coverage: none
+              - name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                  php-version: '7.4'
+                  tools: phpunit, prestissimo
+                  extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
+                  coverage: none
 
-          - name: Get Composer Cache Directory
-            id: composer-cache
-            run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+              - name: Get Composer Cache Directory
+                id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-          - name: Cache Composer Dependencies
-            uses: actions/cache@v1
-            with:
-              path: ${{ steps.composer-cache.outputs.dir }}
-              key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-              restore-keys: ${{ runner.os }}-composer-
+              - name: Cache Composer Dependencies
+                uses: actions/cache@v1
+                with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: ${{ runner.os }}-composer-
 
-          - name: Install Composer Dependencies
-            run: composer install --no-scripts --no-progress --no-suggest --prefer-dist --optimize-autoloader
+              - name: Install Composer Dependencies
+                run: composer install --no-scripts --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
-          - name: Copy UNIT3D Testing Environment
-            run: cp .env.testing .env
+              - name: Copy UNIT3D Testing Environment
+                run: cp .env.testing .env
 
-          - name: Generate App Key
-            run: php artisan key:generate
+              - name: Generate App Key
+                run: php artisan key:generate
 
-          - name: Run App Migration
-            run: php artisan migrate
-            env:
-              DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+              - name: Run App Migration
+                run: php artisan migrate
+                env:
+                  DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
-          - name: Run Testsuite
-            run: vendor/bin/phpunit
-            env:
-              DB_PORT: ${{ job.services.mysql.ports['3306'] }
+              - name: Run Testsuite
+                run: vendor/bin/phpunit
+                env:
+                  DB_PORT: ${{ job.services.mysql.ports['3306'] }
