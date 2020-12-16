@@ -15,13 +15,10 @@
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>
-    <server name="BCRYPT_ROUNDS" value="4"/>
-    <server name="CACHE_DRIVER" value="array"/>
-    <server name="DB_CONNECTION" value="mysql"/>
-    <server name="DB_DATABASE" value="unit3d_test"/>
-    <server name="MAIL_MAILER" value="array"/>
-    <server name="QUEUE_CONNECTION" value="sync"/>
-    <server name="SESSION_DRIVER" value="array"/>
-    <server name="TELESCOPE_ENABLED" value="false"/>
+    <env name="DB_CONNECTION" value="mysql"/>
+    <env name="DB_USERNAME" value="root"/>
+    <env name="DB_DATABASE" value="unit3d_test"/>
+    <env name="DB_HOST" value="127.0.0.1" />
+    <env name="DB_PORT" value="3306" />
   </php>
 </phpunit>
