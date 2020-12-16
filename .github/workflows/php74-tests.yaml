@@ -1,68 +1,63 @@
----
+name: PHP 7.4 Tests
+
+on: [ push, pull_request ]
+
 jobs:
-    tests:
+    phpunit:
         name: "PHP ${{ matrix.php }} Tests"
         runs-on: ubuntu-latest
+
         services:
             mysql:
+                image: mysql:5.7
                 env:
                     MYSQL_ALLOW_EMPTY_PASSWORD: true
-                    MYSQL_DATABASE: unit3d_testZ
+                    MYSQL_DATABASE: unit3d_test
                     MYSQL_PASSWORD: secret
                     MYSQL_USER: homestead
-                image: "mysql:5.7"
-                options: "--health-cmd=\"mysqladmin ping\" --health-interval=10s --health-timeout=5s --health-retries=3"
                 ports:
                     - 3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
         steps:
-            -
-                uses: actions/checkout@v2
-                with:
-                    fetch-depth: 1
-            -
-                name: "Setup PHP"
-                uses: shivammathur/setup-php@v2
-                with:
-                    coverage: none
-                    extensions: "gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl"
-                    php-version: "7.4"
-                    tools: "phpunit, prestissimo"
-            -
-                id: composer-cache
-                name: "Get Composer Cache Directory"
-                run: "echo \"::set-output name=dir::$(composer config cache-files-dir)\""
-            -
-                name: "Cache Composer Dependencies"
-                uses: actions/cache@v1
-                with:
-                    key: "${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }"
-                    path: "${{ steps.composer-cache.outputs.dir }}"
-                    restore-keys: "${{ runner.os }}-composer-"
-            -
-                name: "Install Composer Dependencies"
-                run: "composer install --no-scripts --no-progress --no-suggest --prefer-dist --optimize-autoloader"
-            -
-                name: "Copy UNIT3D Testing Environment"
-                run: "cp .env.testing .env"
-            -
-                name: "Generate App Key"
-                run: "php artisan key:generate"
-            -
-                env:
-                    DB_PORT: "${{ job.services.mysql.ports['3306'] }}"
-                name: "Run App Migration"
-                run: "php artisan migrate"
-            -
-                env:
-                    DB_PORT: "${{ job.services.mysql.ports['3306'] }"
-                name: "Run Testsuite"
-                run: vendor/bin/phpunit
-        strategy:
-            fail-fast: false
-            matrix:
-                php:
-                    - "7.4"
-name: "PHP 7.4 Tests"
-true:
-    - push
-    - pull_request
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 1
+
+            - name: Setup PHP 7.4
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '7.4'
+                  tools: phpunit, prestissimo
+                  extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
+                  coverage: none
+
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache Composer Dependencies
+              uses: actions/cache@v1
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Install Composer Dependencies
+              run: composer install --no-scripts --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+            - name: Copy UNIT3X CI Environment
+              run: cp .env.testing .env
+
+            - name: Generate App Key
+              run: php artisan key:generate
+
+            - name: Run App Migration
+              run: php artisan migrate
+              env:
+                  DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+
+            - name: Run Testsuite
+              run: vendor/bin/phpunit
+              env:
+                  DB_PORT: ${{ job.services.mysql.ports['3306'] }}
