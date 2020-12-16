@@ -1,51 +1,68 @@
 name: PHP 7.4 Tests
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
-    tests:
-        runs-on: ubuntu-latest
-        strategy:
-            fail-fast: false
-            matrix:
-                php: ['7.4']
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4' ]
 
-        name: PHP ${{ matrix.php }} tests
+    name: PHP ${{ matrix.php }} Tests
 
-        services:
-            mysql:
-                image: mysql:5.7
-                env:
-                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
-                    MYSQL_DATABASE: unit3d_test
-                ports:
-                    - 3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: homestead
+          MYSQL_PASSWORD: secret
+          MYSQL_DATABASE: unit3d_test
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
         steps:
-            -   uses: actions/checkout@v2
+          - uses: actions/checkout@v2
+            with:
+              fetch-depth: 1
 
-            -   name: Setup PHP 7.4
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php }}
-                    extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
-                    coverage: none
+          - name: Setup PHP
+            uses: shivammathur/setup-php@v2
+            with:
+              php-version: '7.4'
+              tools: phpunit, prestissimo
+              extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
+              coverage: none
 
-            -   name: Install Composer Dependencies
-                run: composer install --no-progress --ansi
-                if: "matrix.dependencies != 'lowest'"
+          - name: Get Composer Cache Directory
+            id: composer-cache
+            run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-            -   name: Update Composer Dependencies
-                run: composer update --no-progress --ansi
-                if: "matrix.dependencies == 'lowest'"
+          - name: Cache Composer Dependencies
+            uses: actions/cache@v1
+            with:
+              path: ${{ steps.composer-cache.outputs.dir }}
+              key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+              restore-keys: ${{ runner.os }}-composer-
 
-            -   name: Prepare UNIT3D Application
-                run: |
-                    cp .env.testing .env
-                    php artisan key:generate
+          - name: Install Composer Dependencies
+            run: composer install --no-scripts --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
-            -   name: Run UNIT3D PHPUnit Tests
-                run: vendor/bin/phpunit
-                env:
-                    DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          - name: Copy UNIT3D Testing Environment
+            run: cp .env.testing .env
+
+          - name: Generate App Key
+            run: php artisan key:generate
+
+          - name: Run App Migration
+            run: php artisan migrate
+            env:
+              DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+
+          - name: Run Testsuite
+            run: vendor/bin/phpunit
+            env:
+              DB_PORT: ${{ job.services.mysql.ports['3306'] }
