@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Keyword;
 use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
@@ -22,6 +21,7 @@ use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
+use App\Models\Keyword;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
