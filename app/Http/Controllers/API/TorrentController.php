@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Keyword;
 use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
@@ -206,6 +207,15 @@ class TorrentController extends BaseController
             if ($torrent->tmdb || $torrent->tmdb != 0) {
                 $client->movie($torrent->tmdb);
             }
+        }
+
+        // Torrent Keywords System
+        $keywords = self::parseKeywords($request->input('keywords'));
+        foreach ($keywords as $keyword) {
+            $tag = new Keyword();
+            $tag->name = $keyword;
+            $tag->torrent_id = $torrent->id;
+            $tag->save();
         }
 
         // check for trusted user and update torrent
@@ -509,5 +519,26 @@ class TorrentController extends BaseController
         }
 
         return $mediainfo;
+    }
+
+    /**
+     * Parse Torrent Keywords.
+     *
+     * @param $text
+     *
+     * @return array
+     */
+    private static function parseKeywords($text)
+    {
+        $parts = explode(', ', $text);
+        $result = [];
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if ($part != '') {
+                $result[] = $part;
+            }
+        }
+
+        return $result;
     }
 }
