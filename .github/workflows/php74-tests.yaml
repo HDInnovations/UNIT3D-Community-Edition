@@ -25,10 +25,12 @@ jobs:
         steps:
             -   uses: actions/checkout@v2
 
-            -   uses: shivammathur/setup-php@v2
+            -   name: Setup PHP 7.4
+                uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    coverage: none # disable xdebug, pcov
+                    extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
+                    coverage: none
 
             -   name: Install Composer Dependencies
                 run: composer install --no-progress --ansi
@@ -40,6 +42,7 @@ jobs:
 
             -   name: Prepare UNIT3D Application
                 run: |
+                    cp .env.testing .env
                     php artisan key:generate
 
             -   name: Run UNIT3D PHPUnit Tests
