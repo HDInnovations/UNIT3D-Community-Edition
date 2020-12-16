@@ -66,7 +66,11 @@ class DemoSeed extends Command
             // Users
             $this->info('Creating User Account');
 
-            $uid = User::factory()->create()->id;
+            $uid = User::factory()->create([
+                'chatroom_id'    => 1,
+                'group_id'       => \rand(1, 20),
+                'chat_status_id' => 1,
+            ])->id;
 
             // random boolean
             if ([false, true][\rand(0, 1)]) {
