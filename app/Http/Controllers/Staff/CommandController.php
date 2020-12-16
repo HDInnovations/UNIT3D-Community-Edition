@@ -196,6 +196,6 @@ class CommandController extends Controller
         Artisan::call('test:email');
 
         return \redirect()->route('staff.commands.index')
-            ->withInfo(\trim(Artisan::output()));
+            ->withInfo(\trim(str_replace(["\r", "\n", '*'], '', Artisan::output())));
     }
 }
