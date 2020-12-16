@@ -52,8 +52,8 @@ jobs:
             - name: Generate UNIT3D Key
               run: php artisan key:generate
 
-            - name: Run UNIT3D Migrations
-              run: php artisan migrate
+            - name: Run UNIT3D Migrations And Seed Them
+              run: php artisan migrate --seed
               env:
                   DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
