@@ -58,6 +58,6 @@ jobs:
                   DB_PORT: ${{ job.services.mysql.ports['3306'] }}
 
             - name: Run Testsuite
-              run: vendor/bin/phpunit
+              run: ./vendor/bin/phpunit --configuration phpunit.xml
               env:
                   DB_PORT: ${{ job.services.mysql.ports['3306'] }}
