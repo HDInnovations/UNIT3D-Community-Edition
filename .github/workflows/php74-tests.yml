@@ -46,13 +46,13 @@ jobs:
             - name: Install Composer Dependencies
               run: composer install --no-scripts --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
-            - name: Copy UNIT3X CI Environment
+            - name: Copy UNIT3D CI Environment
               run: cp .env.testing .env
 
-            - name: Generate App Key
+            - name: Generate UNIT3D Key
               run: php artisan key:generate
 
-            - name: Run App Migration
+            - name: Run UNIT3D Migrations
               run: php artisan migrate
               env:
                   DB_PORT: ${{ job.services.mysql.ports['3306'] }}
