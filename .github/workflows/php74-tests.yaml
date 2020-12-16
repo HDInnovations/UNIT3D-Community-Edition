@@ -16,10 +16,10 @@ jobs:
             mysql:
                 image: mysql:5.7
                 env:
-                    MYSQL_ROOT_PASSWORD: secret
+                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
                     MYSQL_DATABASE: unit3d_test
                 ports:
-                    - 33306:3306
+                    - 3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
         steps:
@@ -30,15 +30,19 @@ jobs:
                     php-version: ${{ matrix.php }}
                     coverage: none # disable xdebug, pcov
 
-            -   run: composer update --prefer-lowest --no-progress --ansi
-                if: "matrix.dependencies == 'lowest'"
-
-            -   run: composer install --no-progress --ansi
+            -   name: Install Composer Dependencies
+                run: composer install --no-progress --ansi
                 if: "matrix.dependencies != 'lowest'"
+
+            -   name: Update Composer Dependencies
+                run: composer update --no-progress --ansi
+                if: "matrix.dependencies == 'lowest'"
 
             -   name: Prepare UNIT3D Application
                 run: |
-                    cp .env.testing .env
                     php artisan key:generate
 
-            -   run: vendor/bin/phpunit
+            -   name: Run UNIT3D PHPUnit Tests
+                run: vendor/bin/phpunit
+                env:
+                    DB_PORT: ${{ job.services.mysql.ports[3306] }}
