@@ -12,9 +12,9 @@ jobs:
                 image: mysql:5.7
                 env:
                     MYSQL_ALLOW_EMPTY_PASSWORD: true
-                    MYSQL_DATABASE: unit3d_test
-                    MYSQL_PASSWORD: secret
-                    MYSQL_USER: homestead
+                    MYSQL_DATABASE: UNIT3D
+                    MYSQL_PASSWORD: UNIT3D
+                    MYSQL_USER: UNIT3D
                 ports:
                     - 3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
