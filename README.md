@@ -253,14 +253,6 @@ Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQ
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
-            <a href="https://github.com/Olaf1607"><img src="https://avatars1.githubusercontent.com/u/42134266?v=4" width="50px;" alt="Olaf1607"/>
-                <br />
-                <sub><b>Olaf1607</b></sub>
-            </a>
-            <br />
-            <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
-        </td>
-        <td align="center">
             <a href="https://github.com/OsamaBinLightBulb"><img src="https://avatars2.githubusercontent.com/u/46361079?v=4" width="50px;" alt="OsamaBinLightBulb"/>
                 <br />
                 <sub><b>OsamaBinLightBulb</b></sub>
