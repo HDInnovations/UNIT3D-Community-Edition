@@ -15,7 +15,7 @@
         "arcanedev/log-viewer": "^8.0",
         "assada/laravel-achievements": "^2.3",
         "bandwidth-throttle/token-bucket": "^2.0",
-        "bepsvpt/secure-headers": "^6.0",
+        "bepsvpt/secure-headers": "^7.0",
         "doctrine/dbal": "^2.10",
         "elhebert/laravel-sri": "^2.1",
         "fideloper/proxy": "^4.2",
