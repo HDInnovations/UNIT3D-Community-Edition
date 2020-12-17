@@ -1,0 +1,21 @@
+# .github/workflows/rector_chekcstyle.yaml
+# see https://github.com/staabm/annotate-pull-request-from-checkstyle
+name: Rector Checkstyle
+
+on: [ push, pull_request ]
+
+jobs:
+    rector_checkstyle:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 7.2
+                    coverage: none
+                    tools: cs2pr
+
+            -   run: composer install --no-progress --ansi
+
+            -   run: vendor/bin/rector process --ansi --dry-run --output-format=checkstyle | cs2pr
