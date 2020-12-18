@@ -19,9 +19,8 @@ class BBCodeConverter
      * BBCodeConverter Constructor.
      *
      * @param $text
-     * @param $id
      */
-    public function __construct(public $text, public $id)
+    public function __construct(public $text)
     {
     }
 
@@ -115,7 +114,7 @@ class BBCodeConverter
 
                 $list = \preg_replace('#\s*$|^\s*#mu', '', $matches['items']);
                 if (\is_null($list)) {
-                    throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode lists", $this->id));
+                    throw new \RuntimeException('Text has malformed BBCode lists');
                 }
                 $items = \preg_split('#\[\*\]#u', $list);
 
@@ -211,7 +210,7 @@ class BBCodeConverter
                     return '['.$matches[2].']('.$matches[1].')';
                 }
 
-                throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode urls", $this->id));
+                throw new \RuntimeException('Text has malformed BBCode urls');
             },
 
             $this->text
@@ -305,7 +304,7 @@ class BBCodeConverter
                     return PHP_EOL.'```'.$language.PHP_EOL.\trim($matches['snippet']).PHP_EOL.'```'.PHP_EOL;
                 }
 
-                throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode snippet.", $this->id));
+                throw new \RuntimeException('Text has malformed BBCode snippet.');
             },
 
             $this->text
