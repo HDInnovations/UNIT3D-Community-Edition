@@ -168,8 +168,7 @@ class ChatController extends Controller
             $which = 'skip';
             $command = @\explode(' ', $message);
             if (\array_key_exists(1, $command)) {
-                $receiver = User::where('username', 'like', $command[1])->firstOrFail();
-                $receiver_id = $receiver->id;
+                $receiver_id = User::where('username', 'like', $command[1])->firstOrFail()->id;
                 $clone = $command;
                 \array_shift($clone);
                 \array_shift($clone);

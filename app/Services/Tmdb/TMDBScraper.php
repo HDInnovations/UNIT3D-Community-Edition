@@ -45,9 +45,7 @@ class TMDBScraper implements ShouldQueue
         }
 
         $helper = new TMDB();
-        $client = new Client\TV($id);
-
-        $tv = $client->index();
+        $tv = (new Client\TV($id))->index();
         if (isset($tv['id'])) {
             $array = [
                 'backdrop'           => $helper->image('backdrop', $tv),
@@ -86,9 +84,7 @@ class TMDBScraper implements ShouldQueue
         }
 
         $helper = new TMDB();
-        $client = new Client\Movie($id);
-
-        $movie = $client->index();
+        $movie = (new Client\Movie($id))->index();
 
         if (array_key_exists('title', $movie)) {
             $re = '/((?<namesort>.*)(?<seperator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
@@ -135,9 +131,7 @@ class TMDBScraper implements ShouldQueue
         }
 
         $helper = new TMDB();
-        $client = new Client\Collection($id);
-
-        $collection = $client->index();
+        $collection = (new Client\Collection($id))->index();
 
         $array = [
             'name'     => $collection['name'],
@@ -159,9 +153,7 @@ class TMDBScraper implements ShouldQueue
         }
 
         $helper = new TMDB();
-        $client = new Client\Company($id);
-
-        $company = $client->index();
+        $company = (new Client\Company($id))->index();
 
         $array = [
             'name'     => $company['name'],

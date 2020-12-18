@@ -55,8 +55,7 @@ class NerdBot
      */
     public function __construct(private ChatRepository $chatRepository)
     {
-        $bot = Bot::where('id', '=', '2')->firstOrFail();
-        $this->bot = $bot;
+        $this->bot = Bot::where('id', '=', '2')->firstOrFail();
         $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();
     }

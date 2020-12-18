@@ -181,8 +181,7 @@ class TorrentController extends BaseController
         $category->num_torrent = $category->torrents_count;
         $category->save();
         // Backup the files contained in the torrent
-        $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
-        foreach ($fileList as $file) {
+        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
             $torrentFile = new TorrentFile();
             $torrentFile->name = $file['name'];
             $torrentFile->size = $file['size'];
@@ -204,8 +203,7 @@ class TorrentController extends BaseController
         }
 
         // Torrent Keywords System
-        $keywords = self::parseKeywords($request->input('keywords'));
-        foreach ($keywords as $keyword) {
+        foreach (self::parseKeywords($request->input('keywords')) as $keyword) {
             $tag = new Keyword();
             $tag->name = $keyword;
             $tag->torrent_id = $torrent->id;

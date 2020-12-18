@@ -136,8 +136,7 @@ class BonusController extends Controller
      */
     public function gift(Request $request)
     {
-        $user = $request->user();
-        $userbon = $user->getSeedbonus();
+        $userbon = $request->user()->getSeedbonus();
 
         return \view('bonus.gift', [
             'userbon'           => $userbon,
@@ -154,8 +153,7 @@ class BonusController extends Controller
      */
     public function bonus(Request $request, $username = '')
     {
-        $user = $request->user();
-        $userbon = $user->getSeedbonus();
+        $userbon = $request->user()->getSeedbonus();
 
         //Dying Torrent
         $dying = $this->getDyingCount($request);
@@ -230,8 +228,7 @@ class BonusController extends Controller
         $user = $request->user();
         $userbon = $user->seedbonus;
 
-        $BonExchange = \resolve(BonExchange::class);
-        $itemCost = $BonExchange->getItemCost($id);
+        $itemCost = \resolve(BonExchange::class)->getItemCost($id);
 
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);

@@ -270,9 +270,7 @@ Menu
         $client = new TMDBScraper();
         $client->movie($id);
 
-        $movie = new Movie($id);
-
-        return $movie->index();
+        return (new Movie($id))->index();
     }
 
     private function ids()

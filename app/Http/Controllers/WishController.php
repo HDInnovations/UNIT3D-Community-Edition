@@ -81,8 +81,7 @@ class WishController extends Controller
                 ->withErrors('Wish already exists!');
         }
 
-        $client = new Movie($tmdb);
-        $meta = $client->index();
+        $meta = (new Movie($tmdb))->index();
 
         if ($meta === null || $meta === false) {
             return \redirect()

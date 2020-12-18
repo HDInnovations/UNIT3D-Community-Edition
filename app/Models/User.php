@@ -843,9 +843,7 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['signature'] = $antiXss->xss_clean($value);
+        $this->attributes['signature'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -870,9 +868,7 @@ class User extends Authenticatable
      */
     public function setAboutAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['about'] = $antiXss->xss_clean($value);
+        $this->attributes['about'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**

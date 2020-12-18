@@ -356,9 +356,7 @@ class Torrent extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['description'] = $antiXss->xss_clean($value);
+        $this->attributes['description'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -393,9 +391,7 @@ class Torrent extends Model
      */
     public function getMediaInfo()
     {
-        $mediaInfo = new MediaInfo();
-
-        return $mediaInfo->parse($this->mediaInfo);
+        return (new MediaInfo())->parse($this->mediaInfo);
     }
 
     /**

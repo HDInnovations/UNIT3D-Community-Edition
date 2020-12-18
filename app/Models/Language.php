@@ -211,9 +211,7 @@ class Language
         $long = 'en-GB';
 
         // Get languages from config
-        $languages = \config('language.all');
-
-        foreach ($languages as $language) {
+        foreach (\config('language.all') as $language) {
             if ($language['short'] != $short) {
                 continue;
             }
@@ -240,9 +238,7 @@ class Language
         $short = 'en';
 
         // Get languages from config
-        $languages = \config('language.all');
-
-        foreach ($languages as $language) {
+        foreach (\config('language.all') as $language) {
             if ($language['long'] != $long) {
                 continue;
             }
