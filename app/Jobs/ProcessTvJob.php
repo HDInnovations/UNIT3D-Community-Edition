@@ -38,13 +38,14 @@ class ProcessTvJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public $tv;
-    public $id;
-
-    public function __construct($tv, $id)
+    /**
+     * ProcessTvJob Constructor.
+     *
+     * @param $tv
+     * @param $id
+     */
+    public function __construct(public $tv, public $id)
     {
-        $this->tv = $tv;
-        $this->id = $id;
     }
 
     public function handle()

@@ -21,16 +21,14 @@ class DenyApplication extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    public $denied_message;
 
     /**
-     * Create a new message instance.
+     * DenyApplication Constructor.
      *
      * @param $denied_message
      */
-    public function __construct($denied_message)
+    public function __construct(public $denied_message)
     {
-        $this->denied_message = $denied_message;
     }
 
     /**

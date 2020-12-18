@@ -40,25 +40,13 @@ use Illuminate\Support\Str;
 class TopicController extends Controller
 {
     /**
-     * @var TaggedUserRepository
-     */
-    private $taggedUserRepository;
-
-    /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
-     * ForumController Constructor.
+     * TopicController Constructor.
      *
      * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
      * @param \App\Repositories\ChatRepository       $chatRepository
      */
-    public function __construct(TaggedUserRepository $taggedUserRepository, ChatRepository $chatRepository)
+    public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
     {
-        $this->taggedUserRepository = $taggedUserRepository;
-        $this->chatRepository = $chatRepository;
     }
 
     /**

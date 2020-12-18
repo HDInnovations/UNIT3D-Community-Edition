@@ -22,24 +22,15 @@ class NewBon extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $transaction;
-
     /**
-     * Create a new notification instance.
+     * NewBon Constructor.
      *
      * @param string                      $type
      * @param string                      $sender
-     * @param \App\Models\BonTransactions $bonTransactions
+     * @param \App\Models\BonTransactions $transaction
      */
-    public function __construct(string $type, string $sender, BonTransactions $bonTransactions)
+    public function __construct(public string $type, public string $sender, public BonTransactions $transaction)
     {
-        $this->type = $type;
-        $this->transaction = $bonTransactions;
-        $this->sender = $sender;
     }
 
     /**

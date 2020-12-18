@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ByteUnits;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
@@ -35,30 +34,13 @@ use Illuminate\Support\Facades\DB;
 class BonusController extends Controller
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
-     * The library used for parsing byte units.
-     *
-     * @var ByteUnits
-     */
-    protected $byteUnits;
-
-    /**
      * BonusController Constructor.
      *
      * @param \App\Interfaces\ByteUnitsInterface $byteUnits
      * @param \App\Repositories\ChatRepository   $chatRepository
      */
-    public function __construct(
-        \App\Interfaces\ByteUnitsInterface $byteUnits,
-        ChatRepository $chatRepository
-    ) {
-        $this->byteUnits = $byteUnits;
-
-        $this->chatRepository = $chatRepository;
+    public function __construct(protected ByteUnitsIsnterface $byteUnits, private ChatRepository $chatRepository)
+    {
     }
 
     /**

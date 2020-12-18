@@ -13,7 +13,6 @@
 
 namespace App\Events;
 
-use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -25,16 +24,8 @@ class Chatter implements ShouldBroadcastNow
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
-    /**
-     * Message details.
-     *
-     * @var Message
-     */
+
     public $echoes;
-
-    public $target;
-
-    public $type;
 
     public $message;
 
@@ -43,15 +34,14 @@ class Chatter implements ShouldBroadcastNow
     public $audibles;
 
     /**
-     * Create a new event instance.
+     * Chatter Constructor.
      *
      * @param $type
      * @param $target
      * @param $payload
      */
-    public function __construct($type, $target, $payload)
+    public function __construct(public $type, public $target, $payload)
     {
-        $this->type = $type;
         if ($type == 'echo') {
             $this->echoes = $payload;
         } elseif ($type == 'audible') {
@@ -63,7 +53,6 @@ class Chatter implements ShouldBroadcastNow
         } elseif ($type == 'new.ping') {
             $this->ping = $payload;
         }
-        $this->target = $target;
     }
 
     /**
@@ -73,8 +62,6 @@ class Chatter implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        // $this->dontBroadcastToCurrentUser();
-
         return new PrivateChannel('chatter.'.$this->target);
     }
 }

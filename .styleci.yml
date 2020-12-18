@@ -1,5 +1,6 @@
 preset: recommended
 risky: true
+version: 8
 enabled:
   - method_argument_space
   - not_operator_with_successor_space

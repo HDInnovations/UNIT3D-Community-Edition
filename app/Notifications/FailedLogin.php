@@ -24,30 +24,12 @@ class FailedLogin extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * The request IP address.
-     *
-     * @var string
-     */
-    public $ip;
-
-    /**
-     * The Time.
-     *
-     * @var Carbon\Carbon
-     */
-    public $carbon;
-
-    /**
-     * Create a new notification instance.
+     * FailedLogin Constructor.
      *
      * @param string $ip
-     *
-     * @return void
      */
-    public function __construct($ip)
+    public function __construct(public $ip)
     {
-        $this->ip = $ip;
-        $this->carbon = Carbon::now();
     }
 
     /**
@@ -71,10 +53,7 @@ class FailedLogin extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [
-            'ip'   => $this->ip,
-            'time' => $this->carbon,
-        ];
+        return ['ip' => $this->ip, 'time' => Carbon::now()];
     }
 
     /**
@@ -86,11 +65,6 @@ class FailedLogin extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage())
-                ->error()
-                ->subject(\trans('email.fail-login-subject'))
-                ->greeting(\trans('email.fail-login-greeting'))
-                ->line(\trans('email.fail-login-line1'))
-                ->line(\trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => \gethostbyaddr($this->ip), 'time' => $this->carbon]));
+        return (new MailMessage())->error()->subject(\trans('email.fail-login-subject'))->greeting(\trans('email.fail-login-greeting'))->line(\trans('email.fail-login-line1'))->line(\trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => \gethostbyaddr($this->ip), 'time' => Carbon::now()]));
     }
 }

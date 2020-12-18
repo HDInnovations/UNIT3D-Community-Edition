@@ -25,18 +25,12 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     /**
-     * @var Report
-     */
-    private $report;
-
-    /**
      * ReportController Constructor.
      *
-     * @param Report $report
+     * @param \App\Models\Report $report
      */
-    public function __construct(Report $report)
+    public function __construct(private Report $report)
     {
-        $this->report = $report;
     }
 
     /**

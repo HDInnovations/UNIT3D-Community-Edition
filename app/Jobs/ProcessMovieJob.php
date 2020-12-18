@@ -34,11 +34,13 @@ class ProcessMovieJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public $movie;
-
-    public function __construct($movie)
+    /**
+     * ProcessMovieJob constructor.
+     *
+     * @param $movie
+     */
+    public function __construct(public $movie)
     {
-        $this->movie = $movie;
     }
 
     public function handle()

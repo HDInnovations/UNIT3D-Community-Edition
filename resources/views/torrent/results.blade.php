@@ -365,7 +365,6 @@
                     </td>
 
                         <td>
-                            @if (file_exists(public_path().'/files/torrents/'.$torrent->file_name))
                             @if (config('torrent.download_check_page') == 1)
                                 <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
@@ -381,7 +380,7 @@
                                     </button>
                                 </a>
                             @endif
-                            @else
+                            @if (config('torrent.magnet') == 1)
                                 <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                             data-original-title="@lang('common.magnet')">

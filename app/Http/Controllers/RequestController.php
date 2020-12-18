@@ -49,25 +49,13 @@ use MarcReichel\IGDBLaravel\Models\Game;
 class RequestController extends Controller
 {
     /**
-     * @var RequestFacetedRepository
-     */
-    private $requestFacetedRepository;
-
-    /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
      * RequestController Constructor.
      *
      * @param \App\Repositories\RequestFacetedRepository $requestFacetedRepository
      * @param \App\Repositories\ChatRepository           $chatRepository
      */
-    public function __construct(RequestFacetedRepository $requestFacetedRepository, ChatRepository $chatRepository)
+    public function __construct(private RequestFacetedRepository $requestFacetedRepository, private ChatRepository $chatRepository)
     {
-        $this->requestFacetedRepository = $requestFacetedRepository;
-        $this->chatRepository = $chatRepository;
     }
 
     /**

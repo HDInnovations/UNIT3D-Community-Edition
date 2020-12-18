@@ -61,16 +61,6 @@ use MarcReichel\IGDBLaravel\Models\Game;
 class TorrentController extends Controller
 {
     /**
-     * @var TorrentFacetedRepository
-     */
-    private $torrentFacetedRepository;
-
-    /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
      * @var int
      */
     private const PAGE = 0;
@@ -96,15 +86,13 @@ class TorrentController extends Controller
     private const QTY = 25;
 
     /**
-     * RequestController Constructor.
+     * TorrentController Constructor.
      *
      * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      * @param \App\Repositories\ChatRepository           $chatRepository
      */
-    public function __construct(TorrentFacetedRepository $torrentFacetedRepository, ChatRepository $chatRepository)
+    public function __construct(private TorrentFacetedRepository $torrentFacetedRepository, private ChatRepository $chatRepository)
     {
-        $this->torrentFacetedRepository = $torrentFacetedRepository;
-        $this->chatRepository = $chatRepository;
     }
 
     /**

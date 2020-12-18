@@ -19,7 +19,6 @@ use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
-use App\Models\Torrent;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -35,24 +34,15 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected $queries;
-
-    protected $user;
-
-    protected $torrent;
-
     /**
-     * ProcessAnnounceRequest constructor.
+     * ProcessBasicAnnounceRequest Constructor.
      *
      * @param                     $queries
      * @param \App\Models\User    $user
      * @param \App\Models\Torrent $torrent
      */
-    public function __construct($queries, User $user, Torrent $torrent)
+    public function __construct(protected $queries, protected \App\Models\User $user, protected \App\Models\Torrent $torrent)
     {
-        $this->queries = $queries;
-        $this->user = $user;
-        $this->torrent = $torrent;
     }
 
     /**
