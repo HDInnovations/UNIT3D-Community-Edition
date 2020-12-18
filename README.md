@@ -65,7 +65,7 @@ UNIT3D currently offers the following features:
 ## <a name="requirements"></a> ☑️ Requirements
 
 - A Web server (NGINX is recommended)
-- PHP 7.4 + is required
+- PHP 8.0 + is required
 - Dependencies for PHP,
   -   php-curl -> This is specifically needed for the various APIs we have running.
   -   php-intl -> This is required for the Spatie\SslCertificate.
@@ -125,7 +125,7 @@ Video Tutorial Can Be Seen Here:
 https://www.youtube.com/watch?v=tbIZpsz093o
 
 ### <a name="manual-install"></a> Manual Install
-If you rather setup UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Docs/manual_install.html
+If you rather set up UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Docs/manual_install.html
 
 ## <a name="updating"></a> 📖 Documentation
 Repo - https://github.com/HDInnovations/UNIT3D-Docs
@@ -149,7 +149,8 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 4.x.x       |  Active Support :rocket: | >= 7.4
+ 5.x.x       |  Active Support :rocket: | >= 8.0
+ 4.x.x       |  End Of Life :skull: | >= 7.4
  3.x.x       |  End Of Life :skull: | >= 7.4
  2.3.0 to 2.7.0|  End Of Life :skull: | >= 7.4
  2.0.0 to 2.2.7|  End Of Life :skull: | >= 7.3
