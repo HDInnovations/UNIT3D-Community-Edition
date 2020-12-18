@@ -56,32 +56,32 @@ class ChatController extends Controller
     /* ECHOES */
     public function echoes()
     {
-        $user = User::with(['echoes'])->findOrFail($this->authManager->user()->id);
+        $user = User::with(['echoes'])->findOrFail($this->authFactory->user()->id);
 
         if (! $user->echoes || (\is_countable($user->echoes->toArray()) ? \count($user->echoes->toArray()) : 0) < 1) {
             $userEcho = new UserEcho();
-            $userEcho->user_id = $this->authManager->user()->id;
+            $userEcho->user_id = $this->authFactory->user()->id;
             $userEcho->room_id = 1;
             $userEcho->save();
         }
 
-        return UserEchoResource::collection($this->chatRepository->echoes($this->authManager->user()->id));
+        return UserEchoResource::collection($this->chatRepository->echoes($this->authFactory->user()->id));
     }
 
     /* AUDIBLES */
     public function audibles()
     {
-        $user = User::with(['audibles'])->findOrFail($this->authManager->user()->id);
+        $user = User::with(['audibles'])->findOrFail($this->authFactory->user()->id);
 
         if (! $user->audibles || (\is_countable($user->audibles->toArray()) ? \count($user->audibles->toArray()) : 0) < 1) {
             $userAudible = new UserAudible();
-            $userAudible->user_id = $this->authManager->user()->id;
+            $userAudible->user_id = $this->authFactory->user()->id;
             $userAudible->room_id = 1;
             $userAudible->status = 1;
             $userAudible->save();
         }
 
-        return UserAudibleResource::collection($this->chatRepository->audibles($this->authManager->user()->id));
+        return UserAudibleResource::collection($this->chatRepository->audibles($this->authFactory->user()->id));
     }
 
     /* BOTS */
@@ -110,7 +110,7 @@ class ChatController extends Controller
     /* MESSAGES */
     public function privateMessages($target_id)
     {
-        return ChatMessageResource::collection($this->chatRepository->privateMessages($this->authManager->user()->id, $target_id));
+        return ChatMessageResource::collection($this->chatRepository->privateMessages($this->authFactory->user()->id, $target_id));
     }
 
     /* MESSAGES */
@@ -122,14 +122,14 @@ class ChatController extends Controller
         } elseif ($bot->is_nerdbot) {
             $runbot = new NerdBot($this->chatRepository);
         }
-        $runbot->process('message', $this->authManager->user(), '', 0);
+        $runbot->process('message', $this->authFactory->user(), '', 0);
 
-        return ChatMessageResource::collection($this->chatRepository->botMessages($this->authManager->user()->id, $bot->id));
+        return ChatMessageResource::collection($this->chatRepository->botMessages($this->authFactory->user()->id, $bot->id));
     }
 
     public function createMessage(Request $request)
     {
-        $user = $this->authManager->user();
+        $user = $this->authFactory->user();
 
         $user_id = $user->id;
         $receiver_id = $request->input('receiver_id');
@@ -224,7 +224,7 @@ class ChatController extends Controller
             }
         }
         if ($runbot !== null) {
-            return $runbot->process($which, $this->authManager->user(), $message, 0);
+            return $runbot->process($which, $this->authFactory->user(), $message, 0);
         }
 
         $echo = false;
