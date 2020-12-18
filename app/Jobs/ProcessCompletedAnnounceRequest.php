@@ -13,14 +13,14 @@
 
 namespace App\Jobs;
 
-use App\Models\User;
-use App\Models\Torrent;
 use App\Exceptions\TrackerException;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
+use App\Models\Torrent;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -19,7 +19,6 @@ use App\Bots\SystemBot;
 use App\Events\Chatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BotResource;
-use Illuminate\Contracts\Auth\Factory;
 use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
 use App\Http\Resources\UserAudibleResource;
@@ -30,6 +29,7 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Http\Request;
 
 /**
