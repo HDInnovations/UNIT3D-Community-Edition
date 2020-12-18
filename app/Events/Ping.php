@@ -24,19 +24,17 @@ class Ping implements ShouldBroadcastNow
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
-    public $room;
 
     public $ping;
 
     /**
-     * Create a new event instance.
+     * Ping Constructor.
      *
      * @param $room
      * @param $id
      */
-    public function __construct($room, $id)
+    public function __construct(public $room, $id)
     {
-        $this->room = $room;
         $this->ping = ['type' => 'room', 'id' => $id];
     }
 
@@ -47,8 +45,6 @@ class Ping implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        // $this->dontBroadcastToCurrentUser();
-
         return new PresenceChannel('chatroom.'.$this->room);
     }
 

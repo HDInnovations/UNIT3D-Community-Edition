@@ -27,15 +27,13 @@ use Illuminate\Console\Command;
 class AutoGraveyard extends Command
 {
     /**
-     * @var ChatRepository
+     * AutoGraveyards Constructor.
+     *
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
-    private $chatRepository;
-
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
         parent::__construct();
-
-        $this->chatRepository = $chatRepository;
     }
 
     /**

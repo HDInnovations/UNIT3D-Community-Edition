@@ -27,18 +27,12 @@ use Illuminate\Http\Request;
 class RssController extends Controller
 {
     /**
-     * @var TorrentFacetedRepository
-     */
-    private $torrentFacetedRepository;
-
-    /**
      * RssController Constructor.
      *
      * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      */
-    public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
+    public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
     {
-        $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
 
     /**

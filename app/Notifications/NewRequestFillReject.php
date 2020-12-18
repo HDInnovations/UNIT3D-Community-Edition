@@ -22,24 +22,15 @@ class NewRequestFillReject extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $tr;
-
     /**
-     * Create a new notification instance.
+     * NewRequestFillReject Constructor.
      *
      * @param string                     $type
      * @param string                     $sender
-     * @param \App\Models\TorrentRequest $torrentRequest
+     * @param \App\Models\TorrentRequest $tr
      */
-    public function __construct(string $type, string $sender, TorrentRequest $torrentRequest)
+    public function __construct(public string $type, public string $sender, public TorrentRequest $tr)
     {
-        $this->type = $type;
-        $this->sender = $sender;
-        $this->tr = $torrentRequest;
     }
 
     /**

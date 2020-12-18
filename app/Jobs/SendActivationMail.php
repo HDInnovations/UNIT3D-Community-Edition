@@ -28,15 +28,6 @@ class SendActivationMail implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
-    /**
-     * @var User
-     */
-    public $user;
-
-    /**
-     * @var string
-     */
-    public $code;
 
     /**
      * The number of times the job may be attempted.
@@ -46,15 +37,13 @@ class SendActivationMail implements ShouldQueue
     public $tries = 3;
 
     /**
-     * ActivateUser constructor.
+     * SendActivationMail Constructor.
      *
-     * @param User   $user
-     * @param string $code
+     * @param \App\Models\User $user
+     * @param                  $code
      */
-    public function __construct(User $user, $code)
+    public function __construct(public User $user, public $code)
     {
-        $this->user = $user;
-        $this->code = $code;
     }
 
     /**

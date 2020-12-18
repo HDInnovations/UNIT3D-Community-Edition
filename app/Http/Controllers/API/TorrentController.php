@@ -39,18 +39,12 @@ use Illuminate\Support\Str;
 class TorrentController extends BaseController
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
-     * RequestController Constructor.
+     * TorrentController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
-        $this->chatRepository = $chatRepository;
     }
 
     /**

@@ -13,14 +13,14 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
+use App\Models\Torrent;
 use App\Exceptions\TrackerException;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
-use App\Models\Torrent;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,24 +35,15 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected $queries;
-
-    protected $user;
-
-    protected $torrent;
-
     /**
-     * ProcessAnnounceRequest constructor.
+     * ProcessStoppedAnnounceRequest Constructor.
      *
      * @param                     $queries
      * @param \App\Models\User    $user
      * @param \App\Models\Torrent $torrent
      */
-    public function __construct($queries, User $user, Torrent $torrent)
+    public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {
-        $this->queries = $queries;
-        $this->user = $user;
-        $this->torrent = $torrent;
     }
 
     /**

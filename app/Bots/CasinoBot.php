@@ -49,10 +49,9 @@ class CasinoBot
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
         $bot = Bot::where('id', '=', '3')->firstOrFail();
-        $this->chat = $chatRepository;
         $this->bot = $bot;
         $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();

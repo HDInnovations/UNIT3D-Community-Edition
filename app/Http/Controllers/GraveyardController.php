@@ -26,18 +26,12 @@ use Illuminate\Support\Str;
 class GraveyardController extends Controller
 {
     /**
-     * @var TorrentFacetedRepository
-     */
-    private $torrentFacetedRepository;
-
-    /**
      * GraveyardController Constructor.
      *
      * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
      */
-    public function __construct(TorrentFacetedRepository $torrentFacetedRepository)
+    public function __construct(private TorrentFacetedRepository $torrentFacetedRepository)
     {
-        $this->torrentFacetedRepository = $torrentFacetedRepository;
     }
 
     /**

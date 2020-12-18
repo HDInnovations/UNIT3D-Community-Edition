@@ -21,20 +21,14 @@ class NewComment extends Notification
 {
     use Queueable;
 
-    public $type;
-
-    public $comment;
-
     /**
-     * Create a new notification instance.
+     * NewComment Constructor.
      *
-     * @param string  $type
-     * @param Comment $comment
+     * @param string              $type
+     * @param \App\Models\Comment $comment
      */
-    public function __construct(string $type, Comment $comment)
+    public function __construct(public string $type, public Comment $comment)
     {
-        $this->type = $type;
-        $this->comment = $comment;
     }
 
     /**

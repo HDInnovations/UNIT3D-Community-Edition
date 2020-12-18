@@ -36,18 +36,12 @@ use Illuminate\Support\Facades\Storage;
 class SubtitleController extends Controller
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
      * SubtitleController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
-        $this->chatRepository = $chatRepository;
     }
 
     /**

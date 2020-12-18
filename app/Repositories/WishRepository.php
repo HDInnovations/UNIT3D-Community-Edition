@@ -21,32 +21,14 @@ use App\Models\Wish;
 class WishRepository implements WishInterface
 {
     /**
-     * @var Wish
-     */
-    private $wish;
-
-    /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @var Torrent
-     */
-    private $torrent;
-
-    /**
-     * WishRepository constructor.
+     * WishRepository Constructor.
      *
-     * @param Wish    $wish
-     * @param User    $user
-     * @param Torrent $torrent
+     * @param \App\Models\Wish    $wish
+     * @param \App\Models\User    $user
+     * @param \App\Models\Torrent $torrent
      */
-    public function __construct(Wish $wish, User $user, Torrent $torrent)
+    public function __construct(private Wish $wish, private User $user, private Torrent $torrent)
     {
-        $this->wish = $wish;
-        $this->user = $user;
-        $this->torrent = $torrent;
     }
 
     /**

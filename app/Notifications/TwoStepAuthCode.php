@@ -22,20 +22,14 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $code;
-
-    protected $user;
-
     /**
-     * Create a new notification instance.
+     * TwoStepAuthCode Constructor.
      *
      * @param $user
      * @param $code
      */
-    public function __construct($user, $code)
+    public function __construct(protected $user, protected $code)
     {
-        $this->code = $code;
-        $this->user = $user;
     }
 
     /**

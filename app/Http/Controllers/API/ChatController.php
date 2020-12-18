@@ -19,6 +19,7 @@ use App\Bots\SystemBot;
 use App\Events\Chatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BotResource;
+use Illuminate\Contracts\Auth\Factory;
 use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
 use App\Http\Resources\UserAudibleResource;
@@ -29,7 +30,6 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
 
 /**
@@ -38,19 +38,13 @@ use Illuminate\Http\Request;
 class ChatController extends Controller
 {
     /**
-     * @var ChatRepository
+     * ChatController Constructor.
+     *
+     * @param \App\Repositories\ChatRepository   $chatRepository
+     * @param \Illuminate\Contracts\Auth\Factory $authFactory
      */
-    private $chatRepository;
-
-    /**
-     * @var AuthManager
-     */
-    private $authManager;
-
-    public function __construct(ChatRepository $chatRepository, \Illuminate\Contracts\Auth\Factory $authFactory)
+    public function __construct(private ChatRepository $chatRepository, private Factory $authFactory)
     {
-        $this->chatRepository = $chatRepository;
-        $this->authManager = $authFactory;
     }
 
     /* STATUSES */

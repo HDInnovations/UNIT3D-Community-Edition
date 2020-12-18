@@ -28,6 +28,7 @@ use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Interfaces\ByteUnitsInterface;
 
 /**
  * @see \Tests\Feature\Http\Controllers\BonusControllerTest
@@ -35,30 +36,13 @@ use Illuminate\Support\Facades\DB;
 class BonusController extends Controller
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
-     * The library used for parsing byte units.
-     *
-     * @var ByteUnits
-     */
-    protected $byteUnits;
-
-    /**
      * BonusController Constructor.
      *
      * @param \App\Interfaces\ByteUnitsInterface $byteUnits
      * @param \App\Repositories\ChatRepository   $chatRepository
      */
-    public function __construct(
-        \App\Interfaces\ByteUnitsInterface $byteUnits,
-        ChatRepository $chatRepository
-    ) {
-        $this->byteUnits = $byteUnits;
-
-        $this->chatRepository = $chatRepository;
+    public function __construct(protected ByteUnitsIsnterface $byteUnits, private ChatRepository $chatRepository)
+    {
     }
 
     /**

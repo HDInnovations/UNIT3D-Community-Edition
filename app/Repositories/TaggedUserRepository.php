@@ -37,25 +37,13 @@ class TaggedUserRepository
     protected $regex = '/@[a-zA-Z0-9-_]+/m';
 
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @var PrivateMessage
-     */
-    private $privateMessage;
-
-    /**
-     * TaggedUserRepository constructor.
+     * TaggedUserRepository Constructor.
      *
-     * @param User                       $user
+     * @param \App\Models\User           $user
      * @param \App\Models\PrivateMessage $privateMessage
      */
-    public function __construct(User $user, PrivateMessage $privateMessage)
+    public function __construct(private User $user, private PrivateMessage $privateMessage)
     {
-        $this->user = $user;
-        $this->privateMessage = $privateMessage;
     }
 
     /**

@@ -21,16 +21,14 @@ class DisableUser extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    public $email;
 
     /**
-     * Create a new message instance.
+     * DisableUser Constructor.
      *
      * @param $email
      */
-    public function __construct($email)
+    public function __construct(public $email)
     {
-        $this->email = $email;
     }
 
     /**

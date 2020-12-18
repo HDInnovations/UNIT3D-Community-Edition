@@ -24,18 +24,12 @@ use Illuminate\Http\Request;
 class WishController extends Controller
 {
     /**
-     * @var WishInterface
-     */
-    private $wish;
-
-    /**
      * WishController Constructor.
      *
-     * @param WishInterface $wish
+     * @param \App\Interfaces\WishInterface $wish
      */
-    public function __construct(WishInterface $wish)
+    public function __construct(private WishInterface $wish)
     {
-        $this->wish = $wish;
     }
 
     /**

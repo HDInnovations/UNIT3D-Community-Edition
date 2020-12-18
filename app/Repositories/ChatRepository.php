@@ -30,49 +30,18 @@ use Illuminate\Support\Str;
 class ChatRepository
 {
     /**
-     * @var Message
+     * ChatRepository Constructor.
+     *
+     * @param \App\Models\Message     $message
+     * @param \App\Models\Chatroom    $chatroom
+     * @param \App\Models\ChatStatus  $chatStatus
+     * @param \App\Models\User        $user
+     * @param \App\Models\Bot         $bot
+     * @param \App\Models\UserEcho    $echo
+     * @param \App\Models\UserAudible $audible
      */
-    private $message;
-
-    /**
-     * @var Chatroom
-     */
-    private $chatroom;
-
-    /**
-     * @var ChatStatus
-     */
-    private $chatStatus;
-
-    /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @var Bot
-     */
-    private $bot;
-
-    /**
-     * @var Echo
-     */
-    private $echo;
-
-    /**
-     * @var Audible
-     */
-    private $audible;
-
-    public function __construct(Message $message, Chatroom $chatroom, ChatStatus $chatStatus, User $user, Bot $bot, UserEcho $userEcho, UserAudible $userAudible)
+    public function __construct(private Message $message, private Chatroom $chatroom, private ChatStatus $chatStatus, private User $user, private Bot $bot, private UserEcho $echo, private UserAudible $audible)
     {
-        $this->message = $message;
-        $this->chatroom = $chatroom;
-        $this->echo = $userEcho;
-        $this->chatStatus = $chatStatus;
-        $this->user = $user;
-        $this->bot = $bot;
-        $this->audible = $userAudible;
     }
 
     public function config()

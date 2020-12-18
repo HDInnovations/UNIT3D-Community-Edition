@@ -20,11 +20,13 @@ use Illuminate\Support\Facades\Session;
 
 class AchievementUnlocked
 {
-    private $chat;
-
-    public function __construct(ChatRepository $chatRepository)
+    /**
+     * AchievementUnlocked Constructor.
+     *
+     * @param \App\Repositories\ChatRepository $chat
+     */
+    public function __construct(private ChatRepository $chat)
     {
-        $this->chat = $chatRepository;
     }
 
     /**
