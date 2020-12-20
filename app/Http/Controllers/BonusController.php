@@ -39,7 +39,7 @@ class BonusController extends Controller
      * @param \App\Interfaces\ByteUnitsInterface $byteUnits
      * @param \App\Repositories\ChatRepository   $chatRepository
      */
-    public function __construct(protected ByteUnitsIsnterface $byteUnits, private ChatRepository $chatRepository)
+    public function __construct(protected \App\Interfaces\ByteUnitsInterface $byteUnits, private ChatRepository $chatRepository)
     {
     }
 
