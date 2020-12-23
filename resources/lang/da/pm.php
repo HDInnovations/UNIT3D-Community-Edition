@@ -12,7 +12,7 @@
  */
 
 return [
-    'create'        => 'skab',
+    'create'        => 'Opret',
     'delete'        => 'Slet',
     'enter-subject' => 'Indtast emne',
     'from'          => 'Fra',
@@ -23,8 +23,8 @@ return [
     'new'           => 'Ny meddelelse',
     'outbox'        => 'Udbakke',
     'private'       => 'Privat',
-    'read'          => 'Læs',
-    'received-at'   => 'Modtaget på',
+    'read'          => 'Læst',
+    'received-at'   => 'Modtaget den',
     'refresh'       => 'Opdater',
     'reply'         => 'Svar',
     'search'        => 'Søg efter emne',
@@ -36,4 +36,6 @@ return [
     'subject'       => 'Emne',
     'to'            => 'Til',
     'unread'        => 'Ulæst',
+    'empty-inbox'   => 'Tøm indbakke',
+
 ];
