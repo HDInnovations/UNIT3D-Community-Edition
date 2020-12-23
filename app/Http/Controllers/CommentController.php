@@ -43,6 +43,7 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     public $tag;
+
     /**
      * CommentController Constructor.
      *
