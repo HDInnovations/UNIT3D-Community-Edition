@@ -25,7 +25,7 @@ class Ping implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $ping;
+    public array $ping;
 
     /**
      * Ping Constructor.

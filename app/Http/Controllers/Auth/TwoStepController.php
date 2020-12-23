@@ -33,7 +33,7 @@ class TwoStepController extends Controller
 
     private $remainingAttempts;
 
-    private $user;
+    private ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     /**
      * Create a new controller instance.

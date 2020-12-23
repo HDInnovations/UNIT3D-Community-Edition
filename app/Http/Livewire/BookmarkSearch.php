@@ -11,11 +11,11 @@ class BookmarkSearch extends Component
 {
     use WithPagination;
 
-    public $perPage = 25;
-    public $searchTerm = '';
-    public $sortField = 'created_at';
-    public $sortDirection = 'desc';
-    public $user;
+    public int $perPage = 25;
+    public string $searchTerm = '';
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';
+    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     public function paginationView()
     {
@@ -47,9 +47,7 @@ class BookmarkSearch extends Component
         $user = User::where('username', '=', $this->user->username)->firstOrFail();
 
         $bookmarks = $user->bookmarks()
-            ->when($this->searchTerm, function ($query) {
-                return $query->where('name', 'like', '%'.$this->searchTerm.'%');
-            })
+            ->when($this->searchTerm, fn($query) => $query->where('name', 'like', '%'.$this->searchTerm.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 

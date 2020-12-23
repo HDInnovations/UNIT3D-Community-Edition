@@ -26,15 +26,10 @@ class TaggedUserRepository
      * Enables various debugging options:.
      *
      * 1. Allows you to tag yourself while testing and debugging
-     *
-     * @var bool
      */
-    protected $debug = false;
+    protected bool $debug = false;
 
-    /**
-     * @var string
-     */
-    protected $regex = '/@[a-zA-Z0-9-_]+/m';
+    protected string $regex = '/@[a-zA-Z0-9-_]+/m';
 
     /**
      * TaggedUserRepository Constructor.

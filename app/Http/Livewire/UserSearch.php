@@ -21,10 +21,10 @@ class UserSearch extends Component
 {
     use WithPagination;
 
-    public $perPage = 25;
-    public $searchTerm = '';
-    public $sortField = 'created_at';
-    public $sortDirection = 'desc';
+    public int $perPage = 25;
+    public string $searchTerm = '';
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';
 
     public function paginationView()
     {
@@ -51,9 +51,7 @@ class UserSearch extends Component
         return \view('livewire.user-search', [
             'users' => User::query()
                 ->with('group')
-                ->when($this->searchTerm, function ($query) {
-                    return $query->where('username', 'LIKE', '%'.$this->searchTerm.'%')->orWhere('email', 'LIKE', '%'.$this->searchTerm.'%');
-                })
+                ->when($this->searchTerm, fn($query) => $query->where('username', 'LIKE', '%'.$this->searchTerm.'%')->orWhere('email', 'LIKE', '%'.$this->searchTerm.'%'))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
         ]);

@@ -15,10 +15,7 @@ namespace App\Services\Tmdb\Client;
 
 class Genre
 {
-    /**
-     * @var \GuzzleHttp\Client|mixed
-     */
-    public $client;
+    public \GuzzleHttp\Client $client;
     /**
      * @var string
      */

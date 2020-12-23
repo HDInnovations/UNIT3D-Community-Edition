@@ -15,14 +15,8 @@ namespace App\Services\Tmdb\Client;
 
 class Company
 {
-    /**
-     * @var \GuzzleHttp\Client|mixed
-     */
-    public $client;
-    /**
-     * @var int|mixed
-     */
-    public $page;
+    public \GuzzleHttp\Client $client;
+    public ?int $page = null;
     /**
      * @var string
      */

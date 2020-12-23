@@ -20,10 +20,7 @@ use Symfony\Component\Process\Process;
 
 trait ConsoleTools
 {
-    /**
-     * @var SymfonyStyle
-     */
-    protected $io;
+    protected \Symfony\Component\Console\Style\SymfonyStyle $io;
 
     private function cyan($line)
     {

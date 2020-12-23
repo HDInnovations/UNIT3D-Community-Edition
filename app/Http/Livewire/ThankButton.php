@@ -19,7 +19,7 @@ use Livewire\Component;
 class ThankButton extends Component
 {
     public $torrent;
-    public $user;
+    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     public function mount($torrent)
     {

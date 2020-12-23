@@ -27,10 +27,8 @@ class MessageDeleted implements ShouldBroadcastNow
     use SerializesModels;
     /**
      * Message details.
-     *
-     * @var Message
      */
-    public $message;
+    public \App\Models\Message $message;
 
     /**
      * Create a new event instance.

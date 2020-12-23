@@ -21,17 +21,13 @@ class BackupPassword
 {
     /**
      * Path to .zip-file.
-     *
-     * @var string
      */
-    public $path;
+    public ?string $path = null;
 
     /**
      * The chosen password.
-     *
-     * @var string
      */
-    protected $password;
+    protected string $password;
 
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.

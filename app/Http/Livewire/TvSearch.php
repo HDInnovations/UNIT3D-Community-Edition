@@ -21,7 +21,7 @@ class TvSearch extends Component
 {
     use WithPagination;
 
-    public $searchTerm = '';
+    public string $searchTerm = '';
 
     protected $queryString = ['searchTerm'];
 

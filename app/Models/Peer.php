@@ -67,10 +67,8 @@ class Peer extends Model
 
     /**
      * The Columns That Are Sortable.
-     *
-     * @var array
      */
-    public $sortable = [
+    public array $sortable = [
         'id',
         'agent',
         'uploaded',

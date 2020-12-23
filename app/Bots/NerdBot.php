@@ -34,19 +34,19 @@ class NerdBot
 
     private $chat;
 
-    private $target;
+    private ?\App\Models\User $target = null;
 
-    private $type;
+    private ?string $type = null;
 
-    private $message;
+    private ?string $message = null;
 
-    private $targeted;
+    private ?int $targeted = null;
 
     private $log;
 
-    private $expiresAt;
+    private \Carbon\Carbon $expiresAt;
 
-    private $current;
+    private \Carbon\Carbon $current;
 
     /**
      * NerdBot Constructor.

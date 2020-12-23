@@ -56,7 +56,7 @@ class ChatRepository
 
     public function echoes($userId)
     {
-        return $this->echo->with([
+        return $this->userEcho::with([
             'bot',
             'user',
             'target',
@@ -70,7 +70,7 @@ class ChatRepository
 
     public function audibles($userId)
     {
-        return $this->audible->with([
+        return $this->userAudible::with([
             'bot',
             'user',
             'target',
@@ -221,7 +221,7 @@ class ChatRepository
     {
         $systemUserId = User::where('username', 'System')->firstOrFail()->id;
 
-        return $this->message->with([
+        return $this->message::with([
             'bot',
             'user.group',
             'chatroom',

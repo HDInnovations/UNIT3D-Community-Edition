@@ -46,7 +46,7 @@ class IRCAnnounceBot
 
     private $username;
 
-    private $registered = false;
+    private bool $registered = false;
 
     public function __construct()
     {

@@ -46,10 +46,8 @@ class BackupEncryption
     /**
      * ZipArchive encryption constants; stores as simple string for PHP < 7.2
      * backwards compatability.
-     *
-     * @var array
      */
-    private $zipArchiveOptions = [
+    private array $zipArchiveOptions = [
         self::ENCRYPTION_DEFAULT        => '257',
         self::ENCRYPTION_WINZIP_AES_128 => '257',
         self::ENCRYPTION_WINZIP_AES_192 => '258',
@@ -58,10 +56,8 @@ class BackupEncryption
 
     /**
      * ZipFile encryption constants.
-     *
-     * @var array
      */
-    private $zipFileOptions = [
+    private array $zipFileOptions = [
         self::ENCRYPTION_DEFAULT        => \PhpZip\Constants\ZipEncryptionMethod::PKWARE,
         self::ENCRYPTION_WINZIP_AES_128 => \PhpZip\Constants\ZipEncryptionMethod::WINZIP_AES_128,
         self::ENCRYPTION_WINZIP_AES_192 => \PhpZip\Constants\ZipEncryptionMethod::WINZIP_AES_192,

@@ -29,10 +29,7 @@ use Illuminate\Support\Facades\DB;
  */
 class StatsController extends Controller
 {
-    /**
-     * @var \Carbon\Carbon|mixed
-     */
-    public $carbon;
+    public \Carbon\Carbon $carbon;
 
     /**
      * StatsController Constructor.

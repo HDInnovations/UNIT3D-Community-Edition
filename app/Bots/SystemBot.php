@@ -31,13 +31,13 @@ class SystemBot
 
     private $chat;
 
-    private $target;
+    private ?\App\Models\User $target = null;
 
     private $type;
 
-    private $message;
+    private ?string $message = null;
 
-    private $targeted;
+    private ?int $targeted = null;
 
     private $log;
 

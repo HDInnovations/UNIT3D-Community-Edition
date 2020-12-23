@@ -22,7 +22,7 @@ class EmailBlacklistValidator
     /**
      * Array of blacklisted domains.
      */
-    private $domains = [];
+    private array $domains = [];
 
     /**
      * Generate the error message on validation failure.
