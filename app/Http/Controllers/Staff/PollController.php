@@ -142,7 +142,7 @@ class PollController extends Controller
 
         if (\count($existingOldOptionContents) === \count($existingOldOptionIds)) {
             $len = \count($existingOldOptionContents);
-            for ($i = 0; $i < $len; ++$i) {
+            for ($i = 0; $i < $len; $i++) {
                 $option = Option::findOrFail($existingOldOptionIds[$i]);
                 $option->name = $existingOldOptionContents[$i];
                 $option->save();

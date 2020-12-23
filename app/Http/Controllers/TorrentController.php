@@ -291,7 +291,7 @@ class TorrentController extends Controller
                     'size'            => $chunk->size,
                     'chunk'           => $chunk,
                 ];
-                ++$counts['imdb'.$chunk->imdb];
+                $counts['imdb'.$chunk->imdb]++;
             }
         }
         $torrents = \count($cache) > 0 ? $cache : null;
@@ -765,7 +765,7 @@ class TorrentController extends Controller
                         'size'            => $chunk->size,
                         'chunk'           => $chunk,
                     ];
-                    ++$counts['imdb'.$chunk->imdb];
+                    $counts['imdb'.$chunk->imdb]++;
                 }
             }
             $torrents = \count($cache) > 0 ? $cache : null;

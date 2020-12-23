@@ -88,7 +88,7 @@ class TopicController extends Controller
         }
 
         // Increment view
-        ++$topic->views;
+        $topic->views++;
         $topic->save();
 
         return \view('forum.topic', [

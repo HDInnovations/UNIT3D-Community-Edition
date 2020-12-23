@@ -122,14 +122,14 @@ class BBCodeConverter
 
                 if (isset($matches['type']) && $matches['type'] === '=1') { // ordered list
                     // We start from 1 to discard the first string, in fact, it's empty.
-                    for ($i = 1; $i < $counter; ++$i) {
+                    for ($i = 1; $i < $counter; $i++) {
                         if (! empty($items[$i])) {
                             $buffer .= ($i).'. '.\trim($items[$i]).PHP_EOL;
                         }
                     }
                 } else { // unordered list
                     // We start from 1 to discard the first string, in fact, it's empty.
-                    for ($i = 1; $i < $counter; ++$i) {
+                    for ($i = 1; $i < $counter; $i++) {
                         if (! empty($items[$i])) {
                             $buffer .= '- '.\trim($items[$i]).PHP_EOL;
                         }
