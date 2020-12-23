@@ -36,7 +36,6 @@ class Kernel extends HttpKernel
         // Extra
         \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
         \App\Http\Middleware\Http2ServerPush::class,
-        //\App\Http\Middleware\ProAjaxMiddleware::class,
     ];
 
     /**
