@@ -267,10 +267,10 @@ Menu
     {
         // we delay between api calls to reduce throttling
         \sleep(2);
-        $client = new TMDBScraper();
-        $client->movie($id);
+        $tmdbScraper = new TMDBScraper();
+        $tmdbScraper->movie($id);
 
-        return (new Movie($id))->index();
+        return (new Movie($id))->getData();
     }
 
     private function ids()

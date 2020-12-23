@@ -27,10 +27,10 @@ class NewPost extends Notification implements ShouldQueue
      * NewPost Constructor.
      *
      * @param string           $type
-     * @param \App\Models\User $poster
+     * @param \App\Models\User $user
      * @param \App\Models\Post $post
      */
-    public function __construct(public string $type, public User $poster, public Post $post)
+    public function __construct(public string $type, public User $user, public Post $post)
     {
     }
 

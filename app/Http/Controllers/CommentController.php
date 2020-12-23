@@ -91,17 +91,17 @@ class CommentController extends Controller
         }
         $comment->save();
 
-        $collection_url = \href_collection($collection);
-        $profile_url = \href_profile($user);
+        $collectionUrl = \href_collection($collection);
+        $profileUrl = \href_profile($user);
 
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] has left a comment on collection [url=%s]%s[/url]', $profile_url, $user->username, $collection_url, $collection->name)
+                    \sprintf('[url=%s]%s[/url] has left a comment on collection [url=%s]%s[/url]', $profileUrl, $user->username, $collectionUrl, $collection->name)
                 );
         } else {
             $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has left a comment on collection [url=%s]%s[/url]', $collection_url, $collection->name)
+                    \sprintf('An anonymous user has left a comment on collection [url=%s]%s[/url]', $collectionUrl, $collection->name)
                 );
         }
 
@@ -185,16 +185,16 @@ class CommentController extends Controller
                 ->withErrors($v->errors());
         }
         $comment->save();
-        $article_url = \href_article($article);
-        $profile_url = \href_profile($user);
+        $articleUrl = \href_article($article);
+        $profileUrl = \href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profile_url, $user->username, $article_url, $article->title)
+                \sprintf('[url=%s]%s[/url] has left a comment on article [url=%s]%s[/url]', $profileUrl, $user->username, $articleUrl, $article->title)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $article_url, $article->title)
+                \sprintf('An anonymous user has left a comment on article [url=%s]%s[/url]', $articleUrl, $article->title)
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -276,16 +276,16 @@ class CommentController extends Controller
                 ->withErrors($v->errors());
         }
         $comment->save();
-        $playlist_url = \href_playlist($playlist);
-        $profile_url = \href_profile($user);
+        $playlistUrl = \href_playlist($playlist);
+        $profileUrl = \href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profile_url, $user->username, $playlist_url, $playlist->name)
+                \sprintf('[url=%s]%s[/url] has left a comment on playlist [url=%s]%s[/url]', $profileUrl, $user->username, $playlistUrl, $playlist->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlist_url, $playlist->name)
+                \sprintf('An anonymous user has left a comment on playlist [url=%s]%s[/url]', $playlistUrl, $playlist->name)
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -371,16 +371,16 @@ class CommentController extends Controller
         if ($user->id != $torrent->user_id) {
             $torrent->notifyUploader('comment', $comment);
         }
-        $torrent_url = \href_torrent($torrent);
-        $profile_url = \href_profile($user);
+        $torrentUrl = \href_torrent($torrent);
+        $profileUrl = \href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
+                \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $user->username, $torrentUrl, $torrent->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrent_url, $torrent->name)
+                \sprintf('An anonymous user has left a comment on torrent [url=%s]%s[/url]', $torrentUrl, $torrent->name)
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
@@ -462,16 +462,16 @@ class CommentController extends Controller
                 ->withErrors($v->errors());
         }
         $comment->save();
-        $tr_url = \href_request($tr);
-        $profile_url = \href_profile($user);
+        $trUrl = \href_request($tr);
+        $profileUrl = \href_profile($user);
         // Auto Shout
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profile_url, $user->username, $tr_url, $tr->name)
+                \sprintf('[url=%s]%s[/url] has left a comment on Request [url=%s]%s[/url]', $profileUrl, $user->username, $trUrl, $tr->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $tr_url, $tr->name)
+                \sprintf('An anonymous user has left a comment on Request [url=%s]%s[/url]', $trUrl, $tr->name)
             );
         }
         //Notification
@@ -549,12 +549,12 @@ class CommentController extends Controller
             ];
         } else {
             $uploader = User::where('id', '=', $torrent->user_id)->first();
-            $uploader_url = \href_profile($uploader);
+            $uploaderUrl = \href_profile($uploader);
 
             $thankArray = [
-                \sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploader_url, $uploader->group->color, $uploader->username),
-                \sprintf('Beautiful upload [url=%s][color=%s][b]%s[/b][/color][/url] :fire:', $uploader_url, $uploader->group->color, $uploader->username),
-                \sprintf('Cheers [url=%s][color=%s][b]%s[/b][/color][/url] for the upload :beers:', $uploader_url, $uploader->group->color, $uploader->username),
+                \sprintf('Thanks for the upload [url=%s][color=%s][b]%s[/b][/color][/url] :vulcan_tone2:', $uploaderUrl, $uploader->group->color, $uploader->username),
+                \sprintf('Beautiful upload [url=%s][color=%s][b]%s[/b][/color][/url] :fire:', $uploaderUrl, $uploader->group->color, $uploader->username),
+                \sprintf('Cheers [url=%s][color=%s][b]%s[/b][/color][/url] for the upload :beers:', $uploaderUrl, $uploader->group->color, $uploader->username),
             ];
         }
 
@@ -592,10 +592,10 @@ class CommentController extends Controller
             User::find($torrent->user_id)->notify(new NewComment('torrent', $comment));
         }
         // Auto Shout
-        $torrent_url = \href_torrent($torrent);
-        $profile_url = \href_profile($user);
+        $torrentUrl = \href_torrent($torrent);
+        $profileUrl = \href_profile($user);
         $this->chatRepository->systemMessage(
-            \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profile_url, $user->username, $torrent_url, $torrent->name)
+            \sprintf('[url=%s]%s[/url] has left a comment on Torrent [url=%s]%s[/url]', $profileUrl, $user->username, $torrentUrl, $torrent->name)
         );
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
@@ -610,10 +610,10 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editComment(Request $request, $comment_id)
+    public function editComment(Request $request, $commentId)
     {
         $user = $request->user();
-        $comment = Comment::findOrFail($comment_id);
+        $comment = Comment::findOrFail($commentId);
 
         \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->content = $request->input('comment-edit');
@@ -642,10 +642,10 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteComment(Request $request, $comment_id)
+    public function deleteComment(Request $request, $commentId)
     {
         $user = $request->user();
-        $comment = Comment::findOrFail($comment_id);
+        $comment = Comment::findOrFail($commentId);
 
         \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();

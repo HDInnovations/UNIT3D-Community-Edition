@@ -54,7 +54,7 @@ class Company
         $this->data = \json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR | JSON_THROW_ON_ERROR);
     }
 
-    public function index()
+    public function getData()
     {
         return $this->data;
     }

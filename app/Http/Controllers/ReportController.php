@@ -44,8 +44,8 @@ class ReportController extends Controller
     public function request(Request $request, $id)
     {
         $torrentRequest = TorrentRequest::findOrFail($id);
-        $reported_by = $request->user();
-        $reported_user = $torrentRequest->user;
+        $reportedBy = $request->user();
+        $reportedUser = $torrentRequest->user;
 
         $v = \validator($request->all(), [
             'message' => 'required',
@@ -59,8 +59,8 @@ class ReportController extends Controller
             'type'          => 'Request',
             'request_id'    => $torrentRequest->id,
             'torrent_id'    => 0,
-            'reporter_id'   => $reported_by->id,
-            'reported_user' => $reported_user->id,
+            'reporter_id'   => $reportedBy->id,
+            'reported_user' => $reportedUser->id,
             'title'         => $torrentRequest->name,
             'message'       => $request->get('message'),
             'solved'        => 0,
@@ -81,8 +81,8 @@ class ReportController extends Controller
     public function torrent(Request $request, $id)
     {
         $torrent = Torrent::findOrFail($id);
-        $reported_by = $request->user();
-        $reported_user = $torrent->user;
+        $reportedBy = $request->user();
+        $reportedUser = $torrent->user;
 
         $v = \validator($request->all(), [
             'message' => 'required',
@@ -96,8 +96,8 @@ class ReportController extends Controller
             'type'          => 'Torrent',
             'torrent_id'    => $torrent->id,
             'request_id'    => 0,
-            'reporter_id'   => $reported_by->id,
-            'reported_user' => $reported_user->id,
+            'reporter_id'   => $reportedBy->id,
+            'reported_user' => $reportedUser->id,
             'title'         => $torrent->name,
             'message'       => $request->get('message'),
             'solved'        => 0,
@@ -117,8 +117,8 @@ class ReportController extends Controller
      */
     public function user(Request $request, $username)
     {
-        $reported_user = User::where('username', '=', $username)->firstOrFail();
-        $reported_by = $request->user();
+        $reportedUser = User::where('username', '=', $username)->firstOrFail();
+        $reportedBy = $request->user();
 
         $v = \validator($request->all(), [
             'message' => 'required',
@@ -132,9 +132,9 @@ class ReportController extends Controller
             'type'          => 'User',
             'torrent_id'    => 0,
             'request_id'    => 0,
-            'reporter_id'   => $reported_by->id,
-            'reported_user' => $reported_user->id,
-            'title'         => $reported_user->username,
+            'reporter_id'   => $reportedBy->id,
+            'reported_user' => $reportedUser->id,
+            'title'         => $reportedUser->username,
             'message'       => $request->get('message'),
             'solved'        => 0,
         ]);

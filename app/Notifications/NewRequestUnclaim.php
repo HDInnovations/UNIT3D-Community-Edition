@@ -27,9 +27,9 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
      *
      * @param string                     $type
      * @param string                     $sender
-     * @param \App\Models\TorrentRequest $tr
+     * @param \App\Models\TorrentRequest $torrentRequest
      */
-    public function __construct(public string $type, public string $sender, public TorrentRequest $tr)
+    public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
     {
     }
 

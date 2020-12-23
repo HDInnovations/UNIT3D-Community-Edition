@@ -30,7 +30,7 @@ class GitUpdater extends Command
     /**
      * The copy command.
      */
-    private $copy_command = 'cp -Rfp';
+    private $copyCommand = 'cp -Rfp';
 
     /**
      * The console command signature.
@@ -228,7 +228,7 @@ class GitUpdater extends Command
         foreach ($paths as $path) {
             $this->validatePath($path);
             $this->createBackupPath($path);
-            $this->process($this->copy_command.' '.\base_path($path).' '.\storage_path('gitupdate').'/'.$path);
+            $this->process($this->copyCommand.' '.\base_path($path).' '.\storage_path('gitupdate').'/'.$path);
         }
 
         $this->done();
@@ -247,7 +247,7 @@ class GitUpdater extends Command
                 $from .= '/*';
             }
 
-            $this->process(\sprintf('%s %s %s', $this->copy_command, $from, $to));
+            $this->process(\sprintf('%s %s %s', $this->copyCommand, $from, $to));
         }
 
         $this->commands([

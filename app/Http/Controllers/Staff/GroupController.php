@@ -107,9 +107,9 @@ class GroupController extends Controller
                 ->withErrors($v->errors());
         }
         $group->save();
-        foreach (Forum::all()->pluck('id') as $forum_id) {
+        foreach (Forum::all()->pluck('id') as $collection) {
             $permission = new Permission();
-            $permission->forum_id = $forum_id;
+            $permission->forum_id = $collection;
             $permission->group_id = $group->id;
             $permission->show_forum = 1;
             $permission->read_topic = 1;

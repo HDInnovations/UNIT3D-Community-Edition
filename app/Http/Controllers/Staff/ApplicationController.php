@@ -124,13 +124,13 @@ class ApplicationController extends Controller
         $application = Application::withAnyStatus()->findOrFail($id);
 
         if ($application->status !== 2) {
-            $denied_message = $request->input('deny');
+            $deniedMessage = $request->input('deny');
             $v = \validator($request->all(), [
                 'deny' => 'required',
             ]);
 
             $application->markRejected();
-            Mail::to($application->email)->send(new DenyApplication($denied_message));
+            Mail::to($application->email)->send(new DenyApplication($deniedMessage));
 
             return \redirect()->route('staff.applications.index')
                 ->withSuccess('Application Rejected');
