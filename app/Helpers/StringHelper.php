@@ -53,7 +53,7 @@ class StringHelper
     public static function generateRandomString($length = 20)
     {
         $string = '';
-        for ($i = 0; $i < $length; ++$i) {
+        for ($i = 0; $i < $length; $i++) {
             $string .= self::CHARACTERS[\rand(0, \strlen(self::CHARACTERS) - 1)];
         }
 
@@ -107,27 +107,27 @@ class StringHelper
             return 'N/A';
         }
         while ($seconds >= 31_536_000) {
-            ++$years;
+            $years++;
             $seconds -= 31_536_000;
         }
         while ($seconds >= 2_592_000) {
-            ++$months;
+            $months++;
             $seconds -= 2_592_000;
         }
         while ($seconds >= 604_800) {
-            ++$weeks;
+            $weeks++;
             $seconds -= 604_800;
         }
         while ($seconds >= 86_400) {
-            ++$days;
+            $days++;
             $seconds -= 86_400;
         }
         while ($seconds >= 3_600) {
-            ++$hours;
+            $hours++;
             $seconds -= 3_600;
         }
         while ($seconds >= 60) {
-            ++$minutes;
+            $minutes++;
             $seconds -= 60;
         }
         $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');
@@ -161,27 +161,27 @@ class StringHelper
             return 'N/A';
         }
         while ($seconds >= 31_536_000) {
-            ++$years;
+            $years++;
             $seconds -= 31_536_000;
         }
         while ($seconds >= 2_592_000) {
-            ++$months;
+            $months++;
             $seconds -= 2_592_000;
         }
         while ($seconds >= 604_800) {
-            ++$weeks;
+            $weeks++;
             $seconds -= 604_800;
         }
         while ($seconds >= 86_400) {
-            ++$days;
+            $days++;
             $seconds -= 86_400;
         }
         while ($seconds >= 3_600) {
-            ++$hours;
+            $hours++;
             $seconds -= 3_600;
         }
         while ($seconds >= 60) {
-            ++$minutes;
+            $minutes++;
             $seconds -= 60;
         }
         $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');

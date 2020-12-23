@@ -24,7 +24,7 @@ class MediaLanguageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $media_languages = MediaLanguage::all()->sortBy('name');
 
@@ -36,7 +36,7 @@ class MediaLanguageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.media_language.create');
     }
@@ -76,7 +76,7 @@ class MediaLanguageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $media_language = MediaLanguage::findOrFail($id);
 

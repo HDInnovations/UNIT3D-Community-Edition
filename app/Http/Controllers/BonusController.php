@@ -50,7 +50,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gifts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function gifts(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -77,7 +77,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tips(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function tips(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -104,7 +104,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function store(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -134,7 +134,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gift(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function gift(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -151,7 +151,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 

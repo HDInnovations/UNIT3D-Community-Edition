@@ -342,7 +342,7 @@ class NerdBot
         $i = 1;
         foreach ($donations as $donation) {
             $donation_dump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->bot->name.' '.$donation->cost.' '.$donation->forHumans().".\n";
-            ++$i;
+            $i++;
         }
 
         return "The Most Recent Donations To All Bots Are As Follows:\n\n".\trim($donation_dump);

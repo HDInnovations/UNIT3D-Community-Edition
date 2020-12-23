@@ -171,7 +171,7 @@ class Markdown
             $indent = 0;
 
             while (isset($line[$indent]) && $line[$indent] === ' ') {
-                ++$indent;
+                $indent++;
             }
 
             $text = $indent > 0 ? \substr($line, $indent) : $line;
@@ -333,7 +333,6 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-
         return $Block;
     }
 
@@ -431,7 +430,6 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-
         return $Block;
     }
 
@@ -444,7 +442,7 @@ class Markdown
             $level = 1;
 
             while (isset($Line['text'][$level]) && $Line['text'][$level] === '#') {
-                ++$level;
+                $level++;
             }
 
             if ($level > 6) {
@@ -688,12 +686,12 @@ class Markdown
         }
 
         if (\preg_match('/^<'.$Block['name'].'(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*>/i', $Line['text'])) { // open
-            ++$Block['depth'];
+            $Block['depth']++;
         }
 
         if (\preg_match('/(.*?)<\/'.$Block['name'].'>[ ]*$/i', $Line['text'], $matches)) { // close
             if ($Block['depth'] > 0) {
-                --$Block['depth'];
+                $Block['depth']--;
             } else {
                 $Block['closed'] = true;
             }
@@ -1160,7 +1158,7 @@ class Markdown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped || $this->safeMode || !\str_contains($Excerpt['text'], '>')) {
+        if ($this->markupEscaped || $this->safeMode || ! \str_contains($Excerpt['text'], '>')) {
             return;
         }
 

@@ -78,7 +78,7 @@ class AutoWarning extends Command
 
                         // Add +1 To Users Warnings Count In Users Table
                         $hr->hitrun = 1;
-                        ++$hr->user->hitandruns;
+                        $hr->user->hitandruns++;
                         $hr->user->save();
 
                         // Send Private Message

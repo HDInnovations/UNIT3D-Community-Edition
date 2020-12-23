@@ -29,7 +29,7 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $album = Album::find($id);
 
@@ -94,7 +94,7 @@ class ImageController extends Controller
                 ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
 
-        ++$image->downloads;
+        $image->downloads++;
         $image->save();
 
         return \response()->download(\getcwd().'/files/img/'.$filename);

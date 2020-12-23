@@ -40,7 +40,7 @@ class WishController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 

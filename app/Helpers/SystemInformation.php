@@ -159,7 +159,7 @@ class SystemInformation
      *
      * @return string|\Symfony\Component\Translation\TranslatorInterface
      */
-    public function getDirectoryPermission($path): string|\Symfony\Component\Translation\TranslatorInterface
+    public function getDirectoryPermission($path): string | \Symfony\Component\Translation\TranslatorInterface
     {
         try {
             return \substr(\sprintf('%o', \fileperms(\base_path($path))), -4);

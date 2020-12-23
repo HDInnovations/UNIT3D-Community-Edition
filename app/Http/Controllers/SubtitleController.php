@@ -49,7 +49,7 @@ class SubtitleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('subtitle.index');
     }
@@ -61,7 +61,7 @@ class SubtitleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($torrent_id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create($torrent_id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::findOrFail($torrent_id);
         $media_languages = MediaLanguage::all()->sortBy('name');
@@ -216,7 +216,7 @@ class SubtitleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();

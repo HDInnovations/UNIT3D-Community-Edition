@@ -39,7 +39,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $polls = Poll::latest()->paginate(15);
 
@@ -54,7 +54,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
         $user = $request->user();
@@ -116,7 +116,7 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function result($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function result($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
         $map = [

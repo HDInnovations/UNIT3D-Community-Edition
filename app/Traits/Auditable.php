@@ -75,7 +75,7 @@ trait Auditable
      *
      * @return false|string
      */
-    protected static function generate($action, $old = [], $new = []): bool|string
+    protected static function generate($action, $old = [], $new = []): bool | string
     {
         $data = [];
         switch ($action) {

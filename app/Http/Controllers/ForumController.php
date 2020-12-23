@@ -42,7 +42,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function search(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function search(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
 
@@ -179,7 +179,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function subscriptions(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function subscriptions(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -234,7 +234,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function latestTopics(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function latestTopics(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -268,7 +268,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function latestPosts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function latestPosts(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -300,7 +300,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Forum::all()->sortBy('position');
 
@@ -326,7 +326,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Find the topic
         $forum = Forum::findOrFail($id);

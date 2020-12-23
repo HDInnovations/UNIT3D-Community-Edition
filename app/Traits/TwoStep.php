@@ -101,7 +101,7 @@ trait TwoStep
      */
     private function generateCode(int $length = 4, string $prefix = '', string $suffix = '')
     {
-        for ($i = 0; $i < $length; ++$i) {
+        for ($i = 0; $i < $length; $i++) {
             $prefix .= \random_int(0, 1) ? \chr(\random_int(65, 90)) : \random_int(0, 9);
         }
 
@@ -117,7 +117,7 @@ trait TwoStep
      *
      * @return \App\Models\TwoStepAuth|\Illuminate\Database\Eloquent\Model
      */
-    private function checkTwoStepAuthStatus(int $userId): \App\Models\TwoStepAuth|\Illuminate\Database\Eloquent\Model
+    private function checkTwoStepAuthStatus(int $userId): \App\Models\TwoStepAuth | \Illuminate\Database\Eloquent\Model
     {
         return TwoStepAuth::firstOrCreate(
             [

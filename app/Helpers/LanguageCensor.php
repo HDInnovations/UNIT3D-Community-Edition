@@ -64,13 +64,13 @@ class LanguageCensor
             \assert($word_length > 0);
             $indexes = self::matchWordIndexes($source, $word);
             $ignore = 0;
-            for ($i = 0; $i < $length; ++$i) {
+            for ($i = 0; $i < $length; $i++) {
                 if ((\is_countable($indexes) ? \count($indexes) : 0) > 0 && $indexes[0] == $i) {
                     $match = \substr($source, $indexes[0], $word_length);
                     $result .= \sprintf("<span class='censor'>%s</span>", $match);
                     $ignore = $word_length - 1;
                 } elseif ($ignore > 0) {
-                    --$ignore;
+                    $ignore--;
                 } else {
                     $result .= $source[$i];
                 }

@@ -65,7 +65,7 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function requests(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function requests(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -222,7 +222,7 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function request(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function request(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Find the torrent in the database
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -267,7 +267,7 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function addRequestForm(Request $request, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -382,7 +382,7 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editRequestForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function editRequestForm(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
@@ -480,7 +480,7 @@ class RequestController extends Controller
         $user = $request->user();
 
         $tr = TorrentRequest::with('user')->findOrFail($id);
-        ++$tr->votes;
+        $tr->votes++;
         $tr->bounty += $request->input('bonus_value');
         $tr->created_at = Carbon::now();
 
