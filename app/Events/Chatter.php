@@ -25,13 +25,13 @@ class Chatter implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
-    public null $echoes;
+    public $echoes;
 
-    public null $message;
+    public $message;
 
-    public null $ping;
+    public $ping;
 
-    public null $audibles;
+    public $audibles;
 
     /**
      * Chatter Constructor.
