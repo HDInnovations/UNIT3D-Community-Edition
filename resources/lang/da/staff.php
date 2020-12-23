@@ -60,8 +60,8 @@ return [
     'torrent-types'           => 'Torrent Typer',
     'torrent-resolutions'     => 'Torrent Opløsninger',
     'torrents'                => 'Torrents',
-    'user-gifting'            => 'Bruger Belønning',
-    'user-notes'              => 'Bruger Noter Log',
+    'user-gifting'            => 'Brugerbelønning',
+    'user-notes'              => 'Brugernoter Log',
     'user-search'             => 'Brugersøgning',
     'user-tools'              => 'Brugerværktøjer',
     'warnings-log'            => 'Advarsels Log',
@@ -70,6 +70,5 @@ return [
     'chat-tools'              => 'Chatværktøjer',
     'flush-chat'              => 'Tøm chatboksen',
     'seedboxes'               => 'Registrerede seedbokse',
-
 
 ];
