@@ -333,7 +333,6 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-
         return $Block;
     }
 
@@ -431,7 +430,6 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-
         return $Block;
     }
 
@@ -1160,7 +1158,7 @@ class Markdown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped || $this->safeMode || !\str_contains($Excerpt['text'], '>')) {
+        if ($this->markupEscaped || $this->safeMode || ! \str_contains($Excerpt['text'], '>')) {
             return;
         }
 
