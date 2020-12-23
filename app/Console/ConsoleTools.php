@@ -113,7 +113,7 @@ trait ConsoleTools
         while ($process->isRunning()) {
             try {
                 $process->checkTimeout();
-            } catch (ProcessTimedOutException $processTimedOutException) {
+            } catch (ProcessTimedOutException) {
                 $this->red(\sprintf("'%s' timed out.!", $command));
             }
 

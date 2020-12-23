@@ -58,7 +58,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function topic($id, $page = '', $post = '')
+    public function topic($id, $page = '', $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -88,7 +88,7 @@ class TopicController extends Controller
         }
 
         // Increment view
-        $topic->views++;
+        ++$topic->views;
         $topic->save();
 
         return \view('forum.topic', [
@@ -108,7 +108,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm(Request $request, $id)
+    public function addForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
@@ -240,7 +240,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($id)
+    public function editForm($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();

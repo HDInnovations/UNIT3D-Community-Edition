@@ -44,7 +44,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
 
@@ -56,7 +56,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return \view('playlist.create');
     }
@@ -121,7 +121,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
 
@@ -162,7 +162,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -248,7 +248,7 @@ class PlaylistController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function downloadPlaylist($id)
+    public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(300);
@@ -291,7 +291,7 @@ class PlaylistController extends Controller
                 if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
                     $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'"
 ';
-                    $failCount++;
+                    ++$failCount;
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
                     if (\file_exists(\getcwd().'/files/tmp/'.$tmpFileName)) {

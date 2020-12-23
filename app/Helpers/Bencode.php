@@ -23,7 +23,7 @@ class Bencode
         if ($len === 0 || $s[$pos] !== 'i') {
             return;
         }
-        $pos++;
+        ++$pos;
 
         $result = '';
         while ($pos < $len && $s[$pos] !== 'e') {
@@ -33,7 +33,7 @@ class Bencode
                 // We have an invalid character in the string.
                 return;
             }
-            $pos++;
+            ++$pos;
         }
 
         if ($pos >= $len) {
@@ -41,7 +41,7 @@ class Bencode
             return;
         }
 
-        $pos++;
+        ++$pos;
 
         if (safe_int($result)) {
             return (int) $result;
@@ -60,7 +60,7 @@ class Bencode
                 // Non-numeric character, we return null in this case.
                 return;
             }
-            $pos++;
+            ++$pos;
         }
 
         if ($pos >= $len) {
@@ -68,7 +68,7 @@ class Bencode
             return;
         }
 
-        $pos++;
+        ++$pos;
         if (! safe_int($length_str)) {
             return;
         }
@@ -77,8 +77,8 @@ class Bencode
         $result = '';
         while ($pos < $len && $length > 0) {
             $result .= $s[$pos];
-            $length--;
-            $pos++;
+            --$length;
+            ++$pos;
         }
 
         if ($length > 0) {
@@ -105,7 +105,7 @@ class Bencode
         }
         if ($c === 'd') {
             $dict = [];
-            $pos++;
+            ++$pos;
             while ($pos < $len && $s[$pos] !== 'e') {
                 $key = self::bdecode($s, $pos);
                 $value = self::bdecode($s, $pos);
@@ -118,14 +118,14 @@ class Bencode
                 // We need a end marker here
                 return;
             }
-            $pos++;
+            ++$pos;
 
             return $dict;
         }
 
         if ($c === 'l') {
             $list = [];
-            $pos++;
+            ++$pos;
             while ($pos < $len && $s[$pos] !== 'e') {
                 $next = self::bdecode($s, $pos);
                 if (! \is_null($next)) {
@@ -139,7 +139,7 @@ class Bencode
                 // We need a end marker here
                 return;
             }
-            $pos++;
+            ++$pos;
 
             return $list;
         }
@@ -212,7 +212,7 @@ class Bencode
         // Multifile
         if (isset($t['info']['files']) && \is_array($t['info']['files'])) {
             foreach ($t['info']['files'] as $file) {
-                $count++;
+                ++$count;
                 $size += $file['length'];
             }
         } else {

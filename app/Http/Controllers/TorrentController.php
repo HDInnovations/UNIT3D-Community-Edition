@@ -102,7 +102,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrents(Request $request)
+    public function torrents(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
@@ -136,7 +136,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function similar(Request $request, $category_id, $tmdb)
+    public function similar(Request $request, $category_id, $tmdb): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
@@ -166,7 +166,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function cardLayout(Request $request)
+    public function cardLayout(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->latest()->paginate(33);
@@ -230,7 +230,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function groupingLayout(Request $request)
+    public function groupingLayout(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
@@ -291,7 +291,7 @@ class TorrentController extends Controller
                     'size'            => $chunk->size,
                     'chunk'           => $chunk,
                 ];
-                $counts['imdb'.$chunk->imdb]++;
+                ++$counts['imdb'.$chunk->imdb];
             }
         }
         $torrents = \count($cache) > 0 ? $cache : null;
@@ -765,7 +765,7 @@ class TorrentController extends Controller
                         'size'            => $chunk->size,
                         'chunk'           => $chunk,
                     ];
-                    $counts['imdb'.$chunk->imdb]++;
+                    ++$counts['imdb'.$chunk->imdb];
                 }
             }
             $torrents = \count($cache) > 0 ? $cache : null;
@@ -914,7 +914,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrent(Request $request, $id)
+    public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -1006,7 +1006,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm(Request $request, $id)
+    public function editForm(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1170,7 +1170,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function peers($id)
+    public function peers($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -1185,7 +1185,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function history($id)
+    public function history($id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
@@ -1204,7 +1204,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploadForm(Request $request, $category_id = 0, $title = '', $imdb = 0, $tmdb = 0)
+    public function uploadForm(Request $request, $category_id = 0, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -1389,7 +1389,7 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function downloadCheck(Request $request, $id)
+    public function downloadCheck(Request $request, $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();

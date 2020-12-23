@@ -34,7 +34,7 @@ class InviteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $username)
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $owner = User::where('username', '=', $username)->firstOrFail();
@@ -52,7 +52,7 @@ class InviteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -129,7 +129,7 @@ class InviteController extends Controller
         }
         Mail::to($request->input('email'))->send(new InviteUser($invite));
         $invite->save();
-        $user->invites--;
+        --$user->invites;
         $user->save();
 
         return \redirect()->route('invites.create')

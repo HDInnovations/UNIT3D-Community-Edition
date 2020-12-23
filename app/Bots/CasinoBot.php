@@ -142,7 +142,7 @@ class CasinoBot
         $i = 1;
         foreach ($donations as $donation) {
             $donation_dump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->cost.' '.$donation->forHumans().' with note: '.$donation->comment.".\n";
-            $i++;
+            ++$i;
         }
 
         return "The Most Recent Donations To Me Are As Follows:\n\n".\trim($donation_dump);

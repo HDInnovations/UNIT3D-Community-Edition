@@ -243,7 +243,7 @@ Menu
                         'bumped_at'  => \now(),
                         'updated_at' => \now(),
                     ]);
-                } catch (Exception $exception) {
+                } catch (Exception) {
                     $abort = true;
 
                     break;
