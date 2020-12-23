@@ -56,13 +56,13 @@ return [
     'gt'                   => [
         'numeric' => 'The :attribute skal være større end :value.',
         'file'    => 'The :attribute skal være større end :value kilobytes.',
-        'string'  => 'The :attribute skal være større end :value characters.',
-        'array'   => 'The :attribute skal være mere end :value items.',
+        'string'  => 'The :attribute skal være større end :value tegn.',
+        'array'   => 'The :attribute skal være mere end :value elementer.',
     ],
     'gte'                  => [
         'numeric' => 'The :attribute skal være større end eller lig med :value.',
         'file'    => 'The :attribute skal være større end eller lig med :value kilobytes.',
-        'string'  => 'The :attribute skal være større end eller lig med :value characters.',
+        'string'  => 'The :attribute skal være større end eller lig med :value tegn.',
         'array'   => 'The :attribute skal have :value items eller mere.',
     ],
     'image'                => ':attribute skal være et billede.',
@@ -76,14 +76,14 @@ return [
     'lt'                   => [
         'numeric' => 'The :attribute skal være mindre end :value.',
         'file'    => 'The :attribute skal være mindre end :value kilobytes.',
-        'string'  => 'The :attribute skal være mindre end :value characters.',
-        'array'   => 'The :attribute skal have mindre end :value items.',
+        'string'  => 'The :attribute skal være mindre end :value tegn.',
+        'array'   => 'The :attribute skal have mindre end :value elementer.',
     ],
     'lte'                  => [
         'numeric' => 'The :attribute skal være mindre eller lig med :value.',
         'file'    => 'The :attribute skal være mindre eller lig med :value kilobytes.',
-        'string'  => 'The :attribute skal være mindre eller lig med :value characters.',
-        'array'   => 'The :attribute må ikke have mere end :value items.',
+        'string'  => 'The :attribute skal være mindre eller lig med :value tegn.',
+        'array'   => 'The :attribute må ikke have mere end :value elementer.',
     ],
     'max'                  => [
         'numeric' => ':attribute skal være højest :max.',
@@ -118,13 +118,13 @@ return [
         'string'  => ':attribute skal være :size tegn lang.',
         'array'   => ':attribute skal indeholde :size elementer.',
     ],
-    'starts_with'          => 'The :attribute must start with one of the following: :values',
+    'starts_with'          => ':attribute skal starte med et af følgende: :values',
     'string'               => ':attribute skal være en streng.',
     'timezone'             => ':attribute skal være en gyldig tidszone.',
     'unique'               => ':attribute er allerede taget.',
     'uploaded'             => ':attribute fejlene i uploaden.',
     'url'                  => ':attribute formatet er ugyldigt.',
-    'uuid'                 => 'The :attribute must be a valid UUID.',
+    'uuid'                 => ':attribute skal være en gyldig UUID.',
 
     /*
     |--------------------------------------------------------------------------
