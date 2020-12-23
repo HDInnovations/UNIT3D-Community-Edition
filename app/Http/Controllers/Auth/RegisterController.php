@@ -123,10 +123,13 @@ class RegisterController extends Controller
         $user->save();
         $userPrivacy = new UserPrivacy();
         $userPrivacy->setDefaultValues();
+
         $userPrivacy->user_id = $user->id;
         $userPrivacy->save();
         $userNotification = new UserNotification();
+
         $userNotification->setDefaultValues();
+
         $userNotification->user_id = $user->id;
         $userNotification->save();
         if ($key) {

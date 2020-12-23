@@ -37,7 +37,7 @@ class TvSearch extends Component
 
     public function render()
     {
-        return view('livewire.tv-search', [
+        return \view('livewire.tv-search', [
             'shows' => Tv::with('networks', 'genres')
                 ->withCount('torrents', 'seasons')
                 ->where('name', 'LIKE', '%'.$this->searchTerm.'%')

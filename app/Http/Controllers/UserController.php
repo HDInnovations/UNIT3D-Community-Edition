@@ -2023,7 +2023,7 @@ class UserController extends Controller
                 if (! \file_exists(\getcwd().'/files/torrents/'.$torrent->file_name)) {
                     $failCSV .= '"'.$torrent->name.'","'.\route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent.'"
 ';
-                    $failCount++;
+                    ++$failCount;
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
                     if (\file_exists(\getcwd().'/files/tmp/'.$tmpFileName)) {

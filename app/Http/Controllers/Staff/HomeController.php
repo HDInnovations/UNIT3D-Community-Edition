@@ -41,8 +41,8 @@ class HomeController extends Controller
         $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $users = DB::table('users')
             ->selectRaw('count(*) as total')
-            ->selectRaw("count(case when group_id = $banned_group[0] then 1 end) as banned")
-            ->selectRaw("count(case when group_id = $validating_group[0] then 1 end) as validating")
+            ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $banned_group[0]))
+            ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validating_group[0]))
             ->first();
 
         // Torrent Info
@@ -73,7 +73,7 @@ class HomeController extends Controller
         // SSL Info
         try {
             $certificate = $request->secure() ? SslCertificate::createForHostName(\config('app.url')) : '';
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $certificate = '';
         }
 

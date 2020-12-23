@@ -88,7 +88,7 @@ class TopicController extends Controller
         }
 
         // Increment view
-        $topic->views++;
+        ++$topic->views;
         $topic->save();
 
         return \view('forum.topic', [
@@ -332,6 +332,7 @@ class TopicController extends Controller
         \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
         $posts = $topic->posts();
         $posts->delete();
+
         $topic->delete();
 
         return \redirect()->route('forums.show', ['id' => $topic->forum->id])

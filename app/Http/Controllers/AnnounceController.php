@@ -33,12 +33,27 @@ use Illuminate\Http\Request;
 class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
+    /**
+     * @var int
+     */
     protected const PENDING = 0;
+    /**
+     * @var int
+     */
     protected const REJECTED = 2;
+    /**
+     * @var int
+     */
     protected const POSTPONED = 3;
 
     // Announce Intervals
+    /**
+     * @var int
+     */
     private const MIN = 2_400;
+    /**
+     * @var int
+     */
     private const MAX = 3_600;
 
     // Port Blacklist
@@ -161,7 +176,7 @@ class AnnounceController extends Controller
         }
 
         // Block Browser by check it's User-Agent
-        if (\preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', $user_agent)) {
+        if (\preg_match('#(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)#i', $user_agent)) {
             throw new TrackerException(121);
         }
     }
@@ -387,8 +402,8 @@ class AnnounceController extends Controller
         $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
-        if ($connections > config('announce.rate_limit')) {
-            throw new TrackerException(138, [':limit' => config('announce.rate_limit')]);
+        if ($connections > \config('announce.rate_limit')) {
+            throw new TrackerException(138, [':limit' => \config('announce.rate_limit')]);
         }
     }
 

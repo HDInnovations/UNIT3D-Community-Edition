@@ -74,12 +74,12 @@ class ProcessMovieJob implements ShouldQueue
             $client = new Client\Collection($this->movie['belongs_to_collection']['id']);
             $belongs_to_collection = $client->index();
             if (isset($belongs_to_collection['name'])) {
-                $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $belongs_to_collection['name']));
+                $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''], $belongs_to_collection['name']));
 
                 $belongs_to_collection_array = [
                     'name'      => $belongs_to_collection['name'] ?? null,
                     'name_sort' => $titleSort,
-                    'parts'     => count($belongs_to_collection['parts']),
+                    'parts'     => \count($belongs_to_collection['parts']),
                     'overview'  => $belongs_to_collection['overview'] ?? null,
                     'poster'    => $helper->image('poster', $belongs_to_collection),
                     'backdrop'  => $helper->image('backdrop', $belongs_to_collection),

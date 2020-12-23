@@ -34,7 +34,7 @@ class FailedLoginListener
             Request::getClientIp()
         );
 
-        if (property_exists($event, 'user') && $event->user !== null && $event->user instanceof \Illuminate\Database\Eloquent\Model) {
+        if (\property_exists($event, 'user') && $event->user !== null && $event->user instanceof \Illuminate\Database\Eloquent\Model) {
             $event->user->notify(new FailedLogin(
                 Request::getClientIp()
             ));

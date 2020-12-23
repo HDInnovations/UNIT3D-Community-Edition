@@ -15,6 +15,9 @@ namespace App\Helpers;
 
 class MediaInfo
 {
+    /**
+     * @var string
+     */
     private const REGEX_SECTION = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
 
     /**

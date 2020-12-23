@@ -116,7 +116,7 @@ class TorrentTools
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
                 $count = \is_countable($file['path']) ? \count($file['path']) : 0;
-                for ($i = 0; $i < $count; $i++) {
+                for ($i = 0; $i < $count; ++$i) {
                     if ($i + 1 === $count) {
                         $files[$k]['name'] = $dir.$file['path'][$i];
                     } else {

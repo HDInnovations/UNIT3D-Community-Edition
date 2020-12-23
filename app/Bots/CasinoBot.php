@@ -90,7 +90,7 @@ class CasinoBot
      */
     public function putDonate($amount = 0, $note = '')
     {
-        $output = \implode($note, ' ');
+        $output = \implode(' ', $note);
         $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
             'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
@@ -142,7 +142,7 @@ class CasinoBot
         $i = 1;
         foreach ($donations as $donation) {
             $donation_dump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->cost.' '.$donation->forHumans().' with note: '.$donation->comment.".\n";
-            $i++;
+            ++$i;
         }
 
         return "The Most Recent Donations To Me Are As Follows:\n\n".\trim($donation_dump);

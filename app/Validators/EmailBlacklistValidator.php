@@ -36,7 +36,7 @@ class EmailBlacklistValidator
      */
     public function message($message, $attribute, $rule, $parameters)
     {
-        return "{$attribute} domain is not allowed. Throwaway email providers are blacklisted.";
+        return \sprintf('%s domain is not allowed. Throwaway email providers are blacklisted.', $attribute);
     }
 
     /**
@@ -86,7 +86,7 @@ class EmailBlacklistValidator
             if ($autoupdate && ! \cache()->has(\config('email-blacklist.cache-key'))) {
                 EmailBlacklistUpdater::update();
             }
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $invalidArgumentException) {
         }
     }
 

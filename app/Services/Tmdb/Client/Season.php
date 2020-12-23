@@ -19,6 +19,9 @@ class Season
      * @var \GuzzleHttp\Client|mixed
      */
     public $client;
+    /**
+     * @var string
+     */
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
     public $data;
 
@@ -43,7 +46,7 @@ class Season
 
         $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/tv/'.$id.'/season/'.$season);
 
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR | JSON_THROW_ON_ERROR);
+        $this->data = \json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR | JSON_THROW_ON_ERROR);
     }
 
     public function index()
@@ -63,12 +66,12 @@ class Season
 
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
+        return \preg_replace('#[[:^print:]]#', '', $this->data['name']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
+        return \preg_replace('#[[:^print:]]#', '', $this->data['overview']);
     }
 
     public function get_id()
@@ -83,7 +86,7 @@ class Season
 
     public function get_season_number()
     {
-        return sprintf('%02d', $this->data['seasons']);
+        return \sprintf('%02d', $this->data['seasons']);
     }
 
     public function get_status()

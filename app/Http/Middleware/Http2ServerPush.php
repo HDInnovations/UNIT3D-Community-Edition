@@ -29,7 +29,7 @@ class Http2ServerPush
     protected $crawler;
 
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const LINK_TYPE_MAP = [
         '.CSS'  => 'style',

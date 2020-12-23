@@ -94,7 +94,7 @@ class ImageController extends Controller
                 ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
 
-        $image->downloads++;
+        ++$image->downloads;
         $image->save();
 
         return \response()->download(\getcwd().'/files/img/'.$filename);

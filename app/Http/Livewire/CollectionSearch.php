@@ -39,7 +39,7 @@ class CollectionSearch extends Component
     {
         $search_term = '%'.$this->searchTerm.'%';
 
-        return view('livewire.collection-search', [
+        return \view('livewire.collection-search', [
             'collections' => Collection::withCount('movie')->with('movie')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(25),
         ]);
     }

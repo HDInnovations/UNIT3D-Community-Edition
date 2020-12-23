@@ -48,7 +48,7 @@ use App\Repositories\TorrentFacetedRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -246,7 +246,7 @@ class TorrentController extends Controller
         if (! \is_array($prelauncher)) {
             $prelauncher = [];
         }
-        $lengthAwarePaginator = new Paginator($prelauncher, \count($prelauncher), self::QTY);
+        $lengthAwarePaginator = new LengthAwarePaginator($prelauncher, \count($prelauncher), self::QTY);
 
         $hungry = \array_chunk($prelauncher, self::QTY);
         $fed = [];
@@ -291,7 +291,7 @@ class TorrentController extends Controller
                     'size'            => $chunk->size,
                     'chunk'           => $chunk,
                 ];
-                $counts['imdb'.$chunk->imdb]++;
+                ++$counts['imdb'.$chunk->imdb];
             }
         }
         $torrents = \count($cache) > 0 ? $cache : null;
@@ -717,7 +717,7 @@ class TorrentController extends Controller
             if (! \is_array($prelauncher)) {
                 $prelauncher = [];
             }
-            $links = new Paginator($prelauncher, \count($prelauncher), $qty);
+            $links = new LengthAwarePaginator($prelauncher, \count($prelauncher), $qty);
 
             $hungry = \array_chunk($prelauncher, $qty);
             $fed = [];
@@ -765,7 +765,7 @@ class TorrentController extends Controller
                         'size'            => $chunk->size,
                         'chunk'           => $chunk,
                     ];
-                    $counts['imdb'.$chunk->imdb]++;
+                    ++$counts['imdb'.$chunk->imdb];
                 }
             }
             $torrents = \count($cache) > 0 ? $cache : null;
@@ -776,7 +776,7 @@ class TorrentController extends Controller
                 $prelauncher = [];
             }
 
-            $links = new Paginator($prelauncher, \count($prelauncher), $qty);
+            $links = new LengthAwarePaginator($prelauncher, \count($prelauncher), $qty);
 
             $hungry = \array_chunk($prelauncher, $qty);
             $fed = [];
@@ -894,10 +894,10 @@ class TorrentController extends Controller
      */
     private static function parseKeywords($text)
     {
-        $parts = explode(', ', $text);
+        $parts = \explode(', ', $text);
         $result = [];
         foreach ($parts as $part) {
-            $part = trim($part);
+            $part = \trim($part);
             if ($part != '') {
                 $result[] = $part;
             }
@@ -1329,7 +1329,8 @@ class TorrentController extends Controller
         $category->num_torrent = $category->torrents_count;
         $category->save();
         // Backup the files contained in the torrent
-        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
+        $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
+        foreach ($fileList as $file) {
             $torrentFile = new TorrentFile();
             $torrentFile->name = $file['name'];
             $torrentFile->size = $file['size'];

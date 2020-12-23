@@ -116,6 +116,7 @@ class ModerationController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
         $torrent->markPostponed();
+
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = $user->id;
         $privateMessage->receiver_id = $torrent->user_id;
@@ -153,6 +154,7 @@ class ModerationController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
         $torrent->markRejected();
+
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = $user->id;
         $privateMessage->receiver_id = $torrent->user_id;
