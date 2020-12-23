@@ -41,7 +41,7 @@ class MovieSearch extends Component
             'movies' => Movie::with('companies', 'genres')
                 ->withCount('torrents')
                 ->where('title', 'LIKE', '%'.$this->searchTerm.'%')
-                ->orderBy('title', 'asc')
+                ->orderBy('title')
                 ->paginate(30),
         ]);
     }

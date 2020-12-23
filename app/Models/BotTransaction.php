@@ -99,7 +99,7 @@ class BotTransaction extends Model
      */
     public function forHumans()
     {
-        if ($this->type == 'bon') {
+        if ($this->type === 'bon') {
             return 'BON';
         }
 

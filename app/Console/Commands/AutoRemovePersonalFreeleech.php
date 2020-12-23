@@ -45,7 +45,7 @@ class AutoRemovePersonalFreeleech extends Command
     public function handle()
     {
         $current = Carbon::now();
-        $personal_freeleech = PersonalFreeleech::where('created_at', '<', $current->copy()->subDays(1)->toDateTimeString())->get();
+        $personal_freeleech = PersonalFreeleech::where('created_at', '<', $current->copy()->subDays()->toDateTimeString())->get();
 
         foreach ($personal_freeleech as $pfl) {
             // Send Private Message

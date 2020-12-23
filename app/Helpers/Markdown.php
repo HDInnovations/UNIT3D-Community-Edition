@@ -153,7 +153,7 @@ class Markdown
                 continue;
             }
 
-            if (\strpos($line, "\t") !== false) {
+            if (\str_contains($line, "\t")) {
                 $parts = \explode("\t", $line);
 
                 $line = $parts[0];
@@ -333,7 +333,6 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-        $Block['element']['text']['text'] = $Block['element']['text']['text'];
 
         return $Block;
     }
@@ -432,7 +431,6 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-        $Block['element']['text']['text'] = $Block['element']['text']['text'];
 
         return $Block;
     }
@@ -746,12 +744,10 @@ class Markdown
             return;
         }
 
-        if (\strpos($Block['element']['text'], '|') !== false && \rtrim($Line['text'], ' -:|') === '') {
+        if (\str_contains($Block['element']['text'], '|') && \rtrim($Line['text'], ' -:|') === '') {
             $alignments = [];
 
-            $divider = $Line['text'];
-
-            $divider = \trim($divider);
+            $divider = \trim($Line['text']);
             $divider = \trim($divider, '|');
 
             foreach (\explode('|', $divider) as $dividerCell) {
@@ -778,9 +774,7 @@ class Markdown
 
             $HeaderElements = [];
 
-            $header = $Block['element']['text'];
-
-            $header = \trim($header);
+            $header = \trim($Block['element']['text']);
             $header = \trim($header, '|');
 
             foreach (\explode('|', $header) as $index => $headerCell) {
@@ -844,9 +838,7 @@ class Markdown
         if ($Line['text'][0] === '|' || \strpos($Line['text'], '|')) {
             $Elements = [];
 
-            $row = $Line['text'];
-
-            $row = \trim($row);
+            $row = \trim($Line['text']);
             $row = \trim($row, '|');
 
             \preg_match_all('#(?:(\\\[|])|[^|`]|`[^`]+`|`)+#', $row, $matches);
@@ -1018,7 +1010,7 @@ class Markdown
 
     protected function inlineEmailTag($Excerpt)
     {
-        if (\strpos($Excerpt['text'], '>') !== false && \preg_match('#^<((mailto:)?\S+?@\S+?)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<((mailto:)?\S+?@\S+?)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             if (! isset($matches[2])) {
@@ -1143,8 +1135,7 @@ class Markdown
             $extent += \strlen($matches[0]);
         } else {
             if (\preg_match('#^\s*\[(.*?)\]#', $remainder, $matches)) {
-                $definition = $matches[1] != '' ? $matches[1] : $Element['text'];
-                $definition = \strtolower($definition);
+                $definition = \strtolower($matches[1] != '' ? $matches[1] : $Element['text']);
 
                 $extent += \strlen($matches[0]);
             } else {
@@ -1169,7 +1160,7 @@ class Markdown
 
     protected function inlineMarkup($Excerpt)
     {
-        if ($this->markupEscaped || $this->safeMode || \strpos($Excerpt['text'], '>') === false) {
+        if ($this->markupEscaped || $this->safeMode || !\str_contains($Excerpt['text'], '>')) {
             return;
         }
 
@@ -1255,7 +1246,7 @@ class Markdown
 
     protected function inlineUrlTag($Excerpt)
     {
-        if (\strpos($Excerpt['text'], '>') !== false && \preg_match('#^<(\w+:\/{2}[^ >]+)>#i', $Excerpt['text'], $matches)) {
+        if (\str_contains($Excerpt['text'], '>') && \preg_match('#^<(\w+:\/{2}[^ >]+)>#i', $Excerpt['text'], $matches)) {
             $url = $matches[1];
 
             return [
@@ -1413,7 +1404,7 @@ class Markdown
 
     protected static function escape($text, $allowQuotes = false)
     {
-        return \htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES, 'UTF-8');
+        return \htmlspecialchars($text, $allowQuotes ? ENT_NOQUOTES : ENT_QUOTES);
     }
 
     protected static function striAtStart($string, $needle)

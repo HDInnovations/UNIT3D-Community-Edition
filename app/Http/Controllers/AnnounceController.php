@@ -440,7 +440,7 @@ class AnnounceController extends Controller
             // Get Torrents Peers
             $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take($limit)->get()->toArray();
 
-            $rep_dict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV4);
+            $rep_dict['peers'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id']);
             $rep_dict['peers6'] = $this->givePeers($peers, $queries['compact'], $queries['no_peer_id'], FILTER_FLAG_IPV6);
         }
 

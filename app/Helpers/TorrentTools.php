@@ -43,7 +43,7 @@ class TorrentTools
         $result['announce'] = $announce;
         $result['info']['source'] = \config('torrent.source');
         $result['info']['private'] = 1;
-        $created_by = \config('torrent.created_by', null);
+        $created_by = \config('torrent.created_by');
         $created_by_append = \config('torrent.created_by_append', false);
         if ($created_by !== null) {
             if ($created_by_append && \array_key_exists('created by', $result)) {
@@ -54,7 +54,7 @@ class TorrentTools
             }
             $result['created by'] = $created_by;
         }
-        $comment = \config('torrent.comment', null);
+        $comment = \config('torrent.comment');
         if ($comment !== null) {
             $result['comment'] = $comment;
         }

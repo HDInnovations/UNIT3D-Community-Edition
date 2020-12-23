@@ -195,7 +195,7 @@ class TwoStepController extends Controller
                 'message' => \trans('auth.titlePassed'),
             ];
 
-            return \response()->json($returnData, 200);
+            return \response()->json($returnData);
         }
         \abort(404);
     }
@@ -219,6 +219,6 @@ class TwoStepController extends Controller
             'message' => \trans('auth.verificationEmailSentMsg'),
         ];
 
-        return \response()->json($returnData, 200);
+        return \response()->json($returnData);
     }
 }

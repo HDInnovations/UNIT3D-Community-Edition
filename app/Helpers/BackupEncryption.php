@@ -80,10 +80,10 @@ class BackupEncryption
      */
     public function getEncryptionConstant($type, $engine)
     {
-        if ($engine == 'ZipArchive' && isset($this->zipArchiveOptions[$type])) {
+        if ($engine === 'ZipArchive' && isset($this->zipArchiveOptions[$type])) {
             return $this->zipArchiveOptions[$type];
         }
-        if ($engine == 'ZipFile' && isset($this->zipFileOptions[$type])) {
+        if ($engine === 'ZipFile' && isset($this->zipFileOptions[$type])) {
             return $this->zipFileOptions[$type];
         }
 

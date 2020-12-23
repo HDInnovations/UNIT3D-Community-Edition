@@ -71,7 +71,7 @@ class SystemInformation
         $pow = \floor(($bytes ? \log($bytes) : 0) / \log(1_024));
         $pow = \min($pow, (\is_countable(self::UNITS) ? \count(self::UNITS) : 0) - 1);
         // Uncomment one of the following alternatives
-        $bytes /= \pow(1_024, $pow);
+        $bytes /= 1_024 ** $pow;
         // $bytes /= (1 << (10 * $pow));
 
         return \round($bytes, $precision).' '.self::UNITS[$pow];
@@ -104,8 +104,8 @@ class SystemInformation
     public function basic()
     {
         return [
-            'os'       => \php_uname('s'),
-            'php'      => \phpversion(),
+            'os'       => PHP_OS,
+            'php'      => PHP_VERSION,
             'database' => $this->getDatabase(),
             'laravel'  => \app()->version(),
         ];

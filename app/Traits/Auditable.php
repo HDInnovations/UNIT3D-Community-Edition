@@ -124,7 +124,7 @@ trait Auditable
 
         $clean = \array_filter($data);
 
-        return \json_encode($clean, JSON_THROW_ON_ERROR);
+        return \json_encode($clean, JSON_THROW_ON_ERROR | JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -186,7 +186,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
-        if (! \is_null($userId) && ! empty(\json_decode($data, true, 512, JSON_THROW_ON_ERROR))) {
+        if (! \is_null($userId) && ! empty(\json_decode($data, true, 512, JSON_THROW_ON_ERROR | JSON_THROW_ON_ERROR))) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([

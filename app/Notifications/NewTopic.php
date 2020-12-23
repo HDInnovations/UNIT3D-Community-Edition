@@ -57,7 +57,7 @@ class NewTopic extends Notification implements ShouldQueue
     {
         $appurl = \config('app.url');
 
-        if ($this->type == 'staff') {
+        if ($this->type === 'staff') {
             return [
                 'title' => $this->poster->username.' Has Posted In A Staff Forum',
                 'body'  => $this->poster->username.' has started a new staff topic in '.$this->topic->forum->name,

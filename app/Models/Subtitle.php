@@ -112,6 +112,6 @@ class Subtitle extends Model
     {
         $bytes = $this->file_size;
 
-        return StringHelper::formatBytes($bytes, 2);
+        return StringHelper::formatBytes($bytes);
     }
 }

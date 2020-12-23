@@ -122,7 +122,7 @@ class ChatController extends Controller
         } elseif ($bot->is_nerdbot) {
             $runbot = new NerdBot($this->chatRepository);
         }
-        $runbot->process('message', $this->authFactory->user(), '', 0);
+        $runbot->process('message', $this->authFactory->user());
 
         return ChatMessageResource::collection($this->chatRepository->botMessages($this->authFactory->user()->id, $bot->id));
     }
@@ -183,7 +183,7 @@ class ChatController extends Controller
             $target = 'system';
             $message = '/bot gift'.\substr($message, \strlen($trip) + 1, \strlen($message));
         }
-        if ($target == 'system') {
+        if ($target === 'system') {
             $runbot = new SystemBot($this->chatRepository);
         }
         if ($which == null) {
@@ -213,7 +213,7 @@ class ChatController extends Controller
             }
         }
 
-        if ($which != null && $which != 'skip' && ! $runbot) {
+        if ($which != null && $which !== 'skip' && ! $runbot) {
             if ($bot->is_systembot) {
                 $runbot = new SystemBot($this->chatRepository);
             } elseif ($bot->is_nerdbot) {
@@ -223,7 +223,7 @@ class ChatController extends Controller
             }
         }
         if ($runbot !== null) {
-            return $runbot->process($which, $this->authFactory->user(), $message, 0);
+            return $runbot->process($which, $this->authFactory->user(), $message);
         }
 
         $echo = false;
@@ -242,6 +242,7 @@ class ChatController extends Controller
             foreach ($sender_echoes as $se => $sender_echo) {
                 if ($sender_echo['target_id'] == $receiver_id) {
                     $sender_listening = true;
+                    break;
                 }
             }
             if (! $sender_listening) {
@@ -256,6 +257,7 @@ class ChatController extends Controller
             foreach ($receiver_echoes as $se => $receiver_echo) {
                 if ($receiver_echo['target_id'] == $user_id) {
                     $receiver_listening = true;
+                    break;
                 }
             }
             if (! $receiver_listening) {
@@ -291,6 +293,7 @@ class ChatController extends Controller
             foreach ($sender_audibles as $se => $sender_echo) {
                 if ($sender_echo['target_id'] == $receiver_id) {
                     $sender_listening = true;
+                    break;
                 }
             }
             if (! $sender_listening) {
@@ -306,6 +309,7 @@ class ChatController extends Controller
             foreach ($receiver_audibles as $se => $receiver_echo) {
                 if ($receiver_echo['target_id'] == $user_id) {
                     $receiver_listening = true;
+                    break;
                 }
             }
             if (! $receiver_listening) {
@@ -467,7 +471,7 @@ class ChatController extends Controller
 
         $log = '[url=/users/'.$user->username.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]';
 
-        $message = $this->chatRepository->message($systemUser->id, $user->chatroom->id, $log, null);
+        $message = $this->chatRepository->message($systemUser->id, $user->chatroom->id, $log);
         $message->save();
 
         $user->chatStatus()->dissociate();
@@ -496,6 +500,7 @@ class ChatController extends Controller
         foreach ($sender_echoes as $se => $sender_echo) {
             if ($sender_echo['room_id'] == $room->id) {
                 $sender_listening = true;
+                break;
             }
         }
         if (! $sender_listening) {

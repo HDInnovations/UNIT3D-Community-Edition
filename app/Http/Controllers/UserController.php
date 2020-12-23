@@ -1185,7 +1185,7 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
 
         \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-        if ($request->has('view') && $request->input('view') == 'seeds') {
+        if ($request->has('view') && $request->input('view') === 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?', [$user->id, 1])
@@ -1236,16 +1236,16 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
-            $direction = $order == 'asc' ? 1 : 2;
-            if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
-                if ($sorting == 'seedtime') {
+            $direction = $order === 'asc' ? 1 : 2;
+            if ($sorting !== 'name' && $sorting !== 'size' && $sorting !== 'times_completed' && $sorting !== 'seeders' && $sorting !== 'leechers') {
+                if ($sorting === 'seedtime') {
                     $table = $history->orderBy($sorting, $order)->paginate(50);
-                } elseif ($sorting == 'hcreated_at') {
+                } elseif ($sorting === 'hcreated_at') {
                     $table = $history->orderBy('history_created_at', $order)->paginate(50);
                 } else {
                     $table = $history->orderBy($sorting, $order)->paginate(50);
@@ -1259,7 +1259,7 @@ class UserController extends Controller
                 'seeds' => $table,
             ])->render();
         }
-        if ($request->has('view') && $request->input('view') == 'requests') {
+        if ($request->has('view') && $request->input('view') === 'requests') {
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type']);
             $order = null;
             $sorting = null;
@@ -1294,13 +1294,13 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
-            $direction = $order == 'asc' ? 1 : 2;
-            if ($sorting == 'date') {
+            $direction = $order === 'asc' ? 1 : 2;
+            if ($sorting === 'date') {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy('created_at', $order)->paginate(25);
             } else {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(25);
@@ -1312,7 +1312,7 @@ class UserController extends Controller
             ])->render();
         }
 
-        if ($request->has('view') && $request->input('view') == 'resurrections') {
+        if ($request->has('view') && $request->input('view') === 'resurrections') {
             $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
             $order = null;
             $sorting = null;
@@ -1331,14 +1331,14 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
-            $direction = $order == 'asc' ? 1 : 2;
-            if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
-                if ($sorting == 'goal') {
+            $direction = $order === 'asc' ? 1 : 2;
+            if ($sorting !== 'name' && $sorting !== 'size' && $sorting !== 'times_completed' && $sorting !== 'seeders' && $sorting !== 'leechers') {
+                if ($sorting === 'goal') {
                     $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('graveyard.seedtime', $order)->paginate(50);
                 } else {
                     $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('graveyard.'.$sorting, $order)->paginate(50);
@@ -1353,7 +1353,7 @@ class UserController extends Controller
             ])->render();
         }
 
-        if ($request->has('view') && $request->input('view') == 'active') {
+        if ($request->has('view') && $request->input('view') === 'active') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id');
@@ -1376,14 +1376,14 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
             }
-            $direction = $order == 'asc' ? 1 : 2;
+            $direction = $order === 'asc' ? 1 : 2;
 
-            if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
+            if ($sorting !== 'name' && $sorting !== 'size' && $sorting !== 'times_completed' && $sorting !== 'seeders' && $sorting !== 'leechers') {
                 $table = $history->where('peers.user_id', '=', $user->id)->orderBy('peers.'.$sorting, $order)->paginate(50);
             } else {
                 $table = $history->where('peers.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
@@ -1453,7 +1453,9 @@ class UserController extends Controller
                 'user'      => $user,
                 'downloads' => $table,
             ])->render();
-        } elseif ($request->has('view') && $request->input('view') == 'downloads') {
+        }
+
+        if ($request->has('view') && $request->input('view') == 'downloads') {
             $history = History::selectRaw('distinct(history.info_hash), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
             }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)

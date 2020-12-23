@@ -75,6 +75,6 @@ class TorrentFile extends Model
     {
         $bytes = $this->size;
 
-        return StringHelper::formatBytes($bytes, 2);
+        return StringHelper::formatBytes($bytes);
     }
 }

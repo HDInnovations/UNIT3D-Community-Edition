@@ -140,7 +140,7 @@ class PrivateMessageController extends Controller
         $user = $request->user();
 
         $dest = 'default';
-        if ($request->has('dest') && $request->input('dest') == 'profile') {
+        if ($request->has('dest') && $request->input('dest') === 'profile') {
             $dest = 'profile';
         }
 
@@ -167,7 +167,7 @@ class PrivateMessageController extends Controller
         ]);
 
         if ($v->fails()) {
-            if ($dest == 'profile') {
+            if ($dest === 'profile') {
                 return \redirect()->route('users.show', ['username' => $recipient->username])
                     ->withErrors($v->errors());
             }
@@ -176,7 +176,7 @@ class PrivateMessageController extends Controller
                 ->withErrors($v->errors());
         }
         $privateMessage->save();
-        if ($dest == 'profile') {
+        if ($dest === 'profile') {
             return \redirect()->route('users.show', ['username' => $recipient->username])
                 ->withSuccess('Your PM Was Sent Successfully!');
         }
@@ -242,14 +242,14 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
 
         $dest = 'default';
-        if ($request->has('dest') && $request->input('dest') == 'outbox') {
+        if ($request->has('dest') && $request->input('dest') === 'outbox') {
             $dest = 'outbox';
         }
 
         if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             $pm->delete();
 
-            if ($dest == 'outbox') {
+            if ($dest === 'outbox') {
                 return \redirect()->route('outbox')->withSuccess('PM Was Deleted Successfully!');
             }
 

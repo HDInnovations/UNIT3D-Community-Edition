@@ -63,7 +63,7 @@ class MediaInfo
     {
         $output = [];
         foreach ($sections as $key => $section) {
-            $key_section = \strtolower(\explode(' ', $key)[0]);
+            $key_section = \strtolower(\explode(' ', $key, 2)[0]);
             if (! empty($section)) {
                 if ($key_section === 'general') {
                     $output[$key_section] = $this->parseProperty($section, $key_section);
@@ -440,7 +440,7 @@ class MediaInfo
         $size = \strtolower($size);
 
         if (isset(self::FACTORS[$size])) {
-            return (float) \number_format($bytes * \pow(1_024, self::FACTORS[$size]), 2, '.', '');
+            return (float) \number_format($bytes * (1_024 ** self::FACTORS[$size]), 2, '.', '');
         }
 
         return $bytes;

@@ -24,6 +24,8 @@ class Contact extends Mailable
 
     /**
      * Contact Constructor.
+     *
+     * @param array $input
      */
     public function __construct(public array $input)
     {

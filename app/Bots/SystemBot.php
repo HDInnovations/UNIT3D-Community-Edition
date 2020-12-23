@@ -61,7 +61,7 @@ class SystemBot
     public function replaceVars($output)
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
-        if (\strpos($output, '{bots}') !== false) {
+        if (\str_contains($output, '{bots}')) {
             $bot_help = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
             foreach ($bots as $bot) {
@@ -152,7 +152,7 @@ class SystemBot
     public function process($type, User $user, $message = '', $targeted = 0)
     {
         $this->target = $user;
-        $x = $type == 'message' ? 0 : 1;
+        $x = $type === 'message' ? 0 : 1;
 
         $y = $x + 1;
         $z = $y + 1;
@@ -195,7 +195,7 @@ class SystemBot
         $message = $this->message;
         $targeted = $this->targeted;
 
-        if ($type == 'message' || $type == 'private') {
+        if ($type === 'message' || $type === 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = \cache()->get('user-echoes'.$target->id);
             if (! $receiver_echoes || ! \is_array($receiver_echoes) || \count($receiver_echoes) < 1) {
@@ -205,6 +205,7 @@ class SystemBot
             foreach ($receiver_echoes as $se => $receiver_echo) {
                 if ($receiver_echo['bot_id'] == $this->bot->id) {
                     $receiver_listening = true;
+                    break;
                 }
             }
             if (! $receiver_listening) {
@@ -229,6 +230,7 @@ class SystemBot
             foreach ($receiver_audibles as $se => $receiver_echo) {
                 if ($receiver_echo['bot_id'] == $this->bot->id) {
                     $receiver_listening = true;
+                    break;
                 }
             }
             if (! $receiver_listening) {
@@ -252,7 +254,7 @@ class SystemBot
 
             return \response('success');
         }
-        if ($type == 'echo') {
+        if ($type === 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
@@ -261,7 +263,7 @@ class SystemBot
             return \response('success');
         }
 
-        if ($type == 'public') {
+        if ($type === 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);

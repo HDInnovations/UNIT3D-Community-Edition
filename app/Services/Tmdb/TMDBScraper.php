@@ -55,7 +55,7 @@ class TMDBScraper implements ShouldQueue
                 'in_production'      => $tv['in_production'],
                 'last_air_date'      => $helper->ifExists('last_air_date', $tv),
                 'name'               => Str::limit($tv['name'], 200),
-                'name_sort'          => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], Str::limit($tv['name'], 100))),
+                'name_sort'          => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], Str::limit($tv['name']))),
                 'number_of_episodes' => $tv['number_of_episodes'],
                 'number_of_seasons'  => $tv['number_of_seasons'],
                 'origin_country'     => $helper->ifHasItems('origin_country', $tv),
@@ -92,7 +92,7 @@ class TMDBScraper implements ShouldQueue
 
             $year = (new DateTime($movie['release_date']))->format('Y');
             $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''],
-                Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'], 100)));
+                Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'])));
 
             $array = [
                 'adult'             => $movie['adult'] ?? 0,

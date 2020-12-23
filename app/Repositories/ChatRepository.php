@@ -64,7 +64,7 @@ class ChatRepository
         ])->where(function ($query) use ($user_id) {
             $query->where('user_id', '=', $user_id);
         })
-            ->orderBy('id', 'asc')
+            ->orderBy('id')
             ->get();
     }
 
@@ -94,7 +94,7 @@ class ChatRepository
 
     public function ping($type, $id)
     {
-        if ($type == 'room') {
+        if ($type === 'room') {
             foreach (Chatroom::where('id', '>', 0)->get() as $room) {
                 \broadcast(new Ping($room->id, $id));
             }

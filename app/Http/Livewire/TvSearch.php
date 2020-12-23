@@ -41,7 +41,7 @@ class TvSearch extends Component
             'shows' => Tv::with('networks', 'genres')
                 ->withCount('torrents', 'seasons')
                 ->where('name', 'LIKE', '%'.$this->searchTerm.'%')
-                ->orderBy('name', 'asc')
+                ->orderBy('name')
                 ->paginate(30),
         ]);
     }

@@ -360,7 +360,7 @@ class Bbcode
      */
     public function parseCaseSensitive($source)
     {
-        return $this->parse($source, false);
+        return $this->parse($source);
     }
 
     /**

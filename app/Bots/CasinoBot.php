@@ -66,7 +66,7 @@ class CasinoBot
     public function replaceVars($output)
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
-        if (\strpos($output, '{bots}') !== false) {
+        if (\str_contains($output, '{bots}')) {
             $bot_help = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
             foreach ($bots as $bot) {
@@ -134,7 +134,7 @@ class CasinoBot
     public function getDonations($duration = 'default')
     {
         $donations = \cache()->get('casinobot-donations');
-        if (! $donations || $donations == null) {
+        if (! $donations) {
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('casinobot-donations', $donations, $this->expiresAt);
         }
@@ -171,7 +171,7 @@ class CasinoBot
     public function process($type, User $user, $message = '', $targeted = 0)
     {
         $this->target = $user;
-        if ($type == 'message') {
+        if ($type === 'message') {
             $x = 0;
             $y = 1;
             $z = 2;
@@ -226,7 +226,7 @@ class CasinoBot
         $message = $this->message;
         $targeted = $this->targeted;
 
-        if ($type == 'message' || $type == 'private') {
+        if ($type === 'message' || $type === 'private') {
             $receiver_dirty = 0;
             $receiver_echoes = \cache()->get('user-echoes'.$target->id);
             if (! $receiver_echoes || ! \is_array($receiver_echoes) || \count($receiver_echoes) < 1) {
@@ -236,6 +236,7 @@ class CasinoBot
             foreach ($receiver_echoes as $se => $receiver_echo) {
                 if ($receiver_echo['bot_id'] == $this->bot->id) {
                     $receiver_listening = true;
+                    break;
                 }
             }
             if (! $receiver_listening) {
@@ -260,6 +261,7 @@ class CasinoBot
             foreach ($receiver_audibles as $se => $receiver_echo) {
                 if ($receiver_echo['bot_id'] == $this->bot->id) {
                     $receiver_listening = true;
+                    break;
                 }
             }
             if (! $receiver_listening) {
@@ -283,7 +285,7 @@ class CasinoBot
 
             return \response('success');
         }
-        if ($type == 'echo') {
+        if ($type === 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
@@ -292,7 +294,7 @@ class CasinoBot
             return \response('success');
         }
 
-        if ($type == 'public') {
+        if ($type === 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);

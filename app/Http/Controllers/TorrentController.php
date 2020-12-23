@@ -372,7 +372,7 @@ class TorrentController extends Controller
         $leeching = null;
         $idling = null;
 
-        if ($request->has('view') && $request->input('view') == 'group') {
+        if ($request->has('view') && $request->input('view') === 'group') {
             $collection = 1;
         }
         if ($request->has('notdownloaded') && $request->input('notdownloaded') != null) {
@@ -452,13 +452,13 @@ class TorrentController extends Controller
         if ($request->has('direction') && $request->input('direction') != null) {
             $order = $request->input('direction');
         }
-        if (! $sorting || $sorting === null || ! $order || $order === null) {
+        if (! $sorting || ! $order) {
             $sorting = 'bumped_at';
             $order = 'desc';
             // $order = 'asc';
         }
 
-        $direction = $order == 'asc' ? 1 : 2;
+        $direction = $order === 'asc' ? 1 : 2;
 
         $qty = $request->has('qty') ? $request->input('qty') : 25;
 
@@ -831,7 +831,7 @@ class TorrentController extends Controller
                 }
             }
         }
-        if ($request->has('view') && $request->input('view') == 'card') {
+        if ($request->has('view') && $request->input('view') === 'card') {
             if ($logger == null) {
                 $logger = 'torrent.results_cards';
             }
@@ -989,7 +989,7 @@ class TorrentController extends Controller
             $general_crumbs = $view_crumbs['general'];
             $video = $parsed['video'];
             $video_crumbs = $view_crumbs['video'];
-            $settings = (isset($parsed['video'][0], $parsed['video'][0]['encoding_settings']) && $parsed['video'] !== null) ? $parsed['video'][0]['encoding_settings'] : null;
+            $settings = (isset($parsed['video'][0]['encoding_settings']) && $parsed['video'] !== null) ? $parsed['video'][0]['encoding_settings'] : null;
             $audio = $parsed['audio'];
             $audio_crumbs = $view_crumbs['audio'];
             $subtitle = $parsed['text'];
@@ -1280,7 +1280,7 @@ class TorrentController extends Controller
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Torrent File For Upload!')->withInput();
         }
-        if ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+        if ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() !== 'torrent') {
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors('An Unknown Error Has Occurred!')->withInput();
         }

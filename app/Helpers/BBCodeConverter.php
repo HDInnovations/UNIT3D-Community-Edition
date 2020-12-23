@@ -120,7 +120,7 @@ class BBCodeConverter
 
                 $counter = \is_countable($items) ? \count($items) : 0;
 
-                if (isset($matches['type']) && $matches['type'] == '=1') { // ordered list
+                if (isset($matches['type']) && $matches['type'] === '=1') { // ordered list
                     // We start from 1 to discard the first string, in fact, it's empty.
                     for ($i = 1; $i < $counter; $i++) {
                         if (! empty($items[$i])) {
@@ -154,8 +154,7 @@ class BBCodeConverter
     protected function replaceTables()
     {
         $replaceRow = function ($matches) {
-            $columns = $matches['columns'];
-            $columns = \trim($columns);
+            $columns = \trim($matches['columns']);
 
             $cells = \preg_replace_callback('#\[td?\](?P<cells>[\W\w\s]*?)\[/td\]#iu', fn ($matches) => $matches['cells'].' | ', $columns);
 

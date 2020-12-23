@@ -287,7 +287,7 @@ class BonusController extends Controller
                 $privateMessage->sender_id = 1;
                 $privateMessage->receiver_id = $user_acc->id;
                 $privateMessage->subject = 'Personal 24 Hour Freeleech Activated';
-                $privateMessage->message = \sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).\config('app.timezone').'[/b]! 
+                $privateMessage->message = \sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays()->toDayDateTimeString()).\config('app.timezone').'[/b]! 
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $privateMessage->save();
             } else {
@@ -331,7 +331,7 @@ class BonusController extends Controller
         ]);
 
         $dest = 'default';
-        if ($request->has('dest') && $request->input('dest') == 'profile') {
+        if ($request->has('dest') && $request->input('dest') === 'profile') {
             $dest = 'profile';
         }
 
@@ -371,7 +371,7 @@ class BonusController extends Controller
                 \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profile_url, $user->username, $value, $recipient_url, $recipient->username)
             );
 
-            if ($dest == 'profile') {
+            if ($dest === 'profile') {
                 return \redirect()->route('users.show', ['username' => $recipient->username])
                     ->withSuccess('Gift Sent');
             }
@@ -390,7 +390,7 @@ class BonusController extends Controller
                     ->withErrors('Unable to find specified user');
             }
 
-            if ($dest == 'profile') {
+            if ($dest === 'profile') {
                 return \redirect()->route('users.show', ['username' => $recipient->username])
                     ->withErrors('You Must Enter An Amount And Message!');
             }

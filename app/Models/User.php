@@ -724,10 +724,10 @@ class User extends Authenticatable
         $bytes = $this->uploaded;
 
         if ($bytes > 0) {
-            return StringHelper::formatBytes((float) $bytes, 2);
+            return StringHelper::formatBytes((float) $bytes);
         }
 
-        return StringHelper::formatBytes(0, 2);
+        return StringHelper::formatBytes(0);
     }
 
     /**
@@ -743,10 +743,10 @@ class User extends Authenticatable
         $bytes = $this->downloaded;
 
         if ($bytes > 0) {
-            return StringHelper::formatBytes((float) $bytes, 2);
+            return StringHelper::formatBytes((float) $bytes);
         }
 
-        return StringHelper::formatBytes(0, 2);
+        return StringHelper::formatBytes(0);
     }
 
     /**

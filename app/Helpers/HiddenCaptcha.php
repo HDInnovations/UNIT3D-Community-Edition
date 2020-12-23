@@ -29,7 +29,7 @@ class HiddenCaptcha
     public static function render($mustBeEmptyField = '_username')
     {
         $ts = \time();
-        $random = Str::random(16);
+        $random = Str::random();
 
         // Generate the token
         $token = [
