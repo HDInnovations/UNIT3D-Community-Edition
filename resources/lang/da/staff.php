@@ -40,7 +40,7 @@ return [
     'logs'                    => 'Logs',
     'mass-pm'                 => 'Masse PM',
     'mass-validate-users'     => 'Masse valider brugere',
-    'media-languages-desc'    => '(Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)',
+    'media-languages-desc'    => '(Sprog, der bruges til at udfylde dropdown-sprog til undertekster / lydbøger / osv.)',
     'moderation'              => 'Moderering',
     'moderation-since'        => 'Modereret den',
     'page'                    => 'Side',
