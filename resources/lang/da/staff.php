@@ -13,7 +13,8 @@
 
 return [
     'audit-log'               => 'Aktivitets Log',
-    'articles'                => 'Artikler',
+    'articles'                => 'Nyheder',
+    'article-content'         => 'Indhold',
     'application'             => 'Ansøgning',
     'applications'            => 'Ansøgninger',
     'application-type'        => 'Type',
@@ -69,5 +70,6 @@ return [
     'chat-tools'              => 'Chatværktøjer',
     'flush-chat'              => 'Tøm chatboksen',
     'seedboxes'               => 'Registrerede seedbokse',
+
 
 ];
