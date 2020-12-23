@@ -42,6 +42,7 @@ use Illuminate\Http\Request;
  */
 class CommentController extends Controller
 {
+    public $tag;
     /**
      * CommentController Constructor.
      *
@@ -118,11 +119,7 @@ class CommentController extends Controller
                         $comment
                     );
             } else {
-                if ($comment->anon) {
-                    $sender = 'Anonymous';
-                } else {
-                    $sender = $user->username;
-                }
+                $sender = $comment->anon ? 'Anonymous' : $user->username;
                 $this->taggedUserRepository->messageTaggedCommentUsers(
                         'collection',
                         $request->input('content'),

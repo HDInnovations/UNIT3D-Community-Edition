@@ -166,11 +166,11 @@ trait TwoStep
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
      *
-     * @param datetime $time
+     * @param \DateTime|\DateTimeImmutable $time
      *
      * @return bool
      */
-    protected function checkExceededTime($time)
+    protected function checkExceededTime(\DateTimeInterface $time)
     {
         $now = Carbon::now();
         $expire = Carbon::parse($time)->addMinutes(\config('auth.TwoStepExceededCountdownMinutes'));

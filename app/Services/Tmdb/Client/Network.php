@@ -15,6 +15,10 @@ namespace App\Services\Tmdb\Client;
 
 class Network
 {
+    /**
+     * @var \GuzzleHttp\Client|mixed
+     */
+    public $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
     public $data;
 

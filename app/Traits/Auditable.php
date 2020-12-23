@@ -48,8 +48,8 @@ trait Auditable
         // Convert the data to an array
         $data = (array) $data;
         // Start stripping
-        $globalDiscards = (! empty(\config('audit.global_discards'))) ? \config('audit.global_discards') : [];
-        $modelDiscards = (! empty($instance->discarded)) ? $instance->discarded : [];
+        $globalDiscards = (empty(\config('audit.global_discards'))) ? [] : \config('audit.global_discards');
+        $modelDiscards = (empty($instance->discarded)) ? [] : $instance->discarded;
         foreach (\array_keys($data) as $key) {
             // Check the model-specific discards
             if (\in_array($key, $modelDiscards, true)) {

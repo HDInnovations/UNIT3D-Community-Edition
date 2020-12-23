@@ -191,15 +191,11 @@ class TorrentController extends BaseController
         }
 
         $client = new TMDBScraper();
-        if ($torrent->category->tv_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->tv($torrent->tmdb);
-            }
+        if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $client->tv($torrent->tmdb);
         }
-        if ($torrent->category->movie_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->movie($torrent->tmdb);
-            }
+        if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $client->movie($torrent->tmdb);
         }
 
         // Torrent Keywords System
