@@ -47,7 +47,7 @@ class BookmarkSearch extends Component
         $user = User::where('username', '=', $this->user->username)->firstOrFail();
 
         $bookmarks = $user->bookmarks()
-            ->when($this->searchTerm, fn($query) => $query->where('name', 'like', '%'.$this->searchTerm.'%'))
+            ->when($this->searchTerm, fn ($query) => $query->where('name', 'like', '%'.$this->searchTerm.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
