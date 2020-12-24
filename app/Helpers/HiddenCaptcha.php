@@ -92,9 +92,9 @@ class HiddenCaptcha
      *
      * @param string $captcha
      *
-     * @return string|bool
+     * @return string|array
      */
-    private static function getToken($captcha): string | bool
+    private static function getToken($captcha): string | array
     {
         // Get the token values
         try {
