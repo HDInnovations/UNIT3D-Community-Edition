@@ -1,4 +1,4 @@
-name: PHP 7.4 Tests
+name: PHP 8.0 Tests
 
 on: [ push, pull_request ]
 
