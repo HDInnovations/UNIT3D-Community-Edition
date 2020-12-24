@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
  */
 class VersionController extends Controller
 {
-    private \App\Http\Controllers\Staff\VersionController $versionController;
+    private $versionController;
 
     public function __construct()
     {
