@@ -8,10 +8,10 @@ jobs:
         steps:
             -   uses: actions/checkout@v2
 
-            -   name: Setup PHP 7.4
+            -   name: Setup PHP 8.0
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 7.4
+                    php-version: 8.0
                     coverage: none
                     tools: cs2pr
 
