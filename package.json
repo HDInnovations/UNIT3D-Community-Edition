@@ -8,26 +8,26 @@
     "production": "mix --production"
   },
   "devDependencies": {
-    "ajv": "^6.12.6",
+    "ajv": "^7.0.2",
     "axios": "^0.21",
     "bootstrap-sass": "^3.4.1",
     "cross-env": "^7.0",
     "jquery": "^3.5.1",
-    "laravel-echo": "^1.9.0",
-    "laravel-mix": "^6.0.0-beta.17",
+    "laravel-echo": "^1.10.0",
+    "laravel-mix": "^6.0.3",
     "lodash": "^4.17.20",
     "postcss": "^8.2.1",
     "resolve-url-loader": "3.1.2",
-    "sass": "^1.29.0",
+    "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.1",
-    "sweetalert2": "^10.10.1",
+    "socket.io": "^3.0.4",
+    "socket.io-client": "^3.0.4",
+    "sweetalert2": "^10.12.6",
     "vue": "^2.6.12",
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "dayjs": "^1.9.6"
+    "dayjs": "^1.9.7"
   }
 }
