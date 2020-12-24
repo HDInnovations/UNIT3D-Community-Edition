@@ -79,7 +79,7 @@ class ProcessMovieJob implements ShouldQueue
                 $belongsToCollectionArray = [
                     'name'      => $belongsToCollection['name'] ?? null,
                     'name_sort' => $titleSort,
-                    'parts'     => is_countable($belongsToCollection['parts']) ? \count($belongsToCollection['parts']) : 0,
+                    'parts'     => \is_countable($belongsToCollection['parts']) ? \count($belongsToCollection['parts']) : 0,
                     'overview'  => $belongsToCollection['overview'] ?? null,
                     'poster'    => $tmdb->image('poster', $belongsToCollection),
                     'backdrop'  => $tmdb->image('backdrop', $belongsToCollection),

@@ -1329,8 +1329,7 @@ class TorrentController extends Controller
         $category->num_torrent = $category->torrents_count;
         $category->save();
         // Backup the files contained in the torrent
-        $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
-        foreach ($fileList as $file) {
+        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
             $torrentFile = new TorrentFile();
             $torrentFile->name = $file['name'];
             $torrentFile->size = $file['size'];
