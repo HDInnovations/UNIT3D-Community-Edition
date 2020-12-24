@@ -79,3 +79,10 @@ if (! function_exists('hrefCollection')) {
         return sprintf('%s/mediahub/collections/%s', $appurl, $collection->id);
     }
 }
+
+if (! function_exists('language')) {
+    function language()
+    {
+        return app('language');
+    }
+}
