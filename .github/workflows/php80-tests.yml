@@ -24,10 +24,10 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Setup PHP 7.4
+            - name: Setup PHP 8.0
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '7.4'
+                  php-version: '8.0'
                   tools: phpunit
                   extensions: gd, json, mbstring, mysql, dom, fileinfo, xml, xsl, zip, curl, bcmath, intl
                   coverage: none
