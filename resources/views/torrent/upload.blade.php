@@ -54,12 +54,12 @@
             </div>
 
             <div class="upload col-md-12">
-                <h3 class="upload-title">@lang('torrent.torrent')</h3>
+                <h2 class="upload-title">@lang('torrent.torrent')</h2>
                 <form name="upload" class="upload-form" method="POST" action="{{ route('upload') }}"
                       enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="torrent">@lang('torrent.file')</label>
+                        <label for="torrent">Torrent @lang('torrent.file')</label>
                         <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent" required>
                     </div>
 

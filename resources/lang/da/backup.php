@@ -40,4 +40,5 @@ return [
     'manager'                        => 'Manager',
     'no_disks_configured'            => 'Ingen backup diske konfigureret i config / backup.php',
     'only_local_downloads_supported' => 'Kun downloads fra det lokale filsystem understøttes.',
+
 ];

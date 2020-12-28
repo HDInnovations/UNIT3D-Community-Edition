@@ -3,8 +3,7 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4><i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> Latest Poll ({{ $poll->title }}) (Vote
-                    Now!)</h4>
+                <h4><i class="{{ config('other.font-awesome') }} fa-chart-pie"></i>@lang('blocks.latest-poll') - - {{ $poll->title }}</h4>
             </div>
             <div class="panel-body">
                 <div class="forum-categories">

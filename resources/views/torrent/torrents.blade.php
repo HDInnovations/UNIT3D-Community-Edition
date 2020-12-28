@@ -65,11 +65,11 @@
                             </div>
                             <div class="mx-0 mt-5 form-group fatten-me">
                                 <label for="keywords"
-                                       class="mt-5 col-sm-1 label label-default fatten-me">Keywords</label>
+                                       class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.keywords')</label>
                                 <div class="col-sm-9 fatten-me">
                                     <label for="keywaords"></label>
                                     <input type="text" class="form-control facetedSearch"
-                                           trigger="keyup" id="keywords" placeholder="Keywords">
+                                           trigger="keyup" id="keywords" placeholder="@lang('torrent.keywords')">
                                 </div>
                             </div>
                             <div class="mx-0 mt-5 form-group fatten-me">
@@ -351,19 +351,19 @@
                 <div class="text-center">
                     <strong>@lang('common.legend'):</strong>
                     <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='@lang(' torrent.currently-seeding')!'>
+                        data-original-title='@lang('torrent.currently-seeding')!'>
                         <i class='{{ config('other.font-awesome') }} fa-arrow-up'></i>
                     </button>
                     <button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='@lang(' torrent.currently-leeching')!'>
+                        data-original-title='@lang('torrent.currently-leeching')!'>
                         <i class='{{ config('other.font-awesome') }} fa-arrow-down'></i>
                     </button>
                     <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='@lang(' torrent.not-completed')!'>
+                        data-original-title='@lang('torrent.not-completed')!'>
                         <i class='{{ config('other.font-awesome') }} fa-spinner'></i>
                     </button>
                     <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='@lang(' torrent.completed-not-seeding')!'>
+                        data-original-title='@lang('torrent.completed-not-seeding')!'>
                         <i class='{{ config('other.font-awesome') }} fa-thumbs-down'></i>
                     </button>
                 </div>
