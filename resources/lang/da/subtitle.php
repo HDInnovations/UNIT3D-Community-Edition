@@ -34,5 +34,4 @@ return [
     'uploaded'                    => 'Uploaded',
     'uploader'                    => 'Uploader',
 
-
 ];
