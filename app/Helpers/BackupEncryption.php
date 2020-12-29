@@ -13,80 +13,35 @@
 
 namespace App\Helpers;
 
+use \ZipArchive;
+
 class BackupEncryption
 {
     /**
-     * Default encryption contants.
+     * Default encryption contants
      *
      * @var string
      */
-    const ENCRYPTION_DEFAULT = 'default';
+    public const ENCRYPTION_DEFAULT = ZipArchive::EM_AES_128;
 
     /**
-     * AES-128 encryption contants.
+     * AES-128 encryption contants
      *
      * @var string
      */
-    const ENCRYPTION_WINZIP_AES_128 = 'aes_128';
+    public const ENCRYPTION_WINZIP_AES_128 = ZipArchive::EM_AES_128;
 
     /**
-     * AES-192 encryption contants.
+     * AES-192 encryption contants
      *
      * @var string
      */
-    const ENCRYPTION_WINZIP_AES_192 = 'aes_192';
+    public const ENCRYPTION_WINZIP_AES_192 = ZipArchive::EM_AES_192;
 
     /**
-     * AES-256 encryption contants.
+     * AES-256 encryption contants
      *
      * @var string
      */
-    const ENCRYPTION_WINZIP_AES_256 = 'aes_256';
-
-    /**
-     * ZipArchive encryption constants; stores as simple string for PHP < 7.2
-     * backwards compatability.
-     *
-     * @var array
-     */
-    private $zipArchiveOptions = [
-        self::ENCRYPTION_DEFAULT        => '257',
-        self::ENCRYPTION_WINZIP_AES_128 => '257',
-        self::ENCRYPTION_WINZIP_AES_192 => '258',
-        self::ENCRYPTION_WINZIP_AES_256 => '259',
-    ];
-
-    /**
-     * ZipFile encryption constants.
-     *
-     * @var array
-     */
-    private $zipFileOptions = [
-        self::ENCRYPTION_DEFAULT        => \PhpZip\Constants\ZipEncryptionMethod::PKWARE,
-        self::ENCRYPTION_WINZIP_AES_128 => \PhpZip\Constants\ZipEncryptionMethod::WINZIP_AES_128,
-        self::ENCRYPTION_WINZIP_AES_192 => \PhpZip\Constants\ZipEncryptionMethod::WINZIP_AES_192,
-        self::ENCRYPTION_WINZIP_AES_256 => \PhpZip\Constants\ZipEncryptionMethod::WINZIP_AES_256,
-    ];
-
-    /**
-     * Retrive appropriate encryption constant.
-     *
-     * @param string $type
-     * @param string $engine
-     *
-     * @throws \Exception
-     *
-     * @return mixed
-     */
-    public function getEncryptionConstant($type, $engine)
-    {
-        if ($engine == 'ZipArchive' && isset($this->zipArchiveOptions[$type])) {
-            return $this->zipArchiveOptions[$type];
-        }
-        if ($engine == 'ZipFile' && isset($this->zipFileOptions[$type])) {
-            return $this->zipFileOptions[$type];
-        }
-
-        throw new \RuntimeException('Encryption key not set or invalid value', 1);
-    }
+    public const ENCRYPTION_WINZIP_AES_256 = ZipArchive::EM_AES_256;
 }

@@ -14,8 +14,7 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Collection;
-use PhpZip\ZipFile;
-use ZipArchive;
+use \ZipArchive;
 
 class BackupPassword
 {
@@ -34,88 +33,44 @@ class BackupPassword
     protected $password;
 
     /**
-     * Read the .zip, apply password and encryption, then rewrite the file.
+     * Read the .zip, apply password and encryption, then rewrite the file
      *
-     * @param \App\Helpers\BackupEncryption $backupEncryption
-     * @param string                        $path             the path to the .zip-file
-     *
-     * @throws \PhpZip\Exception\ZipException
+     * @param string     $path
      */
-    public function __construct(BackupEncryption $backupEncryption, string $path)
+    public function __construct(string $path)
     {
         $this->password = \config('backup.security.password');
 
-        if (! $this->password) {
+        // If no password is set, just return the backup-path
+        if (!$this->password) {
             return $this->path = $path;
         }
 
-        // If ZipArchive is enabled
-        if (\class_exists('ZipArchive') && \in_array('setEncryptionIndex', \get_class_methods('ZipArchive'), true)) {
-            \consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
-            $this->makeZipArchive($backupEncryption, $path);
-        }
+        \consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');
 
-        // Fall back on PHP-driven ZipFile
-        else {
-            \consoleOutput()->info('Applying password and encryption to zip using ZipFile...');
-            $this->makeZipFile($backupEncryption, $path);
-        }
+        $this->makeZip($path);
 
         \consoleOutput()->info('Successfully applied password and encryption to zip.');
     }
 
     /**
-     * Use native PHP ZipArchive.
+     * Use native PHP ZipArchive
      *
-     * @param \App\Helpers\BackupEncryption $backupEncryption
-     * @param string                        $path
-     *
-     * @throws \Exception
-     *
-     * @return void
+     * @return  void
      */
-    protected function makeZipArchive(BackupEncryption $backupEncryption, string $path): void
+    protected function makeZip(string $path): void
     {
-        $encryptionConstant = $backupEncryption->getEncryptionConstant(
-            \config('backup.security.encryption'),
-            'ZipArchive'
-        );
+        $encryption = \config('backup.security.encryption');
 
-        $zipArchive = new ZipArchive();
+        $zipArchive = new ZipArchive;
 
         $zipArchive->open($path, ZipArchive::OVERWRITE);
         $zipArchive->addFile($path, 'backup.zip');
         $zipArchive->setPassword($this->password);
-        Collection::times($zipArchive->numFiles, function ($i) use ($zipArchive, $encryptionConstant) {
-            $zipArchive->setEncryptionIndex($i - 1, $encryptionConstant);
+        Collection::times($zipArchive->numFiles, function ($i) use ($zipArchive, $encryption) {
+            $zipArchive->setEncryptionIndex($i - 1, $encryption);
         });
         $zipArchive->close();
-
-        $this->path = $path;
-    }
-
-    /**
-     * Use PhpZip\ZipFile-package to create the zip.
-     *
-     * @param \App\Helpers\BackupEncryption $backupEncryption
-     * @param string                        $path
-     *
-     * @throws \PhpZip\Exception\ZipException
-     *
-     * @return void
-     */
-    protected function makeZipFile(BackupEncryption $backupEncryption, string $path): void
-    {
-        $encryptionConstant = $backupEncryption->getEncryptionConstant(
-            \config('backup.security.encryption'),
-            'ZipFile'
-        );
-
-        $zipFile = new ZipFile();
-        $zipFile->addFile($path, 'backup.zip', ZipFile::METHOD_DEFLATED);
-        $zipFile->setPassword($this->password, $encryptionConstant);
-        $zipFile->saveAsFile($path);
-        $zipFile->close();
 
         $this->path = $path;
     }

@@ -236,7 +236,7 @@ return [
         'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT,
 
         // Available encryption methods:
-        // \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT (PHP < 7.2: PKWARE/ZipCrypto, PHP >= 7.2: AES 128)
+        // \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT (AES 128)
         // \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_128 (AES 128)
         // \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_192 (AES 192)
         // \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_256 (AES 256)
