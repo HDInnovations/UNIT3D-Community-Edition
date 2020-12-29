@@ -277,7 +277,7 @@ class GitUpdater extends Command
             'rm -rf node_modules',
             'npm cache clean --force',
             'npm install',
-            'npm run prod',
+            'npx mix -p',
         ]);
 
         $this->done();
