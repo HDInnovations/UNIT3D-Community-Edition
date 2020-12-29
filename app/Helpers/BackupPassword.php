@@ -14,7 +14,7 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Collection;
-use \ZipArchive;
+use ZipArchive;
 
 class BackupPassword
 {
@@ -33,16 +33,16 @@ class BackupPassword
     protected $password;
 
     /**
-     * Read the .zip, apply password and encryption, then rewrite the file
+     * Read the .zip, apply password and encryption, then rewrite the file.
      *
-     * @param string     $path
+     * @param string $path
      */
     public function __construct(string $path)
     {
         $this->password = \config('backup.security.password');
 
         // If no password is set, just return the backup-path
-        if (!$this->password) {
+        if (! $this->password) {
             return $this->path = $path;
         }
 
@@ -54,15 +54,15 @@ class BackupPassword
     }
 
     /**
-     * Use native PHP ZipArchive
+     * Use native PHP ZipArchive.
      *
-     * @return  void
+     * @return void
      */
     protected function makeZip(string $path): void
     {
         $encryption = \config('backup.security.encryption');
 
-        $zipArchive = new ZipArchive;
+        $zipArchive = new ZipArchive();
 
         $zipArchive->open($path, ZipArchive::OVERWRITE);
         $zipArchive->addFile($path, 'backup.zip');

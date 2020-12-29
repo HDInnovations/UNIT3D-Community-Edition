@@ -19,12 +19,13 @@ use Spatie\Backup\Events\BackupZipWasCreated;
 class PasswordProtectBackup
 {
     /**
-     * Handle the event.s
+     * Handle the event.s.
      *
-     * @param  \Spatie\Backup\Events\BackupZipWasCreated  $event
+     * @param \Spatie\Backup\Events\BackupZipWasCreated $event
+     *
      * @return string
      */
-    public function handle(BackupZipWasCreated $event) : string
+    public function handle(BackupZipWasCreated $event): string
     {
         return (new BackupPassword($event->pathToZip))->path;
     }
