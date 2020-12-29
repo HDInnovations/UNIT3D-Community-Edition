@@ -6,7 +6,6 @@
                     <div class="button-center">
                         <div class="text-left">
                 <a v-if="user.id !== 1" target="_blank"
-                   v-tooltip="`${user.username}'s profile`"
                    :href="`/users/${user.username}`">
                     <img class="chat-user-image"
                          :style="user && user.hasOwnProperty('chat_status') && user.chat_status.hasOwnProperty('color') ? `border: 3px solid ${user.chat_status.color};` : ``"
@@ -16,12 +15,10 @@
                 <h4 class="list-group-item-heading">
                     <span class="badge-user text-bold" :style="userStyles(user)">
 
-                        <i v-tooltip="user.group.name"
-                           :class="user.group.icon">
+                        <i :class="user.group.icon">
                         </i>
 
-                        <a v-tooltip="$parent.auth.id===user.id?user.username:`Private Message`"
-                           :style="groupColor(user)"
+                        <a :style="groupColor(user)"
                            @click="pmUser(user)">
 					        {{ user.username }}
                         </a>
