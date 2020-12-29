@@ -188,8 +188,7 @@ class ForumController extends Controller
                 $p->delete();
             }
 
-            $forums = $category->getForumsInCategory();
-            foreach ($forums as $forum) {
+            foreach ($category->getForumsInCategory() as $forum) {
                 $permissions = Permission::where('forum_id', '=', $forum->id)->get();
                 foreach ($permissions as $p) {
                     $p->delete();
