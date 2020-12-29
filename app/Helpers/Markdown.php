@@ -333,9 +333,7 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-        $text = $Block['element']['text']['text'];
-
-        $Block['element']['text']['text'] = $text;
+        $Block['element']['text']['text'] = $Block['element']['text']['text'];
 
         return $Block;
     }
@@ -434,9 +432,7 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-        $text = $Block['element']['text']['text'];
-
-        $Block['element']['text']['text'] = $text;
+        $Block['element']['text']['text'] = $Block['element']['text']['text'];
 
         return $Block;
     }
@@ -758,9 +754,7 @@ class Markdown
             $divider = \trim($divider);
             $divider = \trim($divider, '|');
 
-            $dividerCells = \explode('|', $divider);
-
-            foreach ($dividerCells as $dividerCell) {
+            foreach (\explode('|', $divider) as $dividerCell) {
                 $dividerCell = \trim($dividerCell);
 
                 if ($dividerCell === '') {
@@ -789,9 +783,7 @@ class Markdown
             $header = \trim($header);
             $header = \trim($header, '|');
 
-            $headerCells = \explode('|', $header);
-
-            foreach ($headerCells as $index => $headerCell) {
+            foreach (\explode('|', $header) as $index => $headerCell) {
                 $headerCell = \trim($headerCell);
 
                 $HeaderElement = [
