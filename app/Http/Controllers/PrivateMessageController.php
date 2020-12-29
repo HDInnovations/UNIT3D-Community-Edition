@@ -287,8 +287,7 @@ class PrivateMessageController extends Controller
     public function markAllAsRead(Request $request)
     {
         $user = $request->user();
-        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->get();
-        foreach ($pms as $pm) {
+        foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $pm) {
             $pm->read = 1;
             $pm->save();
         }
