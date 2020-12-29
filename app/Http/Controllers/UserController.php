@@ -562,7 +562,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_other_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
@@ -596,7 +596,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_request_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
@@ -630,7 +630,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_achievement_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
@@ -664,7 +664,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_forum_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_topic = ($request->input('show_topic') && $request->input('show_topic') == 1 ? 1 : 0);
@@ -699,7 +699,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_follower_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
@@ -733,7 +733,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_torrent_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
@@ -773,7 +773,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_account_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_account_follow = ($request->input('show_account_follow') && $request->input('show_account_follow') == 1 ? 1 : 0);
@@ -809,7 +809,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_following_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
@@ -844,7 +844,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_bon_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
@@ -879,7 +879,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_subscription_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_subscription_forum = ($request->input('show_subscription_forum') && $request->input('show_subscription_forum') == 1 ? 1 : 0);
@@ -915,7 +915,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_request_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_request_comment = ($request->input('show_request_comment') && $request->input('show_request_comment') == 1 ? 1 : 0);
@@ -956,7 +956,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_torrent_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_torrent_comment = ($request->input('show_torrent_comment') && $request->input('show_torrent_comment') == 1 ? 1 : 0);
@@ -993,7 +993,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_mention_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_mention_torrent_comment = ($request->input('show_mention_torrent_comment') && $request->input('show_mention_torrent_comment') == 1 ? 1 : 0);
@@ -1032,7 +1032,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $notification->json_forum_groups = \array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
         $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
@@ -1067,7 +1067,7 @@ class UserController extends Controller
         $groups = Group::all();
         $tomerge = [];
         foreach ($groups as $group) {
-            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved, true) ? 1 : 0;
+            $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
         }
         $privacy->json_profile_groups = \array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_profile_torrent_count = ($request->input('show_profile_torrent_count') && $request->input('show_profile_torrent_count') == 1 ? 1 : 0);
