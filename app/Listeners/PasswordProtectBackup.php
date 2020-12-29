@@ -19,7 +19,7 @@ use Spatie\Backup\Events\BackupZipWasCreated;
 class PasswordProtectBackup
 {
     /**
-     * Handle the event.s.
+     * Handle the event.
      *
      * @param \Spatie\Backup\Events\BackupZipWasCreated $event
      *
