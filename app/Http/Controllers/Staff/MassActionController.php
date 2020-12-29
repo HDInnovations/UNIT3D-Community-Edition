@@ -88,9 +88,7 @@ class MassActionController extends Controller
     {
         $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $member_group = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
-        $users = User::where('group_id', '=', $validating_group[0])->get();
-
-        foreach ($users as $user) {
+        foreach (User::where('group_id', '=', $validating_group[0])->get() as $user) {
             $user->group_id = $member_group[0];
             $user->active = 1;
             $user->can_upload = 1;
