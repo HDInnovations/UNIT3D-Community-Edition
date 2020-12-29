@@ -1044,6 +1044,7 @@ class TorrentController extends Controller
             'types'       => Type::all()->sortBy('position'),
             'resolutions' => Resolution::all()->sortBy('position'),
             'torrent'     => $torrent,
+            'user'        => $user,
         ]);
     }
 
@@ -1140,8 +1141,7 @@ class TorrentController extends Controller
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
             if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
-                $users = History::where('info_hash', '=', $torrent->info_hash)->get();
-                foreach ($users as $pm) {
+                foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
@@ -1268,8 +1268,7 @@ class TorrentController extends Controller
         // Preview The Upload
         $previewContent = null;
         if ($request->get('preview') == true) {
-            $bbcode = new Bbcode();
-            $previewContent = $bbcode->parse($request->input('description'), true);
+            $previewContent = (new Bbcode())->parse($request->input('description'), true);
 
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withInput()
@@ -1361,8 +1360,7 @@ class TorrentController extends Controller
         $category->num_torrent = $category->torrents_count;
         $category->save();
         // Backup the files contained in the torrent
-        $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
-        foreach ($fileList as $file) {
+        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
             $torrentFile = new TorrentFile();
             $torrentFile->name = $file['name'];
             $torrentFile->size = $file['size'];
@@ -1385,8 +1383,7 @@ class TorrentController extends Controller
         }
 
         // Torrent Keywords System
-        $keywords = self::parseKeywords($request->input('keywords'));
-        foreach ($keywords as $keyword) {
+        foreach (self::parseKeywords($request->input('keywords')) as $keyword) {
             $tag = new Keyword();
             $tag->name = $keyword;
             $tag->torrent_id = $torrent->id;
