@@ -843,9 +843,7 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['signature'] = $antiXss->xss_clean($value);
+        $this->attributes['signature'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -870,9 +868,7 @@ class User extends Authenticatable
      */
     public function setAboutAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['about'] = $antiXss->xss_clean($value);
+        $this->attributes['about'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
@@ -1004,5 +1000,34 @@ class User extends Authenticatable
         $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
 
         return Torrent::whereIn('id', $peers)->sum('size');
+    }
+
+    /**
+     * @method getCompletedSeeds
+     *
+     * Gets the users satisfied torrent count.
+     *
+     * @return int
+     */
+    public function getCompletedSeeds()
+    {
+        $satisfied = History::where('user_id', '=', $this->id)->where('seedtime', '>=', config('hitrun.seedtime'))->count();
+
+        return $satisfied;
+    }
+
+    /**
+     * @method getSpecialSeedingSize
+     *
+     * Gets the seeding size of torrents with at least 15 days seedtime in the past 30 days.
+     *
+     * @return int
+     */
+    public function getSpecialSeedingSize()
+    {
+        $current = Carbon::now();
+        $seeding = History::where('user_id', '=', $this->id)->where('completed_at', '<=', $current->copy()->subDays(30)->toDateTimeString())->where('active', '=', 1)->where('seeder', '=', 1)->where('seedtime', '>=', 1296000)->pluck('info_hash');
+
+        return Torrent::whereIn('info_hash', $seeding)->sum('size');
     }
 }

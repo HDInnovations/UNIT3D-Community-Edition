@@ -8306,7 +8306,7 @@ div.header div.inner_content h1 {
 .black-list .black-item h4 {
     color: #fff;
     position: relative;
-    z-index: 100;
+    z-index: 1;
 }
 
 .black-list .black-item span,
@@ -8314,7 +8314,7 @@ div.header div.inner_content h1 {
 .oper-list .oper-item span {
     color: #fff;
     position: relative;
-    z-index: 100;
+    z-index: 1;
 }
 
 .black-list .black-item:hover .fal {

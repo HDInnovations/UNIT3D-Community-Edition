@@ -618,8 +618,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($comment_id);
 
         \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
-        $content = $request->input('comment-edit');
-        $comment->content = $content;
+        $comment->content = $request->input('comment-edit');
 
         $v = \validator($comment->toArray(), [
             'content'    => 'required',

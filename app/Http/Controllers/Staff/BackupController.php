@@ -49,10 +49,8 @@ class BackupController extends Controller
         foreach (\config('backup.backup.destination.disks') as $disk_name) {
             $disk = Storage::disk($disk_name);
             $adapter = $disk->getDriver()->getAdapter();
-            $files = $disk->allFiles();
-
             // make an array of backup files, with their filesize and creation date
-            foreach ($files as $k => $f) {
+            foreach ($disk->allFiles() as $k => $f) {
                 // only take the zip files into account
                 if (\substr($f, -4) === '.zip' && $disk->exists($f)) {
                     $data['backups'][] = [

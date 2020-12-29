@@ -132,9 +132,7 @@ class PollController extends Controller
 
         $existingOldOptionIds = \collect($storePoll->input('option-id'))->map(fn ($id) => (int) $id)->all();
 
-        $idsOfOptionToBeRemove = \array_diff($oldOptionIds, $existingOldOptionIds);
-
-        foreach ($idsOfOptionToBeRemove as $id) {
+        foreach (\array_diff($oldOptionIds, $existingOldOptionIds) as $id) {
             $option = Option::findOrFail($id);
             $option->delete();
         }

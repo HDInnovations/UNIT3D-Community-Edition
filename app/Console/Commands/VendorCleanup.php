@@ -150,8 +150,7 @@ class VendorCleanup extends Command
     protected function expandDirectoryTree($dir)
     {
         $directories = [];
-        $files = \array_diff(\scandir($dir), ['.', '..']);
-        foreach ($files as $file) {
+        foreach (\array_diff(\scandir($dir), ['.', '..']) as $file) {
             $directory = $dir.'/'.$file;
             if (\is_dir($directory)) {
                 $directories[] = $directory;

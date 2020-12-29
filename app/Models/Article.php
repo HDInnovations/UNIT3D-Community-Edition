@@ -119,9 +119,7 @@ class Article extends Model
      */
     public function setContentAttribute($value)
     {
-        $antiXss = new AntiXSS();
-
-        $this->attributes['content'] = $antiXss->xss_clean($value);
+        $this->attributes['content'] = (new AntiXSS())->xss_clean($value);
     }
 
     /**
