@@ -5,11 +5,6 @@
 
                 <a
                     target="_blank"
-                    v-tooltip="
-                        `${message.user.username}${
-                            message.user.title ? ' (' + message.user.title + ')' : '\'s Profile'
-                        }`
-                    "
                     :href="`/users/${message.user.username}`"
                 >
                     <img
@@ -25,44 +20,34 @@
 
                     <span class="badge-user text-bold" :style="userStyles(message.user)">
 
-                        <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" v-tooltip="message.user.group.name"
-                           :class="message.user.group.icon">
+                        <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" :class="message.user.group.icon">
                         </i>
-                        <i v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)" v-tooltip=""
-                           class="fas fa-bell">
+                        <i v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)" class="fas fa-bell">
                         </i>
 
-                        <a v-if="message.user && message.user.id > 1" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
+                        <a v-if="message.user && message.user.id > 1"
                            @click="pmUser(message.user)"
                            :style="groupColor(message.user)">
 					        {{message.user.username}}
                         </a>
 
-                        <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" v-tooltip="message.bot.name"
+                        <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
                            :style="groupColor(message.user)">
 					        {{message.bot.name}}
                         </a>
 
-                        <!--<i v-if="canMod(message)"-->
-                        <!--v-tooltip="`Edit Message`"-->
-                        <!--@click="editMessage(message)"-->
-                        <!--class="fa fa-edit text-blue">-->
-
-                        <!--</i>-->
-
                         <i v-if="message.user.id != 1 && canMod(message)"
-                           v-tooltip="`Delete Message`"
                            @click="deleteMessage(message.id)"
                            class="fa fa-times text-red">
 
                         </i>
 
 					</span>
-                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
+                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
                        @click.prevent="$parent.forceMessage(message.user.username)">
                         <i class="fas fa-envelope pointee"></i>
                     </a>
-                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Send Gift` : message.user.username"
+                    <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
                        @click.prevent="$parent.forceGift(message.user.username)">
                         <i class="fas fa-gift pointee"></i>
                     </a>
