@@ -1011,7 +1011,7 @@ class User extends Authenticatable
      */
     public function getCompletedSeeds()
     {
-        $satisfied = History::where('user_id', '=', $this->id)->where('seedtime' ,'>=', config('hitrun.seedtime'))->count();
+        $satisfied = History::where('user_id', '=', $this->id)->where('seedtime', '>=', config('hitrun.seedtime'))->count();
 
         return $satisfied;
     }
@@ -1026,7 +1026,7 @@ class User extends Authenticatable
     public function getSpecialSeedingSize()
     {
         $current = Carbon::now();
-        $seeding = History::where('user_id', '=', $this->id)->where('completed_at' ,'<=', $current->copy()->subDays(30)->toDateTimeString())->where('active', '=', 1)->where('seeder', '=', 1)->where('seedtime', '>=', 1296000)->pluck('info_hash');
+        $seeding = History::where('user_id', '=', $this->id)->where('completed_at', '<=', $current->copy()->subDays(30)->toDateTimeString())->where('active', '=', 1)->where('seeder', '=', 1)->where('seedtime', '>=', 1296000)->pluck('info_hash');
 
         return Torrent::whereIn('info_hash', $seeding)->sum('size');
     }
