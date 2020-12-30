@@ -64,11 +64,11 @@ class BookmarkSearch extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
 
         return view('livewire.bookmark-search', [
             'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'bookmarks'          => $bookmarks,
         ]);
     }
