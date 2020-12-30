@@ -49,9 +49,9 @@ class AutoBanDisposableUsers extends Command
      */
     public function handle()
     {
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        User::where('group_id', '!=', $banned_group[0])->chunkById(100, function ($users) use ($banned_group) {
+        User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup) {
             foreach ($users as $user) {
                 $v = \validator([
                     'email' => $user->email,
@@ -61,7 +61,7 @@ class AutoBanDisposableUsers extends Command
 
                 if ($v->fails()) {
                     // If User Is Using A Disposable Email Set The Users Group To Banned
-                    $user->group_id = $banned_group[0];
+                    $user->group_id = $bannedGroup[0];
                     $user->can_upload = 0;
                     $user->can_download = 0;
                     $user->can_comment = 0;
