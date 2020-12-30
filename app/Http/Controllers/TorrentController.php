@@ -112,11 +112,11 @@ class TorrentController extends Controller
             ->orderBy('sticky', 'desc')
             ->orderBy('bumped_at', 'desc')
             ->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
         return \view('torrent.torrents', [
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'repository'         => $repository,
             'bookmarks'          => $bookmarks,
             'torrents'           => $torrents,
@@ -136,13 +136,13 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function similar(Request $request, $category_id, $tmdb)
+    public function similar(Request $request, $categoryId, $tmdb)
     {
         $user = $request->user();
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
-            ->where('category_id', '=', $category_id)
+            ->where('category_id', '=', $categoryId)
             ->where('tmdb', '=', $tmdb)
             ->get()
             ->sortByDesc('name');
@@ -153,7 +153,7 @@ class TorrentController extends Controller
 
         return \view('torrent.similar', [
             'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'torrents'           => $torrents,
             'tmdb'               => $tmdb,
         ]);
@@ -240,7 +240,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $logger = null;
         $cache = [];
         $attributes = [];
@@ -262,42 +262,42 @@ class TorrentController extends Controller
         $totals = [];
         $counts = [];
         $launcher = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
-        foreach ($launcher->cursor() as $chunk) {
-            if ($chunk->imdb) {
-                $totals[$chunk->imdb] = ! \array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
-                if (! \array_key_exists('imdb'.$chunk->imdb, $cache)) {
-                    $cache['imdb'.$chunk->imdb] = [];
+        foreach ($launcher->cursor() as $lazyCollection) {
+            if ($lazyCollection->imdb) {
+                $totals[$lazyCollection->imdb] = ! \array_key_exists($lazyCollection->imdb, $totals) ? 1 : $totals[$lazyCollection->imdb] + 1;
+                if (! \array_key_exists('imdb'.$lazyCollection->imdb, $cache)) {
+                    $cache['imdb'.$lazyCollection->imdb] = [];
                 }
-                if (! \array_key_exists('imdb'.$chunk->imdb, $counts)) {
-                    $counts['imdb'.$chunk->imdb] = 0;
+                if (! \array_key_exists('imdb'.$lazyCollection->imdb, $counts)) {
+                    $counts['imdb'.$lazyCollection->imdb] = 0;
                 }
-                if (! \array_key_exists('imdb'.$chunk->imdb, $attributes)) {
-                    $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
-                    $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
-                    $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
-                    $attributes['imdb'.$chunk->imdb]['types'] = [];
-                    $attributes['imdb'.$chunk->imdb]['categories'] = [];
-                    $attributes['imdb'.$chunk->imdb]['genres'] = [];
+                if (! \array_key_exists('imdb'.$lazyCollection->imdb, $attributes)) {
+                    $attributes['imdb'.$lazyCollection->imdb]['seeders'] = 0;
+                    $attributes['imdb'.$lazyCollection->imdb]['leechers'] = 0;
+                    $attributes['imdb'.$lazyCollection->imdb]['times_completed'] = 0;
+                    $attributes['imdb'.$lazyCollection->imdb]['types'] = [];
+                    $attributes['imdb'.$lazyCollection->imdb]['categories'] = [];
+                    $attributes['imdb'.$lazyCollection->imdb]['genres'] = [];
                 }
-                $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
-                $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
-                $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                if (! \array_key_exists($chunk->type_id, $attributes['imdb'.$chunk->imdb])) {
-                    $attributes['imdb'.$chunk->imdb]['types'][$chunk->type_id] = $chunk->type_id;
+                $attributes['imdb'.$lazyCollection->imdb]['times_completed'] += $lazyCollection->times_completed;
+                $attributes['imdb'.$lazyCollection->imdb]['seeders'] += $lazyCollection->seeders;
+                $attributes['imdb'.$lazyCollection->imdb]['leechers'] += $lazyCollection->leechers;
+                if (! \array_key_exists($lazyCollection->type_id, $attributes['imdb'.$lazyCollection->imdb])) {
+                    $attributes['imdb'.$lazyCollection->imdb]['types'][$lazyCollection->type_id] = $lazyCollection->type_id;
                 }
-                if (! \array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
-                    $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
+                if (! \array_key_exists($lazyCollection->category_id, $attributes['imdb'.$lazyCollection->imdb])) {
+                    $attributes['imdb'.$lazyCollection->imdb]['categories'][$lazyCollection->category_id] = $lazyCollection->category_id;
                 }
-                $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
-                    'bumped_at'       => $chunk->bumped_at,
-                    'seeders'         => $chunk->seeders,
-                    'leechers'        => $chunk->leechers,
-                    'name'            => $chunk->name,
-                    'times_completed' => $chunk->times_completed,
-                    'size'            => $chunk->size,
-                    'chunk'           => $chunk,
+                $cache['imdb'.$lazyCollection->imdb]['torrent'.$counts['imdb'.$lazyCollection->imdb]] = [
+                    'bumped_at'       => $lazyCollection->bumped_at,
+                    'seeders'         => $lazyCollection->seeders,
+                    'leechers'        => $lazyCollection->leechers,
+                    'name'            => $lazyCollection->name,
+                    'times_completed' => $lazyCollection->times_completed,
+                    'size'            => $lazyCollection->size,
+                    'chunk'           => $lazyCollection,
                 ];
-                $counts['imdb'.$chunk->imdb]++;
+                $counts['imdb'.$lazyCollection->imdb]++;
             }
         }
         $torrents = \count($cache) > 0 ? $cache : null;
@@ -341,7 +341,7 @@ class TorrentController extends Controller
             'direction'          => self::DIRECTION,
             'links'              => $lengthAwarePaginator,
             'totals'             => $totals,
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'repository'         => $repository,
             'attributes'         => $attributes,
             'bookmarks'          => $bookmarks,
@@ -362,7 +362,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $collection = null;
         $history = null;
         $nohistory = null;
@@ -405,8 +405,8 @@ class TorrentController extends Controller
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
         $igdb = $request->input('igdb');
-        $start_year = $request->input('start_year');
-        $end_year = $request->input('end_year');
+        $startYear = $request->input('start_year');
+        $endYear = $request->input('end_year');
         $categories = $request->input('categories');
         $types = $request->input('types');
         $resolutions = $request->input('resolutions');
@@ -512,7 +512,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
-                $torrent->whereBetween('torrentsl.release_year', [$start_year, $end_year]);
+                $torrent->whereBetween('torrentsl.release_year', [$startYear, $endYear]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {
@@ -654,7 +654,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
-                $torrent->whereBetween('torrents.release_year', [$start_year, $end_year]);
+                $torrent->whereBetween('torrents.release_year', [$startYear, $endYear]);
             }
 
             if ($request->has('categories') && $request->input('categories') != null) {
@@ -742,42 +742,42 @@ class TorrentController extends Controller
             $totals = [];
             $counts = [];
             $launcher = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
-            foreach ($launcher->cursor() as $chunk) {
-                if ($chunk->imdb) {
-                    $totals[$chunk->imdb] = ! \array_key_exists($chunk->imdb, $totals) ? 1 : $totals[$chunk->imdb] + 1;
-                    if (! \array_key_exists('imdb'.$chunk->imdb, $cache)) {
-                        $cache['imdb'.$chunk->imdb] = [];
+            foreach ($launcher->cursor() as $lazyCollection) {
+                if ($lazyCollection->imdb) {
+                    $totals[$lazyCollection->imdb] = ! \array_key_exists($lazyCollection->imdb, $totals) ? 1 : $totals[$lazyCollection->imdb] + 1;
+                    if (! \array_key_exists('imdb'.$lazyCollection->imdb, $cache)) {
+                        $cache['imdb'.$lazyCollection->imdb] = [];
                     }
-                    if (! \array_key_exists('imdb'.$chunk->imdb, $counts)) {
-                        $counts['imdb'.$chunk->imdb] = 0;
+                    if (! \array_key_exists('imdb'.$lazyCollection->imdb, $counts)) {
+                        $counts['imdb'.$lazyCollection->imdb] = 0;
                     }
-                    if (! \array_key_exists('imdb'.$chunk->imdb, $attributes)) {
-                        $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
-                        $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
-                        $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
-                        $attributes['imdb'.$chunk->imdb]['types'] = [];
-                        $attributes['imdb'.$chunk->imdb]['categories'] = [];
-                        $attributes['imdb'.$chunk->imdb]['genres'] = [];
+                    if (! \array_key_exists('imdb'.$lazyCollection->imdb, $attributes)) {
+                        $attributes['imdb'.$lazyCollection->imdb]['seeders'] = 0;
+                        $attributes['imdb'.$lazyCollection->imdb]['leechers'] = 0;
+                        $attributes['imdb'.$lazyCollection->imdb]['times_completed'] = 0;
+                        $attributes['imdb'.$lazyCollection->imdb]['types'] = [];
+                        $attributes['imdb'.$lazyCollection->imdb]['categories'] = [];
+                        $attributes['imdb'.$lazyCollection->imdb]['genres'] = [];
                     }
-                    $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
-                    $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
-                    $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
-                    if (! \array_key_exists($chunk->type_id, $attributes['imdb'.$chunk->imdb])) {
-                        $attributes['imdb'.$chunk->imdb]['types'][$chunk->type_id] = $chunk->type_id;
+                    $attributes['imdb'.$lazyCollection->imdb]['times_completed'] += $lazyCollection->times_completed;
+                    $attributes['imdb'.$lazyCollection->imdb]['seeders'] += $lazyCollection->seeders;
+                    $attributes['imdb'.$lazyCollection->imdb]['leechers'] += $lazyCollection->leechers;
+                    if (! \array_key_exists($lazyCollection->type_id, $attributes['imdb'.$lazyCollection->imdb])) {
+                        $attributes['imdb'.$lazyCollection->imdb]['types'][$lazyCollection->type_id] = $lazyCollection->type_id;
                     }
-                    if (! \array_key_exists($chunk->category_id, $attributes['imdb'.$chunk->imdb])) {
-                        $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
+                    if (! \array_key_exists($lazyCollection->category_id, $attributes['imdb'.$lazyCollection->imdb])) {
+                        $attributes['imdb'.$lazyCollection->imdb]['categories'][$lazyCollection->category_id] = $lazyCollection->category_id;
                     }
-                    $cache['imdb'.$chunk->imdb]['torrent'.$counts['imdb'.$chunk->imdb]] = [
-                        'bumped_at'       => $chunk->bumped_at,
-                        'seeders'         => $chunk->seeders,
-                        'leechers'        => $chunk->leechers,
-                        'name'            => $chunk->name,
-                        'times_completed' => $chunk->times_completed,
-                        'size'            => $chunk->size,
-                        'chunk'           => $chunk,
+                    $cache['imdb'.$lazyCollection->imdb]['torrent'.$counts['imdb'.$lazyCollection->imdb]] = [
+                        'bumped_at'       => $lazyCollection->bumped_at,
+                        'seeders'         => $lazyCollection->seeders,
+                        'leechers'        => $lazyCollection->leechers,
+                        'name'            => $lazyCollection->name,
+                        'times_completed' => $lazyCollection->times_completed,
+                        'size'            => $lazyCollection->size,
+                        'chunk'           => $lazyCollection,
                     ];
-                    $counts['imdb'.$chunk->imdb]++;
+                    $counts['imdb'.$lazyCollection->imdb]++;
                 }
             }
             $torrents = \count($cache) > 0 ? $cache : null;
@@ -870,7 +870,7 @@ class TorrentController extends Controller
         return \view($logger, [
             'torrents'           => $torrents,
             'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'sorting'            => $sorting,
             'direction'          => $direction,
             'links'              => $links,
@@ -893,16 +893,16 @@ class TorrentController extends Controller
         if ($mediainfo === null) {
             return;
         }
-        $complete_name_i = \strpos($mediainfo, 'Complete name');
-        if ($complete_name_i !== false) {
-            $path_i = \strpos($mediainfo, ': ', $complete_name_i);
-            if ($path_i !== false) {
-                $path_i += 2;
-                $end_i = \strpos($mediainfo, "\n", $path_i);
-                $path = \substr($mediainfo, $path_i, $end_i - $path_i);
-                $new_path = MediaInfo::stripPath($path);
+        $completeNameI = \strpos($mediainfo, 'Complete name');
+        if ($completeNameI !== false) {
+            $pathI = \strpos($mediainfo, ': ', $completeNameI);
+            if ($pathI !== false) {
+                $pathI += 2;
+                $endI = \strpos($mediainfo, "\n", $pathI);
+                $path = \substr($mediainfo, $pathI, $endI - $pathI);
+                $newPath = MediaInfo::stripPath($path);
 
-                return \substr_replace($mediainfo, $new_path, $path_i, \strlen($path));
+                return \substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
             }
         }
 
@@ -943,12 +943,12 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles'])->findOrFail($id);
         $uploader = $torrent->user;
         $user = $request->user();
-        $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $freeleechToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $comments = $torrent->comments()->latest()->paginate(5);
-        $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
-        $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
-        $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
+        $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
+        $userTips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $request->user()->id)->sum('cost');
+        $lastSeedActivity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
 
         $meta = null;
         if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
@@ -972,28 +972,28 @@ class TorrentController extends Controller
         $video = null;
         $settings = null;
         $audio = null;
-        $general_crumbs = null;
-        $text_crumbs = null;
+        $generalCrumbs = null;
+        $textCrumbs = null;
         $subtitle = null;
-        $view_crumbs = null;
-        $video_crumbs = null;
+        $viewCrumbs = null;
+        $videoCrumbs = null;
         $settings = null;
-        $audio_crumbs = null;
+        $audioCrumbs = null;
         $subtitle = null;
-        $subtitle_crumbs = null;
+        $subtitleCrumbs = null;
         if ($torrent->mediainfo != null) {
             $mediaInfo = new MediaInfo();
             $parsed = $mediaInfo->parse($torrent->mediainfo);
-            $view_crumbs = $mediaInfo->prepareViewCrumbs($parsed);
+            $viewCrumbs = $mediaInfo->prepareViewCrumbs($parsed);
             $general = $parsed['general'];
-            $general_crumbs = $view_crumbs['general'];
+            $generalCrumbs = $viewCrumbs['general'];
             $video = $parsed['video'];
-            $video_crumbs = $view_crumbs['video'];
+            $videoCrumbs = $viewCrumbs['video'];
             $settings = (isset($parsed['video'][0], $parsed['video'][0]['encoding_settings']) && $parsed['video'] !== null) ? $parsed['video'][0]['encoding_settings'] : null;
             $audio = $parsed['audio'];
-            $audio_crumbs = $view_crumbs['audio'];
+            $audioCrumbs = $viewCrumbs['audio'];
             $subtitle = $parsed['text'];
-            $text_crumbs = $view_crumbs['text'];
+            $textCrumbs = $viewCrumbs['text'];
         }
 
         $playlists = $user->playlists;
@@ -1002,24 +1002,24 @@ class TorrentController extends Controller
             'torrent'            => $torrent,
             'comments'           => $comments,
             'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
-            'freeleech_token'    => $freeleech_token,
+            'personal_freeleech' => $personalFreeleech,
+            'freeleech_token'    => $freeleechToken,
             'meta'               => $meta,
             'characters'         => $characters,
-            'total_tips'         => $total_tips,
-            'user_tips'          => $user_tips,
+            'total_tips'         => $totalTips,
+            'user_tips'          => $userTips,
             'featured'           => $featured,
             'general'            => $general,
-            'general_crumbs'     => $general_crumbs,
-            'video_crumbs'       => $video_crumbs,
-            'audio_crumbs'       => $audio_crumbs,
-            'text_crumbs'        => $text_crumbs,
+            'general_crumbs'     => $generalCrumbs,
+            'video_crumbs'       => $videoCrumbs,
+            'audio_crumbs'       => $audioCrumbs,
+            'text_crumbs'        => $textCrumbs,
             'video'              => $video,
             'audio'              => $audio,
             'subtitle'           => $subtitle,
             'settings'           => $settings,
             'uploader'           => $uploader,
-            'last_seed_activity' => $last_seed_activity,
+            'last_seed_activity' => $lastSeedActivity,
             'playlists'          => $playlists,
         ]);
     }
@@ -1102,15 +1102,15 @@ class TorrentController extends Controller
         }
         $torrent->save();
 
-        $client = new TMDBScraper();
+        $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta) {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->tv($torrent->tmdb);
+                $tmdbScraper->tv($torrent->tmdb);
             }
         }
         if ($torrent->category->movie_meta) {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->movie($torrent->tmdb);
+                $tmdbScraper->movie($torrent->tmdb);
             }
         }
 
@@ -1228,14 +1228,14 @@ class TorrentController extends Controller
      * Torrent Upload Form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $category_id
+     * @param int                      $categoryId
      * @param string                   $title
      * @param int                      $imdb
      * @param int                      $tmdb
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploadForm(Request $request, $category_id = 0, $title = '', $imdb = 0, $tmdb = 0)
+    public function uploadForm(Request $request, $categoryId = 0, $title = '', $imdb = 0, $tmdb = 0)
     {
         $user = $request->user();
 
@@ -1244,7 +1244,7 @@ class TorrentController extends Controller
             'types'       => Type::all()->sortBy('position'),
             'resolutions' => Resolution::all()->sortBy('position'),
             'user'        => $user,
-            'category_id' => $category_id,
+            'category_id' => $categoryId,
             'title'       => $title,
             'imdb'        => \str_replace('tt', '', $imdb),
             'tmdb'        => $tmdb,
@@ -1369,16 +1369,16 @@ class TorrentController extends Controller
             unset($torrentFile);
         }
 
-        $client = new TMDBScraper();
+        $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta) {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->tv($torrent->tmdb);
+                $tmdbScraper->tv($torrent->tmdb);
             }
         }
 
         if ($torrent->category->movie_meta) {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->movie($torrent->tmdb);
+                $tmdbScraper->movie($torrent->tmdb);
             }
         }
 
@@ -1514,11 +1514,11 @@ class TorrentController extends Controller
         $torrent->save();
 
         // Announce To Chat
-        $torrent_url = \href_torrent($torrent);
-        $profile_url = \href_profile($user);
+        $torrentUrl = \href_torrent($torrent);
+        $profileUrl = \href_profile($user);
 
         $this->chatRepository->systemMessage(
-            \sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrent_url, $torrent->name, $profile_url, $user->username)
+            \sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
         );
 
         // Announce To IRC
@@ -1527,7 +1527,7 @@ class TorrentController extends Controller
             $ircAnnounceBot = new IRCAnnounceBot();
             $ircAnnounceBot->message(\config('irc-bot.channel'), '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
             $ircAnnounceBot->message(\config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
-            $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s]', $torrent_url));
+            $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s]', $torrentUrl));
         }
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
@@ -1569,19 +1569,19 @@ class TorrentController extends Controller
 
         \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $torrent_url = \href_torrent($torrent);
+        $torrentUrl = \href_torrent($torrent);
 
         if ($torrent->free == 0) {
             $torrent->free = '1';
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name)
             );
         } else {
             $torrent->free = '0';
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its 100%% FreeLeech! :poop:', $torrent_url, $torrent->name)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its 100%% FreeLeech! :poop:', $torrentUrl, $torrent->name)
             );
         }
 
@@ -1617,10 +1617,10 @@ class TorrentController extends Controller
             $featured->torrent_id = $torrent->id;
             $featured->save();
 
-            $torrent_url = \href_torrent($torrent);
-            $profile_url = \href_profile($user);
+            $torrentUrl = \href_torrent($torrent);
+            $profileUrl = \href_profile($user);
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrent_url, $torrent->name, $profile_url, $user->username)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $profileUrl, $user->username)
             );
 
             return \redirect()->route('torrent', ['id' => $torrent->id])
@@ -1645,18 +1645,18 @@ class TorrentController extends Controller
 
         \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $torrent_url = \href_torrent($torrent);
+        $torrentUrl = \href_torrent($torrent);
 
         if ($torrent->doubleup == 0) {
             $torrent->doubleup = '1';
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can! :fire:', $torrentUrl, $torrent->name)
             );
         } else {
             $torrent->doubleup = '0';
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrent_url, $torrent->name)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrentUrl, $torrent->name)
             );
         }
         $torrent->save();
@@ -1686,11 +1686,11 @@ class TorrentController extends Controller
                 User::find($r->user_id)->notify(new NewReseedRequest($torrent));
             }
 
-            $torrent_url = \href_torrent($torrent);
-            $profile_url = \href_profile($user);
+            $torrentUrl = \href_torrent($torrent);
+            $profileUrl = \href_profile($user);
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrent_url, $torrent->name)
+                \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrentUrl, $torrent->name)
             );
 
             return \redirect()->route('torrent', ['id' => $torrent->id])
@@ -1713,9 +1713,9 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $active_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+        $activeToken = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
 
-        if ($user->fl_tokens >= 1 && ! $active_token) {
+        if ($user->fl_tokens >= 1 && ! $activeToken) {
             $freeleechToken = new FreeleechToken();
             $freeleechToken->user_id = $user->id;
             $freeleechToken->torrent_id = $torrent->id;
