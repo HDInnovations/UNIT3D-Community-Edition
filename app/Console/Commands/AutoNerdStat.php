@@ -101,10 +101,10 @@ class AutoNerdStat extends Command
             $warnings = Warning::where('created_at', '>', Carbon::now()->subDay())->count();
 
             // URL Helpers
-            $banker_url = \href_profile($banker);
-            $seeded_url = \href_torrent($seeded);
-            $leeched_url = \href_torrent($leeched);
-            $snatched_url = \href_torrent($snatched);
+            $bankerUrl = \href_profile($banker);
+            $seededUrl = \href_torrent($seeded);
+            $leechedUrl = \href_torrent($leeched);
+            $snatchedUrl = \href_torrent($snatched);
 
             // Select A Random Nerd Stat
             $statArray = [
@@ -113,10 +113,10 @@ class AutoNerdStat extends Command
                 \sprintf('In The Last 24 Hours [color=#93c47d][b]%s[/b][/color] Users Have Registered To ', $users).\config('other.title').'!',
                 \sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Freeleech Torrents On ', $fl).\config('other.title').'!',
                 \sprintf('There Are Currently [color=#93c47d][b]%s[/b][/color] Double Upload Torrents On ', $du).\config('other.title').'!',
-                \sprintf('Currently [url=%s]%s[/url] Is The Best Seeded Torrent On ', $seeded_url, $seeded->name).\config('other.title').'!',
-                \sprintf('Currently [url=%s]%s[/url] Is The Most Leeched Torrent On ', $leeched_url, $leeched->name).\config('other.title').'!',
-                \sprintf('Currently [url=%s]%s[/url] Is The Most Snatched Torrent On ', $snatched_url, $snatched->name).\config('other.title').'!',
-                \sprintf('Currently [url=%s]%s[/url] Is The Top BON Holder On ', $banker_url, $banker->username).\config('other.title').'!',
+                \sprintf('Currently [url=%s]%s[/url] Is The Best Seeded Torrent On ', $seededUrl, $seeded->name).\config('other.title').'!',
+                \sprintf('Currently [url=%s]%s[/url] Is The Most Leeched Torrent On ', $leechedUrl, $leeched->name).\config('other.title').'!',
+                \sprintf('Currently [url=%s]%s[/url] Is The Most Snatched Torrent On ', $snatchedUrl, $snatched->name).\config('other.title').'!',
+                \sprintf('Currently [url=%s]%s[/url] Is The Top BON Holder On ', $bankerUrl, $banker->username).\config('other.title').'!',
                 \sprintf('Currently There Are [color=#93c47d][b]%s[/b][/color] Peers On ', $peers).\config('other.title').'!',
                 \sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Users Have Been Banned From ', $bans).\config('other.title').'!',
                 \sprintf('In The Last 24 Hours [color=#dd7e6b][b]%s[/b][/color] Hit and Run Warnings Have Been Issued On ', $warnings).\config('other.title').'!',
