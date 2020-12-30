@@ -81,9 +81,9 @@ class TaggedUserRepository
 
     public function messageTaggedCommentUsers(string $type, string $content, User $user, $alias, Comment $comment)
     {
-        foreach ($this->getTags($content) as $username) {
-            $tagged_user = $this->user->where('username', \str_replace('@', '', $username))->first();
-            $this->messageCommentUsers($type, $tagged_user, $user, $alias, $comment);
+        foreach ($this->getTags($content) as $tag) {
+            $taggedUser = $this->user->where('username', \str_replace('@', '', $tag))->first();
+            $this->messageCommentUsers($type, $taggedUser, $user, $alias, $comment);
         }
 
         return true;
@@ -116,9 +116,9 @@ class TaggedUserRepository
 
     public function messageTaggedPostUsers(string $type, string $content, User $user, $alias, Post $post)
     {
-        foreach ($this->getTags($content) as $username) {
-            $tagged_user = $this->user->where('username', \str_replace('@', '', $username))->first();
-            $this->messagePostUsers($type, $tagged_user, $user, $alias, $post);
+        foreach ($this->getTags($content) as $tag) {
+            $taggedUser = $this->user->where('username', \str_replace('@', '', $tag))->first();
+            $this->messagePostUsers($type, $taggedUser, $user, $alias, $post);
         }
 
         return true;
