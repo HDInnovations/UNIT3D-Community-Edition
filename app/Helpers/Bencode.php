@@ -51,11 +51,11 @@ class Bencode
     public static function parse_string($s, &$pos)
     {
         $len = \strlen($s);
-        $length_str = '';
+        $lengthStr = '';
 
         while ($pos < $len && $s[$pos] != ':') {
             if (\is_numeric($s[$pos])) {
-                $length_str .= $s[$pos];
+                $lengthStr .= $s[$pos];
             } else {
                 // Non-numeric character, we return null in this case.
                 return;
@@ -69,11 +69,11 @@ class Bencode
         }
 
         $pos++;
-        if (! safe_int($length_str)) {
+        if (! safe_int($lengthStr)) {
             return;
         }
 
-        $length = (int) $length_str;
+        $length = (int) $lengthStr;
         $result = '';
         while ($pos < $len && $length > 0) {
             $result .= $s[$pos];
@@ -149,26 +149,26 @@ class Bencode
     {
         if (\is_array($d)) {
             $ret = 'l';
-            $is_dict = false;
+            $isDict = false;
             if (! isset($d['isDct'])) {
                 foreach (\array_keys($d) as $key) {
                     if (! \is_int($key)) {
-                        $is_dict = true;
+                        $isDict = true;
 
                         break;
                     }
                 }
             } else {
-                $is_dict = (bool) $d['isDct'];
+                $isDict = (bool) $d['isDct'];
                 unset($d['isDct']);
             }
-            if ($is_dict) {
+            if ($isDict) {
                 $ret = 'd';
                 // this is required by the specs, and BitTornado actualy chokes on unsorted dictionaries
                 \ksort($d, SORT_STRING);
             }
             foreach ($d as $key => $value) {
-                if ($is_dict) {
+                if ($isDict) {
                     $ret .= \strlen($key).':'.$key;
                 }
 
