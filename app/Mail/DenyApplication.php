@@ -27,7 +27,7 @@ class DenyApplication extends Mailable
      *
      * @param $denied_message
      */
-    public function __construct(public $denied_message)
+    public function __construct(public $deniedMessage)
     {
     }
 
