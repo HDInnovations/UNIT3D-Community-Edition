@@ -68,12 +68,12 @@ class CasinoBot
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
         if (\strpos($output, '{bots}') !== false) {
-            $bot_help = '';
+            $botHelp = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
             foreach ($bots as $bot) {
-                $bot_help .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
+                $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
-            $output = \str_replace('{bots}', $bot_help, $output);
+            $output = \str_replace('{bots}', $botHelp, $output);
         }
 
         return $output;
@@ -139,14 +139,14 @@ class CasinoBot
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('casinobot-donations', $donations, $this->expiresAt);
         }
-        $donation_dump = '';
+        $donationDump = '';
         $i = 1;
         foreach ($donations as $donation) {
-            $donation_dump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->cost.' '.$donation->forHumans().' with note: '.$donation->comment.".\n";
+            $donationDump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->cost.' '.$donation->forHumans().' with note: '.$donation->comment.".\n";
             $i++;
         }
 
-        return "The Most Recent Donations To Me Are As Follows:\n\n".\trim($donation_dump);
+        return "The Most Recent Donations To Me Are As Follows:\n\n".\trim($donationDump);
     }
 
     /**
@@ -228,66 +228,66 @@ class CasinoBot
         $targeted = $this->targeted;
 
         if ($type == 'message' || $type == 'private') {
-            $receiver_dirty = 0;
-            $receiver_echoes = \cache()->get('user-echoes'.$target->id);
-            if (! $receiver_echoes || ! \is_array($receiver_echoes) || \count($receiver_echoes) < 1) {
-                $receiver_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+            $receiverDirty = 0;
+            $receiverEchoes = \cache()->get('user-echoes'.$target->id);
+            if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
+                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
-            $receiver_listening = false;
-            foreach ($receiver_echoes as $se => $receiver_echo) {
-                if ($receiver_echo['bot_id'] == $this->bot->id) {
-                    $receiver_listening = true;
+            $receiverListening = false;
+            foreach ($receiverEchoes as $se => $receiverEcho) {
+                if ($receiverEcho['bot_id'] == $this->bot->id) {
+                    $receiverListening = true;
                 }
             }
-            if (! $receiver_listening) {
-                $receiver_port = new UserEcho();
-                $receiver_port->user_id = $target->id;
-                $receiver_port->bot_id = $this->bot->id;
-                $receiver_port->save();
-                $receiver_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
-                $receiver_dirty = 1;
+            if (! $receiverListening) {
+                $receiverPort = new UserEcho();
+                $receiverPort->user_id = $target->id;
+                $receiverPort->bot_id = $this->bot->id;
+                $receiverPort->save();
+                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+                $receiverDirty = 1;
             }
-            if ($receiver_dirty == 1) {
+            if ($receiverDirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
-                \cache()->put('user-echoes'.$target->id, $receiver_echoes, $expiresAt);
-                \event(new Chatter('echo', $target->id, UserEchoResource::collection($receiver_echoes)));
+                \cache()->put('user-echoes'.$target->id, $receiverEchoes, $expiresAt);
+                \event(new Chatter('echo', $target->id, UserEchoResource::collection($receiverEchoes)));
             }
-            $receiver_dirty = 0;
-            $receiver_audibles = \cache()->get('user-audibles'.$target->id);
-            if (! $receiver_audibles || ! \is_array($receiver_audibles) || \count($receiver_audibles) < 1) {
-                $receiver_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+            $receiverDirty = 0;
+            $receiverAudibles = \cache()->get('user-audibles'.$target->id);
+            if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
+                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
-            $receiver_listening = false;
-            foreach ($receiver_audibles as $se => $receiver_echo) {
-                if ($receiver_echo['bot_id'] == $this->bot->id) {
-                    $receiver_listening = true;
+            $receiverListening = false;
+            foreach ($receiverAudibles as $se => $receiverEcho) {
+                if ($receiverEcho['bot_id'] == $this->bot->id) {
+                    $receiverListening = true;
                 }
             }
-            if (! $receiver_listening) {
-                $receiver_port = new UserAudible();
-                $receiver_port->user_id = $target->id;
-                $receiver_port->bot_id = $this->bot->id;
-                $receiver_port->save();
-                $receiver_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
-                $receiver_dirty = 1;
+            if (! $receiverListening) {
+                $receiverPort = new UserAudible();
+                $receiverPort->user_id = $target->id;
+                $receiverPort->bot_id = $this->bot->id;
+                $receiverPort->save();
+                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+                $receiverDirty = 1;
             }
-            if ($receiver_dirty == 1) {
+            if ($receiverDirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
-                \cache()->put('user-audibles'.$target->id, $receiver_audibles, $expiresAt);
-                \event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
+                \cache()->put('user-audibles'.$target->id, $receiverAudibles, $expiresAt);
+                \event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiverAudibles)));
             }
             if ($txt != '') {
-                $room_id = 0;
-                $message = $this->chat->privateMessage($target->id, $room_id, $message, 1, $this->bot->id);
-                $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
+                $roomId = 0;
+                $message = $this->chat->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
+                $message = $this->chat->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
             }
 
             return \response('success');
         }
         if ($type == 'echo') {
             if ($txt != '') {
-                $room_id = 0;
-                $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
+                $roomId = 0;
+                $message = $this->chat->botMessage($this->bot->id, $roomId, $txt, $target->id);
             }
 
             return \response('success');
