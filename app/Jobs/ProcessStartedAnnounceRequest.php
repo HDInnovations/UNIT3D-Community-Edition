@@ -72,8 +72,8 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
             $history->info_hash = $this->queries['info_hash'];
         }
 
-        $real_uploaded = $this->queries['uploaded'];
-        $real_downloaded = $this->queries['downloaded'];
+        $realUploaded = $this->queries['uploaded'];
+        $realDownloaded = $this->queries['downloaded'];
 
         // Peer Update
         $peer->peer_id = $this->queries['peer_id'];
@@ -82,8 +82,8 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         $peer->ip = $this->queries['ip-address'];
         $peer->port = $this->queries['port'];
         $peer->agent = $this->queries['user-agent'];
-        $peer->uploaded = $real_uploaded;
-        $peer->downloaded = $real_downloaded;
+        $peer->uploaded = $realUploaded;
+        $peer->downloaded = $realDownloaded;
         $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
@@ -98,10 +98,10 @@ class ProcessStartedAnnounceRequest implements ShouldQueue
         $history->immune = $this->user->group->is_immune == 1;
         $history->uploaded += 0;
         $history->actual_uploaded += 0;
-        $history->client_uploaded = $real_uploaded;
+        $history->client_uploaded = $realUploaded;
         $history->downloaded += 0;
         $history->actual_downloaded += 0;
-        $history->client_downloaded = $real_downloaded;
+        $history->client_downloaded = $realDownloaded;
         $history->save();
         // End History Update
 
