@@ -32,9 +32,9 @@ class CheckIfBanned
     public function handle($request, Closure $next, $guard = null)
     {
         $user = $request->user();
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        if ($user && $user->group_id == $banned_group[0]) {
+        if ($user && $user->group_id == $bannedGroup[0]) {
             \auth()->logout();
             $request->session()->flush();
 
