@@ -50,11 +50,11 @@ class MassActionController extends Controller
      */
     public function store(Request $request)
     {
-        $banned_group = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $pruned_group = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
-        $users = User::whereNotIn('group_id', [$validating_group[0], $banned_group[0], $disabled_group[0], $pruned_group[0]])->pluck('id');
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $users = User::whereNotIn('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->pluck('id');
 
         $subject = $request->input('subject');
         $message = $request->input('message');
@@ -69,8 +69,8 @@ class MassActionController extends Controller
                 ->withErrors($v->errors());
         }
 
-        foreach ($users as $user_id) {
-            ProcessMassPM::dispatch(self::SENDER_ID, $user_id, $subject, $message);
+        foreach ($users as $userId) {
+            ProcessMassPM::dispatch(self::SENDER_ID, $userId, $subject, $message);
         }
 
         return \redirect()->route('staff.mass-pm.create')
@@ -86,10 +86,10 @@ class MassActionController extends Controller
      */
     public function update()
     {
-        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $member_group = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
-        foreach (User::where('group_id', '=', $validating_group[0])->get() as $user) {
-            $user->group_id = $member_group[0];
+        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
+        foreach (User::where('group_id', '=', $validatingGroup[0])->get() as $user) {
+            $user->group_id = $memberGroup[0];
             $user->active = 1;
             $user->can_upload = 1;
             $user->can_download = 1;
