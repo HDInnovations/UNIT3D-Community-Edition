@@ -233,7 +233,7 @@ return [
 
     'security' => [
         'password'   => env('APP_KEY'),
-        'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT,
+        'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT
 
         // Available encryption methods:
         // \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT (AES 128)
