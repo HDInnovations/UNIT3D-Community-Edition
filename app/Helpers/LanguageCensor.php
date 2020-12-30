@@ -34,11 +34,11 @@ class LanguageCensor
     {
         $result = [];
         $length = \strlen($word);
-        $string_length = \strlen($string);
+        $stringLength = \strlen($string);
         $pos = \stripos($string, $word, 0);
         while ($pos !== false) {
             $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
-            $last = ($pos + $length) < $string_length ? $string[$pos + $length] : ' ';
+            $last = ($pos + $length) < $stringLength ? $string[$pos + $length] : ' ';
             if (self::isSpecial($prev) && self::isSpecial($last)) {
                 $result[] = $pos;
             }
@@ -60,15 +60,15 @@ class LanguageCensor
         foreach (\config('censor.redact', []) as $word) {
             $result = '';
             $length = \strlen($source);
-            $word_length = \strlen($word);
-            \assert($word_length > 0);
+            $wordLength = \strlen($word);
+            \assert($wordLength > 0);
             $indexes = self::matchWordIndexes($source, $word);
             $ignore = 0;
             for ($i = 0; $i < $length; $i++) {
                 if ((\is_countable($indexes) ? \count($indexes) : 0) > 0 && $indexes[0] == $i) {
-                    $match = \substr($source, $indexes[0], $word_length);
+                    $match = \substr($source, $indexes[0], $wordLength);
                     $result .= \sprintf("<span class='censor'>%s</span>", $match);
-                    $ignore = $word_length - 1;
+                    $ignore = $wordLength - 1;
                 } elseif ($ignore > 0) {
                     $ignore--;
                 } else {
