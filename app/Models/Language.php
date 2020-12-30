@@ -108,15 +108,15 @@ class Language
 
         // Generate an array with $code as key and $code language as value
         foreach ($codes as $code) {
-            $lang_name = 'Unknown';
+            $langName = 'Unknown';
 
             foreach ($languages as $language) {
                 if ($language[$mode['code']] == $code) {
-                    $lang_name = $language[$mode['name']];
+                    $langName = $language[$mode['name']];
                 }
             }
 
-            $array[$code] = $lang_name;
+            $array[$code] = $langName;
         }
 
         return $array;
@@ -141,15 +141,15 @@ class Language
 
         // Generate an array with $lang as key and $lang code as value
         foreach ($langs as $lang) {
-            $lang_code = 'unk';
+            $langCode = 'unk';
 
             foreach ($languages as $language) {
                 if ($language[$mode['name']] == $lang) {
-                    $lang_code = $language[$mode['code']];
+                    $langCode = $language[$mode['code']];
                 }
             }
 
-            $array[$lang] = $lang_code;
+            $array[$lang] = $langCode;
         }
 
         return $array;

@@ -119,9 +119,9 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isBookmarked($torrent_id)
+    public function isBookmarked($torrentId)
     {
-        return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
+        return $this->bookmarks()->where('torrent_id', '=', $torrentId)->first() !== null;
     }
 
     /**
@@ -586,7 +586,7 @@ class User extends Authenticatable
      */
     public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
     {
-        $target_group = 'json_'.$group.'_groups';
+        $targetGroup = 'json_'.$group.'_groups';
         if ($sender->id === $target->id) {
             return false;
         }
@@ -621,7 +621,7 @@ class User extends Authenticatable
      */
     public function isVisible(self $target, $group = 'profile', $type = false)
     {
-        $target_group = 'json_'.$group.'_groups';
+        $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
         if ($sender->id == $target->id) {
             return true;
@@ -657,7 +657,7 @@ class User extends Authenticatable
      */
     public function isAllowed(self $target, $group = 'profile', $type = false)
     {
-        $target_group = 'json_'.$group.'_groups';
+        $targetGroup = 'json_'.$group.'_groups';
         $sender = \auth()->user();
         if ($sender->id == $target->id) {
             return true;
@@ -690,13 +690,13 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function isSubscribed(string $type, $topic_id)
+    public function isSubscribed(string $type, $topicId)
     {
         if ($type === 'topic') {
-            return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
+            return (bool) $this->subscriptions()->where('topic_id', '=', $topicId)->first(['id']);
         }
 
-        return (bool) $this->subscriptions()->where('forum_id', '=', $topic_id)->first(['id']);
+        return (bool) $this->subscriptions()->where('forum_id', '=', $topicId)->first(['id']);
     }
 
     /**
@@ -706,9 +706,9 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function isFollowing($target_id)
+    public function isFollowing($targetId)
     {
-        return (bool) $this->follows()->where('target_id', '=', $target_id)->first(['id']);
+        return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);
     }
 
     /**
