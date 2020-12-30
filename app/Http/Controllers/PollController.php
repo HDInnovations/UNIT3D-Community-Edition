@@ -28,9 +28,9 @@ class PollController extends Controller
     /**
      * PollController Constructor.
      *
-     * @param \App\Repositories\ChatRepository $chat
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(private ChatRepository $chat)
+    public function __construct(private ChatRepository $chatRepository)
     {
     }
 
@@ -58,9 +58,9 @@ class PollController extends Controller
     {
         $poll = Poll::findOrFail($id);
         $user = $request->user();
-        $user_has_voted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
+        $userHasVoted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
-        if ($user_has_voted) {
+        if ($userHasVoted) {
             return \redirect()->route('poll_results', ['id' => $poll->id])
                 ->withInfo('You have already vote on this poll. Here are the results.');
         }
@@ -71,14 +71,14 @@ class PollController extends Controller
     /**
      * Vote On A Poll.
      *
-     * @param VoteOnPoll $request
+     * @param VoteOnPoll $voteOnPoll
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function vote(VoteOnPoll $request)
+    public function vote(VoteOnPoll $voteOnPoll)
     {
-        $user = $request->user();
-        $poll = Option::findOrFail($request->input('option.0'))->poll;
+        $user = $voteOnPoll->user();
+        $poll = Option::findOrFail($voteOnPoll->input('option.0'))->poll;
         $voted = Voter::where('user_id', '=', $user->id)
             ->where('poll_id', '=', $poll->id)
             ->exists();
@@ -88,21 +88,21 @@ class PollController extends Controller
         }
 
         // Operate options after validation
-        foreach ($request->input('option') as $option) {
+        foreach ($voteOnPoll->input('option') as $option) {
             Option::findOrFail($option)->increment('votes');
         }
 
         // Make voter after option operation completed
-        $vote = new Voter();
-        $vote->poll_id = $poll->id;
-        $vote->user_id = $user->id;
-        $vote->save();
+        $voter = new Voter();
+        $voter->poll_id = $poll->id;
+        $voter->user_id = $user->id;
+        $voter->save();
 
-        $poll_url = \href_poll($poll);
-        $profile_url = \href_profile($user);
+        $pollUrl = \href_poll($poll);
+        $profileUrl = \href_profile($user);
 
-        $this->chat->systemMessage(
-            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profile_url, $user->username, $poll_url, $poll->title)
+        $this->chatRepository->systemMessage(
+            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profileUrl, $user->username, $pollUrl, $poll->title)
         );
 
         return \redirect()->route('poll_results', ['id' => $poll->id])
