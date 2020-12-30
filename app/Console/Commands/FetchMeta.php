@@ -54,7 +54,7 @@ class FetchMeta extends Command
     {
         $this->alert('Meta Fetcher Started');
 
-        $client = new TMDBScraper();
+        $tmdbScraper = new TMDBScraper();
         $torrents = Torrent::with('category')->select('tmdb', 'category_id')->whereNotNull('tmdb')->where('tmdb', '!=', 0)->oldest()->get();
         foreach ($torrents as $torrent) {
             if ($torrent->category->tv_meta) {
@@ -62,7 +62,7 @@ class FetchMeta extends Command
                 if ($meta) {
                     $this->info('TV Already In DB');
                 } else {
-                    $client->tv($torrent->tmdb);
+                    $tmdbScraper->tv($torrent->tmdb);
                     $this->info('TV Fetched');
                 }
             }
@@ -72,7 +72,7 @@ class FetchMeta extends Command
                 if ($meta) {
                     $this->info('Movie Already In DB');
                 } else {
-                    $client->movie($torrent->tmdb);
+                    $tmdbScraper->movie($torrent->tmdb);
                     $this->info('Movie Fetched');
                 }
             }
