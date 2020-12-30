@@ -116,16 +116,16 @@ class PrivateMessageController extends Controller
      * Create Message Form.
      *
      * @param \Illuminate\Http\Request $request
-     * @param string                   $receiver_id
+     * @param string                   $receiverId
      * @param string                   $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
+    public function makePrivateMessage(Request $request, $receiverId = '', $username = '')
     {
         $user = $request->user();
 
-        return \view('pm.send', ['user' => $user, 'receiver_id' => $receiver_id, 'username' => $username]);
+        return \view('pm.send', ['user' => $user, 'receiver_id' => $receiverId, 'username' => $username]);
     }
 
     /**
