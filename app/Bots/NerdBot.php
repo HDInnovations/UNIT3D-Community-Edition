@@ -95,7 +95,7 @@ class NerdBot
     public function getBanker($duration = 'default')
     {
         $banker = \cache()->get('nerdbot-banker');
-        if (! $banker || $banker == null) {
+        if (! $banker) {
             $banker = User::latest('seedbonus')->first();
             \cache()->put('nerdbot-banker', $banker, $this->expiresAt);
         }
@@ -115,7 +115,7 @@ class NerdBot
     public function getSnatched($duration = 'default')
     {
         $snatched = \cache()->get('nerdbot-snatched');
-        if (! $snatched || $snatched == null) {
+        if (! $snatched) {
             $snatched = Torrent::latest('times_completed')->first();
             \cache()->put('nerdbot-snatched', $snatched, $this->expiresAt);
         }
@@ -135,7 +135,7 @@ class NerdBot
     public function getLeeched($duration = 'default')
     {
         $leeched = \cache()->get('nerdbot-leeched');
-        if (! $leeched || $leeched == null) {
+        if (! $leeched) {
             $leeched = Torrent::latest('leechers')->first();
             \cache()->put('nerdbot-leeched', $leeched, $this->expiresAt);
         }
@@ -155,7 +155,7 @@ class NerdBot
     public function getSeeded($duration = 'default')
     {
         $seeded = \cache()->get('nerdbot-seeded');
-        if (! $seeded || $seeded == null) {
+        if (! $seeded) {
             $seeded = Torrent::latest('seeders')->first();
             \cache()->put('nerdbot-seeded', $seeded, $this->expiresAt);
         }
@@ -175,7 +175,7 @@ class NerdBot
     public function getFreeleech($duration = 'default')
     {
         $fl = \cache()->get('nerdbot-fl');
-        if (! $fl || $fl == null) {
+        if (! $fl) {
             $fl = Torrent::where('free', '=', 1)->count();
             \cache()->put('nerdbot-fl', $fl, $this->expiresAt);
         }
@@ -195,7 +195,7 @@ class NerdBot
     public function getDoubleUpload($duration = 'default')
     {
         $du = \cache()->get('nerdbot-doubleup');
-        if (! $du || $du == null) {
+        if (! $du) {
             $du = Torrent::where('doubleup', '=', 1)->count();
             \cache()->put('nerdbot-doubleup', $du, $this->expiresAt);
         }
@@ -215,7 +215,7 @@ class NerdBot
     public function getPeers($duration = 'default')
     {
         $peers = \cache()->get('nerdbot-peers');
-        if (! $peers || $peers == null) {
+        if (! $peers) {
             $peers = Peer::count();
             \cache()->put('nerdbot-peers', $peers, $this->expiresAt);
         }
@@ -235,7 +235,7 @@ class NerdBot
     public function getBans($duration = 'default')
     {
         $bans = \cache()->get('nerdbot-bans');
-        if (! $bans || $bans == null) {
+        if (! $bans) {
             $bans = Ban::whereNull('unban_reason')->whereNull('removed_at')->where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-bans', $bans, $this->expiresAt);
         }
@@ -255,7 +255,7 @@ class NerdBot
     public function getWarnings($duration = 'default')
     {
         $warnings = \cache()->get('nerdbot-warnings');
-        if (! $warnings || $warnings == null) {
+        if (! $warnings) {
             $warnings = Warning::where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-warnings', $warnings, $this->expiresAt);
         }
@@ -275,7 +275,7 @@ class NerdBot
     public function getUploads($duration = 'default')
     {
         $uploads = \cache()->get('nerdbot-uploads');
-        if (! $uploads || $uploads == null) {
+        if (! $uploads) {
             $uploads = Torrent::where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-uploads', $uploads, $this->expiresAt);
         }
@@ -295,7 +295,7 @@ class NerdBot
     public function getLogins($duration = 'default')
     {
         $logins = \cache()->get('nerdbot-logins');
-        if (! $logins || $logins == null) {
+        if (! $logins) {
             $logins = User::whereNotNull('last_login')->where('last_login', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-logins', $logins, $this->expiresAt);
         }
@@ -315,7 +315,7 @@ class NerdBot
     public function getRegistrations($duration = 'default')
     {
         $registrations = \cache()->get('nerdbot-users');
-        if (! $registrations || $registrations == null) {
+        if (! $registrations) {
             $registrations = User::where('created_at', '>', $this->current->subDay())->count();
             \cache()->put('nerdbot-users', $registrations, $this->expiresAt);
         }
@@ -335,7 +335,7 @@ class NerdBot
     public function getDonations($duration = 'default')
     {
         $donations = \cache()->get('nerdbot-donations');
-        if (! $donations || $donations == null) {
+        if (! $donations) {
             $donations = BotTransaction::with('user', 'bot')->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('nerdbot-donations', $donations, $this->expiresAt);
         }

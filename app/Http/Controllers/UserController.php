@@ -1236,7 +1236,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1294,7 +1294,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1331,7 +1331,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1376,7 +1376,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1421,7 +1421,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1478,7 +1478,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1559,7 +1559,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1589,7 +1589,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (! $sorting || $sorting == null || ! $order || $order == null) {
+            if (! $sorting || ! $order) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';

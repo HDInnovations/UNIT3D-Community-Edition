@@ -135,7 +135,7 @@ class CasinoBot
     public function getDonations($duration = 'default')
     {
         $donations = \cache()->get('casinobot-donations');
-        if (! $donations || $donations == null) {
+        if (! $donations) {
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('casinobot-donations', $donations, $this->expiresAt);
         }
