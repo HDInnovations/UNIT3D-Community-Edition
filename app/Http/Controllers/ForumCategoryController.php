@@ -35,11 +35,11 @@ class ForumCategoryController extends Controller
         $forum = Forum::findOrFail($id);
 
         // Total Forums Count
-        $num_forums = Forum::count();
+        $numForums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::count();
+        $numPosts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::count();
+        $numTopics = Topic::count();
 
         // Check if this is a category or forum
         if ($forum->parent_id != 0) {
@@ -60,9 +60,9 @@ class ForumCategoryController extends Controller
             'forum'      => $forum,
             'topics'     => $topics,
             'category'   => $category,
-            'num_posts'  => $num_posts,
-            'num_forums' => $num_forums,
-            'num_topics' => $num_topics,
+            'num_posts'  => $numPosts,
+            'num_forums' => $numForums,
+            'num_topics' => $numTopics,
         ]);
     }
 }

@@ -25,15 +25,15 @@ class TwoStepController extends Controller
 {
     use TwoStep;
 
-    private $_authCount;
+    private $authCount;
 
-    private $_authStatus;
+    private $authStatus;
 
-    private $_twoStepAuth;
+    private $twoStepAuth;
 
-    private $_remainingAttempts;
+    private $remainingAttempts;
 
-    private $_user;
+    private $user;
 
     /**
      * Create a new controller instance.
@@ -61,11 +61,11 @@ class TwoStepController extends Controller
         $user = \auth()->user();
         $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
         $authCount = $twoStepAuth->authCount;
-        $this->_user = $user;
-        $this->_twoStepAuth = $twoStepAuth;
-        $this->_authCount = $authCount;
-        $this->_authStatus = $twoStepAuth->authStatus;
-        $this->_remainingAttempts = \config('auth.TwoStepExceededCount') - $authCount;
+        $this->user = $user;
+        $this->twoStepAuth = $twoStepAuth;
+        $this->authCount = $authCount;
+        $this->authStatus = $twoStepAuth->authStatus;
+        $this->remainingAttempts = \config('auth.TwoStepExceededCount') - $authCount;
     }
 
     /**
@@ -77,13 +77,13 @@ class TwoStepController extends Controller
      */
     private function invalidCodeReturnData($errors = null)
     {
-        $this->_authCount = ++$this->_twoStepAuth->authCount;
-        $this->_twoStepAuth->save();
+        $this->authCount = ++$this->twoStepAuth->authCount;
+        $this->twoStepAuth->save();
 
         $returnData = [
             'message'           => \trans('auth.titleFailed'),
-            'authCount'         => $this->_authCount,
-            'remainingAttempts' => $this->_remainingAttempts,
+            'authCount'         => $this->authCount,
+            'remainingAttempts' => $this->remainingAttempts,
         ];
 
         if ($errors) {
@@ -106,19 +106,19 @@ class TwoStepController extends Controller
             \abort(404);
         }
 
-        $twoStepAuth = $this->_twoStepAuth;
-        $authStatus = $this->_authStatus;
+        $twoStepAuth = $this->twoStepAuth;
+        $authStatus = $this->authStatus;
 
         if ($this->checkExceededTime($twoStepAuth->updated_at)) {
             $this->resetExceededTime($twoStepAuth);
         }
 
         $data = [
-            'user'              => $this->_user,
-            'remainingAttempts' => $this->_remainingAttempts + 1,
+            'user'              => $this->user,
+            'remainingAttempts' => $this->remainingAttempts + 1,
         ];
 
-        if ($this->_authCount > \config('auth.TwoStepExceededCount')) {
+        if ($this->authCount > \config('auth.TwoStepExceededCount')) {
             $exceededTimeDetails = $this->exceededTimeParser($twoStepAuth->updated_at);
 
             $data['timeUntilUnlock'] = $exceededTimeDetails['tomorrow'];
@@ -180,7 +180,7 @@ class TwoStepController extends Controller
             }
 
             $code = $request->v_input_1.$request->v_input_2.$request->v_input_3.$request->v_input_4;
-            $validCode = $this->_twoStepAuth->authCode;
+            $validCode = $this->twoStepAuth->authCode;
 
             if ($validCode != $code) {
                 $returnData = $this->invalidCodeReturnData();
@@ -188,7 +188,7 @@ class TwoStepController extends Controller
                 return \response()->json($returnData, 418);
             }
 
-            $this->resetActivationCountdown($this->_twoStepAuth);
+            $this->resetActivationCountdown($this->twoStepAuth);
 
             $returnData = [
                 'nextUri' => \session('nextUri', '/'),
@@ -211,7 +211,7 @@ class TwoStepController extends Controller
             \abort(404);
         }
 
-        $twoStepAuth = $this->_twoStepAuth;
+        $twoStepAuth = $this->twoStepAuth;
         $this->sendVerificationCodeNotification($twoStepAuth);
 
         $returnData = [

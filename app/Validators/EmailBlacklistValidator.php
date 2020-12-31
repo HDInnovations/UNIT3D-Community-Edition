@@ -92,11 +92,11 @@ class EmailBlacklistValidator
 
     protected function appendCustomDomains()
     {
-        $append_list = \config('email-blacklist.append');
-        if ($append_list === null) {
+        $appendList = \config('email-blacklist.append');
+        if ($appendList === null) {
             return;
         }
-        $append_domains = \explode('|', \strtolower($append_list));
-        $this->domains = \array_merge($this->domains, $append_domains);
+        $appendDomains = \explode('|', \strtolower($appendList));
+        $this->domains = \array_merge($this->domains, $appendDomains);
     }
 }

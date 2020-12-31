@@ -86,34 +86,34 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
             $history->info_hash = $this->queries['info_hash'];
         }
 
-        $real_uploaded = $this->queries['uploaded'];
-        $real_downloaded = $this->queries['downloaded'];
+        $realUploaded = $this->queries['uploaded'];
+        $realDownloaded = $this->queries['downloaded'];
 
         if ($ghost) {
-            $uploaded = ($real_uploaded >= $history->client_uploaded) ? ($real_uploaded - $history->client_uploaded) : 0;
-            $downloaded = ($real_downloaded >= $history->client_downloaded) ? ($real_downloaded - $history->client_downloaded) : 0;
+            $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
+            $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
         } else {
-            $uploaded = ($real_uploaded >= $peer->uploaded) ? ($real_uploaded - $peer->uploaded) : 0;
-            $downloaded = ($real_downloaded >= $peer->downloaded) ? ($real_downloaded - $peer->downloaded) : 0;
+            $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
+            $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
         }
 
-        $old_update = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
+        $oldUpdate = $peer->updated_at->timestamp ?? Carbon::now()->timestamp;
 
         // Modification of Upload and Download
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
-        $freeleech_token = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
+        $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
         $group = Group::whereId($this->user->group_id)->first();
 
-        if (\config('other.freeleech') == true || $this->torrent->free == 1 || $personal_freeleech || $group->is_freeleech == 1 || $freeleech_token) {
-            $mod_downloaded = 0;
+        if (\config('other.freeleech') == true || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
+            $modDownloaded = 0;
         } else {
-            $mod_downloaded = $downloaded;
+            $modDownloaded = $downloaded;
         }
 
         if (\config('other.doubleup') == 1 || $this->torrent->doubleup == 1 || $group->is_double_upload == 1) {
-            $mod_uploaded = $uploaded * 2;
+            $modUploaded = $uploaded * 2;
         } else {
-            $mod_uploaded = $uploaded;
+            $modUploaded = $uploaded;
         }
 
         // Peer Update
@@ -123,8 +123,8 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         $peer->ip = $this->queries['ip-address'];
         $peer->port = $this->queries['port'];
         $peer->agent = $this->queries['user-agent'];
-        $peer->uploaded = $real_uploaded;
-        $peer->downloaded = $real_downloaded;
+        $peer->uploaded = $realUploaded;
+        $peer->downloaded = $realDownloaded;
         $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
@@ -136,16 +136,16 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         $history->agent = $this->queries['user-agent'];
         $history->active = 0;
         $history->seeder = $this->queries['left'] == 0;
-        $history->uploaded += $mod_uploaded;
+        $history->uploaded += $modUploaded;
         $history->actual_uploaded += $uploaded;
-        $history->client_uploaded = $real_uploaded;
-        $history->downloaded += $mod_downloaded;
+        $history->client_uploaded = $realUploaded;
+        $history->downloaded += $modDownloaded;
         $history->actual_downloaded += $downloaded;
-        $history->client_downloaded = $real_downloaded;
+        $history->client_downloaded = $realDownloaded;
         // Seedtime allocation
         if ($this->queries['left'] == 0) {
-            $new_update = $peer->updated_at->timestamp;
-            $diff = $new_update - $old_update;
+            $newUpdate = $peer->updated_at->timestamp;
+            $diff = $newUpdate - $oldUpdate;
             $history->seedtime += $diff;
         }
         $history->save();
@@ -156,8 +156,8 @@ class ProcessStoppedAnnounceRequest implements ShouldQueue
         // End Peer Delete
 
         // User Update
-        $this->user->uploaded += $mod_uploaded;
-        $this->user->downloaded += $mod_downloaded;
+        $this->user->uploaded += $modUploaded;
+        $this->user->downloaded += $modDownloaded;
         $this->user->save();
         // End User Update
 

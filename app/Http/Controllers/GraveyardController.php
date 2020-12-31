@@ -72,8 +72,8 @@ class GraveyardController extends Controller
         $current = Carbon::now();
         $user = $request->user();
         $search = $request->input('search');
-        $imdb_id = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
-        $imdb = \str_replace('tt', '', $imdb_id);
+        $imdbId = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb = \str_replace('tt', '', $imdbId);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');

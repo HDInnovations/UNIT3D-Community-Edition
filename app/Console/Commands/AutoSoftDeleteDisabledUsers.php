@@ -60,11 +60,11 @@ class AutoSoftDeleteDisabledUsers extends Command
     public function handle()
     {
         if (\config('pruning.user_pruning') == true) {
-            $disabled_group = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $pruned_group = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
-            $users = User::where('group_id', '=', $disabled_group[0])
+            $users = User::where('group_id', '=', $disabledGroup[0])
                 ->where('disabled_at', '<', $current->copy()->subDays(\config('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
@@ -78,7 +78,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->can_invite = 0;
                 $user->can_request = 0;
                 $user->can_chat = 0;
-                $user->group_id = $pruned_group[0];
+                $user->group_id = $prunedGroup[0];
                 $user->deleted_by = 1;
                 $user->save();
 
@@ -138,14 +138,14 @@ class AutoSoftDeleteDisabledUsers extends Command
                     $follow->delete();
                 }
                 // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-                foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
-                    $sent_invite->user_id = 1;
-                    $sent_invite->save();
+                foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
+                    $sentInvite->user_id = 1;
+                    $sentInvite->save();
                 }
                 // Removes UserID from Received Invite if any and replaces with System UserID (1)
-                foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
-                    $received_invite->accepted_by = 1;
-                    $received_invite->save();
+                foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
+                    $receivedInvite->accepted_by = 1;
+                    $receivedInvite->save();
                 }
                 // Removes all Peers for user
                 foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {

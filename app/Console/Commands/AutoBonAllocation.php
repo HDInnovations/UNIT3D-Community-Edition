@@ -46,7 +46,7 @@ class AutoBonAllocation extends Command
      */
     public function handle(ByteUnits $byteUnits)
     {
-        $dying_torrent = DB::table('peers')
+        $dyingTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('torrents.seeders', 1)
@@ -57,7 +57,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary_torrent = DB::table('peers')
+        $legendaryTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -67,7 +67,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $old_torrent = DB::table('peers')
+        $oldTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -78,7 +78,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $huge_torrent = DB::table('peers')
+        $hugeTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -88,7 +88,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $large_torrent = DB::table('peers')
+        $largeTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -99,7 +99,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $regular_torrent = DB::table('peers')
+        $regularTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -110,7 +110,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $participaint_seeder = DB::table('history')
+        $participaintSeeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -120,7 +120,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $teamplayer_seeder = DB::table('history')
+        $teamplayerSeeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -130,7 +130,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $commited_seeder = DB::table('history')
+        $commitedSeeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -140,7 +140,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $mvp_seeder = DB::table('history')
+        $mvpSeeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -150,7 +150,7 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary_seeder = DB::table('history')
+        $legendarySeeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -163,7 +163,7 @@ class AutoBonAllocation extends Command
 
         $array = [];
 
-        foreach ($dying_torrent as $key => $value) {
+        foreach ($dyingTorrent as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 2;
             } else {
@@ -171,7 +171,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($legendary_torrent as $key => $value) {
+        foreach ($legendaryTorrent as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1.5;
             } else {
@@ -179,7 +179,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($old_torrent as $key => $value) {
+        foreach ($oldTorrent as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1;
             } else {
@@ -187,7 +187,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($huge_torrent as $key => $value) {
+        foreach ($hugeTorrent as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.75;
             } else {
@@ -195,7 +195,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($large_torrent as $key => $value) {
+        foreach ($largeTorrent as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.50;
             } else {
@@ -203,7 +203,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($regular_torrent as $key => $value) {
+        foreach ($regularTorrent as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.25;
             } else {
@@ -211,7 +211,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($participaint_seeder as $key => $value) {
+        foreach ($participaintSeeder as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.25;
             } else {
@@ -219,7 +219,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($teamplayer_seeder as $key => $value) {
+        foreach ($teamplayerSeeder as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.50;
             } else {
@@ -227,7 +227,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($commited_seeder as $key => $value) {
+        foreach ($commitedSeeder as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.75;
             } else {
@@ -235,7 +235,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($mvp_seeder as $key => $value) {
+        foreach ($mvpSeeder as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1;
             } else {
@@ -243,7 +243,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($legendary_seeder as $key => $value) {
+        foreach ($legendarySeeder as $key => $value) {
             if (\array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 2;
             } else {

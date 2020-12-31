@@ -27,9 +27,9 @@ class NewRequestFill extends Notification implements ShouldQueue
      *
      * @param string                     $type
      * @param string                     $sender
-     * @param \App\Models\TorrentRequest $tr
+     * @param \App\Models\TorrentRequest $torrentRequest
      */
-    public function __construct(public string $type, public string $sender, public TorrentRequest $tr)
+    public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
     {
     }
 
@@ -58,8 +58,8 @@ class NewRequestFill extends Notification implements ShouldQueue
 
         return [
             'title' => $this->sender.' Has Filled One Of Your Torrent Requests',
-            'body'  => $this->sender.' has filled one of your Requested Torrents '.$this->tr->name,
-            'url'   => \sprintf('/requests/%s', $this->tr->id),
+            'body'  => $this->sender.' has filled one of your Requested Torrents '.$this->torrentRequest->name,
+            'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
         ];
     }
 }

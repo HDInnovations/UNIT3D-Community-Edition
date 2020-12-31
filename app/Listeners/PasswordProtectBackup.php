@@ -21,12 +21,12 @@ class PasswordProtectBackup
     /**
      * Handle the event.
      *
-     * @param \Spatie\Backup\Events\BackupZipWasCreated $event
+     * @param \Spatie\Backup\Events\BackupZipWasCreated $backupZipWasCreated
      *
      * @return string
      */
-    public function handle(BackupZipWasCreated $event): string
+    public function handle(BackupZipWasCreated $backupZipWasCreated): string
     {
-        return (new BackupPassword($event->pathToZip))->path;
+        return (new BackupPassword($backupZipWasCreated->pathToZip))->path;
     }
 }

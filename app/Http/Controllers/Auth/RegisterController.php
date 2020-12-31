@@ -72,7 +72,7 @@ class RegisterController extends Controller
                 ->withErrors(\trans('auth.invalid-key'));
         }
 
-        $validating_group = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
 
         $user = new User();
         $user->username = $request->input('username');
@@ -84,7 +84,7 @@ class RegisterController extends Controller
         $user->downloaded = \config('other.default_download');
         $user->style = \config('other.default_style', 0);
         $user->locale = \config('app.locale');
-        $user->group_id = $validating_group[0];
+        $user->group_id = $validatingGroup[0];
 
         if (\config('email-blacklist.enabled') == true) {
             if (\config('captcha.enabled') == false) {
@@ -143,15 +143,15 @@ class RegisterController extends Controller
         $userActivation->save();
         $this->dispatch(new SendActivationMail($user, $token));
         // Select A Random Welcome Message
-        $profile_url = \href_profile($user);
+        $profileUrl = \href_profile($user);
         $welcomeArray = [
-            \sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).\config('other.title').'! Hope you enjoy the community :rocket:',
-            \sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profile_url, $user->username),
-            \sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profile_url, $user->username),
-            \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profile_url, $user->username),
-            \sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
-            \sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
-            'Welcome to '.\config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
+            \sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).\config('other.title').'! Hope you enjoy the community :rocket:',
+            \sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profileUrl, $user->username),
+            \sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profileUrl, $user->username),
+            \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
+            \sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
+            \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
+            'Welcome to '.\config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profileUrl, $user->username),
         ];
         $selected = \mt_rand(0, \count($welcomeArray) - 1);
         $this->chatRepository->systemMessage(
