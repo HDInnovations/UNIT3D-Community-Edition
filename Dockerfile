@@ -13,7 +13,7 @@ ADD package.json .
 RUN npm install
 
 FROM php:7.4-fpm-alpine3.12
-RUN sed -i 's/memory_limit = 128M/memory_limit = -1/g' $PHP_INI_DIR/php.ini
+
 # ENV & Build ARGS
 ENV LARAVEL_DIR /var/www
 ENV APACHE_LOG_DIR ${LARAVEL_DIR}/storage/logs
@@ -95,6 +95,7 @@ RUN chmod +x,o+x,g+x /usr/bin/composer
 
 STOPSIGNAL SIGTERM
 EXPOSE 80
+EXPOSE 8443
 
 ENTRYPOINT  ["/usr/bin/entry"]
 CMD  ["/usr/bin/entry"]
@@ -103,10 +104,14 @@ ARG RUN_ENVIRONMENT=development
 ENV RUN_ENVIRONMENT=$RUN_ENVIRONMENT
 RUN apk add icu-dev
 RUN apk add mysql-client
+RUN apk add supervisor
 RUN docker-php-ext-install pdo_mysql \
 && docker-php-ext-install intl \
 && docker-php-ext-install bcmath \
-&& npm install -g cross-env
+&& npm install -g cross-env \
+&& npm install -g laravel-echo-server
+
+ADD DockerHelpers/unit3d.conf /etc/supervisor/conf.d/unit3d.conf
 
 COPY --from=composer ${LARAVEL_DIR}/vendor ${LARAVEL_DIR}/vendor
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -114,6 +119,10 @@ COPY --from=node ${LARAVEL_DIR}/node_modules ${LARAVEL_DIR}/node_modules
 COPY --from=node ${LARAVEL_DIR}/package-lock.json ${LARAVEL_DIR}/package-lock.json
 
 ADD . .
+
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN sed -i 's/memory_limit = 128M/memory_limit = -1/g' $PHP_INI_DIR/php.ini
+
 # Run Node
 RUN npm run ${RUN_ENVIRONMENT}
 # Create Composer AutoLoad
