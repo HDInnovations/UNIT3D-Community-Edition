@@ -322,8 +322,9 @@ class AnnounceController extends Controller
     /**
      * @param $infoHash
      *
-     * @return object
      * @throws \App\Exceptions\TrackerException
+     *
+     * @return object
      */
     protected function checkTorrent($infoHash): object
     {
@@ -493,8 +494,9 @@ class AnnounceController extends Controller
 
     /**
      * @param $repDict
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-*/
+     */
     protected function sendFinalAnnounceResponse($repDict)
     {
         return \response(Bencode::bencode($repDict))
@@ -508,8 +510,9 @@ class AnnounceController extends Controller
      * @param     $compact
      * @param     $noPeerId
      * @param int $filterFlag
+     *
      * @return string
-*/
+     */
     private function givePeers($peers, $compact, $noPeerId, $filterFlag = FILTER_FLAG_IPV4): string
     {
         if ($compact) {
