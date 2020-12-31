@@ -918,10 +918,10 @@ class TorrentController extends Controller
      */
     private static function parseKeywords($text)
     {
-        $parts = explode(', ', $text);
+        $parts = \explode(', ', $text);
         $result = [];
         foreach ($parts as $part) {
-            $part = trim($part);
+            $part = \trim($part);
             if ($part != '') {
                 $result[] = $part;
             }

@@ -63,10 +63,10 @@ class CommentController extends Controller
     public function collection(Request $request, $id)
     {
         $collection = Collection::findOrFail($id);
-        $user = auth()->user();
+        $user = \auth()->user();
 
         if ($user->can_comment == 0) {
-            return redirect()->route('collection.show', ['id' => $collection->id])
+            return \redirect()->route('collection.show', ['id' => $collection->id])
                 ->withErros('Your Comment Rights Have Been Revoked!');
         }
 
@@ -76,7 +76,7 @@ class CommentController extends Controller
         $comment->user_id = $user->id;
         $comment->collection_id = $collection->id;
 
-        $v = validator($comment->toArray(), [
+        $v = \validator($comment->toArray(), [
             'content'       => 'required',
             'user_id'       => 'required',
             'collection_id' => 'required',
@@ -84,13 +84,13 @@ class CommentController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('collection.show', ['id' => $collection->id])
+            return \redirect()->route('collection.show', ['id' => $collection->id])
                 ->withErrors($v->errors());
         }
         $comment->save();
 
-        $collectionUrl = href_collection($collection);
-        $profileUrl = href_profile($user);
+        $collectionUrl = \href_collection($collection);
+        $profileUrl = \href_profile($user);
 
         // Auto Shout
         if ($comment->anon == 0) {
@@ -105,7 +105,7 @@ class CommentController extends Controller
 
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
             if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
-                $users = collect([]);
+                $users = \collect([]);
 
                 $collection->comments()->get()->each(function ($c, $v) use ($users) {
                     $users->push($c->user);
@@ -147,7 +147,7 @@ class CommentController extends Controller
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
 
-        return redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
+        return \redirect()->route('mediahub.collections.show', ['id' => $collection->id, 'hash' => '#comments'])
                 ->withSuccess('Your Comment Has Been Added!');
     }
 

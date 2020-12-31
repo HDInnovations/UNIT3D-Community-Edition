@@ -27,7 +27,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return view('mediahub.movie.index');
+        return \view('mediahub.movie.index');
     }
 
     /**
@@ -44,7 +44,7 @@ class MovieController extends Controller
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $movie = Movie::with(['collection', 'genres', 'companies'])->findOrFail($id);
 
-        return view('mediahub.movie.show', [
+        return \view('mediahub.movie.show', [
             'movie'              => $movie,
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,

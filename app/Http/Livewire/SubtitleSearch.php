@@ -66,7 +66,7 @@ class SubtitleSearch extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.subtitle-search', [
+        return \view('livewire.subtitle-search', [
             'subtitles' => $subtitles,
         ]);
     }
