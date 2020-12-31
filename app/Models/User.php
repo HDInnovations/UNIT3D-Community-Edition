@@ -599,9 +599,9 @@ class User extends Authenticatable
         if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
-        if ($target->notification && $target->notification->$target_group && \is_array($target->notification->$target_group['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
-                return $target->notification->$target_group['default_groups'][$sender->group->id] == 1;
+        if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
+                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
             }
 
             return true;
@@ -635,9 +635,9 @@ class User extends Authenticatable
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && \is_array($target->privacy->$target_group['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
-                return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
+        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
+                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
             }
 
             return true;
@@ -671,9 +671,9 @@ class User extends Authenticatable
         if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if ($target->privacy && $target->privacy->$target_group && \is_array($target->privacy->$target_group['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
-                return $target->privacy->$target_group['default_groups'][$sender->group->id] == 1;
+        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
+            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
+                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
             }
 
             return true;
