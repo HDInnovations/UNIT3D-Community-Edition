@@ -115,7 +115,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $torrent_id
+     * @param $torrentId
      *
      * @return bool
      */
@@ -685,11 +685,10 @@ class User extends Authenticatable
     /**
      * Does Subscription Exist.
      *
-     * @param $type
-     * @param $topic_id
-     *
+     * @param string $type
+     * @param        $topicId
      * @return string
-     */
+*/
     public function isSubscribed(string $type, $topicId)
     {
         if ($type === 'topic') {
@@ -702,10 +701,9 @@ class User extends Authenticatable
     /**
      * Get All Followers Of A User.
      *
-     * @param $target_id
-     *
+     * @param $targetId
      * @return string
-     */
+*/
     public function isFollowing($targetId)
     {
         return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);

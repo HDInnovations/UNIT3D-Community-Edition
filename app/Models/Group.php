@@ -125,7 +125,7 @@ class Group extends Model
      * Get the Group allowed answer as bool.
      *
      * @param $object
-     * @param $group_id
+     * @param $groupId
      *
      * @return int
      */

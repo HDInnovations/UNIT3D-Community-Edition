@@ -79,9 +79,9 @@ class Article extends Model
     /**
      * Article Trimming.
      *
-     * @param $length
-     * @param $ellipses
-     * @param $strip_html
+     * @param int  $length
+     * @param bool $ellipses
+     * @param bool $stripHtml
      *
      * @return string Formatted And Trimmed Content
      */

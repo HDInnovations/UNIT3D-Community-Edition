@@ -608,7 +608,7 @@ class CommentController extends Controller
      * Edit A Comment.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $comment_id
+     * @param                          $commentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -638,12 +638,9 @@ class CommentController extends Controller
      * Delete A Comment.
      *
      * @param \Illuminate\Http\Request $request
-     * @param                          $comment_id
-     *
-     * @throws \Exception
-     *
+     * @param                          $commentId
      * @return \Illuminate\Http\RedirectResponse
-     */
+*/
     public function deleteComment(Request $request, $commentId)
     {
         $user = $request->user();

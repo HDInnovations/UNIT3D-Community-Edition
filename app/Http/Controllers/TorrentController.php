@@ -131,8 +131,8 @@ class TorrentController extends Controller
      * Torrent Similar Results.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $category_id
-     * @param $tmdb
+     * @param                          $categoryId
+     * @param                          $tmdb
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

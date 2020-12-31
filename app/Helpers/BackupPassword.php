@@ -56,6 +56,8 @@ class BackupPassword
     /**
      * Use native PHP ZipArchive.
      *
+     * @param string $path
+     *
      * @return void
      */
     protected function makeZip(string $path): void
