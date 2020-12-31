@@ -687,8 +687,9 @@ class User extends Authenticatable
      *
      * @param string $type
      * @param        $topicId
+     *
      * @return string
-*/
+     */
     public function isSubscribed(string $type, $topicId)
     {
         if ($type === 'topic') {
@@ -702,8 +703,9 @@ class User extends Authenticatable
      * Get All Followers Of A User.
      *
      * @param $targetId
+     *
      * @return string
-*/
+     */
     public function isFollowing($targetId)
     {
         return (bool) $this->follows()->where('target_id', '=', $targetId)->first(['id']);
