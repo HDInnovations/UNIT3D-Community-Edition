@@ -27,7 +27,7 @@ class LanguageCensor
 
     protected static function isSpecial($c)
     {
-        return \strpos(self::SPECIAL_CHARS, $c) !== false;
+        return str_contains(self::SPECIAL_CHARS, $c);
     }
 
     protected static function matchWordIndexes($string, $word)
