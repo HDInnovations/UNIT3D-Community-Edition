@@ -233,24 +233,18 @@ class RequestController extends Controller
         $carbon = Carbon::now()->addDay();
 
         $meta = null;
-        if ($torrentRequest->category->tv_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
-            }
+        if ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
         }
-        if ($torrentRequest->category->movie_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
-            }
+        if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
         }
-        if ($torrentRequest->category->game_meta) {
-            if ($torrentRequest->igdb || $torrentRequest->igdb != 0) {
-                $meta = Game::with([
-                    'cover'    => ['url', 'image_id'],
-                    'artworks' => ['url', 'image_id'],
-                    'genres'   => ['name'],
-                ])->find($torrentRequest->igdb);
-            }
+        if ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) {
+            $meta = Game::with([
+                'cover'    => ['url', 'image_id'],
+                'artworks' => ['url', 'image_id'],
+                'genres'   => ['name'],
+            ])->find($torrentRequest->igdb);
         }
 
         return \view('requests.request', [
@@ -338,16 +332,12 @@ class RequestController extends Controller
         $torrentRequest->save();
 
         $tmdbScraper = new TMDBScraper();
-        if ($torrentRequest->category->tv_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $tmdbScraper->tv($torrentRequest->tmdb);
-            }
+        if ($torrentRequest->category->tv_meta !== 0 && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->tv($torrentRequest->tmdb);
         }
 
-        if ($torrentRequest->category->movie_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $tmdbScraper->movie($torrentRequest->tmdb);
-            }
+        if ($torrentRequest->category->movie_meta !== 0 && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->movie($torrentRequest->tmdb);
         }
 
         $torrentRequestBounty = new TorrentRequestBounty();
@@ -465,16 +455,12 @@ class RequestController extends Controller
         $torrentRequest->save();
 
         $tmdbScraper = new TMDBScraper();
-        if ($torrentRequest->category->tv_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $tmdbScraper->tv($torrentRequest->tmdb);
-            }
+        if ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->tv($torrentRequest->tmdb);
         }
 
-        if ($torrentRequest->category->movie_meta) {
-            if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-                $tmdbScraper->movie($torrentRequest->tmdb);
-            }
+        if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
+            $tmdbScraper->movie($torrentRequest->tmdb);
         }
 
         return \redirect()->route('requests', ['id' => $torrentRequest->id])
