@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRBACRolesTable extends Migration
+class CreatePrivilegesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateRBACRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('RBACroles', function (Blueprint $table) {
+        Schema::create('privileges', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // edit posts
-            $table->string('slug'); //edit-posts
+            $table->integer('position')->nullable();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->string('description')->nullable();
+            $table->boolean('system_required')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateRBACRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('RBACroles');
+        Schema::dropIfExists('privilegess');
     }
 }

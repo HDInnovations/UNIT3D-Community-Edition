@@ -37,8 +37,7 @@ class BackupController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         if ((\is_countable(\config('backup.backup.destination.disks')) ? \count(\config('backup.backup.destination.disks')) : 0) === 0) {
             \dd(\trans('backup.no_disks_configured'));
@@ -81,8 +80,7 @@ class BackupController extends Controller
      */
     public function create(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         try {
             \ini_set('max_execution_time', 900);
@@ -117,8 +115,7 @@ class BackupController extends Controller
      */
     public function files(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         try {
             \ini_set('max_execution_time', 900);
@@ -153,8 +150,7 @@ class BackupController extends Controller
      */
     public function database(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         try {
             \ini_set('max_execution_time', 900);
@@ -189,8 +185,7 @@ class BackupController extends Controller
      */
     public function download(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         $disk = Storage::disk($request->input('disk'));
         $fileName = $request->input('file_name');
@@ -218,8 +213,7 @@ class BackupController extends Controller
      */
     public function destroy(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         $disk = Storage::disk($request->input('disk'));
         $fileName = $request->input('file_name');

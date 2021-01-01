@@ -41,5 +41,7 @@ class DatabaseSeeder extends Seeder
             MediaLanguagesSeeder::class,
             ResolutionsTableSeeder::class,
         ]);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PrivilegesTableSeeder::class);
     }
 }

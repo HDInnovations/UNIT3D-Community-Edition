@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRBACPermissionsTable extends Migration
+class UpdateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateRBACPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('RBACpermissions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // edit posts
-            $table->string('slug'); //edit-posts
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('group_id', 'role_id');
         });
     }
 
@@ -28,6 +25,6 @@ class CreateRBACPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('RBACpermissions');
+        //
     }
 }

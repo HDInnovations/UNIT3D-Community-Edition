@@ -16,7 +16,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\JsonResponse;
 
-class ProAjaxMiddleware
+class ProAjax
 {
     /**
      * All your flash names.

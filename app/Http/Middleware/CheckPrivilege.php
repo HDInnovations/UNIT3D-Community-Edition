@@ -14,21 +14,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 
-class CheckForAdmin
+class CheckPrivilege
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     *
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next, $permission)
     {
-        \abort_unless($request->user()->group->is_admin, 403);
-
-        return $next($request);
+        if ($request->user()->hasPrivilegeTo($permission)) {
+            return $next($request);
+        }
+        abort(403);
     }
 }

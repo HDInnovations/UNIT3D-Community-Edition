@@ -191,7 +191,7 @@ return [
         App\Providers\EmailBlacklistServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\PermissionsServiceProvider::class,
+        App\Providers\PrivilegeServiceProvider::class,
 
     ],
 

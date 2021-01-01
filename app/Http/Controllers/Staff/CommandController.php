@@ -31,8 +31,7 @@ class CommandController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         return \view('Staff.command.index');
     }
@@ -46,8 +45,7 @@ class CommandController extends Controller
      */
     public function maintanceEnable(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('down');
 
@@ -64,8 +62,7 @@ class CommandController extends Controller
      */
     public function maintanceDisable(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('up');
 
@@ -82,8 +79,7 @@ class CommandController extends Controller
      */
     public function clearCache(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('cache:clear');
 
@@ -100,8 +96,7 @@ class CommandController extends Controller
      */
     public function clearView(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('view:clear');
 
@@ -118,8 +113,7 @@ class CommandController extends Controller
      */
     public function clearRoute(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('route:clear');
 
@@ -136,8 +130,7 @@ class CommandController extends Controller
      */
     public function clearConfig(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('config:clear');
 
@@ -154,8 +147,7 @@ class CommandController extends Controller
      */
     public function clearAllCache(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('clear:all_cache');
 
@@ -172,8 +164,7 @@ class CommandController extends Controller
      */
     public function setAllCache(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('set:all_cache');
 
@@ -190,8 +181,7 @@ class CommandController extends Controller
      */
     public function testEmail(Request $request)
     {
-        $user = $request->user();
-        \abort_unless($user->group->is_owner, 403);
+        \abort_unless($request->user()->hasRole('owner'), 403);
 
         Artisan::call('test:email');
 
