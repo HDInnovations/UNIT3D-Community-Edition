@@ -1,6 +1,6 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
 
 namespace Database\Factories;
 
@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'username' => $this->faker->unique()->userName,
             'email'    => $this->faker->unique()->safeEmail,
             'password' => \bcrypt('secret'),
-            'passkey'  => \md5(\uniqid().\time().\microtime()),
+            'passkey'  => \md5(\uniqid('', true).\time().\microtime()),
             'group_id' => function () {
                 return Group::factory()->create()->id;
             },
@@ -46,7 +46,7 @@ class UserFactory extends Factory
             'seedbonus'   => $this->faker->randomFloat(),
             'invites'     => $this->faker->randomNumber(),
             'hitandruns'  => $this->faker->randomNumber(),
-            'rsskey'      => \md5(\uniqid().\time().\microtime()),
+            'rsskey'      => \md5(\uniqid('', true).\time().\microtime()),
             'chatroom_id' => function () {
                 return Chatroom::factory()->create()->id;
             },

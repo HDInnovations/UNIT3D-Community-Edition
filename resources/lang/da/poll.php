@@ -14,16 +14,17 @@
 return [
     'add-option'      => 'Tilføj mulighed',
     'create-poll'     => 'Opret afstemning',
-    'current'         => 'Nuværende afstemning (r)',
+    'current'         => 'Nuværende afstemning (er)',
     'delete-option'   => 'Slet valgmulighed',
-    'multiple-choice' => 'Dette er en multiple choice poll. Vælg så mange svar som du vil.',
+    'multiple-choice' => 'Dette er en multi-valgs afstemning. Vælg så mange svar som du vil.',
     'option'          => 'Mulighed',
     'poll'            => 'Afstemning',
     'polls'           => 'Afstemninger',
     'results'         => 'Afstemningsresultater',
     'title'           => 'Titel',
     'total'           => 'Samlet antal stemmer nogensinde',
-    'vote'            => 'Stemme',
-    'vote-now'        => 'Få din stemme i nu!',
+    'vote'            => 'Stem',
+    'vote-now'        => 'Stem nu!',
     'votes'           => 'Stemmer',
+
 ];

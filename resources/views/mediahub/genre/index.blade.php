@@ -42,7 +42,7 @@
         </section>
         <div class="blocks">
             @foreach ($genres as $genre)
-                <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}" style="padding: 0 2px">
+                <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}" style="padding: 0 2px;">
                     <div class="people media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                         <h2 class="text-bold"> {{ $genre->name }}</h2>
                         <span style="background-color: #317aaf;"></span>

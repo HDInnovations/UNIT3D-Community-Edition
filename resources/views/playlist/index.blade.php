@@ -44,7 +44,7 @@
                                         <img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}">
                                     @endif
                                 </a>
-                                <h3 class="text-bold" style=" margin: 0">{{ $playlist->name }}</h3>
+                                <h3 class="text-bold" style=" margin: 0;">{{ $playlist->name }}</h3>
                                 <h5>
                                     <a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
                                         By: {{ $playlist->user->username }}

@@ -56,6 +56,8 @@
                             </a>
                         @endif
 
+                        @livewire('thank-button', ['torrent' => $torrent])
+
                         @if ($torrent->tmdb != 0 && $torrent->category->no_meta == 0)
                             <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}" role="button" class="btn btn-sm btn-primary">
                                 <i class='{{ config("other.font-awesome") }} fa-file'></i> @lang('torrent.similar')
@@ -207,12 +209,12 @@
                             <strong>@lang('torrent.name')</strong>
                         </td>
                         <td>{{ $torrent->name }} &nbsp; &nbsp;
-                            @if (auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
+                            @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id)
                                 <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['id' => $torrent->id]) }}" role="button">
                                     <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> @lang('common.edit')
                                 </a>
                             @endif
-                            @if (auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+                            @if (auth()->user()->group->is_modo || ( auth()->user()->id === $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
                                 <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.delete')
                                 </button>
@@ -360,15 +362,6 @@
                                     </form>
                                 @endif
                             @endif
-
-                            <a href="{{ route('thanks.store', ['id' => $torrent->id]) }}"
-                               class="btn btn-xs btn-success" data-toggle="tooltip"
-                               data-original-title="@lang('torrent.thank')">
-                                <i class="{{ config('other.font-awesome') }} fa-heart"></i> @lang('torrent.thank')
-                            </a>
-                            <span class="badge-extra text-pink">
-                                <i class="{{ config('other.font-awesome') }} fa-heart"></i> {{ $torrent->thanks()->count() }} @lang('torrent.thanks')
-                            </span>
                         </td>
                     </tr>
 
@@ -487,13 +480,13 @@
                                 <div class="panel-body">
                                     <div class="text-center">
                                         <span class="text-bold text-blue">
-                                            @emojione(':blue_heart:') @lang('torrent.media-info') @emojione(':blue_heart:')
+                                            @joypixels(':blue_heart:') @lang('torrent.media-info') @joypixels(':blue_heart:')
                                         </span>
                                     </div>
                                     <br>
                                     @if ($general !== null && isset($general['file_name']))
                                         <span class="text-bold text-blue">
-                                            @emojione(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
+                                            @joypixels(':file_folder:') {{ strtoupper(trans('torrent.file')) }}:
                                         </span>
                                         <span class="text-bold">
                                             <em>{{ $general['file_name'] }}</em>
@@ -502,7 +495,7 @@
                                         <br>
                                     @endif
                                     @if ($general_crumbs !== null)
-                                        <span class="text-bold text-blue">@emojione(':information_source:') {{ strtoupper(trans('torrent.general')) }}
+                                        <span class="text-bold text-blue">@joypixels(':information_source:') {{ strtoupper(trans('torrent.general')) }}
                                         :</span>
                                         <span class="text-bold"><em>
                       @foreach ($general_crumbs as $crumb)
@@ -517,7 +510,7 @@
                                     @endif
                                     @if ($video_crumbs !== null)
                                         @foreach ($video_crumbs as $key => $v)
-                                            <span class="text-bold text-blue">@emojione(':projector:') {{ strtoupper(trans('torrent.video')) }}
+                                            <span class="text-bold text-blue">@joypixels(':projector:') {{ strtoupper(trans('torrent.video')) }}
                                             :</span>
                                             <span class="text-bold"><em>
                         @foreach ($v as $crumb)
@@ -533,7 +526,7 @@
                                     @endif
                                     @if ($audio_crumbs !== null)
                                         @foreach ($audio_crumbs as $key => $a)
-                                            <span class="text-bold text-blue">@emojione(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
+                                            <span class="text-bold text-blue">@joypixels(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
                                             :</span>
                                             <span class="text-bold"><em>
                       @foreach ($a as $crumb)
@@ -549,7 +542,7 @@
                                     <br>
                                     @if ($text_crumbs !== null)
                                         @foreach ($text_crumbs as $key => $s)
-                                            <span class="text-bold text-blue">@emojione(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
+                                            <span class="text-bold text-blue">@joypixels(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
                                             :</span>
                                             <span class="text-bold"><em>
                       @foreach ($s as $crumb)
@@ -564,7 +557,7 @@
                                     @endif
                                     @if ($settings)
                                         <br>
-                                        <span class="text-bold text-blue">@emojione(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
+                                        <span class="text-bold text-blue">@joypixels(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
                                         :</span>
                                         <br>
                                         <div class="decoda-code text-black">{{ $settings }}</div>
@@ -573,7 +566,7 @@
                                     <br>
                                     <div class="text-center">
                                         <button class="show_hide btn btn-labeled btn-primary" href="#">
-                                            <span class="btn-label">@emojione(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
+                                            <span class="btn-label">@joypixels(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
                                         </button>
                                     </div>
                                     <div class="slidingDiv">
@@ -598,7 +591,7 @@
                     <tr>
                         <td>
                             <div class="panel-body">
-                                @emojione($torrent->getDescriptionHtml())
+                                @joypixels($torrent->getDescriptionHtml())
 
                                 @if (! empty($meta->collection['0']) && $torrent->category->movie_meta)
                                     <hr>
@@ -656,7 +649,7 @@
                                         <span class="text-green text-bold">@lang('torrent.define-tip-amount')</span>
                                         <label>
                                             <input type="number" name="tip" value="0" placeholder="0" class="form-control"
-                                                   style="width: 80%">
+                                                   style="width: 80%;">
                                         </label>
                                         <button type="submit"
                                                 class="btn btn-primary">@lang('torrent.leave-tip')</button>
@@ -714,19 +707,19 @@
                                 </div>
                             @else
                                 @foreach ($comments as $comment)
-                                    <li class="media" style="border-left: 5px solid rgb(1,188,140)">
+                                    <li class="media" style="border-left: 5px solid rgb(1,188,140);">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
-                                                <a href="#" class="pull-left" style="padding-right: 10px">
+                                                <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}"
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                     <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                       style="color:{{ $comment->user->group->color }}">(<span><i
+                                                       style="color:{{ $comment->user->group->color }};">(<span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
                                                 <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                   class="pull-left" style="padding-right: 10px">
+                                                   class="pull-left" style="padding-right: 10px;">
                                                     @if ($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
@@ -736,7 +729,7 @@
                                                 @endif
                                                 <strong><a
                                                             href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-                                                            style="color:{{ $comment->user->group->color }}"><span><i
+                                                            style="color:{{ $comment->user->group->color }};"><span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
@@ -750,7 +743,7 @@
                                                             aria-hidden="true"></i></a>
                                             @endif
                                             <div class="pt-5">
-                                                @emojione($comment->getContentHtml())
+                                                @joypixels($comment->getContentHtml())
                                             </div>
                                         </div>
                                     </li>

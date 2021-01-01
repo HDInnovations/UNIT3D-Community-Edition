@@ -22,24 +22,15 @@ class NewRequestFill extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $tr;
-
     /**
-     * Create a new notification instance.
+     * NewRequestFill Constructor.
      *
      * @param string                     $type
      * @param string                     $sender
      * @param \App\Models\TorrentRequest $torrentRequest
      */
-    public function __construct(string $type, string $sender, TorrentRequest $torrentRequest)
+    public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
     {
-        $this->type = $type;
-        $this->sender = $sender;
-        $this->tr = $torrentRequest;
     }
 
     /**
@@ -67,8 +58,8 @@ class NewRequestFill extends Notification implements ShouldQueue
 
         return [
             'title' => $this->sender.' Has Filled One Of Your Torrent Requests',
-            'body'  => $this->sender.' has filled one of your Requested Torrents '.$this->tr->name,
-            'url'   => \sprintf('/requests/%s', $this->tr->id),
+            'body'  => $this->sender.' has filled one of your Requested Torrents '.$this->torrentRequest->name,
+            'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
         ];
     }
 }

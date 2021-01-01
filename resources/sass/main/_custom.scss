@@ -4897,7 +4897,7 @@ h2.title {
     box-shadow: 0 5px 5px rgba(93, 93, 93, 0.83);
 }
 
-.emojione,
+.joypixels,
 .iconx,
 .screenshots {
     display: inline-block;
@@ -4925,7 +4925,7 @@ i.torrent-icon-adult {
     font-size: 32px;
 }
 
-.emojione,
+.joypixels,
 i.torrent-icon-small {
     font-size: inherit;
 }
@@ -7265,7 +7265,7 @@ time {
 
 .profil {
     background: #e9e9e9;
-    padding: 1em 0em;
+    padding: 1em 0;
 }
 
 .profil .profil-image {
@@ -8306,7 +8306,7 @@ div.header div.inner_content h1 {
 .black-list .black-item h4 {
     color: #fff;
     position: relative;
-    z-index: 100;
+    z-index: 1;
 }
 
 .black-list .black-item span,
@@ -8314,7 +8314,7 @@ div.header div.inner_content h1 {
 .oper-list .oper-item span {
     color: #fff;
     position: relative;
-    z-index: 100;
+    z-index: 1;
 }
 
 .black-list .black-item:hover .fal {
@@ -9072,7 +9072,7 @@ section.tall_categories div.category.anime span {
 }
 
 // Emojione Style
-.emojione {
+.joypixels {
     height: 3ex;
     width: 3.1ex;
     min-height: 20px;
@@ -9081,7 +9081,7 @@ section.tall_categories div.category.anime span {
     line-height: normal;
 }
 
-img.emojione {
+img.joypixels {
     width: auto;
 }
 
@@ -9987,7 +9987,7 @@ div.no_image_holder.w500_and_h282 {
 .item-playlist-text-playlist {
     text-align: center;
     position: relative;
-    padding: 38px 0px 20px
+    padding: 38px 0 20px
 }
 
 .item-playlist-text-playlist img {
@@ -10038,7 +10038,7 @@ section.inner_content.header {
     background: rgba(0, 0, 0, 0.35);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 50% 0%
+    background-position: 50% 0
 }
 
 section.inner_content.header div.single_column {

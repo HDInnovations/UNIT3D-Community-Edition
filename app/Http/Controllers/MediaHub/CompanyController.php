@@ -25,7 +25,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('mediahub.company.index');
+        return \view('mediahub.company.index');
     }
 
     /**
@@ -39,7 +39,7 @@ class CompanyController extends Controller
     {
         $company = Company::with('tv', 'movie')->findOrFail($id);
 
-        return view('mediahub.company.show', [
+        return \view('mediahub.company.show', [
             'company' => $company,
         ]);
     }

@@ -745,9 +745,7 @@ wbbdebug = true;
                                                                 rname = rname.replace(this.getValidationRGX(rname), '');
                                                                 let p = this.relFilterByNode(el, rootSelector);
                                                                 let regRepl =
-                                                                    txt != r[a]
-                                                                        ? this.getRegexpReplace(txt, r[a])
-                                                                        : false;
+                                                                    txt != r[a] ? this.getRegexpReplace(txt, r[a]) : false;
                                                                 let sel = p ? $.trim(p) : false;
                                                                 if (
                                                                     $.inArray(sel, sl) > -1 ||
@@ -1190,7 +1188,7 @@ wbbdebug = true;
                     $dropblock.append('<span class="pl"></span>');
                 } else {
                     $dropblock.append(
-                        this.strf('<div class="sc" style="background:{color}" title="{color}"></div>', {
+                        this.strf('<div class="sc" style="background:{color};" title="{color}"></div>', {
                             color: colorlist[j],
                         })
                     );
@@ -1264,7 +1262,7 @@ wbbdebug = true;
                         (h * 100) / rows +
                         '%;z-index:' +
                         --allcount +
-                        '" title="' +
+                        ';" title="' +
                         h +
                         ',' +
                         j +
@@ -3493,7 +3491,7 @@ wbbdebug = true;
 
         //Browser fixes
         isChrome: function() {
-            return window.chrome ? true : false;
+            return !!window.chrome;
         },
         fixTableTransform: function(html) {
             if (!html) {

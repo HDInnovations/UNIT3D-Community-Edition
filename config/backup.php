@@ -26,7 +26,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME', 'UNIT3D'),
+        'name' => 'UNIT3D',
 
         'source' => [
 
@@ -46,7 +46,6 @@ return [
                  */
                 'exclude' => [
                     base_path('vendor'),
-                    storage_path(),
                     base_path('node_modules'),
                 ],
 
@@ -54,6 +53,18 @@ return [
                  * Determines if symlinks should be followed.
                  */
                 'follow_links' => false,
+
+                /*
+                 * Determines if it should avoid unreadable folders.
+                 */
+                'ignore_unreadable_directories' => false,
+
+                /*
+                 * This path is used to make directories in resulting zip-file relative
+                 * Set to `null` to include complete absolute path
+                 * Example: base_path()
+                 */
+                'relative_path' => null,
             ],
 
             /*
@@ -70,7 +81,18 @@ return [
              *                'table_to_exclude_from_backup',
              *                'another_table_to_exclude'
              *            ]
-             *       ]
+             *       ],
+             * ],
+             *
+             * If you are using only InnoDB tables on a MySQL server, you can
+             * also supply the useSingleTransaction option to avoid table locking.
+             *
+             * E.g.
+             * 'mysql' => [
+             *       ...
+             *      'dump' => [
+             *           'useSingleTransaction' => true,
+             *       ],
              * ],
              *
              * For a complete list of available customization options, see https://github.com/spatie/db-dumper
@@ -116,7 +138,7 @@ return [
 
     /*
      * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
-     * For Slack you need to install guzzlehttp/guzzle and laravel/slack-notification-channel.
+     * For Slack you need to install laravel/slack-notification-channel.
      *
      * You can also use your own notification classes, just make sure the class is named after one of
      * the `Spatie\Backup\Events` classes.
@@ -124,12 +146,12 @@ return [
     'notifications' => [
 
         'notifications' => [
-            \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class         => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class        => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class     => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class   => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class    => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class         => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class        => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessfulNotification::class     => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFoundNotification::class   => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessfulNotification::class    => ['mail'],
         ],
 
         /*
@@ -140,6 +162,11 @@ return [
 
         'mail' => [
             'to' => env('DEFAULT_OWNER_EMAIL'),
+
+            'from' => [
+                'address' => env('MAIL_FROM_ADDRESS'),
+                'name'    => env('MAIL_FROM_NAME'),
+            ],
         ],
 
         'slack' => [
@@ -164,7 +191,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name'          => env('APP_NAME', 'UNIT3D'),
+            'name'          => 'UNIT3D',
             'disks'         => ['backups'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class          => 1,
@@ -234,12 +261,6 @@ return [
     'security' => [
         'password'   => env('APP_KEY'),
         'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT,
-
-        // Available encryption methods:
-        // \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT (PHP < 7.2: PKWARE/ZipCrypto, PHP >= 7.2: AES 128)
-        // \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_128 (AES 128)
-        // \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_192 (AES 192)
-        // \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_256 (AES 256)
     ],
 
 ];

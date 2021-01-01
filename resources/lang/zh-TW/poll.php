@@ -17,7 +17,6 @@ return [
     'current'              => '目前投票',
     'delete-option'        => '刪除選項',
     'edit-poll'            => '編輯投票',
-    'multiple-choice'      => '容許多個答案',
     'multiple-choice'      => '這是一項多項選擇投票。可多選。',
     'option'               => '選項',
     'poll'                 => '投票',

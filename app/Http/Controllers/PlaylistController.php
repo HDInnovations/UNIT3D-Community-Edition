@@ -31,18 +31,12 @@ use ZipArchive;
 class PlaylistController extends Controller
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
      * PlaylistController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
-        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -86,7 +80,7 @@ class PlaylistController extends Controller
 
         if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
             $image = $request->file('cover_image');
-            $filename = 'playlist-cover_'.\uniqid().'.'.$image->getClientOriginalExtension();
+            $filename = 'playlist-cover_'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = \public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
             $playlist->cover_image = $filename;
@@ -125,9 +119,6 @@ class PlaylistController extends Controller
      *
      * @param \App\Playlist $id
      *
-     * @throws \ErrorException
-     * @throws \HttpInvalidParamException
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
@@ -141,20 +132,25 @@ class PlaylistController extends Controller
 
         $meta = null;
 
-        if (isset($random) && isset($torrent)) {
-            if ($torrent->category->tv_meta) {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
-                }
+        if (isset($random, $torrent)) {
+            if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
             }
-            if ($torrent->category->movie_meta) {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
-                }
+            if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
             }
         }
 
-        $torrents = PlaylistTorrent::with(['torrent'])->where('playlist_id', '=', $playlist->id)->paginate(26);
+        $torrents = PlaylistTorrent::with(['torrent:id,name,category_id,resolution_id,type_id,tmdb,seeders,leechers,times_completed,size,anon'])
+            ->where('playlist_id', '=', $playlist->id)
+            ->orderBy(function ($query) {
+                $query->select('name')
+                    ->from('torrents')
+                    ->whereColumn('id', 'playlist_torrents.torrent_id')
+                    ->latest()
+                    ->limit(1);
+            })
+            ->paginate(26);
 
         return \view('playlist.show', ['playlist' => $playlist, 'meta' => $meta, 'torrents' => $torrents]);
     }
@@ -197,7 +193,7 @@ class PlaylistController extends Controller
 
         if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
             $image = $request->file('cover_image');
-            $filename = 'playlist-cover_'.\uniqid().'.'.$image->getClientOriginalExtension();
+            $filename = 'playlist-cover_'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = \public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
             $playlist->cover_image = $filename;
@@ -246,14 +242,13 @@ class PlaylistController extends Controller
     }
 
     /**
-     * Download All History Torrents.
+     * Download All Playlist Torrents.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function downloadPlaylist(Request $request, $id)
+    public function downloadPlaylist($id)
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(300);
@@ -279,15 +274,15 @@ class PlaylistController extends Controller
         $zipArchive = new ZipArchive();
 
         // Get Users History
-        $playlist_torrents = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->get();
+        $playlistTorrents = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->get();
 
         if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             $failCSV = '"Name","URL","ID"';
             $failCount = 0;
 
-            foreach ($playlist_torrents as $playlist_torrent) {
+            foreach ($playlistTorrents as $playlistTorrent) {
                 // Get Torrent
-                $torrent = Torrent::withAnyStatus()->find($playlist_torrent->torrent_id);
+                $torrent = Torrent::withAnyStatus()->find($playlistTorrent->torrent_id);
 
                 // Define The Torrent Filename
                 $tmpFileName = \sprintf('%s.torrent', $torrent->slug);
@@ -327,10 +322,10 @@ class PlaylistController extends Controller
             // Close ZipArchive
             $zipArchive->close();
 
-            $zip_file = $path.'/'.$zipFileName;
+            $zipFile = $path.'/'.$zipFileName;
 
-            if (\file_exists($zip_file)) {
-                return \response()->download($zip_file)->deleteFileAfterSend(true);
+            if (\file_exists($zipFile)) {
+                return \response()->download($zipFile)->deleteFileAfterSend(true);
             }
         }
 

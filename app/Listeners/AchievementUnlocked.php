@@ -20,11 +20,13 @@ use Illuminate\Support\Facades\Session;
 
 class AchievementUnlocked
 {
-    private $chat;
-
-    public function __construct(ChatRepository $chatRepository)
+    /**
+     * AchievementUnlocked Constructor.
+     *
+     * @param \App\Repositories\ChatRepository $chatRepository
+     */
+    public function __construct(private ChatRepository $chatRepository)
     {
-        $this->chat = $chatRepository;
     }
 
     /**
@@ -41,10 +43,10 @@ class AchievementUnlocked
         Session::flash('achievement', $unlocked->progress->details->name);
 
         if ($user->private_profile == 0) {
-            $profile_url = \href_profile($user);
+            $profileUrl = \href_profile($user);
 
-            $this->chat->systemMessage(
-                \sprintf('User [url=%s]%s[/url] has unlocked the %s achievement :medal:', $profile_url, $user->username, $unlocked->progress->details->name)
+            $this->chatRepository->systemMessage(
+                \sprintf('User [url=%s]%s[/url] has unlocked the %s achievement :medal:', $profileUrl, $user->username, $unlocked->progress->details->name)
             );
         }
     }

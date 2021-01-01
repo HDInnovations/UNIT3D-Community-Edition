@@ -22,16 +22,13 @@ class NewReseedRequest extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $torrent;
-
     /**
-     * Create a new notification instance.
+     * NewReseedRequest Constructor.
      *
-     * @param Torrent $torrent
+     * @param \App\Models\Torrent $torrent
      */
-    public function __construct(Torrent $torrent)
+    public function __construct(public Torrent $torrent)
     {
-        $this->torrent = $torrent;
     }
 
     /**

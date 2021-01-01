@@ -59,7 +59,7 @@ class HomeController extends Controller
         }
 
         // Latest Torrents Block
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
         $newest = \cache()->remember('newest_torrents', $expiresAt, fn () => Torrent::with(['user', 'category', 'type'])
             ->withCount(['thanks', 'comments'])
@@ -126,7 +126,7 @@ class HomeController extends Controller
             ->take(10)
             ->get());
 
-        $past_uploaders = \cache()->remember('month_uploaders', $expiresAt, fn () => Torrent::with('user')
+        $pastUploaders = \cache()->remember('month_uploaders', $expiresAt, fn () => Torrent::with('user')
             ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
             ->select(DB::raw('user_id, count(*) as value'))
             ->groupBy('user_id')
@@ -134,12 +134,12 @@ class HomeController extends Controller
             ->take(10)
             ->get());
 
-        $freeleech_tokens = FreeleechToken::where('user_id', $user->id)->get();
+        $freeleechTokens = FreeleechToken::where('user_id', $user->id)->get();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
         return \view('home.index', [
             'user'               => $user,
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'users'              => $users,
             'groups'             => $groups,
             'articles'           => $articles,
@@ -153,8 +153,8 @@ class HomeController extends Controller
             'featured'           => $featured,
             'poll'               => $poll,
             'uploaders'          => $uploaders,
-            'past_uploaders'     => $past_uploaders,
-            'freeleech_tokens'   => $freeleech_tokens,
+            'past_uploaders'     => $pastUploaders,
+            'freeleech_tokens'   => $freeleechTokens,
             'bookmarks'          => $bookmarks,
         ]);
     }

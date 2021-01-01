@@ -18,10 +18,6 @@ use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
 use App\Interfaces\WishInterface;
 use App\Models\Page;
-use App\Models\Torrent;
-use App\Models\User;
-use App\Observers\TorrentObserver;
-use App\Observers\UserObserver;
 use App\Repositories\WishRepository;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -64,9 +60,9 @@ class AppServiceProvider extends ServiceProvider
 
         // Share $footer_pages across all views
         \view()->composer('*', function (View $view) {
-            $footer_pages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
+            $footerPages = \cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'slug', 'created_at'])->take(6)->get());
 
-            $view->with(['footer_pages' => $footer_pages]);
+            $view->with(['footer_pages' => $footerPages]);
         });
 
         // Boostrap Pagination

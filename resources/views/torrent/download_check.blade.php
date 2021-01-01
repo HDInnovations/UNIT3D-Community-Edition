@@ -104,8 +104,8 @@
             </div>
             <br>
             <div class="text-center">
-                @if ($user->getRatio() < config('other.ratio') || $user->can_download == 0 && $torrent->user_id !=
-                        $user->id)
+                @if ($user->getRatio() < config('other.ratio') || ($user->can_download == 0 && $torrent->user_id !=
+                        $user->id))
                         <span class="text-red text-bold">@lang('torrent.no-privileges-desc')</span>
                     @else
                         <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button"

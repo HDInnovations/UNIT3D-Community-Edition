@@ -45,13 +45,11 @@ class BackupController extends Controller
 
         $data['backups'] = [];
 
-        foreach (\config('backup.backup.destination.disks') as $disk_name) {
-            $disk = Storage::disk($disk_name);
+        foreach (\config('backup.backup.destination.disks') as $diskName) {
+            $disk = Storage::disk($diskName);
             $adapter = $disk->getDriver()->getAdapter();
-            $files = $disk->allFiles();
-
             // make an array of backup files, with their filesize and creation date
-            foreach ($files as $k => $f) {
+            foreach ($disk->allFiles() as $k => $f) {
                 // only take the zip files into account
                 if (\substr($f, -4) === '.zip' && $disk->exists($f)) {
                     $data['backups'][] = [
@@ -59,7 +57,7 @@ class BackupController extends Controller
                         'file_name'     => \str_replace('backups/', '', $f),
                         'file_size'     => $disk->size($f),
                         'last_modified' => $disk->lastModified($f),
-                        'disk'          => $disk_name,
+                        'disk'          => $diskName,
                         'download'      => $adapter instanceof Local,
                     ];
                 }
@@ -190,14 +188,14 @@ class BackupController extends Controller
         \abort_unless($request->user()->hasRole('owner'), 403);
 
         $disk = Storage::disk($request->input('disk'));
-        $file_name = $request->input('file_name');
+        $fileName = $request->input('file_name');
         $adapter = $disk->getDriver()->getAdapter();
 
         if ($adapter instanceof Local) {
-            $storage_path = $disk->getDriver()->getAdapter()->getPathPrefix();
+            $storagePath = $disk->getDriver()->getAdapter()->getPathPrefix();
 
-            if ($disk->exists($file_name)) {
-                return \response()->download($storage_path.$file_name);
+            if ($disk->exists($fileName)) {
+                return \response()->download($storagePath.$fileName);
             }
 
             return \abort(404, \trans('backup.backup_doesnt_exist'));
@@ -218,12 +216,12 @@ class BackupController extends Controller
         \abort_unless($request->user()->hasRole('owner'), 403);
 
         $disk = Storage::disk($request->input('disk'));
-        $file_name = $request->input('file_name');
+        $fileName = $request->input('file_name');
         $adapter = $disk->getDriver()->getAdapter();
 
         if ($adapter instanceof Local) {
-            if ($disk->exists($file_name)) {
-                $disk->delete($file_name);
+            if ($disk->exists($fileName)) {
+                $disk->delete($fileName);
 
                 return self::MESSAGE;
             }

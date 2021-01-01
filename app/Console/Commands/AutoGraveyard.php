@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Models\Graveyard;
 use App\Models\History;
-use App\Models\Message;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\User;
@@ -28,15 +27,13 @@ use Illuminate\Console\Command;
 class AutoGraveyard extends Command
 {
     /**
-     * @var ChatRepository
+     * AutoGraveyards Constructor.
+     *
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
-    private $chatRepository;
-
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
         parent::__construct();
-
-        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -60,14 +57,12 @@ class AutoGraveyard extends Command
      */
     public function handle()
     {
-        $rewardable = Graveyard::where('rewarded', '!=', 1)->oldest()->get();
-
-        foreach ($rewardable as $reward) {
+        foreach (Graveyard::where('rewarded', '!=', 1)->oldest()->get() as $reward) {
             $user = User::where('id', '=', $reward->user_id)->first();
 
             $torrent = Torrent::where('id', '=', $reward->torrent_id)->first();
 
-            if (isset($user) && isset($torrent)) {
+            if (isset($user, $torrent)) {
                 $history = History::where('info_hash', '=', $torrent->info_hash)
                     ->where('user_id', '=', $user->id)
                     ->where('seedtime', '>=', $reward->seedtime)

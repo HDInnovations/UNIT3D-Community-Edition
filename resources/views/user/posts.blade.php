@@ -118,7 +118,7 @@
                                                         </div>
                                                     </div>
                                                     <hr class="some-margin">
-                                                    @emojione($r->getContentHtml())
+                                                    @joypixels($r->getContentHtml())
                                                 </div>
                                             </div>
                                         </td>

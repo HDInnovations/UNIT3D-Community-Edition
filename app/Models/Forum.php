@@ -234,8 +234,7 @@ class Forum extends Model
      */
     public function getPostCount($forumId)
     {
-        $forum = self::find($forumId);
-        $topics = $forum->topics;
+        $topics = self::find($forumId)->topics;
         $count = 0;
         foreach ($topics as $t) {
             $count += $t->posts()->count();

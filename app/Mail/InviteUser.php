@@ -22,16 +22,14 @@ class InviteUser extends Mailable
 {
     use Queueable;
     use SerializesModels;
-    public $invite;
 
     /**
-     * Create a new message instance.
+     * InviteUser Constructor.
      *
-     * @param Invite $invite
+     * @param \App\Models\Invite $invite
      */
-    public function __construct(Invite $invite)
+    public function __construct(public Invite $invite)
     {
-        $this->invite = $invite;
     }
 
     /**

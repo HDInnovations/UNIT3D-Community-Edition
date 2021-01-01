@@ -27,11 +27,13 @@ class GenreController extends Controller
     {
         $genres = Genre::paginate(25);
 
-        return view('mediahub.genre.index', ['genres' => $genres]);
+        return \view('mediahub.genre.index', ['genres' => $genres]);
     }
 
     /**
      * Show A Genre.
+     *
+     * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -41,7 +43,7 @@ class GenreController extends Controller
         $shows = $genre->tv()->orderBy('name', 'asc')->paginate(25);
         $movies = $genre->movie()->orderBy('title', 'asc')->paginate(25);
 
-        return view('mediahub.genre.show', [
+        return \view('mediahub.genre.show', [
             'genre'  => $genre,
             'shows'  => $shows,
             'movies' => $movies,

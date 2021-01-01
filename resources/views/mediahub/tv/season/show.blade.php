@@ -46,7 +46,7 @@
                                 <path class="cls-1" d="M968.15,196A15.69,15.69,0,0,0,943,214.83h0A15.69,15.69,0,0,0,968.15,196Z"></path>
                             </svg>
                         </div>
-                        <img src="{{ $season->poster }}" style="width: 80px; border-radius: 5px; z-index: 1; position: relative; margin-right: 40px">
+                        <img src="{{ $season->poster }}" style="width: 80px; border-radius: 5px; z-index: 1; position: relative; margin-right: 40px;">
                         <a href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}">
                             <h2>{{ $season->name }} ({{ $season->air_date }})</h2>
                             <h3 style="z-index: 1; position: relative; font-size:20px; margin: 0; text-decoration: underline ;">
@@ -61,7 +61,7 @@
                 @foreach($season->episodes as $episode)
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card is-torrent" style="margin-top: 0px; margin-bottom: 20px; height: auto;">
+                            <div class="card is-torrent" style="margin-top: 0; margin-bottom: 20px; height: auto;">
                                 <div class="card_head">
                                     <span class="badge-user text-bold" style="float:right;">
                                         Episode {{ $episode->episode_number }}

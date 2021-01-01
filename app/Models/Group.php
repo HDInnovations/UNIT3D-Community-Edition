@@ -125,14 +125,14 @@ class Group extends Model
      * Get the Group allowed answer as bool.
      *
      * @param $object
-     * @param $group_id
+     * @param $groupId
      *
      * @return int
      */
-    public function isAllowed($object, $group_id)
+    public function isAllowed($object, $groupId)
     {
-        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($group_id, $object['default_groups'])) {
-            return $object['default_groups'][$group_id] == 1;
+        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($groupId, $object['default_groups'])) {
+            return $object['default_groups'][$groupId] == 1;
         }
 
         return true;

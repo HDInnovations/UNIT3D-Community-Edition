@@ -13,7 +13,7 @@
                                     href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                 @else
                                     <a
-                                        href="{{ route('add_request_form', ['title' => isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
+                                        href="{{ route('add_request_form', ['title' => $recommendation['title'] ?? $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
                                     @endif
                                 </a>
                         </p>
@@ -23,7 +23,7 @@
                                     href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                 @else
                                     <a
-                                        href="{{ route('add_request_form', ['title' => isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
+                                        href="{{ route('add_request_form', ['title' => $recommendation['title'] ?? $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
                                     @endif
                                     <div>
                                         @if(isset($recommendation['poster_path']))
@@ -34,7 +34,7 @@
                                             <div class="no_image_holder w300_and_h450 backdrop"></div>
                                         @endif
                                     </div>
-                                    <div style=" margin-top: 8px">
+                                    <div style=" margin-top: 8px;">
                                         <span class="badge-extra">
                                             <i class="fas fa-clock"></i> @lang('common.year'):
                                             @if(isset($recommendation['release_date']))

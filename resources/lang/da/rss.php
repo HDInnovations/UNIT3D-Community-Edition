@@ -12,14 +12,14 @@
  */
 
 return [
-    'create'              => 'skab',
+    'create'              => 'Opret',
     'create-private-feed' => 'Opret privat RSS-feed',
-    'create-public-feed'  => 'Opret offentligt RSS-feed',
+    'create-public-feed'  => 'Opret offentlig RSS-feed',
     'delete'              => 'Slet',
-    'edit'                => 'Redigere',
-    'edit-private-feed'   => 'Rediger Privat RSS Feed',
-    'edit-public-feed'    => 'Rediger offentligt RSS-feed',
-    'feed'                => 'Foder',
+    'edit'                => 'Rediger',
+    'edit-private-feed'   => 'Rediger privat RSS Feed',
+    'edit-public-feed'    => 'Rediger offentlig RSS-feed',
+    'feed'                => 'Feed',
     'feeds'               => 'Feeds',
     'name'                => 'Navn',
     'public'              => 'Offentlig',

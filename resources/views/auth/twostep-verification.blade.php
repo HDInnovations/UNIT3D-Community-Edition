@@ -162,19 +162,19 @@ break;
         $(function() {
             // Check for on keypress
             $("input").on("keyup", function(event) {
-                var self = $(this);
-                // Keyboard Controls
-                var controls = [8, 16, 18, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 9, 91, 93, 224, 13, 127,
-                    27, 32
-                ];
-                // Special Chars
-                var specialChars = [43, 61, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222];
-                // Numbers
-                var numbers = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
-                var preCombined = controls.concat(numbers);
-                var combined = preCombined;
-                // Allow Letter
-                for (var i = 65; i <= 90; i++) {
+              const self = $(this)
+              // Keyboard Controls
+              const controls = [8, 16, 18, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 9, 91, 93, 224, 13, 127,
+                27, 32
+              ]
+              // Special Chars
+              const specialChars = [43, 61, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222]
+              // Numbers
+              const numbers = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+              const preCombined = controls.concat(numbers)
+              const combined = preCombined
+              // Allow Letter
+                for (let i = 65; i <= 90; i++) {
                     combined.push(i);
                 }
                 // handle Input
@@ -194,8 +194,8 @@ break;
             });
             // Check for cop and paste
             $("input").on("input", function() {
-                var regexp = /[^a-zA-Z0-9]/g;
-                if ($(this).val().match(regexp)) {
+              const regexp = /[^a-zA-Z0-9]/g
+              if ($(this).val().match(regexp)) {
                     $(this).val($(this).val().replace(regexp, ''));
                 }
             });
@@ -214,8 +214,8 @@ break;
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var formData = $('#verification_form').serialize();
-            $.ajax({
+          const formData = $('#verification_form').serialize()
+          $.ajax({
                 url: '/twostep/verify',
                 type: "post",
                 dataType: 'json',
@@ -225,10 +225,10 @@ break;
                 },
                 error: function(response, status, error) {
                     if (response.status === 418) {
-                        var remainingAttempts = response.responseJSON.remainingAttempts;
-                        var submitTrigger = $('#submit_verification');
-                        var varificationForm = $('#verification_form');
-                        $('.code-inputs').addClass('invalid-shake');
+                      const remainingAttempts = response.responseJSON.remainingAttempts
+                      const submitTrigger = $('#submit_verification')
+                      const varificationForm = $('#verification_form')
+                      $('.code-inputs').addClass('invalid-shake');
                         varificationForm[0].reset();
                         $('#remaining_attempts').text(remainingAttempts);
                         switch (remainingAttempts) {
@@ -289,11 +289,11 @@ break;
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var self = $(this);
-            var resultStatus;
-            var resultData;
-            var endpoint = "/twostep/resend";
-            self.addClass('disabled')
+          const self = $(this)
+          let resultStatus
+          let resultData
+          const endpoint = '/twostep/resend'
+          self.addClass('disabled')
                 .attr("disabled", true);
             Swal.fire({
                 text: 'Sending verification code ...',

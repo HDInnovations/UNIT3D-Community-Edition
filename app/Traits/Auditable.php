@@ -52,11 +52,11 @@ trait Auditable
         $modelDiscards = (! empty($instance->discarded)) ? $instance->discarded : [];
         foreach (\array_keys($data) as $key) {
             // Check the model-specific discards
-            if (\in_array($key, $modelDiscards)) {
+            if (\in_array($key, $modelDiscards, true)) {
                 unset($data[$key]);
             }
             // Check global discards
-            if (! empty($globalDiscards) && \in_array($key, $globalDiscards)) {
+            if (! empty($globalDiscards) && \in_array($key, $globalDiscards, true)) {
                 unset($data[$key]);
             }
         }
@@ -67,9 +67,11 @@ trait Auditable
     /**
      * Generates the data to store.
      *
-     * @param $action
+     * @param       $action
      * @param array $old
      * @param array $new
+     *
+     * @throws \JsonException
      *
      * @return false|string
      */
@@ -79,7 +81,6 @@ trait Auditable
         switch ($action) {
             default:
                 throw new \InvalidArgumentException(\sprintf('Unknown action `%s`.', $action));
-                break;
             case 'create':
                 // Expect new data to be filled
                 if (empty($new)) {
@@ -123,7 +124,7 @@ trait Auditable
 
         $clean = \array_filter($data);
 
-        return \json_encode($clean);
+        return \json_encode($clean, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -144,6 +145,8 @@ trait Auditable
      * Logs a record creation.
      *
      * @param $model
+     *
+     * @throws \JsonException
      */
     protected static function registerCreate($model)
     {
@@ -172,6 +175,8 @@ trait Auditable
      * Logs a record update.
      *
      * @param $model
+     *
+     * @throws \JsonException
      */
     protected static function registerUpdate($model)
     {
@@ -181,7 +186,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
-        if (! \is_null($userId) && ! empty(\json_decode($data, true))) {
+        if (! \is_null($userId) && ! empty(\json_decode($data, true, 512, JSON_THROW_ON_ERROR))) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -200,6 +205,8 @@ trait Auditable
      * Logs a record deletion.
      *
      * @param $model
+     *
+     * @throws \JsonException
      */
     protected static function registerDelete($model)
     {

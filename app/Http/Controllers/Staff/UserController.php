@@ -51,35 +51,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('group')->latest()->paginate(25);
-        $uploaders = User::with('group')->where('group_id', '=', 7)->latest()->paginate(25);
-        $mods = User::with('group')->where('group_id', '=', 6)->latest()->paginate(25);
-        $admins = User::with('group')->where('group_id', '=', 4)->latest()->paginate(25);
-        $coders = User::with('group')->where('group_id', '=', 10)->latest()->paginate(25);
-
-        return \view('Staff.user.user_search', [
-            'users'     => $users,
-            'uploaders' => $uploaders,
-            'mods'      => $mods,
-            'admins'    => $admins,
-            'coders'    => $coders,
-        ]);
-    }
-
-    /**
-     * Search For A User.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function search(Request $request)
-    {
-        $users = User::where([['username', 'like', '%'.$request->input('search').'%']])
-            ->orWhere([['email', 'like', '%'.$request->input('search').'%']])
-            ->paginate(25);
-
-        return \view('Staff.user.user_results', ['users' => $users]);
+        return \view('Staff.user.index');
     }
 
     /**
@@ -95,7 +67,7 @@ class UserController extends Controller
         $groups = Group::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
-        return \view('Staff.user.user_edit', [
+        return \view('Staff.user.edit', [
             'user'   => $user,
             'groups' => $groups,
             'notes'  => $notes,
@@ -193,8 +165,8 @@ class UserController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = \auth()->user();
 
-        $new_password = $request->input('new_password');
-        $user->password = Hash::make($new_password);
+        $newPassword = $request->input('new_password');
+        $user->password = Hash::make($newPassword);
         $user->save();
 
         return \redirect()->route('users.show', ['username' => $user->username])
@@ -271,14 +243,14 @@ class UserController extends Controller
             $follow->delete();
         }
         // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-        foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
-            $sent_invite->user_id = 1;
-            $sent_invite->save();
+        foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
+            $sentInvite->user_id = 1;
+            $sentInvite->save();
         }
         // Removes UserID from Received Invite if any and replaces with System UserID (1)
-        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
-            $received_invite->accepted_by = 1;
-            $received_invite->save();
+        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
+            $receivedInvite->accepted_by = 1;
+            $receivedInvite->save();
         }
         // Removes all Peers for user
         foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
