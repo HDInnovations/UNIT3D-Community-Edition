@@ -387,8 +387,8 @@ class AnnounceController extends Controller
         $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
-        if ($connections > config('announce.rate_limit')) {
-            throw new TrackerException(138, [':limit' => config('announce.rate_limit')]);
+        if ($connections > \config('announce.rate_limit')) {
+            throw new TrackerException(138, [':limit' => \config('announce.rate_limit')]);
         }
     }
 

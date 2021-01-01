@@ -333,10 +333,10 @@ class MediaInfo
     private function formatOutput($data)
     {
         $output = [];
-        $output['general'] = ! empty($data['general']) ? $data['general'] : null;
-        $output['video'] = ! empty($data['video']) ? $data['video'] : null;
-        $output['audio'] = ! empty($data['audio']) ? $data['audio'] : null;
-        $output['text'] = ! empty($data['text']) ? $data['text'] : null;
+        $output['general'] = empty($data['general']) ? null : $data['general'];
+        $output['video'] = empty($data['video']) ? null : $data['video'];
+        $output['audio'] = empty($data['audio']) ? null : $data['audio'];
+        $output['text'] = empty($data['text']) ? null : $data['text'];
 
         return $output;
     }
@@ -381,7 +381,7 @@ class MediaInfo
                 }
             }
 
-            $output['video'] = ! empty($tempOutput) ? $tempOutput : null;
+            $output['video'] = empty($tempOutput) ? null : $tempOutput;
         }
 
         if ($data['audio'] === null) {
@@ -401,7 +401,7 @@ class MediaInfo
                 }
             }
 
-            $output['audio'] = ! empty($tempOutput) ? $tempOutput : null;
+            $output['audio'] = empty($tempOutput) ? null : $tempOutput;
         }
 
         if ($data['text'] === null) {
@@ -424,7 +424,7 @@ class MediaInfo
                 }
             }
 
-            $output['text'] = ! empty($tempOutput) ? $tempOutput : null;
+            $output['text'] = empty($tempOutput) ? null : $tempOutput;
         }
 
         return $output;

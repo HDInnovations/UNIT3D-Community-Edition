@@ -23,7 +23,7 @@ class ThankButton extends Component
 
     public function mount($torrent)
     {
-        $this->user = auth()->user();
+        $this->user = \auth()->user();
         $this->torrent = $torrent;
     }
 
@@ -57,6 +57,6 @@ class ThankButton extends Component
 
     public function render()
     {
-        return view('livewire.thank-button');
+        return \view('livewire.thank-button');
     }
 }

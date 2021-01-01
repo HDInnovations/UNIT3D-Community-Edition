@@ -67,7 +67,7 @@ class CasinoBot
     public function replaceVars($output)
     {
         $output = \str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
-        if (\strpos($output, '{bots}') !== false) {
+        if (\str_contains($output, '{bots}')) {
             $botHelp = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
             foreach ($bots as $bot) {
@@ -135,7 +135,7 @@ class CasinoBot
     public function getDonations($duration = 'default')
     {
         $donations = \cache()->get('casinobot-donations');
-        if (! $donations || $donations == null) {
+        if (! $donations) {
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             \cache()->put('casinobot-donations', $donations, $this->expiresAt);
         }
