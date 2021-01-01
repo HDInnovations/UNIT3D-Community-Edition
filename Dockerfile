@@ -1,4 +1,4 @@
-FROM composer AS composer
+FROM composer:2 AS composer
 
 ENV COMPOSER_MEMORY_LIMIT '-1'
 RUN apk --no-cache add shadow && usermod -a -G www-data root
@@ -7,12 +7,12 @@ ADD ./.git/config ./.git/config
 ADD ./composer.* ./
 RUN composer install --no-autoloader --ignore-platform-reqs
 
-FROM node:14.7-alpine3.11 AS node
+FROM node:14-alpine3.12 AS node
 WORKDIR /var/www
 ADD package.json .
 RUN npm install
 
-FROM php:7.4-fpm-alpine3.12
+FROM php:8.0-fpm-alpine3.12
 
 # ENV & Build ARGS
 ENV LARAVEL_DIR /var/www
@@ -22,7 +22,7 @@ WORKDIR ${LARAVEL_DIR}
 # Install Deps
 RUN apk add --no-cache nginx nodejs npm git openssh-client libzip-dev $PHPIZE_DEPS \
     # install xDebug
-    && pecl install xdebug-2.8.1 \
+    && pecl install xdebug-3.0.1 \
     && pecl install -o -f redis \
     && pecl clear-cache \
     && rm -rf /tmp/pear
@@ -46,6 +46,12 @@ RUN rm /etc/nginx/conf.d/default.conf \
     && echo '    fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;' >> /etc/nginx/conf.d/default.conf \
     && echo '    fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;' >> /etc/nginx/conf.d/default.conf \
     && echo '  }' >> /etc/nginx/conf.d/default.conf \
+    && echo '  location /socket.io {' >> /etc/nginx/conf.d/default.conf \
+    && echo '    proxy_pass http://127.0.0.1:8443;' >> /etc/nginx/conf.d/default.conf \
+    && echo '    proxy_http_version 1.1;' >> /etc/nginx/conf.d/default.conf \
+    && echo '    proxy_set_header Upgrade $http_upgrade;' >> /etc/nginx/conf.d/default.conf \
+    && echo '    proxy_set_header Connection "Upgrade";' >> /etc/nginx/conf.d/default.conf \
+    && echo '  }' >> /etc/nginx/conf.d/default.conf \
     && echo '  location / {' >> /etc/nginx/conf.d/default.conf \
     && echo '    try_files $uri $uri/ /index.php?$query_string;' >> /etc/nginx/conf.d/default.conf \
     && echo '  }' >> /etc/nginx/conf.d/default.conf \
@@ -56,10 +62,10 @@ RUN rm /etc/nginx/conf.d/default.conf \
 
 #Configure xDebug
 RUN echo '[XDebug]' >> $PHP_INI_DIR/php.ini-development \
-    && echo 'xdebug.remote_enable = 1' >> $PHP_INI_DIR/php.ini-development \
-    && echo 'xdebug.remote_autostart = 1' >> $PHP_INI_DIR/php.ini-development \
-    && echo 'xdebug.remote_host = host.docker.internal' >> $PHP_INI_DIR/php.ini-development \
-    && echo 'xdebug.remote_port = 9000' >> $PHP_INI_DIR/php.ini-development \
+    && echo 'xdebug.mode = debug' >> $PHP_INI_DIR/php.ini-development \
+    && echo 'xdebug.start_with_request = yes' >> $PHP_INI_DIR/php.ini-development \
+    && echo 'xdebug.client_host = 172.17.0.1' >> $PHP_INI_DIR/php.ini-development \
+    && echo 'xdebug.client_port = 9000' >> $PHP_INI_DIR/php.ini-development \
     && rm /usr/local/etc/php-fpm.d/zz-docker.conf \
     && touch /usr/local/etc/php-fpm.d/zz-docker.conf \
     && echo '[global]' >> /usr/local/etc/php-fpm.d/zz-docker.conf \
@@ -111,7 +117,9 @@ RUN docker-php-ext-install pdo_mysql \
 && npm install -g cross-env \
 && npm install -g laravel-echo-server
 
-ADD DockerHelpers/unit3d.conf /etc/supervisor/conf.d/unit3d.conf
+ADD DockerHelpers/unit3d.conf /etc/supervisor.d/unit3d.ini
+RUN mkdir /var/log/supervisor/
+RUN touch /var/log/supervisor/supervisord.log
 
 COPY --from=composer ${LARAVEL_DIR}/vendor ${LARAVEL_DIR}/vendor
 COPY --from=composer /usr/bin/composer /usr/bin/composer

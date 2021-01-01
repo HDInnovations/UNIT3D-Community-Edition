@@ -8,6 +8,6 @@ case "$RUN_ENVIRONMENT" in
     *) 
         composer install
         npm install
-        npm run watch-poll & /usr/bin/start
+        /usr/bin/start
     ;;
 esac
