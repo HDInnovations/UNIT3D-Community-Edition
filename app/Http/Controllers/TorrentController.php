@@ -175,24 +175,18 @@ class TorrentController extends Controller
         foreach ($torrents as $torrent) {
             $meta = null;
 
-            if ($torrent->category->tv_meta) {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Tv::with('genres')->where('id', '=', $torrent->tmdb)->first();
-                }
+            if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                $meta = Tv::with('genres')->where('id', '=', $torrent->tmdb)->first();
             }
-            if ($torrent->category->movie_meta) {
-                if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $meta = Movie::with('genres')->where('id', '=', $torrent->tmdb)->first();
-                }
+            if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                $meta = Movie::with('genres')->where('id', '=', $torrent->tmdb)->first();
             }
-            if ($torrent->category->game_meta) {
-                if ($torrent->igdb || $torrent->igdb != 0) {
-                    $meta = Game::with([
-                        'cover'    => ['url', 'image_id'],
-                        'artworks' => ['url', 'image_id'],
-                        'genres'   => ['name'],
-                    ])->find($torrent->igdb);
-                }
+            if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
+                $meta = Game::with([
+                    'cover'    => ['url', 'image_id'],
+                    'artworks' => ['url', 'image_id'],
+                    'genres'   => ['name'],
+                ])->find($torrent->igdb);
             }
             if ($meta) {
                 $torrent->meta = $meta;
@@ -264,7 +258,7 @@ class TorrentController extends Controller
         $launcher = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
         foreach ($launcher->cursor() as $lazyCollection) {
             if ($lazyCollection->imdb) {
-                $totals[$lazyCollection->imdb] = ! \array_key_exists($lazyCollection->imdb, $totals) ? 1 : $totals[$lazyCollection->imdb] + 1;
+                $totals[$lazyCollection->imdb] = \array_key_exists($lazyCollection->imdb, $totals) ? $totals[$lazyCollection->imdb] + 1 : 1;
                 if (! \array_key_exists('imdb'.$lazyCollection->imdb, $cache)) {
                     $cache['imdb'.$lazyCollection->imdb] = [];
                 }
@@ -306,24 +300,18 @@ class TorrentController extends Controller
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
                     $meta = null;
-                    if ($d['chunk']->category->tv_meta) {
-                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Tv::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
-                        }
+                    if ($d['chunk']->category->tv_meta && ($d['chunk']->tmdb || $d['chunk']->tmdb != 0)) {
+                        $meta = Tv::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                     }
-                    if ($d['chunk']->category->movie_meta) {
-                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Movie::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
-                        }
+                    if ($d['chunk']->category->movie_meta && ($d['chunk']->tmdb || $d['chunk']->tmdb != 0)) {
+                        $meta = Movie::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                     }
-                    if ($d['chunk']->category->game_meta) {
-                        if ($d['chunk']->igdb || $d['chunk']->igdb != 0) {
-                            $meta = Game::with([
-                                'cover'    => ['url', 'image_id'],
-                                'artworks' => ['url', 'image_id'],
-                                'genres'   => ['name'],
-                            ])->find($d['chunk']->igdb);
-                        }
+                    if ($d['chunk']->category->game_meta && ($d['chunk']->igdb || $d['chunk']->igdb != 0)) {
+                        $meta = Game::with([
+                            'cover'    => ['url', 'image_id'],
+                            'artworks' => ['url', 'image_id'],
+                            'genres'   => ['name'],
+                        ])->find($d['chunk']->igdb);
                     }
                     if ($meta) {
                         $d['chunk']->meta = $meta;
@@ -744,7 +732,7 @@ class TorrentController extends Controller
             $launcher = Torrent::with(['user:id,username', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $lazyCollection) {
                 if ($lazyCollection->imdb) {
-                    $totals[$lazyCollection->imdb] = ! \array_key_exists($lazyCollection->imdb, $totals) ? 1 : $totals[$lazyCollection->imdb] + 1;
+                    $totals[$lazyCollection->imdb] = \array_key_exists($lazyCollection->imdb, $totals) ? $totals[$lazyCollection->imdb] + 1 : 1;
                     if (! \array_key_exists('imdb'.$lazyCollection->imdb, $cache)) {
                         $cache['imdb'.$lazyCollection->imdb] = [];
                     }
@@ -806,24 +794,18 @@ class TorrentController extends Controller
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
                     $meta = null;
-                    if ($d['chunk']->category->tv_meta) {
-                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Tv::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
-                        }
+                    if ($d['chunk']->category->tv_meta && ($d['chunk']->tmdb || $d['chunk']->tmdb != 0)) {
+                        $meta = Tv::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                     }
-                    if ($d['chunk']->category->movie_meta) {
-                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $meta = Movie::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
-                        }
+                    if ($d['chunk']->category->movie_meta && ($d['chunk']->tmdb || $d['chunk']->tmdb != 0)) {
+                        $meta = Movie::with('genres')->where('id', '=', $d['chunk']->tmdb)->first();
                     }
-                    if ($d['chunk']->category->game_meta) {
-                        if ($d['chunk']->igdb || $d['chunk']->igdb != 0) {
-                            $meta = Game::with([
-                                'cover'    => ['url', 'image_id'],
-                                'artworks' => ['url', 'image_id'],
-                                'genres'   => ['name'],
-                            ])->find($d['chunk']->igdb);
-                        }
+                    if ($d['chunk']->category->game_meta && ($d['chunk']->igdb || $d['chunk']->igdb != 0)) {
+                        $meta = Game::with([
+                            'cover'    => ['url', 'image_id'],
+                            'artworks' => ['url', 'image_id'],
+                            'genres'   => ['name'],
+                        ])->find($d['chunk']->igdb);
                     }
                     if ($meta) {
                         $d['chunk']->meta = $meta;
@@ -837,24 +819,18 @@ class TorrentController extends Controller
             }
             foreach ($torrents as $torrent) {
                 $meta = null;
-                if ($torrent->category->tv_meta) {
-                    if ($torrent->tmdb || $torrent->tmdb != 0) {
-                        $meta = Tv::with('genres')->where('id', '=', $torrent->tmdb)->first();
-                    }
+                if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                    $meta = Tv::with('genres')->where('id', '=', $torrent->tmdb)->first();
                 }
-                if ($torrent->category->movie_meta) {
-                    if ($torrent->tmdb || $torrent->tmdb != 0) {
-                        $meta = Movie::with('genres')->where('id', '=', $torrent->tmdb)->first();
-                    }
+                if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+                    $meta = Movie::with('genres')->where('id', '=', $torrent->tmdb)->first();
                 }
-                if ($torrent->category->game_meta) {
-                    if ($torrent->igdb || $torrent->igdb != 0) {
-                        $meta = Game::with([
-                            'cover'    => ['url', 'image_id'],
-                            'artworks' => ['url', 'image_id'],
-                            'genres'   => ['name'],
-                        ])->find($torrent->igdb);
-                    }
+                if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
+                    $meta = Game::with([
+                        'cover'    => ['url', 'image_id'],
+                        'artworks' => ['url', 'image_id'],
+                        'genres'   => ['name'],
+                    ])->find($torrent->igdb);
                 }
                 if ($meta) {
                     $torrent->meta = $meta;
@@ -959,11 +935,9 @@ class TorrentController extends Controller
         }
 
         $characters = null;
-        if ($torrent->category->game_meta) {
-            if ($torrent->igdb || $torrent->igdb != 0) {
-                $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
-                $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
-            }
+        if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
+            $meta = Game::with(['cover' => ['url', 'image_id'], 'artworks' => ['url', 'image_id'], 'genres' => ['name']])->find($torrent->igdb);
+            $characters = Character::whereIn('games', [$torrent->igdb])->take(6)->get();
         }
 
         $featured = $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null;
@@ -1103,15 +1077,11 @@ class TorrentController extends Controller
         $torrent->save();
 
         $tmdbScraper = new TMDBScraper();
-        if ($torrent->category->tv_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $tmdbScraper->tv($torrent->tmdb);
-            }
+        if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $tmdbScraper->tv($torrent->tmdb);
         }
-        if ($torrent->category->movie_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $tmdbScraper->movie($torrent->tmdb);
-            }
+        if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $tmdbScraper->movie($torrent->tmdb);
         }
 
         return \redirect()->route('torrent', ['id' => $torrent->id])
@@ -1370,16 +1340,12 @@ class TorrentController extends Controller
         }
 
         $tmdbScraper = new TMDBScraper();
-        if ($torrent->category->tv_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $tmdbScraper->tv($torrent->tmdb);
-            }
+        if ($torrent->category->tv_meta !== 0 && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $tmdbScraper->tv($torrent->tmdb);
         }
 
-        if ($torrent->category->movie_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $tmdbScraper->movie($torrent->tmdb);
-            }
+        if ($torrent->category->movie_meta !== 0 && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $tmdbScraper->movie($torrent->tmdb);
         }
 
         // Torrent Keywords System
