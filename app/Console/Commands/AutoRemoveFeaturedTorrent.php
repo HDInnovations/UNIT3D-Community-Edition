@@ -25,15 +25,13 @@ use Illuminate\Console\Command;
 class AutoRemoveFeaturedTorrent extends Command
 {
     /**
-     * @var ChatRepository
+     * AutoRemoveFeaturedTorrent Constructor.
+     *
+     * @param \App\Repositories\ChatRepository $chatRepository
      */
-    private $chatRepository;
-
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
         parent::__construct();
-
-        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -58,11 +56,11 @@ class AutoRemoveFeaturedTorrent extends Command
     public function handle()
     {
         $current = Carbon::now();
-        $featured_torrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->get();
+        $featuredTorrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->get();
 
-        foreach ($featured_torrents as $featured_torrent) {
+        foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
-            $torrent = Torrent::where('featured', '=', 1)->where('id', '=', $featured_torrent->torrent_id)->first();
+            $torrent = Torrent::where('featured', '=', 1)->where('id', '=', $featuredTorrent->torrent_id)->first();
             if (isset($torrent)) {
                 $torrent->free = 0;
                 $torrent->doubleup = 0;
@@ -78,7 +76,7 @@ class AutoRemoveFeaturedTorrent extends Command
             }
 
             // Delete The Record From DB
-            $featured_torrent->delete();
+            $featuredTorrent->delete();
         }
         $this->comment('Automated Removal Featured Torrents Command Complete');
     }

@@ -32,7 +32,7 @@ class CollectionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -44,7 +44,7 @@ class CollectionController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function store(Request $request)
     {
@@ -72,7 +72,7 @@ class CollectionController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function edit($id)
     {
@@ -85,7 +85,7 @@ class CollectionController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -97,7 +97,7 @@ class CollectionController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy($id)
     {

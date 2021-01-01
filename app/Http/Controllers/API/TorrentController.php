@@ -21,6 +21,7 @@ use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
+use App\Models\Keyword;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
@@ -38,18 +39,12 @@ use Illuminate\Support\Str;
 class TorrentController extends BaseController
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
-     * RequestController Constructor.
+     * TorrentController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
-        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -59,7 +54,7 @@ class TorrentController extends BaseController
      */
     public function index()
     {
-        return new TorrentsResource(Torrent::with(['category', 'type', 'resolutions'])->latest()->paginate());
+        return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])->latest()->paginate());
     }
 
     /**
@@ -93,7 +88,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        $fileName = \sprintf('%s.torrent', \uniqid()); // Generate a unique name
+        $fileName = \sprintf('%s.torrent', \uniqid('', true)); // Generate a unique name
         Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
@@ -186,8 +181,7 @@ class TorrentController extends BaseController
         $category->num_torrent = $category->torrents_count;
         $category->save();
         // Backup the files contained in the torrent
-        $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
-        foreach ($fileList as $file) {
+        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
             $torrentFile = new TorrentFile();
             $torrentFile->name = $file['name'];
             $torrentFile->size = $file['size'];
@@ -196,23 +190,31 @@ class TorrentController extends BaseController
             unset($torrentFile);
         }
 
-        $client = new TMDBScraper();
+        $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta) {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->tv($torrent->tmdb);
+                $tmdbScraper->tv($torrent->tmdb);
             }
         }
         if ($torrent->category->movie_meta) {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $client->movie($torrent->tmdb);
+                $tmdbScraper->movie($torrent->tmdb);
             }
+        }
+
+        // Torrent Keywords System
+        foreach (self::parseKeywords($request->input('keywords')) as $keyword) {
+            $tag = new Keyword();
+            $tag->name = $keyword;
+            $tag->torrent_id = $torrent->id;
+            $tag->save();
         }
 
         // check for trusted user and update torrent
         if ($user->group->is_trusted) {
             $appurl = \config('app.url');
             $user = $torrent->user;
-            $user_id = $user->id;
+            $userId = $user->id;
             $username = $user->username;
             $anon = $torrent->anon;
             $featured = $torrent->featured;
@@ -313,16 +315,16 @@ class TorrentController extends BaseController
         $search = $request->input('name');
         $description = $request->input('description');
         $size = $request->input('size');
-        $info_hash = $request->input('info_hash');
-        $file_name = $request->input('file_name');
+        $infoHash = $request->input('info_hash');
+        $fileName = $request->input('file_name');
         $uploader = $request->input('uploader');
         $imdb = $request->input('imdb');
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
         $igdb = $request->input('igdb');
-        $start_year = $request->input('start_year');
-        $end_year = $request->input('end_year');
+        $startYear = $request->input('start_year');
+        $endYear = $request->input('end_year');
         $categories = $request->input('categories');
         $types = $request->input('types');
         $resolutions = $request->input('resolutions');
@@ -375,12 +377,12 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('info_hash') && $request->input('info_hash') != null) {
-            $torrent->where('torrents.info_hash', '=', $info_hash);
+            $torrent->where('torrents.info_hash', '=', $infoHash);
         }
 
         if ($request->has('file_name') && $request->input('file_name') != null) {
-            $torrent = $torrent->whereHas('files', function ($q) use ($file_name) {
-                $q->where('name', $file_name);
+            $torrent = $torrent->whereHas('files', function ($q) use ($fileName) {
+                $q->where('name', $fileName);
             });
         }
 
@@ -413,7 +415,7 @@ class TorrentController extends BaseController
         }
 
         if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
-            $torrent->whereBetween('torrents.release_year', [$start_year, $end_year]);
+            $torrent->whereBetween('torrents.release_year', [$startYear, $endYear]);
         }
 
         if ($request->has('categories') && $request->input('categories') != null) {
@@ -476,7 +478,7 @@ class TorrentController extends BaseController
             $torrent->where('torrents.seeders', '=', 0)->where('torrents.leechers', '>=', 1);
         }
 
-        if (! empty($torrent)) {
+        if ($torrent !== null) {
             return new TorrentsResource($torrent->paginate(25));
         }
 
@@ -495,19 +497,40 @@ class TorrentController extends BaseController
         if ($mediainfo === null) {
             return;
         }
-        $complete_name_i = \strpos($mediainfo, 'Complete name');
-        if ($complete_name_i !== false) {
-            $path_i = \strpos($mediainfo, ': ', $complete_name_i);
-            if ($path_i !== false) {
-                $path_i += 2;
-                $end_i = \strpos($mediainfo, "\n", $path_i);
-                $path = \substr($mediainfo, $path_i, $end_i - $path_i);
-                $new_path = MediaInfo::stripPath($path);
+        $completeNameI = \strpos($mediainfo, 'Complete name');
+        if ($completeNameI !== false) {
+            $pathI = \strpos($mediainfo, ': ', $completeNameI);
+            if ($pathI !== false) {
+                $pathI += 2;
+                $endI = \strpos($mediainfo, "\n", $pathI);
+                $path = \substr($mediainfo, $pathI, $endI - $pathI);
+                $newPath = MediaInfo::stripPath($path);
 
-                return \substr_replace($mediainfo, $new_path, $path_i, \strlen($path));
+                return \substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
             }
         }
 
         return $mediainfo;
+    }
+
+    /**
+     * Parse Torrent Keywords.
+     *
+     * @param $text
+     *
+     * @return array
+     */
+    private static function parseKeywords($text)
+    {
+        $parts = explode(', ', $text);
+        $result = [];
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if ($part != '') {
+                $result[] = $part;
+            }
+        }
+
+        return $result;
     }
 }

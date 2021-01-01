@@ -49,14 +49,14 @@ class CategoryController extends Controller
         $user = $request->user();
         $category = Category::select(['id', 'name'])->findOrFail($id);
         $torrents = Torrent::with(['user', 'category', 'type'])->withCount(['thanks', 'comments'])->where('category_id', '=', $id)->orderBy('sticky', 'desc')->latest()->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $bookmarks = Bookmark::where('user_id', $user->id)->get();
 
         return \view('category.show', [
             'torrents'           => $torrents,
             'user'               => $user,
             'category'           => $category,
-            'personal_freeleech' => $personal_freeleech,
+            'personal_freeleech' => $personalFreeleech,
             'bookmarks'          => $bookmarks,
         ]);
     }

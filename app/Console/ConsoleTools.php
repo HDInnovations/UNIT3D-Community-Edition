@@ -154,7 +154,7 @@ trait ConsoleTools
     }
 
     /**
-     * @param $bar
+     * @param \Symfony\Component\Console\Helper\ProgressBar $progressBar
      */
     protected function progressStop(ProgressBar $progressBar)
     {

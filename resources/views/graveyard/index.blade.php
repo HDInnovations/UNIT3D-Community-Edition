@@ -119,21 +119,21 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        var xhr = new XMLHttpRequest();
-    
-        function faceted(page) {
-            var csrf = "{{ csrf_token() }}";
-            var search = $("#search").val();
-            var imdb = $("#imdb").val();
-            var tvdb = $("#tvdb").val();
-            var tmdb = $("#tmdb").val();
-            var mal = $("#mal").val();
-            var categories = [];
-            var types = [];
-            var sorting = $("#sorting").val();
-            var direction = $("#direction").val();
-            var qty = $("#qty").val();
-            $(".category:checked").each(function() {
+      let xhr = new XMLHttpRequest()
+
+      function faceted(page) {
+          const csrf = "{{ csrf_token() }}"
+          const search = $('#search').val()
+          const imdb = $('#imdb').val()
+          const tvdb = $('#tvdb').val()
+          const tmdb = $('#tmdb').val()
+          const mal = $('#mal').val()
+          const categories = []
+          const types = []
+          const sorting = $('#sorting').val()
+          const direction = $('#direction').val()
+          const qty = $('#qty').val()
+          $(".category:checked").each(function() {
                 categories.push($(this).val());
             });
             $(".type:checked").each(function() {
@@ -219,9 +219,9 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
-            var url = $(this).attr('href');
-            var page = url.split('page=')[1];
-            window.history.pushState("", "", url);
+          const url = $(this).attr('href')
+          const page = url.split('page=')[1]
+          window.history.pushState("", "", url);
             faceted(page);
         })
     

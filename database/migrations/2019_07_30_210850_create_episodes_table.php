@@ -16,17 +16,17 @@ class CreateEpisodesTable extends Migration
         Schema::create('episodes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->index();
-            $table->mediumText('overview');
+            $table->mediumText('overview')->nullable();
             $table->string('production_code')->nullable();
             $table->integer('season_number');
             $table->integer('season_id')->index();
             $table->string('still')->nullable();
             $table->integer('tv_id');
             $table->string('type')->nullable();
-            $table->string('vote_average');
-            $table->integer('vote_count');
+            $table->string('vote_average')->nullable();
+            $table->integer('vote_count')->nullable();
             $table->string('air_date')->nullable();
-            $table->integer('episode_number');
+            $table->integer('episode_number')->nullable();
             $table->timestamps();
         });
     }

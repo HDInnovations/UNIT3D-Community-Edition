@@ -22,28 +22,16 @@ class NewRequestBounty extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $tr;
-
-    public $amount;
-
     /**
-     * Create a new notification instance.
+     * NewRequestBounty Constructor.
      *
-     * @param string                     $type
-     * @param string                     $sender
-     * @param                            $amount
+     * @param string $type
+     * @param string $sender
+     * @param $amount
      * @param \App\Models\TorrentRequest $torrentRequest
      */
-    public function __construct(string $type, string $sender, $amount, TorrentRequest $torrentRequest)
+    public function __construct(public string $type, public string $sender, public $amount, public TorrentRequest $torrentRequest)
     {
-        $this->type = $type;
-        $this->sender = $sender;
-        $this->tr = $torrentRequest;
-        $this->amount = $amount;
     }
 
     /**
@@ -71,8 +59,8 @@ class NewRequestBounty extends Notification implements ShouldQueue
 
         return [
             'title' => $this->sender.' Has Added A Bounty Of '.$this->amount.' To A Requested Torrent',
-            'body'  => $this->sender.' has added a bounty to one of your Requested Torrents '.$this->tr->name,
-            'url'   => \sprintf('/requests/%s', $this->tr->id),
+            'body'  => $this->sender.' has added a bounty to one of your Requested Torrents '.$this->torrentRequest->name,
+            'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
         ];
     }
 }

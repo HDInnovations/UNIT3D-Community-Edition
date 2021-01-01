@@ -64,7 +64,7 @@ class ProAjaxMiddleware
         if ($this->sessionHasFlashData($request)) {
             // Since we actually do have flash data/message in the session,
             // Lets get the flash message and display it to the user
-            $flash_message = $this->getFlashMessage($request);
+            $flashMessage = $this->getFlashMessage($request);
 
             // Lets forget the flash message because we already have it stored in the $flash_message variable
             // to show it to the user
@@ -72,8 +72,8 @@ class ProAjaxMiddleware
 
             // Finally, let's return a json with the flash message
             return \response()->json([
-                'type'    => $flash_message['type'],
-                'message' => $flash_message['message'],
+                'type'    => $flashMessage['type'],
+                'message' => $flashMessage['message'],
                 //'redirect' => $flash_message['redirect'], // Returns false if no redirect request
             ]);
         }
@@ -118,10 +118,10 @@ class ProAjaxMiddleware
     {
         $session = $request->session();
 
-        $flash_message['type'] = $session->get(\sprintf('%s.type', $this->flash_name));
-        $flash_message['message'] = $session->get(\sprintf('%s.message', $this->flash_name));
+        $flashMessage['type'] = $session->get(\sprintf('%s.type', $this->flash_name));
+        $flashMessage['message'] = $session->get(\sprintf('%s.message', $this->flash_name));
 
-        return $flash_message;
+        return $flashMessage;
     }
 
     /**

@@ -21,32 +21,14 @@ use App\Models\Wish;
 class WishRepository implements WishInterface
 {
     /**
-     * @var Wish
-     */
-    private $wish;
-
-    /**
-     * @var User
-     */
-    private $user;
-
-    /**
-     * @var Torrent
-     */
-    private $torrent;
-
-    /**
-     * WishRepository constructor.
+     * WishRepository Constructor.
      *
-     * @param Wish    $wish
-     * @param User    $user
-     * @param Torrent $torrent
+     * @param \App\Models\Wish    $wish
+     * @param \App\Models\User    $user
+     * @param \App\Models\Torrent $torrent
      */
-    public function __construct(Wish $wish, User $user, Torrent $torrent)
+    public function __construct(private Wish $wish, private User $user, private Torrent $torrent)
     {
-        $this->wish = $wish;
-        $this->user = $user;
-        $this->torrent = $torrent;
     }
 
     /**
@@ -99,7 +81,7 @@ class WishRepository implements WishInterface
     {
         return (bool) $this->user->find($uid)
             ->wishes()
-            ->where('imdb', '=', $id)
+            ->where('tmdb', '=', $id)
             ->first();
     }
 
@@ -110,10 +92,8 @@ class WishRepository implements WishInterface
      */
     public function isGranted($id)
     {
-        $id = \str_replace('tt', '', $id);
-
         return (bool) $this->torrent
-            ->where('imdb', '=', $id)
+            ->where('tmdb', '=', $id)
             ->where('seeders', '>', 0)
             ->where('status', '=', 1)
             ->first();
@@ -127,9 +107,8 @@ class WishRepository implements WishInterface
     public function getSource($id)
     {
         if ($this->isGranted($id)) {
-            $id = \str_replace('tt', '', $id);
             $source = $this->torrent
-                ->where('imdb', '=', $id)
+                ->where('tmdb', '=', $id)
                 ->where('seeders', '>', 0)
                 ->where('status', '=', 1)
                 ->first();

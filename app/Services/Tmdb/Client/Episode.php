@@ -30,7 +30,8 @@ class Episode
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
+                    'api_key'            => \config('api-keys.tmdb'),
+                    'language'           => \config('app.locale'),
                     'append_to_response' => 'video,credits,external_ids',
                 ],
             ]
@@ -38,10 +39,10 @@ class Episode
 
         $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/tv/'.$id.'/season/'.$season.'/episode/'.$episode);
 
-        $this->data = json_decode($response->getBody()->getContents(), true);
+        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function index()
+    public function getData()
     {
         return $this->data;
     }

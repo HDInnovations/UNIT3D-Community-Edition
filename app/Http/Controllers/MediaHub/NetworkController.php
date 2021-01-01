@@ -31,6 +31,8 @@ class NetworkController extends Controller
     /**
      * Show A Network.
      *
+     * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)

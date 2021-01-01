@@ -43,7 +43,7 @@ theMovieDb.common = {
     }
 
     if (argsReq > 2) {
-      for (i = 0; i < optReq.length; i = i + 1) {
+      for (i = 0; i < optReq.length; i += 1) {
         if (!opt.hasOwnProperty(optReq[i])) {
           throw optReq[i] + " is a required parameter and is not present in the options!";
         }

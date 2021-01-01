@@ -228,63 +228,63 @@
 
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
-        var xhr = new XMLHttpRequest();
-    
-        function faceted(page) {
-            var csrf = "{{ csrf_token() }}";
-            var search = $("#search").val();
-            var imdb = $("#imdb").val();
-            var tvdb = $("#tvdb").val();
-            var tmdb = $("#tmdb").val();
-            var mal = $("#mal").val();
-            var igdb = $("#igdb").val();
-            var categories = [];
-            var types = [];
-            var resolutions = [];
-            var sorting = $("#sorting").val();
-            var direction = $("#direction").val();
-            var qty = $("#qty").val();
-            var unfilled = (function() {
-                if ($("#unfilled").is(":checked")) {
-                    return $("#unfilled").val();
-                }
-            })();
-            var claimed = (function() {
-                if ($("#claimed").is(":checked")) {
-                    return $("#claimed").val();
-                }
-            })();
-            var pending = (function() {
-                if ($("#pending").is(":checked")) {
-                    return $("#pending").val();
-                }
-            })();
-            var filled = (function() {
-                if ($("#filled").is(":checked")) {
-                    return $("#filled").val();
-                }
-            })();
-            var myrequests = (function() {
-                if ($("#myrequests").is(":checked")) {
-                    return $("#myrequests").val();
-                }
-            })();
-            var myclaims = (function() {
-                if ($("#myclaims").is(":checked")) {
-                    return $("#myclaims").val();
-                }
-            })();
-            var myvoted = (function() {
-                if ($("#myvoted").is(":checked")) {
-                    return $("#myvoted").val();
-                }
-            })();
-            var myfiled = (function() {
-                if ($("#myfiled").is(":checked")) {
-                    return $("#myfiled").val();
-                }
-            })();
-            $(".category:checked").each(function() {
+      let xhr = new XMLHttpRequest()
+
+      function faceted(page) {
+          const csrf = "{{ csrf_token() }}"
+          const search = $('#search').val()
+          const imdb = $('#imdb').val()
+          const tvdb = $('#tvdb').val()
+          const tmdb = $('#tmdb').val()
+          const mal = $('#mal').val()
+          const igdb = $('#igdb').val()
+          const categories = []
+          const types = []
+          const resolutions = []
+          const sorting = $('#sorting').val()
+          const direction = $('#direction').val()
+          const qty = $('#qty').val()
+          const unfilled = (function () {
+            if ($('#unfilled').is(':checked')) {
+              return $('#unfilled').val()
+            }
+          })()
+          const claimed = (function () {
+            if ($('#claimed').is(':checked')) {
+              return $('#claimed').val()
+            }
+          })()
+          const pending = (function () {
+            if ($('#pending').is(':checked')) {
+              return $('#pending').val()
+            }
+          })()
+          const filled = (function () {
+            if ($('#filled').is(':checked')) {
+              return $('#filled').val()
+            }
+          })()
+          const myrequests = (function () {
+            if ($('#myrequests').is(':checked')) {
+              return $('#myrequests').val()
+            }
+          })()
+          const myclaims = (function () {
+            if ($('#myclaims').is(':checked')) {
+              return $('#myclaims').val()
+            }
+          })()
+          const myvoted = (function () {
+            if ($('#myvoted').is(':checked')) {
+              return $('#myvoted').val()
+            }
+          })()
+          const myfiled = (function () {
+            if ($('#myfiled').is(':checked')) {
+              return $('#myfiled').val()
+            }
+          })()
+          $(".category:checked").each(function() {
                 categories.push($(this).val());
             });
             $(".type:checked").each(function() {
@@ -396,9 +396,9 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
-            var url = $(this).attr('href');
-            var page = url.split('page=')[1];
-            window.history.pushState("", "", url);
+          const url = $(this).attr('href')
+          const page = url.split('page=')[1]
+          window.history.pushState("", "", url);
             faceted(page);
         })
     

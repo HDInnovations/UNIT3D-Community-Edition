@@ -19,7 +19,7 @@
                 </div>
             </div>
             <article class="page-content">
-                @emojione($page->getContentHtml())
+                @joypixels($page->getContentHtml())
             </article>
         </div>
     </div>

@@ -26,7 +26,7 @@ class ChatBotController extends Controller
     /**
      * Display a listing of the Bots resource.
      *
-     * @param string $hash
+     * @param null $hash
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

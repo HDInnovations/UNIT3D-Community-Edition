@@ -109,7 +109,7 @@
                                         class="badge-extra text-orange text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->left, 2) }}</span>
                                 </td>
                                 <td><span class="badge-extra text-purple text-bold">{{ $p->agent }}</span></td>
-                                @if (auth()->user()->group->is_modo)
+                                @if (auth()->user()->group->is_modo || auth()->user()->id == $p->user_id)
                                     <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
                                     <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
                                 @else

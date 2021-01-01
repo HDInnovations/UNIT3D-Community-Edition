@@ -22,24 +22,15 @@ class NewBon extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $type;
-
-    public $sender;
-
-    public $transaction;
-
     /**
-     * Create a new notification instance.
+     * NewBon Constructor.
      *
      * @param string                      $type
      * @param string                      $sender
      * @param \App\Models\BonTransactions $bonTransactions
      */
-    public function __construct(string $type, string $sender, BonTransactions $bonTransactions)
+    public function __construct(public string $type, public string $sender, public BonTransactions $bonTransactions)
     {
-        $this->type = $type;
-        $this->transaction = $bonTransactions;
-        $this->sender = $sender;
     }
 
     /**
@@ -66,9 +57,9 @@ class NewBon extends Notification implements ShouldQueue
         $appurl = \config('app.url');
 
         return [
-            'title' => $this->sender.' Has Gifted You '.$this->transaction->cost.' BON',
-            'body'  => $this->sender.' has gifted you '.$this->transaction->cost.' BON with the following note: '.$this->transaction->comment,
-            'url'   => \sprintf('/users/%s', $this->transaction->senderObj->username),
+            'title' => $this->sender.' Has Gifted You '.$this->bonTransactions->cost.' BON',
+            'body'  => $this->sender.' has gifted you '.$this->bonTransactions->cost.' BON with the following note: '.$this->bonTransactions->comment,
+            'url'   => \sprintf('/users/%s', $this->bonTransactions->senderObj->username),
         ];
     }
 }

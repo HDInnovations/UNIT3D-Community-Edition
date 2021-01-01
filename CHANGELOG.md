@@ -1,6 +1,20 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v5.0.0] - 2020-12-18
+
+- [#1520] v5.0.0, Thanks to [@HDVinnie]
+- [#1506] build(deps): bump ini from 1.3.5 to 1.3.7, Thanks to [@dependabot][bot]
+- [#1488] (Enhancement) Livewire Searching PT.1, Thanks to [@HDVinnie]
+- [#1480] (Update) Livewire, Thanks to [@HDVinnie]
+- [#1479] fixup seeders and cleaned them up as well, Thanks to [@iamuser00110001]
+- [#1476] update: Allow configuring of echo-server address, Thanks to [@leighmacdonald]
+- [#1469] (Update) Danish Translations, Thanks to [@balderi]
+- [#1473] fix: missing livewire assets/configs, Thanks to [@leighmacdonald]
+
+<!-- dumped content end -->
+
+<!-- dumped content start -->
 ## [v4.0.0] - 2020-10-28
 
 - [#1467] (Refactor) Meta Data, Thanks to [@HDVinnie]
@@ -1561,6 +1575,7 @@
 [v2.7.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.6.0...v2.7.0
 [v3.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v2.7.0...v3.0.0
 [v4.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v3.0.0...v4.0.0
+[v5.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v4.0.0...v5.0.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1609,3 +1624,13 @@
 [@fmohican]: https://github.com/fmohican
 [@VPEvents]: https://github.com/VPEvents
 [@DrunkenMonkey1]: https://github.com/DrunkenMonkey1
+[#1520]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1520
+[#1506]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1506
+[#1488]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1488
+[#1480]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1480
+[#1479]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1479
+[#1476]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1476
+[#1473]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1473
+[#1469]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1469
+[@iamuser00110001]: https://github.com/iamuser00110001
+[@balderi]: https://github.com/balderi

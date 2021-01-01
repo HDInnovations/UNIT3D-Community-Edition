@@ -9,12 +9,7 @@
 <p align="center">
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-8-f4645f.svg?style=flat-square" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg?style=flat-square" /></a>
-<a href="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition?utm_medium=notification&utm_source=github_status"><img src="https://travis-ci.org/HDInnovations/UNIT3D-Community-Edition.svg?branch=master" /></a> 
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
-<a class="badge-align" href="https://www.codacy.com/manual/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HDInnovations/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
-<a href="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition">
-  <img src="https://codecov.io/gh/HDInnovations/UNIT3D-Community-Edition/branch/master/graph/badge.svg" />
-</a>
 <a href="https://discord.gg/Bf47vws"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg?style=flat-square" /></a>
 <a href="https://observatory.mozilla.org/analyze/unit3d.site"><img src="https://img.shields.io/badge/A+-Mozilla%20Observatory-blueviolet.svg?style=flat-square"></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
@@ -70,7 +65,7 @@ UNIT3D currently offers the following features:
 ## <a name="requirements"></a> ☑️ Requirements
 
 - A Web server (NGINX is recommended)
-- PHP 7.4 + is required
+- PHP 8.0 + is required
 - Dependencies for PHP,
   -   php-curl -> This is specifically needed for the various APIs we have running.
   -   php-intl -> This is required for the Spatie\SslCertificate.
@@ -130,7 +125,7 @@ Video Tutorial Can Be Seen Here:
 https://www.youtube.com/watch?v=tbIZpsz093o
 
 ### <a name="manual-install"></a> Manual Install
-If you rather setup UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Docs/manual_install.html
+If you rather set up UNIT3D manually you can follow the instructions here: https://hdinnovations.github.io/UNIT3D-Docs/manual_install.html
 
 ## <a name="updating"></a> 📖 Documentation
 Repo - https://github.com/HDInnovations/UNIT3D-Docs
@@ -154,8 +149,9 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 4.x.x       |  Active Support :rocket: | >= 7.4
- 3.x.x       |  Active Support :rocket: | >= 7.4
+ 5.x.x       |  Active Support :rocket: | >= 8.0
+ 4.x.x       |  End Of Life :skull: | >= 7.4
+ 3.x.x       |  End Of Life :skull: | >= 7.4
  2.3.0 to 2.7.0|  End Of Life :skull: | >= 7.4
  2.0.0 to 2.2.7|  End Of Life :skull: | >= 7.3
  1.0 to 1.9.4|  End Of Life :skull:     | >= 7.1.3
@@ -211,9 +207,11 @@ URL: https://discord.gg/Bf47vws
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
+You can support my work if you are enjoying UNIT3D and my other projects under HDInnovations, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. 
+
 https://github.com/sponsors/HDVinnie
 
-You can support my work if you are enjoying UNIT3D and my other projects under HDInnovations, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. Some folks have asked me if it's possible to do a one-time donation via cryptocurrency. Yes!
+Some folks have asked me if it's possible to do a one-time donation via cryptocurrency. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
 
@@ -222,6 +220,8 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
+
+Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 ## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
 <h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>
@@ -238,17 +238,17 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
-            <a href="https://github.com/Darkspac3"><img src="https://avatars2.githubusercontent.com/u/35001866?v=4" width="50px;" alt="Darkspac3"/>
+            <a href="https://github.com/StatusBaby"><img src="https://avatars2.githubusercontent.com/u/73584132?v=4" width="50px;" alt="StatusBaby"/>
                 <br />
-                <sub><b>Darkspac3</b></sub>
+                <sub><b>StatusBaby</b></sub>
             </a>
             <br />
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
         </td>
         <td align="center">
-            <a href="https://github.com/NemoSciri"><img src="https://avatars2.githubusercontent.com/u/58690995?v=4" width="50px;" alt="NemoSciri"/>
+            <a href="https://github.com/zeleski"><img src="https://avatars1.githubusercontent.com/u/3497536?v=4" width="50px;" alt="zeleski"/>
                 <br />
-                <sub><b>NemoSciri</b></sub>
+                <sub><b>zeleski</b></sub>
             </a>
             <br />
             <a href="https://github.com/sponsors/HDVinnie" title="Top Level Sponsor">💖</a>
@@ -270,9 +270,25 @@ Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
             <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
         </td>
         <td align="center">
-            <a href="https://github.com/STiCKYFiNGAZZ"><img src="https://avatars2.githubusercontent.com/u/26826902?v=4" width="50px;" alt="STiCKYFiNGAZZ"/>
+            <a href="https://github.com/MyFeetHurt"><img src="https://avatars0.githubusercontent.com/u/14802057?v=4" width="50px;" alt="MyFeetHurt"/>
                 <br />
-                <sub><b>STiCKYFiNGAZZ</b></sub>
+                <sub><b>MyFeetHurt</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/itsasolid4fromme"><img src="https://avatars0.githubusercontent.com/u/14802057?v=4" width="50px;" alt="itsasolid4fromme"/>
+                <br />
+                <sub><b>itsasolid4fromme</b></sub>
+            </a>
+            <br />
+            <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/humblbeast"><img src="https://avatars0.githubusercontent.com/u/46381271?v=4" width="50px;" alt="humblbeast"/>
+                <br />
+                <sub><b>humblbeast</b></sub>
             </a>
             <br />
             <a href="https://github.com/sponsors/HDVinnie" title="Tier 4 Sponsor">💛</a>

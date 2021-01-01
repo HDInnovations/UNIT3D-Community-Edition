@@ -96,9 +96,7 @@ class WarningController extends Controller
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        $warnings = Warning::where('user_id', '=', $user->id)->get();
-
-        foreach ($warnings as $warning) {
+        foreach (Warning::where('user_id', '=', $user->id)->get() as $warning) {
             $warning->expires_on = Carbon::now();
             $warning->active = 0;
             $warning->save();
@@ -164,9 +162,7 @@ class WarningController extends Controller
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        $warnings = Warning::where('user_id', '=', $user->id)->get();
-
-        foreach ($warnings as $warning) {
+        foreach (Warning::where('user_id', '=', $user->id)->get() as $warning) {
             $warning->deleted_by = $staff->id;
             $warning->save();
             $warning->delete();

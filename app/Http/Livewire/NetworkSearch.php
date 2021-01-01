@@ -21,14 +21,9 @@ class NetworkSearch extends Component
 {
     use WithPagination;
 
-    protected $updatesQueryString = ['searchTerm'];
+    protected $queryString = ['searchTerm'];
 
     public $searchTerm;
-
-    public function mount()
-    {
-        $this->searchTerm = request()->query('searchTerm', $this->searchTerm);
-    }
 
     public function paginationView()
     {
@@ -42,10 +37,10 @@ class NetworkSearch extends Component
 
     public function render()
     {
-        $search_term = '%'.$this->searchTerm.'%';
+        $searchTerm = '%'.$this->searchTerm.'%';
 
         return view('livewire.network-search', [
-            'networks' => Network::withCount('tv')->where('name', 'LIKE', $search_term)->orderBy('name', 'asc')->paginate(30),
+            'networks' => Network::withCount('tv')->where('name', 'LIKE', $searchTerm)->orderBy('name', 'asc')->paginate(30),
         ]);
     }
 }

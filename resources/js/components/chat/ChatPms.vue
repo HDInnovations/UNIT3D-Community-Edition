@@ -8,24 +8,14 @@
 
                     <span class="badge-user text-bold" :style="userStyles(pm.user)">
 
-                        <i v-tooltip="pm.user.group.name"
-                           :class="pm.user.group.icon">
-
+                        <i :class="pm.user.group.icon">
                         </i>
 
                         <a :style="groupColor(pm.user)">
 					        {{ pm.user.username }}
                         </a>
 
-                        <!--<i v-if="canMod(message)"-->
-                        <!--v-tooltip="`Edit Message`"-->
-                        <!--@click="editMessage(message)"-->
-                        <!--class="fa fa-edit text-blue">-->
-
-                        <!--</i>-->
-
                         <i v-if="canMod(pm)"
-                           v-tooltip="`Delete Message`"
                            @click="deleteMessage(pm.id)"
                            class="fa fa-times text-red">
 

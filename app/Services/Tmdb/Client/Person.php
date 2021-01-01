@@ -30,7 +30,8 @@ class Person
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
+                    'api_key'            => \config('api-keys.tmdb'),
+                    'language'           => \config('app.locale'),
                     'append_to_response' => 'images,credits',
                 ],
             ]
@@ -38,10 +39,10 @@ class Person
 
         $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/person/'.$id);
 
-        $this->data = json_decode($response->getBody()->getContents(), true);
+        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function index()
+    public function getData()
     {
         return $this->data;
     }

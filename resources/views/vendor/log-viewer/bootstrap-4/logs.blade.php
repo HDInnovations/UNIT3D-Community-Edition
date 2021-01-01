@@ -98,16 +98,16 @@
 @section('scripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
         $(function () {
-            var deleteLogModal = $('div#delete-log-modal'),
-                deleteLogForm  = $('form#delete-log-form'),
-                submitBtn      = deleteLogForm.find('button[type=submit]');
+          const deleteLogModal = $('div#delete-log-modal'),
+            deleteLogForm = $('form#delete-log-form'),
+            submitBtn = deleteLogForm.find('button[type=submit]')
 
-            $("a[href='#delete-log-modal']").on('click', function(event) {
+          $("a[href='#delete-log-modal']").on('click', function(event) {
                 event.preventDefault();
-                var date    = $(this).data('log-date'),
-                    message = "{{ __('Are you sure you want to delete this log file: :date ?') }}";
+              const date = $(this).data('log-date'),
+                message = "{{ __('Are you sure you want to delete this log file: :date ?') }}"
 
-                deleteLogForm.find('input[name=date]').val(date);
+              deleteLogForm.find('input[name=date]').val(date);
                 deleteLogModal.find('.modal-body p').html(message.replace(':date', date));
 
                 deleteLogModal.modal('show');

@@ -33,6 +33,8 @@ class GenreController extends Controller
     /**
      * Show A Genre.
      *
+     * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)

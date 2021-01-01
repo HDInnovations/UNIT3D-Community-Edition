@@ -30,6 +30,7 @@
             <form method="POST" action="{{ route('subtitles.store') }}" id="form_upload_subtitle" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
                 <input name="torrent_id" type="hidden" value="{{ $torrent->id }}">
+                <input name="torrent_name" type="hidden" value="{{ $torrent->name }}">
                 <div class="form-group">
                     <label for="torrent_id" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                     <div class="col-sm-9">
@@ -41,7 +42,7 @@
                 <div class="form-group">
                     <label for="subtitle_file" class="col-sm-2 control-label">@lang('subtitle.subtitle-file')</label>
                     <div class="col-sm-9">
-                        <input class="form-control" name="subtitle_file" accept=".srt,.ico,.zip"  type="file" id="subtitle_file">
+                        <input class="form-control" name="subtitle_file" accept=".srt,.ico,.zip,.ass,.sup"  type="file" id="subtitle_file">
                         <span class="help-block">@lang('subtitle.subtitle-file-types')</span>
                     </div>
                 </div>

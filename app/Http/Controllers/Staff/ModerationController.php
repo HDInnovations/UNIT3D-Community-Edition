@@ -27,18 +27,12 @@ use Illuminate\Http\Request;
 class ModerationController extends Controller
 {
     /**
-     * @var ChatRepository
-     */
-    private $chatRepository;
-
-    /**
      * ModerationController Constructor.
      *
      * @param \App\Repositories\ChatRepository $chatRepository
      */
-    public function __construct(ChatRepository $chatRepository)
+    public function __construct(private ChatRepository $chatRepository)
     {
-        $this->chatRepository = $chatRepository;
     }
 
     /**
@@ -75,7 +69,7 @@ class ModerationController extends Controller
         if ($torrent->status !== 1) {
             $appurl = \config('app.url');
             $user = $torrent->user;
-            $user_id = $user->id;
+            $userId = $user->id;
             $username = $user->username;
             $anon = $torrent->anon;
 

@@ -368,9 +368,6 @@ Route::group(['middleware' => 'language'], function () {
             });
         });
 
-        // Thank System
-        Route::get('/thanks/{id}', 'ThankController@store')->name('thanks.store');
-
         // Invite System
         Route::group(['prefix' => 'invites'], function () {
             Route::name('invites.')->group(function () {

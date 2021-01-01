@@ -132,7 +132,7 @@
                             <td>
                                 <div class="panel-body torrent-desc">
                                     <p>
-                                        @emojione($torrentRequest->getDescriptionHtml())
+                                        @joypixels($torrentRequest->getDescriptionHtml())
                                     </p>
                                 </div>
                             </td>
@@ -265,7 +265,7 @@
                             </tr>
                         @endif
 
-                        @if ($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null || auth()->user()->group->is_modo && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
+                        @if (($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null) || (auth()->user()->group->is_modo && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null))
                             <tr>
                                 <td>
                                     <strong>@lang('request.filled-by')</strong>
@@ -420,7 +420,7 @@
                                                                 aria-hidden="true"></i></a>
                                                 @endif
                                                 <div class="pt-5">
-                                                    @emojione($comment->getContentHtml())
+                                                    @joypixels($comment->getContentHtml())
                                                 </div>
                                             </div>
                                         </li>

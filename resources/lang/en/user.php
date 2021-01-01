@@ -14,7 +14,6 @@
 return [
     'about'                          => 'About',
     'about-me'                       => 'About Me (500 Characters Max!)',
-    'about-me'                       => 'About Me',
     'accepted-at'                    => 'Accepted at',
     'accepted-by'                    => 'Accepted by',
     'account-notification'           => 'Account Notification Settings',

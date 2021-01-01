@@ -16,19 +16,12 @@ namespace App\Helpers;
 class BBCodeConverter
 {
     /**
-     * @var string|mixed|mixed[]|null
-     */
-    public $text;
-    public $id;
-
-    /**
-     * @brief Constructor.
+     * BBCodeConverter Constructor.
      *
-     * @param string $text The text to be converted.
+     * @param $text
      */
-    public function __construct($text)
+    public function __construct(public $text)
     {
-        $this->text = $text;
     }
 
     /**
@@ -121,7 +114,7 @@ class BBCodeConverter
 
                 $list = \preg_replace('#\s*$|^\s*#mu', '', $matches['items']);
                 if (\is_null($list)) {
-                    throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode lists", $this->id));
+                    throw new \RuntimeException('Text has malformed BBCode lists');
                 }
                 $items = \preg_split('#\[\*\]#u', $list);
 
@@ -131,7 +124,7 @@ class BBCodeConverter
                     // We start from 1 to discard the first string, in fact, it's empty.
                     for ($i = 1; $i < $counter; $i++) {
                         if (! empty($items[$i])) {
-                            $buffer .= (string) ($i).'. '.\trim($items[$i]).PHP_EOL;
+                            $buffer .= ($i).'. '.\trim($items[$i]).PHP_EOL;
                         }
                     }
                 } else { // unordered list
@@ -213,11 +206,11 @@ class BBCodeConverter
         $this->text = \preg_replace_callback('#\[url\s*=\s*("(?:[^"]*")|\A[^\']*\Z|(?:[^\'">\]\s]+))\s*(?:[^]\s]*)\]([\W\D\w\s]*?)\[/url\]#iu',
 
             function ($matches) {
-                if (isset($matches[1]) && isset($matches[2])) {
+                if (isset($matches[1], $matches[2])) {
                     return '['.$matches[2].']('.$matches[1].')';
                 }
 
-                throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode urls", $this->id));
+                throw new \RuntimeException('Text has malformed BBCode urls');
             },
 
             $this->text
@@ -311,7 +304,7 @@ class BBCodeConverter
                     return PHP_EOL.'```'.$language.PHP_EOL.\trim($matches['snippet']).PHP_EOL.'```'.PHP_EOL;
                 }
 
-                throw new \RuntimeException(\sprintf("Text identified by '%d' has malformed BBCode snippet.", $this->id));
+                throw new \RuntimeException('Text has malformed BBCode snippet.');
             },
 
             $this->text

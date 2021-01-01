@@ -165,7 +165,7 @@
                         <tr>
                             <td>@lang('user.about')</td>
                             <td>
-                                <span class="badge-extra">@emojione($user->getAboutHtml())</span>
+                                <span class="badge-extra">@joypixels($user->getAboutHtml())</span>
                             </td>
                         </tr>
                         @endif
@@ -397,7 +397,7 @@
 
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                             style="width:0%; border-bottom-color: #8c0408;">
+                             style="width:0; border-bottom-color: #8c0408;">
                         </div>
                         @php $percent = 100 / config('hitrun.max_warnings'); @endphp
                         @foreach ($warnings as $warning)

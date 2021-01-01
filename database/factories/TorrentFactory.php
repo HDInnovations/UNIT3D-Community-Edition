@@ -1,6 +1,6 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+/* @var \Illuminate\Database\Eloquent\Factory $factory */
 
 namespace Database\Factories;
 
@@ -63,11 +63,9 @@ class TorrentFactory extends Factory
             'doubleup'     => $this->faker->boolean,
             'highspeed'    => $this->faker->boolean,
             'featured'     => $this->faker->boolean,
-            'status'       => (int) $this->faker->boolean,
-            'moderated_at' => $this->faker->dateTime(),
-            'moderated_by' => function () {
-                return User::factory()->create()->id;
-            },
+            'status'       => 1,
+            'moderated_at' => \now(),
+            'moderated_by' => 1,
             'anon'         => $this->faker->boolean,
             'sticky'       => $this->faker->boolean,
             'sd'           => $this->faker->boolean,

@@ -18,10 +18,10 @@ class TMDB
     public function image($type, $array)
     {
         if (isset($array[$type.'_path'])) {
-            return $type = 'https://image.tmdb.org/t/p/original'.$array[$type.'_path'];
+            return 'https://image.tmdb.org/t/p/original'.$array[$type.'_path'];
         }
 
-        return $type = null;
+        return null;
     }
 
     public function trailer($array)
@@ -35,11 +35,7 @@ class TMDB
 
     public function ifHasItems($type, $array)
     {
-        if (isset($array[$type][0])) {
-            return $array[$type][0];
-        }
-
-        return null;
+        return $array[$type][0] ?? null;
     }
 
     public function ifExists($type, $array)

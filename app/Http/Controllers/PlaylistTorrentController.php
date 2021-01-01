@@ -67,12 +67,12 @@ class PlaylistTorrentController extends Controller
     public function destroy($id)
     {
         $user = \auth()->user();
-        $playlist_torrent = PlaylistTorrent::findOrFail($id);
+        $playlistTorrent = PlaylistTorrent::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $playlist_torrent->playlist->user_id, 403);
-        $playlist_torrent->delete();
+        \abort_unless($user->group->is_modo || $user->id === $playlistTorrent->playlist->user_id, 403);
+        $playlistTorrent->delete();
 
-        return \redirect()->route('playlists.show', ['id' => $playlist_torrent->playlist->id])
+        return \redirect()->route('playlists.show', ['id' => $playlistTorrent->playlist->id])
             ->withSuccess('Torrent Has Successfully Been Detached From Your Playlist.');
     }
 }

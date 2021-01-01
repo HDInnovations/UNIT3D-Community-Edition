@@ -30,18 +30,19 @@ class Movie
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'           => config('api-keys.tmdb'),
-                    'append_to_response'=> 'videos,images,credits,external_ids,keywords',
+                    'api_key'            => \config('api-keys.tmdb'),
+                    'language'           => \config('app.locale'),
+                    'append_to_response' => 'videos,images,credits,external_ids,keywords',
                 ],
             ]
         );
 
         $response = $this->client->request('get', 'https://api.themoviedb.org/3/movie/'.$id);
 
-        $this->data = json_decode($response->getBody()->getContents(), true);
+        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function index()
+    public function getData()
     {
         return $this->data;
     }

@@ -6,7 +6,7 @@
                         <h4 class="text-center">
                             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                 href="#collapse4" style="color:#ffffff;">
-                                @emojione(':rotating_light:') @lang('blocks.new-news') {{ $article->created_at->diffForHumans() }} @emojione(':rotating_light:')
+                                @joypixels(':rotating_light:') @lang('blocks.new-news') {{ $article->created_at->diffForHumans() }} @joypixels(':rotating_light:')
                             </a>
                         </h4>
                     </div>
@@ -42,7 +42,7 @@
                                 </p>
 
                                 <p style="margin-top: 20px;">
-                                    @emojione(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content), 150))...
+                                    @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content), 150))...
                                 </p>
 
                                 <a href="{{ route('articles.show', ['id' => $article->id]) }}" class="btn btn-success">

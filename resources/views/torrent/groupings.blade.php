@@ -301,10 +301,10 @@
                                                         {{ $t->meta->name ?? 'Unknown' }}
                                                     @endif
                                                         @if ($t->category->movie_meta)
-                                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date, 0, 4) ?? 'Unknown' }}</span>
+                                                            <span class="text-bold text-pink"> {{ substr($t->meta->release_date ?? '', 0, 4) }}</span>
                                                         @endif
                                                         @if ($t->category->tv_meta)
-                                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date, 0, 4) ?? 'Unknown' }}</span>
+                                                            <span class="text-bold text-pink"> {{ substr($t->meta->first_air_date ?? '', 0, 4) }}</span>
                                                         @endif
                                                 </h3>
                                                 @if ($t->meta->genres->isNotEmpty())
@@ -338,7 +338,7 @@
                                                                     $hidden = "";
                                                                     $attr = "";
                                                                 @endphp
-                                                                @for($x = 0; $x<count($c); $x++)
+                                                                @for($x = 0,$xMax = count($c); $x<$xMax; $x++)
                                                                     @php
                                                                         if(array_key_exists('torrent'.$x,$c)) {
                                                                             $current = $c['torrent'.$x]['chunk'];

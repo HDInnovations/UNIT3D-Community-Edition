@@ -333,9 +333,7 @@ class Markdown
 
     protected function blockCodeComplete($Block)
     {
-        $text = $Block['element']['text']['text'];
-
-        $Block['element']['text']['text'] = $text;
+        $Block['element']['text']['text'] = $Block['element']['text']['text'];
 
         return $Block;
     }
@@ -434,9 +432,7 @@ class Markdown
 
     protected function blockFencedCodeComplete($Block)
     {
-        $text = $Block['element']['text']['text'];
-
-        $Block['element']['text']['text'] = $text;
+        $Block['element']['text']['text'] = $Block['element']['text']['text'];
 
         return $Block;
     }
@@ -487,7 +483,7 @@ class Markdown
             ];
 
             if ($name === 'ol') {
-                $listStart = \stristr($matches[0], '.', true);
+                $listStart = \strstr($matches[0], '.', true);
 
                 if ($listStart !== '1') {
                     $Block['element']['attributes'] = ['start' => $listStart];
@@ -668,13 +664,13 @@ class Markdown
             $remainder = \substr($Line['text'], $length);
 
             if (\trim($remainder) === '') {
-                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements, true)) {
                     $Block['closed'] = true;
 
                     $Block['void'] = true;
                 }
             } else {
-                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
+                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements, true)) {
                     return;
                 }
 
@@ -758,9 +754,7 @@ class Markdown
             $divider = \trim($divider);
             $divider = \trim($divider, '|');
 
-            $dividerCells = \explode('|', $divider);
-
-            foreach ($dividerCells as $dividerCell) {
+            foreach (\explode('|', $divider) as $dividerCell) {
                 $dividerCell = \trim($dividerCell);
 
                 if ($dividerCell === '') {
@@ -789,9 +783,7 @@ class Markdown
             $header = \trim($header);
             $header = \trim($header, '|');
 
-            $headerCells = \explode('|', $header);
-
-            foreach ($headerCells as $index => $headerCell) {
+            foreach (\explode('|', $header) as $index => $headerCell) {
                 $headerCell = \trim($headerCell);
 
                 $HeaderElement = [
@@ -947,7 +939,7 @@ class Markdown
             foreach ($this->InlineTypes[$marker] as $inlineType) {
                 // check to see if the current inline type is nestable in the current context
 
-                if (! empty($nonNestables) && \in_array($inlineType, $nonNestables)) {
+                if (! empty($nonNestables) && \in_array($inlineType, $nonNestables, true)) {
                     continue;
                 }
 
@@ -971,8 +963,8 @@ class Markdown
 
                 // cause the new element to 'inherit' our non nestables
 
-                foreach ($nonNestables as $non_nestable) {
-                    $Inline['element']['nonNestables'][] = $non_nestable;
+                foreach ($nonNestables as $nonNestable) {
+                    $Inline['element']['nonNestables'][] = $nonNestable;
                 }
 
                 // the text that comes before the inline
@@ -1074,7 +1066,7 @@ class Markdown
 
     protected function inlineEscapeSequence($Excerpt)
     {
-        if (isset($Excerpt['text'][1]) && \in_array($Excerpt['text'][1], $this->specialCharacters)) {
+        if (isset($Excerpt['text'][1]) && \in_array($Excerpt['text'][1], $this->specialCharacters, true)) {
             return [
                 'markup' => $Excerpt['text'][1],
                 'extent' => 2,
@@ -1151,7 +1143,7 @@ class Markdown
             $extent += \strlen($matches[0]);
         } else {
             if (\preg_match('#^\s*\[(.*?)\]#', $remainder, $matches)) {
-                $definition = \strlen($matches[1]) !== 0 ? $matches[1] : $Element['text'];
+                $definition = $matches[1] != '' ? $matches[1] : $Element['text'];
                 $definition = \strtolower($definition);
 
                 $extent += \strlen($matches[0]);
@@ -1353,7 +1345,7 @@ class Markdown
 
         $trimmedMarkup = \trim($markup);
 
-        if (! \in_array('', $lines) && \substr($trimmedMarkup, 0, 3) === '<p>') {
+        if (! \in_array('', $lines, true) && \strpos($trimmedMarkup, '<p>') === 0) {
             $markup = $trimmedMarkup;
             $markup = \substr($markup, 3);
 
@@ -1432,7 +1424,7 @@ class Markdown
             return false;
         }
 
-        return \strtolower(\substr($string, 0, $len)) === \strtolower($needle);
+        return \stripos($string, \strtolower($needle)) === 0;
     }
 
     public static function instance($name = 'default')

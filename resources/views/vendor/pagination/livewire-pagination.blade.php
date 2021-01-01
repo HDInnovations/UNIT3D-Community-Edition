@@ -42,5 +42,15 @@
 				</li>
 			@endif
 		</ul>
+		<br>
+		<span class="text-bold text-muted badge-extra">
+			{!! __('Showing') !!}
+			<span class="text-bright">{{ $paginator->firstItem() }}</span>
+			{!! __('to') !!}
+			<span class="text-bright">{{ $paginator->lastItem() }}</span>
+			{!! __('of') !!}
+			<span class="text-bright">{{ $paginator->total() }}</span>
+			{!! __('results') !!}
+		</span>
 	</nav>
 @endif

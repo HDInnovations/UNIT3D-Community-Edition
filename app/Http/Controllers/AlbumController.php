@@ -71,7 +71,7 @@ class AlbumController extends Controller
         $album->imdb = $request->input('imdb');
 
         $image = $request->file('cover_image');
-        $filename = 'album-cover_'.\uniqid().'.'.$image->getClientOriginalExtension();
+        $filename = 'album-cover_'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
         $path = \public_path('/files/img/'.$filename);
         Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         $album->cover_image = $filename;
