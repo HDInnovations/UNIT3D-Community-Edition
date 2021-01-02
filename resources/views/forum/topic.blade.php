@@ -124,7 +124,7 @@
                                 </span>
                             </aside>
 
-                            <article class="col-md-9 post-content">
+                            <article class="col-md-9 post-content" data-bbcode="{{ $p->content }}">
                                 @joypixels($p->getContentHtml())
                             </article>
 
@@ -325,7 +325,7 @@
         $(document).ready(function() {
             $('.profil').on('click', 'button#quote', function () {
                 let author = $(this).closest('.profil').find('.post-info-username').first().text();
-                let text = $(this).closest('.profil').find('.post-content').text().replace('@here', '');
+                let text = $(this).closest('.profil').find('.post-content').data('bbcode');
                 $("#topic-response").wysibb().insertAtCursor('[quote=@'+author.trim()+']'+text.trim()+'[/quote]\r\n', true);
             });
         });
