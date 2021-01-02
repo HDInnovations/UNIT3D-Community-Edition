@@ -36,7 +36,7 @@ class UsersTableSeeder extends Seeder
     {
         foreach ($this->users as $user) {
             $new = User::updateOrCreate($user);
-            $new->role()->attach(Role::where('id', '=', $user['role_id'])->get());
+            $new->roles()->attach(Role::where('id', '=', $user['role_id'])->get());
         }
     }
 

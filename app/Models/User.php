@@ -62,6 +62,22 @@ class User extends Authenticatable
         'last_action',
     ];
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function privileges() {
+        return $this->belongsToMany(Role::class, 'user_privilege', 'user_id', 'privilege_id');
+    }
+
+
     /**
      * Belongs To A Chatroom.
      *
@@ -604,7 +620,7 @@ class User extends Authenticatable
         if ($sender->id == $target->id) {
             return true;
         }
-        if ($sender->group->is_modo || $sender->group->is_admin) {
+        if ($sender->hasPrivilegeTo('users_view_private')) {
             return true;
         }
         if ($target->hidden && $target->hidden == 1) {
@@ -640,7 +656,7 @@ class User extends Authenticatable
         if ($sender->id == $target->id) {
             return true;
         }
-        if ($sender->group->is_modo || $sender->group->is_admin) {
+        if ($sender->hasPrivilegeTo('users_view_private')) {
             return true;
         }
         if ($target->private_profile && $target->private_profile == 1) {
@@ -1008,4 +1024,5 @@ class User extends Authenticatable
 
         return Torrent::whereIn('info_hash', $seeding)->sum('size');
     }
+
 }

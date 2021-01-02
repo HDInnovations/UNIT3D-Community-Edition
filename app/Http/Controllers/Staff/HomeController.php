@@ -37,12 +37,12 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         // User Info
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
         $users = DB::table('users')
             ->selectRaw('count(*) as total')
-            ->selectRaw("count(case when group_id = $bannedGroup[0] then 1 end) as banned")
-            ->selectRaw("count(case when group_id = $validatingGroup[0] then 1 end) as validating")
+            ->selectRaw("count(case when role_id = $bannedGroup[0] then 1 end) as banned")
+            ->selectRaw("count(case when role_id = $validatingGroup[0] then 1 end) as validating")
             ->first();
 
         // Torrent Info

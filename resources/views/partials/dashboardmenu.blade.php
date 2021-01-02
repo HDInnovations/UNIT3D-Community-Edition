@@ -15,7 +15,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.staff-dashboard')
                 </a>
             </li>
-            @role('owner')
+            @role('root')
                 <li>
                     <a href="{{ route('staff.backups.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup')
@@ -67,18 +67,18 @@
                     <span class="badge badge-danger"> {{ $apps->pending }} </span>
                 </a>
             </li>
-            @permission('dashboard')
+            @privilege('dashboard_can_view')
                 <li>
                     <a href="{{ route('staff.forums.index') }}">
                         <i class="fab fa-wpforms"></i> @lang('staff.forums')
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('staff.groups.index') }}">
+              <!--  <li>
+                    <a href="">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('staff.groups')
                     </a>
-                </li>
-            @endpermission
+                </li> -->
+            @endprivilege
             <li>
                 <a href="{{ route('staff.pages.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.pages')

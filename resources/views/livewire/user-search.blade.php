@@ -25,9 +25,9 @@
 					</div>
 				</th>
 				<th>
-					<div sortable wire:click="sortBy('group_id')" :direction="$sortField === 'group_id' ? $sortDirection : null" role="button">
+					<div sortable wire:click="sortBy('role_id')" :direction="$sortField === 'role_id' ? $sortDirection : null" role="button">
 						Role
-						@include('livewire.includes._sort-icon', ['field' => 'group_id'])
+						@include('livewire.includes._sort-icon', ['field' => 'role_id'])
 					</div>
 				</th>
 				<th class="hidden-sm hidden-xs">
@@ -64,9 +64,9 @@
 					</td>
 					<td>
 						<span class="badge-user text-bold"
-						      style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};">
-                            <i class="{{ $user->group->icon }}"></i>
-                            {{ $user->group->name }}
+						      style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }};">
+                            <i class="{{ $user->primaryRole->icon }}"></i>
+                            {{ $user->primaryRole->name }}
                         </span>
 					</td>
 					<td class="hidden-sm hidden-xs">{{ $user->email }}</td>

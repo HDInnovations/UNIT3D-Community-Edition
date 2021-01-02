@@ -94,6 +94,13 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'tv_can_update_tagline', 'name' => 'tv_can_update_tagline'],
             ['slug' => 'tv_can_update_runtime', 'name' => 'tv_can_update_runtime'],
             ['slug' => 'tv_can_update_status', 'name' => 'tv_can_update_status'],
+            ['slug' => 'users_view_private', 'name' => 'Users: View Private Profiles'],
+            ['slug' => 'users_view_privileges', 'name' => 'Users: View Privileges'],
+            ['slug' => 'users_edit_privileges', 'name' => 'Users: Edit Users Privileges'],
+            ['slug' => 'users_view_personal', 'name' => 'Users: View Users Personal Information'],
+            ['slug' => 'users_edit_personal', 'name' => 'Users: Edit Users Personal Information'],
+            ['slug' => 'users_view_security', 'name' => 'Users: View Users Security Information'],
+            ['slug' => 'users_edit_security', 'name' => 'Users: Edit Users Security Information'],
         ], ['slug'], ['name']);
     }
 }

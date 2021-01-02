@@ -601,7 +601,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'banned', 'privilege:dashboard_can_view', 'role:owner'], 'namespace' => 'Staff'], function () {
+    Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'banned', 'privilege:dashboard_can_view'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function () {

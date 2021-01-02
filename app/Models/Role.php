@@ -24,4 +24,22 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class, 'user_role', 'role_id', 'user_id');
     }
+
+    /**
+     * Get the Role allowed answer as bool.
+     *
+     * @param $object
+     * @param $groupId
+     *
+     * @return int
+     */
+    public function isAllowed($object, $roleId)
+    {
+        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($roleId, $object['default_groups'])) {
+            return $object['default_groups'][$roleId] == 1;
+        }
+
+        return true;
+    }
+
 }

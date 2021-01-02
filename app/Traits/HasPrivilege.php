@@ -54,7 +54,7 @@ trait HasPrivilege
      */
     public function hasPrivilegeTo($privilege)
     {
-        $perm = Privilege::where('slug', $privilege)->first();
+        $perm = Privilege::where('slug', '=', $privilege)->first();
 
         return $this->hasPrivilegeThroughRole($perm) || $this->hasPrivilege($perm);
     }
@@ -64,7 +64,7 @@ trait HasPrivilege
      *
      * @return bool
      */
-    public function hasPrivilegeThroughRole($privilege)
+    public function hasPrivilegeThroughRole($privilege): bool
     {
         foreach ($privilege->roles as $role) {
             if ($this->roles->contains($role)) {
@@ -90,7 +90,7 @@ trait HasPrivilege
      */
     protected function hasPrivilege($privilege)
     {
-        return (bool) $this->privileges->where('slug', $privilege->slug)->count();
+        return (bool) $this->privileges->where('slug', '=' ,$privilege->slug)->count();
     }
 
     /**
