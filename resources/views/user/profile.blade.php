@@ -80,10 +80,19 @@
                                         </a>
                                     @endif
                                 </h2>
-                                <h4>@lang('common.group'): <span class="badge-user text-bold"
+                                <h4>@lang('common.primary role'): <span class="badge-user text-bold"
                                                                        style="color:{{ $user->primaryRole->color }}; background-image:{{ $user->primaryRole->effect }};"><i
                                                 class="{{ $user->primaryRole->icon}}" data-toggle="tooltip" title=""
                                                 data-original-title="{{ $user->primaryRole->name }}"></i> {{ $user->primaryRole->name }}</span>
+                                        @if($user->additionalRoles->count() > 0 )
+                                        @lang('common.additional roles'):
+                                            @foreach($user->additionalRoles as $role)
+                                                <span class="badge-user text-bold"
+                                                      style="color:{{ $role->color }}; background-image:{{ $role->effect }};"><i
+                                                            class="{{ $role->icon}}" data-toggle="tooltip" title=""
+                                                            data-original-title="{{ $role->name }}"></i> {{ $role->name }}
+                                            @endforeach
+                                        @endif
                                 </h4>
                                 <h4>@lang('user.registration-date') {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
         @if (auth()->user()->id != $user->id)

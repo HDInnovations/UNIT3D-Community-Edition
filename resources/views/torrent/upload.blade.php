@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    @if ($user->can_upload == 0 || $user->group->can_upload == 0)
+    @if (! $user->hasPrivilegeTo('torrent_can_create'))
         <div class="container">
             <div class="jumbotron shadowed">
                 <div class="container">
@@ -249,7 +249,7 @@
 
                     <br>
 
-                    @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                    @if (auth()->user()->hasPrivilegeTo('torrent_can_internal'))
                         <label for="internal" class="control-label">@lang('torrent.internal')?</label>
                         <div class="radio-inline">
                             <label><input type="radio" name="internal" value="1">@lang('common.yes')</label>
@@ -263,7 +263,7 @@
                         <input type="hidden" name="internal" value="0">
                     @endif
                     
-                    @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                    @if (auth()->user()->hasPrivilegeTo('torrent_can_freeleech'))
                         <label for="freeleech" class="control-label">@lang('torrent.freeleech')?</label>
                         <div class="radio-inline">
                             <label><input type="radio" name="free" value="1">@lang('common.yes')</label>

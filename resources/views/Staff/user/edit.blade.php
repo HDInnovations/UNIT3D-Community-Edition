@@ -96,11 +96,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="about">@lang('common.group')</label>
+                        <label for="about">@lang('common.primary role')</label>
                         <label>
-                            <select name="group_id" class="form-control">
-                                <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
-                                @foreach ($groups as $g)
+                            <select name="role_id" class="form-control">
+                                <option value="{{ $user->primaryRole->id }}">{{ $user->primaryRole->name }} (Current)</option>
+                                @foreach ($user->roles as $g)
                                     <option value="{{ $g->id }}">{{ $g->name }}</option>
                                 @endforeach
                             </select>
@@ -116,71 +116,26 @@
                 <hr>
                 <form role="form" method="POST" action="{{ route('user_permissions', ['username' => $user->username]) }}">
                     @csrf
-                    <label for="hidden" class="control-label">@lang('user.can-upload')?</label>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
-                    </div>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif
-                            value="0">@lang('common.no')</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">@lang('user.can-download')?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked
-                            @endif value="1">@lang('common.yes')</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked
-                            @endif value="0">@lang('common.no')</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">@lang('user.can-comment')?</label>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
-                    </div>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 0) checked @endif
-                            value="0">@lang('common.no')</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">@lang('user.can-invite')?</label>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
-                    </div>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 0) checked @endif
-                            value="0">@lang('common.no')</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">@lang('user.can-request')?</label>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if ($user->can_request == 1) checked @endif
-                            value="1">@lang('common.yes')</label>
-                    </div>
-                    <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if ($user->can_request == 0) checked @endif
-                            value="0">@lang('common.no')</label>
-                    </div>
-                    <br>
-                    <br>
-                    <label for="hidden" class="control-label">@lang('user.can-chat')?</label>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 1) checked
-                            @endif value="1">@lang('common.yes')</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="can_chat" @if ($user->can_chat == 0) checked
-                            @endif value="0">@lang('common.no')</label>
-                    </div>
-                    <br>
+
+                   @foreach(\App\Models\Privilege::all() as $perm)
+                        <label for="{{ $perm->slug }}" class="control-label">{{ $perm->name }}?</label>
+                        <div class="radio-inline">
+
+                            <input type="radio" name="{{ $perm->slug }}"
+                                      @if ($user->hasPrivilegeTo($perm->slug)) checked @endif
+                                      @if ($user->hasPrivilegeThroughRole($perm)) disabled @endif
+                                      value="1">@lang('common.yes')</label>
+                        </div>
+                        <div class="radio-inline">
+                        <label><input type="radio" name="{{ $perm->slug }}"
+                                      @if (!$user->hasPrivilegeTo($perm->slug)) checked @endif
+                                      @if ($user->hasPrivilegeThroughRole($perm)) disabled @endif
+                                value="0">@lang('common.no')</label>
+                        </div>
+                        <br>
+                        <br>
+                    @endforeach
+
                     <div class="form-group">
                         <div class="text-center"><button type="submit" class="btn btn-primary">@lang('common.save')</div>
                     </div>

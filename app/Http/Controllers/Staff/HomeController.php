@@ -15,7 +15,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
-use App\Models\Group;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;

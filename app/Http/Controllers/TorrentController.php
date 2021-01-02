@@ -1287,10 +1287,10 @@ class TorrentController extends Controller
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
-        $torrent->internal = $request->input('internal');
+        $torrent->internal = $$user->hasPrivilegeTo('torrent_can_internal') ? $request->input('internal') : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = 1; //System ID
-        $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
+        $torrent->free = $user->hasPrivilegeTo('torrent_can_freeleech') ? $request->input('free') : 0;
 
         // Validation
         $v = \validator($torrent->toArray(), [
@@ -1357,7 +1357,7 @@ class TorrentController extends Controller
         }
 
         // check for trusted user and update torrent
-        if ($user->group->is_trusted) {
+        if ($user->hasPrivilegeTo('torrent_can_bypass_modq')) {
             $appurl = \config('app.url');
             $user = $torrent->user;
             $username = $user->username;
