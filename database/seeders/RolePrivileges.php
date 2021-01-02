@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Privilege;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RolePrivileges extends Seeder
 {
@@ -25,7 +26,8 @@ class RolePrivileges extends Seeder
      */
     public function run()
     {
-            foreach($this->map as $role => $permissions) {
+        DB::table('role_privilege')->truncate();
+        foreach($this->map as $role => $permissions) {
               $R = Role::where('slug', '=', $role)->first();
               foreach ($permissions as $permission) {
                   $R->privileges()->attach($permission);

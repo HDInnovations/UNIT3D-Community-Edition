@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Privilege;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class PrivilegesTableSeeder extends Seeder
 {
@@ -15,6 +16,8 @@ class PrivilegesTableSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        Privilege::query()->truncate();
         Privilege::upsert([
             ['slug' => 'dashboard_can_view', 'name' => 'dashboard_can_view'],
             ['slug' => 'torrent_can_view', 'name' => 'torrent_can_view'],
@@ -101,6 +104,9 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'users_edit_personal', 'name' => 'Users: Edit Users Personal Information'],
             ['slug' => 'users_view_security', 'name' => 'Users: View Users Security Information'],
             ['slug' => 'users_edit_security', 'name' => 'Users: Edit Users Security Information'],
+            ['slug'=> 'users_bypass_notification_preferences', 'name'=> 'Users: Bypass a User Notification Preferences']
         ], ['slug'], ['name']);
+        $this->call(RolePrivileges::class);
+        Schema::enableForeignKeyConstraints();
     }
 }

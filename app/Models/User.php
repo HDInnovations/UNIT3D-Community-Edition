@@ -584,7 +584,7 @@ class User extends Authenticatable
         if ($sender->id === $target->id) {
             return false;
         }
-        if ($sender->group->is_modo || $sender->group->is_admin) {
+        if ($sender->hasPrivilegeTo('users_bypass_notification_preferences')) {
             return true;
         }
         if ($target->block_notifications && $target->block_notifications == 1) {
