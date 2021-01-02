@@ -7,6 +7,16 @@ use App\Models\Role;
 trait HasRole
 {
     /**
+     * Belongs To Many Roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function role()
+    {
+        return $this->belongsToMany(Role::class,'user_role');
+    }
+
+    /**
      * Check If A User Has One Or Many Roles.
      *
      * @param $roles

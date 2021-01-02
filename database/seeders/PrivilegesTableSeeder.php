@@ -52,6 +52,7 @@ class PrivilegesTableSeeder extends Seeder
             ['slug' => 'comment_can_create', 'name' => 'comment_can_create'],
             ['slug' => 'comment_can_update', 'name' => 'comment_can_update'],
             ['slug' => 'comment_can_delete', 'name' => 'comment_can_delete'],
+            ['slug' => 'chat_can_moderate', 'name' => 'chat_can_moderate'],
             ['slug' => 'forum_can_viewAny', 'name' => 'forum_can_viewAny'],
             ['slug' => 'forum_can_view', 'name' => 'forum_can_view'],
             ['slug' => 'forum_can_sticky', 'name' => 'forum_can_sticky'],

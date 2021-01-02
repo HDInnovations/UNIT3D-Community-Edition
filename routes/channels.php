@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Broadcast;
  */
 
 Broadcast::channel('chatroom.{id}', function ($user, $id) {
-    return User::with(['chatStatus', 'chatroom', 'echoes', 'group'])
+    return User::with(['chatStatus', 'chatroom', 'echoes', 'primaryRole'])
         ->find($user->id);
 });
 Broadcast::channel('chatter.{id}', function ($user, $id) {

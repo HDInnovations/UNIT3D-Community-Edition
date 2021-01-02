@@ -158,7 +158,7 @@
             user: {
                 type: Object,
                 required: true,
-            },
+            }
         },
         components: {
             ChatroomsDropdown,
@@ -213,6 +213,7 @@
                 config: {},
                 receiver_id: null,
                 bot_id: null,
+                permissions: {}
             }
         },
         watch: {
@@ -435,6 +436,12 @@
                     this.boot = 1;
                 })
             },
+          fetchPermissions() {
+            axios.get('/api/chat/permissions').then(response => {
+              this.permissions = response.data;
+              console.log(this.permissions);
+            })
+          },
             fetchBots() {
                 axios.get('/api/chat/bots').then(response => {
                     this.bots = response.data.data;
@@ -999,6 +1006,7 @@
             this.listenForChatter();
             this.attachAudible();
             this.scrollToBottom(true);
+            this.fetchPermissions();
         },
     }
 </script>

@@ -21,28 +21,13 @@ class CreateRolesTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->string('color')->nullable();
+            $table->string('color')->default('rgb(0,0,0)');
             $table->string('icon')->nullable();
             $table->string('effect')->default('none');
             $table->integer('rule_id')->nullable();
             $table->boolean('system_required')->default(false);
             $table->timestamps();
         });
-
-        foreach (Group::all() as $group) {
-            $role = new Role();
-            $role->position = $group->position;
-            $role->name = $group->name;
-            $role->slug = $group->slug;
-            $role->description = $group->description;
-            $role->color = $group->color;
-            $role->position = $group->position;
-            $role->icon = $group->icon;
-            $role->effect = $group->effect;
-            $role->save();
-        }
-
-        Schema::dropIfExists('groups');
     }
 
     /**

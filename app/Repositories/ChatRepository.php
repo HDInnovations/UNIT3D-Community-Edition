@@ -204,10 +204,10 @@ class ChatRepository
     {
         return $this->message->with([
             'bot',
-            'user.group',
+            'user.primaryRole',
             'chatroom',
             'user.chatStatus',
-            'receiver.group',
+            'receiver.primaryRole',
             'receiver.chatStatus',
         ])->where(function ($query) use ($roomId) {
             $query->where('chatroom_id', '=', $roomId);
@@ -223,10 +223,10 @@ class ChatRepository
 
         return $this->message->with([
             'bot',
-            'user.group',
+            'user.primaryRole',
             'chatroom',
             'user.chatStatus',
-            'receiver.group',
+            'receiver.primaryRole',
             'receiver.chatStatus',
         ])->where(function ($query) use ($senderId, $systemUserId) {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $senderId]);
@@ -240,10 +240,10 @@ class ChatRepository
     {
         return $this->message->with([
             'bot',
-            'user.group',
+            'user.primaryRole',
             'chatroom',
             'user.chatStatus',
-            'receiver.group',
+            'receiver.primaryRole',
             'receiver.chatStatus',
         ])->where(function ($query) use ($senderId, $targetId) {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $targetId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$targetId, $senderId]);

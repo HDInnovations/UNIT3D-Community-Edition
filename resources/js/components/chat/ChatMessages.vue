@@ -20,7 +20,7 @@
 
                     <span class="badge-user text-bold" :style="userStyles(message.user)">
 
-                        <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" :class="message.user.group.icon">
+                        <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" :class="message.user.primary_role.icon">
                         </i>
                         <i v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)" class="fas fa-bell">
                         </i>
@@ -101,25 +101,16 @@
         },
         canMod (message) {
             /*
-                A user can Mod his own messages
-                A user in a is_modo group can Mod messages
-                A is_modo CAN NOT Mod another is_modo message
+                If Permission 'chat_can_moderate' is set true, user can moderate messages posted by any role with a lower position value
+                OR if they are in primary role root then they can always moderate
+                Users will also be able to moderate their own messages
             */
 
             return (
-                /* Owner can mod all */
-                this.$parent.auth.group.id === 10 ||
-
+                this.$parent.permissions.can_moderate && message.user.primary_role.position < this.$parent.user.primary_role.position ||
                 /* User can mod his own message */
                 message.user.id === this.$parent.auth.id ||
-
-                /* is_admin can mod messages except for Owner messages */
-                this.$parent.auth.group.is_admin &&
-                message.user.group.id !== 10 ||
-
-                /* Mods CAN NOT mod other mods messages */
-                this.$parent.auth.group.is_modo &&
-                !message.user.group.is_modo
+                this.$parent.user.primary_role.slug === 'root'
             )
         },
         editMessage (message) {
@@ -129,10 +120,10 @@
             axios.get(`/api/chat/message/${id}/delete`)
         },
         userStyles (user) {
-            return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+            return `cursor: pointer; color: ${user.primary_role.color}; background-image: ${user.primary_role.effect};`
         },
         groupColor (user) {
-            return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
+            return user && user.primary_role && user.primary_role.hasOwnProperty('color') ? `color: ${user.primary_role.color};` : `cursor: pointer;`
         }
     },
     created () {

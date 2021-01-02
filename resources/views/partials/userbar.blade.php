@@ -3,7 +3,7 @@
         <ul class="list-inline">
             <li>
                 <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
-                    <span class="badge-user text-bold" style="color:{{ auth()->user()->group->color }};">
+                    <span class="badge-user text-bold" style="color:{{ \App\Models\Role::find(auth()->user()->role_id)->color }};">
                         <strong>{{ auth()->user()->username }}</strong>
                         @if (auth()->user()->getWarning() > 0)
                             <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
@@ -15,9 +15,9 @@
             </li>
             <li>
                 <span class="badge-user text-bold"
-                    style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
-                    <i class="{{ auth()->user()->group->icon }}"></i>
-                    <strong> {{ auth()->user()->group->name }}</strong>
+                    style="color:{{ \App\Models\Role::find(auth()->user()->role_id)->color }}; background-image:{{ \App\Models\Role::find(auth()->user()->role_id)->effects }};">
+                    <i class="{{ \App\Models\Role::find(auth()->user()->role_id)->icon }}"></i>
+                    <strong> {{ \App\Models\Role::find(auth()->user()->role_id)->name }}</strong>
                 </span>
             </li>
             <li>

@@ -13,6 +13,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -34,7 +35,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         foreach ($this->users as $user) {
-            User::updateOrCreate($user);
+            $new = User::updateOrCreate($user);
+            $new->role()->attach(Role::where('id', '=', $user['role_id'])->get());
         }
     }
 
@@ -44,7 +46,7 @@ class UsersTableSeeder extends Seeder
             [
                 'username'  => 'System',
                 'email'     => config('unit3d.default-owner-email'),
-                'group_id'  => 9,
+                'role_id'  => 1,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),
                 'rsskey'    => md5(uniqid().time()),
@@ -54,7 +56,7 @@ class UsersTableSeeder extends Seeder
             [
                 'username'  => 'Bot',
                 'email'     => config('unit3d.default-owner-email'),
-                'group_id'  => 9,
+                'role_id'  => 3,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),
                 'rsskey'    => md5(uniqid().time()),
@@ -64,7 +66,7 @@ class UsersTableSeeder extends Seeder
             [
                 'username'  => config('unit3d.owner-username'),
                 'email'     => config('unit3d.default-owner-email'),
-                'group_id'  => 10,
+                'role_id'  => 2,
                 'password'  => \Hash::make(config('unit3d.default-owner-password')),
                 'passkey'   => md5(uniqid().time().microtime()),
                 'rsskey'    => md5(uniqid().time()),

@@ -26,9 +26,9 @@
                 @else
                     <a href="{{ route('users.show', ['username' => $user->username]) }}">
                         <span class="badge-user text-bold"
-                            style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }}; margin-bottom: 10px;">
-                            <i class="{{ $user->group->icon }}" data-toggle="tooltip"
-                                data-original-title="{{ $user->group->name }}"></i>
+                            style="color:{{ \App\Models\Role::find(auth()->user()->role_id)->color }}; background-image:{{ \App\Models\Role::find(auth()->user()->role_id)->effects }}; margin-bottom: 10px;">
+                            <i class="{{ \App\Models\Role::find(auth()->user()->role_id)->icon }}" data-toggle="tooltip"
+                                data-original-title="{{ \App\Models\Role::find(auth()->user()->role_id)->name }}"></i>
                             {{ $user->username }}
                             @if ($user->warnings_count > 0)
                                 <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"

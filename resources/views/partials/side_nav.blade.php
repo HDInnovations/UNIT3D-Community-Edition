@@ -137,7 +137,7 @@
                 <span class="selected"></span>
             </a>
         </li>
-        @if (auth()->user()->group->is_modo)
+        @if (auth()->user()->hasPrivilegeTo('dashboard_can_view'))
             <li>
                 <a href="{{ route('staff.dashboard.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-cogs" style=" font-size: 18px; color: #ffffff;"></i>

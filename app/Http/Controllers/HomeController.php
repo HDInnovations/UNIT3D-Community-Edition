@@ -101,7 +101,7 @@ class HomeController extends Controller
         $posts = \cache()->remember('latest_posts', $expiresAt, fn () => Post::with('topic', 'user')->latest()->take(5)->get());
 
         // Online Block
-        $users = \cache()->remember('online_users', $expiresAt, fn () => User::with('group', 'privacy')
+        $users = \cache()->remember('online_users', $expiresAt, fn () => User::with('primaryRole', 'privacy')
             ->withCount([
                 'warnings' => function (Builder $query) {
                     $query->whereNotNull('torrent')->where('active', '1');

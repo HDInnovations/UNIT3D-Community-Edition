@@ -15,7 +15,7 @@
                 <h4 class="list-group-item-heading">
                     <span class="badge-user text-bold" :style="userStyles(user)">
 
-                        <i :class="user.group.icon">
+                        <i :class="user.primary_role.icon">
                         </i>
 
                         <a :style="groupColor(user)"
@@ -47,10 +47,10 @@
     ],
     methods: {
       userStyles (user) {
-        return user && user.group && user.group.hasOwnProperty('color') ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};` : `cursor: pointer;`
+        return user && user.primary_role && user.primary_role.hasOwnProperty('color') ? `cursor: pointer; color: ${user.primary_role.color}; background-image: ${user.primary_role.effect};` : `cursor: pointer;`
       },
       groupColor (user) {
-        return user && user.group && user.group.hasOwnProperty('color') ? `color: ${user.group.color};` : `cursor: pointer;`
+        return user && user.primary_role && user.primary_role.hasOwnProperty('color') ? `color: ${user.primary_role.color};` : `cursor: pointer;`
       }
     }
   }
