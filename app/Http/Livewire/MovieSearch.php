@@ -37,7 +37,7 @@ class MovieSearch extends Component
 
     public function render()
     {
-        return view('livewire.movie-search', [
+        return \view('livewire.movie-search', [
             'movies' => Movie::with('companies', 'genres')
                 ->withCount('torrents')
                 ->where('title', 'LIKE', '%'.$this->searchTerm.'%')

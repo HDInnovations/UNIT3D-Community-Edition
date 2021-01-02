@@ -15,6 +15,10 @@ namespace App\Services\Tmdb\Client;
 
 class FindTv
 {
+    /**
+     * @var \GuzzleHttp\Client|mixed
+     */
+    public $client;
     public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
     public $data;
 
@@ -36,9 +40,9 @@ class FindTv
             ]
         );
 
-        $response = $this->client->request('get', 'https://api.themoviedb.org/3/search/tv?api_key='.config('api-keys.tmdb').'&query='.$query.'&first_air_date_year='.$year);
+        $response = $this->client->request('get', 'https://api.themoviedb.org/3/search/tv?api_key='.\config('api-keys.tmdb').'&query='.$query.'&first_air_date_year='.$year);
 
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->data = \json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     public function getData()

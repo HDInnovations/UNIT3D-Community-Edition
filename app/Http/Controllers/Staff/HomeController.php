@@ -41,8 +41,8 @@ class HomeController extends Controller
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $users = DB::table('users')
             ->selectRaw('count(*) as total')
-            ->selectRaw("count(case when group_id = $bannedGroup[0] then 1 end) as banned")
-            ->selectRaw("count(case when group_id = $validatingGroup[0] then 1 end) as validating")
+            ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
+            ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
             ->first();
 
         // Torrent Info

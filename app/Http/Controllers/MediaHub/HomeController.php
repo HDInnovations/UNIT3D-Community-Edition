@@ -39,7 +39,7 @@ class HomeController extends Controller
         $networks = Network::count();
         $companies = Company::count();
 
-        return view('mediahub.index', [
+        return \view('mediahub.index', [
             'tv'          => $tv,
             'movies'      => $movies,
             'collections' => $collections,

@@ -191,15 +191,11 @@ class TorrentController extends BaseController
         }
 
         $tmdbScraper = new TMDBScraper();
-        if ($torrent->category->tv_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $tmdbScraper->tv($torrent->tmdb);
-            }
+        if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $tmdbScraper->tv($torrent->tmdb);
         }
-        if ($torrent->category->movie_meta) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $tmdbScraper->movie($torrent->tmdb);
-            }
+        if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+            $tmdbScraper->movie($torrent->tmdb);
         }
 
         // Torrent Keywords System
@@ -255,7 +251,7 @@ class TorrentController extends BaseController
             }
 
             TorrentHelper::approveHelper($torrent->id);
-            info('New API Upload', ["User {$user->username} has uploaded {$torrent->name}"]);
+            \info('New API Upload', [sprintf('User %s has uploaded %s', $user->username, $torrent->name)]);
         }
 
         return $this->sendResponse(\route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => \auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
@@ -522,10 +518,10 @@ class TorrentController extends BaseController
      */
     private static function parseKeywords($text)
     {
-        $parts = explode(', ', $text);
+        $parts = \explode(', ', $text);
         $result = [];
         foreach ($parts as $part) {
-            $part = trim($part);
+            $part = \trim($part);
             if ($part != '') {
                 $result[] = $part;
             }

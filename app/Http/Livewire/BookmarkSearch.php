@@ -50,7 +50,7 @@ class BookmarkSearch extends Component
 
     public function mount()
     {
-        $this->user = auth()->user();
+        $this->user = \auth()->user();
     }
 
     public function render()
@@ -66,7 +66,7 @@ class BookmarkSearch extends Component
 
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
 
-        return view('livewire.bookmark-search', [
+        return \view('livewire.bookmark-search', [
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,
             'bookmarks'          => $bookmarks,
