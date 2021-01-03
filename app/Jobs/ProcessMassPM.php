@@ -22,6 +22,14 @@ use Illuminate\Queue\SerializesModels;
 
 class ProcessMassPM implements ShouldQueue
 {
+    /**
+     * @var mixed
+     */
+    public $sender_id;
+    /**
+     * @var mixed
+     */
+    public $receiver_id;
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
@@ -47,8 +55,8 @@ class ProcessMassPM implements ShouldQueue
     public function handle()
     {
         $privateMessage = new PrivateMessage();
-        $privateMessage->sender_id = $this->sender_id;
-        $privateMessage->receiver_id = $this->receiver_id;
+        $privateMessage->sender_id = $this->senderId;
+        $privateMessage->receiver_id = $this->receiverId;
         $privateMessage->subject = $this->subject;
         $privateMessage->message = $this->message;
         $privateMessage->save();
